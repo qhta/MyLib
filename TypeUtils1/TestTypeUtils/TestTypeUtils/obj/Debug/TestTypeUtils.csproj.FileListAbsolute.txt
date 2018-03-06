@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\obj\Debug\TestTypeUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\bin\Debug\TestTypeUtils.dll
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\bin\Debug\TestTypeUtils.pdb
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\obj\Debug\TestTypeUtils.dll
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\obj\Debug\TestTypeUtils.pdb
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\bin\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\bin\Debug\TypeUtils.pdb
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TestTypeUtils\TestTypeUtils\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml

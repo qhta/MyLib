@@ -1,0 +1,16 @@
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TypeUtils\bin\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TypeUtils\bin\Debug\TypeUtils.pdb
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.pdb
+D:\Dane\VS\Projects\lisard-2016\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\WordNet-2016\MyLib\TypeUtils\TypeUtils\bin\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\WordNet-2016\MyLib\TypeUtils\TypeUtils\bin\Debug\TypeUtils.pdb
+D:\Dane\VS\Projects\WordNet-2016\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\WordNet-2016\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\WordNet-2016\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.pdb
+D:\Dane\VS\Projects\MyLib\TypeUtils\TypeUtils\bin\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\MyLib\TypeUtils\TypeUtils\bin\Debug\TypeUtils.pdb
+D:\Dane\VS\Projects\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.dll
+D:\Dane\VS\Projects\MyLib\TypeUtils\TypeUtils\obj\Debug\TypeUtils.pdb
