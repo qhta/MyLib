@@ -1,0 +1,12 @@
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\bin\Debug\netstandard2.0\MyLib.LinkedList.deps.json
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\bin\Debug\netstandard2.0\MyLib.LinkedList.dll
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\bin\Debug\netstandard2.0\MyLib.LinkedList.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\bin\Debug\netstandard2.0\MyLib.Resources.dll
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\bin\Debug\netstandard2.0\MyLib.Resources.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.dll
+D:\Dane\VS\Projects\MyLib\MyLib.LinkedList\obj\Debug\netstandard2.0\MyLib.LinkedList.pdb

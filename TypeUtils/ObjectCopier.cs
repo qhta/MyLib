@@ -5,6 +5,7 @@ using System.Text;
 namespace MyLib.TypeUtils
 {
   using System;
+  using System.Diagnostics;
   using System.IO;
   using System.Runtime.Serialization;
   using System.Runtime.Serialization.Formatters.Binary;
@@ -22,6 +23,7 @@ namespace MyLib.TypeUtils
     /// <typeparam name="T">The type of object being copied.</typeparam>
     /// <param name="source">The object instance to copy.</param>
     /// <returns>The copied object.</returns>
+    [DebuggerStepThrough]
     public static T Clone<T>(this T source)
     {
 
