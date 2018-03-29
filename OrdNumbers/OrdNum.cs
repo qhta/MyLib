@@ -11,7 +11,7 @@ namespace MyLib.OrdNumbers
   /// <class refID="ORDNUM_001"/>
   /// <summary>
   ///   Klasa reprezentująca liczbę porządkową składającą się z segmentów.
-  ///   Segmenty są liczbami całkowitymi z zakresu od 0 do 255 oddzielonymi kropkami.
+  ///   Segmenty są liczbami całkowitymi z zakresu od 0 do 65535 oddzielonymi kropkami.
   ///   Każdy segment może mieć wariant oznaczany literą od a do z.
   /// </summary>
   [TypeConverter(typeof(OrdNumTypeConverter))]
@@ -702,7 +702,7 @@ namespace MyLib.OrdNumbers
     /// <summary>
     /// Wartość całkowita segmentu
     /// </summary>
-    internal byte fValue;
+    internal UInt16 fValue;
 
     /// <summary>
     /// Wartość literowa wariantu segmentu.
@@ -731,26 +731,26 @@ namespace MyLib.OrdNumbers
           break;
         }
       }
-      fValue = (byte)n; 
+      fValue = (UInt16)n; 
       fVariant = StrToVariant(s); 
     }
 
     /// <summary>Konstruktor z wartością całkowitą i wariantem w postaci liczby całkowitej</summary>
     public OrdNumSegment(int value, int variant) 
     { 
-      fValue = (byte)value; 
+      fValue = (UInt16)value; 
       fVariant = (byte)variant; 
     }
 
     /// <summary>Konstruktor z wartością całkowitą i wariantem w postaci tekstu: "a"=1.</summary>
     public OrdNumSegment(int value, string variant) 
     { 
-      fValue = (byte)value;
+      fValue = (UInt16)value;
       fVariant = StrToVariant(variant); 
     }
 
     /// <summary>Wartość całkowita segmentu</summary>
-    public int Value { get { return fValue; } set { fValue = (byte)value; } }
+    public int Value { get { return fValue; } set { fValue = (UInt16)value; } }
 
     /// <summary>Wartość całkowita wariantu (0 - gdy brak)</summary>
     public int Variant { get { return fVariant; } set { fVariant = (byte)value; } }
