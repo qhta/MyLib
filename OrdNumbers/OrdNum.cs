@@ -15,7 +15,7 @@ namespace MyLib.OrdNumbers
   ///   Każdy segment może mieć wariant oznaczany literą od a do z.
   /// </summary>
   [TypeConverter(typeof(OrdNumTypeConverter))]
-  public sealed class OrdNum : IEnumerable<OrdNumSegment>, IComparable
+  public sealed class OrdNum : IEnumerable<OrdNumSegment>, IComparable, ICollection<OrdNumSegment>
   {
 
     #region komunikaty błędów
@@ -640,6 +640,31 @@ namespace MyLib.OrdNumbers
     IEnumerator IEnumerable.GetEnumerator() { return fValue.GetEnumerator(); }
     IEnumerator<OrdNumSegment> IEnumerable<OrdNumSegment>.GetEnumerator() { return fValue.GetEnumerator() as IEnumerator<OrdNumSegment>; }
 
+    public void Add(OrdNumSegment item)
+    {
+      ((ICollection<OrdNumSegment>)fValue).Add(item);
+    }
+
+    public void Clear()
+    {
+      ((ICollection<OrdNumSegment>)fValue).Clear();
+    }
+
+    public bool Contains(OrdNumSegment item)
+    {
+      return ((ICollection<OrdNumSegment>)fValue).Contains(item);
+    }
+
+    public void CopyTo(OrdNumSegment[] array, int arrayIndex)
+    {
+      ((ICollection<OrdNumSegment>)fValue).CopyTo(array, arrayIndex);
+    }
+
+    public bool Remove(OrdNumSegment item)
+    {
+      return ((ICollection<OrdNumSegment>)fValue).Remove(item);
+    }
+
     /// <summary>Liczba segmentów</summary>
     public int Count { get { return fValue.Length; } }
 
@@ -655,37 +680,40 @@ namespace MyLib.OrdNumbers
         return result;
       } 
     }
-/*
-    /// <summary>Czy dana liczba zaczyna się od innej liczby</summary>
-    public bool StartsWith(OrdNum a)
-    {
-      for (int i = 0; i <= fValue.Length - 1; i++)
-      {
-        if (i >= a.fValue.Length)
-          return true;
-        OrdNumSegment thisSeg = fValue[i];
-        OrdNumSegment otherSeg = a.fValue[i];
-        if (thisSeg.Value != otherSeg.Value)
-          return false;
-        if (i == fValue.Length - 1)
-        {
-          if (thisSeg.Variant == 0)
-          {
-            if (otherSeg.Variant != 0)
-              return false;
-          }
-          else
-            if (thisSeg.Variant != otherSeg.Variant)
-              return false;
-        }
-        else
-        {
-          if (thisSeg.Variant != otherSeg.Variant)
-            return false;
-        }
-      }
-      return true;
-    }
+
+    public bool IsReadOnly => ((ICollection<OrdNumSegment>)fValue).IsReadOnly;
+
+    /*
+/// <summary>Czy dana liczba zaczyna się od innej liczby</summary>
+public bool StartsWith(OrdNum a)
+{
+for (int i = 0; i <= fValue.Length - 1; i++)
+{
+if (i >= a.fValue.Length)
+return true;
+OrdNumSegment thisSeg = fValue[i];
+OrdNumSegment otherSeg = a.fValue[i];
+if (thisSeg.Value != otherSeg.Value)
+return false;
+if (i == fValue.Length - 1)
+{
+if (thisSeg.Variant == 0)
+{
+if (otherSeg.Variant != 0)
+return false;
+}
+else
+if (thisSeg.Variant != otherSeg.Variant)
+return false;
+}
+else
+{
+if (thisSeg.Variant != otherSeg.Variant)
+return false;
+}
+}
+return true;
+}
 */
     /// <summary>Dostęp do pojedynczego segmentu</summary>
     public OrdNumSegment this[int n] { get { return fValue[n]; } }
