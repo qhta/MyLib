@@ -1,9 +1,9 @@
 D:\Dane\VS\Projects\MyLib\OrdNumbers\bin\Debug\netstandard2.0\MyLib.OrdNumbers.deps.json
 D:\Dane\VS\Projects\MyLib\OrdNumbers\bin\Debug\netstandard2.0\MyLib.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\OrdNumbers\bin\Debug\netstandard2.0\MyLib.OrdNumbers.pdb
-D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\OrdNumbers\obj\Debug\netstandard2.0\MyLib.OrdNumbers.csprojResolveAssemblyReference.cache

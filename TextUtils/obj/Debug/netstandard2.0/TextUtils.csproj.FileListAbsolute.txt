@@ -1,0 +1,8 @@
+D:\Dane\VS\Projects\MyLib\TextUtils\obj\Debug\netstandard2.0\TextUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\TextUtils\obj\Debug\netstandard2.0\TextUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\TextUtils\obj\Debug\netstandard2.0\TextUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\TextUtils\bin\Debug\netstandard2.0\TextUtils.deps.json
+D:\Dane\VS\Projects\MyLib\TextUtils\bin\Debug\netstandard2.0\TextUtils.dll
+D:\Dane\VS\Projects\MyLib\TextUtils\bin\Debug\netstandard2.0\TextUtils.pdb
+D:\Dane\VS\Projects\MyLib\TextUtils\obj\Debug\netstandard2.0\TextUtils.dll
+D:\Dane\VS\Projects\MyLib\TextUtils\obj\Debug\netstandard2.0\TextUtils.pdb
