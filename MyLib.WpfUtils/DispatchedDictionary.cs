@@ -9,57 +9,54 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
-namespace MyLib.Concurrent
+namespace MyLib.WpfUtils
 {
-  public class ObservableConcurrentDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TValue>, IDisposable
+  public class DispatchedDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TValue>, IDisposable
     , ICollection<TValue>, IEnumerable<TValue>
     , INotifyCollectionChanged, INotifyPropertyChanged
   {
+
+    public Dispatcher _Dispatcher = Application.Current.Dispatcher;
+
     public string Name { get; private set; }
     #region constructors
-    public ObservableConcurrentDictionary() : base()
+    public DispatchedDictionary() : base()
     {
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(string name) : base()
+    public DispatchedDictionary(string name) : base()
     {
       Name = name;
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection) : base(collection)
+    public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection) : base(collection)
     {
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(IEqualityComparer<TKey> comparer) : base(comparer)
+    public DispatchedDictionary(IEqualityComparer<TKey> comparer) : base(comparer)
     {
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(int concurrencyLevel, int capacity) : base(concurrencyLevel, capacity)
+    public DispatchedDictionary(int concurrencyLevel, int capacity) : base(concurrencyLevel, capacity)
     {
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
+    public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
       : base(collection, comparer)
     {
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
+    public DispatchedDictionary(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
       : base(concurrencyLevel, collection, comparer)
     {
-      _context = SynchronizationContext.Current;
     }
 
-    public ObservableConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
+    public DispatchedDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
       : base(concurrencyLevel, capacity, comparer)
     {
-      _context = SynchronizationContext.Current;
     }
 
     #endregion constructors
@@ -98,16 +95,6 @@ namespace MyLib.Concurrent
       // GC.SuppressFinalize(this);
     }
     #endregion
-
-    public SynchronizationContext Context
-    {
-      get
-      {
-        if (_context==null)
-          _context = SynchronizationContext.Current;
-        return _context;
-      }
-    }
 
     private SynchronizationContext _context;
     private readonly object _lock = new object();
@@ -210,15 +197,7 @@ namespace MyLib.Concurrent
     {
       bool result = base.TryAdd(key, value);
       if (result)
-      {
-        if (_CollectionChanged!=null)
-        {
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-            value
-            ));
-        }
-      }
+        ThrowAddEvent(value);
       return result;
     }
 
@@ -226,60 +205,81 @@ namespace MyLib.Concurrent
     {
       bool result = base.TryRemove(key, out value);
       if (result)
-        if (_CollectionChanged!=null)
-        {
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-            value
-            ));
-        }
+        ThrowRemoveEvent(value);
       return result;
     }
     public new bool TryUpdate(TKey key, TValue newValue, TValue comparisonValue)
     {
       bool result = base.TryUpdate(key, newValue, comparisonValue);
       if (result)
-        if (_CollectionChanged!=null)
-        {
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
-            comparisonValue, newValue
-            ));
-        }
+        ThrowReplaceEvent(comparisonValue, newValue);
       return result;
     }
 
-     private void ThrowAddOrUpdateEvents(TValue oldItem, TValue newItem, int oldCount, int newCount)
-     {
-      if (_CollectionChanged!=null)
+    private void ThrowAddOrUpdateEvents(TValue oldItem, TValue newItem, int oldCount, int newCount)
+    {
+      if (newCount!=Count)
+        ThrowAddEvent(newItem);
+      else
+        ThrowReplaceEvent(oldItem, newItem);
+    }
+
+    private void ThrowGetOrAddEvents(TValue oldItem, TValue newItem)
+    {
+      if (newItem.Equals(oldItem))
+        ThrowAddEvent(newItem);
+    }
+
+    private void ThrowAddEvent(TValue newItem)
+    {
+      if (_CollectionChanged != null)
       {
-        if (newCount!=Count)
+        if (Dispatcher.CurrentDispatcher==_Dispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
             newItem
             ));
         else
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
-            oldItem, newItem
-            ));
-      }
-    }
-
-    private void ThrowGetOrAddEvents(TValue oldItem, TValue newItem)
-    {
-      if (_CollectionChanged!=null)
-      {
-        if (newItem.Equals(oldItem))
         {
-            _CollectionChanged.Invoke(this,
-              new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-              newItem
-              ));
+          var action = new Action<TValue>(ThrowAddEvent);
+          _Dispatcher.BeginInvoke(action, new object[] { newItem });
         }
       }
     }
 
+    private void ThrowReplaceEvent(TValue oldItem, TValue newItem)
+    {
+      if (_CollectionChanged != null)
+      {
+        if (Dispatcher.CurrentDispatcher==_Dispatcher)
+          _CollectionChanged.Invoke(this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
+            newItem, oldItem
+            ));
+        else
+        {
+          var action = new Action<TValue, TValue>(ThrowReplaceEvent);
+          _Dispatcher.BeginInvoke(action, new object[] { newItem });
+        }
+      }
+    }
+
+    private void ThrowRemoveEvent(TValue oldItem)
+    {
+      if (_CollectionChanged != null)
+      {
+        if (Dispatcher.CurrentDispatcher==_Dispatcher)
+          _CollectionChanged.Invoke(this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
+            oldItem
+            ));
+        else
+        {
+          var action = new Action<TValue>(ThrowRemoveEvent);
+          _Dispatcher.BeginInvoke(action, new object[] { oldItem });
+        }
+      }
+    }
     #endregion overriden methods
 
     #region ICollection<TValue> support
