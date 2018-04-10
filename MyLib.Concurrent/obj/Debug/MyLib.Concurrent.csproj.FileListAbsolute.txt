@@ -1,0 +1,6 @@
+D:\Dane\VS\Projects\MyLib\MyLib.Concurrent\obj\Debug\MyLib.Concurrent.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.Concurrent\obj\Debug\MyLib.Concurrent.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.Concurrent\bin\Debug\MyLib.Concurrent.dll
+D:\Dane\VS\Projects\MyLib\MyLib.Concurrent\bin\Debug\MyLib.Concurrent.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.Concurrent\obj\Debug\MyLib.Concurrent.dll
+D:\Dane\VS\Projects\MyLib\MyLib.Concurrent\obj\Debug\MyLib.Concurrent.pdb

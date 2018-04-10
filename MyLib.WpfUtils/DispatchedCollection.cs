@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Windows.Threading;
 
 namespace MyLib.WpfUtils
 {
-  public class DispatchedCollection<T>: System.Collections.ObjectModel.ObservableCollection<T>
+  public class DispatchedCollection<T>: ObservableCollection<T>
   {
 
     public Dispatcher _Dispatcher = Application.Current.Dispatcher;
@@ -18,7 +19,8 @@ namespace MyLib.WpfUtils
     {
       if (Dispatcher.CurrentDispatcher==_Dispatcher)
       {
-        base.Add(item);
+        lock (this)
+          base.Add(item);
       }
       else
       {
@@ -31,7 +33,8 @@ namespace MyLib.WpfUtils
     {
       if (Dispatcher.CurrentDispatcher==_Dispatcher)
       {
-        base.Insert(index, item);
+        lock (this)
+          base.Insert(index, item);
       }
       else
       {
