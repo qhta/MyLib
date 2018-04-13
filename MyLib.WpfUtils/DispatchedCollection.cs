@@ -13,7 +13,7 @@ namespace MyLib.WpfUtils
   public class DispatchedCollection<T>: ObservableCollection<T>
   {
 
-    public Dispatcher _Dispatcher = Application.Current.Dispatcher;
+    public Dispatcher _Dispatcher = Application.Current?.Dispatcher;
 
     public new void Add(T item)
     {
@@ -22,7 +22,7 @@ namespace MyLib.WpfUtils
         lock (this)
           base.Add(item);
       }
-      else
+      else if (_Dispatcher!=null)
       {
         var action = new Action<T>(Add);
         _Dispatcher.BeginInvoke(action, new object[] { item });
@@ -36,7 +36,7 @@ namespace MyLib.WpfUtils
         lock (this)
           base.Insert(index, item);
       }
-      else
+      else if (_Dispatcher!=null)
       {
         var action = new Action<int, T>(Insert);
         _Dispatcher.BeginInvoke(action, new object[] { index, item });
