@@ -31,6 +31,9 @@ namespace MyLib.WpfUtils
     {
       Name = name;
     }
+    public DispatchedDictionary(IEnumerable<TValue> collection) : base()
+    {
+    }
 
     public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection) : base(collection)
     {
@@ -96,9 +99,9 @@ namespace MyLib.WpfUtils
     }
     #endregion
 
-    private SynchronizationContext _context;
+    //private SynchronizationContext _context;
     private readonly object _lock = new object();
-    private readonly ReaderWriterLockSlim ItemsLock = new ReaderWriterLockSlim();
+    //private readonly ReaderWriterLockSlim ItemsLock = new ReaderWriterLockSlim();
 
     #region events
     public event NotifyCollectionChangedEventHandler CollectionChanged
@@ -123,17 +126,17 @@ namespace MyLib.WpfUtils
     #endregion
 
     #region overriden properties
-    public new ObservableConcurrentDictionaryValues<TValue> Values
+    public new DispatchedDictionaryValues<TValue> Values
     {
       get
       {
         if (_Values==null)
-          _Values = new ObservableConcurrentDictionaryValues<TValue>(this, base.Values);
+          _Values = new DispatchedDictionaryValues<TValue>(this, base.Values);
         return _Values;
       }
     }
     #endregion
-    private ObservableConcurrentDictionaryValues<TValue> _Values;
+    private DispatchedDictionaryValues<TValue> _Values;
 
     #region overriden methods
     public new TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
@@ -161,8 +164,8 @@ namespace MyLib.WpfUtils
         TryGetValue(key, out oldItem);
         newItem = base.AddOrUpdate(key, addValue, updateValueFactory);
         newCount = Count;
+        ThrowAddOrUpdateEvents(oldItem, newItem, oldCount, newCount);
       }
-      ThrowAddOrUpdateEvents(oldItem, newItem, oldCount, newCount);
       return newItem;
     }
 
@@ -242,7 +245,7 @@ namespace MyLib.WpfUtils
         else
         {
           var action = new Action<TValue>(ThrowAddEvent);
-          _Dispatcher.BeginInvoke(action, new object[] { newItem });
+          _Dispatcher.Invoke(action, new object[] { newItem });
         }
       }
     }
@@ -259,7 +262,7 @@ namespace MyLib.WpfUtils
         else
         {
           var action = new Action<TValue, TValue>(ThrowReplaceEvent);
-          _Dispatcher.BeginInvoke(action, new object[] { newItem });
+          _Dispatcher.Invoke(action, new object[] { newItem });
         }
       }
     }
@@ -276,7 +279,7 @@ namespace MyLib.WpfUtils
         else
         {
           var action = new Action<TValue>(ThrowRemoveEvent);
-          _Dispatcher.BeginInvoke(action, new object[] { oldItem });
+          _Dispatcher.Invoke(action, new object[] { oldItem });
         }
       }
     }
@@ -313,7 +316,7 @@ namespace MyLib.WpfUtils
     #endregion ICollection<TValue> support
   }
 
-  public class ObservableConcurrentDictionaryValues<TValue> : ICollection<TValue>, INotifyCollectionChanged
+  public class DispatchedDictionaryValues<TValue> : ICollection<TValue>, INotifyCollectionChanged
   {
     public event NotifyCollectionChangedEventHandler CollectionChanged
     {
@@ -329,7 +332,7 @@ namespace MyLib.WpfUtils
 
     public bool IsReadOnly => Collection.IsReadOnly;
 
-    public ObservableConcurrentDictionaryValues(INotifyCollectionChanged owner, ICollection<TValue> collection)
+    public DispatchedDictionaryValues(INotifyCollectionChanged owner, ICollection<TValue> collection)
     {
       Owner = owner;
       Collection = collection;

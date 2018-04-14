@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace MyLib.Concurrent
 {
   public class ObservableConcurrentDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TValue>, IDisposable
-    , ICollection<TValue>, IEnumerable<TValue>
+    //, ICollection<TValue>, IEnumerable<TValue>
     , INotifyCollectionChanged, INotifyPropertyChanged
   {
     public string Name { get; private set; }
@@ -282,35 +282,35 @@ namespace MyLib.Concurrent
 
     #endregion overriden methods
 
-    #region ICollection<TValue> support
+    //#region ICollection<TValue> support
 
-    public bool IsReadOnly => false;
+    //public bool IsReadOnly => false;
 
-    void ICollection<TValue>.Add(TValue item)
-    {
-      throw new NotImplementedException();
-    }
+    //void ICollection<TValue>.Add(TValue item)
+    //{
+    //  throw new NotImplementedException();
+    //}
 
-    bool ICollection<TValue>.Contains(TValue item)
-    {
-      return Values.Contains(item);
-    }
+    //bool ICollection<TValue>.Contains(TValue item)
+    //{
+    //  return Values.Contains(item);
+    //}
 
-    void ICollection<TValue>.CopyTo(TValue[] array, int arrayIndex)
-    {
-      Values.CopyTo(array, arrayIndex);
-    }
+    //void ICollection<TValue>.CopyTo(TValue[] array, int arrayIndex)
+    //{
+    //  Values.CopyTo(array, arrayIndex);
+    //}
 
-    bool ICollection<TValue>.Remove(TValue item)
-    {
-      throw new NotImplementedException();
-    }
+    //bool ICollection<TValue>.Remove(TValue item)
+    //{
+    //  throw new NotImplementedException();
+    //}
 
-    IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
-    {
-      return Values.GetEnumerator();
-    }
-    #endregion ICollection<TValue> support
+    //IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
+    //{
+    //  return Values.GetEnumerator();
+    //}
+    //#endregion ICollection<TValue> support
   }
 
   public class ObservableConcurrentDictionaryValues<TValue> : ICollection<TValue>, INotifyCollectionChanged
