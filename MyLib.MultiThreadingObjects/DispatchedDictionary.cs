@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,54 +13,60 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace MyLib.WpfUtils
+namespace MyLib.MultiThreadingObjects
 {
-  public class DispatchedDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TValue>, IDisposable
+  public class DispatchedDictionary<TKey, TValue> : DispatchedObject, IDisposable
     , ICollection<TValue>, IEnumerable<TValue>
     , INotifyCollectionChanged, INotifyPropertyChanged
   {
 
-    public Dispatcher _Dispatcher = Application.Current.Dispatcher;
+    protected ConcurrentDictionary<TKey, TValue> Dictionary;
 
-    public string Name { get; private set; }
     #region constructors
-    public DispatchedDictionary() : base()
+    public DispatchedDictionary()
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>();
     }
 
-    public DispatchedDictionary(string name) : base()
+    public DispatchedDictionary(string name)
     {
       Name = name;
-    }
-    public DispatchedDictionary(IEnumerable<TValue> collection) : base()
-    {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>();
     }
 
-    public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection) : base(collection)
+    public DispatchedDictionary(IEnumerable<TValue> collection)
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>();
     }
 
-    public DispatchedDictionary(IEqualityComparer<TKey> comparer) : base(comparer)
+    public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection)
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>(collection);
     }
 
-    public DispatchedDictionary(int concurrencyLevel, int capacity) : base(concurrencyLevel, capacity)
+    public DispatchedDictionary(IEqualityComparer<TKey> comparer)
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>(comparer);
+    }
+
+    public DispatchedDictionary(int concurrencyLevel, int capacity)
+    {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, capacity);
     }
 
     public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
-      : base(collection, comparer)
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>(collection, comparer);
     }
 
     public DispatchedDictionary(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
-      : base(concurrencyLevel, collection, comparer)
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, collection, comparer);
     }
 
     public DispatchedDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
-      : base(concurrencyLevel, capacity, comparer)
     {
+      Dictionary = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, capacity, comparer);
     }
 
     #endregion constructors
@@ -99,9 +106,21 @@ namespace MyLib.WpfUtils
     }
     #endregion
 
-    //private SynchronizationContext _context;
+    public bool HasItems
+    {
+      get { return _HasItems; }
+      set
+      {
+        if (_HasItems!=value)
+        {
+          _HasItems=value;
+          NotifyPropertyChanged("HasItems");
+        }
+      }
+    }
+    private bool _HasItems;
+
     private readonly object _lock = new object();
-    //private readonly ReaderWriterLockSlim ItemsLock = new ReaderWriterLockSlim();
 
     #region events
     public event NotifyCollectionChangedEventHandler CollectionChanged
@@ -117,103 +136,100 @@ namespace MyLib.WpfUtils
     }
     private event NotifyCollectionChangedEventHandler _CollectionChanged;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-    public void NotifyPropertyChanged(string propertyName)
-    {
-      if (PropertyChanged!=null)
-        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
     #endregion
 
     #region overriden properties
-    public new DispatchedDictionaryValues<TValue> Values
+    public DispatchedDictionaryValues Values
     {
       get
       {
         if (_Values==null)
-          _Values = new DispatchedDictionaryValues<TValue>(this, base.Values);
+          _Values = new DispatchedDictionaryValues(this);
         return _Values;
       }
     }
     #endregion
-    private DispatchedDictionaryValues<TValue> _Values;
+    private DispatchedDictionaryValues _Values;
 
     #region overriden methods
-    public new TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
+    public TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
     {
       int oldCount, newCount;
       TValue oldItem, newItem;
       lock (_lock)
       {
-        oldCount = Count;
-        TryGetValue(key, out oldItem);
-        newItem = base.AddOrUpdate(key, addValueFactory, updateValueFactory);
-        newCount = Count;
+        oldCount = Dictionary.Count;
+        Dictionary.TryGetValue(key, out oldItem);
+        newItem = Dictionary.AddOrUpdate(key, addValueFactory, updateValueFactory);
+        newCount = Dictionary.Count;
       }
       ThrowAddOrUpdateEvents(oldItem, newItem, oldCount, newCount);
       return newItem;
     }
 
-    public new TValue AddOrUpdate(TKey key, TValue addValue, Func<TKey, TValue, TValue> updateValueFactory)
+    public TValue AddOrUpdate(TKey key, TValue addValue, Func<TKey, TValue, TValue> updateValueFactory)
     {
       int oldCount, newCount;
       TValue oldItem, newItem;
       lock (_lock)
       {
-        oldCount = Count;
-        TryGetValue(key, out oldItem);
-        newItem = base.AddOrUpdate(key, addValue, updateValueFactory);
-        newCount = Count;
+        oldCount = Dictionary.Count;
+        Dictionary.TryGetValue(key, out oldItem);
+        newItem = Dictionary.AddOrUpdate(key, addValue, updateValueFactory);
+        newCount = Dictionary.Count;
         ThrowAddOrUpdateEvents(oldItem, newItem, oldCount, newCount);
       }
       return newItem;
     }
 
-    ////
-    //// Summary:
-    ////     Removes all keys and values from the System.Collections.Concurrent.ConcurrentDictionary`2.
-    //public void Clear();
 
-
-    public new TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
+    public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
     {
       TValue oldItem, newItem;
       lock (_lock)
       {
-        TryGetValue(key, out oldItem);
-        newItem = base.GetOrAdd(key, valueFactory);
+        Dictionary.TryGetValue(key, out oldItem);
+        newItem = Dictionary.GetOrAdd(key, valueFactory);
       }
       ThrowGetOrAddEvents(oldItem, newItem);
       return newItem;
     }
-    public new TValue GetOrAdd(TKey key, TValue value)
+
+    public TValue GetOrAdd(TKey key, TValue value)
     {
       var result = TryAdd(key, value);
       if (!result)
-        return base[key];
+      {
+        //Debug.WriteLine($"{Name}.GetOrAdd {value} just exists");
+        return Dictionary[key];
+      }
       else
+      {
+        //Debug.WriteLine($"{Name}.GetOrAdd {value} added");
         return value;
+      }
     }
 
 
-    public new bool TryAdd(TKey key, TValue value)
+    public bool TryAdd(TKey key, TValue value)
     {
-      bool result = base.TryAdd(key, value);
+      bool result = Dictionary.TryAdd(key, value);
+      HasItems = true;
       if (result)
         ThrowAddEvent(value);
       return result;
     }
 
-    public new bool TryRemove(TKey key, out TValue value)
+    public bool TryRemove(TKey key, out TValue value)
     {
-      bool result = base.TryRemove(key, out value);
+      bool result = Dictionary.TryRemove(key, out value);
       if (result)
         ThrowRemoveEvent(value);
       return result;
     }
-    public new bool TryUpdate(TKey key, TValue newValue, TValue comparisonValue)
+    public bool TryUpdate(TKey key, TValue newValue, TValue comparisonValue)
     {
-      bool result = base.TryUpdate(key, newValue, comparisonValue);
+      bool result = Dictionary.TryUpdate(key, newValue, comparisonValue);
       if (result)
         ThrowReplaceEvent(comparisonValue, newValue);
       return result;
@@ -221,7 +237,7 @@ namespace MyLib.WpfUtils
 
     private void ThrowAddOrUpdateEvents(TValue oldItem, TValue newItem, int oldCount, int newCount)
     {
-      if (newCount!=Count)
+      if (newCount!=Dictionary.Count)
         ThrowAddEvent(newItem);
       else
         ThrowReplaceEvent(oldItem, newItem);
@@ -237,7 +253,7 @@ namespace MyLib.WpfUtils
     {
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==_Dispatcher)
+        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
             newItem
@@ -245,7 +261,7 @@ namespace MyLib.WpfUtils
         else
         {
           var action = new Action<TValue>(ThrowAddEvent);
-          _Dispatcher.Invoke(action, new object[] { newItem });
+          ApplicationDispatcher.Invoke(action, new object[] { newItem });
         }
       }
     }
@@ -254,7 +270,7 @@ namespace MyLib.WpfUtils
     {
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==_Dispatcher)
+        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
             newItem, oldItem
@@ -262,7 +278,7 @@ namespace MyLib.WpfUtils
         else
         {
           var action = new Action<TValue, TValue>(ThrowReplaceEvent);
-          _Dispatcher.Invoke(action, new object[] { newItem });
+          ApplicationDispatcher.Invoke(action, new object[] { newItem });
         }
       }
     }
@@ -271,7 +287,7 @@ namespace MyLib.WpfUtils
     {
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==_Dispatcher)
+        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
             oldItem
@@ -279,7 +295,7 @@ namespace MyLib.WpfUtils
         else
         {
           var action = new Action<TValue>(ThrowRemoveEvent);
-          _Dispatcher.Invoke(action, new object[] { oldItem });
+          ApplicationDispatcher.Invoke(action, new object[] { oldItem });
         }
       }
     }
@@ -288,6 +304,8 @@ namespace MyLib.WpfUtils
     #region ICollection<TValue> support
 
     public bool IsReadOnly => false;
+
+    public int Count => Dictionary.Count;
 
     void ICollection<TValue>.Add(TValue item)
     {
@@ -313,65 +331,73 @@ namespace MyLib.WpfUtils
     {
       return Values.GetEnumerator();
     }
-    #endregion ICollection<TValue> support
-  }
-
-  public class DispatchedDictionaryValues<TValue> : ICollection<TValue>, INotifyCollectionChanged
-  {
-    public event NotifyCollectionChangedEventHandler CollectionChanged
-    {
-      add { Owner.CollectionChanged+=value; }
-      remove { Owner.CollectionChanged-=value; }
-    }
-
-    public INotifyCollectionChanged Owner { get; private set; }
-
-    public ICollection<TValue> Collection { get; private set; }
-
-    public int Count => Collection.Count;
-
-    public bool IsReadOnly => Collection.IsReadOnly;
-
-    public DispatchedDictionaryValues(INotifyCollectionChanged owner, ICollection<TValue> collection)
-    {
-      Owner = owner;
-      Collection = collection;
-    }
-
-    public void Add(TValue item)
-    {
-      Collection.Add(item);
-    }
 
     public void Clear()
     {
-      Collection.Clear();
+      ((ICollection<TValue>)Values).Clear();
     }
 
-    public bool Contains(TValue item)
+    public IEnumerator GetEnumerator()
     {
-      return Collection.Contains(item);
+      return ((ICollection<TValue>)Values).GetEnumerator();
+    }
+    #endregion ICollection<TValue> support
+
+    public class DispatchedDictionaryValues : ICollection<TValue>, INotifyCollectionChanged
+    {
+      public event NotifyCollectionChangedEventHandler CollectionChanged
+      {
+        add { Owner.CollectionChanged+=value; }
+        remove { Owner.CollectionChanged-=value; }
+      }
+
+      public DispatchedDictionary<TKey, TValue> Owner { get; private set; }
+
+      public int Count => Owner.Count;
+
+      public bool IsReadOnly => true;
+
+      public DispatchedDictionaryValues(DispatchedDictionary<TKey, TValue> owner)
+      {
+        Owner = owner;
+      }
+
+      public bool Contains(TValue item)
+      {
+        return Owner.Dictionary.Values.Contains(item);
+      }
+
+      public void CopyTo(TValue[] array, int arrayIndex)
+      {
+        Owner.Dictionary.Values.CopyTo(array, arrayIndex);
+      }
+
+      public IEnumerator<TValue> GetEnumerator()
+      {
+        return Owner.Dictionary.Values.GetEnumerator();
+      }
+
+      IEnumerator IEnumerable.GetEnumerator()
+      {
+        return Owner.Dictionary.Values.GetEnumerator();
+      }
+
+      public void Add(TValue item)
+      {
+        throw new NotImplementedException();
+      }
+
+      public void Clear()
+      {
+        throw new NotImplementedException();
+      }
+
+      public bool Remove(TValue item)
+      {
+        throw new NotImplementedException();
+      }
     }
 
-    public void CopyTo(TValue[] array, int arrayIndex)
-    {
-      Collection.CopyTo(array, arrayIndex);
-    }
-
-    public bool Remove(TValue item)
-    {
-      return Collection.Remove(item);
-    }
-
-    public IEnumerator<TValue> GetEnumerator()
-    {
-      return Collection.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return Collection.GetEnumerator();
-    }
   }
 
 }

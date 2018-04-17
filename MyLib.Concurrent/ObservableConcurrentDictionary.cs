@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -200,9 +201,15 @@ namespace MyLib.Concurrent
     {
       var result = TryAdd(key, value);
       if (!result)
+      {
+        Debug.WriteLine($"{Name}.GetOrAdd {value} just exists");
         return base[key];
+      }
       else
+      {
+        Debug.WriteLine($"{Name}.GetOrAdd {value} added");
         return value;
+      }
     }
 
 
