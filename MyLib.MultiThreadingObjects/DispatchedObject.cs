@@ -19,8 +19,14 @@ namespace MyLib.MultiThreadingObjects
 
     public event PropertyChangedEventHandler PropertyChanged
     {
-      add { _PropertyChanged+=value; }
-      remove { _PropertyChanged-=value; }
+      add
+      {
+        _PropertyChanged+=value;
+      }
+      remove
+      {
+        _PropertyChanged-=value;
+      }
     }
     event PropertyChangedEventHandler _PropertyChanged;
 
@@ -28,6 +34,8 @@ namespace MyLib.MultiThreadingObjects
     {
       if (_PropertyChanged!=null)
       {
+        if (propertyName=="IsPopulated")
+          Debug.WriteLine($"{Name} Populated");
         if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
         {
           _PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));

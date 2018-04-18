@@ -17,7 +17,7 @@ namespace MyLib.MultiThreadingObjects
 {
   public class DispatchedDictionary<TKey, TValue> : DispatchedObject, IDisposable
     , ICollection<TValue>, IEnumerable<TValue>
-    , INotifyCollectionChanged, INotifyPropertyChanged
+    , INotifyCollectionChanged
   {
 
     protected ConcurrentDictionary<TKey, TValue> Dictionary;
