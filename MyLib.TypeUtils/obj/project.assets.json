@@ -183,15 +183,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\TypeUtils\\MyLib.TypeUtils.csproj",
+      "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.TypeUtils\\MyLib.TypeUtils.csproj",
       "projectName": "MyLib.TypeUtils",
-      "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\TypeUtils\\MyLib.TypeUtils.csproj",
+      "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.TypeUtils\\MyLib.TypeUtils.csproj",
       "packagesPath": "C:\\Users\\Jerry\\.nuget\\packages\\",
-      "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\TypeUtils\\obj\\",
+      "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.TypeUtils\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

@@ -21,3 +21,13 @@ D:\Dane\VS\Projects\MyLib\EFTools\obj\Debug\EFTools.csprojResolveAssemblyReferen
 D:\Dane\VS\Projects\MyLib\EFTools\obj\Debug\EFTools.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\EFTools\obj\Debug\EFTools.dll
 D:\Dane\VS\Projects\MyLib\EFTools\obj\Debug\EFTools.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EFTools.dll.config
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EFTools.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EFTools.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EntityFramework.xml
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EntityFramework.SqlServer.xml
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.pdb
