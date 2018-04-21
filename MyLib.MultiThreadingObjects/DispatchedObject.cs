@@ -13,7 +13,7 @@ namespace MyLib.MultiThreadingObjects
 {
   public class DispatchedObject: INotifyPropertyChanged
   {
-    public static Dispatcher ApplicationDispatcher;
+    public static Dispatcher ApplicationDispatcher { get; set; }
 
     public virtual string Name { get; set; }
 
