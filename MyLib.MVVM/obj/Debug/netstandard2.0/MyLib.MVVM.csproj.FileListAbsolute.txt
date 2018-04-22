@@ -6,4 +6,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.Assembl
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.csprojResolveAssemblyReference.cache
