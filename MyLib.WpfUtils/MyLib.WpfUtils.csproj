@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoolToStringConverter.cs" />
+    <Compile Include="BoolToIntDictionary.cs" />
     <Compile Include="BoolToStringDictionary.cs" />
     <Compile Include="BoolToVisibilityConverter.cs" />
     <Compile Include="ColorDictionary.cs" />

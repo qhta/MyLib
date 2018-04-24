@@ -11,7 +11,10 @@ namespace MyLib.WpfUtils
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      return Dictionary[value.ToString().ToLowerInvariant()];
+      var str = value.ToString();
+      if (Dictionary.TryGetValue(str, out string result))
+        return result;
+      return Dictionary[str.ToLowerInvariant()];
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
