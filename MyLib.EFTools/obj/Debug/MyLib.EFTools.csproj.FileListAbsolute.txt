@@ -1,6 +1,3 @@
-D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EFTools.dll.config
-D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EFTools.dll
-D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EFTools.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EntityFramework.dll
 D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\EntityFramework.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\Z.EntityFramework.Extensions.dll
@@ -10,5 +7,9 @@ D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\Z.EntityFramework.Extensions.x
 D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\MyLib.EFTools.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\MyLib.EFTools.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\MyLib.EFTools.csproj.CopyComplete
-D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.dll
-D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\EFTools.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\MyLib.EFTools.dll.config
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\MyLib.EFTools.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\MyLib.EFTools.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\MyLib.EFTools.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\obj\Debug\MyLib.EFTools.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.EFTools\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
