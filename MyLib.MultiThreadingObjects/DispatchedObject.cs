@@ -53,8 +53,8 @@ namespace MyLib.MultiThreadingObjects
         }
         else if (ApplicationDispatcher!=null)
         {
-          if (propertyName.StartsWith("Target") ||propertyName.StartsWith("Source"))
-            Debug.WriteLine($"{Name} {propertyName} dispatch");
+          //if (propertyName.StartsWith("Target") ||propertyName.StartsWith("Source"))
+          //  Debug.WriteLine($"{Name} {propertyName} dispatch");
           var action = new Action<string>(NotifyPropertyChanged);
           ApplicationDispatcher.Invoke(action, new object[] { propertyName });
         }

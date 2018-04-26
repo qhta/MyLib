@@ -25,6 +25,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "MyLib.MultiThreadingObjects/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MyLib.MultiThreadingObjects.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyLib.MultiThreadingObjects.dll": {}
+        }
       }
     }
   },
@@ -169,10 +179,16 @@
         "build/netstandard2.0/ref/netstandard.xml",
         "lib/netstandard1.0/_._"
       ]
+    },
+    "MyLib.MultiThreadingObjects/1.0.0": {
+      "type": "project",
+      "path": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
+      "msbuildProject": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "MyLib.MultiThreadingObjects >= 1.0.0",
       "NETStandard.Library >= 2.0.1"
     ]
   },
@@ -208,7 +224,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MultiThreadingObjects\\MyLib.MultiThreadingObjects.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MultiThreadingObjects\\MyLib.MultiThreadingObjects.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
