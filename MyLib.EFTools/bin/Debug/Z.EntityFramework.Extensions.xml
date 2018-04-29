@@ -504,6 +504,17 @@
             <param name="this">The @this to act on.</param>
             <returns>The model.</returns>
         </member>
+        <member name="M:DbContextExtensions.ExecuteFutureAction``1(``0)">
+            <summary>A T extension method that executes the future action.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="this">The @this to act on.</param>
+        </member>
+        <member name="M:DbContextExtensions.FutureAction``1(``0,System.Action{``0})">
+            <summary>A T extension method that future action.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="this">The @this to act on.</param>
+            <param name="action">The action.</param>
+        </member>
         <member name="M:DbContextExtensions.BulkDelete``1(System.Data.Entity.Core.Objects.ObjectContext,System.Collections.Generic.IEnumerable{``0},System.Action{Z.EntityFramework.Extensions.EntityBulkOperation{``0}})">
             <summary>A DbContext extension method that bulk delete.</summary>
             <typeparam name="T">Generic type parameter.</typeparam>
@@ -3470,6 +3481,14 @@
             <summary>Gets or sets the column synchronize delete key subset expression.</summary>
             <value>The column synchronize delete key subset expression.</value>
         </member>
+        <member name="P:Z.BulkOperations.BulkOperation.IgnoreOnInsertExpression">
+            <summary>Gets or sets the ignore on insert expression.</summary>
+            <value>The ignore on insert expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.IgnoreOnUpdateExpression">
+            <summary>Gets or sets the ignore on update expression.</summary>
+            <value>The ignore on update expression.</value>
+        </member>
         <member name="P:Z.BulkOperations.BulkOperation.IgnoreOnMergeInsertExpression">
             <summary>Gets or sets the ignore on merge insert expression.</summary>
             <value>The ignore on merge insert expression.</value>
@@ -3541,6 +3560,9 @@
         <member name="P:Z.BulkOperations.BulkOperation.DestinationTableName">
             <summary>Gets or sets the name of the destination table.</summary>
             <value>The name of the destination table.</value>
+        </member>
+        <member name="F:Z.BulkOperations.BulkOperation.ContextFactory">
+            <summary>Gets or sets the context factory function to use when a working context is requested.</summary>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation.StreamSize">
             <summary>Gets or sets the size of the stream.</summary>
@@ -3819,6 +3841,14 @@
         <member name="P:Z.BulkOperations.BulkOperation`1.ColumnSynchronizeDeleteKeySubsetExpression">
             <summary>Gets or sets the column primary key expression.</summary>
             <value>The column primary key expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation`1.IgnoreOnInsertExpression">
+            <summary>Gets or sets the ignore on insert expression.</summary>
+            <value>The ignore on insert expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation`1.IgnoreOnUpdateExpression">
+            <summary>Gets or sets the ignore on update expression.</summary>
+            <value>The ignore on update expression.</value>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation`1.IgnoreOnMergeInsertExpression">
             <summary>Gets or sets the ignore on merge insert expression.</summary>
