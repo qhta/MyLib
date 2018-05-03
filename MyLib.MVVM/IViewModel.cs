@@ -11,6 +11,5 @@ namespace MyLib.MVVM
   {
     void NotifyPropertyChanged(string propertyName);
 
-    bool IsValid { get; }
   }
 }

@@ -22,7 +22,7 @@ namespace MyLib.MultiThreadingObjects
     {
       add
       {
-        _callerDispatcher = Dispatcher.CurrentDispatcher;
+        _initialDispatcher = Dispatcher.CurrentDispatcher;
         _PropertyChanged+=value;
       }
       remove
@@ -31,32 +31,24 @@ namespace MyLib.MultiThreadingObjects
       }
     }
     event PropertyChangedEventHandler _PropertyChanged;
-    Dispatcher _callerDispatcher;
+    Dispatcher _initialDispatcher;
 
-    protected void NotifyPropertyChanged(string propertyName)
+    public void NotifyPropertyChanged(string propertyName)
     {
       if (_PropertyChanged!=null)
       {
-        //if (propertyName=="Target")
-        //  Debug.WriteLine($"{Name} {propertyName} changed");
         if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
         {
-          //if (propertyName.StartsWith("Target") ||propertyName.StartsWith("Source"))
-          //  Debug.WriteLine($"{Name} {propertyName} invoke");
           _PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        else if (_callerDispatcher!=ApplicationDispatcher)
+        else if (_initialDispatcher==ApplicationDispatcher)
         {
-          //if (propertyName.StartsWith("Target") ||propertyName.StartsWith("Source"))
-          //  Debug.WriteLine($"{Name} {propertyName} invoke {_PropertyChanged!=null}");
-          _PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        else if (ApplicationDispatcher!=null)
-        {
-          //if (propertyName.StartsWith("Target") ||propertyName.StartsWith("Source"))
-          //  Debug.WriteLine($"{Name} {propertyName} dispatch");
           var action = new Action<string>(NotifyPropertyChanged);
           ApplicationDispatcher.Invoke(action, new object[] { propertyName });
+        }
+        else
+        {
+          _PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
       }
     }

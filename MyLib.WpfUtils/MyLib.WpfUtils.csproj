@@ -44,8 +44,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoolToStringConverter.cs" />
-    <Compile Include="BoolToStringDictionary.cs" />
+    <Compile Include="String2ObjectConverter.cs" />
+    <Compile Include="String2ObjectDictionary.cs" />
     <Compile Include="BoolToVisibilityConverter.cs" />
     <Compile Include="ColorDictionary.cs" />
     <Compile Include="DataGridBehavior.cs" />
