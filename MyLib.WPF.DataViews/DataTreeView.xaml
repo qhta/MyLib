@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Wordnet.APP.Views.DataTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:Wordnet.APP.Views"
+             xmlns:wpf="clr-namespace:MyLib.WpfUtils;assembly=MyLib.WpfUtils"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"             
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <DataTemplate x:Key="DataRowExpander">
+        <Expander Expanded="Expander_Expanded" Collapsed="Expander_Collapsed" 
+                  Template="{StaticResource SimpleExpanderTemp}"/>
+    </DataTemplate>
+  </UserControl.Resources>
+  <Grid>
+    <DataGrid x:Name="MainDataGrid"
+              ItemsSource="{Binding Items}"
+              >
+      <DataGrid.RowDetailsTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal" Background="White" 
+                      Visibility="{Binding Path=HasRowDetails, Converter={StaticResource Bool2VisibilityConverter}}">
+            <views:DataSetView DataContext="{Binding Path=DetailsDataSet}"/>
+          </StackPanel>
+        </DataTemplate>
+      </DataGrid.RowDetailsTemplate>
+      <DataGrid.Style>
+        <Style TargetType="DataGrid">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=CanExpandRows}" Value="True">
+              <Setter Property="RowHeaderTemplate" Value="{StaticResource DataRowExpander}"/>
+              <Setter Property="RowHeaderWidth" Value="30"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </DataGrid.Style>
+    </DataGrid>
+  </Grid>
+
+
+</UserControl>

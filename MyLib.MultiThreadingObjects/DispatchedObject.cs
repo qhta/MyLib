@@ -39,7 +39,7 @@ namespace MyLib.MultiThreadingObjects
       {
         if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
         {
-          _PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+          _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
         else if (_initialDispatcher==ApplicationDispatcher)
         {

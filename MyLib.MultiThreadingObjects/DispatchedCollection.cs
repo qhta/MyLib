@@ -125,6 +125,20 @@ namespace MyLib.MultiThreadingObjects
 
     #region overriden methods
 
+    public void AddRange(IEnumerable<TValue> values)
+    {
+      lock (_lock)
+      {
+        int index = List.Count;
+        List.AddRange(values);
+        HasItems = true;
+        ThrowInsertEvent(index, values);
+        //for (int i=0; i<values.Count(); i++)
+        //  ThrowInsertEvent(index+i, List[index+i]);
+      }
+    }
+
+
     public void Add(TValue value)
     {
       lock (_lock)
@@ -190,6 +204,22 @@ namespace MyLib.MultiThreadingObjects
       }
     }
 
+    private void ThrowInsertEvent(int index, IEnumerable<TValue> newItems)
+    {
+      if (_CollectionChanged != null)
+      {
+        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+          _CollectionChanged.Invoke(this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
+            new List<TValue>(newItems), index
+            ));
+        else
+        {
+          var action = new Action<int, IEnumerable<TValue>>(ThrowInsertEvent);
+          ApplicationDispatcher.Invoke(action, new object[] { index, newItems });
+        }
+      }
+    }
     private void ThrowRemoveEvent(TValue oldItem)
     {
       if (_CollectionChanged != null)
