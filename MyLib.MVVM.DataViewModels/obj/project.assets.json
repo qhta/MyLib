@@ -48,6 +48,15 @@
         "runtime": {
           "bin/placeholder/MyLib.MVVM.dll": {}
         }
+      },
+      "MyLib.WpfUtils/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/MyLib.WpfUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyLib.WpfUtils.dll": {}
+        }
       }
     }
   },
@@ -195,18 +204,24 @@
     },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",
-      "path": "../../../MyLib/MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
-      "msbuildProject": "../../../MyLib/MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj"
+      "path": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
+      "msbuildProject": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj"
     },
     "MyLib.MVVM/1.0.0": {
       "type": "project",
-      "path": "../../../MyLib/MyLib.MVVM/MyLib.MVVM.csproj",
-      "msbuildProject": "../../../MyLib/MyLib.MVVM/MyLib.MVVM.csproj"
+      "path": "../MyLib.MVVM/MyLib.MVVM.csproj",
+      "msbuildProject": "../MyLib.MVVM/MyLib.MVVM.csproj"
+    },
+    "MyLib.WpfUtils/1.0.0": {
+      "type": "project",
+      "path": "../MyLib.WpfUtils/MyLib.WpfUtils.csproj",
+      "msbuildProject": "../MyLib.WpfUtils/MyLib.WpfUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "MyLib.MVVM >= 1.0.0",
+      "MyLib.WpfUtils >= 1.0.0",
       "NETStandard.Library >= 2.0.1"
     ]
   },
@@ -218,11 +233,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dane\\VS\\Projects\\NLP\\MyLib\\MyLib.MVVM.DataViewModels\\MyLib.MVVM.DataViewModels.csproj",
+      "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM.DataViewModels\\MyLib.MVVM.DataViewModels.csproj",
       "projectName": "MyLib.MVVM.DataViewModels",
-      "projectPath": "D:\\Dane\\VS\\Projects\\NLP\\MyLib\\MyLib.MVVM.DataViewModels\\MyLib.MVVM.DataViewModels.csproj",
+      "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM.DataViewModels\\MyLib.MVVM.DataViewModels.csproj",
       "packagesPath": "C:\\Users\\Jerry\\.nuget\\packages\\",
-      "outputPath": "D:\\Dane\\VS\\Projects\\NLP\\MyLib\\MyLib.MVVM.DataViewModels\\obj\\",
+      "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM.DataViewModels\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -245,6 +260,9 @@
           "projectReferences": {
             "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM\\MyLib.MVVM.csproj": {
               "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM\\MyLib.MVVM.csproj"
+            },
+            "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.WpfUtils\\MyLib.WpfUtils.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.WpfUtils\\MyLib.WpfUtils.csproj"
             }
           }
         }

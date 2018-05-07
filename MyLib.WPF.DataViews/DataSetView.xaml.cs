@@ -65,7 +65,9 @@ namespace MyLib.WPF.DataViews
         if (vis is DataGridRow)
         {
           var row = (DataGridRow)vis;
-          row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+          row.DetailsVisibility = /*row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : */Visibility.Visible;
+          if (row.Item is IExpandable expandable)
+            expandable.IsExpanded=true;
           break;
         }
     }
@@ -76,7 +78,9 @@ namespace MyLib.WPF.DataViews
         if (vis is DataGridRow)
         {
           var row = (DataGridRow)vis;
-          row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+          row.DetailsVisibility = Visibility.Collapsed;
+          if (row.Item is IExpandable expandable)
+            expandable.IsExpanded=false;
           break;
         }
     }

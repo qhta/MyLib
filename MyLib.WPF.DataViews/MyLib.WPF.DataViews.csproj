@@ -34,6 +34,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,18 +58,30 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DataTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Resources\MainResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SimpleExpanderTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NLP\MyLib\MyLib.MVVM.DataViewModels\MyLib.MVVM.DataViewModels.csproj">
+    <ProjectReference Include="..\MyLib.MVVM.DataViewModels\MyLib.MVVM.DataViewModels.csproj">
       <Project>{2db7cddd-0b85-474b-becb-0c3d40e6948f}</Project>
       <Name>MyLib.MVVM.DataViewModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyLib.MVVM\MyLib.MVVM.csproj">
       <Project>{3d3ea718-eecf-45e5-88e9-71010de963c4}</Project>
       <Name>MyLib.MVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyLib.WpfUtils\MyLib.WpfUtils.csproj">
+      <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
+      <Name>MyLib.WpfUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

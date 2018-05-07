@@ -10,6 +10,7 @@
       "MyLib.MVVM.DataViewModels/1.0.0": {
         "dependencies": {
           "MyLib.MVVM": "1.0.0",
+          "MyLib.WpfUtils": "1.0.0",
           "NETStandard.Library": "2.0.1"
         },
         "runtime": {
@@ -33,6 +34,11 @@
         },
         "runtime": {
           "MyLib.MVVM.dll": {}
+        }
+      },
+      "MyLib.WpfUtils/1.0.0": {
+        "runtime": {
+          "MyLib.WpfUtils.dll": {}
         }
       }
     }
@@ -63,6 +69,11 @@
       "sha512": ""
     },
     "MyLib.MVVM/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MyLib.WpfUtils/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

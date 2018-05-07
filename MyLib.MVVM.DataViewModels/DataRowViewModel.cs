@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyLib.MVVM
 {
-  public class DataRowViewModel: ViewModel
+  public class DataRowViewModel: ViewModel, IExpandable
   {
     public virtual bool HasRowDetails => false;
+
+    public virtual bool IsExpanded { get => false; set { } }
   }
 }

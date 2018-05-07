@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-2-1024538907
+4-1451563773
 
 3-634679153
-120-270728132
-DataSetView.xaml;DataTreeView.xaml;
+122469611989
+DataSetView.xaml;DataTreeView.xaml;Resources\MainResources.xaml;Resources\SimpleExpanderTemplate.xaml;
 
-True
+False
 

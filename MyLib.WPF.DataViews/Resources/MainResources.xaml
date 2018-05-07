@@ -1,0 +1,64 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="clr-namespace:MyLib.WpfUtils;assembly=MyLib.WpfUtils"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:vm="clr-namespace:MyLib.MVVM;assembly=MyLib.MVVM.DataViewModels"
+                    xmlns:views="clr-namespace:Wordnet.APP.Views"
+                    >
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="SimpleExpanderTemplate.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  <wpf:RowToIndexConv x:Key="RowToIndexConv"/>
+  <!--<local:DomainTypeEnumConverter x:Key="DomainTypeConverter"/>
+  <local:POSTypeEnumConverter x:Key="POSTypeConverter"/>
+  <local:POSTypeArrayConverter x:Key="POSTypeArrayConverter"/>
+  <local:ChangeIsVisibleCommand x:Key="ChangeTokensVisibilityCommand"/>
+  <local:ChangeIsVisibleCommand x:Key="ChangePOSesVisibilityCommand"/>
+  <local:ChangeIsVisibleCommand x:Key="ChangePhrasesVisibilityCommand"/>
+  <local:ChangeDisambiguationCommand x:Key="ChangeDisambiguationCommand"/>-->
+  <wpf:BoolToVisibilityConverter x:Key="Bool2VisibilityConverter"/>
+  <wpf:String2ObjectDictionary x:Key="BoolToStringDictionary">
+    <sys:String x:Key="true">✓</sys:String>
+    <x:Static x:Key="false" Member="sys:String.Empty"/>
+  </wpf:String2ObjectDictionary>
+  <wpf:String2ObjectConverter x:Key="BoolToStringConverter" Dictionary="{StaticResource BoolToStringDictionary}"/>
+  <SolidColorBrush x:Key="TagFill" Color="Silver"/>
+  <SolidColorBrush x:Key="ShapeFill" Color="WhiteSmoke"/>
+  <wpf:ColorDictionary x:Key="RedBlackColors">
+    <Color x:Key="False">Red</Color>
+    <Color x:Key="True">Black</Color>
+  </wpf:ColorDictionary>
+  <wpf:ValidityBrushConverter x:Key="ValidityBrushConverter" ColorDictionary="{StaticResource RedBlackColors}"/>
+  <wpf:ColorDictionary x:Key="RedGrayColors">
+    <Color x:Key="False">Red</Color>
+    <Color x:Key="True">LightGray</Color>
+  </wpf:ColorDictionary>
+  <wpf:ValidityBrushConverter x:Key="ValidityBorderConverter" ColorDictionary="{StaticResource RedGrayColors}"/>
+  <wpf:ColorDictionary x:Key="TokenTagColors">
+    <Color x:Key="W">LightGray</Color>
+    <Color x:Key="N">DeepSkyBlue</Color>
+    <Color x:Key="A">Aqua</Color>
+    <Color x:Key="P">AntiqueWhite</Color>
+    <Color x:Key="S">Pink</Color>
+    <Color x:Key="O">Plum</Color>
+  </wpf:ColorDictionary>
+  <wpf:ColorDictionary x:Key="POSTagColors">
+    <Color x:Key="Noun">PowderBlue</Color>
+    <Color x:Key="Verb">PaleGreen</Color>
+    <Color x:Key="Pron">LightSkyBlue</Color>
+    <Color x:Key="Adj">LightBlue</Color>
+    <Color x:Key="Adv">LightGreen</Color>
+    <Color x:Key="Prep">Salmon</Color>
+    <Color x:Key="Conj">LightSalmon</Color>
+    <Color x:Key="Det">Lavender</Color>
+    <Color x:Key="Num">DeepSkyBlue</Color>
+    <Color x:Key="Part">Thistle</Color>
+    <Color x:Key="Intj">PaleGoldenRod</Color>
+    <Color x:Key="Abr">Aqua</Color>
+    <Color x:Key="Pct">AntiqueWhite</Color>
+    <Color x:Key="Sym">Pink</Color>
+    <Color x:Key="Fgn">Khaki</Color>
+    <Color x:Key="Oth">Plum</Color>
+  </wpf:ColorDictionary>
+  <Thickness x:Key="ListViewItemMargin">-2.5,0,-2.5,0</Thickness>
+</ResourceDictionary>

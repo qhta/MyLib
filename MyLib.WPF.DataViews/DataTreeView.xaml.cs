@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MyLib.MVVM;
 
-namespace Wordnet.APP.Views
+namespace MyLib.WPF.DataViews
 {
   /// <summary>
   /// Interaction logic for DataSetView.xaml

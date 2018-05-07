@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MyLib\MyLib.MVVM\MyLib.MVVM.csproj" />
+    <ProjectReference Include="..\MyLib.MVVM\MyLib.MVVM.csproj" />
+    <ProjectReference Include="..\MyLib.WpfUtils\MyLib.WpfUtils.csproj" />
   </ItemGroup>
 
 </Project>
