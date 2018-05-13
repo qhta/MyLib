@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MyLib.MVVM;
+using WebUI = System.Web.UI;
 
 namespace MyLib.WPF.DataViews
 {
   /// <summary>
   /// Interaction logic for DataSetView.xaml
   /// </summary>
-  public partial class DataSetView : UserControl
+  public partial class DataSetView : UserControl//, IClipboardMate
   {
     public DataSetView()
     {
@@ -84,6 +86,68 @@ namespace MyLib.WPF.DataViews
           break;
         }
     }
+
+    //#region IClipboardMate
+    //public bool CanCopy
+    //{
+    //  get
+    //  {
+    //    if (DataContext is ITableSource tableSource)
+    //      return tableSource.CanGetData;
+    //    return false;
+    //  }
+    //}
+
+    //public void CopyToClipboard()
+    //{
+    //  if (DataContext is ITableSource tableSource)
+    //  {
+    //    StringWriter stringWriter = new StringWriter();
+
+    //    using (WebUI.HtmlTextWriter writer = new WebUI.HtmlTextWriter(stringWriter))
+    //    {
+    //      //writer.AddAttribute(WebUI.HtmlTextWriterAttribute.Class, classValue);
+    //      writer.RenderBeginTag(WebUI.HtmlTextWriterTag.Table);
+    //      writer.RenderBeginTag(WebUI.HtmlTextWriterTag.Thead);
+    //      int n = tableSource.ColumnsCount;
+    //      foreach (var column in tableSource.GetColumns())
+    //      {
+    //        writer.RenderBeginTag(WebUI.HtmlTextWriterTag.Th);
+    //        writer.Write(column.Header ?? "&nbsp;");
+    //        writer.RenderEndTag(); //Th
+    //      }
+    //      writer.RenderEndTag(); // Thead
+    //      writer.RenderBeginTag(WebUI.HtmlTextWriterTag.Tbody);
+    //      foreach (var row in tableSource.GetRows())
+    //      {
+    //        writer.RenderBeginTag(WebUI.HtmlTextWriterTag.Tr);
+    //        for (int i = 0; i<n; i++)
+    //        {
+    //          writer.RenderBeginTag(WebUI.HtmlTextWriterTag.Td);
+    //          writer.Write(row.GetText(i) ?? "&nbsp;");
+    //          writer.RenderEndTag(); //Td
+    //        }
+    //        writer.RenderEndTag(); //Tr
+    //      }
+    //      writer.RenderEndTag(); // Tbody
+    //      writer.RenderEndTag(); // Table
+    //    }
+    //    string str = stringWriter.ToString();
+    //    Clipboard.Clear();
+    //    Clipboard.SetText(str, TextDataFormat.Html);
+    //    //Clipboard.SetData(DataFormats.Html, str);
+    //  }
+    //}
+
+    //public bool CanCut { get; }
+    //public void CutToClipboard()
+    //{
+
+    //}
+    //public bool CanPaste { get; }
+    //public void PasteFromClipboard()
+    //{ }
+    //#endregion IClipboardMate
 
   }
 }

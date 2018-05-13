@@ -34,6 +34,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,6 +72,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyLib.MultiThreadingObjects\MyLib.MultiThreadingObjects.csproj">
+      <Project>{3814d1f0-6287-4747-a179-5955e57092c7}</Project>
+      <Name>MyLib.MultiThreadingObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyLib.MVVM.DataViewModels\MyLib.MVVM.DataViewModels.csproj">
       <Project>{2db7cddd-0b85-474b-becb-0c3d40e6948f}</Project>
       <Name>MyLib.MVVM.DataViewModels</Name>

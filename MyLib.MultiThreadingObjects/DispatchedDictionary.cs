@@ -26,47 +26,56 @@ namespace MyLib.MultiThreadingObjects
     public DispatchedDictionary()
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>();
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(string name)
     {
       Name = name;
       Dictionary = new ConcurrentDictionary<TKey, TValue>();
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(IEnumerable<TValue> collection)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>();
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>(collection);
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(IEqualityComparer<TKey> comparer)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>(comparer);
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(int concurrencyLevel, int capacity)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, capacity);
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>(collection, comparer);
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, collection, comparer);
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     public DispatchedDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
     {
       Dictionary = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, capacity, comparer);
+      _Values = new DispatchedDictionaryValues(this);
     }
 
     #endregion constructors
@@ -139,15 +148,7 @@ namespace MyLib.MultiThreadingObjects
     #endregion
 
     #region overriden properties
-    public DispatchedDictionaryValues Values
-    {
-      get
-      {
-        if (_Values==null)
-          _Values = new DispatchedDictionaryValues(this);
-        return _Values;
-      }
-    }
+    public DispatchedDictionaryValues Values => _Values;
     #endregion
     private DispatchedDictionaryValues _Values;
 

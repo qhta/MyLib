@@ -3,7 +3,7 @@
                     xmlns:wpf="clr-namespace:MyLib.WpfUtils;assembly=MyLib.WpfUtils"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:vm="clr-namespace:MyLib.MVVM;assembly=MyLib.MVVM.DataViewModels"
-                    xmlns:views="clr-namespace:Wordnet.APP.Views"
+                    xmlns:views="clr-namespace:MyLib.WPF.DataViews.Views"
                     >
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="SimpleExpanderTemplate.xaml"/>

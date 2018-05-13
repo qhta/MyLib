@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLib.MVVM
 {
-  public class VisibleViewModel : ViewModel, IVisible
+  public class VisibleViewModel : ViewModel, IVisible, IExpandable, ISelectable
   {
-    public bool IsVisible
+    public virtual bool IsVisible
     {
-      get { return _IsVisible; }
+      get => _IsVisible;
       set
       {
         if (_IsVisible!=value)
@@ -20,7 +18,49 @@ namespace MyLib.MVVM
         }
       }
     }
-    private bool _IsVisible= true;
+    protected bool _IsVisible = false;
 
+    public virtual bool HasRowDetails
+    {
+      get => _HasRowDetails;
+      set
+      {
+        if (_HasRowDetails!=value)
+        {
+          _HasRowDetails = value;
+          NotifyPropertyChanged("HasRowDetails");
+        }
+      }
+    }
+    protected bool _HasRowDetails = false;
+
+    public virtual bool IsExpanded
+    {
+      get => _IsExpanded;
+      set
+      {
+        if (_IsExpanded!=value)
+        {
+          _IsExpanded = value;
+          NotifyPropertyChanged("IsExpanded");
+        }
+      }
+    }
+    protected bool _IsExpanded = false;
+
+    public bool IsSelected
+    {
+      get => _IsSelected;
+      set
+      {
+        if (_IsSelected!=value)
+        {
+          _IsSelected = value;
+          NotifyPropertyChanged("IsSelected");
+        }
+      }
+    }
+    private bool _IsSelected = false;
   }
+
 }

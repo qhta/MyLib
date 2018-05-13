@@ -25,6 +25,7 @@ namespace MyLib.MultiThreadingObjects
     public DispatchedCollection()
     {
       List = new List<TValue>();
+      _Values = new DispatchedCollectionValues(this);
     }
 
     public DispatchedCollection(string name)
@@ -108,18 +109,7 @@ namespace MyLib.MultiThreadingObjects
     #endregion
 
     #region overriden properties
-    public DispatchedCollectionValues Values
-    {
-      get
-      {
-        lock (_lock)
-        {
-          if (_Values==null)
-            _Values = new DispatchedCollectionValues(this);
-          return _Values;
-        }
-      }
-    }
+    public DispatchedCollectionValues Values =>_Values;
     #endregion
     private DispatchedCollectionValues _Values;
 

@@ -37,6 +37,9 @@
         }
       },
       "MyLib.WpfUtils/1.0.0": {
+        "dependencies": {
+          "MyLib.MVVM": "1.0.0"
+        },
         "runtime": {
           "MyLib.WpfUtils.dll": {}
         }

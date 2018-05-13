@@ -51,6 +51,9 @@
       },
       "MyLib.WpfUtils/1.0.0": {
         "type": "project",
+        "dependencies": {
+          "MyLib.MVVM": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/MyLib.WpfUtils.dll": {}
         },
