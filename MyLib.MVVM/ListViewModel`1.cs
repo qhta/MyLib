@@ -10,7 +10,8 @@ using MyLib.MultiThreadingObjects;
 
 namespace MyLib.MVVM
 {
-  public class ListViewModel<ItemType> : ListViewModel, IEnumerable<ItemType>, INotifyCollectionChanged where ItemType: IValidated, ISelectable
+  public class ListViewModel<ItemType> : ListViewModel, IEnumerable<ItemType>, INotifyCollectionChanged, INotifySelectionChanged
+    where ItemType: IValidated, ISelectable
   {
     public ListViewModel()
     {
@@ -46,6 +47,8 @@ namespace MyLib.MVVM
     public DispatchedCollection<ItemType> Items => _Items;
     protected DispatchedCollection<ItemType> _Items = new DispatchedCollection<ItemType>();
 
+    public event NotifySelectionChangedEventHandler SelectionChanged;
+
     public override bool IsValid => Items!=null && Items.Where(item => !item.IsValid).FirstOrDefault()==null;
 
     public IEnumerator<ItemType> GetEnumerator()
@@ -68,24 +71,35 @@ namespace MyLib.MVVM
       }
       set
       {
+        List<ItemType> unselectedItems = new List<ItemType>();
+        List<ItemType> selectedItems = new List<ItemType>();
         foreach (var item in _Items)
+        {
+          bool wasSelected = item.IsSelected;
           item.IsSelected = value!=null && value.Contains(item);
+          if (!wasSelected && item.IsSelected)
+            selectedItems.Add(item);
+          else if (wasSelected && !item.IsSelected)
+            unselectedItems.Add(item);
+        }
         NotifyPropertyChanged("SelectedItems");
+        if (SelectionChanged!=null &&  (unselectedItems.Count!=0  || selectedItems.Count!=0))
+          base.Dispatch(() => SelectionChanged(this, new NotifySelectionChangedEventArgs(selectedItems, unselectedItems)));          
       }
     }
 
-    public ItemType SelectedItem
-    {
-      get
-      {
-        return _Items.Where(item => item.IsSelected).FirstOrDefault();
-      }
-      set
-      {
-        foreach (var item in _Items)
-          item.IsSelected = item.Equals(value);
-        NotifyPropertyChanged("SelectedItem");
-      }
-    }
+    //public ItemType SelectedItem
+    //{
+    //  get
+    //  {
+    //    return _Items.Where(item => item.IsSelected).FirstOrDefault();
+    //  }
+    //  set
+    //  {
+    //    foreach (var item in _Items)
+    //      item.IsSelected = item.Equals(value);
+    //    NotifyPropertyChanged("SelectedItem");
+    //  }
+    //}
   }
 }

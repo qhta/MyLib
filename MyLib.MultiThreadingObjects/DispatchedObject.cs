@@ -52,5 +52,21 @@ namespace MyLib.MultiThreadingObjects
         }
       }
     }
+
+    public void Dispatch(Action action)
+    {
+      if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+      {
+        action.Invoke();
+      }
+      else if (_initialDispatcher==ApplicationDispatcher)
+      {
+        ApplicationDispatcher.Invoke(action, new object[] { });
+      }
+      else
+      {
+        action.Invoke();
+      }
+    }
   }
 }
