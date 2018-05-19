@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="DataGridCopyToClipboardCommand.cs" />
+    <Compile Include="MvvmVisualTreeHelper.cs" />
     <Compile Include="String2ObjectConverter.cs" />
     <Compile Include="String2ObjectDictionary.cs" />
     <Compile Include="BoolToVisibilityConverter.cs" />

@@ -88,18 +88,18 @@ namespace MyLib.MVVM
       }
     }
 
-    //public ItemType SelectedItem
-    //{
-    //  get
-    //  {
-    //    return _Items.Where(item => item.IsSelected).FirstOrDefault();
-    //  }
-    //  set
-    //  {
-    //    foreach (var item in _Items)
-    //      item.IsSelected = item.Equals(value);
-    //    NotifyPropertyChanged("SelectedItem");
-    //  }
-    //}
+    public ItemType SelectedItem
+    {
+      get
+      {
+        return _Items.Where(item => item.IsSelected).FirstOrDefault();
+      }
+      set
+      {
+        foreach (var item in _Items)
+          item.IsSelected = item.Equals(value);
+        NotifyPropertyChanged("SelectedItem");
+      }
+    }
   }
 }
