@@ -8,7 +8,12 @@ namespace MyLib.MVVM
 {
   public abstract class ListViewModel : VisibleViewModel, IOrientable, IVisible
   {
+    public ListViewModel(ViewModel parentViewModel)
+    {
+      ParentViewModel = parentViewModel;
+    }
 
+    public ViewModel ParentViewModel { get; private set; }
     public OrientationType Orientation
     {
       get { return _Orientation; }
@@ -22,6 +27,22 @@ namespace MyLib.MVVM
       }
     }
     private OrientationType _Orientation;
+
+    public string SortedBy
+    {
+      get { return _SortedBy; }
+      set
+      {
+        if (_SortedBy!=value)
+        {
+          _SortedBy=value;
+          NotifyPropertyChanged("SortedBy");
+        }
+      }
+    }
+    private string _SortedBy;
+
+    public virtual void FindNextItem() { }
 
     public virtual void FindFirstInvalidItem() { }
 

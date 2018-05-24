@@ -14,7 +14,7 @@ namespace MyLib.MVVM
   public class ListViewModel<ItemType> : ListViewModel, IEnumerable<ItemType>, INotifyCollectionChanged, INotifySelectionChanged
     where ItemType: class, IValidated, ISelectable
   {
-    public ListViewModel()
+    public ListViewModel(ViewModel parentViewModel): base(parentViewModel)
     {
       _Items.CollectionChanged+=_Items_CollectionChanged;
       _Items.PropertyChanged+=_Items_PropertyChanged;
@@ -121,11 +121,65 @@ namespace MyLib.MVVM
       }
     }
 
+    public List<ItemType> GetItemsList()
+    {
+      var items = Items.ToList();
+      if (SortedBy!=null)
+      {
+        IOrderedEnumerable<ItemType> orderedItems = null;
+        List<String> sortedColumns = SortedBy.Split(new char[] { ';', ',' }).ToList();
+        foreach (var column in sortedColumns)
+        {
+          string columnName = column;
+          ListSortDirection? direction = null;
+          if (column.EndsWith("(desc)"))
+          {
+            columnName = column.Substring(0, column.Length-"(desc)".Length).Trim();
+            direction = ListSortDirection.Descending;
+          }
+          else
+          if (column.EndsWith("(asc)"))
+          {
+            columnName = column.Substring(0, column.Length-"(asc)".Length).Trim();
+            direction = ListSortDirection.Ascending;
+          }
+          if (direction==ListSortDirection.Descending)
+          {
+            if (orderedItems==null)
+              orderedItems=items.OrderByDescending(item => item.GetType().GetProperty(columnName).GetValue(item));
+            else
+              orderedItems=orderedItems.OrderByDescending(item => item.GetType().GetProperty(columnName).GetValue(item));
+          }
+          else
+          {
+            if (orderedItems==null)
+              orderedItems=items.OrderBy(item => item.GetType().GetProperty(columnName).GetValue(item));
+            else
+              orderedItems=orderedItems.OrderBy(item => item.GetType().GetProperty(columnName).GetValue(item));
+          }
+        }
+          return orderedItems.ToList();
+      }
+      return items;     
+    }
+
+    Action FindNextItemDelegate;
+
+    public override void FindNextItem()
+    {
+      FindNextItemDelegate?.Invoke();
+    }
+
     public override void FindFirstInvalidItem()
     {
-      var firstInvalidItem = Items.Where(item => !item.IsValid).FirstOrDefault();
+      var invalidItems = GetItemsList().Where(item => !item.IsValid).ToList();
+      //var invalidItems = Items.Where(item => !item.IsValid).ToList();
+      var firstInvalidItem = invalidItems.FirstOrDefault();
       if (firstInvalidItem!=null)
+      {
         SelectedItem = firstInvalidItem;
+        FindNextItemDelegate=FindNextInvalidItem;
+      }
     }
 
     public override void FindNextInvalidItem()
@@ -135,7 +189,7 @@ namespace MyLib.MVVM
         FindFirstInvalidItem();
       else
       {
-        var invalidItems = Items.Where(item => !item.IsValid).ToList();
+        var invalidItems = GetItemsList().Where(item => !item.IsValid).ToList();
         var invalidItemIndex = invalidItems.IndexOf(invalidItem);
         if (invalidItemIndex<invalidItems.Count-1)
           SelectedItem = invalidItems[invalidItemIndex+1];
