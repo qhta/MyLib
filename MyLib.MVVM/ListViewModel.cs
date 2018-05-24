@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLib.MVVM
 {
-  public class ListViewModel : VisibleViewModel, IOrientable, IVisible
+  public abstract class ListViewModel : VisibleViewModel, IOrientable, IVisible
   {
 
     public OrientationType Orientation
@@ -22,5 +22,9 @@ namespace MyLib.MVVM
       }
     }
     private OrientationType _Orientation;
+
+    public virtual void FindFirstInvalidItem() { }
+
+    public virtual void FindNextInvalidItem() { }
   }
 }
