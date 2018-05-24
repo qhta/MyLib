@@ -48,6 +48,8 @@
     <Compile Include="Command.cs" />
     <Compile Include="DataGridCopyToClipboardCommand.cs" />
     <Compile Include="MvvmVisualTreeHelper.cs" />
+    <Compile Include="OrdNumConverter.cs" />
+    <Compile Include="NullableIntConverter.cs" />
     <Compile Include="String2ObjectConverter.cs" />
     <Compile Include="String2ObjectDictionary.cs" />
     <Compile Include="BoolToVisibilityConverter.cs" />
@@ -65,6 +67,10 @@
     <ProjectReference Include="..\MyLib.MVVM\MyLib.MVVM.csproj">
       <Project>{9c02bb4f-c25f-4e1d-bce8-a45974462e41}</Project>
       <Name>MyLib.MVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrdNumbers\MyLib.OrdNumbers.csproj">
+      <Project>{B2BAC234-44FB-4E6F-93E3-2AC911BFA264}</Project>
+      <Name>MyLib.OrdNumbers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -105,3 +105,5 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MultiThreadingObjects.d
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MVVM.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MultiThreadingObjects.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.pdb

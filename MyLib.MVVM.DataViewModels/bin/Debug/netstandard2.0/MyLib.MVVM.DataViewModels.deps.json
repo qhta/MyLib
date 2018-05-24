@@ -36,9 +36,15 @@
           "MyLib.MVVM.dll": {}
         }
       },
+      "MyLib.OrdNumbers/1.0.0": {
+        "runtime": {
+          "MyLib.OrdNumbers.dll": {}
+        }
+      },
       "MyLib.WpfUtils/1.0.0": {
         "dependencies": {
-          "MyLib.MVVM": "1.0.0"
+          "MyLib.MVVM": "1.0.0",
+          "MyLib.OrdNumbers": "1.0.0"
         },
         "runtime": {
           "MyLib.WpfUtils.dll": {}
@@ -72,6 +78,11 @@
       "sha512": ""
     },
     "MyLib.MVVM/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MyLib.OrdNumbers/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

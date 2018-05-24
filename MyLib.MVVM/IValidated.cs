@@ -9,6 +9,6 @@ namespace MyLib.MVVM
 {
   public interface IValidated
   {
-    bool IsValid { get; }
+    bool? IsValid { get; }
   }
 }

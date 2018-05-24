@@ -14,6 +14,9 @@ namespace MyLib.MVVM
     }
 
     public ViewModel ParentViewModel { get; private set; }
+
+    public abstract Type GetItemType();
+
     public OrientationType Orientation
     {
       get { return _Orientation; }
@@ -41,6 +44,8 @@ namespace MyLib.MVVM
       }
     }
     private string _SortedBy;
+
+    public virtual void FindFirstItem(object pattern, IEnumerable<string> propNames) { }
 
     public virtual void FindNextItem() { }
 

@@ -10,7 +10,7 @@ namespace MyLib.MVVM
     {
       base.NotifyPropertyChanged(propertyName);
     }
-    public virtual bool IsValid => true;
+    public virtual bool? IsValid { get; set; }
 
   }
 }

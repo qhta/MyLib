@@ -119,3 +119,5 @@ D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\MyLib.WPF.DataViews.cspr
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataTreeView.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataTreeView.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.OrdNumbers.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.OrdNumbers.pdb

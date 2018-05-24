@@ -49,10 +49,21 @@
           "bin/placeholder/MyLib.MVVM.dll": {}
         }
       },
+      "MyLib.OrdNumbers/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MyLib.OrdNumbers.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyLib.OrdNumbers.dll": {}
+        }
+      },
       "MyLib.WpfUtils/1.0.0": {
         "type": "project",
         "dependencies": {
-          "MyLib.MVVM": "1.0.0"
+          "MyLib.MVVM": "1.0.0",
+          "MyLib.OrdNumbers": "1.0.0"
         },
         "compile": {
           "bin/placeholder/MyLib.WpfUtils.dll": {}
@@ -214,6 +225,11 @@
       "type": "project",
       "path": "../MyLib.MVVM/MyLib.MVVM.csproj",
       "msbuildProject": "../MyLib.MVVM/MyLib.MVVM.csproj"
+    },
+    "MyLib.OrdNumbers/1.0.0": {
+      "type": "project",
+      "path": "../OrdNumbers/MyLib.OrdNumbers.csproj",
+      "msbuildProject": "../OrdNumbers/MyLib.OrdNumbers.csproj"
     },
     "MyLib.WpfUtils/1.0.0": {
       "type": "project",

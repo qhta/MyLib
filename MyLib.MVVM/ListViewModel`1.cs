@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,14 +13,18 @@ using MyLib.MultiThreadingObjects;
 namespace MyLib.MVVM
 {
   public class ListViewModel<ItemType> : ListViewModel, IEnumerable<ItemType>, INotifyCollectionChanged, INotifySelectionChanged
-    where ItemType: class, IValidated, ISelectable
+    where ItemType : class, IValidated, ISelectable
   {
-    public ListViewModel(ViewModel parentViewModel): base(parentViewModel)
+    public ListViewModel(ViewModel parentViewModel) : base(parentViewModel)
     {
       _Items.CollectionChanged+=_Items_CollectionChanged;
       _Items.PropertyChanged+=_Items_PropertyChanged;
     }
 
+    public override Type GetItemType()
+    {
+      return typeof(ItemType);
+    }
 
     public event NotifyCollectionChangedEventHandler CollectionChanged
     {
@@ -62,7 +67,8 @@ namespace MyLib.MVVM
 
     public event NotifySelectionChangedEventHandler SelectionChanged;
 
-    public override bool IsValid => Items!=null && Items.Where(item => !item.IsValid).FirstOrDefault()==null;
+    public override bool? IsValid { get => Items!=null && Items.Where(item => item.IsValid==false).FirstOrDefault()==null; set => _IsValid = value; }
+    private bool? _IsValid;
 
     public IEnumerator<ItemType> GetEnumerator()
     {
@@ -76,9 +82,9 @@ namespace MyLib.MVVM
 
     public int Count => Items.Count;
 
-    public int ValidItemsCount => Items.Where(item => item.IsValid).Count();
+    public int ValidItemsCount => Items.Where(item => item.IsValid==true).Count();
 
-    public int InvalidItemsCount => Items.Where(item => !item.IsValid).Count();
+    public int InvalidItemsCount => Items.Where(item => item.IsValid==false).Count();
 
     public int SelectedItemsCount => Items.Where(item => item.IsSelected).Count();
 
@@ -103,7 +109,7 @@ namespace MyLib.MVVM
         }
         NotifyPropertyChanged("SelectedItems");
         if (SelectionChanged!=null &&  (unselectedItems.Count!=0  || selectedItems.Count!=0))
-          base.Dispatch(() => SelectionChanged(this, new NotifySelectionChangedEventArgs(selectedItems, unselectedItems)));          
+          base.Dispatch(() => SelectionChanged(this, new NotifySelectionChangedEventArgs(selectedItems, unselectedItems)));
       }
     }
 
@@ -158,9 +164,9 @@ namespace MyLib.MVVM
               orderedItems=orderedItems.OrderBy(item => item.GetType().GetProperty(columnName).GetValue(item));
           }
         }
-          return orderedItems.ToList();
+        return orderedItems.ToList();
       }
-      return items;     
+      return items;
     }
 
     Action FindNextItemDelegate;
@@ -170,10 +176,70 @@ namespace MyLib.MVVM
       FindNextItemDelegate?.Invoke();
     }
 
+    public override void FindFirstItem(object pattern, IEnumerable<string> propNames)
+    {
+      if (pattern is ItemType typedPattern)
+        FindFirstItem(typedPattern, propNames);
+    }
+
+    public void FindFirstItem(ItemType pattern, IEnumerable<string> propNames)
+    {
+      Pattern=null;
+      PatternPropNames = propNames;
+      var properties = typeof(ItemType).GetProperties().Where(prop => propNames.Contains(prop.Name)).ToArray();
+      var selectedItem = SelectedItem;
+      if (selectedItem==null)
+      {
+        var selectedItems = GetItemsList().Where(item => SameAs(item, pattern, properties)).ToList();
+        var firstSelectedItem = selectedItems.FirstOrDefault();
+        if (firstSelectedItem!=null)
+        {
+          SelectedItem = firstSelectedItem;
+          Pattern = pattern;
+          FindNextItemDelegate=FindNextPatternItem;
+        }
+      }
+      else
+      {
+        var selectedItems = GetItemsList().Where(item => SameAs(item, pattern, properties)).ToList();
+        var selectedItemIndex = selectedItems.IndexOf(selectedItem);
+        if (selectedItemIndex<selectedItems.Count-1)
+        {
+          SelectedItem = selectedItems[selectedItemIndex+1];
+          Pattern = pattern;
+          FindNextItemDelegate=FindNextPatternItem;
+        }
+      }
+    }
+
+    ItemType Pattern;
+    IEnumerable<string> PatternPropNames;
+
+    public void FindNextPatternItem()
+    {
+      if (Pattern!=null)
+        FindFirstItem(Pattern, PatternPropNames);
+    }
+
+    protected virtual bool SameAs(ItemType item, ItemType pattern, IEnumerable<PropertyInfo> properties)
+    {
+      foreach (var property in properties)
+      {
+        var patternValue = property.GetValue(pattern);
+        if (patternValue!=null)
+        {
+          var itemValue = property.GetValue(item);
+          if (itemValue!=null)
+            if (!itemValue.Equals(patternValue))
+              return false;
+        }
+      }
+      return true;
+    }
+
     public override void FindFirstInvalidItem()
     {
-      var invalidItems = GetItemsList().Where(item => !item.IsValid).ToList();
-      //var invalidItems = Items.Where(item => !item.IsValid).ToList();
+      var invalidItems = GetItemsList().Where(item => item.IsValid==false).ToList();
       var firstInvalidItem = invalidItems.FirstOrDefault();
       if (firstInvalidItem!=null)
       {
@@ -184,13 +250,13 @@ namespace MyLib.MVVM
 
     public override void FindNextInvalidItem()
     {
-      var invalidItem = SelectedItem;
-      if (invalidItem==null)
+      var selectedItem = SelectedItem;
+      if (selectedItem==null)
         FindFirstInvalidItem();
       else
       {
-        var invalidItems = GetItemsList().Where(item => !item.IsValid).ToList();
-        var invalidItemIndex = invalidItems.IndexOf(invalidItem);
+        var invalidItems = GetItemsList().Where(item => item.IsValid==false).ToList();
+        var invalidItemIndex = invalidItems.IndexOf(selectedItem);
         if (invalidItemIndex<invalidItems.Count-1)
           SelectedItem = invalidItems[invalidItemIndex+1];
       }
