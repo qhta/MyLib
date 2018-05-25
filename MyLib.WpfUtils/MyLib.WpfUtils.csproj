@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="DataGridCopyToClipboardCommand.cs" />
+    <Compile Include="CommandBindingExtension.cs" />
+    <Compile Include="InputBindingAttachment.cs" />
     <Compile Include="MvvmVisualTreeHelper.cs" />
     <Compile Include="OrdNumConverter.cs" />
     <Compile Include="NullableIntConverter.cs" />

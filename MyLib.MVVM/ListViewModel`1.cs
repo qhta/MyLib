@@ -12,8 +12,8 @@ using MyLib.MultiThreadingObjects;
 
 namespace MyLib.MVVM
 {
-  public class ListViewModel<ItemType> : ListViewModel, IEnumerable<ItemType>, INotifyCollectionChanged, INotifySelectionChanged
-    where ItemType : class, IValidated, ISelectable
+  public class ListViewModel<ItemType> : ListViewModel, IListViewModel,
+    IEnumerable<ItemType>, INotifyCollectionChanged, INotifySelectionChanged where ItemType : class, IValidated, ISelectable
   {
     public ListViewModel(ViewModel parentViewModel) : base(parentViewModel)
     {
@@ -61,6 +61,7 @@ namespace MyLib.MVVM
       }
     }
 
+    IEnumerable<object> IListViewModel.Items => this.Items;
 
     public DispatchedCollection<ItemType> Items => _Items;
     protected DispatchedCollection<ItemType> _Items = new DispatchedCollection<ItemType>();
@@ -127,6 +128,20 @@ namespace MyLib.MVVM
       }
     }
 
+    public string SortedBy
+    {
+      get { return _SortedBy; }
+      set
+      {
+        if (_SortedBy!=value)
+        {
+          _SortedBy=value;
+          NotifyPropertyChanged("SortedBy");
+        }
+      }
+    }
+    private string _SortedBy;
+
     public List<ItemType> GetItemsList()
     {
       var items = Items.ToList();
@@ -171,12 +186,12 @@ namespace MyLib.MVVM
 
     Action FindNextItemDelegate;
 
-    public override void FindNextItem()
+    public void FindNextItem()
     {
       FindNextItemDelegate?.Invoke();
     }
 
-    public override void FindFirstItem(object pattern, IEnumerable<string> propNames)
+    public void FindFirstItem(object pattern, IEnumerable<string> propNames)
     {
       if (pattern is ItemType typedPattern)
         FindFirstItem(typedPattern, propNames);
@@ -237,7 +252,7 @@ namespace MyLib.MVVM
       return true;
     }
 
-    public override void FindFirstInvalidItem()
+    public void FindFirstInvalidItem()
     {
       var invalidItems = GetItemsList().Where(item => item.IsValid==false).ToList();
       var firstInvalidItem = invalidItems.FirstOrDefault();
@@ -248,7 +263,7 @@ namespace MyLib.MVVM
       }
     }
 
-    public override void FindNextInvalidItem()
+    public void FindNextInvalidItem()
     {
       var selectedItem = SelectedItem;
       if (selectedItem==null)
