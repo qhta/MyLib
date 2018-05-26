@@ -21,5 +21,10 @@ namespace MyLib.MVVM
     void FindNextInvalidItem();
 
     IEnumerable<object> Items { get; }
+
+    object SelectedItem { get; set; }
+    IEnumerable<object> SelectedItems { get; set; }
+
+    void SelectAll(bool select);
   }
 }

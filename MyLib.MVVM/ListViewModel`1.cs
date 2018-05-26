@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MyLib.MultiThreadingObjects;
@@ -44,6 +46,35 @@ namespace MyLib.MVVM
       NotifyPropertyChanged("Count");
       NotifyPropertyChanged("ValidItemsCount");
       NotifyPropertyChanged("InvalidItemsCount");
+      if (e.Action==NotifyCollectionChangedAction.Add)
+      {
+        foreach (var item in e.NewItems)
+        {
+          if (item is INotifyPropertyChanged notifyingItem)
+            notifyingItem.PropertyChanged += Item_PropertyChanged;
+        }
+      }
+    }
+
+    private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      NotifyPropertyChanged(e.PropertyName);
+      switch (e.PropertyName)
+      {
+        case "IsValid":
+          NotifyPropertyChanged("ValidItemsCount");
+          NotifyPropertyChanged("InvalidItemsCount");
+          break;
+        case "IsSelected":
+          NotifyPropertyChanged("SelectedItemsCount");
+          if (!inSelectAll)
+          {
+            NotifyPropertyChanged("SelectedItem");
+            NotifyPropertyChanged("SelectedItems");
+            NotifySelectionChanged();
+          }
+          break;
+      }
     }
 
     private void _Items_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -89,6 +120,8 @@ namespace MyLib.MVVM
 
     public int SelectedItemsCount => Items.Where(item => item.IsSelected).Count();
 
+    IEnumerable<object> IListViewModel.SelectedItems { get => SelectedItems; set => SelectedItems=value.Cast<ItemType>(); }
+
     public IEnumerable<ItemType> SelectedItems
     {
       get
@@ -97,22 +130,16 @@ namespace MyLib.MVVM
       }
       set
       {
-        List<ItemType> unselectedItems = new List<ItemType>();
-        List<ItemType> selectedItems = new List<ItemType>();
         foreach (var item in _Items)
         {
-          bool wasSelected = item.IsSelected;
           item.IsSelected = value!=null && value.Contains(item);
-          if (!wasSelected && item.IsSelected)
-            selectedItems.Add(item);
-          else if (wasSelected && !item.IsSelected)
-            unselectedItems.Add(item);
         }
         NotifyPropertyChanged("SelectedItems");
-        if (SelectionChanged!=null &&  (unselectedItems.Count!=0  || selectedItems.Count!=0))
-          base.Dispatch(() => SelectionChanged(this, new NotifySelectionChangedEventArgs(selectedItems, unselectedItems)));
+        NotifySelectionChanged();
       }
     }
+
+    object IListViewModel.SelectedItem { get => SelectedItem; set => SelectedItem=value as ItemType; }
 
     public ItemType SelectedItem
     {
@@ -125,7 +152,50 @@ namespace MyLib.MVVM
         foreach (var item in _Items)
           item.IsSelected = item.Equals(value);
         NotifyPropertyChanged("SelectedItem");
+        NotifySelectionChanged();
       }
+    }
+
+    public void NotifySelectionChanged()
+    {
+      List<ItemType> unselectedItems = new List<ItemType>();
+      List<ItemType> selectedItems = new List<ItemType>();
+      bool selectionChangeDetected = false;
+      foreach (var item in _Items.ToList())
+      {
+        bool wasSelected = previouslySelectedItems.Contains(item);
+        if (!wasSelected && item.IsSelected)
+        {
+          selectedItems.Add(item);
+          previouslySelectedItems.Add(item);
+          selectionChangeDetected = true;
+        }
+        else if (wasSelected && !item.IsSelected)
+        {
+          unselectedItems.Add(item);
+          previouslySelectedItems.Remove(item);
+          selectionChangeDetected = true;
+        }
+      }
+      if (selectionChangeDetected)
+      {
+        Debug.WriteLine($"NotifySelectionChanged selected={selectedItems.Count},unselected={unselectedItems.Count}");
+        if (SelectionChanged!=null &&  (unselectedItems.Count!=0  || selectedItems.Count!=0))
+          base.Dispatch(() => SelectionChanged(this, new NotifySelectionChangedEventArgs(selectedItems, unselectedItems)));
+      }
+    }
+
+    private HashSet<ItemType> previouslySelectedItems = new HashSet<ItemType>();
+    private bool inSelectAll;
+    public void SelectAll(bool select)
+    {
+      if (inSelectAll)
+        return;
+      inSelectAll=true;
+      foreach (var item in _Items.ToList())
+        item.IsSelected=select;
+      inSelectAll=false;
+      NotifySelectionChanged();
     }
 
     public string SortedBy
