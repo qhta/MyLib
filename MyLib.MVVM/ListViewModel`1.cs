@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -23,7 +24,7 @@ namespace MyLib.MVVM
       _Items.PropertyChanged+=_Items_PropertyChanged;
     }
 
-    public override Type GetItemType()
+    public Type GetItemType()
     {
       return typeof(ItemType);
     }
@@ -212,6 +213,26 @@ namespace MyLib.MVVM
     }
     private string _SortedBy;
 
+    class MyComparer : IComparer<ItemType>
+    {
+      public MyComparer(PropertyInfo propInfo)
+      {
+        myPropInfo = propInfo;
+      }
+
+      PropertyInfo myPropInfo;
+
+      public int Compare(ItemType x, ItemType y)
+      {
+        IComparable value1 = myPropInfo.GetValue(x) as IComparable;
+        IComparable value2 = myPropInfo.GetValue(y) as IComparable;
+        if (value1!=value2)
+          return value1.CompareTo(value2);
+        else
+          return 0;
+      }
+    }
+
     public List<ItemType> GetItemsList()
     {
       var items = Items.ToList();
@@ -234,19 +255,21 @@ namespace MyLib.MVVM
             columnName = column.Substring(0, column.Length-"(asc)".Length).Trim();
             direction = ListSortDirection.Ascending;
           }
-          if (direction==ListSortDirection.Descending)
+          var propertyInfo = typeof(ItemType).GetProperty(columnName);
+          if (propertyInfo!=null)
           {
             if (orderedItems==null)
-              orderedItems=items.OrderByDescending(item => item.GetType().GetProperty(columnName).GetValue(item));
+            {
+              if (direction==ListSortDirection.Descending)
+                orderedItems=items.OrderByDescending(item => propertyInfo.GetValue(item));
+              else
+                orderedItems=items.OrderBy(item => propertyInfo.GetValue(item));
+            }
             else
-              orderedItems=orderedItems.OrderByDescending(item => item.GetType().GetProperty(columnName).GetValue(item));
-          }
-          else
-          {
-            if (orderedItems==null)
-              orderedItems=items.OrderBy(item => item.GetType().GetProperty(columnName).GetValue(item));
-            else
-              orderedItems=orderedItems.OrderBy(item => item.GetType().GetProperty(columnName).GetValue(item));
+            {
+              IComparer<ItemType> comparer = new MyComparer(propertyInfo);
+              orderedItems=orderedItems.CreateOrderedEnumerable<ItemType>(item => item, comparer, false);
+            }
           }
         }
         return orderedItems.ToList();
@@ -261,6 +284,41 @@ namespace MyLib.MVVM
       FindNextItemDelegate?.Invoke();
     }
 
+    public void FindFirstItem(Expression<Func<object, bool>> expression)
+    {
+      var predicate = expression.Compile();
+      FindFirstItem(predicate);
+    }
+
+    public void FindFirstItem(Func<object, bool> predicate)
+    {
+      Predicate = null;
+      Pattern=null;
+      var selectedItem = SelectedItem;
+      if (selectedItem==null)
+      {
+        var selectedItems = GetItemsList().Where(predicate).Cast<ItemType>().ToList();
+        var firstSelectedItem = selectedItems.FirstOrDefault();
+        if (firstSelectedItem!=null)
+        {
+          SelectedItem = firstSelectedItem;
+          Predicate = predicate;
+          FindNextItemDelegate=FindNextItemWithPredicate;
+        }
+      }
+      else
+      {
+        var selectedItems = GetItemsList().Where(predicate).Cast<ItemType>().ToList();
+        var selectedItemIndex = selectedItems.IndexOf(selectedItem);
+        if (selectedItemIndex<selectedItems.Count-1)
+        {
+          SelectedItem = selectedItems[selectedItemIndex+1];
+          Predicate = predicate;
+          FindNextItemDelegate=FindNextItemWithPredicate;
+        }
+      }
+    }
+
     public void FindFirstItem(object pattern, IEnumerable<string> propNames)
     {
       if (pattern is ItemType typedPattern)
@@ -269,6 +327,7 @@ namespace MyLib.MVVM
 
     public void FindFirstItem(ItemType pattern, IEnumerable<string> propNames)
     {
+      Predicate = null;
       Pattern=null;
       PatternPropNames = propNames;
       var properties = typeof(ItemType).GetProperties().Where(prop => propNames.Contains(prop.Name)).ToArray();
@@ -281,7 +340,7 @@ namespace MyLib.MVVM
         {
           SelectedItem = firstSelectedItem;
           Pattern = pattern;
-          FindNextItemDelegate=FindNextPatternItem;
+          FindNextItemDelegate=FindNextItemWithPattern;
         }
       }
       else
@@ -292,15 +351,22 @@ namespace MyLib.MVVM
         {
           SelectedItem = selectedItems[selectedItemIndex+1];
           Pattern = pattern;
-          FindNextItemDelegate=FindNextPatternItem;
+          FindNextItemDelegate=FindNextItemWithPattern;
         }
       }
     }
 
+    Func<object, bool> Predicate;
     ItemType Pattern;
     IEnumerable<string> PatternPropNames;
 
-    public void FindNextPatternItem()
+    public void FindNextItemWithPredicate()
+    {
+      if (Predicate!=null)
+        FindFirstItem(Predicate);
+    }
+
+    public void FindNextItemWithPattern()
     {
       if (Pattern!=null)
         FindFirstItem(Pattern, PatternPropNames);

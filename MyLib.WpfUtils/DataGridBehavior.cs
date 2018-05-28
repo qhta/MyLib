@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Media;
 using MyLib.MVVM;
 
@@ -132,7 +133,7 @@ namespace MyLib.WpfUtils
       var dataGrid = sender as DataGrid;
       if (dataGrid == null || e.NewValue == null)
         return;
-      dataGrid.Dispatcher.BeginInvoke((Action)(() =>
+      dataGrid.Dispatcher.Invoke((Action)(() =>
       {
         dataGrid.UpdateLayout();
         dataGrid.ScrollIntoView(e.NewValue, null);
@@ -141,6 +142,78 @@ namespace MyLib.WpfUtils
     }
 
     #endregion ScrollIntoView
+
+    #region SortingEventHandler
+    public static readonly DependencyProperty SortingEventHandlerProperty = DependencyProperty.RegisterAttached(
+        "SortingEventHandler",
+        typeof(object),
+        typeof(DataGridBehavior),
+        new PropertyMetadata(default(object), OnSortingEventHandlerChanged));
+
+
+    public static object GetSortingEventHandler(DependencyObject target)
+    {
+      return (object)target.GetValue(SortingEventHandlerProperty);
+    }
+
+    public static void SetSortingEventHandler(DependencyObject target, object value)
+    {
+      target.SetValue(SortingEventHandlerProperty, value);
+    }
+
+    static void OnSortingEventHandlerChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+    {
+      var dataGrid = sender as DataGrid;
+      if (dataGrid == null || e.NewValue == null)
+        return;
+      dataGrid.Dispatcher.Invoke((Action)(() =>
+      {
+        if (e.NewValue is DataGridSortingEventHandler handler)
+          dataGrid.Sorting+=handler;
+        else
+          dataGrid.Sorting+=DataGrid_Sorting;
+      }));
+    }
+
+    static void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
+    {
+      var dataGrid = sender as DataGrid;
+      if (dataGrid.DataContext is IListViewModel listViewModel)
+        if (e.Column is DataGridTextColumn textColumn && textColumn.Binding is Binding binding)
+        {
+          List<string> sortedColumns = new List<string>();
+          foreach (var column in dataGrid.Columns)
+          {
+            var sortDirection = column.SortDirection;
+            if (sortDirection!=null)
+            {
+              if (column==e.Column)
+              {
+                //swap sort direction
+                if (sortDirection==ListSortDirection.Descending)
+                  sortedColumns.Add($"{column.SortMemberPath}(asc)");
+                else
+                  sortedColumns.Add($"{column.SortMemberPath}(desc)");
+              }
+              else
+              {
+                // columns sorted previously
+                if (sortDirection==ListSortDirection.Descending)
+                  sortedColumns.Add($"{column.SortMemberPath}(desc)");
+                else
+                  sortedColumns.Add($"{column.SortMemberPath}(asc)");
+              }
+            }
+          }
+          var curColumn = e.Column;
+          if (curColumn.SortDirection==null)
+            sortedColumns.Add($"{curColumn.SortMemberPath}");
+          listViewModel.SortedBy = string.Join(";", sortedColumns);
+          //Debug.WriteLine($"SortedBy({listViewModel.SortedBy})");
+        }
+    }
+
+    #endregion SortingEventHandler
 
     #region Get Visuals
 

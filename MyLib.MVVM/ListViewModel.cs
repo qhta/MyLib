@@ -15,8 +15,6 @@ namespace MyLib.MVVM
 
     public ViewModel ParentViewModel { get; private set; }
 
-    public abstract Type GetItemType();
-
     public OrientationType Orientation
     {
       get { return _Orientation; }
