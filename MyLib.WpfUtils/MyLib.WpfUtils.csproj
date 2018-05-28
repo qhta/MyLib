@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="CommandBindingExtension.cs" />
+    <Compile Include="FocusUtils.cs" />
     <Compile Include="InputBindingAttachment.cs" />
     <Compile Include="MvvmVisualTreeHelper.cs" />
     <Compile Include="OrdNumConverter.cs" />

@@ -179,7 +179,7 @@ namespace MyLib.MVVM
       }
       if (selectionChangeDetected)
       {
-        Debug.WriteLine($"NotifySelectionChanged selected={selectedItems.Count},unselected={unselectedItems.Count}");
+        //Debug.WriteLine($"NotifySelectionChanged selected={selectedItems.Count},unselected={unselectedItems.Count}");
         if (SelectionChanged!=null &&  (unselectedItems.Count!=0  || selectedItems.Count!=0))
           base.Dispatch(() => SelectionChanged(this, new NotifySelectionChangedEventArgs(selectedItems, unselectedItems)));
       }
