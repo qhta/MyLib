@@ -146,11 +146,11 @@ namespace MyLib.MVVM
     {
       get
       {
-        return _Items.Where(item => item.IsSelected).FirstOrDefault();
+        return _Items.ToList().Where(item => item.IsSelected).FirstOrDefault();
       }
       set
       {
-        foreach (var item in _Items)
+        foreach (var item in _Items.ToList())
           item.IsSelected = item.Equals(value);
         NotifyPropertyChanged("SelectedItem");
         NotifySelectionChanged();

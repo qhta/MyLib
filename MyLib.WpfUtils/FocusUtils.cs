@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace MyLib.WpfUtils
 {
@@ -19,7 +20,10 @@ namespace MyLib.WpfUtils
       {
         if (oFocused == aControl)
           return true;
-        oFocused = System.Windows.Media.VisualTreeHelper.GetParent(oFocused);
+        if (oFocused is Visual)
+          oFocused = System.Windows.Media.VisualTreeHelper.GetParent(oFocused);
+        else
+          return false;
       }
       return false;
     }
