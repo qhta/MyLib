@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\MyLib.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\MyLib.HtmlUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\HtmlAgilityPack.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\HtmlAgilityPack.xml
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.pdb

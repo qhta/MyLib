@@ -46,3 +46,8 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyL
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\HtmlAgilityPack.dll
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.HtmlUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\HtmlAgilityPack.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\HtmlAgilityPack.xml

@@ -107,3 +107,8 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MultiThreadingObjects.p
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\HtmlAgilityPack.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\HtmlAgilityPack.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\HtmlAgilityPack.xml

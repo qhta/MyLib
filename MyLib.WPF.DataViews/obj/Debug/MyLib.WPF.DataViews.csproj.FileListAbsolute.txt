@@ -121,3 +121,8 @@ D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\GeneratedInternalTypeHel
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataTreeView.baml
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\HtmlAgilityPack.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.HtmlUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\HtmlAgilityPack.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\HtmlAgilityPack.xml

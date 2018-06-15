@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace MyLib.WpfUtils
 {
-  public class ColorDictionary: Dictionary<string, Color>
+  public class ColorDictionary: Dictionary<string, System.Windows.Media.Color>
   {
   }
 }

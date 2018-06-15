@@ -26,6 +26,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "MyLib.HtmlUtils/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/MyLib.HtmlUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyLib.HtmlUtils.dll": {}
+        }
+      },
       "MyLib.MultiThreadingObjects/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -62,6 +71,7 @@
       "MyLib.WpfUtils/1.0.0": {
         "type": "project",
         "dependencies": {
+          "MyLib.HtmlUtils": "1.0.0",
           "MyLib.MVVM": "1.0.0",
           "MyLib.OrdNumbers": "1.0.0"
         },
@@ -216,6 +226,11 @@
         "lib/netstandard1.0/_._"
       ]
     },
+    "MyLib.HtmlUtils/1.0.0": {
+      "type": "project",
+      "path": "../MyLib.HtmlUtils/MyLib.HtmlUtils.csproj",
+      "msbuildProject": "../MyLib.HtmlUtils/MyLib.HtmlUtils.csproj"
+    },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",
       "path": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
@@ -228,8 +243,8 @@
     },
     "MyLib.OrdNumbers/1.0.0": {
       "type": "project",
-      "path": "../OrdNumbers/MyLib.OrdNumbers.csproj",
-      "msbuildProject": "../OrdNumbers/MyLib.OrdNumbers.csproj"
+      "path": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj",
+      "msbuildProject": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj"
     },
     "MyLib.WpfUtils/1.0.0": {
       "type": "project",
