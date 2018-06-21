@@ -25,7 +25,6 @@ namespace MyLib.WpfUtils
         pngObject.SetData("PNG", pngStream);
         Clipboard.SetDataObject(pngObject, true);
       }
-
       return success;
     }
 

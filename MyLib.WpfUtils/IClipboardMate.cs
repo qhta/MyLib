@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace MyLib.WpfUtils
 {
   public interface IClipboardMate
   {
-    bool CanCopy { get; }
-    void CopyToClipboard();
-    bool CanCut { get; }
-    void CutToClipboard();
-    bool CanPaste { get; }
-    void PasteFromClipboard();
+    bool CanCopy(out string[] dataFormats);
+    DataObject[] CopyToClipboard(string[] dataFormats);
   }
 }

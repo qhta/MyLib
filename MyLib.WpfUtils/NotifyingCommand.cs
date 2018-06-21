@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace MyLib.WpfUtils
 {
-  public class Command : ICommand
+  public class NotifyingCommand : ICommand
   {
     public object DataContext { get; set; }
 

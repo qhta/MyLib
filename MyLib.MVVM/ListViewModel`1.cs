@@ -70,7 +70,7 @@ namespace MyLib.MVVM
           NotifyPropertyChanged("SelectedItemsCount");
           if (!inSelectAll)
           {
-            NotifyPropertyChanged("SelectedItem");
+            //NotifyPropertyChanged("SelectedItem");
             NotifyPropertyChanged("SelectedItems");
             NotifySelectionChanged();
           }
@@ -115,11 +115,11 @@ namespace MyLib.MVVM
 
     public int Count => Items.Count;
 
-    public int ValidItemsCount => Items.Where(item => item.IsValid==true).Count();
+    public int ValidItemsCount => Items.ToList().Where(item => item.IsValid==true).Count();
 
-    public int InvalidItemsCount => Items.Where(item => item.IsValid==false).Count();
+    public int InvalidItemsCount => Items.ToList().Where(item => item.IsValid==false).Count();
 
-    public int SelectedItemsCount => Items.Where(item => item.IsSelected).Count();
+    public int SelectedItemsCount => Items.ToList().Where(item => item.IsSelected).Count();
 
     IEnumerable<object> IListViewModel.SelectedItems { get => SelectedItems; set => SelectedItems=value.Cast<ItemType>(); }
 
@@ -127,11 +127,11 @@ namespace MyLib.MVVM
     {
       get
       {
-        return _Items.Where(item => item.IsSelected) ?? new ItemType[0];
+        return _Items.ToList().Where(item => item.IsSelected) ?? new ItemType[0];
       }
       set
       {
-        foreach (var item in _Items)
+        foreach (var item in _Items.ToList())
         {
           item.IsSelected = value!=null && value.Contains(item);
         }
@@ -146,7 +146,7 @@ namespace MyLib.MVVM
     {
       get
       {
-        return _Items.ToList().Where(item => item.IsSelected).FirstOrDefault();
+        return Items.ToList().Where(item => item.IsSelected).FirstOrDefault();
       }
       set
       {
@@ -236,6 +236,7 @@ namespace MyLib.MVVM
     public List<ItemType> GetItemsList()
     {
       var items = Items.ToList();
+      return items;
       if (SortedBy!=null)
       {
         IOrderedEnumerable<ItemType> orderedItems = null;

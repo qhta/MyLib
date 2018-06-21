@@ -32,9 +32,11 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -48,9 +50,16 @@
   <ItemGroup>
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="ClipboardUtils.cs" />
+    <Compile Include="ClipboardUtils.ClipboardMate.cs" />
+    <Compile Include="ClipboardUtils.Helper.cs" />
+    <Compile Include="ClipboardUtils.ListView.cs" />
+    <Compile Include="ClipboardUtils.Sorting.cs" />
+    <Compile Include="ClipboardUtils.Html.cs" />
     <Compile Include="ClipboardUtils.DataGrid.cs" />
-    <Compile Include="Command.cs" />
+    <Compile Include="NotifyingCommand.cs" />
     <Compile Include="CommandBindingExtension.cs" />
+    <Compile Include="IClipboardMate.cs" />
+    <Compile Include="ListViewBehavior.cs" />
     <Compile Include="FocusUtils.cs" />
     <Compile Include="InputBindingAttachment.cs" />
     <Compile Include="MvvmVisualTreeHelper.cs" />
@@ -69,6 +78,7 @@
     <Compile Include="TreeViewItemBehavior.cs" />
     <Compile Include="DividingConverter.cs" />
     <Compile Include="ValidityBrushConverter.cs" />
+    <Compile Include="WpfWin32Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyLib.HtmlUtils\MyLib.HtmlUtils.csproj">
@@ -83,6 +93,9 @@
       <Project>{B2BAC234-44FB-4E6F-93E3-2AC911BFA264}</Project>
       <Name>MyLib.OrdNumbers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClipboardUtils.Interop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
