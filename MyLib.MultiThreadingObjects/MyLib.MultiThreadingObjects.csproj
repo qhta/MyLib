@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DispatchedCollection - Copy.cs" />
+    <Compile Remove="observablecollection.cs" />
     <Compile Remove="TaskRegistry.cs" />
   </ItemGroup>
 

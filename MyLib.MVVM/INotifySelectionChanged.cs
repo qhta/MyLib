@@ -7,6 +7,6 @@ namespace MyLib.MVVM
 {
   public interface INotifySelectionChanged
   {
-    event NotifySelectionChangedEventHandler SelectionChanged;
+    event SelectionChangedEventHandler SelectionChanged;
   }
 }

@@ -14,85 +14,17 @@ using System.Windows.Threading;
 
 namespace MyLib.MultiThreadingObjects
 {
-  public class DispatchedCollection<TValue>: DispatchedObject, IDisposable
-    , ICollection<TValue>, IEnumerable<TValue>
-    , INotifyCollectionChanged
+  public class DispatchedCollection<TValue>: DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged
   {
-
-    protected List<TValue> List;
-
-    #region constructors
     public DispatchedCollection()
     {
-      List = new List<TValue>();
-      _Values = new DispatchedCollectionValues(this);
+      _Values.CollectionChanged+=_Values_CollectionChanged;
     }
 
-    public DispatchedCollection(string name)
-    {
-      Name = name;
-      List = new List<TValue>();
-    }
+    public IEnumerable<TValue> Values => _Values;
+    private ObservableCollection<TValue> _Values = new ObservableCollection<TValue>();
 
-    public DispatchedCollection(IEnumerable<TValue> collection)
-    {
-      List = new List<TValue>();
-    }
 
-    #endregion constructors
-
-    #region IDisposable Support
-    private bool disposedValue = false; // To detect redundant calls
-
-    protected virtual void Dispose(bool disposing)
-    {
-      if (!disposedValue)
-      {
-        if (disposing)
-        {
-          // TODO: dispose managed state (managed objects).
-        }
-
-        // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-        // TODO: set large fields to null.
-
-        disposedValue = true;
-      }
-    }
-
-    // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-    // ~ObservableConcurrentDictionary() {
-    //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-    //   Dispose(false);
-    // }
-
-    // This code added to correctly implement the disposable pattern.
-    public void Dispose()
-    {
-      // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-      Dispose(true);
-      // TODO: uncomment the following line if the finalizer is overridden above.
-      // GC.SuppressFinalize(this);
-    }
-    #endregion
-
-    public bool HasItems
-    {
-      get { return _HasItems; }
-      set
-      {
-        if (_HasItems!=value)
-        {
-          _HasItems=value;
-          NotifyPropertyChanged("HasItems");
-        }
-      }
-    }
-    private bool _HasItems;
-
-    private readonly object _lock = new object();
-
-    #region events
     public event NotifyCollectionChangedEventHandler CollectionChanged
     {
       add
@@ -106,231 +38,66 @@ namespace MyLib.MultiThreadingObjects
     }
     private event NotifyCollectionChangedEventHandler _CollectionChanged;
 
-    #endregion
-
-    #region overriden properties
-    public DispatchedCollectionValues Values =>_Values;
-    #endregion
-    private DispatchedCollectionValues _Values;
-
-    #region overriden methods
-
-    public void AddRange(IEnumerable<TValue> values)
+    private void _Values_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
-      lock (_lock)
-      {
-        int index = List.Count;
-        List.AddRange(values);
-        HasItems = true;
-        ThrowInsertEvent(index, values);
-        //for (int i=0; i<values.Count(); i++)
-        //  ThrowInsertEvent(index+i, List[index+i]);
-      }
+      OnCollectionChanged(e);
     }
 
-
-    public void Add(TValue value)
+    protected void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-      lock (_lock)
-      {
-        int index = List.Count;
-        List.Add(value);
-        HasItems = true;
-        ThrowInsertEvent(index, value);
-      }
-    }
-
-    public void Insert(int index, TValue value)
-    {
-      lock (_lock)
-      {
-        List.Insert(index, value);
-        HasItems = true;
-        ThrowInsertEvent(index, value);
-      }
-    }
-    public bool Remove(TValue value)
-    {
-      lock (_lock)
-      {
-        bool result = List.Remove(value);
-        if (result)
-          ThrowRemoveEvent(value);
-        return result;
-      }
-    }
-
-    //private void ThrowAddEvent(TValue newItem)
-    //{
-    //  if (_CollectionChanged != null)
-    //  {
-    //    if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-    //      _CollectionChanged.Invoke(this,
-    //        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-    //        newItem
-    //        ));
-    //    else
-    //    {
-    //      var action = new Action<TValue>(ThrowAddEvent);
-    //      ApplicationDispatcher.Invoke(action, new object[] { newItem });
-    //    }
-    //  }
-    //}
-
-    private void ThrowInsertEvent(int index, TValue newItem)
-    {
+      if (inAddRange)
+        return;
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-            new List<TValue> { newItem }, index
-            ));
+        if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+          _CollectionChanged.Invoke(this, e);
         else
         {
-          var action = new Action<int, TValue>(ThrowInsertEvent);
-          ApplicationDispatcher.Invoke(action, new object[] { index, newItem });
+          var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
+          DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { e });
         }
       }
     }
 
-    private void ThrowInsertEvent(int index, IEnumerable<TValue> newItems)
+    bool inAddRange;
+
+    public void AddRange(IEnumerable<TValue> items)
     {
-      if (_CollectionChanged != null)
+      inAddRange = true;
+      int startIndex = Count;
+      foreach (var item in items)
+        Add(item);
+      inAddRange = false;
+      OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<TValue>(items), startIndex));
+    }
+
+    public void Add(TValue item)
+    {
+      if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+        _Values.Add(item);
+      else
       {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-            new List<TValue>(newItems), index
-            ));
-        else
-        {
-          var action = new Action<int, IEnumerable<TValue>>(ThrowInsertEvent);
-          ApplicationDispatcher.Invoke(action, new object[] { index, newItems });
-        }
+        var action = new Action<TValue>(Add);
+        DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { item });
       }
     }
-    private void ThrowRemoveEvent(TValue oldItem)
+
+    public int Count => _Values.Count;
+
+    public TValue[] ToArray()
     {
-      if (_CollectionChanged != null)
-      {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-          _CollectionChanged.Invoke(this,
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-            oldItem
-            ));
-        else
-        {
-          var action = new Action<TValue>(ThrowRemoveEvent);
-          ApplicationDispatcher.Invoke(action, new object[] { oldItem });
-        }
-      }
-    }
-    #endregion overriden methods
-
-    #region ICollection<TValue> support
-
-    public bool IsReadOnly => false;
-
-    public int Count => List.Count;
-
-    void ICollection<TValue>.Add(TValue item)
-    {
-      throw new NotImplementedException();
-    }
-
-    bool ICollection<TValue>.Contains(TValue item)
-    {
-      return Values.Contains(item);
-    }
-
-    void ICollection<TValue>.CopyTo(TValue[] array, int arrayIndex)
-    {
-      Values.CopyTo(array, arrayIndex);
-    }
-
-    bool ICollection<TValue>.Remove(TValue item)
-    {
-      throw new NotImplementedException();
-    }
-
-    IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
-    {
-      return Values.GetEnumerator();
-    }
-
-    public void Clear()
-    {
-      ((ICollection<TValue>)Values).Clear();
+      return _Values.ToArray();
     }
 
     public IEnumerator<TValue> GetEnumerator()
     {
-      return ((ICollection<TValue>)Values).GetEnumerator();
+      return (_Values).GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-      return ((ICollection<TValue>)Values).GetEnumerator();
+      return this.GetEnumerator();
     }
-
-    #endregion ICollection<TValue> support
-
-    public class DispatchedCollectionValues : ICollection<TValue>, INotifyCollectionChanged
-    {
-      public event NotifyCollectionChangedEventHandler CollectionChanged
-      {
-        add { Owner.CollectionChanged+=value; }
-        remove { Owner.CollectionChanged-=value; }
-      }
-
-      public DispatchedCollection<TValue> Owner { get; private set; }
-
-      public int Count => Owner.Count;
-
-      public bool IsReadOnly => true;
-
-      public DispatchedCollectionValues(DispatchedCollection<TValue> owner)
-      {
-        Owner = owner;
-      }
-
-      public bool Contains(TValue item)
-      {
-        return Owner.List.Contains(item);
-      }
-
-      public void CopyTo(TValue[] array, int arrayIndex)
-      {
-        Owner.List.CopyTo(array, arrayIndex);
-      }
-
-      public IEnumerator<TValue> GetEnumerator()
-      {
-        return Owner.List.GetEnumerator();
-      }
-
-      IEnumerator IEnumerable.GetEnumerator()
-      {
-        return Owner.List.GetEnumerator();
-      }
-
-      public void Add(TValue item)
-      {
-        throw new NotImplementedException();
-      }
-
-      public void Clear()
-      {
-        throw new NotImplementedException();
-      }
-
-      public bool Remove(TValue item)
-      {
-        throw new NotImplementedException();
-      }
-    }
-
   }
 
 }

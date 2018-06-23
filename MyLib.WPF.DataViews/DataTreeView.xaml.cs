@@ -59,7 +59,7 @@ namespace MyLib.WPF.DataViews
       }
     }
 
-    private void Expander_Expanded(object sender, RoutedEventArgs e)
+    private void Expander_Expanded(object sender, System.Windows.RoutedEventArgs e)
     {
       for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
         if (vis is DataGridRow)
@@ -70,7 +70,7 @@ namespace MyLib.WPF.DataViews
         }
     }
 
-    private void Expander_Collapsed(object sender, RoutedEventArgs e)
+    private void Expander_Collapsed(object sender, System.Windows.RoutedEventArgs e)
     {
       for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
         if (vis is DataGridRow)

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ListViewModel`1 - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyLib.MultiThreadingObjects\MyLib.MultiThreadingObjects.csproj" />
   </ItemGroup>
 

@@ -6,4 +6,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.Resources\obj\Debug\netstandard2.0\MyLib.Resourc
 D:\Dane\VS\Projects\MyLib\MyLib.Resources\obj\Debug\netstandard2.0\MyLib.Resources.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.Resources\obj\Debug\netstandard2.0\MyLib.Resources.dll
 D:\Dane\VS\Projects\MyLib\MyLib.Resources\obj\Debug\netstandard2.0\MyLib.Resources.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.Resources\obj\Debug\netstandard2.0\MyLib.Resources.csprojResolveAssemblyReference.cache

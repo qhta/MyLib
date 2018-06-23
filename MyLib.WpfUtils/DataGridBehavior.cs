@@ -135,9 +135,15 @@ namespace MyLib.WpfUtils
         return;
       dataGrid.Dispatcher.Invoke((Action)(() =>
       {
-        dataGrid.UpdateLayout();
-        dataGrid.ScrollIntoView(e.NewValue, null);
-        dataGrid.UpdateLayout();
+        try
+        {
+          dataGrid.UpdateLayout();
+          dataGrid.ScrollIntoView(e.NewValue, null);
+          dataGrid.UpdateLayout();
+        }
+        catch
+        {
+        }
       }));
     }
 
