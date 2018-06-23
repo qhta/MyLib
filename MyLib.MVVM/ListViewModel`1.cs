@@ -17,13 +17,10 @@ using MyLib.MultiThreadingObjects;
 namespace MyLib.MVVM
 {
   public class ListViewModel<ItemType> : DispatchedCollection<ItemType>
-         //, INotifyPropertyChanged
          where ItemType : class, IValidated, ISelectable
   {
     public ListViewModel()
     {
-    //  _Items.CollectionChanged+=_Items_CollectionChanged;
-    //  _Items.PropertyChanged+=_Items_PropertyChanged;
     }
 
     public ListViewModel(ViewModel parentViewModel): this()
@@ -33,35 +30,28 @@ namespace MyLib.MVVM
 
     public ViewModel ParentViewModel;
 
+    public IEnumerable<ItemType> Items => this;
+
     public ItemType SelectedItem
     {
       get
       {
         ItemType selectedItem = null;
-        //try
-        //{
-        //  selectedItem = Items.ToList().Where(item => item.IsSelected).FirstOrDefault();
-        //}
-        //catch
-        //{
-
-        //}
+        selectedItem = Items.ToList().Where(item => item.IsSelected).FirstOrDefault();
         return selectedItem;
       }
-      //set
-      //{
-      //  //try
-      //  //{
-      //  //  foreach (var item in Items.ToList())
-      //  //    item.IsSelected = item.Equals(value);
-      //  ////  //NotifyPropertyChanged("SelectedItem");
-      //  ////  //NotifySelectionChanged();
-      //  //}
-      //  //catch
-      //  //{
+      set
+      {
+        try
+        {
+          foreach (var item in Items.ToList())
+            item.IsSelected = item.Equals(value);
+        }
+        catch
+        {
 
-      //  //}
-      //}
+        }
+      }
     }
 
   }

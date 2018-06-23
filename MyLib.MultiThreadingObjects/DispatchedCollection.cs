@@ -50,7 +50,10 @@ namespace MyLib.MultiThreadingObjects
       if (_CollectionChanged != null)
       {
         if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+        {
           _CollectionChanged.Invoke(this, e);
+          NotifyPropertyChanged("Count");
+        }
         else
         {
           var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
