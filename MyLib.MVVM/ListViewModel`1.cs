@@ -30,7 +30,14 @@ namespace MyLib.MVVM
 
     public ViewModel ParentViewModel;
 
-    public IEnumerable<ItemType> Items => this;
+    protected override void NotifyCountChanged()
+    {
+      base.NotifyCountChanged();
+      NotifyPropertyChanged("ValidItemsCount");
+      NotifyPropertyChanged("InvalidItemsCount");
+    }
+
+    public ListViewModel<ItemType> Items => this;
 
     public ItemType SelectedItem
     {
@@ -42,15 +49,24 @@ namespace MyLib.MVVM
       }
       set
       {
-        try
-        {
-          foreach (var item in Items.ToList())
-            item.IsSelected = item.Equals(value);
-        }
-        catch
-        {
+        foreach (var item in Items.ToList())
+          item.IsSelected = item.Equals(value);
+      }
+    }
 
-        }
+    public int ValidItemsCount
+    {
+      get
+      {
+        return Items.ToList().Where(item => item.IsValid==true).Count();
+      }
+    }
+
+    public int InvalidItemsCount
+    {
+      get
+      {
+        return Items.ToList().Where(item => item.IsValid==false).Count();
       }
     }
 

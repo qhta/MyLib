@@ -52,7 +52,7 @@ namespace MyLib.MultiThreadingObjects
         if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
         {
           _CollectionChanged.Invoke(this, e);
-          NotifyPropertyChanged("Count");
+          NotifyCountChanged();
         }
         else
         {
@@ -60,6 +60,11 @@ namespace MyLib.MultiThreadingObjects
           DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { e });
         }
       }
+    }
+
+    protected virtual void NotifyCountChanged()
+    {
+      NotifyPropertyChanged("Count");
     }
 
     bool inAddRange;
