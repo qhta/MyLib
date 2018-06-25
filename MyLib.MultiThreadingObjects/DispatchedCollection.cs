@@ -36,7 +36,7 @@ namespace MyLib.MultiThreadingObjects
         _CollectionChanged-=value;
       }
     }
-    private event NotifyCollectionChangedEventHandler _CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler _CollectionChanged;
 
     private void _Values_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
@@ -52,7 +52,7 @@ namespace MyLib.MultiThreadingObjects
         if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
         {
           _CollectionChanged.Invoke(this, e);
-          NotifyCountChanged();
+          AfterCollectionChanged(e);
         }
         else
         {
@@ -60,9 +60,11 @@ namespace MyLib.MultiThreadingObjects
           DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { e });
         }
       }
+      else
+        AfterCollectionChanged(e);
     }
 
-    protected virtual void NotifyCountChanged()
+    protected virtual void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
       NotifyPropertyChanged("Count");
     }

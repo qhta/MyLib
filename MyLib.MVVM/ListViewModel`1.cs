@@ -12,11 +12,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using MyLib.MultiThreadingObjects;
 
 namespace MyLib.MVVM
 {
-  public class ListViewModel<ItemType> : DispatchedCollection<ItemType>
+  public class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged
          where ItemType : class, IValidated, ISelectable
   {
     public ListViewModel()
@@ -29,13 +30,6 @@ namespace MyLib.MVVM
     }
 
     public ViewModel ParentViewModel;
-
-    protected override void NotifyCountChanged()
-    {
-      base.NotifyCountChanged();
-      NotifyPropertyChanged("ValidItemsCount");
-      NotifyPropertyChanged("InvalidItemsCount");
-    }
 
     public ListViewModel<ItemType> Items => this;
 
@@ -68,6 +62,79 @@ namespace MyLib.MVVM
       {
         return Items.ToList().Where(item => item.IsValid==false).Count();
       }
+    }
+
+    protected override void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
+    {
+      base.AfterCollectionChanged(e);
+      NotifyPropertyChanged("ValidItemsCount");
+      NotifyPropertyChanged("InvalidItemsCount");
+      if (e.Action==NotifyCollectionChangedAction.Add)
+      {
+        foreach (var item in e.NewItems)
+          if (item is INotifyPropertyChanged notifyPropertyChangedItem)
+            notifyPropertyChangedItem.PropertyChanged+=Item_PropertyChanged;
+      }
+    }
+
+    private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      switch (e.PropertyName)
+      {
+        case "IsValid":
+          NotifyPropertyChanged("ValidItemsCount");
+          NotifyPropertyChanged("InvalidItemsCount");
+          break;
+        case "IsSelected":
+          NotifyPropertyChanged("SelectedItemsCount");
+          NotifySelectionChanged(sender);
+          break;
+      }
+    }
+
+    public void NotifySelectionChanged(object item)
+    {
+      List<object> selectedItems = new List<object>();
+      List<object> unselectedItems = new List<object>();
+      if (item is ISelectable selectable)
+      {
+        if (selectable.IsSelected)
+          selectedItems.Add(item);
+        else
+          unselectedItems.Add(item);
+      }
+      OnSelectionChanged(new SelectionChangedEventArgs(selectedItems, unselectedItems));
+    }
+
+    public event SelectionChangedEventHandler SelectionChanged
+    {
+      add { _SelectionChanged+=value; }
+      remove { _SelectionChanged-=value; }
+    }
+    protected event SelectionChangedEventHandler _SelectionChanged;
+
+    public virtual void OnSelectionChanged(SelectionChangedEventArgs e)
+    {
+      if (_SelectionChanged != null)
+      {
+        if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+        {
+          _SelectionChanged.Invoke(this, e);
+          AfterSelectionChanged(e);
+        }
+        else
+        {
+          var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
+          DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { e });
+        }
+      }
+      else
+        AfterSelectionChanged(e);
+    }
+
+    protected virtual void AfterSelectionChanged(SelectionChangedEventArgs e)
+    {
+      NotifyPropertyChanged("SelectedItem");
     }
 
   }

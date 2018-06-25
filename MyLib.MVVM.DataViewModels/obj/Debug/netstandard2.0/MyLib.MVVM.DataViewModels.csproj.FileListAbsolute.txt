@@ -49,3 +49,5 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyL
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Configuration.dll
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Configuration.xml
