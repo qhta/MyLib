@@ -10,7 +10,8 @@
       "MyLib.MVVM/1.0.0": {
         "dependencies": {
           "MyLib.MultiThreadingObjects": "1.0.0",
-          "NETStandard.Library": "2.0.1"
+          "NETStandard.Library": "2.0.1",
+          "WindowsBase": "4.0.0.0"
         },
         "runtime": {
           "MyLib.MVVM.dll": {}
@@ -25,6 +26,11 @@
       "MyLib.MultiThreadingObjects/1.0.0": {
         "runtime": {
           "MyLib.MultiThreadingObjects.dll": {}
+        }
+      },
+      "WindowsBase/4.0.0.0": {
+        "runtime": {
+          "WindowsBase.dll": {}
         }
       }
     }
@@ -51,6 +57,11 @@
     },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WindowsBase/4.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

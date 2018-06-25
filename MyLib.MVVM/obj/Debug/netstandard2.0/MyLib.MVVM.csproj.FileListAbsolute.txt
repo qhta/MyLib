@@ -6,11 +6,13 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\WindowsBase.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Xaml.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\Accessibility.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Security.dll
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Configuration.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\MyLib.MultiThreadingObjects.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\WindowsBase.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Xaml.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\Accessibility.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Security.xml
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Configuration.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.AssemblyInfoInputs.cache
@@ -18,5 +20,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.Assembl
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM\obj\Debug\netstandard2.0\MyLib.MVVM.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Configuration.dll
-D:\Dane\VS\Projects\MyLib\MyLib.MVVM\bin\Debug\netstandard2.0\System.Configuration.xml

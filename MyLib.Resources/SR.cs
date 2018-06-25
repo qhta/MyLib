@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Resources;
 using System.Threading;
 
-namespace MyLib.Resources
+namespace System
 {
   public sealed class SR
   {

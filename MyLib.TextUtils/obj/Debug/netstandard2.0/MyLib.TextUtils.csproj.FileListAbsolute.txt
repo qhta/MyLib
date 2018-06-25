@@ -9,6 +9,7 @@ D:\Dane\VS\Projects\MyLib\TextUtils\obj\Debug\netstandard2.0\MyLib.TextUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\bin\Debug\netstandard2.0\MyLib.TextUtils.deps.json
 D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\bin\Debug\netstandard2.0\MyLib.TextUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\bin\Debug\netstandard2.0\MyLib.TextUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\obj\Debug\netstandard2.0\MyLib.TextUtils.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\obj\Debug\netstandard2.0\MyLib.TextUtils.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\obj\Debug\netstandard2.0\MyLib.TextUtils.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.TextUtils\obj\Debug\netstandard2.0\MyLib.TextUtils.AssemblyInfo.cs

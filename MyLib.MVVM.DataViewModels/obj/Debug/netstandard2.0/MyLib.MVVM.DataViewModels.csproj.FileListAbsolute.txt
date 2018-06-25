@@ -33,6 +33,7 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\Sys
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\HtmlAgilityPack.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\Accessibility.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Security.dll
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Configuration.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.MVVM.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.WpfUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\MyLib.MultiThreadingObjects.pdb
@@ -42,6 +43,7 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\Win
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Xaml.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\Accessibility.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Security.xml
+D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Configuration.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.AssemblyInfoInputs.cache
@@ -49,5 +51,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyL
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\obj\Debug\netstandard2.0\MyLib.MVVM.DataViewModels.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Configuration.dll
-D:\Dane\VS\Projects\MyLib\MyLib.MVVM.DataViewModels\bin\Debug\netstandard2.0\System.Configuration.xml
