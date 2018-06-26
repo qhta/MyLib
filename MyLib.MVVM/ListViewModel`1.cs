@@ -137,5 +137,18 @@ namespace MyLib.MVVM
       NotifyPropertyChanged("SelectedItem");
     }
 
+    public ItemType CurrentItem
+    {
+      get => _CurrentItem;
+      set
+      {
+        if (_CurrentItem!=value)
+        {
+          _CurrentItem=value;
+          NotifyPropertyChanged("CurrentItem");
+        }
+      }
+    }
+    private ItemType _CurrentItem;
   }
 }

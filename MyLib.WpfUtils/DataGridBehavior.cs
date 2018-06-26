@@ -17,100 +17,100 @@ namespace MyLib.WpfUtils
   /// </summary>
   public static class DataGridBehavior
   {
-    #region DisplayRowNumberOffset
+    //#region DisplayRowNumberOffset
 
-    /// <summary>
-    /// Sets the starting value of the row header if enabled
-    /// </summary>
-    public static DependencyProperty DisplayRowNumberOffsetProperty =
-        DependencyProperty.RegisterAttached("DisplayRowNumberOffset",
-                                            typeof(int),
-                                            typeof(DataGridBehavior),
-                                            new FrameworkPropertyMetadata(0, OnDisplayRowNumberOffsetChanged));
+    ///// <summary>
+    ///// Sets the starting value of the row header if enabled
+    ///// </summary>
+    //public static DependencyProperty DisplayRowNumberOffsetProperty =
+    //    DependencyProperty.RegisterAttached("DisplayRowNumberOffset",
+    //                                        typeof(int),
+    //                                        typeof(DataGridBehavior),
+    //                                        new FrameworkPropertyMetadata(0, OnDisplayRowNumberOffsetChanged));
 
-    public static int GetDisplayRowNumberOffset(DependencyObject target)
-    {
-      return (int)target.GetValue(DisplayRowNumberOffsetProperty);
-    }
+    //public static int GetDisplayRowNumberOffset(DependencyObject target)
+    //{
+    //  return (int)target.GetValue(DisplayRowNumberOffsetProperty);
+    //}
 
-    public static void SetDisplayRowNumberOffset(DependencyObject target, int value)
-    {
-      target.SetValue(DisplayRowNumberOffsetProperty, value);
-    }
+    //public static void SetDisplayRowNumberOffset(DependencyObject target, int value)
+    //{
+    //  target.SetValue(DisplayRowNumberOffsetProperty, value);
+    //}
 
-    private static void OnDisplayRowNumberOffsetChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
-    {
-      DataGrid dataGrid = target as DataGrid;
-      int offset = (int)e.NewValue;
+    //private static void OnDisplayRowNumberOffsetChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    //{
+    //  DataGrid dataGrid = target as DataGrid;
+    //  int offset = (int)e.NewValue;
 
-      if (GetDisplayRowNumber(target))
-      {
-        GetVisualChildCollection<DataGridRow>(dataGrid).
-                ForEach(d => d.Header = d.GetIndex() + offset);
-      }
-    }
+    //  if (GetDisplayRowNumber(target))
+    //  {
+    //    GetVisualChildCollection<DataGridRow>(dataGrid).
+    //            ForEach(d => d.Header = d.GetIndex() + offset);
+    //  }
+    //}
 
-    #endregion
+    //#endregion
 
-    #region DisplayRowNumber
+    //#region DisplayRowNumber
 
-    /// <summary>
-    /// Enable display of row header automatically
-    /// </summary>
-    /// <remarks>
-    /// Source: 
-    /// </remarks>
-    public static DependencyProperty DisplayRowNumberProperty =
-        DependencyProperty.RegisterAttached("DisplayRowNumber",
-                                            typeof(bool),
-                                            typeof(DataGridBehavior),
-                                            new FrameworkPropertyMetadata(false, OnDisplayRowNumberChanged));
+    ///// <summary>
+    ///// Enable display of row header automatically
+    ///// </summary>
+    ///// <remarks>
+    ///// Source: 
+    ///// </remarks>
+    //public static DependencyProperty DisplayRowNumberProperty =
+    //    DependencyProperty.RegisterAttached("DisplayRowNumber",
+    //                                        typeof(bool),
+    //                                        typeof(DataGridBehavior),
+    //                                        new FrameworkPropertyMetadata(false, OnDisplayRowNumberChanged));
 
-    public static bool GetDisplayRowNumber(DependencyObject target)
-    {
-      return (bool)target.GetValue(DisplayRowNumberProperty);
-    }
+    //public static bool GetDisplayRowNumber(DependencyObject target)
+    //{
+    //  return (bool)target.GetValue(DisplayRowNumberProperty);
+    //}
 
-    public static void SetDisplayRowNumber(DependencyObject target, bool value)
-    {
-      target.SetValue(DisplayRowNumberProperty, value);
-    }
+    //public static void SetDisplayRowNumber(DependencyObject target, bool value)
+    //{
+    //  target.SetValue(DisplayRowNumberProperty, value);
+    //}
 
-    private static void OnDisplayRowNumberChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
-    {
-      DataGrid dataGrid = target as DataGrid;
-      if ((bool)e.NewValue == true)
-      {
-        int offset = GetDisplayRowNumberOffset(target);
+    //private static void OnDisplayRowNumberChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    //{
+    //  DataGrid dataGrid = target as DataGrid;
+    //  if ((bool)e.NewValue == true)
+    //  {
+    //    int offset = GetDisplayRowNumberOffset(target);
 
-        EventHandler<DataGridRowEventArgs> loadedRowHandler = null;
-        loadedRowHandler = (object sender, DataGridRowEventArgs ea) =>
-        {
-          if (GetDisplayRowNumber(dataGrid) == false)
-          {
-            dataGrid.LoadingRow -= loadedRowHandler;
-            return;
-          }
-          ea.Row.Header = ea.Row.GetIndex() + offset;
-        };
-        dataGrid.LoadingRow += loadedRowHandler;
+    //    EventHandler<DataGridRowEventArgs> loadedRowHandler = null;
+    //    loadedRowHandler = (object sender, DataGridRowEventArgs ea) =>
+    //    {
+    //      if (GetDisplayRowNumber(dataGrid) == false)
+    //      {
+    //        dataGrid.LoadingRow -= loadedRowHandler;
+    //        return;
+    //      }
+    //      ea.Row.Header = ea.Row.GetIndex() + offset;
+    //    };
+    //    dataGrid.LoadingRow += loadedRowHandler;
 
-        ItemsChangedEventHandler itemsChangedHandler = null;
-        itemsChangedHandler = (object sender, ItemsChangedEventArgs ea) =>
-        {
-          if (GetDisplayRowNumber(dataGrid) == false)
-          {
-            dataGrid.ItemContainerGenerator.ItemsChanged -= itemsChangedHandler;
-            return;
-          }
-          GetVisualChildCollection<DataGridRow>(dataGrid).
-              ForEach(d => d.Header = d.GetIndex() + offset);
-        };
-        dataGrid.ItemContainerGenerator.ItemsChanged += itemsChangedHandler;
-      }
-    }
+    //    ItemsChangedEventHandler itemsChangedHandler = null;
+    //    itemsChangedHandler = (object sender, ItemsChangedEventArgs ea) =>
+    //    {
+    //      if (GetDisplayRowNumber(dataGrid) == false)
+    //      {
+    //        dataGrid.ItemContainerGenerator.ItemsChanged -= itemsChangedHandler;
+    //        return;
+    //      }
+    //      GetVisualChildCollection<DataGridRow>(dataGrid).
+    //          ForEach(d => d.Header = d.GetIndex() + offset);
+    //    };
+    //    dataGrid.ItemContainerGenerator.ItemsChanged += itemsChangedHandler;
+    //  }
+    //}
 
-    #endregion // DisplayRowNumber
+    //#endregion // DisplayRowNumber
 
     #region ScrollIntoView
     public static readonly DependencyProperty ScrollIntoViewProperty = DependencyProperty.RegisterAttached(
