@@ -144,11 +144,33 @@ namespace MyLib.MVVM
       {
         if (_CurrentItem!=value)
         {
+          var oldValue = _CurrentItem;
           _CurrentItem=value;
           NotifyPropertyChanged("CurrentItem");
+          if (CurrentItemChanged!=null)
+            CurrentItemChanged(this, new CurrentItemChangedEventArgs(_CurrentItem, oldValue));
         }
       }
     }
     private ItemType _CurrentItem;
+
+    public event CurrentItemChangedEventHandler CurrentItemChanged;
+
+    public int SelectedIndex
+    {
+      get => _SelectedIndex;
+      set
+      {
+        if (_SelectedIndex!=value)
+        {
+          _SelectedIndex=value;
+          NotifyPropertyChanged("SelectedIndex");
+          if (_SelectedIndex>=0)
+            CurrentItem = Items.ToList()[_SelectedIndex];
+        }
+      }
+    }
+    private int _SelectedIndex = -1;
+
   }
 }

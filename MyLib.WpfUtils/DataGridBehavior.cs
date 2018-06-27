@@ -109,8 +109,43 @@ namespace MyLib.WpfUtils
     //    dataGrid.ItemContainerGenerator.ItemsChanged += itemsChangedHandler;
     //  }
     //}
-
     //#endregion // DisplayRowNumber
+
+    //#region IsSelectable
+    //public static readonly DependencyProperty IsSelectableProperty = DependencyProperty.RegisterAttached(
+    //    "IsSelectable",
+    //    typeof(object),
+    //    typeof(DataGridBehavior),
+    //    new PropertyMetadata(default(object), OnIsSelectableChanged));
+
+    //public static object GetIsSelectable(DependencyObject target)
+    //{
+    //  return (object)target.GetValue(IsSelectableProperty);
+    //}
+
+    //public static void SetIsSelectable(DependencyObject target, object value)
+    //{
+    //  target.SetValue(IsSelectableProperty, value);
+    //}
+
+    //static void OnIsSelectableChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+    //{
+    //  var dataGrid = sender as DataGrid;
+    //  if (dataGrid == null || e.NewValue == null)
+    //    return;
+    //  dataGrid.Dispatcher.Invoke((Action)(() =>
+    //  {
+    //    try
+    //    {
+    //      //dataGrid.SelectedIndex=-1;
+    //    }
+    //    catch
+    //    {
+    //    }
+    //  }));
+    //}
+
+    //#endregion IsSelectable
 
     #region ScrollIntoView
     public static readonly DependencyProperty ScrollIntoViewProperty = DependencyProperty.RegisterAttached(
