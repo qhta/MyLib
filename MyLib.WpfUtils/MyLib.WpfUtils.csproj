@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingEvaluator.cs" />
+    <Compile Include="DynamicResourceBinding.cs" />
+    <Compile Include="DynamicResource.cs" />
+    <Compile Include="DynamicResourceProvider.cs" />
     <Compile Include="SafeCollectionConverter.cs" />
     <Compile Include="ClipboardUtils.cs" />
     <Compile Include="ClipboardUtils.ClipboardMate.cs" />
