@@ -123,7 +123,7 @@ namespace MyLib.MultiThreadingObjects
         if (_HasItems!=value)
         {
           _HasItems=value;
-          NotifyPropertyChanged("HasItems");
+          NotifyPropertyChanged(nameof(HasItems));
         }
       }
     }

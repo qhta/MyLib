@@ -13,7 +13,7 @@ namespace MyLib.MVVM
     public bool IsOpened
     {
       get => _IsOpened;
-      set { if (_IsOpened!=value) { _IsOpened = value; NotifyPropertyChanged("IsOpened"); } }
+      set { if (_IsOpened!=value) { _IsOpened = value; NotifyPropertyChanged(nameof(IsOpened)); } }
     }
     private bool _IsOpened;
     private bool _IsOpening;

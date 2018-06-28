@@ -66,7 +66,7 @@ namespace MyLib.MultiThreadingObjects
 
     protected virtual void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-      NotifyPropertyChanged("Count");
+      NotifyPropertyChanged(nameof(Count));
     }
 
     bool inAddRange;

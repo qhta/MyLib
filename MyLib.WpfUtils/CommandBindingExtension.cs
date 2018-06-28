@@ -26,8 +26,7 @@ namespace MyLib.WpfUtils
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
-      IProvideValueTarget provideValueTarget = serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
-      if (provideValueTarget != null)
+      if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IProvideValueTarget provideValueTarget)
       {
         targetObject = provideValueTarget.TargetObject;
         targetProperty = provideValueTarget.TargetProperty;
@@ -36,7 +35,7 @@ namespace MyLib.WpfUtils
       if (!string.IsNullOrEmpty(CommandName))
       {
         // The serviceProvider is actually a ProvideValueServiceProvider, which has a private field "_context"of type ParserContext
-        ParserContext parserContext = GetPrivateFieldValue<ParserContext>(serviceProvider, "_context");
+        var parserContext = GetPrivateFieldValue<ParserContext>(serviceProvider, "_context");
         if (parserContext != null)
         {
           // A ParserContext has a private field "_rootElement", which returns the root element of the XAML file
@@ -50,7 +49,7 @@ namespace MyLib.WpfUtils
             // so we handle the DataContextChanged event to update the Command when needed
             if (!dataContextChangeHandlerSet)
             {
-              rootElement.DataContextChanged += new DependencyPropertyChangedEventHandler(rootElement_DataContextChanged);
+              rootElement.DataContextChanged += new DependencyPropertyChangedEventHandler(RootElement_DataContextChanged);
               dataContextChangeHandlerSet = true;
             }
 
@@ -86,8 +85,8 @@ namespace MyLib.WpfUtils
       {
         if (targetProperty is DependencyProperty)
         {
-          DependencyObject depObj = targetObject as DependencyObject;
-          DependencyProperty depProp = targetProperty as DependencyProperty;
+          var depObj = targetObject as DependencyObject;
+          var depProp = targetProperty as DependencyProperty;
           depObj.SetValue(depProp, command);
         }
         else
@@ -98,8 +97,9 @@ namespace MyLib.WpfUtils
       }
     }
 
-    private bool dataContextChangeHandlerSet = false;
-    private void rootElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    private bool dataContextChangeHandlerSet;
+
+    private void RootElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
       FrameworkElement rootElement = sender as FrameworkElement;
       if (rootElement != null)

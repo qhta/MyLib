@@ -15,7 +15,11 @@ namespace MyLib.WpfUtils
         Color color = ColorDictionary[value.ToString()];
         return new SolidColorBrush { Color = color };
       }
-      else return new SolidColorBrush { Color = Colors.Transparent };
+      else
+      {
+        Color color = ColorDictionary["True"];
+        return new SolidColorBrush { Color = color };
+      }
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

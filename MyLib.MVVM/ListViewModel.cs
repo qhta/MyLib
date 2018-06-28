@@ -19,7 +19,7 @@ namespace MyLib.MVVM
         if (_Orientation!=value)
         {
           _Orientation=value;
-          NotifyPropertyChanged("Orientation");
+          NotifyPropertyChanged(nameof(Orientation));
         }
       }
     }
@@ -33,7 +33,7 @@ namespace MyLib.MVVM
     //    if (_SortedBy!=value)
     //    {
     //      _SortedBy=value;
-    //      NotifyPropertyChanged("SortedBy");
+    //      NotifyPropertyChanged(nameof(SortedBy));
     //    }
     //  }
     //}

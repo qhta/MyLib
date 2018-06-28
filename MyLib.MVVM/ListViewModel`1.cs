@@ -17,33 +17,24 @@ using MyLib.MultiThreadingObjects;
 
 namespace MyLib.MVVM
 {
-  public class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged
+  public partial class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged
          where ItemType : class, IValidated, ISelectable
   {
     public ListViewModel()
     {
     }
 
-    public ListViewModel(ViewModel parentViewModel): this()
-    {
-      ParentViewModel = parentViewModel;
-    }
-
-    public ViewModel ParentViewModel;
-
-    public ListViewModel<ItemType> Items => this;
-
     public ItemType SelectedItem
     {
       get
       {
         ItemType selectedItem = null;
-        selectedItem = Items.ToList().Where(item => item.IsSelected).FirstOrDefault();
+        selectedItem = Values.ToList().FirstOrDefault(item => item.IsSelected);
         return selectedItem;
       }
       set
       {
-        foreach (var item in Items.ToList())
+        foreach (var item in Values.ToList())
           item.IsSelected = item.Equals(value);
       }
     }
@@ -52,7 +43,7 @@ namespace MyLib.MVVM
     {
       get
       {
-        return Items.ToList().Where(item => item.IsValid==true).Count();
+        return Values.ToList().Where(item => item.IsValid==true).Count();
       }
     }
 
@@ -60,15 +51,15 @@ namespace MyLib.MVVM
     {
       get
       {
-        return Items.ToList().Where(item => item.IsValid==false).Count();
+        return Values.ToList().Where(item => item.IsValid==false).Count();
       }
     }
 
     protected override void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
       base.AfterCollectionChanged(e);
-      NotifyPropertyChanged("ValidItemsCount");
-      NotifyPropertyChanged("InvalidItemsCount");
+      NotifyPropertyChanged(nameof(ValidItemsCount));
+      NotifyPropertyChanged(nameof(InvalidItemsCount));
       if (e.Action==NotifyCollectionChangedAction.Add)
       {
         foreach (var item in e.NewItems)
@@ -82,12 +73,13 @@ namespace MyLib.MVVM
       switch (e.PropertyName)
       {
         case "IsValid":
-          NotifyPropertyChanged("ValidItemsCount");
-          NotifyPropertyChanged("InvalidItemsCount");
+          NotifyPropertyChanged(nameof(ValidItemsCount));
+          NotifyPropertyChanged(nameof(InvalidItemsCount));
           break;
         case "IsSelected":
-          NotifyPropertyChanged("SelectedItemsCount");
           NotifySelectionChanged(sender);
+          break;
+        default:
           break;
       }
     }
@@ -134,7 +126,7 @@ namespace MyLib.MVVM
 
     protected virtual void AfterSelectionChanged(SelectionChangedEventArgs e)
     {
-      NotifyPropertyChanged("SelectedItem");
+      NotifyPropertyChanged(nameof(SelectedItem));
     }
 
     public ItemType CurrentItem
@@ -146,7 +138,7 @@ namespace MyLib.MVVM
         {
           var oldValue = _CurrentItem;
           _CurrentItem=value;
-          NotifyPropertyChanged("CurrentItem");
+          NotifyPropertyChanged(nameof(CurrentItem));
           if (CurrentItemChanged!=null)
             CurrentItemChanged(this, new CurrentItemChangedEventArgs(_CurrentItem, oldValue));
         }
@@ -164,9 +156,9 @@ namespace MyLib.MVVM
         if (_SelectedIndex!=value)
         {
           _SelectedIndex=value;
-          NotifyPropertyChanged("SelectedIndex");
+          NotifyPropertyChanged(nameof(SelectedIndex));
           if (_SelectedIndex>=0)
-            CurrentItem = Items.ToList()[_SelectedIndex];
+            CurrentItem = Values.ToList()[_SelectedIndex];
         }
       }
     }

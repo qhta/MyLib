@@ -26,7 +26,7 @@ namespace MyLib.MVVM
 
     IEnumerable<object> Items { get; }
 
-    object SelectedItem { get; set; }
+    object CurrentItem { get; set; }
     IEnumerable<object> SelectedItems { get; set; }
 
     void SelectAll(bool select);

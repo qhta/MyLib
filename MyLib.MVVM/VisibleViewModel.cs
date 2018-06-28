@@ -14,7 +14,7 @@ namespace MyLib.MVVM
         if (_IsVisible!=value)
         {
           _IsVisible = value;
-          NotifyPropertyChanged("IsVisible");
+          NotifyPropertyChanged(nameof(IsVisible));
         }
       }
     }
@@ -28,7 +28,7 @@ namespace MyLib.MVVM
         if (_HasRowDetails!=value)
         {
           _HasRowDetails = value;
-          NotifyPropertyChanged("HasRowDetails");
+          NotifyPropertyChanged(nameof(HasRowDetails));
         }
       }
     }
@@ -42,7 +42,7 @@ namespace MyLib.MVVM
         if (_IsExpanded!=value)
         {
           _IsExpanded = value;
-          NotifyPropertyChanged("IsExpanded");
+          NotifyPropertyChanged(nameof(IsExpanded));
         }
       }
     }
@@ -56,7 +56,7 @@ namespace MyLib.MVVM
         if (_IsSelected!=value)
         {
           _IsSelected = value;
-          NotifyPropertyChanged("IsSelected");
+          NotifyPropertyChanged(nameof(IsSelected));
         }
       }
     }
