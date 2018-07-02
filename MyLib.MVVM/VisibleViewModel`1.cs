@@ -10,12 +10,12 @@ namespace MyLib.MVVM
     {
     }
 
-    public VisibleViewModel(ViewModel parentViewModel)
+    public VisibleViewModel(IViewModel parentViewModel)
     {
       ParentViewModel = parentViewModel;
     }
 
-    public ViewModel ParentViewModel { get; private set; }
+    public IViewModel ParentViewModel { get; private set; }
 
     public ItemType Model { get; set; }
 

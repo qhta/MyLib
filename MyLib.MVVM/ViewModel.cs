@@ -4,7 +4,7 @@ using MyLib.MultiThreadingObjects;
 
 namespace MyLib.MVVM
 {
-  public class ViewModel : DispatchedObject, IValidated, INotifyPropertyChanged
+  public class ViewModel : DispatchedObject, IValidated, INotifyPropertyChanged, IViewModel
   {
     public new void NotifyPropertyChanged(string propertyName)
     {

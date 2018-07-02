@@ -10,7 +10,7 @@ namespace MyLib.MVVM
   {
     Type GetItemType();
 
-    ViewModel ParentViewModel { get; }
+    IViewModel ParentViewModel { get; }
 
     string SortedBy { get; set; }
 

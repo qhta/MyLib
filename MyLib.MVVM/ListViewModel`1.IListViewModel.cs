@@ -11,13 +11,6 @@ namespace MyLib.MVVM
   public partial class ListViewModel<ItemType>: IListViewModel
   {
 
-    public ListViewModel(ViewModel parentViewModel) : this()
-    {
-      ParentViewModel = parentViewModel;
-    }
-
-    public ViewModel ParentViewModel { get; private set; }
-
     Action FindNextItemDelegate;
 
     public void FindNextItem()

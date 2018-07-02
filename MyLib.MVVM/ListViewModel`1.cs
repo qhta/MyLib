@@ -17,12 +17,19 @@ using MyLib.MultiThreadingObjects;
 
 namespace MyLib.MVVM
 {
-  public partial class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged
+  public partial class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged, IViewModel, ISelectable
          where ItemType : class, IValidated, ISelectable
   {
     public ListViewModel()
     {
     }
+
+    public ListViewModel(IViewModel parentViewModel) : this()
+    {
+      ParentViewModel = parentViewModel;
+    }
+
+    public IViewModel ParentViewModel { get; private set; }
 
     public ItemType SelectedItem
     {
@@ -162,6 +169,21 @@ namespace MyLib.MVVM
         }
       }
     }
+
+    public bool IsSelected
+    {
+      get => _IsSelected;
+      set
+      {
+        if (_IsSelected!=value)
+        {
+          _IsSelected = value;
+          NotifyPropertyChanged(nameof(IsSelected));
+        }
+      }
+    }
+    private bool _IsSelected = false;
+
     private int _SelectedIndex = -1;
 
   }
