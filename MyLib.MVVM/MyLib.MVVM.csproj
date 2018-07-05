@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyLib.MultiThreadingObjects\MyLib.MultiThreadingObjects.csproj" />
+    <ProjectReference Include="..\MyLib.OrdNumbers\MyLib.OrdNumbers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

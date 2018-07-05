@@ -49,7 +49,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "MyLib.MultiThreadingObjects": "1.0.0"
+          "MyLib.MultiThreadingObjects": "1.0.0",
+          "MyLib.OrdNumbers": "1.0.0"
         },
         "compile": {
           "bin/placeholder/MyLib.MVVM.dll": {}

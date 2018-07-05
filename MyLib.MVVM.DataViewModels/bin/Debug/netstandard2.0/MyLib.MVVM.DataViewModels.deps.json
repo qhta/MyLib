@@ -35,7 +35,8 @@
       },
       "MyLib.MVVM/1.0.0": {
         "dependencies": {
-          "MyLib.MultiThreadingObjects": "1.0.0"
+          "MyLib.MultiThreadingObjects": "1.0.0",
+          "MyLib.OrdNumbers": "1.0.0"
         },
         "runtime": {
           "MyLib.MVVM.dll": {}

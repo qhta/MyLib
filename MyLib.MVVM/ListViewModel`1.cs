@@ -70,8 +70,12 @@ namespace MyLib.MVVM
       if (e.Action==NotifyCollectionChangedAction.Add)
       {
         foreach (var item in e.NewItems)
+        {
           if (item is INotifyPropertyChanged notifyPropertyChangedItem)
             notifyPropertyChangedItem.PropertyChanged+=Item_PropertyChanged;
+          if (item is INumbered numberedItem)
+            numberedItem.Number=Values.Count();
+        }
       }
     }
 

@@ -5,5 +5,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.csproj.CoreC
 D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\MyLib.HtmlUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\MyLib.HtmlUtils.dll.CodeAnalysisLog.xml
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\MyLib.HtmlUtils.dll.lastcodeanalysissucceeded
