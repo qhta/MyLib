@@ -12,8 +12,11 @@ namespace MyLib.OrdNumbers
   /// <class refID="ORDNUM_001"/>
   /// <summary>
   ///   Klasa reprezentująca liczbę porządkową składającą się z segmentów.
-  ///   Segmenty są liczbami całkowitymi z zakresu od 0 do 65535 oddzielonymi kropkami.
-  ///   Każdy segment może mieć wariant oznaczany literą od a do z.
+  ///   Segmenty są liczbami całkowitymi z zakresu od 0 do 16777215 oddzielonymi kropkami.
+  ///   Każdy segment może mieć wariant oznaczany literą od "a" do "z".
+  ///   Wariant "a" ma wartość 1, "z" ma wartość 26.
+  ///   Jeśli segment ma więcej wariantów niż 26, to kolejne warianty są oznaczane jako
+  ///   "aa", "ab", "ac".."iu" (maksymalna wartość wariantu to 255).
   /// </summary>
   [TypeConverter(typeof(OrdNumTypeConverter))]
   public sealed class OrdNum : IEnumerable<OrdNumSegment>, IComparable, ICollection<OrdNumSegment>
@@ -21,20 +24,21 @@ namespace MyLib.OrdNumbers
 
     #region komunikaty błędów
 
-    private const string sDigitNotAllowedAfterLetter = "Digit not allowed after letter in ordinal number \"{0}\"";
-    private const string sInvalidCharInOrdNumString = "Invalid char '{0:c}' in ordinal number \"{1}\"";
-    private const string sInvalidOrdNumString = "Invalid ordinal number \"{0}\" string";
-    private const string sTwoLettersShouldBeSeparated =
+    internal const string sDigitNotAllowedAfterLetter = "Digit not allowed after letter in ordinal number \"{0}\"";
+    internal const string sInvalidCharInOrdNumString = "Invalid char '{0:c}' in ordinal number \"{1}\"";
+    internal const string sInvalidOrdNumString = "Invalid ordinal number \"{0}\" string";
+    internal const string sOrdNumVariantTooHigh = "OrdNum Variant string value \"{0}\" too high";
+    internal const string sTwoLettersShouldBeSeparated =
                                  "Two letters in ordinal number \"{0}\" should be separated by decimal number";
-    private const string sCantConvertToIntValue = "Can't convert ord number \"{0}\" to integer value";
-    private const string sCantConvertToRealValue = "Can't convert ord number \"{0}\" to real value";
-    private const string sCantConvertToDecimalValue = "Can't convert ord number \"{0}\" to decimal value";
-    private const string sCantDecrementEmptyOrdNum = "Can't decrement empty ord number";
+    internal const string sCantConvertToIntValue = "Can't convert ord number \"{0}\" to integer value";
+    internal const string sCantConvertToRealValue = "Can't convert ord number \"{0}\" to real value";
+    internal const string sCantConvertToDecimalValue = "Can't convert ord number \"{0}\" to decimal value";
+    internal const string sCantDecrementEmptyOrdNum = "Can't decrement empty ord number";
 
     #endregion
 
     /// <summary>Wewnętrzna tablica segmentów</summary>
-    private OrdNumSegment[] fValue = new OrdNumSegment[0];
+    private OrdNumSegment[] fValues = new OrdNumSegment[0];
 
     #region konstruktory
 
@@ -44,8 +48,8 @@ namespace MyLib.OrdNumbers
     /// <summary>Konstruktor kopiujący</summary>
     public OrdNum(OrdNum a) 
     {
-      fValue = new OrdNumSegment[a.Count];
-      a.fValue.CopyTo(fValue, 0);
+      fValues = new OrdNumSegment[a.Count];
+      a.fValues.CopyTo(fValues, 0);
     }
 
     /// <summary>Konstruktor z wartością całkowitą (0..255)</summary>
@@ -65,7 +69,7 @@ namespace MyLib.OrdNumbers
     #region konwersja liczby porządkowe - liczby całkowite
 
     /// <summary>Czy ma wartość całkowitą?</summary>
-    public bool HasIntValue() { return (fValue.Length == 1) && (fValue[0].Variant == 0); }
+    public bool HasIntValue() { return (fValues.Length == 1) && (fValues[0].Variant == 0); }
 
     /// <summary>Wartość całkowita liczby porządkowej</summary>
     public int AsInt { get { return GetAsInt(); } set { SetAsInt(value); } }
@@ -73,15 +77,15 @@ namespace MyLib.OrdNumbers
     /// <summary>Wpisuje wartość całkowitą do liczby porządkowej</summary>
     public void SetAsInt(int value)
     {
-      fValue = new OrdNumSegment[1];
-      fValue[0] = new OrdNumSegment(value);
+      fValues = new OrdNumSegment[1];
+      fValues[0] = new OrdNumSegment(value);
     }
 
     /// <summary>Podaje wartość całkowitą liczby porządkowej</summary>
     public int GetAsInt()
     {
-      if ((fValue.Length == 1) && (fValue[0].Variant == 0))
-        return (fValue[0].Value);
+      if ((fValues.Length == 1) && (fValues[0].Variant == 0))
+        return (fValues[0].Value);
       else
         throw new InvalidOperationException(String.Format(sCantConvertToIntValue, ToString()));
     }
@@ -93,16 +97,16 @@ namespace MyLib.OrdNumbers
     /// <summary>Czy ma wartość rzeczywistą?</summary>
     public bool HasRealValue()
     {
-      if (fValue.Length > 0)
+      if (fValues.Length > 0)
       {
-        if (fValue[0].Variant != 0)
+        if (fValues[0].Variant != 0)
           return false;
-        if (fValue.Length > 2)
+        if (fValues.Length > 2)
           return false;
-        if (fValue[0].Variant != 0)
+        if (fValues[0].Variant != 0)
           return false;
-        if (fValue.Length == 2)
-          if (fValue[1].Variant != 0)
+        if (fValues.Length == 2)
+          if (fValues[1].Variant != 0)
             return false;
         return true;
       }
@@ -116,8 +120,8 @@ namespace MyLib.OrdNumbers
     /// <summary>Wpisuje wartość rzeczywistą do liczby porządkowej</summary>
     public void SetAsReal(double value)
     {
-      fValue = new OrdNumSegment[2];
-      fValue[0] = new OrdNumSegment((int)value);
+      fValues = new OrdNumSegment[2];
+      fValues[0] = new OrdNumSegment((int)value);
       value = value - (int)value;
       string s = String.Format(CultureInfo.InvariantCulture, "{0:f8}", value);
       int n = s.IndexOf('.');
@@ -128,18 +132,18 @@ namespace MyLib.OrdNumbers
         else
           break;
       n = Int32.Parse(s);
-      fValue[1] = new OrdNumSegment(n);
+      fValues[1] = new OrdNumSegment(n);
     }
 
     /// <summary>Podaje wartość rzeczywistą liczby porządkowej</summary>
     public double GetAsReal()
     {
-      if (fValue.Length > 0)
+      if (fValues.Length > 0)
       {
-        double result = fValue[0].fValue;
-        for (int i = 1; i < fValue.Length; i++)
+        double result = fValues[0].Value;
+        for (int i = 1; i < fValues.Length; i++)
         {
-          result += fValue[i].fValue / Math.Pow(100, i);
+          result += fValues[i].Value / Math.Pow(100, i);
         }
         return result;
       }
@@ -147,7 +151,6 @@ namespace MyLib.OrdNumbers
         throw new InvalidOperationException(String.Format(sCantConvertToRealValue, ToString()));
     }
     #endregion
-
 
     #region konwersja liczby porządkowe - liczby dziesiętne
 
@@ -163,8 +166,8 @@ namespace MyLib.OrdNumbers
     /// <summary>Wpisuje wartość dziesiętną do liczby porządkowej</summary>
     public void FromDecimal(decimal value)
     {
-      fValue = new OrdNumSegment[2];
-      fValue[0]=(new OrdNumSegment((int)value));
+      fValues = new OrdNumSegment[2];
+      fValues[0]=(new OrdNumSegment((int)value));
       value = value - (int)value;
       string s = String.Format(CultureInfo.InvariantCulture, "{0:f28}", value);
       int n = s.IndexOf('.');
@@ -175,25 +178,25 @@ namespace MyLib.OrdNumbers
         else
           break;
       n = Int32.Parse(s);
-      fValue[1] = (new OrdNumSegment(n));
+      fValues[1] = (new OrdNumSegment(n));
     }
 
     /// <summary>Podaje wartość dziesiętną liczby porządkowej</summary>
     public decimal ToDecimal()
     {
       decimal result;
-      if (fValue.Length > 0)
+      if (fValues.Length > 0)
       {
-        if (fValue[0].Variant != 0)
+        if (fValues[0].Variant != 0)
           throw new InvalidOperationException(String.Format(sCantConvertToDecimalValue, ToString()));
-        result = fValue[0].Value;
-        if (fValue.Length > 2)
+        result = fValues[0].Value;
+        if (fValues.Length > 2)
           throw new InvalidOperationException(String.Format(sCantConvertToDecimalValue, ToString()));
-        if (fValue.Length == 2)
+        if (fValues.Length == 2)
         {
-          if (fValue[1].Variant != 0)
+          if (fValues[1].Variant != 0)
             throw new InvalidOperationException(String.Format(sCantConvertToDecimalValue, ToString()));
-          string s = fValue[0].Value.ToString() + '.' + fValue[1].Value;
+          string s = fValues[0].Value.ToString() + '.' + fValues[1].Value;
           result = Decimal.Parse(s, CultureInfo.InvariantCulture);
         }
         return result;
@@ -241,11 +244,11 @@ namespace MyLib.OrdNumbers
     /// <summary>Wpisuje wartość tekstową do liczby porządkowej</summary>
     public void SetAsString(string value)
     {
-      fValue = new OrdNumSegment[0];
+      fValues = new OrdNumSegment[0];
       if (String.IsNullOrEmpty(value))
         return;
       string[] ss = value.Split('.');
-      fValue = new OrdNumSegment[ss.Length];
+      fValues = new OrdNumSegment[ss.Length];
       for (int i = 0; i < ss.Length; i++)
       {
         string s = ss[i];
@@ -275,7 +278,7 @@ namespace MyLib.OrdNumbers
           int n = Int32.Parse(sn);
           if (sa == "")
             sa = null;
-          fValue[i] = (new OrdNumSegment(n, sa));
+          fValues[i] = (new OrdNumSegment(n, sa));
         }
         else
           throw new InvalidOperationException(String.Format(sInvalidOrdNumString, value));
@@ -286,7 +289,7 @@ namespace MyLib.OrdNumbers
     public override string ToString()
     {
       string result = "";
-      foreach (OrdNumSegment seg in fValue)
+      foreach (OrdNumSegment seg in fValues)
       {
         if (result != "")
           result += '.';
@@ -502,9 +505,9 @@ namespace MyLib.OrdNumbers
     public static OrdNum operator |(OrdNum a, int n)
     {
       OrdNum result = new OrdNum();
-      result.fValue = new OrdNumSegment[a.Count+1];
-      a.fValue.CopyTo(result.fValue, 0);
-      result.fValue[a.Count] = new OrdNumSegment(n);
+      result.fValues = new OrdNumSegment[a.Count+1];
+      a.fValues.CopyTo(result.fValues, 0);
+      result.fValues[a.Count] = new OrdNumSegment(n);
       return result;
     }
 
@@ -512,23 +515,23 @@ namespace MyLib.OrdNumbers
     public static OrdNum operator |(OrdNum a, string s)
     {
       OrdNum result = new OrdNum();
-      result.fValue = new OrdNumSegment[a.Count + 1];
-      a.fValue.CopyTo(result.fValue, 0);
-      result.fValue[a.Count] = new OrdNumSegment(s);
+      result.fValues = new OrdNumSegment[a.Count + 1];
+      a.fValues.CopyTo(result.fValues, 0);
+      result.fValues[a.Count] = new OrdNumSegment(s);
       return result;
     }
 
     /// <summary>Ustawia wariant na ostatnim segmencie liczby porządkowej</summary>
     /// <param name="a">wejściowa liczba porządkowa</param>
     /// <param name="n">wartość wariantu 1='a', 2='b' itd.</param>
-    public static OrdNum operator &(OrdNum a, int n)
+    public static OrdNum operator &(OrdNum a, byte n)
     {
       OrdNum result;
       if (a.Count > 0)
         result = new OrdNum(a);
       else
         result = new OrdNum(0);
-      result.fValue[result.Count - 1].fVariant = (byte)n;
+      result.fValues[result.Count - 1].Variant = n;
       return result;
     }
 
@@ -537,13 +540,13 @@ namespace MyLib.OrdNumbers
     /// <param name="s">wartość tekstowa wariantu "a"=1, "b"=2 itd.</param>
     public static OrdNum operator &(OrdNum a, string s)
     {
-      int n = OrdNumSegment.StrToVariant(s);
+      byte n = OrdNumSegment.StrToVariant(s);
       OrdNum result;
       if (a.Count > 0)
         result = new OrdNum(a);
       else
         result = new OrdNum(0);
-      result.fValue[result.Count - 1].fVariant = (byte)n;
+      result.fValues[result.Count - 1].Variant = n;
       return result;
     }
 
@@ -555,7 +558,7 @@ namespace MyLib.OrdNumbers
       if (a.Count > 0)
       {
         OrdNum result = new OrdNum(a);
-        result.fValue[result.Count-1].fValue++;
+        result.fValues[result.Count-1].Value+=1;
         return result;
       }
       else
@@ -570,7 +573,7 @@ namespace MyLib.OrdNumbers
       if (a.Count > 0)
       {
         OrdNum result = new OrdNum(a);
-        result.fValue[result.Count - 1].fValue += (byte)n;
+        result.fValues[result.Count - 1].Value += n;
         return result;
       }
       else
@@ -585,7 +588,7 @@ namespace MyLib.OrdNumbers
       if (a.Count > 0)
       {
         OrdNum result = new OrdNum(a);
-        result.fValue[result.Count - 1].fValue--;
+        result.fValues[result.Count - 1].Value-=1;
         return result;
       }
       else
@@ -600,7 +603,7 @@ namespace MyLib.OrdNumbers
       if (a.Count > 0)
       {
         OrdNum result = new OrdNum(a);
-        result.fValue[result.Count - 1].fValue -= (byte)n;
+        result.fValues[result.Count - 1].Value -= n;
         return result;
       }
       else
@@ -610,79 +613,79 @@ namespace MyLib.OrdNumbers
     /// <summary>
     ///   Zwiększa wariant ostatniego segmentu o n.
     /// </summary>
-    public static OrdNum operator *(OrdNum a, int n)
+    public static OrdNum operator *(OrdNum a, byte n)
     {
       OrdNum result;
       if (a.Count > 0)
         result = new OrdNum(a);
       else
         result = new OrdNum(0);
-      result.fValue[result.Count - 1].fVariant += (byte)n;
+      result.fValues[result.Count - 1].Variant += n;
       return result;
     }
 
     /// <summary>
     ///   Zmniejsza wariant ostatniego segmentu o n.
     /// </summary>
-    public static OrdNum operator /(OrdNum a, int n)
+    public static OrdNum operator /(OrdNum a, byte n)
     {
       OrdNum result;
       if (a.Count > 0)
         result = new OrdNum(a);
       else
         throw new InvalidOperationException(sCantDecrementEmptyOrdNum);
-      result.fValue[result.Count - 1].fVariant -= (byte)n;
+      result.fValues[result.Count - 1].Variant -= n;
       return result;
     }
 
     /// <summary>Funkcja mieszania</summary>
     public override int GetHashCode() { return ToString().GetHashCode(); }
 
-    IEnumerator IEnumerable.GetEnumerator() { return fValue.GetEnumerator(); }
-    IEnumerator<OrdNumSegment> IEnumerable<OrdNumSegment>.GetEnumerator() { return fValue.GetEnumerator() as IEnumerator<OrdNumSegment>; }
+    IEnumerator IEnumerable.GetEnumerator() { return fValues.GetEnumerator(); }
+    IEnumerator<OrdNumSegment> IEnumerable<OrdNumSegment>.GetEnumerator() { return fValues.GetEnumerator() as IEnumerator<OrdNumSegment>; }
 
     public void Add(OrdNumSegment item)
     {
-      ((ICollection<OrdNumSegment>)fValue).Add(item);
+      ((ICollection<OrdNumSegment>)fValues).Add(item);
     }
 
     public void Clear()
     {
-      ((ICollection<OrdNumSegment>)fValue).Clear();
+      ((ICollection<OrdNumSegment>)fValues).Clear();
     }
 
     public bool Contains(OrdNumSegment item)
     {
-      return ((ICollection<OrdNumSegment>)fValue).Contains(item);
+      return ((ICollection<OrdNumSegment>)fValues).Contains(item);
     }
 
     public void CopyTo(OrdNumSegment[] array, int arrayIndex)
     {
-      ((ICollection<OrdNumSegment>)fValue).CopyTo(array, arrayIndex);
+      ((ICollection<OrdNumSegment>)fValues).CopyTo(array, arrayIndex);
     }
 
     public bool Remove(OrdNumSegment item)
     {
-      return ((ICollection<OrdNumSegment>)fValue).Remove(item);
+      return ((ICollection<OrdNumSegment>)fValues).Remove(item);
     }
 
     /// <summary>Liczba segmentów</summary>
-    public int Count { get { return fValue.Length; } }
+    public int Count { get { return fValues.Length; } }
 
     /// <summary>Długość liczona w wartościach i wariantach</summary>
     public int Length 
     { 
       get 
       { 
-        int result=fValue.Length;
-        foreach (OrdNumSegment aSegment in fValue)
+        int result=fValues.Length;
+        foreach (OrdNumSegment aSegment in fValues)
           if (aSegment.Variant > 0)
             result++;
         return result;
       } 
     }
 
-    public bool IsReadOnly => ((ICollection<OrdNumSegment>)fValue).IsReadOnly;
+    public bool IsReadOnly => ((ICollection<OrdNumSegment>)fValues).IsReadOnly;
 
     /*
 /// <summary>Czy dana liczba zaczyna się od innej liczby</summary>
@@ -717,7 +720,7 @@ return true;
 }
 */
     /// <summary>Dostęp do pojedynczego segmentu</summary>
-    public OrdNumSegment this[int n] { get { return fValue[n]; } }
+    public OrdNumSegment this[int n] { get { return fValues[n]; } }
     #endregion
   }
 
@@ -728,22 +731,19 @@ return true;
   /// </summary>
   public struct OrdNumSegment
   {
+    public static int MaxValue = 0xFFFFFF;
+    static int Bias = 24;
+
     /// <summary>
     /// Wartość całkowita segmentu
     /// </summary>
-    internal UInt16 fValue;
-
-    /// <summary>
-    /// Wartość literowa wariantu segmentu.
-    /// Dla zaoszczędzenia miejsca pamiętana w formie znaku ASCII
-    /// </summary>
-    internal byte fVariant;
+    private int fValue;
 
     /// <summary>Konstruktor kopiujący</summary>
-    public OrdNumSegment(OrdNumSegment a) { fValue = a.fValue; fVariant = a.fVariant; }
+    public OrdNumSegment(OrdNumSegment a) { fValue = a.fValue; }
 
     /// <summary>Konstruktor z wartością całkowitą</summary>
-    public OrdNumSegment(int value) { fValue = (byte)value; fVariant = 0; }
+    public OrdNumSegment(int value) { fValue = value & MaxValue; }
 
     /// <summary>Konstruktor z wartością tekstową</summary>
     public OrdNumSegment(string s) 
@@ -760,67 +760,73 @@ return true;
           break;
         }
       }
-      fValue = (UInt16)n; 
-      fVariant = StrToVariant(s); 
+      fValue = n & MaxValue | (StrToVariant(s) << Bias); 
     }
 
     /// <summary>Konstruktor z wartością całkowitą i wariantem w postaci liczby całkowitej</summary>
-    public OrdNumSegment(int value, int variant) 
+    public OrdNumSegment(int value, byte variant) 
     { 
-      fValue = (UInt16)value; 
-      fVariant = (byte)variant; 
+      fValue = value & MaxValue | (variant << Bias);
     }
 
     /// <summary>Konstruktor z wartością całkowitą i wariantem w postaci tekstu: "a"=1.</summary>
     public OrdNumSegment(int value, string variant) 
-    { 
-      fValue = (UInt16)value;
-      fVariant = StrToVariant(variant); 
+    {
+      fValue = value & MaxValue | (StrToVariant(variant) << Bias);
     }
 
     /// <summary>Wartość całkowita segmentu</summary>
-    public int Value { get { return fValue; } set { fValue = (UInt16)value; } }
+    public int Value { get { return fValue & MaxValue; } set { fValue = value & MaxValue | (fValue & ~MaxValue); } }
 
     /// <summary>Wartość całkowita wariantu (0 - gdy brak)</summary>
-    public int Variant { get { return fVariant; } set { fVariant = (byte)value; } }
+    public byte Variant { get { return (byte)(fValue >> Bias); } set { fValue = (value << Bias) | (fValue & MaxValue); } }
 
     /// <summary>Wartość tekstowa wariantu (<c>null</c> - gdy brak)</summary>
-    public string VariantStr { get { return VariantToStr(fVariant); } set { fVariant = StrToVariant(value); } }
+    public string VariantStr { get { return VariantToStr(Variant); } set { Variant = StrToVariant(value); } }
 
     /// <summary>
-    ///   Konwersja wariantu na łańcuch. 0 = <c>null</c>, 1 = "A", 26 = "Z", 27 = "a", 58 = "z", else = "?"
+    ///   Konwersja wariantu na łańcuch. 0 = <c>null</c>, 1 = "a", 26 = "a", 27 = "aa", 28 = "ab" ... 255 = "iu"
     /// </summary>
-    public static string VariantToStr (int variant)
+    public static string VariantToStr (byte variant)
     {
       if (variant == 0)
         return null;
       if (variant >= 1 && variant <= 26)
-        return new String(new[]{(char)(variant - 1 +'A')});
-      if (variant >= 27 && variant <= 58)
-        return new String(new[] { (char)(variant -27 + 'a') });
-      return "?";
+        return new String(new[]{(char)(variant-1 +'a')});
+      byte high = (byte)((variant-1)/26);
+      byte low = (byte)((variant-1) % 26);
+      return new String(new[] { (char)(high +'a'), (char)(low + 'a') });
     }
 
     /// <summary>
-    ///   Konwersja łańcucha na wariant. <c>null</c> = 0, "A" = 1, "Z" = 26, "a" = 27, "z" = 58
+    ///   Konwersja łańcucha na wariant. <c>null</c> = 0, "a" = 1, "z" = 26, "aa" = 27 ... "iu" = 255
     /// </summary>
-    public static byte StrToVariant(string value)
+    public static byte StrToVariant(string str)
     {
       byte result;
-      if (String.IsNullOrEmpty(value))
+      if (String.IsNullOrEmpty(str))
         result = 0;
       else
       {
+        str = str.ToLowerInvariant();
         int val = 0;
-        char c = value[0];
-        if (c>='A' && c<='Z')
-          val = c - 'A';
+        char ch = str[0];
+        if (ch>='a' && ch<='z')
+          val = ch-'a' + 1;
         else
-        if (c >= 'a' && c <= 'z')
-          val = c - 'a'+26;
-        else
-          throw new InvalidOperationException(string.Format("Invalid OrdNum Variant string \"{0}\"", value));
-        result = (byte)(val + 1);
+          throw new InvalidOperationException(string.Format(OrdNum.sInvalidOrdNumString, str));
+        if (str.Length>1)
+        {
+          ch = str[1];
+          val = (val-1)*26;
+          if (ch>='a' && ch<='z')
+            val += ch-'a' + 1;
+          else
+            throw new InvalidOperationException(string.Format(OrdNum.sInvalidOrdNumString, str));
+        }
+        if (val>255)
+          throw new InvalidOperationException(string.Format(OrdNum.sOrdNumVariantTooHigh, str));
+        result = (byte)(val);
       }
       return result;
     }

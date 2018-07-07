@@ -74,7 +74,10 @@ namespace MyLib.MVVM
           if (item is INotifyPropertyChanged notifyPropertyChangedItem)
             notifyPropertyChangedItem.PropertyChanged+=Item_PropertyChanged;
           if (item is INumbered numberedItem)
-            numberedItem.Number=Values.Count();
+          {
+            if (numberedItem.Number==0)
+              numberedItem.Number=Values.Count();
+          }
         }
       }
     }
