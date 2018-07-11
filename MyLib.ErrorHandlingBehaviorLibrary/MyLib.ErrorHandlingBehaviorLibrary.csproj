@@ -8,8 +8,8 @@
     <ProjectGuid>{6DC3B128-0BEA-44A1-866A-044CA86101A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ErrorHandlingBehaviorLibrary</RootNamespace>
-    <AssemblyName>ErrorHandlingBehaviorLibrary</AssemblyName>
+    <RootNamespace>MyLib.ErrorHandlingBehaviorLibrary</RootNamespace>
+    <AssemblyName>MyLib.ErrorHandlingBehaviorLibrary</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

@@ -226,6 +226,7 @@ namespace MyLib.WpfTestUtils
             overallResult.FailedTestsCount += 1;
           }
         }
+        else 
         if (ex.InnerException is AssertInconclusiveException)
         {
           if (result != null)
@@ -237,6 +238,20 @@ namespace MyLib.WpfTestUtils
             if (overallResult.Outcome != UnitTestOutcome.Failed)
               overallResult.Outcome = UnitTestOutcome.Inconclusive;
           overallResult.InconclusiveTestsCount += 1;
+        }
+        else
+        {
+          if (result != null)
+          {
+            result.Outcome = UnitTestOutcome.Error;
+            result.Message = ex.InnerException.Message;
+          }
+          if (overallResult != null)
+          {
+            overallResult.Outcome = UnitTestOutcome.Failed;
+            overallResult.FailedTestsCount += 1;
+          }
+
         }
       }
       finally

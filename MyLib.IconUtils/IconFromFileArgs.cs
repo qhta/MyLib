@@ -75,13 +75,15 @@ namespace MyLib.IconUtils
     /// <summary>
     /// Wypełnienie czcionki
     /// </summary>
-    public Brush FontBrush { get; set; }
+    public string Color { get; set; }
 
     /// <summary>
     /// Funkcja skalująca rozmiar czcionki względem rozmiaru ikony.
     /// Domyślne skalowanie zapewnia, aby napis zmieścił się w obszarze ikony
     /// </summary>
-    public Func<float, float> FontSizeScaling { get; set; }
+    public Func<string, float, float> Scaling { get; set; }
+
+    public string Envelope { get; set; }
 
   }
 

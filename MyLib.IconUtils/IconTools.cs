@@ -91,6 +91,7 @@ namespace MyLib.IconUtils
         using (Icon drawingIcon = extractor.GetIconAt(0))
           AddImages(drawingIcon, result, args);
       }
+      result.OriginalImageType="EXT";
       return result;
     }
 
@@ -109,7 +110,7 @@ namespace MyLib.IconUtils
       var ext = System.IO.Path.GetExtension(filename);
       if (ext.StartsWith("."))
         ext = ext.Remove(0, 1);
-      result.OriginalImageType=ext.ToUpper();
+      result.OriginalImageType="EXT";
       if (System.IO.Path.GetExtension(filename).ToLower() == ".cdr")
         return result;
       try
@@ -516,9 +517,11 @@ namespace MyLib.IconUtils
       }
     }
 
-    public static Iconex GetIconFromFont(string fontName, char ch, int size, IconFromFontArgs args)
+
+    public static Iconex GetIconFromFont(string fontName, char ch, int size, IconFromFontArgs args=null)
     {
       Iconex icon = new Iconex();
+      icon.OriginalImageType="FNT";
       if (Char.IsLetterOrDigit(ch))
         icon.Name = new string(ch, 1);
       Bitmap image = GetImageFromFont(fontName, ch, size, args);
@@ -526,9 +529,10 @@ namespace MyLib.IconUtils
       return icon;
     }
 
-    public static Iconex GetIconFromFont(string fontName, char ch, int[] sizes, IconFromFontArgs args)
+    public static Iconex GetIconFromFont(string fontName, char ch, int[] sizes, IconFromFontArgs args=null)
     {
       Iconex icon = new Iconex();
+      icon.OriginalImageType="FNT";
       if (Char.IsLetterOrDigit(ch))
         icon.Name = new string(ch, 1);
       foreach (int size in sizes)
@@ -544,19 +548,21 @@ namespace MyLib.IconUtils
       return GetImageFromFont(fontName, new string(ch, 1), size, args);
     }
 
-    public static Iconex GetIconFromFont(string fontName, string str, int size, IconFromFontArgs args)
+    public static Iconex GetIconFromFont(string fontName, string str, int size, IconFromFontArgs args = null)
     {
       Iconex icon = new Iconex();
       icon.Name = str;
+      icon.OriginalImageType="FNT";
       Bitmap image = GetImageFromFont(fontName, str, size, args);
       icon.AddImage(size, image);
       return icon;
     }
 
-    public static Iconex GetIconFromFont(string fontName, string str, int[] sizes, IconFromFontArgs args)
+    public static Iconex GetIconFromFont(string fontName, string str, int[] sizes, IconFromFontArgs args = null)
     {
       Iconex icon = new Iconex();
       icon.Name = str;
+      icon.OriginalImageType="FNT";
       foreach (int size in sizes)
       {
         Bitmap image = GetImageFromFont(fontName, str, size, args);
@@ -570,7 +576,21 @@ namespace MyLib.IconUtils
       Bitmap bitmap = new Bitmap(size, size);
       {
         Graphics graphics = Graphics.FromImage(bitmap);
-        Brush fBrush = (args != null && args.FontBrush != null) ? args.FontBrush : Brushes.Black;
+        Color color = Color.Black;
+        Brush fBrush = Brushes.Black;
+        if (args?.Color!=null)
+        {
+          string s = args.Color;
+          if (s.StartsWith("#"))
+          {
+            if (int.TryParse(s.Substring(1), out int argb))
+              color = Color.FromArgb(argb);
+           }
+          else
+            color = Color.FromName(s);
+          if (color!=Color.Black)
+            fBrush = new SolidBrush(color);
+        }
         graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
         StringFormat sf = new StringFormat
         {
@@ -581,9 +601,9 @@ namespace MyLib.IconUtils
         Font aFont = new Font(fontName, (float)fontSize);
         Size textSize = MeasureDisplayString(graphics, str, aFont);
 
-        if (args != null && args.FontSizeScaling != null)
+        if (args != null && args.Scaling != null)
         {
-          fontSize = args.FontSizeScaling(fontSize);
+          fontSize = args.Scaling(str, fontSize);
           aFont = new Font(fontName, (float)fontSize);
           textSize = MeasureDisplayString(graphics, str, aFont);
         }
@@ -604,6 +624,22 @@ namespace MyLib.IconUtils
         int offsetY = (size - textSize.Height + textOffset) / 2;
 
         graphics.DrawString(str, aFont, fBrush, offsetX, offsetY, sf);
+        if (args?.Envelope!=null)
+        {
+          Pen pen = new Pen(color);
+          Rectangle rect = new Rectangle(0, 0, size-1, size-1);
+          switch (args.Envelope.ToLowerInvariant())
+          {
+            case "circle":
+              graphics.DrawEllipse(pen, rect);
+              break;
+            case "box":
+            case "rect":
+              graphics.DrawRectangle(pen, rect);
+              break;
+          }
+
+        }
       }
       return bitmap;
     }
@@ -645,39 +681,6 @@ namespace MyLib.IconUtils
 
       return new Size(measured_width, measured_height);
     }
-    //protected virtual Brush GetBrush(string brushName)
-    //{
-    //  Brush aBrush = null;
-    //  if (brushName != null)
-    //  {
-    //    PropertyInfo aProperty;
-    //    if ((aProperty = typeof(Brushes).GetProperty(brushName)) != null)
-    //      aBrush = aProperty.GetValue(null) as Brush;
-    //    else
-    //    {
-    //    }
-    //  }
-    //  if (aBrush == null)
-    //    aBrush = Brushes.Black;
-    //  return aBrush;
-    //}
-
-    //protected virtual Pen GetPen(string penName)
-    //{
-    //  Pen aPen = null;
-    //  if (penName != null)
-    //  {
-    //    PropertyInfo aProperty;
-    //    if ((aProperty = typeof(Pens).GetProperty(penName)) != null)
-    //      aPen = aProperty.GetValue(null) as Pen;
-    //    else
-    //    {
-    //    }
-    //  }
-    //  if (aPen == null)
-    //    aPen = Pens.Black;
-    //  return aPen;
-    //}
 
     public static Bitmap RescaleBitmap(Bitmap image, int sourceSize, int targetSize = 0)
     {

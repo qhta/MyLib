@@ -22,8 +22,16 @@ namespace MyLib.WpfTestUtils
   /// <summary>
   /// Klasa specjalnego kontekstu wizualnego do testów
   /// </summary>
-  public class VisualTestContext : TestContext
+  public class VisualTestContext : TestContext, INotifyPropertyChanged
   {
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public void NotifyPropertyChanged(string propertyName)
+    {
+      if (PropertyChanged!=null)
+        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     /// <summary>
     /// Konstruktor inicjujący - wymaga podania writera dla metody <c>TestContext.WriteLine</c>
     /// </summary>

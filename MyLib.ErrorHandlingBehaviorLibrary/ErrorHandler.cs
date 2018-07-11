@@ -8,7 +8,7 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Reflection;
 
-namespace ErrorHandlingBehaviorLibrary
+namespace MyLib.ErrorHandlingBehaviorLibrary
 {
     sealed class ErrorHandler : IErrorHandler
     {

@@ -8,7 +8,7 @@ using System.ServiceModel.Description;
 using System.Collections.ObjectModel;
 using System.ServiceModel;
 
-namespace ErrorHandlingBehaviorLibrary
+namespace MyLib.ErrorHandlingBehaviorLibrary
 {
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class ErrorHandlingBehaviorAttribute : Attribute, IServiceBehavior

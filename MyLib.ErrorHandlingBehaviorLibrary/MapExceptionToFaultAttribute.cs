@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.ServiceModel.Description;
 
-namespace ErrorHandlingBehaviorLibrary
+namespace MyLib.ErrorHandlingBehaviorLibrary
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple=true, Inherited=true)]
     public sealed class MapExceptionToFaultAttribute : Attribute//, IOperationBehavior
