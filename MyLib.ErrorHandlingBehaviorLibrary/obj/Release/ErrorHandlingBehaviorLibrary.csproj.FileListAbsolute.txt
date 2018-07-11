@@ -1,0 +1,4 @@
+D:\Dane\VS\Projects\IMACS\_SVN\ErrorHandlingBehaviorLibrary\bin\Release\ErrorHandlingBehaviorLibrary.dll
+D:\Dane\VS\Projects\IMACS\_SVN\ErrorHandlingBehaviorLibrary\bin\Release\ErrorHandlingBehaviorLibrary.pdb
+D:\Dane\VS\Projects\IMACS\_SVN\ErrorHandlingBehaviorLibrary\obj\Release\ErrorHandlingBehaviorLibrary.dll
+D:\Dane\VS\Projects\IMACS\_SVN\ErrorHandlingBehaviorLibrary\obj\Release\ErrorHandlingBehaviorLibrary.pdb

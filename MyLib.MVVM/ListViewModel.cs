@@ -8,8 +8,14 @@ namespace MyLib.MVVM
 {
   public abstract class ListViewModel : VisibleViewModel, IOrientable, IVisible
   {
+    public ListViewModel() { }
 
-    public ViewModel ParentViewModel { get; protected set; }
+    public ListViewModel(IViewModel parentViewModel)
+    {
+      ParentViewModel = parentViewModel;
+    }
+
+    public IViewModel ParentViewModel { get; protected set; }
 
     public OrientationType Orientation
     {

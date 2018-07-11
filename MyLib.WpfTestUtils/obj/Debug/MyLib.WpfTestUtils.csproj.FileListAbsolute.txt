@@ -1,0 +1,15 @@
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\MyLib.WpfTestUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\MyLib.WpfTestUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\pl\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\VisualTestMainView.g.cs
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\VisualTestMainView.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.g.resources
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.pdb

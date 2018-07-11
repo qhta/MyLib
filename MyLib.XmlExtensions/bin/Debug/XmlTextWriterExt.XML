@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XmlTextWriterExt</name>
+    </assembly>
+    <members>
+        <member name="T:System.Xml.XmlAttributeData">
+            <summary>
+            Pomocnicza klasa danych atrybutu
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlAttributeData.Prefix">
+            <summary>
+            Prefiks - przed nazwą atrybutu
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlAttributeData.LocalName">
+            <summary>
+            Lokalna nazwa atrybutu
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlAttributeData.NamespaceURI">
+            <summary>
+            URI przestrzeni nazw atrybutu
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlAttributeData.Value">
+            <summary>
+            Wartość tekstowa atrybutu.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlAttributeData.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Konstruktor z parametrami.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlAttributeData.GetKey(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Utworzenie klucza do sortowania atrybutów.
+            Atrybuty <c>xmlns</c> podawane są w pierwszej kolejności.
+            W drugiej - zdefiniowane przez <paramref name="AttributeOrder"/>
+            Cała reszta w kolejności alfabetycznej.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlAttributeData.ToString">
+            <summary>
+            Pomocnicza metoda zamiany na łańcuch dla ułatwienia śledzenia.
+            </summary>
+        </member>
+        <member name="T:System.Xml.XmlSortedTextWriter">
+            <summary>
+            Klasa zastępująca <c>TextWriter</c> sortująca atrybuty.
+            Atrybuty <c>xmlns</c> podawane są w pierwszej kolejności.
+            W drugiej - zdefiniowane przez <see cref="F:System.Xml.XmlSortedTextWriter.AttributeOrder"/>.
+            Cała reszta w kolejności alfabetycznej.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+             Kreator z wejściowym strumieniem i kodowaniem.
+             Zastępuje kreator odziedziczony po klasie <c>XmlTextWriter</c>.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+             Kreator z wejściową nazwą pliku i kodowaniem.
+             Zastępuje kreator odziedziczony po klasie <c>XmlTextWriter</c>.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.#ctor(System.IO.TextWriter)">
+            <summary>
+             Kreator z wejściowym parametrem klasy <c>TextWriter</c>.
+             Zastępuje kreator odziedziczony po klasie <c>XmlTextWriter</c>.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.String)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanej nazwy pliku.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.String,System.Xml.XmlWriterSettings)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanej nazwy pliku
+              i ustawień zapisu w XML.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.IO.Stream)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanego strumienia.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.IO.Stream,System.Xml.XmlWriterSettings)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanego strumienia
+              i ustawień zapisu w XML.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.IO.TextWriter)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanego parametru klasy <c>TextWriter</c>.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.IO.TextWriter,System.Xml.XmlWriterSettings)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanego parametru klasy <c>TextWriter</c>
+              i ustawień zapisu w XML.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.Text.StringBuilder)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanego parametru klasy <c>StreamBuilder</c>.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.Text.StringBuilder,System.Xml.XmlWriterSettings)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> dla podanego parametru klasy <c>StreamBuilder</c>
+              i ustawień zapisu w XML.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.Xml.XmlWriter)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> 
+              nadpisującą obiekt klasy <c>XmlWriter</c>.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.Create(System.Xml.XmlWriter,System.Xml.XmlWriterSettings)">
+            <summary>
+              Tworzy instancję klasy <see cref="T:System.Xml.XmlSortedTextWriter"/> 
+              nadpisującą obiekt klasy <c>XmlWriter</c>.
+              Uwzględnia ustawienia zapisu w XML.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.CreateWriterImpl(System.IO.Stream,System.Text.Encoding,System.Boolean,System.Xml.XmlWriterSettings)">
+            <summary>
+            Wspólna metoda utworzenia instancji klasy <see cref="T:System.Xml.XmlSortedTextWriter"/>
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter._Writer">
+            <summary>
+            Wewnętrzny <c>TextWriter</c> potrzebny do wypisania znacznika UTF-8
+            </summary>
+        </member>
+        <member name="P:System.Xml.XmlSortedTextWriter.Settings">
+            <summary>
+            Ustawienia sposobu zapisu w XML. 
+            Umożliwiają zapis niektórych ustawień w klasie <c>XmlTextWriter</c>
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.SetSettings(System.Xml.XmlWriterSettings)">
+            <summary>
+            Metoda zapisu ustawień. Konieczna, bo dziedziczona właściwość 
+            <see cref="T:System.Xml.XmlWriterSettings"/> nie ma metody zapisu.
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.NamespaceManager">
+            <summary>
+             Przechowuje predefiniowane przestrzenie nazw.
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.AttributeOrder">
+            <summary>
+             Przechowuje w kolejności nazwy atrybutów.
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.HiddenAttributes">
+            <summary>
+             Przechowuje nazwy atrybutów ukrywanych.
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.Attributes">
+            <summary>
+              Lista przechowywanych atrybutów sortowanych wg klucza, którego głównym składnikiem jest nazwa atrybutu.
+            </summary>
+            
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.currentAttribute">
+            <summary>
+            Bieżąco wypełniany atrybut.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.LookupPrefix(System.String)">
+            <summary>
+             Umożliwia wyszukanie prefiksu na podstawie URL w predefiniowanej przestrzeni nazw.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteStartDocument">
+            <summary>
+             Rozpoczęcie dokumentu - wypisywany znacznik UTF-8 i standardowa deklaracja pliku XML.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteStartDocument(System.Boolean)">
+            <summary>
+             Rozpoczęcie dokumentu - wypisywany znacznik UTF-8 i standardowa deklaracja pliku XML 
+             (z atrybutem <c>standalone</c>).
+            </summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.inAttr">
+            <summary>Stan - wewnątrz tworzenia atrybutu - atrybut jest zapamiętywany na liście.</summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.inFlush">
+            <summary>Stan - wewnątrz wyrzucania atrybutów z listy.</summary>
+        </member>
+        <member name="F:System.Xml.XmlSortedTextWriter.isRoot">
+            <summary>Stan - dla metody <c>WriteStartElement</c> - jest to pierwszy, główny element.</summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteStartElement(System.String,System.String,System.String)">
+            <summary>
+            Nadpisana metoda rozpoczęcia elementu. Jeśli to jest pierwszy element,
+            to wypisywana jest deklaracja pliku XML oraz wszystkie predefiniowane
+            przestrzenie nazw.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteEndElement">
+            <summary>
+            Nadpisana metoda zakończenia elementu.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteStartAttribute(System.String,System.String,System.String)">
+            <summary>
+            Nadpisana metoda rozpoczęcia atrybutu
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteEndAttribute">
+            <summary>
+            Nadpisana metoda zakończenia atrybutu
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.WriteString(System.String)">
+            <summary>
+            Nadpisana metoda pisania tekstu - może to być tekst atrybutu lub zawartość elementu.
+            </summary>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.PrepareName(System.String,System.String,System.String)">
+            <summary>
+            Pomocnicza metoda przygotowania nazwy elementu lub atrybutu.
+            </summary>
+            <remarks>
+            Ponieważ zmuszamy <c>XmlTextWriter</c> do wypisania przestrzeni nazw
+            na początku, to w kolejnych elementach i atrybutach prefiks i przestrzeń
+            nazw muszą być puste. Stąd konieczność samodzielnego dodawania prefiksu
+            do nazwy lokalnej na podstawie URL wyszukanego w predefiniowanej
+            przestrzeni nazw.
+            </remarks>
+        </member>
+        <member name="M:System.Xml.XmlSortedTextWriter.FlushAttributes">
+            <summary>
+            Pomocnicza metoda wyrzucenia atrybutów z posortowanej listy atrybutów.
+            </summary>
+        </member>
+    </members>
+</doc>

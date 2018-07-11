@@ -1,0 +1,7 @@
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\bin\Debug\XmlTextWriterExt.dll
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\bin\Debug\XmlTextWriterExt.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\bin\Debug\XmlTextWriterExt.XML
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\obj\Debug\XmlTextWriterExt.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\obj\Debug\XmlTextWriterExt.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\obj\Debug\XmlTextWriterExt.dll
+D:\Dane\VS\Projects\MyLib\MyLib.XmlExtensions\obj\Debug\XmlTextWriterExt.pdb

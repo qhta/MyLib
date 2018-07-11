@@ -1,0 +1,907 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyLib.DbUtils</name>
+    </assembly>
+    <members>
+        <member name="T:MyLib.DbUtils.AccessTableBuilder">
+            <summary>
+            Klasa tworząca komendę SQL do tworzenia tabeli w bazie danych
+            MS ACCESS na podstawie tablicy <c>DataTable</c>
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.AccessTableBuilder.MaxStringLength">
+            <summary>
+            Ograniczona długość łańcucha
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DataProvidersSection">
+            <summary>
+            Sekcja konfiguracji, w której zapisywane są komponenty dostarczające dane
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DataProvidersSection.Name">
+            <summary>
+            Nazwa, pod którą sekcja jest widoczna
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DataProvidersSection.#ctor">
+            <summary>
+            Konstruktor domyślny
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DataProvidersSection.Providers">
+            <summary>
+            Dostęp do elementu reprezentującego kolekcję dostawców danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DataProvidersSection.DefaultProvider">
+            <summary>
+            Nazwa domyślnego dostawcy danych
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbProvidersCollection">
+            <summary>
+            Kolekcja elementów reprezentujących dostawców danych
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.#ctor">
+            <summary>
+            Konstruktor domyślny
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.SerializeElement(System.Xml.XmlWriter,System.Boolean)">
+            <summary>
+            Nieemitowany tag <c>clear</c>
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.CreateNewElement">
+            <summary>
+            Tworzenie nowego elementu składowego w kolekcji
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Dostęp do nazwy elementu
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvidersCollection.Item(System.Int32)">
+            <summary>
+            Dostęp do elementu przez indeks
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvidersCollection.Item(System.String)">
+            <summary>
+            Dostęp do elementu przez nazwę
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.IndexOf(MyLib.DbUtils.DbProvider)">
+            <summary>
+            Indeks elementu
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.Clear">
+            <summary>
+            Nadpisanie metody <c>Clear</c> powoduje usunięcie elementu <c>clear</c>
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.Add(MyLib.DbUtils.DbProvider)">
+            <summary>
+            Dodanie elementu
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.BaseAdd(System.Configuration.ConfigurationElement)">
+            <summary>
+            Dodanie elementu - przykrycie metody bazowej
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.Remove(MyLib.DbUtils.DbProvider)">
+            <summary>
+            Usunięcie elementu
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.RemoveAt(System.Int32)">
+            <summary>
+            Usunięcie elementu o podanym indeksie
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvidersCollection.Remove(System.String)">
+            <summary>
+            Usunięcie elementu o podanej nazwie
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbProvider">
+            <summary>
+            Element konfiguracji reprezentujący dostawcę danych
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvider.#ctor">
+            <summary>
+            Konstruktor domyślny
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvider.#ctor(MyLib.DbUtils.DbProviderInfo)">
+            <summary>
+             Konstruktor tworzący instancję na podstawie informacji o dostawcy danych z systemu
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvider.#ctor(MyLib.DbUtils.DbProviderInfo,MyLib.DbUtils.SqlDataSourceInfo)">
+            <summary>
+             Konstruktor tworzący instancję na podstawie informacji o dostawcy danych z systemu
+             i źródła danych SQL
+            </summary>
+            <param name="info">informacja o dostawcy danych z systemu</param>
+            <param name="ds">źródło danych SQL</param>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.ID">
+            <summary>
+            Nazwa dostawcy (wewnątrz aplikacji)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.FullName">
+            <summary>
+            Pełna nazwa dostawcy
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.Kind">
+            <summary>
+            Typ (rodzaj) źródła danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.Engine">
+            <summary>
+            Silnik źródła danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.Version">
+            <summary>
+            Wersja źródła danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.DataSource">
+            <summary>
+            Źródło danych (nazwa\instancja serwera)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.ShortName">
+            <summary>
+            Dostawca danych (OleDB)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.ClsID">
+            <summary>
+            Identyfikator klasy (z rejestru)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProvider.FileExtensions">
+            <summary>
+            rozszerzenia nazw plików (gdy kilka, to oddzielone przecinkami lub średnikami)
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbProvider.ToString">
+            <summary>
+            Podaje przyjazną nazwę
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbContext">
+            <summary>
+            Klasa łącząca informacje o otwieranej bazie danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.DataProvider">
+            <summary>
+            Dostawca danych. Identyfikuje mechanizm danych (np. OleDb), komponent dostawczy (np. Microsoft.Jet.OLEDB.4.0)
+            i inne parametry
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.DataSource">
+            <summary>
+            Źródło danych / adres sieciowy serwera 
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.DbName">
+            <summary>
+            Nazwa bazy danych/katalogu na serwerze
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.FileName">
+            <summary>
+            Nazwa głównego pliku bazy danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.UserID">
+            <summary>
+            Identyfikator użytkownika (dla połączenia niezaufanego)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.Password">
+            <summary>
+            Hasło konieczne dla połączenia niezaufanego ew. do szyfrowania bazy danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.Encrypt">
+            <summary>
+            Szyfrowanie bazy danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.ConnectionRest">
+            <summary>
+            pozostałe parametry dla łańcucha połączenia
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.Factory">
+            <summary>
+            Klasa wyspecjalizowanej fabryki typu <c>DbProviderFactory</c> ustalana
+            na podstawie rodzaju dostawcy (elementu <see cref="P:MyLib.DbUtils.DbContext.DataProvider"/>).
+            Można też jawnie ustalić fabrykę, która będzie podawana.
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.TableBuilder">
+            <summary>
+            Klasa wyspecjalizowanej fabryki typu <c>DbProviderFactory</c> ustalana
+            na podstawie rodzaju dostawcy (elementu <see cref="P:MyLib.DbUtils.DbContext.DataProvider"/>).
+            Można też jawnie ustalić fabrykę, która będzie podawana.
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.DefaultFileExt">
+            <summary>
+            Domyślne rozszerzenie dla głównego pliku danych ustalane
+            na podstawie informacji zapisanej w  dostawcy (elemencie <see cref="P:MyLib.DbUtils.DbContext.DataProvider"/>).
+            Można też jawnie ustalić domyślne rozszerzenie, które będzie podawane.
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.ConnectionString">
+            <summary>
+            Kompletny łańcuch parametrów podawany na podstawie utworzonego połączenia
+            albo zapamiętany jawnie
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.Connection">
+            <summary>
+            Utworzone połączenie
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbContext.ServerConnection">
+            <summary>
+            Utworzone połączenie do serwera
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbUtils">
+            <summary>
+            Klasa oferująca metody pomocnicze dla połączeń baz danych
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateFactoryClasses">
+            <summary>
+            Wyliczenie informacji o fabrykach typu <c>DbProviderFactory</c> z <c>DbProviderFactories</c>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateDataSources(System.Data.Common.DbProviderFactory)">
+            <summary>
+            Wyszukanie źródeł danych dla określonej fabryki typu <c>DbProviderFactory</c>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateSqlDataSources">
+            <summary>
+            Wyszukanie źródeł danych dla klienta SQL Server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:MyLib.DbUtils.DbUtils.SqlDataSources">
+            <summary>
+            Przechowywany wynik funkcji EnumerateSqlDataSources
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.GetSqlDataSources">
+            <summary>
+            Pobranie źródeł danych dla klienta SQL Server wyszukanych poprzednio,
+            a jeśli nie ma takiej listy, to wyszukanie na bieżąco.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateOleDbProviders">
+            <summary>
+            Wyszukanie dostawców OleDb
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateOdbcDrivers">
+            <summary>
+            Wyszukanie sterowników Odbc
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.GetOleDbProviderData(System.Data.OleDb.OleDbDataReader)">
+            <summary>
+            Odczytanie danych z OleDb do tabeli
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.IsLocalDataSource(System.String)">
+            <summary>
+            Sprawdzenie, czy źródło danych reprezentuje serwer lokalny
+            </summary>
+            <param name="dataSource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateSqlProviders(MyLib.DbUtils.SqlDataSourceInfo)">
+            <summary>
+            Wyliczenie zainstalowanych dostawców danych SQL CE
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateSqlCeProviders">
+            <summary>
+            Wyliczenie zainstalowanych dostawców danych SQL CE
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateSQLiteProviders">
+            <summary>
+            Wyliczenie zainstalowanych dostawców danych SQL CE
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.EnumerateDbProviders(MyLib.DbUtils.DbEngine)">
+            <summary>
+            Wyliczenie zainstalowanych dostawców dla wybranego silnika bazy danych
+            </summary>
+            <param name="engine">wybrany silnik bazy danych</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateConnection(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie połączenia do bazy danych
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia połączenia</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateSqlServerConnection(MyLib.DbUtils.DbContext,System.Boolean)">
+            <summary>
+            Tworzenie połączenia dla  bazy danych SQL serwera
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia połączenia</param>
+            <param name="serverConnection">połączenie tylko do serwera</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateAccessConnection(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie połączenia dla  bazy danych MS Access
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia połączenia</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateSqlCeConnection(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie połączenia dla  bazy danych SQL Compact Edition
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia połączenia</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateSQLiteConnection(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie połączenia dla  bazy danych SQLite
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia połączenia</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie bazy danych
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia bazy danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateSqlServerDatabase(MyLib.DbUtils.DbContext,System.Boolean)">
+            <summary>
+            Tworzenie bazy danych przez SQL Serwer
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia bazy danych</param>
+            <param name="attachOnly">utworzyć wewnątrzną bazę danych przez podłączenie istniejącego pliku</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateAccessDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie bazy danych Microsoft Access
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia bazy danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateSqlCeDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie bazy danych SQL Compact Editon
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia bazy danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateSQLiteDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Tworzenie bazy danych SQLite
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do utworzenia bazy danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.ExistsDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Sprawdzenie istnienia bazy danych
+            </summary>
+            <param name="context">kontekst zawierający informacje definiujące bazę danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.ExistsSqlServerDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Sprawdzenie istnienia bazy danych SQL Serwera
+            </summary>
+            <param name="context">kontekst zawierający informacje definiujące bazę danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.ExistsDatabaseFile(MyLib.DbUtils.DbContext)">
+            <summary>
+            Sprawdzenie istnienia głównego pliku bazy danych
+            </summary>
+            <param name="context">kontekst zawierający informacje definiujące bazę danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.DeleteDatabase(MyLib.DbUtils.DbContext)">
+            <summary>
+            Usuwanie bazy danych
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do usunięcia bazy danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.DeleteSqlServerDatabase(MyLib.DbUtils.DbContext,System.Boolean)">
+            <summary>
+              Usunięcie bazy danych od SQL serwera
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do przeprowadzenia operacji</param>
+            <param name="detachOnly">czy baza danych ma być tylko odłączona od serwera</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.DeleteDatabaseFiles(MyLib.DbUtils.DbContext)">
+            <summary>
+            Usuwanie plików bazy danych
+            </summary>
+            <param name="context">kontekst zawierający informacje potrzebne do usunięcia bazy danych</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.PhysicalFilenames(MyLib.DbUtils.DbContext)">
+            <summary>
+            Nazwy wszystkich plików fizycznych skojarzonych z bazą danych.
+            Niekoniecznie wszystkie z tych plików istnieją.
+            </summary>
+            <param name="context">kontekst identyfikujący bazę danych</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.SafeDeleteFile(System.String)">
+            <summary>
+            Bezpieczne kasowanie pliku
+            </summary>
+            <param name="filename">nazwa pliku</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.RenameDatabase(MyLib.DbUtils.DbContext,System.String,System.String)">
+            <summary>
+            Zmiana nazwy bazy danych
+            </summary>
+            <param name="newDbName">nowa nazwa bazy danych</param>
+            <param name="newFileName">nowa nazwa pliku</param>
+            <param name="context">kontekst zawierający informacje potrzebne do wykonania operacji</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.RenameSqlServerDatabase(MyLib.DbUtils.DbContext,System.String,System.String)">
+            <summary>
+              Zmiana nazwy bazy danych od SQL serwera
+            </summary>
+            <param name="newDbName">nowa nazwa bazy danych</param>
+            <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
+            <param name="context">kontekst zawierający informacje potrzebne do przeprowadzenia operacji</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.GetSqlDatabaseFiles(MyLib.DbUtils.DbContext,System.String)">
+            <summary>
+            Pobranie nazw plików skojarzonych z bazą danych
+            </summary>
+            <param name="context">kontekst z utworzonym połączeniem do serwera</param>
+            <param name="database">nazwa bazy danych</param>
+            <returns>tabela z dwiema kolumnami: "name" i "physical_name"</returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.RenameDatabaseFiles(MyLib.DbUtils.DbContext,System.String)">
+            <summary>
+            Zmiana nazwy plików bazy danych
+            </summary>
+            <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
+            <param name="context">kontekst zawierający informacje potrzebne do wykonania operacji</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.ChangeFileName(System.String,System.String)">
+            <summary>
+            Zmiana nazwa pliku bez zmiany rozszerzenia. 
+            Jeśli nowa nazwa pliku nie zawiera ścieżki katalogów, 
+            to kopiowana jest ścieżka ze starej nazwy.
+            </summary>
+            <param name="oldFileName">stara nazwa pliku</param>
+            <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.SafeRenameFile(System.String,System.String)">
+            <summary>
+            Bezpieczna zmiana nazwy pliku
+            </summary>
+            <param name="oldFileName">stara nazwa pliku</param>
+            <param name="newFileName">nowa nazwa pliku</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CopyDatabase(MyLib.DbUtils.DbContext,System.String,System.String)">
+            <summary>
+            Kopiowanie bazy danych
+            </summary>
+            <param name="newDbName">nowa nazwa bazy danych</param>
+            <param name="newFileName">nowa nazwa pliku</param>
+            <param name="context">kontekst zawierający informacje potrzebne do wykonania operacji</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CopySqlServerDatabase(MyLib.DbUtils.DbContext,System.String,System.String)">
+            <summary>
+              Kopiowanie bazy danych SQL serwera
+            </summary>
+            <param name="newDbName">nowa nazwa bazy danych</param>
+            <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
+            <param name="context">kontekst zawierający informacje potrzebne do przeprowadzenia operacji</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CopyDatabaseFiles(MyLib.DbUtils.DbContext,System.String)">
+            <summary>
+            Kopiowanie plików bazy danych
+            </summary>
+            <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
+            <param name="context">kontekst zawierający informacje potrzebne do wykonania operacji</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.SafeCopyFile(System.String,System.String)">
+            <summary>
+            Bezpieczne kopiowanie pliku
+            </summary>
+            <param name="fromFileName">nazwa pliku oryginalnego</param>
+            <param name="toFileName">nazwa kopii pliku</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.CreateTable(MyLib.DbUtils.DbContext,System.Data.DataTable)">
+            <summary>
+            Tworzenie tabeli
+            </summary>
+            <param name="context">kontekst zawierający informacje o bazie danych</param>
+            <param name="table">definicja tabeli</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.GetTable(MyLib.DbUtils.DbContext,System.String)">
+            <summary>
+            Pobieranie tabeli
+            </summary>
+            <param name="context">kontekst zawierający informacje o bazie danych</param>
+            <param name="tableName">nazwa tabeli</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbUtils.UpdateTable(MyLib.DbUtils.DbContext,System.Data.DataTable)">
+            <summary>
+            Aktualizacja tabeli w bazie danych
+            </summary>
+            <param name="context">kontekst zawierający informacje o bazie danych</param>
+            <param name="table">tabela</param>
+        </member>
+        <member name="T:MyLib.DbUtils.FactoryInfo">
+            <summary>
+            Informacja o fabrykach podawana przez metodę <see cref="M:MyLib.DbUtils.DbUtils.EnumerateFactoryClasses"/>
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.FactoryInfo.Name">
+            <summary>
+            Przyjazna nazwa fabryki
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.FactoryInfo.Description">
+            <summary>
+            Opis fabryki
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.FactoryInfo.InvariantName">
+            <summary>
+            Nazwa używana do podawania klasy fabryki
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.FactoryInfo.AssemblyQualifiedName">
+            <summary>
+            Pełna nazwa klasy fabryki
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.SqlDataSourceInfo">
+            <summary>
+            Informacja o źródłach danych dla klienta Sql Serwera 
+            zwracana przez metodę <see cref="M:MyLib.DbUtils.DbUtils.EnumerateDataSources(System.Data.Common.DbProviderFactory)"/>
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlDataSourceInfo.ServerName">
+            <summary>
+            Nazwa serwera (maszyny, na której serwer jest postawiony)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlDataSourceInfo.InstanceName">
+            <summary>
+            Nazwa instancji serwera (domyślna instancja ma nazwę pustą)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlDataSourceInfo.IsClustered">
+            <summary>
+            Czy serwer należy do klastra?
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlDataSourceInfo.Version">
+            <summary>
+            Wersja serwera
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlDataSourceInfo.ToString">
+            <summary>
+            Adres sieciowy tworzony z połączenia nazwy serwera i nazwy instancji
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MyLib.DbUtils.DbProviderInfo">
+            <summary>
+            Informacja o dostawcach baz danych 
+            zwracana przez metody wyliczające dostawców
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.ShortName">
+            <summary>
+            Nazwa dostawcy (używana do identyfikacji)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.FullName">
+            <summary>
+            Opis dostawcy
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.Kind">
+            <summary>
+            Rodzaj dostawcy
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.Engine">
+            <summary>
+            Silnik bazy danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.Version">
+            <summary>
+            Wersja silnika
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.FileExtensions">
+            <summary>
+            Znane rozszerzenia plików danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbProviderInfo.ClsID">
+            <summary>
+            Identyfikator klasy (GUID)
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbEngine">
+            <summary>
+            Silnik (typ) bazy danych
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.Unknown">
+            <summary>
+            Nieokreślony
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.MSSQL">
+            <summary>
+            Microsoft SQL Server
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.ACCESS">
+            <summary>
+            Microsoft Access
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.EXCEL">
+            <summary>
+            Microsoft Excel
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.DBASE">
+            <summary>
+            DBASE
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.SQLCE">
+            <summary>
+            SQL Compact Edition
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.OLAP">
+            <summary>
+            Online Analytical Processing
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.ADSI">
+            <summary>
+            Active Directory Service Interface
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.ORACLE">
+            <summary>
+            baza danych Oracle
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.OSP">
+            <summary>
+            OleDb Simple Provider
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.IDXS">
+            <summary>
+            Indexing Services
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.WSDS">
+            <summary>
+            Windows Search Data Services 
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.XMLDB">
+            <summary>
+            Baza danych oparta o pliki XML
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbEngine.SQLITE">
+            <summary>
+            Wbudowana baza danych SQLite
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.ProviderKind">
+            <summary>
+            Typ dostawcy danych
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.ProviderKind.Unknown">
+            <summary>
+            Nieznany - nieokreślony
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.ProviderKind.Embedded">
+            <summary>
+            Dostawca wbudowany w aplikację
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.ProviderKind.OleDb">
+            <summary>
+            Wykorzystywany mechanizm OleDb
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.ProviderKind.Odbc">
+            <summary>
+            Wykorzystywany mechanizm ODBC
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.SqlTableBuilder">
+            <summary>
+            Klasa tworząca komendę SQL do tworzenia tabeli w bazie danych
+            SQL Serwera na podstawie tablicy <c>DataTable</c>
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlTableBuilder.DataTable">
+            <summary>
+            Wejściowa tablica danych
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.BuildCreateTable(System.Data.DataTable)">
+            <summary>
+            Procedura budująca łańcuch komendy SQL "CREATE TABLE"
+            </summary>
+            <param name="dataTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.BuildCreateTable">
+            <summary>
+            Właściwa procedura budująca łańcuch komendy SQL "CREATE TABLE"
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.FormatColumnString(System.Data.DataColumn)">
+            <summary>
+            Dla podanej kolumny tworzy łańcuch definicji
+            </summary>
+            <param name="column">podana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.TypeDefString(System.Data.DataColumn)">
+            <summary>
+            Dla podanej kolumny tworzy łańcuch definiujący typ
+            </summary>
+            <param name="column">podana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.GetDataType(System.Data.DataColumn)">
+            <summary>
+            Zwraca typ danych SQL z podanej kolumny danych w określonym kontekście
+            </summary>
+            <param name="column">podana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlTableBuilder.MaxStringLength">
+            <summary>
+            Podaje maksymalną długość łańcucha w określonym kontekście
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.DataTypeToString(Microsoft.SqlServer.Management.Smo.DataType)">
+            <summary>
+            Podaje łańcuch dla typu danych SQL serwera
+            </summary>
+            <param name="dataType">podany typ danych</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.IsPrimaryKey(System.Data.DataColumn)">
+            <summary>
+            Sprawdza, czy podana kolumna tworzy (samodzielnie) klucz główny
+            </summary>
+            <param name="column">sprawdzana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.IsForeignKey(System.Data.DataColumn,System.Data.ForeignKeyConstraint@)">
+            <summary>
+            Sprawdza, czy podana kolumna tworzy (samodzielnie) klucz obcy
+            </summary>
+            <param name="column">sprawdzana kolumna</param>
+            <param name="constraint">zwracane zastrzeżenie klucza obcego</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.ColumnConstraintString(System.Data.DataColumn)">
+            <summary>
+            Podaje łańcuch " PRIMARY KEY", gdy podana kolumna tworzy klucz główny,
+            a " UNIQUE", gdy jest to klucz unikatowy
+            </summary>
+            <param name="column">sprawdzana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.BuildConstraintString(System.Data.Constraint,System.Boolean)">
+            <summary>
+            Podaje łańcuch " PRIMARY KEY", gdy podana kolumna tworzy klucz główny,
+            a " UNIQUE", gdy jest to klucz unikatowy
+            </summary>
+            <param name="constraint">sprawdzana kolumna</param>
+            <param name="isTableConstraint">czy zatrzeżenie dotyczy całej tabeli</param>
+            <returns></returns>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlTableBuilder.DefaultChangeRule">
+            <summary>
+            Domyślna zasada reakcji na zmianę/usunięcie
+            </summary>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.ChangeRuleToString(System.Data.Rule)">
+            <summary>
+            Zmiana podanej zasady reakcji na zmianę/usunięcie na łańcuch
+            </summary>
+            <param name="rule"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.IdentityString(System.Data.DataColumn)">
+            <summary>
+            Gdy kolumna jest autoinkrementowana, to podaje łańcuch " IDENTITY"
+            albo " IDENTITY (seed, step), gdzie <c>seed</c> jest wartością początkową autoinkrementacji
+            a <c>step</c> jest krokiem autoinkrementacji
+            </summary>
+            <param name="column">sprawdzana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.NullConstraintString(System.Data.DataColumn)">
+            <summary>
+            Podaje łańcuch " NOT NULL", gdy podana kolumna nie akceptuje pustych wartości
+            </summary>
+            <param name="column">sprawdzana kolumna</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.SqlTableBuilder.EncapsulateName(System.String)">
+            <summary>
+            Jeśli nazwa zawiera spację, to jest ujmowana w nawiasy kwadratowe
+            albo, jeśli ustawiona jest właściwość <see cref="P:MyLib.DbUtils.SqlTableBuilder.RemoveSpaces"/>, 
+            to spacje z niej są usuwane
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:MyLib.DbUtils.SqlTableBuilder.RemoveSpaces">
+            <summary>
+            Żądanie
+            </summary>
+        </member>
+    </members>
+</doc>

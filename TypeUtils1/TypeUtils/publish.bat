@@ -1,1 +1,0 @@
-copy bin\debug\*.* ..\..\bin
