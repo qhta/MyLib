@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyLib.MultiThreadingObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,19 +10,31 @@ using System.Windows;
 
 namespace MyLib.WpfTestUtils
 {
-  public class VisualTestResult: INotifyPropertyChanged
+  public class VisualTestResult: DispatchedObject
   {
-    public VisualTestResult(string name, int? ordNum=null)
+    public VisualTestResult(string name)
     {
       Name = name;
-      OrdNum = ordNum;
-      Outcome = UnitTestOutcome.Unknown;
     }
-    public string Name { get; protected set; }
+
+    public VisualTestResult(TestMethodInfo testMethod)
+    {
+      Name = testMethod.Method.Name;
+      OrdNum = testMethod.Number;
+      Outcome = TestState.Unknown;
+      testMethod.PropertyChanged+=TestMethod_PropertyChanged;
+      testMethod.Result=this;
+    }
+
+    private void TestMethod_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      if (e.PropertyName==nameof(TestMethodInfo.State))
+        Outcome = (sender as TestMethodInfo).State;
+    }
 
     public int? OrdNum { get; protected set; }
 
-    public UnitTestOutcome Outcome 
+    public TestState Outcome 
     {
       get { return outcome; }
       set
@@ -29,11 +42,11 @@ namespace MyLib.WpfTestUtils
         if (outcome!=value)
         {
           outcome = value;
-          RaisePropertyChanged("Outcome");
+          NotifyPropertyChanged(nameof(Outcome));
         }
       }
     }
-    private UnitTestOutcome outcome;
+    private TestState outcome;
 
     public string Message
     {
@@ -43,7 +56,7 @@ namespace MyLib.WpfTestUtils
         if (message != value)
         {
           message = value;
-          RaisePropertyChanged("Message");
+          NotifyPropertyChanged(nameof(Message));
         }
       }
     }
@@ -57,7 +70,7 @@ namespace MyLib.WpfTestUtils
         if (execTime != value)
         {
           execTime = value;
-          RaisePropertyChanged("ExecTime");
+          NotifyPropertyChanged(nameof(ExecTime));
         }
       }
     }
@@ -65,14 +78,6 @@ namespace MyLib.WpfTestUtils
 
 
     public Window Window { get; set; }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public void RaisePropertyChanged(string propertyName)
-    {
-      if (PropertyChanged != null)
-        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-    }
 
   }
 }

@@ -1,6 +1,4 @@
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\MyLib.DbUtils.csprojResolveAssemblyReference.cache
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\Interop.ADOX.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\MyLib.DbUtils.csproj.ResolveComReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\MyLib.DbUtils.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\MyLib.DbUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\MyLib.DbUtils.pdb
@@ -17,15 +15,7 @@ D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\System.Security.Cryptography.A
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\System.Security.SecureString.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\System.Threading.Overlapped.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\System.Xml.XPath.XDocument.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.Smo.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\MyLib.GuildUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.SqlEnum.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.Dmf.Common.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.Diagnostics.STrace.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.dll
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\MyLib.GuildUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\MyLib.DbUtils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\MyLib.DbUtils.dll

@@ -18,7 +18,7 @@ namespace MyLib.WpfTestUtils
     public VisualTestExecution(Type testClass)
     {
       TestClass = testClass;
-      TestMethods = new List<MethodInfo>();
+      TestMethods = new Dictionary<string, TestMethodInfo>();
       RecognizeMethods(testClass);
     }
 
@@ -29,6 +29,7 @@ namespace MyLib.WpfTestUtils
         throw new ArgumentException("Test type must have a public parameterless constructor");
 
       MethodInfo[] publicMethods = classType.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+      int n = 0;
       foreach (MethodInfo method in publicMethods)
       {
         ParameterInfo[] parameters = method.GetParameters();
@@ -67,8 +68,17 @@ namespace MyLib.WpfTestUtils
         if (method.GetCustomAttribute<TestMethodAttribute>() != null)
         {
           if (!method.IsPublic || method.IsStatic || parameters.Length != 0)
-            throw new ArgumentException("TestMethos must be a public non-static parameterless method");
-          TestMethods.Add(method);
+            throw new ArgumentException("TestMethod must be a public non-static parameterless method");
+          var methodInfo = new TestMethodInfo(++n, method);
+          foreach (var runAfterAttrib in method.GetCustomAttributes<RunAfterAttribute>())
+          {
+            if (methodInfo.RunAfter==null)
+              methodInfo.RunAfter = new List<TestMethodInfo>();
+            var afterMethod = publicMethods.FirstOrDefault(item=>item.Name==runAfterAttrib.Name);
+            var afterMethodInfo = new TestMethodInfo(0, afterMethod);
+            methodInfo.RunAfter.Add(afterMethodInfo);
+          }
+          TestMethods.Add(method.Name, methodInfo);
         }
       }
 
@@ -130,12 +140,11 @@ namespace MyLib.WpfTestUtils
           AfterTestInitialize(this, CreateTestExecutionEventArgs<AfterTestInitializeEventArgs>(TestInstance, TestInitializeMethod, TestContext, false));
 
         int overallTestCount=0;
-        foreach (MethodInfo method in TestMethods)
+        foreach (var methodInfo in TestMethods.Values.OrderBy(item=>item.Number))
         {
           if (TerminateRequest)
             return;
-          Action<MethodInfo> addTestResult = AddTestResult;
-          Application.Current.Dispatcher.BeginInvoke(addTestResult, new object[] { method });
+          AddTestResult(methodInfo);
           overallTestCount++;
         }
 
@@ -144,15 +153,15 @@ namespace MyLib.WpfTestUtils
         VisualTestOverallResult overallResult = TestContext.Results.FirstOrDefault(item => item is VisualTestOverallResult) as VisualTestOverallResult;
         if (overallResult != null)
         {
-          overallResult.Outcome = UnitTestOutcome.InProgress;
+          overallResult.Outcome = TestState.InProgress;
           overallResult.OverallTestsCount = overallTestCount;
         }
 
-        foreach (MethodInfo method in TestMethods)
+        foreach (var methodInfo in TestMethods.Values.OrderBy(item => item.Number))
         {
           if (TerminateRequest)
             return;
-          DispatchTestMethod(method, new object[0]);
+          ScheduleTestMethod(methodInfo, new object[0]);
           if (TestContext.InternalDelay != 0)
             Thread.Sleep(TestContext.InternalDelay);
         }
@@ -178,80 +187,90 @@ namespace MyLib.WpfTestUtils
       }
     }
 
-    int TestNum;
-
-    protected virtual void AddTestResult(MethodInfo method)
+    protected virtual void AddTestResult(TestMethodInfo method)
     {
-      TestContext.Results.Add(new VisualTestResult(method.Name, ++TestNum));  
+      Application.Current.Dispatcher.BeginInvoke(new Action(()=>  TestContext.Results.Add(new VisualTestResult(method))));
     }
 
-    public void DispatchTestMethod(MethodInfo method, object[] args, VisualTestResult result=null)
+    public void ScheduleTestMethod(TestMethodInfo methodInfo, object[] args)
     {
-      Action<MethodInfo, object[], VisualTestResult> invokeMethod = InvokeTestMethod;
-      Application.Current.Dispatcher.BeginInvoke(invokeMethod, DispatcherPriority.Background, new object[] { method, args, result });
+      if (methodInfo.RunAfter==null)
+      {
+        //Action<MethodInfo, object[], VisualTestResult> invokeMethod = InvokeTestMethod;
+        //Application.Current.Dispatcher.BeginInvoke(invokeMethod, DispatcherPriority.Background, new object[] { methodInfo.Method, args, result });
+        InvokeTestMethod(methodInfo, args);
+      }
     }
 
-    protected virtual void InvokeTestMethod(MethodInfo method, object[] args, VisualTestResult result)
+    protected virtual async void InvokeTestMethod(TestMethodInfo methodInfo, object[] args)
     {
-      if (result==null)
-        result = TestContext.Results.FirstOrDefault(item => item.Name == method.Name) as VisualTestResult;
+      var method = methodInfo.Method;
       VisualTestOverallResult overallResult = TestContext.Results.FirstOrDefault(item => item is VisualTestOverallResult) as VisualTestOverallResult;
       Stopwatch sw = new Stopwatch();
       sw.Start();
+      VisualTestResult result = methodInfo.Result;
       try
       {
-        method.Invoke(TestInstance, args);
+        if (result!=null)
+          result.Outcome=TestState.InProgress;
+        await Task.Run(()=>method.Invoke(TestInstance, args));
+        methodInfo.State = TestState.Passed;
+        result = methodInfo.Result;
         if (result != null)
-          result.Outcome = UnitTestOutcome.Passed;
+        {
+          result.Outcome = TestState.Passed;
+        }
         if (overallResult != null)
         {
           overallResult.PassedTestsCount += 1;
           if (overallResult.PassedTestsCount >= overallResult.OverallTestsCount)
-            if (overallResult.Outcome == UnitTestOutcome.InProgress)
-              overallResult.Outcome = UnitTestOutcome.Passed;
+            if (overallResult.Outcome == TestState.InProgress)
+              overallResult.Outcome = TestState.Passed;
         }
       }
       catch (TargetInvocationException ex)
       {
         if (ex.InnerException is AssertFailedException)
         {
+          methodInfo.State = TestState.Failed;
           if (result != null)
           {
-            result.Outcome = UnitTestOutcome.Failed;
+            result.Outcome = TestState.Failed;
             result.Message = ex.InnerException.Message;
           }
           if (overallResult != null)
           {
-            overallResult.Outcome = UnitTestOutcome.Failed;
+            overallResult.Outcome = TestState.Failed;
             overallResult.FailedTestsCount += 1;
           }
         }
         else 
         if (ex.InnerException is AssertInconclusiveException)
         {
+          methodInfo.State = TestState.Inconclusive;
           if (result != null)
           {
-            result.Outcome = UnitTestOutcome.Inconclusive;
+            result.Outcome = TestState.Inconclusive;
             result.Message = ex.InnerException.Message;
           }
           if (overallResult != null)
-            if (overallResult.Outcome != UnitTestOutcome.Failed)
-              overallResult.Outcome = UnitTestOutcome.Inconclusive;
+            if (overallResult.Outcome != TestState.Failed)
+              overallResult.Outcome = TestState.Inconclusive;
           overallResult.InconclusiveTestsCount += 1;
         }
         else
         {
+          methodInfo.State=TestState.Error;
           if (result != null)
           {
-            result.Outcome = UnitTestOutcome.Error;
+            result.Outcome = TestState.Error;
             result.Message = ex.InnerException.Message;
           }
           if (overallResult != null)
           {
-            overallResult.Outcome = UnitTestOutcome.Failed;
+            overallResult.Outcome = TestState.Failed;
             overallResult.FailedTestsCount += 1;
           }
-
         }
       }
       finally
@@ -262,7 +281,41 @@ namespace MyLib.WpfTestUtils
           result.ExecTime = time;
         if (overallResult != null)
           overallResult.ExecTime += time;
+        CheckPendingMethods(methodInfo);
       }
+    }
+
+    protected void CheckPendingMethods(TestMethodInfo completedMethod)
+    {
+      foreach (var pendingMethod in TestMethods.Values
+        .Where(item=>item.RunAfter!=null && item.State==TestState.Pending)
+        .OrderBy(item=>item.Number))
+      {
+        var pendingForMethod = pendingMethod.RunAfter.FirstOrDefault(item => item.Method==completedMethod.Method);
+        if (pendingForMethod!=null)
+          pendingForMethod.State=completedMethod.State;
+        bool start = true;
+        foreach (var runAfterMethod in pendingMethod.RunAfter)
+          if (runAfterMethod.State!=TestState.Passed)
+            start = false;
+        if (start)
+          InvokeTestMethod(pendingMethod, new object[0]);
+        bool cancel = false;
+        foreach (var runAfterMethod in pendingMethod.RunAfter)
+          if (runAfterMethod.State!=TestState.Passed && runAfterMethod.State!=TestState.Pending)
+            cancel = true;
+        if (cancel)
+          CancelTestMethod(pendingMethod);
+      }
+    }
+
+    protected virtual void CancelTestMethod(TestMethodInfo methodInfo)
+    {
+      methodInfo.State=TestState.Cancelled;
+      var method = methodInfo.Method;
+      VisualTestOverallResult overallResult = TestContext.Results.FirstOrDefault(item => item is VisualTestOverallResult) as VisualTestOverallResult;
+      if (overallResult!=null)
+        overallResult.CancelledTestsCount+=1;
     }
 
     public Type TestClass { get; protected set; }
@@ -281,7 +334,7 @@ namespace MyLib.WpfTestUtils
 
     public MethodInfo TestCleanupMethod { get; set; }
 
-    public List<MethodInfo> TestMethods { get; set; }
+    public Dictionary<string, TestMethodInfo> TestMethods { get; set; }
 
 
     public event EventHandler<AfterClassCleanupEventArgs> AfterClassCleanup;

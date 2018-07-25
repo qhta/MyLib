@@ -47,6 +47,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RunAfterAttribute.cs" />
+    <Compile Include="TestMethodInfo.cs" />
+    <Compile Include="TestState.cs" />
     <Compile Include="VisualTestMainView.xaml.cs">
       <DependentUpon>VisualTestMainView.xaml</DependentUpon>
     </Compile>
@@ -64,10 +67,16 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyLib.MultiThreadingObjects\MyLib.MultiThreadingObjects.csproj">
+      <Project>{54f927b1-e652-4f1d-a176-0bde608b686b}</Project>
+      <Name>MyLib.MultiThreadingObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)
-publish.bat</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

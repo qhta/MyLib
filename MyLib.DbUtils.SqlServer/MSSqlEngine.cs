@@ -1,0 +1,638 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyLib.DbUtils.SqlServer
+{
+  [Description("SQL Server Client")]
+  public class MSSqlEngine : DbEngine
+  {
+
+    public override bool CanEnumerateServerInstances => true;
+
+    /// <summary>
+    /// Wyliczenie instancji serwera
+    /// </summary>
+    public override IEnumerable<DbServerInfo> EnumerateServers()
+    {
+      var factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
+      List<DbServerInfo> result = new List<DbServerInfo>();
+      if (factory.CanCreateDataSourceEnumerator)
+      {
+        DbDataSourceEnumerator enumerator = factory.CreateDataSourceEnumerator();
+        if (enumerator != null)
+        {
+          DataTable aTable = enumerator.GetDataSources();
+          foreach (DataRow aRow in aTable.Rows)
+          {
+            String serverName = aRow.Field<string>(aTable.Columns["ServerName"]);
+            result.Add(new DbServerInfo
+            {
+              ServerName = serverName,
+              InstanceName = aRow.Field<string>(aTable.Columns["InstanceName"]),
+              IsClustered = aRow.Field<string>(aTable.Columns["IsClustered"]).StringToBool(),
+              Version = aRow.Field<string>(aTable.Columns["Version"]),
+              TypeName = this.GetType().Name,
+              Engine = this,
+            });
+          }
+        }
+      }
+      return result;
+    }
+    /// <summary>
+    /// Tworzenie połączenia do serwera bazy danych
+    /// </summary>
+    /// <param name="server">informacje potrzebne do utworzenia połączenia</param>
+    /// <param name="toServer">czy to ma być połączenie do serwera, czy do bazy danych</param>
+    /// <returns></returns>
+    public override DbConnection CreateConnection(DbServerInfo server)
+    {
+      SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
+      sb["Data Source"] = server.ToString();
+      if (server.UserID != null)
+      {
+        sb["User ID"] = server.UserID;
+        if (server.Password != null)
+          sb["Password"] = server.Password;
+      }
+      else
+        sb["Trusted_Connection"] = "yes";
+      string connectionString = sb.ConnectionString;
+      return new SqlConnection(connectionString);
+    }
+
+    /// <summary>
+    /// Tworzenie połączenia do bazy danych
+    /// </summary>
+    /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
+    /// <returns></returns>
+    public override DbConnection CreateConnection(DbInfo info)
+    {
+      DbConnectionStringBuilder sb = new DbConnectionStringBuilder(info.DataProvider.Kind == ProviderKind.Odbc);
+      if (info.DataProvider.Kind == ProviderKind.OleDb)
+        sb["Provider"] = info.DataProvider.ShortName;
+      sb["Data Source"] = info.DataProvider.DataSource;
+      if (info.DbName != null)
+        sb["Database"] = info.DbName;
+      if (info.UserID != null)
+      {
+        sb["User ID"] = info.UserID;
+        if (info.Password != null)
+          sb["Password"] = info.Password;
+      }
+      else
+        sb["Trusted_Connection"] = "yes";
+      string connectionString = sb.ConnectionString;
+      return new SqlConnection(connectionString);
+    }
+
+
+    public override IEnumerable<DbInfo> EnumerateDatabases(DbServerInfo server)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(server);
+      using (var command = new SqlCommand())
+      {
+        command.CommandText=
+          "SELECT [name]"           //0
+          +",[database_id]"         //1
+          +",[source_database_id]"  //2
+          +",[owner_sid]"           //3
+          +",[create_date]"         //4
+          +",[compatibility_level]" //5
+          +" FROM sys.databases WHERE not name in ('master','model','msdb','tempdb')";
+        command.Connection=connection;
+        bool opened = connection.State==ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+
+          List<DbInfo> result = new List<DbInfo>();
+          using (var dataReader = command.ExecuteReader())
+          {
+            while (dataReader.Read())
+            {
+              var dbInfo = new DbInfo
+              {
+                DbName=dataReader[0].ToString(),
+                DefaultFileExt="mdf",
+                CreatedAt = (DateTime)dataReader.GetValue(4),
+              };
+              result.Add(dbInfo);
+            }
+          }
+          foreach (var dbInfo in result)
+          {
+            dbInfo.Engine = this;
+            dbInfo.Server = server;
+            dbInfo.FileNames = GetSqlDatabaseFiles(dbInfo).Select(item=>item.PhysicalName).ToArray();
+          }
+          return result;
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+
+    /// <summary>
+    /// Tworzenie bazy danych
+    /// </summary>
+    /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>
+    public override void CreateDatabase(DbInfo info)
+    {
+      CreateSqlDatabase(info, false);
+      info.FileNames = GetSqlDatabaseFiles(info).Select(item => item.PhysicalName).ToArray();
+    }
+
+    /// <summary>
+    /// Dołączenie istniejącej bazy danych
+    /// </summary>
+    /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>
+    public override void AttachDatabase(DbInfo info)
+    {
+      CreateSqlDatabase(info, true);
+    }
+
+    /// <summary>
+    /// Tworzenie bazy danych
+    /// </summary>
+    /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>
+    /// <param name="attachOnly">utworzyć wewnętrzną bazę danych przez podłączenie istniejącego pliku</param>
+    private void CreateSqlDatabase(DbInfo info, bool attachOnly)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      using (var command = new SqlCommand())
+      {
+        if (info.FileNames!=null)
+        {
+          var files = PhysicalFilenames(info);
+          command.CommandText = String.Format(
+              "CREATE DATABASE [{0}]"
+              + " ON (NAME='{0}' ,FILENAME='{1}')"
+              + " LOG ON (NAME='{0}_LOG' ,FILENAME='{2}')",
+              info.DbName, files[0], files[1]
+              );
+        }
+        else
+          command.CommandText = String.Format(
+              "CREATE DATABASE [{0}]",
+              info.DbName);
+        if (attachOnly)
+          command.CommandText += " FOR ATTACH";
+        command.Connection = connection;
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+          command.ExecuteNonQuery();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Sprawdzenie istnienia bazy danych
+    /// </summary>
+    /// <param name="info">informacje definiujące bazę danych</param>
+    public override bool DatabaseExists(DbInfo info)
+    {
+      var ok = ExistsSqlServerDatabase(info);
+      return ok;
+    }
+
+    /// <summary>
+    /// Sprawdzenie istnienia bazy danych SQL Serwera
+    /// </summary>
+    /// <param name="info">informacje definiujące bazę danych</param>
+    private bool ExistsSqlServerDatabase(DbInfo info)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      using (var command = new SqlCommand())
+      {
+        command.CommandText =
+            String.Format("SELECT * FROM master.sys.databases WHERE Name='{0}'", info.DbName);
+        command.Connection = connection;
+        bool opened = connection.State==ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+          object result = command.ExecuteScalar();
+          var ok = result != null;
+          if (ok)
+          {
+            info.Engine=this;
+            info.FileNames = GetSqlDatabaseFiles(info).Select(item => item.PhysicalName).ToArray();
+          }
+          return ok;
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Usuwanie bazy danych
+    /// </summary>
+    /// <param name="info">informacje potrzebne do usunięcia bazy danych</param>
+    public override void DeleteDatabase(DbInfo info)
+    {
+      if (ExistsSqlServerDatabase(info))
+        DeleteSqlServerDatabase(info);
+      DeleteDatabaseFiles(info);
+    }
+
+    /// <summary>
+    /// Odłączenie bazy danych od serwera
+    /// </summary>
+    /// <param name="info">informacje identyfikujące bazę danych</param>
+    public override void DetachDatabase(DbInfo info)
+    {
+      if (ExistsSqlServerDatabase(info))
+        DeleteSqlServerDatabase(info, true);
+    }
+
+    /// <summary>
+    ///   Usunięcie bazy danych od SQL serwera
+    /// </summary>
+    /// <param name="info">informacje potrzebne do przeprowadzenia operacji</param>
+    /// <param name="detachOnly">czy baza danych ma być tylko odłączona od serwera</param>
+    private void DeleteSqlServerDatabase(DbInfo info, bool detachOnly = false)
+    {
+      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      SqlConnection.ClearPool(connection);
+      using (var command = new SqlCommand())
+      {
+        command.CommandText =
+            String.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", info.DbName);
+        command.Connection = connection;
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+          command.ExecuteNonQuery();
+          if (detachOnly)
+            command.CommandText =
+              String.Format("sp_detach_db @dbname= [{0}], @skipchecks= true", info.DbName);
+          else
+            command.CommandText =
+              String.Format("DROP DATABASE [{0}]", info.DbName);
+          command.ExecuteNonQuery();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Nazwy plików fizycznych skojarzonych z bazą danych.
+    /// Niekoniecznie wszystkie te pliki istnieją.
+    /// </summary>
+    /// <param name="info">kontekst identyfikujący bazę danych</param>
+    /// <returns></returns>
+    public override string[] PhysicalFilenames(DbInfo info)
+    {
+      List<string> result = new List<string>();
+      if (info.FileNames!=null)
+      {
+        result.AddRange(info.FileNames);
+        if (result.Count==1)
+          result.Add(SqlLogFileName(result[0]));
+      }
+      else if (DatabaseExists(info))
+      {
+        var files = GetSqlDatabaseFiles(info);
+        foreach (var item in files)
+          result.Add(item.PhysicalName);
+      }
+      else
+      {
+        result.AddRange(GetDefaultFileNames(info));
+      }
+      return result.ToArray();
+    }
+
+    private string[] GetDefaultFileNames(DbInfo info)
+    {
+      var result = SqlServerDefaultLocations(info);
+      result[0] = System.IO.Path.Combine(result[0], info.DbName+".mdf");
+      result[1] = SqlLogFileName(System.IO.Path.Combine(result[1], info.DbName+".ldf"));
+      return result;
+    }
+
+    /// <summary>
+    /// Sprawdzenie istnienia bazy danych SQL Serwera
+    /// </summary>
+    /// <param name="info">informacje definiujące bazę danych</param>
+    private string[] SqlServerDefaultLocations(DbInfo info)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      using (var command = new SqlCommand())
+      {
+        command.CommandText =
+             "SELECT SERVERPROPERTY('InstanceDefaultDataPath') AS DataFiles, SERVERPROPERTY('InstanceDefaultLogPath') AS LogFiles";
+        command.Connection = connection;
+        bool opened = connection.State==ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+          var result = new List<string>();
+          using (var dataReader = command.ExecuteReader())
+          {
+            while (dataReader.Read())
+            {
+              result.Add(dataReader[0].ToString());
+              result.Add(dataReader[1].ToString());
+            }
+          }
+          return result.ToArray();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    private string SqlLogFileName(string rowsFileName)
+    {
+      var path = System.IO.Path.GetDirectoryName(rowsFileName);
+      var filename = System.IO.Path.GetFileNameWithoutExtension(rowsFileName);
+      filename += "_log.ldf";
+      return System.IO.Path.Combine(path, filename);
+    }
+    /// <summary>
+    /// Zmiana nazwy bazy danych
+    /// </summary>
+    /// <param name="newDbName">nowa nazwa bazy danych</param>
+    /// <param name="newFileNames">nowe nazwy plików danych</param>
+    /// <param name="info">informacje potrzebne do wykonania operacji</param>
+    public override void RenameDatabase(DbInfo info, string newDbName, params string[] newFileNames)
+    {
+      if (ExistsSqlServerDatabase(info))
+        RenameSqlServerDatabase(info, newDbName, newFileNames);
+      else
+        throw new DataException("To rename a SQL database it must be connected to a SQL Server instance");
+    }
+
+    /// <summary>
+    ///   Zmiana nazwy bazy danych od SQL serwera
+    /// </summary>
+    /// <param name="newDbName">nowa nazwa bazy danych</param>
+    /// <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
+    /// <param name="info">informacje potrzebne do przeprowadzenia operacji</param>
+    private void RenameSqlServerDatabase(DbInfo info, string newDbName, params string[] newFileNames)
+    {
+      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      SqlConnection.ClearPool(connection);
+
+      using (var command = new SqlCommand())
+      {
+        command.CommandText =
+          String.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", info.DbName);
+        command.Connection = connection;
+
+        bool opened = connection.State==ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+          command.ExecuteNonQuery();
+          if (newDbName != info.DbName)
+          {
+            command.CommandText =
+              String.Format("ALTER DATABASE [{0}] MODIFY Name = [{1}]", info.DbName, newDbName);
+            command.ExecuteNonQuery();
+          }
+          bool changePhysicalFile = newFileNames != null && newFileNames.Length>0;
+          if (newDbName != info.DbName || changePhysicalFile)
+          {
+
+            // opcjonalne utworzenie potrzebnego katalogu
+            string newPath = System.IO.Path.GetDirectoryName(newFileNames[0]);
+            if (!System.IO.Directory.Exists(newPath))
+              System.IO.Directory.CreateDirectory(newPath);
+
+            var files = GetSqlDatabaseFiles(info);
+
+            int i = 0;
+            // zmiana nazw plików
+            foreach (var item in files)
+            {
+              var oldDbName = info.DbName;
+              var oldFileName = item.LogicalName;
+
+              string alterSQL = "ALTER DATABASE [{0}]"
+                    + " MODIFY FILE ( NAME = [{1}],"
+                    + " NEWNAME = [{2}]";
+              if (changePhysicalFile)
+                alterSQL += ", FILENAME = N'{3}')";
+              else
+                alterSQL += ")";
+              command.CommandText =
+                String.Format(alterSQL,
+                    newDbName,
+                    oldDbName,
+                    oldDbName.Replace(info.DbName, newDbName),
+                    ChangeFileName(oldFileName, newFileNames[i++]));
+              command.ExecuteNonQuery();
+            }
+          }
+          // przesunięcie fizycznych plików
+          if (changePhysicalFile)
+          {
+            command.CommandText =
+                String.Format("ALTER DATABASE [{0}] SET OFFLINE", newDbName);
+            command.ExecuteNonQuery();
+            RenameDatabaseFiles(info, newFileNames);
+            command.CommandText =
+                String.Format("ALTER DATABASE [{0}] SET ONLINE", newDbName);
+            command.ExecuteNonQuery();
+          }
+
+          command.CommandText =
+            String.Format("ALTER DATABASE [{0}] SET MULTI_USER WITH ROLLBACK IMMEDIATE", newDbName);
+          command.ExecuteNonQuery();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    struct DbFileInfo
+    {
+      public string Type;
+      public string LogicalName;
+      public string PhysicalName;
+    }
+
+    /// <summary>
+    /// Pobranie nazw plików skojarzonych z bazą danych
+    /// </summary>
+    /// <param name="info">informacje o bazie danych</param>
+    /// <returns>lista informacji o plikach</returns>
+    private List<DbFileInfo> GetSqlDatabaseFiles(DbInfo info)
+    {
+      SqlConnection connection = (SqlConnection)info.Server.Connection;
+
+      using (var command = new SqlCommand())
+      {
+        // pobranie nazw logicznych i fizycznych plików
+        command.CommandText =
+          String.Format("SELECT type_desc, name, physical_name"
+          + " FROM sys.master_files"
+          + " WHERE database_id = DB_ID(N'{0}')",
+          info.DbName);
+        command.Connection=connection;
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+
+          var result = new List<DbFileInfo>();
+          using (var dataReader = command.ExecuteReader())
+          {
+            while (dataReader.Read())
+            {
+              result.Add(
+                new DbFileInfo
+                {
+                  Type = dataReader[0].ToString(),
+                  LogicalName = dataReader[1].ToString(),
+                  PhysicalName = dataReader[2].ToString(),
+                });
+            }
+          }
+          return result;
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Kopiowanie bazy danych
+    /// </summary>
+    /// <param name="newDbName">nowa nazwa bazy danych</param>
+    /// <param name="newFileNames">nowe nazwy pliku</param>
+    /// <param name="info">informacje potrzebne do wykonania operacji</param>
+    public override void CopyDatabase(DbInfo info, string newDbName, string[] newFileNames)
+    {
+      if (ExistsSqlServerDatabase(info))
+        CopySqlServerDatabase(info, newDbName, newFileNames);
+      else
+        throw new DataException("To copy a SQL database it must be connected to a SQL Server instance");
+    }
+
+    /// <summary>
+    ///   Kopiowanie bazy danych SQL serwera
+    /// </summary>
+    /// <param name="newDbName">nowa nazwa bazy danych</param>
+    /// <param name="newFileNames">nowe nazwy plików (bez rozszerzenia)</param>
+    /// <param name="info">informacje potrzebne do przeprowadzenia operacji</param>
+    private void CopySqlServerDatabase(DbInfo info, string newDbName, string[] newFileNames)
+    {
+      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      using (var command = new SqlCommand())
+      {
+        command.CommandText =
+          String.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", info.DbName);
+        command.Connection = connection;
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+          command.ExecuteNonQuery();
+
+          string tempFileName = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(info.FileNames[0]),
+            System.IO.Path.GetFileNameWithoutExtension(info.FileNames[0]) + "_TEMPCOPY");
+
+          // skopiowanie fizycznych plików do plików tymczasowych
+          var files = GetSqlDatabaseFiles(info);
+          command.CommandText =
+              String.Format("ALTER DATABASE [{0}] SET OFFLINE", info.DbName);
+          command.ExecuteNonQuery();
+          foreach (var item in files)
+          {
+            string oldFileName = item.PhysicalName;
+            string copyFileName = ChangeFileName(oldFileName, tempFileName);
+            if (System.IO.File.Exists(copyFileName))
+              System.IO.File.Delete(copyFileName);
+            System.IO.File.Copy(oldFileName, copyFileName);
+          }
+          command.CommandText =
+              String.Format("ALTER DATABASE [{0}] SET ONLINE", info.DbName);
+          command.ExecuteNonQuery();
+
+          // przywrócenie oryginalnej bazy danych do trybu wieloużytkowego
+          command.CommandText =
+            String.Format("ALTER DATABASE [{0}] SET MULTI_USER WITH ROLLBACK IMMEDIATE", info.DbName);
+          command.ExecuteNonQuery();
+
+          // zmiana nazwy/przesunięcie oryginalnej bazy danych
+          RenameSqlServerDatabase(info, newDbName, newFileNames);
+
+          // zmiana nazw poprzednio utworzonych tymczasowych kopii plików na poprzednie
+          foreach (var item in files)
+          {
+            string oldFileName = item.PhysicalName;
+            string copyFileName = ChangeFileName(oldFileName, tempFileName);
+            if (System.IO.File.Exists(copyFileName))
+              System.IO.File.Move(copyFileName, oldFileName);
+          }
+
+          // ponowne utworzenie pierwotnej bazy danych
+          // na podstawie zachowanych kopii plików
+          command.CommandText =
+              String.Format(
+                    "CREATE DATABASE [{0}]"
+                  + " ON (NAME='{0}' ,FILENAME='{1}')"
+                  + " LOG ON (NAME='{0}_LOG' ,FILENAME='{2}')"
+                  + " FOR ATTACH",
+                  info.DbName, info.FileNames[0], info.FileNames[1]);
+          command.ExecuteNonQuery();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+    //#endregion
+
+  }
+}

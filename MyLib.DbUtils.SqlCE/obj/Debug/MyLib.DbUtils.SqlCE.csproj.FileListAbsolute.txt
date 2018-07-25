@@ -1,0 +1,13 @@
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\obj\Debug\MyLib.DbUtils.SqlCE.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\obj\Debug\MyLib.DbUtils.SqlCE.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\IMACS.DbUtils.SqlCE.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\IMACS.DbUtils.SqlCE.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\MyLib.DbUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\System.Data.SqlServerCe.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\MyLib.GuildUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\netstandard.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\MyLib.DbUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\bin\Debug\MyLib.GuildUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\obj\Debug\MyLib.DbUtils.SqlCE.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\obj\Debug\IMACS.DbUtils.SqlCE.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlCE\obj\Debug\IMACS.DbUtils.SqlCE.pdb

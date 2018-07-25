@@ -19,8 +19,8 @@ namespace MyLib.WpfTestUtils
         if (overallTestsCount!=value)
         {
           overallTestsCount = value;
-          RaisePropertyChanged("OverallTestsCount");
-          RaisePropertyChanged("Message");
+          NotifyPropertyChanged(nameof(OverallTestsCount));
+          NotifyPropertyChanged(nameof(Message));
         }
       }
     }
@@ -34,8 +34,8 @@ namespace MyLib.WpfTestUtils
         if (passedTestsCount != value)
         {
           passedTestsCount = value;
-          RaisePropertyChanged("PassedTestsCount");
-          RaisePropertyChanged("Message");
+          NotifyPropertyChanged(nameof(PassedTestsCount));
+          NotifyPropertyChanged(nameof(Message));
         }
       }
     }
@@ -49,8 +49,8 @@ namespace MyLib.WpfTestUtils
         if (failedTestsCount != value)
         {
           failedTestsCount = value;
-          RaisePropertyChanged("FailedTestsCount");
-          RaisePropertyChanged("Message");
+          NotifyPropertyChanged(nameof(FailedTestsCount));
+          NotifyPropertyChanged(nameof(Message));
         }
       }
     }
@@ -64,32 +64,40 @@ namespace MyLib.WpfTestUtils
         if (inconclusiveTestsCount != value)
         {
           inconclusiveTestsCount = value;
-          RaisePropertyChanged("InconclusiveTestsCount");
-          RaisePropertyChanged("Message");
+          NotifyPropertyChanged(nameof(InconclusiveTestsCount));
+          NotifyPropertyChanged(nameof(Message));
         }
       }
     }
     private int inconclusiveTestsCount;
 
+    public int CancelledTestsCount
+    {
+      get { return cancelledTestsCount; }
+      set
+      {
+        if (cancelledTestsCount != value)
+        {
+          cancelledTestsCount = value;
+          NotifyPropertyChanged(nameof(CancelledTestsCount));
+          NotifyPropertyChanged(nameof(Message));
+        }
+      }
+    }
+    private int cancelledTestsCount;
+
     public new string Message
     {
       get
       {
-        switch (Outcome)
-        {
-          case UnitTestOutcome.InProgress:
-          case UnitTestOutcome.Passed:
-            return String.Format("{0} of {1} tests passed", PassedTestsCount, OverallTestsCount);
-          case UnitTestOutcome.Failed:
-          case UnitTestOutcome.Inconclusive:
-            string result = String.Format("{0} of {1} tests passed", PassedTestsCount, OverallTestsCount);
-            if (FailedTestsCount!=0)
-              result += String.Format(", {0} failed", FailedTestsCount);
-            if (InconclusiveTestsCount!=0)
-              result += String.Format(", {0} inconclusive", InconclusiveTestsCount);
-            return result;
-        }
-        return null;
+        string result = String.Format("{0} of {1} tests passed", PassedTestsCount, OverallTestsCount);
+        if (FailedTestsCount!=0)
+          result += String.Format(", {0} failed", FailedTestsCount);
+        if (InconclusiveTestsCount!=0)
+          result += String.Format(", {0} inconclusive", InconclusiveTestsCount);
+        if (CancelledTestsCount!=0)
+          result += String.Format(", {0} cancelled", CancelledTestsCount);
+        return result;
       }
     }
   

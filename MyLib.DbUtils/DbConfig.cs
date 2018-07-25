@@ -216,7 +216,7 @@ namespace MyLib.DbUtils
     /// </summary>
     /// <param name="info">informacja o dostawcy danych z systemu</param>
     /// <param name="ds">źródło danych SQL</param>
-    public DbProvider(DbProviderInfo info, SqlDataSourceInfo ds)
+    public DbProvider(DbProviderInfo info, DbServerInfo ds)
     {
       Kind = info.Kind;
       FullName = info.FullName;
@@ -284,16 +284,16 @@ namespace MyLib.DbUtils
     /// <summary>
     /// Silnik źródła danych
     /// </summary>
-    [ConfigurationProperty("engine", IsRequired = true, DefaultValue=DbEngine.Unknown)]
+    [ConfigurationProperty("engine", IsRequired = true, DefaultValue=DbEngineKind.Unknown)]
     [DefaultValue (false)]
-    public DbEngine Engine
+    public DbEngineKind Engine
     {
       get 
       {
-        if (this["engine"] is DbEngine)
-          return (DbEngine)this["engine"];
+        if (this["engine"] is DbEngineKind)
+          return (DbEngineKind)this["engine"];
         else
-          return (DbEngine)Enum.Parse(typeof(DbEngine), (string)this["engine"]);
+          return (DbEngineKind)Enum.Parse(typeof(DbEngineKind), (string)this["engine"]);
       }
       set { this["engine"] = value; }
     }

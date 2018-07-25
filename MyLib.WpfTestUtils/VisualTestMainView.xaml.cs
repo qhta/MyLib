@@ -29,6 +29,40 @@ namespace MyLib.WpfTestUtils
       InitializeComponent();
     }
 
+    public static DependencyProperty OrientationProperty = DependencyProperty.Register
+      ("Orientation", typeof(Orientation), typeof(VisualTestMainView),
+       new PropertyMetadata(Orientation.Vertical));
+    public Orientation Orientation
+    {
+      get => (Orientation)GetValue(OrientationProperty);
+      set => SetValue(OrientationProperty, value);
+    }
+
+    public override void OnApplyTemplate()
+    {
+      switch (Orientation)
+      {
+        case Orientation.Vertical:
+          MainGrid.RowDefinitions.Add(new RowDefinition { Height=new GridLength(1,GridUnitType.Star) });
+          MainGrid.RowDefinitions.Add(new RowDefinition { Height=new GridLength(5) });
+          MainGrid.RowDefinitions.Add(new RowDefinition { Height=new GridLength(1, GridUnitType.Star) });
+          Splitter.SetValue(Grid.RowProperty, 1);
+          Splitter.Height=5;
+          Splitter.ResizeDirection=GridResizeDirection.Rows;
+          TestResults.SetValue(Grid.RowProperty, 2);
+          break;
+        case Orientation.Horizontal:
+          MainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width=new GridLength(1, GridUnitType.Star) });
+          MainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width=new GridLength(5) });
+          MainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width=new GridLength(1, GridUnitType.Star) });
+          Splitter.SetValue(Grid.ColumnProperty, 1);
+          Splitter.Width=5;
+          Splitter.HorizontalAlignment=HorizontalAlignment.Stretch;
+          TestResults.SetValue(Grid.ColumnProperty, 2);
+          break;
+      }
+    }
+
     public VisualTestContext VisualTestContext { get; set; }
 
     public Type TestClass { get; set; }

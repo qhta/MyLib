@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyLib.MultiThreadingObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace MyLib.WpfTestUtils
     public VisualTestContext()
       : base()
     {
-      Results = new ObservableCollection<VisualTestResult>();
+      Results = new DispatchedCollection<VisualTestResult>();
       Results.Add(new VisualTestOverallResult("AllTests"));
     }
 
@@ -61,7 +62,7 @@ namespace MyLib.WpfTestUtils
     /// <summary>
     /// Wyniki testów - mogą być użyte jako <c>ImageSource</c> w komponencie <c>ListView</c>
     /// </summary>
-    public ObservableCollection<VisualTestResult> Results { get; protected set; }
+    public DispatchedCollection<VisualTestResult> Results { get; protected set; }
 
     public VisualTestExecution TestExecution { get; set; }
 

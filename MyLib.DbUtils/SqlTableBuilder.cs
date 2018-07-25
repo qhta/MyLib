@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using SMO = Microsoft.SqlServer.Management.Smo;
-
 namespace MyLib.DbUtils
 {
   /// <summary>
   /// Klasa tworząca komendę SQL do tworzenia tabeli w bazie danych
-  /// SQL Serwera na podstawie tablicy <c>DataTable</c>
+  /// na podstawie tablicy <c>DataTable</c>
   /// </summary>
-  public class SqlTableBuilder
+  public abstract class SqlTableBuilder
   {
     /// <summary>
-    /// Wejściowa tablica danych
+    /// Żądanie usuwania spacji z nazwy
     /// </summary>
-    public DataTable DataTable 
-    { 
-      get; 
-      private set; 
+    public bool RemoveSpacesFromName
+    {
+      get;
+      set;
     }
 
     /// <summary>
@@ -27,40 +25,7 @@ namespace MyLib.DbUtils
     /// </summary>
     /// <param name="dataTable"></param>
     /// <returns></returns>
-    public string BuildCreateTable(DataTable dataTable)
-    {
-      DataTable = dataTable;
-      return BuildCreateTable();
-    }
-
-
-    /// <summary>
-    /// Właściwa procedura budująca łańcuch komendy SQL "CREATE TABLE"
-    /// </summary>
-    /// <returns></returns>
-    private string BuildCreateTable()
-    {
-      string result = null;
-      foreach (DataColumn column in DataTable.Columns)
-      {
-        if (result != null)
-          result += ", ";
-        result += FormatColumnString(column);
-      }
-      foreach (Constraint constraint in DataTable.Constraints)
-      {
-        string str = BuildConstraintString(constraint, true);
-        if (str != null)
-        {
-          if (result != null)
-            result += ", ";
-          result += str;
-        }
-      }
-      return String.Format(
-        "CREATE TABLE {0} ({1})",
-        EncapsulateName(DataTable.TableName), result);
-    }
+    public abstract string CreateTableString(DataTable dataTable);
 
     /// <summary>
     /// Dla podanej kolumny tworzy łańcuch definicji
@@ -84,7 +49,7 @@ namespace MyLib.DbUtils
     /// <returns></returns>
     protected virtual string TypeDefString(DataColumn column)
     {
-      SMO.DataType sqlDataType = GetDataType(column);
+      DbDataType sqlDataType = GetDataType(column);
       if (sqlDataType != null)
         return " " + DataTypeToString(sqlDataType);
       else
@@ -92,66 +57,46 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
-    /// Zwraca typ danych SQL z podanej kolumny danych w określonym kontekście
+    /// Zwraca typ danych kolumny.
     /// </summary>
     /// <param name="column">podana kolumna</param>
     /// <returns></returns>
-    protected virtual SMO.DataType GetDataType(DataColumn column)
+    protected virtual DbDataType GetDataType(DataColumn column)
     {
       if (column.DataType == typeof(System.Int32))
-        return SMO.DataType.Int;
+        return new DbDataType { SqlDbType=SqlDbType.Int };
       if (column.DataType == typeof(System.Int64))
-        return SMO.DataType.BigInt;
+        return new DbDataType { SqlDbType=SqlDbType.BigInt };
       if (column.DataType == typeof(System.Int16))
-        return SMO.DataType.SmallInt;
+        return new DbDataType { SqlDbType=SqlDbType.SmallInt };
       if (column.DataType == typeof(System.String))
       {
         if (column.ExtendedProperties["Unlimited"] != null)
-          return SMO.DataType.NText;
+          return new DbDataType { SqlDbType=SqlDbType.NText };
         if (column.MaxLength == Int32.MaxValue)
-          return SMO.DataType.NVarChar(MaxStringLength);
+          return new DbDataType { SqlDbType=SqlDbType.NText, ExtraInfo="Max" };
         if (column.MaxLength > 0)
-          return SMO.DataType.NVarChar(column.MaxLength);
+          return new DbDataType { SqlDbType=SqlDbType.NText, ExtraInfo=column.MaxLength };
       }
       if (column.DataType == typeof(System.Single))
-        return SMO.DataType.Real;
+        return new DbDataType { SqlDbType=SqlDbType.Real };
       if (column.DataType == typeof(System.Double))
-        return SMO.DataType.Float;
+        return new DbDataType { SqlDbType=SqlDbType.Float };
       if (column.DataType == typeof(System.Decimal))
-        return SMO.DataType.Decimal(2, 18);
+        return new DbDataType { SqlDbType=SqlDbType.Decimal };
       if (column.DataType == typeof(System.DateTime))
-        return SMO.DataType.DateTime;
+        return new DbDataType { SqlDbType=SqlDbType.DateTime };
       if (column.DataType == typeof(System.Guid))
-        return SMO.DataType.UniqueIdentifier;
+        return new DbDataType { SqlDbType=SqlDbType.UniqueIdentifier };
       return null;
     }
 
     /// <summary>
-    /// Podaje maksymalną długość łańcucha w określonym kontekście
-    /// </summary>
-    /// <returns></returns>
-    protected virtual int MaxStringLength
-    {
-      get { return 4000;}
-    }
-
-    /// <summary>
-    /// Podaje łańcuch dla typu danych SQL serwera
+    /// Podaje łańcuch dla określonego typu danych
     /// </summary>
     /// <param name="dataType">podany typ danych</param>
     /// <returns></returns>
-    protected virtual string DataTypeToString(SMO.DataType dataType)
-    {
-
-      string result = dataType.Name;
-      string[] ss = result.Split('.');
-      if (ss.Length >= 2)
-        result = ss[1];
-      if (dataType.MaximumLength > 0)
-        result += String.Format(" ({0})", dataType.MaximumLength);
-      return result;
-    }
-
+    protected abstract string DataTypeToString(DbDataType dataType);
 
     /// <summary>
     /// Sprawdza, czy podana kolumna tworzy (samodzielnie) klucz główny
@@ -192,76 +137,21 @@ namespace MyLib.DbUtils
       }
       return false;
     }
-    
+
     /// <summary>
-    /// Podaje łańcuch " PRIMARY KEY", gdy podana kolumna tworzy klucz główny,
-    /// a " UNIQUE", gdy jest to klucz unikatowy
+    /// Podaje łańcuch ograniczenia dla kolumny
     /// </summary>
     /// <param name="column">sprawdzana kolumna</param>
     /// <returns></returns>
-    protected virtual string ColumnConstraintString(DataColumn column)
-    {
-      string result = null;
-      if (IsPrimaryKey(column))
-        result = " PRIMARY KEY";
-      else if (column.Unique)
-        result = " UNIQUE";
-      ForeignKeyConstraint FK = null;
-      if (IsForeignKey(column, out FK))
-        result += BuildConstraintString(FK, false);
-      return result;
-    }
+    protected abstract string ColumnConstraintString(DataColumn column);
 
     /// <summary>
-    /// Podaje łańcuch " PRIMARY KEY", gdy podana kolumna tworzy klucz główny,
-    /// a " UNIQUE", gdy jest to klucz unikatowy
+    /// Podaje łańcuch ograniczenia
     /// </summary>
     /// <param name="constraint">sprawdzana kolumna</param>
     /// <param name="isTableConstraint">czy zatrzeżenie dotyczy całej tabeli</param>
     /// <returns></returns>
-    protected virtual string BuildConstraintString(Constraint constraint, bool isTableConstraint)
-    {
-      string result = null;
-      //if (constraint.ConstraintName != null)
-      //  result += " CONSTRAINT " + constraint.ConstraintName;
-      if (constraint is UniqueConstraint)
-      {
-        UniqueConstraint ucs = (UniqueConstraint)constraint;
-        if (ucs.Columns.Count() > 1)
-        {
-          if (ucs.IsPrimaryKey)
-            result += " PRIMARY KEY";
-          else
-            result += " UNIQUE";
-          string cstr = String.Join(", ", ucs.Columns.Select(item => item.ColumnName));
-          if (cstr != null)
-            result += " (" + cstr + ")";
-        }
-      }
-      else if (constraint is ForeignKeyConstraint)
-      {
-        ForeignKeyConstraint fcs = (ForeignKeyConstraint)constraint;
-        if (fcs.Columns.Count() > 1)
-        {
-          if (isTableConstraint)
-          {
-            result += " FOREIGN KEY";
-            string cstr = String.Join(", ", fcs.Columns.Select(item => EncapsulateName(item.ColumnName)));
-            if (cstr != null)
-              result += " (" + cstr + ")";
-          }
-          result += " REFERENCES " + EncapsulateName(fcs.RelatedTable.TableName);
-          string rstr = String.Join(", ", fcs.RelatedColumns.Select(item => EncapsulateName(item.ColumnName)));
-          if (rstr != null)
-            result += " (" + rstr + ")";
-          if (fcs.DeleteRule != DefaultChangeRule)
-            result += " ON DELETE" + ChangeRuleToString(fcs.DeleteRule);
-          if (fcs.UpdateRule != DefaultChangeRule)
-            result += " ON UPDATE" + ChangeRuleToString(fcs.UpdateRule);
-        }
-      }
-      return result;
-    }
+    protected abstract string ConstraintString(Constraint constraint, bool isTableConstraint);
 
     /// <summary>
     /// Domyślna zasada reakcji na zmianę/usunięcie
@@ -272,84 +162,32 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
-    /// Zmiana podanej zasady reakcji na zmianę/usunięcie na łańcuch
+    /// Podaje łańcuch dla zasady reakcji na zmianę/usunięcie
     /// </summary>
     /// <param name="rule"></param>
     /// <returns></returns>
-    protected virtual string ChangeRuleToString(Rule rule)
-    {
-      switch (rule)
-      {
-        case System.Data.Rule.Cascade:
-          return " CASCADE";
-        case System.Data.Rule.SetNull:
-          return " SET NULL";
-        case System.Data.Rule.SetDefault:
-          return " SET DEFAULT";
-      }
-      return " NO ACTION";
-    }
+    protected abstract string RuleString(Rule rule);
 
     /// <summary>
-    /// Gdy kolumna jest autoinkrementowana, to podaje łańcuch " IDENTITY"
-    /// albo " IDENTITY (seed, step), gdzie <c>seed</c> jest wartością początkową autoinkrementacji
-    /// a <c>step</c> jest krokiem autoinkrementacji
+    /// Podaje odpowiedni łańcuch dla kolumny automatycznie inkrementowanej
     /// </summary>
     /// <param name="column">sprawdzana kolumna</param>
     /// <returns></returns>
-    protected virtual string IdentityString(DataColumn column)
-    {
-      string result = null;
-      if (column.AutoIncrement)
-      {
-        result = " IDENTITY";
-        if (column.AutoIncrementSeed != 0)
-          result += String.Format(" ({0},{1})", column.AutoIncrementSeed, column.AutoIncrementStep);
-
-      }
-      if (column.ExtendedProperties["RowID"] != null)
-        result += " ROWGUIDCOL";
-      return result;
-    }
+    protected abstract string IdentityString(DataColumn column);
 
     /// <summary>
-    /// Podaje łańcuch " NOT NULL", gdy podana kolumna nie akceptuje pustych wartości
+    /// Podaje odpowiedni łańcuch, gdy kolumna nie akceptuje pustych wartości
     /// </summary>
     /// <param name="column">sprawdzana kolumna</param>
     /// <returns></returns>
-    protected virtual string NullConstraintString(DataColumn column)
-    {
-      if (!column.AllowDBNull)
-        return " NOT NULL";
-      return null;
-    }
+    protected abstract string NullConstraintString(DataColumn column);
 
     /// <summary>
-    /// Jeśli nazwa zawiera spację, to jest ujmowana w nawiasy kwadratowe
-    /// albo, jeśli ustawiona jest właściwość <see cref="RemoveSpaces"/>, 
-    /// to spacje z niej są usuwane
+    /// Odpowiednio formatuje nazwę, która zawiera spacje.
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public virtual string EncapsulateName(string name)
-    {
-      if (name.Contains(" "))
-      {
-        if (RemoveSpaces)
-          name = name.Replace(" ", "");
-        else
-          name = "[" + name + "]";
-      }
-      return name;
-    }
+    public abstract string EncapsulateName(string name);
 
-    /// <summary>
-    /// Żądanie
-    /// </summary>
-    public bool RemoveSpaces
-    {
-      get;
-      set;
-    }
   }
 }
