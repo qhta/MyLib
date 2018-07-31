@@ -167,6 +167,11 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
+    /// Domyślne rozszerzenie nazwy pliku głównego
+    /// </summary>
+    public virtual string DefaultFileExt => null;
+
+    /// <summary>
     /// Nazwy wszystkich plików fizycznych skojarzonych z bazą danych.
     /// Niekoniecznie wszystkie te pliki istnieją.
     /// </summary>
@@ -179,7 +184,7 @@ namespace MyLib.DbUtils
         result.AddRange(info.FileNames);
       else
       {
-        result.Add(info.DbName+info.DefaultFileExt);
+        result.Add(info.DbName+DefaultFileExt);
       }
       return result.ToArray();
     }
@@ -194,19 +199,14 @@ namespace MyLib.DbUtils
 
     /// <summary>
     /// Zmiana nazwy plików bazy danych
+    /// <param name="oldFileNames">stare nazwy plików</param>
     /// </summary>
     /// <param name="newFileNames">nowe nazwy plików</param>
-    /// <param name="info">informacje potrzebne do wykonania operacji</param>
-    public virtual void RenameDatabaseFiles(DbInfo info, string[] newFileNames)
+    public virtual void RenameDatabaseFiles(string[] oldFileNames, string[] newFileNames)
     {
-      IEnumerable<string> files = PhysicalFilenames(info);
-      if (files != null)
-      {
-        int i = 0;
-        foreach (string file in files)
-          if (file != info.FileNames[i])
-            SafeRenameFile(file, ChangeFileName(file, newFileNames[i++]));
-      }
+      for (int i = 0; i<oldFileNames.Length && i<newFileNames.Length; i++)
+        if (oldFileNames[i] != newFileNames[i])
+          SafeRenameFile(oldFileNames[i], ChangeFileName(oldFileNames[i], newFileNames[i]));
     }
 
     /// <summary>
@@ -219,13 +219,16 @@ namespace MyLib.DbUtils
     /// <returns></returns>
     public virtual string ChangeFileName(string oldFileName, string newFileName)
     {
-      string ext = System.IO.Path.GetExtension(oldFileName);
+      string oldExt = System.IO.Path.GetExtension(oldFileName);
+      string newExt = System.IO.Path.GetExtension(newFileName);
       if (String.IsNullOrEmpty(System.IO.Path.GetDirectoryName(newFileName)))
       {
         string oldPath = System.IO.Path.GetDirectoryName(oldFileName);
         newFileName = System.IO.Path.Combine(oldPath, newFileName);
       }
-      return System.IO.Path.ChangeExtension(newFileName, ext);
+      if (String.IsNullOrEmpty(newExt))
+        newFileName = System.IO.Path.ChangeExtension(newFileName, oldExt);
+      return newFileName; 
     }
 
     /// <summary>
@@ -235,6 +238,11 @@ namespace MyLib.DbUtils
     /// <param name="newFileName">nowa nazwa pliku</param>
     protected virtual void SafeRenameFile(string oldFileName, string newFileName)
     {
+      if (newFileName != null && System.IO.File.Exists(newFileName))
+      {
+        System.IO.File.Delete(newFileName);
+      }
+
       if (oldFileName != null && System.IO.File.Exists(oldFileName))
       {
         string newPath = System.IO.Path.GetDirectoryName(newFileName);

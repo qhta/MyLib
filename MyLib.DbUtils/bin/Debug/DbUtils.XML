@@ -298,6 +298,11 @@
             <param name="filename">nazwa pliku</param>
             <returns></returns>
         </member>
+        <member name="P:MyLib.DbUtils.DbEngine.DefaultFileExt">
+            <summary>
+            Domyślne rozszerzenie nazwy pliku głównego
+            </summary>
+        </member>
         <member name="M:MyLib.DbUtils.DbEngine.PhysicalFilenames(MyLib.DbUtils.DbInfo)">
             <summary>
             Nazwy wszystkich plików fizycznych skojarzonych z bazą danych.
@@ -314,12 +319,12 @@
             <param name="newFileNames">nowe nazwy plików danych</param>
             <param name="info">informacje potrzebne do wykonania operacji</param>
         </member>
-        <member name="M:MyLib.DbUtils.DbEngine.RenameDatabaseFiles(MyLib.DbUtils.DbInfo,System.String[])">
+        <member name="M:MyLib.DbUtils.DbEngine.RenameDatabaseFiles(System.String[],System.String[])">
             <summary>
             Zmiana nazwy plików bazy danych
+            <param name="oldFileNames">stare nazwy plików</param>
             </summary>
             <param name="newFileNames">nowe nazwy plików</param>
-            <param name="info">informacje potrzebne do wykonania operacji</param>
         </member>
         <member name="M:MyLib.DbUtils.DbEngine.ChangeFileName(System.String,System.String)">
             <summary>

@@ -84,7 +84,7 @@ namespace MyLib.DbUtils.SqlCE
     /// <param name="info">informacje potrzebne do wykonania operacji</param>
     public override void RenameDatabase(DbInfo info, string newDbName, params string[] newFileNames)
     {
-      RenameDatabaseFiles(info, newFileNames);
+      RenameDatabaseFiles(PhysicalFilenames(info), newFileNames);
     }
 
     /// <summary>

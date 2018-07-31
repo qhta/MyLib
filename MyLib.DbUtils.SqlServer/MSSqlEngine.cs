@@ -165,6 +165,15 @@ namespace MyLib.DbUtils.SqlServer
     }
 
     /// <summary>
+    /// Dołączenie istniejącej bazy danych do SQL Serwera
+    /// </summary>
+    /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>
+    private void AttachSqlServerDatabase(DbInfo info)
+    {
+      CreateSqlDatabase(info, true);
+    }
+
+    /// <summary>
     /// Tworzenie bazy danych
     /// </summary>
     /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>
@@ -272,6 +281,15 @@ namespace MyLib.DbUtils.SqlServer
     }
 
     /// <summary>
+    /// Odłączenie bazy danych od serwera SQL
+    /// </summary>
+    /// <param name="info">informacje identyfikujące bazę danych</param>
+    private void DetachSqlServerDatabase(DbInfo info)
+    {
+      DeleteSqlServerDatabase(info, true);
+    }
+
+    /// <summary>
     ///   Usunięcie bazy danych od SQL serwera
     /// </summary>
     /// <param name="info">informacje potrzebne do przeprowadzenia operacji</param>
@@ -306,6 +324,12 @@ namespace MyLib.DbUtils.SqlServer
         }
       }
     }
+
+    /// <summary>
+    /// Domyślne rozszerzenie nazwy pliku głównego
+    /// </summary>
+    public override string DefaultFileExt => ".mdf";
+
 
     /// <summary>
     /// Nazwy plików fizycznych skojarzonych z bazą danych.
@@ -395,7 +419,11 @@ namespace MyLib.DbUtils.SqlServer
     public override void RenameDatabase(DbInfo info, string newDbName, params string[] newFileNames)
     {
       if (ExistsSqlServerDatabase(info))
+      {
         RenameSqlServerDatabase(info, newDbName, newFileNames);
+        info.DbName=newDbName;
+        info.FileNames=PhysicalFilenames(info);
+      }
       else
         throw new DataException("To rename a SQL database it must be connected to a SQL Server instance");
     }
@@ -413,6 +441,8 @@ namespace MyLib.DbUtils.SqlServer
 
       using (var command = new SqlCommand())
       {
+        var oldDbName = info.DbName;
+        var oldFiles = GetSqlDatabaseFiles(info);
         command.CommandText =
           String.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", info.DbName);
         command.Connection = connection;
@@ -426,53 +456,56 @@ namespace MyLib.DbUtils.SqlServer
           if (newDbName != info.DbName)
           {
             command.CommandText =
-              String.Format("ALTER DATABASE [{0}] MODIFY Name = [{1}]", info.DbName, newDbName);
+              String.Format("ALTER DATABASE [{0}] MODIFY Name = [{1}]", oldDbName, newDbName);
             command.ExecuteNonQuery();
           }
           bool changePhysicalFile = newFileNames != null && newFileNames.Length>0;
-          if (newDbName != info.DbName || changePhysicalFile)
+          if (changePhysicalFile)
           {
-
+            var newFiles = new List<DbFileInfo>();
+            for (int i = 0; i<oldFiles.Count; i++)
+              if (i<newFileNames.Length)
+                newFiles.Add(new DbFileInfo
+                {
+                  LogicalName = oldFiles[i].LogicalName.Replace(info.DbName, newDbName),
+                  PhysicalName = ChangeFileName(oldFiles[i].PhysicalName, newFileNames[i])
+                });
+              else
+                newFiles.Add(new DbFileInfo
+                {
+                  LogicalName = oldFiles[i].LogicalName.Replace(info.DbName, newDbName),
+                  PhysicalName = oldFiles[i].PhysicalName
+                });
             // opcjonalne utworzenie potrzebnego katalogu
             string newPath = System.IO.Path.GetDirectoryName(newFileNames[0]);
             if (!System.IO.Directory.Exists(newPath))
               System.IO.Directory.CreateDirectory(newPath);
 
-            var files = GetSqlDatabaseFiles(info);
-
-            int i = 0;
             // zmiana nazw plików
-            foreach (var item in files)
+            for (int i=0; i<newFiles.Count; i++)
             {
-              var oldDbName = info.DbName;
-              var oldFileName = item.LogicalName;
+              var oldFileName = oldFiles[i].LogicalName;
 
               string alterSQL = "ALTER DATABASE [{0}]"
                     + " MODIFY FILE ( NAME = [{1}],"
                     + " NEWNAME = [{2}]";
-              if (changePhysicalFile)
+              if (oldFiles[i].PhysicalName!=newFiles[i].PhysicalName)
                 alterSQL += ", FILENAME = N'{3}')";
               else
                 alterSQL += ")";
               command.CommandText =
                 String.Format(alterSQL,
                     newDbName,
-                    oldDbName,
-                    oldDbName.Replace(info.DbName, newDbName),
-                    ChangeFileName(oldFileName, newFileNames[i++]));
+                    oldFiles[i].LogicalName, newFiles[i].LogicalName,
+                    newFiles[i].PhysicalName);
               command.ExecuteNonQuery();
             }
-          }
-          // przesunięcie fizycznych plików
-          if (changePhysicalFile)
-          {
-            command.CommandText =
-                String.Format("ALTER DATABASE [{0}] SET OFFLINE", newDbName);
-            command.ExecuteNonQuery();
-            RenameDatabaseFiles(info, newFileNames);
-            command.CommandText =
-                String.Format("ALTER DATABASE [{0}] SET ONLINE", newDbName);
-            command.ExecuteNonQuery();
+            info.DbName=newDbName;
+            DetachSqlServerDatabase(info);
+            var oldFileNames = oldFiles.Select(item => item.PhysicalName).Take(newFileNames.Length).ToArray();
+            RenameDatabaseFiles(oldFileNames, newFileNames);
+            info.FileNames=newFiles.Select(item => item.PhysicalName).ToArray();
+            AttachSqlServerDatabase(info);
           }
 
           command.CommandText =
@@ -509,7 +542,8 @@ namespace MyLib.DbUtils.SqlServer
         command.CommandText =
           String.Format("SELECT type_desc, name, physical_name"
           + " FROM sys.master_files"
-          + " WHERE database_id = DB_ID(N'{0}')",
+          + " WHERE database_id = DB_ID(N'{0}')" 
+          + " ORDER BY [type]",
           info.DbName);
         command.Connection=connection;
         bool opened = connection.State == ConnectionState.Open;
