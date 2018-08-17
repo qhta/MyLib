@@ -123,8 +123,8 @@ namespace MyLib.DbUtils
     /// <param name="info">informacje definiujące bazę danych</param>
     public virtual bool ExistsDatabaseFiles(DbInfo info)
     {
-      for (int i = 0; i<info.FileNames.Length; i++)
-        if (!System.IO.File.Exists(info.FileNames[i]))
+      for (int i = 0; i<info.Files.Length; i++)
+        if (!System.IO.File.Exists(info.Files[i].PhysicalName))
           return false;
       return true;
     }
@@ -180,8 +180,8 @@ namespace MyLib.DbUtils
     public virtual string[] PhysicalFilenames(DbInfo info)
     {
       List<string> result = new List<string>();
-      if (info.FileNames!=null)
-        result.AddRange(info.FileNames);
+      if (info.Files!=null)
+        result.AddRange(info.Files.Select(item=>item.PhysicalName));
       else
       {
         result.Add(info.DbName+DefaultFileExt);
@@ -195,7 +195,10 @@ namespace MyLib.DbUtils
     /// <param name="newDbName">nowa nazwa bazy danych</param>
     /// <param name="newFileNames">nowe nazwy plików danych</param>
     /// <param name="info">informacje potrzebne do wykonania operacji</param>
-    public abstract void RenameDatabase(DbInfo info, string newDbName, params string[] newFileNames);
+    public virtual void RenameDatabase(DbInfo info, string newDbName, params string[] newFileNames)
+    {
+      RenameDatabaseFiles(PhysicalFilenames(info), newFileNames);
+    }
 
     /// <summary>
     /// Zmiana nazwy plików bazy danych
@@ -232,7 +235,7 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
-    /// Bezpieczna zmiana nazwy pliku
+    /// Bezpieczna zmiana nazwy pliku. Nie powinno spowodować wyjątku.
     /// </summary>
     /// <param name="oldFileName">stara nazwa pliku</param>
     /// <param name="newFileName">nowa nazwa pliku</param>
@@ -253,12 +256,37 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
+    /// Bezpieczne skopiowanie pliku. Nie powinno spowodować wyjątku.
+    /// </summary>
+    /// <param name="oldFileName">stara nazwa pliku</param>
+    /// <param name="newFileName">nowa nazwa pliku</param>
+    protected bool SafeCopyFile(string oldFileName, string newFileName)
+    {
+      if (newFileName != null && System.IO.File.Exists(newFileName))
+      {
+        System.IO.File.Delete(newFileName);
+      }
+
+      if (oldFileName != null && System.IO.File.Exists(oldFileName))
+      {
+        string newPath = System.IO.Path.GetDirectoryName(newFileName);
+        if (!System.IO.Directory.Exists(newPath))
+          System.IO.Directory.CreateDirectory(newPath);
+        System.IO.File.Copy(oldFileName, newFileName);
+        return true;
+      }
+      return false;
+    }
+
+    /// <summary>
     /// Kopiowanie bazy danych
     /// </summary>
-    /// <param name="newDbName">nowa nazwa bazy danych</param>
-    /// <param name="newFileNames">nowe nazwy plików</param>
-    /// <param name="info">informacje potrzebne do wykonania operacji</param>
-    public abstract void CopyDatabase(DbInfo info, string newDbName, string[] newFileNames);
+    /// <param name="dbInfo">informacje o istniejącej bazie danych</param>
+    /// <param name="newDbInfo">informacje o nowej bazie danych</param>
+    public virtual void CopyDatabase(DbInfo dbInfo, DbInfo newDbInfo)
+    {
+      CopyDatabaseFiles(dbInfo, newDbInfo.FileNames);
+    }
 
     /// <summary>
     /// Kopiowanie plików bazy danych
@@ -276,21 +304,6 @@ namespace MyLib.DbUtils
       }
     }
 
-    /// <summary>
-    /// Bezpieczne kopiowanie pliku
-    /// </summary>
-    /// <param name="fromFileName">nazwa pliku oryginalnego</param>
-    /// <param name="toFileName">nazwa kopii pliku</param>
-    /// <returns></returns>
-    protected virtual void SafeCopyFile(string fromFileName, string toFileName)
-    {
-      if (fromFileName != null && System.IO.File.Exists(fromFileName))
-      {
-        string newPath = System.IO.Path.GetDirectoryName(toFileName);
-        if (!System.IO.Directory.Exists(newPath))
-          System.IO.Directory.CreateDirectory(newPath);
-        System.IO.File.Copy(fromFileName, toFileName);
-      }
-    }
+
   }
 }

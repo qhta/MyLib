@@ -1,4 +1,3 @@
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\MyLib.DbUtils.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\MyLib.DbUtils.SqlServer.pdb
@@ -18,3 +17,4 @@ D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\MyLib.GuildUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.csprojAssemblyReference.cache

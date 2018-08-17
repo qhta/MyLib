@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="WPFControls">
+</Property><Property Name="Solution File" Value="D:\Dane\VS\Projects\MyLib\WPFControls\WPFControls.sln">
+</Property><Property Name="Date" Value="29 stycznia 2012">
+</Property><Property Name="Time" Value="14:28:08">
+</Property><Property Name="Log Number" Value="2">
+</Property></Properties><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\iMeta.Silverlight.CoreLib.csproj" Description="Project file successfully backed up as D:\Dane\VS\Projects\MyLib\WPFControls\Backup1\iMeta.Silverlight.CoreLib.csproj">
+</Event><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\Guard.cs" Description="File successfully backed up as D:\Dane\VS\Projects\MyLib\WPFControls\Backup1\Guard.cs">
+</Event><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Dane\VS\Projects\MyLib\WPFControls\Backup1\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\ExceptionMessages.Designer.cs" Description="File successfully backed up as D:\Dane\VS\Projects\MyLib\WPFControls\Backup1\ExceptionMessages.Designer.cs">
+</Event><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\ExceptionMessages.resx" Description="File successfully backed up as D:\Dane\VS\Projects\MyLib\WPFControls\Backup1\ExceptionMessages.resx">
+</Event><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\iMeta.Silverlight.CoreLib.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\iMeta.Silverlight.CoreLib.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="iMeta.Silverlight.CoreLib" Source="..\..\iMeta.Silverlight.Windows\iMeta.Silverlight.CoreLib\iMeta.Silverlight.CoreLib.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

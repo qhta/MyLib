@@ -1,0 +1,15 @@
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\bin\Release\MyLib.WPFControls.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\bin\Release\MyLib.WPFControls.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WpfControls.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\ExtRichTextBox.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\NumericUpDown.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\ExtRichTextBox.g.cs
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\NumericUpDown.g.cs
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\ComboBoxCheckItem.g.cs
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WPFControls_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WPFControls_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\ComboBoxCheckItem.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WPFControls.g.resources
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WpfControls.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WPFControls.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Release\MyLib.WPFControls.pdb

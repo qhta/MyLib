@@ -1,4 +1,3 @@
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\obj\Debug\MyLib.DbUtils.Access.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\obj\Debug\MyLib.DbUtils.Access.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\bin\Debug\MyLib.DbUtils.Access.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\bin\Debug\MyLib.DbUtils.Access.pdb
@@ -10,3 +9,4 @@ D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\bin\Debug\MyLib.GuildUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\obj\Debug\MyLib.DbUtils.Access.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\obj\Debug\MyLib.DbUtils.Access.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\obj\Debug\MyLib.DbUtils.Access.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.Access\obj\Debug\MyLib.DbUtils.Access.csprojAssemblyReference.cache

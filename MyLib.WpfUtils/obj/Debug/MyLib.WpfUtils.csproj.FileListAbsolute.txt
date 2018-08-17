@@ -21,7 +21,6 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MVVM.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MultiThreadingObjects.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.dll
@@ -110,3 +109,4 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XDocument.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XmlDocument.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XmlSerializer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XPath.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csprojAssemblyReference.cache

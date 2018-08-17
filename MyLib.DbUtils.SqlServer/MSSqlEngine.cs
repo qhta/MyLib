@@ -132,7 +132,7 @@ namespace MyLib.DbUtils.SqlServer
           {
             dbInfo.Engine = this;
             dbInfo.Server = server;
-            dbInfo.FileNames = GetSqlDatabaseFiles(dbInfo).Select(item=>item.PhysicalName).ToArray();
+            dbInfo.Files = GetSqlDatabaseFiles(dbInfo);
           }
           return result;
         }
@@ -152,7 +152,7 @@ namespace MyLib.DbUtils.SqlServer
     public override void CreateDatabase(DbInfo info)
     {
       CreateSqlDatabase(info, false);
-      info.FileNames = GetSqlDatabaseFiles(info).Select(item => item.PhysicalName).ToArray();
+      info.Files = GetSqlDatabaseFiles(info);
     }
 
     /// <summary>
@@ -186,12 +186,19 @@ namespace MyLib.DbUtils.SqlServer
         if (info.FileNames!=null)
         {
           var files = PhysicalFilenames(info);
-          command.CommandText = String.Format(
-              "CREATE DATABASE [{0}]"
-              + " ON (NAME='{0}' ,FILENAME='{1}')"
-              + " LOG ON (NAME='{0}_LOG' ,FILENAME='{2}')",
-              info.DbName, files[0], files[1]
-              );
+          if (files.Count()==2 && !String.IsNullOrEmpty(files[1]))
+            command.CommandText = String.Format(
+                "CREATE DATABASE [{0}]"
+                + " ON (NAME='{0}' ,FILENAME='{1}')"
+                + " LOG ON (NAME='{0}_LOG' ,FILENAME='{2}')",
+                info.DbName, files[0], files[1]
+                );
+          else
+            command.CommandText = String.Format(
+                "CREATE DATABASE [{0}]"
+                + " ON (NAME='{0}' ,FILENAME='{1}')",
+                info.DbName, files[0]
+                );
         }
         else
           command.CommandText = String.Format(
@@ -247,7 +254,7 @@ namespace MyLib.DbUtils.SqlServer
           if (ok)
           {
             info.Engine=this;
-            info.FileNames = GetSqlDatabaseFiles(info).Select(item => item.PhysicalName).ToArray();
+            info.Files = GetSqlDatabaseFiles(info);
           }
           return ok;
         }
@@ -422,7 +429,7 @@ namespace MyLib.DbUtils.SqlServer
       {
         RenameSqlServerDatabase(info, newDbName, newFileNames);
         info.DbName=newDbName;
-        info.FileNames=PhysicalFilenames(info);
+        info.Files=GetSqlDatabaseFiles(info);
       }
       else
         throw new DataException("To rename a SQL database it must be connected to a SQL Server instance");
@@ -431,9 +438,9 @@ namespace MyLib.DbUtils.SqlServer
     /// <summary>
     ///   Zmiana nazwy bazy danych od SQL serwera
     /// </summary>
+    /// <param name="info">informacje o "starej" bazie danych</param>
     /// <param name="newDbName">nowa nazwa bazy danych</param>
     /// <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
-    /// <param name="info">informacje potrzebne do przeprowadzenia operacji</param>
     private void RenameSqlServerDatabase(DbInfo info, string newDbName, params string[] newFileNames)
     {
       SqlConnection connection = (SqlConnection)info.Server.Connection;
@@ -462,27 +469,10 @@ namespace MyLib.DbUtils.SqlServer
           bool changePhysicalFile = newFileNames != null && newFileNames.Length>0;
           if (changePhysicalFile)
           {
-            var newFiles = new List<DbFileInfo>();
-            for (int i = 0; i<oldFiles.Count; i++)
-              if (i<newFileNames.Length)
-                newFiles.Add(new DbFileInfo
-                {
-                  LogicalName = oldFiles[i].LogicalName.Replace(info.DbName, newDbName),
-                  PhysicalName = ChangeFileName(oldFiles[i].PhysicalName, newFileNames[i])
-                });
-              else
-                newFiles.Add(new DbFileInfo
-                {
-                  LogicalName = oldFiles[i].LogicalName.Replace(info.DbName, newDbName),
-                  PhysicalName = oldFiles[i].PhysicalName
-                });
-            // opcjonalne utworzenie potrzebnego katalogu
-            string newPath = System.IO.Path.GetDirectoryName(newFileNames[0]);
-            if (!System.IO.Directory.Exists(newPath))
-              System.IO.Directory.CreateDirectory(newPath);
+            var newFiles = NewFileInfos(info, newDbName, newFileNames);
 
             // zmiana nazw plików
-            for (int i=0; i<newFiles.Count; i++)
+            for (int i=0; i<newFiles.Count() && i<newFileNames.Count(); i++)
             {
               var oldFileName = oldFiles[i].LogicalName;
 
@@ -504,9 +494,13 @@ namespace MyLib.DbUtils.SqlServer
             DetachSqlServerDatabase(info);
             var oldFileNames = oldFiles.Select(item => item.PhysicalName).Take(newFileNames.Length).ToArray();
             RenameDatabaseFiles(oldFileNames, newFileNames);
-            info.FileNames=newFiles.Select(item => item.PhysicalName).ToArray();
+            for (int i= newFileNames.Length; i< newFiles.Length; i++)
+              newFiles[i]=oldFiles[i];
+            info.Files=newFiles;
             AttachSqlServerDatabase(info);
           }
+          else
+            info.DbName=newDbName;
 
           command.CommandText =
             String.Format("ALTER DATABASE [{0}] SET MULTI_USER WITH ROLLBACK IMMEDIATE", newDbName);
@@ -520,11 +514,48 @@ namespace MyLib.DbUtils.SqlServer
       }
     }
 
-    struct DbFileInfo
+    //private List<DbFileInfo> NewDbFileInfos(string newDbName, string[] newFileNames)
+    //{
+    //  var newFiles = new List<DbFileInfo>();
+    //  var defaultFiles = GetDefaultFileNames();
+    //  newFiles.Add(new DbFileInfo {})
+    //  for (int i = 0; i<oldFiles.Count; i++)
+    //    if (i<newFileNames.Length)
+    //      newFiles.Add(new DbFileInfo
+    //      {
+    //        LogicalName = oldFiles[i].LogicalName.Replace(oldDbName, newDbName),
+    //        PhysicalName = ChangeFileName(oldFiles[i].PhysicalName, newFileNames[i])
+    //      });
+    //    else
+    //      newFiles.Add(new DbFileInfo
+    //      {
+    //        LogicalName = oldFiles[i].LogicalName.Replace(oldDbName, newDbName),
+    //        PhysicalName = oldFiles[i].PhysicalName
+    //      });
+    //  return newFiles;
+    //}
+
+    private DbFileInfo[] NewFileInfos(DbInfo info, string newDbName, string[] newFileNames)
     {
-      public string Type;
-      public string LogicalName;
-      public string PhysicalName;
+      var oldDbName = info.DbName;
+      var oldFiles = info.Files;
+      var newFiles = new List<DbFileInfo>();
+      for (int i = 0; i<oldFiles.Count(); i++)
+        if (newFileNames!=null && i<newFileNames.Length)
+          newFiles.Add(new DbFileInfo
+          {
+            Type = oldFiles[i].Type,
+            LogicalName = oldFiles[i].LogicalName.Replace(oldDbName, newDbName),
+            PhysicalName = ChangeFileName(oldFiles[i].PhysicalName, newFileNames[i]),
+          });
+        else
+          newFiles.Add(new DbFileInfo
+          {
+            Type = oldFiles[i].Type,
+            LogicalName = oldFiles[i].LogicalName.Replace(oldDbName, newDbName),
+            PhysicalName = oldFiles[i].PhysicalName.Replace(oldDbName, newDbName),
+          });
+      return newFiles.ToArray();
     }
 
     /// <summary>
@@ -532,7 +563,7 @@ namespace MyLib.DbUtils.SqlServer
     /// </summary>
     /// <param name="info">informacje o bazie danych</param>
     /// <returns>lista informacji o plikach</returns>
-    private List<DbFileInfo> GetSqlDatabaseFiles(DbInfo info)
+    private DbFileInfo[] GetSqlDatabaseFiles(DbInfo info)
     {
       SqlConnection connection = (SqlConnection)info.Server.Connection;
 
@@ -566,7 +597,7 @@ namespace MyLib.DbUtils.SqlServer
                 });
             }
           }
-          return result;
+          return result.ToArray();
         }
         finally
         {
@@ -579,13 +610,16 @@ namespace MyLib.DbUtils.SqlServer
     /// <summary>
     /// Kopiowanie bazy danych
     /// </summary>
-    /// <param name="newDbName">nowa nazwa bazy danych</param>
-    /// <param name="newFileNames">nowe nazwy pliku</param>
-    /// <param name="info">informacje potrzebne do wykonania operacji</param>
-    public override void CopyDatabase(DbInfo info, string newDbName, string[] newFileNames)
+    /// <param name="dbInfo">informacje o istniejącej bazie danych</param>
+    /// <param name="newDbInfo">informacje o nowej bazie danych</param>
+    public override void CopyDatabase(DbInfo dbInfo, DbInfo newDbInfo)
     {
-      if (ExistsSqlServerDatabase(info))
-        CopySqlServerDatabase(info, newDbName, newFileNames);
+      if (ExistsSqlServerDatabase(dbInfo))
+      {
+        if (newDbInfo.Server!=dbInfo.Server)
+          throw new DataException("You can copy a database only within the same SQL Server instance");
+        CopySqlServerDatabase(dbInfo, newDbInfo.DbName, newDbInfo.FileNames);
+      }
       else
         throw new DataException("To copy a SQL database it must be connected to a SQL Server instance");
     }
@@ -593,71 +627,46 @@ namespace MyLib.DbUtils.SqlServer
     /// <summary>
     ///   Kopiowanie bazy danych SQL serwera
     /// </summary>
+    /// <param name="oldDbInfo">informacje o "starej" bazie danych</param>
     /// <param name="newDbName">nowa nazwa bazy danych</param>
     /// <param name="newFileNames">nowe nazwy plików (bez rozszerzenia)</param>
-    /// <param name="info">informacje potrzebne do przeprowadzenia operacji</param>
-    private void CopySqlServerDatabase(DbInfo info, string newDbName, string[] newFileNames)
+    private void CopySqlServerDatabase(DbInfo oldDbInfo, string newDbName, params string[] newFileNames)
     {
-      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      var oldDbName = oldDbInfo.DbName;
+      var oldFiles = GetSqlDatabaseFiles(oldDbInfo);
+      var newFiles = NewFileInfos(oldDbInfo, newDbName, newFileNames);
+      var newDbInfo = new DbInfo { Server= oldDbInfo.Server, DbName=newDbName, Files = newFiles };
+      CopySqlServerDatabase(oldDbInfo, newDbInfo);
+    }
+
+    /// <summary>
+    ///   Kopiowanie bazy danych SQL serwera
+    /// </summary>
+    /// <param name="oldDbInfo">informacje o "starej" bazie danych</param>
+    /// <param name="newDbInfo">informacje o "nowej" bazie danych</param>
+    private void CopySqlServerDatabase(DbInfo oldDbInfo, DbInfo newDbInfo)
+    {
+      SqlConnection connection = (SqlConnection)oldDbInfo.Server.Connection;
       using (var command = new SqlCommand())
       {
-        command.CommandText =
-          String.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", info.DbName);
+        var oldDbName = oldDbInfo.DbName;
+        var oldFiles = GetSqlDatabaseFiles(oldDbInfo);
         command.Connection = connection;
         bool opened = connection.State == ConnectionState.Open;
         try
         {
           if (!opened)
             connection.Open();
-          command.ExecuteNonQuery();
-
-          string tempFileName = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(info.FileNames[0]),
-            System.IO.Path.GetFileNameWithoutExtension(info.FileNames[0]) + "_TEMPCOPY");
-
-          // skopiowanie fizycznych plików do plików tymczasowych
-          var files = GetSqlDatabaseFiles(info);
-          command.CommandText =
-              String.Format("ALTER DATABASE [{0}] SET OFFLINE", info.DbName);
-          command.ExecuteNonQuery();
-          foreach (var item in files)
+          DetachSqlServerDatabase(oldDbInfo);
+          var newFiles = newDbInfo.Files;
+          // skopiowanie plików danych
+          for (int i = 0; i<oldFiles.Count() && i<newFiles.Count(); i++)
           {
-            string oldFileName = item.PhysicalName;
-            string copyFileName = ChangeFileName(oldFileName, tempFileName);
-            if (System.IO.File.Exists(copyFileName))
-              System.IO.File.Delete(copyFileName);
-            System.IO.File.Copy(oldFileName, copyFileName);
+            if (!SafeCopyFile(oldFiles[i].PhysicalName, newFiles[i].PhysicalName))
+              newFiles[i].PhysicalName = null;
           }
-          command.CommandText =
-              String.Format("ALTER DATABASE [{0}] SET ONLINE", info.DbName);
-          command.ExecuteNonQuery();
-
-          // przywrócenie oryginalnej bazy danych do trybu wieloużytkowego
-          command.CommandText =
-            String.Format("ALTER DATABASE [{0}] SET MULTI_USER WITH ROLLBACK IMMEDIATE", info.DbName);
-          command.ExecuteNonQuery();
-
-          // zmiana nazwy/przesunięcie oryginalnej bazy danych
-          RenameSqlServerDatabase(info, newDbName, newFileNames);
-
-          // zmiana nazw poprzednio utworzonych tymczasowych kopii plików na poprzednie
-          foreach (var item in files)
-          {
-            string oldFileName = item.PhysicalName;
-            string copyFileName = ChangeFileName(oldFileName, tempFileName);
-            if (System.IO.File.Exists(copyFileName))
-              System.IO.File.Move(copyFileName, oldFileName);
-          }
-
-          // ponowne utworzenie pierwotnej bazy danych
-          // na podstawie zachowanych kopii plików
-          command.CommandText =
-              String.Format(
-                    "CREATE DATABASE [{0}]"
-                  + " ON (NAME='{0}' ,FILENAME='{1}')"
-                  + " LOG ON (NAME='{0}_LOG' ,FILENAME='{2}')"
-                  + " FOR ATTACH",
-                  info.DbName, info.FileNames[0], info.FileNames[1]);
-          command.ExecuteNonQuery();
+          AttachSqlServerDatabase(oldDbInfo);
+          AttachSqlServerDatabase(newDbInfo);
         }
         finally
         {

@@ -59,6 +59,7 @@
     <Compile Include="DbEngine.cs" />
     <Compile Include="DbEngineKind.cs" />
     <Compile Include="DbEngineClass.cs" />
+    <Compile Include="DbFileInfo.cs" />
     <Compile Include="DbInfo.cs" />
     <Compile Include="DbProviderInfo.cs" />
     <Compile Include="DbTools.cs" />

@@ -338,18 +338,24 @@
         </member>
         <member name="M:MyLib.DbUtils.DbEngine.SafeRenameFile(System.String,System.String)">
             <summary>
-            Bezpieczna zmiana nazwy pliku
+            Bezpieczna zmiana nazwy pliku. Nie powinno spowodować wyjątku.
             </summary>
             <param name="oldFileName">stara nazwa pliku</param>
             <param name="newFileName">nowa nazwa pliku</param>
         </member>
-        <member name="M:MyLib.DbUtils.DbEngine.CopyDatabase(MyLib.DbUtils.DbInfo,System.String,System.String[])">
+        <member name="M:MyLib.DbUtils.DbEngine.SafeCopyFile(System.String,System.String)">
+            <summary>
+            Bezpieczne skopiowanie pliku. Nie powinno spowodować wyjątku.
+            </summary>
+            <param name="oldFileName">stara nazwa pliku</param>
+            <param name="newFileName">nowa nazwa pliku</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbEngine.CopyDatabase(MyLib.DbUtils.DbInfo,MyLib.DbUtils.DbInfo)">
             <summary>
             Kopiowanie bazy danych
             </summary>
-            <param name="newDbName">nowa nazwa bazy danych</param>
-            <param name="newFileNames">nowe nazwy plików</param>
-            <param name="info">informacje potrzebne do wykonania operacji</param>
+            <param name="dbInfo">informacje o istniejącej bazie danych</param>
+            <param name="newDbInfo">informacje o nowej bazie danych</param>
         </member>
         <member name="M:MyLib.DbUtils.DbEngine.CopyDatabaseFiles(MyLib.DbUtils.DbInfo,System.String[])">
             <summary>
@@ -357,14 +363,6 @@
             </summary>
             <param name="newFileNames">nowe nazwy plików (bez rozszerzenia)</param>
             <param name="info">informacje potrzebne do wykonania operacji</param>
-        </member>
-        <member name="M:MyLib.DbUtils.DbEngine.SafeCopyFile(System.String,System.String)">
-            <summary>
-            Bezpieczne kopiowanie pliku
-            </summary>
-            <param name="fromFileName">nazwa pliku oryginalnego</param>
-            <param name="toFileName">nazwa kopii pliku</param>
-            <returns></returns>
         </member>
         <member name="T:MyLib.DbUtils.DbEngineKind">
             <summary>
@@ -467,6 +465,26 @@
             </summary>
             <param name="propertyName"></param>
         </member>
+        <member name="T:MyLib.DbUtils.DbFileInfo">
+            <summary>
+            Informacja o plikach bazy danych
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbFileInfo.Type">
+            <summary>
+            Typ pliku (zależny od silnika)
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbFileInfo.LogicalName">
+            <summary>
+            Nazwa logiczna pliku (zależny od silnika)
+            </summary>
+        </member>
+        <member name="F:MyLib.DbUtils.DbFileInfo.PhysicalName">
+            <summary>
+            Nazwa fizyczna pliku
+            </summary>
+        </member>
         <member name="T:MyLib.DbUtils.DbInfo">
             <summary>
             Klasa łącząca informacje o otwieranej bazie danych
@@ -488,9 +506,14 @@
             Nazwa bazy danych/katalogu na serwerze
             </summary>
         </member>
+        <member name="P:MyLib.DbUtils.DbInfo.Files">
+            <summary>
+            Informacja o plikach bazy danych
+            </summary>
+        </member>
         <member name="P:MyLib.DbUtils.DbInfo.FileNames">
             <summary>
-            Nazwy plików bazy danych
+            Nazwy plików fizycznych
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbInfo.UserID">

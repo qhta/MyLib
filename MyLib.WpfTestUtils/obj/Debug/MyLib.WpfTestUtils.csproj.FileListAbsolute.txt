@@ -2,7 +2,6 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\MyLib.WpfTestUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\MyLib.WpfTestUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\pl\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
-D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.csprojResolveAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\VisualTestMainView.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils_MarkupCompile.cache
@@ -111,3 +110,4 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\MyLib.MultiThreadingObjects.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\bin\Debug\MyLib.MultiThreadingObjects.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WpfTestUtils\obj\Debug\MyLib.WpfTestUtils.csprojAssemblyReference.cache

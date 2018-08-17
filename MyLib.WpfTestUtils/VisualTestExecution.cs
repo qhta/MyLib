@@ -15,9 +15,13 @@ namespace MyLib.WpfTestUtils
 {
   public class VisualTestExecution: DispatcherObject
   {
+    private bool sequentialRun;
+
     public VisualTestExecution(Type testClass)
     {
       TestClass = testClass;
+      if (testClass.GetCustomAttribute<SequentialRunAttribute>()!=null)
+        sequentialRun=true;
       TestMethods = new Dictionary<string, TestMethodInfo>();
       RecognizeMethods(testClass);
     }
@@ -30,6 +34,7 @@ namespace MyLib.WpfTestUtils
 
       MethodInfo[] publicMethods = classType.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
       int n = 0;
+      TestMethodInfo priorMethod = null;
       foreach (MethodInfo method in publicMethods)
       {
         ParameterInfo[] parameters = method.GetParameters();
@@ -70,13 +75,26 @@ namespace MyLib.WpfTestUtils
           if (!method.IsPublic || method.IsStatic || parameters.Length != 0)
             throw new ArgumentException("TestMethod must be a public non-static parameterless method");
           var methodInfo = new TestMethodInfo(++n, method);
-          foreach (var runAfterAttrib in method.GetCustomAttributes<RunAfterAttribute>())
+          if (sequentialRun)
           {
-            if (methodInfo.RunAfter==null)
-              methodInfo.RunAfter = new List<TestMethodInfo>();
-            var afterMethod = publicMethods.FirstOrDefault(item=>item.Name==runAfterAttrib.Name);
-            var afterMethodInfo = new TestMethodInfo(0, afterMethod);
-            methodInfo.RunAfter.Add(afterMethodInfo);
+            if (priorMethod!=null)
+            {
+              if (methodInfo.RunAfter==null)
+                methodInfo.RunAfter = new List<TestMethodInfo>();
+              methodInfo.RunAfter.Add(priorMethod);
+            }
+            priorMethod = methodInfo;
+          }
+          else
+          {
+            foreach (var runAfterAttrib in method.GetCustomAttributes<RunAfterAttribute>())
+            {
+              if (methodInfo.RunAfter==null)
+                methodInfo.RunAfter = new List<TestMethodInfo>();
+              var afterMethod = publicMethods.FirstOrDefault(item => item.Name==runAfterAttrib.Name);
+              var afterMethodInfo = new TestMethodInfo(0, afterMethod);
+              methodInfo.RunAfter.Add(afterMethodInfo);
+            }
           }
           TestMethods.Add(method.Name, methodInfo);
         }

@@ -81,29 +81,8 @@ namespace MyLib.DbUtils.Access
     {
       throw new InvalidOperationException("Cannot detach database from MSAccessEngine");
     }
- 
 
-    /// <summary>
-    /// Zmiana nazwy bazy danych
-    /// </summary>
-    /// <param name="newDbName">nowa nazwa bazy danych</param>
-    /// <param name="newFileNames">nowe nazwy plików</param>
-    /// <param name="info">informacje potrzebne do wykonania operacji</param>
-    public override void RenameDatabase(DbInfo info, string newDbName, params string[] newFileNames)
-    {
-      RenameDatabaseFiles(PhysicalFilenames(info), newFileNames);
-    }
 
-    /// <summary>
-    /// Kopiowanie bazy danych
-    /// </summary>
-    /// <param name="newDbName">nowa nazwa bazy danych</param>
-    /// <param name="newFileNames">nowe nazwy plików</param>
-    /// <param name="info">informacje potrzebne do wykonania operacji</param>
-    public override void CopyDatabase(DbInfo info, string newDbName, params string[] newFileNames)
-    {
-      CopyDatabaseFiles(info, newFileNames);
-    }
 
   }
 }

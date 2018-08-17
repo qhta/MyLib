@@ -17,7 +17,7 @@ namespace MyLib.DbUtils
   /// </summary>
   public class DbInfo
   {
-#region właściwości "wejściowe"
+    #region właściwości "wejściowe"
     /// <summary>
     /// Dostawca danych. Identyfikuje mechanizm danych (np. OleDb), komponent dostawczy (np. Microsoft.Jet.OLEDB.4.0)
     /// i inne parametry
@@ -32,9 +32,18 @@ namespace MyLib.DbUtils
     /// </summary>
     public string DbName { get; set; }
     /// <summary>
-    /// Nazwy plików bazy danych
+    /// Informacja o plikach bazy danych
     /// </summary>
-    public string[] FileNames { get; set; }
+    public DbFileInfo[] Files { get; set; }
+    /// <summary>
+    /// Nazwy plików fizycznych
+    /// </summary>
+    public string[] FileNames
+    {
+      get => Files?.Select(item => item.PhysicalName).ToArray() ?? _FileNames;
+      set { _FileNames=value; }
+    }
+    private string[] _FileNames;
     /// <summary>
     /// Identyfikator użytkownika (dla połączenia niezaufanego)
     /// </summary>
@@ -120,6 +129,8 @@ namespace MyLib.DbUtils
     /// Utworzone połączenie
     /// </summary>
     public DbConnection Connection { get; set; }
-#endregion
+
+
+    #endregion
   }
 }

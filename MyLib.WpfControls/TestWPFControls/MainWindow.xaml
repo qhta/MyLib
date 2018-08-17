@@ -1,0 +1,19 @@
+﻿<Window x:Class="TestWPFControls.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cm="clr-namespace:System.ComponentModel;assembly=System"
+        Title="MainWindow" Height="350" Width="525" xmlns:my="clr-namespace:MyLib.WPFControls;assembly=MyLib.WPFControls">
+  <Window.Resources>
+    <cm:DoubleConverter x:Key="DoubleConv"/>
+  </Window.Resources>
+  <Grid>
+      <TextBox 
+      Name="textBox1" 
+      Text="0"
+      Height="25" HorizontalAlignment="Left" Margin="68,47,0,0" VerticalAlignment="Top" Width="69" />
+    <my:NumericUpDown 
+      Value="{Binding Path=Text,ElementName=textBox1,Mode=TwoWay}"
+      LargeChange="0.2"
+      HorizontalAlignment="Left" Margin="137,47,0,0" VerticalAlignment="Top" Width="16" Height="25" />
+  </Grid>
+</Window>
