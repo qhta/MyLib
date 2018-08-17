@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\bin\Debug\netstandard2.0\MyLib.GraphUtils.deps.json
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\bin\Debug\netstandard2.0\MyLib.GraphUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\bin\Debug\netstandard2.0\MyLib.GraphUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\obj\Debug\netstandard2.0\MyLib.GraphUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\obj\Debug\netstandard2.0\MyLib.GraphUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\obj\Debug\netstandard2.0\MyLib.GraphUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\obj\Debug\netstandard2.0\MyLib.GraphUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\obj\Debug\netstandard2.0\MyLib.GraphUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.GraphUtils\obj\Debug\netstandard2.0\MyLib.GraphUtils.pdb
