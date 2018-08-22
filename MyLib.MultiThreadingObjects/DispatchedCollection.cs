@@ -49,7 +49,7 @@ namespace MyLib.MultiThreadingObjects
         return;
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+        if (DispatchedObject.ApplicationDispatcher==null ||Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
         {
           _CollectionChanged.Invoke(this, e);
           AfterCollectionChanged(e);
@@ -83,7 +83,7 @@ namespace MyLib.MultiThreadingObjects
 
     public void Add(TValue item)
     {
-      if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+      if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
         _Values.Add(item);
       else
       {

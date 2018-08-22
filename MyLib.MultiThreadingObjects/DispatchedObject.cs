@@ -16,13 +16,12 @@ namespace MyLib.MultiThreadingObjects
   {
     public static Dispatcher ApplicationDispatcher { get; set; }
 
-    public virtual string Name { get; set; }
+    public virtual string DebugName { get; set; }
 
     public event PropertyChangedEventHandler PropertyChanged
     {
       add
       {
-        _initialDispatcher = Dispatcher.CurrentDispatcher;
         _PropertyChanged+=value;
       }
       remove
@@ -31,41 +30,32 @@ namespace MyLib.MultiThreadingObjects
       }
     }
     event PropertyChangedEventHandler _PropertyChanged;
-    Dispatcher _initialDispatcher;
 
     public void NotifyPropertyChanged(string propertyName)
     {
       if (_PropertyChanged!=null)
       {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+        if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
         {
           _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        else if (_initialDispatcher==ApplicationDispatcher)
+        else
         {
           var action = new Action<string>(NotifyPropertyChanged);
           ApplicationDispatcher.Invoke(action, new object[] { propertyName });
-        }
-        else
-        {
-          _PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
       }
     }
 
     public void Dispatch(Action action)
     {
-      if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+      if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
       {
         action.Invoke();
-      }
-      else if (_initialDispatcher==ApplicationDispatcher)
-      {
-        ApplicationDispatcher.Invoke(action, new object[] { });
       }
       else
       {
-        action.Invoke();
+        ApplicationDispatcher.Invoke(action, new object[] { });
       }
     }
   }

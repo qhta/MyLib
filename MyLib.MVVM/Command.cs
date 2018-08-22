@@ -7,7 +7,25 @@ namespace MyLib.MVVM
 {
   public abstract class Command: ICommand
   {
-    public event EventHandler CanExecuteChanged;
+    public virtual event EventHandler CanExecuteChanged
+    {
+      add { _CanExecuteChanged += value; }
+      remove { _CanExecuteChanged -= value; }
+    }
+    protected EventHandler _CanExecuteChanged;
+
+    public void NotifyCanExecuteChanged()
+    {
+      if (_CanExecuteChanged!=null)
+      {
+        OnCanExecuteChanged();
+      }
+    }
+
+    protected virtual void OnCanExecuteChanged()
+    {
+      _CanExecuteChanged.DynamicInvoke(new object[] { this, new EventArgs() });
+    }
 
     public virtual bool CanExecute(object parameter)
     {

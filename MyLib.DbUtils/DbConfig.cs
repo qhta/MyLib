@@ -202,9 +202,9 @@ namespace MyLib.DbUtils
     public DbProvider(DbProviderInfo info)
     {
       Kind = info.Kind;
-      FullName = info.FullName;
-      ShortName = info.ShortName;
-      Engine = info.Engine;
+      FullName = info.Description;
+      ShortName = info.Name;
+      Type = info.Type;
       Version = info.Version;
       FileExtensions = info.FileExtensions;
       ID = CreateHash();
@@ -219,9 +219,9 @@ namespace MyLib.DbUtils
     public DbProvider(DbProviderInfo info, DbServerInfo ds)
     {
       Kind = info.Kind;
-      FullName = info.FullName;
-      ShortName = info.ShortName;
-      Engine = info.Engine;
+      FullName = info.Description;
+      ShortName = info.Name;
+      Type = info.Type;
       Version = info.Version;
       FileExtensions = info.FileExtensions;
       DataSource = ds.ToString();
@@ -231,7 +231,7 @@ namespace MyLib.DbUtils
     private string CreateHash()
     {
       StringBuilder sb = new StringBuilder();
-      sb.Append(Engine.ToString());
+      sb.Append(Type.ToString());
       sb.Append(Kind.ToString());
       sb.Append(ShortName);
       sb.Append(FullName);
@@ -284,17 +284,11 @@ namespace MyLib.DbUtils
     /// <summary>
     /// Silnik źródła danych
     /// </summary>
-    [ConfigurationProperty("engine", IsRequired = true, DefaultValue=DbEngineKind.Unknown)]
+    [ConfigurationProperty("engine", IsRequired = true)]
     [DefaultValue (false)]
-    public DbEngineKind Engine
+    public string Type
     {
-      get 
-      {
-        if (this["engine"] is DbEngineKind)
-          return (DbEngineKind)this["engine"];
-        else
-          return (DbEngineKind)Enum.Parse(typeof(DbEngineKind), (string)this["engine"]);
-      }
+      get { return (string)this["engine"]; }
       set { this["engine"] = value; }
     }
 

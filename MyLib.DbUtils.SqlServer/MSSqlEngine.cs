@@ -6,11 +6,13 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLib.DbUtils.SqlServer
 {
-  [Description("SQL Server Client")]
+  [DisplayName("MSSQL Engine")]
+  [Description("Microsoft SQL Server Client")]
   public class MSSqlEngine : DbEngine
   {
 
@@ -31,16 +33,18 @@ namespace MyLib.DbUtils.SqlServer
           DataTable aTable = enumerator.GetDataSources();
           foreach (DataRow aRow in aTable.Rows)
           {
-            String serverName = aRow.Field<string>(aTable.Columns["ServerName"]);
-            result.Add(new DbServerInfo
+            string serverName = aRow.Field<string>(aTable.Columns["ServerName"]);
+            string instanceName = aRow.Field<string>(aTable.Columns["InstanceName"]);
+            string version = aRow.Field<string>(aTable.Columns["Version"]);
+            var info = new DbServerInfo
             {
               ServerName = serverName,
-              InstanceName = aRow.Field<string>(aTable.Columns["InstanceName"]),
-              IsClustered = aRow.Field<string>(aTable.Columns["IsClustered"]).StringToBool(),
-              Version = aRow.Field<string>(aTable.Columns["Version"]),
-              TypeName = this.GetType().Name,
+              InstanceName = instanceName,
+              Version = version,
               Engine = this,
-            });
+            };
+            info.Name = info.ToString();
+            result.Add(info);
           }
         }
       }
@@ -303,7 +307,10 @@ namespace MyLib.DbUtils.SqlServer
     /// <param name="detachOnly">czy baza danych ma być tylko odłączona od serwera</param>
     private void DeleteSqlServerDatabase(DbInfo info, bool detachOnly = false)
     {
-      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      SqlConnection connection = (SqlConnection)info.Connection;
+      if (connection!=null && connection.State==ConnectionState.Open)
+        connection.Close();
+      connection = (SqlConnection)info.Server.Connection;
       SqlConnection.ClearPool(connection);
       using (var command = new SqlCommand())
       {
@@ -364,6 +371,29 @@ namespace MyLib.DbUtils.SqlServer
         result.AddRange(GetDefaultFileNames(info));
       }
       return result.ToArray();
+    }
+
+    /// <summary>
+    /// Sprawdzenie istnienia plików bazy danych
+    /// </summary>
+    /// <param name="info">informacje definiujące bazę danych</param>
+    public override bool ExistsDatabaseFiles(DbInfo info)
+    {
+      if (info.Files==null)
+      {
+        if (info.FileNames==null)
+          info.FileNames = GetDefaultFileNames(info);
+        for (int i = 0; i<info.FileNames.Length; i++)
+          if (!System.IO.File.Exists(info.FileNames[i]))
+            return false;
+      }
+      else
+      {
+        for (int i = 0; i<info.Files.Length; i++)
+          if (!System.IO.File.Exists(info.Files[i].PhysicalName))
+            return false;
+      }
+      return true;
     }
 
     private string[] GetDefaultFileNames(DbInfo info)
@@ -675,7 +705,29 @@ namespace MyLib.DbUtils.SqlServer
         }
       }
     }
+
+    public override DbCommand CreateCommand(string cmdText, DbConnection connection)
+    {
+      return new SqlCommand(cmdText, (SqlConnection)connection);
+    }
     //#endregion
 
+    #region helper methods
+    private static IEnumerable<string> SplitSqlStatements(string sqlScript)
+    {
+      // Split by "GO" statements
+      var statements = Regex.Split(
+              sqlScript,
+              @"^[\t ]*GO[\t ]*\d*[\t ]*(?:--.*)?$",
+              RegexOptions.Multiline |
+              RegexOptions.IgnorePatternWhitespace |
+              RegexOptions.IgnoreCase);
+
+      // Remove empties, trim, and return
+      return statements
+          .Where(x => !string.IsNullOrWhiteSpace(x))
+          .Select(x => x.Trim(' ', '\r', '\n'));
+    }
+    #endregion
   }
 }

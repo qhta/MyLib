@@ -26,6 +26,7 @@ namespace MyLib.WpfTestUtils
       testMethod.Result=this;
     }
 
+    public string Name { get; private set; }
     private void TestMethod_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
       if (e.PropertyName==nameof(TestMethodInfo.State))

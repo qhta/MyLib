@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 namespace MyLib.DbUtils
 {
   /// <summary>
-  /// Informacja o źródłach danych dla klienta Sql Serwera 
-  /// zwracana przez metodę <see cref="DbTools.EnumerateServerInstances"/>
+  /// Informacja o serwerach danych dla klienta Sql Serwera 
+  /// zwracana przez metodę <see cref="DbEngine.EnumerateServers"/>
   /// </summary>
   public class DbServerInfo
   {
+    /// <summary>
+    /// Nazwa wyświetlana
+    /// </summary>
+    public string Name { get; set; }
     /// <summary>
     /// Nazwa serwera (maszyny, na której serwer jest postawiony)
     /// </summary>
@@ -22,17 +26,9 @@ namespace MyLib.DbUtils
     /// </summary>
     public string InstanceName { get; set; }
     /// <summary>
-    /// Czy serwer należy do klastra?
-    /// </summary>
-    public bool IsClustered { get; set; }
-    /// <summary>
-    /// Wersja serwera
+    /// Wersja serwers
     /// </summary>
     public string Version { get; set; }
-    /// <summary>
-    /// Nazwa typy silnika
-    /// </summary>
-    public string TypeName { get; set; }
     /// <summary>
     /// Silnik, który podał tę informację
     /// </summary>

@@ -34,15 +34,14 @@ namespace MyLib.DbUtils
         foreach (Type aType in refAssembly.ExportedTypes)
           if (aType.BaseType==typeof(DbEngine))
           {
-            string description = null;
-            var descriptionAttribute = aType.GetCustomAttribute<DescriptionAttribute>();
-            if (descriptionAttribute!=null)
-              description=descriptionAttribute.Description;
+            string id = aType.Name.Replace("Engine", "").ToUpper();
+            string name = aType.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? aType.Name;
+            string description = aType.GetCustomAttribute<DescriptionAttribute>()?.Description;
             result.Add(new DbEngineClass
             {
-              Name = aType.Name,
+              ID = id,
+              Name = name,
               Description = description,
-              InvariantName = aType.FullName,
               AssemblyQualifiedName = aType.AssemblyQualifiedName,
               Type = aType,
             });
@@ -104,44 +103,29 @@ namespace MyLib.DbUtils
             DbProviderInfo info;
             result.Add(info = new DbProviderInfo
             {
-              ShortName = name,
-              FullName = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]),
+              Name = name,
+              Description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]),
               Kind = ProviderKind.OleDb,
               ClsID = aRow.Field<string>(aTable.Columns["SOURCES_CLSID"]),
             });
-            if (info.ShortName.Contains(".ACE."))
+            if (info.Name.Contains(".ACE."))
             {
-              info.Engine = DbEngineKind.ACCESS;
+              info.Type = "ACCESS";
               info.FileExtensions = "*.accdb, *.mdb";
             }
-            else if (info.FullName.Contains(" Jet ") || info.FullName.Contains(" Access "))
+            else if (info.Description.Contains(" Jet ") || info.Description.Contains(" Access "))
             {
-              info.Engine = DbEngineKind.ACCESS;
+              info.Type = "ACCESS";
               info.FileExtensions = "*.mdb, *.accdb";
             }
-            else if (info.FullName.Contains("SQL Server"))
+            else if (info.Description.Contains("SQL Server"))
             {
-              info.Engine = DbEngineKind.MSSQL;
+              info.Type = "MSSQL";
               info.FileExtensions = "*.mdf";
-            }
-            else if (info.ShortName.Contains("MSOLAP"))
-              info.Engine = DbEngineKind.OLAP;
-            else if (info.FullName.Contains("Oracle"))
-              info.Engine = DbEngineKind.ORACLE;
-            else if (info.FullName.Contains("Directory Services"))
-              info.Engine = DbEngineKind.ADSI;
-            else if (info.FullName.Contains("Simple Provider"))
-              info.Engine = DbEngineKind.OSP;
-            else if (info.FullName.Contains("Indexing Service"))
-              info.Engine = DbEngineKind.IDXS;
-            else if (info.FullName.EndsWith("Search"))
-            {
-              info.ShortName = "Search.CollatorDSO";
-              info.Engine = DbEngineKind.WSDS;
             }
           }
       }
-      return result.OrderBy(item => item.ShortName);
+      return result.OrderBy(item => item.Name);
     }
 
     /// <summary>
@@ -174,13 +158,13 @@ namespace MyLib.DbUtils
           DbProviderInfo info = new DbProviderInfo { Kind = ProviderKind.Odbc };
           description = description.ToUpper();
           if (description.Contains("DBASE"))
-            info.Engine = DbEngineKind.DBASE;
+            info.Type = "DBASE";
           else if (description.Contains("ACCESS"))
-            info.Engine = DbEngineKind.ACCESS;
+            info.Type = "ACCESS";
           else if (description.Contains("EXCEL"))
-            info.Engine = DbEngineKind.EXCEL;
-          info.ShortName = aRow.Field<string>(aTable.Columns["SOURCES_NAME"]);
-          info.FullName = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]);
+            info.Type = "EXCEL";
+          info.Name = aRow.Field<string>(aTable.Columns["SOURCES_NAME"]);
+          info.Description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]);
           info.FileExtensions = extensions;
           result.Add(info);
         }

@@ -29,9 +29,9 @@ namespace MyLib.MultiThreadingObjects
       _Values = new DispatchedDictionaryValues(this);
     }
 
-    public DispatchedDictionary(string name)
+    public DispatchedDictionary(string debugName)
     {
-      Name = name;
+      DebugName = debugName;
       Dictionary = new ConcurrentDictionary<TKey, TValue>();
       _Values = new DispatchedDictionaryValues(this);
     }
@@ -254,7 +254,7 @@ namespace MyLib.MultiThreadingObjects
     {
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+        if (DispatchedObject.ApplicationDispatcher==null ||Dispatcher.CurrentDispatcher==ApplicationDispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
             newItem
@@ -271,7 +271,7 @@ namespace MyLib.MultiThreadingObjects
     {
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+        if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
             newItem, oldItem
@@ -288,7 +288,7 @@ namespace MyLib.MultiThreadingObjects
     {
       if (_CollectionChanged != null)
       {
-        if (Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+        if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
             oldItem

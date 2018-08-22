@@ -15,21 +15,21 @@ namespace MyLib.DbUtils
     /// <summary>
     /// Nazwa dostawcy (używana do identyfikacji)
     /// </summary>
-    public string ShortName { get; set; }
+    public string Name { get; set; }
     /// <summary>
     /// Opis dostawcy
     /// </summary>
-    public string FullName { get; set; }
+    public string Description { get; set; }
     /// <summary>
     /// Rodzaj dostawcy
     /// </summary>
     public ProviderKind Kind { get; set; }
     /// <summary>
-    /// Silnik bazy danych
+    /// ID Silnika bazy danych
     /// </summary>
-    public DbEngineKind Engine { get; set; }
+    public string Type { get; set; }
     /// <summary>
-    /// Wersja silnika
+    /// Wersja dostawcy
     /// </summary>
     public string Version { get; set; }
     /// <summary>

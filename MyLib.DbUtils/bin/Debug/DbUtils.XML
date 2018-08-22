@@ -139,7 +139,7 @@
             Typ (rodzaj) źródła danych
             </summary>
         </member>
-        <member name="P:MyLib.DbUtils.DbProvider.Engine">
+        <member name="P:MyLib.DbUtils.DbProvider.Type">
             <summary>
             Silnik źródła danych
             </summary>
@@ -247,6 +247,14 @@
             Tworzenie połączenia do bazy danych
             </summary>
             <param name="info">informacje potrzebne do utworzenia połączenia</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyLib.DbUtils.DbEngine.CreateCommand(System.String,System.Data.Common.DbConnection)">
+            <summary>
+            Tworzenie komendy SQL
+            </summary>
+            <param name="cmdText">text komendy (SQL)</param>
+            <param name="connection">połączenie do serwera</param>
             <returns></returns>
         </member>
         <member name="M:MyLib.DbUtils.DbEngine.CreateDatabase(MyLib.DbUtils.DbInfo)">
@@ -364,81 +372,6 @@
             <param name="newFileNames">nowe nazwy plików (bez rozszerzenia)</param>
             <param name="info">informacje potrzebne do wykonania operacji</param>
         </member>
-        <member name="T:MyLib.DbUtils.DbEngineKind">
-            <summary>
-            Silnik (typ) bazy danych
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.Unknown">
-            <summary>
-            Nieokreślony
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.MSSQL">
-            <summary>
-            Microsoft SQL Server
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.ACCESS">
-            <summary>
-            Microsoft Access
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.EXCEL">
-            <summary>
-            Microsoft Excel
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.DBASE">
-            <summary>
-            DBASE
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.SQLCE">
-            <summary>
-            SQL Compact Edition
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.OLAP">
-            <summary>
-            Online Analytical Processing
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.ADSI">
-            <summary>
-            Active Directory Service Interface
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.ORACLE">
-            <summary>
-            baza danych Oracle
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.OSP">
-            <summary>
-            OleDb Simple Provider
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.IDXS">
-            <summary>
-            Indexing Services
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.WSDS">
-            <summary>
-            Windows Search Data Services 
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.XMLDB">
-            <summary>
-            Baza danych oparta o pliki XML
-            </summary>
-        </member>
-        <member name="F:MyLib.DbUtils.DbEngineKind.SQLITE">
-            <summary>
-            Wbudowana baza danych SQLite
-            </summary>
-        </member>
         <member name="T:MyLib.DbUtils.DbEngineClass">
             <summary>
             Klasa przechowująca typ i instancję silnika danych. Rozszerza informacje o silniku
@@ -464,6 +397,12 @@
             Powiadomienie o zmianie właściwości
             </summary>
             <param name="propertyName"></param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbEngineClass.GetInstance">
+            <summary>
+            Podaje (a wcześniej ewentualnie tworzy) instancję silnika danych
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:MyLib.DbUtils.DbFileInfo">
             <summary>
@@ -582,12 +521,12 @@
             zwracana przez metody wyliczające dostawców
             </summary>
         </member>
-        <member name="P:MyLib.DbUtils.DbProviderInfo.ShortName">
+        <member name="P:MyLib.DbUtils.DbProviderInfo.Name">
             <summary>
             Nazwa dostawcy (używana do identyfikacji)
             </summary>
         </member>
-        <member name="P:MyLib.DbUtils.DbProviderInfo.FullName">
+        <member name="P:MyLib.DbUtils.DbProviderInfo.Description">
             <summary>
             Opis dostawcy
             </summary>
@@ -597,14 +536,14 @@
             Rodzaj dostawcy
             </summary>
         </member>
-        <member name="P:MyLib.DbUtils.DbProviderInfo.Engine">
+        <member name="P:MyLib.DbUtils.DbProviderInfo.Type">
             <summary>
-            Silnik bazy danych
+            ID Silnika bazy danych
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbProviderInfo.Version">
             <summary>
-            Wersja silnika
+            Wersja dostawcy
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbProviderInfo.FileExtensions">
@@ -672,6 +611,11 @@
             Informacja o silnikach danych <see cref="M:MyLib.DbUtils.DbTools.EnumerateEngineClasses"/>
             </summary>
         </member>
+        <member name="P:MyLib.DbUtils.DbEngineInfo.ID">
+            <summary>
+            Niezmienny identyfikator
+            </summary>
+        </member>
         <member name="P:MyLib.DbUtils.DbEngineInfo.Name">
             <summary>
             Przyjazna nazwa silnika
@@ -680,11 +624,6 @@
         <member name="P:MyLib.DbUtils.DbEngineInfo.Description">
             <summary>
             Opis silnika
-            </summary>
-        </member>
-        <member name="P:MyLib.DbUtils.DbEngineInfo.InvariantName">
-            <summary>
-            Opis niezmienny
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbEngineInfo.AssemblyQualifiedName">
@@ -719,8 +658,13 @@
         </member>
         <member name="T:MyLib.DbUtils.DbServerInfo">
             <summary>
-            Informacja o źródłach danych dla klienta Sql Serwera 
-            zwracana przez metodę <see cref="!:DbTools.EnumerateServerInstances"/>
+            Informacja o serwerach danych dla klienta Sql Serwera 
+            zwracana przez metodę <see cref="M:MyLib.DbUtils.DbEngine.EnumerateServers"/>
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbServerInfo.Name">
+            <summary>
+            Nazwa wyświetlana
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbServerInfo.ServerName">
@@ -733,19 +677,9 @@
             Nazwa instancji serwera (domyślna instancja ma nazwę pustą)
             </summary>
         </member>
-        <member name="P:MyLib.DbUtils.DbServerInfo.IsClustered">
-            <summary>
-            Czy serwer należy do klastra?
-            </summary>
-        </member>
         <member name="P:MyLib.DbUtils.DbServerInfo.Version">
             <summary>
-            Wersja serwera
-            </summary>
-        </member>
-        <member name="P:MyLib.DbUtils.DbServerInfo.TypeName">
-            <summary>
-            Nazwa typy silnika
+            Wersja serwers
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbServerInfo.Engine">

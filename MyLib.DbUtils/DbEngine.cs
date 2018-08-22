@@ -100,6 +100,14 @@ namespace MyLib.DbUtils
     public abstract DbConnection CreateConnection(DbInfo info);
 
     /// <summary>
+    /// Tworzenie komendy SQL
+    /// </summary>
+    /// <param name="cmdText">text komendy (SQL)</param>
+    /// <param name="connection">połączenie do serwera</param>
+    /// <returns></returns>
+    public abstract DbCommand CreateCommand(string cmdText, DbConnection connection);
+
+    /// <summary>
     /// Tworzenie bazy danych
     /// </summary>
     /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>

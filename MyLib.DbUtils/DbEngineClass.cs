@@ -61,5 +61,16 @@ namespace MyLib.DbUtils
       if (PropertyChanged!=null)
         PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
     }
+
+    /// <summary>
+    /// Podaje (a wcześniej ewentualnie tworzy) instancję silnika danych
+    /// </summary>
+    /// <returns></returns>
+    public DbEngine GetInstance()
+    {
+      if (Instance==null)
+        Instance = (DbEngine)Type.GetConstructor(new Type[0]).Invoke(new object[0]);
+      return Instance;
+    }
   }
 }

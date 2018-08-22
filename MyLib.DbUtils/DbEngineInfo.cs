@@ -12,6 +12,10 @@ namespace MyLib.DbUtils
   public class DbEngineInfo
   {
     /// <summary>
+    /// Niezmienny identyfikator
+    /// </summary>
+    public string ID { get; set; }
+    /// <summary>
     /// Przyjazna nazwa silnika
     /// </summary>
     public string Name { get; set; }
@@ -20,12 +24,9 @@ namespace MyLib.DbUtils
     /// </summary>
     public string Description { get; set; }
     /// <summary>
-    /// Opis niezmienny
-    /// </summary>
-    public string InvariantName { get; set; }
-    /// <summary>
     /// Pełna nazwa silnika
     /// </summary>
     public string AssemblyQualifiedName { get; set; }
+
   }
 }

@@ -61,6 +61,8 @@ namespace MyLib.MVVM
       }
     }
     private bool _IsSelected = false;
-  }
 
+    public Commands Commands { get; set; }
+
+  }
 }
