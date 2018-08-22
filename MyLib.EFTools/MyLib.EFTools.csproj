@@ -67,6 +67,12 @@
     <None Include="doc\EFTools.docx" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyLib.TypeUtils\MyLib.TypeUtils.csproj">
+      <Project>{a1e0d69f-8200-4118-a19c-e55fe16739c2}</Project>
+      <Name>MyLib.TypeUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

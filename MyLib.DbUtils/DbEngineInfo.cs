@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MyLib.DbUtils
 {
   /// <summary>
-  /// Informacja o silnikach danych <see cref="DbTools.EnumerateEngineClasses"/>
+  /// Informacja o silnikach danych <see cref="DbUtilities.EnumerateEngineClasses"/>
   /// </summary>
   public class DbEngineInfo
   {

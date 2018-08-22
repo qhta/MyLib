@@ -61,7 +61,7 @@
     <Compile Include="DbFileInfo.cs" />
     <Compile Include="DbInfo.cs" />
     <Compile Include="DbProviderInfo.cs" />
-    <Compile Include="DbTools.cs" />
+    <Compile Include="DbUtililites.cs" />
     <Compile Include="DbEngineInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderKind.cs" />

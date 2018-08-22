@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFTools
+namespace MyLib.EFTools
 {
   public class TypeDescriptorContext : ITypeDescriptorContext
   {

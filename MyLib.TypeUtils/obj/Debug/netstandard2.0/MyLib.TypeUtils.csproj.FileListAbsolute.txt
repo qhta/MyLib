@@ -15,4 +15,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.TypeUtils\obj\Debug\netstandard2.0\MyLib.TypeUti
 D:\Dane\VS\Projects\MyLib\MyLib.TypeUtils\obj\Debug\netstandard2.0\MyLib.TypeUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.TypeUtils\obj\Debug\netstandard2.0\MyLib.TypeUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.TypeUtils\obj\Debug\netstandard2.0\MyLib.TypeUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.TypeUtils\obj\Debug\netstandard2.0\MyLib.TypeUtils.csprojResolveAssemblyReference.cache

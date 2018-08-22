@@ -9,8 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SqlServer.Management.Common;
+using MyLib.TypeUtils;
 
-namespace EFTools
+namespace MyLib.EFTools
 {
   public class ErrorHandler
   {
@@ -73,7 +74,10 @@ namespace EFTools
         }
         if (@throw)
         {
-          Debug.WriteLine(String.Format("{0}: {1}", ex.GetType().Name, ex.Message));
+          string exTypeName = ex.GetType().Name;
+          if (exTypeName.Contains('`'))
+            exTypeName = ex.GetType().GetTypeName();
+          Debug.WriteLine(String.Format("{0}: {1}", exTypeName, ex.Message));
           //throw ex;
         }
       }

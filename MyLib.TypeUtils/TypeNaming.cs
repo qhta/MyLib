@@ -32,13 +32,30 @@ namespace MyLib.TypeUtils
       string name;
       if (typeNames.TryGetValue(type, out name))
         return name;
-      if (type.Name.StartsWith("Nullable`"))
+      name = type.Name;
+      if (name.StartsWith("Nullable`"))
       {
         Type baseType = type.GenericTypeArguments[0];
         name = GetTypeName(baseType);
         return name;
       }
-      return type.Name;
+      int k = name.IndexOf('`');
+      if (k>0)
+      {
+        var nstr = name.Substring(k+1);
+        if (Int32.TryParse(nstr, out int n))
+        {
+          name = name.Substring(0, k);
+          var argTypeNames = new List<string>();
+          for (int i = 0; i<n; i++)
+          {
+            Type baseType = type.GenericTypeArguments[0];
+            argTypeNames.Add(GetTypeName(baseType));
+          }
+          return $"{name}<{String.Join(",",argTypeNames)}>";
+        }
+      }
+      return name;
     }
   }
 

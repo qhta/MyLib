@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFTools
+namespace MyLib.EFTools
 {
   public static class EntityFrameworkUtils
   {

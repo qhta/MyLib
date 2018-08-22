@@ -556,50 +556,50 @@
             Identyfikator klasy (GUID)
             </summary>
         </member>
-        <member name="T:MyLib.DbUtils.DbTools">
+        <member name="T:MyLib.DbUtils.DbUtilities">
             <summary>
             Klasa oferująca metody pomocnicze dla baz danych
             </summary>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.EnumerateEngineClasses">
+        <member name="M:MyLib.DbUtils.DbUtilities.EnumerateEngineClasses">
             <summary>
             Wyliczenie informacji o silnikach baz danych
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.GetEngine(MyLib.DbUtils.DbEngineClass)">
+        <member name="M:MyLib.DbUtils.DbUtilities.GetEngine(MyLib.DbUtils.DbEngineClass)">
             <summary>
             Podanie silnika danych
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.StringToBool(System.String)">
+        <member name="M:MyLib.DbUtils.DbUtilities.StringToBool(System.String)">
             <summary>
             Konwersja łańcucha na boolean
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.EnumerateOleDbProviders">
+        <member name="M:MyLib.DbUtils.DbUtilities.EnumerateOleDbProviders">
             <summary>
             Wyszukanie dostawców OleDb
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.EnumerateOdbcDrivers">
+        <member name="M:MyLib.DbUtils.DbUtilities.EnumerateOdbcDrivers">
             <summary>
             Wyszukanie sterowników Odbc
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.GetOleDbProviderData(System.Data.OleDb.OleDbDataReader)">
+        <member name="M:MyLib.DbUtils.DbUtilities.GetOleDbProviderData(System.Data.OleDb.OleDbDataReader)">
             <summary>
             Odczytanie danych z OleDb do tabeli
             </summary>
             <param name="reader"></param>
             <returns></returns>
         </member>
-        <member name="M:MyLib.DbUtils.DbTools.IsLocalDataSource(System.String)">
+        <member name="M:MyLib.DbUtils.DbUtilities.IsLocalDataSource(System.String)">
             <summary>
             Sprawdzenie, czy źródło danych reprezentuje serwer lokalny
             </summary>
@@ -608,7 +608,7 @@
         </member>
         <member name="T:MyLib.DbUtils.DbEngineInfo">
             <summary>
-            Informacja o silnikach danych <see cref="M:MyLib.DbUtils.DbTools.EnumerateEngineClasses"/>
+            Informacja o silnikach danych <see cref="M:MyLib.DbUtils.DbUtilities.EnumerateEngineClasses"/>
             </summary>
         </member>
         <member name="P:MyLib.DbUtils.DbEngineInfo.ID">
