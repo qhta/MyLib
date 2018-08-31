@@ -14,7 +14,7 @@ using System.Windows.Threading;
 
 namespace MyLib.MultiThreadingObjects
 {
-  public class DispatchedCollection<TValue>: DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged
+  public class DispatchedCollection<TValue>: DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged, ICollection<TValue>
   {
     public DispatchedCollection()
     {
@@ -94,6 +94,8 @@ namespace MyLib.MultiThreadingObjects
 
     public int Count => _Values.Count;
 
+    public bool IsReadOnly => ((ICollection<TValue>)_Values).IsReadOnly;
+
     public TValue[] ToArray()
     {
       return _Values.ToArray();
@@ -107,6 +109,26 @@ namespace MyLib.MultiThreadingObjects
     IEnumerator IEnumerable.GetEnumerator()
     {
       return this.GetEnumerator();
+    }
+
+    public void Clear()
+    {
+      ((ICollection<TValue>)_Values).Clear();
+    }
+
+    public bool Contains(TValue item)
+    {
+      return ((ICollection<TValue>)_Values).Contains(item);
+    }
+
+    public void CopyTo(TValue[] array, int arrayIndex)
+    {
+      ((ICollection<TValue>)_Values).CopyTo(array, arrayIndex);
+    }
+
+    public bool Remove(TValue item)
+    {
+      return ((ICollection<TValue>)_Values).Remove(item);
     }
   }
 

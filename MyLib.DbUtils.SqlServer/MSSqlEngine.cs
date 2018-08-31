@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -98,6 +99,10 @@ namespace MyLib.DbUtils.SqlServer
     }
 
 
+    /// <summary>
+    /// Wyliczenie baz danych na serwerze
+    /// </summary>
+    /// <param name="info">informacje o serwerze</param>
     public override IEnumerable<DbInfo> EnumerateDatabases(DbServerInfo server)
     {
       SqlConnection connection = (SqlConnection)GetConnection(server);
@@ -150,6 +155,41 @@ namespace MyLib.DbUtils.SqlServer
 
 
     /// <summary>
+    /// Wyliczenie potencjalnych baz danych, których pliki są dostępne na serwerze
+    /// </summary>
+    /// <param name="serverInfo">informacje o serwerze</param>
+    public override IEnumerable<DbInfo> EnumeratePotentialDatabases(DbServerInfo serverInfo)
+    {
+      var result = new List<DbInfo>();
+      var locations = GetSqlServerDefaultLocations(serverInfo);
+      if (System.IO.Directory.Exists(locations[0]))
+      {
+        var mainFiles = System.IO.Directory.EnumerateFiles(locations[0], "*.mdf");
+        var logFiles = System.IO.Directory.EnumerateFiles(locations[0], "*.ldf");
+        var logFiles2 = logFiles;
+        if (locations[1]!=locations[0] && System.IO.Directory.Exists(locations[1]))
+          logFiles2 = System.IO.Directory.EnumerateFiles(locations[1], "*.ldf");
+        foreach (var item in mainFiles)
+        {
+          var name1 = System.IO.Path.GetFileNameWithoutExtension(item);
+          var dbInfo = new DbInfo { Server = serverInfo, DbName = name1 };
+          var fileNames = new List<string>();
+          fileNames.Add(item);
+          var logFileName = logFiles.FirstOrDefault(item2 => System.IO.Path.GetFileNameWithoutExtension(item2).Contains(name1))
+            ?? logFiles2.FirstOrDefault(item2 => System.IO.Path.GetFileNameWithoutExtension(item2).Contains(name1));
+          if (logFileName!=null)
+            fileNames.Add(logFileName);
+          dbInfo.FileNames= fileNames.ToArray();
+          result.Add(dbInfo);
+        }
+      }
+      var existedDatabases = EnumerateDatabases(serverInfo);
+      foreach (var db in existedDatabases)
+        result.RemoveAll(item => item.DbName==db.DbName);
+      return result;
+    }
+
+    /// <summary>
     /// Tworzenie bazy danych
     /// </summary>
     /// <param name="info">informacje potrzebne do utworzenia bazy danych</param>
@@ -189,7 +229,7 @@ namespace MyLib.DbUtils.SqlServer
       {
         if (info.FileNames!=null)
         {
-          var files = PhysicalFilenames(info);
+          var files = info.FileNames;
           if (files.Count()==2 && !String.IsNullOrEmpty(files[1]))
             command.CommandText = String.Format(
                 "CREATE DATABASE [{0}]"
@@ -398,19 +438,19 @@ namespace MyLib.DbUtils.SqlServer
 
     private string[] GetDefaultFileNames(DbInfo info)
     {
-      var result = SqlServerDefaultLocations(info);
+      var result = GetSqlServerDefaultLocations(info.Server);
       result[0] = System.IO.Path.Combine(result[0], info.DbName+".mdf");
       result[1] = SqlLogFileName(System.IO.Path.Combine(result[1], info.DbName+".ldf"));
       return result;
     }
 
     /// <summary>
-    /// Sprawdzenie istnienia bazy danych SQL Serwera
+    /// Podanie domyślnej lokalizacji plików
     /// </summary>
     /// <param name="info">informacje definiujące bazę danych</param>
-    private string[] SqlServerDefaultLocations(DbInfo info)
+    private string[] GetSqlServerDefaultLocations(DbServerInfo info)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      SqlConnection connection = (SqlConnection)GetConnection(info);
       using (var command = new SqlCommand())
       {
         command.CommandText =

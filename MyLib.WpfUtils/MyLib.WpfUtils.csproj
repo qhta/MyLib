@@ -73,6 +73,7 @@
     <Compile Include="MvvmVisualTreeHelper.cs" />
     <Compile Include="OrdNumConverter.cs" />
     <Compile Include="NullableIntConverter.cs" />
+    <Compile Include="IconEnabledConverter.cs" />
     <Compile Include="String2ObjectConverter.cs" />
     <Compile Include="String2ObjectDictionary.cs" />
     <Compile Include="BoolToVisibilityConverter.cs" />

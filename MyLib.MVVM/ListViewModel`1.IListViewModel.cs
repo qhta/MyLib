@@ -10,6 +10,10 @@ namespace MyLib.MVVM
 {
   public partial class ListViewModel<ItemType>: IListViewModel
   {
+    public IEnumerable<object> GetItems()
+    {
+      return Items;
+    }
 
     Action FindNextItemDelegate;
 

@@ -10,9 +10,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
+      <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Resources/SimpleExpanderTemplate.xaml"/>
-      </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary.MergedDictionaries>-->
       <wpf:BoolToVisibilityConverter x:Key="Bool2VisibilityConverter1"/>
       <Style x:Key="ExpanderWithHandlers" TargetType="Expander">
         <EventSetter Event="Expanded" Handler="Expander_Expanded"/>
@@ -24,8 +24,7 @@
         </Style.Triggers>
       </Style>
       <DataTemplate x:Key="DataRowExpander">
-        <Expander Style="{StaticResource ExpanderWithHandlers}"
-                  Template="{StaticResource SimpleExpanderTemp}"
+        <views:DataViewExpander Style="{StaticResource ExpanderWithHandlers}"
                   Visibility="{Binding Path=HasRowDetails, Converter={StaticResource Bool2VisibilityConverter1}}"/>
         
       </DataTemplate>

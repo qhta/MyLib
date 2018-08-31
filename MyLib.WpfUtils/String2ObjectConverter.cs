@@ -1,13 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
-
+using System.Windows.Markup;
 
 namespace MyLib.WpfUtils
 {
-  public class String2ObjectConverter : IValueConverter
+  [Bindable(true)]
+  [ContentProperty(nameof(Dictionary))]
+  public class String2ObjectConverter: IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

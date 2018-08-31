@@ -2504,21 +2504,32 @@
         <member name="T:Z.EntityFramework.Extensions.EntityFrameworkManager">
             <summary>Manager for entity frameworks.</summary>
         </member>
+        <member name="F:Z.EntityFramework.Extensions.EntityFrameworkManager.ModelName">
+            <summary>Name of the model.</summary>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ModelNameFactory">
+            <summary>Gets or sets the model name factory.</summary>
+            <value>The model name factory.</value>
+        </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.BulkOperationBuilder">
             <summary>Set the builder that will apply to all bulk operation instance.</summary>
         </member>
         <member name="F:Z.EntityFramework.Extensions.EntityFrameworkManager.UseOldBulkSaveChanges">
             <summary>true to use old bulk save changes.</summary>
         </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.Cache">
+            <summary>Gets or sets the cache to use.</summary>
+            <value>The cache to use.</value>
+        </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceDatabaseFirst">
             <summary>
-            Gets or sets a value indicating whether the current context should be forced to read as database first.
+                Gets or sets a value indicating whether the current context should be forced to read as database first.
             </summary>
             <value>true if the current context should be forced to read as database first.</value>
         </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceSelectOutput">
             <summary>
-            Gets or sets a value indicating whether the select output should be forced.
+                Gets or sets a value indicating whether the select output should be forced.
             </summary>
             <value>true if force select output, false if not.</value>
         </member>
@@ -2560,7 +2571,7 @@
         </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceTriggerResolution">
             <summary>
-            Gets or sets a value indicating whether the trigger resolution should be forced.
+                Gets or sets a value indicating whether the trigger resolution should be forced.
             </summary>
             <value>True if force trigger resolution, false if not.</value>
         </member>
@@ -3240,6 +3251,10 @@
         <member name="F:Z.BulkOperations.BulkOperationManager.ColumnMappingBuilder">
             <summary>The column mapping builder.</summary>
         </member>
+        <member name="P:Z.BulkOperations.BulkOperationManager.Cache">
+            <summary>Gets or sets the cache to use.</summary>
+            <value>The cache to use.</value>
+        </member>
         <member name="F:Z.BulkOperations.BulkOperationManager.UseOracleArray">
             <summary>Array of use oracles.</summary>
         </member>
@@ -3564,6 +3579,12 @@
         <member name="F:Z.BulkOperations.BulkOperation.ContextFactory">
             <summary>Gets or sets the context factory function to use when a working context is requested.</summary>
         </member>
+        <member name="P:Z.BulkOperations.BulkOperation.SkipPropagationAndAcceptChanges">
+            <summary>
+            Gets or sets a value indicating whether all propagation and accept changes must be skipped.
+            </summary>
+            <value>True if skip propagation and accept changes, false if not.</value>
+        </member>
         <member name="P:Z.BulkOperations.BulkOperation.StreamSize">
             <summary>Gets or sets the size of the stream.</summary>
             <value>The size of the stream.</value>
@@ -3610,6 +3631,12 @@
                 table.
             </summary>
             <value>true if use oracle global identity index table, false if not.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.ForceSelectOutput">
+            <summary>
+            Gets or sets a value indicating whether the select output should be forced.
+            </summary>
+            <value>true if force select output, false if not.</value>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation.ParallelBatchByTask">
             <summary>Gets or sets the parallel batch by task.</summary>

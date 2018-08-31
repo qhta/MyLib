@@ -10,6 +10,8 @@ namespace MyLib.MVVM
   {
     Type GetItemType();
 
+    IEnumerable<object> GetItems();
+
     IViewModel ParentViewModel { get; }
 
     string SortedBy { get; set; }

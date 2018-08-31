@@ -1,0 +1,6 @@
+D:\Dane\VS\Projects\MyLib\MyLib.WcfUtils\bin\Debug\MyLib.WcfUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WcfUtils\bin\Debug\MyLib.WcfUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WcfUtils\obj\Debug\MyLib.WcfUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WcfUtils\obj\Debug\MyLib.WcfUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WcfUtils\obj\Debug\MyLib.WcfUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.WcfUtils\obj\Debug\MyLib.WcfUtils.pdb

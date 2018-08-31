@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyLib.WPF.DataViews</RootNamespace>
     <AssemblyName>MyLib.WPF.DataViews</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -46,26 +46,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGridExpandableView.xaml.cs">
+      <DependentUpon>DataGridExpandableView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataSetView.xaml.cs">
       <DependentUpon>DataSetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTreeView.xaml.cs">
       <DependentUpon>DataTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataViewExpander.xaml.cs">
+      <DependentUpon>DataViewExpander.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DataSetView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="DataTreeView.xaml">
+    <Page Include="DataGridExpandableView.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Resources\SimpleExpanderTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="DataSetView.xaml">
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="DataTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataViewExpander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +95,9 @@
       <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
       <Name>MyLib.WpfUtils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

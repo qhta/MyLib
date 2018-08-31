@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utils="clr-namespace:MyLib.WpfUtils;assembly=MyLib.WpfUtils"
                     >
   <ControlTemplate x:Key="SimpleExpanderButtonTemp" 
              TargetType="{x:Type ToggleButton}">
@@ -87,4 +88,5 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
+  <utils:BoolToVisibilityConverter x:Key="Bool2VisibilityConverter"/>
 </ResourceDictionary>

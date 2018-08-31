@@ -239,8 +239,15 @@
         </member>
         <member name="M:MyLib.DbUtils.DbEngine.EnumerateDatabases(MyLib.DbUtils.DbServerInfo)">
             <summary>
-            Wyliczenie instancji serwera
+            Wyliczenie baz danych na serwerze
             </summary>
+            <param name="info">informacje o serwerze</param>
+        </member>
+        <member name="M:MyLib.DbUtils.DbEngine.EnumeratePotentialDatabases(MyLib.DbUtils.DbServerInfo)">
+            <summary>
+            Wyliczenie potencjalnych baz danych, których pliki są dostępne na serwerze
+            </summary>
+            <param name="info">informacje o serwerze</param>
         </member>
         <member name="M:MyLib.DbUtils.DbEngine.CreateConnection(MyLib.DbUtils.DbInfo)">
             <summary>

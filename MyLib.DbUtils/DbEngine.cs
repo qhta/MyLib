@@ -85,11 +85,21 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
-    /// Wyliczenie instancji serwera
+    /// Wyliczenie baz danych na serwerze
     /// </summary>
+    /// <param name="info">informacje o serwerze</param>
     public virtual IEnumerable<DbInfo> EnumerateDatabases(DbServerInfo info)
     {
       throw new InvalidOperationException($"{GetType().Name} cannot enumerate databases");
+    }
+
+    /// <summary>
+    /// Wyliczenie potencjalnych baz danych, których pliki są dostępne na serwerze
+    /// </summary>
+    /// <param name="info">informacje o serwerze</param>
+    public virtual IEnumerable<DbInfo> EnumeratePotentialDatabases(DbServerInfo info)
+    {
+      throw new InvalidOperationException($"{GetType().Name} cannot enumerate detached databases");
     }
 
     /// <summary>
