@@ -80,10 +80,8 @@ namespace MyLib.DbUtils.SqlServer
     /// <returns></returns>
     public override DbConnection CreateConnection(DbInfo info)
     {
-      DbConnectionStringBuilder sb = new DbConnectionStringBuilder(info.DataProvider.Kind == ProviderKind.Odbc);
-      if (info.DataProvider.Kind == ProviderKind.OleDb)
-        sb["Provider"] = info.DataProvider.ShortName;
-      sb["Data Source"] = info.DataProvider.DataSource;
+      SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
+      sb["Data Source"] = info.Server.ToString();
       if (info.DbName != null)
         sb["Database"] = info.DbName;
       if (info.UserID != null)
@@ -513,7 +511,7 @@ namespace MyLib.DbUtils.SqlServer
     /// <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
     private void RenameSqlServerDatabase(DbInfo info, string newDbName, params string[] newFileNames)
     {
-      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
       SqlConnection.ClearPool(connection);
 
       using (var command = new SqlCommand())
@@ -635,7 +633,7 @@ namespace MyLib.DbUtils.SqlServer
     /// <returns>lista informacji o plikach</returns>
     private DbFileInfo[] GetSqlDatabaseFiles(DbInfo info)
     {
-      SqlConnection connection = (SqlConnection)info.Server.Connection;
+      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
 
       using (var command = new SqlCommand())
       {
@@ -716,7 +714,7 @@ namespace MyLib.DbUtils.SqlServer
     /// <param name="newDbInfo">informacje o "nowej" bazie danych</param>
     private void CopySqlServerDatabase(DbInfo oldDbInfo, DbInfo newDbInfo)
     {
-      SqlConnection connection = (SqlConnection)oldDbInfo.Server.Connection;
+      SqlConnection connection = (SqlConnection)GetConnection(oldDbInfo.Server);
       using (var command = new SqlCommand())
       {
         var oldDbName = oldDbInfo.DbName;
@@ -746,11 +744,63 @@ namespace MyLib.DbUtils.SqlServer
       }
     }
 
+    /// <summary>
+    /// Tworzenie komendy SQL
+    /// </summary>
+    /// <param name="cmdText">text komendy (SQL)</param>
+    /// <param name="connection">połączenie do serwera</param>
     public override DbCommand CreateCommand(string cmdText, DbConnection connection)
     {
       return new SqlCommand(cmdText, (SqlConnection)connection);
     }
-    //#endregion
+
+
+    /// <summary>
+    /// Wyliczenie tabel w bazie danych
+    /// </summary>
+    /// <param name="info">informacje o bazie danych</param>
+    public override IEnumerable<DbTableInfo> EnumerateTables(DbInfo info)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(info);
+
+      using (var command = new SqlCommand())
+      {
+        // pobranie nazw logicznych i fizycznych plików
+        command.CommandText =
+          String.Format("SELECT name, modify_date"
+          + " FROM sys.tables"
+          + " WHERE temporal_type = 0"
+          + " ORDER BY [name]",
+          info.DbName);
+        command.Connection=connection;
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+
+          var result = new List<DbTableInfo>();
+          using (var dataReader = command.ExecuteReader())
+          {
+            while (dataReader.Read())
+            {
+              result.Add(
+                new DbTableInfo
+                {
+                  Name = dataReader[0].ToString(),
+                  LastModifiedAt = dataReader.GetDateTime(1),
+                });
+            }
+          }
+          return result.ToArray();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
 
     #region helper methods
     private static IEnumerable<string> SplitSqlStatements(string sqlScript)

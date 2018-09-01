@@ -379,6 +379,12 @@
             <param name="newFileNames">nowe nazwy plików (bez rozszerzenia)</param>
             <param name="info">informacje potrzebne do wykonania operacji</param>
         </member>
+        <member name="M:MyLib.DbUtils.DbEngine.EnumerateTables(MyLib.DbUtils.DbInfo)">
+            <summary>
+            Wyliczenie tabel w bazie danych
+            </summary>
+            <param name="info">informacje o bazie danych</param>
+        </member>
         <member name="T:MyLib.DbUtils.DbEngineClass">
             <summary>
             Klasa przechowująca typ i instancję silnika danych. Rozszerza informacje o silniku
@@ -429,6 +435,26 @@
         <member name="F:MyLib.DbUtils.DbFileInfo.PhysicalName">
             <summary>
             Nazwa fizyczna pliku
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbTableInfo">
+            <summary>
+            Klasa reprezentująca informacje o tabeli w bazie danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbTableInfo.Name">
+            <summary>
+            Nazwa tabeli
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbTableInfo.LastModifiedAt">
+            <summary>
+            Data/czas ostatniej modyfikacji
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbTableInfo.Database">
+            <summary>
+            Informacje o bazie danych
             </summary>
         </member>
         <member name="T:MyLib.DbUtils.DbInfo">

@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Data.OleDb;
+using System.Data.Odbc;
+#if SQLCE
+using System.Data.SqlServerCe;
+#endif
+
+namespace MyLib.DbUtils
+{
+  /// <summary>
+  /// Klasa reprezentująca informacje o tabeli w bazie danych
+  /// </summary>
+  public class DbTableInfo
+  {
+    /// <summary>
+    /// Nazwa tabeli
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Data/czas ostatniej modyfikacji
+    /// </summary>
+    public DateTime LastModifiedAt { get; set; }
+
+    /// <summary>
+    /// Informacje o bazie danych
+    /// </summary>
+    public DbInfo Database { get; set; }
+
+  }
+}

@@ -35,10 +35,7 @@ namespace MyLib.DbUtils
     /// Utworzenie połączenia do instancji serwera
     /// </summary>
     /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
-    public virtual DbConnection CreateConnection(DbServerInfo info)
-    {
-      throw new InvalidOperationException($"{GetType().Name} cannot connect to server instance");
-    }
+    public abstract DbConnection CreateConnection(DbServerInfo info);
 
     /// <summary>
     /// Połączenie do instancji serwera. 
@@ -88,19 +85,13 @@ namespace MyLib.DbUtils
     /// Wyliczenie baz danych na serwerze
     /// </summary>
     /// <param name="info">informacje o serwerze</param>
-    public virtual IEnumerable<DbInfo> EnumerateDatabases(DbServerInfo info)
-    {
-      throw new InvalidOperationException($"{GetType().Name} cannot enumerate databases");
-    }
+    public abstract IEnumerable<DbInfo> EnumerateDatabases(DbServerInfo info);
 
     /// <summary>
     /// Wyliczenie potencjalnych baz danych, których pliki są dostępne na serwerze
     /// </summary>
     /// <param name="info">informacje o serwerze</param>
-    public virtual IEnumerable<DbInfo> EnumeratePotentialDatabases(DbServerInfo info)
-    {
-      throw new InvalidOperationException($"{GetType().Name} cannot enumerate detached databases");
-    }
+    public abstract IEnumerable<DbInfo> EnumeratePotentialDatabases(DbServerInfo info);
 
     /// <summary>
     /// Tworzenie połączenia do bazy danych
@@ -322,6 +313,11 @@ namespace MyLib.DbUtils
       }
     }
 
+    /// <summary>
+    /// Wyliczenie tabel w bazie danych
+    /// </summary>
+    /// <param name="info">informacje o bazie danych</param>
+    public abstract IEnumerable<DbTableInfo> EnumerateTables(DbInfo info);
 
   }
 }
