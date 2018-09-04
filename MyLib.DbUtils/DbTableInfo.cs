@@ -28,6 +28,11 @@ namespace MyLib.DbUtils
     public DateTime LastModifiedAt { get; set; }
 
     /// <summary>
+    /// Całkowita liczba rekordów w tabeli
+    /// </summary>
+    public Int64? RowsCount { get; set; }
+
+    /// <summary>
     /// Informacje o bazie danych
     /// </summary>
     public DbInfo Database { get; set; }

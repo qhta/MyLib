@@ -4,6 +4,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:globalization = "clr-namespace:System.Globalization;assembly=mscorlib"
                     >
+ 
   <Style x:Key="TextBlockIsLoadingAnimationStyle" TargetType="TextBlock">
     <Style.Setters>
       <Setter Property="Foreground">
@@ -19,8 +20,25 @@
       </Setter>
     </Style.Setters>
     <Style.Triggers>
-      <DataTrigger Binding="{Binding IsLoading}" Value="True">
-        <DataTrigger.EnterActions>
+      <DataTrigger Binding="{Binding IsSelected}" Value="True">
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" MappingMode="RelativeToBoundingBox">
+              <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0" Color="White"/>
+                <GradientStop Offset="0" Color="White"/>
+                <GradientStop Offset="1" Color="White"/>
+              </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+          </Setter.Value>
+        </Setter>
+      </DataTrigger>
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition Binding="{Binding IsLoading}" Value="True"/>
+          <Condition Binding="{Binding IsSelected}" Value="False"/>
+        </MultiDataTrigger.Conditions>
+        <MultiDataTrigger.EnterActions>
           <BeginStoryboard x:Name="AnimationBeginStoryboard" >
             <Storyboard RepeatBehavior="Forever">
               <ColorAnimationUsingKeyFrames
@@ -33,11 +51,34 @@
               </DoubleAnimationUsingKeyFrames>
             </Storyboard>
           </BeginStoryboard>
-        </DataTrigger.EnterActions>
-        <DataTrigger.ExitActions>
+        </MultiDataTrigger.EnterActions>
+        <MultiDataTrigger.ExitActions>
           <RemoveStoryboard BeginStoryboardName="AnimationBeginStoryboard"/>
-        </DataTrigger.ExitActions>
-      </DataTrigger>
+        </MultiDataTrigger.ExitActions>
+      </MultiDataTrigger>
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition Binding="{Binding IsLoading}" Value="True"/>
+          <Condition Binding="{Binding IsSelected}" Value="True"/>
+        </MultiDataTrigger.Conditions>
+        <MultiDataTrigger.EnterActions>
+          <BeginStoryboard x:Name="AnimationBeginStoryboard2" >
+            <Storyboard RepeatBehavior="Forever">
+              <ColorAnimationUsingKeyFrames
+                                  Storyboard.TargetProperty="(TextBlock.Foreground).(GradientBrush.GradientStops)[1].(GradientStop.Color)" >
+                <DiscreteColorKeyFrame KeyTime="0:0:0" Value="Black"/>
+              </ColorAnimationUsingKeyFrames>
+              <DoubleAnimationUsingKeyFrames 
+                                  Storyboard.TargetProperty="(TextBlock.Foreground).(GradientBrush.GradientStops)[1].(GradientStop.Offset)" >
+                <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+              </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+          </BeginStoryboard>
+        </MultiDataTrigger.EnterActions>
+        <MultiDataTrigger.ExitActions>
+          <RemoveStoryboard BeginStoryboardName="AnimationBeginStoryboard2"/>
+        </MultiDataTrigger.ExitActions>
+      </MultiDataTrigger>
     </Style.Triggers>
   </Style>
 </ResourceDictionary>

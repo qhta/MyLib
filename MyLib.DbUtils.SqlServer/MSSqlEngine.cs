@@ -766,11 +766,14 @@ namespace MyLib.DbUtils.SqlServer
       {
         // pobranie nazw logicznych i fizycznych plików
         command.CommandText =
-          String.Format("SELECT name, modify_date"
-          + " FROM sys.tables"
-          + " WHERE temporal_type = 0"
-          + " ORDER BY [name]",
-          info.DbName);
+          "SELECT SCHEMA_NAME(schema_id) AS [SchemaName]," +
+          " [Tables].name AS [TableName], [Tables].modify_date AS [LastModified]," +
+          " SUM([Partitions].[rows]) AS [TotalRowCount]" +
+          " FROM sys.tables AS [Tables]" +
+          " JOIN sys.partitions AS [Partitions] ON [Tables].[object_id] = [Partitions].[object_id]" +
+          " AND [Partitions].index_id IN ( 0, 1 )" +
+          " GROUP BY SCHEMA_NAME(schema_id), [Tables].name, [Tables].modify_date" +
+          " ORDER BY [Tables].name;";
         command.Connection=connection;
         bool opened = connection.State == ConnectionState.Open;
         try
@@ -786,8 +789,9 @@ namespace MyLib.DbUtils.SqlServer
               result.Add(
                 new DbTableInfo
                 {
-                  Name = dataReader[0].ToString(),
-                  LastModifiedAt = dataReader.GetDateTime(1),
+                  Name = dataReader[1].ToString(),
+                  LastModifiedAt = dataReader.GetDateTime(2),
+                  RowsCount = dataReader.GetInt64(3),
                 });
             }
           }

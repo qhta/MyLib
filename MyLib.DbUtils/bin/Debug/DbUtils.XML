@@ -452,6 +452,11 @@
             Data/czas ostatniej modyfikacji
             </summary>
         </member>
+        <member name="P:MyLib.DbUtils.DbTableInfo.RowsCount">
+            <summary>
+            Całkowita liczba rekordów w tabeli
+            </summary>
+        </member>
         <member name="P:MyLib.DbUtils.DbTableInfo.Database">
             <summary>
             Informacje o bazie danych
