@@ -110,3 +110,6 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XmlDocument.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XmlSerializer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\Resources\WpfUtils.Resources.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.g.resources

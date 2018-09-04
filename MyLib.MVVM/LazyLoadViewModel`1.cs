@@ -1,27 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyLib.MVVM
 {
-  public abstract class LazyLoadViewModel<ItemType>: VisibleViewModel<ItemType>, ILazyLoad
+  public abstract class LazyLoadViewModel<ItemType>: VisibleViewModel<ItemType>, ILazyLoad, IExpandable
   {
-    public bool LazyLoad
+
+    public bool LoadOnInit
     {
-      get => _LazyLoad;
+      get => _LoadOnInit;
       set
       {
-        if (_LazyLoad!=value)
+        if (_LoadOnInit!=value)
         {
-          _LazyLoad=true;
-          NotifyPropertyChanged(nameof(LazyLoad));
+          _LoadOnInit=true;
+          NotifyPropertyChanged(nameof(LoadOnInit));
           if (value)
             StartLoading();
         }
       }
     }
-    bool _LazyLoad;
+    bool _LoadOnInit;
 
+    public bool LoadOnExpand
+    {
+      get => _LoadOnExpand;
+      set
+      {
+        if (_LoadOnExpand!=value)
+        {
+          _LoadOnExpand=true;
+          NotifyPropertyChanged(nameof(LoadOnExpand));
+          if (value)
+            PrepareLoadOnExpand();
+        }
+      }
+    }
+    bool _LoadOnExpand;
     public bool IsLoading
     {
       get => _IsLoading;
@@ -50,7 +67,24 @@ namespace MyLib.MVVM
     }
     bool _IsLoaded;
 
-    public abstract void StartLoading();
+    public override bool IsExpanded
+    {
+      get => base.IsExpanded;
+      set
+      {
+        if (value==true && base.IsExpanded==false && 
+          LoadOnExpand && !_IsLoaded && !IsLoading)
+        {
+          StartLoading().ContinueWith((task) => { base.IsExpanded=true; });
+        }
+        else
+          base.IsExpanded = value;
+      }
+    }
+
+    protected abstract void PrepareLoadOnExpand();
+
+    public abstract Task StartLoading();
 
   }
 }

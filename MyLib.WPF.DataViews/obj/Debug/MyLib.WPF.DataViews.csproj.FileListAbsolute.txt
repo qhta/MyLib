@@ -124,5 +124,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\System.Xml.XmlSerializer
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataGridExpandableView.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataGridExpandableView.baml
-D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataTreeView.g.cs
-D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataTreeView.baml

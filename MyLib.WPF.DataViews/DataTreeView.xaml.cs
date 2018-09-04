@@ -24,8 +24,8 @@ namespace MyLib.WPF.DataViews
       InitializeComponent();
     }
 
-    public static DependencyProperty RootItemsProperty = DependencyProperty.Register
-    ("RootItems", typeof(IListViewModel), typeof(DataTreeView),
+    public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register
+    ("ItemsSource", typeof(IListViewModel), typeof(DataTreeView),
       new PropertyMetadata(null,
         (DependencyObject sender, DependencyPropertyChangedEventArgs args)=>
         {
@@ -33,10 +33,10 @@ namespace MyLib.WPF.DataViews
         })
     );
 
-    public IListViewModel RootItems
+    public IListViewModel ItemsSource
     {
-      get => (IListViewModel)GetValue(RootItemsProperty);
-      set => SetValue(RootItemsProperty, value);
+      get => (IListViewModel)GetValue(ItemsSourceProperty);
+      set => SetValue(ItemsSourceProperty, value);
     }
   }
 }

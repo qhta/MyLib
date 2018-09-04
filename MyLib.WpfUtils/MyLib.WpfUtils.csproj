@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyLib.HtmlUtils\MyLib.HtmlUtils.csproj">
-      <Project>{9e544361-e70c-494c-b7fa-774e4a23c1e3}</Project>
+      <Project>{9E544361-E70C-494C-B7FA-774E4A23C1E3}</Project>
       <Name>MyLib.HtmlUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyLib.MVVM\MyLib.MVVM.csproj">
@@ -106,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClipboardUtils.Interop.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\WpfUtils.Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

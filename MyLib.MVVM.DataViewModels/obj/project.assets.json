@@ -26,6 +26,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "MyLib.HtmlUtils/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/MyLib.HtmlUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyLib.HtmlUtils.dll": {}
+        }
+      },
       "MyLib.MultiThreadingObjects/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -63,6 +72,7 @@
       "MyLib.WpfUtils/1.0.0": {
         "type": "project",
         "dependencies": {
+          "MyLib.HtmlUtils": "1.0.0",
           "MyLib.MVVM": "1.0.0",
           "MyLib.OrdNumbers": "1.0.0"
         },
@@ -215,6 +225,11 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "MyLib.HtmlUtils/1.0.0": {
+      "type": "project",
+      "path": "../MyLib.HtmlUtils/MyLib.HtmlUtils.csproj",
+      "msbuildProject": "../MyLib.HtmlUtils/MyLib.HtmlUtils.csproj"
     },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",

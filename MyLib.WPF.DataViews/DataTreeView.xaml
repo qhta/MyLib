@@ -7,6 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <Grid>
-    <TreeView x:Name="MainTreeView"/>
+    <TreeView x:Name="MainTreeView">
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="TreeViewItem">
+          <Style.Setters>
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+          </Style.Setters>
+        </Style>
+      </TreeView.ItemContainerStyle>
+    </TreeView>
   </Grid>
 </UserControl>

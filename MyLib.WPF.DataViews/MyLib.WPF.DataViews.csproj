@@ -52,9 +52,7 @@
     <Compile Include="DataSetView.xaml.cs">
       <DependentUpon>DataSetView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataTreeView.xaml.cs">
-      <DependentUpon>DataTreeView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="DataTreeView.cs" />
     <Compile Include="DataViewExpander.xaml.cs">
       <DependentUpon>DataViewExpander.xaml</DependentUpon>
     </Compile>
@@ -68,10 +66,6 @@
     <Page Include="DataSetView.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="DataTreeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataViewExpander.xaml">
       <SubType>Designer</SubType>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
+using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -24,14 +25,12 @@ namespace MyLib.DbUtils.SqlServer
     /// </summary>
     public override IEnumerable<DbServerInfo> EnumerateServers()
     {
-      var factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
       List<DbServerInfo> result = new List<DbServerInfo>();
-      if (factory.CanCreateDataSourceEnumerator)
       {
-        DbDataSourceEnumerator enumerator = factory.CreateDataSourceEnumerator();
+        var enumerator = SqlDataSourceEnumerator.Instance;
         if (enumerator != null)
         {
-          DataTable aTable = enumerator.GetDataSources();
+          DataTable aTable = /*SmoApplication.EnumAvailableSqlServers();*/ enumerator.GetDataSources();
           foreach (DataRow aRow in aTable.Rows)
           {
             string serverName = aRow.Field<string>(aTable.Columns["ServerName"]);

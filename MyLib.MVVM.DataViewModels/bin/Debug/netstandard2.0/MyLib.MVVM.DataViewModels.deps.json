@@ -24,6 +24,14 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
+      "MyLib.HtmlUtils/1.0.0": {
+        "dependencies": {
+          "HtmlAgilityPack": "1.4.9.5"
+        },
+        "runtime": {
+          "MyLib.HtmlUtils.dll": {}
+        }
+      },
       "MyLib.MultiThreadingObjects/1.0.0": {
         "runtime": {
           "MyLib.MultiThreadingObjects.dll": {}
@@ -48,11 +56,10 @@
       },
       "MyLib.WpfUtils/1.0.0": {
         "dependencies": {
+          "MyLib.HtmlUtils": "1.0.0",
           "MyLib.MVVM": "1.0.0",
           "MyLib.OrdNumbers": "1.0.0",
-          "System.Xaml": "4.0.0.0",
-          "MyLib.HtmlUtils": "1.0.0.0",
-          "HtmlAgilityPack": "1.4.9.5"
+          "System.Xaml": "4.0.0.0"
         },
         "runtime": {
           "MyLib.WpfUtils.dll": {}
@@ -74,11 +81,11 @@
           }
         }
       },
-      "MyLib.HtmlUtils.Reference/1.0.0.0": {
+      "HtmlAgilityPack.Reference/1.4.9.5": {
         "runtime": {
-          "MyLib.HtmlUtils.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+          "HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.4.9.5",
+            "fileVersion": "1.4.9.5"
           }
         }
       },
@@ -105,14 +112,6 @@
             "fileVersion": "4.7.2558.0"
           }
         }
-      },
-      "HtmlAgilityPack.Reference/1.4.9.5": {
-        "runtime": {
-          "HtmlAgilityPack.dll": {
-            "assemblyVersion": "1.4.9.5",
-            "fileVersion": "1.4.9.5"
-          }
-        }
       }
     }
   },
@@ -135,6 +134,11 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "MyLib.HtmlUtils/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",
@@ -166,7 +170,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MyLib.HtmlUtils.Reference/1.0.0.0": {
+    "HtmlAgilityPack.Reference/1.4.9.5": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -182,11 +186,6 @@
       "sha512": ""
     },
     "System.Configuration.Reference/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "HtmlAgilityPack.Reference/1.4.9.5": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
