@@ -57,6 +57,7 @@
       <DependentUpon>DataViewExpander.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyGrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="DataGridExpandableView.xaml">
@@ -70,6 +71,10 @@
     <Page Include="DataViewExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\PropertyGridStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -90,8 +95,6 @@
       <Name>MyLib.WpfUtils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

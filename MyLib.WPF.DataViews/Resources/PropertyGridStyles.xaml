@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utils="clr-namespace:MyLib.WpfUtils;assembly=MyLib.WpfUtils"
+                    >
+  <Style TargetType="{x:Type DataGridCell}">
+    <Style.Setters>
+      <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+    </Style.Setters>
+    <Style.Triggers>
+      <Trigger Property="IsReadOnly" Value="true">
+        <Setter Property="Background" Value="WhiteSmoke"/>
+      </Trigger>
+      <Trigger Property="IsSelected" Value="true">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+</ResourceDictionary>

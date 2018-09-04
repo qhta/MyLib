@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-3-458845131
+4-1119715947
 
-5-573101733
+6141829378
 124-1826631165
-DataGridExpandableView.xaml;DataSetView.xaml;DataViewExpander.xaml;
+DataGridExpandableView.xaml;DataSetView.xaml;DataViewExpander.xaml;Resources\PropertyGridStyles.xaml;
 
 False
 
