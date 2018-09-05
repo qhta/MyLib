@@ -324,5 +324,11 @@ namespace MyLib.DbUtils
     /// </summary>
     /// <param name="info">informacje o tabeli danych</param>
     public abstract IEnumerable<DbColumnInfo> EnumerateColumns(DbTableInfo info);
+
+    /// <summary>
+    /// Pobranie wszystkich danych z tabeli
+    /// </summary>
+    /// <param name="info">informacje o tabeli danych</param>
+    public abstract DataTable GetDataTable(DbTableInfo info);
   }
 }

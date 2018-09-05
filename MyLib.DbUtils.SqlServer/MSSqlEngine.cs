@@ -764,7 +764,6 @@ namespace MyLib.DbUtils.SqlServer
 
       using (var command = new SqlCommand())
       {
-        // pobranie nazw logicznych i fizycznych plików
         command.CommandText =
           "SELECT SCHEMA_NAME(schema_id) AS [SchemaName]," +
           " [Tables].name AS [TableName], [Tables].modify_date AS [LastModified]," +
@@ -815,7 +814,6 @@ namespace MyLib.DbUtils.SqlServer
 
       using (var command = new SqlCommand())
       {
-        // pobranie nazw logicznych i fizycznych plików
         command.CommandText = String.Format(
          "SELECT c.column_id" +
          "   ,c.name AS 'name'" +
@@ -858,7 +856,7 @@ namespace MyLib.DbUtils.SqlServer
                 new DbColumnInfo
                 {
                   Name = dataReader[1].ToString(),
-                  Type = dataReader[2].ToString(),
+                  Type = (SqlDbType)Enum.Parse(typeof(SqlDbType), dataReader[2].ToString(), true),
                   Size = dataReader.GetInt16(3),
                   Precision = dataReader.GetByte(4),
                   Scale = dataReader.GetByte(5),
@@ -869,6 +867,35 @@ namespace MyLib.DbUtils.SqlServer
             }
           }
           return result.ToArray();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Pobranie wszystkich danych z tabeli
+    /// </summary>
+    /// <param name="table">informacje o tabeli danych</param>
+    public override DataTable GetDataTable(DbTableInfo table)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(table.Database);
+      {
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+
+          DataTable dt = new DataTable();
+          using (var da = new SqlDataAdapter(String.Format("SELECT * FROM {0}", table.Name), connection))
+          {
+            da.Fill(dt);
+          }
+          return dt;
         }
         finally
         {

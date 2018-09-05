@@ -391,6 +391,12 @@
             </summary>
             <param name="info">informacje o tabeli danych</param>
         </member>
+        <member name="M:MyLib.DbUtils.DbEngine.GetDataTable(MyLib.DbUtils.DbTableInfo)">
+            <summary>
+            Pobranie wszystkich danych z tabeli
+            </summary>
+            <param name="info">informacje o tabeli danych</param>
+        </member>
         <member name="T:MyLib.DbUtils.DbEngineClass">
             <summary>
             Klasa przechowująca typ i instancję silnika danych. Rozszerza informacje o silniku
