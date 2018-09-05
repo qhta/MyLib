@@ -805,6 +805,79 @@ namespace MyLib.DbUtils.SqlServer
       }
     }
 
+    /// <summary>
+    /// Wyliczenie kolumn w tabeli
+    /// </summary>
+    /// <param name="info">informacje o tabeli danych</param>
+    public override IEnumerable<DbColumnInfo> EnumerateColumns(DbTableInfo info)
+    {
+      SqlConnection connection = (SqlConnection)GetConnection(info.Database);
+
+      using (var command = new SqlCommand())
+      {
+        // pobranie nazw logicznych i fizycznych plików
+        command.CommandText = String.Format(
+         "SELECT c.column_id" +
+         "   ,c.name AS 'name'" +
+         "   ,t.Name AS 'type'" +
+         "   ,c.max_length AS 'length'" +
+         "   ,c.precision" +
+         "   ,c.scale" +
+         "   ,c.is_nullable" +
+         "   ,c.is_identity" +
+         "   ,ISNULL(ic.is_primary_key, 0) 'is_primary_key'" +
+         " FROM sys.columns AS c" +
+         " INNER JOIN  sys.types t" +
+         "   ON c.user_type_id = t.user_type_id LEFT" +
+         " OUTER JOIN" +
+         " (" +
+         "   SELECT" +
+         "     ic.object_id" +
+         "    ,ic.column_id" +
+         "    ,i.is_primary_key" +
+         "   FROM sys.index_columns AS ic" +
+         "   JOIN sys.indexes AS i" +
+         "     ON i.object_id = ic.object_id AND i.index_id=ic.index_id AND i.is_primary_key=1" +
+         "  ) AS ic" +
+         "    ON ic.object_id = c.object_id AND ic.column_id = c.column_id" +
+         "  WHERE c.object_id = OBJECT_ID('{0}')"+
+         ";",info.Name);
+        command.Connection=connection;
+        bool opened = connection.State == ConnectionState.Open;
+        try
+        {
+          if (!opened)
+            connection.Open();
+
+          var result = new List<DbColumnInfo>();
+          using (var dataReader = command.ExecuteReader())
+          {
+            while (dataReader.Read())
+            {
+              result.Add(
+                new DbColumnInfo
+                {
+                  Name = dataReader[1].ToString(),
+                  Type = dataReader[2].ToString(),
+                  Size = dataReader.GetInt16(3),
+                  Precision = dataReader.GetByte(4),
+                  Scale = dataReader.GetByte(5),
+                  IsNullable = dataReader.GetBoolean(6),
+                  IsIdentity = dataReader.GetBoolean(7),
+                  IsPrimaryKey = dataReader.GetBoolean(8),
+                });
+            }
+          }
+          return result.ToArray();
+        }
+        finally
+        {
+          if (!opened)
+            connection.Close();
+        }
+      }
+    }
+
     #region helper methods
     private static IEnumerable<string> SplitSqlStatements(string sqlScript)
     {

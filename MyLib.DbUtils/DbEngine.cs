@@ -319,5 +319,10 @@ namespace MyLib.DbUtils
     /// <param name="info">informacje o bazie danych</param>
     public abstract IEnumerable<DbTableInfo> EnumerateTables(DbInfo info);
 
+    /// <summary>
+    /// Wyliczenie kolumn w tabeli
+    /// </summary>
+    /// <param name="info">informacje o tabeli danych</param>
+    public abstract IEnumerable<DbColumnInfo> EnumerateColumns(DbTableInfo info);
   }
 }
