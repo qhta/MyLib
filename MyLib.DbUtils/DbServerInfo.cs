@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLib.DbUtils
 {
   /// <summary>
-  /// Informacja o serwerach danych dla klienta Sql Serwera 
+  /// Informacja o serwerach danych
   /// zwracana przez metodę <see cref="DbEngine.EnumerateServers"/>
   /// </summary>
   public class DbServerInfo

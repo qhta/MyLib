@@ -385,6 +385,12 @@
             </summary>
             <param name="info">informacje o bazie danych</param>
         </member>
+        <member name="M:MyLib.DbUtils.DbEngine.EnumerateColumns(MyLib.DbUtils.DbTableInfo)">
+            <summary>
+            Wyliczenie kolumn w tabeli
+            </summary>
+            <param name="info">informacje o tabeli danych</param>
+        </member>
         <member name="T:MyLib.DbUtils.DbEngineClass">
             <summary>
             Klasa przechowująca typ i instancję silnika danych. Rozszerza informacje o silniku
@@ -435,6 +441,51 @@
         <member name="F:MyLib.DbUtils.DbFileInfo.PhysicalName">
             <summary>
             Nazwa fizyczna pliku
+            </summary>
+        </member>
+        <member name="T:MyLib.DbUtils.DbColumnInfo">
+            <summary>
+            Klasa reprezentująca informacje o kolumnie w tabeli w bazie danych
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.Name">
+            <summary>
+            Nazwa kolumny
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.Type">
+            <summary>
+            Typ danych (dopuszczalne typy uzależnione od silnika danych)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.Size">
+            <summary>
+            Rozmiar pola danych (o ile to dopuszcza typ danych)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.Precision">
+            <summary>
+            Precyzja pola danych (o ile to dopuszcza typ danych)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.Scale">
+            <summary>
+            Skala pola danych (o ile to dopuszcza typ danych)
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.IsNullable">
+            <summary>
+            Czy pole dopuszcza wartość null
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.IsIdentity">
+            <summary>
+            Czy pole jest automatycznie ustawiane przez bazę danych na unikatowy identyfikator rekordu
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbColumnInfo.IsPrimaryKey">
+            <summary>
+            Czy pole jest kluczem głównym tabeli
             </summary>
         </member>
         <member name="T:MyLib.DbUtils.DbTableInfo">
@@ -594,6 +645,31 @@
             Identyfikator klasy (GUID)
             </summary>
         </member>
+        <member name="T:MyLib.DbUtils.DbEngineInfo">
+            <summary>
+            Informacja o silnikach danych <see cref="M:MyLib.DbUtils.DbUtilities.EnumerateEngineClasses"/>
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbEngineInfo.ID">
+            <summary>
+            Niezmienny identyfikator
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbEngineInfo.Name">
+            <summary>
+            Przyjazna nazwa silnika
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbEngineInfo.Description">
+            <summary>
+            Opis silnika
+            </summary>
+        </member>
+        <member name="P:MyLib.DbUtils.DbEngineInfo.AssemblyQualifiedName">
+            <summary>
+            Pełna nazwa silnika
+            </summary>
+        </member>
         <member name="T:MyLib.DbUtils.DbUtilities">
             <summary>
             Klasa oferująca metody pomocnicze dla baz danych
@@ -644,31 +720,6 @@
             <param name="dataSource"></param>
             <returns></returns>
         </member>
-        <member name="T:MyLib.DbUtils.DbEngineInfo">
-            <summary>
-            Informacja o silnikach danych <see cref="M:MyLib.DbUtils.DbUtilities.EnumerateEngineClasses"/>
-            </summary>
-        </member>
-        <member name="P:MyLib.DbUtils.DbEngineInfo.ID">
-            <summary>
-            Niezmienny identyfikator
-            </summary>
-        </member>
-        <member name="P:MyLib.DbUtils.DbEngineInfo.Name">
-            <summary>
-            Przyjazna nazwa silnika
-            </summary>
-        </member>
-        <member name="P:MyLib.DbUtils.DbEngineInfo.Description">
-            <summary>
-            Opis silnika
-            </summary>
-        </member>
-        <member name="P:MyLib.DbUtils.DbEngineInfo.AssemblyQualifiedName">
-            <summary>
-            Pełna nazwa silnika
-            </summary>
-        </member>
         <member name="T:MyLib.DbUtils.ProviderKind">
             <summary>
             Typ dostawcy danych
@@ -696,7 +747,7 @@
         </member>
         <member name="T:MyLib.DbUtils.DbServerInfo">
             <summary>
-            Informacja o serwerach danych dla klienta Sql Serwera 
+            Informacja o serwerach danych
             zwracana przez metodę <see cref="M:MyLib.DbUtils.DbEngine.EnumerateServers"/>
             </summary>
         </member>

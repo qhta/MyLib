@@ -59,11 +59,12 @@
     <Compile Include="DbEngine.cs" />
     <Compile Include="DbEngineClass.cs" />
     <Compile Include="DbFileInfo.cs" />
+    <Compile Include="DbColumnInfo.cs" />
     <Compile Include="DbTableInfo.cs" />
     <Compile Include="DbInfo.cs" />
     <Compile Include="DbProviderInfo.cs" />
-    <Compile Include="DbUtililites.cs" />
     <Compile Include="DbEngineInfo.cs" />
+    <Compile Include="DbUtililites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderKind.cs" />
     <Compile Include="DbServerInfo.cs" />

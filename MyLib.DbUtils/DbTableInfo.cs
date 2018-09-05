@@ -1,14 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.Data.Odbc;
-#if SQLCE
-using System.Data.SqlServerCe;
-#endif
 
 namespace MyLib.DbUtils
 {
@@ -25,7 +15,7 @@ namespace MyLib.DbUtils
     /// <summary>
     /// Data/czas ostatniej modyfikacji
     /// </summary>
-    public DateTime LastModifiedAt { get; set; }
+    public DateTime? LastModifiedAt { get; set; }
 
     /// <summary>
     /// Całkowita liczba rekordów w tabeli
