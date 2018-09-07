@@ -15,7 +15,7 @@ namespace MyLib.MVVM
       {
         if (_LoadOnInit!=value)
         {
-          _LoadOnInit=true;
+          _LoadOnInit=value;
           NotifyPropertyChanged(nameof(LoadOnInit));
           if (value)
             StartLoading();
@@ -39,6 +39,7 @@ namespace MyLib.MVVM
       }
     }
     bool _LoadOnExpand;
+
     public bool IsLoading
     {
       get => _IsLoading;
@@ -48,6 +49,10 @@ namespace MyLib.MVVM
         {
           _IsLoading=value;
           NotifyPropertyChanged(nameof(IsLoading));
+          if (value)
+            StartWaiting();
+          else
+            StopWaiting();
         }
       }
     }

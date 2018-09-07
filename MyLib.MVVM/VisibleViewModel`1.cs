@@ -39,5 +39,24 @@ namespace MyLib.MVVM
 
     private ItemType _Model;
 
+    public bool IsWaiting
+    {
+      get => _WaitCount>0;
+    }
+    int _WaitCount;
+
+    public virtual void StartWaiting()
+    {
+      _WaitCount++;
+      NotifyPropertyChanged(nameof(IsWaiting));
+    }
+    public virtual void StopWaiting()
+    {
+      if (_WaitCount>0)
+      {
+        _WaitCount--;
+        NotifyPropertyChanged(nameof(IsWaiting));
+      }
+    }
   }
 }

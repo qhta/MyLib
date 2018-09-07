@@ -130,6 +130,7 @@ namespace MyLib.DbUtils.SqlServer
                 DbName=dataReader[0].ToString(),
                 DefaultFileExt="mdf",
                 CreatedAt = (DateTime)dataReader.GetValue(4),
+                Server = server,
               };
               result.Add(dbInfo);
             }
@@ -791,6 +792,7 @@ namespace MyLib.DbUtils.SqlServer
                   Name = dataReader[1].ToString(),
                   LastModifiedAt = dataReader.GetDateTime(2),
                   RowsCount = dataReader.GetInt64(3),
+                  Database = info,
                 });
             }
           }

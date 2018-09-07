@@ -35,7 +35,7 @@
       </DataTrigger>
       <MultiDataTrigger>
         <MultiDataTrigger.Conditions>
-          <Condition Binding="{Binding IsLoading}" Value="True"/>
+          <Condition Binding="{Binding IsWaiting}" Value="True"/>
           <Condition Binding="{Binding IsSelected}" Value="False"/>
         </MultiDataTrigger.Conditions>
         <MultiDataTrigger.EnterActions>
@@ -58,7 +58,7 @@
       </MultiDataTrigger>
       <MultiDataTrigger>
         <MultiDataTrigger.Conditions>
-          <Condition Binding="{Binding IsLoading}" Value="True"/>
+          <Condition Binding="{Binding IsWaiting}" Value="True"/>
           <Condition Binding="{Binding IsSelected}" Value="True"/>
         </MultiDataTrigger.Conditions>
         <MultiDataTrigger.EnterActions>
