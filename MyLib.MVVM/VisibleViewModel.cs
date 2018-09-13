@@ -18,7 +18,7 @@ namespace MyLib.MVVM
         }
       }
     }
-    protected bool _IsVisible = false;
+    protected bool _IsVisible = true;
 
     public virtual bool HasRowDetails
     {

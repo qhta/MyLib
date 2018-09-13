@@ -26,15 +26,6 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "MyLib.HtmlUtils/1.0.0": {
-        "type": "project",
-        "compile": {
-          "bin/placeholder/MyLib.HtmlUtils.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyLib.HtmlUtils.dll": {}
-        }
-      },
       "MyLib.MultiThreadingObjects/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -67,20 +58,6 @@
         },
         "runtime": {
           "bin/placeholder/MyLib.OrdNumbers.dll": {}
-        }
-      },
-      "MyLib.WpfUtils/1.0.0": {
-        "type": "project",
-        "dependencies": {
-          "MyLib.HtmlUtils": "1.0.0",
-          "MyLib.MVVM": "1.0.0",
-          "MyLib.OrdNumbers": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/MyLib.WpfUtils.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyLib.WpfUtils.dll": {}
         }
       }
     }
@@ -226,11 +203,6 @@
         "netstandard.library.nuspec"
       ]
     },
-    "MyLib.HtmlUtils/1.0.0": {
-      "type": "project",
-      "path": "../MyLib.HtmlUtils/MyLib.HtmlUtils.csproj",
-      "msbuildProject": "../MyLib.HtmlUtils/MyLib.HtmlUtils.csproj"
-    },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",
       "path": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
@@ -245,17 +217,11 @@
       "type": "project",
       "path": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj",
       "msbuildProject": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj"
-    },
-    "MyLib.WpfUtils/1.0.0": {
-      "type": "project",
-      "path": "../MyLib.WpfUtils/MyLib.WpfUtils.csproj",
-      "msbuildProject": "../MyLib.WpfUtils/MyLib.WpfUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "MyLib.MVVM >= 1.0.0",
-      "MyLib.WpfUtils >= 1.0.0",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -291,9 +257,6 @@
           "projectReferences": {
             "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM\\MyLib.MVVM.csproj": {
               "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MVVM\\MyLib.MVVM.csproj"
-            },
-            "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.WpfUtils\\MyLib.WpfUtils.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.WpfUtils\\MyLib.WpfUtils.csproj"
             }
           }
         }

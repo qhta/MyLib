@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="ColorAdjustEffect.cs" />
+    <Compile Include="DoubleValueConverter.cs" />
     <Compile Include="DynamicResourceBinding.cs" />
     <Compile Include="DynamicResource.cs" />
     <Compile Include="DynamicResourceProvider.cs" />
