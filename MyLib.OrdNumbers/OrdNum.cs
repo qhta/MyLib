@@ -686,6 +686,24 @@ namespace MyLib.OrdNumbers
     }
 
     public bool IsReadOnly => ((ICollection<OrdNumSegment>)fValues).IsReadOnly;
+    public OrdNum Parent
+    {
+      get
+      {
+        var s = this.ToString();
+        int n = s.Length;
+        while (n>0 && Char.IsLetter(s[n-1]))
+        {
+          n--;
+        }
+        if (n<s.Length)
+          return s.Substring(0, n);
+        n = s.LastIndexOf('.');
+        if (n>0)
+          return s.Substring(0, n);
+        return new OrdNum();
+      }
+    }
 
     /*
 /// <summary>Czy dana liczba zaczyna się od innej liczby</summary>

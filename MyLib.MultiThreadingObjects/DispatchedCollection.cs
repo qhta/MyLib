@@ -49,7 +49,7 @@ namespace MyLib.MultiThreadingObjects
         return;
       if (_CollectionChanged != null)
       {
-        if (DispatchedObject.ApplicationDispatcher==null ||Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+        if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
         {
           _CollectionChanged.Invoke(this, e);
           AfterCollectionChanged(e);
