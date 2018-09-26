@@ -24,7 +24,7 @@ namespace MyLib.WPF.DataViews
       Columns.Add(nameColumn);
       DataGridTextColumn valueColumn = new DataGridTextColumn();
       valueColumn.Header = "Value";
-      valueColumn.Binding = new Binding("Value");
+      valueColumn.Binding = new Binding("Value") { Mode = BindingMode.OneWay };
       valueColumn.IsReadOnly=true;
       Columns.Add(valueColumn);
     }
@@ -32,16 +32,23 @@ namespace MyLib.WPF.DataViews
     private void PropertyGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
       if (e.NewValue!=null)
-        BuildDataGrid(e.NewValue);
+        Update(e.NewValue);
     }
 
     public PropertyListViewModel PropertiesSource { get; private set; }
 
-    public void BuildDataGrid(object source)
+    public void Update()
+    {
+      Update(DataContext);
+    }
+
+    public void Update(object source)
     {
       PropertiesSource = new PropertyListViewModel();
-      PropertiesSource.AddRange(GetDisplayProperties(source).Select(item => new PropertyViewModel { Model=item, Instance=source }));
+      if (source!=null)
+        PropertiesSource.AddRange(GetDisplayProperties(source).Select(item => new PropertyViewModel { Model=item, Instance=source }));
       ItemsSource=PropertiesSource;
+      InvalidateVisual();
     }
 
     private static IEnumerable<PropertyInfo> GetDisplayProperties(object source)
