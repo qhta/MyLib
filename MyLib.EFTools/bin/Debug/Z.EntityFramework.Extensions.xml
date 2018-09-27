@@ -2427,9 +2427,6 @@
             <summary>Creates the command.</summary>
             <returns>The new command.</returns>
         </member>
-        <member name="T:Z.EntityFramework.Extensions.MySqlDatabase">
-            <summary>MySql database.</summary>
-        </member>
         <member name="M:Z.EntityFramework.Extensions.MySqlDatabase.#ctor(System.Data.Entity.DbContext)">
             <summary>Constructor.</summary>
             <param name="context">The context.</param>
@@ -2526,6 +2523,12 @@
                 Gets or sets a value indicating whether the current context should be forced to read as database first.
             </summary>
             <value>true if the current context should be forced to read as database first.</value>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.UseToListMemoryOptimized">
+            <summary>
+            Gets or sets a value indicating whether the method ToListMemoryOptimized will be used instead of ToList to fix some LOH issue.
+            </summary>
+            <value>True if the method ToListMemoryOptimized will be used instead of ToList to fix some LOH issue.</value>
         </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceSelectOutput">
             <summary>
@@ -3452,9 +3455,17 @@
             <summary>Gets or sets the name of the automatic map key.</summary>
             <value>The name of the automatic map key.</value>
         </member>
+        <member name="P:Z.BulkOperations.BulkOperation.AutoMapIdentityName">
+            <summary>Gets or sets the name of the automatic map identity.</summary>
+            <value>The name of the automatic map identity.</value>
+        </member>
         <member name="P:Z.BulkOperations.BulkOperation.AutoMapKeyExpression">
             <summary>Gets or sets the automatic map key expression.</summary>
             <value>The automatic map key expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.AutoMapIdentityExpression">
+            <summary>Gets or sets the automatic map identity expression.</summary>
+            <value>The automatic map identity expression.</value>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation.AutoMapValueFactory">
             <summary>Gets or sets the factory to use in value when AutoMap is used.</summary>
@@ -3732,6 +3743,18 @@
             <summary>Gets or sets if the code should use permanent table instead of temporary table.</summary>
             <value>if the code should use permanent table instead of temporary table.</value>
         </member>
+        <member name="P:Z.BulkOperations.BulkOperation.TemporaryTableName">
+            <summary>Gets or sets the name of the temporary table.</summary>
+            <value>The name of the temporary table.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.TemporaryTablePersist">
+            <summary>Gets or sets a value indicating whether the temporary table persist.</summary>
+            <value>True if temporary table persist, false if not.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.TemporaryTableIsMemory">
+            <summary>Gets or sets a value indicating whether the temporary table is memory.</summary>
+            <value>True if temporary table is memory, false if not.</value>
+        </member>
         <member name="P:Z.BulkOperations.BulkOperation.Transaction">
             <summary>Gets or sets the transaction.</summary>
             <value>The transaction.</value>
@@ -3860,6 +3883,10 @@
         <member name="P:Z.BulkOperations.BulkOperation`1.AutoMapKeyExpression">
             <summary>Gets or sets the automatic map key expression.</summary>
             <value>The automatic map key expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation`1.AutoMapIdentityExpression">
+            <summary>Gets or sets the automatic map identity expression.</summary>
+            <value>The automatic map identity expression.</value>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation`1.ColumnPrimaryKeyExpression">
             <summary>Gets or sets the column primary key expression.</summary>
@@ -4889,6 +4916,1133 @@
             <summary>Create a specialized database instance for this context.</summary>
             <param name="this">The @this to act on.</param>
             <returns>A SQLiteDatabase.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+            A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="this">The @this to act on.</param>
+            <param name="commandFactory">The command factory.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataSetAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataSet.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="cancellationToken">(Optional) A token that allows processing to be cancelled.</param>
+            <returns>A DataSet.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteDataTableAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a DataTable.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A DataTable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+            ]
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt;.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.g.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntitiesWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;T&gt; using the context
+                mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an object of type T.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteEntityWithMappingAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an entity of type T using the context mapping.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an ExpandoObject.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An Expando Object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteExpandoObjectsAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return an IEnumerable&lt;ExpandoObject&gt;.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An Expando Object IEnumerable.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteNonQueryAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a Transact-SQL statement against the connection and returns the number of
+                rows affected.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and invoke an Action with the reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="readerAction">The reader action.</param>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and return a scalar value.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object cast as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarAsAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and cast the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            m&gt;
+            <param name="commandType">Type of the command.</param><returns>An object cast as a Generic Type.</returns></member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteScalarToAsync``1(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>An object converted as a Generic Type.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand},System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="commandFactory">The command factory.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.CommandType,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="transaction">The transaction.</param>
+            <returns>A XmlReader.</returns>
+        </member>
+        <member name="M:DatabaseExtensions.ExecuteXmlReaderAsync(System.Data.Entity.Database,System.String,System.Data.Common.DbParameter[],System.Data.CommandType,System.Threading.CancellationToken)">
+            <summary>
+                A Database extension method that execute a SQL statement and return a XML reader.
+            </summary>
+            <param name="cmdText">The command text.</param>
+            <param name="parameters">The command parameters.</param>
+            <param name="commandType">Type of the command.</param>
+            <returns>A XmlReader.</returns>
         </member>
         <member name="M:DatabaseExtensions.ExecuteDataSet(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand})">
             <summary>

@@ -10,3 +10,15 @@ D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlSer
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\MyLib.DbUtils.SqlServer.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.ConnectionInfoExtended.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.Smo.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.SmoExtended.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.SqlEnum.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.Dmf.Common.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.Diagnostics.STrace.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.RegSvrEnum.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\Microsoft.SqlServer.SqlTDiagM.dll

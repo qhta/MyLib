@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace MyLib.DbUtils.SqlServer
 {
@@ -24,6 +25,39 @@ namespace MyLib.DbUtils.SqlServer
     /// Wyliczenie instancji serwera
     /// </summary>
     public override IEnumerable<DbServerInfo> EnumerateServers()
+    {
+      List<DbServerInfo> result = new List<DbServerInfo>();
+      {
+        var enumerator = SqlDataSourceEnumerator.Instance;
+        if (enumerator != null)
+        {
+          DataTable aTable = SmoApplication.EnumAvailableSqlServers(true); //enumerator.GetDataSources();
+          foreach (DataRow aRow in aTable.Rows)
+          {
+            string name = aRow.Field<string>(aTable.Columns["Name"]);
+            string serverName = aRow.Field<string>(aTable.Columns["Server"]);
+            string instanceName = aRow.Field<string>(aTable.Columns["Instance"]);
+            string version = aRow.Field<string>(aTable.Columns["Version"]);
+            var info = new DbServerInfo
+            {
+              Name = name,
+              ServerName = serverName,
+              InstanceName = instanceName,
+              Version = version,
+              Engine = this,
+            };
+            //info.Name = info.ToString();
+            result.Add(info);
+          }
+        }
+      }
+      return result;
+    }
+
+    /// <summary>
+    /// Wyliczenie instancji serwera
+    /// </summary>
+    public IEnumerable<DbServerInfo> EnumerateAllServers()
     {
       List<DbServerInfo> result = new List<DbServerInfo>();
       {
@@ -50,6 +84,7 @@ namespace MyLib.DbUtils.SqlServer
       }
       return result;
     }
+
     /// <summary>
     /// Tworzenie połączenia do serwera bazy danych
     /// </summary>
@@ -299,6 +334,10 @@ namespace MyLib.DbUtils.SqlServer
             info.Files = GetSqlDatabaseFiles(info);
           }
           return ok;
+        }
+        catch (Exception ex)
+        {
+          return false;
         }
         finally
         {
