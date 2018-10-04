@@ -1,0 +1,13 @@
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\bin\Debug\netcoreapp2.1\MyLib.EFCoreTools.deps.json
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\bin\Debug\netcoreapp2.1\MyLib.EFCoreTools.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\bin\Debug\netcoreapp2.1\MyLib.EFCoreTools.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\bin\Debug\netcoreapp2.1\Microsoft.SqlServer.ConnectionInfo.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\bin\Debug\netcoreapp2.1\System.Data.Entity.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\bin\Debug\netcoreapp2.1\System.Data.Entity.xml
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.dll
+D:\Dane\VS\Projects\MyLib\MyLib.EFCoreTools\obj\Debug\netcoreapp2.1\MyLib.EFCoreTools.pdb
