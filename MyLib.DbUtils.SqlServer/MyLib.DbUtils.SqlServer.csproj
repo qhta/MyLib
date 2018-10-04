@@ -62,13 +62,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyLib.DbUtils\MyLib.DbUtils.csproj">
-      <Project>{49c15958-b432-478f-8738-9e40cb99ca34}</Project>
-      <Name>MyLib.DbUtils</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\MyLib.DbUtils\MyLib.DbUtils.csproj">
+      <Project>{b4f91120-568c-4251-a76c-20fcbdd0a8b8}</Project>
+      <Name>MyLib.DbUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

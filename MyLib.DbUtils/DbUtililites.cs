@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.Common;
-using System.Data.OleDb;
-using System.Data.SqlClient;
+//using System.Data.OleDb;
+//using System.Data.SqlClient;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Reflection;
@@ -85,112 +85,112 @@ namespace MyLib.DbUtils
       throw new InvalidCastException($"Cannot convert \"{str}\" to boolean value");
     }
 
-    /// <summary>
-    /// Wyszukanie dostawców OleDb
-    /// </summary>
-    /// <returns></returns>
-    public static IEnumerable<DbProviderInfo> EnumerateOleDbProviders()
-    {
-      List<DbProviderInfo> result = new List<DbProviderInfo>();
-      OleDbEnumerator enumerator = new OleDbEnumerator();
-      if (enumerator != null)
-      {
-        DataTable aTable = enumerator.GetElements();
-        foreach (DataRow aRow in aTable.Rows)
-          if (aRow.Field<int>(aTable.Columns["SOURCES_TYPE"]) == 1)
-          {
-            string name = aRow.Field<string>(aTable.Columns["SOURCES_NAME"]);
-            DbProviderInfo info;
-            result.Add(info = new DbProviderInfo
-            {
-              Name = name,
-              Description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]),
-              Kind = ProviderKind.OleDb,
-              ClsID = aRow.Field<string>(aTable.Columns["SOURCES_CLSID"]),
-            });
-            if (info.Name.Contains(".ACE."))
-            {
-              info.Type = "ACCESS";
-              info.FileExtensions = "*.accdb, *.mdb";
-            }
-            else if (info.Description.Contains(" Jet ") || info.Description.Contains(" Access "))
-            {
-              info.Type = "ACCESS";
-              info.FileExtensions = "*.mdb, *.accdb";
-            }
-            else if (info.Description.Contains("SQL Server"))
-            {
-              info.Type = "MSSQL";
-              info.FileExtensions = "*.mdf";
-            }
-          }
-      }
-      return result.OrderBy(item => item.Name);
-    }
+    ///// <summary>
+    ///// Wyszukanie dostawców OleDb
+    ///// </summary>
+    ///// <returns></returns>
+    //public static IEnumerable<DbProviderInfo> EnumerateOleDbProviders()
+    //{
+    //  List<DbProviderInfo> result = new List<DbProviderInfo>();
+    //  OleDbEnumerator enumerator = new OleDbEnumerator();
+    //  if (enumerator != null)
+    //  {
+    //    DataTable aTable = enumerator.GetElements();
+    //    foreach (DataRow aRow in aTable.Rows)
+    //      if (aRow.Field<int>(aTable.Columns["SOURCES_TYPE"]) == 1)
+    //      {
+    //        string name = aRow.Field<string>(aTable.Columns["SOURCES_NAME"]);
+    //        DbProviderInfo info;
+    //        result.Add(info = new DbProviderInfo
+    //        {
+    //          Name = name,
+    //          Description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]),
+    //          Kind = ProviderKind.OleDb,
+    //          ClsID = aRow.Field<string>(aTable.Columns["SOURCES_CLSID"]),
+    //        });
+    //        if (info.Name.Contains(".ACE."))
+    //        {
+    //          info.Type = "ACCESS";
+    //          info.FileExtensions = "*.accdb, *.mdb";
+    //        }
+    //        else if (info.Description.Contains(" Jet ") || info.Description.Contains(" Access "))
+    //        {
+    //          info.Type = "ACCESS";
+    //          info.FileExtensions = "*.mdb, *.accdb";
+    //        }
+    //        else if (info.Description.Contains("SQL Server"))
+    //        {
+    //          info.Type = "MSSQL";
+    //          info.FileExtensions = "*.mdf";
+    //        }
+    //      }
+    //  }
+    //  return result.OrderBy(item => item.Name);
+    //}
 
-    /// <summary>
-    /// Wyszukanie sterowników Odbc
-    /// </summary>
-    /// <returns></returns>
-    public static IEnumerable<DbProviderInfo> EnumerateOdbcDrivers()
-    {
-      List<DbProviderInfo> result = new List<DbProviderInfo>();
-      // MSDAENUM = Microsoft Data Access - OLE DB Root Enumerator Stub
-      // MSDASQL Enumerator = Microsoft OLE DB Enumerator for ODBC Drivers
-      // SQLNCLI Enumerator = Microsoft SQL Server Native Client Enumerator
-      // SQLOLEDB Enumerator = Microsoft OLE DB Provider for SQL Server 
-      OleDbDataReader reader =
-        OleDbEnumerator.GetEnumerator(Type.GetTypeFromProgID("MSDASQL Enumerator"));
-      DataTable aTable = GetOleDbProviderData(reader);
-      foreach (DataRow aRow in aTable.Rows)
-      {
-        if (aRow.Field<int>(aTable.Columns["SOURCES_TYPE"]) == 1)
-        {
-          string description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]);
-          string extensions = null;
-          int k = description.IndexOf('(');
-          if (k > 0)
-          {
-            extensions = description.Substring(k).Trim();
-            extensions = extensions.Substring(1, extensions.Length - 2).Trim();
-            description = description.Substring(0, k - 1).Trim();
-          }
-          DbProviderInfo info = new DbProviderInfo { Kind = ProviderKind.Odbc };
-          description = description.ToUpper();
-          if (description.Contains("DBASE"))
-            info.Type = "DBASE";
-          else if (description.Contains("ACCESS"))
-            info.Type = "ACCESS";
-          else if (description.Contains("EXCEL"))
-            info.Type = "EXCEL";
-          info.Name = aRow.Field<string>(aTable.Columns["SOURCES_NAME"]);
-          info.Description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]);
-          info.FileExtensions = extensions;
-          result.Add(info);
-        }
-      }
-      return result;
-    }
+    ///// <summary>
+    ///// Wyszukanie sterowników Odbc
+    ///// </summary>
+    ///// <returns></returns>
+    //public static IEnumerable<DbProviderInfo> EnumerateOdbcDrivers()
+    //{
+    //  List<DbProviderInfo> result = new List<DbProviderInfo>();
+    //  // MSDAENUM = Microsoft Data Access - OLE DB Root Enumerator Stub
+    //  // MSDASQL Enumerator = Microsoft OLE DB Enumerator for ODBC Drivers
+    //  // SQLNCLI Enumerator = Microsoft SQL Server Native Client Enumerator
+    //  // SQLOLEDB Enumerator = Microsoft OLE DB Provider for SQL Server 
+    //  OleDbDataReader reader =
+    //    OleDbEnumerator.GetEnumerator(Type.GetTypeFromProgID("MSDASQL Enumerator"));
+    //  DataTable aTable = GetOleDbProviderData(reader);
+    //  foreach (DataRow aRow in aTable.Rows)
+    //  {
+    //    if (aRow.Field<int>(aTable.Columns["SOURCES_TYPE"]) == 1)
+    //    {
+    //      string description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]);
+    //      string extensions = null;
+    //      int k = description.IndexOf('(');
+    //      if (k > 0)
+    //      {
+    //        extensions = description.Substring(k).Trim();
+    //        extensions = extensions.Substring(1, extensions.Length - 2).Trim();
+    //        description = description.Substring(0, k - 1).Trim();
+    //      }
+    //      DbProviderInfo info = new DbProviderInfo { Kind = ProviderKind.Odbc };
+    //      description = description.ToUpper();
+    //      if (description.Contains("DBASE"))
+    //        info.Type = "DBASE";
+    //      else if (description.Contains("ACCESS"))
+    //        info.Type = "ACCESS";
+    //      else if (description.Contains("EXCEL"))
+    //        info.Type = "EXCEL";
+    //      info.Name = aRow.Field<string>(aTable.Columns["SOURCES_NAME"]);
+    //      info.Description = aRow.Field<string>(aTable.Columns["SOURCES_DESCRIPTION"]);
+    //      info.FileExtensions = extensions;
+    //      result.Add(info);
+    //    }
+    //  }
+    //  return result;
+    //}
 
-    /// <summary>
-    /// Odczytanie danych z OleDb do tabeli
-    /// </summary>
-    /// <param name="reader"></param>
-    /// <returns></returns>
-    static DataTable GetOleDbProviderData(OleDbDataReader reader)
-    {
-      DataTable result = new DataTable();
-      for (int i = 0; i < reader.FieldCount; i++)
-        result.Columns.Add(new DataColumn(reader.GetName(i), reader.GetFieldType(i)));
-      while (reader.Read())
-      {
-        object[] row = new object[reader.FieldCount];
-        for (int i = 0; i < reader.FieldCount; i++)
-          row[i] = reader.GetValue(i);
-        result.LoadDataRow(row, true);
-      }
-      return result;
-    }
+    ///// <summary>
+    ///// Odczytanie danych z OleDb do tabeli
+    ///// </summary>
+    ///// <param name="reader"></param>
+    ///// <returns></returns>
+    //static DataTable GetOleDbProviderData(OleDbDataReader reader)
+    //{
+    //  DataTable result = new DataTable();
+    //  for (int i = 0; i < reader.FieldCount; i++)
+    //    result.Columns.Add(new DataColumn(reader.GetName(i), reader.GetFieldType(i)));
+    //  while (reader.Read())
+    //  {
+    //    object[] row = new object[reader.FieldCount];
+    //    for (int i = 0; i < reader.FieldCount; i++)
+    //      row[i] = reader.GetValue(i);
+    //    result.LoadDataRow(row, true);
+    //  }
+    //  return result;
+    //}
 
     /// <summary>
     /// Sprawdzenie, czy źródło danych reprezentuje serwer lokalny

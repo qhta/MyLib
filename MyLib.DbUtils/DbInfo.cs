@@ -10,11 +10,11 @@ namespace MyLib.DbUtils
   public class DbInfo
   {
     #region właściwości "wejściowe"
-    /// <summary>
-    /// Dostawca danych. Identyfikuje mechanizm danych (np. OleDb), komponent dostawczy (np. Microsoft.Jet.OLEDB.4.0)
-    /// i inne parametry
-    /// </summary>
-    public DbProvider DataProvider { get; set; }
+    ///// <summary>
+    ///// Dostawca danych. Identyfikuje mechanizm danych (np. OleDb), komponent dostawczy (np. Microsoft.Jet.OLEDB.4.0)
+    ///// i inne parametry
+    ///// </summary>
+    //public DbProvider DataProvider { get; set; }
     /// <summary>
     /// Źródło danych / adres sieciowy serwera 
     /// </summary>
@@ -83,12 +83,12 @@ namespace MyLib.DbUtils
       {
         if (_DefaultFileExt != null)
           return _DefaultFileExt;
-        if (DataProvider.FileExtensions != null)
-        {
-          string[] ss = DataProvider.FileExtensions.Split(',',';');
-          if (ss.Length > 0)
-            return ss[0].Replace("*", "");
-        }
+        //if (DataProvider.FileExtensions != null)
+        //{
+        //  string[] ss = DataProvider.FileExtensions.Split(',',';');
+        //  if (ss.Length > 0)
+        //    return ss[0].Replace("*", "");
+        //}
         return null;
       }
       set { _DefaultFileExt = value; }

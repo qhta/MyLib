@@ -1,0 +1,12 @@
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\netstandard2.0\MyLib.DbUtils.deps.json
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\netstandard2.0\MyLib.DbUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\netstandard2.0\MyLib.DbUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\netstandard2.0\MyLib.GuidUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\bin\Debug\netstandard2.0\MyLib.GuidUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils\obj\Debug\netstandard2.0\MyLib.DbUtils.pdb
