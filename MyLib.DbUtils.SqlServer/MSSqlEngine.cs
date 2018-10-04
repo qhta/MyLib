@@ -28,58 +28,23 @@ namespace MyLib.DbUtils.SqlServer
     {
       List<DbServerInfo> result = new List<DbServerInfo>();
       {
-        var enumerator = SqlDataSourceEnumerator.Instance;
-        if (enumerator != null)
+        DataTable aTable = SmoApplication.EnumAvailableSqlServers(true);
+        foreach (DataRow aRow in aTable.Rows)
         {
-          DataTable aTable = SmoApplication.EnumAvailableSqlServers(true); //enumerator.GetDataSources();
-          foreach (DataRow aRow in aTable.Rows)
+          string name = aRow["Name"] as string;
+          string serverName = aRow["Server"] as string;
+          string instanceName = aRow["Instance"] as string;
+          string version = aRow["Version"] as string;
+          var info = new DbServerInfo
           {
-            string name = aRow.Field<string>(aTable.Columns["Name"]);
-            string serverName = aRow.Field<string>(aTable.Columns["Server"]);
-            string instanceName = aRow.Field<string>(aTable.Columns["Instance"]);
-            string version = aRow.Field<string>(aTable.Columns["Version"]);
-            var info = new DbServerInfo
-            {
-              Name = name,
-              ServerName = serverName,
-              InstanceName = instanceName,
-              Version = version,
-              Engine = this,
-            };
-            //info.Name = info.ToString();
-            result.Add(info);
-          }
-        }
-      }
-      return result;
-    }
-
-    /// <summary>
-    /// Wyliczenie instancji serwera
-    /// </summary>
-    public IEnumerable<DbServerInfo> EnumerateAllServers()
-    {
-      List<DbServerInfo> result = new List<DbServerInfo>();
-      {
-        var enumerator = SqlDataSourceEnumerator.Instance;
-        if (enumerator != null)
-        {
-          DataTable aTable = /*SmoApplication.EnumAvailableSqlServers();*/ enumerator.GetDataSources();
-          foreach (DataRow aRow in aTable.Rows)
-          {
-            string serverName = aRow.Field<string>(aTable.Columns["ServerName"]);
-            string instanceName = aRow.Field<string>(aTable.Columns["InstanceName"]);
-            string version = aRow.Field<string>(aTable.Columns["Version"]);
-            var info = new DbServerInfo
-            {
-              ServerName = serverName,
-              InstanceName = instanceName,
-              Version = version,
-              Engine = this,
-            };
-            info.Name = info.ToString();
-            result.Add(info);
-          }
+            Name = name,
+            ServerName = serverName,
+            InstanceName = instanceName,
+            Version = version,
+            Engine = this,
+          };
+          //info.Name = info.ToString();
+          result.Add(info);
         }
       }
       return result;
@@ -579,7 +544,7 @@ namespace MyLib.DbUtils.SqlServer
             var newFiles = NewFileInfos(info, newDbName, newFileNames);
 
             // zmiana nazw plików
-            for (int i=0; i<newFiles.Count() && i<newFileNames.Count(); i++)
+            for (int i = 0; i<newFiles.Count() && i<newFileNames.Count(); i++)
             {
               var oldFileName = oldFiles[i].LogicalName;
 
@@ -601,7 +566,7 @@ namespace MyLib.DbUtils.SqlServer
             DetachSqlServerDatabase(info);
             var oldFileNames = oldFiles.Select(item => item.PhysicalName).Take(newFileNames.Length).ToArray();
             RenameDatabaseFiles(oldFileNames, newFileNames);
-            for (int i= newFileNames.Length; i< newFiles.Length; i++)
+            for (int i = newFileNames.Length; i< newFiles.Length; i++)
               newFiles[i]=oldFiles[i];
             info.Files=newFiles;
             AttachSqlServerDatabase(info);
@@ -680,7 +645,7 @@ namespace MyLib.DbUtils.SqlServer
         command.CommandText =
           String.Format("SELECT type_desc, name, physical_name"
           + " FROM sys.master_files"
-          + " WHERE database_id = DB_ID(N'{0}')" 
+          + " WHERE database_id = DB_ID(N'{0}')"
           + " ORDER BY [type]",
           info.DbName);
         command.Connection=connection;
@@ -880,7 +845,7 @@ namespace MyLib.DbUtils.SqlServer
          "  ) AS ic" +
          "    ON ic.object_id = c.object_id AND ic.column_id = c.column_id" +
          "  WHERE c.object_id = OBJECT_ID('{0}')"+
-         ";",info.Name);
+         ";", info.Name);
         command.Connection=connection;
         bool opened = connection.State == ConnectionState.Open;
         try
