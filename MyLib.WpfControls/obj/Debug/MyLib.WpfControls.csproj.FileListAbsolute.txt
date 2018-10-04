@@ -14,3 +14,4 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Debug\MyLib.WPFControls.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Debug\MyLib.WPFControls.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Debug\PanelHeader.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Debug\PanelHeader.baml
+D:\Dane\VS\Projects\MyLib\MyLib.WpfControls\obj\Debug\MyLib.WpfControls.csprojAssemblyReference.cache

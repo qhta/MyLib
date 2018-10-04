@@ -61,7 +61,7 @@ namespace MyLib.MVVM
     public bool IsLoaded
     {
       get => _IsLoaded;
-      protected set
+      set
       {
         if (_IsLoaded!=value)
         {
