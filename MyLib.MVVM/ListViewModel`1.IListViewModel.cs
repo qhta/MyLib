@@ -250,7 +250,7 @@ namespace MyLib.MVVM
     //    {
     //      item.IsSelected = value!=null && value.Contains(item);
     //    }
-    //    NotifyPropertyChanged("SelectedItems");
+    //    NotifyPropertyChanged(nameof(SelectedItems));
     //    NotifySelectionChanged();
     //  }
     //}
