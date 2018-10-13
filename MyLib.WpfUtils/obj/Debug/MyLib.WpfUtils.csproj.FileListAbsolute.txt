@@ -15,7 +15,6 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XPath.XDocument.dl
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MVVM.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.dll
-D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\HtmlAgilityPack.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MultiThreadingObjects.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MVVM.pdb
@@ -113,5 +112,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.csprojAssembly
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\Resources\WpfUtils.Resources.baml
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\obj\Debug\MyLib.WpfUtils.g.resources
-D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\HtmlAgilityPack.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\HtmlAgilityPack.xml

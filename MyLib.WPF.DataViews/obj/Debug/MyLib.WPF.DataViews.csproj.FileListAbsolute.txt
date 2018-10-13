@@ -18,7 +18,6 @@ D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.MVVM.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.WpfUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.OrdNumbers.dll
-D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\HtmlAgilityPack.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.MultiThreadingObjects.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.MVVM.DataViewModels.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\MyLib.MVVM.pdb
@@ -125,5 +124,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataGridExpandableView.g.cs
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\DataGridExpandableView.baml
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\Resources\PropertyGridStyles.baml
-D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\HtmlAgilityPack.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\HtmlAgilityPack.xml

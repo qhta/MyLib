@@ -4,6 +4,5 @@ D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\obj\Debug\netstandard2.0\MyLib.XmlUtils
 D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\obj\Debug\netstandard2.0\MyLib.XmlUtils.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\obj\Debug\netstandard2.0\MyLib.XmlUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\bin\Debug\netstandard2.0\MyLib.XmlUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\obj\Debug\netstandard2.0\MyLib.XmlUtils.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\obj\Debug\netstandard2.0\MyLib.XmlUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.XmlUtils\obj\Debug\netstandard2.0\MyLib.XmlUtils.pdb
