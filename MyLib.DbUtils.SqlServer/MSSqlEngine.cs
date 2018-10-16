@@ -28,23 +28,31 @@ namespace MyLib.DbUtils.SqlServer
     {
       List<DbServerInfo> result = new List<DbServerInfo>();
       {
-        DataTable aTable = SmoApplication.EnumAvailableSqlServers(true);
-        foreach (DataRow aRow in aTable.Rows)
+        try
         {
-          string name = aRow["Name"] as string;
-          string serverName = aRow["Server"] as string;
-          string instanceName = aRow["Instance"] as string;
-          string version = aRow["Version"] as string;
-          var info = new DbServerInfo
+          var smoApp = new SmoApplication();
+          DataTable aTable = SmoApplication.EnumAvailableSqlServers(true);
+          foreach (DataRow aRow in aTable.Rows)
           {
-            Name = name,
-            ServerName = serverName,
-            InstanceName = instanceName,
-            Version = version,
-            Engine = this,
-          };
-          //info.Name = info.ToString();
-          result.Add(info);
+            string name = aRow["Name"] as string;
+            string serverName = aRow["Server"] as string;
+            string instanceName = aRow["Instance"] as string;
+            string version = aRow["Version"] as string;
+            var info = new DbServerInfo
+            {
+              Name = name,
+              ServerName = serverName,
+              InstanceName = instanceName,
+              Version = version,
+              Engine = this,
+            };
+            //info.Name = info.ToString();
+            result.Add(info);
+          }
+        }
+        catch (Exception ex)
+        {
+          Debug.WriteLine($"{ex.GetType().Name}: {ex.Message}");
         }
       }
       return result;

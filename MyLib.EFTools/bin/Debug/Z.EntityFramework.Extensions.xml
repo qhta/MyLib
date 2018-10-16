@@ -1367,6 +1367,11 @@
             <summary>Gets or sets the constant value.</summary>
             <value>The constant value.</value>
         </member>
+        <member name="M:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.GetValue(System.Object)">
+            <summary>Gets a value.</summary>
+            <param name="obj">The object.</param>
+            <returns>The value.</returns>
+        </member>
         <member name="M:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.SetValue(System.Object,System.Object)">
             <summary>Sets a value.</summary>
             <param name="obj">The object.</param>
