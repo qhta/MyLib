@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -157,6 +158,8 @@ namespace MyLib.HtmlUtils
 
     public static string HtmlToSimpleText(this string html)
     {
+      if (String.IsNullOrEmpty(html))
+        return null;
       HtmlDocument document = new HtmlDocument();
       document.LoadHtml(html);
       return document.DocumentNode.InnerText;

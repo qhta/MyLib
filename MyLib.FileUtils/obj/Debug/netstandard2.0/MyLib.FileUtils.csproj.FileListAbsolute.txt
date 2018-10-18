@@ -6,4 +6,3 @@ D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUti
 D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.csprojAssemblyReference.cache
