@@ -10,10 +10,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyLib.MultiThreadingObjects\MyLib.MultiThreadingObjects.csproj" />
-    <ProjectReference Include="..\MyLib.OrdNumbers\MyLib.OrdNumbers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="MyLib.OrdNumbers">
+      <HintPath>..\bin\MyLib.OrdNumbers.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.1\WindowsBase.dll</HintPath>
     </Reference>

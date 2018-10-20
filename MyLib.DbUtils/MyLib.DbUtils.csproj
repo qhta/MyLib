@@ -8,8 +8,4 @@
     <Compile Remove="DbConfig.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MyLib.GuidUtils\MyLib.GuidUtils.csproj" />
-  </ItemGroup>
-
 </Project>

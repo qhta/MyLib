@@ -281,24 +281,11 @@
       "MyLib.DbUtils/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "MyLib.GuidUtils": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/MyLib.DbUtils.dll": {}
         },
         "runtime": {
           "bin/placeholder/MyLib.DbUtils.dll": {}
-        }
-      },
-      "MyLib.GuidUtils/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/MyLib.GuidUtils.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyLib.GuidUtils.dll": {}
         }
       }
     }
@@ -971,11 +958,6 @@
       "type": "project",
       "path": "../MyLib.DbUtils/MyLib.DbUtils.csproj",
       "msbuildProject": "../MyLib.DbUtils/MyLib.DbUtils.csproj"
-    },
-    "MyLib.GuidUtils/1.0.0": {
-      "type": "project",
-      "path": "../MyLib.GuidUtils/MyLib.GuidUtils.csproj",
-      "msbuildProject": "../MyLib.GuidUtils/MyLib.GuidUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {

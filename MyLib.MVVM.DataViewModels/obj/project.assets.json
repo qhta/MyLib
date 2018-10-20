@@ -40,24 +40,13 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "MyLib.MultiThreadingObjects": "1.0.0",
-          "MyLib.OrdNumbers": "1.0.0"
+          "MyLib.MultiThreadingObjects": "1.0.0"
         },
         "compile": {
           "bin/placeholder/MyLib.MVVM.dll": {}
         },
         "runtime": {
           "bin/placeholder/MyLib.MVVM.dll": {}
-        }
-      },
-      "MyLib.OrdNumbers/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/MyLib.OrdNumbers.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyLib.OrdNumbers.dll": {}
         }
       }
     }
@@ -212,11 +201,6 @@
       "type": "project",
       "path": "../MyLib.MVVM/MyLib.MVVM.csproj",
       "msbuildProject": "../MyLib.MVVM/MyLib.MVVM.csproj"
-    },
-    "MyLib.OrdNumbers/1.0.0": {
-      "type": "project",
-      "path": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj",
-      "msbuildProject": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj"
     }
   },
   "projectFileDependencyGroups": {

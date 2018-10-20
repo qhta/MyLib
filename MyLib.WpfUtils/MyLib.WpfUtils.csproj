@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MyLib.HtmlUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\MyLib.HtmlUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="MyLib.OrdNumbers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\MyLib.OrdNumbers.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ReachFramework" />
@@ -92,17 +100,9 @@
     <Compile Include="WpfWin32Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyLib.HtmlUtils\MyLib.HtmlUtils.csproj">
-      <Project>{60aa6272-7366-4367-b9f4-7ce37ea9e318}</Project>
-      <Name>MyLib.HtmlUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyLib.MVVM\MyLib.MVVM.csproj">
       <Project>{9c02bb4f-c25f-4e1d-bce8-a45974462e41}</Project>
       <Name>MyLib.MVVM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyLib.OrdNumbers\MyLib.OrdNumbers.csproj">
-      <Project>{B2BAC234-44FB-4E6F-93E3-2AC911BFA264}</Project>
-      <Name>MyLib.OrdNumbers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

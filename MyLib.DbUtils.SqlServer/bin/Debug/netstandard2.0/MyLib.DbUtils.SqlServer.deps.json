@@ -205,16 +205,8 @@
         }
       },
       "MyLib.DbUtils/1.0.0": {
-        "dependencies": {
-          "MyLib.GuidUtils": "1.0.0"
-        },
         "runtime": {
           "MyLib.DbUtils.dll": {}
-        }
-      },
-      "MyLib.GuidUtils/1.0.0": {
-        "runtime": {
-          "MyLib.GuidUtils.dll": {}
         }
       }
     }
@@ -345,11 +337,6 @@
       "hashPath": "system.text.encoding.codepages.4.5.0.nupkg.sha512"
     },
     "MyLib.DbUtils/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MyLib.GuidUtils/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

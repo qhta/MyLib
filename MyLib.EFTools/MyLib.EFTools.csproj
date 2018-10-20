@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\NLP\WordNet\Wordnet.Entities\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
     </Reference>
+    <Reference Include="MyLib.TypeUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\MyLib.TypeUtils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -66,12 +70,6 @@
     <None Include="App.config" />
     <None Include="doc\EFTools.docx" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MyLib.TypeUtils\MyLib.TypeUtils.csproj">
-      <Project>{a1e0d69f-8200-4118-a19c-e55fe16739c2}</Project>
-      <Name>MyLib.TypeUtils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

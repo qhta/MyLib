@@ -35,16 +35,6 @@
         "runtime": {
           "bin/placeholder/MyLib.MultiThreadingObjects.dll": {}
         }
-      },
-      "MyLib.OrdNumbers/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/MyLib.OrdNumbers.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyLib.OrdNumbers.dll": {}
-        }
       }
     }
   },
@@ -193,17 +183,11 @@
       "type": "project",
       "path": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
       "msbuildProject": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj"
-    },
-    "MyLib.OrdNumbers/1.0.0": {
-      "type": "project",
-      "path": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj",
-      "msbuildProject": "../MyLib.OrdNumbers/MyLib.OrdNumbers.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "MyLib.MultiThreadingObjects >= 1.0.0",
-      "MyLib.OrdNumbers >= 1.0.0",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -239,9 +223,6 @@
           "projectReferences": {
             "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MultiThreadingObjects\\MyLib.MultiThreadingObjects.csproj": {
               "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.MultiThreadingObjects\\MyLib.MultiThreadingObjects.csproj"
-            },
-            "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.OrdNumbers\\MyLib.OrdNumbers.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.OrdNumbers\\MyLib.OrdNumbers.csproj"
             }
           }
         }
