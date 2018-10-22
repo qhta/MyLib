@@ -1,0 +1,11 @@
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\bin\Release\netstandard2.0\Qhta.TypeUtils.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\bin\Release\netstandard2.0\Qhta.TypeUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\bin\Release\netstandard2.0\Qhta.TypeUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\bin\Release\netstandard2.0\Qhta.TypeUtils.xml
+D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Release\netstandard2.0\Qhta.TypeUtils.xml

@@ -9,10 +9,10 @@ D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\bin\Debug\netstandard2.0\W
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\bin\Debug\netstandard2.0\System.Xaml.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\bin\Debug\netstandard2.0\Accessibility.xml
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\bin\Debug\netstandard2.0\System.Security.xml
+D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.dll
 D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.MultiThreadingObjects\obj\Debug\netstandard2.0\MyLib.MultiThreadingObjects.csprojAssemblyReference.cache

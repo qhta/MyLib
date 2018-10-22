@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Qhta.TypeUtils</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>A package of functions to supplement System.Reflections.</Description>
+    <Authors>Yarreck Qhta</Authors>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+
+</Project>

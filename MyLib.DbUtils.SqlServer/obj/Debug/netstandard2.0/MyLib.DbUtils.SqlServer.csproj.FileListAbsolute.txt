@@ -1,12 +1,12 @@
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.csprojAssemblyReference.cache
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.AssemblyInfoInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.deps.json
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\netstandard2.0\MyLib.DbUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\bin\Debug\netstandard2.0\MyLib.DbUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.DbUtils.SqlServer\obj\Debug\netstandard2.0\MyLib.DbUtils.SqlServer.pdb

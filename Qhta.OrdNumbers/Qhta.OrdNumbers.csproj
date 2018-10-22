@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Yarreck Qhta</Authors>
+    <Description>Ordinal number is a sequence of segments separated by dots. A segment is a cardinal number from 0 to 16777215.
+Each segment number can be directly followed by its variant symbol  - a letter from "a" to "z" (or two letters).
+Variant "a" is the first, variant "z" is 26th. If a segment has more variants than 26 then subsequent variants are symbolized by two-letter sequences: "aa", "ab", "ac" till "iu" (last possible variant is 255th).
+Ordinal numbers are easily converted to/from strings. One-segment ordinal numbers (without) variants are compatible with integer numbers, two-segment ordinal numbers are compatible with real numbers.</Description>
+    <PackageTags>ordinal numbers</PackageTags>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+
+</Project>

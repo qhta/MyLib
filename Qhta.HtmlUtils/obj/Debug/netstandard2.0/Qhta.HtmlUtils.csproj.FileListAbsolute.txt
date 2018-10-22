@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\bin\Debug\netstandard2.0\Qhta.HtmlUtils.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\bin\Debug\netstandard2.0\Qhta.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\bin\Debug\netstandard2.0\Qhta.HtmlUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.pdb

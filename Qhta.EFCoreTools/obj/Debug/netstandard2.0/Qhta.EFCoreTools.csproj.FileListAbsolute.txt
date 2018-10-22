@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\bin\Debug\netstandard2.0\Qhta.EFCoreTools.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\bin\Debug\netstandard2.0\Qhta.EFCoreTools.dll
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\bin\Debug\netstandard2.0\Qhta.EFCoreTools.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\obj\Debug\netstandard2.0\Qhta.EFCoreTools.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\obj\Debug\netstandard2.0\Qhta.EFCoreTools.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\obj\Debug\netstandard2.0\Qhta.EFCoreTools.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\obj\Debug\netstandard2.0\Qhta.EFCoreTools.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\obj\Debug\netstandard2.0\Qhta.EFCoreTools.dll
+D:\Dane\VS\Projects\MyLib\Qhta.EFCoreTools\obj\Debug\netstandard2.0\Qhta.EFCoreTools.pdb

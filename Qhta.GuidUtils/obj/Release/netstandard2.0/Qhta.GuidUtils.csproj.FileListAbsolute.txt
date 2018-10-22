@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\bin\Release\netstandard2.0\Qhta.GuidUtils.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\bin\Release\netstandard2.0\Qhta.GuidUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\bin\Release\netstandard2.0\Qhta.GuidUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Release\netstandard2.0\Qhta.GuidUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Release\netstandard2.0\Qhta.GuidUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Release\netstandard2.0\Qhta.GuidUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Release\netstandard2.0\Qhta.GuidUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Release\netstandard2.0\Qhta.GuidUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Release\netstandard2.0\Qhta.GuidUtils.pdb

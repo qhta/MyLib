@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Yarreck Qhta</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Definition.cs" />
+  </ItemGroup>
+
+</Project>

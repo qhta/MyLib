@@ -16,5 +16,5 @@ DEBUG;TRACE
 124-1826631165
 DataGridExpandableView.xaml;DataSetView.xaml;DataViewExpander.xaml;Resources\PropertyGridStyles.xaml;
 
-True
+False
 
