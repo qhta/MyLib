@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace Qhta.EFTools
+namespace Qhta.EFCoreTools
 {
   public static class EntityFrameworkUtils
   {

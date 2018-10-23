@@ -21,12 +21,12 @@ namespace MyLib.DbUtils
     /// <summary>
     /// Czy silnik potrafi wyliczyć instancje serwera?
     /// </summary>
-    public abstract bool CanEnumerateServerInstances { get; }
+    public abstract bool CanEnumerateServerInstances(ServerType serverType);
 
     /// <summary>
     /// Wyliczenie instancji serwera
     /// </summary>
-    public virtual IEnumerable<DbServerInfo> EnumerateServers()
+    public virtual IEnumerable<DbServerInfo> EnumerateServers(ServerType serverType)
     {
       throw new InvalidOperationException($"{GetType().Name} cannot enumerate server instances");
     }

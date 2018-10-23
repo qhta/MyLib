@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Microsoft.SqlServer.Management.Smo;
 
 namespace MyLib.DbUtils.SqlServer
@@ -19,19 +16,43 @@ namespace MyLib.DbUtils.SqlServer
   public class MSSqlEngine : DbEngine
   {
 
-    public override bool CanEnumerateServerInstances => true;
+    public override bool CanEnumerateServerInstances(ServerType serverType)
+    {
+      ServerType result = 0;
+      if (serverType.HasFlag(ServerType.Local))
+      {
+        try
+        {
+          DataTable aTable = 
+            SmoApplication.EnumAvailableSqlServers(true);
+          result |= ServerType.Local;
+        }
+        catch(Exception ex)
+        {
+          HandleException(ex);
+        }
+      }
+      return result!=0 && result==serverType;
+    }
 
     /// <summary>
     /// Wyliczenie instancji serwera
     /// </summary>
-    public override IEnumerable<DbServerInfo> EnumerateServers()
+    public override IEnumerable<DbServerInfo> EnumerateServers(ServerType serverType)
     {
       List<DbServerInfo> result = new List<DbServerInfo>();
       {
-        try
+        var smoApp = new SmoApplication();
+        DataTable aTable = null;
+        if (serverType.HasFlag(ServerType.Remote))
+        { 
+          //aTable = SqlDataSourceEnumerator
+        }
+        else
+        if (serverType.HasFlag(ServerType.Local))
+          aTable = SmoApplication.EnumAvailableSqlServers(true);
+        if (aTable!=null)
         {
-          var smoApp = new SmoApplication();
-          DataTable aTable = SmoApplication.EnumAvailableSqlServers(true);
           foreach (DataRow aRow in aTable.Rows)
           {
             string name = aRow["Name"] as string;
@@ -46,13 +67,8 @@ namespace MyLib.DbUtils.SqlServer
               Version = version,
               Engine = this,
             };
-            //info.Name = info.ToString();
             result.Add(info);
           }
-        }
-        catch (Exception ex)
-        {
-          Debug.WriteLine($"{ex.GetType().Name}: {ex.Message}");
         }
       }
       return result;
@@ -934,6 +950,16 @@ namespace MyLib.DbUtils.SqlServer
       return statements
           .Where(x => !string.IsNullOrWhiteSpace(x))
           .Select(x => x.Trim(' ', '\r', '\n'));
+    }
+
+    private static void HandleException(Exception ex)
+    {
+      //Debug.IndentSize=2;
+      //Debug.Indent();
+      //Debug.WriteLine($"{ex.GetType().Name}: {ex.Message}");
+      //if (ex.InnerException!=null)
+      //  HandleException(ex.InnerException);
+      //Debug.Unindent();
     }
     #endregion
   }

@@ -35,7 +35,12 @@ namespace MyLib.DbUtils
     /// </summary>
     public DbEngine Instance
     {
-      get => _Instance;
+      get
+      {
+        if (_Instance==null)
+          _Instance = CreateInstance();
+        return _Instance;
+      }
       set
       {
         if (_Instance!=value)
@@ -63,14 +68,13 @@ namespace MyLib.DbUtils
     }
 
     /// <summary>
-    /// Podaje (a wcześniej ewentualnie tworzy) instancję silnika danych
+    /// Tworzy instancję silnika danych
     /// </summary>
     /// <returns></returns>
-    public DbEngine GetInstance()
+    public DbEngine CreateInstance()
     {
-      if (Instance==null)
-        Instance = (DbEngine)Type.GetConstructor(new Type[0]).Invoke(new object[0]);
-      return Instance;
+      var instance = (DbEngine)Type.GetConstructor(new Type[0]).Invoke(new object[0]);
+      return instance;
     }
 
   }

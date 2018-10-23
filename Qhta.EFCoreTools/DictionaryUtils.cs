@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Qhta.EFTools
+namespace Qhta.EFCoreTools
 {
   public static class DictionaryUtils
   {

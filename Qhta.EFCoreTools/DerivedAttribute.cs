@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Qhta.EFTools
+namespace Qhta.EFCoreTools
 {
   [AttributeUsage(AttributeTargets.Property, AllowMultiple =false, Inherited =false)]
   public class DerivedAttribute: Attribute

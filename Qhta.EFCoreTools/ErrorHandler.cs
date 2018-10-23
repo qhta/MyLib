@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Qhta.EFTools
+namespace Qhta.EFCoreTools
 {
   public class ErrorHandler
   {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Qhta.EFTools
+namespace Qhta.EFCoreTools
 {
   public class TypeDescriptorContext : ITypeDescriptorContext
   {

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.EFCoreTools/1.0.0": {
+      "Qhta.EFCoreTools/1.1.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.1.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.4",
@@ -596,7 +596,7 @@
     }
   },
   "libraries": {
-    "Qhta.EFCoreTools/1.0.0": {
+    "Qhta.EFCoreTools/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

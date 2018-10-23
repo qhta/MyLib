@@ -42,7 +42,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Qhta.OrdNumbers, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.OrdNumbers.1.0.0\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
+      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.OrdNumbers.2.0.0\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />

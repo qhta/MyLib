@@ -1,0 +1,16 @@
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\DbUtils.Core.Test.deps.json
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\DbUtils.Core.Test.runtimeconfig.json
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\DbUtils.Core.Test.runtimeconfig.dev.json
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\DbUtils.Core.Test.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\DbUtils.Core.Test.pdb
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.pdb
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.SqlServer.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.SqlServer.pdb
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.pdb
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.csproj.CopyComplete

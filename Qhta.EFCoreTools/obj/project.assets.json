@@ -3010,7 +3010,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.EFCoreTools\\Qhta.EFCoreTools.csproj",
       "projectName": "Qhta.EFCoreTools",

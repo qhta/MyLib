@@ -18,7 +18,7 @@ Each segment number can be directly followed by its variant symbol  - a letter f
 Variant ""a"" is the first, variant ""z"" is 26th. If a segment has more variants than 26 then subsequent variants are symbolized by two-letter sequences: ""aa"", ""ab"", ""ac"" till ""iu"" (last possible variant is 255th).
 Ordinal numbers are easily converted to/from strings. One-segment ordinal numbers (without) variants are compatible with integer numbers, two-segment ordinal numbers are compatible with real numbers.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.OrdNumbers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.OrdNumbers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.0.0.0")]
