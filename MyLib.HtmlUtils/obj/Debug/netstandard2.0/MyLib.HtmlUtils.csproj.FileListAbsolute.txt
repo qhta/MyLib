@@ -1,9 +1,0 @@
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\netstandard2.0\MyLib.HtmlUtils.deps.json
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\netstandard2.0\MyLib.HtmlUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\netstandard2.0\MyLib.HtmlUtils.csprojAssemblyReference.cache
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\netstandard2.0\MyLib.HtmlUtils.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\netstandard2.0\MyLib.HtmlUtils.AssemblyInfoInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\netstandard2.0\MyLib.HtmlUtils.AssemblyInfo.cs
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\bin\Debug\netstandard2.0\MyLib.HtmlUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\netstandard2.0\MyLib.HtmlUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.HtmlUtils\obj\Debug\netstandard2.0\MyLib.HtmlUtils.pdb

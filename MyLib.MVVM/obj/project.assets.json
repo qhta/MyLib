@@ -26,6 +26,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Qhta.OrdNumbers/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
+        }
+      },
       "MyLib.MultiThreadingObjects/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -179,6 +188,17 @@
         "netstandard.library.nuspec"
       ]
     },
+    "Qhta.OrdNumbers/2.0.0": {
+      "sha512": "1zILRGFggm7oi+sucqHzO7M0vUq0W/oXeJS4sX3eWPV4F9neycqIDbkYxKhEHy7CTer/2VNSarxeuqjtrJSdLw==",
+      "type": "package",
+      "path": "qhta.ordnumbers/2.0.0",
+      "files": [
+        ".signature.p7s",
+        "lib/netstandard2.0/Qhta.OrdNumbers.dll",
+        "qhta.ordnumbers.2.0.0.nupkg.sha512",
+        "qhta.ordnumbers.nuspec"
+      ]
+    },
     "MyLib.MultiThreadingObjects/1.0.0": {
       "type": "project",
       "path": "../MyLib.MultiThreadingObjects/MyLib.MultiThreadingObjects.csproj",
@@ -188,7 +208,8 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "MyLib.MultiThreadingObjects >= 1.0.0",
-      "NETStandard.Library >= 2.0.3"
+      "NETStandard.Library >= 2.0.3",
+      "Qhta.OrdNumbers >= 2.0.0"
     ]
   },
   "packageFolders": {
@@ -241,6 +262,10 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.OrdNumbers": {
+            "target": "Package",
+            "version": "[2.0.0, )"
           }
         },
         "imports": [

@@ -1,9 +1,0 @@
-D:\Dane\VS\Projects\MyLib\TypeUtils\bin\Debug\netstandard2.0\TypeUtils.deps.json
-D:\Dane\VS\Projects\MyLib\TypeUtils\bin\Debug\netstandard2.0\TypeUtils.dll
-D:\Dane\VS\Projects\MyLib\TypeUtils\bin\Debug\netstandard2.0\TypeUtils.pdb
-D:\Dane\VS\Projects\MyLib\TypeUtils\obj\Debug\netstandard2.0\TypeUtils.csprojResolveAssemblyReference.cache
-D:\Dane\VS\Projects\MyLib\TypeUtils\obj\Debug\netstandard2.0\TypeUtils.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\TypeUtils\obj\Debug\netstandard2.0\TypeUtils.AssemblyInfoInputs.cache
-D:\Dane\VS\Projects\MyLib\TypeUtils\obj\Debug\netstandard2.0\TypeUtils.AssemblyInfo.cs
-D:\Dane\VS\Projects\MyLib\TypeUtils\obj\Debug\netstandard2.0\TypeUtils.dll
-D:\Dane\VS\Projects\MyLib\TypeUtils\obj\Debug\netstandard2.0\TypeUtils.pdb

@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v2.1": {
       "DbUtils.Core.Test/1.0.0": {
         "dependencies": {
-          "MyLib.DbUtils": "1.0.0",
-          "MyLib.DbUtils.SqlServer": "1.0.0"
+          "Qhta.DbUtils": "1.0.0",
+          "Qhta.DbUtils.SqlServer": "1.0.0"
         },
         "runtime": {
           "DbUtils.Core.Test.dll": {}
@@ -248,19 +248,18 @@
           }
         }
       },
-      "MyLib.DbUtils/1.0.0": {
+      "Qhta.DbUtils/1.0.0": {
         "runtime": {
-          "MyLib.DbUtils.dll": {}
+          "Qhta.DbUtils.dll": {}
         }
       },
-      "MyLib.DbUtils.SqlServer/1.0.0": {
+      "Qhta.DbUtils.SqlServer/1.0.0": {
         "dependencies": {
           "Microsoft.SqlServer.SqlManagementObjects": "140.17283.0",
-          "MyLib.DbUtils": "1.0.0",
           "System.Data.SqlClient": "4.5.1"
         },
         "runtime": {
-          "MyLib.DbUtils.SqlServer.dll": {}
+          "Qhta.DbUtils.SqlServer.dll": {}
         }
       }
     }
@@ -348,12 +347,12 @@
       "path": "system.text.encoding.codepages/4.5.0",
       "hashPath": "system.text.encoding.codepages.4.5.0.nupkg.sha512"
     },
-    "MyLib.DbUtils/1.0.0": {
+    "Qhta.DbUtils/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "MyLib.DbUtils.SqlServer/1.0.0": {
+    "Qhta.DbUtils.SqlServer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

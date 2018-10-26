@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Qhta.OrdNumbers" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyLib.MultiThreadingObjects\MyLib.MultiThreadingObjects.csproj" />
   </ItemGroup>
 

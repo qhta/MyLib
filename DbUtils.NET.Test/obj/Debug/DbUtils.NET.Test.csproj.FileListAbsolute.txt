@@ -97,10 +97,6 @@ D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\System.Xml.XmlDocument.dll
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\System.Xml.XmlSerializer.dll
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\System.Xml.XPath.XDocument.dll
-D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\MyLib.DbUtils.dll
-D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\MyLib.DbUtils.SqlServer.dll
-D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\MyLib.DbUtils.SqlServer.pdb
-D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\MyLib.DbUtils.pdb
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\obj\Debug\DbUtils.NET.Test.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\obj\Debug\DbUtils.NET.Test.exe.config
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\obj\Debug\DbUtils.NET.Test.csproj.CoreCompileInputs.cache
@@ -119,3 +115,7 @@ D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Microsoft.SqlServer.Diagnos
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.dll
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Microsoft.SqlServer.RegSvrEnum.dll
 D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Microsoft.SqlServer.SqlTDiagM.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Qhta.DbUtils.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Qhta.DbUtils.SqlServer.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Qhta.DbUtils.SqlServer.pdb
+D:\Dane\VS\Projects\MyLib\DbUtils.NET.Test\bin\Debug\Qhta.DbUtils.pdb

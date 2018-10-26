@@ -124,3 +124,4 @@ D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\MyLib.WPF.DataViews.cspr
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\MyLib.WPF.DataViews.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\MyLib.WPF.DataViews.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\obj\Debug\MyLib.WPF.DataViews.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.WPF.DataViews\bin\Debug\Qhta.OrdNumbers.dll

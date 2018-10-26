@@ -1,9 +1,0 @@
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\bin\Debug\netstandard2.0\MyLib.FileUtils.deps.json
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\bin\Debug\netstandard2.0\MyLib.FileUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\bin\Debug\netstandard2.0\MyLib.FileUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.AssemblyInfoInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.AssemblyInfo.cs
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.FileUtils\obj\Debug\netstandard2.0\MyLib.FileUtils.csprojAssemblyReference.cache

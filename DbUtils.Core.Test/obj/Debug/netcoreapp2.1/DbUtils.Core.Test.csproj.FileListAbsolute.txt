@@ -9,8 +9,8 @@ D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core
 D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.dll
 D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.pdb
-D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.dll
-D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.SqlServer.dll
-D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.SqlServer.pdb
-D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\MyLib.DbUtils.pdb
 D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\obj\Debug\netcoreapp2.1\DbUtils.Core.Test.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\Qhta.DbUtils.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\Qhta.DbUtils.SqlServer.dll
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\Qhta.DbUtils.SqlServer.pdb
+D:\Dane\VS\Projects\MyLib\DbUtils.Core.Test\bin\Debug\netcoreapp2.1\Qhta.DbUtils.pdb

@@ -1,6 +1,6 @@
 ﻿using System;
-using MyLib.DbUtils;
-using MyLib.DbUtils.SqlServer;
+using Qhta.DbUtils;
+using Qhta.DbUtils.SqlServer;
 
 namespace DbUtils.Core.Test
 {
@@ -8,14 +8,23 @@ namespace DbUtils.Core.Test
   {
     static void Main(string[] args)
     {
-      var sqlEngine = new MSSqlEngine();
-      var engineClasses = DbUtilities.EnumerateEngineClasses();
+      //var sqlEngine = new MSSqlEngine();
+      var knownDLLs = new string[]
+      {
+        @"D:\Dane\VS\Projects\MyLib\bin\Qhta.DbUtils.SqlServer.dll",
+      };
+      var engineClasses = DbUtilities.EnumerateEngineClasses(knownDLLs);
       foreach (var engineClass in engineClasses)
       {
-        Console.WriteLine($"EngineClass = {engineClass.Name}");
+        Console.WriteLine($"EngineClass = {engineClass.Type.AssemblyQualifiedName}");
+        var files = engineClass.Type.Assembly.GetFiles();
+        Console.WriteLine("Files: ");
+        foreach (var file in files)
+          Console.WriteLine($"  {file.Name}");
         var serverType = ServerType.Local;
         if (engineClass.Instance.CanEnumerateServerInstances(serverType))
         {
+          Console.WriteLine("Servers:");
           var servers = engineClass.Instance.EnumerateServers(serverType);
           foreach (var server in servers)
           {

@@ -96,9 +96,7 @@ D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XmlDocument.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XmlSerializer.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\System.Xml.XPath.XDocument.dll
-D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MVVM.dll
-D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MultiThreadingObjects.dll
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.MVVM.pdb
 D:\Dane\VS\Projects\MyLib\MyLib.WpfUtils\bin\Debug\MyLib.HtmlUtils.pdb

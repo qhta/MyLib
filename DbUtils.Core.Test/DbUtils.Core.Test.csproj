@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyLib.DbUtils.SqlServer\MyLib.DbUtils.SqlServer.csproj" />
-    <ProjectReference Include="..\MyLib.DbUtils\MyLib.DbUtils.csproj" />
+    <ProjectReference Include="..\Qhta.DbUtils.SqlServer\Qhta.DbUtils.SqlServer.csproj" />
+    <ProjectReference Include="..\Qhta.DbUtils\Qhta.DbUtils.csproj" />
   </ItemGroup>
 
 </Project>

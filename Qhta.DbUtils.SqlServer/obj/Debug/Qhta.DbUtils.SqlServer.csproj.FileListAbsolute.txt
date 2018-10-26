@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DbUtils.SqlServer.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DbUtils.SqlServer.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DbUtils.SqlServer.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.dll
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.pdb

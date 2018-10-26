@@ -426,29 +426,28 @@
           }
         }
       },
-      "MyLib.DbUtils/1.0.0": {
+      "Qhta.DbUtils/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
-          "bin/placeholder/MyLib.DbUtils.dll": {}
+          "bin/placeholder/Qhta.DbUtils.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MyLib.DbUtils.dll": {}
+          "bin/placeholder/Qhta.DbUtils.dll": {}
         }
       },
-      "MyLib.DbUtils.SqlServer/1.0.0": {
+      "Qhta.DbUtils.SqlServer/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Microsoft.SqlServer.SqlManagementObjects": "140.17283.0",
-          "MyLib.DbUtils": "1.0.0",
           "System.Data.SqlClient": "4.5.1"
         },
         "compile": {
-          "bin/placeholder/MyLib.DbUtils.SqlServer.dll": {}
+          "bin/placeholder/Qhta.DbUtils.SqlServer.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MyLib.DbUtils.SqlServer.dll": {}
+          "bin/placeholder/Qhta.DbUtils.SqlServer.dll": {}
         }
       }
     }
@@ -1328,22 +1327,22 @@
         "version.txt"
       ]
     },
-    "MyLib.DbUtils/1.0.0": {
+    "Qhta.DbUtils/1.0.0": {
       "type": "project",
-      "path": "../MyLib.DbUtils/MyLib.DbUtils.csproj",
-      "msbuildProject": "../MyLib.DbUtils/MyLib.DbUtils.csproj"
+      "path": "../Qhta.DbUtils/Qhta.DbUtils.csproj",
+      "msbuildProject": "../Qhta.DbUtils/Qhta.DbUtils.csproj"
     },
-    "MyLib.DbUtils.SqlServer/1.0.0": {
+    "Qhta.DbUtils.SqlServer/1.0.0": {
       "type": "project",
-      "path": "../MyLib.DbUtils.SqlServer/MyLib.DbUtils.SqlServer.csproj",
-      "msbuildProject": "../MyLib.DbUtils.SqlServer/MyLib.DbUtils.SqlServer.csproj"
+      "path": "../Qhta.DbUtils.SqlServer/Qhta.DbUtils.SqlServer.csproj",
+      "msbuildProject": "../Qhta.DbUtils.SqlServer/Qhta.DbUtils.SqlServer.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.NETCore.App >= 2.1.0",
-      "MyLib.DbUtils >= 1.0.0",
-      "MyLib.DbUtils.SqlServer >= 1.0.0"
+      "Qhta.DbUtils >= 1.0.0",
+      "Qhta.DbUtils.SqlServer >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1376,11 +1375,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.DbUtils.SqlServer\\MyLib.DbUtils.SqlServer.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.DbUtils.SqlServer\\MyLib.DbUtils.SqlServer.csproj"
+            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils.SqlServer\\Qhta.DbUtils.SqlServer.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils.SqlServer\\Qhta.DbUtils.SqlServer.csproj"
             },
-            "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.DbUtils\\MyLib.DbUtils.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\MyLib.DbUtils\\MyLib.DbUtils.csproj"
+            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils\\Qhta.DbUtils.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils\\Qhta.DbUtils.csproj"
             }
           }
         }
