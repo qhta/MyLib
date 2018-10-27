@@ -9,7 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Qhta.WPF.Controls;
 using Qhta.WPF.DataViews;
+using Qhta.WPF.Utils;
 using System;
 using System.Diagnostics;
 using System.Windows;
