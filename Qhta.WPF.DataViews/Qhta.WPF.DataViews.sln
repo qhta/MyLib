@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.WPF.DataViews", "Qhta.WPF.DataViews.csproj", "{BE745755-45E8-4BFA-B767-0A17B16F9751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.WPF.Utils", "..\Qhta.WPF.Utils\Qhta.WPF.Utils.csproj", "{1013AA20-15D5-4743-B280-80A5AD2E39C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.WPF.Controls", "..\Qhta.WPF.Controls\Qhta.WPF.Controls.csproj", "{337E1DEE-1494-434B-8A36-DE929A3805D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE745755-45E8-4BFA-B767-0A17B16F9751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE745755-45E8-4BFA-B767-0A17B16F9751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE745755-45E8-4BFA-B767-0A17B16F9751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE745755-45E8-4BFA-B767-0A17B16F9751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1013AA20-15D5-4743-B280-80A5AD2E39C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1013AA20-15D5-4743-B280-80A5AD2E39C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1013AA20-15D5-4743-B280-80A5AD2E39C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1013AA20-15D5-4743-B280-80A5AD2E39C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337E1DEE-1494-434B-8A36-DE929A3805D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337E1DEE-1494-434B-8A36-DE929A3805D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337E1DEE-1494-434B-8A36-DE929A3805D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337E1DEE-1494-434B-8A36-DE929A3805D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C304739D-CB47-4100-8120-8AC1E92D8C2E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,17 @@
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\bin\Debug\Qhta.WPF.Controls.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\bin\Debug\Qhta.WPF.Controls.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ExtRichTextBox.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\NumericUpDown.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ExtRichTextBox.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\NumericUpDown.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ComboBoxCheckItem.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\PanelHeader.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ComboBoxCheckItem.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\PanelHeader.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.g.resources
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.pdb

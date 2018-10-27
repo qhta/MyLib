@@ -1,0 +1,10 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.DataViewModels.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.DataViewModels.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.DataViewModels.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.dll
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Release\Qhta.MVVM.DataViewModels.pdb
