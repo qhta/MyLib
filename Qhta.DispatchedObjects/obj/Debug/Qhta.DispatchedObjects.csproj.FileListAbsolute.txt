@@ -1,0 +1,17 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DispatchedObjects.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DispatchedObjects.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DispatchedObjects.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.dll
+D:\Dane\VS\Projects\MyLib\Qhta.MultiThreadingObjects\obj\Debug\Qhta.DispatchedObjects.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.dll
+D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.pdb
