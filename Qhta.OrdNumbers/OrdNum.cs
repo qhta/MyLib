@@ -46,10 +46,12 @@ namespace Qhta.OrdNumbers
     public OrdNum() { }
 
     /// <summary>Konstruktor kopiujący</summary>
-    public OrdNum(OrdNum a) 
+    public OrdNum(OrdNum a)
     {
       fValues = new OrdNumSegment[a.Count];
-      a.fValues.CopyTo(fValues, 0);
+      for (int i = 0; i<a.Count; i++)
+        fValues[i] = new OrdNumSegment(a[i]);
+
     }
 
     /// <summary>Konstruktor z wartością całkowitą (0..255)</summary>
@@ -217,14 +219,14 @@ namespace Qhta.OrdNumbers
       for (int i = 0; i < ss.Length; i++)
       {
         string s = ss[i];
-        for (int j=0; j<s.Length; j++)
+        for (int j = 0; j<s.Length; j++)
         {
           char c = s[j];
           if ((c >= '0') && (c <= '9'))
           {
             // ok
           }
-          else  if ((c >= 'A') && (c <= 'Z') || (c >= 'a') && (c<='z'))
+          else if ((c >= 'A') && (c <= 'Z') || (c >= 'a') && (c<='z'))
           {
             if (j < s.Length - 1)
               return false;
@@ -266,12 +268,12 @@ namespace Qhta.OrdNumbers
           }
           else
             if ((c >= 'A') && (c <= 'Z') || (c >= 'a') && (c <= 'z'))
-            {
-              mode = -1; // switch to letter mode
-              sa += c;
-            }
-            else
-              throw new InvalidOperationException(String.Format(sInvalidCharInOrdNumString, c, value));
+          {
+            mode = -1; // switch to letter mode
+            sa += c;
+          }
+          else
+            throw new InvalidOperationException(String.Format(sInvalidCharInOrdNumString, c, value));
         }
         if (sn != "")
         {
@@ -302,32 +304,32 @@ namespace Qhta.OrdNumbers
     #region niejawne operatory konwersji
     //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     /// <summary>Niejawna konwersja na liczbę całkowitą</summary>
-    public static implicit operator int(OrdNum a) 
+    public static implicit operator int(OrdNum a)
     {
       if (IsNullOrEmpty(a))
         return 0;
-      return a.AsInt; 
+      return a.AsInt;
     }
     /// <summary>Niejawna konwersja na liczbę rzeczywistą</summary>
-    public static implicit operator double(OrdNum a) 
+    public static implicit operator double(OrdNum a)
     {
       if (IsNullOrEmpty(a))
         return 0;
-      return a.AsReal; 
+      return a.AsReal;
     }
     /// <summary>Niejawna konwersja na liczbę dziesiętną</summary>
-    public static implicit operator decimal(OrdNum a) 
+    public static implicit operator decimal(OrdNum a)
     {
       if (IsNullOrEmpty(a))
         return 0;
-      return a.DecimalValue; 
+      return a.DecimalValue;
     }
     /// <summary>Niejawna konwersja na tekst</summary>
-    public static implicit operator string(OrdNum a) 
+    public static implicit operator string(OrdNum a)
     {
       if (IsNullOrEmpty(a))
         return null;
-      return a.StrValue; 
+      return a.StrValue;
     }
 
     /// <summary>Niejawna konwersja z liczby całkowitej</summary>
@@ -368,18 +370,18 @@ namespace Qhta.OrdNumbers
     /// <summary>Operator nierówności liczby porządkowej z liczbą dziesiętną</summary>
     public static bool operator !=(OrdNum a, decimal d) { return !a.Equals(d); }
     /// <summary>Porównanie z wartością tekstową</summary>
-    public static bool operator ==(OrdNum a, string s) 
+    public static bool operator ==(OrdNum a, string s)
     {
       if (IsNullOrEmpty(a))
         return (String.IsNullOrEmpty(s));
-      return a.Equals(s); 
+      return a.Equals(s);
     }
     /// <summary>Operator nierówności liczby porządkowej z wartością tekstową</summary>
-    public static bool operator !=(OrdNum a, string s) 
+    public static bool operator !=(OrdNum a, string s)
     {
       if (IsNullOrEmpty(a))
         return !(String.IsNullOrEmpty(s));
-      return !a.Equals(s); 
+      return !a.Equals(s);
     }
     #endregion
 
@@ -427,13 +429,13 @@ namespace Qhta.OrdNumbers
         else if (v1[i].Value < v2[i].Value)
           return -1;
         else if (strict)
-          {
-             if (v1[i].Variant > v2[i].Variant)
-               return +1;
-             else if (v1[i].Variant < v2[i].Variant)
-               return -1;
-          }
-        else  if (v1[i].Variant != 0 || v2[i].Variant != 0)
+        {
+          if (v1[i].Variant > v2[i].Variant)
+            return +1;
+          else if (v1[i].Variant < v2[i].Variant)
+            return -1;
+        }
+        else if (v1[i].Variant != 0 || v2[i].Variant != 0)
           return 0;
       }
       if (n1 > n2)
@@ -499,6 +501,74 @@ namespace Qhta.OrdNumbers
     public static bool IsNullOrEmpty(OrdNum value)
     {
       return (value as object)== null || value.Count == 0;
+    }
+
+    /// <summary>
+    /// Sprawdzenie, czy wartość porządkowa rozpoczyna się od innej wartości
+    /// </summary>
+    /// <param name="v2"></param>
+    /// <param name="strict">czy brać pod uwagę ostatni wariant</param>
+    /// <returns></returns>
+    public bool StartsWith(OrdNum v2, bool strict=true)
+    {
+      int k = this.Count;
+      int n = v2.Count;
+      if (k<n)
+        return false;
+      for (int i = 0; i<n; i++)
+        if (!this[i].Equals(v2[i],strict && i==n-1))
+          return false;
+      return true;
+    }
+
+    /// <summary>
+    /// Podaje liczbę porządkową utworzoną z pierwszych n segmentów danej liczby
+    /// </summary>
+    /// <param name="n">liczba segmentów do podania; gdy przekracza aktualną, to podaje bez zmian</param>
+    /// <returns>nowoutworzona liczba porządkowa</returns>
+    public OrdNum FirstSegments(int n)
+    {
+      int k = this.Count;
+      if (k<n)
+        return new OrdNum(this);
+      OrdNum result = new OrdNum();
+      result.fValues = new OrdNumSegment[n];
+      for (int i = 0; i<n; i++)
+        result.fValues[i] = new OrdNumSegment(this[i]);
+      return result;
+    }
+
+    /// <summary>
+    /// Podaje liczbę porządkową utworzoną z ostatnich n segmentów danej liczby
+    /// </summary>
+    /// <param name="n">liczba segmentów do podania; gdy przekracza aktualną, to kopiuje bez zmian</param>
+    /// <returns>nowoutworzona liczba porządkowa</returns>
+    public OrdNum LastSegments(int n)
+    {
+      int k = this.Count-n;
+      if (k<0)
+        return new OrdNum(this);
+      OrdNum result = new OrdNum();
+      result.fValues = new OrdNumSegment[n];
+      for (int i = 0; i<n; i++)
+        result.fValues[i] = new OrdNumSegment(this[k+i]);
+      return result;
+    }
+
+    /// <summary>
+    /// Podaje liczbę porządkową utworzoną z ostatnich n segmentów danej liczby począwszy od segmentu k
+    /// </summary>
+    /// <param name="n">liczba segmentów do podania; gdy k+n przekracza aktualną liczbę segmentów, to podaje do końca</param>
+    /// <returns>nowoutworzona liczba porządkowa</returns>
+    public OrdNum MidSegments(int k, int n=int.MaxValue)
+    {
+      if (k+n>this.Count)
+        n = this.Count-k;
+      OrdNum result = new OrdNum();
+      result.fValues = new OrdNumSegment[n];
+      for (int i = 0; i<n; i++)
+        result.fValues[i] = new OrdNumSegment(this[k+i]);
+      return result;
     }
 
     /// <summary>Dopisanie liczby całkowitej do liczby porządkowej. Dodawany jest nowy segment</summary>
@@ -673,16 +743,16 @@ namespace Qhta.OrdNumbers
     public int Count { get { return fValues.Length; } }
 
     /// <summary>Długość liczona w wartościach i wariantach</summary>
-    public int Length 
-    { 
-      get 
-      { 
-        int result=fValues.Length;
+    public int Length
+    {
+      get
+      {
+        int result = fValues.Length;
         foreach (OrdNumSegment aSegment in fValues)
           if (aSegment.Variant > 0)
             result++;
         return result;
-      } 
+      }
     }
 
     public bool IsReadOnly => ((ICollection<OrdNumSegment>)fValues).IsReadOnly;
@@ -747,7 +817,7 @@ return true;
   /// <summary>
   ///   Pojedynczy segment liczby porządkowej
   /// </summary>
-  public struct OrdNumSegment
+  public struct OrdNumSegment: IComparable
   {
     public static int MaxValue = 0xFFFFFF;
     static int Bias = 24;
@@ -764,31 +834,31 @@ return true;
     public OrdNumSegment(int value) { fValue = value & MaxValue; }
 
     /// <summary>Konstruktor z wartością tekstową</summary>
-    public OrdNumSegment(string s) 
-    { 
-      int n=0;
-      for (int i=0;i<s.Length; i++)
+    public OrdNumSegment(string s)
+    {
+      int n = 0;
+      for (int i = 0; i<s.Length; i++)
       {
-        char c=s[i];
+        char c = s[i];
         if ((c >= '0') && (c <= '9'))
           n = n * 1 + (c - '0');
         else
         {
-          s=s.Substring(i,s.Length-i);
+          s=s.Substring(i, s.Length-i);
           break;
         }
       }
-      fValue = n & MaxValue | (StrToVariant(s) << Bias); 
+      fValue = n & MaxValue | (StrToVariant(s) << Bias);
     }
 
     /// <summary>Konstruktor z wartością całkowitą i wariantem w postaci liczby całkowitej</summary>
-    public OrdNumSegment(int value, byte variant) 
-    { 
+    public OrdNumSegment(int value, byte variant)
+    {
       fValue = value & MaxValue | (variant << Bias);
     }
 
     /// <summary>Konstruktor z wartością całkowitą i wariantem w postaci tekstu: "a"=1.</summary>
-    public OrdNumSegment(int value, string variant) 
+    public OrdNumSegment(int value, string variant)
     {
       fValue = value & MaxValue | (StrToVariant(variant) << Bias);
     }
@@ -805,12 +875,12 @@ return true;
     /// <summary>
     ///   Konwersja wariantu na łańcuch. 0 = <c>null</c>, 1 = "a", 26 = "a", 27 = "aa", 28 = "ab" ... 255 = "iu"
     /// </summary>
-    public static string VariantToStr (byte variant)
+    public static string VariantToStr(byte variant)
     {
       if (variant == 0)
         return null;
       if (variant >= 1 && variant <= 26)
-        return new String(new[]{(char)(variant-1 +'a')});
+        return new String(new[] { (char)(variant-1 +'a') });
       byte high = (byte)((variant-1)/26);
       byte low = (byte)((variant-1) % 26);
       return new String(new[] { (char)(high +'a'), (char)(low + 'a') });
@@ -849,12 +919,102 @@ return true;
       return result;
     }
 
+    /// <summary>
+    /// Porównanie dwóch segmentów.
+    /// </summary>
+    /// <param name="v2">drugi segment do porównania</param>
+    /// <param name="strict"> czy brać pod uwagę wariant segmentu</param>
+    /// <returns>-1 gdy dany segment jest mniejszy od drugiego, 0 gdy równy, +1 gdy większy</returns>
+    public int CompareTo(OrdNumSegment v2, bool strict = true)
+    {
+      var v1 = this;
+      if (v1.Value > v2.Value)
+        return +1;
+      else if (v1.Value < v2.Value)
+        return -1;
+      else if (strict)
+      {
+        if (v1.Variant > v2.Variant)
+          return +1;
+        else if (v1.Variant < v2.Variant)
+          return -1;
+      }
+      return 0;
+    }
+
+    /// <summary>Porównanie segmentu z innym obiektem. Gdy argument jest liczbą całkowitą lub łańcuchem, 
+    /// to przed porównaniem dokonuje konwersji na segment</summary>
+    /// <param name="o">wartość porównywana</param>
+    /// <returns>-1 gdy dany segment jest mniejszy od drugiego, 0 gdy równy, +1 gdy większy</returns>
+    public int CompareTo(object o)
+    {
+      if (o == null)
+        return 1;
+      if (o is OrdNumSegment)
+        return this.CompareTo((OrdNumSegment)o);
+      if (o is int)
+        return this.CompareTo(new OrdNumSegment((int)o));
+      if (o is String)
+        return this.CompareTo(new OrdNumSegment((string)o));
+      else
+        throw new InvalidOperationException("Can't compare OrdNumSegment to "+o.GetType().Name);
+    }
+
+    /// <summary>
+    /// Porównanie dwóch segmentów.
+    /// </summary>
+    /// <param name="v2">drugi segment do porównania</param>
+    /// <param name="strict"> czy brać pod uwagę wariant segmentu</param>
+    /// <returns>true gdy dany segment jest równy drugiemu</returns>
+    public bool Equals(OrdNumSegment v2, bool strict=true)
+    {
+      var cmp = CompareTo(v2, strict);
+      return cmp==0;
+    }
+
+    #region implementacja interfejsu IComparable
+    public override bool Equals(object obj)
+    {
+      if (!(obj is OrdNumSegment))
+      {
+        return false;
+      }
+
+      var segment = (OrdNumSegment)obj;
+      return fValue==segment.fValue;
+    }
+
+    public override int GetHashCode()
+    {
+      return fValue.GetHashCode();
+    }
+    #endregion
+
+    #region operatory porównania i nierówności
+    /// <summary>Porównanie dwóch liczb porządkowych</summary>
+    public static bool operator ==(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b)==0; }
+    /// <summary>Operator nierówności dwóch liczb porządkowych</summary>
+    public static bool operator !=(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b)!=0; }
+    /// <summary>Operator większości dwóch liczb porządkowych</summary>
+    public static bool operator >(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b)>0; }
+    /// <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
+    public static bool operator >=(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b) >= 0; }
+    /// <summary>Operator większości dwóch liczb porządkowych</summary>
+    public static bool operator <(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b) < 0; }
+    /// <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
+    public static bool operator <=(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b) <= 0; }
+    #endregion
+
+    public override string ToString()
+    {
+      return this.Value + this.VariantStr;
+    }
   }
 
   /// <summary>
   /// Konwerter dla potrzeb serializacji
   /// </summary>
-  public class OrdNumTypeConverter: TypeConverter
+  public class OrdNumTypeConverter : TypeConverter
   {
 
     /// <summary>

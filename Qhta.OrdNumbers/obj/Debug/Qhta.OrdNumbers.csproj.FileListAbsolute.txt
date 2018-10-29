@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.OrdNumbers.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.OrdNumbers.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.OrdNumbers\obj\Debug\Qhta.OrdNumbers.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.OrdNumbers\obj\Debug\Qhta.OrdNumbers.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.OrdNumbers\obj\Debug\Qhta.OrdNumbers.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.OrdNumbers\obj\Debug\Qhta.OrdNumbers.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.OrdNumbers\obj\Debug\Qhta.OrdNumbers.dll
+D:\Dane\VS\Projects\MyLib\Qhta.OrdNumbers\obj\Debug\Qhta.OrdNumbers.pdb

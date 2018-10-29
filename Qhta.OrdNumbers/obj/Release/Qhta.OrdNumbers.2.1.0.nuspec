@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Qhta.OrdNumbers</id>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <authors>Yarreck Qhta</authors>
     <owners>Yarreck Qhta</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,6 +10,7 @@
 Each segment number can be directly followed by its variant symbol  - a letter from "a" to "z" (or two letters).
 Variant "a" is the first, variant "z" is 26th. If a segment has more variants than 26 then subsequent variants are symbolized by two-letter sequences: "aa", "ab", "ac" till "iu" (last possible variant is 255th).
 Ordinal numbers are easily converted to/from strings. One-segment ordinal numbers (without) variants are compatible with integer numbers, two-segment ordinal numbers are compatible with real numbers.</description>
+    <releaseNotes>Operations on OrdNum parts  implemented: StartsWith, LeftSegments, RightSegments, MidSegments.</releaseNotes>
     <tags>ordinal numbers</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
