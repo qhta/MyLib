@@ -38,20 +38,33 @@ namespace Qhta.WPF.Controls
     }
 
     /// <summary>
+    /// Właściwość zależna <see cref="Increment"/>
+    /// </summary>
+    public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register
+      ("Increment", typeof(decimal), typeof(NumericUpDown),
+        //      new PropertyMetadata (0.1));
+        new FrameworkPropertyMetadata((decimal)1,
+          (DependencyObject sender, DependencyPropertyChangedEventArgs args)=> 
+          {
+            (sender as NumericUpDown).SmallChange=(decimal)args.NewValue;
+            (sender as NumericUpDown).LargeChange=(decimal)args.NewValue;
+          }));
+
+    /// <summary>
     /// Właściwość zależna <see cref="SmallChange"/>
     /// </summary>
     public static readonly DependencyProperty SmallChangeProperty = DependencyProperty.Register
-      ("SmallChange", typeof (double), typeof (NumericUpDown), 
+      ("SmallChange", typeof (decimal), typeof (NumericUpDown), 
 //      new PropertyMetadata (0.1));
-        new FrameworkPropertyMetadata (0.1),
+        new FrameworkPropertyMetadata ((decimal)1),
         new ValidateValueCallback (IsValidChange));
 
     /// <summary>
     /// Wartość małej zmiany
     /// </summary>
-    public double SmallChange
+    public decimal SmallChange
     {
-      get { return (double)GetValue (SmallChangeProperty); }
+      get { return (decimal)GetValue (SmallChangeProperty); }
       set { SetValue (SmallChangeProperty, value); }
     }
 
@@ -59,17 +72,17 @@ namespace Qhta.WPF.Controls
     /// Właściwość zależna <see cref="LargeChange"/>
     /// </summary>
     public static readonly DependencyProperty LargeChangeProperty = DependencyProperty.Register
-      ("LargeChange", typeof (double), typeof (NumericUpDown),
+      ("LargeChange", typeof (decimal), typeof (NumericUpDown),
       //      new PropertyMetadata (0.1));
-        new FrameworkPropertyMetadata (0.1),
+        new FrameworkPropertyMetadata ((decimal)1),
         new ValidateValueCallback (IsValidChange));
 
     /// <summary>
     /// Wartość małej zmiany
     /// </summary>
-    public double LargeChange
+    public decimal LargeChange
     {
-      get { return (double)GetValue (LargeChangeProperty); }
+      get { return (decimal)GetValue (LargeChangeProperty); }
       set { SetValue (LargeChangeProperty, value); }
     }
 
@@ -80,29 +93,27 @@ namespace Qhta.WPF.Controls
     /// <returns>Returns False if value is NaN or NegativeInfinity or PositiveInfinity or negative. Otherwise, returns True.</returns>
     private static bool IsValidChange (object value)
     {
-      double d = (double)value;
+      decimal d = (decimal)value;
 
-      return IsValidDoubleValue (value) && d >= 0.0;
+      return IsValidDecimalValue (value) && d >= 0;
     }
 
     /// <summary>
     /// Właściwość zależna wartości maksymalnej
     /// </summary>
     public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register
-      ("Maximum", typeof (double), typeof (NumericUpDown), 
-//      new PropertyMetadata (1));
-        new FrameworkPropertyMetadata (
-                Double.MaxValue,
+      ("Maximum", typeof (decimal), typeof (NumericUpDown), 
+        new FrameworkPropertyMetadata (decimal.MaxValue,
                 new PropertyChangedCallback (OnMaximumChanged),
                 new CoerceValueCallback (CoerceMaximum)),
-        new ValidateValueCallback (IsValidDoubleValue));
+        new ValidateValueCallback (IsValidDecimalValue));
 
 
     private static object CoerceMaximum (DependencyObject d, object value)
     {
       NumericUpDown ctrl = (NumericUpDown)d;
-      double min = ctrl.Minimum;
-      if ((double)value < min)
+      decimal min = ctrl.Minimum;
+      if ((decimal)value < min)
       {
         return min;
       }
@@ -112,9 +123,9 @@ namespace Qhta.WPF.Controls
     /// <summary>
     /// Wartość maksymalna
     /// </summary>
-    public double Maximum
+    public decimal Maximum
     {
-      get { return (double)GetValue (MaximumProperty); }
+      get { return (decimal)GetValue (MaximumProperty); }
       set { SetValue (MaximumProperty, value); }
     }
 
@@ -125,14 +136,14 @@ namespace Qhta.WPF.Controls
     {
       NumericUpDown ctrl = (NumericUpDown)d;
 
-      NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
-      if (peer != null)
-      {
-        peer.RaiseMaximumPropertyChangedEvent ((double)e.OldValue, (double)e.NewValue);
-      }
+      //NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
+      //if (peer != null)
+      //{
+      //  peer.RaiseMaximumPropertyChangedEvent ((decimal)e.OldValue, (decimal)e.NewValue);
+      //}
 
       ctrl.CoerceValue (ValueProperty);
-      ctrl.OnMaximumChanged ((double)e.OldValue, (double)e.NewValue);
+      ctrl.OnMaximumChanged ((decimal)e.OldValue, (decimal)e.NewValue);
     }
 
     /// <summary> 
@@ -140,7 +151,7 @@ namespace Qhta.WPF.Controls
     /// </summary> 
     /// <param name="oldMaximum">The old value of the Maximum property.</param>
     /// <param name="newMaximum">The new value of the Maximum property.</param>
-    protected virtual void OnMaximumChanged (double oldMaximum, double newMaximum)
+    protected virtual void OnMaximumChanged (decimal oldMaximum, decimal newMaximum)
     {
     }
 
@@ -148,20 +159,19 @@ namespace Qhta.WPF.Controls
     /// Właściwość zależna wartości minimalnej
     /// </summary>
     public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register
-      ("Minimum", typeof (double), typeof (NumericUpDown), 
+      ("Minimum", typeof (decimal), typeof (NumericUpDown), 
 //      new PropertyMetadata (0));
-                        new FrameworkPropertyMetadata (
-                                0.0d,
+                        new FrameworkPropertyMetadata ((decimal)0,
                                 new PropertyChangedCallback (OnMinimumChanged)),
-                        new ValidateValueCallback (IsValidDoubleValue)); 
+                        new ValidateValueCallback (IsValidDecimalValue)); 
 
     /// <summary>
     /// Wartość minimalna
     /// </summary>
     [Bindable (true), Category ("Behavior")]
-    public double Minimum
+    public decimal Minimum
     {
-      get { return (double)GetValue (MinimumProperty); }
+      get { return (decimal)GetValue (MinimumProperty); }
       set { SetValue (MinimumProperty, value); }
     }
 
@@ -169,27 +179,26 @@ namespace Qhta.WPF.Controls
     /// Właściwość zależna wartości
     /// </summary>
     public static readonly DependencyProperty ValueProperty = DependencyProperty.Register
-      ("Value", typeof (double), typeof (NumericUpDown), 
+      ("Value", typeof (decimal), typeof (NumericUpDown), 
       //new PropertyMetadata (0.0d));
-      new FrameworkPropertyMetadata (
-              0.0d,
+      new FrameworkPropertyMetadata ((decimal)0,
               FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal,
               new PropertyChangedCallback (OnValueChanged),
               new CoerceValueCallback (ConstrainToRange)),
-              new ValidateValueCallback (IsValidDoubleValue));
+              new ValidateValueCallback (IsValidDecimalValue));
       
     
     internal static object ConstrainToRange (DependencyObject d, object value)
     {
       NumericUpDown ctrl = (NumericUpDown)d;
-      double min = ctrl.Minimum;
-      double v = (double)value;
+      decimal min = ctrl.Minimum;
+      decimal v = (decimal)value;
       if (v < min)
       {
         return min;
       }
 
-      double max = ctrl.Maximum;
+      decimal max = ctrl.Maximum;
       if (v > max)
       {
         return max;
@@ -203,9 +212,9 @@ namespace Qhta.WPF.Controls
     /// <summary>
     /// Wartość
     /// </summary>
-    public double Value
+    public decimal Value
     {
-      get { return(double)GetValue (ValueProperty); }
+      get { return(decimal)GetValue (ValueProperty); }
       set { SetValue (ValueProperty, value); }
     }
 
@@ -216,13 +225,13 @@ namespace Qhta.WPF.Controls
     {
       NumericUpDown ctrl = (NumericUpDown)d;
 
-      NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
-      if (peer != null)
-      {
-        peer.RaiseValuePropertyChangedEvent ((double)e.OldValue, (double)e.NewValue);
-      }
+      //NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
+      //if (peer != null)
+      //{
+      //  peer.RaiseValuePropertyChangedEvent ((decimal)e.OldValue, (decimal)e.NewValue);
+      //}
 
-      ctrl.OnValueChanged ((double)e.OldValue, (double)e.NewValue);
+      ctrl.OnValueChanged ((decimal)e.OldValue, (decimal)e.NewValue);
     }
 
     /// <summary> 
@@ -230,9 +239,9 @@ namespace Qhta.WPF.Controls
     /// </summary> 
     /// <param name="oldValue">The old value of the Value property.</param>
     /// <param name="newValue">The new value of the Value property.</param>
-    protected virtual void OnValueChanged (double oldValue, double newValue)
+    protected virtual void OnValueChanged (decimal oldValue, decimal newValue)
     {
-      RoutedPropertyChangedEventArgs<double> args = new RoutedPropertyChangedEventArgs<double> (oldValue, newValue);
+      RoutedPropertyChangedEventArgs<decimal> args = new RoutedPropertyChangedEventArgs<decimal> (oldValue, newValue);
       args.RoutedEvent = NumericUpDown.ValueChangedEvent;
       RaiseEvent (args);
 
@@ -245,13 +254,13 @@ namespace Qhta.WPF.Controls
     /// Event correspond to Value changed event 
     /// </summary> 
     public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent 
-      ("ValueChanged", RoutingStrategy.Bubble, typeof (RoutedPropertyChangedEventHandler<double>), typeof (NumericUpDown));
+      ("ValueChanged", RoutingStrategy.Bubble, typeof (RoutedPropertyChangedEventHandler<decimal>), typeof (NumericUpDown));
 
     /// <summary>
     /// Add / Remove ValueChangedEvent handler
     /// </summary>
     [Category ("Behavior")]
-    public event RoutedPropertyChangedEventHandler<double> ValueChanged 
+    public event RoutedPropertyChangedEventHandler<decimal> ValueChanged 
     { 
       add { AddHandler (ValueChangedEvent, value); } 
       remove { RemoveHandler (ValueChangedEvent, value); } 
@@ -266,15 +275,15 @@ namespace Qhta.WPF.Controls
     {
       NumericUpDown ctrl = (NumericUpDown)d;
 
-      NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
-      if (peer != null)
-      {
-        peer.RaiseMinimumPropertyChangedEvent ((double)e.OldValue, (double)e.NewValue);
-      }
+      //NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
+      //if (peer != null)
+      //{
+      //  peer.RaiseMinimumPropertyChangedEvent ((decimal)e.OldValue, (decimal)e.NewValue);
+      //}
 
       ctrl.CoerceValue (MaximumProperty);
       ctrl.CoerceValue (ValueProperty);
-      ctrl.OnMinimumChanged ((double)e.OldValue, (double)e.NewValue);
+      ctrl.OnMinimumChanged ((decimal)e.OldValue, (decimal)e.NewValue);
     }
 
     /// <summary> 
@@ -282,7 +291,7 @@ namespace Qhta.WPF.Controls
     /// </summary> 
     /// <param name="oldMinimum">The old value of the Minimum property.</param>
     /// <param name="newMinimum">The new value of the Minimum property.</param>
-    protected virtual void OnMinimumChanged (double oldMinimum, double newMinimum)
+    protected virtual void OnMinimumChanged (decimal oldMinimum, decimal newMinimum)
     {
     }
 
@@ -291,11 +300,11 @@ namespace Qhta.WPF.Controls
     /// </summary>
     /// <param name="value"></param> 
     /// <returns>Returns False if value is NaN or NegativeInfinity or PositiveInfinity. Otherwise, returns True.</returns>
-    private static bool IsValidDoubleValue (object value)
+    private static bool IsValidDecimalValue (object value)
     {
-      double d = (double)value;
+      decimal d = (decimal)value;
 
-      return !(double.IsNaN (d) || double.IsInfinity (d));
+      return true;// !(decimal.IsNaN (d) || decimal.IsInfinity (d));
     }
 
     /// <summary> 
@@ -335,7 +344,7 @@ namespace Qhta.WPF.Controls
       decimal newValue = (decimal)Value + (large ? (decimal)LargeChange : (decimal)SmallChange);
       if ((decimal)Value != newValue)
       {
-        Value = Math.Min((double)newValue, Maximum);
+        Value = Math.Min((decimal)newValue, Maximum);
       } 
     }
 
@@ -354,7 +363,7 @@ namespace Qhta.WPF.Controls
       decimal newValue = (decimal)Value - (large ? (decimal)LargeChange : (decimal)SmallChange);
       if ((decimal)Value != newValue)
       {
-        Value = Math.Max((double)newValue, Minimum);
+        Value = Math.Max((decimal)newValue, Minimum);
       } 
     }
 

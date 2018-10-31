@@ -73,7 +73,6 @@
     <Compile Include="NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NumericUpDownAutomationPeer.cs" />
     <Compile Include="ComboBoxCheckItem.xaml.cs">
       <DependentUpon>ComboBoxCheckItem.xaml</DependentUpon>
     </Compile>

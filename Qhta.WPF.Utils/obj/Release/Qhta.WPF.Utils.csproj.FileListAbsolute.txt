@@ -111,3 +111,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.csproj.CoreC
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.OrdNumbers.pdb

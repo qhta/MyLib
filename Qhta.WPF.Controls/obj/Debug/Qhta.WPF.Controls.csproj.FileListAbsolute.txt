@@ -15,3 +15,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.g.resour
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.pdb
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Controls.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Controls.pdb

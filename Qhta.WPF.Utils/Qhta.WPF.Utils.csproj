@@ -44,8 +44,8 @@
     <Reference Include="Qhta.MVVM, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.MVVM.1.0.1\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.OrdNumbers, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.OrdNumbers.2.0.0\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
+    <Reference Include="Qhta.OrdNumbers, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\bin\Qhta.OrdNumbers.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -66,6 +66,7 @@
     <Compile Include="DynamicResourceProvider.cs" />
     <Compile Include="FloatDoubleFormater.cs" />
     <Compile Include="GeometryUtils.cs" />
+    <Compile Include="InverseValueConverter.cs" />
     <Compile Include="SafeCollectionConverter.cs" />
     <Compile Include="ClipboardUtils.cs" />
     <Compile Include="ClipboardUtils.ClipboardMate.cs" />

@@ -24,21 +24,21 @@ namespace Qhta.WPF.Controls
 
       // 
       [System.Runtime.CompilerServices.MethodImpl (System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-      internal void RaiseMinimumPropertyChangedEvent (double oldValue, double newValue)
+      internal void RaiseMinimumPropertyChangedEvent (decimal oldValue, decimal newValue)
       {
         RaisePropertyChangedEvent (RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
       }
 
       // 
       [System.Runtime.CompilerServices.MethodImpl (System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-      internal void RaiseMaximumPropertyChangedEvent (double oldValue, double newValue)
+      internal void RaiseMaximumPropertyChangedEvent (decimal oldValue, decimal newValue)
       {
         RaisePropertyChangedEvent (RangeValuePatternIdentifiers.MaximumProperty, oldValue, newValue);
       }
 
       //
       [System.Runtime.CompilerServices.MethodImpl (System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-      internal void RaiseValuePropertyChangedEvent (double oldValue, double newValue)
+      internal void RaiseValuePropertyChangedEvent (decimal oldValue, decimal newValue)
       {
         RaisePropertyChangedEvent (RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
       }
@@ -49,7 +49,7 @@ namespace Qhta.WPF.Controls
       /// <param name="val">Value to set the UI to, as an object</param>
       /// <returns>true if the UI element was successfully set to the specified value</returns> 
       //[CodeAnalysis("AptcaMethodsShouldOnlyCallAptcaMethods")] //Tracking Bug: 29647
-      void IRangeValueProvider.SetValue (double val)
+      void IRangeValueProvider.SetValue (decimal val)
       {
         if (!IsEnabled ())
           throw new ElementNotEnabledException ();
@@ -60,12 +60,12 @@ namespace Qhta.WPF.Controls
           throw new ArgumentOutOfRangeException ("val");
         }
 
-        owner.Value = (double)val;
+        owner.Value = (decimal)val;
       }
 
 
       /// <summary>Value of a value control, as an object</summary>
-      double IRangeValueProvider.Value
+      decimal IRangeValueProvider.Value
       {
         get
         {
@@ -85,7 +85,7 @@ namespace Qhta.WPF.Controls
       }
 
       ///<summary>maximum value </summary> 
-      double IRangeValueProvider.Maximum
+      decimal IRangeValueProvider.Maximum
       {
         get
         {
@@ -94,7 +94,7 @@ namespace Qhta.WPF.Controls
       }
 
       ///<summary>minimum value</summary> 
-      double IRangeValueProvider.Minimum
+      decimal IRangeValueProvider.Minimum
       {
         get
         {
@@ -103,7 +103,7 @@ namespace Qhta.WPF.Controls
       }
 
       ///<summary>Value of a Large Change</summary> 
-      double IRangeValueProvider.LargeChange
+      decimal IRangeValueProvider.LargeChange
       {
         get
         {
@@ -112,7 +112,7 @@ namespace Qhta.WPF.Controls
       }
 
       ///<summary>Value of a Small Change</summary> 
-      double IRangeValueProvider.SmallChange
+      decimal IRangeValueProvider.SmallChange
       {
         get
         {

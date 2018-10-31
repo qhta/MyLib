@@ -1,0 +1,6 @@
+D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\bin\Release\MyLib.ColorUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\bin\Release\MyLib.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Release\MyLib.ColorUtils.csprojResolveAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Release\MyLib.ColorUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Release\MyLib.ColorUtils.dll
+D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Release\MyLib.ColorUtils.pdb
