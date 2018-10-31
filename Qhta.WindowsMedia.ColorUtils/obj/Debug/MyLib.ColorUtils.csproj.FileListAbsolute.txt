@@ -1,6 +1,0 @@
-D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\bin\Debug\MyLib.ColorUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\bin\Debug\MyLib.ColorUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Debug\MyLib.ColorUtils.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Debug\MyLib.ColorUtils.dll
-D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Debug\MyLib.ColorUtils.pdb
-D:\Dane\VS\Projects\MyLib\MyLib.ColorUtils\obj\Debug\MyLib.ColorUtils.csprojAssemblyReference.cache

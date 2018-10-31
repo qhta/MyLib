@@ -1,6 +1,6 @@
-D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\bin\Debug\MyLib.ColorUtils.dll
-D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\bin\Debug\MyLib.ColorUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\obj\Debug\Qhta.WindowsMedia.ColorUtils.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\obj\Debug\Qhta.WindowsMedia.ColorUtils.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\obj\Debug\MyLib.ColorUtils.dll
-D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\obj\Debug\MyLib.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\bin\Debug\Qhta.WIndows.ColorUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\bin\Debug\Qhta.WIndows.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\obj\Debug\Qhta.WIndows.ColorUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WindowsMedia.ColorUtils\obj\Debug\Qhta.WIndows.ColorUtils.pdb

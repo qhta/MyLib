@@ -8,8 +8,8 @@
     <ProjectGuid>{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyLib.ColorUtils</RootNamespace>
-    <AssemblyName>MyLib.ColorUtils</AssemblyName>
+    <RootNamespace>Qhta.Windows.ColorUtils</RootNamespace>
+    <AssemblyName>Qhta.Windows.ColorUtils</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

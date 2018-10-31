@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ColorUtils")]
+[assembly: AssemblyTitle("Qhta.WIndows.ColorUtils")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("PG")]
-[assembly: AssemblyProduct("ColorUtils")]
-[assembly: AssemblyCopyright("Copyright © PG 2009")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Qhta.WIndows.ColorUtils")]
+[assembly: AssemblyCopyright("Yarreck Qhta")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

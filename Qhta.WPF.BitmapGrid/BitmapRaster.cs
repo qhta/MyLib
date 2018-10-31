@@ -52,6 +52,14 @@ namespace Qhta.WPF.Controls
       set => SetValue(ShowRasterProperty, value);
     }
 
+    public Rect Bounds
+    {
+      get
+      {
+        return new Rect(0, 0, imageSize.Width, imageSize.Height);
+      }
+    }
+
     protected override Size MeasureCore(Size availableSize)
     {
       if (Source!=null)
@@ -59,7 +67,7 @@ namespace Qhta.WPF.Controls
       return base.MeasureCore(availableSize);
     }
 
-    Size imageSize;
+    Size imageSize = new Size(16,16);
 
     protected override void OnRender(DrawingContext drawingContext)
     {
