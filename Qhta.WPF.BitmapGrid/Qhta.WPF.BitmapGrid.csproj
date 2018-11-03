@@ -46,9 +46,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapEdit.cs" />
+    <Compile Include="BitmapEdit.xaml.cs">
+      <DependentUpon>BitmapEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BitmapEditMode.cs" />
     <Compile Include="BitmapRaster.cs" />
+    <Compile Include="BitmapSelectionFrame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +75,12 @@
       <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
       <Name>Qhta.WPF.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="BitmapEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

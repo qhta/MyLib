@@ -17,7 +17,5 @@ namespace Qhta.WPF.Controls
     FloodFill,
     FillAll,
     MagicWand,
-
-    Started = 128
   }
 }

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Qhta.Drawing.ArrayGraphics</AssemblyName>
+    <RootNamespace>Qhta.Drawing.ArrayGraphics</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Authors>Yarreck Qhta</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>

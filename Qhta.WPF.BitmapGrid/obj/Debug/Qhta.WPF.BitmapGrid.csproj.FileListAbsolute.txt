@@ -118,3 +118,9 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.ArrayGraphi
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.ColorUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.ArrayGraphics.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\BitmapEdit.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\BitmapEdit.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid.g.resources
