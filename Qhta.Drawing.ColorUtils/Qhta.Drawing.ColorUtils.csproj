@@ -8,5 +8,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Yarreck Qhta</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Qhta.Drawing</RootNamespace>
   </PropertyGroup>
 </Project>

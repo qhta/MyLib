@@ -1,0 +1,12 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.AvalonEditExt.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.AvalonEditExt.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\FindReplaceDialog.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\FindReplaceDialog.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt.g.resources
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.AvalonEditExt\obj\Debug\Qhta.WPF.AvalonEditExt.pdb

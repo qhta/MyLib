@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Qhta.WPF.Controls
+namespace Qhta.WPF
 {
   public enum BitmapEditMode
   {

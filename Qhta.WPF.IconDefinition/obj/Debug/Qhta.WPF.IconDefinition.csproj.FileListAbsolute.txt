@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\bin\Debug\Qhta.WPF.IconDefinition.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\bin\Debug\Qhta.WPF.IconDefinition.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\obj\Debug\Qhta.WPF.IconDefinition.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\obj\Debug\Qhta.WPF.IconDefinition.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\obj\Debug\Qhta.WPF.IconDefinition.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\obj\Debug\Qhta.WPF.IconDefinition.pdb
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.IconDefinition.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.IconDefinition.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinition\obj\Debug\Qhta.WPF.IconDefinition.csproj.CopyComplete

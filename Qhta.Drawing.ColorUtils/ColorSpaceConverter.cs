@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Qhta.Drawing.ColorUtils
+namespace Qhta.Drawing
 {
   public struct ColorRGB
   {

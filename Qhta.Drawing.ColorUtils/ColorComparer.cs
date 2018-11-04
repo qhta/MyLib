@@ -1,6 +1,6 @@
 ﻿using DrawingColor = System.Drawing.Color;
 
-namespace Qhta.Drawing.ColorUtils
+namespace Qhta.Drawing
 {
   public static class ColorComparer
   {

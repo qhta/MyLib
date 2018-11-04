@@ -1,0 +1,14 @@
+﻿<Application x:Class="Qhta.WPF.IconDefinitionTest.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconDefs ="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.IconDefinition"
+             StartupUri="MainWindow.xaml">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Qhta.WPF.IconDefinitionTest;component/ColorSelectionDrawing.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+      <iconDefs:IconDef x:Key="ColorIndicatorIconDef" Source="ColorSelection.xml"/>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

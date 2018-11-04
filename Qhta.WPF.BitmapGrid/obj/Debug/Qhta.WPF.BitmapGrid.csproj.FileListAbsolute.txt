@@ -17,8 +17,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid.cspr
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.OrdNumbers.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.WIndows.ColorUtils.dll
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.WIndows.ColorUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Microsoft.Win32.Primitives.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\System.AppContext.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\System.Collections.Concurrent.dll
@@ -124,3 +122,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid_Mark
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid_MarkupCompile.lref
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\BitmapEdit.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid.g.resources
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\System.Drawing.Common.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.WPF.ColorUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.WPF.ColorUtils.pdb

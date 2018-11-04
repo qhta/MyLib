@@ -1,0 +1,15 @@
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\bin\Debug\netstandard2.0\Qhta.Drawing.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\bin\Debug\netstandard2.0\Qhta.Drawing.dll
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\bin\Debug\netstandard2.0\Qhta.Drawing.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.dll
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\bin\Debug\netstandard2.0\WindowsBase.dll
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\bin\Debug\netstandard2.0\pl\WindowsBase.resources.dll
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.ExceptionStringTable.resources
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.Properties.Resources.resources
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.csproj.GenerateResource.cache

@@ -8,7 +8,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
-      <group targetFramework=".NETStandard2.0" />
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Drawing.Common" version="4.5.1" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Primitives" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
     </dependencies>
   </metadata>
   <files>

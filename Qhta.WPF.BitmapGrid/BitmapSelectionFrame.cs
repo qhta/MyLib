@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Qhta.WPF.Controls
+namespace Qhta.WPF
 {
   public class BitmapSelectionFrame : FrameworkElement
   {

@@ -5,10 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Qhta.WindowsMedia.ColorUtils;
-using PixelArray = Qhta.Drawing.ArrayGraphics.PixelArray;
+using PixelArray = Qhta.Drawing.PixelArray;
 
-namespace Qhta.WPF.Controls
+namespace Qhta.WPF
 {
 
   public partial class BitmapEdit : UserControl

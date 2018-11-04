@@ -2,12 +2,11 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Qhta.Drawing.ArrayGraphics;
-using Qhta.Drawing.ColorUtils;
-using Qhta.WindowsMedia.ColorUtils;
+using Qhta.Drawing;
 using DrawingColor = System.Drawing.Color;
+using ColorConverter = Qhta.WPF.ColorConverter;
 
-namespace Qhta.WPF.Controls
+namespace Qhta.WPF
 {
   public class BitmapRaster : FrameworkElement
   {

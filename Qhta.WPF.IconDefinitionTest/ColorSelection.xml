@@ -1,0 +1,6 @@
+﻿<Drawing 
+  xmlns="clr-namespace:Qhta.Drawing;assembly=Qhta.Drawing"
+  Width="16" Height="16">
+  <Rectangle Left="6" Top="6" Width="8" Height="8" Fill="White" Outline="Black"/>
+  <Rectangle Left="2" Top="2" Width="8" Height="8" Fill="Black" Outline="Black"/>
+</Drawing>

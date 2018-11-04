@@ -7,7 +7,7 @@
     <ProjectGuid>{34430A41-098F-47FB-8199-54F2FACA2D7F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Qhta.WPF.Controls</RootNamespace>
+    <RootNamespace>Qhta.WPF</RootNamespace>
     <AssemblyName>Qhta.WPF.BitmapGrid</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -63,9 +63,9 @@
       <Project>{41ce2fbb-9f63-4e7f-afe3-1b4f7174e401}</Project>
       <Name>Qhta.Drawing.ColorUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Qhta.WindowsMedia.ColorUtils\Qhta.WindowsMedia.ColorUtils.csproj">
+    <ProjectReference Include="..\Qhta.WPF.ColorUtils\Qhta.WPF.ColorUtils.csproj">
       <Project>{36a17975-a8b9-43f8-b3ed-38d5ff8dcb25}</Project>
-      <Name>Qhta.WindowsMedia.ColorUtils</Name>
+      <Name>Qhta.WPF.ColorUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.Controls\Qhta.WPF.Controls.csproj">
       <Project>{337e1dee-1494-434b-8a36-de929a3805d7}</Project>

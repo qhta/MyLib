@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Qhta.Drawing.ArrayGraphics
+namespace Qhta.Drawing
 {
   public class PixelArray
   {
