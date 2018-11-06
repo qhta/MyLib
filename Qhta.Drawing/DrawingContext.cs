@@ -19,9 +19,9 @@ namespace Qhta.Drawing
     public double OffsetX { get; set; }
     public double OffsetY { get; set; }
 
-    public double ScaleX { get; set; }
+    public double ScaleX { get; set; } = 1;
 
-    public double ScaleY { get; set; }
+    public double ScaleY { get; set; } = 1;
 
     public double TransformX(double value)
     {

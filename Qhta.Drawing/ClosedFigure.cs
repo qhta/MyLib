@@ -64,10 +64,10 @@ namespace Qhta.Drawing
       }
     }
 
-    protected abstract void FillInterior(Graphics graphics, Brush brush, float left, float top, float width, float height);
+    public abstract void FillInterior(Graphics graphics, Brush brush, float left, float top, float width, float height);
 
 
-    protected abstract void DrawOutline(Graphics graphics, Pen pen, float left, float top, float width, float height);
+    public abstract void DrawOutline(Graphics graphics, Pen pen, float left, float top, float width, float height);
 
   }
 }

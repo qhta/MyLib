@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Qhta.Drawing;
 using PixelArray = Qhta.Drawing.PixelArray;
 
 namespace Qhta.WPF
@@ -413,7 +414,7 @@ namespace Qhta.WPF
 
     private void SaveStateForUndo()
     {
-      undoState = BitmapRaster.GetPixelArray(Source);
+      undoState = Source.GetPixelArray();
       CanUndo = Source is WriteableBitmap;
     }
 
@@ -423,7 +424,7 @@ namespace Qhta.WPF
     {
       if (CanUndo)
       {
-        BitmapRaster.SetPixelArray(Source as WriteableBitmap, undoState);
+        (Source as WriteableBitmap).SetPixelArray(undoState);
         Raster.InvalidateVisual();
       }
     }
@@ -443,9 +444,9 @@ namespace Qhta.WPF
 
     public void SetPoint(int X, int Y, Color color)
     {
-      var pixels = BitmapRaster.GetPixelArray(Source);
+      var pixels = Source.GetPixelArray();
       pixels[X, Y] = color.ToDrawingColor();
-      BitmapRaster.SetPixelArray(Source as WriteableBitmap, pixels);
+      (Source as WriteableBitmap).SetPixelArray(pixels);
       InvalidateVisual();
     }
     #endregion
@@ -464,7 +465,7 @@ namespace Qhta.WPF
 
     public Color GetPoint(int X, int Y)
     {
-      var pixels = BitmapRaster.GetPixelArray(Source);
+      var pixels = Source.GetPixelArray();
       return pixels[X, Y].ToMediaColor();
     }
     #endregion
@@ -483,9 +484,9 @@ namespace Qhta.WPF
 
     public void FloodFill(int X, int Y, Color color)
     {
-      var pixels = BitmapRaster.GetPixelArray(Source);
+      var pixels = Source.GetPixelArray();
       pixels.FloodFill(X, Y, color.ToDrawingColor());
-      BitmapRaster.SetPixelArray(Source as WriteableBitmap, pixels);
+      (Source as WriteableBitmap).SetPixelArray(pixels);
       InvalidateVisual();
     }
     #endregion
@@ -504,9 +505,9 @@ namespace Qhta.WPF
 
     public void FillAll(Color color)
     {
-      var pixels = BitmapRaster.GetPixelArray(Source);
+      var pixels = Source.GetPixelArray();
       pixels.FillAll(color.ToDrawingColor());
-      BitmapRaster.SetPixelArray(Source as WriteableBitmap, pixels);
+      (Source as WriteableBitmap).SetPixelArray(pixels);
       InvalidateVisual();
     }
     #endregion
@@ -527,10 +528,10 @@ namespace Qhta.WPF
 
     public void MagicWand(int X, int Y, Color maskColor, Color unmaskColor)
     {
-      var pixels = BitmapRaster.GetPixelArray(Source);
+      var pixels = Source.GetPixelArray();
       var mask = pixels.WandMask(X, Y, maskColor.ToDrawingColor(), unmaskColor.ToDrawingColor());
       var maskBitmap = new WriteableBitmap(Source);
-      BitmapRaster.SetPixelArray(maskBitmap, mask);
+      (Source as WriteableBitmap).SetPixelArray(mask);
       Mask = maskBitmap;
     }
     #endregion

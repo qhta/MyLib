@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
-using Qhta.Drawing;
+using System.Windows.Media;
+//using Qhta.Drawing;
 
 namespace Qhta.WPF.IconDefinitionTest
 {
@@ -11,7 +12,18 @@ namespace Qhta.WPF.IconDefinitionTest
     public ColorSelectionDrawingTest()
     {
       InitializeComponent();
-      Drawing.Drawing drawing = new Drawing.Drawing();
+    }
+
+    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+      IconDef icon = this.FindResource("ColorIndicatorIconDef") as IconDef;
+      var primaryColor = icon.Resources["PrimaryColor"] as Parameter;
+      primaryColor.Value = Colors.Red;
+      icon.Invalidate();
+      var source = this.Image.Source;
+      this.Image.InvalidateProperty(Image.SourceProperty);
+      var binding = this.Image.GetBindingExpression(Image.SourceProperty);
+      binding.UpdateTarget();
     }
   }
 }

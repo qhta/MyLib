@@ -6,3 +6,4 @@ D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.ColorUtils.dll
 D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.ColorUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.ColorUtils\obj\Debug\Qhta.WPF.ColorUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.ColorUtils\obj\Debug\Qhta.WPF.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ColorUtils\obj\Debug\Qhta.WPF.ColorUtils.csproj.CopyComplete

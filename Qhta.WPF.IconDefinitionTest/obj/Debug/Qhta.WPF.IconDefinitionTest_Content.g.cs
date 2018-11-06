@@ -9,6 +9,5 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("colorindicatordrawing.xml")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("colorselection.xml")]
 
 

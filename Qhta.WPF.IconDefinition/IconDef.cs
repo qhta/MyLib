@@ -1,19 +1,75 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Qhta.Drawing;
+//using DrawingBitmap = System.Drawing.Bitmap;
+//using Qhta.Drawing;
+//using System.Drawing.Imaging;
+using Size = System.Windows.Size;
+using DrawingContext = Qhta.Drawing.DrawingContext;
+using System.Windows.Data;
 
 namespace Qhta.WPF
 {
-  public class IconDef:/* DependencyObject,*/ INotifyPropertyChanged
+  public class IconDef : FrameworkElement
   {
 
-    Qhta.Drawing.IconDef _DrawingIcon;
+    //#region Resources property
+    //public ResourceDictionary Resources
+    //{
+    //  get => (ResourceDictionary)GetValue(ResourcesProperty);
+    //  set => SetValue(ResourcesProperty, value);
+    //}
+
+    //public static DependencyProperty ResourcesProperty = DependencyProperty.Register
+    //  ("Resources", typeof(ResourceDictionary), typeof(IconDef),
+    //   new PropertyMetadata(new ResourceDictionary()));
+    //#endregion
+
+    #region Drawing property
+    public Drawing Drawing
+    {
+      get => (Drawing)GetValue(DrawingProperty);
+      set => SetValue(DrawingProperty, value);
+    }
+
+    public static DependencyProperty DrawingProperty = DependencyProperty.Register
+      ("Drawing", typeof(Drawing), typeof(IconDef));
+    #endregion
+
+    #region Source property
+    public string Source
+    {
+      get => (string)GetValue(SourceProperty);
+      set => SetValue(SourceProperty, value);
+    }
+
+    public static DependencyProperty SourceProperty = DependencyProperty.Register
+      ("Source", typeof(string), typeof(IconDef),
+       new PropertyMetadata(null, SourcePropertyChanged));
+
+    private static void SourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+      (sender as IconDef).SourceChanged();
+    }
+
+    private void SourceChanged()
+    {
+      Load(Source);
+    }
+    #endregion
+
+
 
     public void Load(string source)
     {
@@ -21,7 +77,6 @@ namespace Qhta.WPF
       {
         var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         source = Path.Combine(path, source);
-        Debug.WriteLine(source);
       }
       if (File.Exists(source))
         LoadFromFile(source);
@@ -32,74 +87,85 @@ namespace Qhta.WPF
       using (var inputStream = File.OpenRead(filename))
       {
         var obj = XamlReader.Load(inputStream);
-        if (obj is Qhta.Drawing.Drawing drawing)
+        if (obj is Drawing drawing)
         {
-          _DrawingIcon = new Drawing.IconDef { Drawing=drawing };
-          Drawing = new Qhta.Drawing.WPF.DrawingToWpfConverter().Convert(drawing);
+          this.Drawing=drawing;
+        }
+        else if ((obj is IconDef iconDef))
+        {
+          this.Resources = iconDef.Resources;
+          this.Drawing = iconDef.Drawing;
         }
       }
     }
 
-    #region Source property
-    public string Source
+    #region Images property / invalidate
+    public Dictionary<int, Bitmap> Images => _Images;
+    private Dictionary<int, Bitmap> _Images = new Dictionary<int, Bitmap>();
+
+    public void Invalidate()
     {
-      get => _Source;
-      set
+      Images.Clear();
+      foreach (DictionaryEntry entry in Resources)
       {
-        if (_Source!=value)
+        var obj = entry.Value;
+        if (obj is Parameter parameter)
+          obj = parameter.Value;
+        if (obj is System.Windows.Media.Color color)
+        { 
+          //Debug.WriteLine($"{entry.Key}={color}");
+        }
+        if (obj is SolidColorBrush solidBrush)
         {
-          _Source=value;
-          SourceChanged();
-          NotifyPropertyChanged(nameof(Source));
+          var binding = BindingOperations.GetBindingExpressionBase(solidBrush, SolidColorBrush.ColorProperty);
+          if (binding!=null)
+            binding.UpdateTarget();
+          //(solidBrush as DependencyObject).CoerceValue(SolidColorBrush.ColorProperty);
+          //(solidBrush as DependencyObject).InvalidateProperty(SolidColorBrush.ColorProperty);
+          var color1 = solidBrush.Color;
+          //Debug.WriteLine($"{entry.Key}.Color={color1}");
         }
       }
-    }
-    private string _Source;
-
-    //{
-    //  get => (string)GetValue(SourceProperty);
-    //  set => SetValue(SourceProperty, value);
-    //}
-
-    //public DependencyProperty SourceProperty = DependencyProperty.Register
-    //  ("Source", typeof(string), typeof(IconDef),
-    //    new PropertyMetadata(null,SourcePropertyChanged));
-
-    //private static void SourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    //{
-    //  (sender as IconDef).SourceChanged();
-    //}
-
-    private void SourceChanged()
-    {
-      if (Source!=null)
-        Load(Source);
+      if (Drawing!=null)
+        Drawing.Invalidate();
     }
     #endregion
 
-    #region Drawing property
-    public DrawingGroup Drawing
+    #region producing BitmapImage
+    public BitmapSource GetBitmapSource(int size)
     {
-      get => _Drawing;
-      set
-      {
-        if (_Drawing!=value)
-        {
-          _Drawing=value;
-          NotifyPropertyChanged(nameof(Drawing));
-        }
-      }
+      //Debug.WriteLine($"GetBitmapSource");
+      if (Drawing==null)
+        return null;
+
+      var bitmap = GetImage(size);
+      WriteableBitmap result = new WriteableBitmap(size, size, 96, 96, PixelFormats.Bgra32, null);
+      var pixelArray = bitmap.GetPixelArray();
+      result.SetPixelArray(pixelArray);
+      //if (size<=32)
+      //  for (int y = 0; y<size; y++)
+      //  {
+      //    for (int x = 0; x<size; x++)
+      //      Debug.Write($"{(uint)pixelArray[x, y]:X8} ");
+      //    Debug.WriteLine("");
+      //  }
+      return result;
     }
-    private DrawingGroup _Drawing;
-    #endregion
 
-    #region INotifyPropertyChanged implementation
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public void NotifyPropertyChanged(string propertyName)
+    public Bitmap GetImage(int size)
     {
-      if (PropertyChanged!=null)
-        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      if (Drawing==null)
+        return null;
+
+      if (Images.TryGetValue(size, out var image))
+        return image;
+      var drawing = Drawing;
+      var bitmap = new Bitmap(size, size);
+      Graphics bitmapGraphics = Graphics.FromImage(bitmap);
+      DrawingContext context = new DrawingContext { Graphics=bitmapGraphics, ScaleX=size/drawing.Width, ScaleY=size/drawing.Height };
+      drawing.Draw(context);
+      _Images.Add(size, bitmap);
+      return bitmap;
     }
     #endregion
   }

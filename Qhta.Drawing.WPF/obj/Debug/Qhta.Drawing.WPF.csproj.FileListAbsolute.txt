@@ -97,12 +97,8 @@ D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\System.Xml.XmlSerializer.dl
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.dll
-D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.IconDefinition.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\System.Drawing.Common.dll
-D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.ArrayGraphics.dll
-D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.IconDefinition.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.ArrayGraphics.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\obj\Debug\Qhta.Drawing.WPF.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\obj\Debug\Qhta.Drawing.WPF.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\obj\Debug\Qhta.Drawing.WPF.csproj.CopyComplete
@@ -110,3 +106,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\obj\Debug\Qhta.Drawing.WPF.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\obj\Debug\Qhta.Drawing.WPF.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.WPF.ColorUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.WPF.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.ArrayGraphics.dll
+D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.ArrayGraphics.pdb

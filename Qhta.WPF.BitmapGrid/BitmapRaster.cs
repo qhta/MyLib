@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Qhta.Drawing;
 using DrawingColor = System.Drawing.Color;
-using ColorConverter = Qhta.WPF.ColorConverter;
+using ColorConverter = Qhta.WPF.DrawingColorConverter;
 
 namespace Qhta.WPF
 {
@@ -95,47 +95,47 @@ namespace Qhta.WPF
     Size imageSize = new Size(0,0);
     #endregion
 
-    #region Get/SetPixelArray methods
-    public static PixelArray GetPixelArray(BitmapSource source)
-    {
-      PixelArray pixels;
-      int stride = source.PixelWidth * (source.Format.BitsPerPixel / 8);
-      byte[] data = new byte[stride * source.PixelHeight];
-      source.CopyPixels(data, stride, 0);
-      pixels = new PixelArray(source.PixelWidth, source.PixelHeight);
-      for (int y = 0; y < source.PixelHeight; y++)
-        for (int x = 0; x < source.PixelWidth; x++)
-        {
-          int pixelAddress = y*stride+x*source.Format.BitsPerPixel/8;
-          byte B = data[pixelAddress++];
-          byte G = data[pixelAddress++];
-          byte R = data[pixelAddress++];
-          byte A = 0xFF;
-          if (source.Format.BitsPerPixel == 32)
-            A = data[pixelAddress++];
-          pixels[x, y] = DrawingColor.FromArgb(A, R, G, B);
-        }
-      return pixels;
-    }
+    //#region Get/SetPixelArray methods
+    //public static PixelArray GetPixelArray(BitmapSource source)
+    //{
+    //  PixelArray pixels;
+    //  int stride = source.PixelWidth * (source.Format.BitsPerPixel / 8);
+    //  byte[] data = new byte[stride * source.PixelHeight];
+    //  source.CopyPixels(data, stride, 0);
+    //  pixels = new PixelArray(source.PixelWidth, source.PixelHeight);
+    //  for (int y = 0; y < source.PixelHeight; y++)
+    //    for (int x = 0; x < source.PixelWidth; x++)
+    //    {
+    //      int pixelAddress = y*stride+x*source.Format.BitsPerPixel/8;
+    //      byte B = data[pixelAddress++];
+    //      byte G = data[pixelAddress++];
+    //      byte R = data[pixelAddress++];
+    //      byte A = 0xFF;
+    //      if (source.Format.BitsPerPixel == 32)
+    //        A = data[pixelAddress++];
+    //      pixels[x, y] = DrawingColor.FromArgb(A, R, G, B);
+    //    }
+    //  return pixels;
+    //}
 
-    public static void SetPixelArray(WriteableBitmap target, PixelArray pixels)
-    {
-      int stride = target.PixelWidth * (target.Format.BitsPerPixel / 8);
-      byte[] data = new byte[stride * target.PixelHeight];
-      for (int y = 0; y < target.PixelHeight; y++)
-        for (int x = 0; x < target.PixelWidth; x++)
-        {
-          int pixelAddress = y*stride+x*target.Format.BitsPerPixel/8;
-          var pixel = pixels[x, y];
-          data[pixelAddress++]=pixel.B;
-          data[pixelAddress++]=pixel.G;
-          data[pixelAddress++]=pixel.R;
-          data[pixelAddress++]=pixel.A;
-        }
-      Int32Rect rect = new Int32Rect(0, 0, (int)target.PixelWidth, (int)target.PixelHeight);
-      target.WritePixels(rect, data, stride, 0);
-    }
-    #endregion
+    //public static void SetPixelArray(WriteableBitmap target, PixelArray pixels)
+    //{
+    //  int stride = target.PixelWidth * (target.Format.BitsPerPixel / 8);
+    //  byte[] data = new byte[stride * target.PixelHeight];
+    //  for (int y = 0; y < target.PixelHeight; y++)
+    //    for (int x = 0; x < target.PixelWidth; x++)
+    //    {
+    //      int pixelAddress = y*stride+x*target.Format.BitsPerPixel/8;
+    //      var pixel = pixels[x, y];
+    //      data[pixelAddress++]=pixel.B;
+    //      data[pixelAddress++]=pixel.G;
+    //      data[pixelAddress++]=pixel.R;
+    //      data[pixelAddress++]=pixel.A;
+    //    }
+    //  Int32Rect rect = new Int32Rect(0, 0, (int)target.PixelWidth, (int)target.PixelHeight);
+    //  target.WritePixels(rect, data, stride, 0);
+    //}
+    //#endregion
 
     #region Render methods
     /// <summary>
@@ -157,7 +157,7 @@ namespace Qhta.WPF
       int scale = Scale;
       double rasterThickness = RasterThickness;
       //Debug.WriteLine($"BitmapRaster rasterThickness={rasterThickness}");
-      var pixels = GetPixelArray(Source);
+      var pixels = Source.GetPixelArray();
       bool showRaster = ShowRaster && Scale>1;
       for (int y = 0; y < pixelHeight; y++)
         for (int x = 0; x < pixelWidth; x++)
@@ -169,7 +169,8 @@ namespace Qhta.WPF
           drawingContext.DrawRectangle(brush, pen, pixelRect);
           if (showRaster && rasterThickness>0)
           {
-            var lineColor = pixels[x, y].Inverse();
+            DrawingColor lineColor = pixels[x, y];
+            lineColor = lineColor.Inverse();
             pen = new Pen(new SolidColorBrush(lineColor.ToMediaColor()), rasterThickness);
             drawingContext.DrawRectangle(null, pen, pixelRect);
           }

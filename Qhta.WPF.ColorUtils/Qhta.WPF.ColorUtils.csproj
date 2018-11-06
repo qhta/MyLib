@@ -66,8 +66,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColorConverter.cs" />
+    <Compile Include="DrawingColorConverter.cs" />
+    <Compile Include="PixelColorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.Drawing.ArrayGraphics\Qhta.Drawing.ArrayGraphics.csproj">
+      <Project>{0A60FAAF-2316-4FCB-B36A-4F57AD004513}</Project>
+      <Name>Qhta.Drawing.ArrayGraphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.Drawing.ColorUtils\Qhta.Drawing.ColorUtils.csproj">
+      <Project>{41ce2fbb-9f63-4e7f-afe3-1b4f7174e401}</Project>
+      <Name>Qhta.Drawing.ColorUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,13 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="40">
-  <Grid>
-    <Button Height="24" Width="24" ToolTip="Select Color">
-      <Image Width="16" Height="16" SnapsToDevicePixels="True">
-        <Image.Source>
-          <DrawingImage Drawing="{Binding Source={StaticResource ColorIndicatorIconDef}, Path=Drawing}"/>
-        </Image.Source>
-      </Image>
-    </Button>
-  </Grid>
+  <Button Height="300" Width="300" ToolTip="Select Color" Click="Button_Click">
+      <Image x:Name="Image" SnapsToDevicePixels="True" Stretch="None"
+        Source="{Binding Source={StaticResource ColorIndicatorIconDef},
+            Converter={StaticResource IconToBitmapConverter},
+            ConverterParameter=24}"/>
+  </Button>
 </UserControl>

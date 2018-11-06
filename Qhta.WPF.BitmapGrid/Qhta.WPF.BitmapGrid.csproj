@@ -36,6 +36,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\IconManager\Iconizer\IconEditor\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -63,6 +66,10 @@
       <Project>{41ce2fbb-9f63-4e7f-afe3-1b4f7174e401}</Project>
       <Name>Qhta.Drawing.ColorUtils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Qhta.Drawing.WPF\Qhta.Drawing.WPF.csproj">
+      <Project>{d7aaa002-0b07-4af5-90e5-fb3afd90e2d8}</Project>
+      <Name>Qhta.Drawing.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.ColorUtils\Qhta.WPF.ColorUtils.csproj">
       <Project>{36a17975-a8b9-43f8-b3ed-38d5ff8dcb25}</Project>
       <Name>Qhta.WPF.ColorUtils</Name>
@@ -81,6 +88,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

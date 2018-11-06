@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -66,6 +67,10 @@
     <Page Include="ColorSelectionDrawingTest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -111,10 +116,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Qhta.Drawing\Qhta.Drawing.csproj">
-      <Project>{2b8aa454-e25c-4bf5-8d79-a7615cf7a9a2}</Project>
-      <Name>Qhta.Drawing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.IconDefinition\Qhta.WPF.IconDefinition.csproj">
       <Project>{9e17525f-3c40-4b5a-8381-c30e829a568c}</Project>
       <Name>Qhta.WPF.IconDefinition</Name>
@@ -128,11 +129,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ColorSelection.xml">
+    <EmbeddedResource Include="ColorSelection.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

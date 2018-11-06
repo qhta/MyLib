@@ -4,11 +4,11 @@ namespace Qhta.Drawing
 {
   public class PixelArray
   {
-    private Color[,] pixels;
+    private Pixel[,] pixels;
 
     public PixelArray(int pixelWidth, int pixelHeight)
     {
-      pixels = new Color[pixelWidth, pixelHeight];
+      pixels = new Pixel[pixelWidth, pixelHeight];
       PixelWidth = pixelWidth;
       PixelHeight = pixelHeight;
     }
@@ -16,26 +16,26 @@ namespace Qhta.Drawing
     public int PixelWidth { get; private set; }
     public int PixelHeight { get; private set; }
 
-    public Color this[int x,int y]
+    public Pixel this[int x,int y]
     {
       get => pixels[x, y];
       set => pixels[x, y] = value;
     }
 
-    public void FillAll(Color fillColor)
+    public void FillAll(Pixel fillColor)
     {
       for (int y = 0; y < PixelWidth; y++)
         for (int x = 0; x < PixelHeight; x++)
           pixels[x, y]=fillColor;
     }
 
-    public void FloodFill(int X, int Y, Color fillColor)
+    public void FloodFill(int X, int Y, Pixel fillColor)
     {
       var startColor = pixels[X, Y];
       FloodFill(X, Y, startColor, fillColor);
     }
 
-    private void FloodFill(int X, int Y, Color oldColor, Color newColor)
+    private void FloodFill(int X, int Y, Pixel oldColor, Pixel newColor)
     {
       if (pixels[X, Y] == oldColor)
       {
@@ -51,7 +51,7 @@ namespace Qhta.Drawing
       }
     }
 
-    public PixelArray WandMask(int X, int Y, Color maskColor, Color unmaskColor)
+    public PixelArray WandMask(int X, int Y, Pixel maskColor, Pixel unmaskColor)
     {
       var startColor = pixels[X, Y];
       PixelArray mask = new PixelArray(PixelWidth, PixelHeight);
@@ -60,7 +60,7 @@ namespace Qhta.Drawing
       return mask;
     }
 
-    private void WandFill(PixelArray mask, int X, int Y, Color oldColor, Color maskColor)
+    private void WandFill(PixelArray mask, int X, int Y, Pixel oldColor, Pixel maskColor)
     {
       if (pixels[X, Y] == oldColor && mask.pixels[X, Y]!=maskColor)
       {

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "722cd8b082677924d11de4b0e96fb58bcf54a8b2"
+    "signature": "1b327f8b0bb2bacccb02d702e0257d9cb0b993cb"
   },
   "compilationOptions": {},
   "targets": {
@@ -14,7 +14,8 @@
           "Qhta.Drawing.ArrayGraphics": "1.0.0",
           "Qhta.Drawing.ColorUtils": "1.0.0",
           "System.Drawing.Common": "4.5.1",
-          "System.Drawing.Primitives": "4.3.0"
+          "System.Drawing.Primitives": "4.3.0",
+          "WinInsider.System.Xaml": "1.0.0"
         },
         "runtime": {
           "Qhta.Drawing.IconDefinition.dll": {}
@@ -25,6 +26,17 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "System.ComponentModel/4.3.0": {
+        "dependencies": {
+          "System.Runtime": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.ComponentModel.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.6.24705.1"
+          }
         }
       },
       "System.Drawing.Common/4.5.1": {
@@ -60,10 +72,23 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "WinInsider.System.Xaml/1.0.0": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "System.ComponentModel": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.0/WinInsider.System.Xaml.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Qhta.Drawing/1.0.0": {
         "dependencies": {
           "System.Drawing.Common": "4.5.1",
-          "System.Drawing.Primitives": "4.3.0"
+          "System.Drawing.Primitives": "4.3.0",
+          "WindowsBase": "3.0.0.0"
         },
         "runtime": {
           "Qhta.Drawing.dll": {}
@@ -81,6 +106,19 @@
       "Qhta.Drawing.ColorUtils/1.0.0": {
         "runtime": {
           "Qhta.Drawing.ColorUtils.dll": {}
+        }
+      },
+      "WindowsBase.Reference/3.0.0.0": {
+        "runtime": {
+          "WindowsBase.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.6920.8931"
+          }
+        },
+        "resources": {
+          "pl/WindowsBase.resources.dll": {
+            "locale": "pl"
+          }
         }
       }
     }
@@ -112,6 +150,13 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
+    "System.ComponentModel/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VyGn1jGRZVfxnh8EdvDCi71v3bMXrsu8aYJOwoV7SNDLVhiEqwP86pPMyRGsDsxhXAm2b3o9OIqeETfN5qfezw==",
+      "path": "system.componentmodel/4.3.0",
+      "hashPath": "system.componentmodel.4.3.0.nupkg.sha512"
+    },
     "System.Drawing.Common/4.5.1": {
       "type": "package",
       "serviceable": true,
@@ -140,6 +185,13 @@
       "path": "system.runtime.extensions/4.3.0",
       "hashPath": "system.runtime.extensions.4.3.0.nupkg.sha512"
     },
+    "WinInsider.System.Xaml/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ScIAaInxe5xaZb9ssCB2UyJvf22fW7y543e43yFU7EOFK/QZ4Khas4PDWudYrAAwnMP3rCUMNzJDAPHJwr8AHQ==",
+      "path": "wininsider.system.xaml/1.0.0",
+      "hashPath": "wininsider.system.xaml.1.0.0.nupkg.sha512"
+    },
     "Qhta.Drawing/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -152,6 +204,11 @@
     },
     "Qhta.Drawing.ColorUtils/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WindowsBase.Reference/3.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

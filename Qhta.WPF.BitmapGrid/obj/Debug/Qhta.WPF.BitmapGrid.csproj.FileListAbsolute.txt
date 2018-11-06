@@ -125,3 +125,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\obj\Debug\Qhta.WPF.BitmapGrid.g.re
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\System.Drawing.Common.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.WPF.ColorUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.WPF.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.WPF.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.WPF.pdb

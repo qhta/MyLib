@@ -5,7 +5,7 @@ using Qhta.WPF;
 using Win = System.Windows;
 using Wpf = System.Windows.Media;
 
-namespace Qhta.Drawing.WPF
+namespace Qhta.Drawing
 {
   public class DrawingToWpfConverter
   {
