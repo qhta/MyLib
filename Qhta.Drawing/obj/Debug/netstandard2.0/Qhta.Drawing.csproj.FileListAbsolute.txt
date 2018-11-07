@@ -12,3 +12,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.Drawing\bin\Debug\netstandard2.0\pl\WindowsBase.r
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.ExceptionStringTable.resources
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing\obj\Debug\netstandard2.0\Qhta.Drawing.csproj.GenerateResource.cache
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.Drawing.deps.json
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.Drawing.dll
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.Drawing.pdb

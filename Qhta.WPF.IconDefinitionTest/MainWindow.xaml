@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Qhta.WPF.IconDefinitionTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-  <Canvas>
-    <local:ColorSelectionDrawingTest/>
-  </Canvas>
+  <ToolBarTray Orientation="Vertical" Width="Auto" HorizontalAlignment="Left" SnapsToDevicePixels="true">
+    <ToolBar Width="{StaticResource ToolbarSize}">
+      <local:ColorSelectionButton/>
+      <local:RectSelectionButton/>
+    </ToolBar>
+  </ToolBarTray>
 </Window>

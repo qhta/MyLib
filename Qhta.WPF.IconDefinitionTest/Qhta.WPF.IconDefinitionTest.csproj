@@ -60,11 +60,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RectSelectionButton.xaml.cs">
+      <DependentUpon>RectSelectionButton.xaml</DependentUpon>
+    </Compile>
     <Content Include="ColorIndicatorDrawing.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Page Include="ColorSelectionDrawingTest.xaml">
+    <EmbeddedResource Include="RectSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Page Include="ColorSelectionButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -80,13 +88,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ColorSelectionDrawingTest.xaml.cs">
-      <DependentUpon>ColorSelectionDrawingTest.xaml</DependentUpon>
+    <Compile Include="ColorSelectionButton.xaml.cs">
+      <DependentUpon>ColorSelectionButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RectSelectionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

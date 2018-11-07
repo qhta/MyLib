@@ -108,3 +108,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.WPF.ColorUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.WPF.ColorUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.ArrayGraphics.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Drawing.WPF\bin\Debug\Qhta.Drawing.ArrayGraphics.pdb
+D:\Dane\VS\Projects\MyLib\bin\Qhta.Drawing.WPF.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.Drawing.WPF.pdb

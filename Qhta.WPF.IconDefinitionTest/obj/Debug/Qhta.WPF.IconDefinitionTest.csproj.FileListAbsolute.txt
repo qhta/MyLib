@@ -18,9 +18,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDef
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.exe
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\App.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\ColorSelectionDrawingTest.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\ColorSelectionDrawingTest.g.cs
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\ColorIndicatorDrawing.xml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest_Content.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\System.Drawing.Common.dll
@@ -35,3 +32,9 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.Arr
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.WPF.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.ColorUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\ColorSelectionButton.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\ColorSelectionButton.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\RectSelectionButton.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\RectSelectionButton.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\RectSelection.xaml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\GeneratedInternalTypeHelper.g.cs

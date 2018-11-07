@@ -17,6 +17,9 @@ namespace Qhta.WPF
         throw new NotSupportedException($"Unsupported conversion of {value}. IconDef expected");
       if (!(parameter is int size))
       {
+        if (parameter is double dSize)
+          size = (int)Math.Round(dSize);
+        else
         if (!(parameter is string str) || !int.TryParse(str, out size))
           throw new NotSupportedException($"Parameter must be an integer size during IconDef conversion");
       }

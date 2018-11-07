@@ -11,13 +11,6 @@ namespace Qhta.WPF
   [ContentProperty("Value")]
   public class Parameter: DependencyObject
   {
-    #region Type property
-    public Type Type;
-
-    public static DependencyProperty TypeProperty = DependencyProperty.Register
-      ("Type", typeof(Type), typeof(Parameter));
-    #endregion
-
     #region Value property
     public object Value
     {
