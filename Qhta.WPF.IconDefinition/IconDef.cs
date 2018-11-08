@@ -19,7 +19,7 @@ using Size = System.Windows.Size;
 using DrawingContext = Qhta.Drawing.DrawingContext;
 using System.Windows.Data;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   public class IconDef : FrameworkElement
   {

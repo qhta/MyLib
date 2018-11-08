@@ -4,7 +4,7 @@ using DrawingContext = Qhta.Drawing.DrawingContext;
 using System.Runtime.Serialization;
 using System.Windows.Data;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   [KnownType(typeof(Rectangle))]
   public abstract class DrawingItem: DependencyObject

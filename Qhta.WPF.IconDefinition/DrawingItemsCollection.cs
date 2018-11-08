@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   public class DrawingItemsCollection: ObservableCollection<DrawingItem>
   {

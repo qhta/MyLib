@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   public class IconToBitmapConverter : IValueConverter
   {

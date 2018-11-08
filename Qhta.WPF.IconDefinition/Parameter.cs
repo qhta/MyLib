@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   [ContentProperty("Value")]
   public class Parameter: DependencyObject

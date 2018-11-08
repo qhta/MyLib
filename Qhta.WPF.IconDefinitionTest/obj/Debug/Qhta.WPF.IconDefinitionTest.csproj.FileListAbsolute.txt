@@ -9,7 +9,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\App.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest_MarkupCompile.lref
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\MainWindow.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\ColorSelectionDrawing.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.g.resources
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.Properties.Resources.resources
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.csproj.GenerateResource.cache
@@ -38,3 +37,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\RectSelectionBut
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\RectSelectionButton.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\RectSelection.xaml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.exe.config
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\System.Net.Http.dll

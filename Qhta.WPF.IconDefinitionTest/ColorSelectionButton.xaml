@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i ="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.IconDefinition"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="40">
   <Button Width="{StaticResource ButtonSize}" Height="{StaticResource ButtonSize}" ToolTip="Select Color" Click="Button_Click">

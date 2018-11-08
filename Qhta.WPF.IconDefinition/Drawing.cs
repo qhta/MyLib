@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Markup;
 using DrawingContext = Qhta.Drawing.DrawingContext;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   [ContentProperty("Items")]
   public class Drawing: FrameworkElement

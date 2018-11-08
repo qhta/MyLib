@@ -15,7 +15,7 @@ namespace Qhta.Drawing
     }
     private Brush _Fill = Brushes.Black;
 
-    [TypeConverter(typeof(BrushConverter))]
+    //[TypeConverter(typeof(BrushConverter))]
     public Pen Outline
     {
       get => _Outline;
@@ -27,98 +27,155 @@ namespace Qhta.Drawing
     #region Stroke property
     public Brush Stroke
     {
-      get => Outline?.Brush;
-      set { if (Outline!=null) {  Outline.Brush = value; NotifyPropertyChanged(nameof(Outline)); }
+      get => _Brush;
+      set
+      {
+        if (_Brush!=value)
+        {
+          _Brush = value;
+          NotifyPropertyChanged(nameof(Brush));
+          if (Outline!=null) { Outline.Brush = value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
+    private Brush _Brush;
     #endregion
 
     #region StrokeThickness property
     public double StrokeThickness
     {
-      get => (double)Outline?.Width;
-      set { if (Outline!=null) { Outline.Width = (float)value; NotifyPropertyChanged(nameof(Outline)); }
+      get => _StrokeThickness;
+      set
+      {
+        if (_StrokeThickness!=value)
+        {
+          _StrokeThickness = value;
+          NotifyPropertyChanged(nameof(StrokeThickness));
+          if (Outline!=null) { Outline.Width = (float)value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
+    private double _StrokeThickness = 1.0;
+    #endregion
+
+    #region StrokePenAlignment property
+    public PenAlignment StrokePenAlignment
+    {
+      get => _StrokePenAlignment;
+      set
+      {
+        if (_StrokePenAlignment!=value)
+        {
+          _StrokePenAlignment = value;
+          NotifyPropertyChanged(nameof(StrokePenAlignment));
+          if (Outline!=null) { Outline.Alignment = (PenAlignment)value; NotifyPropertyChanged(nameof(Outline)); }
+        }
+      }
+    }
+    private PenAlignment _StrokePenAlignment = PenAlignment.Center;
     #endregion
 
     #region StrokeStartCap property
     public LineCap StrokeStartCap
     {
-      get => (LineCap)Outline?.StartCap;
+      get => _StrokeStartCap;
       set
       {
-        if (Outline!=null) { Outline.StartCap = value; NotifyPropertyChanged(nameof(Outline)); }
+        if (_StrokeStartCap!=value)
+        {
+          _StrokeStartCap = value;
+          NotifyPropertyChanged(nameof(StrokeStartCap));
+          if (Outline!=null) { Outline.StartCap = value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
-
+    private LineCap _StrokeStartCap = LineCap.Flat;
     #endregion
 
     #region StrokeEndCap property
     public LineCap StrokeEndCap
     {
-      get => (LineCap)Outline?.EndCap;
+      get => _StrokeEndCap;
       set
       {
-        if (Outline!=null) { Outline.EndCap = value; NotifyPropertyChanged(nameof(Outline)); }
+        if (_StrokeEndCap!=value)
+        {
+          _StrokeEndCap=value;
+          NotifyPropertyChanged(nameof(StrokeEndCap));
+          if (Outline!=null) { Outline.EndCap = value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
+    private LineCap _StrokeEndCap = LineCap.Flat;
     #endregion
 
     #region StrokeDashCap property
     public DashCap StrokeDashCap
     {
-      get => (DashCap)Outline?.DashCap;
+      get => _StrokeDashCap;
       set
       {
-        if (Outline!=null) { Outline.DashCap = value; NotifyPropertyChanged(nameof(Outline)); }
+        if (_StrokeDashCap!=value)
+        {
+          _StrokeDashCap = value;
+          NotifyPropertyChanged(nameof(StrokeDashCap));
+          if (Outline!=null) { Outline.DashCap = value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
+    private DashCap _StrokeDashCap = DashCap.Flat;
     #endregion
 
     #region StrokeLineJoin property
     public LineJoin StrokeLineJoin
     {
-      get => (LineJoin)Outline?.LineJoin;
+      get => _StrokeLineJoin;
       set
       {
-        if (Outline!=null) { Outline.LineJoin = value; NotifyPropertyChanged(nameof(Outline)); }
+        if (_StrokeLineJoin!=value)
+        {
+          _StrokeLineJoin=value;
+          NotifyPropertyChanged(nameof(StrokeLineJoin));
+          if (Outline!=null) { Outline.LineJoin = value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
+    private LineJoin _StrokeLineJoin = LineJoin.Miter;
     #endregion
 
     #region StrokeMiterLimit
     public double StrokeMiterLimit
     {
-      get => (double)Outline?.MiterLimit;
+      get => _StrokeMiterLimit;
       set
       {
-        if (Outline!=null) { Outline.MiterLimit = (float)value; NotifyPropertyChanged(nameof(Outline)); }
+        if (_StrokeMiterLimit!=value)
+        {
+          _StrokeMiterLimit = value;
+          NotifyPropertyChanged(nameof(StrokeMiterLimit));
+          if (Outline!=null) { Outline.MiterLimit = (float)value; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
+    private double _StrokeMiterLimit = 0;
     #endregion
 
     #region StrokeDashOffset
     public double StrokeDashOffset
     {
-      get => (double)Outline?.DashOffset;
+      get => _StrokeDashOffset;
       set
       {
-        if (Outline!=null) { Outline.DashOffset = (float)value; NotifyPropertyChanged(nameof(Outline)); }
+        if (_StrokeDashOffset!=value)
+        {
+          _StrokeDashOffset=value;
+          NotifyPropertyChanged(nameof(StrokeDashOffset));
+          double notNaN = double.IsNaN(value) ? 0.0 : value;
+          if (Outline!=null) { Outline.DashOffset = (float)notNaN; NotifyPropertyChanged(nameof(Outline)); }
+        }
       }
     }
-
-    #endregion
-
-    #region StrokeLineJoin property
-    public DashStyle StrokeDashStyle
-    {
-      get => (DashStyle)Outline?.DashStyle;
-      set
-      {
-        if (Outline!=null) { Outline.DashStyle = value; NotifyPropertyChanged(nameof(Outline)); }
-      }
-    }
+    private double _StrokeDashOffset = 0.0;
     #endregion
 
     #region StrokeDashArray property
@@ -126,9 +183,7 @@ namespace Qhta.Drawing
     {
       get
       {
-        if (Outline!=null && Outline.DashPattern!=null)
-          return Outline.DashPattern.Select(item=>(double)item).ToArray();
-        return null;
+        return _DashPattern;
       }
       set
       {
@@ -137,16 +192,18 @@ namespace Qhta.Drawing
           if (value==null && Outline.DashPattern!=null)
           {
             Outline.DashPattern=null;
-            NotifyPropertyChanged(nameof(Outline));
           }
           else if (value!=null)
           {
             Outline.DashPattern = value.Select(item=>(float)item).ToArray();
-            NotifyPropertyChanged(nameof(Outline));
           }
+          NotifyPropertyChanged(nameof(Outline));
         }
+        _DashPattern=value;
+        NotifyPropertyChanged(nameof(StrokeDashArray));
       }
-      }
+    }
+    private double[] _DashPattern;
     #endregion
 
     public override void Draw(DrawingContext context)
@@ -159,7 +216,7 @@ namespace Qhta.Drawing
       if (Fill!=null && Fill!=Brushes.Transparent)
       {
         var brush = Fill;
-        FillInterior(graphics, brush, left, top, width, height);
+        FillInterior(context, brush, left, top, width, height);
       }
       if (Outline!=null)
       {
@@ -167,14 +224,14 @@ namespace Qhta.Drawing
         lineWidth=(float)context.ScaleXY(lineWidth);
         Pen pen = Outline.Clone() as Pen;
         pen.Width = lineWidth;
-        DrawOutline(graphics, pen, left, top, width, height);
+        DrawOutline(context, pen, left, top, width, height);
       }
     }
 
-    protected abstract void FillInterior(Graphics graphics, Brush brush, float left, float top, float width, float height);
+    public abstract void FillInterior(DrawingContext context, Brush brush, float left, float top, float width, float height);
 
 
-    protected abstract void DrawOutline(Graphics graphics, Pen pen, float left, float top, float width, float height);
+    public abstract void DrawOutline(DrawingContext context, Pen pen, float left, float top, float width, float height);
 
   }
 }

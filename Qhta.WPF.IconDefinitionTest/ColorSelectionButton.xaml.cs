@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media;
-//using Qhta.Drawing;
+using Qhta.WPF.IconDefinition;
 
 namespace Qhta.WPF.IconDefinitionTest
 {

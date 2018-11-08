@@ -1,13 +1,17 @@
 ﻿<i:IconDef xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:i="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.IconDefinition"
+                    xmlns:i="http://schemas.icondef.org"
                     >
   <i:IconDef.Drawing>
     <i:Drawing Width="16" Height="16">
+      <i:Rectangle Left="1" Top="1" Width="14" Height="14" Stroke="White" 
+                   StrokePenAlignment="Inset"
+                   />
       <i:Rectangle Left="1" Top="1" Width="14" Height="14" 
                    Stroke="Black"
-                   StrokeDashArray="2,2"
-                   StrokeDashOffset="0.5"
+                   StrokePenAlignment="Inset"
+                   StrokeDashOffset="1"
+                   StrokeDashArray="3,1"
                    StrokeStartLineCap="Square"
                    StrokeEndLineCap="Square"
                  />

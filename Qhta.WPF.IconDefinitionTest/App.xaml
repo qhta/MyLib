@@ -1,18 +1,18 @@
 ﻿<Application x:Class="Qhta.WPF.IconDefinitionTest.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:i ="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.IconDefinition"
+             xmlns:i ="clr-namespace:Qhta.WPF.IconDefinition;assembly=Qhta.WPF.IconDefinition"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
   <Application.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
+      <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Qhta.WPF.IconDefinitionTest;component/ColorSelectionDrawing.xaml"/>
-      </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary.MergedDictionaries>-->
       <i:IconToBitmapConverter x:Key="IconToBitmapConverter"/>
-      <sys:Double x:Key="ImageSize">16</sys:Double>
-      <sys:Double x:Key="ButtonSize">20</sys:Double>
-      <sys:Double x:Key="ToolbarSize">28</sys:Double>
+      <sys:Double x:Key="ImageSize">32</sys:Double>
+      <sys:Double x:Key="ButtonSize">36</sys:Double>
+      <sys:Double x:Key="ToolbarSize">44</sys:Double>
       <i:IconDef x:Key="ColorIndicatorIconDef" Source="ColorSelection.xaml"/>
       <i:IconDef x:Key="RectIndicatorIconDef" Source="RectSelection.xaml"/>
     </ResourceDictionary>

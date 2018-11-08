@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -7,7 +8,7 @@ using System.Windows.Media;
 using BrushConverter = Qhta.Drawing.DrawingBrushConverter;
 using DrawingContext = Qhta.Drawing.DrawingContext;
 
-namespace Qhta.WPF
+namespace Qhta.WPF.IconDefinition
 {
   public abstract class Shape: DrawingItem
   {
@@ -47,6 +48,18 @@ namespace Qhta.WPF
       ("StrokeThickness", typeof(double), typeof(Shape), new PropertyMetadata(1.0));
     #endregion
 
+    #region StrokePenAlignment property
+    public PenAlignment StrokePenAlignment
+    {
+      get =>
+          ((PenAlignment)base.GetValue(StrokePenAlignmentProperty));
+      set =>
+          base.SetValue(StrokePenAlignmentProperty, value);
+    }
+
+    public static readonly DependencyProperty StrokePenAlignmentProperty = DependencyProperty.Register
+      ("StrokePenAlignment", typeof(PenAlignment), typeof(Shape), new PropertyMetadata(PenAlignment.Center));
+    #endregion
     #region StrokeStartLineCap property
     public PenLineCap StrokeStartLineCap
     {
@@ -77,17 +90,17 @@ namespace Qhta.WPF
     #endregion
 
     #region StrokeDashCap property
-    public PenLineCap StrokeDashCap
+    public DashCap StrokeDashCap
     {
       get =>
-          ((PenLineCap)base.GetValue(StrokeDashCapProperty));
+          ((DashCap)base.GetValue(StrokeDashCapProperty));
       set =>
           base.SetValue(StrokeDashCapProperty, value);
     }
 
     public static readonly DependencyProperty StrokeDashCapProperty = DependencyProperty.Register
-      ("StrokeDashCap", typeof(PenLineCap), typeof(Shape),
-      new PropertyMetadata(PenLineCap.Flat));
+      ("StrokeDashCap", typeof(DashCap), typeof(Shape),
+      new PropertyMetadata(DashCap.Flat));
     #endregion
 
     #region StrokeLineJoin property
@@ -118,6 +131,8 @@ namespace Qhta.WPF
       new PropertyMetadata(10.0));
     #endregion
 
+
+
     #region StrokeDashOffset
     public double StrokeDashOffset
     {
@@ -128,7 +143,7 @@ namespace Qhta.WPF
     }
 
     public static readonly DependencyProperty StrokeDashOffsetProperty = DependencyProperty.Register
-      ("StrokeDashOffset", typeof(double), typeof(Shape),
+      ("StrokeDashOffset", typeof(double?), typeof(Shape),
       new PropertyMetadata(0.0));
     #endregion
 
@@ -146,6 +161,8 @@ namespace Qhta.WPF
       new PropertyMetadata(null));
     #endregion
 
+    protected abstract Qhta.Drawing.Shape DrawingShape { get; set; }
+
     public override void Draw(DrawingContext context)
     {
       var graphics = context.Graphics;
@@ -156,7 +173,7 @@ namespace Qhta.WPF
       if (Fill!=null && Fill!=Brushes.Transparent)
       {
         var brush = BrushConverter.ToDrawingBrush(Fill);
-        FillInterior(graphics, brush, left, top, width, height);
+        FillInterior(context, brush, left, top, width, height);
       }
       if (Stroke!=null)
       {
@@ -166,17 +183,32 @@ namespace Qhta.WPF
         var pen = new System.Drawing.Pen(outlineBrush.Color, (float)lineWidth);
         if (StrokeDashArray!=null)
         {
+          DrawingShape.StrokeDashArray=StrokeDashArray.ToArray();
+          DrawingShape.StrokeDashOffset=StrokeDashOffset;
           pen.DashPattern = StrokeDashArray.Select(item => (float)item).ToArray();
-          pen.DashOffset = (float)StrokeDashOffset;
+          double notNaN = double.IsNaN(StrokeDashOffset) ? 0 : StrokeDashOffset;
+          pen.DashOffset = (float)notNaN;
+          pen.DashCap = DrawingShape.StrokeDashCap = (DashCap)StrokeDashCap;
         }
-        DrawOutline(graphics, pen, left, top, width, height);
+        pen.StartCap = DrawingShape.StrokeStartCap = (LineCap)StrokeStartLineCap;
+        pen.EndCap = DrawingShape.StrokeEndCap = (LineCap)StrokeEndLineCap;
+        pen.LineJoin = DrawingShape.StrokeLineJoin = (LineJoin)StrokeLineJoin;
+        pen.MiterLimit = (float)(DrawingShape.StrokeMiterLimit = StrokeMiterLimit);
+        pen.Alignment = DrawingShape.StrokePenAlignment = StrokePenAlignment;
+        DrawOutline(context, pen, left, top, width, height);
       }
     }
 
-    protected abstract void FillInterior(System.Drawing.Graphics graphics, System.Drawing.Brush brush, float left, float top, float width, float height);
+    protected virtual void FillInterior(DrawingContext context, System.Drawing.Brush brush, float left, float top, float width, float height)
+    {
+      DrawingShape.FillInterior(context, brush, left, top, width, height);
+    }
 
 
-    protected abstract void DrawOutline(System.Drawing.Graphics graphics, System.Drawing.Pen pen, float left, float top, float width, float height);
+    protected virtual void DrawOutline(DrawingContext context, System.Drawing.Pen pen, float left, float top, float width, float height)
+    {
+      DrawingShape.DrawOutline(context, pen, left, top, width, height);
+    }
 
     public override void Invalidate()
     {
