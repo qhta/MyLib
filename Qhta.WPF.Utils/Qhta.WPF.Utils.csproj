@@ -67,6 +67,7 @@
     <Compile Include="FloatDoubleFormater.cs" />
     <Compile Include="GeometryUtils.cs" />
     <Compile Include="InverseValueConverter.cs" />
+    <Compile Include="MultiObjectConverter.cs" />
     <Compile Include="SafeCollectionConverter.cs" />
     <Compile Include="ClipboardUtils.cs" />
     <Compile Include="ClipboardUtils.ClipboardMate.cs" />
