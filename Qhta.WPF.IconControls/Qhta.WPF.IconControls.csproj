@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IconDrawControl.cs" />
+    <Compile Include="IconDrawEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +56,10 @@
     <ProjectReference Include="..\Qhta.Drawing\Qhta.Drawing.csproj">
       <Project>{2b8aa454-e25c-4bf5-8d79-a7615cf7a9a2}</Project>
       <Name>Qhta.Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.WPF.Controls\Qhta.WPF.Controls.csproj">
+      <Project>{337E1DEE-1494-434B-8A36-DE929A3805D7}</Project>
+      <Name>Qhta.WPF.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.IconDefinition\Qhta.WPF.IconDefinition.csproj">
       <Project>{9e17525f-3c40-4b5a-8381-c30e829a568c}</Project>

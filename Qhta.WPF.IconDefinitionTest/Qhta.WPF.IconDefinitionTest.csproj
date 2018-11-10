@@ -135,6 +135,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.WPF.Controls\Qhta.WPF.Controls.csproj">
+      <Project>{337e1dee-1494-434b-8a36-de929a3805d7}</Project>
+      <Name>Qhta.WPF.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.IconControls\Qhta.WPF.IconControls.csproj">
       <Project>{e7d11009-f0b4-4c64-bdf6-b17eef138b55}</Project>
       <Name>Qhta.WPF.IconControls</Name>

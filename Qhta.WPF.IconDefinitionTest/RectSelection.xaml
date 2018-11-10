@@ -10,8 +10,8 @@
       <i:Rectangle Left="1" Top="1" Width="14" Height="14" 
                    Stroke="Black"
                    StrokePenAlignment="Inset"
-                   StrokeDashOffset="1"
-                   StrokeDashArray="3,1"
+                   StrokeDashOffset="0.5"
+                   StrokeDashArray="2,2"
                    StrokeStartLineCap="Square"
                    StrokeEndLineCap="Square"
                  />

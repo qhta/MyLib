@@ -19,10 +19,9 @@ namespace Qhta.WPF.IconDefinition
       set => SetValue(FillProperty, value);
     }
     public static readonly DependencyProperty FillProperty = DependencyProperty.Register
-      ("Fill", typeof(Brush), typeof(DrawingItem),
+      ("Fill", typeof(Brush), typeof(Shape),
        new PropertyMetadata(null));
     #endregion
-
 
     #region Stroke property
     public Brush Stroke
@@ -61,6 +60,7 @@ namespace Qhta.WPF.IconDefinition
     public static readonly DependencyProperty StrokePenAlignmentProperty = DependencyProperty.Register
       ("StrokePenAlignment", typeof(PenAlignment), typeof(Shape), new PropertyMetadata(PenAlignment.Center));
     #endregion
+    
     #region StrokeStartLineCap property
     public PenLineCap StrokeStartLineCap
     {
@@ -131,8 +131,6 @@ namespace Qhta.WPF.IconDefinition
       ("StrokeMiterLimit", typeof(double), typeof(Shape),
       new PropertyMetadata(10.0));
     #endregion
-
-
 
     #region StrokeDashOffset
     public double StrokeDashOffset

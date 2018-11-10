@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ic="clr-namespace:Qhta.WPF.IconControls;assembly=Qhta.WPF.IconControls"
+        xmlns:wc="clr-namespace:Qhta.WPF.Controls;assembly=Qhta.WPF.Controls"
         xmlns:local="clr-namespace:Qhta.WPF.IconDefinitionTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
@@ -17,12 +18,16 @@
       </ToolBar>
     </ToolBarTray>
     <Grid Background="LightGray">
-      <ic:IconDrawControl Width="256" Height="256" 
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"
-                          SnapsToDevicePixels="true"
-                          IconDef="{StaticResource RectIndicatorIconDef}"
-                          />
+      <ic:IconDrawEdit Width="256" Height="256" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center"
+                      IconDef="{StaticResource RectIndicatorIconDef}"
+                      ResX="16" ResY="16" 
+                      Stroke="Gray" StrokeThickness="0.5" 
+                      TickX="8" TickY="8"
+                      TickThickness="1"
+                      SnapsToDevicePixels="true" >
+      </ic:IconDrawEdit>
     </Grid>
   </DockPanel>
 </Window>
