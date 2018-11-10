@@ -111,3 +111,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CopyCom
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.WPF.Utils.dll.config

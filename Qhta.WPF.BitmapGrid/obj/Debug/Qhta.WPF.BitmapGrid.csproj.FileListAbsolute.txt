@@ -129,3 +129,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.WPF.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.BitmapGrid\bin\Debug\Qhta.Drawing.WPF.pdb
 D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.BitmapGrid.dll
 D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.BitmapGrid.pdb
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.BitmapGrid.dll.config

@@ -255,7 +255,7 @@ namespace Qhta.WPF
     {
       if (Source!=null)
         return imageSize = new Size(Source.PixelWidth*Scale, Source.PixelHeight*Scale);
-      return base.MeasureCore(availableSize);
+      return imageSize;
     }
     /// <summary>
     /// Przychowywany rozmiar obrazu * skala

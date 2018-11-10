@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using DrawingContext = Qhta.Drawing.DrawingContext;
 using System.Runtime.Serialization;
 using System.Windows.Data;
 
@@ -53,7 +52,10 @@ namespace Qhta.WPF.IconDefinition
        new PropertyMetadata(0.0));
     #endregion
 
-    public abstract void Draw(DrawingContext context);
+    public abstract void Draw(Qhta.Drawing.DrawingContext context);
+
+    public abstract void Draw(System.Windows.Media.DrawingContext context);
+
 
     public virtual void Invalidate()
     {

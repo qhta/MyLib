@@ -10,7 +10,7 @@ using DrawingContext = Qhta.Drawing.DrawingContext;
 
 namespace Qhta.WPF.IconDefinition
 {
-  public abstract class Shape: DrawingItem
+  public abstract class Shape : DrawingItem
   {
     #region Fill property
     public Brush Fill
@@ -22,6 +22,7 @@ namespace Qhta.WPF.IconDefinition
       ("Fill", typeof(Brush), typeof(DrawingItem),
        new PropertyMetadata(null));
     #endregion
+
 
     #region Stroke property
     public Brush Stroke
@@ -208,6 +209,72 @@ namespace Qhta.WPF.IconDefinition
     protected virtual void DrawOutline(DrawingContext context, System.Drawing.Pen pen, float left, float top, float width, float height)
     {
       DrawingShape.DrawOutline(context, pen, left, top, width, height);
+    }
+
+    public override void Draw(System.Windows.Media.DrawingContext context)
+    {
+      var left = this.Left;
+      var top = this.Top;
+      var width = this.Width;
+      var height = this.Height;
+      var brush = Fill;
+      var lineWidth = 1.0;
+      Pen pen = null;
+      if (Stroke!=null)
+      {
+        pen = new Pen(Stroke, lineWidth);
+        if (StrokeDashArray!=null)
+        {
+          double notNaN = double.IsNaN(StrokeDashOffset) ? 0 : StrokeDashOffset;
+          var dashStyle = new System.Windows.Media.DashStyle { Dashes = StrokeDashArray, Offset = notNaN };
+          pen.DashStyle = dashStyle;
+          pen.DashCap = (System.Windows.Media.PenLineCap)StrokeDashCap;
+        }
+        pen.StartLineCap = (System.Windows.Media.PenLineCap)StrokeStartLineCap;
+        pen.EndLineCap = (System.Windows.Media.PenLineCap)StrokeEndLineCap;
+        pen.LineJoin = (System.Windows.Media.PenLineJoin)StrokeLineJoin;
+        pen.MiterLimit = StrokeMiterLimit;
+        var penAlignment = StrokePenAlignment;
+        if (penAlignment!=PenAlignment.Center)
+          AdjustBounds(penAlignment, lineWidth, ref left, ref top, ref width, ref height);
+      }
+      DrawShape(context, brush, pen, left, top, width, height);
+    }
+
+    protected abstract void DrawShape(System.Windows.Media.DrawingContext context,
+      System.Windows.Media.Brush brush, System.Windows.Media.Pen pen, double left, double top, double width, double height);
+
+
+    public void AdjustBounds(PenAlignment penAlignment, double lineWidth, 
+      ref double left, ref double top, ref double width, ref double height)
+    {
+      switch (penAlignment)
+      {
+        case PenAlignment.Inset:
+          left += lineWidth/2;
+          top += lineWidth/2;
+          width -= lineWidth;
+          height -= lineWidth;
+          break;
+        case PenAlignment.Outset:
+          left -= lineWidth/2;
+          top -= lineWidth/2;
+          width += lineWidth;
+          height += lineWidth;
+          break;
+        case PenAlignment.Left:
+          left -= lineWidth/2;
+          top -= lineWidth/2;
+          width -= lineWidth;
+          height -= lineWidth;
+          break;
+        case PenAlignment.Right:
+          left += lineWidth/2;
+          top += lineWidth/2;
+          width += lineWidth;
+          height += lineWidth;
+          break;
+      }
     }
 
     public override void Invalidate()

@@ -39,3 +39,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\RectSelection.xa
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest.exe.config
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\System.Net.Http.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.IconControls.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.IconControls.pdb
