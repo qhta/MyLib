@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingEvaluator.cs" />
+    <Compile Include="BrushUtils.cs" />
     <Compile Include="DashStyleConverter.cs" />
     <Compile Include="DashStyleUtils.cs" />
     <Compile Include="ColorAdjustEffect.cs" />

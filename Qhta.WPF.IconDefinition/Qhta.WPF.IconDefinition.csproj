@@ -76,6 +76,10 @@
       <Project>{2b8aa454-e25c-4bf5-8d79-a7615cf7a9a2}</Project>
       <Name>Qhta.Drawing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Qhta.WPF.Utils\Qhta.WPF.Utils.csproj">
+      <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
+      <Name>Qhta.WPF.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

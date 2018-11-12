@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using Qhta.WPF.Controls;
 using Qhta.WPF.IconDefinition;
@@ -39,11 +42,6 @@ namespace Qhta.WPF.IconControls
       {
         SketchControl.IconDef.Drawing.Width = IconDef.Drawing.Width;
         SketchControl.IconDef.Drawing.Height = IconDef.Drawing.Height;
-        foreach (var item in IconDef.Drawing.Items)
-        {
-          SketchControl.IconDef.Drawing.Items.Add(item);
-          break;
-        }
       }
     }
 
@@ -228,6 +226,9 @@ namespace Qhta.WPF.IconControls
       SketchControl.SetBinding(IconDrawControl.SketchColorProperty, new Binding(nameof(SketchColor)) { Source=this });
       SketchControl.SetBinding(IconDrawControl.SketchThicknessProperty, new Binding(nameof(SketchThickness)) { Source=this });
       SketchControl.SetBinding(IconDrawControl.SketchStyleProperty, new Binding(nameof(SketchStyle)) { Source=this });
+      // Background is set to enable select nothing.
+      // Otherwise no MouseButtonDown event is fired
+      Background = new SolidColorBrush(Color.FromArgb(127, 255, 255, 255));
     }
 
     protected IconDrawControl IconDrawControl { get; private set; }
@@ -237,5 +238,25 @@ namespace Qhta.WPF.IconControls
     protected IconDrawControl SketchControl { get; private set; }
 
     public DrawingItemsCollection SelectedItems => SketchControl.IconDef.Drawing.Items;
+
+    protected override void OnMouseLeftButtonDown(MouseButtonEventArgs args)
+    {
+      if (IconDef==null)
+        return;
+      if (IconDef.Drawing==null)
+        return;
+      if (IconDef.Drawing.Items==null)
+        return;
+      var pos = args.GetPosition(this);
+
+      pos.X /= ResX;
+      pos.Y /= ResY;
+      var drawingItem = IconDef.Drawing.Items.LastOrDefault(item => item.Contains(pos));
+      if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+        SelectedItems.Clear();
+      if (drawingItem!=null)
+        SelectedItems.Add(drawingItem);
+      args.Handled=true;
+    }
   }
 }

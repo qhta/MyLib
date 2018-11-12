@@ -76,11 +76,19 @@ namespace Qhta.WPF.IconDefinition
         item.Draw(context);
     }
 
-    public Geometry GetGeometry()
+    public Geometry GetFillGeometry()
     {
       var group = new GeometryGroup();
       foreach (var item in Items)
-        group.Children.Add(item.GetGeometry());
+        group.Children.Add(item.GetFillGeometry());
+      return group;
+    }
+
+    public Geometry GetOutlineGeometry()
+    {
+      var group = new GeometryGroup();
+      foreach (var item in Items)
+        group.Children.Add(item.GetOutlineGeometry());
       return group;
     }
   }

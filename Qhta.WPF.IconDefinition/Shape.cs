@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
-//using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -11,6 +10,7 @@ using PenAlignment = System.Drawing.Drawing2D.PenAlignment;
 using LineJoin = System.Drawing.Drawing2D.LineJoin;
 using LineCap = System.Drawing.Drawing2D.LineCap;
 using DashCap = System.Drawing.Drawing2D.DashCap;
+using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.IconDefinition
 {
@@ -293,15 +293,24 @@ namespace Qhta.WPF.IconDefinition
     }
     #endregion
 
-    #region Geometry 
-    public override Geometry GetGeometry()
+    #region Geometry logic
+    public override Geometry GetFillGeometry()
+    {
+      var left = this.Left;
+      var top = this.Top;
+      var width = this.Width;
+      var height = this.Height;
+      var geometry = GetGeometry(left, top, width, height);
+      return geometry;
+    }
+
+    public override Geometry GetOutlineGeometry()
     {
       var left = this.Left;
       var top = this.Top;
       var width = this.Width;
       var height = this.Height;
       AdjustBounds(this.StrokePenAlignment, this.StrokeThickness, ref left, ref top, ref width, ref height);
-      var geometry = GetGeometry(left, top, width, height);
       var pen = new Pen(Brushes.Black, StrokeThickness);
       pen.StartLineCap = this.StrokeStartLineCap;
       pen.EndLineCap = this.StrokeEndLineCap;
@@ -310,11 +319,21 @@ namespace Qhta.WPF.IconDefinition
       pen.DashCap = (System.Windows.Media.PenLineCap)this.StrokeDashCap;
       if (this.StrokeDashArray!=null)
         pen.DashStyle = new DashStyle { Offset = this.StrokeDashOffset, Dashes=this.StrokeDashArray };
+      var geometry = GetGeometry(left, top, width, height);
       geometry = geometry.GetWidenedPathGeometry(pen).GetOutlinedPathGeometry();
       return geometry;
     }
 
     public abstract Geometry GetGeometry(double left, double top, double width, double height);
+
+    public override bool Contains(Point point)
+    {
+      if (!Fill.IsNullOrEmpty() && GetFillGeometry().FillContains(point))
+        return true;
+      if (!Stroke.IsNullOrEmpty() && GetOutlineGeometry().FillContains(point))
+        return true;
+      return false;
+    }
 
     #endregion
   }

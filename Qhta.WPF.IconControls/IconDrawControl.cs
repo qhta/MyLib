@@ -105,7 +105,7 @@ namespace Qhta.WPF.IconControls
           drawingContext.Pop();
           break;
         case IconDrawMode.Sketch:
-          var geometry = IconDef.Drawing.GetGeometry();
+          var geometry = IconDef.Drawing.GetOutlineGeometry();
           geometry.Transform = scaleTransform;
           var pen = new Pen(new SolidColorBrush(SketchColor), SketchThickness);
           pen.DashStyle = SketchStyle;

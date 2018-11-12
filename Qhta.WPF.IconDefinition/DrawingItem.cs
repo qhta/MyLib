@@ -66,6 +66,10 @@ namespace Qhta.WPF.IconDefinition
     public abstract void Draw(System.Windows.Media.DrawingContext context);
 
 
-    public abstract Geometry GetGeometry();
+    public abstract Geometry GetFillGeometry();
+
+    public abstract Geometry GetOutlineGeometry();
+
+    public abstract bool Contains(Point point);
   }
 }
