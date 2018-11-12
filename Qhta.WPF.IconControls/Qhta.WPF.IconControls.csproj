@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IconDrawMode.cs" />
     <Compile Include="IconDrawControl.cs" />
     <Compile Include="IconDrawEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +65,10 @@
     <ProjectReference Include="..\Qhta.WPF.IconDefinition\Qhta.WPF.IconDefinition.csproj">
       <Project>{9e17525f-3c40-4b5a-8381-c30e829a568c}</Project>
       <Name>Qhta.WPF.IconDefinition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.WPF.Utils\Qhta.WPF.Utils.csproj">
+      <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
+      <Name>Qhta.WPF.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

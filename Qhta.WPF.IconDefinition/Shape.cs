@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing.Drawing2D;
+//using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using BrushConverter = Qhta.Drawing.DrawingBrushConverter;
 using DrawingContext = Qhta.Drawing.DrawingContext;
+using PenAlignment = System.Drawing.Drawing2D.PenAlignment;
+using LineJoin = System.Drawing.Drawing2D.LineJoin;
+using LineCap = System.Drawing.Drawing2D.LineCap;
+using DashCap = System.Drawing.Drawing2D.DashCap;
 
 namespace Qhta.WPF.IconDefinition
 {
@@ -160,6 +164,17 @@ namespace Qhta.WPF.IconDefinition
       new PropertyMetadata(null));
     #endregion
 
+    #region Invalidate
+    public override void InvalidateBindings()
+    {
+      base.InvalidateBindings();
+      BindingOperations.GetBindingExpressionBase(this, Shape.FillProperty)?.UpdateTarget();
+      BindingOperations.GetBindingExpressionBase(this, Shape.StrokeProperty)?.UpdateTarget();
+      //Debug.WriteLine($"Fill={Fill}");
+    }
+    #endregion
+
+    #region Graphic drawing
     protected abstract Qhta.Drawing.Shape DrawingShape { get; set; }
 
     public override void Draw(DrawingContext context)
@@ -208,7 +223,9 @@ namespace Qhta.WPF.IconDefinition
     {
       DrawingShape.DrawOutline(context, pen, left, top, width, height);
     }
+    #endregion
 
+    #region WPF drawing
     public override void Draw(System.Windows.Media.DrawingContext context)
     {
       var left = this.Left;
@@ -274,13 +291,31 @@ namespace Qhta.WPF.IconDefinition
           break;
       }
     }
+    #endregion
 
-    public override void Invalidate()
+    #region Geometry 
+    public override Geometry GetGeometry()
     {
-      base.Invalidate();
-      BindingOperations.GetBindingExpressionBase(this, Shape.FillProperty)?.UpdateTarget();
-      BindingOperations.GetBindingExpressionBase(this, Shape.StrokeProperty)?.UpdateTarget();
-      //Debug.WriteLine($"Fill={Fill}");
+      var left = this.Left;
+      var top = this.Top;
+      var width = this.Width;
+      var height = this.Height;
+      AdjustBounds(this.StrokePenAlignment, this.StrokeThickness, ref left, ref top, ref width, ref height);
+      var geometry = GetGeometry(left, top, width, height);
+      var pen = new Pen(Brushes.Black, StrokeThickness);
+      pen.StartLineCap = this.StrokeStartLineCap;
+      pen.EndLineCap = this.StrokeEndLineCap;
+      pen.LineJoin = this.StrokeLineJoin;
+      pen.MiterLimit = this.StrokeMiterLimit;
+      pen.DashCap = (System.Windows.Media.PenLineCap)this.StrokeDashCap;
+      if (this.StrokeDashArray!=null)
+        pen.DashStyle = new DashStyle { Offset = this.StrokeDashOffset, Dashes=this.StrokeDashArray };
+      geometry = geometry.GetWidenedPathGeometry(pen).GetOutlinedPathGeometry();
+      return geometry;
     }
+
+    public abstract Geometry GetGeometry(double left, double top, double width, double height);
+
+    #endregion
   }
 }

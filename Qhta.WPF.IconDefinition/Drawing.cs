@@ -1,22 +1,68 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Markup;
-using DrawingContext = Qhta.Drawing.DrawingContext;
+using System.Windows.Media;
+
 
 namespace Qhta.WPF.IconDefinition
 {
   [ContentProperty("Items")]
   public class Drawing: FrameworkElement
   {
-    public DrawingItemsCollection Items { get; set; } = new DrawingItemsCollection();
-
-    public void Draw(DrawingContext context)
+    public Drawing()
     {
-      var newContext = new DrawingContext
+      Items = new DrawingItemsCollection();
+    }
+
+    #region Items property
+    public DrawingItemsCollection Items
+    {
+      get => (DrawingItemsCollection)GetValue(ItemsProperty);
+      set => SetValue(ItemsProperty, value);
+    }
+
+    public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register
+      ("Items", typeof(DrawingItemsCollection), typeof(Drawing),
+       new FrameworkPropertyMetadata(null,
+         FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsRender,
+         ItemsPropertyChanged)
+      );
+
+    private static void ItemsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+      (sender as Drawing).ItemsChanged();
+    }
+
+    private void ItemsChanged()
+    {
+      if (Items!=null)
+        Items.CollectionChanged+=Items_CollectionChanged;
+    }
+
+    private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+      InvalidateBindings();
+      InvalidateVisual();
+    }
+    #endregion
+
+    public void InvalidateBindings()
+    {
+      if (Items!=null)
+        foreach (var item in Items)
+          item.InvalidateBindings();
+      if (Invalidated!=null)
+        Invalidated.Invoke(this, new EventArgs());
+    }
+
+    public event EventHandler Invalidated;
+
+    public void Draw(Qhta.Drawing.DrawingContext context)
+    {
+      var newContext = new Qhta.Drawing.DrawingContext
       {
         Graphics=context.Graphics,
-        //OffsetX=context.TransformX(Left),
-        //OffsetY=context.TransformY(Top),
         ScaleX = context.ScaleX,
         ScaleY = context.ScaleY,
       };
@@ -24,12 +70,18 @@ namespace Qhta.WPF.IconDefinition
         item.Draw(newContext);
     }
 
-    public void Invalidate()
+    public void Draw(DrawingContext context)
     {
-      //base.Invalidate();
-      if (Items!=null)
-        foreach (var item in Items)
-          item.Invalidate();
+      foreach (var item in Items)
+        item.Draw(context);
+    }
+
+    public Geometry GetGeometry()
+    {
+      var group = new GeometryGroup();
+      foreach (var item in Items)
+        group.Children.Add(item.GetGeometry());
+      return group;
     }
   }
 }

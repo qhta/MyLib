@@ -44,7 +44,32 @@ namespace Qhta.WPF.IconDefinition
     }
 
     public static DependencyProperty DrawingProperty = DependencyProperty.Register
-      ("Drawing", typeof(Drawing), typeof(IconDef));
+      ("Drawing", typeof(Drawing), typeof(IconDef),
+        new FrameworkPropertyMetadata(null, 
+          FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender,
+          DrawingPropertyChanged)
+      );
+    
+    private static void DrawingPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+      (sender as IconDef).DrawingChanged();
+    }
+
+    private void DrawingChanged()
+    {
+      if (Drawing!=null)
+        Drawing.Invalidated+=Drawing_Invalidated;
+    }
+
+    private void Drawing_Invalidated(object sender, EventArgs e)
+    {
+      this.InvalidateVisual();
+      if (Invalidated!=null)
+        Invalidated.Invoke(this, new EventArgs());
+    }
+
+    public event EventHandler Invalidated;
+
     #endregion
 
     #region Source property
@@ -127,7 +152,7 @@ namespace Qhta.WPF.IconDefinition
         }
       }
       if (Drawing!=null)
-        Drawing.Invalidate();
+        Drawing.InvalidateBindings();
     }
     #endregion
 

@@ -20,7 +20,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\App.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\ColorIndicatorDrawing.xml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Qhta.WPF.IconDefinitionTest_Content.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\System.Drawing.Common.dll
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\obj\Debug\Dictionary1.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\ColorSelection.xaml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.ArrayGraphics.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.WPF.dll

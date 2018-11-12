@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Runtime.Serialization;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Qhta.WPF.IconDefinition
 {
@@ -52,17 +53,19 @@ namespace Qhta.WPF.IconDefinition
        new PropertyMetadata(0.0));
     #endregion
 
-    public abstract void Draw(Qhta.Drawing.DrawingContext context);
-
-    public abstract void Draw(System.Windows.Media.DrawingContext context);
-
-
-    public virtual void Invalidate()
+    public virtual void InvalidateBindings()
     {
       BindingOperations.GetBindingExpressionBase(this, DrawingItem.LeftProperty)?.UpdateTarget();
       BindingOperations.GetBindingExpressionBase(this, DrawingItem.TopProperty)?.UpdateTarget();
       BindingOperations.GetBindingExpressionBase(this, DrawingItem.WidthProperty)?.UpdateTarget();
       BindingOperations.GetBindingExpressionBase(this, DrawingItem.HeightProperty)?.UpdateTarget();
     }
+
+    public abstract void Draw(Qhta.Drawing.DrawingContext context);
+
+    public abstract void Draw(System.Windows.Media.DrawingContext context);
+
+
+    public abstract Geometry GetGeometry();
   }
 }

@@ -122,8 +122,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\HtmlAgilityPack.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.WPF.Controls.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.WPF.Utils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.WPF.Utils.dll.config
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.MVVM.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.HtmlUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.OrdNumbers.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\Qhta.DispatchedObjects.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconControls\bin\Debug\HtmlAgilityPack.pdb
