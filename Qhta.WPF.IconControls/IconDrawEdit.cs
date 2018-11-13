@@ -229,6 +229,7 @@ namespace Qhta.WPF.IconControls
       // Background is set to enable select nothing.
       // Otherwise no MouseButtonDown event is fired
       Background = new SolidColorBrush(Color.FromArgb(127, 255, 255, 255));
+      SelectionCanvas = new Canvas();
     }
 
     protected IconDrawControl IconDrawControl { get; private set; }
@@ -237,7 +238,12 @@ namespace Qhta.WPF.IconControls
 
     protected IconDrawControl SketchControl { get; private set; }
 
+    protected Canvas SelectionCanvas { get; private set; }
+
     public DrawingItemsCollection SelectedItems => SketchControl.IconDef.Drawing.Items;
+
+
+    private Point MouseStartPoint { get; set; }
 
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs args)
     {

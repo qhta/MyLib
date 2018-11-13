@@ -1,0 +1,11 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.ZoomPan.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.ZoomPan.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Themes\Generic.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan.g.resources
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.ZoomPan\obj\Debug\Qhta.WPF.ZoomPan.pdb
