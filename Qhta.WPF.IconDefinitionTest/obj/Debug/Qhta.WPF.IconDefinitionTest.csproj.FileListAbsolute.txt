@@ -56,3 +56,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.OrdNumbers.
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.DispatchedObjects.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\HtmlAgilityPack.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\HtmlAgilityPack.xml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.ZoomPan.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.ZoomPan.pdb

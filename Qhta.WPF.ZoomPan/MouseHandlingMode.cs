@@ -11,12 +11,12 @@
         None,
 
         /// <summary>
-        /// The user is left-dragging rectangles with the mouse.
+        /// The user is using left mouse button to draw a selecting rectangle over the viewport or its surrounding space
         /// </summary>
-        DraggingRectangles,
+        Selecting,
 
         /// <summary>
-        /// The user is left-mouse-button-dragging to pan the viewport.
+        /// The user is using left-mouse-button-to pan (drag) the viewport
         /// </summary>
         Panning,
 

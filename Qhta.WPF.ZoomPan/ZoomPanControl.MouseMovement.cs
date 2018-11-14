@@ -1,11 +1,33 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Qhta.WPF.ZoomPan
 {
   // ZoomPanControl extension to handle mouse movement events
   public partial class ZoomPanControl
   {
+
+    #region MouseMinDistance property
+    /// <summary>
+    /// Minimal distance of mouse movement to start mouse select mode.
+    /// Default is 0.
+    /// </summary>
+    public int MouseMinDistance
+    {
+      get => (int)GetValue(MouseMinDistanceProperty);
+      set => SetValue(MouseMinDistanceProperty, value);
+    }
+
+    public static readonly DependencyProperty MouseMinDistanceProperty = DependencyProperty.Register
+      ("MouseMinDistance", typeof(int), typeof(ZoomPanControl),
+         new FrameworkPropertyMetadata(0));
+
+    #endregion
 
     #region IsMousePanEnabled property
     /// <summary>
@@ -35,37 +57,68 @@ namespace Qhta.WPF.ZoomPan
         if (IsMousePanEnabled)
         {
           content.Cursor = Cursors.SizeAll;
-          //content.IsEnabled=false;
         }
         else
         {
           content.Cursor = Cursors.Arrow;
-          //content.IsEnabled=true;
         }
       }
     }
 
     #endregion
 
+    #region IsMouseSelectEnabled property
+    /// <summary>
+    /// Set to 'true' to enable content movement by mouse click and drag.
+    /// This is set to 'false' by default.
+    /// </summary>
+    public bool IsMouseSelectEnabled
+    {
+      get => (bool)GetValue(IsMouseSelectEnabledProperty);
+      set => SetValue(IsMouseSelectEnabledProperty, value);
+    }
+
+    public static readonly DependencyProperty IsMouseSelectEnabledProperty = DependencyProperty.Register
+      ("IsMouseSelectEnabled", typeof(bool), typeof(ZoomPanControl),
+         new FrameworkPropertyMetadata(false));
+
+    #endregion
+
+    //public Shape selectingShape = 
+    //  new Rectangle
+    //  { Stroke = Brushes.Blue, StrokeThickness=1, StrokeDashArray=new DoubleCollection(new double[] {2,2 }) };
+
+
+    #region private fields
     /// <summary>
     /// Current state of the mouse handling logic
     /// </summary>
-    private MouseHandlingMode mouseHandlingMode { get; set; }
+    private MouseHandlingMode mouseHandlingMode;
 
     /// <summary>
     /// The point that was clicked relative to the ZoomControl.
     /// </summary>
-    private Point origZoomControlMouseDownPoint { get; set; }
+    private Point origZoomControlMouseDownPoint;
 
     /// <summary>
     /// The point that was clicked relative to the content that is contained within the ZoomAndPanControl.
     /// </summary>
-    private Point origContentMouseDownPoint { get; set; }
+    private Point origContentMouseDownPoint;
+
+    /// <summary>
+    /// Records if the mouse button is currently down
+    /// </summary>
+    private bool isMouseButtonDown;
 
     /// <summary>
     /// Records which mouse button clicked during mouse dragging.
     /// </summary>
-    private MouseButton mouseButtonDown { get; set; }
+    private MouseButton mouseButtonDown;
+
+    private Canvas overlayCanvas;
+
+    private Shape selectingShape;
+    #endregion
 
     protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
     {
@@ -76,6 +129,7 @@ namespace Qhta.WPF.ZoomPan
       Keyboard.Focus(control);
 
       mouseButtonDown = e.ChangedButton;
+      isMouseButtonDown = true;
       origZoomControlMouseDownPoint = e.GetPosition(this);
       origContentMouseDownPoint = e.GetPosition(control);
 
@@ -117,18 +171,47 @@ namespace Qhta.WPF.ZoomPan
             ZoomOut();
           }
         }
+        else
+        if (mouseHandlingMode == MouseHandlingMode.Selecting)
+        {
+          if (overlayCanvas!=null && selectingShape!=null)
+          {
+            if (Content is IAreaSelectionTarget selectionTarget)
+            {
+              var geometry = selectingShape.RenderedGeometry;
+              var descale = 1.0/ContentScale;
+              var selectionOffsetX = Canvas.GetLeft(selectingShape);
+              var selectionOffsetY = Canvas.GetTop(selectingShape);
+              var contentOffsetX = contentOffsetTransform.X;
+              var contentOffsetY = contentOffsetTransform.Y;
+              var translateX = (selectionOffsetX/ContentScale-contentOffsetX);
+              var translateY = (selectionOffsetY/ContentScale-contentOffsetY);
+              var transformGroup = new TransformGroup();
+              transformGroup.Children.Add(new ScaleTransform(descale, descale));
+              transformGroup.Children.Add(new TranslateTransform(translateX, translateY));
+              geometry.Transform = transformGroup;
+              selectionTarget.NotifyAreaSelection(this, geometry);
+            }
+            overlayCanvas.Children.Remove(selectingShape);
+          }
+        }
 
         this.ReleaseMouseCapture();
         mouseHandlingMode = MouseHandlingMode.None;
         e.Handled = true;
       }
+      isMouseButtonDown = false;
     }
 
     protected override void OnPreviewMouseMove(MouseEventArgs e)
     {
+      if (!isMouseButtonDown)
+        return;
       var control = this.Content as FrameworkElement;
       if (control==null)
         return;
+      Point curMousePoint = e.GetPosition(this);
+      Vector moveOffset = curMousePoint - origZoomControlMouseDownPoint;
       if (mouseHandlingMode == MouseHandlingMode.Panning)
       {
         //
@@ -137,7 +220,6 @@ namespace Qhta.WPF.ZoomPan
         //
         Point curContentMousePoint = e.GetPosition(control);
         Vector dragOffset = curContentMousePoint - origContentMouseDownPoint;
-
         if (dragOffset.X!=0 || dragOffset.Y!=0)
         {
           this.ContentOffsetX -= dragOffset.X;
@@ -145,8 +227,61 @@ namespace Qhta.WPF.ZoomPan
         }
         e.Handled = true;
       }
+      if (moveOffset.X>=MouseMinDistance || moveOffset.Y>=MouseMinDistance)
+      {
+        // The minimal mouse distance should be small so there is no need to evaluate current distance with formula
+        // Math.Sqrt (dragOffset.X*dragOffset.X + dragOffset.Y*dragOffset.Y)>=MouseMinDistance
+        if (IsMouseSelectEnabled && mouseHandlingMode == MouseHandlingMode.None)
+        {
+          if (overlayCanvas!=null && selectingShape!=null)
+          {
+            var bounds = GetSelectingRectBounds(origZoomControlMouseDownPoint, moveOffset);
+            selectingShape.Width=bounds.Width;
+            selectingShape.Height=bounds.Height;
+            overlayCanvas.Children.Add(selectingShape);
+            Canvas.SetLeft(selectingShape, bounds.Left);
+            Canvas.SetTop(selectingShape, bounds.Top);
+            mouseHandlingMode = MouseHandlingMode.Selecting;
+          }
+        }
+      }
+      if (mouseHandlingMode == MouseHandlingMode.Selecting)
+      {
+        var bounds = GetSelectingRectBounds(origZoomControlMouseDownPoint, moveOffset);
+        selectingShape.Width=bounds.Width;
+        selectingShape.Height=bounds.Height;
+        Canvas.SetLeft(selectingShape, bounds.Left);
+        Canvas.SetTop(selectingShape, bounds.Top);
+        e.Handled = true;
+      }
+      if (mouseHandlingMode != MouseHandlingMode.Selecting)
+      {
+        if (overlayCanvas!=null && selectingShape!=null)
+        {
+          if (selectingShape.Parent==overlayCanvas)
+            overlayCanvas.Children.Remove(selectingShape);
+        }
+      }
     }
 
+    private Rect GetSelectingRectBounds(Point startCoords, Vector distance)
+    {
+      var left = startCoords.X;
+      var top = startCoords.Y;
+      var width = distance.X;
+      var height = distance.Y;
+      if (width<0)
+      {
+        width = -width;
+        left = left-width;
+      }
+      if (height<0)
+      {
+        height = -height;
+        top = top-height;
+      }
+      return new Rect(left, top, width, height);
+    }
     protected override void OnMouseWheel(MouseWheelEventArgs e)
     {
       e.Handled = true;

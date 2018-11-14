@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
 using System.Diagnostics;
+using System.Windows.Shapes;
 
 namespace Qhta.WPF.ZoomPan
 {
@@ -20,11 +21,11 @@ namespace Qhta.WPF.ZoomPan
   /// </summary>
   public partial class ZoomPanControl : ContentControl, IScrollInfo
   {
-
+    #region private fields
     /// <summary>
     /// Reference to the underlying content, which is named PART_Content in the template.
     /// </summary>
-    private FrameworkElement content { get; set; }
+    private FrameworkElement content;
 
     /// <summary>
     /// The transform that is applied to the content to scale it by 'ContentScale'.
@@ -34,23 +35,23 @@ namespace Qhta.WPF.ZoomPan
     /// <summary>
     /// The transform that is applied to the content to offset it by 'ContentOffsetX' and 'ContentOffsetY'.
     /// </summary>
-    private TranslateTransform contentOffsetTransform { get; set; }
+    private TranslateTransform contentOffsetTransform;
 
     /// <summary>
     /// Enable the update of the content offset as the content scale changes.
     /// This enabled for zooming about a point (Google-maps style zooming) and zooming to a rect.
     /// </summary>
-    private bool enableContentOffsetUpdateFromScale { get; set; }
+    private bool enableContentOffsetUpdateFromScale;
 
     /// <summary>
     /// Enable subtraction of ContentOffsetX/Y from center position in UpdateTranslationX/Y
     /// </summary>
-    private bool disableOffsetUsageWhenCentered { get; set; }
+    private bool disableOffsetUsageWhenCentered;
 
     /// <summary>
     /// Used to disable synchronization between IScrollInfo interface and ContentOffsetX/ContentOffsetY.
     /// </summary>
-    private bool disableScrollOffsetSync { get; set; }
+    private bool disableScrollOffsetSync;
 
     /// <summary>
     /// Normally when content offsets changes the content focus is automatically updated.
@@ -58,7 +59,7 @@ namespace Qhta.WPF.ZoomPan
     /// When we are zooming in or out we 'disableContentFocusSync' is set to 'true' because 
     /// we are zooming in or out relative to the content focus we don't want to update the focus.
     /// </summary>
-    private bool disableContentFocusSync { get; set; }
+    private bool disableContentFocusSync;
 
     /// <summary>
     /// The width of the viewport in content coordinates, clamped to the width of the content.
@@ -69,19 +70,7 @@ namespace Qhta.WPF.ZoomPan
     /// The height of the viewport in content coordinates, clamped to the height of the content.
     /// </summary>
     private double constrainedContentViewportHeight;
-
-    //
-    // These data members are for the implementation of the IScrollInfo interface.
-    // This interface works with the ScrollViewer such that when ZoomPanControl is 
-    // wrapped (in XAML) with a ScrollViewer the IScrollInfo interface allows the ZoomPanControl to
-    // handle the the scrollbar offsets.
-    //
-    // The IScrollInfo properties and member functions are implemented in ZoomAndPanControl_IScrollInfo.cs.
-    //
-    // There is a good series of articles showing how to implement IScrollInfo starting here:
-    //     http://blogs.msdn.com/bencon/archive/2006/01/05/509991.aspx
-    //
-
+    
     /// <summary>
     /// Records the unscaled extent of the content.
     /// This is calculated during the measure and arrange.
@@ -93,6 +82,7 @@ namespace Qhta.WPF.ZoomPan
     /// This is calculated during the measure and arrange.
     /// </summary>
     private Size viewport;
+    #endregion
 
     #region ContentScale property
     /// <summary>
@@ -210,6 +200,24 @@ namespace Qhta.WPF.ZoomPan
       c.ContentScale = Math.Min(Math.Max(c.ContentScale, c.MinContentScale), c.MaxContentScale);
     }
     #endregion
+
+    #region ContentScaleFactor property
+    /// <summary>
+    /// Scale (or zoom) factor used to multiply or divide scale in ZoomIn/ZoomOut operations.
+    /// The default value is 2.0
+    /// </summary>
+    public double ContentScaleFactor
+    {
+      get => (double)GetValue(ContentScaleFactorProperty);
+      set => SetValue(ContentScaleFactorProperty, value);
+    }
+    
+    public static readonly DependencyProperty ContentScaleFactorProperty =
+            DependencyProperty.Register("ContentScaleFactor", typeof(double), typeof(ZoomPanControl),
+                                        new FrameworkPropertyMetadata(2.0));
+    
+    #endregion
+
 
     #region ContentOffsetX property
     /// <summary>
@@ -452,13 +460,13 @@ namespace Qhta.WPF.ZoomPan
 
     public void ZoomIn()
     {
-      this.ContentScale *= 2;
+      this.ContentScale *= ContentScaleFactor;
     }
 
     /// <summary>
     public void ZoomOut()
     {
-      this.ContentScale /= 2;
+      this.ContentScale /= ContentScaleFactor;
     }
 
     public void ZoomFit()
@@ -538,7 +546,10 @@ namespace Qhta.WPF.ZoomPan
     {
       base.OnApplyTemplate();
 
+
       content = this.Template.FindName("PART_Content", this) as FrameworkElement;
+      overlayCanvas = this.Template.FindName("OverlayCanvas", this) as Canvas;
+      selectingShape = content.TryFindResource("SelectingShape") as Shape;
       if (content != null)
       {
         //

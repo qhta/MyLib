@@ -143,6 +143,10 @@
       <Project>{9e17525f-3c40-4b5a-8381-c30e829a568c}</Project>
       <Name>Qhta.WPF.IconDefinition</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Qhta.WPF.ZoomPan\Qhta.WPF.ZoomPan.csproj">
+      <Project>{9ff7ea3a-b845-4e9c-9ae8-8e3825f7daba}</Project>
+      <Name>Qhta.WPF.ZoomPan</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

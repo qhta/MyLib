@@ -9,10 +9,11 @@ using System.Windows.Media;
 using Qhta.WPF.Controls;
 using Qhta.WPF.IconDefinition;
 using Qhta.WPF.Utils;
+using Qhta.WPF.ZoomPan;
 
 namespace Qhta.WPF.IconControls
 {
-  public class IconDrawEdit: Grid
+  public class IconDrawEdit: Grid, IAreaSelectionTarget
   {
 
     #region IconDef property
@@ -257,12 +258,26 @@ namespace Qhta.WPF.IconControls
 
       pos.X /= ResX;
       pos.Y /= ResY;
-      var drawingItem = IconDef.Drawing.Items.LastOrDefault(item => item.Contains(pos));
+      var selectedItem = IconDef.Drawing.Items.LastOrDefault(item => item.Contains(pos));
       if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
         SelectedItems.Clear();
-      if (drawingItem!=null)
-        SelectedItems.Add(drawingItem);
+      if (selectedItem!=null)
+        SelectedItems.Add(selectedItem);
       args.Handled=true;
+    }
+
+    public void NotifyAreaSelection(object sender, Geometry geometry)
+    {
+      var descaleX = ResX/ActualWidth;
+      var descaleY = ResY/ActualHeight;
+      (geometry.Transform as TransformGroup).Children.Add(new ScaleTransform(descaleX, descaleY));
+      if (IconDef?.Drawing?.Items==null)
+        return;
+      var selectedItems = IconDef.Drawing.Items.Where(item => geometry.FillContains(item.GetFillGeometry())).ToList();
+      if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+        SelectedItems.Clear();
+      foreach (var selectedItem in selectedItems)
+        SelectedItems.Add(selectedItem);
     }
   }
 }
