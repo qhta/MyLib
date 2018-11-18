@@ -7,8 +7,23 @@ using System.Windows.Media;
 namespace Qhta.WPF.IconDefinition
 {
   [KnownType(typeof(Rectangle))]
-  public abstract class DrawingItem: DependencyObject
+  public abstract class DrawingItem: DependencyObject, INotifyPropertyChanged
   {
+
+    #region INotifyPropertyChanged interface support
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public void NotifyPropertyChanged(string propertyName)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected static void DependencyPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+      (sender as DrawingItem).NotifyPropertyChanged(args.Property.Name);
+    }
+    #endregion
+
     #region Left property
     public double Left
     {
@@ -17,7 +32,7 @@ namespace Qhta.WPF.IconDefinition
     }
     public static DependencyProperty LeftProperty = DependencyProperty.Register
       ("Left", typeof(double), typeof(DrawingItem),
-       new PropertyMetadata(0.0));
+       new PropertyMetadata(0.0, DependencyPropertyChanged));
     #endregion
 
     #region Top property
@@ -28,10 +43,10 @@ namespace Qhta.WPF.IconDefinition
     }
     public static DependencyProperty TopProperty = DependencyProperty.Register
       ("Top", typeof(double), typeof(DrawingItem),
-       new PropertyMetadata(0.0));
+       new PropertyMetadata(0.0, DependencyPropertyChanged));
     #endregion
 
-    #region Left property
+    #region Width property
     public double Width
     {
       get => (double)GetValue(WidthProperty);
@@ -39,7 +54,7 @@ namespace Qhta.WPF.IconDefinition
     }
     public static DependencyProperty WidthProperty = DependencyProperty.Register
       ("Width", typeof(double), typeof(DrawingItem),
-       new PropertyMetadata(0.0));
+       new PropertyMetadata(0.0, DependencyPropertyChanged));
     #endregion
 
     #region Height property
@@ -50,7 +65,8 @@ namespace Qhta.WPF.IconDefinition
     }
     public static DependencyProperty HeightProperty = DependencyProperty.Register
       ("Height", typeof(double), typeof(DrawingItem),
-       new PropertyMetadata(0.0));
+       new PropertyMetadata(0.0, DependencyPropertyChanged));
+
     #endregion
 
     public virtual void InvalidateBindings()

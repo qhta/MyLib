@@ -41,12 +41,6 @@
     <Reference Include="Qhta.MVVM, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.MVVM.1.0.1\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.MVVM.DataViewModels, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.MVVM.DataViewModels.1.0.1\lib\netstandard2.0\Qhta.MVVM.DataViewModels.dll</HintPath>
-    </Reference>
-    <Reference Include="Qhta.OrdNumbers, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.OrdNumbers.2.0.0\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -60,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataCellTemplateSelector.cs" />
     <Compile Include="DataGridExpandableView.xaml.cs">
       <DependentUpon>DataGridExpandableView.xaml</DependentUpon>
     </Compile>
@@ -71,7 +66,11 @@
       <DependentUpon>DataViewExpander.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyGrid.cs" />
+    <Compile Include="PropertyGrid.xaml.cs">
+      <DependentUpon>PropertyGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyListViewModel.cs" />
+    <Compile Include="PropertyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="DataGridExpandableView.xaml">
@@ -86,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PropertyGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\PropertyGridStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.MVVM.DataViewModels\Qhta.MVVM.DataViewModels.csproj">
+      <Project>{8fac4420-731e-46e1-9456-f425dc17595a}</Project>
+      <Name>Qhta.MVVM.DataViewModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.Controls\Qhta.WPF.Controls.csproj">
       <Project>{337e1dee-1494-434b-8a36-de929a3805d7}</Project>
       <Name>Qhta.WPF.Controls</Name>

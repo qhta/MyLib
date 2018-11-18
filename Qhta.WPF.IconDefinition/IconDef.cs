@@ -12,12 +12,10 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Qhta.Drawing;
-//using DrawingBitmap = System.Drawing.Bitmap;
-//using Qhta.Drawing;
-//using System.Drawing.Imaging;
 using Size = System.Windows.Size;
 using DrawingContext = Qhta.Drawing.DrawingContext;
 using System.Windows.Data;
+using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.IconDefinition
 {
@@ -58,14 +56,15 @@ namespace Qhta.WPF.IconDefinition
     private void DrawingChanged()
     {
       if (Drawing!=null)
+      {
         Drawing.Invalidated+=Drawing_Invalidated;
+      }
     }
 
     private void Drawing_Invalidated(object sender, EventArgs e)
     {
       this.InvalidateVisual();
-      if (Invalidated!=null)
-        Invalidated.Invoke(this, new EventArgs());
+      Invalidated?.Invoke(this, new EventArgs());
     }
 
     public event EventHandler Invalidated;
@@ -138,13 +137,16 @@ namespace Qhta.WPF.IconDefinition
           obj = parameter.Value;
         if (obj is System.Windows.Media.Color color)
         { 
-          //Debug.WriteLine($"{entry.Key}={color}");
+          Debug.WriteLine($"{entry.Key}={color}");
         }
         if (obj is SolidColorBrush solidBrush)
         {
           var binding = BindingOperations.GetBindingExpressionBase(solidBrush, SolidColorBrush.ColorProperty);
           if (binding!=null)
+          {
+            //Debug.WriteLine(binding.GetString());
             binding.UpdateTarget();
+          }
           //(solidBrush as DependencyObject).CoerceValue(SolidColorBrush.ColorProperty);
           //(solidBrush as DependencyObject).InvalidateProperty(SolidColorBrush.ColorProperty);
           var color1 = solidBrush.Color;

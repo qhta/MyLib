@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -40,10 +43,21 @@ namespace Qhta.WPF.IconDefinition
         Items.CollectionChanged+=Items_CollectionChanged;
     }
 
-    private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
       InvalidateBindings();
       InvalidateVisual();
+      if (args.Action == NotifyCollectionChangedAction.Add)
+      {
+        foreach (var drawingItem in args.NewItems.Cast<DrawingItem>())
+          drawingItem.PropertyChanged+=DrawingItem_PropertyChanged;
+      }
+    }
+
+    private void DrawingItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      this.InvalidateVisual();
+      this.Invalidated?.Invoke(this, new EventArgs());
     }
     #endregion
 

@@ -11,8 +11,7 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.DispatchedObjects": "1.0.1",
-          "Qhta.MVVM": "1.0.1",
-          "WindowsBase": "4.0.0.0"
+          "Qhta.MVVM": "1.0.1"
         },
         "runtime": {
           "Qhta.MVVM.DataViewModels.dll": {}
@@ -49,38 +48,6 @@
           "lib/netstandard2.0/Qhta.OrdNumbers.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.0.0.0"
-          }
-        }
-      },
-      "WindowsBase/4.0.0.0": {
-        "runtime": {
-          "WindowsBase.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
-        }
-      },
-      "System.Xaml/4.0.0.0": {
-        "runtime": {
-          "System.Xaml.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
-        }
-      },
-      "Accessibility/4.0.0.0": {
-        "runtime": {
-          "Accessibility.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
-        }
-      },
-      "System.Security/4.0.0.0": {
-        "runtime": {
-          "System.Security.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
           }
         }
       }
@@ -126,26 +93,6 @@
       "sha512": "sha512-1zILRGFggm7oi+sucqHzO7M0vUq0W/oXeJS4sX3eWPV4F9neycqIDbkYxKhEHy7CTer/2VNSarxeuqjtrJSdLw==",
       "path": "qhta.ordnumbers/2.0.0",
       "hashPath": "qhta.ordnumbers.2.0.0.nupkg.sha512"
-    },
-    "WindowsBase/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Xaml/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Accessibility/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Security/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

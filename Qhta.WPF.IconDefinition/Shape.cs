@@ -24,7 +24,7 @@ namespace Qhta.WPF.IconDefinition
     }
     public static readonly DependencyProperty FillProperty = DependencyProperty.Register
       ("Fill", typeof(Brush), typeof(Shape),
-       new PropertyMetadata(null));
+       new PropertyMetadata(null, DependencyPropertyChanged));
     #endregion
 
     #region Stroke property
@@ -35,7 +35,7 @@ namespace Qhta.WPF.IconDefinition
     }
     public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register
       ("Stroke", typeof(Brush), typeof(DrawingItem),
-       new PropertyMetadata(null));
+       new PropertyMetadata(null, DependencyPropertyChanged));
     #endregion
 
     #region StrokeThickness property
@@ -49,7 +49,8 @@ namespace Qhta.WPF.IconDefinition
     }
 
     public static readonly DependencyProperty StrokeThicknessProperty = DependencyProperty.Register
-      ("StrokeThickness", typeof(double), typeof(Shape), new PropertyMetadata(1.0));
+      ("StrokeThickness", typeof(double), typeof(Shape), 
+      new PropertyMetadata(1.0, DependencyPropertyChanged));
     #endregion
 
     #region StrokePenAlignment property
@@ -62,7 +63,8 @@ namespace Qhta.WPF.IconDefinition
     }
 
     public static readonly DependencyProperty StrokePenAlignmentProperty = DependencyProperty.Register
-      ("StrokePenAlignment", typeof(PenAlignment), typeof(Shape), new PropertyMetadata(PenAlignment.Center));
+      ("StrokePenAlignment", typeof(PenAlignment), typeof(Shape), 
+      new PropertyMetadata(PenAlignment.Center, DependencyPropertyChanged));
     #endregion
     
     #region StrokeStartLineCap property
@@ -76,7 +78,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeStartLineCapProperty = DependencyProperty.Register
       ("StrokeStartLineCap", typeof(PenLineCap), typeof(Shape),
-      new PropertyMetadata(PenLineCap.Flat));
+      new PropertyMetadata(PenLineCap.Flat, DependencyPropertyChanged));
 
     #endregion
 
@@ -91,7 +93,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeEndLineCapProperty = DependencyProperty.Register
       ("StrokeEndLineCap", typeof(PenLineCap), typeof(Shape),
-      new PropertyMetadata(PenLineCap.Flat));
+      new PropertyMetadata(PenLineCap.Flat, DependencyPropertyChanged));
     #endregion
 
     #region StrokeDashCap property
@@ -105,7 +107,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeDashCapProperty = DependencyProperty.Register
       ("StrokeDashCap", typeof(DashCap), typeof(Shape),
-      new PropertyMetadata(DashCap.Flat));
+      new PropertyMetadata(DashCap.Flat, DependencyPropertyChanged));
     #endregion
 
     #region StrokeLineJoin property
@@ -119,7 +121,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeLineJoinProperty = DependencyProperty.Register
       ("StrokeLineJoin", typeof(PenLineJoin), typeof(Shape),
-      new PropertyMetadata(PenLineJoin.Miter));
+      new PropertyMetadata(PenLineJoin.Miter, DependencyPropertyChanged));
     #endregion
 
     #region StrokeMiterLimit
@@ -133,7 +135,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeMiterLimitProperty = DependencyProperty.Register
       ("StrokeMiterLimit", typeof(double), typeof(Shape),
-      new PropertyMetadata(10.0));
+      new PropertyMetadata(10.0, DependencyPropertyChanged));
     #endregion
 
     #region StrokeDashOffset
@@ -147,7 +149,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeDashOffsetProperty = DependencyProperty.Register
       ("StrokeDashOffset", typeof(double?), typeof(Shape),
-      new PropertyMetadata(0.0));
+      new PropertyMetadata(0.0, DependencyPropertyChanged));
     #endregion
 
     #region StrokeDashArray property
@@ -161,7 +163,7 @@ namespace Qhta.WPF.IconDefinition
 
     public static readonly DependencyProperty StrokeDashArrayProperty = DependencyProperty.Register
       ("StrokeDashArray", typeof(DoubleCollection), typeof(Shape),
-      new PropertyMetadata(null));
+      new PropertyMetadata(null, DependencyPropertyChanged));
     #endregion
 
     #region Invalidate
@@ -170,7 +172,6 @@ namespace Qhta.WPF.IconDefinition
       base.InvalidateBindings();
       BindingOperations.GetBindingExpressionBase(this, Shape.FillProperty)?.UpdateTarget();
       BindingOperations.GetBindingExpressionBase(this, Shape.StrokeProperty)?.UpdateTarget();
-      //Debug.WriteLine($"Fill={Fill}");
     }
     #endregion
 
@@ -191,7 +192,7 @@ namespace Qhta.WPF.IconDefinition
       }
       if (Stroke!=null)
       {
-        var lineWidth = 1.0;
+        var lineWidth = StrokeThickness;
         lineWidth=(float)context.ScaleXY(lineWidth);
         var outlineBrush = BrushConverter.ToDrawingBrush(Stroke) as System.Drawing.SolidBrush;
         var pen = new System.Drawing.Pen(outlineBrush.Color, (float)lineWidth);
@@ -209,6 +210,7 @@ namespace Qhta.WPF.IconDefinition
         pen.LineJoin = DrawingShape.StrokeLineJoin = (LineJoin)StrokeLineJoin;
         pen.MiterLimit = (float)(DrawingShape.StrokeMiterLimit = StrokeMiterLimit);
         pen.Alignment = DrawingShape.StrokePenAlignment = StrokePenAlignment;
+
         DrawOutline(context, pen, left, top, width, height);
       }
     }
@@ -233,7 +235,7 @@ namespace Qhta.WPF.IconDefinition
       var width = this.Width;
       var height = this.Height;
       var brush = Fill;
-      var lineWidth = 1.0;
+      var lineWidth = StrokeThickness;
       Pen pen = null;
       if (Stroke!=null)
       {
@@ -251,7 +253,9 @@ namespace Qhta.WPF.IconDefinition
         pen.MiterLimit = StrokeMiterLimit;
         var penAlignment = StrokePenAlignment;
         if (penAlignment!=PenAlignment.Center)
+        {
           AdjustBounds(penAlignment, lineWidth, ref left, ref top, ref width, ref height);
+        }
       }
       DrawShape(context, brush, pen, left, top, width, height);
     }

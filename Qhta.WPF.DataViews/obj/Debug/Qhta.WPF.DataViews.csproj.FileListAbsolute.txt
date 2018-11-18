@@ -124,3 +124,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.DataViews\obj\Debug\Qhta.WPF.DataViews.csproj
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.DataViews\obj\Debug\Qhta.WPF.DataViews.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.DataViews\obj\Debug\Qhta.WPF.DataViews.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.DataViews\obj\Debug\Qhta.WPF.DataViews.pdb
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.DataViews.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.DataViews.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.DataViews\obj\Debug\PropertyGrid.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.DataViews\obj\Debug\PropertyGrid.baml

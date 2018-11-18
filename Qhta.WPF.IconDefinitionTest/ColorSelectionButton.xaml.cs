@@ -17,8 +17,12 @@ namespace Qhta.WPF.IconDefinitionTest
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
       IconDef icon = this.FindResource("ColorIndicatorIconDef") as IconDef;
-      var primaryColor = icon.Resources["PrimaryColor"] as Parameter;
-      primaryColor.Value = Colors.Red;
+      if (icon.Resources["PrimaryColor"] is Parameter primaryColorParameter)
+      {
+        primaryColorParameter.Value = Colors.Red;
+      }
+      else
+        icon.Resources["PrimaryColor"] = Colors.Red;
       icon.Invalidate();
       var source = this.Image.Source;
       this.Image.InvalidateProperty(Image.SourceProperty);

@@ -4,7 +4,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewM
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewModels.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewModels.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewModels.AssemblyInfo.cs
-D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewModels.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.DataViewModels.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewModels.dll
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\obj\Debug\Qhta.MVVM.DataViewModels.pdb

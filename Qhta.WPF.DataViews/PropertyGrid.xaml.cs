@@ -1,65 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Markup;
 using Qhta.MVVM;
 
 namespace Qhta.WPF.DataViews
 {
-  public class PropertyGrid: DataGrid
-  {
-    static PropertyGrid()
-    {
-      DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyGrid),
-          new FrameworkPropertyMetadata(typeof(PropertyGrid)));
-    }
 
+  public partial class PropertyGrid : UserControl
+  {
     public PropertyGrid()
     {
-      AutoGenerateColumns=false;
-      DataContextChanged+=PropertyGrid_DataContextChanged;
-      
-      PropertyColumn.Header = PropertyColumnHeader;
-      PropertyColumn.Binding = new Binding("Name");
-      PropertyColumn.IsReadOnly=true;
-      Columns.Add(PropertyColumn);
-      
-      ValueColumn.Header = ValueColumnHeader;
-      //ValueColumn.CellTemplate = new DataTemplate();
-      //ValueColumn.CellTemplate.Template= new TemplateContent();
-      ValueColumn.Binding = new Binding("Value") { Mode = BindingMode.TwoWay, ValidatesOnExceptions=true,
-      NotifyOnValidationError=true};
-      //ValueColumn.IsReadOnly=true;
-      //ValueColumn.CellStyle = null;
-      //ValueColumn.EditingElementStyle = null;
-      //ValueColumn.ElementStyle = null;
-      Columns.Add(ValueColumn);
+      InitializeComponent();
+      MainDataGrid.AutoGenerateColumns=false;
+      MainDataGrid.DataContextChanged+=PropertyGrid_DataContextChanged;
     }
-
-    DataGridTextColumn PropertyColumn = new DataGridTextColumn();
-    DataGridTextColumn ValueColumn = new DataGridTextColumn();
-
-    //public override void OnApplyTemplate()
-    //{
-    //  Debug.WriteLine($"PropertyGrid.OnApplyTemplate({RowValidationErrorTemplate})");
-    //  if (RowValidationErrorTemplate!=null)
-    //  {
-    //    var str = XamlWriter.Save(RowValidationErrorTemplate);
-    //    Debug.WriteLine(str);
-    //  }
-    //  //var setter = Style.Setters.Where(item => item is Setter)
-    //  //  .Cast<Setter>()
-    //  //  .Where(item => item.Property==DataGrid.RowValidationErrorTemplateProperty)
-    //  //  .FirstOrDefault();
-    //  //if (setter!=null)
-    //  //  SetValue(RowValidationErrorTemplateProperty, setter.Value);
-    //}
 
     #region PropertyColumnHeader property
     public object PropertyColumnHeader
@@ -122,13 +81,13 @@ namespace Qhta.WPF.DataViews
     public DataGridLength ValueColumnWidth
     {
       get => (DataGridLength)GetValue(ValueColumnWidthProperty);
-      set =>  SetValue(ValueColumnWidthProperty, value);
+      set => SetValue(ValueColumnWidthProperty, value);
     }
 
     public static DependencyProperty ValueColumnWidthProperty = DependencyProperty.Register
-      ("ValueColumnWidth", typeof(DataGridLength), typeof(PropertyGrid), 
-      new FrameworkPropertyMetadata(default(DataGridLength), 
-        FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, 
+      ("ValueColumnWidth", typeof(DataGridLength), typeof(PropertyGrid),
+      new FrameworkPropertyMetadata(default(DataGridLength),
+        FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender,
         ValueColumnWidthPropertyChanged));
 
     private static void ValueColumnWidthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -156,31 +115,13 @@ namespace Qhta.WPF.DataViews
     }
     #endregion
 
-    #region EditingElementStyle property
-    public Style EditingElementStyle
-    {
-      get => (Style)GetValue(EditingElementStyleProperty);
-      set => SetValue(EditingElementStyleProperty, value);
-    }
-
-    public static readonly DependencyProperty EditingElementStyleProperty = DependencyProperty.Register
-      ("EditingElementStyle", typeof(Style), typeof(PropertyGrid),
-      new FrameworkPropertyMetadata(null,
-        FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender,
-        EditingElementStylePropertyChanged));
-
-    private static void EditingElementStylePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    {
-      (sender as PropertyGrid).ValueColumn.EditingElementStyle = (Style)args.NewValue;
-    }
-    #endregion
-
     private void PropertyGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
       if (e.NewValue!=null)
         Update(e.NewValue);
     }
 
+    #region PropertiesSource property
     public PropertyListViewModel PropertiesSource { get; private set; }
 
     public void Update()
@@ -193,14 +134,14 @@ namespace Qhta.WPF.DataViews
       PropertiesSource = new PropertyListViewModel();
       if (source!=null)
         PropertiesSource.AddRange(GetDisplayProperties(source).Select(item => new PropertyViewModel(item) { Instance=source }));
-      ItemsSource=PropertiesSource;
+      MainDataGrid.ItemsSource=PropertiesSource;
       InvalidateVisual();
     }
 
     private static IEnumerable<PropertyInfo> GetDisplayProperties(object source)
     {
       Type sourceType = source.GetType();
-      var result= sourceType.GetProperties()
+      var result = sourceType.GetProperties()
         .Where(item => item.GetCustomAttribute<DisplayPropertyAttribute>()!=null)
         .ToList();
       if (result.Count()==0 && source is DependencyObject dependencyObject)
@@ -221,6 +162,19 @@ namespace Qhta.WPF.DataViews
           .ToList();
       }
       return result;
+    }
+    #endregion
+
+    private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs args)
+    {
+      var comboBox = sender as ComboBox;
+      foreach (var item in args.AddedItems)
+      {
+        comboBox.Text = item.ToString();
+        BindingOperations.GetBindingExpressionBase(comboBox, ComboBox.TextProperty)?.UpdateSource();
+        break;
+      }
+
     }
   }
 }

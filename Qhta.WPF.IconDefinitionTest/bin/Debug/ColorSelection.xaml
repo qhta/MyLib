@@ -4,11 +4,12 @@
                     >
   <i:IconDef.Resources>
     <i:Parameter x:Key="PrimaryColor">
-        <Color>Black</Color>
+      <Color>Black</Color>
     </i:Parameter>
     <i:Parameter x:Key="SecondaryColor">
       <Color>White</Color>
     </i:Parameter>
+    <Color x:Key="StrokeColor">Gray</Color>
     <i:Parameter x:Key="PrimaryColorBrush1">
       <i:Parameter.Value>
         <SolidColorBrush Color="{Binding Source={StaticResource PrimaryColor}, Path=Value}"/>
@@ -17,16 +18,17 @@
     <i:Parameter x:Key="SecondaryColorBrush1">
       <SolidColorBrush Color="{Binding Source={StaticResource SecondaryColor}, Path=Value}"/>
     </i:Parameter>
+    <SolidColorBrush x:Key="StrokeColorBrush1" Color="{DynamicResource StrokeColor}"/>
   </i:IconDef.Resources>
   <i:IconDef.Drawing>
     <i:Drawing Width="16" Height="16">
       <i:Rectangle Left="6" Top="6" Width="8" Height="8" 
                  Fill="{Binding Source={StaticResource SecondaryColorBrush1}, Path=Value}" 
-                 Stroke="Black"
+                 Stroke="{StaticResource StrokeColorBrush1}"
                  />
       <i:Rectangle Left="2" Top="2" Width="8" Height="8" 
                  Fill="{Binding Source={StaticResource PrimaryColorBrush1}, Path=Value}" 
-                 Stroke="Black"
+                 Stroke="{StaticResource StrokeColorBrush1}"
                  />
     </i:Drawing>
   </i:IconDef.Drawing>
