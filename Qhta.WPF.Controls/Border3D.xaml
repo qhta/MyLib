@@ -1,0 +1,84 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Qhta.WPF.Controls" 
+  >
+
+  <local:Border3DThicknessConverter x:Key="Border3DThickessConverter"/>
+  <local:MyPointCollectionConverter x:Key="mcolconv" />
+  
+  <Style TargetType="local:Border3D">
+    <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:Border3D">
+          <Grid>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="LayoutStates">
+                <VisualState x:Name="Engraved">
+                  <Storyboard>
+                    <DoubleAnimation Duration="00:00:00.001"
+                                              Storyboard.TargetName="LeftTopBorder"
+                                              Storyboard.TargetProperty="(UIElement.Opacity)"
+                                     From="0" To="0.5"/>
+                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.001" 
+                                                   Storyboard.TargetName="LeftTopBorder"
+                                                   Storyboard.TargetProperty="(Polygon.Fill)"
+                                                   >
+                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                        <DiscreteObjectKeyFrame.Value>
+                          <Brush>Black</Brush>
+                        </DiscreteObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <DoubleAnimation Duration="00:00:00.001"
+                                              Storyboard.TargetName="RightBottomBorder"
+                                              Storyboard.TargetProperty="(UIElement.Opacity)"
+                                     From="0" To="0.9"/>
+                    
+                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.001" 
+                                                   Storyboard.TargetName="RightBottomBorder"
+                                                   Storyboard.TargetProperty="(Polygon.Fill)"
+                                                   >
+                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                        <DiscreteObjectKeyFrame.Value>
+                          <Brush>White</Brush>
+                        </DiscreteObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Border 
+              Background="{TemplateBinding Background}"/>
+            <Grid>
+              <Polygon x:Name="LeftTopBorder"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch"
+                Points="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                Path=LeftTopPoints, Converter={StaticResource mcolconv}}" 
+                Fill="White"
+                Opacity="0.9"
+                />
+              <Polygon x:Name="RightBottomBorder"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch"
+                Points="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                Path=RightBottomPoints, Converter={StaticResource mcolconv}}" 
+                Fill="Black"
+                Opacity="0.5"
+                />
+            </Grid>
+            <Grid 
+              Margin="{TemplateBinding BorderThickness}"
+              Background="{TemplateBinding Background}">
+                <ContentPresenter />
+            </Grid>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

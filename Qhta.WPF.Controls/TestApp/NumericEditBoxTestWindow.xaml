@@ -1,0 +1,42 @@
+﻿<Window x:Class="TestApp.NumericEditBoxTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cm="clr-namespace:System.ComponentModel;assembly=System"
+        xmlns:my="clr-namespace:Qhta.WPF.Controls;assembly=Qhta.WPF.Controls"
+        Title="NumericEditBoxTest" Height="300" Width="300"
+        >
+  <Window.Resources>
+    <cm:DoubleConverter x:Key="DoubleConv" />
+  </Window.Resources>
+  <Grid>
+    <my:NumericEditBox x:Name="NumericEditBox"
+                       ModifierKey="Control"
+                       HorizontalAlignment="Left" 
+                       Margin="63,152,0,0" 
+                       VerticalAlignment="Top" 
+                       Width="85" 
+                       ContentStringFormat="F2"
+                       ContentCulture="pl"
+                       ValueChanged="NumericEditBox_ValueChanged_1"/>
+    <TextBox x:Name="ResultTextBox" 
+             HorizontalAlignment="Left" Height="23" Margin="185,152,0,0" 
+             TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
+    <GroupBox Header="Increment" 
+              Margin="25,10,0,0" 
+              HorizontalAlignment="Left" Height="Auto" 
+              VerticalAlignment="Top" Width="Auto">
+      <StackPanel Margin="5">
+        <RadioButton x:Name="Increment10Button" 
+                     Content="1.0" 
+                     Margin="5"
+                     Click="Increment10Button_Click" IsChecked="True"
+                     />
+        <RadioButton x:Name="Increment01Button" 
+                     Content="0.1" 
+                     Margin="5"
+                     Click="Increment01Button_Click"
+                     />
+      </StackPanel>
+    </GroupBox>
+  </Grid>
+</Window>

@@ -49,11 +49,11 @@ namespace Qhta.WPF.Controls
       /// <param name="val">Value to set the UI to, as an object</param>
       /// <returns>true if the UI element was successfully set to the specified value</returns> 
       //[CodeAnalysis("AptcaMethodsShouldOnlyCallAptcaMethods")] //Tracking Bug: 29647
-      void IRangeValueProvider.SetValue (decimal val)
+      void IRangeValueProvider.SetValue (double value)
       {
         if (!IsEnabled ())
           throw new ElementNotEnabledException ();
-
+      decimal val = (decimal)value;
         NumericUpDown owner = (NumericUpDown)Owner;
         if (val < owner.Minimum || val > owner.Maximum)
         {
@@ -65,12 +65,11 @@ namespace Qhta.WPF.Controls
 
 
       /// <summary>Value of a value control, as an object</summary>
-      decimal IRangeValueProvider.Value
+      double IRangeValueProvider.Value
       {
         get
         {
-          return 1.0d;
-          //return ((NumericUpDown)Owner).Value;
+          return (double)((NumericUpDown)Owner).Value;
         }
       }
 
@@ -85,38 +84,38 @@ namespace Qhta.WPF.Controls
       }
 
       ///<summary>maximum value </summary> 
-      decimal IRangeValueProvider.Maximum
+      double IRangeValueProvider.Maximum
       {
         get
         {
-          return ((NumericUpDown)Owner).Maximum;
+          return (double)((NumericUpDown)Owner).Maximum;
         }
       }
 
       ///<summary>minimum value</summary> 
-      decimal IRangeValueProvider.Minimum
+      double IRangeValueProvider.Minimum
       {
         get
         {
-          return ((NumericUpDown)Owner).Minimum;
+          return (double)((NumericUpDown)Owner).Minimum;
         }
       }
 
       ///<summary>Value of a Large Change</summary> 
-      decimal IRangeValueProvider.LargeChange
+      double IRangeValueProvider.LargeChange
       {
         get
         {
-          return ((NumericUpDown)Owner).SmallChange;
+          return (double)((NumericUpDown)Owner).SmallChange;
         }
       }
 
       ///<summary>Value of a Small Change</summary> 
-      decimal IRangeValueProvider.SmallChange
+      double IRangeValueProvider.SmallChange
       {
         get
         {
-          return ((NumericUpDown)Owner).SmallChange;
+          return (double)((NumericUpDown)Owner).SmallChange;
         }
       }
     }

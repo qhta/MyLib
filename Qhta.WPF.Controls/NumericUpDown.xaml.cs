@@ -33,12 +33,18 @@ namespace Qhta.WPF.Controls
     public override void OnApplyTemplate ()
     {
       base.OnApplyTemplate ();
-      UpButton.Command = IncrementCommand;
-      DownButton.Command = DecrementCommand;
+      UpButton.Click+=UpButton_Click;
+      DownButton.Click+=DownButton_Click;
+    }
+
+    public decimal Increment
+    {
+      get => (decimal)GetValue(IncrementProperty);
+      set => SetValue(IncrementProperty, value);
     }
 
     /// <summary>
-    /// Właściwość zależna <see cref="Increment"/>
+    /// Właściwość zależna <see cref="IncrementValue"/>
     /// </summary>
     public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register
       ("Increment", typeof(decimal), typeof(NumericUpDown),
@@ -47,7 +53,7 @@ namespace Qhta.WPF.Controls
           (DependencyObject sender, DependencyPropertyChangedEventArgs args)=> 
           {
             (sender as NumericUpDown).SmallChange=(decimal)args.NewValue;
-            (sender as NumericUpDown).LargeChange=(decimal)args.NewValue;
+            (sender as NumericUpDown).LargeChange=10*(decimal)args.NewValue;
           }));
 
     /// <summary>
@@ -55,7 +61,6 @@ namespace Qhta.WPF.Controls
     /// </summary>
     public static readonly DependencyProperty SmallChangeProperty = DependencyProperty.Register
       ("SmallChange", typeof (decimal), typeof (NumericUpDown), 
-//      new PropertyMetadata (0.1));
         new FrameworkPropertyMetadata ((decimal)1),
         new ValidateValueCallback (IsValidChange));
 
@@ -73,8 +78,7 @@ namespace Qhta.WPF.Controls
     /// </summary>
     public static readonly DependencyProperty LargeChangeProperty = DependencyProperty.Register
       ("LargeChange", typeof (decimal), typeof (NumericUpDown),
-      //      new PropertyMetadata (0.1));
-        new FrameworkPropertyMetadata ((decimal)1),
+        new FrameworkPropertyMetadata ((decimal)10),
         new ValidateValueCallback (IsValidChange));
 
     /// <summary>
@@ -136,11 +140,11 @@ namespace Qhta.WPF.Controls
     {
       NumericUpDown ctrl = (NumericUpDown)d;
 
-      //NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement (ctrl) as NumericUpDownAutomationPeer;
-      //if (peer != null)
-      //{
-      //  peer.RaiseMaximumPropertyChangedEvent ((decimal)e.OldValue, (decimal)e.NewValue);
-      //}
+      NumericUpDownAutomationPeer peer = UIElementAutomationPeer.FromElement(ctrl) as NumericUpDownAutomationPeer;
+      if (peer != null)
+      {
+        peer.RaiseMaximumPropertyChangedEvent((decimal)e.OldValue, (decimal)e.NewValue);
+      }
 
       ctrl.CoerceValue (ValueProperty);
       ctrl.OnMaximumChanged ((decimal)e.OldValue, (decimal)e.NewValue);
@@ -336,10 +340,10 @@ namespace Qhta.WPF.Controls
 
     private static void OnIncrementCommand (object target, ExecutedRoutedEventArgs args)
     {
-      (target as NumericUpDown).Increment ();
+      (target as NumericUpDown).IncrementValue ();
     }
 
-    public void Increment (bool large=false)
+    public void IncrementValue (bool large=false)
     {
       decimal newValue = (decimal)Value + (large ? (decimal)LargeChange : (decimal)SmallChange);
       if ((decimal)Value != newValue)
@@ -355,10 +359,10 @@ namespace Qhta.WPF.Controls
 
     private static void OnDecrementCommand (object target, ExecutedRoutedEventArgs args)
     {
-      (target as NumericUpDown).Decrement ();
+      (target as NumericUpDown).DecrementValue ();
     }
 
-    public void Decrement (bool large=false)
+    public void DecrementValue (bool large=false)
     {
       decimal newValue = (decimal)Value - (large ? (decimal)LargeChange : (decimal)SmallChange);
       if ((decimal)Value != newValue)
@@ -367,15 +371,15 @@ namespace Qhta.WPF.Controls
       } 
     }
 
-    private void UpButton_Click (object sender, RoutedEventArgs e)
+    private void UpButton_Click(object sender, RoutedEventArgs e)
     {
-      Increment (Keyboard.IsKeyDown (Key.LeftShift) || Keyboard.IsKeyDown (Key.LeftShift));
+      IncrementValue(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.LeftShift));
       e.Handled = true;
     }
 
-    private void DownButton_Click (object sender, RoutedEventArgs e)
+    private void DownButton_Click(object sender, RoutedEventArgs e)
     {
-      Decrement (Keyboard.IsKeyDown (Key.LeftShift) || Keyboard.IsKeyDown (Key.LeftShift));
+      DecrementValue(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.LeftShift));
       e.Handled = true;
     }
 

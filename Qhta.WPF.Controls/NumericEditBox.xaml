@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Qhta.WPF.Controls.NumericEditBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:my="clr-namespace:Qhta.WPF.Controls" 
+             xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
+             x:Name="ThisControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="150">
+  <UserControl.Resources>
+    <utils:NumericValueConverter x:Key="NumericValueConverter"
+
+                                 />
+    <!--Culture="{Binding ElementName=ThisControl, Path=ContentCulture}"
+                                 Format="{Binding ElementName=ThisControl, Path=ContentStringFormat}"-->
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <TextBox x:Name="TextBox" 
+             Text="{Binding ElementName=ThisControl, Path=Value, Mode=TwoWay,
+                   Converter={StaticResource NumericValueConverter}}"
+             CharacterCasing="{Binding ElementName=ThisControl, Path=CharacterCasing}"
+             MaxLength="{Binding ElementName=ThisControl, Path=MaxLength}"
+             TextAlignment="{Binding ElementName=ThisControl, Path=TextAlignment}"
+             TextDecorations="{Binding ElementName=ThisControl, Path=TextDecorations}"
+             />
+    <my:NumericUpDown x:Name="NumericUpDown"
+                      Grid.Column="1" VerticalAlignment="Stretch"
+                      Value="{Binding ElementName=ThisControl, Path=Value, Mode=TwoWay}"
+                      Increment="{Binding ElementName=ThisControl, Path=Increment, Mode=TwoWay}"
+                      Minimum="{Binding ElementName=ThisControl, Path=Minimum, Mode=TwoWay}"
+                      Maximum="{Binding ElementName=ThisControl, Path=Maximum, Mode=TwoWay}"
+                      />
+    
+                      <!--
+
+    
+    ModifierKey="{Binding ElementName=ThisControl, Path=ModifierKey, Mode=TwoWay}"
+    PageIncrement="{Binding ElementName=ThisControl, Path=PageIncrement, Mode=TwoWay}"
+    
+    -->
+    
+  </Grid>
+</UserControl>

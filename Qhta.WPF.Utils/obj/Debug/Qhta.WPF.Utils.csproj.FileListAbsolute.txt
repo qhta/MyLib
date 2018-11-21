@@ -1,4 +1,3 @@
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\WpfUtils.Resources.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.g.resources
@@ -114,3 +113,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.OrdNumbers.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.WPF.Utils.dll.config
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.ExceptionStringTable.resources
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.GenerateResource.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssemblyReference.cache

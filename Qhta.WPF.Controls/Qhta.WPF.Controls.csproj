@@ -44,9 +44,14 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework.Royale" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
@@ -66,48 +71,109 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Border3D.cs" />
+    <Compile Include="Border3DThicknessConverter.cs" />
+    <Compile Include="ColorPickerWindow.xaml.cs">
+      <DependentUpon>ColorPickerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ColorSlider.cs" />
+    <Compile Include="CustomColorForm.xaml.cs">
+      <DependentUpon>CustomColorForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DropDownColorPicker.xaml.cs">
+      <DependentUpon>DropDownColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExtRichTextBox.xaml.cs">
       <DependentUpon>ExtRichTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlowDocumentTranslator.cs" />
     <Compile Include="GridControl.cs" />
     <Compile Include="GridShape.cs" />
+    <Compile Include="MyPointCollectionConverter.cs" />
+    <Compile Include="NumericEditBox.xaml.cs">
+      <DependentUpon>NumericEditBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComboBoxCheckItem.xaml.cs">
-      <DependentUpon>ComboBoxCheckItem.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="NumericUpDownAutomationPeer.cs" />
     <Compile Include="PanelHeader.xaml.cs">
       <DependentUpon>PanelHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ColorSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Border3D.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ColorPickerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="CustomColorForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="DropDownColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
     <Page Include="ExtRichTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="NumericUpDown.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="NumericEditBox.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="ComboBoxCheckItem.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="NumericUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PanelHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.Drawing.ArrayGraphics\Qhta.Drawing.ArrayGraphics.csproj">
+      <Project>{a0708309-f240-440c-b7cb-36dbddaca8db}</Project>
+      <Name>Qhta.Drawing.ArrayGraphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.Drawing.ColorUtils\Qhta.Drawing.ColorUtils.csproj">
+      <Project>{f258fae0-57cf-4fb7-945b-92f29965a38b}</Project>
+      <Name>Qhta.Drawing.ColorUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.Drawing.WPF\Qhta.Drawing.WPF.csproj">
+      <Project>{d7aaa002-0b07-4af5-90e5-fb3afd90e2d8}</Project>
+      <Name>Qhta.Drawing.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Qhta.WPF.Utils\Qhta.WPF.Utils.csproj">
       <Project>{1013AA20-15D5-4743-B280-80A5AD2E39C4}</Project>
       <Name>Qhta.WPF.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\colorChart.PNG" />
+    <Resource Include="Resources\OpacityPattern.PNG" />
+    <Content Include="Resources\image.png" />
+    <Content Include="NumericEditBox.bmp" />
+    <Content Include="NumericUpDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

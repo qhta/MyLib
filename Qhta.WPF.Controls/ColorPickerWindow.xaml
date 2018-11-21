@@ -1,0 +1,46 @@
+﻿<Window x:Class="Qhta.WPF.Controls.ColorPickerWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Qhta.WPF.Controls" 
+             xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils" 
+             x:Name="ThisControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400" 
+             Width="300" Height="400">
+  <Window.Resources>
+    <utils:ColorToSolidColorBrushConverter x:Key="FromColorToSolidColorBrushConverter"/>
+  </Window.Resources>
+  <TabControl>
+    <TabItem Header="Defined Colors">
+      <Grid x:Name="ThisGrid">
+        <ListBox x:Name="DefinedColorsPicker" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectionChanged="DefinedColorsPicker_SelectionChanged"
+                 SnapsToDevicePixels="True">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid ToolTip="{Binding Path=Name}">
+                <Rectangle Width="15" Height="15" 
+                           Margin="0 1 5 0"
+                           HorizontalAlignment="Center"
+                           Stroke="Black"
+                           Fill="{Binding Path=Color, Converter={StaticResource FromColorToSolidColorBrushConverter}}"/>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+          <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel IsItemsHost="True" />
+            </ItemsPanelTemplate>
+          </ListBox.ItemsPanel>
+        </ListBox>
+      </Grid>
+    </TabItem>
+    <TabItem Header="Custom Color">
+      <controls:CustomColorForm x:Name="CustomColorForm" 
+                         SelectedColor="{Binding ElementName=ThisControl, Path=SelectedColor}"/>
+    </TabItem>
+  </TabControl>
+</Window>

@@ -19,9 +19,18 @@ namespace Qhta.Drawing
 
   public struct ColorHSV
   {
-    public double H; // 0..1 = full angle
-    public double S; // 0..1
-    public double V; // 0..1
+    /// <summary>
+    ///  Hue in range 0..1 (full angle)
+    /// </summary>
+    public double H;
+    /// <summary>
+    ///  Saturation in range 0..1
+    /// </summary>
+    public double S;
+    /// <summary>
+    ///  Value in range 0..1
+    /// </summary>
+    public double V;
 
     public ColorHSV(double H, double S, double V)
     {
@@ -39,7 +48,7 @@ namespace Qhta.Drawing
 
     public ColorHLS(double H, double L, double S)
     {
-      this.H = H % 360;
+      this.H = H / 360;
       this.L = L;
       this.S = S;
     }
@@ -161,17 +170,18 @@ namespace Qhta.Drawing
       double s = value.S;
       double h = value.H;
       double p, q, t, f;
-      int i;
       double r;
       double g;
       double b;
 
-      if (h >= 1.0) h = 0.0;
-      i = (int)(h*6);
-      f = h - i;
+      double hh = h*360.0;
+      if (hh >= 360.0) hh = 0.0;
+      hh /= 60.0;
+      var i = (int)hh;
+      double ff = hh - i;
       p = v * (1.0 - s);
-      q = v * (1.0 - (s* f));
-      t = v * (1.0 - (s * (1.0 - f)));
+      q = v * (1.0 - (s* ff));
+      t = v * (1.0 - (s * (1.0 - ff)));
 
       switch (i)
       {

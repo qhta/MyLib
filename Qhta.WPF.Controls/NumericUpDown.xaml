@@ -13,7 +13,6 @@
     <RepeatButton 
       x:Name="UpButton"
       Delay="500" Interval="100"
-      Click="UpButton_Click"
       Padding="0,1,0,1"
       Grid.Row="0">
       <Path Width="6" Height="5" Fill="Black"
@@ -22,7 +21,6 @@
     <RepeatButton 
       x:Name="DownButton"
       Delay="500" Interval="100"
-      Click="DownButton_Click"
       Padding="0,1,0,1"
       Grid.Row="1">
       <Path Width="6" Height="5" Fill="Black"

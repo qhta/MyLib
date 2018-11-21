@@ -1,0 +1,78 @@
+﻿<Window x:Class="TestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestApp"
+        mc:Ignorable="d"
+        Title="Test Qhta.WPF.Controls" Height="450" Width="300">
+  <Grid>
+    <StackPanel>
+      
+      <Button Name="NumericUpDownTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="NumericUpDownTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Images/NumericUpDown.png" 
+                 Width="16"
+                 Height="16"
+                 Margin="0,0,4,0"/>
+          <TextBlock Text="NumericUpDown"/>
+        </StackPanel>
+      </Button>
+
+      <Button Name="Border3DTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="Border3DTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Images/Border3D.png" 
+                 Width="16"
+                 Height="16"
+                 Margin="0,0,4,0"/>
+          <TextBlock Text="Border3D"/>
+        </StackPanel>
+      </Button>
+
+      <Button Name="ColorSliderTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="ColorSliderTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Images/Rainbow.png" 
+                 Width="16"
+                 Height="16"
+                 Margin="0,0,4,0"/>
+          <TextBlock Text="ColorSlider"/>
+        </StackPanel>
+      </Button>
+
+      <Button Name="ColorPickerTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="ColorPickerTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Images/colorChart.png" 
+                 Width="16"
+                 Height="16"
+                 Margin="0,0,4,0"/>
+          <TextBlock Text="ColorPicker"/>
+        </StackPanel>
+      </Button>
+    
+    </StackPanel>
+  </Grid>
+</Window>

@@ -1,0 +1,21 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:Qhta.WPF.Controls">
+
+  <ResourceDictionary.MergedDictionaries>
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/RadioControls/RadioButtonGroup.xaml"/>-->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/IconizedControls/IconizedListBox.xaml"/>-->
+    <ResourceDictionary Source="/Qhta.WPF.Controls;component/Border3D.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Controls;component/ColorSlider.xaml"/>
+    <!--<ResourceDictionary Source="/Qhta.WPF.Controls;component/NumericUpDown.xaml"/>-->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/Panels/ExpandablePanel.xaml"/>-->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/HyperlinkButtonStyle.xaml"/>-->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/DragDropControls/DragBar.xaml"/>-->
+    <!--ResourceDictionary Source="/MyLib.Controls;component/ListViewEx/ListViewEx.xaml"/ -->
+    <!--ResourceDictionary Source="/MyLib.Controls;component/EditControls/DropDownButton.xaml"/ -->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/Sliders/SliderControl.xaml"/>-->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/Sliders/ValueSelectionBar.xaml" />-->
+    <!--<ResourceDictionary Source="/MyLib.Controls;component/Sliders/SliderDualControl.xaml"/>-->
+  </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
