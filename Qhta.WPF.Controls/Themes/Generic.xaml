@@ -7,7 +7,7 @@
     <!--<ResourceDictionary Source="/MyLib.Controls;component/RadioControls/RadioButtonGroup.xaml"/>-->
     <!--<ResourceDictionary Source="/MyLib.Controls;component/IconizedControls/IconizedListBox.xaml"/>-->
     <ResourceDictionary Source="/Qhta.WPF.Controls;component/Border3D.xaml"/>
-    <ResourceDictionary Source="/Qhta.WPF.Controls;component/ColorSlider.xaml"/>
+    <!--<ResourceDictionary Source="/Qhta.WPF.Controls;component/ColorSlider.xaml"/>-->
     <!--<ResourceDictionary Source="/Qhta.WPF.Controls;component/NumericUpDown.xaml"/>-->
     <!--<ResourceDictionary Source="/MyLib.Controls;component/Panels/ExpandablePanel.xaml"/>-->
     <!--<ResourceDictionary Source="/MyLib.Controls;component/HyperlinkButtonStyle.xaml"/>-->

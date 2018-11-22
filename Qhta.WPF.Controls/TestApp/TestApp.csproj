@@ -124,6 +124,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Qhta.Drawing.ArrayGraphics\Qhta.Drawing.ArrayGraphics.csproj">
+      <Project>{a0708309-f240-440c-b7cb-36dbddaca8db}</Project>
+      <Name>Qhta.Drawing.ArrayGraphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Qhta.Drawing.ColorUtils\Qhta.Drawing.ColorUtils.csproj">
+      <Project>{f258fae0-57cf-4fb7-945b-92f29965a38b}</Project>
+      <Name>Qhta.Drawing.ColorUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Qhta.Drawing.WPF\Qhta.Drawing.WPF.csproj">
+      <Project>{d7aaa002-0b07-4af5-90e5-fb3afd90e2d8}</Project>
+      <Name>Qhta.Drawing.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Qhta.Drawing\Qhta.Drawing.csproj">
+      <Project>{0d65e3d0-2be6-435f-b811-7acea13c50e7}</Project>
+      <Name>Qhta.Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Qhta.WPF.ColorUtils\Qhta.WPF.ColorUtils.csproj">
+      <Project>{36a17975-a8b9-43f8-b3ed-38d5ff8dcb25}</Project>
+      <Name>Qhta.WPF.ColorUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Qhta.WPF.Utils\Qhta.WPF.Utils.csproj">
       <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
       <Name>Qhta.WPF.Utils</Name>

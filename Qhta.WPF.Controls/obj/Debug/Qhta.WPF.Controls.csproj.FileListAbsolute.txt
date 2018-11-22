@@ -27,5 +27,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\DropDownColorPicker.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPickerWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\CustomColorForm.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\DropDownColorPicker.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorSlider.baml
 D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Controls.dll.config

@@ -12,6 +12,12 @@ namespace TestApp
       EditedColor = Color.FromArgb(255, 128, 128, 128);
     }
 
+    public override void OnApplyTemplate()
+    {
+      HueSlider_ValueChanged();
+      AlphaSlider_ValueChanged();
+    }
+
     #region EditedColor property
     public Color EditedColor
     {
@@ -51,18 +57,32 @@ namespace TestApp
 
     private void VerticalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> args)
     {
-      var endColor = VerticalSlider.SelectedColor;
-      var startColor = Color.FromArgb(0, endColor.R, endColor.G, endColor.B);
+      HueSlider_ValueChanged();
+    }
+
+    private void HueSlider_ValueChanged()
+    {
       if (HorizontalSlider!=null)
       {
-        HorizontalSlider.ColorFrom=startColor;
-        HorizontalSlider.ColorTo = endColor;
+        var pos = HorizontalSlider.Position;
+        var endColor = VerticalSlider.SelectedColor;
+        var startColor = Color.FromArgb(0, endColor.R, endColor.G, endColor.B);
+        HorizontalSlider.Color0 = startColor;
+        HorizontalSlider.Color1 = endColor;
+        HorizontalSlider.SelectedColor = HorizontalSlider.Position2Color(pos);
       }
     }
 
     private void HorizontalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-      EditedBrush = new SolidColorBrush(HorizontalSlider.SelectedColor);
+      AlphaSlider_ValueChanged();
+    }
+
+
+    private void AlphaSlider_ValueChanged()
+    {
+      EditedColor = HorizontalSlider.SelectedColor;
+      //EditedBrush = new SolidColorBrush();
     }
   }
 }

@@ -42,18 +42,33 @@
             />
     <my:ColorSlider x:Name="VerticalSlider"
       Orientation="Vertical" Width="30" Height="256" HorizontalAlignment="Left"
-      Stripes="256"
       Margin="10"
-      ColorFrom="Red" ColorTo="Red" HueChange="Positive"
-      SelectedColor="Green"
+      Color0="Red" Color1="Red" HueChange="Positive"
+      SelectedColor="#FF00FF00"
       ValueChanged="VerticalSlider_ValueChanged"
+      Resolution="360"
       />
-    <my:ColorSlider x:Name="HorizontalSlider"
-      Orientation="Horizontal" Width="256" Height="30 " VerticalAlignment="Top"
-      Stripes="256"
-      Margin="50,10,0,0"
-      ColorFrom="Red" ColorTo="Red" HueChange="None"
-      ValueChanged="HorizontalSlider_ValueChanged"
-      />
+    <Grid
+        Margin="50,10,0,0"
+        Width="256" Height="30 " VerticalAlignment="Top"
+      >
+      <Grid.Background>
+        <ImageBrush TileMode="Tile"
+            Stretch="Uniform"
+            AlignmentX="Left"
+            AlignmentY="Top" 
+            Viewport="0,0,30,30"
+            ViewportUnits="Absolute">
+          <ImageBrush.ImageSource>
+            <BitmapImage UriSource="/Qhta.WPF.Controls;component/Resources/OpacityPattern.png"/>
+          </ImageBrush.ImageSource>
+        </ImageBrush> 
+      </Grid.Background>
+      <my:ColorSlider x:Name="HorizontalSlider"
+        Orientation="Horizontal" 
+        Position="1"
+        ValueChanged="HorizontalSlider_ValueChanged"
+        />
+    </Grid>
   </Grid>
 </Window>

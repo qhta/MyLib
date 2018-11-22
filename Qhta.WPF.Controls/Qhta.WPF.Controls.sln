@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.Drawing.WPF", "..\Qhta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.Drawing.ColorUtils", "..\Qhta.Drawing.ColorUtils\Qhta.Drawing.ColorUtils.csproj", "{F258FAE0-57CF-4FB7-945B-92F29965A38B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.WPF.ColorUtils", "..\Qhta.WPF.ColorUtils\Qhta.WPF.ColorUtils.csproj", "{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.Drawing", "..\Qhta.Drawing\Qhta.Drawing.csproj", "{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,22 @@ Global
 		{F258FAE0-57CF-4FB7-945B-92F29965A38B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F258FAE0-57CF-4FB7-945B-92F29965A38B}.Release|x86.ActiveCfg = Release|Any CPU
 		{F258FAE0-57CF-4FB7-945B-92F29965A38B}.Release|x86.Build.0 = Release|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Debug|x86.Build.0 = Debug|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Release|x86.ActiveCfg = Release|Any CPU
+		{36A17975-A8B9-43F8-B3ED-38D5FF8DCB25}.Release|x86.Build.0 = Release|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
