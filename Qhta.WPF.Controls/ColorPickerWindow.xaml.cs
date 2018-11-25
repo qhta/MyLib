@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Qhta.WPF.Utils;
@@ -27,11 +29,10 @@ namespace Qhta.WPF.Controls
          FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
     #endregion
 
-
+    KnownColors customColors = new KnownColors();
     private void InitialWork()
     {
       DefinedColorsPicker.Items.Clear();
-      KnownColors customColors = new KnownColors();
       foreach (var item in customColors.SelectableColors)
       {
         DefinedColorsPicker.Items.Add(item);

@@ -43,7 +43,7 @@
     <my:ColorSlider x:Name="VerticalSlider"
       Orientation="Vertical" Width="30" Height="256" HorizontalAlignment="Left"
       Margin="10"
-      Color0="Red" Color1="Red" HueChange="Positive"
+      Color0="Magenta" Color1="Red" HueChange="Positive"
       SelectedColor="#FF00FF00"
       ValueChanged="VerticalSlider_ValueChanged"
       Resolution="360"

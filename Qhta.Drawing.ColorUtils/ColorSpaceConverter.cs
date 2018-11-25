@@ -95,6 +95,8 @@ namespace Qhta.Drawing
 
       if (h<0)
         h = h+1.0;
+      if (h==1.0)
+        h = 0;
 
       if (max==0)
         s = 0;
@@ -158,13 +160,13 @@ namespace Qhta.Drawing
       return new ColorHLS(h, l, s);
     }
 
-    public static Color HSV2Color(ColorHSV value)
+    public static Color HSV2Color(this ColorHSV value)
     {
       var c = HSV2RGB(value);
       return Color.FromArgb((int)(c.R*255), (int)(c.G*255), (int)(c.B*255));
     }
 
-    public static ColorRGB HSV2RGB(ColorHSV value)
+    public static ColorRGB HSV2RGB(this ColorHSV value)
     {
       double v = value.V;
       double s = value.S;
@@ -220,7 +222,7 @@ namespace Qhta.Drawing
       return new ColorRGB { R = r, G = g, B = b };
     }
 
-    public static Color HLS2Color(ColorHLS value)
+    public static Color HLS2Color(this ColorHLS value)
     {
       var c = HLS2RGB(value);
       return Color.FromArgb((int)(c.R*255), (int)(c.G*255), (int)(c.B*255));

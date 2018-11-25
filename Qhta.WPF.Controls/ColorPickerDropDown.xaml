@@ -1,0 +1,68 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Qhta.WPF.Controls"
+    xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
+    xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
+    >
+  <utils:ColorConverter x:Key="ColorConverter"/>
+  <cu:InverseColorConverter x:Key="InverseColorConverter" Contrast="True"/>
+  <Style TargetType="Button" x:Key="ColorPickerButton">
+    <Style.BasedOn>
+      <Style TargetType="ButtonBase">
+        <Setter Property="Content">
+          <Setter.Value>
+            <Canvas MinHeight="6" MinWidth="6">
+              <Path
+                Name="DropDownButton"
+                Data="M0,0L3,3 6,0z"
+                Margin="0,3"
+                Stroke="Black"
+                Fill="Black"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                />
+            </Canvas>
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Style.BasedOn>
+  </Style>
+  <Style x:Key="{x:Type local:ColorPickerDropDown}" TargetType="{x:Type local:ColorPickerDropDown}">
+    <Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="BorderThickness" Value="0.5" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:ColorPickerDropDown}">
+          <Grid Width="{TemplateBinding Width}" MinWidth="{TemplateBinding ButtonWidth}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Probe"
+              Visibility="{TemplateBinding ProbeVisibility}"
+              Background="{TemplateBinding SelectedColor, Converter={StaticResource ColorConverter}}"
+              Foreground="{TemplateBinding SelectedColor, Converter={StaticResource InverseColorConverter}}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, 
+                     Path=SelectedColor, Converter={StaticResource ColorConverter}}"
+              IsReadOnly="{TemplateBinding TextReadOnly}"
+              />
+            <Button x:Name="aButton"
+              Grid.Column="1"
+              Width="{TemplateBinding ButtonWidth}"
+              Style="{StaticResource ColorPickerButton}"
+              />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="TextVisible" Value="False">
+              <Setter TargetName="Probe" Property="Text" Value=""/>
+              <Setter TargetName="Probe" Property="IsReadOnly" Value="true"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

@@ -55,7 +55,7 @@ namespace TestApp
       ColorRectangle.InvalidateVisual();
     }
 
-    private void VerticalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> args)
+    private void VerticalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<Color> args)
     {
       HueSlider_ValueChanged();
     }
@@ -73,7 +73,7 @@ namespace TestApp
       }
     }
 
-    private void HorizontalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    private void HorizontalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<Color> args)
     {
       AlphaSlider_ValueChanged();
     }

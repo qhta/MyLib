@@ -1,10 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Media;
+using Qhta.Drawing;
 
 namespace Qhta.WPF
 {
+  /// <summary>
+  /// Some operation on colors.
+  /// </summary>
   public static class ColorUtils
   {
+    /// <summary>
+    /// Distance between two colors treated as points in a 4-dimension color space (A, R, G, B).
+    /// Each dimension has range from 0 to 1.
+    /// Result is a square root of sum of squares of differences between point coordinates in each dimension.
+    /// </summary>
+    /// <param name="color1">First color</param>
+    /// <param name="color2">Second color</param>
+    /// <returns></returns>
     public static double Distance(this Color color1, Color color2)
     {
       var A1 = color1.A/255.0;
@@ -19,9 +32,36 @@ namespace Qhta.WPF
       return diff;
     }
 
-    public static Color Inverse(this Color color)
+    /// <summary>
+    /// Inversion of color. The result is a complement in each dimension in RGB color space.
+    /// Alpha channel is set to maximum opacity.
+    /// If the <paramref name="contrast"> parameter causes conversion to HSV space and setting
+    /// V value to 0 or 1 value, what makes the resulting color be in contrast to input color.
+    /// </summary>
+    /// <param name="color">Input color</param>
+    /// <param name="contrast">If eqals <c>true</c>, then the V value of the resulted color 
+    /// will be set to 0 or 1, depending on a threshold value (which is set to 0.4). 
+    /// The A, H and S values remain intact.</param>
+    /// <returns></returns>
+    public static Color Inverse(this Color color, bool contrast=false)
     {
-      return Color.FromArgb(255, (byte)(255-color.R), (byte)(255-color.G), (byte)(255-color.B));
+      var result = Color.FromArgb(255, (byte)(255-color.R), (byte)(255-color.G), (byte)(255-color.B));
+      var distance = color.Distance(result);
+      if (contrast)
+      {
+        var drawingColor = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
+        var colorHSV = drawingColor.Color2HSV();
+        var resultColor = System.Drawing.Color.FromArgb(result.A, result.R, result.G, result.B);
+        var resultHSV = resultColor.Color2HSV();
+        if (resultHSV.V<0.4)
+          resultHSV.V=0;
+        else
+          resultHSV.V=1;
+        resultColor = resultHSV.HSV2Color();
+        result = Color.FromArgb(result.A, resultColor.R, resultColor.G, resultColor.B);
+      }
+      return result;
     }
+
   }
 }

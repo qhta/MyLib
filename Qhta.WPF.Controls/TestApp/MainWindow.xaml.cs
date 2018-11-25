@@ -31,5 +31,11 @@ namespace TestApp
     {
       new ColorSliderTestWindow().Show();
     }
+
+    private void ColorPadTestButton_Click(object sender, RoutedEventArgs e)
+    {      
+      new ColorPadTestWindow().Show();
+    }
+
   }
 }

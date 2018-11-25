@@ -61,10 +61,12 @@
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
     <Compile Include="BrushUtils.cs" />
+    <Compile Include="ColorConverter.cs" />
     <Compile Include="ColorToSolidBrushConverter.cs" />
     <Compile Include="DashStyleConverter.cs" />
     <Compile Include="DashStyleUtils.cs" />
     <Compile Include="ColorAdjustEffect.cs" />
+    <Compile Include="InverseValueConverter.cs" />
     <Compile Include="KnownColor.cs" />
     <Compile Include="KnownColors.cs" />
     <Compile Include="NumericValueConverter.cs" />
@@ -76,7 +78,6 @@
     <Compile Include="EnumValueConverter.cs" />
     <Compile Include="FloatDoubleFormater.cs" />
     <Compile Include="GeometryUtils.cs" />
-    <Compile Include="InverseValueConverter.cs" />
     <Compile Include="MultiObjectConverter.cs" />
     <Compile Include="SafeCollectionConverter.cs" />
     <Compile Include="ClipboardUtils.cs" />

@@ -10,7 +10,8 @@
              d:DesignHeight="300" d:DesignWidth="400" 
              Width="300" Height="400">
   <Window.Resources>
-    <utils:ColorToSolidColorBrushConverter x:Key="FromColorToSolidColorBrushConverter"/>
+    <utils:ColorConverter x:Key="ColorConverter"/>
+    <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   </Window.Resources>
   <TabControl>
     <TabItem Header="Defined Colors">
@@ -18,15 +19,21 @@
         <ListBox x:Name="DefinedColorsPicker" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  SelectionChanged="DefinedColorsPicker_SelectionChanged"
+                 SelectionMode="Single"
                  SnapsToDevicePixels="True">
           <ListBox.ItemTemplate>
             <DataTemplate>
-              <Grid ToolTip="{Binding Path=Name}">
+              <Grid ToolTip="{Binding Path=Name}" Margin="0,-1">
+                <Rectangle Stroke="Black" StrokeThickness="0.5"
+                        Margin="-3,0"
+                        Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, 
+                            Path=IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
+                           />
                 <Rectangle Width="15" Height="15" 
-                           Margin="0 1 5 0"
-                           HorizontalAlignment="Center"
-                           Stroke="Black"
-                           Fill="{Binding Path=Color, Converter={StaticResource FromColorToSolidColorBrushConverter}}"/>
+                             Margin="2,1"
+                             HorizontalAlignment="Center"
+                             Stroke="Black"
+                             Fill="{Binding Path=Color, Converter={StaticResource ColorConverter}}"/>
               </Grid>
             </DataTemplate>
           </ListBox.ItemTemplate>

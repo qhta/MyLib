@@ -15,33 +15,9 @@ namespace Qhta.WPF.Controls
     public ColorPad()
     {
       this.DefaultStyleKey = typeof(ColorPad);
-    }
-
-
-    private Canvas BackCanvas;
-    private Shape PosPointer;
-
-    public override void OnApplyTemplate()
-    {
-      BackCanvas = Template.FindName("BackCanvas", this) as Canvas;
-      PosPointer = Template.FindName("PosPointer", this) as Shape;
-      PositionChanged();
       this.PreviewMouseLeftButtonDown+=ColorPad_MouseLeftButtonDown;
       this.MouseLeftButtonUp+=ColorPad_MouseLeftButtonUp;
       this.MouseMove+=ColorPad_MouseMove;
-    }
-
-    protected override Size ArrangeOverride(Size finalSize)
-    {
-      var result = base.ArrangeOverride(finalSize);
-      PositionChanged();
-      return result;
-    }
-
-    protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-    {
-      base.OnRenderSizeChanged(sizeInfo);
-      PositionChanged();
     }
 
     #region SelectedColor property
@@ -59,17 +35,19 @@ namespace Qhta.WPF.Controls
 
     private static void SelectedColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-      (sender as ColorPad).SelectedColorChanged();
+      var c = (sender as ColorPad);
+      c.SelectedColorChanged();
+      c.ValueChanged?.Invoke(c, new RoutedPropertyChangedEventArgs<Point>(c.Position, c.Position));
     }
 
     private void SelectedColorChanged()
     {
       if (!isMouseDown)
       {
-        SelectColor(SelectedColor);
-        //Debug.WriteLine($"SelectedColorChanged({SelectedColor})");
+        SetPosition(SelectedColor);
       }
     }
+
     #endregion
 
     #region Color00 property
@@ -120,51 +98,27 @@ namespace Qhta.WPF.Controls
         new FrameworkPropertyMetadata(Colors.Transparent, ChangeBrushProperty));
     #endregion
 
-    #region HueChangeX property
-    public HueGradient HueChangeX
+    #region HueChange property
+    public HueGradient HueChange
     {
-      get => (HueGradient)GetValue(HueChangeXProperty);
-      set => SetValue(HueChangeXProperty, value);
+      get => (HueGradient)GetValue(HueChangeProperty);
+      set => SetValue(HueChangeProperty, value);
     }
 
-    public static readonly DependencyProperty HueChangeXProperty = DependencyProperty.Register
-      ("HueChangeX", typeof(HueGradient), typeof(ColorPad),
+    public static readonly DependencyProperty HueChangeProperty = DependencyProperty.Register
+      ("HueChange", typeof(HueGradient), typeof(ColorPad),
         new FrameworkPropertyMetadata(HueGradient.None, ChangeBrushProperty));
     #endregion
 
-    #region HueChangeY property
-    public HueGradient HueChangeY
+    #region Resolution property
+    public int Resolution
     {
-      get => (HueGradient)GetValue(HueChangeYProperty);
-      set => SetValue(HueChangeYProperty, value);
+      get => (int)GetValue(ResolutionProperty);
+      set => SetValue(ResolutionProperty, value);
     }
 
-    public static readonly DependencyProperty HueChangeYProperty = DependencyProperty.Register
-      ("HueChangeY", typeof(HueGradient), typeof(ColorPad),
-        new FrameworkPropertyMetadata(HueGradient.None, ChangeBrushProperty));
-    #endregion
-
-    #region ResolutionX property
-    public int ResolutionX
-    {
-      get => (int)GetValue(ResolutionXProperty);
-      set => SetValue(ResolutionXProperty, value);
-    }
-
-    public static readonly DependencyProperty ResolutionXProperty = DependencyProperty.Register
-      ("ResolutionX", typeof(int), typeof(ColorPad),
-        new FrameworkPropertyMetadata(100, ChangeBrushProperty));
-    #endregion
-
-    #region ResolutionX property
-    public int ResolutionY
-    {
-      get => (int)GetValue(ResolutionYProperty);
-      set => SetValue(ResolutionYProperty, value);
-    }
-
-    public static readonly DependencyProperty ResolutionYProperty = DependencyProperty.Register
-      ("ResolutionY", typeof(int), typeof(ColorPad),
+    public static readonly DependencyProperty ResolutionProperty = DependencyProperty.Register
+      ("Resolution", typeof(int), typeof(ColorPad),
         new FrameworkPropertyMetadata(100, ChangeBrushProperty));
     #endregion
 
@@ -173,109 +127,112 @@ namespace Qhta.WPF.Controls
 
     private static void ChangeBrushProperty(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-      (sender as ColorPad).ChangeBrush();
+      var c = (sender as ColorPad);
+      c.ChangeBrush();
     }
 
-    PixelArray pixels;
+    private Color[,] CreateColorMap(int resolution)
+    {
+      int n = resolution;
+      Color[] leftEdge = new Color[n];
+      int i = 0;
+      foreach (var color in new ColorIterator(Color01, Color00, Resolution, HueChange))
+      {
+        int k = n-i-1;
+        leftEdge[k]=color;
+        i++;
+      }
+      Color[] rightEdge = new Color[n];
+      i = 0;
+      foreach (var color in new ColorIterator(Color11, Color10, Resolution, HueChange))
+      {
+        int k = n-i-1;
+        rightEdge[k]=color;
+        i++;
+      }
+      Color[,] result = new Color [n,n];
+      for (int j=0; j<n; j++)
+      {
+        var color0 = leftEdge[j];
+        var color1 = rightEdge[j];
+        i = 0;
+        foreach (var color in new ColorIterator(color0, color1, Resolution, HueChange))
+        {
+          result[i,j] = color;
+          i++;
+        }
+      }
+      return result;
+    }
 
     private void ChangeBrush()
     {
-      int n = ResolutionX;
-      pixels = new PixelArray(n, n);
-      var color00 = System.Drawing.Color.FromArgb(Color00.A, Color00.R, Color00.G, Color00.B);
-      var color01 = System.Drawing.Color.FromArgb(Color01.A, Color01.R, Color01.G, Color01.B);
-      var color10 = System.Drawing.Color.FromArgb(Color01.A, Color10.R, Color10.G, Color10.B);
-      var color11 = System.Drawing.Color.FromArgb(Color11.A, Color11.R, Color11.G, Color11.B);
-      var hsv00 = Qhta.Drawing.ColorSpaceConverter.Color2HSV(color00);
-      var hsv01 = Qhta.Drawing.ColorSpaceConverter.Color2HSV(color01);
-      var hsv10 = Qhta.Drawing.ColorSpaceConverter.Color2HSV(color10);
-      var hsv11 = Qhta.Drawing.ColorSpaceConverter.Color2HSV(color11);
-      var hueLeftDelta = Math.Abs(((hsv01.H-hsv00.H)/n);
-      if (hueLeftDelta==0)
-          hueLeftDelta = 1.0/n;
-        if (HueChangeY==HueGradient.Negative)
-          hueYDelta = -hueYDelta;
-        var sat00Start = start00HSV.S;
-        var sat01End = end01HSV.S;
-        var satYDelta = (satEnd-satStart)/n;
-        var valStart = start00HSV.V;
-        var valEnd = end01HSV.V;
-        var valDelta = (valEnd-valStart)/n;
-        var alpStart = (Color00.A/255.0);
-        var alpEnd = (Color11.A/255.0);
-        var alpDelta = (alpEnd-alpStart)/n;
-        var xDelta = 1.0/n;
-        for (int x = 0; x<n; x++)
-        {
-          var hue = (hueStart+x*hueDelta) % 1.0;
-          if (hue<0)
-            hue+=1.0;
-          var sat = satStart+x*satDelta;
-          var val = valStart+x*valDelta;
-          var alp = alpStart+x*alpDelta;
-          var newColor = Qhta.Drawing.ColorSpaceConverter.HSV2Color(new ColorHSV(hue, sat, val));
-          int k = i;
-          stops[k]=(new GradientStop(Color.FromArgb((byte)(alp*255), newColor.R, newColor.G, newColor.B), xPos));
-        }
-      DrawingVisual drawingVisual = new DrawingVisual();
-      DrawingContext drawingContext = drawingVisual.RenderOpen();
-      drawingContext.DrawRectangle(Brush, null, new Rect(0, 0, 101, 101));
-      drawingContext.Close();
-      var bmp = new RenderTargetBitmap(101, 101, 96, 96, PixelFormats.Pbgra32);
-      bmp.Render(drawingVisual);
-       = bmp.GetPixelArray();
-      Brush = new BitmapCacheBrush();
-      Background=Brush;
+      colorMap=null;
+      var map = CreateColorMap(Resolution);
+      int n = Resolution;
+      var writeableBitmap = new WriteableBitmap(n, n, 96, 96, PixelFormats.Pbgra32, null);
+      for (int j = 0; j<n; j++)
+        for (int i = 0; i<n; i++)
+          writeableBitmap.SetColorArray(map);
+      var drawingVisual = new DrawingVisual();
+      var dc = drawingVisual.RenderOpen();
+      dc.DrawImage(writeableBitmap, new Rect(0, 0, n, n));
+      Brush = new BitmapCacheBrush(drawingVisual);
+      if (n==360)
+        colorMap = map;
       InvalidateVisual();
     }
     #endregion
 
-    #region PositionX property
-    public double PositionX
+    public event RoutedPropertyChangedEventHandler<Point> ValueChanged;
+
+    #region Position property
+    /// <summary>
+    /// Relative position of pointer over ColorPad.
+    /// Range from 0.0 (left-bottom corner) to 1.0 (right-top corner)
+    /// </summary>
+    public Point Position
     {
-      get => (double)GetValue(PositionXProperty);
-      set => SetValue(PositionXProperty, value);
+      get => (Point)GetValue(PositionProperty);
+      set => SetValue(PositionProperty, value);
     }
 
-    public static readonly DependencyProperty PositionXProperty = DependencyProperty.Register
-      ("PositionX", typeof(double), typeof(ColorPad),
-        new FrameworkPropertyMetadata(0.0,
-        FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-          PositionXPropertyChanged));
+    public static readonly DependencyProperty PositionProperty = DependencyProperty.Register
+      ("Position", typeof(Point), typeof(ColorPad),
+        new FrameworkPropertyMetadata(new Point(0.0,0.0), PositionPropertyChanged));
 
-    private static void PositionXPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    private static void PositionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-      (sender as ColorPad).PositionChanged();
+      var c = (sender as ColorPad);
+      c.PositionChanged((Point)args.OldValue, (Point)args.NewValue);
     }
+
+    private void PositionChanged(Point oldValue, Point newValue)
+    {
+      SelectedColor = Position2Color(Position);
+      InvalidateVisual();
+      ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<Point>(oldValue, newValue));
+    }
+
     #endregion
 
-    #region PositionY property
-    public double PositionY
-    {
-      get => (double)GetValue(PositionYProperty);
-      set => SetValue(PositionYProperty, value);
-    }
+    private readonly Pen BackPen = new Pen(Brushes.White, 4);
+    private readonly Pen FrontPen = new Pen(Brushes.Black, 1);
 
-    public static readonly DependencyProperty PositionYProperty = DependencyProperty.Register
-      ("PositionY", typeof(double), typeof(ColorPad),
-        new FrameworkPropertyMetadata(0.0,
-        FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-          PositionYPropertyChanged));
-
-    private static void PositionYPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    protected override void OnRender(DrawingContext drawingContext)
     {
-      (sender as ColorPad).PositionChanged();
+      double top;
+      double left;
+      double width;
+      double height;
+      left = ActualWidth*Position.X-4; 
+      top = ActualHeight*(1-Position.Y)-4;
+      height = 8;
+      width = 8;
+      drawingContext.DrawRectangle(Brush, null, new Rect(0, 0, ActualWidth, ActualHeight));
+      drawingContext.DrawRectangle(null, BackPen, new Rect(left, top, width, height));
+      drawingContext.DrawRectangle(null, FrontPen, new Rect(left, top, width, height));
     }
-    #endregion
-    private void PositionChanged()
-    {
-      if (!isMouseDown)
-      {
-        SelectColor(PositionX, PositionY);
-        //Debug.WriteLine($"PositionXChanged({PositionX})");
-      }
-    }
-    #endregion
 
     #region MouseMove handling
     private bool isMouseDown;
@@ -297,88 +254,72 @@ namespace Qhta.WPF.Controls
     {
       if (isMouseDown)
       {
-        var pos = args.GetPosition(BackCanvas);
-        Position = Math.Max(Math.Min(pos.X/BackCanvas.ActualWidth, 1), 0);
-        //Debug.WriteLine($"Value = {Value}");
-        Color color;
-        SelectedColor = color = Value2Color(Value);
-        //Debug.WriteLine($"Scolor = {color}");
-        Debug.WriteLine($"SelectedColor = {SelectedColor}");
+        var pos = args.GetPosition(this);
+          Position = new Point(
+                        Math.Max(Math.Min(pos.X/this.ActualWidth, 1), 0),
+                        Math.Max(Math.Min(1-pos.Y/this.ActualHeight, 1), 0));
+        SelectedColor = Position2Color(Position);
       }
     }
     #endregion
 
     #region Color selection
 
-    public void SelectColor(Color color)
+    public void SetPosition(Color color)
     {
-      //Debug.WriteLine($"SelectColor({color})");
-      Value=Color2Value(color);
-      //Debug.WriteLine($"SelectedValue({Value})");
+      Position = Color2Position(color);
     }
 
-    public double Color2Value(Color color)
+    Color[,] colorMap;
+
+    public Point Color2Position(Color color)
     {
       if (color==Color00)
-        return 0;
+        return new Point(0,0);
+      if (color==Color01)
+        return new Point(0, 1);
+      if (color==Color10)
+        return new Point(1, 0);
       if (color==Color11)
-        return 0;
-      DrawingVisual drawingVisual = new DrawingVisual();
-      DrawingContext drawingContext = drawingVisual.RenderOpen();
-      drawingContext.DrawRectangle(Brush, null, new Rect(0,0,101,101));
-      drawingContext.Close();
-
-      var bmp = new RenderTargetBitmap(101, 101, 96, 96, PixelFormats.Pbgra32);
-      bmp.Render(drawingVisual);
-      PixelArray pixels = bmp.GetPixelArray();
+        return new Point(1,1);
+      var n = 360;
+      if (colorMap==null)
+        colorMap = CreateColorMap(n);
       double minDiff = double.MaxValue;
-      double result = double.NaN;
-      for (int i=0; i<=100; i++)
+      Point result = new Point(double.NaN, double.NaN);
+      for (int j = 0; j<n; j++)
+        for (int i = 0; i<n; i++)
       {
-        Pixel pixel = pixel=pixels[i, 0];
-        var pixelColor = Color.FromArgb(pixel.A, pixel.R, pixel.G, pixel.B);
-        var diff = ColorDistance(pixelColor, color);
+        Color pixelColor;
+        pixelColor=colorMap[i,j];
+        var diff = ColorUtils.Distance(pixelColor, color);
         if (diff<minDiff)
         {
           minDiff=diff;
-          result=i/100.0;
+          result=new Point(i/(double)n, j/(double)n);
         }
       }
       return result;
     }
 
-    public Color Value2Color(double x, double y)
+    public Color Position2Color(Point value)
     {
-      if (x==0 && y==0)
+      if (value.X==0 && value.Y==0)
         return Color00;
-      if (x==1)
+      if (value.X==0 && value.Y==1)
+        return Color01;
+      if (value.X==1 && value.Y==0)
+        return Color10;
+      if (value.X==1 && value.Y==1)
         return Color11;
-      DrawingVisual drawingVisual = new DrawingVisual();
-      DrawingContext drawingContext = drawingVisual.RenderOpen();
-      drawingContext.DrawRectangle(Brush, null, new Rect(0, 0, 101, 101));
-      drawingContext.Close();
-      var bmp = new RenderTargetBitmap(101, 101, 96, 96, PixelFormats.Pbgra32);
-      bmp.Render(drawingVisual);
-      PixelArray pixels = bmp.GetPixelArray();
+      var n = 360;
+      if (colorMap==null)
+        colorMap = CreateColorMap(n);
       Color result = Colors.Transparent;
-      int i = Math.Max(Math.Min((int)(100 * x), 100), 0);
-      Pixel pixel = pixel=pixels[i, 0];
-      result = Color.FromArgb(pixel.A, pixel.R, pixel.G, pixel.B);
+      int i = Math.Max(Math.Min((int)(n * value.X), n), 0);
+      int j = Math.Max(Math.Min((int)(n * value.Y), n), 0);
+      result=colorMap[i,j];
       return result;
-    }
-
-    public static double ColorDistance(Color Color11, Color color2)
-    {
-      var A1 = Color11.A/255.0;
-      var R1 = Color11.R/255.0;
-      var G1 = Color11.G/255.0;
-      var B1 = Color11.B/255.0;
-      var A2 = color2.A/255.0;
-      var R2 = color2.R/255.0;
-      var G2 = color2.G/255.0;
-      var B2 = color2.B/255.0;
-      var diff = Math.Sqrt((A1-A2)*(A1-A2) + (R1-R2)*(R1-R2) + (G1-G2)*(G1-G2) + (B1-B2)*(B1-B2));
-      return diff;
     }
 
     #endregion

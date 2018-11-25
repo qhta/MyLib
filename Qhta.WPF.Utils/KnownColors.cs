@@ -29,7 +29,7 @@ namespace Qhta.WPF.Utils
         _SelectableColors.Add(new KnownColor
         {
           Name = property.Name,
-          Color = (Color)ColorConverter.ConvertFromString(property.Name)
+          Color = (Color)System.Windows.Media.ColorConverter.ConvertFromString(property.Name)
         });
       }
     }

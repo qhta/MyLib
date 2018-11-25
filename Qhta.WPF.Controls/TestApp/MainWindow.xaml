@@ -57,6 +57,22 @@
         </StackPanel>
       </Button>
 
+      <Button Name="ColorPadTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="ColorPadTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Images/Rainbow.png" 
+                 Width="16"
+                 Height="16"
+                 Margin="0,0,4,0"/>
+          <TextBlock Text="ColorPad"/>
+        </StackPanel>
+      </Button>
+      
       <Button Name="ColorPickerTestButton"
               Height="23"
               HorizontalAlignment="Left"

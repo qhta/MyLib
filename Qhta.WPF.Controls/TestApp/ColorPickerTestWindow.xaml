@@ -8,22 +8,65 @@
         mc:Ignorable="d"
         x:Name="ThisWindow"
         Title="ColorPickerTestWindow" Height="300" Width="400">
-    <Grid>
-    <StackPanel Orientation="Horizontal"
-                Margin="80,50,0,0" 
-                Width="150"
-                Height="23"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                >
-      <TextBox x:Name="ColorTextBox"
-             Height="23" 
-             Width="120"
-             Text="{Binding ElementName=ThisWindow, Path=EditedColor}"
-             />
-      <my:DropDownColorPicker Width="20" 
-                              SelectedColor="{Binding ElementName=ThisWindow, Path=EditedColor}"
-                              />
+  <Grid>
+    <StackPanel
+        Orientation="Horizontal"
+        Margin="20,50,0,0" 
+        Height="20"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        >
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="40"/>
+          <ColumnDefinition Width="40"/>
+          <ColumnDefinition Width="40"/>
+          <ColumnDefinition Width="40"/>
+          <ColumnDefinition Width="90" />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="AlphaTextBox"
+            Grid.Column="0"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Margin="0,0,10,0"
+            Text="{Binding ElementName=ThisWindow, Path=EditedColor.A}"
+            />
+        <TextBox x:Name="RedTextBox"
+            Grid.Column="1"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Margin="0,0,10,0"
+            Text="{Binding ElementName=ThisWindow, Path=EditedColor.R}"
+            />
+        <TextBox x:Name="GreenTextBox"
+            Grid.Column="2"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Margin="0,0,10,0"
+            Text="{Binding ElementName=ThisWindow, Path=EditedColor.G}"
+            />
+        <TextBox x:Name="BlueTextBox"
+            Grid.Column="3"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Margin="0,0,10,0"
+            Text="{Binding ElementName=ThisWindow, Path=EditedColor.B}"
+            />
+        <my:ColorPickerDropDown 
+          Grid.Column="4"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"
+          SelectedColor="{Binding ElementName=ThisWindow, Path=EditedColor}"
+          ProbeVisibility="Visible"
+          />
+      </Grid>
+      <Button x:Name="OK"
+            Content="OK" 
+            Margin="20,0,0,0" 
+            HorizontalAlignment="Left"
+            Width="75"
+            Click="OK_Click"
+            />
     </StackPanel>
     <Rectangle x:Name="ColorRectangle"
                Margin="80,100,0,0" 
@@ -33,12 +76,5 @@
               StrokeThickness="1"
               Fill="{Binding ElementName=ThisWindow, Path=EditedBrush}"
              />
-    <Button x:Name="OK"
-            Content="OK" 
-            Margin="242,50,0,0" 
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" Width="75"
-            Click="OK_Click"
-            />
   </Grid>
 </Window>

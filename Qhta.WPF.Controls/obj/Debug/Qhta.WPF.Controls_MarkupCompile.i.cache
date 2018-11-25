@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-9-1221891534
+9587212705
 3931216190
-201925053294
+211072155709
 1281979529440
-Border3D.xaml;ColorPickerWindow.xaml;CustomColorForm.xaml;DropDownColorPicker.xaml;ExtRichTextBox.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;
+Border3D.xaml;ColorPickerDropDown.xaml;ColorPickerWindow.xaml;CustomColorForm.xaml;ExtRichTextBox.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;
 
-True
+False
 
