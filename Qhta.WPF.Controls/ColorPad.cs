@@ -4,8 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Qhta.Drawing;
+using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.Controls
 {
@@ -138,16 +137,14 @@ namespace Qhta.WPF.Controls
       int i = 0;
       foreach (var color in new ColorIterator(Color01, Color00, Resolution, HueChange))
       {
-        int k = n-i-1;
-        leftEdge[k]=color;
+        leftEdge[i]=color;
         i++;
       }
       Color[] rightEdge = new Color[n];
       i = 0;
       foreach (var color in new ColorIterator(Color11, Color10, Resolution, HueChange))
       {
-        int k = n-i-1;
-        rightEdge[k]=color;
+        rightEdge[i]=color;
         i++;
       }
       Color[,] result = new Color [n,n];
@@ -165,21 +162,21 @@ namespace Qhta.WPF.Controls
       return result;
     }
 
+    BitmapSource bitmap;
     private void ChangeBrush()
     {
       colorMap=null;
       var map = CreateColorMap(Resolution);
       int n = Resolution;
       var writeableBitmap = new WriteableBitmap(n, n, 96, 96, PixelFormats.Pbgra32, null);
-      for (int j = 0; j<n; j++)
-        for (int i = 0; i<n; i++)
-          writeableBitmap.SetColorArray(map);
+      writeableBitmap.SetColorArray(map);
       var drawingVisual = new DrawingVisual();
       var dc = drawingVisual.RenderOpen();
       dc.DrawImage(writeableBitmap, new Rect(0, 0, n, n));
       Brush = new BitmapCacheBrush(drawingVisual);
       if (n==360)
         colorMap = map;
+      bitmap = writeableBitmap;
       InvalidateVisual();
     }
     #endregion
@@ -229,7 +226,8 @@ namespace Qhta.WPF.Controls
       top = ActualHeight*(1-Position.Y)-4;
       height = 8;
       width = 8;
-      drawingContext.DrawRectangle(Brush, null, new Rect(0, 0, ActualWidth, ActualHeight));
+      //drawingContext.DrawRectangle(Brush, null, new Rect(0, 0, ActualWidth, ActualHeight));
+      drawingContext.DrawImage(bitmap, new Rect(0, 0, ActualWidth, ActualHeight));
       drawingContext.DrawRectangle(null, BackPen, new Rect(left, top, width, height));
       drawingContext.DrawRectangle(null, FrontPen, new Rect(left, top, width, height));
     }
@@ -282,7 +280,7 @@ namespace Qhta.WPF.Controls
         return new Point(1, 0);
       if (color==Color11)
         return new Point(1,1);
-      var n = 360;
+      var n = Resolution;
       if (colorMap==null)
         colorMap = CreateColorMap(n);
       double minDiff = double.MaxValue;
@@ -296,7 +294,7 @@ namespace Qhta.WPF.Controls
         if (diff<minDiff)
         {
           minDiff=diff;
-          result=new Point(i/(double)n, j/(double)n);
+          result=new Point(i/(double)n, (n-j-1)/(double)n);
         }
       }
       return result;
@@ -312,13 +310,13 @@ namespace Qhta.WPF.Controls
         return Color10;
       if (value.X==1 && value.Y==1)
         return Color11;
-      var n = 360;
+      var n = Resolution;
       if (colorMap==null)
         colorMap = CreateColorMap(n);
       Color result = Colors.Transparent;
-      int i = Math.Max(Math.Min((int)(n * value.X), n), 0);
-      int j = Math.Max(Math.Min((int)(n * value.Y), n), 0);
-      result=colorMap[i,j];
+      int i = Math.Max(Math.Min((int)(n * value.X), n-1), 0);
+      int j = Math.Max(Math.Min((int)(n * value.Y), n-1), 0);
+      result=colorMap[i,n-j-1];
       return result;
     }
 

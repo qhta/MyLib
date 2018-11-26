@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Qhta.WPF
@@ -47,7 +44,7 @@ namespace Qhta.WPF
     /// then hDelta is set to 1/n, and if it is <see cref="HueGradient.Positive"/> - then to -1/n;
     /// In other case if <paramref name="hueChange"/> 
     /// is <see cref="HueGradient.Positive"/> then hDelta is evaluated as a positive value, 
-    /// and if it is <see cref="HueGradient.Negative"/> then it is evaluated as a negative value.
+    /// and if it is <see cref="HueGradient.Negative"/> then hDelta is evaluated as a negative value.
     /// </summary>
     /// <param name="startColor"></param>
     /// <param name="endColor"></param>
