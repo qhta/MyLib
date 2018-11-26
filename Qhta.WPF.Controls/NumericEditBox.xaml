@@ -7,13 +7,10 @@
              xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
              x:Name="ThisControl"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="150">
+             d:DesignHeight="23" d:DesignWidth="150">
   <UserControl.Resources>
     <utils:NumericValueConverter x:Key="NumericValueConverter"
-
-                                 />
-    <!--Culture="{Binding ElementName=ThisControl, Path=ContentCulture}"
-                                 Format="{Binding ElementName=ThisControl, Path=ContentStringFormat}"-->
+                                   />
   </UserControl.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
@@ -27,22 +24,15 @@
              MaxLength="{Binding ElementName=ThisControl, Path=MaxLength}"
              TextAlignment="{Binding ElementName=ThisControl, Path=TextAlignment}"
              TextDecorations="{Binding ElementName=ThisControl, Path=TextDecorations}"
-             />
+             >
+      <!--Format="{Binding ElementName=ThisControl, Path=ContentStringFormat}"-->
+    </TextBox>
     <my:NumericUpDown x:Name="NumericUpDown"
                       Grid.Column="1" VerticalAlignment="Stretch"
-                      Value="{Binding ElementName=ThisControl, Path=Value, Mode=TwoWay}"
-                      Increment="{Binding ElementName=ThisControl, Path=Increment, Mode=TwoWay}"
-                      Minimum="{Binding ElementName=ThisControl, Path=Minimum, Mode=TwoWay}"
-                      Maximum="{Binding ElementName=ThisControl, Path=Maximum, Mode=TwoWay}"
+                      Value="{Binding ElementName=TextBox, Path=Text, Mode=TwoWay}"
+                      Increment="{Binding ElementName=ThisControl, Path=Increment, Mode=OneWay}"
+                      Minimum="{Binding ElementName=ThisControl, Path=Minimum, Mode=OneWay}"
+                      Maximum="{Binding ElementName=ThisControl, Path=Maximum, Mode=OneWay}"
                       />
-    
-                      <!--
-
-    
-    ModifierKey="{Binding ElementName=ThisControl, Path=ModifierKey, Mode=TwoWay}"
-    PageIncrement="{Binding ElementName=ThisControl, Path=PageIncrement, Mode=TwoWay}"
-    
-    -->
-    
   </Grid>
 </UserControl>

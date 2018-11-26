@@ -246,7 +246,11 @@ namespace Qhta.WPF.Controls
         {
           Position = Math.Max(Math.Min(pos.X/this.ActualWidth, 1), 0);
         }
-        SelectedColor = Position2Color(Position);
+        var c = Position2Color(Position);
+        if (c!=SelectedColor)
+        {
+          SelectedColor = c;
+        }
       }
     }
     #endregion
@@ -255,10 +259,13 @@ namespace Qhta.WPF.Controls
 
     public void SetPosition(Color color)
     {
+      //Debug.WriteLine($"SetPosition({color})");
       Position = Color2Position(color);
     }
 
     Color[] colorMap;
+
+    bool isHueMode => Color0==Color1 && HueChange!=HueGradient.None;
 
     public double Color2Position(Color color)
     {
@@ -266,13 +273,19 @@ namespace Qhta.WPF.Controls
         return 0;
       if (color==Color1)
         return 1;
-      var n = 360;
+      double result = double.NaN;
+      if (isHueMode)
+      {
+        var HSV = Qhta.Drawing.ColorSpaceConverter.Color2HSV(color.ToDrawingColor());
+        result = HSV.H;
+        return result;
+      }
+      var n = Resolution;
       if (colorMap==null)
       {
         colorMap = (new ColorIterator(Color0, Color1, n, HueChange)).ToArray();
       }
       double minDiff = double.MaxValue;
-      double result = double.NaN;
       for (int i=0; i<n; i++)
       {
         Color pixelColor;
@@ -293,12 +306,19 @@ namespace Qhta.WPF.Controls
         return Color0;
       if (value==1)
         return Color1;
-      var n = 360;
+      Color result = Colors.Transparent;
+      if (isHueMode)
+      {
+        var HSV = Qhta.Drawing.ColorSpaceConverter.Color2HSV(Color0.ToDrawingColor());
+        HSV.H = value;
+        result = Qhta.Drawing.ColorSpaceConverter.HSV2Color(HSV).ToMediaColor();
+        return result;
+      }
+      var n = Resolution;
       if (colorMap==null)
       {
         colorMap = (new ColorIterator(Color0, Color1, n, HueChange)).ToArray();
       }
-      Color result = Colors.Transparent;
       int i = Math.Max(Math.Min((int)(n * value), n), 0);
       result=colorMap[i];
       return result;

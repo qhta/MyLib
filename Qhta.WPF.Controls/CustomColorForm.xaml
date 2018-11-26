@@ -4,116 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.WPF.Controls"
+             xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
+             xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
+             xmlns:du="clr-namespace:Qhta.Drawing;assembly=Qhta.Drawing.ColorUtils"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="250"
-             MinHeight="320">
+             d:DesignHeight="400" d:DesignWidth="350"
+             >
   <Grid>
-    <StackPanel Orientation="Vertical">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="100"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.Resources>
+      <cu:ColorConverter x:Key="ColorConverter"/>
+      <utils:MultiplyingConverter x:Key="MultiplyingConverter"/>
+      <!--<du:ColorHSV x:Key="HighestHueColor" Hue="359" Saturation="255" Value="255"/>-->
+    </Grid.Resources>
+    <StackPanel Orientation="Vertical" Grid.Column="0">
+      <local:ColorSlider x:Name="HueColorSlider"
+        Width="20"
+        Height="360"
+        Orientation="Vertical"
+        Color0="Red" Color1="Red" HueChange="Positive"
+        Resolution="360"
+        HorizontalAlignment="Left"
+        Margin="30,0,0,0"
+        />
+      <StackPanel Orientation="Horizontal">
+        <Label Content="Hue" VerticalAlignment="Center"/>
+        <local:NumericEditBox x:Name="HueTextEdit"
+          Margin="10,10"
+          Width="40"
+          Height="23"
+          Minimum="0"
+          Maximum="359"
+          Value="{Binding ElementName=HueColorSlider, Path=Position, Mode=OneWay,
+            Converter={StaticResource MultiplyingConverter}, ConverterParameter=360}"
+          ContentStringFormat="F0"
+          ValueChanged="HueTextEdit_ValueChanged"
+          />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBox x:Name="NoNumTextBox"
+          Height="23" 
+               Text="{Binding ElementName=HueColorSlider, Path=SelectedColor, Mode=OneWay,
+               Converter={StaticResource ColorConverter}, ConverterParameter='H'}"/>
+        <local:NumericUpDown Value="{Binding ElementName=NoNumTextBox, Path=Text}"/>
+      </StackPanel>
+    </StackPanel>
+    <StackPanel Orientation="Vertical" Grid.Column="1">
       <Grid  Margin="10,10,0,0" >
         <Border BorderBrush="Black" BorderThickness="2" 
                     HorizontalAlignment="Center" VerticalAlignment="Top"
                         Background="Black"
                         Width="145" Height="145">
         </Border>
-        <Image x:Name="image"  Width="140" Height="140" Stretch="UniformToFill"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Top" Margin="2"
-               Source="/Qhta.WPF.Controls;component/Resources/colorChart.PNG"
-              />
-        <Canvas x:Name="CanColor"  Width="140" Height="140" 
-                       HorizontalAlignment="Center"
-                       Background="Transparent"
-                       VerticalAlignment="Top" Margin="2"  >
-          <Ellipse x:Name="EpPointer" Width="8" 
-                   Canvas.Left="-2"
-                   Canvas.Top="-2"
-                   Height="8" Stroke="Black" Fill="White" 
-                   />
-        </Canvas>
       </Grid>
 
       <StackPanel Margin="0,10,0,0" Orientation="Horizontal" >
-        <Label Content="Alpha" 
-               Margin="5,0,0,0" 
-               Width="55"
-               HorizontalContentAlignment="Right"
-               FontWeight="Bold"/>
-        <local:NumericEditBox x:Name="AlphaTextBox" 
-                TabIndex="0"  MaxLength="3" Width="55"
-                Padding="0,3,0,0"
-                Margin="2,1,0,1"
-                Minimum="0"
-                Maximum="255"
-                ValueChanged="AlphaTextBox_ValueChanged"/>
-        <Slider Orientation="Horizontal"
-                Minimum="0"
-                Maximum="255"
-                Width="100"
-                Margin="0,5,0,0"
-                Value="{Binding ElementName=AlphaTextBox, Path=Value}"
-                />
-      </StackPanel>
-      <StackPanel Margin="0,10,0,0" Orientation="Horizontal"  >
-        <Label Content="R" 
-               Margin="5,0,0,0"
-               FontWeight="Bold"
-               Width="55"
-               HorizontalContentAlignment="Right"
-               />
-        <TextBox x:Name="RedTextBox" 
-                 TabIndex="1" MaxLength="3"  Width="35" 
-                 Padding="0,3,0,0"
-                 Margin="2,1,2,1" />
-        <Label Content="G" 
-               Margin="1,0,0,0"
-               FontWeight="Bold"
-               Width="20"
-               HorizontalContentAlignment="Right"
-               />
-        <TextBox x:Name="GreenTextBox" 
-                 TabIndex="2" MaxLength="3" Width="35" 
-                 Padding="0,3,0,0"
-                 Margin="2,1,2,1" />
-        <Label Content="B" 
-               Margin="1,0,0,0"
-               FontWeight="Bold"
-               Width="20"
-               HorizontalContentAlignment="Right"
-               />
-        <TextBox x:Name="BlueTextBox" 
-                 TabIndex="3" MaxLength="3" Width="35" 
-                 Padding="0,3,0,0"
-                 Margin="2,1,2,1" />
-      </StackPanel>
-
-      <StackPanel Orientation="Horizontal"  Margin="5,5,0,0">
-        <Label Content="Hex" 
-               Margin="5,0,0,0" 
-               FontWeight="Bold"
-               HorizontalContentAlignment="Right"
-               Width="55"
-               />
-        <TextBox x:Name="HexTextBox" 
-                 TabIndex="4"
-                 Padding="0,3,0,0"
-                 />
-      </StackPanel>
-
-      <StackPanel Margin="5,10,0,0"  Orientation="Horizontal" >
-        <Label Content="Preview" Margin="5,0,0,0" HorizontalAlignment="Left" 
-                        FontWeight="Bold" VerticalAlignment="Center"/>
-
-        <Border  Width="75"   Height="30"
-                 BorderBrush="Black" BorderThickness="1"
-                         >
-          <Grid>
-            <Image Source="/Qhta.WPF.Controls;component/Resources/OpacityPattern.PNG"/>
-            <Rectangle x:Name="PreviewRectangle"  Fill="Transparent"/>
-          </Grid>
-          <!--<Label Name="lblPreview"    
-                 Height="30"  
-                 Foreground="Black"   FontWeight="Bold" VerticalAlignment="Center"/>-->
-        </Border>
       </StackPanel>
     </StackPanel>
   </Grid>

@@ -67,6 +67,7 @@
     <Compile Include="DashStyleConverter.cs" />
     <Compile Include="DashStyleUtils.cs" />
     <Compile Include="ColorAdjustEffect.cs" />
+    <Compile Include="MultiplyingConverter.cs" />
     <Compile Include="InverseValueConverter.cs" />
     <Compile Include="KnownColor.cs" />
     <Compile Include="KnownColors.cs" />

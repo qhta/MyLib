@@ -6,11 +6,13 @@ namespace Qhta.WPF.Utils
 {
   public class DividingConverter : IValueConverter
   {
+    public double Param { get; set; } = Double.NaN;
+
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       Double divider = 0.0;
       if (!TryGetValue(parameter, out divider))
-        return value;
+        divider=Param;
       Double divident = 0.0;
       if (!TryGetValue(value, out divident))
         return value;
@@ -27,6 +29,8 @@ namespace Qhta.WPF.Utils
     private bool TryGetValue(object parameter, out double value)
     {
       value = double.NaN;
+      if (parameter is string str)
+        return double.TryParse(str, out value);
       if (parameter is Double)
         value = (Double)parameter;
       else if (parameter is Single)

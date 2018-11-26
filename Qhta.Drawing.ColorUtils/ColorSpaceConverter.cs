@@ -32,6 +32,10 @@ namespace Qhta.Drawing
     /// </summary>
     public double V;
 
+    public int Hue { get => (int)(H*360); set => H = value/360.0; }
+    public int Saturation { get => (int)(S*255); set => S = value/255.0; }
+    public int Value { get => (int)(V*255); set => V = value/255.0; }
+
     public ColorHSV(double H, double S, double V)
     {
       this.H = H;

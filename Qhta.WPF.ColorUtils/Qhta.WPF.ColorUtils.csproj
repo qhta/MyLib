@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorConverter.cs" />
     <Compile Include="ColorIterator.cs" />
     <Compile Include="ColorUtils.cs" />
     <Compile Include="DrawingColorConverter.cs" />

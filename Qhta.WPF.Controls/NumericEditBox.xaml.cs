@@ -29,8 +29,6 @@ namespace Qhta.WPF.Controls
     public override void OnApplyTemplate()
     {
       base.OnApplyTemplate();
-      if (this.textChanged != null)
-        TextBox.TextChanged += this.textChanged;
       var numericValueConverter = (NumericValueConverter)FindResource("NumericValueConverter");
       numericValueConverter.Culture = this.ContentCulture;
       numericValueConverter.Format = this.ContentStringFormat;
@@ -39,38 +37,9 @@ namespace Qhta.WPF.Controls
 
     private void NumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> args)
     {
-      Value=args.NewValue;
+      OnValueChanged(args.OldValue, args.NewValue);
+      //Value=args.NewValue;
     }
-
-    #region Text property
-    /// <summary>
-    /// Tekst z pola tekstowego
-    /// </summary>
-    //public string Text
-    //{
-    //  get { return (string)GetValue(TextProperty); }
-    //  set { SetValue(TextProperty, value); }
-    //}
-
-    ///// <summary>
-    ///// Właściwość zależna dla właściwości <see cref="Text"/>
-    ///// </summary>
-    //public static readonly DependencyProperty TextProperty = DependencyProperty.Register
-    //  ("Text", typeof(string), typeof(NumericEditBox),
-    //  new PropertyMetadata(null,
-    //  new PropertyChangedCallback(TextPropertyChanged)));
-
-    //private static void TextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    //{
-    //  (sender as NumericEditBox).PrivateTextChanged();
-    //}
-
-    //private void PrivateTextChanged()
-    //{
-    //  if (decimal.TryParse(Text, out decimal d))
-    //    Value=d;
-    //}
-    #endregion
 
     /// <summary>
     /// Krok, o który zwiększa/zmniejsza się wartość.
@@ -187,7 +156,7 @@ namespace Qhta.WPF.Controls
       if (ValueChanged != null)
       {
         RoutedPropertyChangedEventArgs<decimal> args = new RoutedPropertyChangedEventArgs<decimal>(oldValue, newValue);
-        ValueChanged(this, args);
+        ValueChanged.Invoke(this, args);
       }
     }
 
@@ -196,48 +165,6 @@ namespace Qhta.WPF.Controls
     /// </summary>
     public event RoutedPropertyChangedEventHandler<decimal> ValueChanged;
 
-    ///// <summary> 
-    /////   Statyczna obsługa zdarzenia zmiany właściwości <see cref="TextProperty"/>
-    ///// </summary>
-    //private static void OnTextPropertyChanged (DependencyObject d, DependencyPropertyChangedEventArgs e)
-    //{
-    //  NumericEditBox ctrl = (NumericEditBox)d;
-    //  ctrl.OnTextChanged((string)e.OldValue, (string)e.NewValue);
-    //}
-
-    ///// <summary> 
-    ///// Obsługa zdarzenia zmiany tekstu
-    ///// </summary> 
-    //protected virtual void OnTextChanged (string oldValue, string newValue)
-    //{
-    //  if (TextChanged != null)
-    //  {
-    //    TextChangedEventArgs args = new TextChangedEventArgs(new RoutedEvent(), UndoAction.None);
-    //    TextChanged(this, args);
-    //  }
-    //}
-
-    /// <summary>
-    /// Zdarzenie zmiany tekstu
-    /// </summary>
-    public event TextChangedEventHandler TextChanged
-    {
-      add
-      {
-        if (TextBox != null)
-          TextBox.TextChanged += value;
-        else
-          textChanged = value;
-      }
-      remove
-      {
-        if (TextBox != null)
-          TextBox.TextChanged -= value;
-        else
-          textChanged = null;
-      }
-    }
-    private TextChangedEventHandler textChanged;
 
     #region ContentCulture property
     /// <summary>
@@ -332,89 +259,6 @@ namespace Qhta.WPF.Controls
     public static readonly DependencyProperty TextDecorationsProperty = DependencyProperty.Register
       ("TextDecorations", typeof(TextDecorationCollection), typeof(NumericEditBox));
     #endregion
-
-    //#region IsSelectionActive property
-    //public bool IsSelectionActive { get; }
-
-    //public static readonly DependencyProperty IsSelectionActiveProperty;
-    //#endregion
-
-    //#region CaretBrush property
-    //public Brush CaretBrush
-    //{
-    //  get => (Brush)GetValue(CaretBrushProperty);
-    //  set => SetValue(CaretBrushProperty, value);
-    //}
-    //public static readonly DependencyProperty CaretBrushProperty = DependencyProperty.Register
-    //  ("CaretBrush", typeof(Brush), typeof(NumericEditBox));
-    //#endregion
-
-    //#region SelectionOpacity property
-    ////     The default is 0.4.
-    //public double SelectionOpacity
-    //{
-    //  get => (double)GetValue(SelectionOpacityProperty);
-    //  set => SetValue(SelectionOpacityProperty, value);
-    //}
-    //public static readonly DependencyProperty SelectionOpacityProperty = DependencyProperty.Register
-    //  ("SelectionOpacity", typeof(double), typeof(NumericEditBox),
-    //   new FrameworkPropertyMetadata(0.4));
-    //#endregion
-
-    //#region SelectionBrush property
-    //public Brush SelectionBrush
-    //{
-    //  get => (Brush)GetValue(SelectionBrushProperty);
-    //  set => SetValue(SelectionBrushProperty, value);
-    //}
-    //public static readonly DependencyProperty SelectionBrushProperty = DependencyProperty.Register
-    //  ("SelectionBrush", typeof(Brush), typeof(NumericEditBox));
-    //#endregion
-
-    //#region AutoWordSelectionProperty property
-    //public bool AutoWordSelection
-    //{
-    //  get => (bool)GetValue(AutoWordSelectionProperty);
-    //  set => SetValue(AutoWordSelectionProperty, value);
-    //}
-    //public static readonly DependencyProperty AutoWordSelectionProperty = DependencyProperty.Register
-    //  ("AutoWordSelection", typeof(bool), typeof(NumericEditBox));
-    //#endregion
-
-    //#region IsInactiveSelectionHighlightEnabled property
-    //public bool IsInactiveSelectionHighlightEnabled
-    //{
-    //  get => (bool)GetValue(IsInactiveSelectionHighlightEnabledProperty);
-    //  set => SetValue(IsInactiveSelectionHighlightEnabledProperty, value);
-    //}
-    //public static readonly DependencyProperty IsInactiveSelectionHighlightEnabledProperty = DependencyProperty.Register
-    //  ("IsInactiveSelectionHighlightEnabled", typeof(bool), typeof(NumericEditBox));
-    //#endregion
-
-    //#region IsUndoEnabled property
-    //public bool IsUndoEnabled
-    //{
-    //  get => (bool)GetValue(IsUndoEnabledProperty);
-    //  set => SetValue(IsUndoEnabledProperty, value);
-    //}
-    //public static readonly DependencyProperty IsUndoEnabledProperty = DependencyProperty.Register
-    //  ("IsUndoEnabled", typeof(bool), typeof(NumericEditBox));
-    //#endregion
-
-    //#region UndoLimit property
-    //public int UndoLimit
-    //{
-    //  get => (int)GetValue(UndoLimitProperty);
-    //  set => SetValue(UndoLimitProperty, value);
-    //}
-    //public static readonly DependencyProperty UndoLimitProperty = DependencyProperty.Register
-    //  ("UndoLimit", typeof(int), typeof(NumericEditBox));
-    //#endregion
-
-
-    //public bool CanUndo => TextBox.CanUndo;
-
-    //public bool CanRedo => TextBox.CanRedo;
 
   }
 }
