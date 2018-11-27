@@ -7,131 +7,154 @@ using System.Drawing;
 namespace Qhta.Drawing
 {
   /// <summary>
-  /// Enumeration type describing how the Hue value is treated by <see cref="ColorIterator"/> 
-  /// when there is no difference between hue of start and end color.
-  /// </summary>
-  public enum HueGradient
-  {
-    /// <summary>
-    /// No Hue increment
-    /// </summary>
-    None,
-    /// <summary>
-    /// Positive Hue increment (from red to violet)
-    /// </summary>
-    Positive,
-    /// <summary>
-    /// Negative Hue increment (from violet to red)
-    /// </summary>
-    Negative
-  }
-
-  /// <summary>
   /// Iterator class for <c>System.Windows.Media.Color</c> type.
   /// May be used in <c>foreach</c> instructions.
   /// </summary>
-  public class ColorIterator : IEnumerator<Color>, IEnumerable<Color>
+  public class ColorIterator : IEnumerator<Color>, IEnumerator<AhsvColor>, IEnumerable<Color>, IEnumerable<AhsvColor>
   {
     /// <summary>
-    /// Default constructor for iterate from <paramref name="startColor"/> to <paramref name="endColor"/>
+    /// Constructor for iterate from <paramref name="startColor"/> to <paramref name="endColor"/>
     /// giving <paramref name="steps"/> color values. The first value is <paramref name="startColor"/>,
     /// the last is <paramref name="endColor"/>. Both <paramref name="startColor"/> and <paramref name="endColor"/>
     /// are translated to AHSV color space (with each dimension scaled from 0 to 1). 
     /// The differences between A, H, S and V dimensions of <paramref name="endColor"/> and 
     /// A, H, S and V of <paramref name="startColor"/> are divided by n=<paramref name="steps"/>
     /// resulting in aDelta, sDelta and vDelta respectively.
-    /// If hDelta equals 0 and <paramref name="hueChange"/> is <see cref="HueGradient.Positive"/>
-    /// then hDelta is set to 1/n, and if it is <see cref="HueGradient.Positive"/> - then to -1/n;
+    /// If hDelta equals 0 and <paramref name="hueChange"/> is <see cref="HueChange.Positive"/>
+    /// then hDelta is set to 1/n, and if it is <see cref="HueChange.Positive"/> - then to -1/n;
     /// In other case if <paramref name="hueChange"/> 
-    /// is <see cref="HueGradient.Positive"/> then hDelta is evaluated as a positive value, 
-    /// and if it is <see cref="HueGradient.Negative"/> then hDelta is evaluated as a negative value.
+    /// is <see cref="HueChange.Positive"/> then hDelta is evaluated as a positive value, 
+    /// and if it is <see cref="HueChange.Negative"/> then hDelta is evaluated as a negative value.
     /// </summary>
     /// <param name="startColor"></param>
     /// <param name="endColor"></param>
     /// <param name="steps"></param>
     /// <param name="hueChange"></param>
-    public ColorIterator(Color startColor, Color endColor, int steps, HueGradient hueChange)
+    public ColorIterator(Color startColor, Color endColor, int steps, HueChange hueChange)
     {
       this.Color0=startColor;
       this.Color1=endColor;
       this.steps = steps;
       this.hueChange = hueChange;
+      this.startArgb = ColorSpaceConverter.ToArgb(startColor);
+      this.endArgb = ColorSpaceConverter.ToArgb(endColor);
+      this.startAhsv = startArgb.ToAhsv();
+      this.endAhsv = endArgb.ToAhsv();
+      Init();
+    }
 
-      this.startColor = System.Drawing.Color.FromArgb(startColor.A, startColor.R, startColor.G, startColor.B);
-      this.endColor = System.Drawing.Color.FromArgb(endColor.A, endColor.R, endColor.G, endColor.B);
-      startHSV = Qhta.Drawing.ColorSpaceConverter.Color2HSV(this.startColor);
-      endHSV = Qhta.Drawing.ColorSpaceConverter.Color2HSV(this.endColor);
+    /// <summary>
+    /// Constructor for iterate from <paramref name="startColor"/> to <paramref name="endColor"/>
+    /// giving <paramref name="steps"/> color values. The first value is <paramref name="startColor"/>,
+    /// the last is <paramref name="endColor"/>. Both <paramref name="startColor"/> and <paramref name="endColor"/>
+    /// are in AHSV color space (with each dimension scaled from 0 to 1). 
+    /// The differences between A, H, S and V dimensions of <paramref name="endColor"/> and 
+    /// A, H, S and V of <paramref name="startColor"/> are divided by n=<paramref name="steps"/>
+    /// resulting in aDelta, sDelta and vDelta respectively.
+    /// If hDelta equals 0 and <paramref name="hueChange"/> is <see cref="HueChange.Positive"/>
+    /// then hDelta is set to 1/n, and if it is <see cref="HueChange.Positive"/> - then to -1/n;
+    /// In other case if <paramref name="hueChange"/> 
+    /// is <see cref="HueChange.Positive"/> then hDelta is evaluated as a positive value, 
+    /// and if it is <see cref="HueChange.Negative"/> then hDelta is evaluated as a negative value.
+    /// </summary>
+    /// <param name="startColor"></param>
+    /// <param name="endColor"></param>
+    /// <param name="steps"></param>
+    /// <param name="hueChange"></param>
+    public ColorIterator(AhsvColor startColor, AhsvColor endColor, int steps, HueChange hueChange)
+    {
+      this.Color0=startColor.ToColor();
+      this.Color1=endColor.ToColor();
+      this.steps = steps;
+      this.hueChange = hueChange;
+      this.startArgb = ColorSpaceConverter.ToArgb(startColor);
+      this.endArgb = ColorSpaceConverter.ToArgb(endColor);
+      this.startAhsv = startColor;
+      this.endAhsv = endColor;
+      Init();
+    }
+
+    private void Init()
+    { 
       int n = steps;
-      hDelta = (endHSV.H-startHSV.H)/n;
+      hDelta = (endAhsv.H-startAhsv.H)/n;
       if (hDelta==0)
       {
-        if (hueChange==HueGradient.Positive)
+        if (hueChange==HueChange.Positive)
           hDelta = 1.0/n;
         else
-        if (hueChange==HueGradient.Negative)
+        if (hueChange==HueChange.Negative)
           hDelta = -1.0/n;
       }
       else
       {
-        if (hDelta>0 && hueChange==HueGradient.Negative)
-          hDelta = (endHSV.H-(1+startHSV.H))/n;
-        else if (hDelta<0 && hueChange==HueGradient.Positive)
-          hDelta = -(startHSV.H-(1+endHSV.H))/n;
+        if (hDelta>0 && hueChange==HueChange.Negative)
+          hDelta = (endAhsv.H-(1+startAhsv.H))/n;
+        else if (hDelta<0 && hueChange==HueChange.Positive)
+          hDelta = -(startAhsv.H-(1+endAhsv.H))/n;
       }
-      sDelta = (endHSV.S-startHSV.S)/n;
-      vDelta = (endHSV.V-startHSV.V)/n;
-      aStart = (this.startColor.A/255.0);
-      var aEnd = (this.endColor.A/255.0);
-      aDelta = (aEnd-aStart)/n;
+      sDelta = (endAhsv.S-startAhsv.S)/n;
+      vDelta = (endAhsv.V-startAhsv.V)/n;
+      aDelta = (endAhsv.A-startAhsv.A)/n;
       Reset();
     }
 
     private Color Color0;
     private Color Color1;
     private int steps;
-    private HueGradient hueChange;
+    private HueChange hueChange;
     private int counter;
 
-    private System.Drawing.Color startColor;
-    private System.Drawing.Color endColor;
-    private Qhta.Drawing.ColorHSV startHSV;
-    private Qhta.Drawing.ColorHSV endHSV;
+    private ArgbColor startArgb;
+    private ArgbColor endArgb;
+    private AhsvColor startAhsv;
+    private AhsvColor endAhsv;
     double hDelta;
     double sDelta;
     double vDelta;
     double aDelta;
-    double aStart;
 
     public void Reset()
     {
-      Current = Color0;
+      currentColor = Color0;
       counter=0;
     }
 
-    public Color Current { get; private set; }
+    public Color Current => currentColor;
+    AhsvColor IEnumerator<AhsvColor>.Current => currentAhsv;
 
-    object IEnumerator.Current => Current;
+    private Color currentColor;
+    private AhsvColor currentAhsv;
+
+    object IEnumerator.Current => currentColor;
+
 
     public bool MoveNext()
     {
       if (counter>=steps)
         return false;
       if (counter==0)
-        Current=Color0;
+      {
+        currentColor=Color0;
+        currentAhsv = startAhsv;
+      }
       else
       if (counter==steps-1)
-        Current=Color1;
+      {
+        currentColor=Color1;
+        currentAhsv = endAhsv;
+      }
       else
       {
         var i = counter;
-        var hue = (startHSV.H+i*hDelta) % 1.0;
+        var hue = (startAhsv.H+i*hDelta) % 1.0;
         if (hue<0)
           hue+=1.0;
-        var sat = startHSV.S+i*sDelta;
-        var val = startHSV.V+i*vDelta;
-        var alpha = aStart+i*aDelta;
-        var newColor = Qhta.Drawing.ColorSpaceConverter.HSV2Color(new Drawing.ColorHSV(hue, sat, val));
-        Current = Color.FromArgb((byte)(alpha*255), newColor.R, newColor.G, newColor.B);
+        var sat = startAhsv.S+i*sDelta;
+        var val = startAhsv.V+i*vDelta;
+        var alpha = startAhsv.A+i*aDelta;
+        currentAhsv = new Drawing.AhsvColor(alpha, hue, sat, val);
+        currentColor = ColorSpaceConverter.ToColor(currentAhsv);
         //Debug.WriteLine($"CurrentColor = {Current}");
       }
       counter++;
@@ -150,7 +173,17 @@ namespace Qhta.Drawing
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-      return GetEnumerator();
+      return this;
+    }
+
+    public IEnumerator<AhsvColor> AsAhsvIterator()
+    {
+      return this as IEnumerator<AhsvColor>;
+    }
+
+    IEnumerator<AhsvColor> IEnumerable<AhsvColor>.GetEnumerator()
+    {
+      return this as IEnumerator<AhsvColor>;
     }
   }
 }

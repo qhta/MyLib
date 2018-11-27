@@ -38,7 +38,7 @@ namespace Qhta.WPF
           return (byte)MediaColorToNumber(color, (string)parameter);
       }
       else 
-      if (value is ColorHSV hsvColor)
+      if (value is AhsvColor hsvColor)
       {
         if (targetType == typeof(System.Windows.Media.Color))
           return ColorHSVToMediaColor(hsvColor);
@@ -121,7 +121,7 @@ namespace Qhta.WPF
           return String.Format("{0:X2}", dc.B);
         if (str=="B:D")
           return String.Format("{0}", dc.B);
-        var HSV = dc.Color2HSV();
+        var HSV = dc.ToAhsv();
         if (str=="H:X")
           return String.Format("{0:X2}", (int)(HSV.H*255));
         if (str=="H:D")
@@ -158,7 +158,7 @@ namespace Qhta.WPF
           return dc.G;
         if (str=="B")
           return dc.B;
-        var HSV = dc.Color2HSV();
+        var HSV = dc.ToAhsv();
         if (str=="H")
           return (uint)(HSV.H*360);
         if (str=="V")
@@ -168,9 +168,9 @@ namespace Qhta.WPF
       }
       return (uint)dc.A<<24 | (uint)dc.R<<16 | (uint)dc.G<<8 | (uint)dc.B;
     }
-    public static System.Windows.Media.Color ColorHSVToMediaColor(ColorHSV hsvColor)
+    public static System.Windows.Media.Color ColorHSVToMediaColor(AhsvColor hsvColor)
     {
-      var dc = hsvColor.HSV2Color();
+      var dc = hsvColor.ToColor();
       return System.Windows.Media.Color.FromArgb(dc.A, dc.R, dc.G, dc.B);
     }
   }

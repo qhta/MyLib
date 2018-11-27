@@ -3,22 +3,64 @@ using System.Drawing;
 
 namespace Qhta.Drawing
 {
-  public struct ColorRGB
+  public struct ArgbColor
   {
-    public double R; // 0..1
-    public double G; // 0..1
-    public double B; // 0..1
+    /// <summary>
+    /// Alpha channel in range 0..1
+    /// </summary>
+    public double A; 
+    /// <summary>
+    /// Red channel in range 0..1
+    /// </summary>
+    public double R; 
+    /// <summary>
+    /// Green channel in range 0..1
+    /// </summary>
+    public double G; 
+    /// <summary>
+    /// Blue channel in range 0..1
+    /// </summary>
+    public double B; 
 
-    public ColorRGB(byte R, byte G, byte B)
+    public ArgbColor(byte R, byte G, byte B)
     {
+      this.A = 1;
       this.R = R/255.0;
       this.G = G/255.0;
       this.B = B/255.0;
     }
+
+    public ArgbColor(byte A, byte R, byte G, byte B)
+    {
+      this.A = A;
+      this.R = R/255.0;
+      this.G = G/255.0;
+      this.B = B/255.0;
+    }
+
+    public ArgbColor(double R, double G, double B)
+    {
+      this.A = 1;
+      this.R = R;
+      this.G = G;
+      this.B = B;
+    }
+
+    public ArgbColor(double A, double R, double G, double B)
+    {
+      this.A = A;
+      this.R = R;
+      this.G = G;
+      this.B = B;
+    }
   }
 
-  public struct ColorHSV
+  public struct AhsvColor
   {
+    /// <summary>
+    ///  Alpha in range 0..1 (full opacity)
+    /// </summary>
+    public double A;
     /// <summary>
     ///  Hue in range 0..1 (full angle)
     /// </summary>
@@ -32,27 +74,63 @@ namespace Qhta.Drawing
     /// </summary>
     public double V;
 
+    public int Alpha { get => (int)(A*255); set => A = value/255.0; }
     public int Hue { get => (int)(H*360); set => H = value/360.0; }
     public int Saturation { get => (int)(S*255); set => S = value/255.0; }
     public int Value { get => (int)(V*255); set => V = value/255.0; }
 
-    public ColorHSV(double H, double S, double V)
+    public AhsvColor(double H, double S, double V)
     {
+      this.A = 1;
+      this.H = H;
+      this.S = S;
+      this.V = V;
+    }
+    public AhsvColor(double A, double H, double S, double V)
+    {
+      this.A = A;
       this.H = H;
       this.S = S;
       this.V = V;
     }
   }
 
-  public struct ColorHLS
+  public struct AhlsColor
   {
-    public double H; // 0..1 = full angle
-    public double L; // 0..1
-    public double S; // 0..1
+    /// <summary>
+    ///  Alpha in range 0..1 (full opacity)
+    /// </summary>
+    public double A;
+    /// <summary>
+    ///  Hue in range 0..1 (full angle)
+    /// </summary>
+    public double H;
+    /// <summary>
+    ///  Lightness in range 0..1
+    /// </summary>
+    public double L;
+    /// <summary>
+    ///  Saturation in range 0..1
+    /// </summary>
+    public double S;
 
-    public ColorHLS(double H, double L, double S)
+    public int Alpha { get => (int)(A*255); set => A = value/255.0; }
+    public int Hue { get => (int)(H*360); set => H = value/360.0; }
+    public int Saturation { get => (int)(S*255); set => S = value/255.0; }
+    public int Lightness { get => (int)(L*255); set => L = value/255.0; }
+
+
+    public AhlsColor(double H, double L, double S)
     {
-      this.H = H / 360;
+      this.A = 1;
+      this.H = H;
+      this.L = L;
+      this.S = S;
+    }
+    public AhlsColor(double A, double H, double L, double S)
+    {
+      this.A = A;
+      this.H = H;
       this.L = L;
       this.S = S;
     }
@@ -61,18 +139,24 @@ namespace Qhta.Drawing
   public static class ColorSpaceConverter
   {
 
-    public static ColorHSV Color2HSV(this Color value)
+    public static ArgbColor ToArgb(this Color value)
     {
-      return RGB2HSV(value.R/255.0, value.G/255.0, value.B/255.0);
+      return new ArgbColor(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
     }
 
-    public static ColorHSV RGB2HSV(this ColorRGB value)
+    public static AhsvColor ToAhsv(this Color value)
     {
-      return RGB2HSV(value.R, value.G, value.B);
+      return ToAhsv(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
     }
 
-    public static ColorHSV RGB2HSV(double R, double G, double B)
+    public static AhsvColor ToAhsv(this ArgbColor value)
     {
+      return ToAhsv(value.A, value.R, value.G, value.B);
+    }
+
+    public static AhsvColor ToAhsv(double A, double R, double G, double B)
+    {
+      double a = A;
       double r = R;
       double g = G;
       double b = B;
@@ -109,21 +193,22 @@ namespace Qhta.Drawing
 
       v = max;
 
-      return new ColorHSV(h, s, v);
+      return new AhsvColor(a, h, s, v);
     }
 
-    public static ColorHLS Color2HLS(this Color value)
+    public static AhlsColor ToAhls(this Color value)
     {
-      return RGB2HLS(value.R/255.0, value.G/255.0, value.B/255.0);
+      return ToAhls(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
     }
 
-    public static ColorHLS RGB2HLS(this ColorRGB value)
+    public static AhlsColor ToAhls(this ArgbColor value)
     {
-      return RGB2HLS(value.R, value.G, value.B);
+      return ToAhls(value.A, value.R, value.G, value.B);
     }
 
-    public static ColorHLS RGB2HLS(double R, double G, double B)
+    public static AhlsColor ToAhls(double A, double R, double G, double B)
     {
+      double a = A;
       double r = R;
       double g = G;
       double b = B;
@@ -161,17 +246,18 @@ namespace Qhta.Drawing
         s = (max - min) / (2 - 2 * l);
 
 
-      return new ColorHLS(h, l, s);
+      return new AhlsColor(a, h, l, s);
     }
 
-    public static Color HSV2Color(this ColorHSV value)
+    public static Color ToColor(this AhsvColor value)
     {
-      var c = HSV2RGB(value);
-      return Color.FromArgb((int)(c.R*255), (int)(c.G*255), (int)(c.B*255));
+      var c = ToArgb(value);
+      return Color.FromArgb((int)(c.A*255), (int)(c.R*255), (int)(c.G*255), (int)(c.B*255));
     }
 
-    public static ColorRGB HSV2RGB(this ColorHSV value)
+    public static ArgbColor ToArgb(this AhsvColor value)
     {
+      double a = value.A;
       double v = value.V;
       double s = value.S;
       double h = value.H;
@@ -223,18 +309,19 @@ namespace Qhta.Drawing
           b = q;
           break;
       }
-      return new ColorRGB { R = r, G = g, B = b };
+      return new ArgbColor { A= a, R = r, G = g, B = b };
     }
 
-    public static Color HLS2Color(this ColorHLS value)
+    public static Color ToColor(this AhlsColor value)
     {
-      var c = HLS2RGB(value);
-      return Color.FromArgb((int)(c.R*255), (int)(c.G*255), (int)(c.B*255));
+      var c = ToArgb(value);
+      return Color.FromArgb((int)(c.A*255), (int)(c.R*255), (int)(c.G*255), (int)(c.B*255));
     }
 
-    public static ColorRGB HLS2RGB(this ColorHLS value)
+    public static ArgbColor ToArgb(this AhlsColor value)
     {
       double r, g, b;
+      double a = value.A;
       double h = value.H;
       double s = value.S;
       double l = value.L;
@@ -247,14 +334,14 @@ namespace Qhta.Drawing
       {
         double q = l < 0.5 ? l * (1 + s) : l + s - l * s;
         double p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1/3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1/3);
+        r = h2rgb(p, q, h + 1/3);
+        g = h2rgb(p, q, h);
+        b = h2rgb(p, q, h - 1/3);
       }
-      return new ColorRGB { R = r, G = g, B = b };
+      return new ArgbColor { A= a, R = r, G = g, B = b };
     }
 
-    private static double hue2rgb(double p, double q, double h)
+    private static double h2rgb(double p, double q, double h)
     {
       if (h < 0) h += 1;
       if (h > 1) h -= 1;
@@ -264,14 +351,6 @@ namespace Qhta.Drawing
       return p;
     }
 
-    public static Color Inverse(this Color value)
-    {
-      var aColor = value.Color2HSV();
-      aColor.V = 1-aColor.V;
-      aColor.H = (aColor.H+0.5) % 1.0;
-      var result = HSV2Color(aColor);
-      return result;
-    }
   }
 
 }

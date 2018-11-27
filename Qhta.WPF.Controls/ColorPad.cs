@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Qhta.Drawing;
 using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.Controls
 {
- 
+  using ColorIterator = Qhta.Drawing.ColorIterator;
+
+
   public class ColorPad: Control
   {
     public ColorPad()
@@ -58,7 +62,9 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty Color00Property = DependencyProperty.Register
       ("Color00", typeof(Color), typeof(ColorPad),
-        new FrameworkPropertyMetadata(Colors.Transparent, ChangeBrushProperty));
+        new FrameworkPropertyMetadata(Colors.Transparent,
+          FrameworkPropertyMetadataOptions.AffectsRender,
+          BitmapParametersChanged));
     #endregion
 
     #region Color01 property
@@ -70,7 +76,9 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty Color01Property = DependencyProperty.Register
       ("Color01", typeof(Color), typeof(ColorPad),
-        new FrameworkPropertyMetadata(Colors.Transparent, ChangeBrushProperty));
+        new FrameworkPropertyMetadata(Colors.Transparent, 
+          FrameworkPropertyMetadataOptions.AffectsRender,
+          BitmapParametersChanged));
     #endregion
 
     #region Color10 property
@@ -82,7 +90,9 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty Color10Property = DependencyProperty.Register
       ("Color10", typeof(Color), typeof(ColorPad),
-        new FrameworkPropertyMetadata(Colors.Transparent, ChangeBrushProperty));
+        new FrameworkPropertyMetadata(Colors.Transparent,
+          FrameworkPropertyMetadataOptions.AffectsRender,
+          BitmapParametersChanged));
     #endregion
 
     #region Color11 property
@@ -94,19 +104,40 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty Color11Property = DependencyProperty.Register
       ("Color11", typeof(Color), typeof(ColorPad),
-        new FrameworkPropertyMetadata(Colors.Transparent, ChangeBrushProperty));
+        new FrameworkPropertyMetadata(Colors.Transparent,
+          FrameworkPropertyMetadataOptions.AffectsRender,
+          BitmapParametersChanged));
     #endregion
 
     #region HueChange property
-    public HueGradient HueChange
+    public HueChange HueChange
     {
-      get => (HueGradient)GetValue(HueChangeProperty);
+      get => (HueChange)GetValue(HueChangeProperty);
       set => SetValue(HueChangeProperty, value);
     }
 
     public static readonly DependencyProperty HueChangeProperty = DependencyProperty.Register
-      ("HueChange", typeof(HueGradient), typeof(ColorPad),
-        new FrameworkPropertyMetadata(HueGradient.None, ChangeBrushProperty));
+      ("HueChange", typeof(HueChange), typeof(ColorPad),
+        new FrameworkPropertyMetadata(HueChange.None, BitmapParametersChanged));
+    #endregion
+
+    #region InvariantHue property
+    /// <summary>
+    /// If <see cref="HueChange"/> = <see cref="HueChange.None">None</see>
+    /// then <see cref="InvariantHue"/> implies constant hue in the whole pad area.
+    /// In this case only A, S and V members are taken 
+    /// from <see cref="Color00"/>..<see cref="Color11"/> properties to evaluate color in each point.
+    /// <see cref="InvariantHue"/> must be in the range between 0 and 360.
+    /// </summary>
+    public int? InvariantHue
+    {
+      get => (int?)GetValue(InvariantHueProperty);
+      set => SetValue(InvariantHueProperty, value);
+    }
+
+    public static readonly DependencyProperty InvariantHueProperty = DependencyProperty.Register
+      ("InvariantHue", typeof(int?), typeof(ColorPad),
+        new FrameworkPropertyMetadata(null, BitmapParametersChanged));
     #endregion
 
     #region Resolution property
@@ -118,67 +149,93 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty ResolutionProperty = DependencyProperty.Register
       ("Resolution", typeof(int), typeof(ColorPad),
-        new FrameworkPropertyMetadata(100, ChangeBrushProperty));
+        new FrameworkPropertyMetadata(100, BitmapParametersChanged));
     #endregion
 
-    #region Brush
-    protected Brush Brush { get; private set; } = new SolidColorBrush(Colors.Transparent);
+    #region Bitmap generation
 
-    private static void ChangeBrushProperty(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    private static void BitmapParametersChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
+      //Debug.WriteLine("ChangeBrushProperty");
       var c = (sender as ColorPad);
-      c.ChangeBrush();
-    }
-
-    private Color[,] CreateColorMap(int resolution)
-    {
-      int n = resolution;
-      Color[] leftEdge = new Color[n];
-      int i = 0;
-      foreach (var color in new ColorIterator(Color01, Color00, Resolution, HueChange))
-      {
-        leftEdge[i]=color;
-        i++;
-      }
-      Color[] rightEdge = new Color[n];
-      i = 0;
-      foreach (var color in new ColorIterator(Color11, Color10, Resolution, HueChange))
-      {
-        rightEdge[i]=color;
-        i++;
-      }
-      Color[,] result = new Color [n,n];
-      for (int j=0; j<n; j++)
-      {
-        var color0 = leftEdge[j];
-        var color1 = rightEdge[j];
-        i = 0;
-        foreach (var color in new ColorIterator(color0, color1, Resolution, HueChange))
-        {
-          result[i,j] = color;
-          i++;
-        }
-      }
-      return result;
+      c.ChangeBitmap();
     }
 
     BitmapSource bitmap;
-    private void ChangeBrush()
+
+    private void ChangeBitmap()
     {
       colorMap=null;
       var map = CreateColorMap(Resolution);
       int n = Resolution;
       var writeableBitmap = new WriteableBitmap(n, n, 96, 96, PixelFormats.Pbgra32, null);
       writeableBitmap.SetColorArray(map);
-      var drawingVisual = new DrawingVisual();
-      var dc = drawingVisual.RenderOpen();
-      dc.DrawImage(writeableBitmap, new Rect(0, 0, n, n));
-      Brush = new BitmapCacheBrush(drawingVisual);
       if (n==360)
         colorMap = map;
       bitmap = writeableBitmap;
       InvalidateVisual();
     }
+
+    private Color[,] CreateColorMap(int resolution)
+    {
+      AhsvColor hsv00 = Color00.ToDrawingColor().ToAhsv();
+      AhsvColor hsv01 = Color01.ToDrawingColor().ToAhsv();
+      AhsvColor hsv10 = Color10.ToDrawingColor().ToAhsv();
+      AhsvColor hsv11 = Color11.ToDrawingColor().ToAhsv();
+      if (HueChange==HueChange.None && InvariantHue!=null)
+      {
+        double h = (int)InvariantHue/360.0;
+        hsv00.H=h;
+        hsv01.H=h;
+        hsv10.H=h;
+        hsv00.H=h;
+      }
+      int n = resolution;
+      AhsvColor[] leftEdge = new AhsvColor[n];
+      int i = 0;
+      foreach (var hsv in 
+        new ColorIterator(hsv01, hsv00, Resolution, HueChange)
+        as IEnumerable<AhsvColor>)
+      {
+        //if (hsv.A==1)
+        //  Debug.WriteLine($"leftEdge[{i}]=A={hsv.A} H={hsv.H} S={hsv.S} V={hsv.V}, {hsv.ToColor()}");
+        leftEdge[i]=hsv;
+        i++;
+      }
+      AhsvColor[] rightEdge = new AhsvColor[n];
+      i = 0;
+      foreach (var hsv 
+        in new ColorIterator(hsv11, hsv10, Resolution, HueChange)
+        as IEnumerable<AhsvColor>)
+      {
+        //if (hsv.A==1)
+        //  Debug.WriteLine($"rightEdge[{i}]=A={hsv.A} H={hsv.H} S={hsv.S} V={hsv.V}, {hsv.ToColor()}");
+        rightEdge[i]=hsv;
+        i++;
+      }
+      Color[,] result = new Color [n,n];
+      for (int j=0; j<n; j++)
+      {
+        var hsv0 = leftEdge[j];
+        var hsv1 = rightEdge[j];
+        i = 0;
+        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, HueChange)
+                 as IEnumerable<AhsvColor>)
+        {
+          if (hsv.A==1)
+          {
+            //if (j==0)
+            //  Debug.WriteLine($"topEdge[{i}]=A={hsv.A} H={hsv.H} S={hsv.S} V={hsv.V}, {hsv.ToColor()}");
+            //if (j==n-1)
+            //  Debug.WriteLine($"bottomEdge[{i}]=A={hsv.A} H={hsv.H} S={hsv.S} V={hsv.V}, {hsv.ToColor()}");
+          }
+          result[i,j] = hsv.ToColor().ToMediaColor();
+          i++;
+        }
+      }
+      return result;
+    }
+
     #endregion
 
     public event RoutedPropertyChangedEventHandler<Point> ValueChanged;
@@ -218,6 +275,7 @@ namespace Qhta.WPF.Controls
 
     protected override void OnRender(DrawingContext drawingContext)
     {
+      //Debug.WriteLine("OnRender");
       double top;
       double left;
       double width;
@@ -230,6 +288,7 @@ namespace Qhta.WPF.Controls
       drawingContext.DrawImage(bitmap, new Rect(0, 0, ActualWidth, ActualHeight));
       drawingContext.DrawRectangle(null, BackPen, new Rect(left, top, width, height));
       drawingContext.DrawRectangle(null, FrontPen, new Rect(left, top, width, height));
+      //Debug.WriteLine("OnRender end");
     }
 
     #region MouseMove handling

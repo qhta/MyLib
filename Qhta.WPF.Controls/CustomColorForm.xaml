@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:Qhta.WPF.Controls"
              xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
              xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
-             xmlns:du="clr-namespace:Qhta.Drawing;assembly=Qhta.Drawing.ColorUtils"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="350"
              >
@@ -18,10 +17,9 @@
     <Grid.Resources>
       <cu:ColorConverter x:Key="ColorConverter"/>
       <utils:MultiplyingConverter x:Key="MultiplyingConverter"/>
-      <!--<du:ColorHSV x:Key="HighestHueColor" Hue="359" Saturation="255" Value="255"/>-->
     </Grid.Resources>
     <StackPanel Orientation="Vertical" Grid.Column="0">
-      <local:ColorSlider x:Name="HueColorSlider"
+      <local:ColorSlider x:Name="HueSlider"
         Width="20"
         Height="360"
         Orientation="Vertical"
@@ -38,7 +36,7 @@
           Height="23"
           Minimum="0"
           Maximum="359"
-          Value="{Binding ElementName=HueColorSlider, Path=Position, Mode=OneWay,
+          Value="{Binding ElementName=HueSlider, Path=Position, Mode=OneWay,
             Converter={StaticResource MultiplyingConverter}, ConverterParameter=360}"
           ContentStringFormat="F0"
           ValueChanged="HueTextEdit_ValueChanged"
@@ -47,7 +45,7 @@
       <StackPanel Orientation="Horizontal">
         <TextBox x:Name="NoNumTextBox"
           Height="23" 
-               Text="{Binding ElementName=HueColorSlider, Path=SelectedColor, Mode=OneWay,
+               Text="{Binding ElementName=HueSlider, Path=SelectedColor, Mode=OneWay,
                Converter={StaticResource ColorConverter}, ConverterParameter='H'}"/>
         <local:NumericUpDown Value="{Binding ElementName=NoNumTextBox, Path=Text}"/>
       </StackPanel>
@@ -56,8 +54,8 @@
       <Grid  Margin="10,10,0,0" >
         <Border BorderBrush="Black" BorderThickness="2" 
                     HorizontalAlignment="Center" VerticalAlignment="Top"
-                        Background="Black"
                         Width="145" Height="145">
+          <local:ColorPad x:Name="ColorPad" Resolution="256" HueChange="None"/>
         </Border>
       </Grid>
 

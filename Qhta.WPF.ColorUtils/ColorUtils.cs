@@ -50,14 +50,14 @@ namespace Qhta.WPF
       if (contrast)
       {
         var drawingColor = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
-        var colorHSV = drawingColor.Color2HSV();
+        var colorHSV = drawingColor.ToAhsv();
         var resultColor = System.Drawing.Color.FromArgb(result.A, result.R, result.G, result.B);
-        var resultHSV = resultColor.Color2HSV();
+        var resultHSV = resultColor.ToAhsv();
         if (resultHSV.V<0.4)
           resultHSV.V=0;
         else
           resultHSV.V=1;
-        resultColor = resultHSV.HSV2Color();
+        resultColor = resultHSV.ToColor();
         result = Color.FromArgb(result.A, resultColor.R, resultColor.G, resultColor.B);
       }
       return result;

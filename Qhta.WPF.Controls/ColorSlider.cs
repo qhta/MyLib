@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Qhta.Drawing;
 
 namespace Qhta.WPF.Controls
 {
@@ -92,15 +93,15 @@ namespace Qhta.WPF.Controls
     #endregion
 
     #region HueChange property
-    public HueGradient HueChange
+    public HueChange HueChange
     {
-      get => (HueGradient)GetValue(HueChangeProperty);
+      get => (HueChange)GetValue(HueChangeProperty);
       set => SetValue(HueChangeProperty, value);
     }
 
     public static readonly DependencyProperty HueChangeProperty = DependencyProperty.Register
-      ("HueChange", typeof(HueGradient), typeof(ColorSlider),
-        new FrameworkPropertyMetadata(HueGradient.None, ChangeBrushProperty));
+      ("HueChange", typeof(HueChange), typeof(ColorSlider),
+        new FrameworkPropertyMetadata(HueChange.None, ChangeBrushProperty));
     #endregion
 
     #region Resolution property
@@ -265,7 +266,7 @@ namespace Qhta.WPF.Controls
 
     Color[] colorMap;
 
-    bool isHueMode => Color0==Color1 && HueChange!=HueGradient.None;
+    bool isHueMode => Color0==Color1 && HueChange!=HueChange.None;
 
     public double Color2Position(Color color)
     {
@@ -276,7 +277,7 @@ namespace Qhta.WPF.Controls
       double result = double.NaN;
       if (isHueMode)
       {
-        var HSV = Qhta.Drawing.ColorSpaceConverter.Color2HSV(color.ToDrawingColor());
+        var HSV = Qhta.Drawing.ColorSpaceConverter.ToAhsv(color.ToDrawingColor());
         result = HSV.H;
         return result;
       }
@@ -309,9 +310,9 @@ namespace Qhta.WPF.Controls
       Color result = Colors.Transparent;
       if (isHueMode)
       {
-        var HSV = Qhta.Drawing.ColorSpaceConverter.Color2HSV(Color0.ToDrawingColor());
+        var HSV = Qhta.Drawing.ColorSpaceConverter.ToAhsv(Color0.ToDrawingColor());
         HSV.H = value;
-        result = Qhta.Drawing.ColorSpaceConverter.HSV2Color(HSV).ToMediaColor();
+        result = Qhta.Drawing.ColorSpaceConverter.ToColor(HSV).ToMediaColor();
         return result;
       }
       var n = Resolution;
