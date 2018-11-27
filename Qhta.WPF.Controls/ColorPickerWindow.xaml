@@ -8,8 +8,8 @@
              xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
              x:Name="ThisControl"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400" 
-             Width="300" Height="500">
+             d:DesignHeight="360" d:DesignWidth="500" 
+             Width="360" Height="500">
   <Window.Resources>
     <utils:ColorConverter x:Key="ColorConverter"/>
     <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
