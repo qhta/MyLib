@@ -52,10 +52,10 @@
     </StackPanel>
     <StackPanel Orientation="Vertical" Grid.Column="1">
       <Grid  Margin="10,10,0,0" >
-        <Border BorderBrush="Black" BorderThickness="2" 
+        <Border BorderBrush="Black" BorderThickness="0.5" 
                     HorizontalAlignment="Center" VerticalAlignment="Top"
                         Width="145" Height="145">
-          <local:ColorPad x:Name="ColorPad" Resolution="256" HueChange="None"/>
+          <local:ColorPad x:Name="ColorPad" Resolution="256" HueChange="None" Gamma="0.5"/>
         </Border>
       </Grid>
 

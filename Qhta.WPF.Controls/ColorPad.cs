@@ -124,10 +124,11 @@ namespace Qhta.WPF.Controls
     #region InvariantHue property
     /// <summary>
     /// If <see cref="HueChange"/> = <see cref="HueChange.None">None</see>
-    /// then <see cref="InvariantHue"/> implies constant hue in the whole pad area.
+    /// then InvariantHue implies constant hue in the whole pad area.
     /// In this case only A, S and V members are taken 
     /// from <see cref="Color00"/>..<see cref="Color11"/> properties to evaluate color in each point.
-    /// <see cref="InvariantHue"/> must be in the range between 0 and 360.
+    /// InvariantHue must be in the range between 0 and 360.
+    /// The default value is null.
     /// </summary>
     public int? InvariantHue
     {
@@ -138,6 +139,25 @@ namespace Qhta.WPF.Controls
     public static readonly DependencyProperty InvariantHueProperty = DependencyProperty.Register
       ("InvariantHue", typeof(int?), typeof(ColorPad),
         new FrameworkPropertyMetadata(null, BitmapParametersChanged));
+    #endregion
+
+    #region Gamma property
+    /// <summary>
+    /// Gamma property enables gamma correction in the whole area. 
+    /// If Gamma is less than 1 then dark regions are brightened.
+    /// If Gamma is greater than 1 then dark regions are even more dark.
+    /// Gamma should be greater than 0.
+    /// The default value is 1.
+    /// </summary>
+    public double Gamma
+    {
+      get => (double)GetValue(GammaProperty);
+      set => SetValue(GammaProperty, value);
+    }
+
+    public static readonly DependencyProperty GammaProperty = DependencyProperty.Register
+      ("Gamma", typeof(double), typeof(ColorPad),
+        new FrameworkPropertyMetadata(1.0, BitmapParametersChanged));
     #endregion
 
     #region Resolution property
@@ -194,7 +214,7 @@ namespace Qhta.WPF.Controls
       AhsvColor[] leftEdge = new AhsvColor[n];
       int i = 0;
       foreach (var hsv in 
-        new ColorIterator(hsv01, hsv00, Resolution, HueChange)
+        new ColorIterator(hsv01, hsv00, Resolution, HueChange, Gamma)
         as IEnumerable<AhsvColor>)
       {
         //if (hsv.A==1)
@@ -205,7 +225,7 @@ namespace Qhta.WPF.Controls
       AhsvColor[] rightEdge = new AhsvColor[n];
       i = 0;
       foreach (var hsv 
-        in new ColorIterator(hsv11, hsv10, Resolution, HueChange)
+        in new ColorIterator(hsv11, hsv10, Resolution, HueChange, Gamma)
         as IEnumerable<AhsvColor>)
       {
         //if (hsv.A==1)
@@ -219,7 +239,7 @@ namespace Qhta.WPF.Controls
         var hsv0 = leftEdge[j];
         var hsv1 = rightEdge[j];
         i = 0;
-        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, HueChange)
+        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, HueChange, Gamma)
                  as IEnumerable<AhsvColor>)
         {
           if (hsv.A==1)

@@ -30,12 +30,13 @@ namespace Qhta.Drawing
     /// <param name="endColor"></param>
     /// <param name="steps"></param>
     /// <param name="hueChange"></param>
-    public ColorIterator(Color startColor, Color endColor, int steps, HueChange hueChange)
+    public ColorIterator(Color startColor, Color endColor, int steps, HueChange hueChange, double gamma = 1)
     {
       this.Color0=startColor;
       this.Color1=endColor;
       this.steps = steps;
       this.hueChange = hueChange;
+      this.gamma = gamma;
       this.startArgb = ColorSpaceConverter.ToArgb(startColor);
       this.endArgb = ColorSpaceConverter.ToArgb(endColor);
       this.startAhsv = startArgb.ToAhsv();
@@ -61,12 +62,13 @@ namespace Qhta.Drawing
     /// <param name="endColor"></param>
     /// <param name="steps"></param>
     /// <param name="hueChange"></param>
-    public ColorIterator(AhsvColor startColor, AhsvColor endColor, int steps, HueChange hueChange)
+    public ColorIterator(AhsvColor startColor, AhsvColor endColor, int steps, HueChange hueChange, double gamma=1)
     {
       this.Color0=startColor.ToColor();
       this.Color1=endColor.ToColor();
       this.steps = steps;
       this.hueChange = hueChange;
+      this.gamma = gamma;
       this.startArgb = ColorSpaceConverter.ToArgb(startColor);
       this.endArgb = ColorSpaceConverter.ToArgb(endColor);
       this.startAhsv = startColor;
@@ -103,6 +105,7 @@ namespace Qhta.Drawing
     private Color Color1;
     private int steps;
     private HueChange hueChange;
+    private double gamma = 1;
     private int counter;
 
     private ArgbColor startArgb;
@@ -153,6 +156,10 @@ namespace Qhta.Drawing
         var sat = startAhsv.S+i*sDelta;
         var val = startAhsv.V+i*vDelta;
         var alpha = startAhsv.A+i*aDelta;
+        if (gamma!=1)
+        {
+          val = Math.Pow(val, gamma);
+        }
         currentAhsv = new Drawing.AhsvColor(alpha, hue, sat, val);
         currentColor = ColorSpaceConverter.ToColor(currentAhsv);
         //Debug.WriteLine($"CurrentColor = {Current}");
