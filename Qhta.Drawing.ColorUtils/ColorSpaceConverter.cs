@@ -154,6 +154,7 @@ namespace Qhta.Drawing
       return ToAhsv(value.A, value.R, value.G, value.B);
     }
 
+
     public static AhsvColor ToAhsv(double A, double R, double G, double B)
     {
       double a = A;
@@ -167,7 +168,7 @@ namespace Qhta.Drawing
       double v;
 
       if (min == max)
-        h = 0;
+        h = double.NaN;
       else
       {
         double delta = max-min;
@@ -206,46 +207,31 @@ namespace Qhta.Drawing
       return ToAhls(value.A, value.R, value.G, value.B);
     }
 
-    public static AhlsColor ToAhls(double A, double R, double G, double B)
+    public static AhlsColor ToAhls(double a, double r, double g, double b)
     {
-      double a = A;
-      double r = R;
-      double g = G;
-      double b = B;
       double max = Math.Max(Math.Max(r, g), b);
       double min = Math.Min(Math.Min(r, g), b);
-      double h = 0;
-      double l;
-      double s;
+      double h, s; 
+      double l = (max + min) / 2;
 
-      if (min == max)
-        h = 0;
+      if (max == min)
+      {
+        h = double.NaN;
+        s = 0; // achromatic
+      }
       else
       {
-        double delta = max-min;
-        if (r == max)
-          h = (g - b) / delta;        // between yellow & magenta
-        else
-       if (g == max)
-          h = 2.0 + (b - r) / delta;  // between cyan & yellow
-        else
-          h = 4.0 + (r - g) / delta;  // between magenta & cyan
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max==r)
+          h = (g - b) / d + (g < b ? 6 : 0);
+        else 
+        if (max==g)
+          h = (b - r) / d + 2; 
+        else //if (max==b)
+          h = (r - g) / d + 4;
         h /= 6;
       }
-
-      if (h < 0)
-        h = h + 1.0;
-
-      l = (max + min) / 2;
-
-      if (max == 0)
-        s = 0;
-      else if (l < 0.5)
-        s = (max - min) / (2 * l);
-      else
-        s = (max - min) / (2 - 2 * l);
-
-
       return new AhlsColor(a, h, l, s);
     }
 
@@ -260,7 +246,7 @@ namespace Qhta.Drawing
       double a = value.A;
       double v = value.V;
       double s = value.S;
-      double h = value.H;
+      double h = (Double.IsNaN(value.H)) ? 0 : value.H;
       double p, q, t, f;
       double r;
       double g;

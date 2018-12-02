@@ -1,0 +1,71 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Qhta.WPF.Controls" 
+  >
+
+  <Style TargetType="local:ColorMemberEdit">
+    <Setter Property="Height" Value="30"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:ColorMemberEdit">
+          <UserControl x:Name="MainElement">
+            <Grid x:Name="HorizontalGrid">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Label Grid.Column="0"
+                     Content="{TemplateBinding LabelText}" VerticalAlignment="Center"
+                     Width="{TemplateBinding LabelWidth}"
+                     Visibility="{TemplateBinding LabelVisibility}"
+                     />
+              <local:NumericEditBox x:Name="ColorNumBox" Grid.Column="1"
+                  VerticalAlignment="Center" 
+                  Width="40" Height="23"
+                  Minimum="0" Maximum="255"
+                  ContentStringFormat="F0"
+                  Visibility="{TemplateBinding NumBoxVisibility}"
+                  />
+              <Border Grid.Column="2"
+                  VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                  Margin="10,0,10,0"
+                  Height="23"
+                  BorderBrush="Gray" BorderThickness="1"
+                  Visibility="{TemplateBinding SliderVisibility}"
+                  >
+                <Grid x:Name="BackgroundGrid" >
+                  <local:ColorSlider x:Name="ColorSlider"
+                             Orientation="Horizontal"
+                             HueChange="None"
+                             Resolution="{TemplateBinding Resolution}"
+                             SelectedColor="{TemplateBinding SelectedColor}"
+                             />
+                </Grid>
+              </Border>
+            </Grid>
+          </UserControl>
+          <ControlTemplate.Triggers>
+            <Trigger Property="Member" Value="Alpha">
+              <Setter TargetName="BackgroundGrid" Property="Background">
+                <Setter.Value>
+                  <ImageBrush TileMode="Tile"
+                              Stretch="Uniform"
+                              AlignmentX="Left"
+                              AlignmentY="Top" 
+                              Viewport="0,0,30,30"
+                              ViewportUnits="Absolute">
+                    <ImageBrush.ImageSource>
+                      <BitmapImage UriSource="/Qhta.WPF.Controls;component/Resources/OpacityPattern.png"/>
+                    </ImageBrush.ImageSource>
+                  </ImageBrush>
+                </Setter.Value>
+              </Setter>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

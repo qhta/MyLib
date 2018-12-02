@@ -33,7 +33,7 @@ namespace Qhta.WPF.Controls
     private void InitialWork()
     {
       DefinedColorsPicker.Items.Clear();
-      foreach (var item in customColors.SelectableColors)
+      foreach (var item in customColors)
       {
         DefinedColorsPicker.Items.Add(item);
       }

@@ -70,8 +70,6 @@
     <Compile Include="FrameworkElementUtils.cs" />
     <Compile Include="MultiplyingConverter.cs" />
     <Compile Include="InverseValueConverter.cs" />
-    <Compile Include="KnownColor.cs" />
-    <Compile Include="KnownColors.cs" />
     <Compile Include="NumericValueConverter.cs" />
     <Compile Include="DoubleValueConverter.cs" />
     <Compile Include="DynamicResourceBinding.cs" />

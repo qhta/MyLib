@@ -72,14 +72,18 @@
   <ItemGroup>
     <Compile Include="Border3D.cs" />
     <Compile Include="Border3DThicknessConverter.cs" />
+    <Compile Include="ColorMemberEdit.cs" />
     <Compile Include="ColorPad.cs" />
+    <Compile Include="ColorPadEdit.xaml.cs">
+      <DependentUpon>ColorPadEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ColorPickerDropDown.cs" />
     <Compile Include="ColorPickerWindow.xaml.cs">
       <DependentUpon>ColorPickerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColorSlider.cs" />
-    <Compile Include="CustomColorForm.xaml.cs">
-      <DependentUpon>CustomColorForm.xaml</DependentUpon>
+    <Compile Include="ColorEditForm.xaml.cs">
+      <DependentUpon>ColorEditForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtRichTextBox.xaml.cs">
       <DependentUpon>ExtRichTextBox.xaml</DependentUpon>
@@ -105,6 +109,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ColorMemberEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ColorPadEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ColorPickerDropDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,7 +125,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomColorForm.xaml">
+    <Page Include="ColorEditForm.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>

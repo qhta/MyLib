@@ -4,9 +4,6 @@
     xmlns:local="clr-namespace:Qhta.WPF.Controls" 
   >
 
-  <local:Border3DThicknessConverter x:Key="Border3DThickessConverter"/>
-  <local:MyPointCollectionConverter x:Key="mcolconv" />
-  
   <Style TargetType="local:Border3D">
     <Setter Property="BorderThickness" Value="2"/>
     <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
@@ -14,6 +11,10 @@
       <Setter.Value>
         <ControlTemplate TargetType="local:Border3D">
           <Grid>
+            <Grid.Resources>
+              <local:Border3DThicknessConverter x:Key="Border3DThickessConverter"/>
+              <local:MyPointCollectionConverter x:Key="mcolconv" />
+            </Grid.Resources>
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup x:Name="LayoutStates">
                 <VisualState x:Name="Engraved">

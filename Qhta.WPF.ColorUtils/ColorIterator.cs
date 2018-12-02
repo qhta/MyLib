@@ -36,7 +36,9 @@ namespace Qhta.WPF
     /// <param name="hueChange"></param>
     public ColorIterator(MediaColor startColor, MediaColor endColor, int steps, HueChange hueChange)
     {
-      Iterator = new Qhta.Drawing.ColorIterator(startColor.ToDrawingColor(), endColor.ToDrawingColor(), steps, hueChange);
+      if (startColor==Colors.Lime && endColor==Colors.Lime)
+        Debug.Assert(true);
+      Iterator = new Qhta.Drawing.ColorIterator(startColor.ToDrawingColor(), endColor.ToDrawingColor(), steps, (Qhta.Drawing.HueChange)hueChange);
     }
 
     private Qhta.Drawing.ColorIterator Iterator;

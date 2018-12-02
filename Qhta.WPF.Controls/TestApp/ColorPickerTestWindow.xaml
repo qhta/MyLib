@@ -68,13 +68,18 @@
             Click="OK_Click"
             />
     </StackPanel>
-    <Rectangle x:Name="ColorRectangle"
-               Margin="80,100,0,0" 
-               HorizontalAlignment="Left" Height="120" 
-               VerticalAlignment="Top" Width="120"
+    <Grid
+        Margin="80,100,0,0" 
+        HorizontalAlignment="Left" Height="120"
+        VerticalAlignment="Top" Width="120"
+      >
+      <TextBlock Text="Probe" Width="Auto" Height="Auto" 
+                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <Rectangle x:Name="ColorRectangle"
               Stroke="Black"
               StrokeThickness="1"
               Fill="{Binding ElementName=ThisWindow, Path=EditedBrush}"
              />
+    </Grid>
   </Grid>
 </Window>

@@ -45,7 +45,7 @@ namespace Qhta.WPF.Controls
 
     private void SelectedColorChanged()
     {
-      if (!isMouseDown)
+      if (!isMouseDown && !isPositionChanged)
       {
         SetPosition(SelectedColor);
       }
@@ -178,12 +178,13 @@ namespace Qhta.WPF.Controls
     {
       //Debug.WriteLine("ChangeBrushProperty");
       var c = (sender as ColorPad);
-      c.ChangeBitmap();
+      c.bitmap=null;
+      c.InvalidateVisual();
     }
 
     BitmapSource bitmap;
 
-    private void ChangeBitmap()
+    private void CreateBitmap()
     {
       colorMap=null;
       var map = CreateColorMap(Resolution);
@@ -202,6 +203,7 @@ namespace Qhta.WPF.Controls
       AhsvColor hsv01 = Color01.ToDrawingColor().ToAhsv();
       AhsvColor hsv10 = Color10.ToDrawingColor().ToAhsv();
       AhsvColor hsv11 = Color11.ToDrawingColor().ToAhsv();
+      Qhta.Drawing.HueChange hueChange = (Qhta.Drawing.HueChange)HueChange;
       if (HueChange==HueChange.None && InvariantHue!=null)
       {
         double h = (int)InvariantHue/360.0;
@@ -214,7 +216,7 @@ namespace Qhta.WPF.Controls
       AhsvColor[] leftEdge = new AhsvColor[n];
       int i = 0;
       foreach (var hsv in 
-        new ColorIterator(hsv01, hsv00, Resolution, HueChange, Gamma)
+        new ColorIterator(hsv01, hsv00, Resolution, hueChange, Gamma)
         as IEnumerable<AhsvColor>)
       {
         //if (hsv.A==1)
@@ -225,7 +227,7 @@ namespace Qhta.WPF.Controls
       AhsvColor[] rightEdge = new AhsvColor[n];
       i = 0;
       foreach (var hsv 
-        in new ColorIterator(hsv11, hsv10, Resolution, HueChange, Gamma)
+        in new ColorIterator(hsv11, hsv10, Resolution, hueChange, Gamma)
         as IEnumerable<AhsvColor>)
       {
         //if (hsv.A==1)
@@ -239,7 +241,7 @@ namespace Qhta.WPF.Controls
         var hsv0 = leftEdge[j];
         var hsv1 = rightEdge[j];
         i = 0;
-        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, HueChange, Gamma)
+        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, hueChange, Gamma)
                  as IEnumerable<AhsvColor>)
         {
           if (hsv.A==1)
@@ -281,11 +283,14 @@ namespace Qhta.WPF.Controls
       c.PositionChanged((Point)args.OldValue, (Point)args.NewValue);
     }
 
+    bool isPositionChanged;
     private void PositionChanged(Point oldValue, Point newValue)
     {
+      isPositionChanged=true;
       SelectedColor = Position2Color(Position);
       InvalidateVisual();
       ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<Point>(oldValue, newValue));
+      isPositionChanged=false;
     }
 
     #endregion
@@ -296,6 +301,8 @@ namespace Qhta.WPF.Controls
     protected override void OnRender(DrawingContext drawingContext)
     {
       //Debug.WriteLine("OnRender");
+      if (bitmap==null)
+        CreateBitmap();
       double top;
       double left;
       double width;

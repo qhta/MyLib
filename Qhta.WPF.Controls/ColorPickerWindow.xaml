@@ -8,8 +8,8 @@
              xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
              x:Name="ThisControl"
              mc:Ignorable="d" 
-             d:DesignHeight="360" d:DesignWidth="500" 
-             Width="360" Height="500">
+             d:DesignHeight="360" d:DesignWidth="360" 
+             Height="500" Width="320" >
   <Window.Resources>
     <utils:ColorConverter x:Key="ColorConverter"/>
     <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -24,17 +24,18 @@
                  SnapsToDevicePixels="True">
           <ListBox.ItemTemplate>
             <DataTemplate>
-              <Grid ToolTip="{Binding Path=Name}" Margin="0,-1">
+              <Grid ToolTip="{Binding Path=NameAndARGB}" Margin="0,-1">
                 <Rectangle Stroke="Black" StrokeThickness="0.5"
-                        Margin="-3,0"
-                        Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, 
-                            Path=IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
+                           Margin="-3,0"
+                           Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, 
+                           Path=IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
                            />
                 <Rectangle Width="15" Height="15" 
-                             Margin="2,1"
-                             HorizontalAlignment="Center"
-                             Stroke="Black"
-                             Fill="{Binding Path=Color, Converter={StaticResource ColorConverter}}"/>
+                           Margin="2,1"
+                           HorizontalAlignment="Center"
+                           Stroke="Black"
+                           Fill="{Binding Path=Color, Converter={StaticResource ColorConverter}}"
+                           />
               </Grid>
             </DataTemplate>
           </ListBox.ItemTemplate>
@@ -47,7 +48,7 @@
       </Grid>
     </TabItem>
     <TabItem Header="Custom Color">
-      <controls:CustomColorForm x:Name="CustomColorForm" 
+      <controls:ColorEditForm x:Name="CustomColorForm" 
                          SelectedColor="{Binding ElementName=ThisControl, Path=SelectedColor}"/>
     </TabItem>
   </TabControl>

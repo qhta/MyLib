@@ -153,6 +153,7 @@ namespace Qhta.WPF.Controls
     /// </summary> 
     protected virtual void OnValueChanged(decimal oldValue, decimal newValue)
     {
+      this.Value = newValue;
       if (ValueChanged != null)
       {
         RoutedPropertyChangedEventArgs<decimal> args = new RoutedPropertyChangedEventArgs<decimal>(oldValue, newValue);

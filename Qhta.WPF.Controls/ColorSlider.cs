@@ -117,21 +117,25 @@ namespace Qhta.WPF.Controls
     #endregion
 
     #region Brush
-    protected Brush Brush { get; private set; } = new SolidColorBrush(Colors.Transparent);
+    protected Brush Brush { get; private set; } = null;
 
     private static void ChangeBrushProperty(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
       var c = (sender as ColorSlider);
-      c.ChangeBrush();
+      c.Brush=null;
+      c.colorMap=null;
+      c.InvalidateVisual();
     }
 
-    private void ChangeBrush()
+    private void CreateBrush()
     {
       colorMap=null;
       int n = Resolution;
       var xDelta = 1.0/n;
       GradientStop[] stops = new GradientStop[n];
       int i = 0;
+      if (Name=="_HSlider")
+        Debug.Assert(true);
       foreach (var color in new ColorIterator(Color0, Color1, Resolution, HueChange))
       {
         int k = i;
@@ -195,6 +199,10 @@ namespace Qhta.WPF.Controls
 
     protected override void OnRender(DrawingContext drawingContext)
     {
+      if (Visibility!=Visibility.Visible)
+        return;
+      if (Brush==null)
+        CreateBrush();
       double top;
       double left;
       double width;

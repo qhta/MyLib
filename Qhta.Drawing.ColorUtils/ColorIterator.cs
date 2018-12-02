@@ -79,22 +79,39 @@ namespace Qhta.Drawing
     private void Init()
     { 
       int n = steps;
-      hDelta = (endAhsv.H-startAhsv.H)/n;
+      hDelta = (endAhsv.H-startAhsv.H);
+      if (double.IsNaN(hDelta))
+      {
+        if (double.IsNaN(startAhsv.H))
+          startAhsv.H = (double.IsNaN(endAhsv.H)) ? 0 : endAhsv.H;
+        if (double.IsNaN(endAhsv.H))
+          endAhsv.H = (double.IsNaN(startAhsv.H)) ? 0 : startAhsv.H;
+        hDelta = 0;
+      }
       if (hDelta==0)
       {
         if (hueChange==HueChange.Positive)
-          hDelta = 1.0/n;
+          hDelta = 1.0;
         else
         if (hueChange==HueChange.Negative)
-          hDelta = -1.0/n;
+          hDelta = -1.0;
       }
       else
       {
-        if (hDelta>0 && hueChange==HueChange.Negative)
-          hDelta = (endAhsv.H-(1+startAhsv.H))/n;
+        if (hueChange==HueChange.None)
+        {
+          if (hDelta>0.5)
+            hDelta = (endAhsv.H-(1+startAhsv.H));
+          else
+          if (hDelta<-0.5)
+            hDelta = -(startAhsv.H-(1+endAhsv.H));
+        }
+        else if (hDelta>0 && hueChange==HueChange.Negative)
+          hDelta = (endAhsv.H-(1+startAhsv.H));
         else if (hDelta<0 && hueChange==HueChange.Positive)
-          hDelta = -(startAhsv.H-(1+endAhsv.H))/n;
+          hDelta = -(startAhsv.H-(1+endAhsv.H));
       }
+      hDelta /= n;
       sDelta = (endAhsv.S-startAhsv.S)/n;
       vDelta = (endAhsv.V-startAhsv.V)/n;
       aDelta = (endAhsv.A-startAhsv.A)/n;
