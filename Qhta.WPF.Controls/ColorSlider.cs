@@ -39,7 +39,7 @@ namespace Qhta.WPF.Controls
       {
         c.isSelectedColorChanged=true;
         c.SelectedColorChanged();
-        c.ValueChanged?.Invoke(c, new RoutedPropertyChangedEventArgs<Color>(c.SelectedColor, c.SelectedColor));
+        c.ValueChanged?.Invoke(c, new ValueChangedEventArgs<Color>(c.SelectedColor));
         c.isSelectedColorChanged=false;
       }
     }
@@ -154,7 +154,7 @@ namespace Qhta.WPF.Controls
     }
     #endregion
 
-    public event RoutedPropertyChangedEventHandler<Color> ValueChanged;
+    public event ValueChangedEventHandler<Color> ValueChanged;
 
     #region Position property
     /// <summary>
@@ -189,7 +189,7 @@ namespace Qhta.WPF.Controls
       if (!isSelectedColorChanged)
         SelectedColor = Position2Color(Position);
       InvalidateVisual();
-      ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<Color>(SelectedColor, SelectedColor));
+      ValueChanged?.Invoke(this, new ValueChangedEventArgs<Color>(SelectedColor));
     }
 
     #endregion

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Qhta.WPF.Controls;
 
 namespace TestApp
 {
@@ -10,7 +11,7 @@ namespace TestApp
       InitializeComponent();
     }
 
-    private void NumericEditBox_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+    private void NumericEditBox_ValueChanged_1(object sender, ValueChangedEventArgs<decimal> e)
     {
       ResultTextBox.Text = NumericEditBox.Value.ToString();
     }

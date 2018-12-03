@@ -257,8 +257,8 @@ namespace Qhta.WPF.Controls
     /// <summary>
     /// Event correspond to Value changed event 
     /// </summary> 
-    public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent 
-      ("ValueChanged", RoutingStrategy.Bubble, typeof (RoutedPropertyChangedEventHandler<decimal>), typeof (NumericUpDown));
+    public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent
+      ("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<decimal>), typeof(NumericUpDown));
 
     /// <summary>
     /// Add / Remove ValueChangedEvent handler

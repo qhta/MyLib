@@ -145,3 +145,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csproj.Cor
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.exe
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\BrushPickerTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\BrushPickerTestWindow.baml

@@ -4,6 +4,9 @@ D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Controls.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ExtRichTextBox.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\NumericUpDown.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPadEdit.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPickerWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorEditForm.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ExtRichTextBox.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\NumericEditBox.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\NumericUpDown.g.cs
@@ -12,7 +15,12 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\GeneratedInternalTypeHelpe
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls_MarkupCompile.lref
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Border3D.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorMemberEdit.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPadEdit.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\BrushPickerDropDown.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPickerDropDown.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPickerWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorEditForm.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\NumericEditBox.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\PanelHeader.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Themes\Generic.baml
@@ -21,10 +29,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.csproj.C
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPickerWindow.g.cs
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPickerWindow.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorEditForm.g.cs
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorEditForm.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorMemberEdit.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPadEdit.g.cs
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorPadEdit.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\KnownColorSelectView.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\KnownColorSelectView.baml

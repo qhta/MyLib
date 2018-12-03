@@ -40,7 +40,7 @@ namespace Qhta.WPF.Controls
     {
       var c = (sender as ColorPad);
       c.SelectedColorChanged();
-      c.ValueChanged?.Invoke(c, new RoutedPropertyChangedEventArgs<Point>(c.Position, c.Position));
+      c.ValueChanged?.Invoke(c, new ValueChangedEventArgs<Point>(c.Position));
     }
 
     private void SelectedColorChanged()
@@ -260,7 +260,7 @@ namespace Qhta.WPF.Controls
 
     #endregion
 
-    public event RoutedPropertyChangedEventHandler<Point> ValueChanged;
+    public event ValueChangedEventHandler<Point> ValueChanged;
 
     #region Position property
     /// <summary>
@@ -289,7 +289,7 @@ namespace Qhta.WPF.Controls
       isPositionChanged=true;
       SelectedColor = Position2Color(Position);
       InvalidateVisual();
-      ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<Point>(oldValue, newValue));
+      ValueChanged?.Invoke(this, new ValueChangedEventArgs<Point>(newValue));
       isPositionChanged=false;
     }
 

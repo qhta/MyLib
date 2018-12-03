@@ -37,5 +37,9 @@ namespace TestApp
       new ColorPadTestWindow().Show();
     }
 
+    private void BrushPickerTestButton_Click(object sender, RoutedEventArgs e)
+    {
+      new BrushPickerTestWindow().Show();
+    }
   }
 }

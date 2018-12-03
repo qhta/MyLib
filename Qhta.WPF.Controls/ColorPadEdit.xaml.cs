@@ -81,18 +81,18 @@ namespace Qhta.WPF.Controls
       this.ColorPad.SelectedColor = baseColor;
     }
 
-    private void ColorPad_ValueChanged(object sender, RoutedPropertyChangedEventArgs<Point> args)
+    private void ColorPad_ValueChanged(object sender, ValueChangedEventArgs<Point> args)
     {
       SelectedColor = ColorPad.Position2Color(args.NewValue);
     }
-    private void SSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> args)
+    private void SSlider_ValueChanged(object sender, ValueChangedEventArgs<double> args)
     {
       var position = ColorPad.Position;
       position.X = args.NewValue;
       ColorPad.Position=position;
     }
 
-    private void VSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> args)
+    private void VSlider_ValueChanged(object sender, ValueChangedEventArgs<double> args)
     {
       var position = ColorPad.Position;
       position.Y = args.NewValue;

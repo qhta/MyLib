@@ -45,22 +45,20 @@ namespace Qhta.WPF
     /// <returns></returns>
     public static Color Inverse(this Color color, bool contrast=false)
     {
-      var result = Color.FromArgb(255, (byte)(255-color.R), (byte)(255-color.G), (byte)(255-color.B));
-      var distance = color.Distance(result);
       if (contrast)
       {
-        var drawingColor = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
-        var colorHSV = drawingColor.ToAhsv();
-        var resultColor = System.Drawing.Color.FromArgb(result.A, result.R, result.G, result.B);
-        var resultHSV = resultColor.ToAhsv();
-        if (resultHSV.V<0.4)
-          resultHSV.V=0;
+        byte d = 0;
+
+        double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B)/255;
+
+        if (luminance > 0.51)
+          d = 0; 
         else
-          resultHSV.V=1;
-        resultColor = resultHSV.ToColor();
-        result = Color.FromArgb(result.A, resultColor.R, resultColor.G, resultColor.B);
+          d = 255; 
+
+        return Color.FromArgb(255, d, d, d);
       }
-      return result;
+      return Color.FromArgb(255, (byte)(255-color.R), (byte)(255-color.G), (byte)(255-color.B));
     }
 
   }

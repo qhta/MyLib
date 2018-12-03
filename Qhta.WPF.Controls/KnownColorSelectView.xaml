@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Qhta.WPF.Controls.KnownColorSelectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Qhta.WPF.Controls"
+             xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <Grid x:Name="ThisGrid">
+    <Grid.Resources>
+      <utils:ColorConverter x:Key="ColorConverter"/>
+      <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Grid.Resources>
+    <ListBox x:Name="KnownColorsListBox" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectionChanged="KnownColorsListBox_SelectionChanged"
+                 SelectionMode="Single"
+                 SnapsToDevicePixels="True">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Grid ToolTip="{Binding Path=Name}" Margin="0,-1">
+            <Rectangle Stroke="Black" StrokeThickness="0.5"
+                           Margin="-3,0"
+                           Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, 
+                           Path=IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
+                           />
+            <Rectangle Width="15" Height="15" 
+                           Margin="2,1"
+                           HorizontalAlignment="Center"
+                           Stroke="Black"
+                           Fill="{Binding Path=Color, Converter={StaticResource ColorConverter}}"
+                           />
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel IsItemsHost="True" />
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+    </ListBox>
+  </Grid>
+</UserControl>

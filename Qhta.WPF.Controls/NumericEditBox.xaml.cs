@@ -156,7 +156,7 @@ namespace Qhta.WPF.Controls
       this.Value = newValue;
       if (ValueChanged != null)
       {
-        RoutedPropertyChangedEventArgs<decimal> args = new RoutedPropertyChangedEventArgs<decimal>(oldValue, newValue);
+        ValueChangedEventArgs<decimal> args = new ValueChangedEventArgs<decimal>(newValue);
         ValueChanged.Invoke(this, args);
       }
     }
@@ -164,7 +164,7 @@ namespace Qhta.WPF.Controls
     /// <summary>
     /// Zdarzenie zmiany wartości aktualnej
     /// </summary>
-    public event RoutedPropertyChangedEventHandler<decimal> ValueChanged;
+    public event ValueChangedEventHandler<decimal> ValueChanged;
 
 
     #region ContentCulture property

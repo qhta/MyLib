@@ -107,7 +107,7 @@ namespace TestApp {
             this.NumericEditBox = ((Qhta.WPF.Controls.NumericEditBox)(target));
             
             #line 20 "..\..\NumericEditBoxTestWindow.xaml"
-            this.NumericEditBox.ValueChanged += new System.Windows.RoutedPropertyChangedEventHandler<decimal>(this.NumericEditBox_ValueChanged_1);
+            this.NumericEditBox.ValueChanged += new Qhta.WPF.Controls.ValueChangedEventHandler<decimal>(this.NumericEditBox_ValueChanged_1);
             
             #line default
             #line hidden

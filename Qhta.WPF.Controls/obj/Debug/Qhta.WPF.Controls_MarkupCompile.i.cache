@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-11-400661860
+13-1984813843
 3931216190
-23-680516611
+26-1553542704
 127-1458831100
-Border3D.xaml;ColorMemberEdit.xaml;ColorPadEdit.xaml;ColorPickerDropDown.xaml;ColorPickerWindow.xaml;ColorEditForm.xaml;ExtRichTextBox.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;
+Border3D.xaml;ColorMemberEdit.xaml;ColorPadEdit.xaml;BrushPickerDropDown.xaml;ColorPickerDropDown.xaml;ColorPickerWindow.xaml;ColorEditForm.xaml;ExtRichTextBox.xaml;KnownColorSelectView.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;
 
-False
+True
 

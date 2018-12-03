@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using Qhta.WPF.Controls;
 
 namespace TestApp
 {
@@ -55,7 +56,7 @@ namespace TestApp
       ColorRectangle.InvalidateVisual();
     }
 
-    private void VerticalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<Color> args)
+    private void VerticalSlider_ValueChanged(object sender, ValueChangedEventArgs<Color> args)
     {
       HueSlider_ValueChanged();
     }
@@ -73,7 +74,7 @@ namespace TestApp
       }
     }
 
-    private void HorizontalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<Color> args)
+    private void HorizontalSlider_ValueChanged(object sender, ValueChangedEventArgs<Color> args)
     {
       AlphaSlider_ValueChanged();
     }

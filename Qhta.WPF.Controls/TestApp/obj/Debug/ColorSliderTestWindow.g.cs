@@ -152,7 +152,7 @@ namespace TestApp {
             this.VerticalSlider = ((Qhta.WPF.Controls.ColorSlider)(target));
             
             #line 48 "..\..\ColorSliderTestWindow.xaml"
-            this.VerticalSlider.ValueChanged += new System.Windows.RoutedPropertyChangedEventHandler<System.Windows.Media.Color>(this.VerticalSlider_ValueChanged);
+            this.VerticalSlider.ValueChanged += new Qhta.WPF.Controls.ValueChangedEventHandler<System.Windows.Media.Color>(this.VerticalSlider_ValueChanged);
             
             #line default
             #line hidden
@@ -161,7 +161,7 @@ namespace TestApp {
             this.HorizontalSlider = ((Qhta.WPF.Controls.ColorSlider)(target));
             
             #line 70 "..\..\ColorSliderTestWindow.xaml"
-            this.HorizontalSlider.ValueChanged += new System.Windows.RoutedPropertyChangedEventHandler<System.Windows.Media.Color>(this.HorizontalSlider_ValueChanged);
+            this.HorizontalSlider.ValueChanged += new Qhta.WPF.Controls.ValueChangedEventHandler<System.Windows.Media.Color>(this.HorizontalSlider_ValueChanged);
             
             #line default
             #line hidden

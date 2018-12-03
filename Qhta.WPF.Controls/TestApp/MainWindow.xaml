@@ -88,7 +88,22 @@
           <TextBlock Text="ColorPicker"/>
         </StackPanel>
       </Button>
-    
+
+      <Button Name="BrushPickerTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="BrushPickerTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Images/Brush.png" 
+                 Width="16"
+                 Height="16"
+                 Margin="0,0,4,0"/>
+          <TextBlock Text="BrushPicker"/>
+        </StackPanel>
+      </Button>
     </StackPanel>
   </Grid>
 </Window>

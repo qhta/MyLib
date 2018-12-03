@@ -315,7 +315,7 @@ namespace Qhta.WPF.Controls
       }
     }
 
-    public event RoutedPropertyChangedEventHandler<double> ValueChanged;
+    public event ValueChangedEventHandler<double> ValueChanged;
 
     #region Value property
     public double Value
@@ -378,14 +378,13 @@ namespace Qhta.WPF.Controls
           Value = hsv.V;
           break;
       }
-      //ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<double>(Value, Value));
       isColorNumBoxValueChanging = false;
     }
     #endregion
 
     private bool isColorSliderValueChanging;
     private bool isColorNumBoxValueChanging;
-    private void ColorSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<Color> args)
+    private void ColorSlider_ValueChanged(object sender, ValueChangedEventArgs<Color> args)
     {
       isColorSliderValueChanging = true;
       if (!isColorNumBoxValueChanging)
@@ -437,11 +436,10 @@ namespace Qhta.WPF.Controls
           break;
       }
       SelectedColor = color;
-      //ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<double>(ColorSlider.Position, ColorSlider.Position));
       isColorSliderValueChanging = false;
     }
 
-    private void ColorNumBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> args)
+    private void ColorNumBox_ValueChanged(object sender, ValueChangedEventArgs<decimal> args)
     {
       if (args.NewValue==253)
         Debug.Assert(true);
@@ -451,7 +449,7 @@ namespace Qhta.WPF.Controls
       {
         ColorSlider.Position = value;
       }
-      ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<double>(value, value));
+      ValueChanged?.Invoke(this, new ValueChangedEventArgs<double>(value));
       isColorNumBoxValueChanging = false;
     }
 

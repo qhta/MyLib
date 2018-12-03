@@ -63,6 +63,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrushPickerTestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ColorSliderTestWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +88,9 @@
     </Compile>
     <Compile Include="ColorPadTestWindow.xaml.cs">
       <DependentUpon>ColorPadTestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BrushPickerTestWindow.xaml.cs">
+      <DependentUpon>BrushPickerTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColorSliderTestWindow.xaml.cs">
       <DependentUpon>ColorSliderTestWindow.xaml</DependentUpon>
@@ -184,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Rainbow.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Brush.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

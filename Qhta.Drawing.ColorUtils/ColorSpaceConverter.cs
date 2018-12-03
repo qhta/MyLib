@@ -154,7 +154,6 @@ namespace Qhta.Drawing
       return ToAhsv(value.A, value.R, value.G, value.B);
     }
 
-
     public static AhsvColor ToAhsv(double A, double R, double G, double B)
     {
       double a = A;

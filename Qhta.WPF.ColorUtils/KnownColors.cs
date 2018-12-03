@@ -50,8 +50,6 @@ namespace Qhta.WPF
     }
     private int KnownColorComparison(KnownColor first, KnownColor second)
     {
-      if (first.Name=="Snow")
-        Debug.Assert(true);
       var hsv1 = first.Color.ToDrawingColor().ToAhsv();
       var hsv2 = second.Color.ToDrawingColor().ToAhsv();
       return CompareAlpha(hsv1, hsv2);

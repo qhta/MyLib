@@ -3,52 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="clr-namespace:Qhta.WPF.Controls" 
+        xmlns:local="clr-namespace:Qhta.WPF.Controls" 
              xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils" 
              xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
              x:Name="ThisControl"
              mc:Ignorable="d" 
              d:DesignHeight="360" d:DesignWidth="360" 
              Height="500" Width="320" >
-  <Window.Resources>
-    <utils:ColorConverter x:Key="ColorConverter"/>
-    <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-  </Window.Resources>
   <TabControl>
     <TabItem Header="Defined Colors">
-      <Grid x:Name="ThisGrid">
-        <ListBox x:Name="DefinedColorsPicker" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 SelectionChanged="DefinedColorsPicker_SelectionChanged"
-                 SelectionMode="Single"
-                 SnapsToDevicePixels="True">
-          <ListBox.ItemTemplate>
-            <DataTemplate>
-              <Grid ToolTip="{Binding Path=NameAndARGB}" Margin="0,-1">
-                <Rectangle Stroke="Black" StrokeThickness="0.5"
-                           Margin="-3,0"
-                           Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, 
-                           Path=IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
-                           />
-                <Rectangle Width="15" Height="15" 
-                           Margin="2,1"
-                           HorizontalAlignment="Center"
-                           Stroke="Black"
-                           Fill="{Binding Path=Color, Converter={StaticResource ColorConverter}}"
-                           />
-              </Grid>
-            </DataTemplate>
-          </ListBox.ItemTemplate>
-          <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-              <WrapPanel IsItemsHost="True" />
-            </ItemsPanelTemplate>
-          </ListBox.ItemsPanel>
-        </ListBox>
-      </Grid>
+      <local:KnownColorSelectView x:Name="DefinedColorsPicker"
+                         SelectedColor="{Binding ElementName=ThisControl, Path=SelectedColor}"/>
     </TabItem>
     <TabItem Header="Custom Color">
-      <controls:ColorEditForm x:Name="CustomColorForm" 
+      <local:ColorEditForm x:Name="CustomColorForm" 
                          SelectedColor="{Binding ElementName=ThisControl, Path=SelectedColor}"/>
     </TabItem>
   </TabControl>

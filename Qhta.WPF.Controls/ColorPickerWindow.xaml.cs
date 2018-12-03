@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.Controls
 {
@@ -13,7 +11,12 @@ namespace Qhta.WPF.Controls
     public ColorPickerWindow()
     {
       InitializeComponent();
-      InitialWork();
+      DefinedColorsPicker.SelectionChanged+=DefinedColorsPicker_SelectionChanged;
+    }
+
+    private void DefinedColorsPicker_SelectionChanged(object sender, ValueChangedEventArgs<KnownColor> args)
+    {
+      Close();
     }
 
     #region SelectedColor property
@@ -28,26 +31,6 @@ namespace Qhta.WPF.Controls
        new FrameworkPropertyMetadata(Colors.Transparent,
          FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
     #endregion
-
-    KnownColors customColors = new KnownColors();
-    private void InitialWork()
-    {
-      DefinedColorsPicker.Items.Clear();
-      foreach (var item in customColors)
-      {
-        DefinedColorsPicker.Items.Add(item);
-      }
-      DefinedColorsPicker.SelectionChanged += new SelectionChangedEventHandler(DefinedColorsPicker_SelectionChanged);
-    }
-
-    void DefinedColorsPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-      if (DefinedColorsPicker.SelectedValue != null)
-      {
-        SelectedColor = (DefinedColorsPicker.SelectedValue as KnownColor).Color;
-      }
-      Close();
-    }
 
   }
 
