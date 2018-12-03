@@ -16,29 +16,10 @@ namespace Qhta.WPF.Controls
     public override void OnApplyTemplate()
     {
       ColorPad.ValueChanged+=ColorPad_ValueChanged;
+      HSlider.ValueChanged+=HSlider_ValueChanged;
       SSlider.ValueChanged+=SSlider_ValueChanged;
       VSlider.ValueChanged+=VSlider_ValueChanged;
     }
-
-    //#region BaseColor property
-    //public Color BaseColor
-    //{
-    //  get => (Color)GetValue(BaseColorProperty);
-    //  set => SetValue(BaseColorProperty, value);
-    //}
-
-    //public static readonly DependencyProperty BaseColorProperty = DependencyProperty.Register
-    //  ("BaseColor", typeof(Color), typeof(ColorPadEdit),
-    //   new FrameworkPropertyMetadata(Colors.Transparent,
-    //     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-    //     BaseColorPropertyChanged));
-
-    //private static void BaseColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    //{
-    //  var c = sender as ColorPadEdit;
-    //  c.SetColorPad((Color)args.NewValue);
-    //}
-    //#endregion
 
     #region SelectedColor property
     public Color SelectedColor
@@ -60,9 +41,9 @@ namespace Qhta.WPF.Controls
     }
     #endregion
 
-    private void SetColorPad(Color baseColor)
+    private void SetColorPad(Color selectedColor)
     {
-      var hsv = baseColor.ToDrawingColor().ToAhsv();
+      var hsv = selectedColor.ToDrawingColor().ToAhsv();
       double h = hsv.H;
       if (double.IsNaN(h))
         h = 0;
@@ -78,13 +59,25 @@ namespace Qhta.WPF.Controls
       HSV.V=0;
       this.ColorPad.Color10=HSV.ToColor().ToMediaColor();
       this.ColorPad.InvariantHue=(int)(h*360);
-      this.ColorPad.SelectedColor = baseColor;
+      this.ColorPad.SelectedColor = selectedColor;
     }
 
     private void ColorPad_ValueChanged(object sender, ValueChangedEventArgs<Point> args)
     {
       SelectedColor = ColorPad.Position2Color(args.NewValue);
     }
+
+    private void HSlider_ValueChanged(object sender, ValueChangedEventArgs<double> args)
+    {
+      var position = ColorPad.Position;
+      var h = args.NewValue;
+      var s = SSlider.Value;
+      var v = VSlider.Value;
+      var hsv = new AhsvColor(h, s, v);
+      SelectedColor = hsv.ToColor().ToMediaColor();
+      ColorPad.Position=position;
+    }
+
     private void SSlider_ValueChanged(object sender, ValueChangedEventArgs<double> args)
     {
       var position = ColorPad.Position;

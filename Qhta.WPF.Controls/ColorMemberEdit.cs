@@ -46,7 +46,6 @@ namespace Qhta.WPF.Controls
         if (SelectedColor!=Colors.Transparent)
         {
           SetValue(this.SelectedColor);
-          //this.Value = ColorSlider.Color2Position(this.SelectedColor);
         }
         else
           Value=1.0;
@@ -353,20 +352,19 @@ namespace Qhta.WPF.Controls
         case ColorMember.Blue:
           Value = color.B/ValueScale;
           break;
-        //case ColorMember.Cyan:
-        //  color.G = (byte)(ColorSlider.Position*255);
-        //  color.B = (byte)(ColorSlider.Position*255);
-        //  break;
-        //case ColorMember.Magenta:
-        //  color.R = (byte)(ColorSlider.Position*255);
-        //  color.B = (byte)(ColorSlider.Position*255);
-        //  break;
-        //case ColorMember.Yellow:
-        //  color.R = (byte)(ColorSlider.Position*255);
-        //  color.G = (byte)(ColorSlider.Position*255);
-        //  break;
+        case ColorMember.Cyan:
+          Value = ((int)color.G + (int)color.B)/2.0/ValueScale;
+          break;
+        case ColorMember.Magenta:
+          Value = ((int)color.R + (int)color.B)/2.0/ValueScale;
+          break;
+        case ColorMember.Yellow:
+          Value = ((int)color.R + (int)color.G)/2.0/ValueScale;
+          break;
         case ColorMember.Hue:
           hsv = color.ToDrawingColor().ToAhsv();
+          if (double.IsNaN(hsv.H))
+            hsv.H=0;
           Value = hsv.H;
           break;
         case ColorMember.Saturation:

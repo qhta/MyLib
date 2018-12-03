@@ -70,7 +70,6 @@
     <Compile Include="ColorIterator.cs" />
     <Compile Include="ColorUtils.cs" />
     <Compile Include="DrawingColorConverter.cs" />
-    <Compile Include="HueChange.cs" />
     <Compile Include="InverseColorConverter.cs" />
     <Compile Include="KnownColor.cs" />
     <Compile Include="KnownColors.cs" />

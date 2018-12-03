@@ -118,7 +118,7 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty HueChangeProperty = DependencyProperty.Register
       ("HueChange", typeof(HueChange), typeof(ColorPad),
-        new FrameworkPropertyMetadata(HueChange.None, BitmapParametersChanged));
+        new FrameworkPropertyMetadata(HueChange.Undefined, BitmapParametersChanged));
     #endregion
 
     #region InvariantHue property
@@ -203,7 +203,8 @@ namespace Qhta.WPF.Controls
       AhsvColor hsv01 = Color01.ToDrawingColor().ToAhsv();
       AhsvColor hsv10 = Color10.ToDrawingColor().ToAhsv();
       AhsvColor hsv11 = Color11.ToDrawingColor().ToAhsv();
-      Qhta.Drawing.HueChange hueChange = (Qhta.Drawing.HueChange)HueChange;
+      Qhta.Drawing.HueChange verticalHueChange = (Qhta.Drawing.HueChange)HueChange;
+      Qhta.Drawing.HueChange horizontalHueChange = (Qhta.Drawing.HueChange)HueChange;
       if (HueChange==HueChange.None && InvariantHue!=null)
       {
         double h = (int)InvariantHue/360.0;
@@ -216,7 +217,7 @@ namespace Qhta.WPF.Controls
       AhsvColor[] leftEdge = new AhsvColor[n];
       int i = 0;
       foreach (var hsv in 
-        new ColorIterator(hsv01, hsv00, Resolution, hueChange, Gamma)
+        new ColorIterator(hsv01, hsv00, Resolution, verticalHueChange, Gamma)
         as IEnumerable<AhsvColor>)
       {
         //if (hsv.A==1)
@@ -227,7 +228,7 @@ namespace Qhta.WPF.Controls
       AhsvColor[] rightEdge = new AhsvColor[n];
       i = 0;
       foreach (var hsv 
-        in new ColorIterator(hsv11, hsv10, Resolution, hueChange, Gamma)
+        in new ColorIterator(hsv11, hsv10, Resolution, verticalHueChange, Gamma)
         as IEnumerable<AhsvColor>)
       {
         //if (hsv.A==1)
@@ -241,12 +242,12 @@ namespace Qhta.WPF.Controls
         var hsv0 = leftEdge[j];
         var hsv1 = rightEdge[j];
         i = 0;
-        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, hueChange, Gamma)
+        foreach (var hsv in new ColorIterator(hsv0, hsv1, Resolution, horizontalHueChange, Gamma)
                  as IEnumerable<AhsvColor>)
         {
           if (hsv.A==1)
           {
-            //if (j==0)
+            //if (j==75)
             //  Debug.WriteLine($"topEdge[{i}]=A={hsv.A} H={hsv.H} S={hsv.S} V={hsv.V}, {hsv.ToColor()}");
             //if (j==n-1)
             //  Debug.WriteLine($"bottomEdge[{i}]=A={hsv.A} H={hsv.H} S={hsv.S} V={hsv.V}, {hsv.ToColor()}");

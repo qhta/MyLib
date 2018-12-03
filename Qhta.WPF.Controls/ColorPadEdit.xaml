@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Qhta.WPF.Controls"
              x:Name="ThisControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="150" d:DesignWidth="300">
     <Grid >
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto"/>

@@ -101,7 +101,7 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty HueChangeProperty = DependencyProperty.Register
       ("HueChange", typeof(HueChange), typeof(ColorSlider),
-        new FrameworkPropertyMetadata(HueChange.None, ChangeBrushProperty));
+        new FrameworkPropertyMetadata(HueChange.Undefined, ChangeBrushProperty));
     #endregion
 
     #region Resolution property

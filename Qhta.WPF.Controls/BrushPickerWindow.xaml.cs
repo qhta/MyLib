@@ -6,13 +6,17 @@ using System.Windows.Media;
 namespace Qhta.WPF.Controls
 {
 
-  public partial class ColorPickerWindow : Window
+  public partial class BrushPickerWindow : Window
   {
-    public ColorPickerWindow()
+    public BrushPickerWindow()
     {
       InitializeComponent();
-      ColorSelectionForm.SelectedColorChanged+=ColorSelectionForm_SelectedColorChanged;
-      ColorSelectionForm.CloseFormRequest+=ColorSelectionForm_CloseFormRequest;
+      DefinedColorsPicker.SelectionChanged+=DefinedColorsPicker_SelectionChanged;
+    }
+
+    private void DefinedColorsPicker_SelectionChanged(object sender, ValueChangedEventArgs<KnownColor> args)
+    {
+      Close();
     }
 
     #region SelectedColor property
@@ -23,21 +27,10 @@ namespace Qhta.WPF.Controls
     }
 
     public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register
-      ("SelectedColor", typeof(Color), typeof(ColorPickerWindow),
+      ("SelectedColor", typeof(Color), typeof(BrushPickerWindow),
        new FrameworkPropertyMetadata(Colors.Transparent,
          FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
     #endregion
-
-
-    private void ColorSelectionForm_SelectedColorChanged(object sender, ValueChangedEventArgs<Color> args)
-    {
-      SelectedColor=args.NewValue;
-    }
-
-    private void ColorSelectionForm_CloseFormRequest(object sender, EventArgs e)
-    {
-      Close();
-    }
 
   }
 

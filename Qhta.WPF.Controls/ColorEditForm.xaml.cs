@@ -18,7 +18,10 @@ namespace Qhta.WPF.Controls
 
     public override void OnApplyTemplate()
     {
-      CurrentColor = Colors.Red;
+      if (SelectedColor!=Colors.Transparent)
+        CurrentColor = SelectedColor;
+      else
+        CurrentColor = Colors.Red;
     }
 
     #region SelectedColor property
@@ -59,26 +62,19 @@ namespace Qhta.WPF.Controls
     }
     #endregion
 
+    public event ValueChangedEventHandler<Color> SelectedColorChanged;
+    public event EventHandler CloseFormRequest;
 
     private void OkButton_Click(object sender, RoutedEventArgs e)
     {
       SelectedColor = CurrentColor;
-      CloseForm(true);
+      SelectedColorChanged?.Invoke(this, new ValueChangedEventArgs<Color>(SelectedColor));
+      CloseFormRequest(this, new EventArgs());
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
-      CloseForm(false);
-    }
-
-    private void CloseForm(bool ok)
-    {
-      var window = this.FindParentWindow();
-      if (window!=null)
-      {
-        window.DialogResult = ok;
-        window.Close();
-      }
+      CloseFormRequest(this, new EventArgs());
     }
 
   }

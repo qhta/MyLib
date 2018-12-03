@@ -98,7 +98,7 @@ namespace Qhta.Drawing
       }
       else
       {
-        if (hueChange==HueChange.None)
+        if (hueChange==HueChange.Shortest)
         {
           if (hDelta>0.5)
             hDelta = (endAhsv.H-(1+startAhsv.H));
@@ -110,6 +110,8 @@ namespace Qhta.Drawing
           hDelta = (endAhsv.H-(1+startAhsv.H));
         else if (hDelta<0 && hueChange==HueChange.Positive)
           hDelta = -(startAhsv.H-(1+endAhsv.H));
+        else if (hueChange==HueChange.None)
+          hDelta = 0;
       }
       hDelta /= n;
       sDelta = (endAhsv.S-startAhsv.S)/n;

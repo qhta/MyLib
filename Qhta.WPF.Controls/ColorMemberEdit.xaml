@@ -38,7 +38,7 @@
                 <Grid x:Name="BackgroundGrid" >
                   <local:ColorSlider x:Name="ColorSlider"
                              Orientation="Horizontal"
-                             HueChange="None"
+                             HueChange="Shortest"
                              Resolution="{TemplateBinding Resolution}"
                              SelectedColor="{TemplateBinding SelectedColor}"
                              />

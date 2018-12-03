@@ -31,3 +31,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\Qhta.WPF.Controls.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\KnownColorSelectView.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\KnownColorSelectView.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\BrushPickerWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\BrushPickerWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorSelectionForm.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\ColorSelectionForm.baml
