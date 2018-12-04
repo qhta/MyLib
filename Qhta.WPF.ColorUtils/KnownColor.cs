@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Media;
 using Qhta.Drawing;
 
@@ -8,6 +9,21 @@ namespace Qhta.WPF
   {
     public string Name { get; set; }
     public Color Color { get; set; }
+
+    public bool IsSelected
+    {
+      get
+      {
+        Debug.WriteLine($"GetIsSelected[{Name}]({_IsSelected})");
+        return _IsSelected;
+      }
+      set
+      {
+        _IsSelected = value;
+        Debug.WriteLine($"SetIsSelected[{Name}]({value})");
+      }
+    }
+    private bool _IsSelected;
 
     public override string ToString()
     {

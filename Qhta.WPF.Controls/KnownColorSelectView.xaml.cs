@@ -39,7 +39,7 @@ namespace Qhta.WPF.Controls
 
     public event ValueChangedEventHandler<KnownColor> SelectionChanged;
 
-    KnownColors customColors = new KnownColors();
+    KnownColors customColors = KnownColors.Instance;
     private void Init()
     {
       KnownColorsListBox.Items.Clear();
@@ -52,11 +52,18 @@ namespace Qhta.WPF.Controls
 
     void KnownColorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
     {
-      if (KnownColorsListBox.SelectedValue != null)
+      if (args.AddedItems!=null)
       {
-        SelectedColor = (KnownColorsListBox.SelectedValue as KnownColor).Color;
-        SelectionChanged?.Invoke(this, 
-          new ValueChangedEventArgs<KnownColor>(KnownColorsListBox.SelectedValue as KnownColor));
+        var KnownColor = args.AddedItems.Cast<KnownColor>().FirstOrDefault() as KnownColor;
+        if (KnownColor != null)
+        {
+          if (KnownColor.Color!=SelectedColor)
+          {
+            SelectedColor = KnownColor.Color;
+            SelectionChanged?.Invoke(this,
+              new ValueChangedEventArgs<KnownColor>(KnownColorsListBox.SelectedValue as KnownColor));
+          }
+        }
       }
     }
 

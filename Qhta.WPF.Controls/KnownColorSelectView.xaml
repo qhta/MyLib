@@ -17,14 +17,14 @@
                  SelectionChanged="KnownColorsListBox_SelectionChanged"
                  SelectionMode="Single"
                  SnapsToDevicePixels="True">
+      <ListBox.Resources>
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        </Style>
+      </ListBox.Resources>
       <ListBox.ItemTemplate>
         <DataTemplate>
           <Grid ToolTip="{Binding Path=Name}" Margin="0,-1">
-            <Rectangle Stroke="Black" StrokeThickness="0.5"
-                           Margin="-3,0"
-                           Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, 
-                           Path=IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
-                           />
             <Rectangle Width="15" Height="15" 
                            Margin="2,1"
                            HorizontalAlignment="Center"

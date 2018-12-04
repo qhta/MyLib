@@ -46,6 +46,7 @@ namespace Qhta.WPF.Controls
 
     private void DefinedColorsPicker_SelectionChanged(object sender, ValueChangedEventArgs<KnownColor> args)
     {
+      //args.NewValue.IsSelected=true;
       SelectedColor = args.NewValue.Color;
       SelectedColorChanged?.Invoke(this, new ValueChangedEventArgs<Color>(SelectedColor));
       CloseFormRequest?.Invoke(this, new EventArgs());

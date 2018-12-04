@@ -55,6 +55,75 @@ namespace Qhta.Drawing
     }
   }
 
+  public struct AcmykColor
+  {
+    /// <summary>
+    /// Alpha channel in range 0..1
+    /// </summary>
+    public double A;
+    /// <summary>
+    /// Cyan channel in range 0..1
+    /// </summary>
+    public double C;
+    /// <summary>
+    /// Magenta channel in range 0..1
+    /// </summary>
+    public double M;
+    /// <summary>
+    /// Yellow channel in range 0..1
+    /// </summary>
+    public double Y;
+    /// <summary>
+    /// Black channel in range 0..1. Is NaN in CMY model
+    /// </summary>
+    public double K;
+
+    public AcmykColor(byte C, byte M, byte Y)
+    {
+      this.A = 1;
+      this.C = C/255.0;
+      this.M = M/255.0;
+      this.Y = Y/255.0;
+      this.K = double.NaN;
+    }
+
+    public AcmykColor(byte A, byte C, byte M, byte Y)
+    {
+      this.A = A;
+      this.C = C/255.0;
+      this.M = M/255.0;
+      this.Y = Y/255.0;
+      this.K = double.NaN;
+    }
+
+    public AcmykColor(byte A, byte C, byte M, byte Y, byte K)
+    {
+      this.A = A;
+      this.C = C/255.0;
+      this.M = M/255.0;
+      this.Y = Y/255.0;
+      this.K = K/255.0;
+    }
+
+    public AcmykColor(double C, double M, double Y, double K = double.NaN)
+    {
+      this.A = 1;
+      this.C = C;
+      this.M = M;
+      this.Y = Y;
+      this.K = K;
+    }
+
+    public AcmykColor(double A, double C, double M, double Y, double K=double.NaN)
+    {
+      this.A = A;
+      this.C = C;
+      this.M = M;
+      this.Y = Y;
+      this.K = K;
+    }
+  }
+
   public struct AhsvColor
   {
     /// <summary>
@@ -144,6 +213,16 @@ namespace Qhta.Drawing
       return new ArgbColor(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
     }
 
+    public static AcmykColor ToAcmyk(this Color value)
+    {
+      return new AcmykColor(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
+    }
+
+    public static AcmykColor ToAcmy(this Color value)
+    {
+      return new AcmykColor(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
+    }
+
     public static AhsvColor ToAhsv(this Color value)
     {
       return ToAhsv(value.A/255.0, value.R/255.0, value.G/255.0, value.B/255.0);
@@ -154,46 +233,88 @@ namespace Qhta.Drawing
       return ToAhsv(value.A, value.R, value.G, value.B);
     }
 
-    public static AhsvColor ToAhsv(double A, double R, double G, double B)
+    public static AcmykColor ToAmy(double alpha, double red, double green, double blue)
     {
-      double a = A;
-      double r = R;
-      double g = G;
-      double b = B;
-      double max = Math.Max(Math.Max(r, g), b);
-      double min = Math.Min(Math.Min(r, g), b);
-      double h = 0;
-      double s;
-      double v;
+      var cyan = 1 - red;
+      var magenta = 1 - green;
+      var yellow = 1 - blue;
+      return new AcmykColor(alpha, cyan, magenta, yellow);
+    }
+
+    public static AcmykColor ToAmyk(double alpha, double red, double green, double blue)
+    {
+      var black = Math.Min(Math.Min(1 - red, 1 - green), 1 - blue);
+
+      if (black==1)
+      {
+        var cyan = 1 - red;
+        var magenta = 1 - green;
+        var yellow = 1 - blue;
+        return new AcmykColor(alpha, cyan, magenta, yellow, black);
+      }
+      else
+      {
+        var cyan = (1-red-black)/(1-black);
+        var magenta = (1-green-black)/(1-black);
+        var yellow = (1-blue-black)/(1-black);
+        return new AcmykColor(alpha, cyan, magenta, yellow, black);
+      }
+    }
+
+    public static ArgbColor ToArgb(this AcmykColor value)
+    {
+      if (double.IsNaN(value.K) || value.K==1)
+      {
+        var red = 1 - value.C;
+        var green = 1 - value.M;
+        var blue = 1 - value.Y;
+        return new ArgbColor(value.A, red, green, blue);
+      }
+      else
+      {
+        var red = (1-value.C) * (1-value.K);
+        var green = (1-value.M) * (1-value.K);
+        var blue = (1-value.Y) * (1-value.K);
+        return new ArgbColor(value.A, red, green, blue);
+      }
+    }
+
+    public static AhsvColor ToAhsv(double alpha, double red, double green, double blue)
+    {
+      double max = Math.Max(Math.Max(red, green), blue);
+      double min = Math.Min(Math.Min(red, green), blue);
+      double hue = 0;
+      double saturation;
+      double value;
 
       if (min == max)
-        h = double.NaN;
+        hue = double.NaN;
       else
       {
         double delta = max-min;
-        if (r == max)
-          h = (g - b) / delta;        // between yellow & magenta
+        if (red == max)
+          hue = (green - blue) / delta;        // between yellow & magenta
         else
-       if (g == max)
-          h = 2.0 + (b - r) / delta;  // between cyan & yellow
+       if (green == max)
+          hue = 2.0 + (blue - red) / delta;  // between cyan & yellow
         else
-          h = 4.0 + (r - g) / delta;  // between magenta & cyan
-        h /= 6;
+          hue = 4.0 + (red - green) / delta;  // between magenta & cyan
+        hue /= 6;
       }
 
-      if (h<0)
-        h = h+1.0;
-      if (h==1.0)
-        h = 0;
+      if (hue<0)
+        hue = hue+1.0;
+      if (hue==1.0)
+        hue = 0;
 
       if (max==0)
-        s = 0;
+        saturation = 0;
       else
-        s = (max-min) / max;
+        saturation = (max-min) / max;
 
-      v = max;
+      value = max;
 
-      return new AhsvColor(a, h, s, v);
+      return new AhsvColor(alpha, hue, saturation, value);
     }
 
     public static AhlsColor ToAhls(this Color value)
@@ -206,32 +327,32 @@ namespace Qhta.Drawing
       return ToAhls(value.A, value.R, value.G, value.B);
     }
 
-    public static AhlsColor ToAhls(double a, double r, double g, double b)
+    public static AhlsColor ToAhls(double alpha, double red, double green, double blue)
     {
-      double max = Math.Max(Math.Max(r, g), b);
-      double min = Math.Min(Math.Min(r, g), b);
-      double h, s; 
-      double l = (max + min) / 2;
+      double max = Math.Max(Math.Max(red, green), blue);
+      double min = Math.Min(Math.Min(red, green), blue);
+      double hue, saturation; 
+      double lightness = (max + min) / 2;
 
       if (max == min)
       {
-        h = double.NaN;
-        s = 0; // achromatic
+        hue = double.NaN;
+        saturation = 0; // achromatic
       }
       else
       {
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        if (max==r)
-          h = (g - b) / d + (g < b ? 6 : 0);
+        var delta = max - min;
+        saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+        if (max==red)
+          hue = (green - blue) / delta + (green < blue ? 6 : 0);
         else 
-        if (max==g)
-          h = (b - r) / d + 2; 
+        if (max==green)
+          hue = (blue - red) / delta + 2; 
         else //if (max==b)
-          h = (r - g) / d + 4;
-        h /= 6;
+          hue = (red - green) / delta + 4;
+        hue /= 6;
       }
-      return new AhlsColor(a, h, l, s);
+      return new AhlsColor(alpha, hue, lightness, saturation);
     }
 
     public static Color ToColor(this AhsvColor value)

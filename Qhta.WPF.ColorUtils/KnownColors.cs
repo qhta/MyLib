@@ -22,7 +22,20 @@ namespace Qhta.WPF
       set { _SelectableColors = value; }
     }
 
-    public KnownColors()
+    private static KnownColors _Instance;
+    public static KnownColors Instance
+    {
+      get
+      {
+        if (_Instance==null)
+          _Instance = new KnownColors();
+        return _Instance;
+      }
+    }
+    /// <summary>
+    /// Private constructor inhibits external instance creation
+    /// </summary>
+    private KnownColors()
     {
       _SelectableColors = new List<KnownColor>();
       Type ColorsType = typeof(Colors);
