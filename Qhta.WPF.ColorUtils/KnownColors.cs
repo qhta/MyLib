@@ -24,7 +24,7 @@ namespace Qhta.WPF
 
     protected List<KnownColor> SystemColors { get; private set; } = new List<KnownColor>();
 
-    public ObservableCollection<KnownColor> CustomColors { get; private set; } = new ObservableCollection<KnownColor>();
+    public CustomColors CustomColors { get; private set; } = new CustomColors();
 
     private static KnownColors _Instance;
     public static KnownColors Instance
@@ -57,9 +57,20 @@ namespace Qhta.WPF
       {
         LoadCustomColors(CustomColorsPath);
         foreach (var customColor in CustomColors)
+        {
           this.Add(customColor);
+          customColor.PropertyChanged+=CustomColor_PropertyChanged;
+        }
       }
       CustomColors.CollectionChanged+=CustomColors_CollectionChanged;
+    }
+
+    private void CustomColor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+      if (e.PropertyName==nameof(CustomColor.Name))
+        if (AutoSaveCustomColors && CustomColorsPath!=null)
+          SaveCustomColors(CustomColorsPath);
+
     }
 
     public void SaveCustomColors(string filePath)
@@ -71,7 +82,11 @@ namespace Qhta.WPF
           xmlWriter.WriteStartElement("CustomColors");
           foreach (var color in CustomColors)
           {
-            xmlWriter.WriteElementString("Color", color.Color.ToString());
+            xmlWriter.WriteStartElement("CustomColor");
+            if (!String.IsNullOrEmpty(color.Name) && !color.Name.StartsWith("#"))
+              xmlWriter.WriteAttributeString("name", color.Name);
+            xmlWriter.WriteString(color.Color.ToString());
+            xmlWriter.WriteEndElement();
           }
           xmlWriter.WriteEndElement();
         }
@@ -91,13 +106,16 @@ namespace Qhta.WPF
         if (docElement.Name=="CustomColors")
         {
           CustomColors.Clear();
-          foreach (var colorElement in docElement.GetElementsByTagName("Color"))
+          foreach (var colorElement in docElement.GetElementsByTagName("CustomColor").Cast<XmlElement>())
           {
-            var colorStr = (colorElement as XmlElement).InnerText;
+            var colorName = colorElement.GetAttribute("name");
+            var colorStr = colorElement.InnerText;
             if (colorStr!=null)
             {
+              if (string.IsNullOrEmpty(colorName))
+                colorName = colorStr;
               var color = (Color)ColorConverter.ConvertFromString(colorStr);
-              CustomColors.Add(new KnownColor { Name=color.ToString(), Color=color });
+              CustomColors.Add(new CustomColor { Name=colorName, Color=color });
             }
           }
         }
@@ -114,13 +132,19 @@ namespace Qhta.WPF
       {
         case NotifyCollectionChangedAction.Add:
           foreach (var item in args.NewItems.Cast<KnownColor>())
+          {
+            item.PropertyChanged+=CustomColor_PropertyChanged;
             this.Add(item);
+          }
           if (AutoSaveCustomColors && CustomColorsPath!=null)
             SaveCustomColors(CustomColorsPath);
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (var item in args.NewItems.Cast<KnownColor>())
+          foreach (var item in args.OldItems.Cast<KnownColor>())
+          {
+            item.PropertyChanged-=CustomColor_PropertyChanged;
             this.Remove(item);
+          }
           if (AutoSaveCustomColors && CustomColorsPath!=null)
             SaveCustomColors(CustomColorsPath);
           break;

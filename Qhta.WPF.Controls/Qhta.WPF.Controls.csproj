@@ -204,6 +204,12 @@
   <ItemGroup>
     <Resource Include="Resources\colorChart.PNG" />
     <Resource Include="Resources\OpacityPattern.PNG" />
+    <Resource Include="Resources\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\CustomColorMarker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\image.png" />
     <Content Include="NumericEditBox.bmp" />
     <Content Include="NumericUpDown.bmp" />

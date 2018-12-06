@@ -18,9 +18,9 @@ namespace TestApp
       if (!Directory.Exists(appPath))
         Directory.CreateDirectory(appPath);
       var customColorsPath = Resources["CustomColorsPath"] as string;
-      Debug.WriteLine($"appPath={appPath}");
+      //Debug.WriteLine($"appPath={appPath}");
       customColorsPath = Path.Combine(appPath, customColorsPath);
-      Debug.WriteLine($"customColorsPath={customColorsPath}");
+      //Debug.WriteLine($"customColorsPath={customColorsPath}");
       KnownColors.CustomColorsPath = customColorsPath;
       bool? autoSaveCustomColors = Resources["AutoSaveCustomColors"] as bool?;
       if (autoSaveCustomColors==true)

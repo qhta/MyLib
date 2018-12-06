@@ -1,29 +1,48 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Media;
 using Qhta.Drawing;
 
 namespace Qhta.WPF
 {
-  public class KnownColor
+  public class KnownColor : INotifyPropertyChanged
   {
-    public string Name { get; set; }
+    public string Name
+    {
+      get => _Name;
+      set
+      {
+        if (_Name!=value)
+        {
+          _Name=value;
+          NotifyPropertyChanged(nameof(Name));
+        }
+      }
+    }
+    private string _Name;
+
     public Color Color { get; set; }
 
     public bool IsSelected
     {
-      get
-      {
-        //Debug.WriteLine($"GetIsSelected[{Name}]({_IsSelected})");
-        return _IsSelected;
-      }
+      get => _IsSelected;
       set
       {
-        _IsSelected = value;
-        //Debug.WriteLine($"SetIsSelected[{Name}]({value})");
+        if (_IsSelected!=value)
+        {
+          _IsSelected = value;
+          NotifyPropertyChanged(nameof(IsSelected));
+        }
       }
     }
     private bool _IsSelected;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    public void NotifyPropertyChanged(string propertyName)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
     public override string ToString()
     {

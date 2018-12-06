@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +8,15 @@ using System.Windows.Media;
 
 namespace Qhta.WPF
 {
-  public class CustomColors: List<Color>
+  /// <summary>
+  /// Inherited class defined only for DataTemplates
+  /// </summary>
+  public class CustomColor: KnownColor
   {
-    /// <summary>
-    /// Protects List Capacity property from saving
-    /// </summary>
-    public new int Capacity { get; set; }
+
+  }
+
+  public class CustomColors: ObservableCollection<CustomColor>
+  {
   }
 }

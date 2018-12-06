@@ -38,15 +38,17 @@ namespace Qhta.WPF.Controls
     #endregion
 
     public event ValueChangedEventHandler<KnownColor> SelectionChanged;
+    public event EventHandler CloseFormRequest;
 
-    KnownColors customColors = KnownColors.Instance;
+    //KnownColors customColors = KnownColors.Instance;
     private void Init()
     {
-      KnownColorsListBox.Items.Clear();
-      foreach (var item in customColors)
-      {
-        KnownColorsListBox.Items.Add(item);
-      }
+      //KnownColorsListBox.Items.Clear();
+      //foreach (var item in customColors)
+      //{
+      //  KnownColorsListBox.Items.Add(item);
+      //}
+      KnownColorsListBox.ItemsSource = KnownColors.Instance;
       KnownColorsListBox.SelectionChanged += new SelectionChangedEventHandler(KnownColorsListBox_SelectionChanged);
     }
 
@@ -67,5 +69,24 @@ namespace Qhta.WPF.Controls
       }
     }
 
+    private void ColorNameTextBox_LostFocus(object sender, RoutedEventArgs args)
+    {
+      var customColor = KnownColorsListBox.SelectedItem as CustomColor;
+      var name = (sender as TextBox).Text.Trim();
+      if (String.IsNullOrEmpty(name))
+        name = customColor.Color.ToString();
+      customColor.Name = name;
+    }
+
+    private void DeleteMenuItem_Click(object sender, RoutedEventArgs args)
+    {
+      var customColor = KnownColorsListBox.SelectedItem as CustomColor;
+      KnownColors.Instance.CustomColors.Remove(customColor);
+    }
+
+    private void KnownColorsListBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs args)
+    {
+      CloseFormRequest?.Invoke(this, args);
+    }
   }
 }
