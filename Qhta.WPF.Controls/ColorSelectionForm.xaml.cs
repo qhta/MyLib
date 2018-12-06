@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace Qhta.WPF.Controls
 {
-  /// <summary>
-  /// Interaction logic for ColorSelectionForm.xaml
-  /// </summary>
   public partial class ColorSelectionForm : UserControl
   {
     public ColorSelectionForm()
@@ -46,7 +37,6 @@ namespace Qhta.WPF.Controls
 
     private void DefinedColorsPicker_SelectionChanged(object sender, ValueChangedEventArgs<KnownColor> args)
     {
-      //args.NewValue.IsSelected=true;
       SelectedColor = args.NewValue.Color;
       SelectedColorChanged?.Invoke(this, new ValueChangedEventArgs<Color>(SelectedColor));
       CloseFormRequest?.Invoke(this, new EventArgs());
@@ -55,7 +45,40 @@ namespace Qhta.WPF.Controls
     private void CustomColorForm_SelectedColorChanged(object sender, ValueChangedEventArgs<Color> args)
     {
       SelectedColor = args.NewValue;
+      if (KnownColors.Instance.FirstOrDefault(item => item.Color.Equals(args.NewValue))==null)
+      {
+        var knownColors = KnownColors.Instance;
+        knownColors.CustomColors.Add(new KnownColor { Name=args.NewValue.ToString(), Color=args.NewValue, IsSelected=true });
+      }
       SelectedColorChanged?.Invoke(this, args);
+    }
+
+    public class AddressDetails
+    {
+      public int HouseNo { get; set; }
+      public string StreetName { get; set; }
+      public string City { get; set; }
+      private string PoAddress { get; set; }
+    }
+
+    public void SaveCustomColors(string path)
+    {
+      AddressDetails details = new AddressDetails();
+      details.HouseNo = 4;
+      details.StreetName = "Rohini";
+      details.City = "Delhi";
+      //Serialize(details);
+
+      //CustomColors colors = new CustomColors();
+      //colors.AddRange(this.CustomColors.Select(item => item.Color));
+      XmlSerializer xmlSerializer = new XmlSerializer(typeof(AddressDetails));
+      using (TextWriter textWriter = new StreamWriter(@"d:\temp\Xml.xml"))
+      {
+        //textWriter.Write("ala");
+        xmlSerializer.Serialize(textWriter, details);
+      }
+      //byte[] buffer = new byte[] { 1, 2, 3, 4 };
+      //aStream.Write(buffer, 0, 4);
     }
 
     private void CustomColorForm_CloseFormRequest(object sender, EventArgs e)
@@ -63,6 +86,6 @@ namespace Qhta.WPF.Controls
       CloseFormRequest?.Invoke(this, new EventArgs());
     }
 
-
+    
   }
 }

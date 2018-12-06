@@ -127,6 +127,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\Border3DTestWindow
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\NumericEditBoxTestWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\Border3DTestWindow.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ColorPadTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\BrushPickerTestWindow.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ColorSliderTestWindow.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ColorPickerTestWindow.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\MainWindow.g.cs
@@ -134,7 +135,9 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\NumericEditBoxTest
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\App.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\App.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ColorPadTestWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\BrushPickerTestWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ColorSliderTestWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ColorPickerTestWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\MainWindow.baml
@@ -145,5 +148,3 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csproj.Cor
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.exe
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\BrushPickerTestWindow.g.cs
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\BrushPickerTestWindow.baml

@@ -28,7 +28,6 @@ namespace Qhta.WPF.Controls
          FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
     #endregion
 
-
     private void ColorSelectionForm_SelectedColorChanged(object sender, ValueChangedEventArgs<Color> args)
     {
       SelectedColor=args.NewValue;

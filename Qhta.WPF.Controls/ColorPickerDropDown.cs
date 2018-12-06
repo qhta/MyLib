@@ -88,7 +88,10 @@ namespace Qhta.WPF.Controls
 
     private void button_Click(object sender, RoutedEventArgs e)
     {
-      var window = new ColorPickerWindow { SelectedColor = this.SelectedColor };
+      var window = new ColorPickerWindow
+      {
+        SelectedColor = this.SelectedColor,
+      };
       window.ShowDialog();
       if (window.SelectedColor!=this.SelectedColor)
       {

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Xml;
+using System.Xml.Serialization;
 using Qhta.Drawing;
 
 namespace Qhta.WPF
@@ -14,13 +18,13 @@ namespace Qhta.WPF
 
   public class KnownColors : ObservableCollection<KnownColor>
   {
-    List<KnownColor> _SelectableColors = null;
+    public static bool AutoSaveCustomColors {get; set;}
 
-    public List<KnownColor> SelectableColors
-    {
-      get { return _SelectableColors; }
-      set { _SelectableColors = value; }
-    }
+    public static string CustomColorsPath { get; set; }
+
+    protected List<KnownColor> SystemColors { get; private set; } = new List<KnownColor>();
+
+    public ObservableCollection<KnownColor> CustomColors { get; private set; } = new ObservableCollection<KnownColor>();
 
     private static KnownColors _Instance;
     public static KnownColors Instance
@@ -37,26 +41,97 @@ namespace Qhta.WPF
     /// </summary>
     private KnownColors()
     {
-      _SelectableColors = new List<KnownColor>();
       Type ColorsType = typeof(Colors);
       PropertyInfo[] ColorsProperty = ColorsType.GetProperties();
 
       foreach (PropertyInfo property in ColorsProperty)
       {
-        _SelectableColors.Add(new KnownColor
+        SystemColors.Add(new KnownColor
         {
           Name = property.Name,
           Color = (Color)System.Windows.Media.ColorConverter.ConvertFromString(property.Name)
         });
       }
       Sort();
+      if (CustomColorsPath!=null)
+      {
+        LoadCustomColors(CustomColorsPath);
+        foreach (var customColor in CustomColors)
+          this.Add(customColor);
+      }
+      CustomColors.CollectionChanged+=CustomColors_CollectionChanged;
+    }
+
+    public void SaveCustomColors(string filePath)
+    {
+      try
+      {
+        using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings { Indent=true }))
+        {
+          xmlWriter.WriteStartElement("CustomColors");
+          foreach (var color in CustomColors)
+          {
+            xmlWriter.WriteElementString("Color", color.Color.ToString());
+          }
+          xmlWriter.WriteEndElement();
+        }
+      }
+      catch (Exception ex)
+      {
+        Debug.WriteLine($"Error when writing to file {filePath}: {ex.Message}");
+      }
+    }
+    public void LoadCustomColors(string filePath)
+    {
+      XmlDocument xmlDocument = new XmlDocument();
+      try
+      {
+        xmlDocument.Load(filePath);
+        var docElement = xmlDocument.DocumentElement;
+        if (docElement.Name=="CustomColors")
+        {
+          CustomColors.Clear();
+          foreach (var colorElement in docElement.GetElementsByTagName("Color"))
+          {
+            var colorStr = (colorElement as XmlElement).InnerText;
+            if (colorStr!=null)
+            {
+              var color = (Color)ColorConverter.ConvertFromString(colorStr);
+              CustomColors.Add(new KnownColor { Name=color.ToString(), Color=color });
+            }
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        Debug.WriteLine($"Error when reading from file {filePath}: {ex.Message}");
+      }
+    }
+
+    private void CustomColors_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+    {
+      switch (args.Action)
+      {
+        case NotifyCollectionChangedAction.Add:
+          foreach (var item in args.NewItems.Cast<KnownColor>())
+            this.Add(item);
+          if (AutoSaveCustomColors && CustomColorsPath!=null)
+            SaveCustomColors(CustomColorsPath);
+          break;
+        case NotifyCollectionChangedAction.Remove:
+          foreach (var item in args.NewItems.Cast<KnownColor>())
+            this.Remove(item);
+          if (AutoSaveCustomColors && CustomColorsPath!=null)
+            SaveCustomColors(CustomColorsPath);
+          break;
+      }
     }
 
     public void Sort()
     {
       base.Clear();
-      _SelectableColors.Sort(KnownColorComparison);
-      foreach (var item in _SelectableColors)
+      SystemColors.Sort(KnownColorComparison);
+      foreach (var item in SystemColors)
       {
         this.Add(item);
       }

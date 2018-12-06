@@ -18,6 +18,7 @@ namespace Qhta.WPF.Controls
     Cyan,
     Magenta,
     Yellow,
+    Black,
     Hue,
     Saturation,
     Brightness,
@@ -54,6 +55,59 @@ namespace Qhta.WPF.Controls
       ColorSlider.Position=this.Value;
       ColorNumBox.ValueChanged+=ColorNumBox_ValueChanged;
       ColorSlider.ValueChanged+=ColorSlider_ValueChanged;
+    }
+
+    private void SetValue(Color color)
+    {
+      isColorNumBoxValueChanging = true;
+      AhsvColor hsv;
+      AcmykColor cmy;
+      switch (Member)
+      {
+        case ColorMember.Alpha:
+          Value = color.A/ValueScale;
+          break;
+        case ColorMember.Red:
+          Value = color.R/ValueScale;
+          break;
+        case ColorMember.Green:
+          Value = color.G/ValueScale;
+          break;
+        case ColorMember.Blue:
+          Value = color.B/ValueScale;
+          break;
+        case ColorMember.Cyan:
+          cmy = color.ToDrawingColor().ToAcmyk();
+          Value = cmy.C;
+          break;
+        case ColorMember.Magenta:
+          cmy = color.ToDrawingColor().ToAcmyk();
+          Value = cmy.M;
+          break;
+        case ColorMember.Yellow:
+          cmy = color.ToDrawingColor().ToAcmyk();
+          Value = cmy.Y;
+          break;
+        case ColorMember.Black:
+          cmy = color.ToDrawingColor().ToAcmyk();
+          Value = cmy.K;
+          break;
+        case ColorMember.Hue:
+          hsv = color.ToDrawingColor().ToAhsv();
+          if (double.IsNaN(hsv.H))
+            hsv.H=0;
+          Value = hsv.H;
+          break;
+        case ColorMember.Saturation:
+          hsv = color.ToDrawingColor().ToAhsv();
+          Value = hsv.S;
+          break;
+        case ColorMember.Brightness:
+          hsv = color.ToDrawingColor().ToAhsv();
+          Value = hsv.V;
+          break;
+      }
+      isColorNumBoxValueChanging = false;
     }
 
     #region Member property
@@ -284,6 +338,14 @@ namespace Qhta.WPF.Controls
             color0.G = 0;
             color1.G = 255;
             break;
+          case ColorMember.Black:
+            color0.R = 0;
+            color1.R = 255;
+            color0.G = 0;
+            color1.G = 255;
+            color0.B = 0;
+            color1.B = 255;
+            break;
           case ColorMember.Hue:
             hsv0 = color0.ToDrawingColor().ToAhsv();
             hsv1 = color1.ToDrawingColor().ToAhsv();
@@ -334,50 +396,6 @@ namespace Qhta.WPF.Controls
         c.ColorSlider.Position=(double)args.NewValue;
     }
 
-    private void SetValue(Color color)
-    {
-      isColorNumBoxValueChanging = true;
-      AhsvColor hsv;
-      switch (Member)
-      {
-        case ColorMember.Alpha:
-          Value = color.A/ValueScale;
-          break;
-        case ColorMember.Red:
-          Value = color.R/ValueScale;
-          break;
-        case ColorMember.Green:
-          Value = color.G/ValueScale;
-          break;
-        case ColorMember.Blue:
-          Value = color.B/ValueScale;
-          break;
-        case ColorMember.Cyan:
-          Value = ((int)color.G + (int)color.B)/2.0/ValueScale;
-          break;
-        case ColorMember.Magenta:
-          Value = ((int)color.R + (int)color.B)/2.0/ValueScale;
-          break;
-        case ColorMember.Yellow:
-          Value = ((int)color.R + (int)color.G)/2.0/ValueScale;
-          break;
-        case ColorMember.Hue:
-          hsv = color.ToDrawingColor().ToAhsv();
-          if (double.IsNaN(hsv.H))
-            hsv.H=0;
-          Value = hsv.H;
-          break;
-        case ColorMember.Saturation:
-          hsv = color.ToDrawingColor().ToAhsv();
-          Value = hsv.S;
-          break;
-        case ColorMember.Brightness:
-          hsv = color.ToDrawingColor().ToAhsv();
-          Value = hsv.V;
-          break;
-      }
-      isColorNumBoxValueChanging = false;
-    }
     #endregion
 
     private bool isColorSliderValueChanging;
@@ -416,6 +434,11 @@ namespace Qhta.WPF.Controls
         case ColorMember.Yellow:
           color.R = (byte)(ColorSlider.Position*255);
           color.G = (byte)(ColorSlider.Position*255);
+          break;
+        case ColorMember.Black:
+          color.R = (byte)(ColorSlider.Position*255);
+          color.G = (byte)(ColorSlider.Position*255);
+          color.B = (byte)(ColorSlider.Position*255);
           break;
         case ColorMember.Hue:
           hsv = color.ToDrawingColor().ToAhsv();

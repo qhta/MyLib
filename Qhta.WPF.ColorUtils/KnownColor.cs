@@ -14,13 +14,13 @@ namespace Qhta.WPF
     {
       get
       {
-        Debug.WriteLine($"GetIsSelected[{Name}]({_IsSelected})");
+        //Debug.WriteLine($"GetIsSelected[{Name}]({_IsSelected})");
         return _IsSelected;
       }
       set
       {
         _IsSelected = value;
-        Debug.WriteLine($"SetIsSelected[{Name}]({value})");
+        //Debug.WriteLine($"SetIsSelected[{Name}]({value})");
       }
     }
     private bool _IsSelected;
