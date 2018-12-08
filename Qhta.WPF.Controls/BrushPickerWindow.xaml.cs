@@ -11,26 +11,32 @@ namespace Qhta.WPF.Controls
     public BrushPickerWindow()
     {
       InitializeComponent();
-      DefinedColorsPicker.SelectionChanged+=DefinedColorsPicker_SelectionChanged;
+      BrushSelectionForm.SelectedBrushChanged+=BrushSelectionForm_SelectedBrushChanged;
+      BrushSelectionForm.CloseFormRequest+=BrushSelectionForm_CloseFormRequest;
     }
 
-    private void DefinedColorsPicker_SelectionChanged(object sender, ValueChangedEventArgs<KnownColor> args)
+    #region SelectedBrush property
+    public Brush SelectedBrush
+    {
+      get => (Brush)GetValue(SelectedBrushProperty);
+      set => SetValue(SelectedBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty SelectedBrushProperty = DependencyProperty.Register
+      ("SelectedBrush", typeof(Brush), typeof(BrushPickerWindow),
+       new FrameworkPropertyMetadata(Brushes.Transparent,
+         FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+    #endregion
+
+    private void BrushSelectionForm_SelectedBrushChanged(object sender, ValueChangedEventArgs<Brush> args)
+    {
+      SelectedBrush=args.NewValue;
+    }
+
+    private void BrushSelectionForm_CloseFormRequest(object sender, EventArgs e)
     {
       Close();
     }
-
-    #region SelectedColor property
-    public Color SelectedColor
-    {
-      get => (Color)GetValue(SelectedColorProperty);
-      set => SetValue(SelectedColorProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register
-      ("SelectedColor", typeof(Color), typeof(BrushPickerWindow),
-       new FrameworkPropertyMetadata(Colors.Transparent,
-         FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-    #endregion
 
   }
 

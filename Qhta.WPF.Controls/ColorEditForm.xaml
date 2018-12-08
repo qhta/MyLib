@@ -8,7 +8,7 @@
              xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
              x:Name="ThisControl"
              mc:Ignorable="d" 
-             d:DesignHeight="380" d:DesignWidth="300"
+             d:DesignHeight="380" d:DesignWidth="380"
              Height="380"
              >
   <Grid x:Name="MainGrid">

@@ -7,7 +7,7 @@
         x:Name="ThisControl"
         mc:Ignorable="d" 
         d:DesignHeight="360" d:DesignWidth="360" 
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="ToolWindow">
   <local:ColorSelectionForm x:Name="ColorSelectionForm" 
                             SelectedColor="{Binding ElementName=ThisControl, Path=SelectedColor, Mode=TwoWay}"
                             />

@@ -46,55 +46,29 @@ namespace Qhta.WPF.Controls
        FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
     #endregion
 
-    //#region TextVisible property
-    //public bool TextVisible
-    //{
-    //  get => (bool)GetValue(TextVisibleProperty);
-    //  set => SetValue(TextVisibleProperty, value);
-    //}
+    public event Action<Brush> SelectedBrushChanged;
 
-    //public static readonly DependencyProperty TextVisibleProperty = DependencyProperty.Register
-    //  ("TextVisible", typeof(bool), typeof(BrushPickerDropDown),
-    //   new FrameworkPropertyMetadata(true,
-    //   FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
-    //#endregion
-
-    //#region TextEditEnabled property
-    //public bool TextReadOnly
-    //{
-    //  get => (bool)GetValue(TextReadOnlyProperty);
-    //  set => SetValue(TextReadOnlyProperty, value);
-    //}
-
-    //public static readonly DependencyProperty TextReadOnlyProperty = DependencyProperty.Register
-    //  ("TextReadOnly", typeof(bool), typeof(BrushPickerDropDown),
-    //   new FrameworkPropertyMetadata(false,
-    //   FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
-    //#endregion
-
-    public event Action<Color> SelectedColorChanged;
-
-    #region SelectedColor property
-    public Color SelectedColor
+    #region SelectedBrush property
+    public Brush SelectedBrush
     {
-      get => (Color)GetValue(SelectedColorProperty);
-      set => SetValue(SelectedColorProperty, value);
+      get => (Brush)GetValue(SelectedBrushProperty);
+      set => SetValue(SelectedBrushProperty, value);
     }
 
-    public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register
-      ("SelectedColor", typeof(Color), typeof(BrushPickerDropDown),
-       new FrameworkPropertyMetadata(Colors.Transparent,
+    public static readonly DependencyProperty SelectedBrushProperty = DependencyProperty.Register
+      ("SelectedBrush", typeof(Brush), typeof(BrushPickerDropDown),
+       new FrameworkPropertyMetadata(Brushes.Transparent,
          FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
     #endregion
 
     private void button_Click(object sender, RoutedEventArgs e)
     {
-      var window = new ColorPickerWindow { SelectedColor = this.SelectedColor };
+      var window = new BrushPickerWindow { SelectedBrush = this.SelectedBrush };
       window.ShowDialog();
-      if (window.SelectedColor!=this.SelectedColor)
+      if (window.SelectedBrush!=this.SelectedBrush)
       {
-        this.SelectedColor = window.SelectedColor;
-        SelectedColorChanged?.Invoke(SelectedColor);
+        this.SelectedBrush = window.SelectedBrush;
+        SelectedBrushChanged?.Invoke(SelectedBrush);
       }
     }
 

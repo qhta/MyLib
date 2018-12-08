@@ -4,8 +4,10 @@
              xmlns:local="clr-namespace:TestApp"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
+  <Application.Resources>
     <sys:Boolean x:Key="AutoSaveCustomColors">True</sys:Boolean>
-      <sys:String x:Key="CustomColorsPath">CustomColors.xml</sys:String>
-    </Application.Resources>
+    <sys:String x:Key="CustomColorsPath">CustomColors.xml</sys:String>
+    <sys:Boolean x:Key="AutoSaveCustomBrushes">True</sys:Boolean>
+    <sys:String x:Key="CustomBrushesPath">CustomBrushes.xml</sys:String>
+  </Application.Resources>
 </Application>

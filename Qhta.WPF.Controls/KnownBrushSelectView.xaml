@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Qhta.WPF.Controls.KnownBrushSelectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Qhta.WPF.Controls"
+             xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils" 
+             xmlns:cu="clr-namespace:Qhta.WPF;assembly=Qhta.WPF.ColorUtils"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="360">
+  <Grid x:Name="ThisGrid">
+    <Grid.Resources>
+      <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+      <Image x:Key="DeleteImage" Source="/Qhta.WPF.Controls;component/Resources/Delete.png"/>
+    </Grid.Resources>
+    <ListBox  x:Name="KnownBrushesListBox" 
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+              SelectionChanged="KnownBrushesListBox_SelectionChanged"
+              SelectionMode="Single"
+              MouseLeftButtonUp="KnownBrushesListBox_MouseLeftButtonUp"
+              SnapsToDevicePixels="True">
+      <ListBox.Resources>
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        </Style>
+        <DataTemplate DataType="{x:Type cu:KnownBrush}">
+          <Grid ToolTip="{Binding Path=Name}" Margin="0,-1">
+            <Grid.ContextMenu>
+              <ContextMenu>
+                <MenuItem Header="Context menu is active for custom Brushes only"/>
+              </ContextMenu>
+            </Grid.ContextMenu>
+            <Path  Width="15" Height="15" 
+                    Margin="2,1"
+                    HorizontalAlignment="Center" 
+                   Stroke="Black"
+                   StrokeThickness="1"
+                   Data="M0,0L15,15M0,15L15,0"
+                   />
+            <Rectangle Width="15" Height="15" 
+                           Margin="2,1"
+                           HorizontalAlignment="Center"
+                           Stroke="Black"
+                           Fill="{Binding Path=Brush}"
+                           />
+          </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type cu:CustomBrush}">
+          <Grid ToolTip="{Binding Path=Name}" Margin="0,-1">
+            <Grid.ContextMenu>
+              <ContextMenu>
+                <MenuItem>
+                  <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock>Name</TextBlock>
+                      <TextBox Width="120"
+                               Height="20"
+                               Margin="10,0,0,0"
+                               Text="{Binding Name}" LostFocus="BrushNameTextBox_LostFocus"/>
+                    </StackPanel>
+                  </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Header="Delete" Icon="{StaticResource DeleteImage}" Click="DeleteMenuItem_Click"/>
+              </ContextMenu>
+            </Grid.ContextMenu>
+            <Path  Width="15" Height="15" 
+                    Margin="2,1"
+                    HorizontalAlignment="Center" 
+                   Stroke="Black"
+                   StrokeThickness="1"
+                   Data="M0,0L15,15M0,15L15,0"
+                   />
+            <Rectangle Width="15" Height="15" 
+                           Margin="2,1"
+                           HorizontalAlignment="Center"
+                           Stroke="Black"
+                           Fill="{Binding Path=Brush}"
+                           />
+            <Image  Width="16" Height="16"
+                    Source="/Qhta.WPF.Controls;component/Resources/CustomColorMarker.png"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    />
+          </Grid>
+        </DataTemplate>
+      </ListBox.Resources>
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel IsItemsHost="True" />
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+    </ListBox>
+  </Grid>
+</UserControl>

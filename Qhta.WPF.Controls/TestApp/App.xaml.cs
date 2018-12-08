@@ -17,14 +17,20 @@ namespace TestApp
       appPath= Path.Combine(appPath, "Temp");
       if (!Directory.Exists(appPath))
         Directory.CreateDirectory(appPath);
+
       var customColorsPath = Resources["CustomColorsPath"] as string;
-      //Debug.WriteLine($"appPath={appPath}");
       customColorsPath = Path.Combine(appPath, customColorsPath);
-      //Debug.WriteLine($"customColorsPath={customColorsPath}");
       KnownColors.CustomColorsPath = customColorsPath;
       bool? autoSaveCustomColors = Resources["AutoSaveCustomColors"] as bool?;
       if (autoSaveCustomColors==true)
         KnownColors.AutoSaveCustomColors = true;
+
+      var customBrushesPath = Resources["CustomBrushesPath"] as string;
+      customBrushesPath = Path.Combine(appPath, customBrushesPath);
+      KnownBrushes.CustomBrushesPath = customBrushesPath;
+      bool? autoSaveCustomBrushes = Resources["AutoSaveCustomBrushes"] as bool?;
+      if (autoSaveCustomBrushes==true)
+        KnownBrushes.AutoSaveCustomBrushes = true;
     }
   }
 }

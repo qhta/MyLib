@@ -64,15 +64,20 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorComparer.cs" />
     <Compile Include="ColorConverter.cs" />
     <Compile Include="ColorIterator.cs" />
     <Compile Include="ColorUtils.cs" />
+    <Compile Include="CustomBrushes.cs" />
     <Compile Include="CustomColors.cs" />
     <Compile Include="DrawingColorConverter.cs" />
     <Compile Include="InverseColorConverter.cs" />
+    <Compile Include="KnownBrush.cs" />
     <Compile Include="KnownColor.cs" />
+    <Compile Include="KnownBrushes.cs" />
     <Compile Include="KnownColors.cs" />
     <Compile Include="PixelColorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

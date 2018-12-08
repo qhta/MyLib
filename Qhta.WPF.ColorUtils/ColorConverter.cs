@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Qhta.WPF
 {
@@ -37,12 +38,15 @@ namespace Qhta.WPF
         else if (targetType==typeof(byte))
           return (byte)MediaColorToNumber(color, (string)parameter);
       }
-      else 
+      else
       if (value is AhsvColor hsvColor)
       {
         if (targetType == typeof(System.Windows.Media.Color))
           return ColorHSVToMediaColor(hsvColor);
       }
+      else if (value is System.Windows.Media.Brush brush)
+        if (targetType == typeof(System.Windows.Media.Color))
+          return BrushToColor(brush);
       throw new NotImplementedException();
     }
 
@@ -54,6 +58,13 @@ namespace Qhta.WPF
       {
         if (value is string)
           return System.Windows.Media.ColorConverter.ConvertFromString((string)value);
+      }
+      if (targetType==typeof(System.Windows.Media.Brush))
+      {
+        if (value is string)
+          value = System.Windows.Media.ColorConverter.ConvertFromString((string)value);
+        if (value is System.Windows.Media.Color color)
+          return new SolidColorBrush(color);
       }
       throw new NotImplementedException();
     }
@@ -172,6 +183,15 @@ namespace Qhta.WPF
     {
       var dc = hsvColor.ToColor();
       return System.Windows.Media.Color.FromArgb(dc.A, dc.R, dc.G, dc.B);
+    }
+
+    public static System.Windows.Media.Color BrushToColor(System.Windows.Media.Brush brush)
+    {
+      if (brush is System.Windows.Media.SolidColorBrush solidBrush)
+        return solidBrush.Color;
+      if (brush is System.Windows.Media.GradientBrush gradientBrush)
+        return gradientBrush.GradientStops.FirstOrDefault()?.Color ?? Colors.Transparent;
+      throw new InvalidOperationException($"Cannot convert from {brush.GetType()} to Color");
     }
   }
 

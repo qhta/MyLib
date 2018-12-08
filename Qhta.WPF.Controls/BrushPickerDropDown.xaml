@@ -21,7 +21,7 @@
             </Grid.Resources>
             <TextBox x:Name="Probe"
               Visibility="{TemplateBinding ProbeVisibility}"
-              Background="{TemplateBinding SelectedColor, Converter={StaticResource ColorConverter}}"
+              Background="{TemplateBinding SelectedBrush}"
               HorizontalAlignment="Stretch"
               />
             <Button x:Name="aButton"

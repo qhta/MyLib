@@ -9,26 +9,8 @@ namespace TestApp
     public BrushPickerTestWindow()
     {
       InitializeComponent();
-      EditedColor = Color.FromArgb(255, 128, 128, 128);
+      EditedBrush = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
     }
-
-    #region EditedColor property
-    public Color EditedColor
-    {
-      get => (Color)GetValue(EditedColorProperty);
-      set => SetValue(EditedColorProperty, value);
-    }
-
-    public static readonly DependencyProperty EditedColorProperty = DependencyProperty.Register
-      ("EditedColor", typeof(Color), typeof(BrushPickerTestWindow),
-        new PropertyMetadata(Colors.Transparent, EditedColorPropertyChanged));
-
-    public static void EditedColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    {
-      var c = sender as BrushPickerTestWindow;
-      c.EditedBrush = new SolidColorBrush(c.EditedColor);
-    }
-    #endregion
 
     #region EditedBrush property
     public Brush EditedBrush
@@ -44,7 +26,7 @@ namespace TestApp
 
     private void OK_Click(object sender, RoutedEventArgs e)
     {
-      EditedBrush = new SolidColorBrush(EditedColor);
+      EditedBrush = EditedBrush;
       ColorRectangle.InvalidateVisual();
     }
   }

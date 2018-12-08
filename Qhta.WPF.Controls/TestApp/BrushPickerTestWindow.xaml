@@ -20,7 +20,7 @@
         Grid.Column="4"
         VerticalAlignment="Stretch"
         HorizontalAlignment="Stretch"
-        SelectedColor="{Binding ElementName=ThisWindow, Path=EditedColor}"
+        SelectedBrush="{Binding ElementName=ThisWindow, Path=EditedBrush}"
         ProbeVisibility="Visible"
         />
       <Button x:Name="OK"

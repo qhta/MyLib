@@ -40,14 +40,8 @@ namespace Qhta.WPF.Controls
     public event ValueChangedEventHandler<KnownColor> SelectionChanged;
     public event EventHandler CloseFormRequest;
 
-    //KnownColors customColors = KnownColors.Instance;
     private void Init()
     {
-      //KnownColorsListBox.Items.Clear();
-      //foreach (var item in customColors)
-      //{
-      //  KnownColorsListBox.Items.Add(item);
-      //}
       KnownColorsListBox.ItemsSource = KnownColors.Instance;
       KnownColorsListBox.SelectionChanged += new SelectionChangedEventHandler(KnownColorsListBox_SelectionChanged);
     }

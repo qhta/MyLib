@@ -85,6 +85,9 @@
     <Compile Include="ColorPickerWindow.xaml.cs">
       <DependentUpon>ColorPickerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrushSelectionForm.xaml.cs">
+      <DependentUpon>BrushSelectionForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ColorSelectionForm.xaml.cs">
       <DependentUpon>ColorSelectionForm.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,9 @@
     <Compile Include="FlowDocumentTranslator.cs" />
     <Compile Include="GridControl.cs" />
     <Compile Include="GridShape.cs" />
+    <Compile Include="KnownBrushSelectView.xaml.cs">
+      <DependentUpon>KnownBrushSelectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KnownColorSelectView.xaml.cs">
       <DependentUpon>KnownColorSelectView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +154,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="BrushSelectionForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ColorSelectionForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +165,10 @@
     <Page Include="ExtRichTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="KnownBrushSelectView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
