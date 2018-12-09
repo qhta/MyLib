@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Border3D.cs" />
     <Compile Include="Border3DThicknessConverter.cs" />
+    <Compile Include="UndoManagers.cs" />
     <Compile Include="ColorMemberEdit.cs" />
     <Compile Include="ColorPad.cs" />
     <Compile Include="ColorPadEdit.xaml.cs">

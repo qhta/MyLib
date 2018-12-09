@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,11 @@ namespace Qhta.WPF.Controls
 
     public static void EditedBrushPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-      var c = sender as GradientSlider;
+      (sender as GradientSlider).EditedBrushChanged(args);
+    }
+
+    public void EditedBrushChanged(DependencyPropertyChangedEventArgs args)
+    {
       var brush = args.NewValue as GradientBrush;
       if (brush!=null)
       {
@@ -49,9 +54,20 @@ namespace Qhta.WPF.Controls
         if (brush.GradientStops.Count==1)
           brush.GradientStops.Add(new GradientStop(Colors.Black, 1));
       }
-      if (c.DataContext==null)
-        c.DataContext=brush;
+      ShownBrush=brush.Clone();
     }
+    #endregion
+
+    #region ShownBrush property
+    public GradientBrush ShownBrush
+    {
+      get => (GradientBrush)GetValue(ShownBrushProperty);
+      set => SetValue(ShownBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty ShownBrushProperty = DependencyProperty.Register
+      ("ShownBrush", typeof(GradientBrush), typeof(GradientSlider),
+       new FrameworkPropertyMetadata(null));
     #endregion
 
     public event ValueChangedEventHandler<GradientStopCollection> GradientStopsChanged;

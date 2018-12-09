@@ -111,6 +111,7 @@
     <Compile Include="TreeViewHelper.cs" />
     <Compile Include="TreeViewItemBehavior.cs" />
     <Compile Include="DividingConverter.cs" />
+    <Compile Include="UndoManager`1.cs" />
     <Compile Include="UpdatableCommand.cs" />
     <Compile Include="ValidityBrushConverter.cs" />
     <Compile Include="WpfWin32Window.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,6 @@ namespace Qhta.WPF.Controls
     public GradientStopsView() : base()
     {
       Background=new SolidColorBrush(Color.FromArgb(1, 1, 1, 1));
-      DataContextChanged+=GradientStopsView_DataContextChanged;
       PreviewKeyDown+=GradientStopsView_PreviewKeyDown;
       PreviewKeyUp+=GradientStopsView_PreviewKeyUp;
       MouseDoubleClick+=GradientStopsView_MouseDoubleClick;
@@ -35,7 +35,7 @@ namespace Qhta.WPF.Controls
 
     private void GradientStopsView_PreviewKeyDown(object sender, KeyEventArgs args)
     {
-      if (Keyboard.IsKeyDown(Key.LeftCtrl))
+      if (!isMouseDragStarted && Keyboard.IsKeyDown(Key.LeftCtrl))
       {
         var cursor = FindResource("ArrowPlus") as Cursor;
         if (cursor!=null)
@@ -55,12 +55,22 @@ namespace Qhta.WPF.Controls
       }
     }
 
-
-    private void GradientStopsView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs args)
+    #region EditedBrush property
+    public GradientBrush EditedBrush
     {
-      var c = (GradientStopsView)sender;
-      c.SetDataContext((GradientBrush)args.NewValue);
+      get => (GradientBrush)GetValue(EditedBrushProperty);
+      set => SetValue(EditedBrushProperty, value);
     }
+
+    public static readonly DependencyProperty EditedBrushProperty = DependencyProperty.Register
+      ("EditedBrush", typeof(GradientBrush), typeof(GradientStopsView),
+        new FrameworkPropertyMetadata(null, EditedBrushPropertyChanged));
+
+    private static void EditedBrushPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+      (sender as GradientStopsView).CopyGradientStopsFrom((GradientBrush)args.NewValue);
+    }
+    #endregion
 
     public event ValueChangedEventHandler<GradientStopCollection> GradientStopsChanged;
 
@@ -74,12 +84,13 @@ namespace Qhta.WPF.Controls
     public static readonly DependencyProperty GradientStopsProperty = DependencyProperty.Register
       ("GradientStops", typeof(GradientStopCollection), typeof(GradientStopsView),
         new FrameworkPropertyMetadata(null));
-
     #endregion
 
 
-    private void SetDataContext(GradientBrush brush)
+    private void CopyGradientStopsFrom(GradientBrush brush)
     {
+      if (isMouseDragStarted)
+        return;
       Items.Clear();
       if (brush!=null)
       {
@@ -105,7 +116,7 @@ namespace Qhta.WPF.Controls
     private void AddMarkerAtCursor(MouseButtonEventArgs args)
     {
       var pos = args.GetPosition(this);
-      var brush = DataContext as Brush;
+      var brush = EditedBrush;
       var w = (int)ActualWidth;
       var h = (int)ActualHeight;
 
@@ -126,10 +137,19 @@ namespace Qhta.WPF.Controls
 
       var stop = new GradientStop(color, Math.Min(Math.Max(pos.X/this.ActualWidth, 0), 1));
       GradientStops.Add(stop);
-      var marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset, IsSelected=true };
+      var marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset};
       AddMarker(marker);
+      SelectMarker(marker);
+      if (brush!=null)
+        UndoManagers.BrushUndoManager.SaveState(brush);
+      GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStops));
     }
 
+    private void SelectMarker(GradientStopMarker marker)
+    {
+      foreach (var item in Items.Cast<GradientStopMarker>())
+        item.IsSelected = item==marker;
+    }
     Point mouseStartPos;
     bool isMouseLeftButtonDown;
     bool isMouseDragStarted;
@@ -138,10 +158,10 @@ namespace Qhta.WPF.Controls
     {
       var marker = sender as GradientStopMarker;
       marker.CaptureMouse();
-      marker.IsSelected=true;
       mouseStartPos = args.GetPosition(this);
       isMouseDragStarted=false;
       isMouseLeftButtonDown = true;
+      SelectMarker(marker);
       args.Handled=true;
     }
 
@@ -154,15 +174,18 @@ namespace Qhta.WPF.Controls
       var pos = args.GetPosition(this);
       if (!isMouseDragStarted && (Math.Abs(pos.X-mouseStartPos.X)>3 || Math.Abs(pos.Y-mouseStartPos.Y)>3))
       {
+        var brush = EditedBrush;
+        if (brush!=null)
+          UndoManagers.BrushUndoManager.SaveState(brush);
         isMouseDragStarted=true;
         if (Keyboard.IsKeyDown(Key.LeftCtrl))
         {
           Mouse.Capture(null);
-          marker.IsSelected=false;
           var stop = new GradientStop(marker.Color, Math.Min(Math.Max(pos.X/this.ActualWidth, 0), 1));
           GradientStops.Add(stop);
-          marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset, IsSelected=true };
+          marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset};
           AddMarker(marker);
+          SelectMarker(marker);
           Mouse.Capture(marker);
           args.Handled=true;
         }

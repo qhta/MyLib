@@ -11,27 +11,22 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="30"/>
       <RowDefinition Height="20"/>
+      <RowDefinition Height="30"/>
     </Grid.RowDefinitions>
     <local:GradientStopsView x:Name="GradientStopsView"
       Grid.Row="0"
       VerticalAlignment="Stretch"
       HorizontalAlignment="Stretch"
       Margin="10,1"
-      DataContext="{Binding ElementName=ThisControl, Path=DataContext}"
+      EditedBrush="{Binding ElementName=ThisControl, Path=EditedBrush}"
       />
     <Rectangle Grid.Row="1"
       VerticalAlignment="Stretch"
       HorizontalAlignment="Stretch"
       Margin="10,0"
       Stroke="Black" StrokeThickness="1"
-      Fill="{Binding ElementName=ThisControl, Path=EditedBrush}"
+      Fill="{Binding ElementName=ThisControl, Path=ShownBrush}"
       >
-      <!--<Rectangle.Fill>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-          <GradientStop Offset="0" Color="White"/>
-          <GradientStop Offset="1" Color="Black"/>
-        </LinearGradientBrush>
-      </Rectangle.Fill>-->
     </Rectangle>
   </Grid>
 </UserControl>
