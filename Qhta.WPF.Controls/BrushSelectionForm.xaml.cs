@@ -15,9 +15,9 @@ namespace Qhta.WPF.Controls
     {
       InitializeComponent();
       DefinedBrushesPicker.SelectionChanged+=DefinedBrushsPicker_SelectionChanged;
-      CustomBrushForm.SelectedColorChanged+=CustomBrushForm_SelectedColorChanged;
+      SolidBrushForm.SelectedColorChanged+=SolidBrushForm_SelectedColorChanged;
       DefinedBrushesPicker.CloseFormRequest+=DefinedBrushsPicker_CloseFormRequest;
-      CustomBrushForm.CloseFormRequest+=CustomBrushForm_CloseFormRequest;
+      SolidBrushForm.CloseFormRequest+=SolidBrushForm_CloseFormRequest;
     }
 
     #region SelectedBrush property
@@ -42,7 +42,7 @@ namespace Qhta.WPF.Controls
       SelectedBrushChanged?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
     }
 
-    private void CustomBrushForm_SelectedColorChanged(object sender, ValueChangedEventArgs<Color> args)
+    private void SolidBrushForm_SelectedColorChanged(object sender, ValueChangedEventArgs<Color> args)
     {
       SelectedBrush = new SolidColorBrush(args.NewValue);
       if (KnownBrushes.Instance.FirstOrDefault(item => item.Brush.Equals(args.NewValue))==null)
@@ -53,7 +53,7 @@ namespace Qhta.WPF.Controls
       SelectedBrushChanged?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
     }
 
-    private void CustomBrushForm_CloseFormRequest(object sender, EventArgs e)
+    private void SolidBrushForm_CloseFormRequest(object sender, EventArgs e)
     {
       CloseFormRequest?.Invoke(this, new EventArgs());
     }

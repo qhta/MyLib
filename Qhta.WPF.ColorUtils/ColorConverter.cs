@@ -1,13 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Drawing;
 using Qhta.Drawing;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Globalization;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Qhta.WPF
 {

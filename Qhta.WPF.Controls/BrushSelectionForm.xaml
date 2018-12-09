@@ -13,14 +13,51 @@
     <cu:ColorConverter x:Key="ColorConverter"/>
   </UserControl.Resources>
   <TabControl>
-    <TabItem Header="Defined Brushes">
+    <TabItem>
+      <TabItem.Header>
+        <Image Width="16" Height="16" Source="/Qhta.WPF.Controls;component/Resources/ColorTiles.png" 
+               ToolTip="Known Brushes"
+               />
+      </TabItem.Header>
       <local:KnownBrushSelectView x:Name="DefinedBrushesPicker"
                          SelectedBrush="{Binding ElementName=ThisControl, Path=SelectedBrush}"/>
     </TabItem>
-    <TabItem Header="Custom Brush">
-      <local:ColorEditForm x:Name="CustomBrushForm" 
+    <TabItem>
+      <TabItem.Header>
+        <Rectangle Width="14" Height="14"
+                   Margin="1"
+                   Fill="Gray"
+                   Stroke="Black"
+                   StrokeThickness="1"
+                   ToolTip="Solid Brush"
+                   />
+      </TabItem.Header>
+      <local:ColorEditForm x:Name="SolidBrushForm" 
                            VerticalContentAlignment="Top"
                            SelectedColor="{Binding ElementName=ThisControl, Path=SelectedBrush, Converter={StaticResource ColorConverter}}"/>
     </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <Grid Width="14" Height="14"
+              Margin="1"
+              ToolTip="Linear Gradient"
+              >
+          <Rectangle 
+            Stroke="Black"
+            StrokeThickness="1"
+            >
+            <Rectangle.Fill>
+              <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Offset="0" Color="White"/>
+                <GradientStop Offset="1" Color="Black"/>
+              </LinearGradientBrush>
+            </Rectangle.Fill>
+          </Rectangle>
+        </Grid>
+      </TabItem.Header>
+      <local:LinearGradientBrushEditForm x:Name="LinearGradientForm" 
+                           VerticalContentAlignment="Top"
+                           SelectedColor="{Binding ElementName=ThisControl, Path=SelectedBrush, Converter={StaticResource ColorConverter}}"/>
+    </TabItem>    
   </TabControl>
 </UserControl>

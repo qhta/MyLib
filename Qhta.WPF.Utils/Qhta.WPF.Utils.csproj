@@ -133,6 +133,7 @@
     <EmbeddedResource Include="ExceptionStringTable.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\ArrowPlus.cur" />
     <Content Include="Resources\image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,6 +31,11 @@ namespace TestApp
       bool? autoSaveCustomBrushes = Resources["AutoSaveCustomBrushes"] as bool?;
       if (autoSaveCustomBrushes==true)
         KnownBrushes.AutoSaveCustomBrushes = true;
+
+      System.Windows.Resources.StreamResourceInfo info = 
+        Application.GetResourceStream(new Uri("/Qhta.WPF.Utils;component/Resources/ArrowPlus.cur", UriKind.Relative));
+      var cursor = new System.Windows.Input.Cursor(info.Stream);
+      Resources["ArrowPlus"] = cursor;
     }
   }
 }
