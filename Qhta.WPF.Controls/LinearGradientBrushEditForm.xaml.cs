@@ -88,7 +88,7 @@ namespace Qhta.WPF.Controls
           var brush = EditedBrush;
           //Debug.WriteLine($"EditedBrush=[{string.Join(", ", brush.GradientStops.Select(item => item.Offset.ToString()))}]");
           brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.UndoChanges(brush);
-          //Debug.WriteLine($"UndoBrush=[{string.Join(", ", brush.GradientStops.Select(item=>item.Offset.ToString()))}]");
+          Debug.WriteLine($"UndonedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
           EditedBrush = brush;
           GradientSlider.EditedBrush = brush;
         }

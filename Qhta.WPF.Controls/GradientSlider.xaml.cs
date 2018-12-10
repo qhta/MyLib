@@ -1,8 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
+using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.Controls
 {
@@ -66,6 +70,7 @@ namespace Qhta.WPF.Controls
     private void GradientStopsView_GradientStopsChanged(object sender, ValueChangedEventArgs<GradientStopCollection> args)
     {
       GradientStopsChanged?.Invoke(sender, args);
+      GradientStopsView_SelectionChanged(this, args);
     }
 
     private GradientStopMarker SelectedMarker;
@@ -78,16 +83,23 @@ namespace Qhta.WPF.Controls
       SelectedMarker=null;
       if (marker!=null)
       {
+        //BindingOperations.SetBinding(OffsetNumBox, NumericEditBox.ValueProperty,
+        //  new Binding("Offset") { Source=marker, Mode=BindingMode.OneWay, Converter=multiplyingConverter, ConverterParameter=100.0 });
+        //BindingOperations.SetBinding(ColorPicker, ColorPickerDropDown.SelectedColorProperty, 
+        //  new Binding("Color") { Source=marker, Mode=BindingMode.OneWay });
         OffsetNumBox.Value = (decimal)Math.Round(marker.Offset*100);
         ColorPicker.SelectedColor = marker.Color;
       }
       SelectedMarker=marker;
     }
 
+    private static MultiplyingConverter multiplyingConverter = new MultiplyingConverter();
+
     private void OffsetNumBox_ValueChanged(object sender, ValueChangedEventArgs<decimal> args)
     {
       if (SelectedMarker!=null)
       {
+        UndoManagers.BrushUndoManager.SaveState(EditedBrush);
         GradientStopsView.CopyGradientStopsDisabled = true;
         var marker = SelectedMarker;
         var offset = (double)OffsetNumBox.Value/100.0;
@@ -101,6 +113,9 @@ namespace Qhta.WPF.Controls
     {
       if (SelectedMarker!=null)
       {
+        var brush = (GradientBrush)EditedBrush;
+        Debug.WriteLine($"SavedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
+        UndoManagers.BrushUndoManager.SaveState(brush);
         GradientStopsView.CopyGradientStopsDisabled = true;
         var marker = SelectedMarker;
         var color = ColorPicker.SelectedColor;

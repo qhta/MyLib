@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using System.IO;
+using System.Xaml;
 
 namespace Qhta.WPF.Utils
 {
   public class UndoManager<ObjectType>
   {
 
-    private Stack<ObjectType> undoStack = null;
-    private Stack<ObjectType> redoStack = null;
+    private Stack<string> undoStack = null;
+    private Stack<string> redoStack = null;
 
 
     public void StartProtection()
     {
       if (undoStack==null)
       {
-        undoStack = new Stack<ObjectType>();
-        redoStack = new Stack<ObjectType>();
+        undoStack = new Stack<string>();
+        redoStack = new Stack<string>();
       }
     }
 
@@ -29,7 +30,8 @@ namespace Qhta.WPF.Utils
 
     public void SaveState(ObjectType current)
     {
-      undoStack.Push(current);
+      var str = XamlServices.Save(current);
+      undoStack.Push(str);
       redoStack.Clear();
     }
 
@@ -40,9 +42,11 @@ namespace Qhta.WPF.Utils
     {
       if (undoStack.Count>0)
       {
-        var saved = undoStack.Pop();
-        redoStack.Push(current);
-        return saved;
+        var savedStr = undoStack.Pop();
+        var str = XamlServices.Save(current);
+        redoStack.Push(str);
+        var savedObj = XamlServices.Load(new StringReader(savedStr));
+        return (ObjectType)savedObj;
       }
       throw new InvalidOperationException($"UndoManager<{typeof(ObjectType)}> undo stack is empty");
     }
@@ -51,9 +55,10 @@ namespace Qhta.WPF.Utils
     {
       if (redoStack.Count>0)
       {
-        var saved = redoStack.Pop();
-        undoStack.Push(saved);
-        return saved;
+        var savedStr = redoStack.Pop();
+        undoStack.Push(savedStr);
+        var savedObj = XamlServices.Load(new StringReader(savedStr));
+        return (ObjectType)savedObj;
       }
       throw new InvalidOperationException($"UndoManager<{typeof(ObjectType)}> redo stack is empty");
     }

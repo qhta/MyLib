@@ -1,6 +1,8 @@
-﻿namespace Qhta.WPF.Controls
+﻿using System;
+
+namespace Qhta.WPF.Controls
 {
-  public class ValueChangedEventArgs<ValueType>
+  public class ValueChangedEventArgs<ValueType>: EventArgs
   {
     public ValueChangedEventArgs(ValueType newValue)
     {
