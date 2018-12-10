@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Qhta.WPF.Controls
 {
@@ -71,12 +61,53 @@ namespace Qhta.WPF.Controls
     #endregion
 
     public event ValueChangedEventHandler<GradientStopCollection> GradientStopsChanged;
+    //public event PropertyChangedEventHandler PropertyChanged;
 
     private void GradientStopsView_GradientStopsChanged(object sender, ValueChangedEventArgs<GradientStopCollection> args)
     {
       GradientStopsChanged?.Invoke(sender, args);
     }
 
+    private GradientStopMarker SelectedMarker;
 
+    private void GradientStopsView_SelectionChanged(object sender, EventArgs e)
+    {
+      var marker = GradientStopsView.SelectedMarker;
+      // Setting SelectedMarker to null is required to bypass
+      // OffsetNumBox_ValueChanged method
+      SelectedMarker=null;
+      if (marker!=null)
+      {
+        OffsetNumBox.Value = (decimal)Math.Round(marker.Offset*100);
+        ColorPicker.SelectedColor = marker.Color;
+      }
+      SelectedMarker=marker;
+    }
+
+    private void OffsetNumBox_ValueChanged(object sender, ValueChangedEventArgs<decimal> args)
+    {
+      if (SelectedMarker!=null)
+      {
+        GradientStopsView.CopyGradientStopsDisabled = true;
+        var marker = SelectedMarker;
+        var offset = (double)OffsetNumBox.Value/100.0;
+        (marker.DataContext as GradientStop).Offset = marker.Offset = offset;
+        GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStopsView.GradientStops));
+        GradientStopsView.CopyGradientStopsDisabled = false;
+      }
+    }
+
+    private void ColorPicker_SelectedColorChanged(Color obj)
+    {
+      if (SelectedMarker!=null)
+      {
+        GradientStopsView.CopyGradientStopsDisabled = true;
+        var marker = SelectedMarker;
+        var color = ColorPicker.SelectedColor;
+        (marker.DataContext as GradientStop).Color = marker.Color = color;
+        GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStopsView.GradientStops));
+        GradientStopsView.CopyGradientStopsDisabled = false;
+      }
+    }
   }
 }

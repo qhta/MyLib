@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -86,9 +87,12 @@ namespace Qhta.WPF.Controls
         new FrameworkPropertyMetadata(null));
     #endregion
 
+    public bool CopyGradientStopsDisabled;
 
     private void CopyGradientStopsFrom(GradientBrush brush)
     {
+      if (CopyGradientStopsDisabled)
+        return;
       if (isMouseDragStarted)
         return;
       Items.Clear();
@@ -101,6 +105,9 @@ namespace Qhta.WPF.Controls
           GradientStops.Add(newStop);
           AddMarker(new GradientStopMarker { DataContext=newStop, Color=stop.Color, Offset=stop.Offset });
         }
+        var firstMarker = Markers.FirstOrDefault();
+        if (firstMarker!=null)
+          SelectMarker(firstMarker);
       }
     }
 
@@ -139,17 +146,30 @@ namespace Qhta.WPF.Controls
       GradientStops.Add(stop);
       var marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset};
       AddMarker(marker);
-      SelectMarker(marker);
       if (brush!=null)
         UndoManagers.BrushUndoManager.SaveState(brush);
+      CopyGradientStopsDisabled=true;
       GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStops));
+      SelectMarker(marker);
+      CopyGradientStopsDisabled=false;
     }
+
+    public IEnumerable<GradientStopMarker> Markers => Items.Cast<GradientStopMarker>();
+    public event EventHandler SelectionChanged;
+    public GradientStopMarker SelectedMarker => Markers.FirstOrDefault(item => item.IsSelected);
 
     private void SelectMarker(GradientStopMarker marker)
     {
       foreach (var item in Items.Cast<GradientStopMarker>())
+      {
         item.IsSelected = item==marker;
+      }
+      // Bring marker to top of the ItemsCollection
+      Items.Remove(marker);
+      Items.Add(marker);
+      SelectionChanged?.Invoke(this, new EventArgs());
     }
+
     Point mouseStartPos;
     bool isMouseLeftButtonDown;
     bool isMouseDragStarted;
