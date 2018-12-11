@@ -19,6 +19,12 @@ namespace Qhta.WPF
     {
       if (value==null)
         return null;
+      if (targetType==typeof(System.Windows.Media.Brush))
+      {
+        if (value is System.Windows.Media.Brush Brush)
+          return Brush;
+        throw new InvalidOperationException($"Cannot convert {value.GetType()} to Brush");
+      }
       if (targetType==typeof(GradientBrush))
       {
         if (value is GradientBrush gradientBrush)

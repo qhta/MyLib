@@ -462,8 +462,6 @@ namespace Qhta.WPF.Controls
 
     private void ColorNumBox_ValueChanged(object sender, ValueChangedEventArgs<decimal> args)
     {
-      if (args.NewValue==253)
-        Debug.Assert(true);
       var value = ((double)args.NewValue)/ValueScale;
       isColorNumBoxValueChanging = true;
       if (!isColorSliderValueChanging)

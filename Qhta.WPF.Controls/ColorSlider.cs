@@ -134,8 +134,6 @@ namespace Qhta.WPF.Controls
       var xDelta = 1.0/n;
       GradientStop[] stops = new GradientStop[n];
       int i = 0;
-      if (Name=="_HSlider")
-        Debug.Assert(true);
       foreach (var color in new ColorIterator(Color0, Color1, Resolution, HueChange))
       {
         int k = i;

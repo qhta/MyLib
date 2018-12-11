@@ -51,7 +51,7 @@ namespace Qhta.WPF.Controls
         hsv.S=1;
         hsv.V=0;
         var endColor = hsv.ToColor().ToMediaColor();
-        brush = new LinearGradientBrush(startColor, endColor, 0);
+        brush = new LinearGradientBrush(startColor, endColor, new Point(0,0), new Point(1,0));
         if (EditedBrush!=null)
           UndoManagers.BrushUndoManager.SaveState(EditedBrush);
         EditedBrush=brush;
@@ -74,7 +74,8 @@ namespace Qhta.WPF.Controls
 
     private void GradientSlider_GradientStopsChanged(object sender, ValueChangedEventArgs<GradientStopCollection> args)
     {
-      var brush = new LinearGradientBrush(args.NewValue);
+      var oldBrush = EditedBrush;
+      var brush = new LinearGradientBrush(args.NewValue, oldBrush.StartPoint, oldBrush.EndPoint);
       EditedBrush = brush;
       GradientSlider.EditedBrush = brush;
     }
@@ -88,7 +89,7 @@ namespace Qhta.WPF.Controls
           var brush = EditedBrush;
           //Debug.WriteLine($"EditedBrush=[{string.Join(", ", brush.GradientStops.Select(item => item.Offset.ToString()))}]");
           brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.UndoChanges(brush);
-          Debug.WriteLine($"UndonedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
+          //Debug.WriteLine($"UndonedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
           EditedBrush = brush;
           GradientSlider.EditedBrush = brush;
         }

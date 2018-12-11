@@ -114,7 +114,7 @@ namespace Qhta.WPF.Controls
       if (SelectedMarker!=null)
       {
         var brush = (GradientBrush)EditedBrush;
-        Debug.WriteLine($"SavedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
+        //Debug.WriteLine($"SavedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
         UndoManagers.BrushUndoManager.SaveState(brush);
         GradientStopsView.CopyGradientStopsDisabled = true;
         var marker = SelectedMarker;
