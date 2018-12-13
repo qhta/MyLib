@@ -43,3 +43,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\GradientSlider.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\GradientSlider.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\LinearGradientBrushEditForm.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\LinearGradientBrushEditForm.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\LinearGradientBrushParamsEdit.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\LinearGradientBrushParamsEdit.baml

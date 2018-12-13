@@ -29,6 +29,7 @@
             <Button x:Name="aButton"
               Grid.Column="1"
               Width="{TemplateBinding ButtonWidth}"
+              Focusable="false"
               >
               <Button.Content>
                 <Canvas MinHeight="6" MinWidth="6">

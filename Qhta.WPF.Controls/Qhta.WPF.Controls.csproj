@@ -72,6 +72,9 @@
   <ItemGroup>
     <Compile Include="Border3D.cs" />
     <Compile Include="Border3DThicknessConverter.cs" />
+    <Compile Include="LinearGradientBrushParamsEdit.xaml.cs">
+      <DependentUpon>LinearGradientBrushParamsEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UndoManagers.cs" />
     <Compile Include="ColorMemberEdit.cs" />
     <Compile Include="ColorPad.cs" />
@@ -189,6 +192,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LinearGradientBrushParamsEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NumericEditBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -233,6 +240,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Rotate-90Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Unlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\colorChart.PNG" />
     <Resource Include="Resources\OpacityPattern.PNG" />
     <Resource Include="Resources\Delete.png">
@@ -242,6 +258,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\ColorTiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Rotate90Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\FlipVertical.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\FlipHorizontal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\image.png" />

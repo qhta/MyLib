@@ -14,6 +14,7 @@ namespace Qhta.WPF.Controls
   {
     public GradientStopsView() : base()
     {
+      Focusable=true;
       Background=new SolidColorBrush(Color.FromArgb(1, 1, 1, 1));
       PreviewKeyDown+=GradientStopsView_PreviewKeyDown;
       PreviewKeyUp+=GradientStopsView_PreviewKeyUp;
@@ -36,6 +37,16 @@ namespace Qhta.WPF.Controls
 
     private void GradientStopsView_PreviewKeyDown(object sender, KeyEventArgs args)
     {
+      CheckLeftCtrlKey();
+    }
+
+    private void GradientStopsView_PreviewKeyUp(object sender, KeyEventArgs e)
+    {
+      CheckLeftCtrlKey();
+    }
+
+    private void CheckLeftCtrlKey()
+    {
       if (!isMouseDragStarted && Keyboard.IsKeyDown(Key.LeftCtrl))
       {
         var cursor = FindResource("ArrowPlus") as Cursor;
@@ -45,10 +56,6 @@ namespace Qhta.WPF.Controls
           this.ForceCursor = true;
         }
       }
-    }
-
-    private void GradientStopsView_PreviewKeyUp(object sender, KeyEventArgs e)
-    {
       if (!Keyboard.IsKeyDown(Key.LeftCtrl))
       {
         this.Cursor = Cursors.Arrow;
@@ -95,9 +102,10 @@ namespace Qhta.WPF.Controls
         return;
       if (isMouseDragStarted)
         return;
-      Items.Clear();
       if (brush!=null)
       {
+        var offset = Items.Cast<GradientStopMarker>().FirstOrDefault(items => items.IsSelected)?.Offset;
+        Items.Clear();
         GradientStops = new GradientStopCollection();
         foreach (var stop in brush.GradientStops)
         {
@@ -105,9 +113,13 @@ namespace Qhta.WPF.Controls
           GradientStops.Add(newStop);
           AddMarker(new GradientStopMarker { DataContext=newStop, Color=stop.Color, Offset=stop.Offset });
         }
-        var firstMarker = Markers.FirstOrDefault();
-        if (firstMarker!=null)
-          SelectMarker(firstMarker);
+        GradientStopMarker marker = null;
+        if (offset==null)
+          marker = Items.Cast<GradientStopMarker>().FirstOrDefault(items => items.Offset==offset);
+        if (marker==null)
+          marker = Markers.FirstOrDefault();
+        if (marker!=null)
+          SelectMarker(marker);
       }
     }
 
@@ -141,17 +153,29 @@ namespace Qhta.WPF.Controls
       var test = pixels.FirstOrDefault(b=>b!=0);
       var pi = (bmp.Format.BitsPerPixel / 8)*(int)pos.X;
       var color = Color.FromArgb(pixels[pi+3], pixels[pi+2], pixels[pi+1], pixels[pi]);
-
-      var stop = new GradientStop(color, Math.Min(Math.Max(pos.X/this.ActualWidth, 0), 1));
+      var offset = Math.Min(Math.Max(pos.X/this.ActualWidth, 0), 1);
+      var stop = new GradientStop(color, offset);
       GradientStops.Add(stop);
-      var marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset};
-      AddMarker(marker);
+      //var marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset};
+      //AddMarker(marker);
       if (brush!=null)
         UndoManagers.BrushUndoManager.SaveState(brush);
-      CopyGradientStopsDisabled=true;
+      //CopyGradientStopsDisabled=true;
       GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStops));
-      SelectMarker(marker);
-      CopyGradientStopsDisabled=false;
+      //CopyGradientStopsDisabled=false;
+      var marker = Items.Cast<GradientStopMarker>().FirstOrDefault(item=>item.Offset==offset);
+      if (marker!=null)
+        SelectMarker(marker);
+    }
+
+    internal void DeleteMarker(GradientStopMarker marker)
+    {
+      if (GradientStops.Count>2)
+      {
+        GradientStops.Remove(marker.DataContext as GradientStop);
+        Items.Remove(marker);
+        GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStops));
+      }
     }
 
     public IEnumerable<GradientStopMarker> Markers => Items.Cast<GradientStopMarker>();
@@ -160,14 +184,14 @@ namespace Qhta.WPF.Controls
 
     private void SelectMarker(GradientStopMarker marker)
     {
-      foreach (var item in Items.Cast<GradientStopMarker>())
+      // Bring marker to top of the ItemsCollection
+      Items.Remove(marker);
+      Items.Add(marker); foreach (var item in Items.Cast<GradientStopMarker>())
       {
         item.IsSelected = item==marker;
       }
-      // Bring marker to top of the ItemsCollection
-      Items.Remove(marker);
-      Items.Add(marker);
       SelectionChanged?.Invoke(this, new EventArgs());
+      marker.Focus();
     }
 
     Point mouseStartPos;
@@ -185,8 +209,12 @@ namespace Qhta.WPF.Controls
       args.Handled=true;
     }
 
+    //public bool test;
     private void Marker_MouseMove(object sender, MouseEventArgs args)
     {
+      //if (test)
+        //Debug.Assert(true);
+      CheckLeftCtrlKey();
       if (!isMouseLeftButtonDown)
         return;
       args.Handled=true;

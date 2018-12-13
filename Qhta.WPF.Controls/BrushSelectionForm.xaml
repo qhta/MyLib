@@ -57,7 +57,7 @@
       </TabItem.Header>
       <local:LinearGradientBrushEditForm x:Name="LinearGradientForm" 
                            VerticalContentAlignment="Top"
-                           SelectedColor="{Binding ElementName=ThisControl, Path=SelectedBrush, Converter={StaticResource ColorConverter}}"/>
+                           SelectedBrush="{Binding ElementName=ThisControl, Path=SelectedBrush}"/>
     </TabItem>    
   </TabControl>
 </UserControl>

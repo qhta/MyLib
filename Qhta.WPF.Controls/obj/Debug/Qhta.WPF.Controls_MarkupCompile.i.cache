@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-191096782713
+2020110050
 3931216190
-351745483473
+36241355521
 127-1458831100
-Border3D.xaml;ColorMemberEdit.xaml;ColorPadEdit.xaml;BrushPickerDropDown.xaml;ColorPickerDropDown.xaml;BrushPickerWindow.xaml;ColorPickerWindow.xaml;ColorEditForm.xaml;BrushSelectionForm.xaml;ColorSelectionForm.xaml;ExtRichTextBox.xaml;GradientSlider.xaml;KnownBrushSelectView.xaml;KnownColorSelectView.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;LinearGradientBrushEditForm.xaml;
+Border3D.xaml;ColorMemberEdit.xaml;ColorPadEdit.xaml;BrushPickerDropDown.xaml;ColorPickerDropDown.xaml;BrushPickerWindow.xaml;ColorPickerWindow.xaml;ColorEditForm.xaml;BrushSelectionForm.xaml;ColorSelectionForm.xaml;ExtRichTextBox.xaml;GradientSlider.xaml;KnownBrushSelectView.xaml;KnownColorSelectView.xaml;LinearGradientBrushParamsEdit.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;LinearGradientBrushEditForm.xaml;
 
 False
 

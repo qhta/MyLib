@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -23,27 +24,34 @@ namespace Qhta.WPF.Controls
       GradientSlider.GradientStopsChanged+=GradientSlider_GradientStopsChanged;
     }
 
-    #region SelectedColor property
-    public Color SelectedColor
+
+    #region SelectedBrush property
+    /// <summary>
+    /// A brush set to edition and returned edited
+    /// </summary>
+    public Brush SelectedBrush
     {
-      get => (Color)GetValue(SelectedColorProperty);
-      set => SetValue(SelectedColorProperty, value);
+      get => (Brush)GetValue(SelectedBrushProperty);
+      set => SetValue(SelectedBrushProperty, value);
     }
 
-    public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register
-      ("SelectedColor", typeof(Color), typeof(LinearGradientBrushEditForm),
-       new FrameworkPropertyMetadata(Colors.Transparent, SelectedColorPropertyChanged));
+    public static readonly DependencyProperty SelectedBrushProperty = DependencyProperty.Register
+      ("SelectedBrush", typeof(Brush), typeof(LinearGradientBrushEditForm),
+       new FrameworkPropertyMetadata(null, SelectedBrushPropertyChanged));
 
-    public static void SelectedColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    public static void SelectedBrushPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-      (sender as LinearGradientBrushEditForm).SelectedColorChanged(args);
+      (sender as LinearGradientBrushEditForm).SelectedBrushChanged(args);
     }
-    public void SelectedColorChanged(DependencyPropertyChangedEventArgs args)
+
+    public void SelectedBrushChanged(DependencyPropertyChangedEventArgs args)
     {
-      var brush = EditedBrush;
-      if (brush==null)
+      if (SelectedBrush is LinearGradientBrush linearGradientBrush)
+        EditedBrush = linearGradientBrush;
+      else 
+      if (SelectedBrush is SolidColorBrush solidColorBrush)
       {
-        var startColor = (Color)args.NewValue;
+        var startColor = solidColorBrush.Color;
         var hsv = startColor.ToDrawingColor().ToAhsv();
         hsv.S=0;
         hsv.V=1;
@@ -51,7 +59,7 @@ namespace Qhta.WPF.Controls
         hsv.S=1;
         hsv.V=0;
         var endColor = hsv.ToColor().ToMediaColor();
-        brush = new LinearGradientBrush(startColor, endColor, new Point(0,0), new Point(1,0));
+        var brush = new LinearGradientBrush(startColor, endColor, 0);// new Point(0,0), new Point(1,0));
         if (EditedBrush!=null)
           UndoManagers.BrushUndoManager.SaveState(EditedBrush);
         EditedBrush=brush;
@@ -68,7 +76,12 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty EditedBrushProperty = DependencyProperty.Register
       ("EditedBrush", typeof(LinearGradientBrush), typeof(LinearGradientBrushEditForm),
-       new FrameworkPropertyMetadata(null));
+       new FrameworkPropertyMetadata(null, EditedBrushPropertyChanged));
+
+    private static void EditedBrushPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+      //(sender as LinearGradientBrushEditForm).UpdateAngleDataViews();
+    }
 
     #endregion
 
@@ -77,7 +90,7 @@ namespace Qhta.WPF.Controls
       var oldBrush = EditedBrush;
       var brush = new LinearGradientBrush(args.NewValue, oldBrush.StartPoint, oldBrush.EndPoint);
       EditedBrush = brush;
-      GradientSlider.EditedBrush = brush;
+      //GradientSlider.EditedBrush = brush;
     }
 
     private void LinearGradientBrushEditForm_PreviewKeyDown(object sender, KeyEventArgs args)
@@ -91,7 +104,7 @@ namespace Qhta.WPF.Controls
           brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.UndoChanges(brush);
           //Debug.WriteLine($"UndonedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
           EditedBrush = brush;
-          GradientSlider.EditedBrush = brush;
+          //GradientSlider.EditedBrush = brush;
         }
       }
       else if (Keyboard.IsKeyDown(Key.LeftCtrl) && args.Key==Key.Y)
@@ -101,7 +114,7 @@ namespace Qhta.WPF.Controls
           var brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.RedoChanges();
           //Debug.WriteLine($"RedoBrush[{string.Join(", ", brush.GradientStops.Select(item=>item.Offset.ToString()))}]");
           EditedBrush = brush;
-          GradientSlider.EditedBrush = brush;
+          //GradientSlider.EditedBrush = brush;
         }
       }
     }

@@ -48,7 +48,7 @@ namespace Qhta.WPF.Controls
         if (brush.GradientStops.Count==1)
           brush.GradientStops.Add(new GradientStop(Colors.Black, 1));
       }
-      ShownBrush=brush.Clone();
+      ShownBrush=new LinearGradientBrush(brush.GradientStops.Clone());
     }
     #endregion
 
@@ -65,7 +65,6 @@ namespace Qhta.WPF.Controls
     #endregion
 
     public event ValueChangedEventHandler<GradientStopCollection> GradientStopsChanged;
-    //public event PropertyChangedEventHandler PropertyChanged;
 
     private void GradientStopsView_GradientStopsChanged(object sender, ValueChangedEventArgs<GradientStopCollection> args)
     {
@@ -123,6 +122,20 @@ namespace Qhta.WPF.Controls
         GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(GradientStopsView.GradientStops));
         GradientStopsView.CopyGradientStopsDisabled = false;
       }
+    }
+
+    private void FlipButton_Click(object sender, RoutedEventArgs e)
+    {
+      var brush = (GradientBrush)EditedBrush;
+      //Debug.WriteLine($"SavedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
+      UndoManagers.BrushUndoManager.SaveState(brush);
+      var stops = brush.GradientStops.Select(item=>item.Clone()).ToList();
+      var offsets = stops.Select(item => 1-item.Offset).ToList();
+      int i = 0;
+      foreach (var item in stops)
+        item.Offset = offsets[i++];
+      var newGradientStops = new GradientStopCollection(stops);
+      GradientStopsChanged?.Invoke(this, new ValueChangedEventArgs<GradientStopCollection>(newGradientStops));
     }
   }
 }

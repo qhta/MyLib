@@ -29,23 +29,23 @@
       Fill="{Binding ElementName=ThisControl, Path=ShownBrush}"
       >
     </Rectangle>
-    <Grid Grid.Row="2" Margin="10,0" Height="23">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <StackPanel Orientation="Horizontal">
-        <Label VerticalAlignment="Center" Content="Offset"/>
-        <local:NumericEditBox 
-          x:Name="OffsetNumBox" Width="50"
+    <StackPanel Grid.Row="2" Margin="10,0" Height="23" Orientation="Horizontal">
+      <Label Content="Offset" Margin="0,-2,0,0"/>
+      <local:NumericEditBox 
+          x:Name="OffsetNumBox" Width="40"
           Minimum="0"
           Maximum="100"
+          Height="20"
           ValueChanged="OffsetNumBox_ValueChanged"/>
-      </StackPanel>
-      <StackPanel Grid.Column="1" Margin="10,0,0,0" Orientation="Horizontal">
-        <Label VerticalAlignment="Center" Content="Color"/>
-        <local:ColorPickerDropDown x:Name="ColorPicker" Width="85" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
-      </StackPanel>    
-    </Grid>
+      <TextBlock Margin="3">[°]</TextBlock>
+      <Label Content="Color" Margin="0,-2,0,0"/>
+      <local:ColorPickerDropDown x:Name="ColorPicker" 
+                                   Height="20"
+                                   Width="85" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+      <!--<TextBlock Margin="3">[AARRGGBB]</TextBlock>-->
+      <Button x:Name="FlipButton" Margin="10,0,0,0" Click="FlipButton_Click" Focusable="False">
+        <Image Source="/Qhta.WPF.Controls;component/Resources/FlipHorizontal.png"/>
+      </Button>
+    </StackPanel>
   </Grid>
 </UserControl>

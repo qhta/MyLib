@@ -8,29 +8,14 @@
              x:Name="ThisControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="380">
-  <UserControl.Resources>
-    <cu:BrushTypeConverter x:Key="BrushTypeConverter"/>
-  </UserControl.Resources>
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
+  <StackPanel>
     <local:GradientSlider 
       x:Name="GradientSlider" 
       EditedBrush="{Binding ElementName=ThisControl, Path=EditedBrush, Mode=OneWay}"
       />
-    <Grid Grid.Row="1">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="120"/>
-      </Grid.ColumnDefinitions>
-      <Rectangle 
-        Margin="30"
-        Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth}"
-        VerticalAlignment="Top"
-        Fill="{Binding ElementName=ThisControl, Path=EditedBrush, Mode=OneWay}" 
-        Stroke="Black" StrokeThickness="1"/>
-    </Grid>
-  </Grid>
+    <local:LinearGradientBrushParamsEdit 
+      x:Name="ParamsEdit"
+      EditedBrush="{Binding ElementName=ThisControl, Path=EditedBrush, Mode=TwoWay}"
+      />
+  </StackPanel>
 </UserControl>

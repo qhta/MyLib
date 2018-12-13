@@ -24,6 +24,7 @@
              MaxLength="{Binding ElementName=ThisControl, Path=MaxLength}"
              TextAlignment="{Binding ElementName=ThisControl, Path=TextAlignment}"
              TextDecorations="{Binding ElementName=ThisControl, Path=TextDecorations}"
+             Height="{Binding ElementName=NumericUpDown, Path=ActualHeight}"
              >
       <!--Format="{Binding ElementName=ThisControl, Path=ContentStringFormat}"-->
     </TextBox>
@@ -33,6 +34,8 @@
                       Increment="{Binding ElementName=ThisControl, Path=Increment, Mode=OneWay}"
                       Minimum="{Binding ElementName=ThisControl, Path=Minimum, Mode=OneWay}"
                       Maximum="{Binding ElementName=ThisControl, Path=Maximum, Mode=OneWay}"
+                      LargeChange="{Binding ElementName=ThisControl, Path=PageIncrement, Mode=OneWay}"
+                      Height="{Binding ElementName=ThisControl, Path=ActualHeight}"
                       />
   </Grid>
 </UserControl>

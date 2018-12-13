@@ -13,16 +13,22 @@ namespace Qhta.WPF.Controls
   {
     public GradientStopMarker()
     {
-      DataContextChanged+=GradientStopMarker_DataContextChanged;
+      Focusable=true;
+      KeyDown+=GradientStopMarker_KeyDown;
+      GotFocus+=GradientStopMarker_GotFocus; ;
     }
 
-    private void GradientStopMarker_DataContextChanged(object sender, DependencyPropertyChangedEventArgs args)
+    private void GradientStopMarker_GotFocus(object sender, RoutedEventArgs e)
     {
-      //if (args.NewValue is GradientStop gradientStop)
-      //{
-      //  SetBinding(ColorProperty, new Binding("Color") { Source=gradientStop, Mode=BindingMode.TwoWay });
-      //  SetBinding(OffsetProperty, new Binding("Offset") { Source=gradientStop, Mode=BindingMode.TwoWay });
-      //}
+      IsSelected=true;
+    }
+
+    private void GradientStopMarker_KeyDown(object sender, KeyEventArgs args)
+    {
+      if (args.Key==Key.Delete)
+      {
+        (Parent as GradientStopsView).DeleteMarker(this);
+      }
     }
 
 
