@@ -6,117 +6,126 @@
              xmlns:local="clr-namespace:Qhta.WPF.Controls"
              x:Name="ThisControl"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="160">
+             d:DesignHeight="200" d:DesignWidth="300">
   <UserControl.Resources>
     <Image x:Key="LockImage" Source="/Qhta.WPF.Controls;component/Resources/Lock.png" />
     <Image x:Key="UnlockImage" Source="/Qhta.WPF.Controls;component/Resources/Unlock.png" />
   </UserControl.Resources>
   <Grid>
-    <Grid Grid.Row="1">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="160"/>
-      </Grid.ColumnDefinitions>
-      <Rectangle 
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="160"/>
+    </Grid.ColumnDefinitions>
+    <Canvas x:Name="GradientCanvas"
         Margin="20"
         Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth}"
         VerticalAlignment="Top"
-        Fill="{Binding ElementName=ThisControl, Path=EditedBrush, Mode=OneWay}" 
-        Stroke="Black" StrokeThickness="1"/>
-      <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,10,0,0">
-        <StackPanel Orientation="Horizontal">
-          <Label Content="Angle"/>
-          <local:NumericEditBox 
+        HorizontalAlignment="Stretch"
+        >
+      <Rectangle 
+          Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Canvas}}, Path=ActualWidth}"
+          Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Canvas}}, Path=ActualHeight}"
+          Fill="{Binding ElementName=ThisControl, Path=EditedBrush, Mode=OneWay}" 
+          Stroke="Black" StrokeThickness="1"/>
+      <local:GradientLine x:Name="GradientLine"
+          Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Canvas}}, Path=ActualWidth}"
+          Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Canvas}}, Path=ActualHeight}"
+          Stroke="Red" StrokeThickness="2"
+          />
+    </Canvas>
+    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,10,0,0">
+      <StackPanel Orientation="Horizontal">
+        <Label Content="Angle"/>
+        <local:NumericEditBox 
             x:Name="AngleNumBox"
-            Minimum="0"
+            Minimum="-5"
             Maximum="360"
             PageIncrement="5"
             Width="50"
             Height="20"
             ValueChanged="AngleNumBox_ValueChanged"
             />
-          <TextBlock Margin="3">[°]</TextBlock>
-          <ToggleButton x:Name="AngleLockButton"
+        <TextBlock Margin="3">[°]</TextBlock>
+        <ToggleButton x:Name="AngleLockButton"
             Width="20"
             Height="20"
             IsChecked="{Binding ElementName=ThisControl, Path=IsAngleLocked}">
-            <ToggleButton.Style>
-              <Style TargetType="{x:Type ToggleButton}">
-                <Setter Property="Template">
-                  <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                      <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                      </Border>
-                    </ControlTemplate>
-                  </Setter.Value>
-                </Setter>
+          <ToggleButton.Style>
+            <Style TargetType="{x:Type ToggleButton}">
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="ToggleButton">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
+                      <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+              <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                  <Setter Property="Background" Value="PowderBlue" />
+                </Trigger>
+              </Style.Triggers>
+            </Style>
+          </ToggleButton.Style>
+          <Image Width="16" Height="16" >
+            <Image.Style>
+              <Style TargetType="{x:Type Image}">
                 <Style.Triggers>
-                  <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Background" Value="PowderBlue" />
-                  </Trigger>
+                  <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="true">
+                    <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Lock.png"/>
+                  </DataTrigger>
+                  <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="false">
+                    <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Unlock.png"/>
+                  </DataTrigger>
                 </Style.Triggers>
               </Style>
-            </ToggleButton.Style>
-            <Image Width="16" Height="16" >
-              <Image.Style>
-                <Style TargetType="{x:Type Image}">
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="true">
-                      <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Lock.png"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="false">
-                      <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Unlock.png"/>
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </Image.Style>
-            </Image>
-          </ToggleButton>
-        </StackPanel>
-        <Label Content="Start Point" />
-        <StackPanel Orientation="Horizontal">
-          <Label>X</Label>
-          <local:NumericEditBox 
+            </Image.Style>
+          </Image>
+        </ToggleButton>
+      </StackPanel>
+      <Label Content="Start Point" />
+      <StackPanel Orientation="Horizontal">
+        <Label>X</Label>
+        <local:NumericEditBox 
             x:Name="StartXNumBox"
             Minimum="0"
             Maximum="100"
             Width="40"
             Height="20"
             />
-          <TextBlock Margin="3">[%]</TextBlock>
-          <Label>Y</Label>
-          <local:NumericEditBox 
+        <TextBlock Margin="3">[%]</TextBlock>
+        <Label>Y</Label>
+        <local:NumericEditBox 
             x:Name="StartYNumBox"
             Minimum="0"
             Maximum="100"
             Width="40"
             Height="20"
             />
-          <TextBlock Margin="3">[%]</TextBlock>
-        </StackPanel>
-        <Label>End Point</Label>
-        <StackPanel Orientation="Horizontal">
-          <Label>X</Label>
-          <local:NumericEditBox 
+        <TextBlock Margin="3">[%]</TextBlock>
+      </StackPanel>
+      <Label>End Point</Label>
+      <StackPanel Orientation="Horizontal">
+        <Label>X</Label>
+        <local:NumericEditBox 
             x:Name="EndXNumBox"
             Minimum="0"
             Maximum="100"
             Width="40"
             Height="20"
             />
-          <TextBlock Margin="3">[%]</TextBlock>
-          <Label>Y</Label>
-          <local:NumericEditBox 
+        <TextBlock Margin="3">[%]</TextBlock>
+        <Label>Y</Label>
+        <local:NumericEditBox 
             x:Name="EndYNumBox"
             Minimum="0"
             Maximum="100"
             Width="40"
             Height="20"
             />
-          <TextBlock Margin="3">[%]</TextBlock>
-        </StackPanel>
+        <TextBlock Margin="3">[%]</TextBlock>
       </StackPanel>
-    </Grid>
+    </StackPanel>
   </Grid>
 </UserControl>

@@ -153,7 +153,7 @@ namespace Qhta.WPF.Controls
       var test = pixels.FirstOrDefault(b=>b!=0);
       var pi = (bmp.Format.BitsPerPixel / 8)*(int)pos.X;
       var color = Color.FromArgb(pixels[pi+3], pixels[pi+2], pixels[pi+1], pixels[pi]);
-      var offset = Math.Min(Math.Max(pos.X/this.ActualWidth, 0), 1);
+      var offset = Math.Round(Math.Min(Math.Max(pos.X/this.ActualWidth, 0), 1),2);
       var stop = new GradientStop(color, offset);
       GradientStops.Add(stop);
       //var marker = new GradientStopMarker { DataContext=stop, Color=stop.Color, Offset=stop.Offset};
