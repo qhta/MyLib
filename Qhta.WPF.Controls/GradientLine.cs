@@ -15,56 +15,6 @@ namespace Qhta.WPF.Controls
   {
     public GradientLine() { }
 
-    //#region X1Property
-    //[TypeConverter(typeof(LengthConverter))]
-    //public double X1
-    //{
-    //  get => (double)GetValue(X1Property);
-    //  set => SetValue(X1Property, value);
-    //}
-
-    //public static readonly DependencyProperty X1Property = DependencyProperty.Register
-    //  ("X1", typeof(double), typeof(GradientLine),
-    //    new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
-
-    //#endregion
-
-    //#region Y1 property
-    //[TypeConverter(typeof(LengthConverter))]
-    //public double Y1
-    //{
-    //  get => (double)GetValue(Y1Property);
-    //  set => SetValue(Y1Property, value);
-    //}
-
-    //public static readonly DependencyProperty Y1Property = DependencyProperty.Register
-    //  ("Y1", typeof(double), typeof(GradientLine),
-    //    new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
-    //#endregion
-
-    //#region X2 property
-    //public double X2
-    //{
-    //  get => (double)GetValue(X2Property);
-    //  set => SetValue(X2Property, value);
-    //}
-
-    //public static readonly DependencyProperty X2Property = DependencyProperty.Register
-    //  ("X2", typeof(double), typeof(GradientLine),
-    //    new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
-    //#endregion
-
-    //#region Y2 property
-    //public double Y2
-    //{
-    //  get => (double)GetValue(Y2Property);
-    //  set => SetValue(Y2Property, value);
-    //}
-
-    //public static readonly DependencyProperty Y2Property = DependencyProperty.Register
-    //  ("Y2", typeof(double), typeof(GradientLine),
-    //    new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
-    //#endregion
 
     #region StartPoint property
     [TypeConverter(typeof(PointConverter))]
@@ -92,6 +42,18 @@ namespace Qhta.WPF.Controls
         new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
     #endregion
 
+    #region GradientStops property
+    public GradientStopCollection GradientStops
+    {
+      get => (GradientStopCollection)GetValue(GradientStopsProperty);
+      set => SetValue(GradientStopsProperty, value);
+    }
+
+    public static readonly DependencyProperty GradientStopsProperty = DependencyProperty.Register
+      ("GradientStops", typeof(GradientStopCollection), typeof(GradientLine),
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+    #endregion
+
     protected override Geometry DefiningGeometry
     {
       get
@@ -107,18 +69,54 @@ namespace Qhta.WPF.Controls
     private static GeometryConverter geometryConverter = new GeometryConverter();
     protected override void OnRender(DrawingContext drawingContext)
     {
-      var pen = new Pen(Stroke, StrokeThickness);
       var p1 = new Point(StartPoint.X*ActualWidth, StartPoint.Y* ActualHeight);
       var p2 = new Point(EndPoint.X*ActualWidth, EndPoint.Y*ActualHeight);
-      //Debug.WriteLine($"DrawLine2({p1.X}, {p1.Y})-({p2.X}, {p2.Y})");
-      drawingContext.DrawLine(pen, p1, p2);
-      drawingContext.DrawEllipse(Stroke, pen, p1, 3, 3);
       var angle = Math.Atan2(p2.Y-p1.Y, p2.X-p1.X);
-      var path = Geometry.Parse("M0,0L-10,5L-10,-5Z");
-      drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
-      drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
-      //Debug.WriteLine($"angle={angle}");
-      drawingContext.DrawGeometry(Stroke, null, path);
+      var path = Geometry.Parse("M-1,0L-8,3L-8,-3Z");
+
+      if (Fill!=null)
+      {
+        var outlinePen = new Pen(Fill, StrokeThickness+1);
+        drawingContext.DrawLine(outlinePen, p1, p2);
+        drawingContext.DrawEllipse(Fill, outlinePen, p1, 2, 2);
+        drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
+        drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
+        drawingContext.DrawGeometry(Fill, outlinePen, path);
+        drawingContext.Pop();
+        drawingContext.Pop();
+      }
+      if (Stroke!=null)
+      {
+        var pen = new Pen(Stroke, StrokeThickness);
+        drawingContext.DrawLine(pen, p1, p2);
+        drawingContext.DrawEllipse(Stroke, pen, p1, 2, 2);
+        drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
+        drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
+        drawingContext.DrawGeometry(Stroke, pen, path);
+        drawingContext.Pop();
+        drawingContext.Pop();
+      }
+      else if (GradientStops!=null && GradientStops.Count>0)
+      {
+        var firstStop = GradientStops.First();
+        var lastStop = GradientStops.Last();
+        var startBrush = new SolidColorBrush(firstStop.Color.Inverse());
+        var endBrush = new SolidColorBrush(lastStop.Color.Inverse());
+        var gradientStops = new GradientStopCollection();
+        foreach (var stop in GradientStops)
+          gradientStops.Add(new GradientStop(stop.Color.Inverse(), stop.Offset));
+        var lineBrush = new LinearGradientBrush(gradientStops, StartPoint, EndPoint);
+        var startPen = new Pen(startBrush, StrokeThickness);
+        var linePen = new Pen(lineBrush, StrokeThickness);
+        var endPen = new Pen(endBrush, StrokeThickness);
+        drawingContext.DrawLine(linePen, p1, p2);
+        drawingContext.DrawEllipse(startBrush, startPen, p1, 2, 2);
+        drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
+        drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
+        drawingContext.DrawGeometry(endBrush, endPen, path);
+        drawingContext.Pop();
+        drawingContext.Pop();
+      }
     }
   }
 }
