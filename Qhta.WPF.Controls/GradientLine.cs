@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -13,8 +11,9 @@ namespace Qhta.WPF.Controls
 {
   public class GradientLine : Shape
   {
-    public GradientLine() { }
-
+    public GradientLine()
+    {
+    }
 
     #region StartPoint property
     [TypeConverter(typeof(PointConverter))]
@@ -58,45 +57,55 @@ namespace Qhta.WPF.Controls
     {
       get
       {
+        var p1 = new Point(StartPoint.X*ActualWidth, StartPoint.Y* ActualHeight);
+        var p2 = new Point(EndPoint.X*ActualWidth, EndPoint.Y*ActualHeight);
+        var angle = Math.Atan2(p2.Y-p1.Y, p2.X-p1.X);
         var geometryGroup = new GeometryGroup();
-        geometryGroup.Children.Add(new LineGeometry(
-          new Point(StartPoint.X*ActualWidth, StartPoint.Y*ActualHeight),
-          new Point(EndPoint.X*ActualWidth, EndPoint.Y*ActualHeight)));
+        geometryGroup.Children.Add(new LineGeometry(p1, p2));
+        geometryGroup.Children.Add(new EllipseGeometry(p1, 2, 2));
+        var path = new GeometryGroup();
+        path.Children.Add(Geometry.Parse("M-1,0L-8,3L-8,-3Z"));
+        var transform = new TransformGroup();
+        transform.Children.Add(new RotateTransform(angle/Math.PI*180));
+        transform.Children.Add(new TranslateTransform(p2.X, p2.Y));
+        path.Transform = transform;
+        geometryGroup.Children.Add(path);
         return geometryGroup;
       }
     }
 
-    private static GeometryConverter geometryConverter = new GeometryConverter();
+    protected override Geometry GetLayoutClip(Size layoutSlotSize)
+    {
+      return ClipToBounds ? base.GetLayoutClip(layoutSlotSize) : null;
+    }
+
     protected override void OnRender(DrawingContext drawingContext)
     {
-      var p1 = new Point(StartPoint.X*ActualWidth, StartPoint.Y* ActualHeight);
+      var p1 = new Point(StartPoint.X*ActualWidth, StartPoint.Y*ActualHeight);
       var p2 = new Point(EndPoint.X*ActualWidth, EndPoint.Y*ActualHeight);
       var angle = Math.Atan2(p2.Y-p1.Y, p2.X-p1.X);
-      var path = Geometry.Parse("M-1,0L-8,3L-8,-3Z");
-
+      var path = new GeometryGroup();
+      path.Children.Add(Geometry.Parse("M-1,0L-8,3L-8,-3Z"));
+      var transform = new TransformGroup();
+      transform.Children.Add(new RotateTransform(angle/Math.PI*180));
+      transform.Children.Add(new TranslateTransform(p2.X, p2.Y));
+      path.Transform = transform;
       if (Fill!=null)
       {
         var outlinePen = new Pen(Fill, StrokeThickness+1);
         drawingContext.DrawLine(outlinePen, p1, p2);
         drawingContext.DrawEllipse(Fill, outlinePen, p1, 2, 2);
-        drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
-        drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
         drawingContext.DrawGeometry(Fill, outlinePen, path);
-        drawingContext.Pop();
-        drawingContext.Pop();
       }
+
       if (Stroke!=null)
       {
         var pen = new Pen(Stroke, StrokeThickness);
         drawingContext.DrawLine(pen, p1, p2);
         drawingContext.DrawEllipse(Stroke, pen, p1, 2, 2);
-        drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
-        drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
         drawingContext.DrawGeometry(Stroke, pen, path);
-        drawingContext.Pop();
-        drawingContext.Pop();
       }
-      else if (GradientStops!=null && GradientStops.Count>0)
+      if (GradientStops!=null && GradientStops.Count>0)
       {
         var firstStop = GradientStops.First();
         var lastStop = GradientStops.Last();
@@ -109,15 +118,15 @@ namespace Qhta.WPF.Controls
         var startPen = new Pen(startBrush, StrokeThickness);
         var linePen = new Pen(lineBrush, StrokeThickness);
         var endPen = new Pen(endBrush, StrokeThickness);
+        drawingContext.PushClip(new RectangleGeometry(new Rect(0, 0, ActualWidth, ActualHeight)));
         drawingContext.DrawLine(linePen, p1, p2);
         drawingContext.DrawEllipse(startBrush, startPen, p1, 2, 2);
-        drawingContext.PushTransform(new TranslateTransform(p2.X, p2.Y));
-        drawingContext.PushTransform(new RotateTransform(angle/Math.PI*180));
         drawingContext.DrawGeometry(endBrush, endPen, path);
         drawingContext.Pop();
-        drawingContext.Pop();
       }
+
     }
+
   }
 }
 

@@ -38,8 +38,9 @@
       <local:GradientLine x:Name="GradientLine"
           Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Canvas}}, Path=ActualWidth}"
           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Canvas}}, Path=ActualHeight}"
-          StrokeThickness="2"
+          Stroke="Black"
           GradientStops="{Binding ElementName=ThisControl, Path=EditedBrush.GradientStops}"
+          ClipToBounds="false"
           />
     </Canvas>
     <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,10,0,0">
@@ -48,69 +49,39 @@
         <local:NumericEditBox 
             x:Name="AngleNumBox"
             Minimum="-5"
-            Maximum="360"
+            Maximum="365"
             PageIncrement="5"
             Width="50"
             Height="20"
             ValueChanged="AngleNumBox_ValueChanged"
             />
         <TextBlock Margin="3">[°]</TextBlock>
-        <!--<ToggleButton x:Name="AngleLockButton"
-            Width="20"
-            Height="20"
-            IsChecked="{Binding ElementName=ThisControl, Path=IsAngleLocked}">
-          <ToggleButton.Style>
-            <Style TargetType="{x:Type ToggleButton}">
-              <Setter Property="Template">
-                <Setter.Value>
-                  <ControlTemplate TargetType="ToggleButton">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
-                      <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                  </ControlTemplate>
-                </Setter.Value>
-              </Setter>
-              <Style.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                  <Setter Property="Background" Value="PowderBlue" />
-                </Trigger>
-              </Style.Triggers>
-            </Style>
-          </ToggleButton.Style>
-          <Image Width="16" Height="16" >
-            <Image.Style>
-              <Style TargetType="{x:Type Image}">
-                <Style.Triggers>
-                  <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="true">
-                    <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Lock.png"/>
-                  </DataTrigger>
-                  <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="false">
-                    <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Unlock.png"/>
-                  </DataTrigger>
-                </Style.Triggers>
-              </Style>
-            </Image.Style>
-          </Image>
-        </ToggleButton>-->
       </StackPanel>
       <StackPanel Orientation="Horizontal" Margin="3">
         <CheckBox 
-        Content="Edge locked"
-        IsChecked="{Binding ElementName=ThisControl, Path=IsEdgeLocked}"
+        Content="Fix start point"
+        IsChecked="{Binding ElementName=ThisControl, Path=IsP1Fixed}"
         HorizontalContentAlignment="Right"
-        ToolTip="If this box is checked then start and end points are locked to brush edge during angle edit"
+        ToolTip="If this box is checked then the start points is locked to one of four brush edge rectangle corners during angle edit"
         />
       </StackPanel>
       <StackPanel Orientation="Horizontal" Margin="3">
         <CheckBox 
-          Content="Angle locked"
-          IsChecked="{Binding ElementName=ThisControl, Path=IsAngleLocked}"
+        Content="Fix end point"
+        IsChecked="{Binding ElementName=ThisControl, Path=IsP2Fixed}"
+        HorizontalContentAlignment="Right"
+        ToolTip="If this box is checked then the end point is locked to brush rectangle edge during angle edit"
+        />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="3">
+        <CheckBox 
+          Content="Preserve angle"
+          IsChecked="{Binding ElementName=ThisControl, Path=IsAnglePreserved}"
           HorizontalContentAlignment="Right"
           ToolTip="If this box is checked then angle is preserved during start point edit"
           />
       </StackPanel>
       <StackPanel x:Name="PointEdits" Orientation="Vertical" >
-        <!--Visibility="{Binding ElementName=ThisControl, Path=IsAngleLocked, Converter={StaticResource PointEditsVisibilityConverter}}">-->
         <Label Content="Start Point" />
         <StackPanel Orientation="Horizontal">
           <Label>X</Label>
@@ -159,3 +130,41 @@
     </StackPanel>
   </Grid>
 </UserControl>
+
+<!--<ToggleButton x:Name="AngleLockButton"
+            Width="20"
+            Height="20"
+            IsChecked="{Binding ElementName=ThisControl, Path=IsAngleLocked}">
+          <ToggleButton.Style>
+            <Style TargetType="{x:Type ToggleButton}">
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="ToggleButton">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
+                      <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+              <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                  <Setter Property="Background" Value="PowderBlue" />
+                </Trigger>
+              </Style.Triggers>
+            </Style>
+          </ToggleButton.Style>
+          <Image Width="16" Height="16" >
+            <Image.Style>
+              <Style TargetType="{x:Type Image}">
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="true">
+                    <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Lock.png"/>
+                  </DataTrigger>
+                  <DataTrigger Binding="{Binding ElementName=ThisControl, Path=IsAngleLocked}" Value="false">
+                    <Setter Property="Source" Value="/Qhta.WPF.Controls;component/Resources/Unlock.png"/>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </Image.Style>
+          </Image>
+        </ToggleButton>-->

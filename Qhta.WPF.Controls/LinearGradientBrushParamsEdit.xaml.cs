@@ -21,6 +21,7 @@ namespace Qhta.WPF.Controls
     public LinearGradientBrushParamsEdit()
     {
       InitializeComponent();
+      PreviewMouseLeftButtonDown+=GradientLine_PreviewMouseLeftButtonDown;
     }
 
     #region EditedBrush property
@@ -43,10 +44,9 @@ namespace Qhta.WPF.Controls
 
     #region IsAngleLocked property
     /// <summary>
-    /// Setting this property to true guarantees that:
-    /// 1. gradient angle is preserver
+    /// Setting this property to true guarantees that gradient angle is preserved when moving P1.
     /// </summary>
-    public bool IsAngleLocked
+    public bool IsAnglePreserved
     {
       get => (bool)GetValue(IsAngleLockedProperty);
       set => SetValue(IsAngleLockedProperty, value);
@@ -57,19 +57,33 @@ namespace Qhta.WPF.Controls
        new FrameworkPropertyMetadata(true));
     #endregion
 
-    #region IsEdgeLocked property
+    #region IsP1CornerLocked property
     /// <summary>
-    /// Setting this property to true guarantees that:
-    /// 1. gradient angle is preserver
+    /// Setting this property to true guarantees that P1 is auto-set to one of 4 corners of the brush enclosing rectangle.
     /// </summary>
-    public bool IsEdgeLocked
+    public bool IsP1Fixed
     {
-      get => (bool)GetValue(IsEdgeLockedProperty);
-      set => SetValue(IsEdgeLockedProperty, value);
+      get => (bool)GetValue(IsP1CornerLockedProperty);
+      set => SetValue(IsP1CornerLockedProperty, value);
     }
 
-    public static readonly DependencyProperty IsEdgeLockedProperty = DependencyProperty.Register
-      ("IsEdgeLocked", typeof(bool), typeof(LinearGradientBrushParamsEdit),
+    public static readonly DependencyProperty IsP1CornerLockedProperty = DependencyProperty.Register
+      ("IsP1CornerLocked", typeof(bool), typeof(LinearGradientBrushParamsEdit),
+       new FrameworkPropertyMetadata(true));
+    #endregion
+
+    #region IsP2EdgeLocked property
+    /// <summary>
+    /// Setting this property to true guarantees that P2 is kept at the edge of the brush enclosing rectangle
+    /// </summary>
+    public bool IsP2Fixed
+    {
+      get => (bool)GetValue(IsP2EdgeLockedProperty);
+      set => SetValue(IsP2EdgeLockedProperty, value);
+    }
+
+    public static readonly DependencyProperty IsP2EdgeLockedProperty = DependencyProperty.Register
+      ("IsP2EdgeLocked", typeof(bool), typeof(LinearGradientBrushParamsEdit),
        new FrameworkPropertyMetadata(true));
     #endregion
 
@@ -107,6 +121,10 @@ namespace Qhta.WPF.Controls
         EndYNumBox.Value = Math.Round(endY);
         GradientLine.StartPoint=new Point((double)startX/100, (double)startY/100);
         GradientLine.EndPoint=new Point((double)endX/100, (double)endY/100);
+        //GradientLine.X1=(double)startX;
+        //GradientLine.Y1=(double)startY;
+        //GradientLine.X2=(double)endX;
+        //GradientLine.Y2=(double)endY;
       }
     }
 
@@ -126,7 +144,7 @@ namespace Qhta.WPF.Controls
           angle -= 360;
         if (angle<0)
           angle += 360;
-        if (IsEdgeLocked)
+        if (IsP1Fixed)
         {
           if (angle>=0 && angle<=90)
             startPoint=new Point(0, 0);
@@ -153,49 +171,67 @@ namespace Qhta.WPF.Controls
     /// <returns></returns>
     private Point GradientEndPoint(Point startPoint, double angle, double radius)
     {
-      var alpha = angle/180.0 * Math.PI;
-      if (IsEdgeLocked)
+      double alpha;
+      if (IsP2Fixed)
       {
-        if (startPoint.X==0 && startPoint.Y==0)
+        if (angle>=0 && angle<=45)
         {
-          if (angle>=0 && angle<=45)
-            return new Point(1, Math.Tan(alpha));
-          if (angle>45 && angle<90)
-            return new Point(1/Math.Tan(alpha), 1);
-          if (angle==90)
-            return new Point(0, 1);
+          alpha = angle/180.0 * Math.PI;
+          return new Point(1, (1-startPoint.X)*Math.Tan(alpha));
         }
-        if (startPoint.X==1 && startPoint.Y==0)
+        else
+        if (angle>45 && angle<90)
+        {
+          alpha = angle/180.0 * Math.PI;
+          return new Point((1-startPoint.Y)/Math.Tan(alpha), 1);
+        }
+        else
+        if (angle==90)
+        {
+          return new Point(startPoint.X, 1);
+        }
+        else
+        if (angle>90 && angle<=135)
         {
           alpha = (angle-90)/180 * Math.PI;
-          if (angle==90)
-            return new Point(1, 1);
-          if (angle>90 && angle<=135)
-            return new Point(1-Math.Tan(alpha), 1);
-          if (angle>135 && angle<=180)
-            return new Point(0, 1/Math.Tan(alpha));
+          return new Point(1-(1-startPoint.Y)*Math.Tan(alpha), 1);
         }
-        if (startPoint.X==1 && startPoint.Y==1)
+        else
+        if (angle>135 && angle<180)
+        {
+          alpha = (angle-90)/180 * Math.PI;
+          return new Point(0, startPoint.X/Math.Tan(alpha));
+        }
+        else
+        if (angle==180)
+          return new Point(0, startPoint.Y);
+        else
+        if (angle>180 && angle<=225)
         {
           alpha = (angle-180)/180 * Math.PI;
-          if (angle==180)
-            return new Point(0, 1);
-          if (angle>180 && angle<=225)
-            return new Point(0, 1-Math.Tan(alpha));
-          if (angle>225 && angle<=270)
-            return new Point(1-1/Math.Tan(alpha), 0);
+          return new Point(0, 1-startPoint.X*Math.Tan(alpha));
         }
-        if (startPoint.X==0 && startPoint.Y==1)
+        if (angle>225 && angle<270)
+        {
+          alpha = (angle-180)/180 * Math.PI;
+          return new Point(1-startPoint.Y/Math.Tan(alpha), 0);
+        }
+        else if (angle==270)
+          return new Point(startPoint.X, 0);
+        else
+        if (angle>270 && angle<315)
         {
           alpha = (angle-270)/180 * Math.PI;
-          if (angle==270)
-            return new Point(0, 0);
-          if (angle>270 && angle<=315)
-            return new Point(Math.Tan(alpha), 0);
-          if (angle>315 && angle<360)
-            return new Point(1, 1-1/Math.Tan(alpha));
+          return new Point(startPoint.Y*Math.Tan(alpha), 0);
+        }
+        else
+        if (angle>=315 && angle<360)
+        { 
+          alpha = (angle-270)/180 * Math.PI;
+          return new Point(1, 1-(1-startPoint.X)/Math.Tan(alpha));
         }
       }
+      alpha = angle/180.0 * Math.PI;
       return new Point(startPoint.X+Math.Cos(alpha)*radius, startPoint.Y+Math.Sin(alpha)*radius);
     }
 
@@ -207,6 +243,11 @@ namespace Qhta.WPF.Controls
         var startPoint = EditedBrush.StartPoint;
         var endPoint = EditedBrush.EndPoint;
         startPoint.X=(double)args.NewValue/100;
+        if (IsAnglePreserved)
+        {
+          var dX = startPoint.X - EditedBrush.StartPoint.X;
+          endPoint.X += dX;
+        }
         EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
         isEdited = false;
       }
@@ -219,10 +260,41 @@ namespace Qhta.WPF.Controls
         isEdited = true;
         var startPoint = EditedBrush.StartPoint;
         var endPoint = EditedBrush.EndPoint;
+        var angle = Math.Atan2(endPoint.X-startPoint.X, endPoint.Y-startPoint.Y);
         startPoint.Y=(double)args.NewValue/100;
+        if (IsAnglePreserved && IsP2Fixed)
+        {
+
+          var dY = startPoint.Y - EditedBrush.StartPoint.Y;
+          endPoint.Y += dY;
+        }
+        else if (IsAnglePreserved)
+        {
+          var dY = startPoint.Y - EditedBrush.StartPoint.Y;
+          endPoint.Y += dY;
+        }
         EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
         isEdited = false;
       }
     }
+
+    private void GradientLine_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
+    {
+      var p1 = new Point(EditedBrush.StartPoint.X*GradientLine.ActualWidth, EditedBrush.StartPoint.Y*GradientLine.ActualHeight);
+      var p2 = new Point(EditedBrush.EndPoint.X*GradientLine.ActualWidth, EditedBrush.EndPoint.Y*GradientLine.ActualHeight);
+      var pos = args.GetPosition(GradientLine);
+      var dx = pos.X-p1.X;
+      var dy = pos.Y-p1.Y;
+      clickPos = pos;
+      isStartPointClicked= (Math.Sqrt(dx*dx+dy*dy)<=3);
+      dx = pos.X-p2.X;
+      dy = pos.Y-p2.Y;
+      isEndPointClicked = (Math.Sqrt(dx*dx+dy*dy)<=3);
+    }
+
+    bool isStartPointClicked;
+    bool isEndPointClicked;
+    Point clickPos;
+
   }
 }
