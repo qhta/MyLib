@@ -55,7 +55,7 @@
           </Rectangle>
         </Grid>
       </TabItem.Header>
-      <local:LinearGradientBrushEditForm x:Name="LinearGradientForm" 
+      <local:LinearGradientBrushEditForm x:Name="LinearGradientBrushForm" 
                            VerticalContentAlignment="Top"
                            SelectedBrush="{Binding ElementName=ThisControl, Path=SelectedBrush}"/>
     </TabItem>    

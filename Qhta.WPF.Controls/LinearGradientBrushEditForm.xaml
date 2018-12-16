@@ -17,5 +17,23 @@
       x:Name="ParamsEdit"
       EditedBrush="{Binding ElementName=ThisControl, Path=EditedBrush, Mode=TwoWay}"
       />
+    <Grid x:Name="ButtonsPanel"
+        Margin="30,10" Height="30" >
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="20"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Button x:Name="OkButton" Grid.Column="0"
+                IsDefault="True"
+                Content="OK"
+                Click="OkButton_Click"
+                />
+      <Button x:Name="CancelButton" Grid.Column="2"
+                IsCancel="True"
+                Content="Cancel"
+                Click="CancelButton_Click"
+                />
+    </Grid>
   </StackPanel>
 </UserControl>

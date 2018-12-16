@@ -76,12 +76,12 @@ namespace Qhta.WPF
         using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings { Indent=true }))
         {
           xmlWriter.WriteStartElement("CustomColors");
-          foreach (var color in CustomColors)
+          foreach (var item in CustomColors)
           {
             xmlWriter.WriteStartElement("CustomColor");
-            if (!String.IsNullOrEmpty(color.Name) && !color.Name.StartsWith("#"))
-              xmlWriter.WriteAttributeString("name", color.Name);
-            xmlWriter.WriteString(color.Color.ToString());
+            if (!String.IsNullOrEmpty(item.Name) && !item.Name.StartsWith("#"))
+              xmlWriter.WriteAttributeString("name", item.Name);
+            xmlWriter.WriteString(item.Color.ToString());
             xmlWriter.WriteEndElement();
           }
           xmlWriter.WriteEndElement();

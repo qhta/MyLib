@@ -15,9 +15,12 @@ namespace Qhta.WPF.Controls
     {
       InitializeComponent();
       DefinedBrushesPicker.SelectionChanged+=DefinedBrushsPicker_SelectionChanged;
-      SolidBrushForm.SelectedColorChanged+=SolidBrushForm_SelectedColorChanged;
-      DefinedBrushesPicker.CloseFormRequest+=DefinedBrushsPicker_CloseFormRequest;
-      SolidBrushForm.CloseFormRequest+=SolidBrushForm_CloseFormRequest;
+      SolidBrushForm.ColorSelected+=SolidBrushForm_ColorSelected;
+      LinearGradientBrushForm.BrushSelected+=InternalForm_BrushSelected;
+
+      DefinedBrushesPicker.CloseFormRequest+=InternalForm_CloseFormRequest;
+      SolidBrushForm.CloseFormRequest+=InternalForm_CloseFormRequest;
+      LinearGradientBrushForm.CloseFormRequest+=InternalForm_CloseFormRequest;
     }
 
     #region SelectedBrush property
@@ -33,16 +36,16 @@ namespace Qhta.WPF.Controls
          FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
     #endregion
 
-    public event ValueChangedEventHandler<Brush> SelectedBrushChanged;
+    public event ValueChangedEventHandler<Brush> BrushSelected;
     public event EventHandler CloseFormRequest;
 
     private void DefinedBrushsPicker_SelectionChanged(object sender, ValueChangedEventArgs<KnownBrush> args)
     {
       SelectedBrush = args.NewValue.Brush;
-      SelectedBrushChanged?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
+      BrushSelected?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
     }
 
-    private void SolidBrushForm_SelectedColorChanged(object sender, ValueChangedEventArgs<Color> args)
+    private void SolidBrushForm_ColorSelected(object sender, ValueChangedEventArgs<Color> args)
     {
       SelectedBrush = new SolidColorBrush(args.NewValue);
       if (KnownBrushes.Instance.FirstOrDefault(item => item.Brush.Equals(args.NewValue))==null)
@@ -50,18 +53,29 @@ namespace Qhta.WPF.Controls
         var knownBrushs = KnownBrushes.Instance;
         knownBrushs.CustomBrushes.Add(new CustomBrush { Name=args.NewValue.ToString(), Brush=SelectedBrush, IsSelected=true });
       }
-      SelectedBrushChanged?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
+      BrushSelected?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
     }
 
-    private void SolidBrushForm_CloseFormRequest(object sender, EventArgs e)
+    private void InternalForm_BrushSelected(object sender, ValueChangedEventArgs<Brush> args)
+    {
+      SelectedBrush = args.NewValue;
+      if (KnownBrushes.Instance.FirstOrDefault(item => item.Brush.Equals(args.NewValue))==null)
+      {
+        var knownBrushes = KnownBrushes.Instance;
+        int n = knownBrushes.Count+1;
+        var name = $"Brush_{n++}";
+        while (knownBrushes.FirstOrDefault(item=>item.Name==name)!=null)
+          name = $"Brush_{n++}";
+        knownBrushes.CustomBrushes.Add(new CustomBrush { Name=name, Brush=SelectedBrush, IsSelected=true });
+      }
+      BrushSelected?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
+    }
+
+    private void InternalForm_CloseFormRequest(object sender, EventArgs e)
     {
       CloseFormRequest?.Invoke(this, new EventArgs());
     }
 
-    private void DefinedBrushsPicker_CloseFormRequest(object sender, EventArgs e)
-    {
-      CloseFormRequest?.Invoke(this, new EventArgs());
-    }
 
 
   }

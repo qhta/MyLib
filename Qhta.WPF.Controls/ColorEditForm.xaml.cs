@@ -62,13 +62,13 @@ namespace Qhta.WPF.Controls
     }
     #endregion
 
-    public event ValueChangedEventHandler<Color> SelectedColorChanged;
+    public event ValueChangedEventHandler<Color> ColorSelected;
     public event EventHandler CloseFormRequest;
 
     private void OkButton_Click(object sender, RoutedEventArgs e)
     {
       SelectedColor = CurrentColor;
-      SelectedColorChanged?.Invoke(this, new ValueChangedEventArgs<Color>(SelectedColor));
+      ColorSelected?.Invoke(this, new ValueChangedEventArgs<Color>(SelectedColor));
       CloseFormRequest(this, new EventArgs());
     }
 

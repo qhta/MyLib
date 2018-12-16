@@ -104,7 +104,6 @@ namespace Qhta.WPF.Controls
           brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.UndoChanges(brush);
           //Debug.WriteLine($"UndonedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
           EditedBrush = brush;
-          //GradientSlider.EditedBrush = brush;
         }
       }
       else if (Keyboard.IsKeyDown(Key.LeftCtrl) && args.Key==Key.Y)
@@ -114,11 +113,23 @@ namespace Qhta.WPF.Controls
           var brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.RedoChanges();
           //Debug.WriteLine($"RedoBrush[{string.Join(", ", brush.GradientStops.Select(item=>item.Offset.ToString()))}]");
           EditedBrush = brush;
-          //GradientSlider.EditedBrush = brush;
         }
       }
     }
+    public event ValueChangedEventHandler<Brush> BrushSelected;
+    public event EventHandler CloseFormRequest;
 
+    private void OkButton_Click(object sender, RoutedEventArgs e)
+    {
+      SelectedBrush = EditedBrush;
+      BrushSelected?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
+      CloseFormRequest(this, new EventArgs());
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+      CloseFormRequest(this, new EventArgs());
+    }
 
   }
 }

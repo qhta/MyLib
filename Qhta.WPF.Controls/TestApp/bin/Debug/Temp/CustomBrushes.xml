@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CustomBrushes>
   <SolidBrush name="Warhead Brush">#FF80A680</SolidBrush>
+  <SolidBrush>#FF617E7E</SolidBrush>
+  <LinearGradientBrush name="Brush_144" start="0,0" end="1,0">
+    <GradientStops>
+      <GradientStop offset="0">#FFFFFFFF</GradientStop>
+      <GradientStop offset="1">#FF000000</GradientStop>
+    </GradientStops>
+  </LinearGradientBrush>
 </CustomBrushes>

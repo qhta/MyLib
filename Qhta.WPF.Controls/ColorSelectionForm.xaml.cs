@@ -15,7 +15,7 @@ namespace Qhta.WPF.Controls
     {
       InitializeComponent();
       DefinedColorsPicker.SelectionChanged+=DefinedColorsPicker_SelectionChanged;
-      CustomColorForm.SelectedColorChanged+=CustomColorForm_SelectedColorChanged;
+      CustomColorForm.ColorSelected+=CustomColorForm_SelectedColorChanged;
       DefinedColorsPicker.CloseFormRequest+=DefinedColorsPicker_CloseFormRequest; ;
       CustomColorForm.CloseFormRequest+=CustomColorForm_CloseFormRequest;
     }

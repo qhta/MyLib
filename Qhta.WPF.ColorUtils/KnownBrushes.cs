@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.IO;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Xml;
-using System.Xml.Serialization;
-using Qhta.Drawing;
 
 namespace Qhta.WPF
 {
@@ -80,14 +77,35 @@ namespace Qhta.WPF
         using (XmlWriter xmlWriter = XmlWriter.Create(filePath, new XmlWriterSettings { Indent=true }))
         {
           xmlWriter.WriteStartElement("CustomBrushes");
-          foreach (var Brush in CustomBrushes)
+          foreach (var item in CustomBrushes)
           {
-            if (Brush.Brush is SolidColorBrush solidBrush)
+            if (item.Brush is SolidColorBrush solidBrush)
             {
               xmlWriter.WriteStartElement("SolidBrush");
-              if (!String.IsNullOrEmpty(Brush.Name) && !Brush.Name.StartsWith("#"))
-                xmlWriter.WriteAttributeString("name", Brush.Name);
+              if (!String.IsNullOrEmpty(item.Name) && !item.Name.StartsWith("#"))
+                xmlWriter.WriteAttributeString("name", item.Name);
               xmlWriter.WriteString(solidBrush.Color.ToString());
+              xmlWriter.WriteEndElement();
+            }
+            else if (item.Brush is LinearGradientBrush linearBrush)
+            {
+              xmlWriter.WriteStartElement("LinearGradientBrush");
+              if (!String.IsNullOrEmpty(item.Name) && !item.Name.StartsWith("#"))
+                xmlWriter.WriteAttributeString("name", item.Name);
+              xmlWriter.WriteAttributeString("start", linearBrush.StartPoint.ToString(CultureInfo.InvariantCulture));
+              xmlWriter.WriteAttributeString("end", linearBrush.EndPoint.ToString(CultureInfo.InvariantCulture));
+              if (linearBrush.GradientStops!=null)
+              {
+                xmlWriter.WriteStartElement("GradientStops");
+                foreach (var stop in linearBrush.GradientStops)
+                {
+                  xmlWriter.WriteStartElement("GradientStop");
+                  xmlWriter.WriteAttributeString("offset", stop.Offset.ToString(CultureInfo.InvariantCulture));
+                  xmlWriter.WriteString(stop.Color.ToString());
+                  xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+              }
               xmlWriter.WriteEndElement();
             }
           }
@@ -115,17 +133,47 @@ namespace Qhta.WPF
               var brushName = brushElement.GetAttribute("name");
               if (brushElement.Name=="SolidBrush")
               {
-                var brushStr = brushElement.InnerText;
-                if (brushStr!=null)
+                var colorStr = brushElement.InnerText;
+                if (colorStr!=null)
                 {
                   if (string.IsNullOrEmpty(brushName))
-                    brushName = brushStr;
-                  var color = (Color)ColorConverter.ConvertFromString(brushStr);
+                    brushName = colorStr;
+                  var color = (Color)ColorConverter.ConvertFromString(colorStr);
                   var brush = new SolidColorBrush(color);
                   CustomBrushes.Add(new CustomBrush { Name=brushName, Brush=brush });
                 }
               }
-          }
+              else
+              if (brushElement.Name=="LinearGradientBrush")
+              {
+                var startStr = brushElement.GetAttribute("start");
+                var startPoint = Point.Parse(startStr);
+                var endStr = brushElement.GetAttribute("end");
+                var endPoint = Point.Parse(endStr);
+                GradientStopCollection gradientStops = null;
+                foreach (var gradienstStopsElement in brushElement.GetElementsByTagName("GradientStops").Cast<XmlElement>())
+                {
+                  gradientStops = new GradientStopCollection();
+                  foreach (var gradientStopElement in gradienstStopsElement.GetElementsByTagName("GradientStop").Cast<XmlElement>())
+                  {
+                    var offsetStr = gradientStopElement.GetAttribute("offset");
+                    var offset = Double.Parse(offsetStr, CultureInfo.InvariantCulture);
+                    var colorStr = gradientStopElement.InnerText;
+                    if (colorStr!=null)
+                    {
+                      var color = (Color)ColorConverter.ConvertFromString(colorStr);
+                      var gradientStop = new GradientStop(color, offset);
+                      gradientStops.Add(gradientStop);
+                    }
+                  }
+                }
+                if (gradientStops!=null)
+                {
+                  var brush = new LinearGradientBrush(gradientStops, startPoint, endPoint);
+                  CustomBrushes.Add(new CustomBrush { Name=brushName, Brush=brush });
+                }
+              }
+            }
         }
       }
       catch (Exception ex)

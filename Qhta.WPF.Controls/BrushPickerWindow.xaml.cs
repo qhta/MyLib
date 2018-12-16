@@ -11,7 +11,7 @@ namespace Qhta.WPF.Controls
     public BrushPickerWindow()
     {
       InitializeComponent();
-      BrushSelectionForm.SelectedBrushChanged+=BrushSelectionForm_SelectedBrushChanged;
+      BrushSelectionForm.BrushSelected+=BrushSelectionForm_SelectedBrushChanged;
       BrushSelectionForm.CloseFormRequest+=BrushSelectionForm_CloseFormRequest;
     }
 
