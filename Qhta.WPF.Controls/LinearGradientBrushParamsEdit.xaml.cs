@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Qhta.WPF.Controls
 {
@@ -22,6 +12,8 @@ namespace Qhta.WPF.Controls
     {
       InitializeComponent();
       PreviewMouseLeftButtonDown+=GradientLine_PreviewMouseLeftButtonDown;
+      PreviewMouseMove+=LinearGradientBrushParamsEdit_PreviewMouseMove;
+      PreviewMouseLeftButtonUp+=LinearGradientBrushParamsEdit_PreviewMouseLeftButtonUp;
     }
 
     #region EditedBrush property
@@ -226,7 +218,7 @@ namespace Qhta.WPF.Controls
         }
         else
         if (angle>=315 && angle<360)
-        { 
+        {
           alpha = (angle-270)/180 * Math.PI;
           return new Point(1, 1-(1-startPoint.X)/Math.Tan(alpha));
         }
@@ -242,11 +234,20 @@ namespace Qhta.WPF.Controls
         isEdited = true;
         var startPoint = EditedBrush.StartPoint;
         var endPoint = EditedBrush.EndPoint;
+        var dx = endPoint.X-startPoint.X;
+        var dy = endPoint.Y-startPoint.Y;
+        var angle = Math.Atan2(dy, dx);
+        var radius = Math.Sqrt(dx*dx + dy*dy);
         startPoint.X=(double)args.NewValue/100;
         if (IsAnglePreserved)
         {
-          var dX = startPoint.X - EditedBrush.StartPoint.X;
-          endPoint.X += dX;
+          if (IsP2Fixed)
+            endPoint = GradientEndPoint(startPoint, angle, radius);
+          else
+          {
+            dx = startPoint.X-EditedBrush.StartPoint.X;
+            endPoint.X += dx;
+          }
         }
         EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
         isEdited = false;
@@ -260,19 +261,44 @@ namespace Qhta.WPF.Controls
         isEdited = true;
         var startPoint = EditedBrush.StartPoint;
         var endPoint = EditedBrush.EndPoint;
-        var angle = Math.Atan2(endPoint.X-startPoint.X, endPoint.Y-startPoint.Y);
+        var dx = endPoint.X-startPoint.X;
+        var dy = endPoint.Y-startPoint.Y;
+        var angle = Math.Atan2(dy, dx);
+        var radius = Math.Sqrt(dx*dx + dy*dy);
         startPoint.Y=(double)args.NewValue/100;
-        if (IsAnglePreserved && IsP2Fixed)
+        if (IsAnglePreserved)
         {
+          if (IsP2Fixed)
+            endPoint = GradientEndPoint(startPoint, angle, radius);
+          else
+            endPoint.Y += dy;
+        }
+        EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
+        isEdited = false;
+      }
+    }
 
-          var dY = startPoint.Y - EditedBrush.StartPoint.Y;
-          endPoint.Y += dY;
-        }
-        else if (IsAnglePreserved)
-        {
-          var dY = startPoint.Y - EditedBrush.StartPoint.Y;
-          endPoint.Y += dY;
-        }
+    private void EndXNumBox_ValueChanged(object sender, ValueChangedEventArgs<decimal> args)
+    {
+      if (!isEdited)
+      {
+        isEdited = true;
+        var startPoint = EditedBrush.StartPoint;
+        var endPoint = EditedBrush.EndPoint;
+        endPoint.X=(double)args.NewValue/100;
+        EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
+        isEdited = false;
+      }
+    }
+
+    private void EndYNumBox_ValueChanged(object sender, ValueChangedEventArgs<decimal> args)
+    {
+      if (!isEdited)
+      {
+        isEdited = true;
+        var startPoint = EditedBrush.StartPoint;
+        var endPoint = EditedBrush.EndPoint;
+        endPoint.Y=(double)args.NewValue/100;
         EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
         isEdited = false;
       }
@@ -286,15 +312,75 @@ namespace Qhta.WPF.Controls
       var dx = pos.X-p1.X;
       var dy = pos.Y-p1.Y;
       clickPos = pos;
-      isStartPointClicked= (Math.Sqrt(dx*dx+dy*dy)<=3);
+      if (Math.Sqrt(dx*dx+dy*dy)<=3)
+      {
+        isStartPointClicked = true;
+        CaptureMouse();
+      }
       dx = pos.X-p2.X;
       dy = pos.Y-p2.Y;
-      isEndPointClicked = (Math.Sqrt(dx*dx+dy*dy)<=3);
+      if (Math.Sqrt(dx*dx+dy*dy)<=6)
+      {
+        isEndPointClicked = true;
+        isStartPointClicked = false;
+        CaptureMouse();
+      }
     }
 
     bool isStartPointClicked;
     bool isEndPointClicked;
     Point clickPos;
+    bool isStartPointDragged;
+    bool isEndPointDragged;
 
+    private void LinearGradientBrushParamsEdit_PreviewMouseMove(object sender, MouseEventArgs args)
+    {
+      if (isStartPointClicked || isEndPointClicked)
+      {
+        var pos = args.GetPosition(GradientLine);
+        var dx = pos.X-clickPos.X;
+        var dy = pos.Y-clickPos.Y;
+        if (!isStartPointDragged && !isEndPointDragged)
+        {
+          if (Math.Sqrt(dx*dx+dy*dy)<=3)
+          {
+            if (isStartPointClicked)
+            {
+              isStartPointDragged = true;
+              isEdited=true;
+            }
+            else
+            if (isEndPointClicked)
+            {
+              isEndPointDragged = true;
+              isEdited=true;
+            }
+          }
+        }
+        if (isStartPointDragged)
+        {
+          var startPoint = new Point(pos.X / GradientLine.ActualWidth, pos.Y / GradientLine.ActualHeight);
+          var endPoint = EditedBrush.EndPoint;
+          EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
+        }
+        else
+        if (isEndPointDragged)
+        {
+          var startPoint = EditedBrush.StartPoint;
+          var endPoint = new Point(pos.X / GradientLine.ActualWidth, pos.Y / GradientLine.ActualHeight);
+          EditedBrush = new LinearGradientBrush(EditedBrush.GradientStops, startPoint, endPoint);
+        }
+      }
+    }
+
+    private void LinearGradientBrushParamsEdit_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
+    {
+      isStartPointClicked=false;
+      isEndPointClicked=false;
+      isStartPointDragged=false;
+      isEndPointDragged=false;
+      isEdited=false;
+      Mouse.Capture(null);
+    }
   }
 }

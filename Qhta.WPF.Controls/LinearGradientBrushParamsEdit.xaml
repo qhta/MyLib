@@ -87,8 +87,8 @@
           <Label>X</Label>
           <local:NumericEditBox 
             x:Name="StartXNumBox"
-            Minimum="0"
-            Maximum="100"
+            Minimum="-100"
+            Maximum="200"
             Width="40"
             Height="20"
             ValueChanged="StartXNumBox_ValueChanged"
@@ -97,8 +97,8 @@
           <Label>Y</Label>
           <local:NumericEditBox 
             x:Name="StartYNumBox"
-            Minimum="0"
-            Maximum="100"
+            Minimum="-100"
+            Maximum="200"
             Width="40"
             Height="20"
             ValueChanged="StartYNumBox_ValueChanged"
@@ -110,19 +110,21 @@
           <Label>X</Label>
           <local:NumericEditBox 
             x:Name="EndXNumBox"
-            Minimum="0"
-            Maximum="100"
+            Minimum="-100"
+            Maximum="200"
             Width="40"
             Height="20"
+            ValueChanged="EndXNumBox_ValueChanged"
             />
           <TextBlock Margin="3">[%]</TextBlock>
           <Label>Y</Label>
           <local:NumericEditBox 
             x:Name="EndYNumBox"
-            Minimum="0"
-            Maximum="100"
+            Minimum="-100"
+            Maximum="200"
             Width="40"
             Height="20"
+            ValueChanged="EndYNumBox_ValueChanged"
             />
           <TextBlock Margin="3">[%]</TextBlock>
         </StackPanel>
