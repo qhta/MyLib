@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -25,7 +23,8 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty StartPointProperty = DependencyProperty.Register
       ("StartPoint", typeof(Point), typeof(GradientLine),
-        new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+        new FrameworkPropertyMetadata(new Point(0, 0), 
+          FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
     #endregion
 
     #region EndPoint property
@@ -38,7 +37,8 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty EndPointProperty = DependencyProperty.Register
       ("EndPoint", typeof(Point), typeof(GradientLine),
-        new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+        new FrameworkPropertyMetadata(new Point(0, 0), 
+          FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
     #endregion
 
     #region GradientStops property
@@ -50,7 +50,35 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty GradientStopsProperty = DependencyProperty.Register
       ("GradientStops", typeof(GradientStopCollection), typeof(GradientLine),
-        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+        new FrameworkPropertyMetadata(null, 
+          FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+    #endregion
+
+    #region ClipToMargin property
+    public bool ClipToMargin
+    {
+      get => (bool)GetValue(ClipToMarginProperty);
+      set => SetValue(ClipToMarginProperty, value);
+    }
+
+    public static readonly DependencyProperty ClipToMarginProperty = DependencyProperty.Register
+      ("ClipToMargin", typeof(bool), typeof(GradientLine),
+        new FrameworkPropertyMetadata(false,
+          FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
+    #endregion
+
+    #region ClipMargin property
+    [TypeConverter(typeof(ThicknessConverter))]
+    public Thickness ClipMargin
+    {
+      get => (Thickness)GetValue(ClipMarginProperty);
+      set => SetValue(ClipMarginProperty, value);
+    }
+
+    public static readonly DependencyProperty ClipMarginProperty = DependencyProperty.Register
+      ("ClipMargin", typeof(Thickness), typeof(GradientLine),
+        new FrameworkPropertyMetadata(default(Thickness),
+          FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender));
     #endregion
 
     protected override Geometry DefiningGeometry
@@ -90,6 +118,14 @@ namespace Qhta.WPF.Controls
       transform.Children.Add(new RotateTransform(angle/Math.PI*180));
       transform.Children.Add(new TranslateTransform(p2.X, p2.Y));
       path.Transform = transform;
+
+      if (ClipToMargin)
+      {
+        var margin = ClipMargin;
+        drawingContext.PushClip(new RectangleGeometry(new Rect(-margin.Left, -margin.Top,
+          ActualWidth+margin.Left+margin.Right, ActualHeight+margin.Top+margin.Bottom)));
+      }
+
       if (Fill!=null)
       {
         var outlinePen = new Pen(Fill, StrokeThickness+1);
@@ -125,6 +161,8 @@ namespace Qhta.WPF.Controls
         drawingContext.Pop();
       }
 
+      if (ClipToMargin)
+        drawingContext.Pop();
     }
 
   }

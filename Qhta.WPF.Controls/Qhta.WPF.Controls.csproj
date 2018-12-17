@@ -72,7 +72,14 @@
   <ItemGroup>
     <Compile Include="Border3D.cs" />
     <Compile Include="Border3DThicknessConverter.cs" />
+    <Compile Include="GradientEllipse.cs" />
     <Compile Include="GradientLine.cs" />
+    <Compile Include="RadialGradientBrushEditForm.xaml.cs">
+      <DependentUpon>RadialGradientBrushEditForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RadialGradientBrushParamsEdit.xaml.cs">
+      <DependentUpon>RadialGradientBrushParamsEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LinearGradientBrushParamsEdit.xaml.cs">
       <DependentUpon>LinearGradientBrushParamsEdit.xaml</DependentUpon>
     </Compile>
@@ -192,6 +199,14 @@
     <Page Include="KnownColorSelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RadialGradientBrushEditForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RadialGradientBrushParamsEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LinearGradientBrushParamsEdit.xaml">
       <SubType>Designer</SubType>

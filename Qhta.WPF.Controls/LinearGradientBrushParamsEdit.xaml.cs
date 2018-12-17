@@ -11,9 +11,13 @@ namespace Qhta.WPF.Controls
     public LinearGradientBrushParamsEdit()
     {
       InitializeComponent();
-      PreviewMouseLeftButtonDown+=GradientLine_PreviewMouseLeftButtonDown;
-      PreviewMouseMove+=LinearGradientBrushParamsEdit_PreviewMouseMove;
-      PreviewMouseLeftButtonUp+=LinearGradientBrushParamsEdit_PreviewMouseLeftButtonUp;
+    }
+
+    public override void OnApplyTemplate()
+    {
+      GradientCanvas.MouseLeftButtonDown+=GradientCanvas_PreviewMouseLeftButtonDown;
+      GradientCanvas.MouseMove+=GradientCanvas_PreviewMouseMove;
+      GradientCanvas.MouseLeftButtonUp+=GradientCanvas_PreviewMouseLeftButtonUp;
     }
 
     #region EditedBrush property
@@ -29,7 +33,7 @@ namespace Qhta.WPF.Controls
 
     private static void EditedBrushPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-      (sender as LinearGradientBrushParamsEdit).UpdateAngleDataViews();
+      (sender as LinearGradientBrushParamsEdit).UpdateBrushDataViews();
     }
 
     #endregion
@@ -91,7 +95,7 @@ namespace Qhta.WPF.Controls
        new FrameworkPropertyMetadata(0));
     #endregion
 
-    private void UpdateAngleDataViews()
+    private void UpdateBrushDataViews()
     {
       if (EditedBrush!=null)
       {
@@ -304,7 +308,7 @@ namespace Qhta.WPF.Controls
       }
     }
 
-    private void GradientLine_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
+    private void GradientCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
     {
       var p1 = new Point(EditedBrush.StartPoint.X*GradientLine.ActualWidth, EditedBrush.StartPoint.Y*GradientLine.ActualHeight);
       var p2 = new Point(EditedBrush.EndPoint.X*GradientLine.ActualWidth, EditedBrush.EndPoint.Y*GradientLine.ActualHeight);
@@ -315,7 +319,7 @@ namespace Qhta.WPF.Controls
       if (Math.Sqrt(dx*dx+dy*dy)<=3)
       {
         isStartPointClicked = true;
-        CaptureMouse();
+        Mouse.Capture(GradientCanvas);
       }
       dx = pos.X-p2.X;
       dy = pos.Y-p2.Y;
@@ -323,7 +327,7 @@ namespace Qhta.WPF.Controls
       {
         isEndPointClicked = true;
         isStartPointClicked = false;
-        CaptureMouse();
+        Mouse.Capture(GradientCanvas);
       }
     }
 
@@ -333,7 +337,7 @@ namespace Qhta.WPF.Controls
     bool isStartPointDragged;
     bool isEndPointDragged;
 
-    private void LinearGradientBrushParamsEdit_PreviewMouseMove(object sender, MouseEventArgs args)
+    private void GradientCanvas_PreviewMouseMove(object sender, MouseEventArgs args)
     {
       if (isStartPointClicked || isEndPointClicked)
       {
@@ -373,7 +377,7 @@ namespace Qhta.WPF.Controls
       }
     }
 
-    private void LinearGradientBrushParamsEdit_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
+    private void GradientCanvas_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
     {
       isStartPointClicked=false;
       isEndPointClicked=false;

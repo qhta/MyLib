@@ -1,4 +1,4 @@
-﻿D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Border3D.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorMemberEdit.xaml;;
@@ -13,6 +13,8 @@ FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorSelectionForm.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\GradientSlider.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\KnownBrushSelectView.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\KnownColorSelectView.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\RadialGradientBrushEditForm.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\RadialGradientBrushParamsEdit.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\LinearGradientBrushParamsEdit.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\NumericEditBox.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\PanelHeader.xaml;;

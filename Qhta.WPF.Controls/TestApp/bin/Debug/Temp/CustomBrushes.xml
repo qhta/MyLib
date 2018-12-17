@@ -8,4 +8,10 @@
       <GradientStop offset="1">#FF000000</GradientStop>
     </GradientStops>
   </LinearGradientBrush>
+  <LinearGradientBrush name="Brush_145" start="0,0" end="0,1">
+    <GradientStops>
+      <GradientStop offset="0">#FFFFFFFF</GradientStop>
+      <GradientStop offset="1">#FF000000</GradientStop>
+    </GradientStops>
+  </LinearGradientBrush>
 </CustomBrushes>

@@ -58,6 +58,29 @@
       <local:LinearGradientBrushEditForm x:Name="LinearGradientBrushForm" 
                            VerticalContentAlignment="Top"
                            SelectedBrush="{Binding ElementName=ThisControl, Path=SelectedBrush}"/>
-    </TabItem>    
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <Grid Width="14" Height="14"
+              Margin="1"
+              ToolTip="Linear Gradient"
+              >
+          <Rectangle 
+            Stroke="Black"
+            StrokeThickness="1"
+            >
+            <Rectangle.Fill>
+              <RadialGradientBrush>
+                <GradientStop Offset="0" Color="White"/>
+                <GradientStop Offset="1" Color="Black"/>
+              </RadialGradientBrush>
+            </Rectangle.Fill>
+          </Rectangle>
+        </Grid>
+      </TabItem.Header>
+      <local:RadialGradientBrushEditForm x:Name="RadialGradientBrushForm" 
+                           VerticalContentAlignment="Top"
+                           SelectedBrush="{Binding ElementName=ThisControl, Path=SelectedBrush}"/>
+    </TabItem>
   </TabControl>
 </UserControl>
