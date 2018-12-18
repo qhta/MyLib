@@ -17,10 +17,12 @@ namespace Qhta.WPF.Controls
       DefinedBrushesPicker.SelectionChanged+=DefinedBrushsPicker_SelectionChanged;
       SolidBrushForm.ColorSelected+=SolidBrushForm_ColorSelected;
       LinearGradientBrushForm.BrushSelected+=InternalForm_BrushSelected;
+      RadialGradientBrushForm.BrushSelected+=InternalForm_BrushSelected;
 
       DefinedBrushesPicker.CloseFormRequest+=InternalForm_CloseFormRequest;
       SolidBrushForm.CloseFormRequest+=InternalForm_CloseFormRequest;
       LinearGradientBrushForm.CloseFormRequest+=InternalForm_CloseFormRequest;
+      RadialGradientBrushForm.CloseFormRequest+=InternalForm_CloseFormRequest;
     }
 
     #region SelectedBrush property

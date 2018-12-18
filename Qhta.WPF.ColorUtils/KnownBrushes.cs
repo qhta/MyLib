@@ -90,7 +90,7 @@ namespace Qhta.WPF
             else if (item.Brush is LinearGradientBrush linearBrush)
             {
               xmlWriter.WriteStartElement("LinearGradientBrush");
-              if (!String.IsNullOrEmpty(item.Name) && !item.Name.StartsWith("#"))
+              if (!String.IsNullOrEmpty(item.Name))
                 xmlWriter.WriteAttributeString("name", item.Name);
               xmlWriter.WriteAttributeString("start", linearBrush.StartPoint.ToString(CultureInfo.InvariantCulture));
               xmlWriter.WriteAttributeString("end", linearBrush.EndPoint.ToString(CultureInfo.InvariantCulture));
@@ -98,6 +98,29 @@ namespace Qhta.WPF
               {
                 xmlWriter.WriteStartElement("GradientStops");
                 foreach (var stop in linearBrush.GradientStops)
+                {
+                  xmlWriter.WriteStartElement("GradientStop");
+                  xmlWriter.WriteAttributeString("offset", stop.Offset.ToString(CultureInfo.InvariantCulture));
+                  xmlWriter.WriteString(stop.Color.ToString());
+                  xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+              }
+              xmlWriter.WriteEndElement();
+            }
+            else if (item.Brush is RadialGradientBrush radialBrush)
+            {
+              xmlWriter.WriteStartElement("RadialGradientBrush");
+              if (!String.IsNullOrEmpty(item.Name))
+                xmlWriter.WriteAttributeString("name", item.Name);
+              xmlWriter.WriteAttributeString("origin", radialBrush.GradientOrigin.ToString(CultureInfo.InvariantCulture));
+              xmlWriter.WriteAttributeString("center", radialBrush.Center.ToString(CultureInfo.InvariantCulture));
+              xmlWriter.WriteAttributeString("radiusX", radialBrush.RadiusX.ToString(CultureInfo.InvariantCulture));
+              xmlWriter.WriteAttributeString("radiusY", radialBrush.RadiusY.ToString(CultureInfo.InvariantCulture));
+              if (radialBrush.GradientStops!=null)
+              {
+                xmlWriter.WriteStartElement("GradientStops");
+                foreach (var stop in radialBrush.GradientStops)
                 {
                   xmlWriter.WriteStartElement("GradientStop");
                   xmlWriter.WriteAttributeString("offset", stop.Offset.ToString(CultureInfo.InvariantCulture));
@@ -147,9 +170,7 @@ namespace Qhta.WPF
               if (brushElement.Name=="LinearGradientBrush")
               {
                 var startStr = brushElement.GetAttribute("start");
-                var startPoint = Point.Parse(startStr);
                 var endStr = brushElement.GetAttribute("end");
-                var endPoint = Point.Parse(endStr);
                 GradientStopCollection gradientStops = null;
                 foreach (var gradienstStopsElement in brushElement.GetElementsByTagName("GradientStops").Cast<XmlElement>())
                 {
@@ -169,7 +190,49 @@ namespace Qhta.WPF
                 }
                 if (gradientStops!=null)
                 {
-                  var brush = new LinearGradientBrush(gradientStops, startPoint, endPoint);
+                  var brush = new LinearGradientBrush(gradientStops);
+                  if (!String.IsNullOrEmpty(startStr))
+                    brush.StartPoint=Point.Parse(startStr);
+                  if (!String.IsNullOrEmpty(endStr))
+                    brush.EndPoint=Point.Parse(endStr);
+                  CustomBrushes.Add(new CustomBrush { Name=brushName, Brush=brush });
+                }
+              }
+              else
+              if (brushElement.Name=="RadialGradientBrush")
+              {
+                var originStr = brushElement.GetAttribute("origin");
+                var centerStr = brushElement.GetAttribute("center");
+                var radiusXStr = brushElement.GetAttribute("radiusX");
+                var radiusYStr = brushElement.GetAttribute("radiusY");
+                GradientStopCollection gradientStops = null;
+                foreach (var gradienstStopsElement in brushElement.GetElementsByTagName("GradientStops").Cast<XmlElement>())
+                {
+                  gradientStops = new GradientStopCollection();
+                  foreach (var gradientStopElement in gradienstStopsElement.GetElementsByTagName("GradientStop").Cast<XmlElement>())
+                  {
+                    var offsetStr = gradientStopElement.GetAttribute("offset");
+                    var offset = Double.Parse(offsetStr, CultureInfo.InvariantCulture);
+                    var colorStr = gradientStopElement.InnerText;
+                    if (colorStr!=null)
+                    {
+                      var color = (Color)ColorConverter.ConvertFromString(colorStr);
+                      var gradientStop = new GradientStop(color, offset);
+                      gradientStops.Add(gradientStop);
+                    }
+                  }
+                }
+                if (gradientStops!=null)
+                {
+                  var brush = new RadialGradientBrush(gradientStops);
+                  if (!String.IsNullOrEmpty(originStr))
+                    brush.GradientOrigin=Point.Parse(originStr);
+                  if (!String.IsNullOrEmpty(centerStr))
+                    brush.Center=Point.Parse(centerStr);
+                  if (!String.IsNullOrEmpty(radiusXStr))
+                    brush.RadiusX=Double.Parse(radiusXStr, CultureInfo.InvariantCulture);
+                  if (!String.IsNullOrEmpty(radiusYStr))
+                    brush.RadiusY=Double.Parse(radiusYStr, CultureInfo.InvariantCulture);
                   CustomBrushes.Add(new CustomBrush { Name=brushName, Brush=brush });
                 }
               }

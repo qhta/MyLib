@@ -76,13 +76,7 @@ namespace Qhta.WPF.Controls
 
     public static readonly DependencyProperty EditedBrushProperty = DependencyProperty.Register
       ("EditedBrush", typeof(LinearGradientBrush), typeof(LinearGradientBrushEditForm),
-       new FrameworkPropertyMetadata(null, EditedBrushPropertyChanged));
-
-    private static void EditedBrushPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    {
-      //(sender as LinearGradientBrushEditForm).UpdateAngleDataViews();
-    }
-
+       new FrameworkPropertyMetadata(null));
     #endregion
 
     private void GradientSlider_GradientStopsChanged(object sender, ValueChangedEventArgs<GradientStopCollection> args)
@@ -99,9 +93,7 @@ namespace Qhta.WPF.Controls
         if (UndoManagers.BrushUndoManager.CanUndo)
         {
           var brush = EditedBrush;
-          //Debug.WriteLine($"EditedBrush=[{string.Join(", ", brush.GradientStops.Select(item => item.Offset.ToString()))}]");
           brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.UndoChanges(brush);
-          //Debug.WriteLine($"UndonedBrush=[{string.Join(", ", brush.GradientStops.Select(item => $"({item.Offset.ToString()}, {item.Color.ToString()})"))}]");
           EditedBrush = brush;
         }
       }
@@ -110,7 +102,6 @@ namespace Qhta.WPF.Controls
         if (UndoManagers.BrushUndoManager.CanRedo)
         {
           var brush = (LinearGradientBrush)UndoManagers.BrushUndoManager.RedoChanges();
-          //Debug.WriteLine($"RedoBrush[{string.Join(", ", brush.GradientStops.Select(item=>item.Offset.ToString()))}]");
           EditedBrush = brush;
         }
       }
@@ -122,12 +113,12 @@ namespace Qhta.WPF.Controls
     {
       SelectedBrush = EditedBrush;
       BrushSelected?.Invoke(this, new ValueChangedEventArgs<Brush>(SelectedBrush));
-      CloseFormRequest(this, new EventArgs());
+      CloseFormRequest?.Invoke(this, new EventArgs());
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
-      CloseFormRequest(this, new EventArgs());
+      CloseFormRequest?.Invoke(this, new EventArgs());
     }
 
   }

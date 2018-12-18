@@ -14,4 +14,10 @@
       <GradientStop offset="1">#FF000000</GradientStop>
     </GradientStops>
   </LinearGradientBrush>
+  <RadialGradientBrush name="Brush_146" origin="0.5,0.5" center="0.5,0.5" radiusX="0.7" radiusY="0.7">
+    <GradientStops>
+      <GradientStop offset="0">#FFFFFFFF</GradientStop>
+      <GradientStop offset="1">#FF000000</GradientStop>
+    </GradientStops>
+  </RadialGradientBrush>
 </CustomBrushes>
