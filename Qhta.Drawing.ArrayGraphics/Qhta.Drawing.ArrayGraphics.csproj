@@ -11,6 +11,9 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Yarreck Qhta</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Getting and setting pixels in System.Drawing.Bitmap</Description>
+    <PackageReleaseNotes>First Release</PackageReleaseNotes>
+    <PackageLicenseUrl>https://opensource.org/licenses/MS-PL</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -8,9 +8,9 @@
     <title>Qhta.WPF.Utils</title>
     <!--*-->
     <authors>Yarreck Qhta</authors>
-    <owners>qhta</owners>
+    <owners>Yarreck Qhta</owners>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
     <!--
-    <licenseUrl></licenseUrl>
     <projectUrl></projectUrl>
     <iconUrl></iconUrl>
 -->

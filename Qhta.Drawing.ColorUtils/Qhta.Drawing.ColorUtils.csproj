@@ -9,6 +9,10 @@
     <Authors>Yarreck Qhta</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>Qhta.Drawing</RootNamespace>
+    <PackageLicenseUrl>https://opensource.org/licenses/MS-PL</PackageLicenseUrl>
+    <Description>System.Drawing.Color utilities</Description>
+    <PackageReleaseNotes>ColorSpaceConverter changed to support alpha channel &amp; CMYK model</PackageReleaseNotes>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

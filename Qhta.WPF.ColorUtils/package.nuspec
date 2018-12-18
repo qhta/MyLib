@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>Qhta.WPF.ColorUtils</id>
+    <!--*-->
+    <version>1.0.1</version>
+    <title>Qhta.WPF.ColorUtils</title>
+    <!--*-->
+    <authors>Yarreck Qhta</authors>
+    <owners>Yarreck Qhta</owners>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <!--
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>System.Windows.Media.Color utilities</description>
+    <!--*-->
+    <releaseNotes>KnownColors &amp; KnownBrushes loaded only when apropriate files exist</releaseNotes>
+    <copyright>Yarreck Qhta</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <!--
+      <dependency id="SampleDependency" version="1.0" />
+-->
+    </dependencies>
+  </metadata>
+</package>

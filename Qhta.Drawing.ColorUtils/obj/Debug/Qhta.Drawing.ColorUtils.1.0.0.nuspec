@@ -6,7 +6,9 @@
     <authors>Yarreck Qhta</authors>
     <owners>Yarreck Qhta</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package Description</description>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <description>System.Drawing.Color utilities</description>
+    <releaseNotes>First Release</releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>

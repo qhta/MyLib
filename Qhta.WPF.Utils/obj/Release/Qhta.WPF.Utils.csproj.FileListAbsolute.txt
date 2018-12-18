@@ -97,13 +97,11 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\System.Xml.XmlSerializer.dl
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\System.Xml.XPath.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\System.Xml.XPath.XDocument.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\HtmlAgilityPack.dll
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.DispatchedObjects.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.MVVM.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.OrdNumbers.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\HtmlAgilityPack.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\HtmlAgilityPack.xml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Resources\WpfUtils.Resources.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.g.resources
@@ -112,3 +110,10 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.csproj.CopyC
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.OrdNumbers.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Release\Qhta.WPF.Utils.dll.config
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.ExceptionStringTable.resources
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.csproj.GenerateResource.cache
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Utils.dll.config
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Utils.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Utils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Release\Qhta.WPF.Utils.csprojAssemblyReference.cache

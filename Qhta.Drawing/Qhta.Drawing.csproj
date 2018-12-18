@@ -7,6 +7,16 @@
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Product>Qhta.Drawing</Product>
+    <Description>Some classes to support System.Drawing</Description>
+    <PackageId>Qhta.Drawing</PackageId>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Version>1.0.0</Version>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Company>Yarreck Qhta</Company>
+    <Authors>Yarreck Qhta</Authors>
+    <PackageLicenseUrl>https://opensource.org/licenses/MS-PL</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

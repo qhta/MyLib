@@ -28,7 +28,7 @@
              >
       <!--Format="{Binding ElementName=ThisControl, Path=ContentStringFormat}"-->
     </TextBox>
-    <my:NumericUpDown x:Name="NumericUpDown"
+    <my:NumericUpDown x:Name="MyUpDown"
                       Grid.Column="1" VerticalAlignment="Stretch"
                       Value="{Binding ElementName=TextBox, Path=Text, Mode=TwoWay}"
                       Increment="{Binding ElementName=ThisControl, Path=Increment, Mode=OneWay}"

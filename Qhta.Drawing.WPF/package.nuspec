@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>Qhta.Drawing.WPF</id>
+    <!--*-->
+    <version>1.0.0</version>
+    <title>Qhta.Drawing.WPF</title>
+    <!--*-->
+    <authors>Yarreck Qhta</authors>
+    <owners>Yarrect Qhta</owners>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <!--
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>A bridge from Qhta.Drawing to WPF</description>
+    <!--*-->
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright © 2018</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <!--
+      <dependency id="SampleDependency" version="1.0" />
+-->
+    </dependencies>
+  </metadata>
+</package>

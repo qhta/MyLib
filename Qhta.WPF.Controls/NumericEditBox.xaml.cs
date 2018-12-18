@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
+
 using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.Controls
@@ -32,7 +30,7 @@ namespace Qhta.WPF.Controls
       var numericValueConverter = (NumericValueConverter)FindResource("NumericValueConverter");
       numericValueConverter.Culture = this.ContentCulture;
       numericValueConverter.Format = this.ContentStringFormat;
-      NumericUpDown.ValueChanged+=NumericUpDown_ValueChanged;
+      MyUpDown.ValueChanged+=NumericUpDown_ValueChanged;
     }
 
     private void NumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> args)

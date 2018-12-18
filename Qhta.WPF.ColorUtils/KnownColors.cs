@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
@@ -97,21 +98,24 @@ namespace Qhta.WPF
       XmlDocument xmlDocument = new XmlDocument();
       try
       {
-        xmlDocument.Load(filePath);
-        var docElement = xmlDocument.DocumentElement;
-        if (docElement.Name=="CustomColors")
+        if (File.Exists(filePath))
         {
-          CustomColors.Clear();
-          foreach (var colorElement in docElement.GetElementsByTagName("CustomColor").Cast<XmlElement>())
+          xmlDocument.Load(filePath);
+          var docElement = xmlDocument.DocumentElement;
+          if (docElement.Name=="CustomColors")
           {
-            var colorName = colorElement.GetAttribute("name");
-            var colorStr = colorElement.InnerText;
-            if (colorStr!=null)
+            CustomColors.Clear();
+            foreach (var colorElement in docElement.GetElementsByTagName("CustomColor").Cast<XmlElement>())
             {
-              if (string.IsNullOrEmpty(colorName))
-                colorName = colorStr;
-              var color = (Color)ColorConverter.ConvertFromString(colorStr);
-              CustomColors.Add(new CustomColor { Name=colorName, Color=color });
+              var colorName = colorElement.GetAttribute("name");
+              var colorStr = colorElement.InnerText;
+              if (colorStr!=null)
+              {
+                if (string.IsNullOrEmpty(colorName))
+                  colorName = colorStr;
+                var color = (Color)ColorConverter.ConvertFromString(colorStr);
+                CustomColors.Add(new CustomColor { Name=colorName, Color=color });
+              }
             }
           }
         }

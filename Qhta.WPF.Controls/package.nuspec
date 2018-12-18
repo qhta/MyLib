@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>Qhta.WPF.Controls</id>
+    <!--*-->
+    <version>1.0.0</version>
+    <title>Qhta.WPF.Controls</title>
+    <!--*-->
+    <authors>Yarreck Qhta</authors>
+    <owners>Yarreck Qhta</owners>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <!--
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>Some useful WPF controls</description>
+    <!--*-->
+    <releaseNotes>First Release</releaseNotes>
+    <copyright>
+    </copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <!--
+      <dependency id="SampleDependency" version="1.0" />
+-->
+    </dependencies>
+  </metadata>
+</package>

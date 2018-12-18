@@ -180,7 +180,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Drawing.ColorUtils\\Qhta.Drawing.ColorUtils.csproj",
       "projectName": "Qhta.Drawing.ColorUtils",
@@ -200,6 +200,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\Jerry\\AppData\\Roaming\\NuGet\\https\\api.nuget.org": {},
+        "https://www.nuget.org": {},
         "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {
