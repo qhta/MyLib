@@ -24,7 +24,7 @@
              MaxLength="{Binding ElementName=ThisControl, Path=MaxLength}"
              TextAlignment="{Binding ElementName=ThisControl, Path=TextAlignment}"
              TextDecorations="{Binding ElementName=ThisControl, Path=TextDecorations}"
-             Height="{Binding ElementName=NumericUpDown, Path=ActualHeight}"
+             Height="{Binding ElementName=MyUpDown, Path=ActualHeight}"
              >
       <!--Format="{Binding ElementName=ThisControl, Path=ContentStringFormat}"-->
     </TextBox>

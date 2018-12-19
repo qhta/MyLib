@@ -127,14 +127,15 @@ namespace Qhta.WPF.Controls
 
     protected override void OnRender(DrawingContext drawingContext)
     {
-      var c0 = new Point(Center.X*ActualWidth, Center.Y* ActualHeight);
+      //Debug.WriteLine($"ActualWidth={ActualWidth}, ActualHeight={ActualHeight}");
+      var c0 = new Point(Center.X*ActualWidth, Center.Y*ActualHeight);
       var rx = RadiusX*ActualWidth;
       var ry = RadiusY*ActualHeight;
 
       if (ClipToMargin)
       {
         var margin = ClipMargin;
-        drawingContext.PushClip(new RectangleGeometry(new Rect(-margin.Left, -margin.Top, 
+        drawingContext.PushClip(new RectangleGeometry(new Rect(-margin.Left, -margin.Top,
           ActualWidth+margin.Left+margin.Right, ActualHeight+margin.Top+margin.Bottom)));
       }
 

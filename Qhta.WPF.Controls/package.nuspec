@@ -4,7 +4,7 @@
     <!--*-->
     <id>Qhta.WPF.Controls</id>
     <!--*-->
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Qhta.WPF.Controls</title>
     <!--*-->
     <authors>Yarreck Qhta</authors>
@@ -18,7 +18,8 @@
     <!--*-->
     <description>Some useful WPF controls</description>
     <!--*-->
-    <releaseNotes>First Release</releaseNotes>
+    <releaseNotes>Height binding error in NumericEditBox repaired.
+RadialGradientBrush ellipse uniform width &amp; height repaired.</releaseNotes>
     <copyright>
     </copyright>
     <tags>
