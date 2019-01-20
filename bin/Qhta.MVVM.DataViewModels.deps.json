@@ -76,21 +76,21 @@
     "Qhta.DispatchedObjects/1.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YQf0wRX918vomOBqLf4yKqtimA0xURYoNhnFOnHcIiRSCjs+6JgR4kCz1Vz4vfuNqBFPa808hiFdPgrpF8VLjA==",
+      "sha512": "sha512-svbSbNTtRXxulMfDZ2gYTm1MzPAMcn7VgktHrJvalkNrHquUJi2oHiaTRawgFEuFTxAGbvA+W22nceY3H234rQ==",
       "path": "qhta.dispatchedobjects/1.0.1",
       "hashPath": "qhta.dispatchedobjects.1.0.1.nupkg.sha512"
     },
     "Qhta.MVVM/1.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YZIDqV0hXNj9J0IquB8MvoErDbVG7MHtiwQ8K3j+pt1PJo+Io6yqkVZhkMfmHJwMqSDkPkBGI1TGHdKqIHhOMQ==",
+      "sha512": "sha512-JB0lXYqq2fwCx2+AJJzDI3okEdXRbiu/n7uDabjYjLQ4pKDpAaYCN76ibvNq72Lf/FUtGopwCqwNHQEAXD4SEg==",
       "path": "qhta.mvvm/1.0.1",
       "hashPath": "qhta.mvvm.1.0.1.nupkg.sha512"
     },
     "Qhta.OrdNumbers/2.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1zILRGFggm7oi+sucqHzO7M0vUq0W/oXeJS4sX3eWPV4F9neycqIDbkYxKhEHy7CTer/2VNSarxeuqjtrJSdLw==",
+      "sha512": "sha512-cxUiXeUnIp5mDPXdXO7jhxjddmp3AvC7ewaiL7AIgHv78SEhxsUG1jFsCqrrrzwXauARkl4MCwEbviDxxdsuSg==",
       "path": "qhta.ordnumbers/2.0.0",
       "hashPath": "qhta.ordnumbers.2.0.0.nupkg.sha512"
     }

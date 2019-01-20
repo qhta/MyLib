@@ -201,10 +201,11 @@
       ]
     },
     "Qhta.DispatchedObjects/1.0.1": {
-      "sha512": "YQf0wRX918vomOBqLf4yKqtimA0xURYoNhnFOnHcIiRSCjs+6JgR4kCz1Vz4vfuNqBFPa808hiFdPgrpF8VLjA==",
+      "sha512": "svbSbNTtRXxulMfDZ2gYTm1MzPAMcn7VgktHrJvalkNrHquUJi2oHiaTRawgFEuFTxAGbvA+W22nceY3H234rQ==",
       "type": "package",
       "path": "qhta.dispatchedobjects/1.0.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Qhta.DispatchedObjects.dll",
         "qhta.dispatchedobjects.1.0.1.nupkg.sha512",
@@ -212,10 +213,11 @@
       ]
     },
     "Qhta.MVVM/1.0.1": {
-      "sha512": "YZIDqV0hXNj9J0IquB8MvoErDbVG7MHtiwQ8K3j+pt1PJo+Io6yqkVZhkMfmHJwMqSDkPkBGI1TGHdKqIHhOMQ==",
+      "sha512": "JB0lXYqq2fwCx2+AJJzDI3okEdXRbiu/n7uDabjYjLQ4pKDpAaYCN76ibvNq72Lf/FUtGopwCqwNHQEAXD4SEg==",
       "type": "package",
       "path": "qhta.mvvm/1.0.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Qhta.MVVM.dll",
         "qhta.mvvm.1.0.1.nupkg.sha512",
@@ -223,10 +225,11 @@
       ]
     },
     "Qhta.OrdNumbers/2.0.0": {
-      "sha512": "1zILRGFggm7oi+sucqHzO7M0vUq0W/oXeJS4sX3eWPV4F9neycqIDbkYxKhEHy7CTer/2VNSarxeuqjtrJSdLw==",
+      "sha512": "cxUiXeUnIp5mDPXdXO7jhxjddmp3AvC7ewaiL7AIgHv78SEhxsUG1jFsCqrrrzwXauARkl4MCwEbviDxxdsuSg==",
       "type": "package",
       "path": "qhta.ordnumbers/2.0.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Qhta.OrdNumbers.dll",
         "qhta.ordnumbers.2.0.0.nupkg.sha512",
@@ -266,6 +269,9 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\Jerry\\AppData\\Roaming\\NuGet\\https\\api.nuget.org": {},
+        "https://ww.nuget.org": {},
+        "https://www.nuget.org": {},
         "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {

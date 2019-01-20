@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Qhta.TypeUtils
 {
-  using System;
-  using System.Diagnostics;
-  using System.IO;
-  using System.Runtime.Serialization;
-  using System.Runtime.Serialization.Formatters.Binary;
 
   /// <summary>
   /// Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx

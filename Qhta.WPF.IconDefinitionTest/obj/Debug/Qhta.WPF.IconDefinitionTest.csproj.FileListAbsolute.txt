@@ -58,3 +58,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\HtmlAgilityPack.
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\HtmlAgilityPack.xml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.ZoomPan.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.ZoomPan.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.ColorUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.WPF.Controls.dll.config
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.IconDefinitionTest\bin\Debug\Qhta.Drawing.ColorUtils.pdb
