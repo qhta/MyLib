@@ -9,7 +9,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.CodeMetrics\bin\Debug\netstandard2.0\stdole.dll
 D:\Dane\VS\Projects\MyLib\Qhta.CodeMetrics\obj\Debug\netstandard2.0\Qhta.CodeMetrics.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.CodeMetrics\obj\Debug\netstandard2.0\Qhta.CodeMetrics.dll
 D:\Dane\VS\Projects\MyLib\Qhta.CodeMetrics\obj\Debug\netstandard2.0\Qhta.CodeMetrics.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.CodeMetrics\obj\Debug\netstandard2.0\Qhta.CodeMetrics.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.CodeMetrics.deps.json
 D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.CodeMetrics.dll
 D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.CodeMetrics.pdb
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Keywords_CSharp.txt

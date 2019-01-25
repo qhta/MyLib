@@ -11,6 +11,23 @@
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
   </PropertyGroup>
 
+
+  <ItemGroup>
+    <None Remove="Keywords_CSharp.txt" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="Keywords_CSharp.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <Reference Include="EnvDTE">
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\EnvDTE.dll</HintPath>
