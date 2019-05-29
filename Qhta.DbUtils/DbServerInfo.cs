@@ -10,9 +10,9 @@ namespace Qhta.DbUtils
   public class DbServerInfo
   {
     /// <summary>
-    /// Nazwa wyświetlana
+    /// Nazwa widoczna
     /// </summary>
-    public string Name { get; set; }
+    public string ID { get; set; }
     /// <summary>
     /// Nazwa serwera (maszyny, na której serwer jest postawiony)
     /// </summary>
@@ -22,7 +22,11 @@ namespace Qhta.DbUtils
     /// </summary>
     public string InstanceName { get; set; }
     /// <summary>
-    /// Wersja serwers
+    /// Typ serwera: lokalny/zdalny
+    /// </summary>
+    public ServerType ServerType { get; set; }
+    /// <summary>
+    /// Wersja serwera
     /// </summary>
     public string Version { get; set; }
     /// <summary>
@@ -62,12 +66,15 @@ namespace Qhta.DbUtils
     /// Adres sieciowy tworzony z połączenia nazwy serwera i nazwy instancji
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
+    public string NetName
     {
-      if (String.IsNullOrEmpty(InstanceName))
-        return ServerName;
-      else
-        return ServerName+"\\"+InstanceName;
+      get
+      {
+        if (String.IsNullOrEmpty(InstanceName))
+          return ServerName;
+        else
+          return ServerName + "\\" + InstanceName;
+      }
     }
   }
 }

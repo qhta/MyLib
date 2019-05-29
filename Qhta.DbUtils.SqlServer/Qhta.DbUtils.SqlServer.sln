@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.DbUtils.SqlServer", "Qhta.DbUtils.SqlServer.csproj", "{7EA96CAC-6BB0-4326-B37D-BB43081E9E33}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.DbUtils", "..\Qhta.DbUtils\Qhta.DbUtils.csproj", "{C1CD0AED-56FB-4D02-905E-F905E68BE818}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.DbUtils.Core.Test", "..\Qhta.DbUtils.Core.Test\Qhta.DbUtils.Core.Test.csproj", "{DB7FE312-568F-4A0D-B6FF-0C97C0C003CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7EA96CAC-6BB0-4326-B37D-BB43081E9E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EA96CAC-6BB0-4326-B37D-BB43081E9E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EA96CAC-6BB0-4326-B37D-BB43081E9E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CD0AED-56FB-4D02-905E-F905E68BE818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CD0AED-56FB-4D02-905E-F905E68BE818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CD0AED-56FB-4D02-905E-F905E68BE818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CD0AED-56FB-4D02-905E-F905E68BE818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB7FE312-568F-4A0D-B6FF-0C97C0C003CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB7FE312-568F-4A0D-B6FF-0C97C0C003CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB7FE312-568F-4A0D-B6FF-0C97C0C003CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB7FE312-568F-4A0D-B6FF-0C97C0C003CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

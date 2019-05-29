@@ -9,8 +9,9 @@
     <description>Package Description</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" exclude="Build,Analyzers" />
-        <dependency id="System.Data.SqlClient" version="4.5.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="150.18118.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Windows.Compatibility" version="3.0.0-preview5.19224.8" exclude="Build,Analyzers" />
+        <dependency id="System.Data.SqlClient" version="4.7.0-preview5.19224.8" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

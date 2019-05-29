@@ -7,3 +7,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServe
 D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.dll
 D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.SqlServer\obj\Debug\Qhta.DbUtils.SqlServer.csprojAssemblyReference.cache

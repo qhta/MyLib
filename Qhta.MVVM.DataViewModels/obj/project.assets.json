@@ -269,9 +269,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Jerry\\AppData\\Roaming\\NuGet\\https\\api.nuget.org": {},
-        "https://ww.nuget.org": {},
-        "https://www.nuget.org": {},
+        "https://dotnet.myget.org/F/roslyn/api/v3/index.json": {},
         "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {

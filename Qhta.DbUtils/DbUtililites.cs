@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 
 namespace Qhta.DbUtils
@@ -19,7 +20,10 @@ namespace Qhta.DbUtils
     {
       Assembly assembly = Assembly.GetCallingAssembly();
       AssemblyName[] refAssemblies = assembly.GetReferencedAssemblies();
-      return EnumerateEngineClasses(refAssemblies);
+      var result = EnumerateEngineClasses(refAssemblies);
+      if (result.Count()==0)
+        throw new InvalidOperationException($"No engines found. To see engines add a reference to an engine assembly to the calling assembly and add any instruction that invokes the code from the engine assembly");
+      return result;
     }
 
     /// <summary>

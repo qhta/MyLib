@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.SqlServer.Management.Smo;
+using Microsoft.Win32;
 
 namespace Qhta.DbUtils.SqlServer
 {
@@ -19,21 +20,7 @@ namespace Qhta.DbUtils.SqlServer
 
     public override bool CanEnumerateServerInstances(ServerType serverType)
     {
-      ServerType result = 0;
-      if (serverType.HasFlag(ServerType.Local))
-      {
-        try
-        {
-          DataTable aTable = 
-            SmoApplication.EnumAvailableSqlServers(true);
-          result |= ServerType.Local;
-        }
-        catch(Exception ex)
-        {
-          HandleException(ex);
-        }
-      }
-      return result!=0 && result==serverType;
+      return true;
     }
 
     /// <summary>
@@ -43,16 +30,36 @@ namespace Qhta.DbUtils.SqlServer
     {
       List<DbServerInfo> result = new List<DbServerInfo>();
       {
-        var smoApp = new SmoApplication();
         DataTable aTable = null;
-        if (serverType.HasFlag(ServerType.Remote))
-        { 
-          //aTable = SqlDataSourceEnumerator
+        string localServerName = Environment.MachineName;
+        try
+        {
+          aTable = SmoApplication.EnumAvailableSqlServers(serverType.HasFlag(ServerType.Local));
         }
-        else
-        if (serverType.HasFlag(ServerType.Local))
-          aTable = SmoApplication.EnumAvailableSqlServers(true);
-        if (aTable!=null)
+        catch (Exception ex)
+        {
+          HandleException(ex);
+        }
+        if (aTable == null && serverType.HasFlag(ServerType.Local))
+        {
+          var names = GetLocalInstanceNames();
+          foreach (var name in names)
+          {
+            var ss = name.Split('\\');
+            ss[0] = localServerName;
+            var name1 = String.Join("\\", ss);
+            var info = new DbServerInfo
+            {
+              ID = name1,
+              ServerName = ss[0],
+              InstanceName = ss.Length > 1 ? ss[1] : null,
+              ServerType = ServerType.Local,
+              Engine = this,
+            };
+            result.Add(info);
+          }
+        }
+        if (aTable != null)
         {
           foreach (DataRow aRow in aTable.Rows)
           {
@@ -62,9 +69,10 @@ namespace Qhta.DbUtils.SqlServer
             string version = aRow["Version"] as string;
             var info = new DbServerInfo
             {
-              Name = name,
+              ID = name,
               ServerName = serverName,
               InstanceName = instanceName,
+              ServerType = serverName.Equals(localServerName) ? ServerType.Local : ServerType.Remote,
               Version = version,
               Engine = this,
             };
@@ -73,6 +81,61 @@ namespace Qhta.DbUtils.SqlServer
         }
       }
       return result;
+    }
+
+    public string[] GetLocalInstanceNames()
+    {
+      if (Environment.Is64BitOperatingSystem)
+      {
+        string[] list1;
+        string[] list2;
+        using (var hive = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+        {
+          list1 = GetLocalInstanceNames(hive);
+        }
+
+        using (var hive = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+        {
+          list2 = GetLocalInstanceNames(hive);
+        }
+        var result = list1.Concat(list2).ToArray();
+        return result;
+      }
+      else
+      {
+        return GetLocalInstanceNames(Registry.LocalMachine);
+      }
+    }
+
+    private string[] GetLocalInstanceNames(RegistryKey hive)
+    {
+      const string keyName = @"Software\Microsoft\Microsoft SQL Server";
+      const string valueName = "InstalledInstances";
+      const string defaultName = "MSSQLSERVER";
+
+      using (var key = hive.OpenSubKey(keyName, false))
+      {
+        if (key == null)
+          return Array.Empty<string>();
+
+        var value = key.GetValue(valueName) as string[];
+        if (value == null)
+          return Array.Empty<string>();
+
+        for (int index = 0; index < value.Length; index++)
+        {
+          if (string.Equals(value[index], defaultName, StringComparison.OrdinalIgnoreCase))
+          {
+            value[index] = ".";
+          }
+          else
+          {
+            value[index] = @".\" + value[index];
+          }
+        }
+
+        return value;
+      }
     }
 
     /// <summary>
@@ -84,7 +147,7 @@ namespace Qhta.DbUtils.SqlServer
     public override DbConnection CreateConnection(DbServerInfo server)
     {
       SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
-      sb["Data Source"] = server.ToString();
+      sb["Data Source"] = server.ID;
       if (server.UserID != null)
       {
         sb["User ID"] = server.UserID;
@@ -105,7 +168,7 @@ namespace Qhta.DbUtils.SqlServer
     public override DbConnection CreateConnection(DbInfo info)
     {
       SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
-      sb["Data Source"] = info.Server.ToString();
+      sb["Data Source"] = info.Server.ID;
       if (info.DbName != null)
         sb["Database"] = info.DbName;
       if (info.UserID != null)
@@ -130,16 +193,16 @@ namespace Qhta.DbUtils.SqlServer
       SqlConnection connection = (SqlConnection)GetConnection(server);
       using (var command = new SqlCommand())
       {
-        command.CommandText=
+        command.CommandText =
           "SELECT [name]"           //0
-          +",[database_id]"         //1
-          +",[source_database_id]"  //2
-          +",[owner_sid]"           //3
-          +",[create_date]"         //4
-          +",[compatibility_level]" //5
-          +" FROM sys.databases WHERE not name in ('master','model','msdb','tempdb')";
-        command.Connection=connection;
-        bool opened = connection.State==ConnectionState.Open;
+          + ",[database_id]"         //1
+          + ",[source_database_id]"  //2
+          + ",[owner_sid]"           //3
+          + ",[create_date]"         //4
+          + ",[compatibility_level]" //5
+          + " FROM sys.databases WHERE not name in ('master','model','msdb','tempdb')";
+        command.Connection = connection;
+        bool opened = connection.State == ConnectionState.Open;
         try
         {
           if (!opened)
@@ -152,8 +215,8 @@ namespace Qhta.DbUtils.SqlServer
             {
               var dbInfo = new DbInfo
               {
-                DbName=dataReader[0].ToString(),
-                DefaultFileExt="mdf",
+                DbName = dataReader[0].ToString(),
+                DefaultFileExt = "mdf",
                 CreatedAt = (DateTime)dataReader.GetValue(4),
                 Server = server,
               };
@@ -190,7 +253,7 @@ namespace Qhta.DbUtils.SqlServer
         var mainFiles = System.IO.Directory.EnumerateFiles(locations[0], "*.mdf");
         var logFiles = System.IO.Directory.EnumerateFiles(locations[0], "*.ldf");
         var logFiles2 = logFiles;
-        if (locations[1]!=locations[0] && System.IO.Directory.Exists(locations[1]))
+        if (locations[1] != locations[0] && System.IO.Directory.Exists(locations[1]))
           logFiles2 = System.IO.Directory.EnumerateFiles(locations[1], "*.ldf");
         foreach (var item in mainFiles)
         {
@@ -200,15 +263,15 @@ namespace Qhta.DbUtils.SqlServer
           fileNames.Add(item);
           var logFileName = logFiles.FirstOrDefault(item2 => System.IO.Path.GetFileNameWithoutExtension(item2).Contains(name1))
             ?? logFiles2.FirstOrDefault(item2 => System.IO.Path.GetFileNameWithoutExtension(item2).Contains(name1));
-          if (logFileName!=null)
+          if (logFileName != null)
             fileNames.Add(logFileName);
-          dbInfo.FileNames= fileNames.ToArray();
+          dbInfo.FileNames = fileNames.ToArray();
           result.Add(dbInfo);
         }
       }
       var existedDatabases = EnumerateDatabases(serverInfo);
       foreach (var db in existedDatabases)
-        result.RemoveAll(item => item.DbName==db.DbName);
+        result.RemoveAll(item => item.DbName == db.DbName);
       return result;
     }
 
@@ -250,10 +313,10 @@ namespace Qhta.DbUtils.SqlServer
       SqlConnection connection = (SqlConnection)GetConnection(info.Server);
       using (var command = new SqlCommand())
       {
-        if (info.FileNames!=null)
+        if (info.FileNames != null)
         {
           var files = info.FileNames;
-          if (files.Count()==2 && !String.IsNullOrEmpty(files[1]))
+          if (files.Count() == 2 && !String.IsNullOrEmpty(files[1]))
             command.CommandText = String.Format(
                 "CREATE DATABASE [{0}]"
                 + " ON (NAME='{0}' ,FILENAME='{1}')"
@@ -311,7 +374,7 @@ namespace Qhta.DbUtils.SqlServer
         command.CommandText =
             String.Format("SELECT * FROM master.sys.databases WHERE Name='{0}'", info.DbName);
         command.Connection = connection;
-        bool opened = connection.State==ConnectionState.Open;
+        bool opened = connection.State == ConnectionState.Open;
         try
         {
           if (!opened)
@@ -320,7 +383,7 @@ namespace Qhta.DbUtils.SqlServer
           var ok = result != null;
           if (ok)
           {
-            info.Engine=this;
+            info.Engine = this;
             info.Files = GetSqlDatabaseFiles(info);
           }
           return ok;
@@ -375,7 +438,7 @@ namespace Qhta.DbUtils.SqlServer
     private void DeleteSqlServerDatabase(DbInfo info, bool detachOnly = false)
     {
       SqlConnection connection = (SqlConnection)info.Connection;
-      if (connection!=null && connection.State==ConnectionState.Open)
+      if (connection != null && connection.State == ConnectionState.Open)
         connection.Close();
       connection = (SqlConnection)info.Server.Connection;
       SqlConnection.ClearPool(connection);
@@ -421,10 +484,10 @@ namespace Qhta.DbUtils.SqlServer
     public override string[] PhysicalFilenames(DbInfo info)
     {
       List<string> result = new List<string>();
-      if (info.FileNames!=null)
+      if (info.FileNames != null)
       {
         result.AddRange(info.FileNames);
-        if (result.Count==1)
+        if (result.Count == 1)
           result.Add(SqlLogFileName(result[0]));
       }
       else if (DatabaseExists(info))
@@ -446,17 +509,17 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="info">informacje definiujące bazę danych</param>
     public override bool ExistsDatabaseFiles(DbInfo info)
     {
-      if (info.Files==null)
+      if (info.Files == null)
       {
-        if (info.FileNames==null)
+        if (info.FileNames == null)
           info.FileNames = GetDefaultFileNames(info);
-        for (int i = 0; i<info.FileNames.Length; i++)
+        for (int i = 0; i < info.FileNames.Length; i++)
           if (!System.IO.File.Exists(info.FileNames[i]))
             return false;
       }
       else
       {
-        for (int i = 0; i<info.Files.Length; i++)
+        for (int i = 0; i < info.Files.Length; i++)
           if (!System.IO.File.Exists(info.Files[i].PhysicalName))
             return false;
       }
@@ -466,8 +529,8 @@ namespace Qhta.DbUtils.SqlServer
     private string[] GetDefaultFileNames(DbInfo info)
     {
       var result = GetSqlServerDefaultLocations(info.Server);
-      result[0] = System.IO.Path.Combine(result[0], info.DbName+".mdf");
-      result[1] = SqlLogFileName(System.IO.Path.Combine(result[1], info.DbName+".ldf"));
+      result[0] = System.IO.Path.Combine(result[0], info.DbName + ".mdf");
+      result[1] = SqlLogFileName(System.IO.Path.Combine(result[1], info.DbName + ".ldf"));
       return result;
     }
 
@@ -483,7 +546,7 @@ namespace Qhta.DbUtils.SqlServer
         command.CommandText =
              "SELECT SERVERPROPERTY('InstanceDefaultDataPath') AS DataFiles, SERVERPROPERTY('InstanceDefaultLogPath') AS LogFiles";
         command.Connection = connection;
-        bool opened = connection.State==ConnectionState.Open;
+        bool opened = connection.State == ConnectionState.Open;
         try
         {
           if (!opened)
@@ -525,8 +588,8 @@ namespace Qhta.DbUtils.SqlServer
       if (ExistsSqlServerDatabase(info))
       {
         RenameSqlServerDatabase(info, newDbName, newFileNames);
-        info.DbName=newDbName;
-        info.Files=GetSqlDatabaseFiles(info);
+        info.DbName = newDbName;
+        info.Files = GetSqlDatabaseFiles(info);
       }
       else
         throw new DataException("To rename a SQL database it must be connected to a SQL Server instance");
@@ -551,7 +614,7 @@ namespace Qhta.DbUtils.SqlServer
           String.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", info.DbName);
         command.Connection = connection;
 
-        bool opened = connection.State==ConnectionState.Open;
+        bool opened = connection.State == ConnectionState.Open;
         try
         {
           if (!opened)
@@ -563,20 +626,20 @@ namespace Qhta.DbUtils.SqlServer
               String.Format("ALTER DATABASE [{0}] MODIFY Name = [{1}]", oldDbName, newDbName);
             command.ExecuteNonQuery();
           }
-          bool changePhysicalFile = newFileNames != null && newFileNames.Length>0;
+          bool changePhysicalFile = newFileNames != null && newFileNames.Length > 0;
           if (changePhysicalFile)
           {
             var newFiles = NewFileInfos(info, newDbName, newFileNames);
 
             // zmiana nazw plików
-            for (int i = 0; i<newFiles.Count() && i<newFileNames.Count(); i++)
+            for (int i = 0; i < newFiles.Count() && i < newFileNames.Count(); i++)
             {
               var oldFileName = oldFiles[i].LogicalName;
 
               string alterSQL = "ALTER DATABASE [{0}]"
                     + " MODIFY FILE ( NAME = [{1}],"
                     + " NEWNAME = [{2}]";
-              if (oldFiles[i].PhysicalName!=newFiles[i].PhysicalName)
+              if (oldFiles[i].PhysicalName != newFiles[i].PhysicalName)
                 alterSQL += ", FILENAME = N'{3}')";
               else
                 alterSQL += ")";
@@ -587,17 +650,17 @@ namespace Qhta.DbUtils.SqlServer
                     newFiles[i].PhysicalName);
               command.ExecuteNonQuery();
             }
-            info.DbName=newDbName;
+            info.DbName = newDbName;
             DetachSqlServerDatabase(info);
             var oldFileNames = oldFiles.Select(item => item.PhysicalName).Take(newFileNames.Length).ToArray();
             RenameDatabaseFiles(oldFileNames, newFileNames);
-            for (int i = newFileNames.Length; i< newFiles.Length; i++)
-              newFiles[i]=oldFiles[i];
-            info.Files=newFiles;
+            for (int i = newFileNames.Length; i < newFiles.Length; i++)
+              newFiles[i] = oldFiles[i];
+            info.Files = newFiles;
             AttachSqlServerDatabase(info);
           }
           else
-            info.DbName=newDbName;
+            info.DbName = newDbName;
 
           command.CommandText =
             String.Format("ALTER DATABASE [{0}] SET MULTI_USER WITH ROLLBACK IMMEDIATE", newDbName);
@@ -637,8 +700,8 @@ namespace Qhta.DbUtils.SqlServer
       var oldDbName = info.DbName;
       var oldFiles = info.Files;
       var newFiles = new List<DbFileInfo>();
-      for (int i = 0; i<oldFiles.Count(); i++)
-        if (newFileNames!=null && i<newFileNames.Length)
+      for (int i = 0; i < oldFiles.Count(); i++)
+        if (newFileNames != null && i < newFileNames.Length)
           newFiles.Add(new DbFileInfo
           {
             Type = oldFiles[i].Type,
@@ -673,7 +736,7 @@ namespace Qhta.DbUtils.SqlServer
           + " WHERE database_id = DB_ID(N'{0}')"
           + " ORDER BY [type]",
           info.DbName);
-        command.Connection=connection;
+        command.Connection = connection;
         bool opened = connection.State == ConnectionState.Open;
         try
         {
@@ -713,7 +776,7 @@ namespace Qhta.DbUtils.SqlServer
     {
       if (ExistsSqlServerDatabase(dbInfo))
       {
-        if (newDbInfo.Server!=dbInfo.Server)
+        if (newDbInfo.Server != dbInfo.Server)
           throw new DataException("You can copy a database only within the same SQL Server instance");
         CopySqlServerDatabase(dbInfo, newDbInfo.DbName, newDbInfo.FileNames);
       }
@@ -732,7 +795,7 @@ namespace Qhta.DbUtils.SqlServer
       var oldDbName = oldDbInfo.DbName;
       var oldFiles = GetSqlDatabaseFiles(oldDbInfo);
       var newFiles = NewFileInfos(oldDbInfo, newDbName, newFileNames);
-      var newDbInfo = new DbInfo { Server= oldDbInfo.Server, DbName=newDbName, Files = newFiles };
+      var newDbInfo = new DbInfo { Server = oldDbInfo.Server, DbName = newDbName, Files = newFiles };
       CopySqlServerDatabase(oldDbInfo, newDbInfo);
     }
 
@@ -757,7 +820,7 @@ namespace Qhta.DbUtils.SqlServer
           DetachSqlServerDatabase(oldDbInfo);
           var newFiles = newDbInfo.Files;
           // skopiowanie plików danych
-          for (int i = 0; i<oldFiles.Count() && i<newFiles.Count(); i++)
+          for (int i = 0; i < oldFiles.Count() && i < newFiles.Count(); i++)
           {
             if (!SafeCopyFile(oldFiles[i].PhysicalName, newFiles[i].PhysicalName))
               newFiles[i].PhysicalName = null;
@@ -803,7 +866,7 @@ namespace Qhta.DbUtils.SqlServer
           " AND [Partitions].index_id IN ( 0, 1 )" +
           " GROUP BY SCHEMA_NAME(schema_id), [Tables].name, [Tables].modify_date" +
           " ORDER BY [Tables].name;";
-        command.Connection=connection;
+        command.Connection = connection;
         bool opened = connection.State == ConnectionState.Open;
         try
         {
@@ -869,9 +932,9 @@ namespace Qhta.DbUtils.SqlServer
          "     ON i.object_id = ic.object_id AND i.index_id=ic.index_id AND i.is_primary_key=1" +
          "  ) AS ic" +
          "    ON ic.object_id = c.object_id AND ic.column_id = c.column_id" +
-         "  WHERE c.object_id = OBJECT_ID('{0}')"+
+         "  WHERE c.object_id = OBJECT_ID('{0}')" +
          ";", info.Name);
-        command.Connection=connection;
+        command.Connection = connection;
         bool opened = connection.State == ConnectionState.Open;
         try
         {
@@ -955,12 +1018,12 @@ namespace Qhta.DbUtils.SqlServer
 
     private static void HandleException(Exception ex)
     {
-      //Debug.IndentSize=2;
-      //Debug.Indent();
-      //Debug.WriteLine($"{ex.GetType().Name}: {ex.Message}");
-      //if (ex.InnerException!=null)
-      //  HandleException(ex.InnerException);
-      //Debug.Unindent();
+      Debug.IndentSize = 2;
+      Debug.Indent();
+      Debug.WriteLine($"{ex.GetType().Name}: {ex.Message}");
+      if (ex.InnerException != null)
+        HandleException(ex.InnerException);
+      Debug.Unindent();
     }
     #endregion
   }

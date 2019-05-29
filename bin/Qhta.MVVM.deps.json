@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "44808fea74f521a726a6b8b903a4849a1907aaa4"
+    "signature": "12d0a84535bfb12eebfe7ef951619b8d1feeaad8"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,7 +11,7 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.DispatchedObjects": "1.0.1",
-          "Qhta.OrdNumbers": "2.0.0",
+          "Qhta.OrdNumbers": "2.1.0",
           "WindowsBase": "4.0.0.0"
         },
         "runtime": {
@@ -32,11 +32,11 @@
           }
         }
       },
-      "Qhta.OrdNumbers/2.0.0": {
+      "Qhta.OrdNumbers/2.1.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.OrdNumbers.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
           }
         }
       },
@@ -97,16 +97,16 @@
     "Qhta.DispatchedObjects/1.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YQf0wRX918vomOBqLf4yKqtimA0xURYoNhnFOnHcIiRSCjs+6JgR4kCz1Vz4vfuNqBFPa808hiFdPgrpF8VLjA==",
+      "sha512": "sha512-svbSbNTtRXxulMfDZ2gYTm1MzPAMcn7VgktHrJvalkNrHquUJi2oHiaTRawgFEuFTxAGbvA+W22nceY3H234rQ==",
       "path": "qhta.dispatchedobjects/1.0.1",
       "hashPath": "qhta.dispatchedobjects.1.0.1.nupkg.sha512"
     },
-    "Qhta.OrdNumbers/2.0.0": {
+    "Qhta.OrdNumbers/2.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1zILRGFggm7oi+sucqHzO7M0vUq0W/oXeJS4sX3eWPV4F9neycqIDbkYxKhEHy7CTer/2VNSarxeuqjtrJSdLw==",
-      "path": "qhta.ordnumbers/2.0.0",
-      "hashPath": "qhta.ordnumbers.2.0.0.nupkg.sha512"
+      "sha512": "sha512-Xf7B59hzWqDsZdWdHJQJEK1fhfRfp2IeeJWGHnc7+gByXagd1xyrXF8U8V76jik3vYKKs6Q8qmp+Tv/fbrN/8g==",
+      "path": "qhta.ordnumbers/2.1.0",
+      "hashPath": "qhta.ordnumbers.2.1.0.nupkg.sha512"
     },
     "WindowsBase/4.0.0.0": {
       "type": "reference",

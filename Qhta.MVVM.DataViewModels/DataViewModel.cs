@@ -41,6 +41,8 @@ namespace Qhta.MVVM
       return Task.Run(() => new Action(DoOpenDataSet).Invoke());
     }
 
-    protected abstract void DoOpenDataSet();
+    protected virtual void DoOpenDataSet()
+    {
+    }
   }
 }
