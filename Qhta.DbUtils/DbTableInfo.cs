@@ -27,5 +27,10 @@ namespace Qhta.DbUtils
     /// </summary>
     public DbInfo Database { get; set; }
 
+    /// <summary>
+    /// Ścieżka dostępu do tabeli
+    /// </summary>
+    public string Path => Database.Path + "." + Name;
+
   }
 }

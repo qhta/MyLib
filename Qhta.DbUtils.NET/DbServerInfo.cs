@@ -43,26 +43,6 @@ namespace Qhta.DbUtils
     public string Password { get; set; }
 
     /// <summary>
-    /// Połączenie do serwera
-    /// </summary>
-    public DbConnection Connection { get; set; }
-    /// <summary>
-    /// Kompletny łańcuch parametrów podawany na podstawie utworzonego połączenia
-    /// albo zapamiętany jawnie
-    /// </summary>
-    public string ConnectionString
-    {
-      get
-      {
-        if (Connection != null)
-          return Connection.ConnectionString;
-        return _ConnectionString;
-      }
-      set { _ConnectionString = value; }
-    }
-    string _ConnectionString;
-
-    /// <summary>
     /// Adres sieciowy tworzony z połączenia nazwy serwera i nazwy instancji
     /// </summary>
     /// <returns></returns>
@@ -76,5 +56,10 @@ namespace Qhta.DbUtils
           return ServerName + "\\" + InstanceName;
       }
     }
+
+    /// <summary>
+    /// Ścieżka dostępu do serwera
+    /// </summary>
+    public string Path => Engine.ID + ":" + NetName;
   }
 }

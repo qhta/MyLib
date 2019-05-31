@@ -11,6 +11,7 @@ namespace Qhta.DbUtils
   /// </summary>
   public abstract class DbEngine: IDbEngine
   {
+    public abstract string ID { get; }
     /// <summary>
     /// Nazwa silnika - taka jak w klasie silnika
     /// </summary>
@@ -29,55 +30,56 @@ namespace Qhta.DbUtils
       throw new InvalidOperationException($"{GetType().Name} cannot enumerate server instances");
     }
 
-    /// <summary>
-    /// Utworzenie połączenia do instancji serwera
-    /// </summary>
-    /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
-    public abstract DbConnection CreateConnection(DbServerInfo info);
+    ///// <summary>
+    ///// Utworzenie połączenia do instancji serwera
+    ///// </summary>
+    ///// <param name="info">informacje potrzebne do utworzenia połączenia</param>
+    //public abstract DbConnection CreateConnection(DbServerInfo info);
 
-    /// <summary>
-    /// Połączenie do instancji serwera. 
-    /// Jeśli połączenie jeszcze nie zostało utworzone, to jest tworzone w tym miejscu.
-    /// Jeśli połączenie jeszcze nie zostało otwarte, to jest otwierane.
-    /// </summary>
-    /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
-    public virtual void ConnectTo(DbServerInfo info)
-    {
-      var connection = info.Connection;
-      if (connection==null)
-        connection = CreateConnection(info);
-      if (connection.State!=ConnectionState.Open)
-        connection.Open();
-      info.Connection=connection;
-    }
+    ///// <summary>
+    ///// Połączenie do instancji serwera. 
+    ///// Jeśli połączenie jeszcze nie zostało utworzone, to jest tworzone w tym miejscu.
+    ///// Jeśli połączenie jeszcze nie zostało otwarte, to jest otwierane.
+    ///// </summary>
+    ///// <param name="info">informacje potrzebne do utworzenia połączenia</param>
+    //public virtual void ConnectTo(DbServerInfo info)
+    //{
+    //  var connection = info.Connection;
+    //  if (connection==null)
+    //    connection = CreateConnection(info);
+    //  if (connection.State!=ConnectionState.Open)
+    //    connection.Open();
+    //  info.Connection=connection;
+    //}
 
-    /// <summary>
-    /// Podanie, ew. utworzenie połączenia do bazy danych
-    /// </summary>
-    /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
-    /// <returns>Połączenie do bazy danych</returns>
-    public virtual DbConnection GetConnection(DbServerInfo info)
-    {
-      if (info.Connection==null)
-      {
-        info.Connection = CreateConnection(info);
-      }
-      return info.Connection;
-    }
+    ///// <summary>
+    ///// Podanie, ew. utworzenie połączenia do bazy danych
+    ///// </summary>
+    ///// <param name="info">informacje potrzebne do utworzenia połączenia</param>
+    ///// <returns>Połączenie do bazy danych</returns>
+    //public virtual DbConnection GetConnection(DbServerInfo info)
+    //{
+    //  if (info.Connection==null)
+    //  {
+    //    info.Connection = CreateConnection(info);
+    //  }
+    //  return info.Connection;
+    //}
 
-    /// <summary>
-    /// Podanie, ew. utworzenie połączenia do bazy danych
-    /// </summary>
-    /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
-    /// <returns>Połączenie do bazy danych</returns>
-    public virtual DbConnection GetConnection(DbInfo info)
-    {
-      if (info.Connection==null)
-      {
-        info.Connection = CreateConnection(info);
-      }
-      return info.Connection;
-    }
+    ///// <summary>
+    ///// Podanie, ew. utworzenie połączenia do bazy danych
+    ///// </summary>
+    ///// <param name="info">informacje potrzebne do utworzenia połączenia</param>
+    ///// <returns>Połączenie do bazy danych</returns>
+    //public virtual DbConnection GetConnection(DbInfo info)
+    //{
+    //  return CreateConnection(info);
+    //  if (info.Connection==null)
+    //  {
+    //    info.Connection = CreateConnection(info);
+    //  }
+    //  return info.Connection;
+    //}
 
     /// <summary>
     /// Wyliczenie baz danych na serwerze
@@ -91,12 +93,12 @@ namespace Qhta.DbUtils
     /// <param name="info">informacje o serwerze</param>
     public abstract IEnumerable<DbInfo> EnumeratePotentialDatabases(DbServerInfo info);
 
-    /// <summary>
-    /// Tworzenie połączenia do bazy danych
-    /// </summary>
-    /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
-    /// <returns></returns>
-    public abstract DbConnection CreateConnection(DbInfo info);
+    ///// <summary>
+    ///// Tworzenie połączenia do bazy danych
+    ///// </summary>
+    ///// <param name="info">informacje potrzebne do utworzenia połączenia</param>
+    ///// <returns></returns>
+    //public abstract DbConnection CreateConnection(DbInfo info);
 
     /// <summary>
     /// Tworzenie komendy SQL

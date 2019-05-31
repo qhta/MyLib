@@ -17,6 +17,7 @@ namespace Qhta.DbUtils.SqlServer
   [Description("Microsoft SQL Server Client")]
   public class MSSqlEngine : DbEngine, IDbEngine
   {
+    public override string ID => "MSSQL";
 
     public override bool CanEnumerateServerInstances(ServerType serverType)
     {
@@ -144,7 +145,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="server">informacje potrzebne do utworzenia połączenia</param>
     /// <param name="toServer">czy to ma być połączenie do serwera, czy do bazy danych</param>
     /// <returns></returns>
-    public override DbConnection CreateConnection(DbServerInfo server)
+    public SqlConnection CreateConnection(DbServerInfo server)
     {
       SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
       sb["Data Source"] = server.NetName;
@@ -165,7 +166,7 @@ namespace Qhta.DbUtils.SqlServer
     /// </summary>
     /// <param name="info">informacje potrzebne do utworzenia połączenia</param>
     /// <returns></returns>
-    public override DbConnection CreateConnection(DbInfo info)
+    public SqlConnection CreateConnection(DbInfo info)
     {
       SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
       sb["Data Source"] = info.Server.NetName;
@@ -194,7 +195,7 @@ namespace Qhta.DbUtils.SqlServer
       bool opened = true;
       try
       {
-        connection = (SqlConnection)GetConnection(server);
+        connection = (SqlConnection)CreateConnection(server);
         using (var command = new SqlCommand())
         {
           command.CommandText =
@@ -318,7 +319,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="attachOnly">utworzyć wewnętrzną bazę danych przez podłączenie istniejącego pliku</param>
     private void CreateSqlDatabase(DbInfo info, bool attachOnly)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      SqlConnection connection = CreateConnection(info.Server);
       using (var command = new SqlCommand())
       {
         if (info.FileNames != null)
@@ -376,7 +377,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="info">informacje definiujące bazę danych</param>
     private bool ExistsSqlServerDatabase(DbInfo info)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      SqlConnection connection = CreateConnection(info.Server);
       using (var command = new SqlCommand())
       {
         command.CommandText =
@@ -445,10 +446,10 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="detachOnly">czy baza danych ma być tylko odłączona od serwera</param>
     private void DeleteSqlServerDatabase(DbInfo info, bool detachOnly = false)
     {
-      SqlConnection connection = (SqlConnection)info.Connection;
+      SqlConnection connection = CreateConnection(info);
       if (connection != null && connection.State == ConnectionState.Open)
         connection.Close();
-      connection = (SqlConnection)info.Server.Connection;
+      connection = CreateConnection(info.Server);
       SqlConnection.ClearPool(connection);
       using (var command = new SqlCommand())
       {
@@ -548,7 +549,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="info">informacje definiujące bazę danych</param>
     private string[] GetSqlServerDefaultLocations(DbServerInfo info)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info);
+      SqlConnection connection = CreateConnection(info);
       using (var command = new SqlCommand())
       {
         command.CommandText =
@@ -611,7 +612,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="newFileName">nowa nazwa pliku (bez rozszerzenia)</param>
     private void RenameSqlServerDatabase(DbInfo info, string newDbName, params string[] newFileNames)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      SqlConnection connection = CreateConnection(info.Server);
       SqlConnection.ClearPool(connection);
 
       using (var command = new SqlCommand())
@@ -733,7 +734,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <returns>lista informacji o plikach</returns>
     private DbFileInfo[] GetSqlDatabaseFiles(DbInfo info)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info.Server);
+      SqlConnection connection = CreateConnection(info.Server);
 
       using (var command = new SqlCommand())
       {
@@ -814,7 +815,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="newDbInfo">informacje o "nowej" bazie danych</param>
     private void CopySqlServerDatabase(DbInfo oldDbInfo, DbInfo newDbInfo)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(oldDbInfo.Server);
+      SqlConnection connection = CreateConnection(oldDbInfo.Server);
       using (var command = new SqlCommand())
       {
         var oldDbName = oldDbInfo.DbName;
@@ -861,7 +862,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="info">informacje o bazie danych</param>
     public override IEnumerable<DbTableInfo> EnumerateTables(DbInfo info)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info);
+      SqlConnection connection = CreateConnection(info);
 
       using (var command = new SqlCommand())
       {
@@ -886,10 +887,15 @@ namespace Qhta.DbUtils.SqlServer
           {
             while (dataReader.Read())
             {
+              string schemaName = dataReader.GetString(0);
+              if (schemaName == "dbo")
+                schemaName = "";
+              else
+                schemaName += ".";
               result.Add(
                 new DbTableInfo
                 {
-                  Name = dataReader[1].ToString(),
+                  Name = schemaName+dataReader.GetString(1),
                   LastModifiedAt = dataReader.GetDateTime(2),
                   RowsCount = dataReader.GetInt64(3),
                   Database = info,
@@ -912,7 +918,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="info">informacje o tabeli danych</param>
     public override IEnumerable<DbColumnInfo> EnumerateColumns(DbTableInfo info)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(info.Database);
+      SqlConnection connection = CreateConnection(info.Database);
 
       using (var command = new SqlCommand())
       {
@@ -968,7 +974,8 @@ namespace Qhta.DbUtils.SqlServer
                 });
             }
           }
-          return result.ToArray();
+          var arr = result.ToArray();
+          return arr;
         }
         finally
         {
@@ -984,7 +991,7 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="table">informacje o tabeli danych</param>
     public override DataTable GetDataTable(DbTableInfo table)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(table.Database);
+      SqlConnection connection = CreateConnection(table.Database);
       {
         bool opened = connection.State == ConnectionState.Open;
         try
