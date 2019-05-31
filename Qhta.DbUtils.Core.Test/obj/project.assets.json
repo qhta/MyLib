@@ -446,7 +446,7 @@
           }
         }
       },
-      "Qhta.DbUtils/1.0.0": {
+      "Qhta.DbUtils/1.1.0-preview": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -456,14 +456,14 @@
           "bin/placeholder/Qhta.DbUtils.dll": {}
         }
       },
-      "Qhta.DbUtils.SqlServer/1.1.0": {
+      "Qhta.DbUtils.SqlServer/1.1.0-preview": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Microsoft.SqlServer.SqlManagementObjects": "150.18118.0",
           "Microsoft.Win32.Registry": "4.6.0-preview5.19224.8",
           "Microsoft.Win32.Registry.AccessControl": "4.6.0-preview5.19224.8",
-          "Qhta.DbUtils": "1.0.0",
+          "Qhta.DbUtils": "1.1.0-preview",
           "System.Data.SqlClient": "4.7.0-preview5.19224.8"
         },
         "compile": {
@@ -1452,12 +1452,12 @@
         "version.txt"
       ]
     },
-    "Qhta.DbUtils/1.0.0": {
+    "Qhta.DbUtils/1.1.0-preview": {
       "type": "project",
       "path": "../Qhta.DbUtils/Qhta.DbUtils.csproj",
       "msbuildProject": "../Qhta.DbUtils/Qhta.DbUtils.csproj"
     },
-    "Qhta.DbUtils.SqlServer/1.1.0": {
+    "Qhta.DbUtils.SqlServer/1.1.0-preview": {
       "type": "project",
       "path": "../Qhta.DbUtils.SqlServer/Qhta.DbUtils.SqlServer.csproj",
       "msbuildProject": "../Qhta.DbUtils.SqlServer/Qhta.DbUtils.SqlServer.csproj"
@@ -1467,8 +1467,8 @@
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.SqlServer.SqlManagementObjects >= 150.18118.0",
-      "Qhta.DbUtils >= 1.0.0",
-      "Qhta.DbUtils.SqlServer >= 1.1.0"
+      "Qhta.DbUtils >= 1.1.0-preview",
+      "Qhta.DbUtils.SqlServer >= 1.1.0-preview"
     ]
   },
   "packageFolders": {

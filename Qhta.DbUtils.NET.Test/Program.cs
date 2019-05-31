@@ -20,7 +20,7 @@ namespace DbUtils.NET.Test
 
     static void TestEnumerateEngines()
     {
-      var engineClasses = DbUtilities.EnumerateEngineClasses(knownDLLs);
+      var engineClasses = DbUtilities.EnumerateEngineClasses();
 
       foreach (var engineClass in engineClasses)
       {

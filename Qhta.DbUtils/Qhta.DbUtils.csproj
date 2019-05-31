@@ -10,6 +10,7 @@
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Version>1.1.0-preview</Version>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="DbConfig.cs" />

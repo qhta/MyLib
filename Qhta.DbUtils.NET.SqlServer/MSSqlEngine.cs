@@ -83,8 +83,6 @@ namespace Qhta.DbUtils.SqlServer
       return result;
     }
 
-
-
     public string[] GetLocalInstanceNames()
     {
       if (Environment.Is64BitOperatingSystem)

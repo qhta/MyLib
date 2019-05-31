@@ -288,6 +288,16 @@
             "rid": "win"
           }
         }
+      },
+      "Qhta.DbUtils/1.1.0-preview": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Qhta.DbUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.DbUtils.dll": {}
+        }
       }
     }
   },
@@ -1048,6 +1058,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Qhta.DbUtils/1.1.0-preview": {
+      "type": "project",
+      "path": "../Qhta.DbUtils/Qhta.DbUtils.csproj",
+      "msbuildProject": "../Qhta.DbUtils/Qhta.DbUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1056,6 +1071,7 @@
       "Microsoft.Win32.Registry >= 4.6.0-preview5.19224.8",
       "Microsoft.Win32.Registry.AccessControl >= 4.6.0-preview5.19224.8",
       "NETStandard.Library >= 2.0.3",
+      "Qhta.DbUtils >= 1.1.0-preview",
       "System.Data.SqlClient >= 4.7.0-preview5.19224.8"
     ]
   },
@@ -1064,7 +1080,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.1.0",
+    "version": "1.1.0-preview",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils.SqlServer\\Qhta.DbUtils.SqlServer.csproj",
       "projectName": "Qhta.DbUtils.SqlServer",
@@ -1089,7 +1105,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils\\Qhta.DbUtils.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils\\Qhta.DbUtils.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

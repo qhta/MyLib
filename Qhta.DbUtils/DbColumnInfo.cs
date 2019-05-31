@@ -16,7 +16,7 @@ namespace Qhta.DbUtils
     /// <summary>
     /// Typ danych (dopuszczalne typy uzależnione od silnika danych)
     /// </summary>
-    public SqlDbType Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>
     /// Rozmiar pola danych (o ile to dopuszcza typ danych)

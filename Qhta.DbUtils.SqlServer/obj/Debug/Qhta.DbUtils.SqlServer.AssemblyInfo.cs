@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Yarreck Qhta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.0-preview")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.DbUtils.SqlServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.DbUtils.SqlServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.1.0.0")]
