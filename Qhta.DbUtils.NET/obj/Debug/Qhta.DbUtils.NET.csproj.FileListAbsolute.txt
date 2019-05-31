@@ -1,0 +1,6 @@
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.NET\obj\Debug\Qhta.DbUtils.NET.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.NET\bin\Debug\Qhta.DbUtils.NET.dll
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.NET\bin\Debug\Qhta.DbUtils.NET.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.NET\obj\Debug\Qhta.DbUtils.NET.dll
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.NET\obj\Debug\Qhta.DbUtils.NET.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils.NET\obj\Debug\Qhta.DbUtils.NET.csprojAssemblyReference.cache

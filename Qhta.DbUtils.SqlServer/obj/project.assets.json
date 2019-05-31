@@ -288,16 +288,6 @@
             "rid": "win"
           }
         }
-      },
-      "Qhta.DbUtils/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/Qhta.DbUtils.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.DbUtils.dll": {}
-        }
       }
     }
   },
@@ -1058,11 +1048,6 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "Qhta.DbUtils/1.0.0": {
-      "type": "project",
-      "path": "../Qhta.DbUtils/Qhta.DbUtils.csproj",
-      "msbuildProject": "../Qhta.DbUtils/Qhta.DbUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1071,7 +1056,6 @@
       "Microsoft.Win32.Registry >= 4.6.0-preview5.19224.8",
       "Microsoft.Win32.Registry.AccessControl >= 4.6.0-preview5.19224.8",
       "NETStandard.Library >= 2.0.3",
-      "Qhta.DbUtils >= 1.0.0",
       "System.Data.SqlClient >= 4.7.0-preview5.19224.8"
     ]
   },
@@ -1105,11 +1089,7 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {
-            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils\\Qhta.DbUtils.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DbUtils\\Qhta.DbUtils.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

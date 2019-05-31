@@ -50,7 +50,7 @@ namespace Qhta.DbUtils.SqlServer
             var name1 = String.Join("\\", ss);
             var info = new DbServerInfo
             {
-              Name = name1,
+              ID = name1,
               ServerName = ss[0],
               InstanceName = ss.Length > 1 ? ss[1] : null,
               ServerType = ServerType.Local,
@@ -69,7 +69,7 @@ namespace Qhta.DbUtils.SqlServer
             string version = aRow["Version"] as string;
             var info = new DbServerInfo
             {
-              Name = name,
+              ID = name,
               ServerName = serverName,
               InstanceName = instanceName,
               ServerType = serverName.Equals(localServerName) ? ServerType.Local : ServerType.Remote,
@@ -82,6 +82,8 @@ namespace Qhta.DbUtils.SqlServer
       }
       return result;
     }
+
+
 
     public string[] GetLocalInstanceNames()
     {
@@ -147,7 +149,7 @@ namespace Qhta.DbUtils.SqlServer
     public override DbConnection CreateConnection(DbServerInfo server)
     {
       SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
-      sb["Data Source"] = server.ToString();
+      sb["Data Source"] = server.NetName;
       if (server.UserID != null)
       {
         sb["User ID"] = server.UserID;
@@ -168,7 +170,7 @@ namespace Qhta.DbUtils.SqlServer
     public override DbConnection CreateConnection(DbInfo info)
     {
       SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
-      sb["Data Source"] = info.Server.ToString();
+      sb["Data Source"] = info.Server.NetName;
       if (info.DbName != null)
         sb["Database"] = info.DbName;
       if (info.UserID != null)
@@ -190,21 +192,23 @@ namespace Qhta.DbUtils.SqlServer
     /// <param name="info">informacje o serwerze</param>
     public override IEnumerable<DbInfo> EnumerateDatabases(DbServerInfo server)
     {
-      SqlConnection connection = (SqlConnection)GetConnection(server);
-      using (var command = new SqlCommand())
+      SqlConnection connection = null;
+      bool opened = true;
+      try
       {
-        command.CommandText =
-          "SELECT [name]"           //0
-          + ",[database_id]"         //1
-          + ",[source_database_id]"  //2
-          + ",[owner_sid]"           //3
-          + ",[create_date]"         //4
-          + ",[compatibility_level]" //5
-          + " FROM sys.databases WHERE not name in ('master','model','msdb','tempdb')";
-        command.Connection = connection;
-        bool opened = connection.State == ConnectionState.Open;
-        try
+        connection = (SqlConnection)GetConnection(server);
+        using (var command = new SqlCommand())
         {
+          command.CommandText =
+            "SELECT [name]"            //0
+            + ",[database_id]"         //1
+            + ",[source_database_id]"  //2
+            + ",[owner_sid]"           //3
+            + ",[create_date]"         //4
+            + ",[compatibility_level]" //5
+            + " FROM sys.databases WHERE not name in ('master','model','msdb','tempdb')";
+          command.Connection = connection;
+          opened = connection.State == ConnectionState.Open;
           if (!opened)
             connection.Open();
 
@@ -231,12 +235,18 @@ namespace Qhta.DbUtils.SqlServer
           }
           return result;
         }
-        finally
-        {
-          if (!opened)
-            connection.Close();
-        }
       }
+      catch (Exception ex1)
+      {
+        HandleException(ex1);
+        return new DbInfo[0];
+      }
+      finally
+      {
+        if (!opened)
+          connection?.Close();
+      }
+      
     }
 
 
@@ -949,8 +959,8 @@ namespace Qhta.DbUtils.SqlServer
               result.Add(
                 new DbColumnInfo
                 {
-                  Name = dataReader[1].ToString(),
-                  Type = (SqlDbType)Enum.Parse(typeof(SqlDbType), dataReader[2].ToString(), true),
+                  Name = dataReader.GetString(1),
+                  Type = dataReader.GetString(2),
                   Size = dataReader.GetInt16(3),
                   Precision = dataReader.GetByte(4),
                   Scale = dataReader.GetByte(5),

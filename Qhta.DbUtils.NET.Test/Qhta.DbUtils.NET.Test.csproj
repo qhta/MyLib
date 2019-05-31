@@ -147,13 +147,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Qhta.DbUtils.SqlServer\Qhta.DbUtils.SqlServer.csproj">
-      <Project>{8caffa3d-ca2b-4621-ba0b-47e296e793eb}</Project>
-      <Name>Qhta.DbUtils.SqlServer</Name>
+    <ProjectReference Include="..\Qhta.DbUtils.NET.SqlServer\Qhta.DbUtils.NET.SqlServer.csproj">
+      <Project>{e80c0150-2934-428b-936a-cc48006fc237}</Project>
+      <Name>Qhta.DbUtils.NET.SqlServer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Qhta.DbUtils\Qhta.DbUtils.csproj">
-      <Project>{cac54eed-a53d-41ef-a5fa-cde225e250e5}</Project>
-      <Name>Qhta.DbUtils</Name>
+    <ProjectReference Include="..\Qhta.DbUtils.NET\Qhta.DbUtils.NET.csproj">
+      <Project>{0df32104-4b29-4336-b6e2-fc7fec742e4c}</Project>
+      <Name>Qhta.DbUtils.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

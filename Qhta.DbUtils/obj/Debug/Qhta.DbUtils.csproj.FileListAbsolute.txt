@@ -6,3 +6,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.DbUtils\obj\Debug\Qhta.DbUtils.AssemblyInfoInputs
 D:\Dane\VS\Projects\MyLib\Qhta.DbUtils\obj\Debug\Qhta.DbUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\Qhta.DbUtils\obj\Debug\Qhta.DbUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.DbUtils\obj\Debug\Qhta.DbUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.DbUtils\obj\Debug\Qhta.DbUtils.csprojAssemblyReference.cache

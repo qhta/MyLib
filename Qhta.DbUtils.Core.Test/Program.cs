@@ -28,7 +28,7 @@ namespace Qhta.DbUtils.Core.Test
           var servers = engineClass.Instance.EnumerateServers(serverType);
           foreach (var server in servers)
           {
-            Console.WriteLine($"  local server = {server.Name}");
+            Console.WriteLine($"  local server = {server.ID}");
           }
         }
         else
