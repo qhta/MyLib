@@ -70,7 +70,7 @@ namespace Qhta.DbUtils
     /// <returns></returns>
     public static IEnumerable<DbEngineClass> EnumerateEngineClasses(Assembly refAssembly)
     {
-      Debug.WriteLine($"Search engine classes in {refAssembly.FullName}");
+      //Debug.WriteLine($"Search engine classes in {refAssembly.FullName}");
       List<DbEngineClass> result = new List<DbEngineClass>();
 
       foreach (Type aType in refAssembly.ExportedTypes)
