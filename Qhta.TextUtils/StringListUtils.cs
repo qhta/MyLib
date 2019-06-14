@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextUtils
+namespace Qhta.TextUtils
 {
   public static class StringListUtils
   {

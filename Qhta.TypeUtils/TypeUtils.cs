@@ -13,6 +13,14 @@ namespace Qhta.TypeUtils
   /// </summary>
   public static class TypeUtils
   {
+
+    /// <summary>
+    /// Converts string to enum value for an enum type. Returns false if no enum value recognized
+    /// </summary>
+    /// <param name="valueType">enum value type</param>
+    /// <param name="text">enum name to convert</param>
+    /// <param name="value">enum value after conversion</param>
+    /// <returns></returns>
     public static bool TryGetEnumValue(this Type valueType, string text, out object value)
     {
       bool ok = false;
@@ -33,6 +41,13 @@ namespace Qhta.TypeUtils
       return ok;
     }
 
+    /// <summary>
+    /// Safely sets a property of the target object to some value. Invokes <c>TryGetConverter</c> method.
+    /// </summary>
+    /// <param name="property">property info as get from type reflection</param>
+    /// <param name="targetObject">target object to set value</param>
+    /// <param name="value">value to set</param>
+    /// <returns></returns>
     public static bool TrySetValue(this PropertyInfo property, object targetObject, object value)
     {
       if (value!=null && value.GetType()!=property.PropertyType)
@@ -50,8 +65,19 @@ namespace Qhta.TypeUtils
       return false;
     }
 
+    /// <summary>
+    /// A list of known type converters for <c>TryGetConverter</c> method. 
+    /// Is filled after successful invoke of <c>TryGetConverter</c>.
+    /// Can be preset by a developer.
+    /// </summary>
     public static Dictionary<string, TypeConverter> KnownTypeConverters = new Dictionary<string, TypeConverter>();
 
+    /// <summary>
+    /// Tries to get an instance of a value converter for a type using a <c>TypeConverterAttribute</c> of the given type.
+    /// </summary>
+    /// <param name="valueType"></param>
+    /// <param name="typeConverter"></param>
+    /// <returns></returns>
     public static bool TryGetConverter(this Type valueType, out TypeConverter typeConverter)
     {
       typeConverter = null;
@@ -116,6 +142,14 @@ namespace Qhta.TypeUtils
       }
       return typeConverter!=null;
     }
+
+    /// <summary>
+    /// Tries to convert a value of the given type using its converter <c>ConvertFrom</c> method
+    /// </summary>
+    /// <param name="valueType">given type</param>
+    /// <param name="value">value to convert from</param>
+    /// <param name="result">conversion result</param>
+    /// <returns></returns>
     public static bool TryConvertValue(this Type valueType, object value, out object result)
     {
       bool ok = false;
@@ -129,6 +163,14 @@ namespace Qhta.TypeUtils
       return ok;
     }
 
+
+    /// <summary>
+    /// Tries to convert enum string to enum value
+    /// </summary>
+    /// <param name="enumType">given enum type</param>
+    /// <param name="str">string to convert from</param>
+    /// <param name="value">conversion result</param>
+    /// <returns></returns>
     public static bool TryParseEnum(this Type enumType, string str, out object value)
     {
       bool ok=false;
@@ -179,11 +221,12 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
-    /// Checking in a <param name="aInfo"/> member redefinines a <param name="bInfo"> member.
+    /// Checking in a <paramref name="aInfo"/> member redefinines a <paramref name="bInfo"/> member.
     /// </summary>
+    /// <param name="aInfo">info of a member that redefines</param>
+    /// <param name="bInfo">info of a member that is redefined</param>
     public static bool Redefines(this MemberInfo aInfo, MemberInfo bInfo)
     {
-      // jeśli to nie są składowe tego samego typu, to na pewno nie
       if (aInfo.GetType() != bInfo.GetType())
         return false;
 
@@ -197,24 +240,32 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
-    /// Checking in a <param name="aInfo"/> fiels redefinines a <param name="bInfo"> field.
+    /// Checking in a <paramref name="aInfo"/> field redefinines a <paramref name="bInfo"/> field.
     /// </summary>
+    /// <param name="aInfo">info of a field that redefines</param>
+    /// <param name="bInfo">info of a field that is redefined</param>
     public static bool Redefines(this FieldInfo aInfo, FieldInfo bInfo)
     {
       return aInfo.Name == bInfo.Name;
     }
 
     /// <summary>
-    /// Sprawdzenie, czy właściwość <param name="aInfo"/> redefiniuje właściwość <param name="bInfo">.
+    /// Checking in a <paramref name="aInfo"/> property redefinines a <paramref name="bInfo"/> property.
     /// </summary>
+    /// <param name="aInfo">info of a property that redefines</param>
+    /// <param name="bInfo">info of a property that is redefined</param>
+
     public static bool Redefines(this PropertyInfo aInfo, PropertyInfo bInfo)
     {
       return aInfo.Name == bInfo.Name;
     }
 
     /// <summary>
-    /// Checking in a <param name="aInfo"/> method redefinines a <param name="bInfo"> method.
+    /// Checking in a <paramref name="aInfo"/> method redefinines a <paramref name="bInfo"/> method.
     /// </summary>
+    /// <param name="aInfo">info of a method that redefines</param>
+    /// <param name="bInfo">info of a method that is redefined</param>
+
     public static bool Redefines(this MethodInfo aInfo, MethodInfo bInfo)
     {
       if (aInfo.Name != bInfo.Name)
@@ -230,9 +281,9 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
-    ///   Replacement for a <see cref="Type.GetMembers"/> method in case
-    ///   when a <param name="Flags"/> parameter does not have option
-    ///   <see cref="BindingFlags.DeclaredOnly"/>. Then methods are taken also from superclasses,
+    ///   Replacement for a <c>Type.GetMembers</c> method in case
+    ///   when a <paramref name="Flags"/> parameter does not have option
+    ///   <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
     ///   but are also ordered with inheritance order (from top superclass first).
     ///  </summary>
     public static MemberInfo[] GetMembersByInheritance(this Type aType, BindingFlags Flags)
@@ -307,8 +358,8 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
-    ///   Replacement for a <see cref="Type.GetCustomAttributes"/> method in case
-    ///   when an <param name="inherit"/> parameter is set for <c>true</c>
+    ///   Replacement for a <c>Type.GetCustomAttributes</c> method in case
+    ///   when an <paramref name="inherit"/> parameter is set for <c>true</c>
     ///   Then attributes are taken also from superclasses,
     ///   but are also ordered with inheritance order.
     ///  </summary>
@@ -344,8 +395,8 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
-    ///   Replacement for a <see cref="Type.GetCustomAttributes"/> method in case
-    ///   when an <param name="inherit"/> parameter is set for <c>true</c>
+    ///   Replacement for a <c>Type.GetCustomAttributes</c> method in case
+    ///   when an <paramref name="inherit"/> parameter is set for <c>true</c>
     ///   Then attributes are taken also from superclasses,
     ///   but are also ordered with inheritance order.
     ///   Only attributes of a specified type are returned.
@@ -390,6 +441,7 @@ namespace Qhta.TypeUtils
     /// </summary>
     /// <param name="source">Source object</param>
     /// <param name="target">Target object</param>
+    /// <param name="revertConversion">use GetDeclaredCopyDelegatesReverse</param>
     /// <returns>Names of copied properties</returns>
     public static string[] CopyProperties(object source, object target, bool revertConversion=false)
     {
@@ -401,6 +453,12 @@ namespace Qhta.TypeUtils
       return CopyProperties(source, target, delegates);
     }
 
+    /// <summary>
+    /// Gets declared delegates for copy of properties. Result - one method for each property name.
+    /// </summary>
+    /// <param name="sourceType"></param>
+    /// <param name="targetType"></param>
+    /// <returns></returns>
     public static Dictionary<string, CopyPropertyMethod> GetDeclaredCopyDelegates(Type sourceType, Type targetType)
     {
       Dictionary<string, CopyPropertyMethod> delegates = new Dictionary<string, CopyPropertyMethod>();
@@ -443,6 +501,11 @@ namespace Qhta.TypeUtils
       return delegates;
     }
 
+    /// <summary>
+    /// Gets declared delegates for reverse copy of properties. Result - one method for each property name.
+    /// </summary>
+    /// <param name="sourceType"></param>
+    /// <param name="targetType"></param>
     public static Dictionary<string, CopyPropertyMethod> GetDeclaredCopyDelegatesReverse(Type sourceType, Type targetType)
     {
       Dictionary<string, CopyPropertyMethod> delegates = new Dictionary<string, CopyPropertyMethod>();
@@ -465,6 +528,13 @@ namespace Qhta.TypeUtils
       return delegates;
     }
 
+    /// <summary>
+    /// Simple copy of properties from source object to target object using methods delegated by property names.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="target"></param>
+    /// <param name="delegates"></param>
+    /// <returns></returns>
     public static string[] CopyProperties(object source, object target, Dictionary<string, CopyPropertyMethod> delegates)   
     {
       Type sourceType = source.GetType();
@@ -531,35 +601,74 @@ namespace Qhta.TypeUtils
       return copiedProperties.ToArray();
     }
 
+    /// <summary>
+    /// Helper class for property comparison
+    /// </summary>
     public class PropertyComparer : IEqualityComparer<PropertyInfo>
     {
 
+      /// <summary>
+      /// Check if one property equals other property.
+      /// </summary>
+      /// <param name="x"></param>
+      /// <param name="y"></param>
+      /// <returns></returns>
       public bool Equals(PropertyInfo x, PropertyInfo y)
       {
         return x.Name == y.Name;
       }
 
+      /// <summary>
+      /// A method needed to supply <c>Equals</c> method.
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <returns></returns>
       public int GetHashCode(PropertyInfo obj)
       {
         return obj.Name.GetHashCode();
       }
     }
 
+    /// <summary>
+    /// A delegate method for property copying
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="sourceValue"></param>
+    /// <param name="target"></param>
+    /// <param name="targetValue"></param>
+    /// <returns></returns>
     public delegate object CopyPropertyMethod (object source, object sourceValue, object target, object targetValue);
 
   }
 
+  /// <summary>
+  /// A delegate class to property copying.
+  /// Holds a target type and a target method name
+  /// </summary>
   public class CopyPropertyDelegate
   {
     private Type TargetType;
     private string TargetMethod;
 
+    /// <summary>
+    /// Constructor to init delegate
+    /// </summary>
+    /// <param name="targetType"></param>
+    /// <param name="targetMethod"></param>
     public CopyPropertyDelegate(Type targetType, string targetMethod) 
     {
       TargetType = targetType;
       TargetMethod = targetMethod;
     }
 
+    /// <summary>
+    /// Copies a property using a target method
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="sourceValue"></param>
+    /// <param name="target"></param>
+    /// <param name="targetValue"></param>
+    /// <returns></returns>
     public object CopyProperty(object source, object sourceValue, object target, object targetValue)
     {
       MethodInfo targetMethod = TargetType.GetMethod(TargetMethod,BindingFlags.Public | BindingFlags.Static);
@@ -570,18 +679,36 @@ namespace Qhta.TypeUtils
     }
   }
 
+  /// <summary>
+  /// An interface to check if a type instance is empty.
+  /// </summary>
   public interface IEmpty
   {
+    /// <summary>
+    /// Simple property to check empty instance
+    /// </summary>
     bool IsEmpty { get; }
   }
 
+  /// <summary>
+  /// A delegate class to class items copying.
+  /// </summary>
   public class CopyItemsDelegate
   {
+    /// <summary>
+    /// Initializing constructor
+    /// </summary>
+    /// <param name="targetPropertyType"></param>
     public CopyItemsDelegate(Type targetPropertyType)
     {
       TargetPropertyType = targetPropertyType;
     }
 
+    /// <summary>
+    /// A method to add type pairs used to copy items
+    /// </summary>
+    /// <param name="sourceItemType"></param>
+    /// <param name="targetItemType"></param>
     public void Add(Type sourceItemType, Type targetItemType)
     {
       typePairs.Add(sourceItemType, targetItemType);
@@ -589,6 +716,14 @@ namespace Qhta.TypeUtils
     Type TargetPropertyType;
     Dictionary<Type, Type> typePairs = new Dictionary<Type, Type>();
 
+    /// <summary>
+    /// A method to copy items from source to target
+    /// </summary>
+    /// <param name="source">source object</param>
+    /// <param name="sourceValue">source value - must be <c>IEnumerable</c></param>
+    /// <param name="target">target object</param>
+    /// <param name="targetValue">target value - must be <c>IList</c></param>
+    /// <returns></returns>
     public object CopyItems(object source, object sourceValue, object target, object targetValue)
     {
       if (sourceValue == null)
@@ -660,23 +795,46 @@ namespace Qhta.TypeUtils
 
   }
 
+  /// <summary>
+  /// An attribute to define conversion of properties for a type while copying
+  /// </summary>
   [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
   public class CopyPropertyConversionAttribute : Attribute
   {
+    /// <summary>
+    /// Initializing constructir
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <param name="methodName"></param>
     public CopyPropertyConversionAttribute(string propertyName, string methodName)
     {
       PropertyName = propertyName;
       MethodName = methodName;
     }
 
+    /// <summary>
+    /// Name of a property to copy
+    /// </summary>
     public string PropertyName { get; set; }
 
+    /// <summary>
+    /// Name of a method used to convert while property copying
+    /// </summary>
     public string MethodName { get; set; }
   }
 
+  /// <summary>
+  /// An attribute to define conversion of compound property items for a type while copying
+  /// </summary>
   [AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=true)]
   public class CopyPropertyItemConversionAttribute : Attribute
   {
+    /// <summary>
+    /// Initializing constructor
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <param name="sourceItemType"></param>
+    /// <param name="targetItemType"></param>
     public CopyPropertyItemConversionAttribute(string propertyName, Type sourceItemType, Type targetItemType)
     {
       PropertyName = propertyName;
@@ -684,10 +842,20 @@ namespace Qhta.TypeUtils
       TargetItemType = targetItemType;
     }
 
+    /// <summary>
+    /// Name of a property to copy
+    /// </summary>
+
     public string PropertyName { get; set; }
 
+    /// <summary>
+    /// A type of source items
+    /// </summary>
     public Type SourceItemType { get; set; }
 
+    /// <summary>
+    /// A type of target items
+    /// </summary>
     public Type TargetItemType { get; set; }
   }
 

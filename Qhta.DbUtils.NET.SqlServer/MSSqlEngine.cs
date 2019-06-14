@@ -33,15 +33,7 @@ namespace Qhta.DbUtils.SqlServer
       {
         DataTable aTable = null;
         string localServerName = Environment.MachineName;
-        try
-        {
-          aTable = SmoApplication.EnumAvailableSqlServers(serverType.HasFlag(ServerType.Local));
-        }
-        catch (Exception ex)
-        {
-          HandleException(ex);
-        }
-        if (aTable == null && serverType.HasFlag(ServerType.Local))
+        if (serverType.HasFlag(ServerType.Local))
         {
           var names = GetLocalInstanceNames();
           foreach (var name in names)
@@ -60,26 +52,32 @@ namespace Qhta.DbUtils.SqlServer
             result.Add(info);
           }
         }
-        if (aTable != null)
-        {
-          foreach (DataRow aRow in aTable.Rows)
+        if (serverType.HasFlag(ServerType.Remote))
+          try
           {
-            string name = aRow["Name"] as string;
-            string serverName = aRow["Server"] as string;
-            string instanceName = aRow["Instance"] as string;
-            string version = aRow["Version"] as string;
-            var info = new DbServerInfo
+            aTable = SmoApplication.EnumAvailableSqlServers(serverType.HasFlag(ServerType.Remote));
+            foreach (DataRow aRow in aTable.Rows)
             {
-              ID = name,
-              ServerName = serverName,
-              InstanceName = instanceName,
-              ServerType = serverName.Equals(localServerName) ? ServerType.Local : ServerType.Remote,
-              Version = version,
-              Engine = this,
-            };
-            result.Add(info);
+              string name = aRow["Name"] as string;
+              string serverName = aRow["Server"] as string;
+              string instanceName = aRow["Instance"] as string;
+              string version = aRow["Version"] as string;
+              var info = new DbServerInfo
+              {
+                ID = name,
+                ServerName = serverName,
+                InstanceName = instanceName,
+                ServerType = serverName.Equals(localServerName) ? ServerType.Local : ServerType.Remote,
+                Version = version,
+                Engine = this,
+              };
+              result.Add(info);
+            }
           }
-        }
+          catch (Exception ex)
+          {
+            HandleException(ex);
+          }
       }
       return result;
     }
@@ -184,6 +182,16 @@ namespace Qhta.DbUtils.SqlServer
       return new SqlConnection(connectionString);
     }
 
+    /// <summary>
+    /// Wyliczenie właściwości serwera
+    /// </summary>
+    public override IEnumerable<DbPropertyInfo> EnumerateServerProperties(string ID)
+    {
+      var result = new List<DbPropertyInfo>();
+      Server server = new Server(ID);
+      result.Add(new DbPropertyInfo { Name = "BackupDirectory", Value = server.BackupDirectory, Type = typeof(string) });
+      return result;
+    }
 
     /// <summary>
     /// Wyliczenie baz danych na serwerze
@@ -245,7 +253,7 @@ namespace Qhta.DbUtils.SqlServer
         if (!opened)
           connection?.Close();
       }
-      
+     
     }
 
 

@@ -9,7 +9,7 @@ namespace Qhta.DbUtils
   /// <summary>
   /// Abstrakcyjna klasa wykonująca podstawowe operacje na bazach danych
   /// </summary>
-  public abstract class DbEngine: IDbEngine
+  public abstract class DbEngine : IDbEngine
   {
     public abstract string ID { get; }
     /// <summary>
@@ -29,6 +29,11 @@ namespace Qhta.DbUtils
     {
       throw new InvalidOperationException($"{GetType().Name} cannot enumerate server instances");
     }
+
+    /// <summary>
+    /// Wyliczenie właściwości serwera
+    /// </summary>
+    public abstract IEnumerable<DbPropertyInfo> EnumerateServerProperties(string ID);
 
     ///// <summary>
     ///// Utworzenie połączenia do instancji serwera
@@ -132,7 +137,7 @@ namespace Qhta.DbUtils
     /// <param name="info">informacje definiujące bazę danych</param>
     public virtual bool ExistsDatabaseFiles(DbInfo info)
     {
-      for (int i = 0; i<info.Files.Length; i++)
+      for (int i = 0; i < info.Files.Length; i++)
         if (!System.IO.File.Exists(info.Files[i].PhysicalName))
           return false;
       return true;
@@ -189,11 +194,11 @@ namespace Qhta.DbUtils
     public virtual string[] PhysicalFilenames(DbInfo info)
     {
       List<string> result = new List<string>();
-      if (info.Files!=null)
-        result.AddRange(info.Files.Select(item=>item.PhysicalName));
+      if (info.Files != null)
+        result.AddRange(info.Files.Select(item => item.PhysicalName));
       else
       {
-        result.Add(info.DbName+DefaultFileExt);
+        result.Add(info.DbName + DefaultFileExt);
       }
       return result.ToArray();
     }
@@ -216,7 +221,7 @@ namespace Qhta.DbUtils
     /// <param name="newFileNames">nowe nazwy plików</param>
     public virtual void RenameDatabaseFiles(string[] oldFileNames, string[] newFileNames)
     {
-      for (int i = 0; i<oldFileNames.Length && i<newFileNames.Length; i++)
+      for (int i = 0; i < oldFileNames.Length && i < newFileNames.Length; i++)
         if (oldFileNames[i] != newFileNames[i])
           SafeRenameFile(oldFileNames[i], ChangeFileName(oldFileNames[i], newFileNames[i]));
     }
@@ -240,7 +245,7 @@ namespace Qhta.DbUtils
       }
       if (String.IsNullOrEmpty(newExt))
         newFileName = System.IO.Path.ChangeExtension(newFileName, oldExt);
-      return newFileName; 
+      return newFileName;
     }
 
     /// <summary>
@@ -330,5 +335,7 @@ namespace Qhta.DbUtils
     /// </summary>
     /// <param name="info">informacje o tabeli danych</param>
     public abstract DataTable GetDataTable(DbTableInfo info);
+
+
   }
 }

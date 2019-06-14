@@ -1,0 +1,12 @@
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.PropertyGrid.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.PropertyGrid.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid_MarkupCompile.cache
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\PropertyGrid.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.PropertyGrid\obj\Debug\Qhta.WPF.PropertyGrid.g.resources
