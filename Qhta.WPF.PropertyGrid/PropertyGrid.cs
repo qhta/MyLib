@@ -1,20 +1,23 @@
-﻿using System.Collections;
+﻿using Qhta.WPF.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Qhta.TextUtils;
+using Qhta.WPF.Utils;
 
 namespace Qhta.WPF.PropertyGrid
 {
   public class PropertyGrid : DataGrid
   {
     public DataGridTextColumn NameColumn { get; private set; }
+
     public DataGridTemplateColumn ValueColumn { get; private set; }
 
     public PropertyTemplateSelector TemplateSelector
@@ -28,7 +31,6 @@ namespace Qhta.WPF.PropertyGrid
           if (ValueColumn != null)
           {
             ValueColumn.CellTemplateSelector = _TemplateSelector;
-            //ValueColumn.CellEditingTemplateSelector = _TemplateSelector;
           }
         }
       }
@@ -38,7 +40,6 @@ namespace Qhta.WPF.PropertyGrid
     public PropertyGrid()
     {
       SetColumns();
-      //DataContextChanged += PropertyGrid_DataContextChanged;
     }
 
     private void SetColumns()
@@ -46,43 +47,42 @@ namespace Qhta.WPF.PropertyGrid
       Columns.Clear();
       NameColumn = new DataGridTextColumn();
       NameColumn.Header = "Name";
-      NameColumn.Binding = new Binding("Name");
+      var nameBinding = new Binding("DisplayName");
+      nameBinding.Converter = DisplayNameConverter = new CamelStringConverter();
+      NameColumn.Binding = nameBinding;
       NameColumn.IsReadOnly = true;
       NameColumn.Width = 0;
-      //NameColumn.Width = new DataGridLength(2, DataGridLengthUnitType.SizeToCells);
-      //NameColumn.CellStyle = (Style)FindResource("PropertyGrid.NameCellStyle");
 
       ValueColumn = new DataGridTemplateColumn();
       ValueColumn.Header = "Value";
-      //ValueColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Auto);
       ValueColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-      //ValueColumn.CellStyle = (Style)FindResource("PropertyGrid.ValueCellStyle");
 
       TemplateSelector = new PropertyTemplateSelector(this);
       Columns.Add(NameColumn);
       Columns.Add(ValueColumn);
     }
+    private IValueConverter DisplayNameConverter;
 
     public override void OnApplyTemplate()
     {
       base.OnApplyTemplate();
       SetBinding(ItemsSourceProperty, new Binding());
       if (NameColumn!=null)
-        NameColumn.CellStyle = (Style)FindResource("PropertyGrid.NameCellStyle");
+        NameColumn.CellStyle = FindResource("PropertyGrid.NameCellStyle") as Style;
       if (ValueColumn != null)
-        ValueColumn.CellStyle = (Style)FindResource("PropertyGrid.ValueCellStyle");
+        ValueColumn.CellStyle = FindResource("PropertyGrid.ValueCellStyle") as Style;
     }
 
     private double nameColumnWidth = 0;
     protected override void OnLoadingRow(DataGridRowEventArgs args)
     {
       base.OnLoadingRow(args);
-      Debug.WriteLine($"OnLoadingRow {args.Row.DataContext}");
       var viewModel = args.Row.DataContext as IPropertyViewModel;
       if (viewModel!=null)
       {
-        var name = viewModel.Name;
-        var width = TextWidth(name)+10;
+        var name = viewModel.DisplayName;
+        name = (string)DisplayNameConverter.Convert(name, typeof(string), null, CultureInfo.InvariantCulture);
+        var width = name.TextWidth()+10;
         if (width > nameColumnWidth)
         {
           nameColumnWidth = width;
@@ -90,28 +90,6 @@ namespace Qhta.WPF.PropertyGrid
         }
       }
     }
-
-    public static double TextWidth(string str)
-    {
-      TextBlock textBlock = new TextBlock();
-      textBlock.Text = str;
-      //textBlock.FontFamily = new System.Windows.Media.FontFamily("Arial");
-      //textBlock.FontSize = 40;
-
-      Size size = ShapeMeasure(textBlock);
-      return size.Width;
-    }
-
-    public static Size ShapeMeasure(TextBlock tb)
-    {
-      // Measured Size is bounded to be less than maxSize
-      Size maxSize = new Size(
-           double.PositiveInfinity,
-           double.PositiveInfinity);
-      tb.Measure(maxSize);
-      return tb.DesiredSize;
-    }
-
 
   }
 }

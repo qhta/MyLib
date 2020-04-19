@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableImmutable.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableImmutable.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableImmutable.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\bin\Debug\netstandard2.0\Qhta.ObservableImmutable.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\bin\Debug\netstandard2.0\Qhta.ObservableImmutable.dll
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\bin\Debug\netstandard2.0\Qhta.ObservableImmutable.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableImmutable.dll
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableImmutable.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableImmutable.csprojAssemblyReference.cache

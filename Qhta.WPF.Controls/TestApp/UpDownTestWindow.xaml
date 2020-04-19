@@ -1,0 +1,29 @@
+﻿<Window x:Class="TestApp.UpDownTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestApp"
+        mc:Ignorable="d"
+        Title="UpDownTest" Height="450" Width="800">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Qhta.WPF.Controls;component/Styles/GenericUpDown.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <StackPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                >
+      <StackPanel Orientation="Horizontal" Margin="3">
+        <Label Width="100" Content="TextBox"/>
+        <TextBox Width="100"/>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</Window>

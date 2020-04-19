@@ -27,13 +27,16 @@ namespace Qhta.WPF.PropertyGrid
           template = (DataTemplate)Host.TryFindResource("DataTemplate.Property.ReadonlyValueTemplate");
         if (template != null)
           return template;
-        var typeName = propertyInfo.Type;
+        var typeName = propertyInfo.TypeName.TitleCase();
         if (String.IsNullOrEmpty(typeName))
           template = (DataTemplate)Host.TryFindResource("DataTemplate.Property.ReadonlyValueTemplate");
         if (template != null)
           return template;
         typeName =  typeName.TitleCase();
         template = (DataTemplate)Host.TryFindResource($"DataTemplate.Property.{typeName}ValueTemplate");
+        if (template != null)
+          return template;
+        template = (DataTemplate)Host.TryFindResource("DataTemplate.Property.ReadonlyValueTemplate");
         if (template != null)
           return template;
       }

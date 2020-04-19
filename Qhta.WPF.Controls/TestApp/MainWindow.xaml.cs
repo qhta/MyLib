@@ -12,9 +12,14 @@ namespace TestApp
       InitializeComponent();
     }
 
-    private void NumericUpDownTestButton_Click(object sender, RoutedEventArgs e)
+    private void TextBoxTestButton_Click(object sender, RoutedEventArgs e)
     {
-      new NumericEditBoxTestWindow().Show();
+      new TextBoxTestWindow().Show();
+    }
+
+    private void UpDownTestButton_Click(object sender, RoutedEventArgs e)
+    {
+      new UpDownTestWindow().Show();
     }
 
     private void Border3DTestButton_Click(object sender, RoutedEventArgs e)
@@ -40,6 +45,11 @@ namespace TestApp
     private void BrushPickerTestButton_Click(object sender, RoutedEventArgs e)
     {
       new BrushPickerTestWindow().Show();
+    }
+
+    private void ImagesTestButton_Click(object sender, RoutedEventArgs e)
+    {
+      new ImagesTestWindow().Show();
     }
   }
 }

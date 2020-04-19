@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\bin\Debug\netstandard2.0\Qhta.OpenXMLTools.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\bin\Debug\netstandard2.0\Qhta.OpenXMLTools.dll
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\bin\Debug\netstandard2.0\Qhta.OpenXMLTools.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.dll
+D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.pdb

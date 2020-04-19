@@ -152,3 +152,14 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Qhta.DispatchedO
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Qhta.MVVM.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Qhta.HtmlUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Qhta.DispatchedObjects.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Qhta.TextUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Qhta.TextUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\UpDownTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\UpDownTestWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\TextBoxtTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\TextBoxtTestWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Images\Icon16.png
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\TestApp_Content.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Release\Images\NumericUpDown.png
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\ImagesTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Release\ImagesTestWindow.baml

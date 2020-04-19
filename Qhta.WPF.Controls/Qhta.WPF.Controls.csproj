@@ -44,6 +44,7 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -74,6 +75,8 @@
     <Compile Include="Border3DThicknessConverter.cs" />
     <Compile Include="GradientEllipse.cs" />
     <Compile Include="GradientLine.cs" />
+    <Compile Include="ImageViews\ImageRawView.cs" />
+    <Compile Include="ImageViews\ImageView.cs" />
     <Compile Include="RadialGradientBrushEditForm.xaml.cs">
       <DependentUpon>RadialGradientBrushEditForm.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,7 @@
     <Compile Include="LinearGradientBrushParamsEdit.xaml.cs">
       <DependentUpon>LinearGradientBrushParamsEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextBox\TextBox.cs" />
     <Compile Include="UndoManagers.cs" />
     <Compile Include="ColorMemberEdit.cs" />
     <Compile Include="ColorPad.cs" />
@@ -139,14 +143,15 @@
     <Compile Include="LinearGradientBrushEditForm.xaml.cs">
       <DependentUpon>LinearGradientBrushEditForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpDown.cs" />
     <Compile Include="ValueChangedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Border3D.xaml">
+    <Page Include="Styles\Border3D.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ColorMemberEdit.xaml">
+    <Page Include="Styles\ColorMemberEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -154,11 +159,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BrushPickerDropDown.xaml">
+    <Page Include="Styles\BrushPickerDropDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ColorPickerDropDown.xaml">
+    <Page Include="Styles\ColorPickerDropDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -187,6 +192,18 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\GenericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ImageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Styles\SpecificTextBoxes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GradientSlider.xaml">
       <SubType>Designer</SubType>
@@ -301,6 +318,7 @@
     <Analyzer Include="packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
     <Analyzer Include="packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

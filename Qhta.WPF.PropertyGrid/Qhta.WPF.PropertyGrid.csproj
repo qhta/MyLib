@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\bin\Microsoft.EntityFrameworkCore.3.0.0-preview5.19227.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -61,6 +64,14 @@
     <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj">
       <Project>{8850b931-09fe-45d7-bda6-6471da9f54c9}</Project>
       <Name>Qhta.TypeUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.WPF.Controls\Qhta.WPF.Controls.csproj">
+      <Project>{337e1dee-1494-434b-8a36-de929a3805d7}</Project>
+      <Name>Qhta.WPF.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qhta.WPF.Utils\Qhta.WPF.Utils.csproj">
+      <Project>{1013aa20-15d5-4743-b280-80a5ad2e39c4}</Project>
+      <Name>Qhta.WPF.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

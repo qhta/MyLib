@@ -10,9 +10,14 @@ namespace Qhta.WPF.PropertyGrid
   public interface IPropertyViewModel
   {
     string Name { get; }
-    string Value { get; }
+    string DisplayName { get; }
+
+    object Value { get; }
+
     bool Readonly { get; }
 
-    string Type { get; }
+    string TypeName { get; }
+
+    string[] Enums { get; }
   }
 }

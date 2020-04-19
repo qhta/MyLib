@@ -1,15 +1,16 @@
 ﻿D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\GeneratedInternalTypeHelper.g.cs
 
-FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Border3D.xaml;;
-FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorMemberEdit.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Styles\Border3D.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Styles\ColorMemberEdit.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorPadEdit.xaml;;
-FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\BrushPickerDropDown.xaml;;
-FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorPickerDropDown.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Styles\BrushPickerDropDown.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Styles\ColorPickerDropDown.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\BrushPickerWindow.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorPickerWindow.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorEditForm.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\BrushSelectionForm.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\ColorSelectionForm.xaml;;
+FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\Styles\ImageView.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\GradientSlider.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\KnownBrushSelectView.xaml;;
 FD:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\KnownColorSelectView.xaml;;

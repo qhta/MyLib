@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.WPF.ColorUtils", "..\Q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.Drawing", "..\Qhta.Drawing\Qhta.Drawing.csproj", "{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.TextUtils", "..\Qhta.TextUtils\Qhta.TextUtils.csproj", "{C769D972-51CE-4A9B-A472-B7F62E281387}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,14 @@ Global
 		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{0D65E3D0-2BE6-435F-B811-7ACEA13C50E7}.Release|x86.Build.0 = Release|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Debug|x86.Build.0 = Debug|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Release|x86.ActiveCfg = Release|Any CPU
+		{C769D972-51CE-4A9B-A472-B7F62E281387}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

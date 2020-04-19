@@ -3,28 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:Qhta.WPF.Controls;assembly=Qhta.WPF.Controls"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
         Title="Test Qhta.WPF.Controls" Height="450" Width="300">
   <Grid>
     <StackPanel>
-      
-      <Button Name="NumericUpDownTestButton"
+
+      <Button Name="ImagesTestButton"
               Height="23"
               HorizontalAlignment="Left"
               Margin="10"
               Width="134"
-              Click="NumericUpDownTestButton_Click"
+              Click="ImagesTestButton_Click"
               >
         <StackPanel Orientation="Horizontal">
-          <Image Source="/Images/NumericUpDown.png" 
-                 Width="16"
-                 Height="16"
-                 Margin="0,0,4,0"/>
-          <TextBlock Text="NumericUpDown"/>
+          <my:ImageRawView Source="/Images/Icon16.png" RenderOffset="0,0" />
+          <TextBlock Text="Images" Margin="4,0,0,0"/>
         </StackPanel>
       </Button>
-
+      
+      <Button Name="TextBoxTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="TextBoxTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <my:ImageRawView Source="/Images/TextBoxEdit.png" RenderOffset="0,-1" />
+          <TextBlock Text="Specific TextBoxes" Margin="4,0,0,0"/>
+        </StackPanel>
+      </Button>
+      
+      <Button Name="UpDownTestButton"
+              Height="23"
+              HorizontalAlignment="Left"
+              Margin="10"
+              Width="134"
+              Click="UpDownTestButton_Click"
+              >
+        <StackPanel Orientation="Horizontal">
+          <my:ImageRawView Source="/Images/NumericUpDown.png" RenderOffset="0,-2"/>
+          <TextBlock Text="NumericUpDown" Margin="4,0,0,0"/>
+        </StackPanel>
+      </Button>
+      
       <Button Name="Border3DTestButton"
               Height="23"
               HorizontalAlignment="Left"
@@ -33,11 +57,8 @@
               Click="Border3DTestButton_Click"
               >
         <StackPanel Orientation="Horizontal">
-          <Image Source="/Images/Border3D.png" 
-                 Width="16"
-                 Height="16"
-                 Margin="0,0,4,0"/>
-          <TextBlock Text="Border3D"/>
+          <my:ImageRawView Source="/Images/Border3D.png" />
+          <TextBlock Text="Border3D" Margin="4,0,0,0"/>
         </StackPanel>
       </Button>
 
@@ -49,11 +70,8 @@
               Click="ColorSliderTestButton_Click"
               >
         <StackPanel Orientation="Horizontal">
-          <Image Source="/Images/Rainbow.png" 
-                 Width="16"
-                 Height="16"
-                 Margin="0,0,4,0"/>
-          <TextBlock Text="ColorSlider"/>
+          <Image Source="/Images/Rainbow.png" Width="16" Height="16" />
+          <TextBlock Text="ColorSlider" Margin="4,0,0,0"/>
         </StackPanel>
       </Button>
 
@@ -65,11 +83,8 @@
               Click="ColorPadTestButton_Click"
               >
         <StackPanel Orientation="Horizontal">
-          <Image Source="/Images/Rainbow.png" 
-                 Width="16"
-                 Height="16"
-                 Margin="0,0,4,0"/>
-          <TextBlock Text="ColorPad"/>
+          <Image Source="/Images/Rainbow.png" Width="16" Height="16"/>
+          <TextBlock Text="ColorPad" Margin="4,0,0,0"/>
         </StackPanel>
       </Button>
       
@@ -81,11 +96,8 @@
               Click="ColorPickerTestButton_Click"
               >
         <StackPanel Orientation="Horizontal">
-          <Image Source="/Images/colorChart.png" 
-                 Width="16"
-                 Height="16"
-                 Margin="0,0,4,0"/>
-          <TextBlock Text="ColorPicker"/>
+          <Image Source="/Images/colorChart.png" Width="16" Height="16" />
+          <TextBlock Text="ColorPicker" Margin="4,0,0,0"/>
         </StackPanel>
       </Button>
 
@@ -97,11 +109,8 @@
               Click="BrushPickerTestButton_Click"
               >
         <StackPanel Orientation="Horizontal">
-          <Image Source="/Images/Brush.png" 
-                 Width="16"
-                 Height="16"
-                 Margin="0,0,4,0"/>
-          <TextBlock Text="BrushPicker"/>
+          <Image Source="/Images/Brush.png" Width="16" Height="16" />
+          <TextBlock Text="BrushPicker" Margin="4,0,0,0"/>
         </StackPanel>
       </Button>
     </StackPanel>

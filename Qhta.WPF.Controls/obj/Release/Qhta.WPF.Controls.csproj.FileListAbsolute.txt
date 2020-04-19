@@ -24,11 +24,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\LinearGradientBrushEditF
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\GeneratedInternalTypeHelper.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Qhta.WPF.Controls_MarkupCompile.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Qhta.WPF.Controls_MarkupCompile.lref
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Border3D.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\ColorMemberEdit.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\ColorPadEdit.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\BrushPickerDropDown.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\ColorPickerDropDown.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\BrushPickerWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\ColorPickerWindow.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\ColorEditForm.baml
@@ -49,3 +45,10 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Qhta.WPF.Controls.csproj
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Qhta.WPF.Controls.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Qhta.WPF.Controls.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Qhta.WPF.Controls.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\GenericUpDown.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\Border3D.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\ColorMemberEdit.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\BrushPickerDropDown.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\ColorPickerDropDown.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\SpecificTextBoxes.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\obj\Release\Styles\ImageView.baml

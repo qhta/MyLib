@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Management.Smo;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +9,6 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.SqlServer.Management.Smo;
-using Microsoft.Win32;
 
 namespace Qhta.DbUtils.SqlServer
 {
@@ -189,9 +189,71 @@ namespace Qhta.DbUtils.SqlServer
     {
       var result = new List<DbPropertyInfo>();
       Server server = new Server(ID);
-      result.Add(new DbPropertyInfo { Name = "BackupDirectory", Value = server.BackupDirectory, Type = typeof(string) });
+      GetInformationProperties();
+      //GetSettingsProperties();
+
       return result;
+
+      void GetInformationProperties()
+      {
+        var group = server.Information;
+        var sqlProperties = group.Properties.EnumPropertyInfo();
+        var typeProperties = group.GetType().GetProperties().ToDictionary(item => item.Name);
+        foreach (var prop in sqlProperties)
+        {
+          if (!prop.IsExpensive)
+          {
+            try
+            {
+              result.Add(new DbPropertyInfo
+              {
+                Group = "Information",
+                Name = prop.Name,
+                Value = typeProperties[prop.Name].GetValue(group),
+                Readonly = false,
+                Type = prop.PropertyType,
+              });
+            }
+
+            catch (Exception ex)
+            {
+              Debug.WriteLine(ex.Message);
+            }
+          }
+        }
+      }
+
+      void GetSettingsProperties()
+      {
+        var group = server.Settings;
+        var sqlProperties = group.Properties.EnumPropertyInfo();
+        var typeProperties = group.GetType().GetProperties().ToDictionary(item => item.Name);
+        foreach (var prop in sqlProperties)
+        {
+          if (!prop.IsExpensive)
+          {
+            try
+            {
+              result.Add(new DbPropertyInfo
+              {
+                Group = "Settings",
+                Name = prop.Name,
+                Value = typeProperties[prop.Name].GetValue(group),
+                Readonly = false,
+                Type = prop.PropertyType,
+              });
+            }
+
+            catch (Exception ex)
+            {
+              Debug.WriteLine(ex.Message);
+            }
+          }
+        }
+      }
+
     }
+
 
     /// <summary>
     /// Wyliczenie baz danych na serwerze
@@ -203,7 +265,7 @@ namespace Qhta.DbUtils.SqlServer
       bool opened = true;
       try
       {
-        connection = (SqlConnection)CreateConnection(server);
+        connection = CreateConnection(server);
         using (var command = new SqlCommand())
         {
           command.CommandText =
@@ -253,7 +315,7 @@ namespace Qhta.DbUtils.SqlServer
         if (!opened)
           connection?.Close();
       }
-     
+
     }
 
 
@@ -405,7 +467,7 @@ namespace Qhta.DbUtils.SqlServer
           }
           return ok;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
           return false;
         }
@@ -903,7 +965,7 @@ namespace Qhta.DbUtils.SqlServer
               result.Add(
                 new DbTableInfo
                 {
-                  Name = schemaName+dataReader.GetString(1),
+                  Name = schemaName + dataReader.GetString(1),
                   LastModifiedAt = dataReader.GetDateTime(2),
                   RowsCount = dataReader.GetInt64(3),
                   Database = info,

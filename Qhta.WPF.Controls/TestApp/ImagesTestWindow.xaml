@@ -1,0 +1,41 @@
+﻿<Window x:Class="TestApp.ImagesTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:Qhta.WPF.Controls;assembly=Qhta.WPF.Controls"
+        xmlns:local="clr-namespace:TestApp"
+        mc:Ignorable="d"
+        Title="TextBoxTest" Height="450" Width="800">
+  <!--<Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Qhta.WPF.Controls;component/Styles/SpecificTextBoxes.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>-->
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <WrapPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                >
+      <Grid Width="100" Height="100" Margin="0" Background="AliceBlue">
+        <my:ImageView Source="/Images/ChessBoard16.png" 
+         HorizontalAlignment="Center"
+         VerticalAlignment="Center"
+          >
+          <my:ImageView.ContextMenu>
+            <ContextMenu>
+              <MenuItem Header="Zoom x 1"/>
+              <MenuItem Header="Zoom x 2"/>
+              <MenuItem Header="Zoom x 3"/>
+              <MenuItem Header="Zoom x 4"/>
+            </ContextMenu>
+          </my:ImageView.ContextMenu>
+        </my:ImageView>
+      </Grid>
+    </WrapPanel>
+  </Grid>
+</Window>
