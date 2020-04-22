@@ -62,6 +62,7 @@
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
+    <Compile Include="ListViewCustomizableCellPresenter.cs" />
     <Compile Include="MeasureUtils.cs" />
     <Compile Include="Converters\StringsWidthConverter.cs" />
     <Compile Include="Converters\CamelStringConverter.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="UndoManager`1.cs" />
     <Compile Include="UpdatableCommand.cs" />
     <Compile Include="Converters\ValidityBrushConverter.cs" />
+    <Compile Include="VisualTreeHelperExt.cs" />
     <Compile Include="WpfWin32Window.cs" />
   </ItemGroup>
   <ItemGroup>
