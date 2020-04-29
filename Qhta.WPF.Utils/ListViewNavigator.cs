@@ -2,38 +2,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Qhta.WPF.Utils
 {
   public class ListViewNavigator
   {
+    public event FieldUpdateEventHandler FieldUpdate;
 
     #region TryUpdateFields
-
-    public object TryUpdateField(FrameworkElement sender, ICollection collection)
+    public bool TryUpdateField(object sender)
     {
+      //Debug.WriteLine("TryUpdateField2");
+      if (sender is FrameworkElement element)
+      {
+        var listView = VisualTreeHelperExt.FindInVisualTreeUp<ListView>(element);
+        if (listView != null)
+        {
+          var list = listView?.ItemsSource as IList;
+          if (list == null)
+            throw new InvalidCastException($"Items source of {listView} cannot be cast to IList");
+          var internalElement = element;
+          if (!focusableElements.Contains(element.GetType()))
+            internalElement = VisualTreeHelperExt.FindInVisualTreeDown<FrameworkElement>(focusableElements, element);
+          if (internalElement != null)
+          {
+            var targetObject = internalElement.DataContext;
+            var index = listView.Items.IndexOf(targetObject);
+            listView.SelectedIndex = index;
+            object updatedObject = null;
+            return TryUpdateField(internalElement, list, out updatedObject);
+          }
+        }
+      }
+      return false;
+    }
+
+    public bool TryUpdateField(FrameworkElement sender, ICollection collection, out object updatedObject)
+    {
+      //Debug.WriteLine("TryUpdateField3");
       if (sender is TextBox textBox)
-        return TryUpdateField(sender, TextBox.TextProperty, collection);
+        return TryUpdateField(sender, TextBox.TextProperty, collection, out updatedObject);
       else
       if (sender is CheckBox checkBox)
-        return TryUpdateField(sender, CheckBox.IsCheckedProperty, collection);
+        return TryUpdateField(sender, CheckBox.IsCheckedProperty, collection, out updatedObject);
       throw new InvalidCastException($"Cannot update field for {sender.GetType()} type");
     }
 
-    private object TryUpdateField(FrameworkElement sender, DependencyProperty dependencyProperty, ICollection collection)
+    private bool TryUpdateField(FrameworkElement sender, DependencyProperty dependencyProperty, ICollection collection, out object updatedObject)
     {
+      //Debug.WriteLine("TryUpdateField4");
       var dictionary = collection as IDictionary;
-      var targetObject = sender.DataContext;
-      var updatedObject = targetObject;
+      var sourceObject = sender.DataContext;
+      updatedObject = sourceObject;
       var binding = sender.GetBindingExpression(dependencyProperty);
       if (binding?.IsDirty == true)
       {
+        //Debug.WriteLine("binding.IsDirty");
         var targetProperty = binding.TargetProperty;
         var newValue = sender.GetValue(targetProperty);
         var source = binding.ResolvedSource;
@@ -41,55 +73,35 @@ namespace Qhta.WPF.Utils
         var oldValue = sourceProperty.GetValue(source);
         if (newValue != oldValue)
         {
-          if (sourceProperty.GetCustomAttributes(typeof(KeyAttribute), true).FirstOrDefault() == null)
+          //Debug.WriteLine("newValue!=oldValue");
+          var cancel = false;
+          if (FieldUpdate != null)
+          {
+            var args = new FieldUpdateEventArgs(sourceObject, sourceProperty, newValue, oldValue);
+            FieldUpdate.Invoke(sender, args);
+            updatedObject = args.TargetObject;
+            cancel = args.Cancel;
+          }
+          if (!cancel)
           {
             binding.UpdateSource();
+            return true;
           }
           else
           {
-            if (dictionary == null)
-              throw new ArgumentNullException("Collection argument in TryUpdateField can't be null");
-            var entryTypeName = source.GetType().Name;
-            if (newValue == null || newValue is String newKey && newKey == "")
-            {
-              var res = MessageBox.Show($"{entryTypeName} {sourceProperty.Name} cannot be empty."
-                  + " Do you want to delete this entry?", "Confirm", MessageBoxButton.OKCancel);
-              if (res == MessageBoxResult.OK)
-              {
-                dictionary.Remove(oldValue);
-              }
-              else
-                binding.UpdateTarget();
-            }
-            else
-            if (dictionary.Contains(newValue))
-            {
-              var res = MessageBox.Show($"{entryTypeName} \"{newValue}\" already exists. When you change \"{oldValue}\" to \"{newValue}\" the entries will be merged."
-                  + " Do you want to continue?", "Confirm", MessageBoxButton.OKCancel);
-              if (res == MessageBoxResult.OK)
-              {
-                {
-                  binding.UpdateSource();
-                  //var index = collection.IndexOf(newValue);
-                  //ResultsView.SelectedIndex = index;
-                  //targetObject = abbreviations[index];
-                  targetObject = newValue;
-                }
-              }
-              else
-                binding.UpdateTarget();
-            }
-
+            binding.UpdateTarget();
+            updatedObject = null;
+            return false;
           }
         }
       }
-      return updatedObject;
+      return false;
     }
 
     #endregion
 
-    #region Navigation on key
-    private bool switchSelectOnFocus = true;
+    #region Navigation on key down
+    //private bool switchSelectOnFocus = true;
     private bool switchFocusOnSelect = false;
     private int columnToSwitch = -1;
 
@@ -105,40 +117,35 @@ namespace Qhta.WPF.Utils
           var list = listView?.ItemsSource as IList;
           if (list == null)
             throw new InvalidCastException($"Items source of {listView} cannot be cast to IList");
-          var internalElement = VisualTreeHelperExt.FindInVisualTreeDown<FrameworkElement>(focusableElements, element);
+          var internalElement = element;
+          if (!focusableElements.Contains(element.GetType()))
+            internalElement = VisualTreeHelperExt.FindInVisualTreeDown<FrameworkElement>(focusableElements, element);
           if (internalElement != null)
           {
             var targetObject = internalElement.DataContext;
             var index = listView.Items.IndexOf(targetObject);
             listView.SelectedIndex = index;
+            object updatedObject = null;
             if (args.Key == Key.Enter)
             {
-              TryUpdateField(internalElement, list);
+              TryUpdateField(internalElement, list, out updatedObject);
               args.Handled = true;
             }
             else
-            if (args.Key == Key.Down)
+            if (args.Key == Key.Down || args.Key == Key.Up)
             {
               int c = list.Count;
-              var updatedItem = TryUpdateField(internalElement, list);
-              var i1 = listView.Items.IndexOf(updatedItem);
-              if (list.Count == c)
-                ListView_MoveFocus(listView, new TraversalRequest(FocusNavigationDirection.Down), updatedItem);
-              else
-                ListView_MoveFocusToObject(listView, updatedItem);
+              TryUpdateField(internalElement, list, out updatedObject);
+              if (updatedObject != null)
+              {
+                if (list.Count == c)
+                  ListView_MoveFocus(listView, new TraversalRequest((args.Key == Key.Down) ? FocusNavigationDirection.Down : FocusNavigationDirection.Up), updatedObject);
+                else
+                  ListView_MoveFocusToObject(listView, updatedObject);
+              }
               args.Handled = true;
             }
             else
-            if (args.Key == Key.Up)
-            {
-              int c = list.Count;
-              var updatedItem = TryUpdateField(internalElement, list);
-              if (list.Count == c)
-                ListView_MoveFocus(listView, new TraversalRequest(FocusNavigationDirection.Up), updatedItem);
-              else
-                ListView_MoveFocusToObject(listView, updatedItem);
-              args.Handled = true;
-            }
             if (args.Key == Key.F2 && internalElement is TextBox textBox)
             {
               textBox.SelectAll();

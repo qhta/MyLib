@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Qhta.WPF.Utils</RootNamespace>
     <AssemblyName>Qhta.WPF.Utils</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="Qhta.HtmlUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.HtmlUtils.1.0.0\lib\netstandard2.0\Qhta.HtmlUtils.dll</HintPath>
     </Reference>
@@ -63,6 +64,8 @@
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
+    <Compile Include="FieldUpdateEventArgs.cs" />
+    <Compile Include="FieldUpdateEventHandler.cs" />
     <Compile Include="ListViewCustomizableCellPresenter.cs" />
     <Compile Include="ListViewNavigator.cs" />
     <Compile Include="MeasureUtils.cs" />

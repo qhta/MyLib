@@ -34,13 +34,13 @@ namespace ObservableImmutable
     public static Dispatcher GetDispatcher()
     {
       var result =  Dispatcher.FromThread(Thread.CurrentThread);
-      Debug.WriteLine($"GetDispatcher={result!=null}");
+      //Debug.WriteLine($"GetDispatcher={result!=null}");
       return result;
     }
 
     public void WaitForCondition(Func<bool> condition)
     {
-      Debug.WriteLine("WaitForCondition");
+      //Debug.WriteLine("WaitForCondition");
 
       var dispatcher = GetDispatcher();
 
@@ -66,7 +66,7 @@ namespace ObservableImmutable
 
     public void PumpWait_PumpUntil(Dispatcher dispatcher, Func<bool> condition)
     {
-      Debug.WriteLine("PumpWait_PumpUntil");
+      //Debug.WriteLine("PumpWait_PumpUntil");
       var frame = new DispatcherFrame();
       BeginInvokePump(dispatcher, frame, condition);
       Dispatcher.PushFrame(frame);
@@ -74,7 +74,7 @@ namespace ObservableImmutable
 
     private static void BeginInvokePump(Dispatcher dispatcher, DispatcherFrame frame, Func<bool> condition)
     {
-      Debug.WriteLine("BeginInvokePump");
+      //Debug.WriteLine("BeginInvokePump");
       dispatcher.BeginInvoke
         (
         DispatcherPriority.DataBind,
@@ -91,7 +91,7 @@ namespace ObservableImmutable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void DoEvents()
     {
-      Debug.WriteLine("DoEvents");
+      //Debug.WriteLine("DoEvents");
       var dispatcher = GetDispatcher();
       if (dispatcher == null)
       {
@@ -106,7 +106,7 @@ namespace ObservableImmutable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static object ExitFrame(object frame)
     {
-      Debug.WriteLine("ExitFrame");
+      //Debug.WriteLine("ExitFrame");
 
       ((DispatcherFrame)frame).Continue = false;
       return null;
@@ -115,7 +115,7 @@ namespace ObservableImmutable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TryLock()
     {
-      Debug.WriteLine("TryLock");
+      //Debug.WriteLine("TryLock");
       bool ok=false;
       switch (LockType)
       {
@@ -126,14 +126,14 @@ namespace ObservableImmutable
           ok = Monitor.TryEnter(_lockObj);
           break;
       }
-      Debug.WriteLine($"Locked = {ok}");
+      //Debug.WriteLine($"Locked = {ok}");
       return ok;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Lock()
     {
-      Debug.WriteLine("Lock");
+      //Debug.WriteLine("Lock");
       switch (LockType)
       {
         case LockTypeEnum.SpinWait:
@@ -143,13 +143,13 @@ namespace ObservableImmutable
           WaitForCondition(() => Monitor.TryEnter(_lockObj));
           break;
       }
-      Debug.WriteLine("Locked");
+      //Debug.WriteLine("Locked");
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Unlock()
     {
-      Debug.WriteLine("Unlock");
+      //Debug.WriteLine("Unlock");
       switch (LockType)
       {
         case LockTypeEnum.SpinWait:
@@ -161,7 +161,7 @@ namespace ObservableImmutable
           _lockObjWasTaken = false;
           break;
       }
-      Debug.WriteLine("Unlocked");
+      //Debug.WriteLine("Unlocked");
     }
 
     #endregion SpinWait/PumpWait Methods  
