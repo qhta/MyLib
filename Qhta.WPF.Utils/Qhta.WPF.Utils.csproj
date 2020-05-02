@@ -66,6 +66,7 @@
     <Compile Include="BindingExpressionUtils.cs" />
     <Compile Include="FieldUpdateEventArgs.cs" />
     <Compile Include="FieldUpdateEventHandler.cs" />
+    <Compile Include="GridViewSort.cs" />
     <Compile Include="ListViewCustomizableCellPresenter.cs" />
     <Compile Include="ListViewNavigator.cs" />
     <Compile Include="MeasureUtils.cs" />
@@ -131,6 +132,18 @@
     <Compile Include="ClipboardUtils\ClipboardUtils.Interop.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\ComboBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\TextBoxAnimationStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\GridViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\WpfUtils.Resources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

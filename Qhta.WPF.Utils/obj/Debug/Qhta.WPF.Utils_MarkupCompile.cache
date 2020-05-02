@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-12040160110
+4-1220876428
 11298430834
-66-56076206
+671507141927
 127-564739009
-Resources\WpfUtils.Resources.xaml;
+Resources\ComboBoxStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\GridViewStyle.xaml;Resources\WpfUtils.Resources.xaml;
 
 False
 
