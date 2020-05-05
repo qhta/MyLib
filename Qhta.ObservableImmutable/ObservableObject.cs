@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Threading;
 
-namespace ObservableImmutable
+namespace Qhta.ObservableImmutable
 {
   public class ObservableObject: INotifyPropertyChanged
   {

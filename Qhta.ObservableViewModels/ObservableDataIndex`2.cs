@@ -5,42 +5,73 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using ObservableImmutable;
+using Qhta.ObservableImmutable;
 
 namespace Qhta.ObservableViewModels
 {
-  public class ObservableDataIndex<TValue> : ObservableObject,
+  public class ObservableDataIndex<TKey, TValue> : ObservableObject,
       ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue>
   {
-    public ObservableDataIndex(Type keyType, params string[] properties)
+    public ObservableDataIndex(): this (null) { }
+
+    public ObservableDataIndex(string aName)
     {
-      foreach (var propName in properties)
+      Dictionary<string, List<PropertyInfo>> allIndexes = new Dictionary<string, List<PropertyInfo>>();
+      foreach (var propInfo in typeof(TValue).GetProperties())
       {
-        var propInfo = typeof(TValue).GetProperty(propName);
-        if (propInfo == null)
-          throw new InvalidOperationException($"Property {propName} not found in type {typeof(TValue).Name}");
-        if (!propInfo.CanRead)
-          throw new KeyNotFoundException($"Primary key {propInfo.Name} has no get accessor");
-        propertyInfos.Add(propInfo);
+        IndexAttribute indexAttribute;
+        if ((indexAttribute = propInfo.GetCustomAttribute<IndexAttribute>()) != null)
+        {
+          if (!propInfo.CanRead)
+            throw new KeyNotFoundException($"Indexed property {propInfo.Name} has no get accessor");
+          var indexName = indexAttribute.Name;
+          if (allIndexes.TryGetValue(indexName, out var properties))
+            properties.Add(propInfo);
+          else
+          {
+            var props = new List<PropertyInfo>();
+            props.Add(propInfo);
+            allIndexes.Add(indexName, props);
+          }
+        }
       }
-      if (propertyInfos.Count == 1)
+      if (allIndexes.Count == 0)
       {
-        if (propertyInfos[0].PropertyType != keyType)
-          throw new InvalidCastException($"Typeof property {propertyInfos[0].Name} in type {typeof(TValue).Name} " +
-            $"different from {keyType.Name} as declared in {this.GetType().Name}");
+        throw new KeyNotFoundException($"Index key not found in class {typeof(TValue).Name}. Use [Index] attribute where necessary");
+      }
+      if (allIndexes.Count == 1)
+      {
+        indexKeys = allIndexes.Values.First();
+      }
+      else
+      {
+        if (aName==null)
+          throw new KeyNotFoundException($"Ambiguous index key found in class {typeof(TValue).Name}. Use index constructor with a specific index name");
+        if (allIndexes.TryGetValue(aName, out var indexes))
+          indexKeys = indexes;
+        else
+          throw new KeyNotFoundException($"Index key {aName} found in class {typeof(TValue).Name}. Use [Index] attribute with a specific index name");
+      }
+
+      if (indexKeys.Count == 1)
+      {
+
+          if (indexKeys[0].PropertyType != typeof(TKey))
+          throw new InvalidCastException($"Type of primary key property in class {typeof(TValue).Name} " +
+            $"different from {typeof(TKey).Name} as declared in {this.GetType().Name}");
       }
       else
       {
         bool found = false;
-        foreach (var constructorInfo in keyType.GetConstructors())
+        foreach (var constructorInfo in typeof(TKey).GetConstructors())
         {
           var constructorParamList = constructorInfo.GetParameters().Select(item => item.ParameterType).ToList();
-          if (constructorParamList.Count == propertyInfos.Count)
+          if (constructorParamList.Count == indexKeys.Count)
           {
             int k = 0;
             for (int i = 0; i < constructorParamList.Count; i++)
             {
-              if (constructorParamList[i] == propertyInfos[i])
+              if (constructorParamList[i] == indexKeys[i])
                 k++;
             }
             if (k == constructorParamList.Count)
@@ -53,13 +84,14 @@ namespace Qhta.ObservableViewModels
         }
         if (!found)
         {
-          var typeNames = String.Join(", ", propertyInfos.Select(item => item.PropertyType.Name));
-          throw new InvalidCastException($"No appropriate constructor found in {keyType.Name}." +
+          var typeNames = String.Join(", ", indexKeys.Select(item => item.PropertyType.Name));
+          throw new InvalidCastException($"No appropriate constructor found in {typeof(TKey).Name}." +
             $" A public constructor with the following parameters should be declared: {typeNames}");
         }
       }
     }
-    protected List<PropertyInfo> propertyInfos = new List<PropertyInfo>();
+
+    protected List<PropertyInfo> indexKeys = new List<PropertyInfo>();
     protected ConstructorInfo keyConstructor;
 
     public readonly ObservableDictionary<object, TValue> Items = new ObservableDictionary<object, TValue>();
@@ -76,23 +108,23 @@ namespace Qhta.ObservableViewModels
 
     public virtual bool IsReadOnly => false;
 
-    public virtual bool ContainsKey(object key)
+    public virtual bool ContainsKey(TKey key)
     {
       return Items.ContainsKey(key);
     }
 
-    public virtual bool TryGetValue(object key, out TValue aItem)
+    public virtual bool TryGetValue(TKey key, out TValue aItem)
     {
       return Items.TryGetValue(key, out aItem);
     }
 
-    public virtual void Add(object key, TValue item)
+    public virtual void Add(TKey key, TValue item)
     {
       Items.Add(key, item);
       IsModified = true;
     }
 
-    public virtual bool RemoveKey(object key)
+    public virtual bool RemoveKey(TKey key)
     {
       var ok = Items.TryGetValue(key, out TValue item);
       if (ok)
@@ -105,19 +137,19 @@ namespace Qhta.ObservableViewModels
       Add(CreateKey(item), item);
     }
 
-    protected virtual object CreateKey(TValue item)
+    protected virtual TKey CreateKey(TValue item)
     {
-      if (propertyInfos.Count == 1)
+      if (indexKeys.Count == 1)
       {
-        var key = (object)propertyInfos[0].GetValue(item);
+        var key = (TKey)indexKeys[0].GetValue(item);
         return key;
       }
       else
       {
-        object[] keyValues = new object[propertyInfos.Count];
-        for (int i = 0; i < propertyInfos.Count; i++)
-          keyValues[i] = propertyInfos[i].GetValue(item);
-        object key = (object)keyConstructor.Invoke(keyValues);
+        object[] keyValues = new object[indexKeys.Count];
+        for (int i = 0; i < indexKeys.Count; i++)
+          keyValues[i] = indexKeys[i].GetValue(item);
+        var key = (TKey)keyConstructor.Invoke(keyValues);
         return key;
       }
     }
@@ -158,15 +190,15 @@ namespace Qhta.ObservableViewModels
       return Items.Values.ToList().IndexOf(value);
     }
 
-    public virtual int IndexOfKey(object key)
+    public virtual int IndexOfKey(TKey key)
     {
       return Items.Keys.ToList().IndexOf(key);
     }
 
 
-    public virtual object KeyOfIndex(int index)
+    public virtual TKey KeyOfIndex(int index)
     {
-      return Items.Keys.ToList()[index];
+      return (TKey)Items.Keys.ToList()[index];
     }
 
     public virtual TValue this[object index]

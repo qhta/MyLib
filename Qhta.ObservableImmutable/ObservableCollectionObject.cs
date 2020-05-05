@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Threading;
 
-namespace ObservableImmutable
+namespace Qhta.ObservableImmutable
 {
   public class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
   {

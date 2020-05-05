@@ -33,6 +33,12 @@
     <NoWarn>
     </NoWarn>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Qhta.WPF.Utils.key.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\..\IconManager\Iconizer\IconEditor\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -153,6 +159,7 @@
     <None Include="app.config" />
     <None Include="package.nuspec" />
     <None Include="packages.config" />
+    <None Include="Qhta.WPF.Utils.key.pfx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExceptionStringTable.resx" />

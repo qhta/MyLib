@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Immutable;
 
-namespace ObservableImmutable
+namespace Qhta.ObservableImmutable
 {
   public class ObservableDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>, 
     IReadOnlyDictionary<T, V>, IReadOnlyCollection<KeyValuePair<T, V>>, 

@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace ObservableImmutable
+namespace Qhta.ObservableImmutable
 {
     public class ObservableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, 
     IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, 

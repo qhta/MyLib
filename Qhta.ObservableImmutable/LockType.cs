@@ -1,4 +1,4 @@
-﻿namespace ObservableImmutable
+﻿namespace Qhta.ObservableImmutable
 {
   public enum LockTypeEnum
   {

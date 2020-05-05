@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Threading;
 
-namespace ObservableImmutable
+namespace Qhta.ObservableImmutable
 {
   public class DispatcherHelper
   {

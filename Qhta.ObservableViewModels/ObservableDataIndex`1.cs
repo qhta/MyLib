@@ -3,58 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using ObservableImmutable;
+using Qhta.ObservableImmutable;
 
 namespace Qhta.ObservableViewModels
 {
-  public class ObservableDataSet<TKey, TValue> : ObservableObject,
-      ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue> where TKey: IComparable<TKey>
+  public class ObservableDataIndex<TValue> : ObservableObject,
+      ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue>
   {
-    public ObservableDataSet()
+    public ObservableDataIndex(Type keyType, params string[] properties)
     {
-
-      foreach (var propInfo in typeof(TValue).GetProperties())
+      foreach (var propName in properties)
       {
-        if (propInfo.GetCustomAttribute<KeyAttribute>() != null)
-        {
-          primaryKeys.Add(propInfo);
-        }
-      }
-      if (primaryKeys.Count==0)
-      {
-        throw new KeyNotFoundException($"Primary key not found in type {typeof(TValue).Name}. Use [Key] attribute where necessary");
-      }
-      foreach (var propInfo in primaryKeys)
-      {
+        var propInfo = typeof(TValue).GetProperty(propName);
+        if (propInfo == null)
+          throw new InvalidOperationException($"Property {propName} not found in type {typeof(TValue).Name}");
         if (!propInfo.CanRead)
           throw new KeyNotFoundException($"Primary key {propInfo.Name} has no get accessor");
+        propertyInfos.Add(propInfo);
       }
-      if (primaryKeys.Count == 1)
+      if (propertyInfos.Count == 1)
       {
-        if (primaryKeys[0].PropertyType != typeof(TKey))
-          throw new InvalidCastException($"Typeof primary key property in type {typeof(TValue).Name} " +
-            $"different from {typeof(TKey).Name} as declared in {this.GetType().Name}");
+        if (propertyInfos[0].PropertyType != keyType)
+          throw new InvalidCastException($"Typeof property {propertyInfos[0].Name} in type {typeof(TValue).Name} " +
+            $"different from {keyType.Name} as declared in {this.GetType().Name}");
       }
       else
       {
         bool found = false;
-        foreach (var constructorInfo in typeof(TKey).GetConstructors())
+        foreach (var constructorInfo in keyType.GetConstructors())
         {
           var constructorParamList = constructorInfo.GetParameters().Select(item => item.ParameterType).ToList();
-          if (constructorParamList.Count == primaryKeys.Count)
+          if (constructorParamList.Count == propertyInfos.Count)
           {
             int k = 0;
             for (int i = 0; i < constructorParamList.Count; i++)
             {
-              if (constructorParamList[i] == primaryKeys[i])
+              if (constructorParamList[i] == propertyInfos[i])
                 k++;
             }
             if (k == constructorParamList.Count)
             {
-              primaryKeyConstructor = constructorInfo;
+              keyConstructor = constructorInfo;
               found = true;
               break;
             }
@@ -62,16 +53,16 @@ namespace Qhta.ObservableViewModels
         }
         if (!found)
         {
-          var typeNames = String.Join(", ", primaryKeys.Select(item => item.PropertyType.Name));
-          throw new InvalidCastException($"No appropriate constructor found in {typeof(TKey).Name}." +
+          var typeNames = String.Join(", ", propertyInfos.Select(item => item.PropertyType.Name));
+          throw new InvalidCastException($"No appropriate constructor found in {keyType.Name}." +
             $" A public constructor with the following parameters should be declared: {typeNames}");
         }
       }
     }
-    protected List<PropertyInfo> primaryKeys = new List<PropertyInfo>();
-    protected ConstructorInfo primaryKeyConstructor;
+    protected List<PropertyInfo> propertyInfos = new List<PropertyInfo>();
+    protected ConstructorInfo keyConstructor;
 
-    public readonly ObservableDictionary<TKey, TValue> Items = new ObservableDictionary<TKey, TValue>();
+    public readonly ObservableDictionary<object, TValue> Items = new ObservableDictionary<object, TValue>();
 
     #region Notification
     public event NotifyCollectionChangedEventHandler CollectionChanged
@@ -85,29 +76,27 @@ namespace Qhta.ObservableViewModels
 
     public virtual bool IsReadOnly => false;
 
-    public virtual bool ContainsKey(TKey key)
+    public virtual bool ContainsKey(object key)
     {
       return Items.ContainsKey(key);
     }
 
-    public virtual bool TryGetValue(TKey key, out TValue aItem)
+    public virtual bool TryGetValue(object key, out TValue aItem)
     {
       return Items.TryGetValue(key, out aItem);
     }
 
-    public virtual void Add(TKey key, TValue item)
+    public virtual void Add(object key, TValue item)
     {
       Items.Add(key, item);
       IsModified = true;
     }
 
-    public virtual bool Remove(TKey key)
+    public virtual bool RemoveKey(object key)
     {
       var ok = Items.TryGetValue(key, out TValue item);
       if (ok)
-      {
         Items.Remove(key);
-      }
       return ok;
     }
 
@@ -116,19 +105,19 @@ namespace Qhta.ObservableViewModels
       Add(CreateKey(item), item);
     }
 
-    protected virtual TKey CreateKey(TValue item)
+    protected virtual object CreateKey(TValue item)
     {
-      if (primaryKeys.Count == 1)
+      if (propertyInfos.Count == 1)
       {
-        var key = (TKey)primaryKeys[0].GetValue(item);
+        var key = (object)propertyInfos[0].GetValue(item);
         return key;
       }
       else
       {
-        object[] keyValues = new object[primaryKeys.Count];
-        for (int i = 0; i < primaryKeys.Count; i++)
-          keyValues[i] = primaryKeys[i].GetValue(item);
-        TKey key = (TKey)primaryKeyConstructor.Invoke(keyValues);
+        object[] keyValues = new object[propertyInfos.Count];
+        for (int i = 0; i < propertyInfos.Count; i++)
+          keyValues[i] = propertyInfos[i].GetValue(item);
+        object key = (object)keyConstructor.Invoke(keyValues);
         return key;
       }
     }
@@ -149,7 +138,9 @@ namespace Qhta.ObservableViewModels
 
     public virtual bool Remove(TValue item)
     {
-      return this.Remove(CreateKey(item));
+      var ok = Items.Values.Contains(item);
+      Items.Remove(CreateKey(item));
+      return ok;
     }
 
     public virtual IEnumerator<TValue> GetEnumerator()
@@ -167,18 +158,26 @@ namespace Qhta.ObservableViewModels
       return Items.Values.ToList().IndexOf(value);
     }
 
-    public virtual int IndexOfKey(TKey key)
+    public virtual int IndexOfKey(object key)
     {
       return Items.Keys.ToList().IndexOf(key);
     }
 
 
-    public virtual TKey KeyOfIndex(int index)
+    public virtual object KeyOfIndex(int index)
     {
       return Items.Keys.ToList()[index];
     }
 
-    public virtual TValue this[TKey index] => Items[index];
+    public virtual TValue this[object index]
+    {
+      get
+      {
+        if (Items.TryGetValue(index, out TValue item))
+          return item;
+        return default(TValue);
+      }
+    }
 
     public virtual TValue SelectedItem
     {
@@ -207,13 +206,6 @@ namespace Qhta.ObservableViewModels
 
     public bool ShouldSerializeSelectedItem() => false;
 
-    //public virtual int Add(TValue value)
-    //{
-    //  if (value is TValue abbreviation)
-    //    Add(abbreviation);
-    //  return IndexOf(value);
-    //}
-
     public virtual bool Contains(object value)
     {
       if (value is TValue subdocument)
@@ -221,22 +213,9 @@ namespace Qhta.ObservableViewModels
       return false;
     }
 
-    //public virtual int IndexOf(TValue value)
-    //{
-    //  if (value is TValue subdocument)
-    //    return Items.Values.ToList().IndexOf(subdocument);
-    //  return -1;
-    //}
-
     public virtual void Insert(int index, TValue value)
     {
       throw new NotImplementedException("TValue.Insert not implemented");
-    }
-
-    public virtual void Remove(object value)
-    {
-      if (value is TValue abbreviation)
-        Items.Remove(abbreviation);
     }
 
     public virtual void RemoveAt(int index)
@@ -250,7 +229,8 @@ namespace Qhta.ObservableViewModels
       // if BindingOperations.EnableCollectionSynchronization was called
       Items.Values.ToArray().CopyTo(array, index);
     }
-  }
 
+    public virtual IEnumerable<TValue> Values => Items.Values;
+  }
 }
 
