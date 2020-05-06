@@ -24,7 +24,7 @@ namespace Qhta.ObservableViewModels
         {
           if (!propInfo.CanRead)
             throw new KeyNotFoundException($"Indexed property {propInfo.Name} has no get accessor");
-          var indexName = indexAttribute.Name;
+          var indexName = indexAttribute.Name ?? "";
           if (allIndexes.TryGetValue(indexName, out var properties))
             properties.Add(propInfo);
           else

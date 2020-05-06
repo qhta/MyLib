@@ -115,6 +115,7 @@
     <Compile Include="Converters\OrdNumConverter.cs" />
     <Compile Include="Converters\NullableIntConverter.cs" />
     <Compile Include="Converters\IconEnabledConverter.cs" />
+    <Compile Include="ProgressMonitor`1.cs" />
     <Compile Include="SR.cs" />
     <Compile Include="Converters\String2ObjectConverter.cs" />
     <Compile Include="Converters\String2ObjectDictionary.cs" />
