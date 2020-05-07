@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.Drawing.ArrayGraphics</id>
+    <version>1.0.1</version>
+    <authors>Yarreck Qhta</authors>
+    <owners>Yarreck Qhta</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <description>Getting and setting pixels in System.Drawing.Bitmap</description>
+    <releaseNotes>First Release</releaseNotes>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Drawing.Common" version="4.5.1" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Primitives" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Dane\VS\Projects\MyLib\bin\Qhta.Drawing.ArrayGraphics.dll" target="lib\netstandard2.0\Qhta.Drawing.ArrayGraphics.dll" />
+  </files>
+</package>

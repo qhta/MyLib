@@ -1,0 +1,8 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.FileUtils.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.FileUtils.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.FileUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.FileUtils\obj\Debug\Qhta.FileUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.FileUtils\obj\Debug\Qhta.FileUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.FileUtils\obj\Debug\Qhta.FileUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.FileUtils\obj\Debug\Qhta.FileUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.FileUtils\obj\Debug\Qhta.FileUtils.pdb

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.Drawing.ColorUtils</id>
+    <version>1.1.1</version>
+    <authors>Yarreck Qhta</authors>
+    <owners>Yarreck Qhta</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <description>System.Drawing.Color utilities</description>
+    <releaseNotes>ColorSpaceConverter changed to support alpha channel &amp; CMYK model</releaseNotes>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Dane\VS\Projects\MyLib\bin\Qhta.Drawing.ColorUtils.dll" target="lib\netstandard2.0\Qhta.Drawing.ColorUtils.dll" />
+  </files>
+</package>

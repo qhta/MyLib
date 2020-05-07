@@ -1,0 +1,9 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.GuidUtils.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.GuidUtils.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.GuidUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Debug\Qhta.GuidUtils.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Debug\Qhta.GuidUtils.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Debug\Qhta.GuidUtils.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Debug\Qhta.GuidUtils.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Debug\Qhta.GuidUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.GuidUtils\obj\Debug\Qhta.GuidUtils.pdb
