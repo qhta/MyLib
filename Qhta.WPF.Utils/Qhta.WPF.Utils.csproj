@@ -70,6 +70,9 @@
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
+    <Compile Include="Converters\ArithmeticConverter.cs" />
+    <Compile Include="Converters\AddingConverter.cs" />
+    <Compile Include="Converters\SubtractingConverter.cs" />
     <Compile Include="FieldUpdateEventArgs.cs" />
     <Compile Include="FieldUpdateEventHandler.cs" />
     <Compile Include="GridViewSort.cs" />
