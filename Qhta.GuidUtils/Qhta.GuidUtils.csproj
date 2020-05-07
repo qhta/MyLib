@@ -5,11 +5,13 @@
     <Authors>Yarreck Qhta</Authors>
     <Description>Some operations on Guid type</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.GuidUtils.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

@@ -7,12 +7,14 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>A package of functions to supplement System.Reflections.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.TypeUtils.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
 </Project>

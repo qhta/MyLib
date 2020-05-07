@@ -5,12 +5,14 @@
     <RootNamespace>Qhta.EFCoreTools</RootNamespace>
     <Authors>Yarreck Qhta</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.EFCoreTools.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

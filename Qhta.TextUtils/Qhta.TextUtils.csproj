@@ -14,5 +14,7 @@
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Version>2.1.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.TextUtils.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

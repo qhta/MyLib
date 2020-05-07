@@ -180,7 +180,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.GuidUtils\\Qhta.GuidUtils.csproj",
       "projectName": "Qhta.GuidUtils",
@@ -200,8 +200,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://dotnet.myget.org/F/roslyn/api/v3/index.json": {},
-        "https://www.nuget.org/api/v2/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {

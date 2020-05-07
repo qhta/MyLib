@@ -40,20 +40,23 @@
     <AssemblyOriginatorKeyFile>Qhta.WPF.Utils.key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\..\IconManager\Iconizer\IconEditor\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.8.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\Qhta.WPF.Controls\packages\HtmlAgilityPack.1.8.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Classic" />
-    <Reference Include="Qhta.HtmlUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.HtmlUtils.1.0.0\lib\netstandard2.0\Qhta.HtmlUtils.dll</HintPath>
+    <Reference Include="Qhta.DispatchedObjects, Version=1.0.2.0, Culture=neutral, PublicKeyToken=2eb9223338263fec, processorArchitecture=MSIL">
+      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.DispatchedObjects.1.0.2\lib\netstandard2.0\Qhta.DispatchedObjects.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.MVVM, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\IMACS\IMACStudio\packages\Qhta.MVVM.1.0.1\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
+    <Reference Include="Qhta.HtmlUtils, Version=1.0.1.0, Culture=neutral, PublicKeyToken=326eec3dee131ef7, processorArchitecture=MSIL">
+      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.HtmlUtils.1.0.1\lib\netstandard2.0\Qhta.HtmlUtils.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.OrdNumbers, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\bin\Qhta.OrdNumbers.dll</HintPath>
+    <Reference Include="Qhta.MVVM, Version=1.0.2.0, Culture=neutral, PublicKeyToken=374081c06722bca0, processorArchitecture=MSIL">
+      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.MVVM.1.0.2\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.OrdNumbers, Version=2.1.0.0, Culture=neutral, PublicKeyToken=05534810d7fc4a77, processorArchitecture=MSIL">
+      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.OrdNumbers.2.1.1\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />

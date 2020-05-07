@@ -478,7 +478,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Drawing\\Qhta.Drawing.csproj",
       "projectName": "Qhta.Drawing",

@@ -13,5 +13,9 @@
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.HtmlUtils.key.pfx</AssemblyOriginatorKeyFile>
+    <Version>1.0.1</Version>
+    <Description></Description>
   </PropertyGroup>
 </Project>

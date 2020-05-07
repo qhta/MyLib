@@ -26,7 +26,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.DispatchedObjects/1.0.1": {
+      "Qhta.DispatchedObjects/1.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {}
@@ -35,7 +35,7 @@
           "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {}
         }
       },
-      "Qhta.OrdNumbers/2.1.0": {
+      "Qhta.OrdNumbers/2.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
@@ -187,27 +187,27 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Qhta.DispatchedObjects/1.0.1": {
-      "sha512": "svbSbNTtRXxulMfDZ2gYTm1MzPAMcn7VgktHrJvalkNrHquUJi2oHiaTRawgFEuFTxAGbvA+W22nceY3H234rQ==",
+    "Qhta.DispatchedObjects/1.0.2": {
+      "sha512": "XgKLyPEQCMnA6LaLS1Y3itbTyy4yQr1i1cohodJn4n0IL9X7QfASVtxFT2DPhYH9Q1WsKNVBd27TfafmZBkcLg==",
       "type": "package",
-      "path": "qhta.dispatchedobjects/1.0.1",
+      "path": "qhta.dispatchedobjects/1.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Qhta.DispatchedObjects.dll",
-        "qhta.dispatchedobjects.1.0.1.nupkg.sha512",
+        "qhta.dispatchedobjects.1.0.2.nupkg.sha512",
         "qhta.dispatchedobjects.nuspec"
       ]
     },
-    "Qhta.OrdNumbers/2.1.0": {
-      "sha512": "Xf7B59hzWqDsZdWdHJQJEK1fhfRfp2IeeJWGHnc7+gByXagd1xyrXF8U8V76jik3vYKKs6Q8qmp+Tv/fbrN/8g==",
+    "Qhta.OrdNumbers/2.1.1": {
+      "sha512": "OYaaX9dKFw6W4MNNhi95+yM/mZSe5aHxborrWl6oqXVJDP1qlXZWeyjt4NYhxaYTXSc31+tQ6ZPWUOGL+PBDlg==",
       "type": "package",
-      "path": "qhta.ordnumbers/2.1.0",
+      "path": "qhta.ordnumbers/2.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Qhta.OrdNumbers.dll",
-        "qhta.ordnumbers.2.1.0.nupkg.sha512",
+        "qhta.ordnumbers.2.1.1.nupkg.sha512",
         "qhta.ordnumbers.nuspec"
       ]
     }
@@ -215,8 +215,8 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.DispatchedObjects >= 1.0.1",
-      "Qhta.OrdNumbers >= 2.1.0"
+      "Qhta.DispatchedObjects >= 1.0.2",
+      "Qhta.OrdNumbers >= 2.1.1"
     ]
   },
   "packageFolders": {
@@ -224,7 +224,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",
@@ -268,11 +268,11 @@
           },
           "Qhta.DispatchedObjects": {
             "target": "Package",
-            "version": "[1.0.1, )"
+            "version": "[1.0.2, )"
           },
           "Qhta.OrdNumbers": {
             "target": "Package",
-            "version": "[2.1.0, )"
+            "version": "[2.1.1, )"
           }
         },
         "imports": [

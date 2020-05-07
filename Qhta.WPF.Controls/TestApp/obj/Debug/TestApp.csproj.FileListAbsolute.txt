@@ -118,7 +118,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.WPF.Utils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.WPF.Utils.dll.config
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.WPF.Controls.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.WPF.Controls.dll.config
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.OrdNumbers.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\HtmlAgilityPack.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\HtmlAgilityPack.xml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csprojAssemblyReference.cache
@@ -148,3 +147,15 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csproj.Cor
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.exe
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TextBoxtTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\UpDownTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TestApp_Content.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Images\Icon16.png
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Images\NumericUpDown.png
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.TextUtils.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.DispatchedObjects.dll
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\bin\Debug\Qhta.TextUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ImagesTestWindow.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\ImagesTestWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\TextBoxtTestWindow.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Controls\TestApp\obj\Debug\UpDownTestWindow.baml

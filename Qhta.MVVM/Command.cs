@@ -30,10 +30,8 @@ namespace Qhta.MVVM
       return true;
     }
 
-    public void Execute(object parameter)
+    public virtual void Execute(object parameter)
     {
-      DoExecute(parameter);
     }
-    public abstract void DoExecute(object parameter);
   }
 }

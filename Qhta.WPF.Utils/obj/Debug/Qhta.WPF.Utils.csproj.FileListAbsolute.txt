@@ -109,7 +109,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\HtmlAgilityPack.xml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.OrdNumbers.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.WPF.Utils.dll.config
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.ExceptionStringTable.resources
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.GenerateResource.cache
@@ -119,3 +118,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.TextUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ComboBoxStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\TextBoxAnimationStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\GridViewStyle.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.DispatchedObjects.dll

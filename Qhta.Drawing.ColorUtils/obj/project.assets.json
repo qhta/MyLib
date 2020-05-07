@@ -180,7 +180,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Drawing.ColorUtils\\Qhta.Drawing.ColorUtils.csproj",
       "projectName": "Qhta.Drawing.ColorUtils",

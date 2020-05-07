@@ -9,6 +9,9 @@
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.FileUtils.pfx</AssemblyOriginatorKeyFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.HtmlUtils/1.0.0": {
+      "Qhta.HtmlUtils/1.0.1": {
         "dependencies": {
           "HtmlAgilityPack": "1.8.9",
           "NETStandard.Library": "2.0.3"
@@ -599,7 +599,7 @@
     }
   },
   "libraries": {
-    "Qhta.HtmlUtils/1.0.0": {
+    "Qhta.HtmlUtils/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -824,7 +824,7 @@
     "System.Net.Http/4.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6ZdOhw05Y7Da+nYKz7QFtBVeRTCrHd4wBxO0g45hETj1wI2hJEcU4d0dDUxmyHO9/5KXE/qZLtCHen6gBcT2cA==",
+      "sha512": "sha512-y7hv0o0weI0j0mvEcBOdt1F3CAADiWlcw3e54m8TfYiRmBPDIsHElx8QUPDlY4x6yWXKPGN0Z2TuXCTPgkm5WQ==",
       "path": "system.net.http/4.3.2",
       "hashPath": "system.net.http.4.3.2.nupkg.sha512"
     },
@@ -1006,7 +1006,7 @@
     "System.Xml.XPath.XmlDocument/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
+      "sha512": "sha512-91tvfHWHSrYFPolCwWYqbpo1YaoBUCQ3uNZ/O/zr0ev5BnkoATJoie16ywlMVUaXZtfSfNELxhtG3aqpTfwR4w==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
     }

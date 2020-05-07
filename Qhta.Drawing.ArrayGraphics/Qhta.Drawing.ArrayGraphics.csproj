@@ -14,6 +14,9 @@
     <Description>Getting and setting pixels in System.Drawing.Bitmap</Description>
     <PackageReleaseNotes>First Release</PackageReleaseNotes>
     <PackageLicenseUrl>https://opensource.org/licenses/MS-PL</PackageLicenseUrl>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.Drawing.ArrayGraphics.key.pfx</AssemblyOriginatorKeyFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

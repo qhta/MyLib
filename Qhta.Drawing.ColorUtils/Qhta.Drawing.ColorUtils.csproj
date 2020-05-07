@@ -12,7 +12,9 @@
     <PackageLicenseUrl>https://opensource.org/licenses/MS-PL</PackageLicenseUrl>
     <Description>System.Drawing.Color utilities</Description>
     <PackageReleaseNotes>ColorSpaceConverter changed to support alpha channel &amp; CMYK model</PackageReleaseNotes>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Qhta.Drawing.ColorUtils.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

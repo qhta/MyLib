@@ -180,7 +180,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.DispatchedObjects\\Qhta.DispatchedObjects.csproj",
       "projectName": "Qhta.DispatchedObjects",

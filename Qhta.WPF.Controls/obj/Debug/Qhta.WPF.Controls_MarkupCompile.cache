@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 251412606309
 3931216190
-441064913608
-1281557347873
+40-160836387
+128-439553238
 Styles\Border3D.xaml;Styles\ColorMemberEdit.xaml;ColorPadEdit.xaml;Styles\BrushPickerDropDown.xaml;Styles\ColorPickerDropDown.xaml;BrushPickerWindow.xaml;ColorPickerWindow.xaml;ColorEditForm.xaml;BrushSelectionForm.xaml;ColorSelectionForm.xaml;ExtRichTextBox.xaml;Styles\GenericUpDown.xaml;Styles\ImageView.xaml;Styles\SpecificTextBoxes.xaml;GradientSlider.xaml;KnownBrushSelectView.xaml;KnownColorSelectView.xaml;RadialGradientBrushEditForm.xaml;RadialGradientBrushParamsEdit.xaml;LinearGradientBrushParamsEdit.xaml;NumericEditBox.xaml;NumericUpDown.xaml;PanelHeader.xaml;Themes\Generic.xaml;LinearGradientBrushEditForm.xaml;
 
-True
+False
 
