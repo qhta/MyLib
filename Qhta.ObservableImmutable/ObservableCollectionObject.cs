@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Threading;
@@ -11,8 +13,48 @@ namespace Qhta.ObservableImmutable
 
     public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
 
+    public bool NotifyCollectionChangedEnabled { get; set; } = true;
+
+    public void BulkChangeStart(NotifyCollectionChangedAction action)
+    {
+      if (bulkAction != null)
+        BulkChangeEnd();
+      bulkAction = action;
+      bulkItems = new List<object>();
+      bulkIndex = -1;
+    }
+    public void BulkChangeEnd()
+    {
+      if (bulkAction != null)
+      {
+        var action = (NotifyCollectionChangedAction)bulkAction;
+        bulkAction = null;
+        if (bulkItems.Count > 0)
+        {
+          NotifyCollectionChanged(action, bulkItems, bulkIndex);
+        }
+        bulkItems = null;
+      }
+    }
+
+    private NotifyCollectionChangedAction? bulkAction;
+    private List<object> bulkItems;
+    private int bulkIndex;
+
     protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
+      if (args.Action==bulkAction)
+      {
+        if (bulkIndex == -1)
+          bulkIndex = args.NewStartingIndex;
+        foreach (var item in args.NewItems)
+          bulkItems.Add(item);
+        return;
+      }
+
+      if (!NotifyCollectionChangedEnabled)
+        return;
+
       var notifyCollectionChangedEventHandler = CollectionChanged;
 
       if (notifyCollectionChangedEventHandler == null)
@@ -34,14 +76,17 @@ namespace Qhta.ObservableImmutable
           dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
         }
         else
-          try
-          {
-            handler.BeginInvoke(this, args, null, null);
-          }
-          catch(Exception ex)
-          {
-            //Debug.WriteLine(ex.Message);
-          }
+        {
+          handler.BeginInvoke(this, args, null, null);
+          //try
+          //{
+          //  handler.BeginInvoke(this, args, null, null);
+          //}
+          //catch (Exception ex)
+          //{
+          //  //Debug.WriteLine(ex.Message);
+          //}
+        }
       }
     }
 
@@ -50,7 +95,7 @@ namespace Qhta.ObservableImmutable
       NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
-    protected virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
+    public virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
       NotifyPropertyChanged("Count");
       NotifyPropertyChanged("Item[]");
@@ -60,6 +105,11 @@ namespace Qhta.ObservableImmutable
     public void NotifyCollectionChanged(NotifyCollectionChangedAction action, object changedItem, int index)
     {
       NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action, changedItem, index));
+    }
+
+    public void NotifyCollectionChanged(NotifyCollectionChangedAction action, IList changedItems, int index)
+    {
+      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action, changedItems, index));
     }
 
     #endregion INotifyCollectionChanged

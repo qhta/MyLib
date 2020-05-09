@@ -78,6 +78,15 @@ namespace Qhta.ObservableViewModels
       add => Items.CollectionChanged += value;
       remove => Items.CollectionChanged -= value;
     }
+
+    public bool NotifyCollectionChangedEnabled { get => Items.NotifyCollectionChangedEnabled; set => Items.NotifyCollectionChangedEnabled = value; }
+
+    public virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
+      => Items.NotifyCollectionChanged(args);
+
+    public void BulkChangeStart(NotifyCollectionChangedAction action) => Items.BulkChangeStart(action);
+    public void BulkChangeEnd() => Items.BulkChangeEnd();
+
     #endregion
 
     public virtual int Count => Items.Count;
