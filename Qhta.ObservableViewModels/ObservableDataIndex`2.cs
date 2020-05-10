@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Qhta.ObservableImmutable;
@@ -16,11 +17,13 @@ namespace Qhta.ObservableViewModels
 
     public ObservableDataIndex(string aName)
     {
+      //Debug.WriteLine($"ObservableDataIndex({aName}).Create");
       Dictionary<string, List<PropertyInfo>> allIndexes = new Dictionary<string, List<PropertyInfo>>();
       foreach (var propInfo in typeof(TValue).GetProperties())
       {
+        //Debug.WriteLine($"ObservableDataIndex({aName}).FoundProperty {propInfo.Name}");
         IndexAttribute indexAttribute;
-        if ((indexAttribute = propInfo.GetCustomAttribute<IndexAttribute>()) != null)
+        if ((indexAttribute = propInfo.GetCustomAttribute<IndexAttribute>(true)) != null)
         {
           if (!propInfo.CanRead)
             throw new KeyNotFoundException($"Indexed property {propInfo.Name} has no get accessor");
@@ -55,7 +58,6 @@ namespace Qhta.ObservableViewModels
 
       if (indexKeys.Count == 1)
       {
-
           if (indexKeys[0].PropertyType != typeof(TKey))
           throw new InvalidCastException($"Type of primary key property in class {typeof(TValue).Name} " +
             $"different from {typeof(TKey).Name} as declared in {this.GetType().Name}");

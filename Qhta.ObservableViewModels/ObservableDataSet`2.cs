@@ -10,8 +10,8 @@ using Qhta.ObservableImmutable;
 
 namespace Qhta.ObservableViewModels
 {
-  public class ObservableDataSet<TKey, TValue> : ObservableObject,
-      ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue> where TKey: IComparable<TKey>
+  public class ObservableDataSet<TKey, TValue> : ObservableDataSet<TValue>,
+      ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue> where TKey: IComparable<TKey> where TValue: class
   {
     public ObservableDataSet()
     {
@@ -70,62 +70,63 @@ namespace Qhta.ObservableViewModels
     protected List<PropertyInfo> primaryKeys = new List<PropertyInfo>();
     protected ConstructorInfo primaryKeyConstructor;
 
-    public readonly ObservableDictionary<TKey, TValue> Items = new ObservableDictionary<TKey, TValue>();
-
-    #region Notification
-    public event NotifyCollectionChangedEventHandler CollectionChanged
-    {
-      add => Items.CollectionChanged += value;
-      remove => Items.CollectionChanged -= value;
-    }
-
-    public bool NotifyCollectionChangedEnabled { get => Items.NotifyCollectionChangedEnabled; set => Items.NotifyCollectionChangedEnabled = value; }
-
-    public virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
-      => Items.NotifyCollectionChanged(args);
-
-    public void BulkChangeStart(NotifyCollectionChangedAction action) => Items.BulkChangeStart(action);
-    public void BulkChangeEnd() => Items.BulkChangeEnd();
-
-    #endregion
-
-    public virtual int Count => Items.Count;
-
-    public virtual bool IsReadOnly => false;
+    public readonly ObservableDictionary<TKey, TValue> PrimaryIndex = new ObservableDictionary<TKey, TValue>();
 
     public virtual bool ContainsKey(TKey key)
     {
-      return Items.ContainsKey(key);
+      return PrimaryIndex.ContainsKey(key);
     }
 
     public virtual bool TryGetValue(TKey key, out TValue aItem)
     {
-      return Items.TryGetValue(key, out aItem);
+      return PrimaryIndex.TryGetValue(key, out aItem);
+    }
+
+    public override void Add(TValue item)
+    {
+      var key = CreateKey(item);
+      PrimaryIndex.Add(key, item);
+      Items.Add(item);
+      IsModified = true;
     }
 
     public virtual void Add(TKey key, TValue item)
     {
-      Items.Add(key, item);
+      PrimaryIndex.Add(key, item);
+      Items.Add(item);
       IsModified = true;
+    }
+
+    public override bool Remove(TValue item)
+    {
+      bool ok;
+      var key = CreateKey(item);
+      ok = PrimaryIndex.ContainsKey(key);
+      if (ok)
+      {
+        PrimaryIndex.Remove(key);
+        Items.Remove(item);
+      }
+      IsModified = ok;
+      return ok;
     }
 
     public virtual bool Remove(TKey key)
     {
-      var ok = Items.TryGetValue(key, out TValue item);
+      var ok = PrimaryIndex.TryGetValue(key, out TValue item);
       if (ok)
       {
-        Items.Remove(key);
+        PrimaryIndex.Remove(key);
+        Items.Remove(item);
       }
+      IsModified = ok;
       return ok;
-    }
-
-    public virtual void Add(TValue item)
-    {
-      Add(CreateKey(item), item);
     }
 
     protected virtual TKey CreateKey(TValue item)
     {
+      if (primaryKeys.Count == 0)
+        return default(TKey);
       if (primaryKeys.Count == 1)
       {
         var key = (TKey)primaryKeys[0].GetValue(item);
@@ -140,124 +141,26 @@ namespace Qhta.ObservableViewModels
         return key;
       }
     }
-    public virtual void Clear()
+    public override void Clear()
     {
-      if (Items.Count > 0)
-      {
-        Items.Clear();
-      }
-    }
-
-    public virtual bool Contains(TValue item) => Items.Values.Contains(item);
-
-    public virtual void CopyTo(TValue[] array, int arrayIndex)
-    {
-      Items.Values.ToArray().CopyTo(array, arrayIndex);
-    }
-
-    public virtual bool Remove(TValue item)
-    {
-      return this.Remove(CreateKey(item));
-    }
-
-    public virtual IEnumerator<TValue> GetEnumerator()
-    {
-      return Items.Values.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return this.GetEnumerator();
-    }
-
-    public virtual int IndexOf(TValue value)
-    {
-      return Items.Values.ToList().IndexOf(value);
+      PrimaryIndex.Clear();
+      Items.Clear();
     }
 
     public virtual int IndexOfKey(TKey key)
     {
-      return Items.Keys.ToList().IndexOf(key);
+      return PrimaryIndex.Keys.ToList().IndexOf(key);
     }
 
+    public virtual TValue this[TKey index] => PrimaryIndex[index];
 
-    public virtual TKey KeyOfIndex(int index)
+    public override void Insert(int index, TValue value)
     {
-      return Items.Keys.ToList()[index];
+      PrimaryIndex.Add(CreateKey(value), value);
+      Items.Insert(index, value);
+      IsModified = true;
     }
 
-    public virtual TValue this[TKey index] => Items[index];
-
-    public virtual TValue SelectedItem
-    {
-      get => selectedItem;
-      set
-      {
-        if (!selectedItem.Equals(value))
-        {
-          selectedItem = value;
-          base.NotifyPropertyChanged(nameof(SelectedItem));
-        }
-      }
-    }
-
-    public bool IsFixedSize => false;
-
-    public virtual object SyncRoot => throw new NotImplementedException();
-
-    public virtual bool IsSynchronized => throw new NotImplementedException();
-
-    public virtual bool IsModified { get; private set; }
-
-    public TValue this[int index] { get => Items.Values.ToArray()[index]; set => throw new NotImplementedException(); }
-
-    private TValue selectedItem;
-
-    public bool ShouldSerializeSelectedItem() => false;
-
-    //public virtual int Add(TValue value)
-    //{
-    //  if (value is TValue abbreviation)
-    //    Add(abbreviation);
-    //  return IndexOf(value);
-    //}
-
-    public virtual bool Contains(object value)
-    {
-      if (value is TValue subdocument)
-        return Items.Contains(subdocument);
-      return false;
-    }
-
-    //public virtual int IndexOf(TValue value)
-    //{
-    //  if (value is TValue subdocument)
-    //    return Items.Values.ToList().IndexOf(subdocument);
-    //  return -1;
-    //}
-
-    public virtual void Insert(int index, TValue value)
-    {
-      throw new NotImplementedException("TValue.Insert not implemented");
-    }
-
-    public virtual void Remove(object value)
-    {
-      if (value is TValue abbreviation)
-        Items.Remove(abbreviation);
-    }
-
-    public virtual void RemoveAt(int index)
-    {
-      throw new NotImplementedException();
-    }
-
-    public virtual void CopyTo(Array array, int index)
-    {
-      // This method is invoked by PresentationFramework
-      // if BindingOperations.EnableCollectionSynchronization was called
-      Items.Values.ToArray().CopyTo(array, index);
-    }
   }
 
 }

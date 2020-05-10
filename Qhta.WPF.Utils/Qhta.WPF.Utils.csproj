@@ -58,6 +58,9 @@
     <Reference Include="Qhta.OrdNumbers, Version=2.1.0.0, Culture=neutral, PublicKeyToken=05534810d7fc4a77, processorArchitecture=MSIL">
       <HintPath>..\Qhta.WPF.Controls\packages\Qhta.OrdNumbers.2.1.1\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
     </Reference>
+    <Reference Include="Qhta.TextUtils, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3df087af4582f9cb, processorArchitecture=MSIL">
+      <HintPath>..\..\WordAddIns\WordProc\packages\Qhta.TextUtils.2.1.0\lib\netstandard2.0\Qhta.TextUtils.dll</HintPath>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -178,12 +181,6 @@
   <ItemGroup>
     <Analyzer Include="..\Qhta.WPF.Controls\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
     <Analyzer Include="..\Qhta.WPF.Controls\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Qhta.TextUtils\Qhta.TextUtils.csproj">
-      <Project>{3fcb9460-1278-40e4-bc18-68accd27c304}</Project>
-      <Name>Qhta.TextUtils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

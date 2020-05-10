@@ -114,7 +114,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.ExceptionStrin
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.GenerateResource.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.TextUtils.dll
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\bin\Debug\Qhta.TextUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ComboBoxStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\TextBoxAnimationStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\GridViewStyle.baml

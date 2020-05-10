@@ -18,7 +18,7 @@ namespace Qhta.ObservableViewModels
   /// <typeparam name="TSecondaryKey"></typeparam>
   /// <typeparam name="TValue"></typeparam>
   public class ObservableDataSet<TPrimary, TSecondaryKey, TValue>: ObservableDataSet<TPrimary, TValue> 
-    where TPrimary : IComparable<TPrimary> where TSecondaryKey : IComparable<TSecondaryKey>
+    where TPrimary : IComparable<TPrimary> where TSecondaryKey : IComparable<TSecondaryKey> where TValue: class
   {
     private ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex = 
       new ObservableDataIndex<TSecondaryKey, TValue>();
@@ -35,53 +35,12 @@ namespace Qhta.ObservableViewModels
       return base.Remove(item);
     }
 
-    public int IndexNumber
+    public override void Clear()
     {
-      get => indexNumber;
-      set
-      {
-        if (value != indexNumber)
-        {
-          indexNumber = value;
-          NotifyPropertyChanged(nameof(IndexNumber));
-        }
-      }
+      SecondaryIndex.Clear();
+      base.Clear();
     }
-    private int indexNumber;
-
-    public bool Descending
-    {
-      get => descending;
-      set
-      {
-        if (value != descending)
-        {
-          descending = value;
-          NotifyPropertyChanged(nameof(Descending));
-        }
-      }
-    }
-    private bool descending;
-
-    public override IEnumerator<TValue> GetEnumerator()
-    {
-      if (indexNumber == 0)
-      {
-        if (!descending)
-          return Items.Values.GetEnumerator();
-        else
-          return Items.Values.Reverse().GetEnumerator();
-      }
-      else
-      {
-        if (!descending)
-          return SecondaryIndex.Values.GetEnumerator();
-        else
-          return SecondaryIndex.Values.Reverse().GetEnumerator();
-      }
-    }
-
-    public bool TryGetValue(TSecondaryKey index, out TValue item)
+    public virtual bool TryGetValue(TSecondaryKey index, out TValue item)
     {
       return SecondaryIndex.TryGetValue(index, out item);
     }
