@@ -345,30 +345,30 @@ namespace Qhta.OrdNumbers
 
     #region operatory porównania i nierówności
     /// <summary>Porównanie dwóch liczb porządkowych</summary>
-    public static bool operator ==(OrdNum a, OrdNum b) { return a.CompareTo(b)==0; }
+    public static bool operator ==(OrdNum a, OrdNum b) { return a?.CompareTo(b)==0; }
     /// <summary>Operator nierówności dwóch liczb porządkowych</summary>
-    public static bool operator !=(OrdNum a, OrdNum b) { return a.CompareTo(b)!=0; }
+    public static bool operator !=(OrdNum a, OrdNum b) { return a?.CompareTo(b)!=0; }
     /// <summary>Operator większości dwóch liczb porządkowych</summary>
-    public static bool operator >(OrdNum a, OrdNum b) { return a.CompareTo(b)>0; }
+    public static bool operator >(OrdNum a, OrdNum b) { return a?.CompareTo(b)>0; }
     /// <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
-    public static bool operator >=(OrdNum a, OrdNum b) { return a.CompareTo(b) >= 0; }
+    public static bool operator >=(OrdNum a, OrdNum b) { return a?.CompareTo(b) >= 0; }
     /// <summary>Operator większości dwóch liczb porządkowych</summary>
-    public static bool operator <(OrdNum a, OrdNum b) { return a.CompareTo(b) < 0; }
+    public static bool operator <(OrdNum a, OrdNum b) { return a?.CompareTo(b) < 0; }
     /// <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
-    public static bool operator <=(OrdNum a, OrdNum b) { return a.CompareTo(b) <= 0; }
+    public static bool operator <=(OrdNum a, OrdNum b) { return a?.CompareTo(b) <= 0; }
 
     /// <summary>Porównanie z liczbą całkowitą</summary>
-    public static bool operator ==(OrdNum a, int n) { return a.Equals(n); }
+    public static bool operator ==(OrdNum a, int n) { return a?.Equals(n)==true; }
     /// <summary>Operator nierówności liczby porządkowej z liczbą całkowitą</summary>
-    public static bool operator !=(OrdNum a, int n) { return !a.Equals(n); }
+    public static bool operator !=(OrdNum a, int n) { return a?.Equals(n)==false; }
     /// <summary>Porównanie z liczbą rzeczywistą</summary>
-    public static bool operator ==(OrdNum a, double x) { return a.Equals(x); }
+    public static bool operator ==(OrdNum a, double x) { return a?.Equals(x)==true; }
     /// <summary>Operator nierówności liczby porządkowej z liczbą rzeczywistą</summary>
-    public static bool operator !=(OrdNum a, double x) { return !a.Equals(x); }
+    public static bool operator !=(OrdNum a, double x) { return a?.Equals(x)==false; }
     /// <summary>Porównanie z liczbą dziesiętną</summary>
-    public static bool operator ==(OrdNum a, decimal d) { return a.Equals(d); }
+    public static bool operator ==(OrdNum a, decimal d) { return a?.Equals(d)==true; }
     /// <summary>Operator nierówności liczby porządkowej z liczbą dziesiętną</summary>
-    public static bool operator !=(OrdNum a, decimal d) { return !a.Equals(d); }
+    public static bool operator !=(OrdNum a, decimal d) { return a?.Equals(d)==false; }
     /// <summary>Porównanie z wartością tekstową</summary>
     public static bool operator ==(OrdNum a, string s)
     {

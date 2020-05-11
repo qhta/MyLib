@@ -180,7 +180,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "2.1.1",
+    "version": "2.2.1",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.OrdNumbers\\Qhta.OrdNumbers.csproj",
       "projectName": "Qhta.OrdNumbers",
