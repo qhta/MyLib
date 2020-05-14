@@ -237,22 +237,6 @@ namespace Qhta.MVVM
 
     public IEnumerable<ItemType> SelectedItems { get => _SelectedItems; set { } }
     private List<ItemType> _SelectedItems = new List<ItemType>();
-    //{
-    //  get
-    //  {
-    //    Debug.WriteLine($"ListViewModel<{typeof(ValueType).Name}>.getSelectedItems");
-    //    return _Items.ToList().Where(item => item.IsSelected) ?? new ItemType[0];
-    //  }
-    //  set
-    //  {
-    //    foreach (var item in _Items.ToList())
-    //    {
-    //      item.IsSelected = value!=null && value.Contains(item);
-    //    }
-    //    NotifyPropertyChanged(nameof(SelectedItems));
-    //    NotifySelectionChanged();
-    //  }
-    //}
 
     private void SelectCurrentItem(ItemType value)
     {
