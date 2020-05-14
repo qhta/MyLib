@@ -6,8 +6,6 @@ namespace Qhta.WPF.Utils
 {
   public class AddingConverter : ArithmeticConverter
   {
-    public double Param { get; set; } = Double.NaN;
-
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       Double addient = 0.0;

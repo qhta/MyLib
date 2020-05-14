@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Qhta.WPF.Utils
 {
-  public abstract class ArithmeticConverter: IValueConverter
+  public abstract class ArithmeticConverter: DependencyObject, IValueConverter
   {
+    public static DependencyProperty ParamProperty = DependencyProperty.Register
+      ("Param", typeof(double), typeof(ArithmeticConverter), new PropertyMetadata(Double.NaN));
+
+    public double Param
+    {
+      get => (double)GetValue(ParamProperty);
+      set => SetValue(ParamProperty, value);
+    }
+
     public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

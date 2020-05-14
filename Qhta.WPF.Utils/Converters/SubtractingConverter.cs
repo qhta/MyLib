@@ -6,8 +6,6 @@ namespace Qhta.WPF.Utils
 {
   public class SubtractingConverter : ArithmeticConverter
   {
-    public double Param { get; set; } = Double.NaN;
-
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       Double subtrahend = 0.0;
