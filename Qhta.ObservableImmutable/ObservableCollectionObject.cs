@@ -90,9 +90,9 @@ namespace Qhta.ObservableImmutable
       }
     }
 
-    protected virtual void NotifyCollectionChanged()
+    protected virtual void NotifyCollectionChanged(NotifyCollectionChangedAction action)
     {
-      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action));
     }
 
     public virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)

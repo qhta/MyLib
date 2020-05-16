@@ -376,21 +376,21 @@ namespace Qhta.ObservableImmutable
     public IImmutableDictionary<T, V> Add(T key, V value)
     {
       _items = _items.Add(key, value);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return (IImmutableDictionary < T, V >)this;
     }
 
     public IImmutableDictionary<T, V> AddRange(IEnumerable<KeyValuePair<T, V>> pairs)
     {
       _items = _items.AddRange(pairs);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> Clear()
     {
       _items = _items.Clear();
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return (IImmutableDictionary<T, V>)this;
     }
 
@@ -402,28 +402,28 @@ namespace Qhta.ObservableImmutable
     public IImmutableDictionary<T, V> Remove(T key)
     {
       _items = _items.Remove(key);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> RemoveRange(IEnumerable<T> keys)
     {
       _items = _items.RemoveRange(keys);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> SetItem(T key, V value)
     {
       _items = _items.SetItem(key, value);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> SetItems(IEnumerable<KeyValuePair<T, V>> items)
     {
       _items = _items.SetItems(items);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return this;
     }
 
@@ -491,7 +491,7 @@ namespace Qhta.ObservableImmutable
       if (oldItems == newItems)
         return false;
 
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return true;
     }
 
@@ -512,14 +512,14 @@ namespace Qhta.ObservableImmutable
       set
       {
         _items.SetItem(key, value);
-        NotifyCollectionChanged();
+        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       }
     }
 
     public void Add(KeyValuePair<T, V> item)
     {
       (_items as IDictionary<T, V>).Add(item);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
     }
 
     void ICollection<KeyValuePair<T, V>>.Clear()
@@ -543,7 +543,7 @@ namespace Qhta.ObservableImmutable
     public bool Remove(KeyValuePair<T, V> item)
     {
       var result = (_items as IDictionary<T, V>).Remove(item);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return result;
     }
 
@@ -590,7 +590,7 @@ namespace Qhta.ObservableImmutable
     public void Remove(object key)
     {
       (_items as IDictionary).Remove(key);
-      NotifyCollectionChanged();
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
     }
 
     ICollection IDictionary.Values
