@@ -15,7 +15,94 @@ namespace Qhta.ObservableViewModels
 
     public readonly ObservableList<TValue> Items = new ObservableList<TValue>();
 
-    public virtual int Count => Items.Count;
+    #region LazyLoad functionality
+
+    /// <summary>
+    /// This property determines if the content should be populated at the enumerate operation (when needed).
+    /// </summary>
+    public bool LazyLoad
+    {
+      get => lazyLoad;
+      set
+      {
+        if (lazyLoad != value)
+        {
+          lazyLoad = value;
+          NotifyPropertyChanged(nameof(LazyLoad));
+        }
+      }
+    }
+    private bool lazyLoad;
+
+    /// <summary>
+    /// Populates the content instances.
+    /// This function must be implemented in the specific class
+    /// if LazyLoad functionality is active.
+    /// </summary>
+    public virtual void Populate() { }
+
+    /// <summary>
+    /// Set in the time of Populate.
+    /// </summary>
+    public bool IsPopulating
+    {
+      get => isPopulating;
+      protected set
+      {
+        if (isPopulating != value)
+        {
+          isPopulating = value;
+          NotifyPropertyChanged(nameof(IsPopulating));
+        }
+      }
+    }
+    private bool isPopulating;
+
+    /// <summary>
+    /// Set after Populate.
+    /// </summary>
+    public bool IsPopulated
+    {
+      get => isPopulated;
+      protected set
+      {
+        if (isPopulated != value)
+        {
+          isPopulated = value;
+          NotifyPropertyChanged(nameof(IsPopulated));
+        }
+      }
+    }
+    private bool isPopulated;
+
+    /// <summary>
+    /// A method to populate contents when it is needed.
+    /// </summary>
+    /// <returns></returns>
+    public virtual void PopulateWhenNeeded()
+    {
+      ////if (IsPopulating)
+      ////  return;
+      ////IsPopulating = true;
+      var lazyLoadSave = LazyLoad;
+      lazyLoad = false;
+      if (Count != Items.Count)
+      {
+        Populate();
+        IsPopulated = true;
+      }
+      lazyLoad = lazyLoadSave;
+      IsPopulating = false;
+    }
+
+    /// <summary>
+    /// The number of items.
+    /// This function should be changed in the specific class
+    /// if LazyLoad functionality is active.
+    /// </summary>
+    /// <returns></returns>
+    public virtual int Count => (LazyLoad) ? 0 : Items.Count;
+    #endregion
 
     public virtual bool IsReadOnly => false;
 
@@ -31,7 +118,7 @@ namespace Qhta.ObservableViewModels
     {
       bool ok;
       var oldIndex = Items.IndexOf(item);
-      ok = oldIndex>=0;
+      ok = oldIndex >= 0;
       if (ok)
       {
         Items.Remove(item);
@@ -46,15 +133,21 @@ namespace Qhta.ObservableViewModels
       Items.Clear();
     }
 
-    public virtual bool Contains(TValue item) => Items.Contains(item);
+    public virtual bool Contains(TValue item)
+    {
+      PopulateWhenNeeded();
+      return Items.Contains(item);
+    }
 
     public virtual void CopyTo(TValue[] array, int arrayIndex)
     {
+      PopulateWhenNeeded();
       Items.ToArray().CopyTo(array, arrayIndex);
     }
 
     public virtual IEnumerator<TValue> GetEnumerator()
     {
+      PopulateWhenNeeded();
       return Items.GetEnumerator();
     }
 
@@ -65,10 +158,19 @@ namespace Qhta.ObservableViewModels
 
     public virtual int IndexOf(TValue value)
     {
+      PopulateWhenNeeded();
       return Items.IndexOf(value);
     }
 
-    public TValue this[int index] { get => Items[index]; set => throw new NotImplementedException(); }
+    public virtual TValue this[int index]
+    {
+      get
+      {
+        PopulateWhenNeeded();
+        return Items[index];
+      }
+      set => throw new NotImplementedException();
+    }
 
     public virtual TValue SelectedItem
     {
@@ -110,10 +212,6 @@ namespace Qhta.ObservableViewModels
       NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
     }
 
-    public virtual void CopyTo(Array array, int index)
-    {
-      Items.ToArray().CopyTo(array, index);
-    }
   }
 
 }
