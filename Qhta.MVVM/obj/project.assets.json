@@ -35,7 +35,7 @@
           "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {}
         }
       },
-      "Qhta.OrdNumbers/2.1.1": {
+      "Qhta.OrdNumbers/2.2.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
@@ -199,15 +199,15 @@
         "qhta.dispatchedobjects.nuspec"
       ]
     },
-    "Qhta.OrdNumbers/2.1.1": {
-      "sha512": "OYaaX9dKFw6W4MNNhi95+yM/mZSe5aHxborrWl6oqXVJDP1qlXZWeyjt4NYhxaYTXSc31+tQ6ZPWUOGL+PBDlg==",
+    "Qhta.OrdNumbers/2.2.1": {
+      "sha512": "+59JlQ6SrZGRGJnaNNTfIpHnQTohTJjAxRS0CYBNzvAy4j+w8XG+L9IAZTVcgPUu2tSdT2BHm+bqU73RShTLCg==",
       "type": "package",
-      "path": "qhta.ordnumbers/2.1.1",
+      "path": "qhta.ordnumbers/2.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Qhta.OrdNumbers.dll",
-        "qhta.ordnumbers.2.1.1.nupkg.sha512",
+        "qhta.ordnumbers.2.2.1.nupkg.sha512",
         "qhta.ordnumbers.nuspec"
       ]
     }
@@ -216,7 +216,7 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Qhta.DispatchedObjects >= 1.0.2",
-      "Qhta.OrdNumbers >= 2.1.1"
+      "Qhta.OrdNumbers >= 2.2.1"
     ]
   },
   "packageFolders": {
@@ -272,7 +272,7 @@
           },
           "Qhta.OrdNumbers": {
             "target": "Package",
-            "version": "[2.1.1, )"
+            "version": "[2.2.1, )"
           }
         },
         "imports": [

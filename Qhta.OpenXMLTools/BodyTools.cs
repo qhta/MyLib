@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
   public static class BodyTools
   {

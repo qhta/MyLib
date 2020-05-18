@@ -1,99 +1,68 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.IO.IsolatedStorage;
 using System.IO.Packaging;
-using System.Reflection;
 using System.Text;
-using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
-  public class PackageTools
+  public static class PackageTools
   {
-    //public void VerifySecurityEvidenceForIsolatedStorage()
-    //{
-    //  VerifySecurityEvidenceForIsolatedStorage(this.GetType().Assembly);
-    //}
 
-    //public static void VerifySecurityEvidenceForIsolatedStorage(Assembly assembly)
-    //{
-    //  var isEvidenceFound = true;
-    //  var initialAppDomainEvidence = System.Threading.Thread.GetDomain().Evidence;
-    //  try
-    //  {
-    //    // this will fail when the current AppDomain Evidence is instantiated via COM or in PowerShell
-    //    using (var usfdAttempt1 = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForDomain())
-    //    {
-    //    }
-    //  }
-    //  catch (System.IO.IsolatedStorage.IsolatedStorageException e)
-    //  {
-    //    isEvidenceFound = false;
-    //  }
-
-    //  if (!isEvidenceFound)
-    //  {
-    //    initialAppDomainEvidence.AddHostEvidence(new Url(assembly.Location));
-    //    initialAppDomainEvidence.AddHostEvidence(new Zone(SecurityZone.MyComputer));
-
-    //    var currentAppDomain = Thread.GetDomain();
-    //    var securityIdentityField = currentAppDomain.GetType().GetField("_SecurityIdentity", BindingFlags.Instance | BindingFlags.NonPublic);
-    //    securityIdentityField.SetValue(currentAppDomain, initialAppDomainEvidence);
-
-    //    var latestAppDomainEvidence = System.Threading.Thread.GetDomain().Evidence; // setting a breakpoint here will let you inspect the current app domain evidence
-    //  }
-    //}
-
-    public Package CreatePackageFromWordOpenXML(string wordOpenXML, string filePath)
+    public static void CreatePackageFromWordOpenXML(string wordOpenXml, string filePath)
     {
-      XDocument xDoc = XDocument.Parse(wordOpenXML);
-      IsolatedStorageFile isolatedStore = IsolatedStorageFile.GetUserStoreForAssembly();
-      IsolatedStorageFileStream stream = new IsolatedStorageFileStream(
-         "file.txt", FileMode.Create, FileAccess.Write, isolatedStore);
-      using (TextWriter textWriter = File.CreateText("Temp.xml"))
-        using (XmlWriter xmlWriter = XmlWriter.Create(textWriter,new XmlWriterSettings { Indent=true }))
-          xDoc.WriteTo(xmlWriter);
+      var xmlFileName = Path.ChangeExtension(filePath, ".xml");
+      using (var writer = File.CreateText(xmlFileName))
+      {
+        writer.Write(wordOpenXml);
+      }
+      XDocument xDoc = XDocument.Parse(wordOpenXml);
 
       string packageXmlns = "http://schemas.microsoft.com/office/2006/xmlPackage";
 
-      Package newPkg = System.IO.Packaging.ZipPackage.Open(filePath, FileMode.Create);
-
-      try
+      using (Package newPkg = System.IO.Packaging.ZipPackage.Open(filePath, FileMode.Create))
       {
-        XPathDocument xpDocument = new XPathDocument(new StringReader(wordOpenXML));
+        XPathDocument xpDocument = new XPathDocument(new StringReader(wordOpenXml));
         XPathNavigator xpNavigator = xpDocument.CreateNavigator();
 
         XmlNamespaceManager nsManager = new XmlNamespaceManager(xpNavigator.NameTable);
         nsManager.AddNamespace("pkg", packageXmlns);
-        XPathNodeIterator xpIterator = xpNavigator.Select("//pkg:part", nsManager);
 
-        while (xpIterator.MoveNext())
+        XPathNodeIterator pkgPartIterator = xpNavigator.Select("//pkg:part", nsManager);
+        while (pkgPartIterator.MoveNext())
         {
-          Uri partUri = new Uri(xpIterator.Current.GetAttribute("name", packageXmlns), UriKind.Relative);
+          var partName = pkgPartIterator.Current.GetAttribute("name", packageXmlns);
+          Uri partUri = new Uri(partName, UriKind.Relative);
+          var partType = pkgPartIterator.Current.GetAttribute("contentType", packageXmlns);
+          PackagePart pkgPart = newPkg.CreatePart(partUri, partType);
 
-          PackagePart pkgPart = newPkg.CreatePart(partUri, xpIterator.Current.GetAttribute("contentType", packageXmlns));
-
-          // Set this package part's contents to this XML node's inner XML, sans its surrounding xmlData element.
-          string strInnerXml = xpIterator.Current.InnerXml
+          string strInnerXml = pkgPartIterator.Current.InnerXml
               .Replace("<pkg:xmlData xmlns:pkg=\"" + packageXmlns + "\">", "")
               .Replace("</pkg:xmlData>", "");
           byte[] buffer = Encoding.UTF8.GetBytes(strInnerXml);
-          pkgPart.GetStream().Write(buffer, 0, buffer.Length);
+          var pkgStream = pkgPart.GetStream();
+          byte[] xmlPreamble = Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n");
+          pkgStream.Write(xmlPreamble, 0, xmlPreamble.Length);
+          pkgStream.Write(buffer, 0, buffer.Length);
         }
+      }
+    }
 
-        newPkg.Flush();
-      }
-      finally
+    public static void RecreateSubdocumentRels(this WordprocessingDocument docx)
+    {
+      foreach (FieldCode fieldCode in docx.MainDocumentPart.Document.Descendants<FieldCode>())
       {
-        newPkg.Close();
-        isolatedStore.Close();
+        var fieldText = fieldCode.InnerText.Trim();
+        Debug.WriteLine(fieldText);
+        //if (fieldText.StartsWith("HYPERLINK"))
+        //{
+        //}
       }
-      return newPkg;
     }
   }
-
-
 }

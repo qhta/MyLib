@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml;
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
   public static class EMUTools
   {

@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Qhta.DispatchedObjects" Version="1.0.2" />
-    <PackageReference Include="Qhta.OrdNumbers" Version="2.1.1" />
+    <PackageReference Include="Qhta.OrdNumbers" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>

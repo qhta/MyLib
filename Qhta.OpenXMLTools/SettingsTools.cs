@@ -5,7 +5,7 @@ using DocumentFormat.OpenXml.Office2010.Word;
 using DocumentFormat.OpenXml.Office2013.Word;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
   public static class SettingsTools
   {

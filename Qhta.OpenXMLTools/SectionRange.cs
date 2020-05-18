@@ -6,7 +6,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
   public class SectionRange
   {

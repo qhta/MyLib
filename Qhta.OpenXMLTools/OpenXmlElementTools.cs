@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
   public static class OpenXmlElementTools
   {

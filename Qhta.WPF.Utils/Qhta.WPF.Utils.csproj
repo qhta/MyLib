@@ -55,8 +55,8 @@
     <Reference Include="Qhta.MVVM, Version=1.0.2.0, Culture=neutral, PublicKeyToken=374081c06722bca0, processorArchitecture=MSIL">
       <HintPath>..\Qhta.WPF.Controls\packages\Qhta.MVVM.1.0.2\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.OrdNumbers, Version=2.1.0.0, Culture=neutral, PublicKeyToken=05534810d7fc4a77, processorArchitecture=MSIL">
-      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.OrdNumbers.2.1.1\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
+    <Reference Include="Qhta.OrdNumbers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=05534810d7fc4a77, processorArchitecture=MSIL">
+      <HintPath>..\..\WordAddIns\MyAddIns\packages\Qhta.OrdNumbers.2.2.1\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
     </Reference>
     <Reference Include="Qhta.TextUtils, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3df087af4582f9cb, processorArchitecture=MSIL">
       <HintPath>..\..\WordAddIns\WordProc\packages\Qhta.TextUtils.2.1.0\lib\netstandard2.0\Qhta.TextUtils.dll</HintPath>

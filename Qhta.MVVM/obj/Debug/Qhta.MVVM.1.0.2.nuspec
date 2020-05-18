@@ -10,7 +10,7 @@
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Qhta.DispatchedObjects" version="1.0.2" exclude="Build,Analyzers" />
-        <dependency id="Qhta.OrdNumbers" version="2.1.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.OrdNumbers" version="2.2.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

@@ -6,7 +6,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Office2010.Word;
 using ContentPart = DocumentFormat.OpenXml.Wordprocessing.ContentPart;
 
-namespace OpenXMLTools
+namespace Qhta.OpenXMLTools
 {
   [ChildElementInfo(typeof(ParagraphProperties))]
   [ChildElementInfo(typeof(ContentPart), FileFormatVersions.Office2010)]
