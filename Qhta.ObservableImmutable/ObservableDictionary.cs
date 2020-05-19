@@ -376,7 +376,8 @@ namespace Qhta.ObservableImmutable
     public IImmutableDictionary<T, V> Add(T key, V value)
     {
       _items = _items.Add(key, value);
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, _items.Count-1);
+      var index = _items.Keys.ToImmutableList().IndexOf(key);
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
       return this;
     }
 
