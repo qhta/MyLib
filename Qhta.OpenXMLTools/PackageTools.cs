@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Packaging;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -14,7 +16,7 @@ namespace Qhta.OpenXMLTools
   public static class PackageTools
   {
 
-    public static void CreatePackageFromWordOpenXML(string wordOpenXml, string filePath)
+    public static void CreatePackageFromWordOpenXML(string wordOpenXml, string filePath, string wordFullFileName)
     {
       var xmlFileName = Path.ChangeExtension(filePath, ".xml");
       using (var writer = File.CreateText(xmlFileName))
@@ -51,17 +53,76 @@ namespace Qhta.OpenXMLTools
           pkgStream.Write(buffer, 0, buffer.Length);
         }
       }
+      using (var docx = DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(filePath, true))
+      {
+        PackageTools.RecreateSubdocumentRels(docx, Path.GetDirectoryName(wordFullFileName));
+      }
     }
 
-    public static void RecreateSubdocumentRels(this WordprocessingDocument docx)
+    public const string subdocumentRelType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/subDocument";
+
+    private struct RelPar
     {
-      foreach (FieldCode fieldCode in docx.MainDocumentPart.Document.Descendants<FieldCode>())
+      public ExternalRelationship Rel;
+      public Paragraph Par;
+      public RelPar(ExternalRelationship rel, Paragraph par)
+      {
+        Rel = rel;
+        Par = par;
+      }
+    }
+    public static void RecreateSubdocumentRels(this WordprocessingDocument docx, string docxPath)
+    {
+      var fieldCodes = docx.MainDocumentPart.Document.Descendants<FieldCode>().ToList();
+      var addedRels = new List<RelPar>();
+      foreach (var fieldCode in fieldCodes)
       {
         var fieldText = fieldCode.InnerText.Trim();
         Debug.WriteLine(fieldText);
-        //if (fieldText.StartsWith("HYPERLINK"))
-        //{
-        //}
+        if (fieldText.StartsWith("HYPERLINK"))
+        {
+          int k = fieldText.IndexOf('"')+1;
+          int l = fieldText.LastIndexOf('"')-k;
+          if (l>0)
+          {
+            var targetFileName = fieldText.Substring(k,l);
+            //if (targetFileName.Length>2 && targetFileName.First()=='"' && targetFileName.Last()=='"')
+            //{
+            //  targetFileName = targetFileName.Substring(1, targetFileName.Length - 2);
+            //}
+            targetFileName = targetFileName.Replace(@"\\", @"\");
+            //Debug.WriteLine(targetFileName);
+            if (targetFileName.EndsWith(".docx", StringComparison.InvariantCultureIgnoreCase))
+            {
+              var fieldParagraph = fieldCode.Ancestors<Paragraph>().LastOrDefault();
+              if (fieldParagraph != null)
+              {
+                var targetPath = Path.GetDirectoryName(targetFileName);
+                //Debug.WriteLine(docxPath);
+                if (targetPath.StartsWith(docxPath, StringComparison.CurrentCultureIgnoreCase))
+                {
+                  targetFileName = targetFileName.Substring(targetPath.Length);
+                  if (targetFileName.StartsWith(@"\"))
+                    targetFileName = targetFileName.Substring(1);
+                }
+                Debug.WriteLine(targetFileName);
+
+                //var hostElement = fieldParagraph.Parent;
+                var targetUri = new Uri(targetFileName, UriKind.RelativeOrAbsolute);
+                var targetRel = docx.MainDocumentPart.AddExternalRelationship(subdocumentRelType, targetUri);
+                addedRels.Add(new RelPar(targetRel, fieldParagraph));
+                //var subDoc = fieldParagraph.InsertBeforeSelf<SubDocumentReference>(new SubDocumentReference { Id = targetRel.Id });
+                //fieldParagraph.Remove();
+              }
+            }
+          }
+        }
+      }
+
+      foreach (var relpar in addedRels)
+      {
+        relpar.Par.InsertBeforeSelf<SubDocumentReference>(new SubDocumentReference { Id = relpar.Rel.Id });
+        relpar.Par.Remove();
       }
     }
   }
