@@ -9,7 +9,13 @@ using Qhta.ObservableImmutable;
 namespace Qhta.ObservableViewModels
 {
   public class ObservableDataSet<TValue> : ObservableCollectionObject,
-      ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue> where TValue : class
+    IEnumerable<TValue>,
+    ICollection<TValue>,
+    IList<TValue>,
+    IEnumerable,
+    ICollection,
+    IList,
+    INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
   {
     public ObservableDataSet() { }
 
@@ -187,11 +193,13 @@ namespace Qhta.ObservableViewModels
 
     public bool IsFixedSize => false;
 
-    public virtual object SyncRoot => throw new NotImplementedException();
+    public virtual object SyncRoot => Items.SyncRoot;
 
-    public virtual bool IsSynchronized => throw new NotImplementedException();
+    public virtual bool IsSynchronized => Items.IsSynchronized;
 
     public virtual bool IsModified { get; protected set; }
+
+    object IList.this[int index] { get => this[index]; set => this[index]=(TValue)value; }
 
     private TValue selectedItem;
 
@@ -212,6 +220,54 @@ namespace Qhta.ObservableViewModels
       NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
     }
 
+    public int Add(object value)
+    {
+      if (value is TValue item)
+      {
+        this.Add(item);
+        return Items.IndexOf(item);
+      }
+      return -1;
+    }
+
+    public bool Contains(object value)
+    {
+      if (value is TValue item)
+      {
+        return Items.Contains(item);
+      }
+      return false;
+    }
+
+    public int IndexOf(object value)
+    {
+      if (value is TValue item)
+      {
+        return Items.IndexOf(item);
+      }
+      return -1;
+    }
+
+    public void Insert(int index, object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    public void Remove(object value)
+    {
+      if (value is TValue item)
+      {
+        this.Remove(item);
+      }
+    }
+
+    public void CopyTo(Array array, int index)
+    {
+      if (array is TValue[] items)
+      {
+        this.CopyTo(items, index);
+      }
+    }
   }
 
 }

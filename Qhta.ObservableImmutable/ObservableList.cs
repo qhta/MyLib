@@ -1139,15 +1139,13 @@ namespace Qhta.ObservableImmutable
       }
     }
 
-    bool IList.IsFixedSize => false;
+    public bool IsFixedSize => false;
 
-    bool IList.IsReadOnly => false;
+    public bool IsReadOnly => false;
+    
+    public bool IsSynchronized => (_items as ICollection).IsSynchronized;
 
-    int ICollection.Count => this.Count;
-
-    bool ICollection.IsSynchronized => (_items as ICollection).IsSynchronized;
-
-    object ICollection.SyncRoot => (_items as ICollection).SyncRoot;
+    public object SyncRoot => (_items as ICollection).SyncRoot;
 
     int IList.Add(object value)
     {
