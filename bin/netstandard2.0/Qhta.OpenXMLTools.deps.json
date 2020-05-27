@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "ff30b6e96d04bf94042eb8266aca00dfc602b15d"
+    "signature": "ecd781f220ba2af0fcd77d1de7c793acfecf3bb4"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,21 +9,21 @@
     ".NETStandard,Version=v2.0/": {
       "Qhta.OpenXMLTools/1.0.0": {
         "dependencies": {
-          "DocumentFormat.OpenXml": "2.10.1",
+          "DocumentFormat.OpenXml": "2.11.0",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
           "Qhta.OpenXMLTools.dll": {}
         }
       },
-      "DocumentFormat.OpenXml/2.10.1": {
+      "DocumentFormat.OpenXml/2.11.0": {
         "dependencies": {
           "System.IO.Packaging": "4.7.0"
         },
         "runtime": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
-            "assemblyVersion": "2.10.1.0",
-            "fileVersion": "2.10.1.0"
+            "assemblyVersion": "2.11.0.0",
+            "fileVersion": "2.11.0.0"
           }
         }
       },
@@ -49,12 +49,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DocumentFormat.OpenXml/2.10.1": {
+    "DocumentFormat.OpenXml/2.11.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OJqoZ/qTgegiKQG0JANqXJWXOpyNj6cE1SyGqRyeT8B9OmUayT76YfwDzZfzgUczj9kaPhUrtgkuz5sCUqIxBg==",
-      "path": "documentformat.openxml/2.10.1",
-      "hashPath": "documentformat.openxml.2.10.1.nupkg.sha512"
+      "sha512": "sha512-q+BkHWQ8ZlZxpVcfY5IMnXPzD3jrIxUsgf+qwjUpDqyNPR4YvkEKf/o1CTQ0I+ivifuJnG1MJhoFVWEoGLfXtA==",
+      "path": "documentformat.openxml/2.11.0",
+      "hashPath": "documentformat.openxml.2.11.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "DocumentFormat.OpenXml/2.10.1": {
+      "DocumentFormat.OpenXml/2.11.0": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "4.7.0"
@@ -50,15 +50,15 @@
     }
   },
   "libraries": {
-    "DocumentFormat.OpenXml/2.10.1": {
-      "sha512": "OJqoZ/qTgegiKQG0JANqXJWXOpyNj6cE1SyGqRyeT8B9OmUayT76YfwDzZfzgUczj9kaPhUrtgkuz5sCUqIxBg==",
+    "DocumentFormat.OpenXml/2.11.0": {
+      "sha512": "q+BkHWQ8ZlZxpVcfY5IMnXPzD3jrIxUsgf+qwjUpDqyNPR4YvkEKf/o1CTQ0I+ivifuJnG1MJhoFVWEoGLfXtA==",
       "type": "package",
-      "path": "documentformat.openxml/2.10.1",
+      "path": "documentformat.openxml/2.11.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "CodeSignSummary-e5c439c6-ea87-4566-a291-c8cbbcc4ef09.md",
-        "documentformat.openxml.2.10.1.nupkg.sha512",
+        "CodeSignSummary-e257ad32-d5dd-4803-b795-592500c9fbdc.md",
+        "documentformat.openxml.2.11.0.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "icon.png",
         "lib/net35/DocumentFormat.OpenXml.dll",
@@ -246,7 +246,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "DocumentFormat.OpenXml >= 2.10.1",
+      "DocumentFormat.OpenXml >= 2.11.0",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -293,7 +293,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[2.10.1, )"
+            "version": "[2.11.0, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",

@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Qhta.WPF.Utils
 {
   public class ListViewNavigator
   {
+
     public event FieldUpdateEventHandler FieldUpdate;
 
     #region TryUpdateFields
@@ -37,8 +34,7 @@ namespace Qhta.WPF.Utils
             var targetObject = internalElement.DataContext;
             var index = listView.Items.IndexOf(targetObject);
             listView.SelectedIndex = index;
-            object updatedObject = null;
-            return TryUpdateField(internalElement, list, out updatedObject);
+            return TryUpdateField(internalElement, list, out object updatedObject);
           }
         }
       }
@@ -165,17 +161,18 @@ namespace Qhta.WPF.Utils
       }
     }
 
+    public void ListView_SelectionChanged(object sender, SelectionChangedEventArgs args)
+    {
+      if (sender is ListView listView)
+      {
+        if (listView != null)
+        {
+        }
+      }
+    }
+
     private void ListView_MoveFocus(ListView listView, TraversalRequest request, Object selectedItem)
     {
-      //  if (listView == ResultsView)
-      //    ResultsView_MoveFocus(request, selectedItem);
-      //  else
-      //    DescriptionsView_MoveFocus(listView, request);
-      //}
-
-      //private void ResultsView_MoveFocus(TraversalRequest request, Object selectedItem)
-      //{
-      //  var listView = ResultsView;
       int index = listView.SelectedIndex;
       if (index == -1)
       {

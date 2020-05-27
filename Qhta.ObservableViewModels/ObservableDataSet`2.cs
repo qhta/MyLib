@@ -86,14 +86,14 @@ namespace Qhta.ObservableViewModels
     {
       var key = CreateKey(item);
       PrimaryIndex.Add(key, item);
-      Items.Add(item);
+      base.Add(item);
       IsModified = true;
     }
 
     public virtual void Add(TKey key, TValue item)
     {
       PrimaryIndex.Add(key, item);
-      Items.Add(item);
+      base.Add(item);
       IsModified = true;
     }
 
@@ -105,7 +105,7 @@ namespace Qhta.ObservableViewModels
       if (ok)
       {
         PrimaryIndex.Remove(key);
-        Items.Remove(item);
+        base.Remove(item);
       }
       IsModified = ok;
       return ok;
@@ -117,7 +117,7 @@ namespace Qhta.ObservableViewModels
       if (ok)
       {
         PrimaryIndex.Remove(key);
-        Items.Remove(item);
+        base.Remove(item);
       }
       IsModified = ok;
       return ok;
