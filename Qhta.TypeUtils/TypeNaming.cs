@@ -24,9 +24,10 @@ namespace Qhta.TypeUtils
       { typeof(Decimal), "decimal" },
       { typeof(float),   "float" },
       { typeof(double),  "double" },
-      { typeof(DateTime),  "date&time" },
-      { typeof(TimeSpan),  "time" },
+      { typeof(DateTime),  "DateTime" },
+      { typeof(TimeSpan),  "TimeSpan" },
     };
+
     public static string GetTypeName(this Type type)
     {
       string name;
@@ -37,7 +38,7 @@ namespace Qhta.TypeUtils
       {
         Type baseType = type.GenericTypeArguments[0];
         name = GetTypeName(baseType);
-        return name;
+        return name+"?";
       }
       int k = name.IndexOf('`');
       if (k>0)
