@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Immutable;
+using System.Diagnostics;
 
 namespace Qhta.ObservableImmutable
 {
@@ -375,9 +376,17 @@ namespace Qhta.ObservableImmutable
 
     public IImmutableDictionary<T, V> Add(T key, V value)
     {
-      _items = _items.Add(key, value);
-      var index = _items.Keys.ToImmutableList().IndexOf(key);
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
+      try
+      {
+        _items = _items.Add(key, value);
+        var index = _items.Keys.ToImmutableList().IndexOf(key);
+        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
+      }
+      catch (System.ArgumentException ex)
+      {
+        Debug.WriteLine("Exception thrown: 'System.ArgumentException' in System.Collections.Immutable.dll");
+        Debug.WriteLine(ex.Message);
+      }
       return this;
     }
 

@@ -90,7 +90,7 @@ namespace Qhta.ObservableViewModels
       ////if (IsPopulating)
       ////  return;
       ////IsPopulating = true;
-      var lazyLoadSave = LazyLoad;
+      var lazyLoadSave = LazyLoad;//3
       lazyLoad = false;
       if (Count != Items.Count)
       {
@@ -107,13 +107,13 @@ namespace Qhta.ObservableViewModels
     /// if LazyLoad functionality is active.
     /// </summary>
     /// <returns></returns>
-    public virtual int Count => (LazyLoad) ? 0 : Items.Count;
+    public virtual int Count => (LazyLoad) ? 0 : Items.Count;//2
     #endregion
 
     public virtual bool IsReadOnly => false;
 
     public virtual void Add(TValue item)
-    {
+    {//4
       int oldCount = Items.Count;
       Items.Add(item);
       IsModified = true;
@@ -146,9 +146,15 @@ namespace Qhta.ObservableViewModels
     }
 
     public virtual void CopyTo(TValue[] array, int arrayIndex)
-    {
+    {//7
       PopulateWhenNeeded();
-      Items.ToArray().CopyTo(array, arrayIndex);
+      var outputLength = array.Length;
+      var items = Items.ToArray();
+      var itemsLength = items.Length;
+      if (itemsLength <= outputLength - arrayIndex)
+        items.CopyTo(array, arrayIndex);
+      else
+        items.AsSpan(arrayIndex, outputLength - arrayIndex).CopyTo(array);
     }
 
     public virtual IEnumerator<TValue> GetEnumerator()
@@ -159,7 +165,7 @@ namespace Qhta.ObservableViewModels
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-      return this.GetEnumerator();
+      return this.GetEnumerator();//1
     }
 
     public virtual int IndexOf(TValue value)
@@ -171,24 +177,11 @@ namespace Qhta.ObservableViewModels
     public virtual TValue this[int index]
     {
       get
-      {
+      {//6
         PopulateWhenNeeded();
         return Items[index];
       }
       set => throw new NotImplementedException();
-    }
-
-    public virtual TValue SelectedItem
-    {
-      get => selectedItem;
-      set
-      {
-        if (!selectedItem.Equals(value))
-        {
-          selectedItem = value;
-          base.NotifyPropertyChanged(nameof(SelectedItem));
-        }
-      }
     }
 
     public bool IsFixedSize => false;
@@ -197,13 +190,9 @@ namespace Qhta.ObservableViewModels
 
     public virtual bool IsSynchronized => Items.IsSynchronized;
 
-    public virtual bool IsModified { get; protected set; }
+    public virtual bool IsModified { get; protected internal set; }
 
-    object IList.this[int index] { get => this[index]; set => this[index]=(TValue)value; }
-
-    private TValue selectedItem;
-
-    public bool ShouldSerializeSelectedItem() => false;
+    object IList.this[int index] { get => this[index]; set => this[index]=(TValue)value; }//5
 
     public virtual void Insert(int index, TValue item)
     {
@@ -220,7 +209,7 @@ namespace Qhta.ObservableViewModels
       NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
     }
 
-    public int Add(object value)
+    int IList.Add(object value)
     {
       if (value is TValue item)
       {
@@ -230,7 +219,7 @@ namespace Qhta.ObservableViewModels
       return -1;
     }
 
-    public bool Contains(object value)
+    bool IList.Contains(object value)
     {
       if (value is TValue item)
       {
@@ -239,7 +228,7 @@ namespace Qhta.ObservableViewModels
       return false;
     }
 
-    public int IndexOf(object value)
+    int IList.IndexOf(object value)
     {
       if (value is TValue item)
       {
@@ -248,12 +237,12 @@ namespace Qhta.ObservableViewModels
       return -1;
     }
 
-    public void Insert(int index, object value)
+    void IList.Insert(int index, object value)
     {
-      throw new NotImplementedException();
+      throw new InvalidOperationException($"ObservablaDataSet.IndexOf cannot be invoked");
     }
 
-    public void Remove(object value)
+    void IList.Remove(object value)
     {
       if (value is TValue item)
       {
@@ -261,13 +250,31 @@ namespace Qhta.ObservableViewModels
       }
     }
 
-    public void CopyTo(Array array, int index)
+    void ICollection.CopyTo(Array array, int index)
     {
       if (array is TValue[] items)
       {
         this.CopyTo(items, index);
       }
     }
+
+    #region Selection
+    public virtual TValue SelectedItem
+    {
+      get => selectedItem;
+      set
+      {
+        if (!selectedItem.Equals(value))
+        {
+          selectedItem = value;
+          base.NotifyPropertyChanged(nameof(SelectedItem));
+        }
+      }
+    }
+    private TValue selectedItem;
+
+    public bool ShouldSerializeSelectedItem() => false;
+    #endregion
   }
 
 }

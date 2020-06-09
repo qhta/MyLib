@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Qhta.MVVM
 {
-  public abstract class Command: ICommand
+  public abstract class Command: DependencyObject, ICommand
   {
     public virtual event EventHandler CanExecuteChanged
     {

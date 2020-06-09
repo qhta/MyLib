@@ -78,7 +78,7 @@ namespace Qhta.OpenXMLTools
       foreach (var fieldCode in fieldCodes)
       {
         var fieldText = fieldCode.InnerText.Trim();
-        Debug.WriteLine(fieldText);
+        //Debug.WriteLine(fieldText);
         if (fieldText.StartsWith("HYPERLINK"))
         {
           int k = fieldText.IndexOf('"')+1;
@@ -105,7 +105,7 @@ namespace Qhta.OpenXMLTools
                   if (targetFileName.StartsWith(@"\"))
                     targetFileName = targetFileName.Substring(1);
                 }
-                Debug.WriteLine(targetFileName);
+                //Debug.WriteLine(targetFileName);
 
                 //var hostElement = fieldParagraph.Parent;
                 var targetUri = new Uri(targetFileName, UriKind.RelativeOrAbsolute);

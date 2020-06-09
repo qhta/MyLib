@@ -7,7 +7,7 @@
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Yarreck Qhta</Authors>
     <Description>A simple MVVM framework which enables worker threads to invoke UI notification via DispatchedObjects.</Description>

@@ -40,8 +40,8 @@
     <AssemblyOriginatorKeyFile>Qhta.WPF.Utils.key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\..\WordAddIns\WordProc\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\WordAddIns\MyAddIns\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -52,8 +52,8 @@
     <Reference Include="Qhta.HtmlUtils, Version=1.0.1.0, Culture=neutral, PublicKeyToken=326eec3dee131ef7, processorArchitecture=MSIL">
       <HintPath>..\Qhta.WPF.Controls\packages\Qhta.HtmlUtils.1.0.1\lib\netstandard2.0\Qhta.HtmlUtils.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.MVVM, Version=1.0.2.0, Culture=neutral, PublicKeyToken=374081c06722bca0, processorArchitecture=MSIL">
-      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.MVVM.1.0.2\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
+    <Reference Include="Qhta.MVVM, Version=1.0.3.0, Culture=neutral, PublicKeyToken=374081c06722bca0, processorArchitecture=MSIL">
+      <HintPath>..\..\WordAddIns\MyAddIns\packages\Qhta.MVVM.1.0.3\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Qhta.OrdNumbers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=05534810d7fc4a77, processorArchitecture=MSIL">
       <HintPath>..\..\WordAddIns\MyAddIns\packages\Qhta.OrdNumbers.2.2.1\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
@@ -81,6 +81,7 @@
     <Compile Include="BindingExpressionUtils.cs" />
     <Compile Include="Converters\ArithmeticConverter.cs" />
     <Compile Include="Converters\AddingConverter.cs" />
+    <Compile Include="Converters\EqualityComparingConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\SubtractingConverter.cs" />
     <Compile Include="Converters\TypeNameConverter.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="ProgressMonitor`1.cs" />
     <Compile Include="ProposedValueErrorValidationRule.cs" />
     <Compile Include="ProposedValueValidationBindingExtension.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="SR.cs" />
     <Compile Include="Converters\String2ObjectConverter.cs" />
     <Compile Include="Converters\String2ObjectDictionary.cs" />
