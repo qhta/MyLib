@@ -10,6 +10,7 @@
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ComboBoxStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/GridViewStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToggleButtonStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
