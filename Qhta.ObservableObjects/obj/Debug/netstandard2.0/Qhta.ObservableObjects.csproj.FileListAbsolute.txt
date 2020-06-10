@@ -7,3 +7,12 @@ D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableObjects.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableObjects.dll
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableImmutable\obj\Debug\netstandard2.0\Qhta.ObservableObjects.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\bin\Debug\netstandard2.0\Qhta.ObservableObjects.deps.json
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\bin\Debug\netstandard2.0\Qhta.ObservableObjects.dll
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\bin\Debug\netstandard2.0\Qhta.ObservableObjects.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.dll
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.pdb

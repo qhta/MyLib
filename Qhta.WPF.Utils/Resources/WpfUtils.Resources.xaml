@@ -9,6 +9,7 @@
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TextBoxAnimationStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ComboBoxStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/GridViewStyle.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

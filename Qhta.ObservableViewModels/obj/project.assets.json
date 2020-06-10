@@ -1614,8 +1614,8 @@
     },
     "Qhta.ObservableObjects/1.0.0": {
       "type": "project",
-      "path": "../Qhta.ObservableImmutable/Qhta.ObservableObjects.csproj",
-      "msbuildProject": "../Qhta.ObservableImmutable/Qhta.ObservableObjects.csproj"
+      "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
+      "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1655,8 +1655,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableObjects.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableObjects.csproj"
+            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj"
             }
           }
         }
