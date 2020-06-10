@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace Qhta.ObservableImmutable
+namespace Qhta.ObservableObjects
 {
   public class ObservableList<T> : ObservableCollectionObject,
     IEnumerable,

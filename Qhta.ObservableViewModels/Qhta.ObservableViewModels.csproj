@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Qhta.ObservableImmutable\Qhta.ObservableImmutable.csproj" />
+    <ProjectReference Include="..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
   </ItemGroup>
 
   <ItemGroup>

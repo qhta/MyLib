@@ -5,40 +5,39 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Immutable;
-using System.Diagnostics;
 
-namespace Qhta.ObservableImmutable
+namespace Qhta.ObservableObjects
 {
-  public class ObservableDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>, 
+  public class ObservableSortedDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>, 
     IReadOnlyDictionary<T, V>, IReadOnlyCollection<KeyValuePair<T, V>>, 
     IDictionary<T, V>, ICollection<KeyValuePair<T, V>>, 
     IEnumerable<KeyValuePair<T, V>>, IDictionary, INotifyCollectionChanged, INotifyPropertyChanged
   {
     #region Private
 
-    private readonly object _syncRoot = new object();
-    private ImmutableDictionary<T, V> _items = ImmutableDictionary<T, V>.Empty;
+    private readonly object _syncRoot = new object ();
+    private ImmutableSortedDictionary<T, V> _items = ImmutableSortedDictionary<T, V>.Empty;
 
     #endregion Private
 
     #region Constructors
 
-    public ObservableDictionary() : this(new KeyValuePair<T, V>[0], LockTypeEnum.SpinWait)
+    public ObservableSortedDictionary() : this(new KeyValuePair<T, V>[0], LockTypeEnum.SpinWait)
     {
     }
 
-    public ObservableDictionary(IEnumerable<KeyValuePair<T, V>> items) : this(items, LockTypeEnum.SpinWait)
+    public ObservableSortedDictionary(IEnumerable<KeyValuePair<T, V>> items) : this(items, LockTypeEnum.SpinWait)
     {
     }
 
-    public ObservableDictionary(LockTypeEnum lockType) : this(new KeyValuePair<T, V>[0], lockType)
+    public ObservableSortedDictionary(LockTypeEnum lockType) : this(new KeyValuePair<T, V>[0], lockType)
     {
     }
 
-    public ObservableDictionary(IEnumerable<KeyValuePair<T, V>> items, LockTypeEnum lockType) : base(lockType)
+    public ObservableSortedDictionary(IEnumerable<KeyValuePair<T, V>> items, LockTypeEnum lockType) : base(lockType)
     {
       _syncRoot = new object();
-      _items = ImmutableDictionary<T, V>.Empty.AddRange(items);
+      _items = ImmutableSortedDictionary<T, V>.Empty.AddRange(items);
     }
 
     #endregion Constructors
@@ -48,13 +47,13 @@ namespace Qhta.ObservableImmutable
     #region General
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool TryOperation(Func<ImmutableDictionary<T, V>, ImmutableDictionary<T, V>> operation)
+    public bool TryOperation(Func<ImmutableSortedDictionary<T, V>, ImmutableSortedDictionary<T, V>> operation)
     {
       return TryOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool DoOperation(Func<ImmutableDictionary<T, V>, ImmutableDictionary<T, V>> operation)
+    public bool DoOperation(Func<ImmutableSortedDictionary<T, V>, ImmutableSortedDictionary<T, V>> operation)
     {
       return DoOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
@@ -62,7 +61,7 @@ namespace Qhta.ObservableImmutable
     #region Helpers
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool TryOperation(Func<ImmutableDictionary<T, V>, ImmutableDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
+    private bool TryOperation(Func<ImmutableSortedDictionary<T, V>, ImmutableSortedDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
     {
       try
       {
@@ -93,7 +92,7 @@ namespace Qhta.ObservableImmutable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool TryOperation(Func<ImmutableDictionary<T, V>, KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
+    private bool TryOperation(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
     {
       try
       {
@@ -126,7 +125,7 @@ namespace Qhta.ObservableImmutable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool DoOperation(Func<ImmutableDictionary<T, V>, ImmutableDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
+    private bool DoOperation(Func<ImmutableSortedDictionary<T, V>, ImmutableSortedDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
     {
       bool result;
 
@@ -156,7 +155,7 @@ namespace Qhta.ObservableImmutable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool DoOperation(Func<ImmutableDictionary<T, V>, KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
+    private bool DoOperation(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
     {
       bool result;
 
@@ -193,7 +192,7 @@ namespace Qhta.ObservableImmutable
 
     #region Specific
 
-    public bool DoAdd(Func<ImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
+    public bool DoAdd(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
     {
       return DoOperation
         (
@@ -201,12 +200,12 @@ namespace Qhta.ObservableImmutable
         {
           var kvp = valueProvider(currentItems);
           var newItems = _items.Add(kvp.Key, kvp.Value);
-          return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, kvp));
+          return new KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, kvp));
         }
         );
     }
 
-    public bool DoAddRange(Func<ImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
+    public bool DoAddRange(Func<ImmutableSortedDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
     {
       return DoOperation
         (
@@ -224,7 +223,7 @@ namespace Qhta.ObservableImmutable
         );
     }
 
-    public bool DoRemove(Func<ImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
+    public bool DoRemove(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
     {
       return DoOperation
         (
@@ -233,12 +232,12 @@ namespace Qhta.ObservableImmutable
           var newKVP = valueProvider(currentItems);
           var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
           var newItems = currentItems.Remove(newKVP.Key);
-          return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldKVP));
+          return new KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldKVP));
         }
         );
     }
 
-    public bool DoRemoveRange(Func<ImmutableDictionary<T, V>, IEnumerable<T>> valueProvider)
+    public bool DoRemoveRange(Func<ImmutableSortedDictionary<T, V>, IEnumerable<T>> valueProvider)
     {
       return DoOperation
         (
@@ -247,7 +246,7 @@ namespace Qhta.ObservableImmutable
         );
     }
 
-    public bool DoSetItem(Func<ImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
+    public bool DoSetItem(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
     {
       return DoOperation
         (
@@ -256,12 +255,12 @@ namespace Qhta.ObservableImmutable
           var newKVP = valueProvider(currentItems);
           var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
           var newItems = currentItems.SetItem(newKVP.Key, newKVP.Value);
-          return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldKVP, newKVP));
+          return new KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldKVP, newKVP));
         }
         );
     }
 
-    public bool DoSetItems(Func<ImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
+    public bool DoSetItems(Func<ImmutableSortedDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
     {
       return DoOperation
         (
@@ -270,7 +269,7 @@ namespace Qhta.ObservableImmutable
         );
     }
 
-    public bool TryAdd(Func<ImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
+    public bool TryAdd(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
     {
       return TryOperation
         (
@@ -278,12 +277,12 @@ namespace Qhta.ObservableImmutable
         {
           var kvp = valueProvider(currentItems);
           var newItems = _items.Add(kvp.Key, kvp.Value);
-          return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, kvp));
+          return new KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, kvp));
         }
         );
     }
 
-    public bool TryAddRange(Func<ImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
+    public bool TryAddRange(Func<ImmutableSortedDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
     {
       return TryOperation
         (
@@ -301,7 +300,7 @@ namespace Qhta.ObservableImmutable
         );
     }
 
-    public bool TryRemove(Func<ImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
+    public bool TryRemove(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
     {
       return TryOperation
         (
@@ -310,12 +309,12 @@ namespace Qhta.ObservableImmutable
           var newKVP = valueProvider(currentItems);
           var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
           var newItems = currentItems.Remove(newKVP.Key);
-          return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldKVP));
+          return new KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldKVP));
         }
         );
     }
 
-    public bool TryRemoveRange(Func<ImmutableDictionary<T, V>, IEnumerable<T>> valueProvider)
+    public bool TryRemoveRange(Func<ImmutableSortedDictionary<T, V>, IEnumerable<T>> valueProvider)
     {
       return TryOperation
         (
@@ -324,7 +323,7 @@ namespace Qhta.ObservableImmutable
         );
     }
 
-    public bool TrySetItem(Func<ImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
+    public bool TrySetItem(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
     {
       return TryOperation
         (
@@ -333,12 +332,12 @@ namespace Qhta.ObservableImmutable
           var newKVP = valueProvider(currentItems);
           var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
           var newItems = currentItems.SetItem(newKVP.Key, newKVP.Value);
-          return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldKVP, newKVP));
+          return new KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldKVP, newKVP));
         }
         );
     }
 
-    public bool TrySetItems(Func<ImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
+    public bool TrySetItems(Func<ImmutableSortedDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
     {
       return TryOperation
         (
@@ -349,7 +348,7 @@ namespace Qhta.ObservableImmutable
 
     #endregion Specific
 
-    public ImmutableDictionary<T, V> ToImmutableDictionary()
+    public ImmutableSortedDictionary<T, V> ToImmutableSortedDictionary()
     {
       return _items;
     }
@@ -372,36 +371,27 @@ namespace Qhta.ObservableImmutable
 
     #region Non Thead-Safe Methods
 
-    #region IImmutableDictionary<T, V>
+    #region IImmutableSortedDictionary<T, V>
 
     public IImmutableDictionary<T, V> Add(T key, V value)
     {
-      try
-      {
-        _items = _items.Add(key, value);
-        var index = _items.Keys.ToImmutableList().IndexOf(key);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
-      }
-      catch (System.ArgumentException ex)
-      {
-        Debug.WriteLine("Exception thrown: 'System.ArgumentException' in System.Collections.Immutable.dll");
-        Debug.WriteLine(ex.Message);
-      }
-      return this;
+      _items = _items.Add(key, value);
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      return (IImmutableDictionary < T, V >)this;
     }
 
     public IImmutableDictionary<T, V> AddRange(IEnumerable<KeyValuePair<T, V>> pairs)
     {
       _items = _items.AddRange(pairs);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
+      return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> Clear()
     {
       _items = _items.Clear();
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
+      return (IImmutableDictionary<T, V>)this;
     }
 
     public bool Contains(KeyValuePair<T, V> pair)
@@ -413,21 +403,21 @@ namespace Qhta.ObservableImmutable
     {
       _items = _items.Remove(key);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
+      return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> RemoveRange(IEnumerable<T> keys)
     {
       _items = _items.RemoveRange(keys);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
+      return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> SetItem(T key, V value)
     {
       _items = _items.SetItem(key, value);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
+      return (IImmutableDictionary<T, V>)this;
     }
 
     public IImmutableDictionary<T, V> SetItems(IEnumerable<KeyValuePair<T, V>> items)
@@ -476,7 +466,7 @@ namespace Qhta.ObservableImmutable
       }
     }
 
-    #endregion IImmutableDictionary<T, V>
+    #endregion IImmutableSortedDictionary<T, V>
 
     #region IDictionary<T, V>
 

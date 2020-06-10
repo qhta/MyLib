@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Threading;
 
-namespace Qhta.ObservableImmutable
+namespace Qhta.ObservableObjects
 {
   public class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
   {
@@ -125,6 +125,6 @@ namespace Qhta.ObservableImmutable
     }
     #endregion Constructors
 
-    protected readonly DispatcherHelper Helper =new DispatcherHelper(default(LockTypeEnum));
+    protected readonly DispatcherHelper Helper = new DispatcherHelper(default(LockTypeEnum));
   }
 }

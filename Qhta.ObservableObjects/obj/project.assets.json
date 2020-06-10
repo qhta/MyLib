@@ -1612,9 +1612,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableImmutable.csproj",
-      "projectName": "Qhta.ObservableImmutable",
-      "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableImmutable.csproj",
+      "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableObjects.csproj",
+      "projectName": "Qhta.ObservableObjects",
+      "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableObjects.csproj",
       "packagesPath": "C:\\Users\\Jerry\\.nuget\\packages\\",
       "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\obj\\",
       "projectStyle": "PackageReference",

@@ -3,13 +3,15 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Threading;
 
-namespace Qhta.ObservableImmutable
+namespace Qhta.ObservableObjects
 {
   public class ObservableObject: INotifyPropertyChanged
   {
     #region INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
+
+    protected DispatcherHelper DispatcherHelper = new DispatcherHelper();
 
     public void NotifyPropertyChanged(string propertyName)
     {

@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Qhta.ObservableImmutable;
+using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
 {

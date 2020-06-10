@@ -268,7 +268,7 @@
           "lib/WindowsBase.dll": {}
         }
       },
-      "Qhta.ObservableImmutable/1.0.0": {
+      "Qhta.ObservableObjects/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -277,10 +277,10 @@
           "WindowsBase": "4.6.1055"
         },
         "compile": {
-          "bin/placeholder/Qhta.ObservableImmutable.dll": {}
+          "bin/placeholder/Qhta.ObservableObjects.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Qhta.ObservableImmutable.dll": {}
+          "bin/placeholder/Qhta.ObservableObjects.dll": {}
         }
       }
     }
@@ -1612,16 +1612,16 @@
         "windowsbase.nuspec"
       ]
     },
-    "Qhta.ObservableImmutable/1.0.0": {
+    "Qhta.ObservableObjects/1.0.0": {
       "type": "project",
-      "path": "../Qhta.ObservableImmutable/Qhta.ObservableImmutable.csproj",
-      "msbuildProject": "../Qhta.ObservableImmutable/Qhta.ObservableImmutable.csproj"
+      "path": "../Qhta.ObservableImmutable/Qhta.ObservableObjects.csproj",
+      "msbuildProject": "../Qhta.ObservableImmutable/Qhta.ObservableObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.ObservableImmutable >= 1.0.0",
+      "Qhta.ObservableObjects >= 1.0.0",
       "System.Runtime.CompilerServices.Unsafe >= 4.7.1"
     ]
   },
@@ -1655,8 +1655,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableImmutable.csproj": {
-              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableImmutable.csproj"
+            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableObjects.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableImmutable\\Qhta.ObservableObjects.csproj"
             }
           }
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using Qhta.ObservableImmutable;
+using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
 {

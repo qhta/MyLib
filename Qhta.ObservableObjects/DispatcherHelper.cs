@@ -4,11 +4,26 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Threading;
 
-namespace Qhta.ObservableImmutable
+namespace Qhta.ObservableObjects
 {
   public class DispatcherHelper
   {
-    public static Dispatcher Dispatcher { get; set; }
+
+    public DispatcherHelper()
+    {
+      _initialDispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+    }
+
+    public Dispatcher Dispatcher
+    {
+      get
+      {
+        if (_initialDispatcher != null)
+          return _initialDispatcher;
+        return GetCurrentDispatcher();
+      }
+    }
+    private Dispatcher _initialDispatcher;
 
 
     public DispatcherHelper(LockTypeEnum lockType)
@@ -31,18 +46,18 @@ namespace Qhta.ObservableImmutable
     // (can be more than one UI thread so different dispatchers are possible); 
     // null if not a UI thread
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Dispatcher GetDispatcher()
+    public static Dispatcher GetCurrentDispatcher()
     {
       var result =  Dispatcher.FromThread(Thread.CurrentThread);
-      //Debug.WriteLine($"GetDispatcher={result!=null}");
+      //Debug.WriteLine($"DispatcherHelper.GetDispatcher={result!=null}");
       return result;
     }
 
     public void WaitForCondition(Func<bool> condition)
     {
-      //Debug.WriteLine("WaitForCondition");
+      //Debug.WriteLine("DispatcherHelper.WaitForCondition");
 
-      var dispatcher = GetDispatcher();
+      var dispatcher = GetCurrentDispatcher();
 
       if (dispatcher == null)
       {
@@ -92,7 +107,7 @@ namespace Qhta.ObservableImmutable
     public void DoEvents()
     {
       //Debug.WriteLine("DoEvents");
-      var dispatcher = GetDispatcher();
+      var dispatcher = GetCurrentDispatcher();
       if (dispatcher == null)
       {
         return;

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Qhta.ObservableImmutable.key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>ObservableObjects.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
