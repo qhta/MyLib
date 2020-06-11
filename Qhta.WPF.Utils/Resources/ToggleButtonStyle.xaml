@@ -6,7 +6,9 @@
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
                     >
     <Style x:Key="ImageToggleButtonStyle" BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="ToggleButton">
-      <Setter Property="Template">
+    <Setter Property ="BorderThickness" Value="0"/>
+    <Setter Property ="Background" Value="Transparent"/>
+    <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="ToggleButton">
           <Grid>
