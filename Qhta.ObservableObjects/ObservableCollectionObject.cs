@@ -62,17 +62,31 @@ namespace Qhta.ObservableObjects
       if (notifyCollectionChangedEventHandler == null)
         return;
 
+      if (_dispatcher != null)
+      {
+        //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
+        _dispatcher.BeginInvoke(DispatcherPriority.DataBind, 
+          new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
+      }
+      else
+
       foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
       {
-        if (_dispatcher != null)
+        //handler.Invoke(this, args);
+        handler.BeginInvoke(this, args, null, null);
+      }
+    }
+
+    private void NotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgs args)
+    {
+      lock (_lockObject)
+      {
+        var notifyCollectionChangedEventHandler = CollectionChanged;
+        if (notifyCollectionChangedEventHandler == null)
+          return;
+        foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
         {
-          //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-          _dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
-        }
-        else
-        {
-          //handler.Invoke(this, args);
-          handler.BeginInvoke(this, args, null, null);
+          handler.Invoke(this, args);
         }
       }
     }
