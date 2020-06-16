@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Threading;
 using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
@@ -17,9 +18,12 @@ namespace Qhta.ObservableViewModels
     IList,
     INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
   {
-    public ObservableDataSet() { }
+    public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
+    {
+      Items = new ObservableList<TValue>(_dispatcher);
+    }
 
-    public readonly ObservableList<TValue> Items = new ObservableList<TValue>();
+    public readonly ObservableList<TValue> Items;
 
     #region LazyLoad functionality
 

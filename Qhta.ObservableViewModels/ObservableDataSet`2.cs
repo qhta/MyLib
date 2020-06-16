@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Threading;
 using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
@@ -13,8 +14,9 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataSet<TKey, TValue> : ObservableDataSet<TValue>,
       ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue> where TKey: IComparable<TKey> where TValue: class
   {
-    public ObservableDataSet()
+    public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
     {
+      PrimaryIndex = new ObservableDictionary<TKey, TValue>(_dispatcher);
       foreach (var propInfo in typeof(TValue).GetProperties())
       {
         if (propInfo.GetCustomAttribute<KeyAttribute>() != null)
@@ -70,7 +72,7 @@ namespace Qhta.ObservableViewModels
     protected List<PropertyInfo> primaryKeys = new List<PropertyInfo>();
     protected ConstructorInfo primaryKeyConstructor;
 
-    public readonly ObservableDictionary<TKey, TValue> PrimaryIndex = new ObservableDictionary<TKey, TValue>();
+    public readonly ObservableDictionary<TKey, TValue> PrimaryIndex;
 
     public virtual bool ContainsKey(TKey key)
     {

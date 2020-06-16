@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
@@ -26,9 +27,9 @@ namespace Qhta.ObservableViewModels
     }
     #endregion
 
-    public ObservableDataQuery(ObservableDataSet<TValue> source) : this(source, null) { }
+    public ObservableDataQuery(ObservableDataSet<TValue> source, Dispatcher dispatcher) : this(source, null, dispatcher) { }
 
-    public ObservableDataQuery(ObservableDataSet<TValue> source, Func<TValue, bool> filter)
+    public ObservableDataQuery(ObservableDataSet<TValue> source, Func<TValue, bool> filter, Dispatcher dispatcher): base(dispatcher)
     {
       Source = source;
       if (source != null)

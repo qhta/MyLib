@@ -12,6 +12,8 @@ namespace Qhta.ObservableObjects
     public DispatcherHelper()
     {
       _initialDispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+      if (_initialDispatcher == null)
+        Debug.Assert(true);
     }
 
     public Dispatcher Dispatcher

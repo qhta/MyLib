@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Threading;
 using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
@@ -13,10 +14,11 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataIndex<TKey, TValue> : ObservableObject,
       ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue>
   {
-    public ObservableDataIndex(): this (null) { }
+    public ObservableDataIndex(Dispatcher dispatcher): this (null, dispatcher) { }
 
-    public ObservableDataIndex(string aName)
+    public ObservableDataIndex(string aName, Dispatcher dispatcher): base(dispatcher)
     {
+      Items = new ObservableDictionary<object, TValue>(_dispatcher);
       //Debug.WriteLine($"ObservableDataIndex({aName}).Create");
       Dictionary<string, List<PropertyInfo>> allIndexes = new Dictionary<string, List<PropertyInfo>>();
       foreach (var propInfo in typeof(TValue).GetProperties())
@@ -96,7 +98,7 @@ namespace Qhta.ObservableViewModels
     protected List<PropertyInfo> indexKeys = new List<PropertyInfo>();
     protected ConstructorInfo keyConstructor;
 
-    public readonly ObservableDictionary<object, TValue> Items = new ObservableDictionary<object, TValue>();
+    public readonly ObservableDictionary<object, TValue> Items;
 
     #region Notification
     public event NotifyCollectionChangedEventHandler CollectionChanged

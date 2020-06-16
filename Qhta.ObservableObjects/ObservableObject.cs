@@ -7,11 +7,16 @@ namespace Qhta.ObservableObjects
 {
   public class ObservableObject: INotifyPropertyChanged
   {
+    public ObservableObject(Dispatcher dispatcher)
+    {
+      _dispatcher = dispatcher;
+    }
+    protected Dispatcher _dispatcher;
+    protected object _lockObject = new object();
+
     #region INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
-
-    protected DispatcherHelper DispatcherHelper = new DispatcherHelper();
 
     public void NotifyPropertyChanged(string propertyName)
     {
@@ -20,21 +25,14 @@ namespace Qhta.ObservableObjects
       if (propertyChangedEventHandler == null)
         return;
 
-      var dispatcher = DispatcherHelper.Dispatcher;
 
       foreach (PropertyChangedEventHandler handler in propertyChangedEventHandler.GetInvocationList())
       {
-        if (dispatcher == null)
-        {
-          var dispatcherObject = handler.Target as DispatcherObject;
-          if (dispatcherObject != null && !dispatcherObject.CheckAccess())
-            dispatcher = dispatcherObject.Dispatcher;
-        }
 
         var args = new PropertyChangedEventArgs(propertyName);
-        if (dispatcher != null)
+        if (_dispatcher != null)
         {
-          dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
+          _dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
         }
         else
           try

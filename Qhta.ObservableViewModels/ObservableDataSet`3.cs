@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Threading;
 using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
@@ -20,8 +21,12 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataSet<TPrimary, TSecondaryKey, TValue>: ObservableDataSet<TPrimary, TValue> 
     where TPrimary : IComparable<TPrimary> where TSecondaryKey : IComparable<TSecondaryKey> where TValue: class
   {
-    private ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex = 
-      new ObservableDataIndex<TSecondaryKey, TValue>();
+    public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
+    {
+      SecondaryIndex = new ObservableDataIndex<TSecondaryKey, TValue>(_dispatcher);
+    }
+
+    private ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex;
 
     public override void Add(TValue item)
     {

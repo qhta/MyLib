@@ -1,40 +1,33 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Collections.Immutable;
+using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
-  public class ObservableSortedDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>, 
-    IReadOnlyDictionary<T, V>, IReadOnlyCollection<KeyValuePair<T, V>>, 
-    IDictionary<T, V>, ICollection<KeyValuePair<T, V>>, 
+  public class ObservableSortedDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>,
+    IReadOnlyDictionary<T, V>, IReadOnlyCollection<KeyValuePair<T, V>>,
+    IDictionary<T, V>, ICollection<KeyValuePair<T, V>>,
     IEnumerable<KeyValuePair<T, V>>, IDictionary, INotifyCollectionChanged, INotifyPropertyChanged
   {
     #region Private
 
-    private readonly object _syncRoot = new object ();
+    private readonly object _syncRoot = new object();
     private ImmutableSortedDictionary<T, V> _items = ImmutableSortedDictionary<T, V>.Empty;
 
     #endregion Private
 
     #region Constructors
 
-    public ObservableSortedDictionary() : this(new KeyValuePair<T, V>[0], LockTypeEnum.SpinWait)
+    public ObservableSortedDictionary(Dispatcher dispatcher) : this(new KeyValuePair<T, V>[0], dispatcher)
     {
     }
 
-    public ObservableSortedDictionary(IEnumerable<KeyValuePair<T, V>> items) : this(items, LockTypeEnum.SpinWait)
-    {
-    }
-
-    public ObservableSortedDictionary(LockTypeEnum lockType) : this(new KeyValuePair<T, V>[0], lockType)
-    {
-    }
-
-    public ObservableSortedDictionary(IEnumerable<KeyValuePair<T, V>> items, LockTypeEnum lockType) : base(lockType)
+    public ObservableSortedDictionary(IEnumerable<KeyValuePair<T, V>> items, Dispatcher dispatcher) : base(dispatcher)
     {
       _syncRoot = new object();
       _items = ImmutableSortedDictionary<T, V>.Empty.AddRange(items);
@@ -63,75 +56,56 @@ namespace Qhta.ObservableObjects
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private bool TryOperation(Func<ImmutableSortedDictionary<T, V>, ImmutableSortedDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
     {
-      try
+      lock (_lockObject)
       {
-        if (Helper.TryLock())
+        var oldList = _items;
+        var newItems = operation(oldList);
+
+        if (newItems == null)
         {
-          var oldList = _items;
-          var newItems = operation(oldList);
-
-          if (newItems == null)
-          {
-            // user returned null which means he cancelled operation
-            return false;
-          }
-
-          _items = newItems;
-
-          if (args != null)
-            NotifyCollectionChanged(args);
-          return true;
+          // user returned null which means he cancelled operation
+          return false;
         }
-      }
-      finally
-      {
-        Helper.Unlock();
-      }
 
+        _items = newItems;
+
+        if (args != null)
+          NotifyCollectionChanged(args);
+        return true;
+      }
       return false;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private bool TryOperation(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
     {
-      try
+      lock (_lockObject)
       {
-        if (Helper.TryLock())
+        var oldList = _items;
+        var kvp = operation(oldList);
+        var newItems = kvp.Key;
+        var args = kvp.Value;
+
+        if (newItems == null)
         {
-          var oldList = _items;
-          var kvp = operation(oldList);
-          var newItems = kvp.Key;
-          var args = kvp.Value;
-
-          if (newItems == null)
-          {
-            // user returned null which means he cancelled operation
-            return false;
-          }
-
-          _items = newItems;
-
-          if (args != null)
-            NotifyCollectionChanged(args);
-          return true;
+          // user returned null which means he cancelled operation
+          return false;
         }
-      }
-      finally
-      {
-        Helper.Unlock();
-      }
 
-      return false;
+        _items = newItems;
+
+        if (args != null)
+          NotifyCollectionChanged(args);
+        return true;
+      }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private bool DoOperation(Func<ImmutableSortedDictionary<T, V>, ImmutableSortedDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
     {
       bool result;
-
-      try
-      {
-        Helper.Lock();
+      lock(_lockObject)
+      { 
         var oldItems = _items;
         var newItems = operation(_items);
 
@@ -146,11 +120,6 @@ namespace Qhta.ObservableObjects
         if (args != null)
           NotifyCollectionChanged(args);
       }
-      finally
-      {
-        Helper.Unlock();
-      }
-
       return result;
     }
 
@@ -158,10 +127,8 @@ namespace Qhta.ObservableObjects
     private bool DoOperation(Func<ImmutableSortedDictionary<T, V>, KeyValuePair<ImmutableSortedDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
     {
       bool result;
-
-      try
-      {
-        Helper.Lock();
+      lock(_lockObject)
+      { 
         var oldItems = _items;
         var kvp = operation(_items);
         var newItems = kvp.Key;
@@ -178,11 +145,6 @@ namespace Qhta.ObservableObjects
         if (args != null)
           NotifyCollectionChanged(args);
       }
-      finally
-      {
-        Helper.Unlock();
-      }
-
       return result;
     }
 
@@ -377,21 +339,21 @@ namespace Qhta.ObservableObjects
     {
       _items = _items.Add(key, value);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return (IImmutableDictionary < T, V >)this;
+      return this;
     }
 
     public IImmutableDictionary<T, V> AddRange(IEnumerable<KeyValuePair<T, V>> pairs)
     {
       _items = _items.AddRange(pairs);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return (IImmutableDictionary<T, V>)this;
+      return this;
     }
 
     public IImmutableDictionary<T, V> Clear()
     {
       _items = _items.Clear();
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return (IImmutableDictionary<T, V>)this;
+      return this;
     }
 
     public bool Contains(KeyValuePair<T, V> pair)
@@ -403,21 +365,21 @@ namespace Qhta.ObservableObjects
     {
       _items = _items.Remove(key);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return (IImmutableDictionary<T, V>)this;
+      return this;
     }
 
     public IImmutableDictionary<T, V> RemoveRange(IEnumerable<T> keys)
     {
       _items = _items.RemoveRange(keys);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return (IImmutableDictionary<T, V>)this;
+      return this;
     }
 
     public IImmutableDictionary<T, V> SetItem(T key, V value)
     {
       _items = _items.SetItem(key, value);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return (IImmutableDictionary<T, V>)this;
+      return this;
     }
 
     public IImmutableDictionary<T, V> SetItems(IEnumerable<KeyValuePair<T, V>> items)

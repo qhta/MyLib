@@ -9,6 +9,8 @@ namespace Qhta.ObservableObjects
 {
   public class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
   {
+    public ObservableCollectionObject(Dispatcher dispatcher) : base(dispatcher) { }
+
     #region INotifyCollectionChanged
 
     public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -60,32 +62,17 @@ namespace Qhta.ObservableObjects
       if (notifyCollectionChangedEventHandler == null)
         return;
 
-      var dispatcher = DispatcherHelper.Dispatcher;
-
       foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
       {
-        if (dispatcher == null)
+        if (_dispatcher != null)
         {
-          var dispatcherObject = handler.Target as DispatcherObject;
-          if (dispatcherObject != null && !dispatcherObject.CheckAccess())
-            dispatcher = dispatcherObject.Dispatcher;
-        }
-
-        if (dispatcher != null)
-        {
-          dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
+          //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
+          _dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
         }
         else
         {
+          //handler.Invoke(this, args);
           handler.BeginInvoke(this, args, null, null);
-          //try
-          //{
-          //  handler.BeginInvoke(this, args, null, null);
-          //}
-          //catch (Exception ex)
-          //{
-          //  //Debug.WriteLine(ex.Message);
-          //}
         }
       }
     }
@@ -114,17 +101,5 @@ namespace Qhta.ObservableObjects
 
     #endregion INotifyCollectionChanged
 
-
-    #region Constructors
-
-    public ObservableCollectionObject() : this(LockTypeEnum.Lock) { }
-
-    protected ObservableCollectionObject(LockTypeEnum lockType)
-    {
-      Helper = new DispatcherHelper(lockType);
-    }
-    #endregion Constructors
-
-    protected readonly DispatcherHelper Helper = new DispatcherHelper(default(LockTypeEnum));
   }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
@@ -37,19 +38,11 @@ namespace Qhta.ObservableObjects
 
     #region Constructors
 
-    public ObservableDictionary() : this(new KeyValuePair<T, V>[0], LockTypeEnum.SpinWait)
+    public ObservableDictionary(Dispatcher dispatcher) : this(new KeyValuePair<T, V>[0], dispatcher)
     {
     }
 
-    public ObservableDictionary(IEnumerable<KeyValuePair<T, V>> items) : this(items, LockTypeEnum.SpinWait)
-    {
-    }
-
-    public ObservableDictionary(LockTypeEnum lockType) : this(new KeyValuePair<T, V>[0], lockType)
-    {
-    }
-
-    public ObservableDictionary(IEnumerable<KeyValuePair<T, V>> items, LockTypeEnum lockType) : base(lockType)
+    public ObservableDictionary(IEnumerable<KeyValuePair<T, V>> items, Dispatcher dispatcher) : base(dispatcher)
     {
       _syncRoot = new object();
       var newItems = new Dictionary<T, V>();
