@@ -33,7 +33,9 @@ namespace Qhta.ObservableViewModels
     {
       Source = source;
       if (source != null)
+      {
         source.CollectionChanged += Source_CollectionChanged;
+      }
       _filter = filter;
     }
 
@@ -179,7 +181,11 @@ namespace Qhta.ObservableViewModels
 
     int IList.IndexOf(object value)
     {
-      throw new InvalidOperationException($"ObservablaDataQuery.IndexOf cannot be invoked");
+      if (value is TValue item)
+      {
+        return Items.ToList().IndexOf(item);
+      }
+      return -1;
     }
 
     void IList.Insert(int index, object value)

@@ -35,6 +35,24 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Qhta.DispatchedObjects/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {}
+        }
+      },
+      "Qhta.OrdNumbers/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -268,6 +286,20 @@
           "lib/WindowsBase.dll": {}
         }
       },
+      "Qhta.MVVM/1.0.3": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Qhta.DispatchedObjects": "1.0.2",
+          "Qhta.OrdNumbers": "2.2.1"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.MVVM.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.MVVM.dll": {}
+        }
+      },
       "Qhta.ObservableObjects/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -441,6 +473,30 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Qhta.DispatchedObjects/1.0.2": {
+      "sha512": "XgKLyPEQCMnA6LaLS1Y3itbTyy4yQr1i1cohodJn4n0IL9X7QfASVtxFT2DPhYH9Q1WsKNVBd27TfafmZBkcLg==",
+      "type": "package",
+      "path": "qhta.dispatchedobjects/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Qhta.DispatchedObjects.dll",
+        "qhta.dispatchedobjects.1.0.2.nupkg.sha512",
+        "qhta.dispatchedobjects.nuspec"
+      ]
+    },
+    "Qhta.OrdNumbers/2.2.1": {
+      "sha512": "+59JlQ6SrZGRGJnaNNTfIpHnQTohTJjAxRS0CYBNzvAy4j+w8XG+L9IAZTVcgPUu2tSdT2BHm+bqU73RShTLCg==",
+      "type": "package",
+      "path": "qhta.ordnumbers/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Qhta.OrdNumbers.dll",
+        "qhta.ordnumbers.2.2.1.nupkg.sha512",
+        "qhta.ordnumbers.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -1612,6 +1668,11 @@
         "windowsbase.nuspec"
       ]
     },
+    "Qhta.MVVM/1.0.3": {
+      "type": "project",
+      "path": "../Qhta.MVVM/Qhta.MVVM.csproj",
+      "msbuildProject": "../Qhta.MVVM/Qhta.MVVM.csproj"
+    },
     "Qhta.ObservableObjects/1.0.0": {
       "type": "project",
       "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
@@ -1621,6 +1682,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
+      "Qhta.MVVM >= 1.0.3",
       "Qhta.ObservableObjects >= 1.0.0",
       "System.Runtime.CompilerServices.Unsafe >= 4.7.1"
     ]
@@ -1655,6 +1717,9 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
+            "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj": {
+              "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj"
+            },
             "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
               "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj"
             }
@@ -1688,17 +1753,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.",
-      "libraryId": "WindowsBase",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    }
-  ]
+  }
 }

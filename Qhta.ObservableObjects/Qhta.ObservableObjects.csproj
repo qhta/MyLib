@@ -6,6 +6,10 @@
     <AssemblyOriginatorKeyFile>ObservableObjects.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702; NU1701</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="DispatcherHelper.cs" />
   </ItemGroup>

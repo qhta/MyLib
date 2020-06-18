@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Threading;
+using Qhta.MVVM;
 using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
@@ -268,7 +269,7 @@ namespace Qhta.ObservableViewModels
       get => selectedItem;
       set
       {
-        if (!selectedItem.Equals(value))
+        if (selectedItem!=value)
         {
           selectedItem = value;
           base.NotifyPropertyChanged(nameof(SelectedItem));

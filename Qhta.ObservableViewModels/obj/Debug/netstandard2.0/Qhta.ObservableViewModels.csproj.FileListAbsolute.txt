@@ -16,3 +16,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.ObservableViewModels\obj\Debug\netstandard2.0\Qht
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableViewModels\obj\Debug\netstandard2.0\Qhta.ObservableViewModels.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableViewModels\bin\Debug\netstandard2.0\Qhta.ObservableObjects.dll
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableViewModels\bin\Debug\netstandard2.0\Qhta.ObservableObjects.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableViewModels\bin\Debug\netstandard2.0\Qhta.MVVM.dll
+D:\Dane\VS\Projects\MyLib\Qhta.ObservableViewModels\bin\Debug\netstandard2.0\Qhta.MVVM.pdb

@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayGraphics.cs" />
+    <Compile Include="TreeViewBehavior.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
     <Compile Include="Converters\ArithmeticConverter.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\SubtractingConverter.cs" />
     <Compile Include="Converters\TypeNameConverter.cs" />
+    <Compile Include="EnumValuesProvider.cs" />
     <Compile Include="FieldUpdateEventArgs.cs" />
     <Compile Include="FieldUpdateEventHandler.cs" />
     <Compile Include="GridViewSort.cs" />

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "6c28193453583cad2a33df6998bd99fab7899489"
+    "signature": "f8c9aa209a1e2e3f2f2af37193c992e7df71de7d"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,6 +10,7 @@
       "Qhta.ObservableViewModels/1.0.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
+          "Qhta.MVVM": "1.0.3",
           "Qhta.ObservableObjects": "1.0.0",
           "System.Runtime.CompilerServices.Unsafe": "4.7.1",
           "System.ComponentModel.DataAnnotations": "4.0.0.0"
@@ -23,6 +24,22 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "Qhta.DispatchedObjects/1.0.2": {
+        "runtime": {
+          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
+          }
+        }
+      },
+      "Qhta.OrdNumbers/2.2.1": {
+        "runtime": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
         }
       },
       "System.Buffers/4.5.1": {
@@ -202,6 +219,15 @@
           }
         }
       },
+      "Qhta.MVVM/1.0.3": {
+        "dependencies": {
+          "Qhta.DispatchedObjects": "1.0.2",
+          "Qhta.OrdNumbers": "2.2.1"
+        },
+        "runtime": {
+          "Qhta.MVVM.dll": {}
+        }
+      },
       "Qhta.ObservableObjects/1.0.0": {
         "dependencies": {
           "System.Collections.Concurrent": "4.3.0",
@@ -264,6 +290,20 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "Qhta.DispatchedObjects/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XgKLyPEQCMnA6LaLS1Y3itbTyy4yQr1i1cohodJn4n0IL9X7QfASVtxFT2DPhYH9Q1WsKNVBd27TfafmZBkcLg==",
+      "path": "qhta.dispatchedobjects/1.0.2",
+      "hashPath": "qhta.dispatchedobjects.1.0.2.nupkg.sha512"
+    },
+    "Qhta.OrdNumbers/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+59JlQ6SrZGRGJnaNNTfIpHnQTohTJjAxRS0CYBNzvAy4j+w8XG+L9IAZTVcgPUu2tSdT2BHm+bqU73RShTLCg==",
+      "path": "qhta.ordnumbers/2.2.1",
+      "hashPath": "qhta.ordnumbers.2.2.1.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
@@ -404,6 +444,11 @@
       "sha512": "sha512-1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
       "path": "windowsbase/4.6.1055",
       "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
+    },
+    "Qhta.MVVM/1.0.3": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Qhta.ObservableObjects/1.0.0": {
       "type": "project",
