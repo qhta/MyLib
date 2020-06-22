@@ -36,7 +36,7 @@ namespace Qhta.WPF.Utils
 
       if (!behaviors.ContainsKey(obj))
         behaviors.Add(obj, new TreeViewSelectedItemBehavior(obj as TreeView));
-      Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged({e.NewValue})");
+      //Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged({e.NewValue})");
       TreeViewSelectedItemBehavior behavior = behaviors[obj];
       behavior.ChangeSelectedItem(e.NewValue);
     }
@@ -120,7 +120,8 @@ namespace Qhta.WPF.Utils
             {
               // Bring the item into view so
               // that the container will be generated.
-              //virtualizingPanel.BringIndexIntoView(i);
+              // We must invoke virtualizingPanel.BringIndexIntoView(i)
+              // through type reflection as this method is protected.
               var method = virtualizingPanel.GetType().GetMethod("BringIndexIntoView",
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
               method.Invoke(virtualizingPanel, new Object[] { i });
@@ -163,11 +164,11 @@ namespace Qhta.WPF.Utils
 
       internal void ChangeSelectedItem(object obj)
       {
-        Debug.WriteLine($"TreeViewBehavior.ChangeSelectedItem({obj})");
+        //Debug.WriteLine($"TreeViewBehavior.ChangeSelectedItem({obj})");
         var item = this.GetTreeViewItem(this.TreeView, obj);
         if (item != null)
         {
-          Debug.WriteLine($"  selectedItem = {item}");
+          //Debug.WriteLine($"  selectedItem = {item}");
           item.IsSelected = true;
         }
       }
