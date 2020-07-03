@@ -11,6 +11,7 @@
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/GridViewStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToggleButtonStyle.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToolTipStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

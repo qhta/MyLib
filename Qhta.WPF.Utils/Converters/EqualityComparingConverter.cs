@@ -16,6 +16,7 @@ namespace Qhta.WPF.Utils
     /// </summary>
     public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
     {
+/*
       if (value is string valStr && parameter is string parStr)
       {
         var result= String.Equals(valStr, parStr);
@@ -42,6 +43,7 @@ namespace Qhta.WPF.Utils
         return result;
       }
       //Debug.WriteLine($"{value} == {parameter} = {true}");
+      */
       return true;
     }
 

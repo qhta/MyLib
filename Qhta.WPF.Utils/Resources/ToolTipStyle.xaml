@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:globalization = "clr-namespace:System.Globalization;assembly=mscorlib"
+                    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework."
+                    >
+
+  <LinearGradientBrush x:Key="ToolTipBackground" LinearGradientBrush.StartPoint="0,0" LinearGradientBrush.EndPoint="0,1" 
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <GradientBrush.GradientStops>
+      <GradientStop GradientStop.Color="#FFFFFF" GradientStop.Offset="0" />
+      <GradientStop GradientStop.Color="#E4E5F0" GradientStop.Offset="1" />
+    </GradientBrush.GradientStops>
+  </LinearGradientBrush>
+
+  <Style TargetType="{x:Type TextBlock}" x:Key="WrappingStyle">
+    <Setter Property="TextWrapping" Value="Wrap"/>
+  </Style>
+  
+  <Style x:Key="{x:Type ToolTip}" Style.TargetType="{x:Type ToolTip}" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Setter Setter.Property="Control.BorderThickness" Setter.Value="1" />
+    <Setter Setter.Property="Control.BorderBrush" Setter.Value="#FF767676" />
+    <Setter Setter.Property="Control.Background" Setter.Value="{StaticResource ToolTipBackground}" />
+    <Setter Setter.Property="Control.Foreground" Setter.Value="#FF575757" />
+    <Setter Setter.Property="Control.FontFamily" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontFamilyKey}}" />
+    <Setter Setter.Property="Control.FontSize" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontSizeKey}}" />
+    <Setter Setter.Property="Control.FontStyle" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontStyleKey}}" />
+    <Setter Setter.Property="Control.FontWeight" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontWeightKey}}" />
+    <Setter Setter.Property="Control.Padding" Setter.Value="5,1,5,4" />
+    <Setter Setter.Property="Control.HorizontalContentAlignment" Setter.Value="Left" />
+    <Setter Setter.Property="Control.VerticalContentAlignment" Setter.Value="Center" />
+    <Setter Setter.Property="ToolTip.HasDropShadow" Setter.Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
+    <Setter Setter.Property="RenderOptions.ClearTypeHint" Setter.Value="Enabled" />
+    <Setter Property="MaxWidth" Value="600"/>
+    <Setter Setter.Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate ControlTemplate.TargetType="{x:Type ToolTip}">
+          <theme:SystemDropShadowChrome x:Name="Shdw" 
+                                        theme:SystemDropShadowChrome.Color="Transparent" 
+                                        p7:UIElement.SnapsToDevicePixels="True" theme:SystemDropShadowChrome.CornerRadius="2" 
+                                        xmlns:p7="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                                        xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35">
+            <Border Border.Background="{TemplateBinding Control.Background}" Border.BorderThickness="{TemplateBinding Control.BorderThickness}" Border.BorderBrush="{TemplateBinding Control.BorderBrush}" Border.Padding="{TemplateBinding Control.Padding}" Border.CornerRadius="2">
+              <ContentPresenter FrameworkElement.HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                FrameworkElement.VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                >
+                <ContentPresenter.Resources>
+                  <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource WrappingStyle}"/>
+                </ContentPresenter.Resources>
+              </ContentPresenter>
+            </Border>
+          </theme:SystemDropShadowChrome>
+          <ControlTemplate.Triggers>
+            <Trigger Trigger.Property="ToolTip.HasDropShadow" Trigger.Value="True">
+              <Setter Setter.TargetName="Shdw" Setter.Property="FrameworkElement.Margin" Setter.Value="0,0,5,5" />
+              <Setter Setter.TargetName="Shdw" Setter.Property="Color" Setter.Value="#71000000" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

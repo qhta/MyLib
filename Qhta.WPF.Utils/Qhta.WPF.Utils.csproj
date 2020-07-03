@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="Qhta.DispatchedObjects, Version=1.0.2.0, Culture=neutral, PublicKeyToken=2eb9223338263fec, processorArchitecture=MSIL">
       <HintPath>..\Qhta.WPF.Controls\packages\Qhta.DispatchedObjects.1.0.2\lib\netstandard2.0\Qhta.DispatchedObjects.dll</HintPath>
@@ -150,6 +151,7 @@
     <Compile Include="TreeViewHelper.cs" />
     <Compile Include="TreeViewItemBehavior.cs" />
     <Compile Include="Converters\DividingConverter.cs" />
+    <Compile Include="TriggerTracing.cs" />
     <Compile Include="UndoManager`1.cs" />
     <Compile Include="UpdatableCommand.cs" />
     <Compile Include="Converters\ValidityBrushConverter.cs" />
@@ -165,6 +167,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\ToggleButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ToolTipStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
