@@ -9,7 +9,7 @@ using System.Reflection;
 namespace Qhta.TypeUtils
 {
   /// <summary>
-  /// Helpful functions that operate on types and supplement <c>System.Reflection</c> library
+  /// Helper functions that operate on types and supplement <c>System.Reflection</c> library
   /// </summary>
   public static class TypeUtils
   {

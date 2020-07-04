@@ -14,6 +14,44 @@
             A class that helps enum type conversion to/from string
             </summary>
         </member>
+        <member name="T:Qhta.TypeUtils.JointProperties">
+            <summary>
+            A class to copy properties marked with [DataMember] attribute
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.JointProperties.SourceProp">
+            <summary>
+            Source property info (copy from)
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.JointProperties.TargetProp">
+            <summary>
+            Target property info (copy to)
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.JointProperties.GetJointProperties(System.Type,System.Type)">
+            <summary>
+            First - get list of common data members
+            </summary>
+            <param name="sourceDataType"></param>
+            <param name="targetDataType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.JointProperties.CopyJointProperties(System.Object,System.Object,System.Collections.Generic.IEnumerable{Qhta.TypeUtils.JointProperties})">
+            <summary>
+            Secont - copy common data members using prepared list
+            </summary>
+            <param name="sourceDataObject"></param>
+            <param name="targetDataObject"></param>
+            <param name="jointProperties"></param>
+        </member>
+        <member name="M:Qhta.TypeUtils.JointProperties.GetDataProperties(System.Type)">
+            <summary>
+            Helper - enumerate data members of a single data type
+            </summary>
+            <param name="dataType"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.ObjectCopier">
             <summary>
             Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx
@@ -51,7 +89,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.TypeUtils">
             <summary>
-            Helpful functions that operate on types and supplement <c>System.Reflection</c> library
+            Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.TryGetEnumValue(System.Type,System.String,System.Object@)">
