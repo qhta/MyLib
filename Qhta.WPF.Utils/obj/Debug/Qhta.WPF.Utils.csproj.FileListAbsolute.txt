@@ -124,3 +124,5 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssembly
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\TreeViewItemStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToggleButtonStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToolTipStyle.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils_MarkupCompile.lref
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ComboBoxStyle.g.cs

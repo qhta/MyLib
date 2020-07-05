@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Qhta.TypeUtils
 {
@@ -47,7 +48,10 @@ namespace Qhta.TypeUtils
       foreach (var pair in jointProperties)
       {
         var value = pair.SourceProp.GetValue(sourceDataObject);
-        pair.TargetProp.SetValue(targetDataObject, value);
+        if (TryGetTypeConverter(pair.TargetProp, out var targetTypeConverter) && targetTypeConverter.CanConvertFrom(pair.SourceProp.PropertyType))
+          pair.TargetProp.SetValue(targetDataObject, targetTypeConverter.ConvertFrom(value));
+        else
+          pair.TargetProp.SetValue(targetDataObject, value);
       }
     }
 
@@ -62,5 +66,48 @@ namespace Qhta.TypeUtils
       return dataProperties;
     }
 
+    /// <summary>
+    /// Get TypeConverter instance for a specific property
+    /// </summary>
+    /// <param name="property"></param>
+    /// <param name="converter"></param>
+    /// <returns></returns>
+    public static bool TryGetTypeConverter(PropertyInfo property, out TypeConverter converter)
+    {
+      var typeConverterAttribute = property.PropertyType.GetCustomAttribute<TypeConverterAttribute>();
+      if (typeConverterAttribute!=null)
+      {
+        var converterTypeName = typeConverterAttribute.ConverterTypeName;
+        if (converterTypeName!=null)
+        {
+          var converterType = Type.GetType(converterTypeName);
+          if (converterType!=null)
+          {
+            var instanceProperty = converterType.GetProperty("Instance", BindingFlags.Static | BindingFlags.Public);
+            if (instanceProperty!=null)
+            {
+              var instance = instanceProperty.GetValue(null);
+              if (instance is TypeConverter typeConverter)
+              {
+                converter = typeConverter;
+                return true;
+              }
+            }
+            var constructor = converterType.GetConstructor(new Type[0]);
+            if (constructor!=null)
+            {
+              var instance = constructor.Invoke(new object[0]);
+              if (instance is TypeConverter typeConverter)
+              {
+                converter = typeConverter;
+                return true;
+              }
+            }
+          }
+        }
+      }
+      converter = null;
+      return false;
+    }
   }
 }

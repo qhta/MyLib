@@ -52,6 +52,14 @@
             <param name="dataType"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TypeUtils.JointProperties.TryGetTypeConverter(System.Reflection.PropertyInfo,System.ComponentModel.TypeConverter@)">
+            <summary>
+            Get TypeConverter instance for a specific property
+            </summary>
+            <param name="property"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.ObjectCopier">
             <summary>
             Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx

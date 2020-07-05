@@ -16,6 +16,44 @@ namespace Qhta.WPF.Utils
   public static class VisualTreeHelperExt
   {
 
+    public static DependencyObject FindRootVisualParent(DependencyObject obj)
+    {
+      DependencyObject result = null;
+      while (obj!=null)
+      {
+        obj = VisualTreeHelper.GetParent(obj);
+        if (obj!=null)
+        result = obj;
+      }
+      return result;
+    }
+
+    public static T FindRootVisualParent<T>(DependencyObject obj) where T: FrameworkElement
+    {
+      T result = null;
+      while (obj != null)
+      {
+        obj = VisualTreeHelper.GetParent(obj);
+        if (obj is T parent)
+          result = parent;
+      }
+      return result;
+    }
+
+    public static T FindRootParent<T>(DependencyObject obj) where T : FrameworkElement
+    {
+      T result = null;
+      while (obj != null)
+      {
+        var obj1 = VisualTreeHelper.GetParent(obj);
+        if (obj1 == null && obj is FrameworkElement element)
+          obj1 = element.Parent;
+        obj = obj1;
+        if (obj is T parent)
+          result = parent;
+      }
+      return result;
+    }
     public static T FindInVisualTreeUp<T>(DependencyObject obj) where T : class
     {
       DependencyObject result = obj;
@@ -26,6 +64,20 @@ namespace Qhta.WPF.Utils
       while (result != null && !(result is T));
       return result as T;
     }
+
+    public static T FindInVisualTreeUp<T>(string elementName, DependencyObject obj) where T : FrameworkElement
+    {
+      DependencyObject result = obj;
+      do
+      {
+        result = VisualTreeHelper.GetParent(result);
+        if ((result is T element) && element.Name == elementName)
+          break;
+      }
+      while (result != null);
+      return result as T;
+    }
+
     public static T FindInVisualTreeDown<T>(DependencyObject obj) where T : class
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);
@@ -45,6 +97,24 @@ namespace Qhta.WPF.Utils
       return null;
     }
 
+    public static T FindInVisualTreeDown<T>(string elementName, DependencyObject obj) where T : FrameworkElement
+    {
+      var c = VisualTreeHelper.GetChildrenCount(obj);
+      for (int i = 0; i < c; i++)
+      {
+        var child = VisualTreeHelper.GetChild(obj, i);
+        if (child is T element && element.Name==elementName)
+          return child as T;
+      }
+      for (int i = 0; i < c; i++)
+      {
+        var child = VisualTreeHelper.GetChild(obj, i);
+        var result = FindInVisualTreeDown<T>(elementName, child);
+        if (result is T)
+          return result as T;
+      }
+      return null;
+    }
     public static T FindInVisualTreeDown<T>(Type[] subtypes, DependencyObject obj) where T : class
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);

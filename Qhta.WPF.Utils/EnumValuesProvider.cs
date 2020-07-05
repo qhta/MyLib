@@ -3,14 +3,39 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace Qhta.WPF.Utils
 {
-  public class EnumValuesProvider: ObjectDataProvider
+  public class EnumValuesProvider : DataSourceProvider
   {
-    public Array GetValues(Type enumtype)
+    public Type ObjectType { get; set; }
+
+    public bool AddNull { get; set; }
+
+
+    protected override void BeginQuery()
     {
-      Array result = enumtype.GetEnumValues();
+      Array values;
+      if (AddNull)
+        values = GetValuesWithNull(ObjectType);
+      else
+        values = GetValues(ObjectType);
+      base.OnQueryFinished(values);
+    }
+
+    public Array GetValues(Type enumType)
+    {
+      Array result = enumType.GetEnumValues();
+      return result;
+    }
+
+    public Array GetValuesWithNull(Type enumType)
+    {
+      Array values = enumType.GetEnumValues();
+      Array result = Array.CreateInstance(typeof(object), values.Length + 1);
+      result.SetValue(null, 0);
+      values.CopyTo(result, 1);
       return result;
     }
 

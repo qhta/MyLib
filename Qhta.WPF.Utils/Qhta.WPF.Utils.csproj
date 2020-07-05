@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayGraphics.cs" />
+    <Compile Include="ComboBoxBehavior.cs" />
     <Compile Include="TreeViewBehavior.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
