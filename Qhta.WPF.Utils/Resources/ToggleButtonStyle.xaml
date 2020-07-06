@@ -5,28 +5,13 @@
                     xmlns:globalization = "clr-namespace:System.Globalization;assembly=mscorlib"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
                     >
-    <Style x:Key="ImageToggleButtonStyle" BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="ToggleButton">
-    <Setter Property ="BorderThickness" Value="0"/>
-    <Setter Property ="Background" Value="Transparent"/>
+  <Style x:Key="ImageToggleButtonStyle" BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="ToggleButton">
     <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ToggleButton">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
           <Grid>
-            <Border BorderBrush="Gray">
-              <Border.Style>
-                <Style TargetType="{x:Type Border}">
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, 
-                      Path=IsChecked}" Value="False">
-                      <Setter Property="BorderThickness" Value="0"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, 
-                      Path=IsChecked}" Value="True">
-                      <Setter Property="BorderThickness" Value="1"/>
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </Border.Style>
+            <Border x:Name="Border"
+              BorderBrush="Gray">
               <ContentPresenter x:Name="PART_Content"
                                 Content="{TemplateBinding ContentControl.Content}"
                                 SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
@@ -48,9 +33,19 @@
               </Rectangle.Style>
             </Rectangle>
           </Grid>
+          <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="False">
+              <Setter Property="BorderThickness" TargetName="Border" Value="0"/>
+              <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
+              <Setter Property="BorderThickness" TargetName="Border" Value="1"/>
+              <Setter Property="Background" TargetName="Border" Value="#3F000000"/>
+            </DataTrigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
 </ResourceDictionary>
