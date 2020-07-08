@@ -126,3 +126,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToggleButtonStyle.b
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToolTipStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils_MarkupCompile.lref
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ComboBoxStyle.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ImageButtonStyle.baml
