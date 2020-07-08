@@ -10,10 +10,20 @@ using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
+  /// <summary>
+  /// Multithread version of List<typeparamref name="T"/> with CollectionChanged notification.
+  /// It should be used instead of ObservableCollection<typeparamref name="T"/> in MVVM architecture model.
+  /// To bind it to CollectionView, <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c>
+  /// must be invoked. It can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Utils assembly.
+  /// Syntax is:
+  /// <c>xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"</c>
+  /// <c>utils:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
   public class ObservableList<T> : ObservableCollectionObject,
     IEnumerable,
     ICollection,
-    IList, // this interface cannot be implemented because BindableOperations then uses it and does not handle the CollectionChanged event
+    IList, 
     IEnumerable<T>,
     ICollection<T>,
     IList<T>,

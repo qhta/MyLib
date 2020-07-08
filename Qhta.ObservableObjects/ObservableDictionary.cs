@@ -5,26 +5,41 @@ using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
-  public class ObservableDictionary<T, V> : ObservableCollectionObject,
+  /// <summary>
+  /// Multithread version of Dictionary<typeparamref name="TKey"/>, <typeparamref name="TValue"/> with CollectionChanged notification.
+  /// It should be used instead of ObservableCollection<typeparamref name="TValue"/> in MVVM architecture model when
+  /// data source must be a dictionary.
+  /// To bind it to CollectionView, <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c>
+  /// must be invoked. It can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Utils assembly.
+  /// Syntax is:
+  /// <c>xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"</c>
+  /// <c>utils:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
+  /// </summary>
+  /// <typeparam name="TKey"></typeparam>
+  /// <typeparam name="TValue"></typeparam>
+  public class ObservableDictionary<TKey, TValue> : ObservableCollectionObject,
     IEnumerable,
     ICollection,
-    IList,
-    IEnumerable<KeyValuePair<T, V>>,
-    ICollection<KeyValuePair<T, V>>,
+    //IList,// This interface must not be implemented due to error in PresentationFramework. The error occurs after invoking Clear() method,
+    IEnumerable<KeyValuePair<TKey, TValue>>,
+    ICollection<KeyValuePair<TKey, TValue>>,
     IDictionary,
-    IDictionary<T, V>,
+    IDictionary<TKey, TValue>,
+        //ISerializable,
+        //IDeserializationCallback,
     INotifyCollectionChanged, INotifyPropertyChanged
   {
 
     private readonly object _syncRoot = new object();
 
-    private Dictionary<T, V> _items = new Dictionary<T, V>();
+    private Dictionary<TKey, TValue> _items = new Dictionary<TKey, TValue>();
 
-    public IEqualityComparer<T> KeyComparer
+    public IEqualityComparer<TKey> KeyComparer
     {
       get => _keyComparer;
       set
@@ -32,23 +47,23 @@ namespace Qhta.ObservableObjects
         if (_keyComparer != value)
         {
           _keyComparer = value;
-          _items = new Dictionary<T, V>(_items, _keyComparer);
+          _items = new Dictionary<TKey, TValue>(_items, _keyComparer);
           NotifyPropertyChanged(nameof(KeyComparer));
         }
       }
     }
-    private IEqualityComparer<T> _keyComparer;
+    private IEqualityComparer<TKey> _keyComparer;
 
     #region Constructors
 
-    public ObservableDictionary(Dispatcher dispatcher) : this(new KeyValuePair<T, V>[0], dispatcher)
+    public ObservableDictionary(Dispatcher dispatcher) : this(new KeyValuePair<TKey, TValue>[0], dispatcher)
     {
     }
 
-    public ObservableDictionary(IEnumerable<KeyValuePair<T, V>> items, Dispatcher dispatcher) : base(dispatcher)
+    public ObservableDictionary(IEnumerable<KeyValuePair<TKey, TValue>> items, Dispatcher dispatcher) : base(dispatcher)
     {
       _syncRoot = new object();
-      var newItems = new Dictionary<T, V>();
+      var newItems = new Dictionary<TKey, TValue>();
       foreach (var item in items)
         newItems.Add(item.Key, item.Value);
       _items = newItems;
@@ -84,9 +99,12 @@ namespace Qhta.ObservableObjects
           enumerator.Reset();
         }
         _items.Clear();
+        wasReset = true;
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        //NotifyPropertyChanged(nameof(Count));
       }
     }
+    internal bool wasReset;
 
     private List<ObservableDictionaryEnumerator> enumerators = new List<ObservableDictionaryEnumerator>();
 
@@ -98,7 +116,7 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    public IEnumerable<T> Keys
+    public IEnumerable<TKey> Keys
     {
       get
       {
@@ -106,7 +124,7 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    public IEnumerable<V> Values
+    public IEnumerable<TValue> Values
     {
       get
       {
@@ -114,11 +132,11 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    public V this[T key]
+    public TValue this[TKey key]
     {
       get
       {
-        Debug.WriteLine($"this[{key}]={_items[key]}");
+        //Debug.WriteLine($"this[{key}]={_items[key]}");
         return _items[key];
       }
       set
@@ -128,9 +146,9 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    IEnumerator<KeyValuePair<T, V>> IEnumerable<KeyValuePair<T, V>>.GetEnumerator()
+    IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
     {
-      Debug.WriteLine($"IEnumerable<KeyValuePair<T, V>>.GetEnumerator");
+      //Debug.WriteLine($"IEnumerable<KeyValuePair<T, V>>.GetEnumerator");
       return this.GetEnumerator();
     }
 
@@ -142,7 +160,7 @@ namespace Qhta.ObservableObjects
       return enumerator;
     }
 
-    public void Add(T key, V value)
+    public void Add(TKey key, TValue value)
     {
       //Debug.WriteLine($"Add({key}, {value})" + $" {DateTime.Now.ToString(dateTimeFormat)}");
       try
@@ -154,23 +172,23 @@ namespace Qhta.ObservableObjects
           NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
         }
       }
-      catch (System.ArgumentException ex)
+      catch (System.ArgumentException)
       {
         //Debug.WriteLine($"{ex.GetType().Name} thrown in ObservableDictionary:\n {ex.Message}");
       }
     }
 
-    public bool ContainsKey(T key)
+    public bool ContainsKey(TKey key)
     {
       return _items.ContainsKey(key);
     }
 
-    public bool ContainsValue(V value)
+    public bool ContainsValue(TValue value)
     {
       return _items.ContainsValue(value);
     }
 
-    public bool Remove(T key)
+    public bool Remove(TKey key)
     {
       lock (LockObject)
       {
@@ -179,14 +197,14 @@ namespace Qhta.ObservableObjects
         int index = list.IndexOf(key);
         if (index < 0)
           return false;
-        V value = _items[key];
+        TValue value = _items[key];
         _items.Remove(key);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, value, index);
         return true;
       }
     }
 
-    public bool TryGetValue(T key, out V value)
+    public bool TryGetValue(TKey key, out TValue value)
     {
       return _items.TryGetValue(key, out value);
     }
@@ -197,13 +215,13 @@ namespace Qhta.ObservableObjects
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-      Debug.WriteLine($"IEnumerable.GetEnumerator");
+      //Debug.WriteLine($"IEnumerable.GetEnumerator");
       return this.GetEnumerator();
     }
 
     public void Add(object key, object value)
     {
-      Add((T)key, (V)value);
+      Add((TKey)key, (TValue)value);
     }
 
     public bool Contains(object key)
@@ -242,11 +260,11 @@ namespace Qhta.ObservableObjects
     {
       get
       {
-        return this[(T)key];
+        return this[(TKey)key];
       }
       set
       {
-        this[(T)key] = (V)value;
+        this[(TKey)key] = (TValue)value;
       }
     }
 
@@ -258,80 +276,86 @@ namespace Qhta.ObservableObjects
 
     #region IDictionary<T, V>
 
-    ICollection<T> IDictionary<T, V>.Keys
+    ICollection<TKey> IDictionary<TKey, TValue>.Keys
     {
       get
       {
-        return (_items as IDictionary<T, V>).Keys;
+        return (_items as IDictionary<TKey, TValue>).Keys;
       }
     }
 
-    ICollection<V> IDictionary<T, V>.Values
+    ICollection<TValue> IDictionary<TKey, TValue>.Values
     {
       get
       {
-        return (_items as IDictionary<T, V>).Values;
+        return (_items as IDictionary<TKey, TValue>).Values;
       }
     }
     #endregion
 
-    public void Add(KeyValuePair<T, V> item)
+    public void Add(KeyValuePair<TKey, TValue> item)
     {
       this.Add(item.Key, item.Value);
     }
 
-    public void CopyTo(KeyValuePair<T, V>[] array, int arrayIndex)
+    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
     {
-      (_items as IDictionary<T, V>).CopyTo(array, arrayIndex);
+      (_items as IDictionary<TKey, TValue>).CopyTo(array, arrayIndex);
     }
 
-    public bool Remove(KeyValuePair<T, V> item)
+    public bool Remove(KeyValuePair<TKey, TValue> item)
     {
-      var result = (_items as IDictionary<T, V>).Remove(item);
+      var result = (_items as IDictionary<TKey, TValue>).Remove(item);
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       return result;
     }
 
-    public bool Contains(KeyValuePair<T, V> pair)
+    public bool Contains(KeyValuePair<TKey, TValue> pair)
     {
       return _items.ContainsKey(pair.Key);
     }
 
-    #region IList explicit implementation
+    //#region IList explicit implementation
 
-    object IList.this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    //object IList.this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
-    int IList.Add(object value)
+    //int IList.Add(object value)
+    //{
+    //  throw new NotImplementedException();
+    //}
+
+    //int IList.IndexOf(object value)
+    //{
+    //  throw new NotImplementedException();
+    //}
+
+    //void IList.Insert(int index, object value)
+    //{
+    //  throw new NotImplementedException();
+    //}
+
+    //void IList.RemoveAt(int index)
+    //{
+    //  throw new NotImplementedException();
+    //}
+    //#endregion
+
+
+    public class ObservableDictionaryEnumerator : IDictionaryEnumerator, IEnumerator<KeyValuePair<TKey, TValue>>
     {
-      throw new NotImplementedException();
-    }
-
-    int IList.IndexOf(object value)
-    {
-      throw new NotImplementedException();
-    }
-
-    void IList.Insert(int index, object value)
-    {
-      throw new NotImplementedException();
-    }
-
-    void IList.RemoveAt(int index)
-    {
-      throw new NotImplementedException();
-    }
-    #endregion
-
-
-    public class ObservableDictionaryEnumerator : IDictionaryEnumerator, IEnumerator<KeyValuePair<T, V>>
-    {
-      public ObservableDictionaryEnumerator(ObservableDictionary<T, V> items)
+      public ObservableDictionaryEnumerator(ObservableDictionary<TKey, TValue> items)
       {
         _items = items;
+        if (items.wasReset)
+        {
+          currentIndex = -2;
+          items.wasReset = false;
+        }
       }
-      ObservableDictionary<T, V> _items;
-      int currentIndex = -1;
+
+      private ObservableDictionary<TKey, TValue> _items;
+      private int currentIndex = -1;
 
       public DictionaryEntry Entry => throw new NotImplementedException();
 
@@ -339,41 +363,40 @@ namespace Qhta.ObservableObjects
 
       public object Value => throw new NotImplementedException();
 
-      public object Current
+      public KeyValuePair<TKey, TValue> Current
       {
         get
         {
-          Debug.WriteLine($"Current[{currentIndex}]");
+          //Debug.WriteLine($"Current[{currentIndex}]");
           if (currentIndex >= 0 && currentIndex < _items.Count)
-            return _items.ToImmutableArray()[currentIndex];
-          return null;
+            return _items._items.ToImmutableArray()[currentIndex];
+          return default(KeyValuePair<TKey, TValue>);
         }
       }
-
-      KeyValuePair<T, V> IEnumerator<KeyValuePair<T, V>>.Current => throw new NotImplementedException();
 
       object IEnumerator.Current => this.Current;
 
       public bool MoveNext()
       {
-        if (currentIndex < _items.Count)
+        if (currentIndex < _items.Count-1)
         {
           currentIndex++;
-          Debug.WriteLine($"ObservableDictionaryEnumerator moved next to {currentIndex}");
-          return true;
+          //Debug.WriteLine($"ObservableDictionaryEnumerator moved next to {currentIndex}");
+          return currentIndex>=0;
         }
         else
         {
+          //Debug.WriteLine($"ObservableDictionaryEnumerator currentIndex={currentIndex}, itemsCount={_items.Count}");
           currentIndex = _items.Count - 1;
-          Debug.WriteLine($"ObservableDictionaryEnumerator cannot moved next to {currentIndex}");
+          //Debug.WriteLine($"ObservableDictionaryEnumerator cannot moved next to {currentIndex}");
           return false;
         }
       }
 
       public void Reset()
       {
-        Debug.WriteLine("Reset");
-        currentIndex = -1;
+        //Debug.WriteLine("Reset");
+        currentIndex = -2;
       }
 
       bool IEnumerator.MoveNext()

@@ -49,7 +49,7 @@ namespace Qhta.ObservableObjects
     #endregion INotifyPropertyChanged
 
     #region Enable synchronization from BindingOperations
-    public bool IsSynchronized
+    public virtual bool IsSynchronized
     {
       get
       {
@@ -58,7 +58,7 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    public object SyncRoot
+    public virtual object SyncRoot
     {
       get
       {

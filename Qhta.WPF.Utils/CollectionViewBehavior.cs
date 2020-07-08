@@ -43,12 +43,12 @@ namespace Qhta.WPF.Utils
 
     private static void BindingOperations_CollectionViewRegistering(object sender, CollectionViewRegisteringEventArgs args)
     {
-      Debug.WriteLine($"CollectionViewRegistering({sender},{args.CollectionView})");
-      ListCollectionView cv = args.CollectionView as ListCollectionView;
-      if (cv != null)
-      {
-        Debug.WriteLine($"AllowsCrossThreadChanges={cv.GetType().GetProperty("AllowsCrossThreadChanges", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(cv)}");
-      }
+      //Debug.WriteLine($"CollectionViewRegistering({sender},{args.CollectionView})");
+      //ListCollectionView cv = args.CollectionView as ListCollectionView;
+      //if (cv != null)
+      //{
+        //Debug.WriteLine($"AllowsCrossThreadChanges={cv.GetType().GetProperty("AllowsCrossThreadChanges", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(cv)}");
+      //}
     }
 
     private static void BindingOperations_CollectionRegistering(object sender, CollectionRegisteringEventArgs args)

@@ -230,10 +230,6 @@ namespace Qhta.ObservableViewModels
 
     public bool IsFixedSize => false;
 
-    public virtual object SyncRoot => throw new NotImplementedException();
-
-    public virtual bool IsSynchronized => throw new NotImplementedException();
-
     public virtual bool IsModified { get; private set; }
 
     public TValue this[int index] { get => Items.Values.ToArray()[index]; set => throw new NotImplementedException(); }

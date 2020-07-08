@@ -190,10 +190,6 @@ namespace Qhta.ObservableViewModels
 
     public bool IsFixedSize => false;
 
-    public virtual object SyncRoot => Items.SyncRoot;
-
-    public virtual bool IsSynchronized => Items.IsSynchronized;
-
     public virtual bool IsModified { get; protected internal set; }
 
     //object IList.this[int index] { get => this[index]; set => this[index]=(TValue)value; }//5
