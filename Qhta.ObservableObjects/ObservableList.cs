@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
 
@@ -12,12 +13,10 @@ namespace Qhta.ObservableObjects
   public class ObservableList<T> : ObservableCollectionObject,
     IEnumerable,
     ICollection,
-    IList,
-    IList<T>,
-    ICollection<T>,
+    IList, // this interface cannot be implemented because BindableOperations then uses it and does not handle the CollectionChanged event
     IEnumerable<T>,
-    IReadOnlyList<T>,
-    IReadOnlyCollection<T>,
+    ICollection<T>,
+    IList<T>,
     INotifyCollectionChanged, INotifyPropertyChanged
   {
 
@@ -37,6 +36,11 @@ namespace Qhta.ObservableObjects
     #endregion
 
     #region List<T> wrappers
+
+    public bool IsFixedSize => false;
+
+    public bool IsReadOnly => false;
+
     /// <summary>
     ///   Gets or sets the element at the specified index.
     /// </summary>
@@ -49,11 +53,12 @@ namespace Qhta.ObservableObjects
     {
       get
       {
+        //Debug.WriteLine($"\tthis[{index}]" + $" {DateTime.Now.ToString(dateTimeFormat)}");
         return _items[index];
       }
       set
       {
-        lock (_lockObject)
+        lock (LockObject)
           SetItem(index, value);
       }
     }
@@ -65,14 +70,19 @@ namespace Qhta.ObservableObjects
     {
       get
       {
-        return _items.Count;
+        lock (LockObject)
+        {
+          var count = _items.Count;
+          //Debug.WriteLine($"\tCount = {count}" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+          return count;
+        }
       }
     }
 
 
     public void SetItem(int index, T value)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         var oldItem = _items[index];
         _items[index] = value;
@@ -88,7 +98,8 @@ namespace Qhta.ObservableObjects
     /// </param>
     public void Add(T item)
     {
-      lock (_lockObject)
+      //Debug.WriteLine($"Add({item})" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+      lock (LockObject)
       {
         var index = _items.Count;
         _items.Add(item);
@@ -109,7 +120,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void AddRange(IEnumerable<T> collection)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         var index = _items.Count;
         foreach (var item in collection)
@@ -126,7 +137,7 @@ namespace Qhta.ObservableObjects
     /// </returns>
     public ReadOnlyCollection<T> AsReadOnly()
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.AsReadOnly();
     }
 
@@ -149,7 +160,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(T item)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.BinarySearch(item);
     }
 
@@ -177,7 +188,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(T item, IComparer<T> comparer)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.BinarySearch(item, comparer);
     }
 
@@ -212,7 +223,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.BinarySearch(index, count, item, comparer);
     }
 
@@ -221,9 +232,11 @@ namespace Qhta.ObservableObjects
     /// </summary>
     public void Clear()
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
-        _items.Clear();
+        _items = new List<T>();
+        var enumerator = GetEnumerator();
+        enumerator.Dispose();
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       }
     }
@@ -237,7 +250,7 @@ namespace Qhta.ObservableObjects
     /// <returns>true if item is found in the list; otherwise, false.</returns>
     public bool Contains(T item)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.Contains(item);
     }
 
@@ -254,7 +267,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public List<TOutput> ConvertAll<TOutput>(Converter<T, TOutput> converter)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.ConvertAll(converter);
     }
 
@@ -283,7 +296,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(int index, T[] array, int arrayIndex, int count)
     {
-      lock (_lockObject)
+      lock (LockObject)
         _items.CopyTo(index, array, arrayIndex, count);
     }
 
@@ -308,7 +321,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(T[] array, int arrayIndex)
     {
-      lock (_lockObject)
+      lock (LockObject)
         _items.CopyTo(array, arrayIndex);
     }
 
@@ -329,7 +342,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(T[] array)
     {
-      lock (_lockObject)
+      lock (LockObject)
         _items.CopyTo(array);
     }
 
@@ -350,7 +363,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public bool Exists(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.Exists(match);
     }
 
@@ -371,7 +384,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public T Find(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.Find(match);
     }
 
@@ -393,7 +406,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public List<T> FindAll(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindAll(match);
     }
     //
@@ -427,7 +440,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(int startIndex, int count, Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindIndex(startIndex, count, match);
     }
 
@@ -457,7 +470,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(int startIndex, Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindIndex(startIndex, match);
     }
 
@@ -479,7 +492,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindIndex(match);
     }
 
@@ -500,7 +513,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public T FindLast(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindLast(match);
     }
 
@@ -533,7 +546,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(int startIndex, int count, Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindLastIndex(startIndex, count, match);
     }
 
@@ -562,7 +575,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(int startIndex, Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindLastIndex(startIndex, match);
     }
 
@@ -584,7 +597,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.FindLastIndex(match);
     }
 
@@ -602,7 +615,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void ForEach(Action<T> action)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.ForEach(action);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -617,10 +630,16 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public IEnumerator<T> GetEnumerator()
     {
-      lock (_lockObject)
-        return _items.GetEnumerator();
+      //Debug.WriteLine($"GetEnumerator" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+      lock (LockObject)
+      {
+        for (int i = 0; i < _items.Count; i++)
+        {
+          var item = _items[i];
+          yield return item;
+        }
+      }
     }
-
 
     ///<summary>
     ///    Creates a shallow copy of a range of elements in the source list.
@@ -642,7 +661,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public List<T> GetRange(int index, int count)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.GetRange(index, count);
     }
     //
@@ -673,7 +692,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int IndexOf(T item, int index, int count)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.IndexOf(item, index, count);
     }
 
@@ -699,7 +718,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int IndexOf(T item, int index)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.IndexOf(item, index);
     }
 
@@ -717,7 +736,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public int IndexOf(T item)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.IndexOf(item);
     }
 
@@ -736,7 +755,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Insert(int index, T item)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Insert(index, item);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
@@ -764,7 +783,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void InsertRange(int index, IEnumerable<T> collection)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         foreach (var item in collection)
           _items.Insert(index++, item);
@@ -786,7 +805,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public int LastIndexOf(T item)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.LastIndexOf(item);
     }
 
@@ -812,7 +831,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int LastIndexOf(T item, int index)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.LastIndexOf(item, index);
     }
 
@@ -842,7 +861,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int LastIndexOf(T item, int index, int count)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.LastIndexOf(item, index, count);
     }
 
@@ -859,7 +878,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public bool Remove(T item)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         int index = _items.IndexOf(item);
         if (index < 0)
@@ -886,7 +905,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int RemoveAll(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         var removeList = this.Where(item => match(item)).ToList();
         foreach (var item in removeList)
@@ -907,7 +926,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void RemoveAt(int index)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         var value = _items[index];
         _items.RemoveAt(index);
@@ -932,7 +951,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void RemoveRange(int index, int count)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         var count1 = _items.Count - index;
         if (count1 < count)
@@ -961,7 +980,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Reverse(int index, int count)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Reverse(index, count);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -974,7 +993,7 @@ namespace Qhta.ObservableObjects
     ///</summary>
     public void Reverse()
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Reverse();
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -997,7 +1016,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort(Comparison<T> comparison)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Sort(comparison);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -1033,7 +1052,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort(int index, int count, IComparer<T> comparer)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Sort(index, count, comparer);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -1051,7 +1070,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort()
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Sort();
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -1077,7 +1096,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort(IComparer<T> comparer)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         _items.Sort(comparer);
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
@@ -1093,7 +1112,7 @@ namespace Qhta.ObservableObjects
     /// </returns>
     public T[] ToArray()
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.ToArray();
     }
 
@@ -1105,7 +1124,7 @@ namespace Qhta.ObservableObjects
     ///</summary>
     public void TrimExcess()
     {
-      lock (_lockObject)
+      lock (LockObject)
         _items.TrimExcess();
     }
 
@@ -1127,34 +1146,44 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public bool TrueForAll(Predicate<T> match)
     {
-      lock (_lockObject)
+      lock (LockObject)
         return _items.TrueForAll(match);
     }
 
     #endregion
 
-    #region ICollection<T> missing implementation
-    bool ICollection<T>.IsReadOnly => false;
+    #region IEnumerable, ICollection implicit implementation
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      //Debug.WriteLine($"IEnumerable.GetEnumerator" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+      return this.GetEnumerator();
+    }
+
+    void ICollection.CopyTo(Array array, int index)
+    {
+      if (array is T[] items)
+        this.CopyTo(items, index);
+      else
+      {
+        (_items as ICollection).CopyTo(array, index);
+      }
+    }
     #endregion
 
-    #region IEnumerable, ICollection, IList explicit implementation
+    #region IList explicit implementation
     object IList.this[int index]
     {
-      get => this[index];
+      get
+      {
+        //Debug.WriteLine($"IList.this[{index}]" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+        return this[index];
+      }
       set
       {
         if (value is T item)
           this[index] = item;
       }
     }
-
-    public bool IsFixedSize => false;
-
-    public bool IsReadOnly => false;
-
-    public bool IsSynchronized => (_items as ICollection).IsSynchronized;
-
-    public object SyncRoot => (_items as ICollection).SyncRoot;
 
     int IList.Add(object value)
     {
@@ -1167,26 +1196,12 @@ namespace Qhta.ObservableObjects
       return -1;
     }
 
-    void IList.Clear() => this.Clear();
-
     bool IList.Contains(object value)
     {
       if (value is T item)
         return this.Contains(item);
       return false;
     }
-
-    void ICollection.CopyTo(Array array, int index)
-    {
-      if (array is T[] items)
-        this.CopyTo(items, index);
-      else
-      {
-        (_items as ICollection).CopyTo(array, index);
-      }
-    }
-
-    IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
     int IList.IndexOf(object value)
     {
@@ -1207,7 +1222,6 @@ namespace Qhta.ObservableObjects
         this.Remove(item);
     }
 
-    void IList.RemoveAt(int index) => this.RemoveAt(index);
     #endregion
 
   }

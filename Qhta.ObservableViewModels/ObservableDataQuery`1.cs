@@ -17,7 +17,6 @@ namespace Qhta.ObservableViewModels
     IList<TValue>,
     IEnumerable,
     ICollection,
-    IList,
     INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
   {
     #region LazyLoad
@@ -148,7 +147,7 @@ namespace Qhta.ObservableViewModels
 
     public override bool IsModified { get => Source.IsModified; protected internal set=>Source.IsModified=value; }
 
-    object IList.this[int index] { get => this[index]; set => this[index] = (TValue)value; }
+    //object IList.this[int index] { get => this[index]; set => this[index] = (TValue)value; }
 
     public override void Insert(int index, TValue item)
     {
@@ -160,46 +159,46 @@ namespace Qhta.ObservableViewModels
       throw new InvalidOperationException($"ObservablaDataQuery.RemoveAt cannot be invoked");
     }
 
-    int IList.Add(object value)
-    {
-      if (value is TValue item)
-      {
-        this.Add(item);
-        return Source.IndexOf(item);
-      }
-      return -1;
-    }
+    //int IList.Add(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    this.Add(item);
+    //    return Source.IndexOf(item);
+    //  }
+    //  return -1;
+    //}
 
-    bool IList.Contains(object value)
-    {
-      if (value is TValue item)
-      {
-        return Items.Contains(item);
-      }
-      return false;
-    }
+    //bool IList.Contains(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    return Items.Contains(item);
+    //  }
+    //  return false;
+    //}
 
-    int IList.IndexOf(object value)
-    {
-      if (value is TValue item)
-      {
-        return Items.ToList().IndexOf(item);
-      }
-      return -1;
-    }
+    //int IList.IndexOf(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    return Items.ToList().IndexOf(item);
+    //  }
+    //  return -1;
+    //}
 
-    void IList.Insert(int index, object value)
-    {
-      throw new InvalidOperationException($"ObservablaDataQuery.Insert cannot be invoked");
-    }
+    //void IList.Insert(int index, object value)
+    //{
+    //  throw new InvalidOperationException($"ObservablaDataQuery.Insert cannot be invoked");
+    //}
 
-    void IList.Remove(object value)
-    {
-      if (value is TValue item)
-      {
-        this.Remove(item);
-      }
-    }
+    //void IList.Remove(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    this.Remove(item);
+    //  }
+    //}
 
     void ICollection.CopyTo(Array array, int index)
     {

@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
-  public class ObservableDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>, 
-    IReadOnlyDictionary<T, V>, IReadOnlyCollection<KeyValuePair<T, V>>, 
-    IDictionary<T, V>, ICollection<KeyValuePair<T, V>>, 
-    IEnumerable<KeyValuePair<T, V>>, IDictionary, INotifyCollectionChanged, INotifyPropertyChanged
+  public class ObservableDictionary<T, V> : ObservableCollectionObject,
+    IEnumerable,
+    ICollection,
+    IList,
+    IEnumerable<KeyValuePair<T, V>>,
+    ICollection<KeyValuePair<T, V>>,
+    IDictionary,
+    IDictionary<T, V>,
+    INotifyCollectionChanged, INotifyPropertyChanged
   {
 
     private readonly object _syncRoot = new object();
@@ -26,7 +29,7 @@ namespace Qhta.ObservableObjects
       get => _keyComparer;
       set
       {
-        if (_keyComparer!=value)
+        if (_keyComparer != value)
         {
           _keyComparer = value;
           _items = new Dictionary<T, V>(_items, _keyComparer);
@@ -52,542 +55,15 @@ namespace Qhta.ObservableObjects
     }
 
     #endregion Constructors
-    /*
-        #region Thread-Safe Methods
 
-        #region General
+    #region Dictionary<T, V> wrappers
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryOperation(Func<IImmutableDictionary<T, V>, IImmutableDictionary<T, V>> operation)
-        {
-          return TryOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool DoOperation(Func<IImmutableDictionary<T, V>, IImmutableDictionary<T, V>> operation)
-        {
-          return DoOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
-
-        #region Helpers
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool TryOperation(Func<IImmutableDictionary<T, V>, IImmutableDictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
-        {
-          try
-          {
-            if (Helper.TryLock())
-            {
-              var oldList = _items;
-              var newItems = operation(oldList);
-
-              if (newItems == null)
-              {
-                // user returned null which means he cancelled operation
-                return false;
-              }
-
-              _items = newItems;
-
-              if (args != null)
-                NotifyCollectionChanged(args);
-              return true;
-            }
-          }
-          finally
-          {
-            Helper.Unlock();
-          }
-
-          return false;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool TryOperation(Func<IImmutableDictionary<T, V>, KeyValuePair<Dictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
-        {
-          try
-          {
-            if (Helper.TryLock())
-            {
-              var oldList = _items;
-              var kvp = operation(oldList);
-              var newItems = kvp.Key;
-              var args = kvp.Value;
-
-              if (newItems == null)
-              {
-                // user returned null which means he cancelled operation
-                return false;
-              }
-
-              _items = newItems;
-
-              if (args != null)
-                NotifyCollectionChanged(args);
-              return true;
-            }
-          }
-          finally
-          {
-            Helper.Unlock();
-          }
-
-          return false;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool DoOperation(Func<IImmutableDictionary<T, V>, Dictionary<T, V>> operation, NotifyCollectionChangedEventArgs args)
-        {
-          bool result;
-
-          try
-          {
-            Helper.Lock();
-            var oldItems = _items;
-            var newItems = operation(_items);
-
-            if (newItems == null)
-            {
-              // user returned null which means he cancelled operation
-              return false;
-            }
-
-            result = (_items = newItems) != oldItems;
-
-            if (args != null)
-              NotifyCollectionChanged(args);
-          }
-          finally
-          {
-            Helper.Unlock();
-          }
-
-          return result;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool DoOperation(Func<IImmutableDictionary<T, V>, KeyValuePair<IImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>> operation)
-        {
-          bool result;
-
-          try
-          {
-            Helper.Lock();
-            var oldItems = _items;
-            var kvp = operation(_items);
-            var newItems = kvp.Key;
-            var args = kvp.Value;
-
-            if (newItems == null)
-            {
-              // user returned null which means he cancelled operation
-              return false;
-            }
-
-            result = (_items = newItems) != oldItems;
-
-            if (args != null)
-              NotifyCollectionChanged(args);
-          }
-          finally
-          {
-            Helper.Unlock();
-          }
-
-          return result;
-        }
-
-        #endregion Helpers
-
-        #endregion General
-
-        #region Specific
-
-        public bool DoAdd(Func<IImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
-        {
-          return DoOperation
-            (
-            currentItems =>
-            {
-              var kvp = valueProvider(currentItems);
-              var newItems = this.Add(kvp.Key, kvp.Value);
-              return new KeyValuePair<IImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, kvp));
-            }
-            );
-        }
-
-        public bool DoAddRange(Func<IImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
-        {
-          return DoOperation
-            (
-            currentItems =>
-              currentItems.AddRange(valueProvider(currentItems))
-            );
-        }
-
-        public bool DoClear()
-        {
-          return DoOperation
-            (
-            currentItems =>
-              currentItems.Clear()
-            );
-        }
-
-        public bool DoRemove(Func<IImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
-        {
-          return DoOperation
-            (
-            currentItems =>
-            {
-              var newKVP = valueProvider(currentItems);
-              var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
-              var newItems = currentItems.Remove(newKVP.Key);
-              return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldKVP));
-            }
-            );
-        }
-
-        public bool DoRemoveRange(Func<IImmutableDictionary<T, V>, IEnumerable<T>> valueProvider)
-        {
-          return DoOperation
-            (
-            currentItems =>
-              currentItems.RemoveRange(valueProvider(currentItems))
-            );
-        }
-
-        public bool DoSetItem(Func<IImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
-        {
-          return DoOperation
-            (
-            currentItems =>
-            {
-              var newKVP = valueProvider(currentItems);
-              var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
-              var newItems = currentItems.SetItem(newKVP.Key, newKVP.Value);
-              return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldKVP, newKVP));
-            }
-            );
-        }
-
-        public bool DoSetItems(Func<IImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
-        {
-          return DoOperation
-            (
-            currentItems =>
-              currentItems.SetItems(valueProvider(currentItems))
-            );
-        }
-
-        public bool TryAdd(Func<IImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
-        {
-          return TryOperation
-            (
-            currentItems =>
-            {
-              var kvp = valueProvider(currentItems);
-              var newItems = _items.Add(kvp.Key, kvp.Value);
-              return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, kvp));
-            }
-            );
-        }
-
-        public bool TryAddRange(Func<IImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
-        {
-          return TryOperation
-            (
-            currentItems =>
-              currentItems.AddRange(valueProvider(currentItems))
-            );
-        }
-
-        public bool TryClear()
-        {
-          return TryOperation
-            (
-            currentItems =>
-              currentItems.Clear()
-            );
-        }
-
-        public bool TryRemove(Func<IImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
-        {
-          return TryOperation
-            (
-            currentItems =>
-            {
-              var newKVP = valueProvider(currentItems);
-              var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
-              var newItems = currentItems.Remove(newKVP.Key);
-              return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldKVP));
-            }
-            );
-        }
-
-        public bool TryRemoveRange(Func<IImmutableDictionary<T, V>, IEnumerable<T>> valueProvider)
-        {
-          return TryOperation
-            (
-            currentItems =>
-              currentItems.RemoveRange(valueProvider(currentItems))
-            );
-        }
-
-        public bool TrySetItem(Func<IImmutableDictionary<T, V>, KeyValuePair<T, V>> valueProvider)
-        {
-          return TryOperation
-            (
-            currentItems =>
-            {
-              var newKVP = valueProvider(currentItems);
-              var oldKVP = new KeyValuePair<T, V>(newKVP.Key, currentItems[newKVP.Key]);
-              var newItems = currentItems.SetItem(newKVP.Key, newKVP.Value);
-              return new KeyValuePair<ImmutableDictionary<T, V>, NotifyCollectionChangedEventArgs>(newItems, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldKVP, newKVP));
-            }
-            );
-        }
-
-        public bool TrySetItems(Func<IImmutableDictionary<T, V>, IEnumerable<KeyValuePair<T, V>>> valueProvider)
-        {
-          return TryOperation
-            (
-            currentItems =>
-              currentItems.SetItems(valueProvider(currentItems))
-            );
-        }
-
-        #endregion Specific
-
-        public ImmutableDictionary<T, V> ToImmutableDictionary()
-        {
-          return _items;
-        }
-*/
-        #region IEnumerable<KeyValuePair<T, V>>
-
-        public IEnumerator<KeyValuePair<T, V>> GetEnumerator()
-        {
-          return _items.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-          return GetEnumerator();
-        }
-
-        #endregion IEnumerable<T>
-    /*
-        #endregion Thread-Safe Methods
-
-      */
-    #region Non Thead-Safe Methods
-
-    #region IImmutableDictionary<T, V>
-
-    public IImmutableDictionary<T, V> Add(T key, V value)
+    public bool IsFixedSize
     {
-      try
+      get
       {
-        var newItems = new Dictionary<T, V>(this);
-        newItems.Add(key, value);
-        var index = newItems.Keys.ToImmutableList().IndexOf(key);
-        _items = newItems;
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
-      }
-      catch (System.ArgumentException ex)
-      {
-        Debug.WriteLine("Exception thrown: 'System.ArgumentException' in System.Collections.Immutable.dll");
-        Debug.WriteLine(ex.Message);
-      }
-      return this;
-    }
-
-    public IImmutableDictionary<T, V> AddRange(IEnumerable<KeyValuePair<T, V>> pairs)
-    {
-      var newItems = new Dictionary<T, V>(this);
-      foreach (var pair in pairs)
-        newItems.Add(pair.Key, pair.Value);
-      _items = newItems;
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-
-      return this;
-    }
-
-    public IImmutableDictionary<T, V> Clear()
-    {
-      var newItems = new Dictionary<T, V>(this);
-      newItems.Clear();
-      _items = newItems;
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
-    }
-
-    public bool Contains(KeyValuePair<T, V> pair)
-    {
-      return _items.ContainsKey(pair.Key);
-    }
-
-    public IImmutableDictionary<T, V> Remove(T key)
-    {
-      var newItems = new Dictionary<T, V>(this);
-      newItems.Remove(key);
-      _items = newItems;
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
-    }
-
-    public IImmutableDictionary<T, V> RemoveRange(IEnumerable<T> keys)
-    {
-      var newItems = new Dictionary<T, V>(this);
-      foreach (var key in keys)
-        newItems.Remove(key);
-      _items = newItems;
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
-    }
-
-    public IImmutableDictionary<T, V> SetItem(T key, V value)
-    {
-      var newItems = new Dictionary<T, V>(this);
-      newItems[key] = value;
-      _items = newItems;
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
-    }
-
-    public IImmutableDictionary<T, V> SetItems(IEnumerable<KeyValuePair<T, V>> pairs)
-    {
-      var newItems = new Dictionary<T, V>(this);
-      foreach (var pair in pairs)
-        newItems[pair.Key]=pair.Value;
-      _items = newItems;
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return this;
-    }
-
-    public bool TryGetKey(T equalKey, out T actualKey)
-    {
-      actualKey = equalKey;
-      if (KeyComparer != null)
-      {
-        var newKeys = new List<T>(_items.Keys);
-        foreach (var item in newKeys)
-        {
-          if (KeyComparer.Equals(item, equalKey))
-          {
-            actualKey = item;
-            return true;
-          }
-        }
         return false;
       }
-      else
-      {
-        var newItems = new Dictionary<T, V>(this);
-        return newItems.ContainsKey(equalKey);
-      }
-    }
-
-    public bool ContainsKey(T key)
-    {
-      return _items.ContainsKey(key);
-    }
-
-    public IEnumerable<T> Keys
-    {
-      get
-      {
-        return _items.Keys;
-      }
-    }
-
-    public bool TryGetValue(T key, out V value)
-    {
-      return _items.TryGetValue(key, out value);
-    }
-
-    public IEnumerable<V> Values
-    {
-      get
-      {
-        return _items.Values;
-      }
-    }
-
-    public int Count
-    {
-      get
-      {
-        return _items.Count;
-      }
-    }
-
-    #endregion IImmutableDictionary<T, V>
-
-    #region IDictionary<T, V>
-
-    void IDictionary<T, V>.Add(T key, V value)
-    {
-      Add(key, value);
-    }
-
-    ICollection<T> IDictionary<T, V>.Keys
-    {
-      get
-      {
-        return (_items as IDictionary<T, V>).Keys;
-      }
-    }
-
-    bool IDictionary<T, V>.Remove(T key)
-    {
-      var newItems = new Dictionary<T, V>(_items);
-      if (newItems.ContainsKey(key))
-      {
-        newItems.Remove(key);
-        _items = newItems;
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-        return true;
-      }
-      return false;
-    }
-
-    ICollection<V> IDictionary<T, V>.Values
-    {
-      get
-      {
-        return (_items as IDictionary<T, V>).Values;
-      }
-    }
-
-    public V this[T key]
-    {
-      get
-      {
-        return _items[key];
-      }
-      set
-      {
-        _items[key] = value;
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      }
-    }
-
-    public void Add(KeyValuePair<T, V> item)
-    {
-      (_items as IDictionary<T, V>).Add(item);
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-    }
-
-    void ICollection<KeyValuePair<T, V>>.Clear()
-    {
-      Clear();
-    }
-
-    public void CopyTo(KeyValuePair<T, V>[] array, int arrayIndex)
-    {
-      (_items as IDictionary<T, V>).CopyTo(array, arrayIndex);
     }
 
     public bool IsReadOnly
@@ -598,25 +74,136 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    public bool Remove(KeyValuePair<T, V> item)
+    public void Clear()
     {
-      var result = (_items as IDictionary<T, V>).Remove(item);
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      return result;
+      lock (LockObject)
+      {
+        //Debug.WriteLine("Clear");
+        foreach (var enumerator in enumerators)
+        {
+          enumerator.Reset();
+        }
+        _items.Clear();
+        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      }
     }
 
-    #endregion IDictionary<T, V>
+    private List<ObservableDictionaryEnumerator> enumerators = new List<ObservableDictionaryEnumerator>();
 
-    #region IDictionary
+    public int Count
+    {
+      get
+      {
+        return _items.Count;
+      }
+    }
+
+    public IEnumerable<T> Keys
+    {
+      get
+      {
+        return _items.Keys;
+      }
+    }
+
+    public IEnumerable<V> Values
+    {
+      get
+      {
+        return _items.Values;
+      }
+    }
+
+    public V this[T key]
+    {
+      get
+      {
+        Debug.WriteLine($"this[{key}]={_items[key]}");
+        return _items[key];
+      }
+      set
+      {
+        _items[key] = value;
+        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      }
+    }
+
+    IEnumerator<KeyValuePair<T, V>> IEnumerable<KeyValuePair<T, V>>.GetEnumerator()
+    {
+      Debug.WriteLine($"IEnumerable<KeyValuePair<T, V>>.GetEnumerator");
+      return this.GetEnumerator();
+    }
+
+    public ObservableDictionaryEnumerator GetEnumerator()
+    {
+      Debug.WriteLine($"GetEnumerator");
+      var enumerator = new ObservableDictionaryEnumerator(this);
+      enumerators.Add(enumerator);
+      return enumerator;
+    }
+
+    public void Add(T key, V value)
+    {
+      //Debug.WriteLine($"Add({key}, {value})" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+      try
+      {
+        lock (LockObject)
+        {
+          _items.Add(key, value);
+          int index = _items.Keys.ToImmutableSortedSet().IndexOf(key);
+          NotifyCollectionChanged(NotifyCollectionChangedAction.Add, value, index);
+        }
+      }
+      catch (System.ArgumentException ex)
+      {
+        //Debug.WriteLine($"{ex.GetType().Name} thrown in ObservableDictionary:\n {ex.Message}");
+      }
+    }
+
+    public bool ContainsKey(T key)
+    {
+      return _items.ContainsKey(key);
+    }
+
+    public bool ContainsValue(V value)
+    {
+      return _items.ContainsValue(value);
+    }
+
+    public bool Remove(T key)
+    {
+      lock (LockObject)
+      {
+        var list = _items.Keys.ToImmutableSortedSet();
+        //Debug.WriteLine(String.Join(", ", list));
+        int index = list.IndexOf(key);
+        if (index < 0)
+          return false;
+        V value = _items[key];
+        _items.Remove(key);
+        NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, value, index);
+        return true;
+      }
+    }
+
+    public bool TryGetValue(T key, out V value)
+    {
+      return _items.TryGetValue(key, out value);
+    }
+
+    #endregion
+
+    #region IEnumerable, ICollection, IDictionary implementation
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      Debug.WriteLine($"IEnumerable.GetEnumerator");
+      return this.GetEnumerator();
+    }
 
     public void Add(object key, object value)
     {
       Add((T)key, (V)value);
-    }
-
-    void IDictionary.Clear()
-    {
-      Clear();
     }
 
     public bool Contains(object key)
@@ -626,15 +213,7 @@ namespace Qhta.ObservableObjects
 
     IDictionaryEnumerator IDictionary.GetEnumerator()
     {
-      return (_items as IDictionary).GetEnumerator();
-    }
-
-    public bool IsFixedSize
-    {
-      get
-      {
-        return false;
-      }
+      return this.GetEnumerator();
     }
 
     ICollection IDictionary.Keys
@@ -675,25 +254,173 @@ namespace Qhta.ObservableObjects
     {
       (_items as IDictionary).CopyTo(array, index);
     }
+    #endregion
 
-    public bool IsSynchronized
+    #region IDictionary<T, V>
+
+    ICollection<T> IDictionary<T, V>.Keys
     {
       get
       {
-        return false;
+        return (_items as IDictionary<T, V>).Keys;
       }
     }
 
-    public object SyncRoot
+    ICollection<V> IDictionary<T, V>.Values
     {
       get
       {
-        return _syncRoot;
+        return (_items as IDictionary<T, V>).Values;
       }
     }
+    #endregion
 
-    #endregion IDictionary
+    public void Add(KeyValuePair<T, V> item)
+    {
+      this.Add(item.Key, item.Value);
+    }
 
-    #endregion Non Thead-Safe Methods
+    public void CopyTo(KeyValuePair<T, V>[] array, int arrayIndex)
+    {
+      (_items as IDictionary<T, V>).CopyTo(array, arrayIndex);
+    }
+
+    public bool Remove(KeyValuePair<T, V> item)
+    {
+      var result = (_items as IDictionary<T, V>).Remove(item);
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      return result;
+    }
+
+    public bool Contains(KeyValuePair<T, V> pair)
+    {
+      return _items.ContainsKey(pair.Key);
+    }
+
+    #region IList explicit implementation
+
+    object IList.this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+
+    int IList.Add(object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    int IList.IndexOf(object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    void IList.Insert(int index, object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    void IList.RemoveAt(int index)
+    {
+      throw new NotImplementedException();
+    }
+    #endregion
+
+
+    public class ObservableDictionaryEnumerator : IDictionaryEnumerator, IEnumerator<KeyValuePair<T, V>>
+    {
+      public ObservableDictionaryEnumerator(ObservableDictionary<T, V> items)
+      {
+        _items = items;
+      }
+      ObservableDictionary<T, V> _items;
+      int currentIndex = -1;
+
+      public DictionaryEntry Entry => throw new NotImplementedException();
+
+      public object Key => throw new NotImplementedException();
+
+      public object Value => throw new NotImplementedException();
+
+      public object Current
+      {
+        get
+        {
+          Debug.WriteLine($"Current[{currentIndex}]");
+          if (currentIndex >= 0 && currentIndex < _items.Count)
+            return _items.ToImmutableArray()[currentIndex];
+          return null;
+        }
+      }
+
+      KeyValuePair<T, V> IEnumerator<KeyValuePair<T, V>>.Current => throw new NotImplementedException();
+
+      object IEnumerator.Current => this.Current;
+
+      public bool MoveNext()
+      {
+        if (currentIndex < _items.Count)
+        {
+          currentIndex++;
+          Debug.WriteLine($"ObservableDictionaryEnumerator moved next to {currentIndex}");
+          return true;
+        }
+        else
+        {
+          currentIndex = _items.Count - 1;
+          Debug.WriteLine($"ObservableDictionaryEnumerator cannot moved next to {currentIndex}");
+          return false;
+        }
+      }
+
+      public void Reset()
+      {
+        Debug.WriteLine("Reset");
+        currentIndex = -1;
+      }
+
+      bool IEnumerator.MoveNext()
+      {
+        return this.MoveNext();
+      }
+
+      void IEnumerator.Reset()
+      {
+        this.Reset();
+      }
+
+      #region IDisposable Support
+      private bool disposedValue = false; // To detect redundant calls
+
+      protected virtual void Dispose(bool disposing)
+      {
+        if (!disposedValue)
+        {
+          if (disposing)
+          {
+            //_items.enumerators.Remove(this);
+          }
+
+          // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+          // TODO: set large fields to null.
+
+          disposedValue = true;
+        }
+      }
+
+      // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+      // ~ObservableDictionaryEnumerator() {
+      //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+      //   Dispose(false);
+      // }
+
+      // This code added to correctly implement the disposable pattern.
+      void IDisposable.Dispose()
+      {
+        // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        Dispose(true);
+        // TODO: uncomment the following line if the finalizer is overridden above.
+        // GC.SuppressFinalize(this);
+      }
+      #endregion
+
+    }
   }
 }

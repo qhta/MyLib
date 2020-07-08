@@ -12,7 +12,11 @@ using Qhta.ObservableObjects;
 namespace Qhta.ObservableViewModels
 {
   public class ObservableDataSet<TKey, TValue> : ObservableDataSet<TValue>,
-      ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue> where TKey: IComparable<TKey> where TValue: class
+    ICollection<TValue>,
+    IList<TValue>,
+    INotifyCollectionChanged, 
+    INotifyPropertyChanged
+        where TKey: IComparable<TKey> where TValue: class
   {
     public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
     {

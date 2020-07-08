@@ -12,7 +12,7 @@ namespace Qhta.ObservableObjects
       _dispatcher = dispatcher;
     }
     protected Dispatcher _dispatcher;
-    protected object _lockObject = new object();
+    public virtual object LockObject => this;
 
     #region INotifyPropertyChanged
 
@@ -41,12 +41,32 @@ namespace Qhta.ObservableObjects
           }
           catch (Exception ex)
           {
-            //Debug.WriteLine(ex.Message);
+            Debug.WriteLine($"{ex.GetType().Name} thrown in ObservableObject:\n {ex.Message}");
           }
       }
    }
 
     #endregion INotifyPropertyChanged
+
+    #region Enable synchronization from BindingOperations
+    public bool IsSynchronized
+    {
+      get
+      {
+        //Debug.WriteLine("Get IsSynchronized");
+        return true;
+      }
+    }
+
+    public object SyncRoot
+    {
+      get
+      {
+        //Debug.WriteLine("Get LockObject");
+        return LockObject;
+      }
+    }
+    #endregion
 
   }
 }

@@ -11,7 +11,7 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.MVVM": "1.0.3",
-          "Qhta.ObservableObjects": "1.0.0",
+          "Qhta.ObservableObjects": "1.1.0",
           "System.Runtime.CompilerServices.Unsafe": "4.7.1",
           "System.ComponentModel.DataAnnotations": "4.0.0.0"
         },
@@ -228,7 +228,7 @@
           "Qhta.MVVM.dll": {}
         }
       },
-      "Qhta.ObservableObjects/1.0.0": {
+      "Qhta.ObservableObjects/1.1.0": {
         "dependencies": {
           "System.Collections.Concurrent": "4.3.0",
           "System.Collections.Immutable": "1.7.1",
@@ -450,7 +450,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Qhta.ObservableObjects/1.0.0": {
+    "Qhta.ObservableObjects/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

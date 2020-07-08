@@ -16,7 +16,6 @@ namespace Qhta.ObservableViewModels
     IList<TValue>,
     IEnumerable,
     ICollection,
-    IList,
     INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
   {
     public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
@@ -197,7 +196,7 @@ namespace Qhta.ObservableViewModels
 
     public virtual bool IsModified { get; protected internal set; }
 
-    object IList.this[int index] { get => this[index]; set => this[index]=(TValue)value; }//5
+    //object IList.this[int index] { get => this[index]; set => this[index]=(TValue)value; }//5
 
     public virtual void Insert(int index, TValue item)
     {
@@ -214,46 +213,46 @@ namespace Qhta.ObservableViewModels
       NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
     }
 
-    int IList.Add(object value)
-    {
-      if (value is TValue item)
-      {
-        this.Add(item);
-        return Items.IndexOf(item);
-      }
-      return -1;
-    }
+    //int IList.Add(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    this.Add(item);
+    //    return Items.IndexOf(item);
+    //  }
+    //  return -1;
+    //}
 
-    bool IList.Contains(object value)
-    {
-      if (value is TValue item)
-      {
-        return Items.Contains(item);
-      }
-      return false;
-    }
+    //bool IList.Contains(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    return Items.Contains(item);
+    //  }
+    //  return false;
+    //}
 
-    int IList.IndexOf(object value)
-    {
-      if (value is TValue item)
-      {
-        return Items.IndexOf(item);
-      }
-      return -1;
-    }
+    //int IList.IndexOf(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    return Items.IndexOf(item);
+    //  }
+    //  return -1;
+    //}
 
-    void IList.Insert(int index, object value)
-    {
-      throw new InvalidOperationException($"ObservablaDataSet.IndexOf cannot be invoked");
-    }
+    //void IList.Insert(int index, object value)
+    //{
+    //  throw new InvalidOperationException($"ObservablaDataSet.IndexOf cannot be invoked");
+    //}
 
-    void IList.Remove(object value)
-    {
-      if (value is TValue item)
-      {
-        this.Remove(item);
-      }
-    }
+    //void IList.Remove(object value)
+    //{
+    //  if (value is TValue item)
+    //  {
+    //    this.Remove(item);
+    //  }
+    //}
 
     void ICollection.CopyTo(Array array, int index)
     {

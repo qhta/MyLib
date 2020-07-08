@@ -9,6 +9,8 @@ namespace Qhta.ObservableObjects
 {
   public class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
   {
+    public const string dateTimeFormat = "hh:mm:ss.fff";
+
     public ObservableCollectionObject(Dispatcher dispatcher) : base(dispatcher) { }
 
     #region INotifyCollectionChanged
@@ -51,19 +53,43 @@ namespace Qhta.ObservableObjects
           bulkIndex = args.NewStartingIndex;
         foreach (var item in args.NewItems)
           bulkItems.Add(item);
+        //Debug.WriteLine("OnCollectionChanged return as action is bulkAction");
         return;
       }
 
       if (!NotifyCollectionChangedEnabled)
+      {
+        //Debug.WriteLine("OnCollectionChanged return as NotifyCollectionChangedEnabled is false");
         return;
+      }
 
       var notifyCollectionChangedEventHandler = CollectionChanged;
 
       if (notifyCollectionChangedEventHandler == null)
+      {
+        //Debug.WriteLine("OnCollectionChanged return as notifyCollectionChangedEventHandler is null");
         return;
+      }
 
       if (_dispatcher != null)
       {
+        //var newItemsCount = args.NewItems?.Count ?? 0;
+        //var oldItemsCount = args.OldItems?.Count ?? 0;
+        //if (args.Action==NotifyCollectionChangedAction.Add)
+          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
+          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+        //else if (args.Action == NotifyCollectionChangedAction.Remove)
+          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
+          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+        //else if (newItemsCount>0 || oldItemsCount>0)
+          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}," +
+            //$" newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
+            //$" oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
+          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+        //else
+          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action})" +
+          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+
         //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
         _dispatcher.BeginInvoke(DispatcherPriority.DataBind, 
           new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
@@ -79,7 +105,7 @@ namespace Qhta.ObservableObjects
 
     private void NotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgs args)
     {
-      lock (_lockObject)
+      lock (LockObject)
       {
         var notifyCollectionChangedEventHandler = CollectionChanged;
         if (notifyCollectionChangedEventHandler == null)
