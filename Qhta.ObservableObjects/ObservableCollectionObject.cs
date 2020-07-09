@@ -11,6 +11,8 @@ namespace Qhta.ObservableObjects
   {
     public const string dateTimeFormat = "hh:mm:ss.fff";
 
+    public ObservableCollectionObject() : base() { }
+
     public ObservableCollectionObject(Dispatcher dispatcher) : base(dispatcher) { }
 
     #region INotifyCollectionChanged
@@ -75,20 +77,20 @@ namespace Qhta.ObservableObjects
       {
         //var newItemsCount = args.NewItems?.Count ?? 0;
         //var oldItemsCount = args.OldItems?.Count ?? 0;
-        //if (args.Action==NotifyCollectionChangedAction.Add)
-          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
-          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+        //if (args.Action == NotifyCollectionChangedAction.Add)
+        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
+        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
         //else if (args.Action == NotifyCollectionChangedAction.Remove)
-          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
-          //$" {DateTime.Now.ToString(dateTimeFormat)}");
-        //else if (newItemsCount>0 || oldItemsCount>0)
-          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}," +
-            //$" newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
-            //$" oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
-          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
+        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
+        //else if (newItemsCount > 0 || oldItemsCount > 0)
+        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}," +
+        //    $" newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
+        //    $" oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
+        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
         //else
-          //Debug.WriteLine($"NotifyCollectionChanged(action={args.Action})" +
-          //$" {DateTime.Now.ToString(dateTimeFormat)}");
+        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action})" +
+        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
 
         //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
         _dispatcher.BeginInvoke(DispatcherPriority.DataBind, 

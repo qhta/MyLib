@@ -56,11 +56,25 @@ namespace Qhta.ObservableObjects
 
     #region Constructors
 
+    public ObservableDictionary() : this(new KeyValuePair<TKey, TValue>[0])
+    {
+    }
+
     public ObservableDictionary(Dispatcher dispatcher) : this(new KeyValuePair<TKey, TValue>[0], dispatcher)
     {
     }
 
     public ObservableDictionary(IEnumerable<KeyValuePair<TKey, TValue>> items, Dispatcher dispatcher) : base(dispatcher)
+    {
+      _syncRoot = new object();
+      var newItems = new Dictionary<TKey, TValue>();
+      foreach (var item in items)
+        newItems.Add(item.Key, item.Value);
+      _items = newItems;
+    }
+
+
+    public ObservableDictionary(IEnumerable<KeyValuePair<TKey, TValue>> items) : base()
     {
       _syncRoot = new object();
       var newItems = new Dictionary<TKey, TValue>();
@@ -154,7 +168,7 @@ namespace Qhta.ObservableObjects
 
     public ObservableDictionaryEnumerator GetEnumerator()
     {
-      Debug.WriteLine($"GetEnumerator");
+      //Debug.WriteLine($"GetEnumerator");
       var enumerator = new ObservableDictionaryEnumerator(this);
       enumerators.Add(enumerator);
       return enumerator;

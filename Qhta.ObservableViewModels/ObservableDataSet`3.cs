@@ -21,12 +21,23 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataSet<TPrimary, TSecondaryKey, TValue>: ObservableDataSet<TPrimary, TValue> 
     where TPrimary : IComparable<TPrimary> where TSecondaryKey : IComparable<TSecondaryKey> where TValue: class
   {
+
+    public ObservableDataSet() : base()
+    {
+      Init();
+    }
+
     public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
+    {
+      Init();
+    }
+
+    private void Init()
     {
       SecondaryIndex = new ObservableDataIndex<TSecondaryKey, TValue>(_dispatcher);
     }
 
-    private ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex;
+    public ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex { get; private set; }
 
     public override void Add(TValue item)
     {

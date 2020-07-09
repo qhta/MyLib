@@ -18,6 +18,11 @@ namespace Qhta.ObservableViewModels
     ICollection,
     INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
   {
+    public ObservableDataSet() : base()
+    {
+      Items = new ObservableList<TValue>();
+    }
+
     public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
     {
       Items = new ObservableList<TValue>(_dispatcher);

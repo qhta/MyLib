@@ -14,9 +14,9 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataQuery<TValue> : ObservableDataSet<TValue>,
     IEnumerable<TValue>,
     ICollection<TValue>,
-    IList<TValue>,
-    IEnumerable,
-    ICollection,
+    //IList<TValue>,
+    //IEnumerable,
+    //ICollection,
     INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
   {
     #region LazyLoad
@@ -26,9 +26,24 @@ namespace Qhta.ObservableViewModels
     }
     #endregion
 
+    public ObservableDataQuery(ObservableDataSet<TValue> source) : base()
+    {
+      Init(source, null);
+    }
+
+    public ObservableDataQuery(ObservableDataSet<TValue> source, Func<TValue, bool> filter) : base()
+    {
+      Init(source, filter);
+    }
+
     public ObservableDataQuery(ObservableDataSet<TValue> source, Dispatcher dispatcher) : this(source, null, dispatcher) { }
 
-    public ObservableDataQuery(ObservableDataSet<TValue> source, Func<TValue, bool> filter, Dispatcher dispatcher): base(dispatcher)
+    public ObservableDataQuery(ObservableDataSet<TValue> source, Func<TValue, bool> filter, Dispatcher dispatcher) : base(dispatcher)
+    {
+      Init(source, filter);
+    }
+
+    private void Init(ObservableDataSet<TValue> source, Func<TValue, bool> filter)
     {
       Source = source;
       if (source != null)
@@ -40,10 +55,34 @@ namespace Qhta.ObservableViewModels
 
     private void Source_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      switch (args.Action)
+      {
+        case NotifyCollectionChangedAction.Add:
+          foreach (var item in args.NewItems.Cast<TValue>())
+          {
+            if (Filter == null || Filter(item))
+            {
+              this.Add(item);
+            }
+          }
+          break;
+        case NotifyCollectionChangedAction.Remove:
+          foreach (var item in args.OldItems.Cast<TValue>())
+          {
+            this.Remove(item);
+          }
+          break;
+        case NotifyCollectionChangedAction.Reset:
+          NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+          break;
+        default:
+          NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+          break;
+      }
     }
 
-    public readonly ObservableDataSet<TValue> Source;
+    public ObservableDataSet<TValue> Source { get; private set; }
+
     public Func<TValue, bool> Filter
     {
       get => _filter;
@@ -52,55 +91,46 @@ namespace Qhta.ObservableViewModels
         if (_filter != value)
         {
           _filter = value;
-          //Debug.WriteLine($"ObservableDataQuery.SetFilter(Filtered={_filter != null})");
+          Debug.WriteLine($"ObservableDataQuery.SetFilter(Filtered={_filter != null})");
           NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
         }
       }
     }
     private Func<TValue, bool> _filter;
 
+    ///// <summary>
+    ///// The number of filtered items.
+    ///// </summary>
+    ///// <returns></returns>
+    //public override int Count
+    //{
+    //  get
+    //  {
+    //    Debug.WriteLine($"{this}.Count");
+    //    return Items.Count();
+    //  }
+    //}
 
-    public new IEnumerable<TValue> Items
-    {
-      get
-      {
-        //Debug.WriteLine($"ObservableDataQuery.Items(Filtered={_filter!=null})");
-        if (Filter == null)
-          return Source.ToList();
-        else
-          return Source.ToList().Where(item => Filter(item));
-      }
-    }
+    //public override void Add(TValue item)
+    //{
+    //  Source.Add(item);
+    //}
 
-    /// <summary>
-    /// The number of filtered items.
-    /// </summary>
-    /// <returns></returns>
-    public override int Count => Items.Count();
+    //public override bool Remove(TValue item)
+    //{
+    //  return Source.Remove(item);
+    //}
 
+    //public override void Clear()
+    //{
+    //  Source.Clear();
+    //}
 
-    public override bool IsReadOnly => false;
-
-    public override void Add(TValue item)
-    {
-      Source.Add(item);
-    }
-
-    public override bool Remove(TValue item)
-    {
-      return Source.Remove(item);
-    }
-
-    public override void Clear()
-    {
-      Source.Clear();
-    }
-
-    public override bool Contains(TValue item)
-    {
-      PopulateWhenNeeded();
-      return Source.Contains(item);
-    }
+    //public override bool Contains(TValue item)
+    //{
+    //  PopulateWhenNeeded();
+    //  return Source.Contains(item);
+    //}
 
     public override void CopyTo(TValue[] array, int arrayIndex)
     {
@@ -200,12 +230,12 @@ namespace Qhta.ObservableViewModels
     //  }
     //}
 
-    void ICollection.CopyTo(Array array, int index)
-    {
-      if (array is TValue[] items)
-      {
-        this.CopyTo(items, index);
-      }
-    }
+    //void ICollection.CopyTo(Array array, int index)
+    //{
+    //  if (array is TValue[] items)
+    //  {
+    //    this.CopyTo(items, index);
+    //  }
+    //}
   }
 }

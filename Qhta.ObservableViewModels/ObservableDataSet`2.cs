@@ -18,7 +18,17 @@ namespace Qhta.ObservableViewModels
     INotifyPropertyChanged
         where TKey: IComparable<TKey> where TValue: class
   {
-    public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
+    public ObservableDataSet() : base()
+    {
+      Init();
+    }
+
+    public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
+    {
+      Init();
+    }
+
+    private void Init()
     {
       PrimaryIndex = new ObservableDictionary<TKey, TValue>(_dispatcher);
       foreach (var propInfo in typeof(TValue).GetProperties())
@@ -76,7 +86,7 @@ namespace Qhta.ObservableViewModels
     protected List<PropertyInfo> primaryKeys = new List<PropertyInfo>();
     protected ConstructorInfo primaryKeyConstructor;
 
-    public readonly ObservableDictionary<TKey, TValue> PrimaryIndex;
+    public ObservableDictionary<TKey, TValue> PrimaryIndex { get; private set; }
 
     public virtual bool ContainsKey(TKey key)
     {

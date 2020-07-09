@@ -22,7 +22,7 @@ namespace TestWPF
 
     public void StartTestObservableList()
     {
-      var testList = new ObservableList<int>(Dispatcher);
+      var testList = new ObservableList<int>();
       testCollection = testList;
       //BindingOperations.EnableCollectionSynchronization(testList, testList.LockObject);
       DataContext = testList;
@@ -66,7 +66,7 @@ namespace TestWPF
 
     public void StartTestObservableDictionary()
     {
-      var testDictionary = new ObservableDictionary<int, int>(Dispatcher);
+      var testDictionary = new ObservableDictionary<int, int>();
       testCollection = testDictionary;
       //BindingOperations.EnableCollectionSynchronization(testDictionary, testDictionary.LockObject);
       DataContext = testDictionary;

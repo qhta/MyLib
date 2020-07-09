@@ -33,6 +33,9 @@ namespace Qhta.ObservableObjects
     protected List<T> _items = new List<T>();
 
     #region constructors
+
+    public ObservableList() : this(new T[0]) { }
+
     public ObservableList(Dispatcher dispatcher) : this(new T[0], dispatcher)
     {
     }
@@ -43,6 +46,11 @@ namespace Qhta.ObservableObjects
         _items.Add(item);
     }
 
+    public ObservableList(IEnumerable<T> items) : base()
+    {
+      foreach (var item in items)
+        _items.Add(item);
+    }
     #endregion
 
     #region List<T> wrappers
@@ -83,7 +91,8 @@ namespace Qhta.ObservableObjects
         lock (LockObject)
         {
           var count = _items.Count;
-          //Debug.WriteLine($"\tCount = {count}" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+          //Debug.WriteLine($"{this}.Count = {count}" + $" {DateTime.Now.ToString(dateTimeFormat)}");
+          //Debug.WriteLine($"{Environment.StackTrace}");
           return count;
         }
       }

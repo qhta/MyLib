@@ -14,9 +14,25 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataIndex<TKey, TValue> : ObservableObject,
       ICollection<TValue>, INotifyCollectionChanged, INotifyPropertyChanged, IList<TValue>
   {
+
+    public ObservableDataIndex() : base()
+    {
+      Init(null);
+    }
+
+    public ObservableDataIndex(string aName) : base()
+    {
+      Init(aName);
+    }
+
     public ObservableDataIndex(Dispatcher dispatcher): this (null, dispatcher) { }
 
+
     public ObservableDataIndex(string aName, Dispatcher dispatcher): base(dispatcher)
+    {
+      Init(aName);
+    }
+    private void Init(string aName)
     {
       Items = new ObservableDictionary<object, TValue>(_dispatcher);
       //Debug.WriteLine($"ObservableDataIndex({aName}).Create");
@@ -98,7 +114,7 @@ namespace Qhta.ObservableViewModels
     protected List<PropertyInfo> indexKeys = new List<PropertyInfo>();
     protected ConstructorInfo keyConstructor;
 
-    public readonly ObservableDictionary<object, TValue> Items;
+    public ObservableDictionary<object, TValue> Items { get; private set; }
 
     #region Notification
     public event NotifyCollectionChangedEventHandler CollectionChanged

@@ -1,17 +1,49 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
   public class ObservableObject: INotifyPropertyChanged
   {
+    public static bool TraceCreationFromNonSTAThread { get; set; } = true;
+
+    public ObservableObject()
+    {
+#if DEBUG
+      if (TraceCreationFromNonSTAThread)
+        if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
+          Debug.WriteLine($"{this} should be created in STA thread");
+#endif
+      _dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+    }
+
     public ObservableObject(Dispatcher dispatcher)
     {
+      if (dispatcher == null)
+        dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+#if DEBUG
+      if (TraceCreationFromNonSTAThread)
+        if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
+          Debug.WriteLine($"{this} should be created with STA thread dispatcher");
+#endif
       _dispatcher = dispatcher;
     }
+
     protected Dispatcher _dispatcher;
+
+    public virtual void SetDispatcher (Dispatcher dispatcher)
+    {
+#if DEBUG
+      if (TraceCreationFromNonSTAThread)
+        if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
+          Debug.WriteLine($"{this} should be set with STA thread dispatcher");
+#endif
+      _dispatcher = dispatcher;
+    }
+
     public virtual object LockObject => this;
 
     #region INotifyPropertyChanged
