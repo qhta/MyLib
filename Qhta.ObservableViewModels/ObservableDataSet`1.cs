@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Qhta.ObservableObjects;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Threading;
-using Qhta.MVVM;
-using Qhta.ObservableObjects;
 
 namespace Qhta.ObservableViewModels
 {
@@ -23,7 +21,7 @@ namespace Qhta.ObservableViewModels
       Items = new ObservableList<TValue>();
     }
 
-    public ObservableDataSet(Dispatcher dispatcher): base(dispatcher)
+    public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
     {
       Items = new ObservableList<TValue>(_dispatcher);
     }
@@ -269,7 +267,7 @@ namespace Qhta.ObservableViewModels
       get => selectedItem;
       set
       {
-        if (selectedItem!=value)
+        if (selectedItem != value)
         {
           selectedItem = value;
           base.NotifyPropertyChanged(nameof(SelectedItem));

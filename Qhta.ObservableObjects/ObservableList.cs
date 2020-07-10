@@ -256,7 +256,7 @@ namespace Qhta.ObservableObjects
         _items = new List<T>();
         var enumerator = GetEnumerator();
         enumerator.Dispose();
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        //NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       }
     }
 

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Threading;
 using Qhta.ObservableObjects;
 
@@ -64,6 +65,8 @@ namespace Qhta.ObservableViewModels
             {
               this.Add(item);
             }
+            else
+              Debug.WriteLine($"{item} not accepted by filter");
           }
           break;
         case NotifyCollectionChangedAction.Remove:
@@ -91,8 +94,21 @@ namespace Qhta.ObservableViewModels
         if (_filter != value)
         {
           _filter = value;
-          Debug.WriteLine($"ObservableDataQuery.SetFilter(Filtered={_filter != null})");
+          //Debug.WriteLine($"ObservableDataQuery.SetFilter(Filtered={_filter != null})");
+          Items.Clear();
+          //Debug.WriteLine($"ObservableDataQuery.Cleared");
           NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+          Thread.Sleep(100); // this time is needed for view refresh
+          foreach (var item in Source)
+          {
+            if (Filter == null || Filter(item))
+            {
+              this.Add(item);
+            }
+            //else
+            //  Debug.WriteLine($"{item} not accepted by filter");
+          }
+          //Debug.WriteLine($"ObservableDataQuery.SetFilter end");
         }
       }
     }
