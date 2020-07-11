@@ -8,7 +8,7 @@ using Qhta.MVVM;
 
 namespace Qhta.WPF.Utils
 {
-  public class RelayCommand: Command
+  public class RelayCommand: ObservableCommand
   {
     protected Action<object> _doExecuteMethod;
     protected Func<object, bool> _canExecuteMethod;
@@ -19,20 +19,6 @@ namespace Qhta.WPF.Utils
     {
       _doExecuteMethod = doExecuteMethod;
       _canExecuteMethod = canExecuteMethod;
-    }
-
-    public override event EventHandler CanExecuteChanged
-    {
-      add
-      {
-        _CanExecuteChanged += value;
-        CommandManager.RequerySuggested += value;
-      }
-      remove
-      {
-        _CanExecuteChanged -= value;
-        CommandManager.RequerySuggested -= value;
-      }
     }
 
     public override bool CanExecute(object parameter)
