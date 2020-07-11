@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Documents;
 
 namespace Qhta.WPF.Utils
 {
@@ -35,7 +38,7 @@ namespace Qhta.WPF.Utils
                   if (listView != null)
                   {
                     if (!GetAutoSort(listView)) // Don't change click handler if AutoSort enabled
-                        {
+                    {
                       if (e.OldValue != null && e.NewValue == null)
                       {
                         listView.RemoveHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(ColumnHeader_Click));
@@ -74,7 +77,7 @@ namespace Qhta.WPF.Utils
                   if (listView != null)
                   {
                     if (GetCommand(listView) == null) // Don't change click handler if a command is set
-                        {
+                    {
                       bool oldValue = (bool)e.OldValue;
                       bool newValue = (bool)e.NewValue;
                       if (oldValue && !newValue)
@@ -154,35 +157,35 @@ namespace Qhta.WPF.Utils
 
     #endregion
 
-    #region Private attached properties
+    //#region Private attached properties
 
-    private static GridViewColumnHeader GetSortedColumnHeader(DependencyObject obj)
-    {
-      return (GridViewColumnHeader)obj.GetValue(SortedColumnHeaderProperty);
-    }
+    //private static GridViewColumnHeader GetSortedColumnHeader(DependencyObject obj)
+    //{
+    //  return (GridViewColumnHeader)obj.GetValue(SortedColumnHeaderProperty);
+    //}
 
-    private static void SetSortedColumnHeader(DependencyObject obj, GridViewColumnHeader value)
-    {
-      obj.SetValue(SortedColumnHeaderProperty, value);
-    }
+    //private static void SetSortedColumnHeader(DependencyObject obj, GridViewColumnHeader value)
+    //{
+    //  obj.SetValue(SortedColumnHeaderProperty, value);
+    //}
 
-    // Using a DependencyProperty as the backing store for SortedColumn.  This enables animation, styling, binding, etc...
-    private static readonly DependencyProperty SortedColumnHeaderProperty =
-        DependencyProperty.RegisterAttached("SortedColumnHeader", typeof(GridViewColumnHeader), typeof(GridViewSort), new UIPropertyMetadata(null));
+    //// Using a DependencyProperty as the backing store for SortedColumn.  This enables animation, styling, binding, etc...
+    //private static readonly DependencyProperty SortedColumnHeaderProperty =
+    //    DependencyProperty.RegisterAttached("SortedColumnHeader", typeof(GridViewColumnHeader), typeof(GridViewSort), new UIPropertyMetadata(null));
 
-    #endregion
+    //#endregion
 
     #region Column header click event handler
 
     private static void ColumnHeader_Click(object sender, RoutedEventArgs e)
     {
-      GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-      if (headerClicked != null && headerClicked.Column != null)
+      GridViewColumnHeader clickedHeader = e.OriginalSource as GridViewColumnHeader;
+      if (clickedHeader != null && clickedHeader.Column != null)
       {
-        string propertyName = GetPropertyName(headerClicked.Column);
+        string propertyName = GetPropertyName(clickedHeader.Column);
         if (!string.IsNullOrEmpty(propertyName))
         {
-          ListView listView = GetAncestor<ListView>(headerClicked);
+          ListView listView = GetAncestor<ListView>(clickedHeader);
           if (listView != null)
           {
             ICommand command = GetCommand(listView);
@@ -195,7 +198,7 @@ namespace Qhta.WPF.Utils
             }
             else if (GetAutoSort(listView))
             {
-              ApplySort(listView.Items, propertyName, listView, headerClicked);
+              ApplySort(listView.Items, propertyName, listView, clickedHeader);
             }
           }
         }
@@ -219,36 +222,53 @@ namespace Qhta.WPF.Utils
         return null;
     }
 
-    public static void ApplySort(ICollectionView view, string propertyName, ListView listView, GridViewColumnHeader sortedColumnHeader)
+    public static void ApplySort(ICollectionView view, string propertyName, ListView listView, GridViewColumnHeader clickedHeader)
     {
-      ListSortDirection direction = ListSortDirection.Ascending;
-      if (view.SortDescriptions.Count > 0)
+      SortDescription clickedPropertySort = view.SortDescriptions.FirstOrDefault(item => item.PropertyName == propertyName);
+      if (clickedPropertySort != default(SortDescription))
       {
-        SortDescription currentSort = view.SortDescriptions[0];
-        if (currentSort.PropertyName == propertyName)
+        if (clickedPropertySort.Direction == ListSortDirection.Ascending)
         {
-          if (currentSort.Direction == ListSortDirection.Ascending)
-            direction = ListSortDirection.Descending;
-          else
-            direction = ListSortDirection.Ascending;
+          var direction = ListSortDirection.Descending;
+          view.SortDescriptions.Remove(clickedPropertySort);
+          RemoveSortGlyph(clickedHeader);
+          clickedPropertySort = new SortDescription(propertyName, direction);
+          view.SortDescriptions.Add(clickedPropertySort);
+          AddSortGlyph(clickedHeader,
+                      direction,
+                      direction == ListSortDirection.Ascending ? GetSortGlyphAscending(listView) : GetSortGlyphDescending(listView));
         }
-        view.SortDescriptions.Clear();
-
-        GridViewColumnHeader currentSortedColumnHeader = GetSortedColumnHeader(listView);
-        if (currentSortedColumnHeader != null)
+        else
+        if (clickedPropertySort.Direction == ListSortDirection.Descending)
         {
-          RemoveSortGlyph(currentSortedColumnHeader);
+          view.SortDescriptions.Remove(clickedPropertySort);
+          RemoveSortGlyph(clickedHeader);
         }
       }
-      if (!string.IsNullOrEmpty(propertyName))
+      else
       {
-        view.SortDescriptions.Add(new SortDescription(propertyName, direction));
-        if (GetShowSortGlyph(listView))
-          AddSortGlyph(
-              sortedColumnHeader,
-              direction,
-              direction == ListSortDirection.Ascending ? GetSortGlyphAscending(listView) : GetSortGlyphDescending(listView));
-        SetSortedColumnHeader(listView, sortedColumnHeader);
+        if (!Keyboard.GetKeyStates(Key.LeftShift).HasFlag(KeyStates.Down))
+        {
+          view.SortDescriptions.Clear();
+          var headerRowPresenter = VisualTreeHelperExt.FindInVisualTreeDown<GridViewHeaderRowPresenter>(listView);
+          if (headerRowPresenter != null)
+          {
+            
+            int n = VisualTreeHelper.GetChildrenCount(headerRowPresenter); 
+            for (int i = 0; i < n; i++)
+            {
+              var columnHeader = VisualTreeHelper.GetChild(headerRowPresenter, i) as GridViewColumnHeader;
+              if (columnHeader!=null)
+                RemoveSortGlyph(columnHeader);
+             }
+          }
+        }
+        var direction = ListSortDirection.Ascending;
+        clickedPropertySort = new SortDescription(propertyName, direction);
+        view.SortDescriptions.Add(clickedPropertySort);
+        AddSortGlyph(clickedHeader,
+                    direction,
+                    direction == ListSortDirection.Ascending ? GetSortGlyphAscending(listView) : GetSortGlyphDescending(listView));
       }
     }
 
@@ -265,14 +285,19 @@ namespace Qhta.WPF.Utils
 
     private static void RemoveSortGlyph(GridViewColumnHeader columnHeader)
     {
-      AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(columnHeader);
-      Adorner[] adorners = adornerLayer.GetAdorners(columnHeader);
-      if (adorners != null)
+      if (columnHeader != null)
       {
-        foreach (Adorner adorner in adorners)
+        AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(columnHeader);
+        Adorner[] adorners = adornerLayer.GetAdorners(columnHeader);
+        if (adorners != null)
         {
-          if (adorner is SortGlyphAdorner)
-            adornerLayer.Remove(adorner);
+          foreach (Adorner adorner in adorners)
+          {
+            if (adorner is SortGlyphAdorner)
+            {
+              adornerLayer.Remove(adorner);
+            }
+          }
         }
       }
     }
@@ -300,7 +325,7 @@ namespace Qhta.WPF.Utils
         double x1 = _columnHeader.ActualWidth - 7;
         double x2 = x1 + 4;
         double x3 = x1 + 2;
-        double y1 = _columnHeader.ActualHeight -7;
+        double y1 = _columnHeader.ActualHeight - 7;
         double y2 = y1 + 4;
 
         if (_direction == ListSortDirection.Ascending)
@@ -346,4 +371,4 @@ namespace Qhta.WPF.Utils
 
     #endregion
   }
-  }
+}

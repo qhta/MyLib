@@ -61,18 +61,21 @@ namespace Qhta.ObservableViewModels
         case NotifyCollectionChangedAction.Add:
           foreach (var item in args.NewItems.Cast<TValue>())
           {
-            if (Filter == null || Filter(item))
-            {
-              this.Add(item);
-            }
+            if (Filter == null)
+              base.Add(item);
             else
-              Debug.WriteLine($"{item} not accepted by filter");
+            {
+              if (Filter(item))
+                base.Add(item);
+              //else
+                //Debug.WriteLine($"{item} not accepted by filter");
+            }
           }
           break;
         case NotifyCollectionChangedAction.Remove:
           foreach (var item in args.OldItems.Cast<TValue>())
           {
-            this.Remove(item);
+            base.Remove(item);
           }
           break;
         case NotifyCollectionChangedAction.Reset:
@@ -103,7 +106,7 @@ namespace Qhta.ObservableViewModels
           {
             if (Filter == null || Filter(item))
             {
-              this.Add(item);
+              base.Add(item);
             }
             //else
             //  Debug.WriteLine($"{item} not accepted by filter");
@@ -114,28 +117,16 @@ namespace Qhta.ObservableViewModels
     }
     private Func<TValue, bool> _filter;
 
-    ///// <summary>
-    ///// The number of filtered items.
-    ///// </summary>
-    ///// <returns></returns>
-    //public override int Count
-    //{
-    //  get
-    //  {
-    //    Debug.WriteLine($"{this}.Count");
-    //    return Items.Count();
-    //  }
-    //}
 
-    //public override void Add(TValue item)
-    //{
-    //  Source.Add(item);
-    //}
+    public override void Add(TValue item)
+    {
+      Source.Add(item);
+    }
 
-    //public override bool Remove(TValue item)
-    //{
-    //  return Source.Remove(item);
-    //}
+    public override bool Remove(TValue item)
+    {
+      return Source.Remove(item);
+    }
 
     //public override void Clear()
     //{

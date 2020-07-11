@@ -81,6 +81,9 @@
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
+    <Compile Include="TimingMessageBox.xaml.cs">
+      <DependentUpon>TimingMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TreeViewBehavior.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />
@@ -196,6 +199,10 @@
     <Page Include="Resources\WpfUtils.Resources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TimingMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

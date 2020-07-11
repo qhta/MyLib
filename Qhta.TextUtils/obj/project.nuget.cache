@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "tfTItZEVdAU5vw62X8/vJBI+kq2/r8fElr9Snsc0IWgBQZRCy39eukFkAq4m5R4Kd5sNbCgPBcIkdNgeVWY1rA==",
+  "success": true,
+  "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jerry\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Jerry\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

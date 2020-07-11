@@ -135,7 +135,7 @@ namespace Qhta.WPF.Utils
       return null;
     }
 
-    public static IInputElement FindFirstFocusableElement(DependencyObject obj)
+   public static IInputElement FindFirstFocusableElement(DependencyObject obj)
     {
       IInputElement focusableElement = null;
 
