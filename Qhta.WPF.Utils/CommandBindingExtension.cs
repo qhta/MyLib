@@ -127,7 +127,7 @@ namespace Qhta.WPF.Utils
     }
 
     // A dummy command that does nothing...
-    private class DummyCommand : ICommand
+    private class DummyCommand : NotifyingCommand
     {
 
       #region Singleton pattern
@@ -151,20 +151,6 @@ namespace Qhta.WPF.Utils
 
       #endregion
 
-      #region ICommand Members
-
-      public bool CanExecute(object parameter)
-      {
-        return false;
-      }
-
-      public event EventHandler CanExecuteChanged;
-
-      public void Execute(object parameter)
-      {
-      }
-
-      #endregion
     }
   }
 }

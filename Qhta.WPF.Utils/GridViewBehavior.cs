@@ -120,6 +120,23 @@ namespace Qhta.WPF.Utils
             new UIPropertyMetadata(null)
         );
 
+    public static Double GetHiddenWidth(DependencyObject obj)
+    {
+      return (Double)obj.GetValue(HiddenWidthProperty);
+    }
+
+    public static void SetHiddenWidth(DependencyObject obj, Double value)
+    {
+      obj.SetValue(HiddenWidthProperty, value);
+    }
+
+    public static readonly DependencyProperty HiddenWidthProperty =
+        DependencyProperty.RegisterAttached(
+            "HiddenWidth",
+            typeof(double),
+            typeof(GridViewBehavior),
+            new UIPropertyMetadata(double.NaN)
+        );
 
     public static bool GetShowSortGlyph(DependencyObject obj)
     {
@@ -507,19 +524,24 @@ namespace Qhta.WPF.Utils
       for (int i = 0; i < gridView.Columns.Count; i++)
       {
         var column = gridView.Columns[i];
+        bool isVisible = true;
         if (column.Header is String columnHeader)
         {
-          var columnInfo = new GridViewColumnInfo { ColumnNumber = i, Header = columnHeader, IsVisible = true, HiddenWidth = column.Width };
+          var columnWidth = GetHiddenWidth(column);
+          if (Double.IsNaN(columnWidth))
+          {
+            columnWidth = column.Width;
+          }
+          else if (column.Width == 0)
+            isVisible = false;
+          var columnInfo = new GridViewColumnInfo { ColumnNumber = i, Header = columnHeader, IsVisible = isVisible, HiddenWidth = columnWidth};
           result.Add(columnInfo);
-          var path = new PropertyPath(GridViewBehavior.ColumnsViewInfoProperty);
-          var pathString = path.Path;
+          var path = new PropertyPath("(0)[(1)].ActualWidth", new object[] { GridViewBehavior.ColumnsViewInfoProperty, i });
           var binding = new Binding
           {
             Path = path,
             Source = listView
           };
-          binding.Converter = new IndexedAttachedPropertyConverter("ActualWidth", Double.NaN);
-          binding.ConverterParameter = i;
           BindingOperations.SetBinding(column, GridViewColumn.WidthProperty, binding);
         }
       }
@@ -531,10 +553,12 @@ namespace Qhta.WPF.Utils
 
     public class GridViewColumnInfo: ViewModel
     {
-      public int ColumnNumber;
-      public string Header;
-      public string PropertyName;
-      public PropertyInfo Property;
+      public int ColumnNumber { get; set; }
+      public string Header { get; set; }
+      public string PropertyName { get; set; }
+
+      public PropertyInfo Property { get; set; }
+
       /// <summary>
       /// Property to change column visibility.
       /// A converter to Control.Visibility may be needed to bind to column Visibility.

@@ -98,7 +98,7 @@ namespace Qhta.WPF.Utils
 
     #region Navigation on key down
     //private bool switchSelectOnFocus = true;
-    private bool switchFocusOnSelect = false;
+    //private bool switchFocusOnSelect = false;
     private int columnToSwitch = -1;
 
     private readonly Type[] focusableElements = new Type[] { typeof(TextBox), typeof(CheckBox) };
@@ -323,7 +323,7 @@ namespace Qhta.WPF.Utils
     {
       IList items = new List<Object>(listView.ItemsSource.Cast<Object>());
       var newItem = items[index];
-      switchFocusOnSelect = true;
+      //switchFocusOnSelect = true;
       listView.SelectedItem = newItem;
     }
 

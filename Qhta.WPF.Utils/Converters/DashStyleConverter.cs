@@ -39,6 +39,7 @@ namespace Qhta.WPF.Utils
       }
       string str = value as string;
       return ((str == null) ? base.ConvertFrom(context, culture, value) : DashStyleUtils.Parse(str, context));
+
     }
 
     public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
