@@ -1,6 +1,6 @@
 ﻿namespace Qhta.MVVM
 {
-  public enum RoutingStrategy
+  public enum MvvmRoutingStrategy
   {
     Tunnel = 0,
     Bubble = 1,

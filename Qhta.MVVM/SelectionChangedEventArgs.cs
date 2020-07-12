@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace Qhta.MVVM
 {
-  public class SelectionChangedEventArgs : RoutedEventArgs
+  public class SelectionChangedEventArgs : EventArgs
   {
     public SelectionChangedEventArgs(IList selectedItems, IList unselectedItems)
     {

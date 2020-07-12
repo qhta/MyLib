@@ -1,6 +1,8 @@
-﻿namespace Qhta.MVVM
+﻿using System;
+
+namespace Qhta.MVVM
 {
-  public class CurrentItemChangedEventArgs : RoutedEventArgs
+  public class CurrentItemChangedEventArgs : EventArgs
   {
     public CurrentItemChangedEventArgs(object newItem, object oldItem)
     {

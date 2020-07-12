@@ -16,6 +16,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MvvmRoutedEvent.cs" />
+    <Compile Remove="MvvmRoutedEventArgs.cs" />
+    <Compile Remove="MvvmRoutingStrategy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Qhta.DispatchedObjects" Version="1.0.2" />
     <PackageReference Include="Qhta.OrdNumbers" Version="2.2.1" />
   </ItemGroup>

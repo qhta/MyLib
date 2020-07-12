@@ -50,9 +50,6 @@
     <Reference Include="Qhta.DispatchedObjects, Version=1.0.2.0, Culture=neutral, PublicKeyToken=2eb9223338263fec, processorArchitecture=MSIL">
       <HintPath>..\Qhta.WPF.Controls\packages\Qhta.DispatchedObjects.1.0.2\lib\netstandard2.0\Qhta.DispatchedObjects.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.HtmlUtils, Version=1.0.1.0, Culture=neutral, PublicKeyToken=326eec3dee131ef7, processorArchitecture=MSIL">
-      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.HtmlUtils.1.0.1\lib\netstandard2.0\Qhta.HtmlUtils.dll</HintPath>
-    </Reference>
     <Reference Include="Qhta.MVVM, Version=1.0.3.0, Culture=neutral, PublicKeyToken=374081c06722bca0, processorArchitecture=MSIL">
       <HintPath>..\..\WordAddIns\MyAddIns\packages\Qhta.MVVM.1.0.3\lib\netstandard2.0\Qhta.MVVM.dll</HintPath>
     </Reference>
@@ -81,6 +78,7 @@
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
+    <Compile Include="Converters\IndexedAttachedPropertyConverter.cs" />
     <Compile Include="ObservableCommand.cs" />
     <Compile Include="TimingMessageBox.xaml.cs">
       <DependentUpon>TimingMessageBox.xaml</DependentUpon>
@@ -97,7 +95,7 @@
     <Compile Include="EnumValuesProvider.cs" />
     <Compile Include="FieldUpdateEventArgs.cs" />
     <Compile Include="FieldUpdateEventHandler.cs" />
-    <Compile Include="GridViewSort.cs" />
+    <Compile Include="GridViewBehavior.cs" />
     <Compile Include="IProposedValueErrorInfo.cs" />
     <Compile Include="ListViewCustomizableCellPresenter.cs" />
     <Compile Include="ListViewNavigator.cs" />
@@ -218,6 +216,12 @@
   <ItemGroup>
     <Resource Include="Resources\ArrowPlus.cur" />
     <Content Include="Resources\image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.HtmlUtils\Qhta.HtmlUtils.csproj">
+      <Project>{f620611d-6f30-4c69-80ad-3e7baa49e658}</Project>
+      <Name>Qhta.HtmlUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

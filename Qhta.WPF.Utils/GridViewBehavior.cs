@@ -1,16 +1,24 @@
-﻿using System.ComponentModel;
+﻿using Qhta.HtmlUtils;
+using Qhta.MVVM;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Qhta.WPF.Utils
 {
-  public class GridViewSort
+  public class GridViewBehavior
   {
     #region Public attached properties
 
@@ -29,7 +37,7 @@ namespace Qhta.WPF.Utils
         DependencyProperty.RegisterAttached(
             "Command",
             typeof(ICommand),
-            typeof(GridViewSort),
+            typeof(GridViewBehavior),
             new UIPropertyMetadata(
                 null,
                 (o, e) =>
@@ -37,7 +45,7 @@ namespace Qhta.WPF.Utils
                   ItemsControl listView = o as ItemsControl;
                   if (listView != null)
                   {
-                    if (!GetAutoSort(listView)) // Don't change click handler if AutoSort enabled
+                    if (!GetSortEnabled(listView)) // Don't change click handler if SortEnabled enabled
                     {
                       if (e.OldValue != null && e.NewValue == null)
                       {
@@ -53,22 +61,22 @@ namespace Qhta.WPF.Utils
             )
         );
 
-    public static bool GetAutoSort(DependencyObject obj)
+    public static bool GetSortEnabled(DependencyObject obj)
     {
-      return (bool)obj.GetValue(AutoSortProperty);
+      return (bool)obj.GetValue(SortEnabledProperty);
     }
 
-    public static void SetAutoSort(DependencyObject obj, bool value)
+    public static void SetSortEnabled(DependencyObject obj, bool value)
     {
-      obj.SetValue(AutoSortProperty, value);
+      obj.SetValue(SortEnabledProperty, value);
     }
 
-    // Using a DependencyProperty as the backing store for AutoSort.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty AutoSortProperty =
+    // Using a DependencyProperty as the backing store for SortEnabled.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty SortEnabledProperty =
         DependencyProperty.RegisterAttached(
-            "AutoSort",
+            "SortEnabled",
             typeof(bool),
-            typeof(GridViewSort),
+            typeof(GridViewBehavior),
             new UIPropertyMetadata(
                 false,
                 (o, e) =>
@@ -104,14 +112,14 @@ namespace Qhta.WPF.Utils
       obj.SetValue(PropertyNameProperty, value);
     }
 
-    // Using a DependencyProperty as the backing store for PropertyName.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty PropertyNameProperty =
         DependencyProperty.RegisterAttached(
             "PropertyName",
             typeof(string),
-            typeof(GridViewSort),
+            typeof(GridViewBehavior),
             new UIPropertyMetadata(null)
         );
+
 
     public static bool GetShowSortGlyph(DependencyObject obj)
     {
@@ -125,7 +133,7 @@ namespace Qhta.WPF.Utils
 
     // Using a DependencyProperty as the backing store for ShowSortGlyph.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty ShowSortGlyphProperty =
-        DependencyProperty.RegisterAttached("ShowSortGlyph", typeof(bool), typeof(GridViewSort), new UIPropertyMetadata(true));
+        DependencyProperty.RegisterAttached("ShowSortGlyph", typeof(bool), typeof(GridViewBehavior), new UIPropertyMetadata(true));
 
     public static ImageSource GetSortGlyphAscending(DependencyObject obj)
     {
@@ -139,7 +147,7 @@ namespace Qhta.WPF.Utils
 
     // Using a DependencyProperty as the backing store for SortGlyphAscending.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty SortGlyphAscendingProperty =
-        DependencyProperty.RegisterAttached("SortGlyphAscending", typeof(ImageSource), typeof(GridViewSort), new UIPropertyMetadata(null));
+        DependencyProperty.RegisterAttached("SortGlyphAscending", typeof(ImageSource), typeof(GridViewBehavior), new UIPropertyMetadata(null));
 
     public static ImageSource GetSortGlyphDescending(DependencyObject obj)
     {
@@ -153,7 +161,12 @@ namespace Qhta.WPF.Utils
 
     // Using a DependencyProperty as the backing store for SortGlyphDescending.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty SortGlyphDescendingProperty =
-        DependencyProperty.RegisterAttached("SortGlyphDescending", typeof(ImageSource), typeof(GridViewSort), new UIPropertyMetadata(null));
+        DependencyProperty.RegisterAttached("SortGlyphDescending", typeof(ImageSource), typeof(GridViewBehavior), new UIPropertyMetadata(null));
+
+    public static SortDescriptionCollection GetSortDescriptions(ListView listView)
+    {
+      return listView.Items.SortDescriptions;
+    }
 
     #endregion
 
@@ -177,7 +190,7 @@ namespace Qhta.WPF.Utils
 
     #region Column header click event handler
 
-    private static void ColumnHeader_Click(object sender, RoutedEventArgs e)
+    private static void ColumnHeader_Click(object sender, System.Windows.RoutedEventArgs e)
     {
       GridViewColumnHeader clickedHeader = e.OriginalSource as GridViewColumnHeader;
       if (clickedHeader != null && clickedHeader.Column != null)
@@ -196,7 +209,7 @@ namespace Qhta.WPF.Utils
                 command.Execute(propertyName);
               }
             }
-            else if (GetAutoSort(listView))
+            else if (GetSortEnabled(listView))
             {
               ApplySort(listView.Items, propertyName, listView, clickedHeader);
             }
@@ -253,14 +266,14 @@ namespace Qhta.WPF.Utils
           var headerRowPresenter = VisualTreeHelperExt.FindInVisualTreeDown<GridViewHeaderRowPresenter>(listView);
           if (headerRowPresenter != null)
           {
-            
-            int n = VisualTreeHelper.GetChildrenCount(headerRowPresenter); 
+
+            int n = VisualTreeHelper.GetChildrenCount(headerRowPresenter);
             for (int i = 0; i < n; i++)
             {
               var columnHeader = VisualTreeHelper.GetChild(headerRowPresenter, i) as GridViewColumnHeader;
-              if (columnHeader!=null)
+              if (columnHeader != null)
                 RemoveSortGlyph(columnHeader);
-             }
+            }
           }
         }
         var direction = ListSortDirection.Ascending;
@@ -368,7 +381,225 @@ namespace Qhta.WPF.Utils
         }
       }
     }
-
     #endregion
+
+
+
+    public static int CopyToClipboard(ListView listView, Type itemType)
+    {
+      var itemsView = listView.Items;
+      var gridView = listView.View as GridView;
+      var columns = GetColumnsViewInfo(gridView, itemType);
+      SortDescriptionCollection sortDescriptions = null;
+      if (GridViewBehavior.GetSortEnabled(listView))
+      {
+        sortDescriptions = (itemsView as ICollectionView).SortDescriptions;
+      }
+
+      StringWriter text = new StringWriter();
+      StringBuilder html = new StringBuilder();
+      var headers = columns.Select(item => item.Header).ToArray();
+      text.WriteLine(String.Join("\t", headers));
+      html.Append("<table>");
+      html.Append("<tr>");
+      for (int i = 0; i < headers.Count(); i++)
+        html.Append($"<td>{headers[i]}</td>");
+      html.Append("</tr>");
+      var collection = listView.ItemsSource.Cast<ISelectable>();
+      if (sortDescriptions != null)
+      {
+        for (int i = 0; i < sortDescriptions.Count; i++)
+        {
+          var sortDescription = sortDescriptions[i];
+          if (i == 0)
+          {
+            if (sortDescription.Direction == ListSortDirection.Ascending)
+              collection = collection.OrderBy(item => item.GetType().GetProperty(sortDescription.PropertyName).GetValue(item));
+            else
+              collection = collection.OrderByDescending(item => item.GetType().GetProperty(sortDescription.PropertyName).GetValue(item));
+          }
+          else
+          {
+            if (sortDescription.Direction == ListSortDirection.Ascending)
+              collection = ((IOrderedEnumerable<ISelectable>)collection).ThenBy(item => item.GetType().GetProperty(sortDescription.PropertyName).GetValue(item));
+            else
+              collection = ((IOrderedEnumerable<ISelectable>)collection).ThenByDescending(item => item.GetType().GetProperty(sortDescription.PropertyName).GetValue(item));
+          }
+        }
+      }
+      int count = 0;
+      foreach (var item in collection.ToList())
+      {
+        if (item.IsSelected)
+        {
+          count++;
+          var values = new object[columns.Count()];
+          for (int i = 0; i < columns.Count(); i++)
+            values[i] = columns[i].Property.GetValue(item);
+          text.WriteLine(String.Join("\t", values));
+          html.Append("<tr>");
+          for (int i = 0; i < values.Count(); i++)
+            html.Append($"<td>{values[i]}</td>");
+          html.Append("</tr>");
+        }
+      }
+      html.Append("</table>");
+      text.Flush();
+      var plainText = text.ToString();
+      var htmlFormat = HtmlTextUtils.FormatHtmlForClipboard(html.ToString());
+      var dataObject = new DataObject();
+      dataObject.SetData(DataFormats.Html, htmlFormat);
+      dataObject.SetData(DataFormats.Text, plainText);
+      Clipboard.SetDataObject(dataObject, true);
+      return count;
+    }
+
+    public static List<GridViewColumnInfo> GetColumnsViewInfo(GridView gridView, Type itemType)
+    {
+      var infos = new List<GridViewColumnInfo>();
+      for (int i = 0; i < gridView.Columns.Count; i++)
+      {
+        var column = gridView.Columns[i];
+        string propertyName = null;
+        var binding = column.DisplayMemberBinding;
+        if (binding is Binding dataBinding)
+          propertyName = dataBinding.Path.Path;
+        if (propertyName == null)
+          propertyName = GridViewBehavior.GetPropertyName(column);
+        if (propertyName != null)
+        {
+          var info = new GridViewColumnInfo();
+          info.PropertyName = propertyName;
+          string header = column.Header?.ToString();
+          info.Header = header;
+          var property = itemType.GetProperty(propertyName);
+          if (property == null)
+            throw new InvalidOperationException($"Property \"{propertyName}\" not found in {itemType} type");
+          info.Property = property;
+          infos.Add(info);
+        }
+      }
+      return infos;
+    }
+
+    public static ColumnsViewInfo GetColumnsViewInfo(DependencyObject obj)
+    {
+      return (ColumnsViewInfo)obj.GetValue(ColumnsViewInfoProperty);
+    }
+
+    public static void SetColumnsViewInfo(DependencyObject obj, ColumnsViewInfo value)
+    {
+      obj.SetValue(ColumnsViewInfoProperty, value);
+    }
+
+    public static readonly DependencyProperty ColumnsViewInfoProperty =
+        DependencyProperty.RegisterAttached(
+            "ColumnsViewInfo",
+            typeof(ColumnsViewInfo),
+            typeof(GridViewBehavior),
+            new UIPropertyMetadata(null)
+        );
+
+    public static ColumnsViewInfo InitColumnsViewInfo(ListView listView)
+    {
+      var result = new ColumnsViewInfo();
+      var gridView = listView.View as GridView;
+      for (int i = 0; i < gridView.Columns.Count; i++)
+      {
+        var column = gridView.Columns[i];
+        if (column.Header is String columnHeader)
+        {
+          var columnInfo = new GridViewColumnInfo { ColumnNumber = i, Header = columnHeader, IsVisible = true, HiddenWidth = column.Width };
+          result.Add(columnInfo);
+          var path = new PropertyPath(GridViewBehavior.ColumnsViewInfoProperty);
+          var pathString = path.Path;
+          var binding = new Binding
+          {
+            Path = path,
+            Source = listView
+          };
+          binding.Converter = new IndexedAttachedPropertyConverter("ActualWidth", Double.NaN);
+          binding.ConverterParameter = i;
+          BindingOperations.SetBinding(column, GridViewColumn.WidthProperty, binding);
+        }
+      }
+      SetColumnsViewInfo(listView, result);
+      return result;
+    }
+
+
+
+    public class GridViewColumnInfo: ViewModel
+    {
+      public int ColumnNumber;
+      public string Header;
+      public string PropertyName;
+      public PropertyInfo Property;
+      /// <summary>
+      /// Property to change column visibility.
+      /// A converter to Control.Visibility may be needed to bind to column Visibility.
+      /// If IsVisibile is changed then ActualWidth is also changed.
+      /// </summary>
+      public bool IsVisible
+      {
+        get => _isVisible;
+        set
+        {
+          if (_isVisible != value)
+          {
+            _isVisible = value;
+            if (IsVisible)
+              ActualWidth = HiddenWidth;
+            else
+              ActualWidth = 0;
+            NotifyPropertyChanged(nameof(IsVisible));
+          }
+        }
+      }
+      private bool _isVisible = true;
+
+      /// <summary>
+      /// Actual width of the column. Is changed between 0 and HiddenWidth
+      /// when IsVisible is changed.
+      /// </summary>
+      public double ActualWidth
+      {
+        get => _actualWidth;
+        set
+        {
+          if (_actualWidth != value)
+          {
+            _actualWidth = value;
+            NotifyPropertyChanged(nameof(ActualWidth));
+          }
+        }
+      }
+      private double _actualWidth = double.NaN;
+
+      /// <summary>
+      /// Hidden width of the column. Should be initialized 
+      /// if ActualWidth is to be changed when IsVisible changes.
+      public double HiddenWidth
+      {
+        get => _hiddenWidth;
+        set
+        {
+          if (_hiddenWidth != value)
+          {
+            _hiddenWidth = value;
+            NotifyPropertyChanged(nameof(HiddenWidth));
+            if (IsVisible)
+              ActualWidth = value;
+          }
+        }
+
+      }
+      private double _hiddenWidth = double.NaN;
+    }
+
+    public class ColumnsViewInfo : List<GridViewColumnInfo>
+    {
+    }
+
   }
 }

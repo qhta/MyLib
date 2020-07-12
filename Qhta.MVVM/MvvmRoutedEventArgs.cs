@@ -5,17 +5,17 @@ namespace Qhta.MVVM
   public class RoutedEventArgs : EventArgs
   {
     public RoutedEventArgs() { }
-    public RoutedEventArgs(RoutedEvent routedEvent)
+    public RoutedEventArgs(MvvmRoutedEvent routedEvent)
     {
       RoutedEvent = routedEvent;
     }
-    public RoutedEventArgs(RoutedEvent routedEvent, object source)
+    public RoutedEventArgs(MvvmRoutedEvent routedEvent, object source)
     {
       RoutedEvent = routedEvent;
       Source = source;
     }
 
-    public RoutedEvent RoutedEvent { get; set; }
+    public MvvmRoutedEvent RoutedEvent { get; set; }
     public bool Handled { get; set; }
     public object Source { get; set; }
     public object OriginalSource { get; }
