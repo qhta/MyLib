@@ -34,7 +34,7 @@ namespace Qhta.ObservableViewModels
 
     private void Init()
     {
-      SecondaryIndex = new ObservableDataIndex<TSecondaryKey, TValue>(_dispatcher);
+      SecondaryIndex = new ObservableDataIndex<TSecondaryKey, TValue>(Dispatcher);
     }
 
     public ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex { get; private set; }

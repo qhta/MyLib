@@ -36,7 +36,7 @@ namespace Qhta.ObservableViewModels
 
     private void Init(Type keyType, string[] properties)
     { 
-      Items = new ObservableDictionary<object, TValue>(_dispatcher);
+      Items = new ObservableDictionary<object, TValue>(Dispatcher);
       foreach (var propName in properties)
       {
         var propInfo = typeof(TValue).GetProperty(propName);

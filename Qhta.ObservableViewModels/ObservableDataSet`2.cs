@@ -30,7 +30,7 @@ namespace Qhta.ObservableViewModels
 
     private void Init()
     {
-      PrimaryIndex = new ObservableDictionary<TKey, TValue>(_dispatcher);
+      PrimaryIndex = new ObservableDictionary<TKey, TValue>(Dispatcher);
       foreach (var propInfo in typeof(TValue).GetProperties())
       {
         if (propInfo.GetCustomAttribute<KeyAttribute>() != null)

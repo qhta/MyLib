@@ -23,7 +23,7 @@ namespace Qhta.ObservableViewModels
 
     public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
     {
-      Items = new ObservableList<TValue>(_dispatcher);
+      Items = new ObservableList<TValue>(Dispatcher);
     }
 
     public readonly ObservableList<TValue> Items;

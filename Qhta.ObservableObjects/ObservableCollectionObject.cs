@@ -73,7 +73,7 @@ namespace Qhta.ObservableObjects
         return;
       }
 
-      if (_dispatcher != null)
+      if (Dispatcher != null)
       {
         //var newItemsCount = args.NewItems?.Count ?? 0;
         //var oldItemsCount = args.OldItems?.Count ?? 0;
@@ -93,7 +93,7 @@ namespace Qhta.ObservableObjects
         //  $" {DateTime.Now.ToString(dateTimeFormat)}");
 
         //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-        _dispatcher.BeginInvoke(DispatcherPriority.DataBind, 
+        Dispatcher.BeginInvoke(DispatcherPriority.DataBind, 
           new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
       }
       else

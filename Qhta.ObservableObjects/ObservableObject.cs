@@ -17,7 +17,7 @@ namespace Qhta.ObservableObjects
         if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
           Debug.WriteLine($"{this} should be created in STA thread");
 #endif
-      _dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+      Dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
     }
 
     public ObservableObject(Dispatcher dispatcher)
@@ -29,10 +29,10 @@ namespace Qhta.ObservableObjects
         if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
           Debug.WriteLine($"{this} should be created with STA thread dispatcher");
 #endif
-      _dispatcher = dispatcher;
+      Dispatcher = dispatcher;
     }
 
-    protected Dispatcher _dispatcher;
+    protected Dispatcher Dispatcher;
 
     public virtual void SetDispatcher (Dispatcher dispatcher)
     {
@@ -41,7 +41,7 @@ namespace Qhta.ObservableObjects
         if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
           Debug.WriteLine($"{this} should be set with STA thread dispatcher");
 #endif
-      _dispatcher = dispatcher;
+      Dispatcher = dispatcher;
     }
 
     public virtual object LockObject => this;
@@ -62,9 +62,9 @@ namespace Qhta.ObservableObjects
       {
 
         var args = new PropertyChangedEventArgs(propertyName);
-        if (_dispatcher != null)
+        if (Dispatcher != null)
         {
-          _dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
+          Dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
         }
         else
           try
