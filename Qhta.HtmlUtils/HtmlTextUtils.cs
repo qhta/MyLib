@@ -11,13 +11,16 @@ namespace Qhta.HtmlUtils
   public static class HtmlTextUtils
   {
 
-    public static string EncodeHtmlEntities(this string text)
+    public static string EncodeHtmlEntities(this string text, bool inTable=false)
     {
-      text = text.Replace("\u00A0", "&nbsp;")
+      if (inTable && text == null)
+        return "&nbsp;";
+      text = text
+        .Replace("&", "&amp;")
+        .Replace("\u00A0", "&nbsp;")
         .Replace("\"", "&quot;")
         .Replace("<", "&lt;")
         .Replace(">", "&gt;")
-        .Replace("&", "&amp;")
         ;
       return text;
     }
@@ -182,7 +185,7 @@ namespace Qhta.HtmlUtils
       return str.Trim();
     }
 
-    public static object FormatHtmlForClipboard(string htmlFragment)
+    public static MemoryStream FormatHtmlForClipboard(string htmlFragment)
     {
       string headerFormat
         = "Version:0.9\r\nStartHTML:{0:000000}\r\nEndHTML:{1:000000}"

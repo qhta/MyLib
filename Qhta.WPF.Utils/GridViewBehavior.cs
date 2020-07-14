@@ -420,7 +420,7 @@ namespace Qhta.WPF.Utils
       html.Append("<table>");
       html.Append("<tr>");
       for (int i = 0; i < headers.Count(); i++)
-        html.Append($"<td>{headers[i]}</td>");
+        html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i], true)}</p></td>");
       html.Append("</tr>");
       var collection = listView.ItemsSource.Cast<ISelectable>();
       if (sortDescriptions != null)
@@ -450,20 +450,21 @@ namespace Qhta.WPF.Utils
         if (item.IsSelected)
         {
           count++;
-          var values = new object[columns.Count()];
+          var values = new string[columns.Count()];
           for (int i = 0; i < columns.Count(); i++)
-            values[i] = columns[i].Property.GetValue(item);
+            values[i] = columns[i].Property.GetValue(item)?.ToString();
           text.WriteLine(String.Join("\t", values));
           html.Append("<tr>");
           for (int i = 0; i < values.Count(); i++)
-            html.Append($"<td>{values[i]}</td>");
+            html.Append($"<td>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(values[i], true)}</td>");
           html.Append("</tr>");
         }
       }
       html.Append("</table>");
       text.Flush();
       var plainText = text.ToString();
-      var htmlFormat = HtmlTextUtils.FormatHtmlForClipboard(html.ToString());
+      var htmlText = html.ToString();
+      var htmlFormat = HtmlTextUtils.FormatHtmlForClipboard(htmlText);
       var dataObject = new DataObject();
       dataObject.SetData(DataFormats.Html, htmlFormat);
       dataObject.SetData(DataFormats.Text, plainText);

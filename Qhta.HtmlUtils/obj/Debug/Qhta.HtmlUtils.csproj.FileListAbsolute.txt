@@ -6,3 +6,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\Qhta.HtmlUtils.AssemblyInfoIn
 D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\Qhta.HtmlUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\Qhta.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\Qhta.HtmlUtils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\Qhta.HtmlUtils.csprojAssemblyReference.cache
