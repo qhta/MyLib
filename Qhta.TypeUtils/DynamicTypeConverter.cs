@@ -11,12 +11,22 @@ namespace Qhta.TypeUtils
     private TypeConverter TypeConverter;
     private Type TargetType;
 
+    /// <summary>
+    /// Initializing constructor
+    /// </summary>
+    /// <param name="typeConverter"></param>
+    /// <param name="targetType"></param>
     public DynamicTypeConverter(TypeConverter typeConverter, Type targetType)
     {
       TypeConverter = typeConverter;
       TargetType = targetType;
     }
 
+    /// <summary>
+    /// Wraps TypeConverter.ConvertFrom
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
     public object Convert(object value)
     {
       return TypeConverter.ConvertFrom(value);

@@ -28,7 +28,7 @@ namespace Qhta.WPF.Utils
         return ((DashStyle)context.Instance).CanSerializeToString();
       }
       object[] args = new object[] { "DashStyle" };
-      throw new ArgumentException(SR.Get("General_Expected_Type", args), "context");
+      throw new ArgumentException("Expected general type", "context");
     }
 
     public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -51,7 +51,7 @@ namespace Qhta.WPF.Utils
         {
           if (((context != null) && (context.Instance != null)) && !DashStyle.CanSerializeToString())
           {
-            throw new NotSupportedException(SR.Get("Converter_ConvertToNotSupported"));
+            throw new NotSupportedException("Convert to not supported");
           }
           return DashStyle.ConvertToString(null, culture);
         }

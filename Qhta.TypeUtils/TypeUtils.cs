@@ -362,8 +362,7 @@ namespace Qhta.TypeUtils
     ///   when an <paramref name="inherit"/> parameter is set for <c>true</c>
     ///   Then attributes are taken also from superclasses,
     ///   but are also ordered with inheritance order.
-    ///  </summary>
-    /// <summary>
+    /// </summary>
     /// <param name="aType">A type which attributes are searched</param>
     /// <param name="inherit">Search in superclasses?</param>
     /// <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
@@ -400,8 +399,7 @@ namespace Qhta.TypeUtils
     ///   Then attributes are taken also from superclasses,
     ///   but are also ordered with inheritance order.
     ///   Only attributes of a specified type are returned.
-    ///  </summary>
-    /// <summary>
+    /// </summary>
     /// <typeparam name="TAttribute">A type of searched attributes</typeparam>
     /// <param name="aType">A type which attributes are searched</param>
     /// <param name="inherit">Search in superclasses?</param>

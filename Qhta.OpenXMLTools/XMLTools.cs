@@ -12,7 +12,7 @@ namespace Qhta.OpenXMLTools
 {
   public class WordXMLDocument
   {
-    private XDocument xDocument;
+    //private XDocument xDocument;
 
     public WordXMLDocument(string xml)
     {

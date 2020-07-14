@@ -6,4 +6,3 @@ D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfoIn
 D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.csprojAssemblyReference.cache

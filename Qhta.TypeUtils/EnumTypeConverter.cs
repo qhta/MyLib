@@ -107,6 +107,13 @@ namespace Qhta.TypeUtils
       }
     }
 
+    /// <summary>
+    /// Remove specific chars from string
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="from"></param>
+    /// <param name="charsToRemove"></param>
+    /// <returns></returns>
     public static string RemoveAll(this string str, int from, char[] charsToRemove)
     {
       var chars = str.ToCharArray().ToList();
@@ -116,6 +123,12 @@ namespace Qhta.TypeUtils
       return new string(chars.ToArray());
     }
 
+    /// <summary>
+    /// Translating enum value to string
+    /// </summary>
+    /// <typeparam name="EType"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
     public static string Encode<EType>(EType value) where EType: struct, IConvertible
     {
       if (!convDict.ContainsKey(typeof(EType)))
@@ -139,6 +152,12 @@ namespace Qhta.TypeUtils
         return convDict[typeof(EType)].ValueToString[((IConvertible)value).ToUInt64(null)];
     }
 
+    /// <summary>
+    /// Translating string value to enum value
+    /// </summary>
+    /// <typeparam name="EType"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerStepThrough]
     public static EType Decode<EType>(string value) where EType : struct, IConvertible
@@ -149,6 +168,13 @@ namespace Qhta.TypeUtils
       return result;
     }
 
+    /// <summary>
+    /// Trying translating string value to enum value
+    /// </summary>
+    /// <typeparam name="EType"></typeparam>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerStepThrough]
     public static bool TryDecode<EType>(string value, out EType result) where EType : struct, IConvertible
@@ -156,6 +182,14 @@ namespace Qhta.TypeUtils
       return TryDecode<EType>(value, out result, out string invKey);
     }
 
+    /// <summary>
+    /// Trying translating string value to enum value
+    /// </summary>
+    /// <typeparam name="EType"></typeparam>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="invalidKey"></param>
+    /// <returns></returns>
     [DebuggerStepThrough]
     public static bool TryDecode<EType>(string value, out EType result, out string invalidKey) where EType : struct, IConvertible
     {

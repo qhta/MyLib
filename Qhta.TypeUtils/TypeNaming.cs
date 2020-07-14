@@ -28,6 +28,11 @@ namespace Qhta.TypeUtils
       { typeof(TimeSpan),  "TimeSpan" },
     };
 
+    /// <summary>
+    /// Getting specific name of the type
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public static string GetTypeName(this Type type)
     {
       string name;
