@@ -49,7 +49,7 @@ namespace Qhta.ObservableViewModels
       Source = source;
       if (source != null)
       {
-        source.CollectionChanged += Source_CollectionChanged;
+        source.CollectionChangedImmediately += Source_CollectionChanged;
       }
       _filter = filter;
     }
@@ -61,24 +61,24 @@ namespace Qhta.ObservableViewModels
         case NotifyCollectionChangedAction.Add:
           foreach (var item in args.NewItems.Cast<TValue>())
           {
-            if (Filter == null)
-              base.Add(item);
-            else
+            if (Filter == null || Filter(item))
             {
-              if (Filter(item))
+              if (!base.Contains(item))
                 base.Add(item);
-              //else
-                //Debug.WriteLine($"{item} not accepted by filter");
             }
+
           }
           break;
         case NotifyCollectionChangedAction.Remove:
           foreach (var item in args.OldItems.Cast<TValue>())
           {
+            //Debug.WriteLine($"Source_CollectionChanged.Remove({item})");
             base.Remove(item);
           }
           break;
         case NotifyCollectionChangedAction.Reset:
+          //Debug.WriteLine($"Source_CollectionChanged.Reset()");
+          //Requery();
           NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
           break;
         default:
@@ -97,26 +97,38 @@ namespace Qhta.ObservableViewModels
         if (_filter != value)
         {
           _filter = value;
-          //Debug.WriteLine($"ObservableDataQuery.SetFilter(Filtered={_filter != null})");
-          Items.Clear();
-          //Debug.WriteLine($"ObservableDataQuery.Cleared");
-          NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-          Thread.Sleep(100); // this time is needed for view refresh
-          foreach (var item in Source)
-          {
-            if (Filter == null || Filter(item))
-            {
-              base.Add(item);
-            }
-            //else
-            //  Debug.WriteLine($"{item} not accepted by filter");
-          }
-          //Debug.WriteLine($"ObservableDataQuery.SetFilter end");
+          Requery();
         }
       }
     }
     private Func<TValue, bool> _filter;
 
+    public virtual void Requery()
+    {
+      //Debug.WriteLine($"ObservableDataQuery.Requery({_filter != null})");
+      Items.Clear();
+      //Debug.WriteLine($"ObservableDataQuery.Cleared Items.Count={Items.Count}");
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      Thread.Sleep(100); // this time is needed for view refresh
+      var notifySave = this.NotifyCollectionChangedEnabled;
+      NotifyCollectionChangedEnabled = false;
+      foreach (var item in Source)
+      {
+        if (Filter == null || Filter(item))
+        {
+          //Debug.WriteLine($"ObservableDataQuery.Requery.Add({item})");
+          if (!base.Contains(item))
+            base.Add(item);
+          //Debug.WriteLine($"Items.Count={Items.Count}");
+        }
+        //else
+        //  Debug.WriteLine($"{item} not accepted by filter");
+      }
+      NotifyCollectionChangedEnabled = notifySave;
+      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      //Debug.WriteLine($"ObservableDataQuery.Requery end");
+
+    }
 
     public override void Add(TValue item)
     {

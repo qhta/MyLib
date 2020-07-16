@@ -253,10 +253,13 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items = new List<T>();
+        var priorItems = _items.ToList();
+        foreach (var item in priorItems)
+          _items.Remove(item);
+        _items.Clear();
         var enumerator = GetEnumerator();
         enumerator.Dispose();
-        //NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       }
     }
 

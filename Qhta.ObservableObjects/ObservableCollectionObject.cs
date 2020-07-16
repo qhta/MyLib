@@ -19,6 +19,8 @@ namespace Qhta.ObservableObjects
 
     public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
 
+    public virtual event NotifyCollectionChangedEventHandler CollectionChangedImmediately;
+
     public bool NotifyCollectionChangedEnabled { get; set; } = true;
 
     public void BulkChangeStart(NotifyCollectionChangedAction action)
@@ -49,7 +51,7 @@ namespace Qhta.ObservableObjects
 
     protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
-      if (args.Action==bulkAction)
+      if (args.Action == bulkAction)
       {
         if (bulkIndex == -1)
           bulkIndex = args.NewStartingIndex;
@@ -65,15 +67,13 @@ namespace Qhta.ObservableObjects
         return;
       }
 
-      var notifyCollectionChangedEventHandler = CollectionChanged;
-
-      if (notifyCollectionChangedEventHandler == null)
-      {
-        //Debug.WriteLine("OnCollectionChanged return as notifyCollectionChangedEventHandler is null");
-        return;
-      }
-
-      if (Dispatcher != null)
+      HandleCollectionChangedEvent(CollectionChangedImmediately, args, true);
+      HandleCollectionChangedEvent(CollectionChanged, args, false);
+    }
+    private void HandleCollectionChangedEvent(NotifyCollectionChangedEventHandler notifyCollectionChangedEventHandler, 
+      NotifyCollectionChangedEventArgs args,  bool immediately)
+    { 
+      if (notifyCollectionChangedEventHandler != null)
       {
         //var newItemsCount = args.NewItems?.Count ?? 0;
         //var oldItemsCount = args.OldItems?.Count ?? 0;
@@ -92,18 +92,22 @@ namespace Qhta.ObservableObjects
         //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action})" +
         //  $" {DateTime.Now.ToString(dateTimeFormat)}");
 
-        //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-        Dispatcher.BeginInvoke(DispatcherPriority.DataBind, 
-          new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
-      }
-      else
+        if (Dispatcher != null)
+        {
+          //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
+          Dispatcher.BeginInvoke(DispatcherPriority.DataBind,
+            new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
+        }
+        else
 
-      foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
-      {
-        //handler.Invoke(this, args);
-        handler.BeginInvoke(this, args, null, null);
+          foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
+          {
+            //handler.Invoke(this, args);
+            handler.BeginInvoke(this, args, null, null);
+          }
       }
     }
+
 
     private void NotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgs args)
     {
