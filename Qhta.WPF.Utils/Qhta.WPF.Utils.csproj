@@ -78,6 +78,7 @@
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
+    <Compile Include="JoinStrings.cs" />
     <Compile Include="ObservableCommand.cs" />
     <Compile Include="TimingMessageBox.xaml.cs">
       <DependentUpon>TimingMessageBox.xaml</DependentUpon>
