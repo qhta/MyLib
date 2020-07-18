@@ -257,20 +257,19 @@ namespace Qhta.WPF.Utils
     {
       bool addSortColumn = Keyboard.GetKeyStates(Key.LeftShift).HasFlag(KeyStates.Down);
       SortDescription sortDescription = default(SortDescription);
-      var propertyNames = propertyName.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-      if (propertyNames.Count() > 1)
+      if (TryGetPropertyNames(propertyName, out var propertyNames, out var directions))
       {
         for (int i = 0; i < propertyNames.Count(); i++)
         {
           if (i==0)
-            sortDescription = ApplySort(view, propertyNames[i], listView, addSortColumn);
+            sortDescription = ApplySort(view, propertyNames[i], listView, addSortColumn, directions[i]);
           else
-            ApplySort(view, propertyNames[i], listView, true);
+            ApplySort(view, propertyNames[i], listView, true, directions[i]);
         }
       }
       else
       {
-        sortDescription = ApplySort(view, propertyName, listView, addSortColumn);
+        sortDescription = ApplySort(view, propertyName, listView, addSortColumn, directions[0]);
       }
       if (!addSortColumn)
         RemoveAllSortGlyphs(listView);
@@ -284,18 +283,45 @@ namespace Qhta.WPF.Utils
       }
     }
 
-    private static SortDescription ApplySort(ICollectionView view, string propertyName, ListView listView, bool addSortColumn)
+    private static bool TryGetPropertyNames(string properyNames, out string[] names, out ListSortDirection[] directions)
+    {
+      names = properyNames.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+      directions = new ListSortDirection[names.Count()];
+      for (int i=0; i<names.Count(); i++)
+        if (names[i].StartsWith("!"))
+        {
+          directions[i] = ListSortDirection.Descending;
+          names[i] = names[i].Substring(1);
+        }
+      return names.Count() > 1;
+    }
+
+    private static string[] GetPropertyNames(string properyNames)
+    {
+      var names = properyNames.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+      for (int i = 0; i < names.Count(); i++)
+        if (names[i].StartsWith("!"))
+        {
+          names[i] = names[i].Substring(1);
+        }
+      return names;
+    }
+
+    private static ListSortDirection Opposite(ListSortDirection direction) 
+           => direction == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
+
+    private static SortDescription ApplySort(ICollectionView view, string propertyName, ListView listView, bool addSortColumn, ListSortDirection direction)
     {
       SortDescription sortDescription = view.SortDescriptions.FirstOrDefault(item => item.PropertyName == propertyName);
       // if (property was already selected to sort)
       if (sortDescription != default(SortDescription))
       { 
-        // if (property was selected to sort ascending)
-        if (sortDescription.Direction == ListSortDirection.Ascending)
+        // if (property was sorted according to direction)
+        if (sortDescription.Direction == direction)
         { 
-          // switch property sort to descending
+          // switch property sort to opposite direction
           view.SortDescriptions.Remove(sortDescription);
-          sortDescription = new SortDescription(propertyName, ListSortDirection.Descending);
+          sortDescription = new SortDescription(propertyName, Opposite(direction));
           view.SortDescriptions.Add(sortDescription);
           return sortDescription;
         }
@@ -313,7 +339,7 @@ namespace Qhta.WPF.Utils
           // remove all sort info
           view.SortDescriptions.Clear();
         // switch property sort to ascending
-        sortDescription = new SortDescription(propertyName, ListSortDirection.Ascending);
+        sortDescription = new SortDescription(propertyName, direction);
         view.SortDescriptions.Add(sortDescription);
         return sortDescription;
       }
@@ -525,7 +551,7 @@ namespace Qhta.WPF.Utils
           if (header2 != null)
             header = header2;
           info.Header = header;
-          var propertyNames = propertyName.Split(new char[] { ',', ';' });
+          var propertyNames = GetPropertyNames(propertyName);
           var headerStrings = header.Split(new char[] { ',', ';' });
           for (int k = 0; k < propertyNames.Count(); k++)
           {
