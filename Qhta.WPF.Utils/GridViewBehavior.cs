@@ -1,8 +1,10 @@
 ﻿using Qhta.HtmlUtils;
 using Qhta.MVVM;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -143,6 +145,61 @@ namespace Qhta.WPF.Utils
         );
     #endregion
 
+    #region ShowColumnWidthChangeCursor property
+    public static bool GetShowColumnWidthChangeCursor(DependencyObject obj)
+    {
+      return (bool)obj.GetValue(ShowColumnWidthChangeCursorProperty);
+    }
+
+    public static void SetShowColumnWidthChangeCursor(DependencyObject obj, bool value)
+    {
+      obj.SetValue(ShowColumnWidthChangeCursorProperty, value);
+    }
+
+    public static readonly DependencyProperty ShowColumnWidthChangeCursorProperty =
+        DependencyProperty.RegisterAttached("ShowColumnWidthChangeCursor", typeof(bool), typeof(GridViewBehavior),
+          new UIPropertyMetadata(
+                false,
+                (obj, e) =>
+                {
+                  ListView listView = obj as ListView;
+                  GridView gridView = obj as GridView;
+                  if (gridView == null && listView!=null)
+                    gridView = listView.View as GridView;
+
+
+                  if (gridView != null)
+                  {
+                    bool oldValue = (bool)e.OldValue;
+                    bool newValue = (bool)e.NewValue;
+                    if (oldValue && !newValue)
+                    {
+                      listView.RemoveHandler(GridViewColumnHeader.MouseMoveEvent, new RoutedEventHandler(ColumnHeader_MouseMove));
+                    }
+                    if (!oldValue && newValue)
+                    {
+                      listView.AddHandler(GridViewColumnHeader.MouseMoveEvent, new RoutedEventHandler(ColumnHeader_MouseMove));
+                    }
+                  }
+                }
+            ));
+    #endregion
+
+    #region ColumnWidthChangeCursor property
+    public static Cursor GetColumnWidthChangeCursor(DependencyObject obj)
+    {
+      return (Cursor)obj.GetValue(ColumnWidthChangeCursorProperty);
+    }
+
+    public static void SetColumnWidthChangeCursor(DependencyObject obj, Cursor value)
+    {
+      obj.SetValue(ColumnWidthChangeCursorProperty, value);
+    }
+
+    public static readonly DependencyProperty ColumnWidthChangeCursorProperty =
+        DependencyProperty.RegisterAttached("ColumnWidthChangeCursor", typeof(Cursor), typeof(GridViewBehavior), new UIPropertyMetadata(Cursors.SizeWE));
+    #endregion
+
     #region ShowSortGlyph property
     public static bool GetShowSortGlyph(DependencyObject obj)
     {
@@ -174,7 +231,7 @@ namespace Qhta.WPF.Utils
         DependencyProperty.RegisterAttached("SortGlyphAscending", typeof(ImageSource), typeof(GridViewBehavior), new UIPropertyMetadata(null));
     #endregion
 
-    #region SortGlyphAscending property
+    #region SortGlyphDescending property
     public static ImageSource GetSortGlyphDescending(DependencyObject obj)
     {
       return (ImageSource)obj.GetValue(SortGlyphDescendingProperty);
@@ -206,7 +263,7 @@ namespace Qhta.WPF.Utils
 
     #endregion
 
-    #region Column header click event handler
+    #region Event handlers
 
     private static void ColumnHeader_Click(object sender, System.Windows.RoutedEventArgs e)
     {
@@ -236,6 +293,27 @@ namespace Qhta.WPF.Utils
       }
     }
 
+    private static void ColumnHeader_MouseMove(object sender, System.Windows.RoutedEventArgs args)
+    {
+      var listView = args.Source as ListView;
+      var gridViewHeaderRowPresenter = VisualTreeHelperExt.FindInVisualTreeDown<GridViewHeaderRowPresenter>(listView);
+      if (gridViewHeaderRowPresenter != null)
+      {
+        var pos = Mouse.GetPosition(gridViewHeaderRowPresenter);
+        //if (pos.X >= 0 && pos.Y >= 0 && pos.X < gridViewHeaderRowPresenter.ActualWidth && pos.Y < gridViewHeaderRowPresenter.ActualHeight)
+        {
+          Debug.WriteLine($"over gridViewHeaderRowPresenter({pos.X}, {pos.Y})");
+          //  listView.
+          //  GridViewColumnHeader;
+          //if (header != null && header.Column != null)
+          //{
+          //  header.Cursor = Cursors.SizeWE;
+          //}
+        }
+      }
+    }
+
+
     #endregion
 
     #region Sort methods
@@ -261,7 +339,7 @@ namespace Qhta.WPF.Utils
       {
         for (int i = 0; i < propertyNames.Count(); i++)
         {
-          if (i==0)
+          if (i == 0)
             sortDescription = ApplySort(view, propertyNames[i], listView, addSortColumn, directions[i]);
           else
             ApplySort(view, propertyNames[i], listView, true, directions[i]);
@@ -287,7 +365,7 @@ namespace Qhta.WPF.Utils
     {
       names = properyNames.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
       directions = new ListSortDirection[names.Count()];
-      for (int i=0; i<names.Count(); i++)
+      for (int i = 0; i < names.Count(); i++)
         if (names[i].StartsWith("!"))
         {
           directions[i] = ListSortDirection.Descending;
@@ -307,7 +385,7 @@ namespace Qhta.WPF.Utils
       return names;
     }
 
-    private static ListSortDirection Opposite(ListSortDirection direction) 
+    private static ListSortDirection Opposite(ListSortDirection direction)
            => direction == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
 
     private static SortDescription ApplySort(ICollectionView view, string propertyName, ListView listView, bool addSortColumn, ListSortDirection direction)
@@ -315,10 +393,10 @@ namespace Qhta.WPF.Utils
       SortDescription sortDescription = view.SortDescriptions.FirstOrDefault(item => item.PropertyName == propertyName);
       // if (property was already selected to sort)
       if (sortDescription != default(SortDescription))
-      { 
+      {
         // if (property was sorted according to direction)
         if (sortDescription.Direction == direction)
-        { 
+        {
           // switch property sort to opposite direction
           view.SortDescriptions.Remove(sortDescription);
           sortDescription = new SortDescription(propertyName, Opposite(direction));
@@ -623,6 +701,129 @@ namespace Qhta.WPF.Utils
       return result;
     }
     #endregion
+
+
+    #region FitLastColumnWidth
+    public static readonly DependencyProperty FitLastColumnWidthProperty = DependencyProperty.RegisterAttached(
+        "FitLastColumnWidth",
+        typeof(bool),
+        typeof(ListViewBehavior),
+        new PropertyMetadata(default(bool), OnFitLastColumnWidthChanged));
+
+    public static bool GetFitLastColumnWidth(DependencyObject target)
+    {
+      return (bool)target.GetValue(FitLastColumnWidthProperty);
+    }
+
+    public static void SetFitLastColumnWidth(DependencyObject target, bool value)
+    {
+      target.SetValue(FitLastColumnWidthProperty, value);
+    }
+
+    private static void OnFitLastColumnWidthChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+    {
+      var listView = sender as ListView;
+      if (listView == null || e.NewValue == null)
+        return;
+      listView.Dispatcher.Invoke(() =>
+      {
+        listView.UpdateLayout();
+        listView.FitLastColumnWidthEnable((bool)e.NewValue);
+        listView.UpdateLayout();
+      });
+    }
+
+    public static void FitLastColumnWidthEnable(ListView listView, bool value)
+    {
+      if (value)
+      {
+        listView.Loaded += ListView_Loaded;
+        listView.SizeChanged += ListView_SizeChanged;
+      }
+      else
+      {
+        listView.Loaded -= ListView_Loaded;
+        listView.SizeChanged -= ListView_SizeChanged;
+      }
+    }
+
+    private static void ListView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+    {
+      //Debug.WriteLine("ListView_Loaded");
+      if (sender is ListView listView)
+      {
+        GridView gridView = listView.View as GridView;
+        foreach (var column in gridView.Columns)
+        {
+          RegisterColumn(column, listView);
+          (column as INotifyPropertyChanged).PropertyChanged += Column_PropertyChanged;
+        }
+        FitLastColumn(listView);
+      }
+    }
+
+    /// <summary>
+    /// Registering columns needed as there is no backward relationship between GridViewColumn an its parent ListView
+    /// </summary>
+    /// <param name="column"></param>
+    /// <param name="listView"></param>
+    private static void RegisterColumn(GridViewColumn column, ListView listView)
+    {
+      if (!ColumnsMapping.ContainsKey(column))
+        ColumnsMapping.Add(column, listView);
+    }
+
+    private static Dictionary<GridViewColumn, ListView> ColumnsMapping = new Dictionary<GridViewColumn, ListView>();
+
+
+    private static void Column_PropertyChanged(object sender, PropertyChangedEventArgs args)
+    {
+      //Debug.WriteLine("Column_PropertyChanged");
+      if (sender is GridViewColumn column)
+      {
+        if (ColumnsMapping.TryGetValue(column, out var listView))
+        {
+          if (GetFitLastColumnWidth(listView))
+          {
+            GridView gridView = listView.View as GridView;
+            if (column != gridView.Columns.LastOrDefault())
+            {
+              if (args.PropertyName == "ActualWidth")
+              {
+                //Debug.WriteLine($"Column_PropertyChanged({sender}, {args.PropertyName})");
+                FitLastColumn(listView);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    private static void ListView_SizeChanged(object sender, SizeChangedEventArgs args)
+    {
+      if (sender is ListView listView)
+        FitLastColumn(listView);
+    }
+
+    private static void FitLastColumn(ListView listView)
+    {
+      if (listView.View is GridView gridView)
+      {
+        var workingWidth = listView.ActualWidth
+        - SystemParameters.VerticalScrollBarWidth
+        - 10; // Additional margin set in ListView template
+        double sumWidth = 0;
+        int n = gridView.Columns.Count - 1;
+        for (int i = 0; i < n; i++)
+          sumWidth += gridView.Columns[i].ActualWidth;
+        if (sumWidth < workingWidth - 20)
+          gridView.Columns[n].Width = workingWidth - sumWidth;
+      }
+    }
+
+
+    #endregion FitLastColumnWidth
+
 
     #region GridViewColumnInfo nested class
     public class GridViewColumnInfo : ViewModel

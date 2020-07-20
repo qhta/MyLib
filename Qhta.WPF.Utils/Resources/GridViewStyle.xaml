@@ -48,7 +48,7 @@
     </Setter>
   </Style>
 
-  <Style x:Key="MyGridViewColumnHeader" Style.TargetType="{x:Type GridViewColumnHeader}" >
+  <Style x:Key="{x:Type GridViewColumnHeader}" Style.TargetType="{x:Type GridViewColumnHeader}" >
     <Setter Setter.Property="Control.HorizontalContentAlignment" Setter.Value="Center" />
     <Setter Setter.Property="Control.VerticalContentAlignment" Setter.Value="Center" />
     <Setter Setter.Property="Control.Background" Setter.Value="{StaticResource GridView.ColumnHeader.Background}" />
@@ -75,24 +75,6 @@
                                       FrameworkElement.HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" 
                                       ContentPresenter.RecognizesAccessKey="True" 
                                       UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                    <Path x:Name="DownwardTriangle" 
-                          Width="5" Height="5"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Bottom"
-                          Stroke="{TemplateBinding Foreground}"
-                          Fill="{TemplateBinding Foreground}"
-                          Data="M0,1L4,1L2,4Z"
-                          Visibility="Hidden"
-                          />
-                    <Path x:Name="UpwardTriangle" 
-                          Width="5" Height="5"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Bottom"
-                          Stroke="{TemplateBinding Foreground}"
-                          Fill="{TemplateBinding Foreground}"
-                          Data="M0,3L4,3L2,0Z"
-                          Visibility="Visible"
-                          />
                   </Grid>
                 </Border>
               </Grid>

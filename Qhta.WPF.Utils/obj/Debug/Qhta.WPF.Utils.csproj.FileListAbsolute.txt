@@ -129,3 +129,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ComboBoxStyle.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ImageButtonStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\TimingMessageBox.g.cs
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\TimingMessageBox.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\AeroStyles.baml
