@@ -61,8 +61,12 @@ namespace Qhta.ObservableViewModels
       return SecondaryIndex.TryGetValue(index, out item);
     }
 
+    public virtual bool ContainsKey2(TSecondaryKey key)
+    {
+      return SecondaryIndex.ContainsKey(key);
+    }
 
-    public virtual int IndexOfKey(TSecondaryKey key)
+    public virtual int IndexOfKey2(TSecondaryKey key)
     {
       if (SecondaryIndex.TryGetValue(key, out var item))
       {
