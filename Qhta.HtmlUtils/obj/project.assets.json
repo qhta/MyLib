@@ -923,10 +923,11 @@
   },
   "libraries": {
     "HtmlAgilityPack/1.8.9": {
-      "sha512": "pCSNhes7e4UglufG/0EUx/S+9NZElNrwcI0cOAep/VpYB7PmsmfZ2UHcLRo25bP8sk3h9vAN2Ff2MEsZWqGa7Q==",
+      "sha512": "qrgNgaJIuOSNxUGEHwRjDgR2yOdJ7UIU/C9mLg3y10IiCgXXFWacbC0+DBT5Je9NF4AdvuSRwFY5SLmhm3vUEQ==",
       "type": "package",
       "path": "htmlagilitypack/1.8.9",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "htmlagilitypack.1.8.9.nupkg.sha512",
         "htmlagilitypack.nuspec",
@@ -3366,7 +3367,7 @@
       ]
     },
     "System.Xml.XPath.XmlDocument/4.3.0": {
-      "sha512": "91tvfHWHSrYFPolCwWYqbpo1YaoBUCQ3uNZ/O/zr0ev5BnkoATJoie16ywlMVUaXZtfSfNELxhtG3aqpTfwR4w==",
+      "sha512": "A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "type": "package",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "files": [

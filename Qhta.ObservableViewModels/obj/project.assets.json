@@ -286,7 +286,7 @@
           "lib/WindowsBase.dll": {}
         }
       },
-      "Qhta.MVVM/1.0.3": {
+      "Qhta.MVVM/1.0.4": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -300,7 +300,7 @@
           "bin/placeholder/Qhta.MVVM.dll": {}
         }
       },
-      "Qhta.ObservableObjects/1.1.0": {
+      "Qhta.ObservableObjects/1.1.1": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -324,6 +324,7 @@
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -338,6 +339,7 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -352,7 +354,6 @@
       "path": "netstandard.library/2.0.3",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -1668,12 +1669,12 @@
         "windowsbase.nuspec"
       ]
     },
-    "Qhta.MVVM/1.0.3": {
+    "Qhta.MVVM/1.0.4": {
       "type": "project",
       "path": "../Qhta.MVVM/Qhta.MVVM.csproj",
       "msbuildProject": "../Qhta.MVVM/Qhta.MVVM.csproj"
     },
-    "Qhta.ObservableObjects/1.1.0": {
+    "Qhta.ObservableObjects/1.1.1": {
       "type": "project",
       "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
       "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
@@ -1682,8 +1683,8 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.MVVM >= 1.0.3",
-      "Qhta.ObservableObjects >= 1.1.0",
+      "Qhta.MVVM >= 1.0.4",
+      "Qhta.ObservableObjects >= 1.1.1",
       "System.Runtime.CompilerServices.Unsafe >= 4.7.1"
     ]
   },
@@ -1692,7 +1693,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "restore": {
       "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableViewModels\\Qhta.ObservableViewModels.csproj",
       "projectName": "Qhta.ObservableViewModels",

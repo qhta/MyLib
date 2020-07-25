@@ -1,17 +1,17 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": ""
+    "signature": "f8c9aa209a1e2e3f2f2af37193c992e7df71de7d"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.ObservableViewModels/1.0.0": {
+      "Qhta.ObservableViewModels/1.0.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.MVVM": "1.0.3",
-          "Qhta.ObservableObjects": "1.1.0",
+          "Qhta.MVVM": "1.0.4",
+          "Qhta.ObservableObjects": "1.1.1",
           "System.Runtime.CompilerServices.Unsafe": "4.7.1",
           "System.ComponentModel.DataAnnotations": "4.0.0.0"
         },
@@ -219,7 +219,7 @@
           }
         }
       },
-      "Qhta.MVVM/1.0.3": {
+      "Qhta.MVVM/1.0.4": {
         "dependencies": {
           "Qhta.DispatchedObjects": "1.0.2",
           "Qhta.OrdNumbers": "2.2.1"
@@ -228,7 +228,7 @@
           "Qhta.MVVM.dll": {}
         }
       },
-      "Qhta.ObservableObjects/1.1.0": {
+      "Qhta.ObservableObjects/1.1.1": {
         "dependencies": {
           "System.Collections.Concurrent": "4.3.0",
           "System.Collections.Immutable": "1.7.1",
@@ -265,7 +265,7 @@
     }
   },
   "libraries": {
-    "Qhta.ObservableViewModels/1.0.0": {
+    "Qhta.ObservableViewModels/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -445,12 +445,12 @@
       "path": "windowsbase/4.6.1055",
       "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
     },
-    "Qhta.MVVM/1.0.3": {
+    "Qhta.MVVM/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Qhta.ObservableObjects/1.1.0": {
+    "Qhta.ObservableObjects/1.1.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

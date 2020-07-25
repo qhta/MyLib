@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "bqaT/YjoecALPsqC02z1LIhkd208TJbJKqnfByp5stNtdjHI2nWH9gqRQxsizjTPSbfx3EiSRnYlIwXFcZ23KQ==",
+  "dgSpecHash": "mrJcYK3ggVh02IldluPBZg4xC/UBuLSVsZGGIaCRBQ49UeGVhsPqFX/V7Wgy1Rw3xKO3rikJBMudCFIQA8Zr3Q==",
   "success": true,
   "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jerry\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Jerry\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Jerry\\.nuget\\packages\\qhta.dispatchedobjects\\1.0.2\\qhta.dispatchedobjects.1.0.2.nupkg.sha512",
     "C:\\Users\\Jerry\\.nuget\\packages\\qhta.ordnumbers\\2.2.1\\qhta.ordnumbers.2.2.1.nupkg.sha512"
   ],

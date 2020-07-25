@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.MVVM/1.0.3": {
+      "Qhta.MVVM/1.0.4": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.DispatchedObjects": "1.0.2",
@@ -75,7 +75,7 @@
     }
   },
   "libraries": {
-    "Qhta.MVVM/1.0.3": {
+    "Qhta.MVVM/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

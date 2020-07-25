@@ -10,9 +10,9 @@ D:\Dane\VS\Projects\WordAddIns\MyAddIns\Qhta.Collections\obj\Debug\netstandard2.
 D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.Collections.deps.json
 D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.Collections.dll
 D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.Collections.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.csprojAssemblyReference.cache

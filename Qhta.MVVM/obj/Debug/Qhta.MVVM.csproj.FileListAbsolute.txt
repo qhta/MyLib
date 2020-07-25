@@ -1,10 +1,10 @@
 D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.deps.json
 D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.dll
 D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csprojAssemblyReference.cache
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.AssemblyInfoInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.dll
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csprojAssemblyReference.cache

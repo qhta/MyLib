@@ -1,9 +1,0 @@
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\bin\Debug\netstandard2.0\Qhta.ObservableObjects.deps.json
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\bin\Debug\netstandard2.0\Qhta.ObservableObjects.dll
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\bin\Debug\netstandard2.0\Qhta.ObservableObjects.pdb
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.csprojAssemblyReference.cache
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.csproj.CoreCompileInputs.cache
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.AssemblyInfoInputs.cache
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.AssemblyInfo.cs
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.dll
-d:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\netstandard2.0\Qhta.ObservableObjects.pdb
