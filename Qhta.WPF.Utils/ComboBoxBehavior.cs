@@ -14,6 +14,7 @@ namespace Qhta.WPF.Utils
     {
       return (bool)obj.GetValue(IsNullableProperty);
     }
+
     public static void SetIsNullable(DependencyObject obj, bool value)
     {
       obj.SetValue(IsNullableProperty, value);
@@ -36,6 +37,20 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    public static void AddClearedHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.AddHandler(ComboBoxBehavior.ClearedEvent, handler);
+    }
+
+    public static void RemoveClearedHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.RemoveHandler(ComboBoxBehavior.ClearedEvent, handler);
+    }
+
+    public static readonly RoutedEvent ClearedEvent = EventManager.RegisterRoutedEvent
+      ("Cleared",RoutingStrategy.Bubble,typeof(RoutedEventHandler), typeof(ComboBoxBehavior));
 
     private static void ComboBox_PreviewKeyDown(object sender, KeyEventArgs args)
     {
@@ -46,6 +61,7 @@ namespace Qhta.WPF.Utils
           if (comboBox != null && GetIsNullable(comboBox) && comboBox.IsEnabled)
           {
             comboBox.SelectedValue = null;
+            comboBox.RaiseEvent(new RoutedEventArgs(ComboBoxBehavior.ClearedEvent, comboBox));
           }
         }
       }
@@ -64,6 +80,7 @@ namespace Qhta.WPF.Utils
         if (comboBox != null && GetIsNullable(comboBox) && comboBox.IsEnabled)
         {
           comboBox.SelectedValue = null;
+          comboBox.RaiseEvent(new RoutedEventArgs(ComboBoxBehavior.ClearedEvent, comboBox));
         }
       }
     }
