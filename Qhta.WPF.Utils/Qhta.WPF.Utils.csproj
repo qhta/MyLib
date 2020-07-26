@@ -46,7 +46,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="Qhta.DispatchedObjects, Version=1.0.2.0, Culture=neutral, PublicKeyToken=2eb9223338263fec, processorArchitecture=MSIL">
       <HintPath>..\Qhta.WPF.Controls\packages\Qhta.DispatchedObjects.1.0.2\lib\netstandard2.0\Qhta.DispatchedObjects.dll</HintPath>
     </Reference>
@@ -75,6 +74,7 @@
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
+    <Compile Include="Converters\BitTestConverter.cs" />
     <Compile Include="JoinStrings.cs" />
     <Compile Include="ObservableCommand.cs" />
     <Compile Include="TimingMessageBox.xaml.cs">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace Qhta.WPF.Utils
   public class EnumValuesProvider : DataSourceProvider
   {
     public Type ObjectType { get; set; }
+
+    public Type ItemType { get; set; }
+
 
     public bool AddNull { get; set; }
 
@@ -24,15 +28,28 @@ namespace Qhta.WPF.Utils
       base.OnQueryFinished(values);
     }
 
-    public Array GetValues(Type enumType)
+    public Array GetValues(Type enumtype)
     {
-      Array result = enumType.GetEnumValues();
-      return result;
+      Array values = enumtype.GetEnumValues();
+      if (ItemType == null)
+        return values;
+      var constructor0 = ItemType.GetConstructor(new Type[] { });
+      var constructor1 = ItemType.GetConstructor(new Type[] { ObjectType });
+      var result = new List<object>();
+      foreach (var value in values)
+      {
+        if (constructor1 != null)
+          result.Add(constructor1.Invoke(new object[] { value }));
+        else
+        if (constructor0 != null)
+          result.Add(constructor0.Invoke(new object[] { }));
+      }
+      return result.ToArray();
     }
 
     public Array GetValuesWithNull(Type enumType)
     {
-      Array values = enumType.GetEnumValues();
+      Array values = GetValues(enumType);
       Array result = Array.CreateInstance(typeof(object), values.Length + 1);
       result.SetValue(null, 0);
       values.CopyTo(result, 1);
@@ -43,7 +60,7 @@ namespace Qhta.WPF.Utils
     {
       var typeConverterAttribute = enumtype.GetCustomAttributes(false)
         .FirstOrDefault(item => item is TypeConverterAttribute) as TypeConverterAttribute;
-      if (typeConverterAttribute!=null)
+      if (typeConverterAttribute != null)
       {
         var converterTypeName = typeConverterAttribute.ConverterTypeName;
         if (converterTypeName != null)

@@ -59,7 +59,10 @@ namespace Qhta.WPF.Utils
       DependencyObject result = obj;
       do
       {
-        result = VisualTreeHelper.GetParent(result);
+        var parent= VisualTreeHelper.GetParent(result);
+        if (parent == null && result is FrameworkElement element)
+          parent = element.TemplatedParent;
+        result = parent;
       }
       while (result != null && !(result is T));
       return result as T;

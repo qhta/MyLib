@@ -3,7 +3,7 @@
                     xmlns:wpf="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:globalization = "clr-namespace:System.Globalization;assembly=mscorlib"
-                    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
+                    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
                     >
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TextBoxAnimationStyle.xaml"/>
