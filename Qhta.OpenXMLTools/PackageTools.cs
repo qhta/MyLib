@@ -16,7 +16,7 @@ namespace Qhta.OpenXMLTools
   public static class PackageTools
   {
 
-    public static void CreatePackageFromWordOpenXML(string wordOpenXml, string filePath, string wordFullFileName)
+    public static void CreatePackageFromWordOpenXML(string wordOpenXml, string filePath, string relDirectoryRoot)
     {
       var xmlFileName = Path.ChangeExtension(filePath, ".xml");
       using (var writer = File.CreateText(xmlFileName))
@@ -55,7 +55,7 @@ namespace Qhta.OpenXMLTools
       }
       using (var docx = DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(filePath, true))
       {
-        PackageTools.RecreateSubdocumentRels(docx, Path.GetDirectoryName(wordFullFileName));
+        PackageTools.RecreateSubdocumentRels(docx, relDirectoryRoot);
       }
     }
 
