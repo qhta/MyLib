@@ -81,6 +81,20 @@ namespace Qhta.WPF.Utils
       return result as T;
     }
 
+    public static IEnumerable<T> FindAllInVisualTreeDown<T>(DependencyObject obj) where T : class
+    {
+      var result = new List<T>();
+      var c = VisualTreeHelper.GetChildrenCount(obj);
+      for (int i = 0; i < c; i++)
+      {
+        var child = VisualTreeHelper.GetChild(obj, i);
+        if (child is T)
+          result.Add(child as T);
+        result.AddRange(FindAllInVisualTreeDown<T>(child));
+      }
+      return result;
+    }
+
     public static T FindInVisualTreeDown<T>(DependencyObject obj) where T : class
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);
