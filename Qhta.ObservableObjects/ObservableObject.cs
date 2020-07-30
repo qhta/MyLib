@@ -10,7 +10,7 @@ namespace Qhta.ObservableObjects
   {
     public static bool TraceCreationFromNonSTAThread { get; set; } = true;
 
-    public ObservableObject(): this(Dispatcher.FromThread(Thread.CurrentThread))
+    public ObservableObject(): this(Dispatcher.CurrentDispatcher)
     {
     }
 
@@ -18,11 +18,11 @@ namespace Qhta.ObservableObjects
     {
       if (dispatcher == null)
         dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
-//#if DEBUG
-//      if (TraceCreationFromNonSTAThread)
-//        if (dispatcher?.Thread.GetApartmentState() != ApartmentState.STA)
-//          Debug.WriteLine($"{this} should be created with STA thread dispatcher");
-//#endif
+#if DEBUG
+      if (TraceCreationFromNonSTAThread)
+        if (dispatcher?.Thread.GetApartmentState() != ApartmentState.STA)
+          Debug.WriteLine($"{this.GetType().Name} should be created with STA thread dispatcher");
+#endif
       Dispatcher = dispatcher;
     }
 
