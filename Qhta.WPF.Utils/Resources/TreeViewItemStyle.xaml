@@ -5,7 +5,8 @@
                     xmlns:globalization = "clr-namespace:System.Globalization;assembly=mscorlib"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
                     >
-  <Style x:Key="MulticolumnTreeViewItemStyle" BasedOn="{StaticResource {x:Type TreeViewItem}}"  TargetType="TreeViewItem">
+  <Style x:Key="MulticolumnTreeViewItemStyle"
+         TargetType="{x:Type TreeViewItem}" >
       <Setter Property="HorizontalAlignment" Value="Stretch"/>
       <Setter Property="Template">
         <Setter.Value>

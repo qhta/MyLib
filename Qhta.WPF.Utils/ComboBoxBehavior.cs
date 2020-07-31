@@ -56,7 +56,7 @@ namespace Qhta.WPF.Utils
     {
       if (sender is ComboBox comboBox)
       {
-        if (args.Key == Key.Delete)
+        if (args.Key == Key.Delete && Keyboard.Modifiers == ModifierKeys.Control)
         {
           if (comboBox != null && GetIsNullable(comboBox) && comboBox.IsEnabled)
           {
