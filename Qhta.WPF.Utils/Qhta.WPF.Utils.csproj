@@ -73,6 +73,7 @@
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
+    <Compile Include="LocalCommand.cs" />
     <Compile Include="TextBoxBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
     <Compile Include="Converters\BitTestConverter.cs" />
