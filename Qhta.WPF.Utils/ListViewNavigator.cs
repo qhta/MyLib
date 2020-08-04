@@ -20,7 +20,7 @@ namespace Qhta.WPF.Utils
       //Debug.WriteLine("TryUpdateField2");
       if (sender is FrameworkElement element)
       {
-        var listView = VisualTreeHelperExt.FindInVisualTreeUp<ListView>(element);
+        var listView = VisualTreeHelperExt.FindAncestor<ListView>(element);
         if (listView != null)
         {
           var list = listView?.ItemsSource as IList;
@@ -28,7 +28,7 @@ namespace Qhta.WPF.Utils
             throw new InvalidCastException($"Items source of {listView} cannot be cast to IList");
           var internalElement = element;
           if (!focusableElements.Contains(element.GetType()))
-            internalElement = VisualTreeHelperExt.FindInVisualTreeDown<FrameworkElement>(focusableElements, element);
+            internalElement = VisualTreeHelperExt.FindDescendant<FrameworkElement>(focusableElements, element);
           if (internalElement != null)
           {
             var targetObject = internalElement.DataContext;
@@ -107,7 +107,7 @@ namespace Qhta.WPF.Utils
     {
       if (sender is FrameworkElement element)
       {
-        var listView = VisualTreeHelperExt.FindInVisualTreeUp<ListView>(element);
+        var listView = VisualTreeHelperExt.FindAncestor<ListView>(element);
         if (listView != null)
         {
           var list = listView?.ItemsSource as IList;
@@ -115,7 +115,7 @@ namespace Qhta.WPF.Utils
             throw new InvalidCastException($"Items source of {listView} cannot be cast to IList");
           var internalElement = element;
           if (!focusableElements.Contains(element.GetType()))
-            internalElement = VisualTreeHelperExt.FindInVisualTreeDown<FrameworkElement>(focusableElements, element);
+            internalElement = VisualTreeHelperExt.FindDescendant<FrameworkElement>(focusableElements, element);
           if (internalElement != null)
           {
             var targetObject = internalElement.DataContext;
@@ -149,7 +149,7 @@ namespace Qhta.WPF.Utils
             }
             else
             {
-              var comboBox = VisualTreeHelperExt.FindInVisualTreeUp<ComboBox>(internalElement);
+              var comboBox = VisualTreeHelperExt.FindAncestor<ComboBox>(internalElement);
               if (args.Key == Key.Space && comboBox != null && !comboBox.IsDropDownOpen)
               {
                 comboBox.IsDropDownOpen = true;
@@ -307,7 +307,7 @@ namespace Qhta.WPF.Utils
             FocusOnColumn(listView, columnToSwitch, true);
           else
           {
-            var internalElement = VisualTreeHelperExt.FindInVisualTreeDown<FrameworkElement>(focusableElements, selectedItem);
+            var internalElement = VisualTreeHelperExt.FindDescendant<FrameworkElement>(focusableElements, selectedItem);
             if (internalElement != null)
             {
               internalElement.Focus();

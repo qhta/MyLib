@@ -15,10 +15,8 @@ namespace Qhta.ObservableViewModels
   public class ObservableDataQuery<TValue> : ObservableDataSet<TValue>,
     IEnumerable<TValue>,
     ICollection<TValue>,
-    //IList<TValue>,
-    //IEnumerable,
-    //ICollection,
-    INotifyCollectionChanged, INotifyPropertyChanged where TValue : class
+    INotifyCollectionChanged, 
+    INotifyPropertyChanged where TValue : class
   {
     #region LazyLoad
     public override void PopulateWhenNeeded()
@@ -105,13 +103,15 @@ namespace Qhta.ObservableViewModels
 
     public virtual void Requery()
     {
+      if (Filter!=null)
+        CollectionChanged += ObservableDataQuery_CollectionChanged;
+      var notifySave = this.NotifyCollectionChangedEnabled;
+      NotifyCollectionChangedEnabled = false;
       //Debug.WriteLine($"ObservableDataQuery.Requery({_filter != null})");
       Items.Clear();
       //Debug.WriteLine($"ObservableDataQuery.Cleared Items.Count={Items.Count}");
-      NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
-      Thread.Sleep(100); // this time is needed for view refresh
-      var notifySave = this.NotifyCollectionChangedEnabled;
-      NotifyCollectionChangedEnabled = false;
+      //NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+      //Thread.Sleep(100); // this time is needed for view refresh
       foreach (var item in Source)
       {
         if (Filter == null || Filter(item))
@@ -128,6 +128,11 @@ namespace Qhta.ObservableViewModels
       NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       //Debug.WriteLine($"ObservableDataQuery.Requery end");
 
+    }
+
+    private void ObservableDataQuery_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+    {
+      Debug.WriteLine($"ObservableDataQuery_CollectionChanged ({args.Action})");
     }
 
     public override void Add(TValue item)
@@ -153,6 +158,7 @@ namespace Qhta.ObservableViewModels
 
     public override void CopyTo(TValue[] array, int arrayIndex)
     {
+      //Debug.WriteLine($"ObservableQuery.CopyTo");
       var outputLength = array.Length;
       var items = Items.ToArray();
       var itemsLength = items.Length;
@@ -170,6 +176,7 @@ namespace Qhta.ObservableViewModels
 
     IEnumerator IEnumerable.GetEnumerator()
     {
+      //Debug.WriteLine($"ObservableQuery.GetEnumerator");
       return this.GetEnumerator();
     }
 

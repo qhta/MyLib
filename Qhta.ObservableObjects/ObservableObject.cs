@@ -64,7 +64,7 @@ namespace Qhta.ObservableObjects
         var args = new PropertyChangedEventArgs(propertyName);
         if (Dispatcher != null)
         {
-          Dispatcher.BeginInvoke(DispatcherPriority.DataBind, handler, this, args);
+          Dispatcher.BeginInvoke(DispatcherPriority.Background, handler, this, args);
         }
         else
           try

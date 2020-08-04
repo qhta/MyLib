@@ -296,7 +296,7 @@ namespace Qhta.WPF.Utils
     private static void ColumnHeader_MouseMove(object sender, System.Windows.RoutedEventArgs args)
     {
       var listView = args.Source as ListView;
-      var gridViewHeaderRowPresenter = VisualTreeHelperExt.FindInVisualTreeDown<GridViewHeaderRowPresenter>(listView);
+      var gridViewHeaderRowPresenter = VisualTreeHelperExt.FindDescentant<GridViewHeaderRowPresenter>(listView);
       if (gridViewHeaderRowPresenter != null)
       {
         var pos = Mouse.GetPosition(gridViewHeaderRowPresenter);
@@ -425,7 +425,7 @@ namespace Qhta.WPF.Utils
 
     private static void RemoveAllSortGlyphs(ListView listView)
     {
-      var headerRowPresenter = VisualTreeHelperExt.FindInVisualTreeDown<GridViewHeaderRowPresenter>(listView);
+      var headerRowPresenter = VisualTreeHelperExt.FindDescentant<GridViewHeaderRowPresenter>(listView);
       if (headerRowPresenter != null)
       {
 
@@ -707,7 +707,7 @@ namespace Qhta.WPF.Utils
     public static readonly DependencyProperty FitLastColumnWidthProperty = DependencyProperty.RegisterAttached(
         "FitLastColumnWidth",
         typeof(bool),
-        typeof(ListViewBehavior),
+        typeof(GridViewBehavior),
         new PropertyMetadata(default(bool), OnFitLastColumnWidthChanged));
 
     public static bool GetFitLastColumnWidth(DependencyObject target)

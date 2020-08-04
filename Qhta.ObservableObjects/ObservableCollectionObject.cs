@@ -95,7 +95,7 @@ namespace Qhta.ObservableObjects
         if (Dispatcher != null)
         {
           //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-          Dispatcher.BeginInvoke(DispatcherPriority.DataBind,
+          Dispatcher.BeginInvoke(DispatcherPriority.Background,
             new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
         }
         else
@@ -130,8 +130,8 @@ namespace Qhta.ObservableObjects
 
     public virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
-      NotifyPropertyChanged("Count");
-      NotifyPropertyChanged("Item[]");
+      //NotifyPropertyChanged("Count");
+      //NotifyPropertyChanged("Item[]");
       OnCollectionChanged(args);
     }
 

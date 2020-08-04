@@ -54,7 +54,7 @@ namespace Qhta.WPF.Utils
       }
       return result;
     }
-    public static T FindInVisualTreeUp<T>(DependencyObject obj) where T : class
+    public static T FindAncestor<T>(DependencyObject obj) where T : class
     {
       DependencyObject result = obj;
       do
@@ -68,7 +68,7 @@ namespace Qhta.WPF.Utils
       return result as T;
     }
 
-    public static T FindInVisualTreeUp<T>(string elementName, DependencyObject obj) where T : FrameworkElement
+    public static T FindAncestor<T>(string elementName, DependencyObject obj) where T : FrameworkElement
     {
       DependencyObject result = obj;
       do
@@ -81,7 +81,7 @@ namespace Qhta.WPF.Utils
       return result as T;
     }
 
-    public static IEnumerable<T> FindAllInVisualTreeDown<T>(DependencyObject obj) where T : class
+    public static IEnumerable<T> FindAllDescendants<T>(DependencyObject obj) where T : class
     {
       var result = new List<T>();
       var c = VisualTreeHelper.GetChildrenCount(obj);
@@ -90,12 +90,12 @@ namespace Qhta.WPF.Utils
         var child = VisualTreeHelper.GetChild(obj, i);
         if (child is T)
           result.Add(child as T);
-        result.AddRange(FindAllInVisualTreeDown<T>(child));
+        result.AddRange(FindAllDescendants<T>(child));
       }
       return result;
     }
 
-    public static T FindInVisualTreeDown<T>(DependencyObject obj) where T : class
+    public static T FindDescentant<T>(DependencyObject obj) where T : class
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);
       for (int i = 0; i < c; i++)
@@ -107,14 +107,14 @@ namespace Qhta.WPF.Utils
       for (int i = 0; i < c; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        var result = FindInVisualTreeDown<T>(child);
+        var result = FindDescentant<T>(child);
         if (result is T)
           return result as T;
       }
       return null;
     }
 
-    public static T FindInVisualTreeDown<T>(string elementName, DependencyObject obj) where T : FrameworkElement
+    public static T FindDescendant<T>(string elementName, DependencyObject obj) where T : FrameworkElement
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);
       for (int i = 0; i < c; i++)
@@ -126,13 +126,13 @@ namespace Qhta.WPF.Utils
       for (int i = 0; i < c; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        var result = FindInVisualTreeDown<T>(elementName, child);
+        var result = FindDescendant<T>(elementName, child);
         if (result is T)
           return result as T;
       }
       return null;
     }
-    public static T FindInVisualTreeDown<T>(Type[] subtypes, DependencyObject obj) where T : class
+    public static T FindDescendant<T>(Type[] subtypes, DependencyObject obj) where T : class
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);
       for (int i = 0; i < c; i++)
@@ -145,14 +145,14 @@ namespace Qhta.WPF.Utils
       for (int i = 0; i < c; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        var result = FindInVisualTreeDown<T>(subtypes, child);
+        var result = FindDescendant<T>(subtypes, child);
         if (result is T)
           return result as T;
       }
       return null;
     }
 
-   public static IInputElement FindFirstFocusableElement(DependencyObject obj)
+   public static IInputElement FindFirstFocusableDescendant(DependencyObject obj)
     {
       IInputElement focusableElement = null;
 
@@ -167,13 +167,13 @@ namespace Qhta.WPF.Utils
         }
         else
         {
-          focusableElement = FindFirstFocusableElement(child);
+          focusableElement = FindFirstFocusableDescendant(child);
         }
       }
       return focusableElement;
     }
 
-    public static IEnumerable<IInputElement> FindAllFocusableElements(DependencyObject obj)
+    public static IEnumerable<IInputElement> FindAllFocusableDescendants(DependencyObject obj)
     {
       List<IInputElement> focusableElements = new List<IInputElement>();
 
@@ -188,7 +188,7 @@ namespace Qhta.WPF.Utils
         }
         else
         {
-          focusableElements.AddRange(FindAllFocusableElements(child));
+          focusableElements.AddRange(FindAllFocusableDescendants(child));
         }
       }
       return focusableElements;
@@ -231,7 +231,7 @@ namespace Qhta.WPF.Utils
 
     public static IEnumerable<FrameworkElement> FindColumnsContent(ListViewItem listViewItem)
     {
-      GridViewRowPresenter rowPresenter = FindInVisualTreeDown<GridViewRowPresenter>(listViewItem);
+      GridViewRowPresenter rowPresenter = FindDescentant<GridViewRowPresenter>(listViewItem);
       int colCount = 0;
       if (rowPresenter!=null)
         colCount = VisualTreeHelper.GetChildrenCount(rowPresenter);
@@ -247,7 +247,7 @@ namespace Qhta.WPF.Utils
       int colCount = columns.Count();
       ElementType[] result = new ElementType[colCount];
       for (int i = 0; i < colCount; i++)
-        result[i] = VisualTreeHelperExt.FindInVisualTreeDown<ElementType>(columns[i]);
+        result[i] = VisualTreeHelperExt.FindDescentant<ElementType>(columns[i]);
       return result;
     }
 
@@ -258,12 +258,12 @@ namespace Qhta.WPF.Utils
       ElementType[] result = new ElementType[colCount];
       for (int i = 0; i < colCount; i++)
       {
-        result[i] = VisualTreeHelperExt.FindInVisualTreeDown<ElementType>(subtypes, columns[i]);
+        result[i] = VisualTreeHelperExt.FindDescendant<ElementType>(subtypes, columns[i]);
       }
       return result;
     }
 
-    public static string DebugText(this FrameworkElement obj)
+    public static string DebugText(FrameworkElement obj)
     {
       string s = obj.Name;
       if (String.IsNullOrEmpty(s))

@@ -76,7 +76,7 @@ namespace Qhta.WPF.Utils
     {
       if (sender is Button button)
       {
-        var comboBox = VisualTreeHelperExt.FindInVisualTreeUp<ComboBox>(button);
+        var comboBox = VisualTreeHelperExt.FindAncestor<ComboBox>(button);
         if (comboBox != null && GetIsNullable(comboBox) && comboBox.IsEnabled)
         {
           comboBox.SelectedValue = null;

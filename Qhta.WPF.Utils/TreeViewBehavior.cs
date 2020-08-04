@@ -96,12 +96,12 @@ namespace Qhta.WPF.Utils
           {
             // The Tree template has not named the ItemsPresenter,
             // so walk the descendents and find the child.
-            itemsPresenter = VisualTreeHelperExt.FindInVisualTreeDown<ItemsPresenter>(container);
+            itemsPresenter = VisualTreeHelperExt.FindDescentant<ItemsPresenter>(container);
             if (itemsPresenter == null)
             {
               container.UpdateLayout();
 
-              itemsPresenter = VisualTreeHelperExt.FindInVisualTreeDown<ItemsPresenter>(container);
+              itemsPresenter = VisualTreeHelperExt.FindDescentant<ItemsPresenter>(container);
             }
           }
 
