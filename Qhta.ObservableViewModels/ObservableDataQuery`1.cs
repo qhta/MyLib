@@ -132,7 +132,7 @@ namespace Qhta.ObservableViewModels
 
     private void ObservableDataQuery_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
-      Debug.WriteLine($"ObservableDataQuery_CollectionChanged ({args.Action})");
+      //Debug.WriteLine($"ObservableDataQuery_CollectionChanged ({args.Action})");
     }
 
     public override void Add(TValue item)
