@@ -253,12 +253,14 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
+        //Debug.WriteLine($"{this}.Clear" + $" {DateTime.Now.ToString(dateTimeFormat)}");
         var priorItems = _items.ToList();
         foreach (var item in priorItems)
           _items.Remove(item);
         _items.Clear();
         var enumerator = GetEnumerator();
         enumerator.Dispose();
+        //Debug.WriteLine($"{this}.Count = {Count}" + $" {DateTime.Now.ToString(dateTimeFormat)}");
         NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
       }
     }

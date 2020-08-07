@@ -4,7 +4,6 @@
     <id>Qhta.ObservableViewModels</id>
     <version>1.0.1</version>
     <authors>Qhta.ObservableViewModels</authors>
-    <owners>Qhta.ObservableViewModels</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
