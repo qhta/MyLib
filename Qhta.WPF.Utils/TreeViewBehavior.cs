@@ -21,24 +21,70 @@ namespace Qhta.WPF.Utils
 
     public static void SetSelectedItem(DependencyObject obj, object value)
     {
-      obj.SetValue(SelectedItemProperty, value);
+      if (value != null)
+      {
+        //Debug.WriteLine($"TreeViewItemBehavior.SetSelectedItem({value})");
+        obj.SetValue(SelectedItemProperty, value);
+      }
     }
 
-    // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.RegisterAttached
       ("SelectedItem", typeof(object), typeof(TreeViewBehavior),
           new UIPropertyMetadata(null, SelectedItemChanged));
 
-    private static void SelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+    public static bool GetUseSelectedItemChangeEvent(DependencyObject obj)
     {
-      if (!(obj is TreeView))
-        return;
+      return (bool)obj.GetValue(UseSelectedItemChangeEventProperty);
+    }
 
-      if (!behaviors.ContainsKey(obj))
-        behaviors.Add(obj, new TreeViewSelectedItemBehavior(obj as TreeView));
-      //Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged({e.NewValue})");
-      TreeViewSelectedItemBehavior behavior = behaviors[obj];
-      behavior.ChangeSelectedItem(e.NewValue);
+    public static void SetUseSelectedItemChangeEvent(DependencyObject obj, bool value)
+    {
+      obj.SetValue(UseSelectedItemChangeEventProperty, value);
+    }
+
+    public static readonly DependencyProperty UseSelectedItemChangeEventProperty = DependencyProperty.RegisterAttached
+      ("UseSelectedItemChangeEvent", typeof(bool), typeof(TreeViewBehavior),
+          new UIPropertyMetadata(false));
+
+    public static void AddSelectedItemChangeHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.AddHandler(TreeViewBehavior.SelectedItemChangeEvent, handler);
+    }
+
+    public static void RemoveSelectedItemChangeHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.RemoveHandler(TreeViewBehavior.SelectedItemChangeEvent, handler);
+    }
+
+    public static readonly RoutedEvent SelectedItemChangeEvent = EventManager.RegisterRoutedEvent
+      ("SelectedItemChange", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TreeViewBehavior));
+
+
+    private static void SelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+    {
+      if (obj is TreeView treeView)
+      {
+        //Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged({args.OldValue}, {args.NewValue})");
+        if (!behaviors.ContainsKey(obj))
+          behaviors.Add(obj, new TreeViewSelectedItemBehavior(obj as TreeView));
+        TreeViewSelectedItemBehavior behavior = behaviors[obj];
+        var done = false;
+        if (GetUseSelectedItemChangeEvent(treeView))
+          try
+          {
+            treeView.RaiseEvent(new RoutedPropertyChangedEventArgs<object>(args.OldValue, args.NewValue)
+            { RoutedEvent = TreeViewBehavior.SelectedItemChangeEvent, Source = obj });
+            done = true;
+          }
+          catch
+          {
+            done = false;
+          }
+        if (!done)
+          behavior.ChangeSelectedItem(args.NewValue);
+      }
     }
 
     private class TreeViewSelectedItemBehavior
@@ -48,8 +94,13 @@ namespace Qhta.WPF.Utils
       public TreeViewSelectedItemBehavior(TreeView treeView)
       {
         this.TreeView = treeView;
-        treeView.SelectedItemChanged += (sender, args) => SetSelectedItem(treeView, args.NewValue);
+        treeView.SelectedItemChanged += TreeView_SelectedItemChanged;
+      }
 
+      private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
+      {
+        if (sender is TreeView treeView)
+          SetSelectedItem(treeView, args.NewValue);
       }
 
       /// <summary>
@@ -84,7 +135,7 @@ namespace Qhta.WPF.Utils
           // virtualizing case even if the item is marked
           // expanded we still need to do this step in order to
           // regenerate the visuals because they may have been virtualized away.
-
+          //Debug.WriteLine($"TreeViewBehavior.GetTreeViewItem({container}, {obj})");
           container.ApplyTemplate();
           ItemsPresenter itemsPresenter =
               (ItemsPresenter)container.Template.FindName("ItemsHost", container);
