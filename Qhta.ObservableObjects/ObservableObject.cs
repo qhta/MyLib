@@ -50,7 +50,9 @@ namespace Qhta.ObservableObjects
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public void NotifyPropertyChanged(string propertyName)
+    public void NotifyPropertyChanged(string propertyName) => NotifyPropertyChanged(this, propertyName);
+
+    public void NotifyPropertyChanged(object sender, string propertyName)
     {
       var propertyChangedEventHandler = PropertyChanged;
 
@@ -64,12 +66,12 @@ namespace Qhta.ObservableObjects
         var args = new PropertyChangedEventArgs(propertyName);
         if (Dispatcher != null)
         {
-          Dispatcher.BeginInvoke(DispatcherPriority.Background, handler, this, args);
+          Dispatcher.BeginInvoke(DispatcherPriority.Background, handler, sender, args);
         }
         else
           try
           {
-            handler.BeginInvoke(this, args, null, null);
+            handler.BeginInvoke(sender, args, null, null);
           }
           catch (Exception ex)
           {

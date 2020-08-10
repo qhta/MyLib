@@ -61,7 +61,11 @@ namespace Qhta.WPF.Utils
       {
         var parent= VisualTreeHelper.GetParent(result);
         if (parent == null && result is FrameworkElement element)
+        {
           parent = element.TemplatedParent;
+          if (parent == null)
+            parent = element.Parent;
+        }
         result = parent;
       }
       while (result != null && !(result is T));
