@@ -61,6 +61,7 @@ namespace Qhta.WPF.Utils
           if (comboBox != null && GetIsNullable(comboBox) && comboBox.IsEnabled)
           {
             comboBox.SelectedValue = null;
+            comboBox.SelectedItem = null;
             comboBox.RaiseEvent(new RoutedEventArgs(ComboBoxBehavior.ClearedEvent, comboBox));
           }
         }

@@ -13,6 +13,55 @@ namespace Qhta.TypeUtils
   /// </summary>
   public static class TypeUtils
   {
+    /// <summary>
+    /// Checks if the given value is the default value of the given type
+    /// </summary>
+    /// <param name="valueType"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool IsDefaultValue(this Type valueType, object value)
+    {
+      if (valueType.Name.StartsWith("Nullable"))
+      {
+        var argTypes = valueType.GenericTypeArguments;
+        if (argTypes.Length == 1)
+          valueType = argTypes[0];
+      }
+      var isDefault = false;
+      if (valueType == typeof(bool))
+        isDefault = (bool)value == false;
+      else if (valueType.IsEnum)
+      {
+        var underlyingType = valueType.GetEnumUnderlyingType();
+        if (underlyingType == typeof(byte))
+          isDefault = (byte)value == 0;
+        else
+        if (underlyingType == typeof(SByte))
+          isDefault = (SByte)value == 0;
+        else
+        if (underlyingType == typeof(Int16))
+          isDefault = (Int16)value == 0;
+        else
+        if (underlyingType == typeof(UInt16))
+          isDefault = (UInt16)value == 0;
+        else
+        if (underlyingType == typeof(UInt32))
+          isDefault = (UInt32)value == 0;
+        else
+        if (underlyingType == typeof(Int64))
+          isDefault = (Int64)value == 0;
+        else
+        if (underlyingType == typeof(UInt64))
+          isDefault = (UInt64)value == 0;
+        else
+          isDefault = (int)value == 0;
+      }
+      else if (valueType == typeof(Double))
+        isDefault = Double.IsNaN((double)value);
+      else if (valueType == typeof(Single))
+        isDefault = Double.IsNaN((Single)value);
+      return isDefault;
+    }
 
     /// <summary>
     /// Converts string to enum value for an enum type. Returns false if no enum value recognized
@@ -50,7 +99,7 @@ namespace Qhta.TypeUtils
     /// <returns></returns>
     public static bool TrySetValue(this PropertyInfo property, object targetObject, object value)
     {
-      if (value!=null && value.GetType()!=property.PropertyType)
+      if (value != null && value.GetType() != property.PropertyType)
       {
         object conValue;
         if (property.PropertyType.TryConvertValue(value, out conValue))
@@ -140,7 +189,7 @@ namespace Qhta.TypeUtils
           }
         }
       }
-      return typeConverter!=null;
+      return typeConverter != null;
     }
 
     /// <summary>
@@ -173,7 +222,7 @@ namespace Qhta.TypeUtils
     /// <returns></returns>
     public static bool TryParseEnum(this Type enumType, string str, out object value)
     {
-      bool ok=false;
+      bool ok = false;
       value = null;
       if (!enumType.IsEnum)
         return ok;
@@ -441,7 +490,7 @@ namespace Qhta.TypeUtils
     /// <param name="target">Target object</param>
     /// <param name="revertConversion">use GetDeclaredCopyDelegatesReverse</param>
     /// <returns>Names of copied properties</returns>
-    public static string[] CopyProperties(object source, object target, bool revertConversion=false)
+    public static string[] CopyProperties(object source, object target, bool revertConversion = false)
     {
       Dictionary<string, CopyPropertyMethod> delegates;
       if (revertConversion)
@@ -533,7 +582,7 @@ namespace Qhta.TypeUtils
     /// <param name="target"></param>
     /// <param name="delegates"></param>
     /// <returns></returns>
-    public static string[] CopyProperties(object source, object target, Dictionary<string, CopyPropertyMethod> delegates)   
+    public static string[] CopyProperties(object source, object target, Dictionary<string, CopyPropertyMethod> delegates)
     {
       Type sourceType = source.GetType();
       Type targetType = target.GetType();
@@ -576,7 +625,7 @@ namespace Qhta.TypeUtils
               }
             }
             Type targetValueType = null;
-            if (targetValue!=null)
+            if (targetValue != null)
               targetValueType = targetValue.GetType();
             Type targetPropertyType = targetProperty.PropertyType;
             //if (targetPropertyType!=targetValueType && targetValueType!=null)
@@ -635,7 +684,7 @@ namespace Qhta.TypeUtils
     /// <param name="target"></param>
     /// <param name="targetValue"></param>
     /// <returns></returns>
-    public delegate object CopyPropertyMethod (object source, object sourceValue, object target, object targetValue);
+    public delegate object CopyPropertyMethod(object source, object sourceValue, object target, object targetValue);
 
   }
 
@@ -653,7 +702,7 @@ namespace Qhta.TypeUtils
     /// </summary>
     /// <param name="targetType"></param>
     /// <param name="targetMethod"></param>
-    public CopyPropertyDelegate(Type targetType, string targetMethod) 
+    public CopyPropertyDelegate(Type targetType, string targetMethod)
     {
       TargetType = targetType;
       TargetMethod = targetMethod;
@@ -669,7 +718,7 @@ namespace Qhta.TypeUtils
     /// <returns></returns>
     public object CopyProperty(object source, object sourceValue, object target, object targetValue)
     {
-      MethodInfo targetMethod = TargetType.GetMethod(TargetMethod,BindingFlags.Public | BindingFlags.Static);
+      MethodInfo targetMethod = TargetType.GetMethod(TargetMethod, BindingFlags.Public | BindingFlags.Static);
       if (targetMethod == null)
         throw new InvalidOperationException(String.Format("Public static method {1} not found in type {0}", TargetType.Name, TargetMethod));
       Delegate delegator = Delegate.CreateDelegate(typeof(TypeUtils.CopyPropertyMethod), null, targetMethod);
@@ -727,7 +776,7 @@ namespace Qhta.TypeUtils
       if (sourceValue == null)
       {
         IEmpty checker = source as IEmpty;
-        if (checker!=null && checker.IsEmpty)
+        if (checker != null && checker.IsEmpty)
           return null;
         return targetValue;
       }
@@ -736,25 +785,25 @@ namespace Qhta.TypeUtils
       object targetItemsTemp = null;
       if (targetItems == null)
       {
-        ConstructorInfo constructor = TargetPropertyType.GetConstructor(new Type[]{});
-        if (constructor!=null)
+        ConstructorInfo constructor = TargetPropertyType.GetConstructor(new Type[] { });
+        if (constructor != null)
         {
-          targetItemsTemp = constructor.Invoke(new object[]{});
+          targetItemsTemp = constructor.Invoke(new object[] { });
           targetItems = targetItemsTemp as IList;
         }
-        if (targetItems==null)
+        if (targetItems == null)
           targetItems = new List<object>();
       }
       else
         targetItems.Clear();
-      foreach (object sourceItem in sourceItems.Where(item => item!=null))
+      foreach (object sourceItem in sourceItems.Where(item => item != null))
       {
         Type sourceItemType = sourceItem.GetType();
         Type targetItemType;
         Type targetType = target.GetType();
         if (typePairs.TryGetValue(sourceItem.GetType(), out targetItemType))
         {
-          object targetItem=null;
+          object targetItem = null;
           ConstructorInfo constructor = targetItemType.GetConstructor(new Type[] { targetType, sourceItemType });
           if (constructor != null)
             targetItem = constructor.Invoke(new object[] { target, sourceItem });
@@ -784,8 +833,8 @@ namespace Qhta.TypeUtils
       if (TargetPropertyType.IsArray)
       {
         Type elementType = TargetPropertyType.GetElementType();
-        Array targetArray = Array.CreateInstance(elementType, new int[]{targetItems.Count});
-        targetItems.CopyTo(targetArray,0);
+        Array targetArray = Array.CreateInstance(elementType, new int[] { targetItems.Count });
+        targetItems.CopyTo(targetArray, 0);
         return targetArray;
       }
       return targetItems;
@@ -824,7 +873,7 @@ namespace Qhta.TypeUtils
   /// <summary>
   /// An attribute to define conversion of compound property items for a type while copying
   /// </summary>
-  [AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=true)]
+  [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
   public class CopyPropertyItemConversionAttribute : Attribute
   {
     /// <summary>

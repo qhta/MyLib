@@ -492,6 +492,14 @@
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.IsDefaultValue(System.Type,System.Object)">
+            <summary>
+            Checks if the given value is the default value of the given type
+            </summary>
+            <param name="valueType"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.TryGetEnumValue(System.Type,System.String,System.Object@)">
             <summary>
             Converts string to enum value for an enum type. Returns false if no enum value recognized
