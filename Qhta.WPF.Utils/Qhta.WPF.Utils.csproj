@@ -73,6 +73,7 @@
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
+    <Compile Include="Converters\DecimalValueConverter.cs" />
     <Compile Include="Converters\IndexingConverter.cs" />
     <Compile Include="LocalCommand.cs" />
     <Compile Include="TextBoxBehavior.cs" />

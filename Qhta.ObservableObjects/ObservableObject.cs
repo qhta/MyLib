@@ -32,7 +32,7 @@ namespace Qhta.ObservableObjects
       Dispatcher = dispatcher;
     }
 
-    protected Dispatcher Dispatcher;
+    public Dispatcher Dispatcher { get; private set; }
 
     public virtual void SetDispatcher (Dispatcher dispatcher)
     {
