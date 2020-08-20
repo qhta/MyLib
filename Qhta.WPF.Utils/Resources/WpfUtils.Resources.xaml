@@ -13,6 +13,7 @@
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ImageButtonStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToggleButtonStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToolTipStyle.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ClearButtonStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

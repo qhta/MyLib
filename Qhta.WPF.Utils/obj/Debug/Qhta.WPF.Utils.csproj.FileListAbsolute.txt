@@ -130,3 +130,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CoreCom
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ClearButtonStyle.baml
