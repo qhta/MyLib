@@ -10,26 +10,13 @@ namespace Qhta.ObservableObjects
   {
     public static bool TraceCreationWithDispatcher { get; set; } = true;
 
-    public ObservableObject(): this(Dispatcher.CurrentDispatcher)
+    public ObservableObject(): this(null)
     {
     }
 
     public ObservableObject(Dispatcher dispatcher)
     {
-      if (dispatcher == null)
-        dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
-#if DEBUG
-      if (TraceCreationWithDispatcher && dispatcher != null)
-      {
-        if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
-          Debug.WriteLine($"{this.GetType().Name} should be created with STA thread dispatcher");
-        //if (dispatcher != System.Windows.Threading.Dispatcher.CurrentDispatcher)
-        //  Debug.WriteLine($"{this.GetType().Name} should be created with GUI Access dispatcher");
-        if (dispatcher.Thread.Name!="VSTA_Main")
-          Debug.WriteLine($"{this.GetType().Name} should be created with VSTA_Main dispatcher");
-      }
-#endif
-      Dispatcher = dispatcher;
+      SetDispatcher(dispatcher);
     }
 
     public Dispatcher Dispatcher { get; private set; }
@@ -37,9 +24,13 @@ namespace Qhta.ObservableObjects
     public virtual void SetDispatcher (Dispatcher dispatcher)
     {
 #if DEBUG
-      if (TraceCreationWithDispatcher)
+      if (TraceCreationWithDispatcher && dispatcher!=null)
+      {
         if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
           Debug.WriteLine($"{this} should be set with STA thread dispatcher");
+        if (dispatcher.Thread.Name != "VSTA_Main")
+          Debug.WriteLine($"{this.GetType().Name} should be created with VSTA_Main dispatcher");
+      }
 #endif
       Dispatcher = dispatcher;
     }
