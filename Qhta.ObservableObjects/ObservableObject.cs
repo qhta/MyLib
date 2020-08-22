@@ -10,6 +10,8 @@ namespace Qhta.ObservableObjects
   {
     public static bool TraceCreationWithDispatcher { get; set; } = true;
 
+    public static Dispatcher CommonDispatcher { get; set; }
+
     public ObservableObject(): this(null)
     {
     }
@@ -50,19 +52,24 @@ namespace Qhta.ObservableObjects
       if (propertyChangedEventHandler == null)
         return;
 
+      var dispatcher = Dispatcher ?? CommonDispatcher;
 
       foreach (PropertyChangedEventHandler handler in propertyChangedEventHandler.GetInvocationList())
       {
 
         var args = new PropertyChangedEventArgs(propertyName);
-        if (Dispatcher != null)
+        if (dispatcher != null)
         {
-          Dispatcher.BeginInvoke(DispatcherPriority.Background, handler, sender, args);
+          if (dispatcher==Dispatcher.CurrentDispatcher)
+            dispatcher.Invoke(handler, sender, args);
+          else
+            dispatcher.BeginInvoke(DispatcherPriority.Background, handler, sender, args);
         }
         else
           try
           {
-            handler.BeginInvoke(sender, args, null, null);
+            handler.Invoke(sender, args);
+            //handler.BeginInvoke(sender, args, null, null);
           }
           catch (Exception ex)
           {
