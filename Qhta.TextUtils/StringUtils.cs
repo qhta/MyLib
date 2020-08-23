@@ -159,5 +159,11 @@ namespace Qhta.TextUtils
 
       return words;
     }
+
+    public static string Precede(this string str, string prefix) => str != null ? prefix + str : null;
+
+    public static string Attach(this string str, string suffix) => str != null ? str + suffix : null;
+
+
   }
 }

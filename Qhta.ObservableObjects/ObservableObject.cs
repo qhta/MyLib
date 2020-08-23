@@ -60,9 +60,18 @@ namespace Qhta.ObservableObjects
         var args = new PropertyChangedEventArgs(propertyName);
         if (dispatcher != null)
         {
-          if (dispatcher==Dispatcher.CurrentDispatcher)
-            dispatcher.Invoke(handler, sender, args);
-          else
+          var handled = false;
+          //if (dispatcher == Dispatcher.CurrentDispatcher)
+          //  try
+          //  {
+          //    dispatcher.Invoke(handler, sender, args);
+          //    handled = true;
+          //  }
+          //  catch (InvalidOperationException)
+          //  {
+
+          //  }
+          if (!handled)
             dispatcher.BeginInvoke(DispatcherPriority.Background, handler, sender, args);
         }
         else
