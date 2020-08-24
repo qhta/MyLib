@@ -6,36 +6,31 @@ using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
-  public class ObservableObject: INotifyPropertyChanged
+  public class ObservableObject : INotifyPropertyChanged
   {
-    public static bool TraceCreationWithDispatcher { get; set; } = true;
-
     public static Dispatcher CommonDispatcher { get; set; }
 
-    public ObservableObject(): this(null)
+    public ObservableObject()
     {
     }
 
-    public ObservableObject(Dispatcher dispatcher)
+    public Dispatcher Dispatcher
     {
-      SetDispatcher(dispatcher);
-    }
-
-    public Dispatcher Dispatcher { get; private set; }
-
-    public virtual void SetDispatcher (Dispatcher dispatcher)
-    {
-#if DEBUG
-      if (TraceCreationWithDispatcher && dispatcher!=null)
+      get => _Dispatcher ?? CommonDispatcher;
+      set
       {
-        if (dispatcher.Thread.GetApartmentState() != ApartmentState.STA)
-          Debug.WriteLine($"{this} should be set with STA thread dispatcher");
-        if (dispatcher.Thread.Name != "VSTA_Main")
-          Debug.WriteLine($"{this.GetType().Name} should be created with VSTA_Main dispatcher");
-      }
+#if DEBUG
+        {
+          if (value.Thread.GetApartmentState() != ApartmentState.STA)
+            Debug.WriteLine($"{this} should be set with STA thread dispatcher");
+          if (value.Thread.Name != "VSTA_Main")
+            Debug.WriteLine($"{this.GetType().Name} should be created with VSTA_Main dispatcher");
+        }
 #endif
-      Dispatcher = dispatcher;
+        Dispatcher = value;
+      }
     }
+    protected Dispatcher _Dispatcher;
 
     public virtual object LockObject => this;
 
@@ -52,7 +47,7 @@ namespace Qhta.ObservableObjects
       if (propertyChangedEventHandler == null)
         return;
 
-      var dispatcher = Dispatcher ?? CommonDispatcher;
+      var dispatcher = Dispatcher;
 
       foreach (PropertyChangedEventHandler handler in propertyChangedEventHandler.GetInvocationList())
       {
@@ -85,7 +80,7 @@ namespace Qhta.ObservableObjects
             Debug.WriteLine($"{ex.GetType().Name} thrown in ObservableObject:\n {ex.Message}");
           }
       }
-   }
+    }
 
     #endregion INotifyPropertyChanged
 

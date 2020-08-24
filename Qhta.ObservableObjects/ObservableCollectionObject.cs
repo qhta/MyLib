@@ -11,10 +11,6 @@ namespace Qhta.ObservableObjects
   {
     public const string dateTimeFormat = "hh:mm:ss.fff";
 
-    public ObservableCollectionObject() : base() { }
-
-    public ObservableCollectionObject(Dispatcher dispatcher) : base(dispatcher) { }
-
     #region INotifyCollectionChanged
 
     public virtual event NotifyCollectionChangedEventHandler CollectionChanged;

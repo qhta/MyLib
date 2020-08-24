@@ -21,11 +21,6 @@ namespace Qhta.ObservableViewModels
       Items = new ObservableList<TValue>();
     }
 
-    public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
-    {
-      Items = new ObservableList<TValue>(Dispatcher);
-    }
-
     public readonly ObservableList<TValue> Items;
 
     #region LazyLoad functionality

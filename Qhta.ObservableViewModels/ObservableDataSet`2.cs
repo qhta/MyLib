@@ -23,14 +23,9 @@ namespace Qhta.ObservableViewModels
       Init();
     }
 
-    public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
-    {
-      Init();
-    }
-
     private void Init()
     {
-      PrimaryIndex = new ObservableDictionary<TKey, TValue>(Dispatcher);
+      PrimaryIndex = new ObservableDictionary<TKey, TValue>();
       foreach (var propInfo in typeof(TValue).GetProperties())
       {
         if (propInfo.GetCustomAttribute<KeyAttribute>() != null)

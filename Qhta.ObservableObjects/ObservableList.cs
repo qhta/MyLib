@@ -36,16 +36,6 @@ namespace Qhta.ObservableObjects
 
     public ObservableList() : this(new T[0]) { }
 
-    public ObservableList(Dispatcher dispatcher) : this(new T[0], dispatcher)
-    {
-    }
-
-    public ObservableList(IEnumerable<T> items, Dispatcher dispatcher) : base(dispatcher)
-    {
-      foreach (var item in items)
-        _items.Add(item);
-    }
-
     public ObservableList(IEnumerable<T> items) : base()
     {
       foreach (var item in items)

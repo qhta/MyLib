@@ -24,19 +24,9 @@ namespace Qhta.ObservableViewModels
       Init(keyType, properties);
     }
 
-    public ObservableDataIndex(Type keyType, string property, Dispatcher dispatcher) : this(keyType, new string[] {property }, dispatcher)
-    {
-
-    }
-
-    public ObservableDataIndex(Type keyType, string[] properties, Dispatcher dispatcher) : base(dispatcher)
-    {
-      Init(keyType, properties);
-    }
-
     private void Init(Type keyType, string[] properties)
     { 
-      Items = new ObservableDictionary<object, TValue>(Dispatcher);
+      Items = new ObservableDictionary<object, TValue>();
       foreach (var propName in properties)
       {
         var propInfo = typeof(TValue).GetProperty(propName);

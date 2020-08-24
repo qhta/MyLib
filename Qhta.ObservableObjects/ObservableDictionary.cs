@@ -60,19 +60,6 @@ namespace Qhta.ObservableObjects
     {
     }
 
-    public ObservableDictionary(Dispatcher dispatcher) : this(new KeyValuePair<TKey, TValue>[0], dispatcher)
-    {
-    }
-
-    public ObservableDictionary(IEnumerable<KeyValuePair<TKey, TValue>> items, Dispatcher dispatcher) : base(dispatcher)
-    {
-      _syncRoot = new object();
-      var newItems = new Dictionary<TKey, TValue>();
-      foreach (var item in items)
-        newItems.Add(item.Key, item.Value);
-      _items = newItems;
-    }
-
 
     public ObservableDictionary(IEnumerable<KeyValuePair<TKey, TValue>> items) : base()
     {

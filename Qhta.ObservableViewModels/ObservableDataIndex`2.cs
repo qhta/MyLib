@@ -25,16 +25,9 @@ namespace Qhta.ObservableViewModels
       Init(aName);
     }
 
-    public ObservableDataIndex(Dispatcher dispatcher): this (null, dispatcher) { }
-
-
-    public ObservableDataIndex(string aName, Dispatcher dispatcher): base(dispatcher)
-    {
-      Init(aName);
-    }
     private void Init(string aName)
     {
-      Items = new ObservableDictionary<object, TValue>(Dispatcher);
+      Items = new ObservableDictionary<object, TValue>();
       //Debug.WriteLine($"ObservableDataIndex({aName}).Create");
       Dictionary<string, List<PropertyInfo>> allIndexes = new Dictionary<string, List<PropertyInfo>>();
       foreach (var propInfo in typeof(TValue).GetProperties())

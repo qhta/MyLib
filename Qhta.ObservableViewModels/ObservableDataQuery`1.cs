@@ -35,13 +35,6 @@ namespace Qhta.ObservableViewModels
       Init(source, filter);
     }
 
-    public ObservableDataQuery(ObservableDataSet<TValue> source, Dispatcher dispatcher) : this(source, null, dispatcher) { }
-
-    public ObservableDataQuery(ObservableDataSet<TValue> source, Func<TValue, bool> filter, Dispatcher dispatcher) : base(dispatcher)
-    {
-      Init(source, filter);
-    }
-
     private void Init(ObservableDataSet<TValue> source, Func<TValue, bool> filter)
     {
       Source = source;

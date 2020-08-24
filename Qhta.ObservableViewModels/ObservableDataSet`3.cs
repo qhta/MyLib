@@ -27,14 +27,9 @@ namespace Qhta.ObservableViewModels
       Init();
     }
 
-    public ObservableDataSet(Dispatcher dispatcher) : base(dispatcher)
-    {
-      Init();
-    }
-
     private void Init()
     {
-      SecondaryIndex = new ObservableDataIndex<TSecondaryKey, TValue>(Dispatcher);
+      SecondaryIndex = new ObservableDataIndex<TSecondaryKey, TValue>();
     }
 
     public ObservableDataIndex<TSecondaryKey, TValue> SecondaryIndex { get; private set; }
