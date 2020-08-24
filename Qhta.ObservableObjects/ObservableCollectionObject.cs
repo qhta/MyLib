@@ -102,8 +102,8 @@ namespace Qhta.ObservableObjects
 
           foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
           {
-            //handler.Invoke(this, args);
-            handler.BeginInvoke(this, args, null, null);
+            handler.Invoke(this, args);
+            //handler.BeginInvoke(this, args, null, null);
           }
       }
     }

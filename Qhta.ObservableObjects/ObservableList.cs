@@ -781,8 +781,16 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Insert(index, item);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
+        try
+        {
+          _items.Insert(index, item);
+          NotifyCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+          Debug.WriteLine($"{ex.GetType().Name} in ObservableList.Insert({index}) when Count={Count}");
+          Debug.Fail($"ObservableList.Insert({index}) when Count={Count} failed");
+        }
       }
     }
 
@@ -809,8 +817,17 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        foreach (var item in collection)
-          _items.Insert(index++, item);
+        try
+        {
+          foreach (var item in collection)
+            _items.Insert(index++, item);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+          Debug.WriteLine($"{ex.GetType().Name} in ObservableList.InsertRange({index}) when Count={Count}");
+          Debug.Fail($"ObservableList.InsertRange({index}) when Count={Count} failed");
+        }
+
         NotifyCollectionChanged(NotifyCollectionChangedAction.Add, collection, index);
       }
     }
