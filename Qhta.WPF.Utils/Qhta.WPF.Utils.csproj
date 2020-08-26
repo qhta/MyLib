@@ -70,6 +70,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionHolder.cs" />
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="TimingMessageBox.xaml.cs">
       <DependentUpon>TimingMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TreeViewBehavior.MultiSelect.cs" />
     <Compile Include="TreeViewBehavior.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="BindingExpressionUtils.cs" />

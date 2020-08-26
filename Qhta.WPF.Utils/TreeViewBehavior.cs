@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace Qhta.WPF.Utils
 {
-  public class TreeViewBehavior
+  public partial class TreeViewBehavior
   {
     private static Dictionary<DependencyObject, TreeViewSelectedItemBehavior> behaviors = new Dictionary<DependencyObject, TreeViewSelectedItemBehavior>();
 
@@ -67,9 +65,6 @@ namespace Qhta.WPF.Utils
       if (obj is TreeView treeView)
       {
         //Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged({args.OldValue}, {args.NewValue})");
-        if (!behaviors.ContainsKey(obj))
-          behaviors.Add(obj, new TreeViewSelectedItemBehavior(obj as TreeView));
-        TreeViewSelectedItemBehavior behavior = behaviors[obj];
         var done = false;
         if (GetUseSelectedItemChangeEvent(treeView))
           try
@@ -82,8 +77,22 @@ namespace Qhta.WPF.Utils
           {
             done = false;
           }
+        //Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged done={done}");
         if (!done)
+        {
+          if (!behaviors.ContainsKey(obj))
+            behaviors.Add(obj, new TreeViewSelectedItemBehavior(obj as TreeView));
+          TreeViewSelectedItemBehavior behavior = behaviors[obj];
           behavior.ChangeSelectedItem(args.NewValue);
+        }
+        //var newValue = args.NewValue;
+        //{
+        //  var item = treeView.ContainerFromItem(newValue);
+        //  Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged item={item}");
+        //  if (item is TreeViewItem treeViewItem)
+        //    SelectSingleItem(treeView, treeViewItem);
+        //}
+
       }
     }
 
@@ -224,6 +233,8 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+
+
 
   }
 }
