@@ -1,0 +1,8 @@
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\bin\Debug\MultiSelectTreeView.dll
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\bin\Debug\MultiSelectTreeView.pdb
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\obj\Debug\MultiSelectTreeView.csprojAssemblyReference.cache
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\obj\Debug\MultiSelectTreeView.Properties.Resources.resources
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\obj\Debug\MultiSelectTreeView.csproj.GenerateResource.cache
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\obj\Debug\MultiSelectTreeView.csproj.CoreCompileInputs.cache
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\obj\Debug\MultiSelectTreeView.dll
+d:\Dane\VS\Projects\MultiSelectTreeView-master\MultiSelectTreeView\obj\Debug\MultiSelectTreeView.pdb

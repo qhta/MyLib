@@ -10,7 +10,7 @@ namespace Qhta.WPF.Utils
   /// <summary>
   /// Collection of ListView behavior
   /// </summary>
-  public static class ListViewBehavior
+  public static partial class ListViewBehavior
   {
 
     #region ScrollIntoView
@@ -165,7 +165,6 @@ namespace Qhta.WPF.Utils
 
 
     #endregion FitLastColumnWidth
-
 
     #region Get Visuals
 

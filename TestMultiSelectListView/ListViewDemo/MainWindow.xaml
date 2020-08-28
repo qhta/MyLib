@@ -1,0 +1,147 @@
+﻿<Window x:Class="TestMultiSelectListView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TestMultiSelectListView"
+        xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
+        Title="MainWindow" Height="350" Width="525"
+        x:Name="Window" DataContext="{Binding ElementName=Window}"        
+        >
+
+  <Window.Resources>
+
+    <Style x:Key="ListViewItemFocusVisual">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Rectangle/>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ListViewItem}" x:Key="MyListViewItemStyle">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+      <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+      <Setter Property="Padding" Value="1,0,0,0"/>
+      <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+      <Setter Property="FocusVisualStyle" Value="{StaticResource ListViewItemFocusVisual}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type ListViewItem}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="19" Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+              </Grid.RowDefinitions>
+              <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="PART_Header"  
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+              </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsSelected" Value="true">
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+              </Trigger>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="IsSelected" Value="true"/>
+                  <!--<Condition Property="IsSelectionActive" Value="false"/>-->
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+              </MultiTrigger>
+              <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <!--<Style.Triggers>
+        <Trigger Property="VirtualizingStackPanel.IsVirtualizing" Value="true">
+          <Setter Property="ItemsPanel">
+            <Setter.Value>
+              <ItemsPanelTemplate>
+                <VirtualizingStackPanel/>
+              </ItemsPanelTemplate>
+            </Setter.Value>
+          </Setter>
+        </Trigger>
+      </Style.Triggers>-->
+    </Style>
+
+
+    <HierarchicalDataTemplate DataType="{x:Type local:ListItemViewModel}" ItemsSource="{Binding Children}">
+      <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+    </HierarchicalDataTemplate>
+
+  </Window.Resources>
+
+  <DockPanel x:Name="DockPanel">
+    <Grid DockPanel.Dock="Top" Margin="5">
+      <TextBlock x:Name="TextBlock" HorizontalAlignment="Left">
+            <Run># of selected nodes:</Run>
+            <Run x:Name="NumberOfSelectedNodes" />
+      </TextBlock>
+      <Button x:Name="SelectAllButton" HorizontalAlignment="Right"
+              Padding="5,0"
+              Content="Select All"
+              Click="SelectAllButton_Click"
+              />
+      <Button x:Name="UnselectAllButton" HorizontalAlignment="Right"
+              Padding="5,0"
+              Content="Unselect All"
+              Click="UnselectAllButton_Click"
+              Visibility="Collapsed"
+              />
+    </Grid>
+    <ListView ItemsSource="{Binding RootNodes}"
+              utils:ListViewBehavior.MultiSelect="true"
+              >
+      <!--
+              SelectionMode="Multiple"
+              utils:ListViewBehavior.SelectedItems="{Binding SelectedNodes}"
+      -->
+      <ListView.ItemContainerStyle>
+        <Style TargetType="{x:Type ListViewItem}" >
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+          <Setter Property="utils:ListViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+          <Style.Triggers>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsSelected" Value="True"/>
+                <Condition Property="IsFocused" Value="True"/>
+              </MultiTrigger.Conditions>
+              <Setter Property="Background" Value="DeepSkyBlue" />
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsSelected" Value="True"/>
+                <Condition Property="IsFocused" Value="False"/>
+              </MultiTrigger.Conditions>
+              <Setter Property="Background" Value="SkyBlue" />
+            </MultiTrigger>
+          </Style.Triggers>
+        </Style>
+      </ListView.ItemContainerStyle>
+      <ListView.View>
+        <GridView>
+          <GridView.Columns>
+            <GridViewColumn Header="DisplayName" 
+                            Width="180"
+                            DisplayMemberBinding="{Binding DisplayName}"/>
+          </GridView.Columns>
+        </GridView>
+      </ListView.View>
+    </ListView>
+  </DockPanel>
+
+</Window>

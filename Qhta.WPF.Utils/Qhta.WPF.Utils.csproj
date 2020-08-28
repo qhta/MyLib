@@ -76,6 +76,7 @@
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="Converters\DecimalValueConverter.cs" />
     <Compile Include="Converters\IndexingConverter.cs" />
+    <Compile Include="IListSelector.cs" />
     <Compile Include="LocalCommand.cs" />
     <Compile Include="TextBoxBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="TimingMessageBox.xaml.cs">
       <DependentUpon>TimingMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListViewBehavior.MultiSelect.cs" />
     <Compile Include="TreeViewBehavior.MultiSelect.cs" />
     <Compile Include="TreeViewBehavior.cs" />
     <Compile Include="BindingEvaluator.cs" />
@@ -174,10 +176,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\ComboBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\AeroStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
