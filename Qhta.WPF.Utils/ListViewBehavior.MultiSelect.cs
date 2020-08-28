@@ -123,7 +123,7 @@ namespace Qhta.WPF.Utils
       if (e.OriginalSource is ListView) return;
 
       var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
-      Debug.WriteLine($"OnListViewItemGotFocux({listViewItem})");
+      Debug.WriteLine($"OnListViewItemGotFocus({listViewItem})");
       if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(listViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
       {
         _selectListViewItemOnMouseUp = listViewItem;
@@ -149,10 +149,6 @@ namespace Qhta.WPF.Utils
         else if (Keyboard.Modifiers == ModifierKeys.Shift)
         {
           return SelectMultipleItemsContinuously(listView, listViewItem);
-        }
-        else if (Keyboard.Modifiers == ModifierKeys.Alt)
-        {
-          return UnselectSingleItem(listView, listViewItem);
         }
         else
         {
@@ -198,7 +194,7 @@ namespace Qhta.WPF.Utils
     {
       Debug.WriteLine($"SelectSingleItem({listViewItem})");
       // first deselect all items
-      DeSelectAllItems(listView);
+      DeselectAllItems(listView);
       if (listView.ItemsSource is IListSelector listSelector)
         listSelector.SelectItem(listViewItem, true);
       else
@@ -207,17 +203,7 @@ namespace Qhta.WPF.Utils
       return true;
     }
 
-    public static bool UnselectSingleItem(ListView listView, ListViewItem listViewItem)
-    {
-      Debug.WriteLine($"UnselectSingleItem({listViewItem})");
-      if (listView.ItemsSource is IListSelector listSelector)
-        listSelector.SelectItem(listViewItem, false);
-      else
-        SetIsItemSelected(listViewItem, false);
-      return true;
-    }
-
-    public static void DeSelectAllItems(ListView listView)
+    public static void DeselectAllItems(ListView listView)
     {
       if (listView != null)
       {
@@ -239,7 +225,7 @@ namespace Qhta.WPF.Utils
       }
     }
 
-    public static void DeSelectAllItemsExcept(ListView listView, IEnumerable<ListViewItem> exceptViewItems)
+    public static void DeselectAllItemsExcept(ListView listView, IEnumerable<ListViewItem> exceptViewItems)
     {
       if (listView != null)
       {
@@ -297,7 +283,6 @@ namespace Qhta.WPF.Utils
     public static bool SelectMultipleItemsContinuously(ListView listView, ListViewItem listViewItem, bool shiftControl = false)
     {
       Debug.WriteLine($"SelectMultipleItemsContinuously({listViewItem})");
-
       ListViewItem startItem = GetStartItem(listView);
       if (startItem != null)
       {
@@ -309,7 +294,7 @@ namespace Qhta.WPF.Utils
 
         ICollection<ListViewItem> allItems = new List<ListViewItem>();
         GetAllItems(listView, allItems);
-        DeSelectAllItemsExcept(listView, allItems);
+        DeselectAllItemsExcept(listView, allItems);
         bool isBetween = false;
         foreach (var item in allItems)
         {

@@ -105,15 +105,11 @@
     </Grid>
     <ListView ItemsSource="{Binding RootNodes}"
               utils:ListViewBehavior.MultiSelect="true"
+              ItemContainerStyle="{StaticResource MultiselectListViewItemStyle}"
               >
-      <!--
-              SelectionMode="Multiple"
-              utils:ListViewBehavior.SelectedItems="{Binding SelectedNodes}"
-      -->
-      <ListView.ItemContainerStyle>
+      <!--<ListView.ItemContainerStyle>
         <Style TargetType="{x:Type ListViewItem}" >
           <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-          <Setter Property="utils:ListViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
           <Style.Triggers>
             <MultiTrigger>
               <MultiTrigger.Conditions>
@@ -131,7 +127,7 @@
             </MultiTrigger>
           </Style.Triggers>
         </Style>
-      </ListView.ItemContainerStyle>
+      </ListView.ItemContainerStyle>-->
       <ListView.View>
         <GridView>
           <GridView.Columns>

@@ -32,3 +32,4 @@ d:\Dane\VS\Projects\MyLib\TestMultiSelectTreeView\TreeViewDemo\obj\Debug\TestMul
 d:\Dane\VS\Projects\MyLib\TestMultiSelectTreeView\TreeViewDemo\obj\Debug\MainWindow.baml
 d:\Dane\VS\Projects\MyLib\TestMultiSelectTreeView\TreeViewDemo\obj\Debug\TestMultiSelectTreeView.g.resources
 d:\Dane\VS\Projects\MyLib\TestMultiSelectTreeView\TreeViewDemo\obj\Debug\TestMultiSelectTreeView.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\TestMultiSelectTreeView\TreeViewDemo\obj\Debug\App.baml

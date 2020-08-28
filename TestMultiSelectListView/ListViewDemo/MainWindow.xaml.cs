@@ -9,7 +9,7 @@ namespace TestMultiSelectListView
     {
 
       RootNodes = BuildListModel();
-      RootNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+      RootNodes.CollectionChanged += RootNodes_CollectionChanged;
       RootNodes.PropertyChanged += RootNodes_PropertyChanged;
       InitializeComponent();
     }
@@ -27,10 +27,11 @@ namespace TestMultiSelectListView
 
     //public ObservableCollection<ListItemViewModel> SelectedNodes { get; set; }
 
-    private void SelectedNodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void RootNodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
       this.NumberOfSelectedNodes.Text = RootNodes.SelectedItemsCount.ToString();
     }
+
     private void RootNodes_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
       this.NumberOfSelectedNodes.Text = RootNodes.SelectedItemsCount.ToString();

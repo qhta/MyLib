@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utils="clr-namespace:Qhta.WPF.Utils"
+                    >
+    <Style x:Key="MultiselectListViewItemStyle" TargetType="{x:Type ListViewItem}" >
+      <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+    <Setter Property="utils:ListViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+    <Style.Triggers>
+        <MultiTrigger>
+          <MultiTrigger.Conditions>
+            <Condition Property="IsSelected" Value="True"/>
+            <Condition Property="IsFocused" Value="True"/>
+          </MultiTrigger.Conditions>
+          <Setter Property="Background" Value="DeepSkyBlue" />
+        </MultiTrigger>
+        <MultiTrigger>
+          <MultiTrigger.Conditions>
+            <Condition Property="IsSelected" Value="True"/>
+            <Condition Property="IsFocused" Value="False"/>
+          </MultiTrigger.Conditions>
+          <Setter Property="Background" Value="SkyBlue" />
+        </MultiTrigger>
+      </Style.Triggers>
+    </Style>
+
+
+</ResourceDictionary>

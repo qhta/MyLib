@@ -32,3 +32,4 @@ d:\Dane\VS\Projects\MyLib\TestMultiSelectListView\ListViewDemo\obj\Debug\TestMul
 d:\Dane\VS\Projects\MyLib\TestMultiSelectListView\ListViewDemo\obj\Debug\TestMultiSelectListView.csproj.GenerateResource.cache
 d:\Dane\VS\Projects\MyLib\TestMultiSelectListView\ListViewDemo\obj\Debug\TestMultiSelectListView.csproj.CoreCompileInputs.cache
 d:\Dane\VS\Projects\MyLib\TestMultiSelectListView\ListViewDemo\obj\Debug\TestMultiSelectListView.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\TestMultiSelectListView\ListViewDemo\obj\Debug\App.baml

@@ -1,65 +1,81 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace TestMultiSelectTreeView
 {
-    public partial class MainWindow : Window
+  public partial class MainWindow : Window
+  {
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            SelectedNodes = new ObservableCollection<TreeItemViewModel>();
-            SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+      SelectedNodes = new ObservableCollection<TreeItemViewModel>();
+      SelectedNodes.CollectionChanged += RootNodes_CollectionChanged;
 
-            RootNodes = BuildTreeModel();
+      RootNodes = BuildTreeModel();
+      RootNodes.CollectionChanged += RootNodes_CollectionChanged;
+      RootNodes.PropertyChanged += RootNodes_PropertyChanged;
 
-            InitializeComponent();
-        }
-
-        private static List<TreeItemViewModel> BuildTreeModel()
-        {
-            return new List<TreeItemViewModel>
-            {
-                new TreeItemViewModel("Node 1")
-                {
-                    IsExpanded = true,
-                    Children = new List<TreeItemViewModel>
-                    {
-                        new TreeItemViewModel("Node 1.1"),
-                        new TreeItemViewModel("Node 1.2")
-                        {
-                            Children = new List<TreeItemViewModel>
-                            {
-                                new TreeItemViewModel("Node 1.2.1"),
-                                new TreeItemViewModel("Node 1.2.2"),
-                                new TreeItemViewModel("Node 1.2.3"),
-                                new TreeItemViewModel("Node 1.2.4"),
-                                new TreeItemViewModel("Node 1.2.5"),
-                                new TreeItemViewModel("Node 1.2.6")
-                            }
-                        }
-                    }
-                },
-                new TreeItemViewModel("Node 2")
-                {
-                    Children = new List<TreeItemViewModel>
-                    {
-                        new TreeItemViewModel("Node 2.2.1"),
-                        new TreeItemViewModel("Node 2.2.2"),
-                        new TreeItemViewModel("Node 2.2.3"),
-                        new TreeItemViewModel("Node 2.2.4")
-                    }
-                }
-            };
-        }
-
-        public List<TreeItemViewModel> RootNodes { get; set; }
-
-        public ObservableCollection<TreeItemViewModel> SelectedNodes { get; set; }
-
-        void SelectedNodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            this.NumberOfSelectedNodes.Text = SelectedNodes.Count.ToString();
-        }
+      InitializeComponent();
     }
+
+    private static ItemsListViewModel BuildTreeModel()
+    {
+      var model = new ItemsListViewModel();
+      for (int i = 1; i <= 10; i++)
+      {
+        model.Add(BuildTreeModel(i));
+      }
+      return model;
+    }
+
+    private static TreeItemViewModel BuildTreeModel(int n)
+    {
+      var model = new TreeItemViewModel($"Node {n}");
+      model.IsExpanded=true;
+      model.Children = new ItemsListViewModel();
+      for (int i = 1; i <= 10; i++)
+      {
+        model.Children.Add(BuildTreeModel(n, i));
+      }
+      return model;
+    }
+
+    private static TreeItemViewModel BuildTreeModel(int n, int m)
+    {
+      var model = new TreeItemViewModel($"Node {n}.{m}");
+      model.Children = new ItemsListViewModel();
+      for (int i = 1; i <= 10; i++)
+      {
+        model.Children.Add(new TreeItemViewModel($"Node {n}.{m}.{i}"));
+      }
+      return model;
+    }
+
+    public ItemsListViewModel RootNodes { get; set; }
+
+    public ObservableCollection<TreeItemViewModel> SelectedNodes { get; set; }
+
+    private void RootNodes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+      this.NumberOfSelectedNodes.Text = RootNodes.SelectedItemsCount.ToString();
+    }
+
+    private void RootNodes_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+      this.NumberOfSelectedNodes.Text = RootNodes.SelectedItemsCount.ToString();
+    }
+
+    private void SelectAllButton_Click(object sender, RoutedEventArgs e)
+    {
+      RootNodes.SelectAll(true);
+      SelectAllButton.Visibility = Visibility.Collapsed;
+      UnselectAllButton.Visibility = Visibility.Visible;
+    }
+
+    private void UnselectAllButton_Click(object sender, RoutedEventArgs e)
+    {
+      RootNodes.SelectAll(false);
+      SelectAllButton.Visibility = Visibility.Visible;
+      UnselectAllButton.Visibility = Visibility.Collapsed;
+    }
+  }
 }

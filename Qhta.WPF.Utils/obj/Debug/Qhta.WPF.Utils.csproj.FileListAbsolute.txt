@@ -112,7 +112,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssembly
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ImageButtonStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToggleButtonStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToolTipStyle.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\TreeViewItemStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\TextBoxAnimationStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\GridViewStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\WpfUtils.Resources.baml
@@ -130,3 +129,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CopyCom
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ClearButtonStyle.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MulticolumnTreeViewItemStyle.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MultiselectListViewItemStyle.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MultiselectTreeViewItemStyle.baml

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,7 +10,7 @@ using System.Windows.Media.Media3D;
 
 namespace Qhta.WPF.Utils
 {
-  public partial class TreeViewBehavior
+  public static partial class TreeViewBehavior
   {
     public static bool GetMultiSelect(DependencyObject obj)
     {
@@ -18,7 +19,7 @@ namespace Qhta.WPF.Utils
 
     public static void SetMultiSelect(DependencyObject obj, bool value)
     {
-        obj.SetValue(MultiSelectProperty, value);
+      obj.SetValue(MultiSelectProperty, value);
     }
 
     public static readonly DependencyProperty MultiSelectProperty = DependencyProperty.RegisterAttached
@@ -185,34 +186,30 @@ namespace Qhta.WPF.Utils
     public static void SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
     {
       // first deselect all items
-      DeSelectAllItems(treeView, null);
-      SetIsItemSelected(treeViewItem, true);
+      DeselectAllItems(treeView, null);
+      if (treeView.ItemsSource is IListSelector listSelector)
+        listSelector.SelectItem(treeViewItem, true);
       SetStartItem(treeView, treeViewItem);
     }
 
-    public static void DeSelectAllItems(TreeView treeView, TreeViewItem treeViewItem)
+    public static void DeselectAllItems(TreeView treeView, TreeViewItem treeViewItem)
     {
       if (treeView != null)
       {
-        for (int i = 0; i < treeView.Items.Count; i++)
+        if (treeView.ItemsSource is IListSelector listSelector)
         {
-          var item = treeView.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-          if (item != null)
-          {
-            SetIsItemSelected(item, false);
-            DeSelectAllItems(null, item);
-          }
+          listSelector.SelectAll(false);
         }
-      }
-      else
-      {
-        for (int i = 0; i < treeViewItem.Items.Count; i++)
+        else
         {
-          var item = treeViewItem.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-          if (item != null)
+          for (int i = 0; i < treeViewItem.Items.Count; i++)
           {
-            SetIsItemSelected(item, false);
-            DeSelectAllItems(null, item);
+            var item = treeViewItem.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
+            if (item != null)
+            {
+              SetIsItemSelected(item, false);
+              DeselectAllItems(null, item);
+            }
           }
         }
       }
@@ -232,6 +229,7 @@ namespace Qhta.WPF.Utils
 
     public static void SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
     {
+      Debug.WriteLine($"SelectMultipleItemsRandomly({treeViewItem})");
       SetIsItemSelected(treeViewItem, !GetIsItemSelected(treeViewItem));
       if (GetStartItem(treeView) == null || Keyboard.Modifiers == ModifierKeys.Control)
       {
@@ -251,6 +249,7 @@ namespace Qhta.WPF.Utils
 
     public static void SelectMultipleItemsContinuously(TreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
     {
+      Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem})");
       TreeViewItem startItem = GetStartItem(treeView);
       if (startItem != null)
       {

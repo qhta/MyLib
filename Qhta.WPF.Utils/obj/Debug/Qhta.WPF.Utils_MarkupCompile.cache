@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-101548438702
+12-960173368
 11298430834
 952121224384
 129-1445056428
-Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\TreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\GridViewStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;
+Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\MultiselectListViewItemStyle.xaml;Resources\MultiselectTreeViewItemStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\MulticolumnTreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\GridViewStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;
 
 False
 

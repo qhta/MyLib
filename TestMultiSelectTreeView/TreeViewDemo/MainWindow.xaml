@@ -141,28 +141,57 @@
   </Window.Resources>
 
   <DockPanel x:Name="DockPanel">
-    <TextBlock x:Name="TextBlock"
-            DockPanel.Dock="Top" Margin="5">
+    <Grid DockPanel.Dock="Top" Margin="5">
+      <TextBlock x:Name="TextBlock" HorizontalAlignment="Left">
             <Run># of selected nodes:</Run>
             <Run x:Name="NumberOfSelectedNodes" />
-    </TextBlock>
+      </TextBlock>
+      <Button x:Name="SelectAllButton" HorizontalAlignment="Right"
+              Padding="5,0"
+              Content="Select All"
+              Click="SelectAllButton_Click"
+              />
+      <Button x:Name="UnselectAllButton" HorizontalAlignment="Right"
+              Padding="5,0"
+              Content="Unselect All"
+              Click="UnselectAllButton_Click"
+              Visibility="Collapsed"
+              />
+    </Grid>
+
 
     <TreeView ItemsSource="{Binding RootNodes}"
               utils:TreeViewBehavior.MultiSelect="true"
-              utils:TreeViewBehavior.SelectedItems="{Binding SelectedNodes}">
+              ItemContainerStyle="{StaticResource MultiselectTreeViewItemStyle}"
+              
+              >
+      <!--
+      
+              utils:TreeViewBehavior.SelectedItems="{Binding SelectedNodes}"
+      -->
 
-
-      <TreeView.ItemContainerStyle>
+      <!--<TreeView.ItemContainerStyle>
         <Style TargetType="{x:Type TreeViewItem}" >
           <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
           <Setter Property="utils:TreeViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
           <Style.Triggers>
-            <Trigger Property="utils:TreeViewBehavior.IsItemSelected" Value="True">
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="utils:TreeViewBehavior.IsItemSelected" Value="True"/>
+                <Condition Property="IsFocused" Value="True"/>
+              </MultiTrigger.Conditions>
+              <Setter Property="Background" Value="DeepSkyBlue" />
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="utils:TreeViewBehavior.IsItemSelected" Value="True"/>
+                <Condition Property="IsFocused" Value="False"/>
+              </MultiTrigger.Conditions>
               <Setter Property="Background" Value="SkyBlue" />
-            </Trigger>
+            </MultiTrigger>
           </Style.Triggers>
         </Style>
-      </TreeView.ItemContainerStyle>
+      </TreeView.ItemContainerStyle>-->
     </TreeView>
   </DockPanel>
 
