@@ -9,10 +9,68 @@
             A class that helps using <c>TypeConverter</c> to change an object type in the runtime.
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.DynamicTypeConverter.#ctor(System.ComponentModel.TypeConverter,System.Type)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="typeConverter"></param>
+            <param name="targetType"></param>
+        </member>
+        <member name="M:Qhta.TypeUtils.DynamicTypeConverter.Convert(System.Object)">
+            <summary>
+            Wraps TypeConverter.ConvertFrom
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.EnumTypeConverter">
             <summary>
             A class that helps enum type conversion to/from string
             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.RemoveAll(System.String,System.Int32,System.Char[])">
+            <summary>
+            Remove specific chars from string
+            </summary>
+            <param name="str"></param>
+            <param name="from"></param>
+            <param name="charsToRemove"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.Encode``1(``0)">
+            <summary>
+            Translating enum value to string
+            </summary>
+            <typeparam name="EType"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.Decode``1(System.String)">
+            <summary>
+            Translating string value to enum value
+            </summary>
+            <typeparam name="EType"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.TryDecode``1(System.String,``0@)">
+            <summary>
+            Trying translating string value to enum value
+            </summary>
+            <typeparam name="EType"></typeparam>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.TryDecode``1(System.String,``0@,System.String@)">
+            <summary>
+            Trying translating string value to enum value
+            </summary>
+            <typeparam name="EType"></typeparam>
+            <param name="value"></param>
+            <param name="result"></param>
+            <param name="invalidKey"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.TypeUtils.JointProperties">
             <summary>
@@ -52,6 +110,14 @@
             <param name="dataType"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TypeUtils.JointProperties.TryGetTypeConverter(System.Reflection.PropertyInfo,System.ComponentModel.TypeConverter@)">
+            <summary>
+            Get TypeConverter instance for a specific property
+            </summary>
+            <param name="property"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.ObjectCopier">
             <summary>
             Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx
@@ -72,9 +138,300 @@
             A static class that converts object to string
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.CharToString(System.Char)">
+            <summary>
+            Converting character value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.BoolToString(System.Boolean)">
+            <summary>
+            Converting boolean value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.SByteToString(System.SByte)">
+            <summary>
+            Converting signed byte value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.Int16ToString(System.Int16)">
+            <summary>
+            Converting int16 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.Int32ToString(System.Int32)">
+            <summary>
+            Converting int32 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.Int64ToString(System.Int64)">
+            <summary>
+            Converting int64 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.ByteToString(System.Byte)">
+            <summary>
+            Converting byte value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.UInt16ToString(System.UInt16)">
+            <summary>
+            Converting unsigned int16 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.UInt32ToString(System.UInt32)">
+            <summary>
+            Converting unsigned int32 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.UInt64ToString(System.UInt64)">
+            <summary>
+            Converting unsigned int64 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.FloatToString(System.Single)">
+            <summary>
+            Converting float value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.DoubleToString(System.Double)">
+            <summary>
+            Converting double value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.DateTimeToString(System.DateTime)">
+            <summary>
+            Converting DateTime value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.TimeSpanToString(System.TimeSpan)">
+            <summary>
+            Converting TimeSpan value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.EnumToString(System.Object)">
+            <summary>
+            Converting enum value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableCharToString(System.Nullable{System.Char})">
+            <summary>
+            Converting nullable char value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableBoolToString(System.Nullable{System.Boolean})">
+            <summary>
+            Converting nullable bool value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableSByteToString(System.Nullable{System.SByte})">
+            <summary>
+            Converting nullable signed byte value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableInt16ToString(System.Nullable{System.Int16})">
+            <summary>
+            Converting nullable int16 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableInt32ToString(System.Nullable{System.Int32})">
+            <summary>
+            Converting nullable int32 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableInt64ToString(System.Nullable{System.Int64})">
+            <summary>
+            Converting nullable int64 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableByteToString(System.Nullable{System.Byte})">
+            <summary>
+            Converting nullable byte value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableUInt16ToString(System.Nullable{System.UInt16})">
+            <summary>
+            Converting nullable unsigned int16 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableUInt32ToString(System.Nullable{System.UInt32})">
+            <summary>
+            Converting nullable unsigned int32 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableUInt64ToString(System.Nullable{System.UInt64})">
+            <summary>
+            Converting nullable unsigned int64 value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableFloatToString(System.Nullable{System.Single})">
+            <summary>
+            Converting nullable float value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableDoubleToString(System.Nullable{System.Double})">
+            <summary>
+            Converting nullable double value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableDateTimeToString(System.Nullable{System.DateTime})">
+            <summary>
+            Converting nullable DateTime value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableTimeSpanToString(System.Nullable{System.TimeSpan})">
+            <summary>
+            Converting nullable TimeSpan value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.NullableEnumToString(System.Object)">
+            <summary>
+            Converting nullable enum value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticToStringConverter.ClassToString(System.Object)">
+            <summary>
+            Converting class value to string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.StaticTypeConverter">
             <summary>
             A static class that converts object type
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.StaticTypeConverter.ConvertToString(System.Object,System.ComponentModel.TypeConverter,System.Type)">
+            <summary>
+            Convert type to string
+            </summary>
+            <param name="value"></param>
+            <param name="typeConverter"></param>
+            <param name="targetType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.TypeUtils.TypeCategory">
+            <summary>
+            Specific categories of types
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Simple">
+            <summary>
+            A simple type (type has no members)
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Textual">
+            <summary>
+            String or character type
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Logical">
+            <summary>
+            logical operations enabled (e.g. boolean)
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Numeral">
+            <summary>
+            Arithmetic operations enabled
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Signed">
+            <summary>
+            Signed numeral
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Unsigned">
+            <summary>
+            Unsigned numeral
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Integer">
+            <summary>
+            Integer numeral
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Fixed">
+            <summary>
+            Fixed decimal position numeral
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Float">
+            <summary>
+            Float decimal position numeral
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Temporal">
+            <summary>
+            DateTime or TimeSpan
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Enumerable">
+            <summary>
+            Enumerable type
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeCategory.Nullable">
+            <summary>
+            Nullable type
             </summary>
         </member>
         <member name="T:Qhta.TypeUtils.TypeCategorization">
@@ -82,15 +439,66 @@
             A static class that evaluates category of a type
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.GetCategory(System.Type)">
+            <summary>
+            Categorization of a type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsSimple(System.Type)">
+            <summary>
+            Is it a simple type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type,System.Type@)">
+            <summary>
+            Is it a nullable type of some specific base type
+            </summary>
+            <param name="type"></param>
+            <param name="baseType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type)">
+            <summary>
+            Is it a nullable type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNumeral(System.Type)">
+            <summary>
+            Is it a numeral type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeNaming">
             <summary>
             More friendy type names
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeNaming.GetTypeName(System.Type)">
+            <summary>
+            Getting specific name of the type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeUtils">
             <summary>
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.IsDefaultValue(System.Type,System.Object)">
+            <summary>
+            Checks if the given value is the default value of the given type
+            </summary>
+            <param name="valueType"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.TryGetEnumValue(System.Type,System.String,System.Object@)">
             <summary>
@@ -185,8 +593,32 @@
               but are also ordered with inheritance order (from top superclass first).
              </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Qhta.TypeUtils.TypeUtils.GetCustomAttibutesByInheritance(System.Type,System.Boolean,System.Boolean)" -->
-        <!-- Badly formed XML comment ignored for member "M:Qhta.TypeUtils.TypeUtils.GetCustomAttibutesByInheritance``1(System.Type,System.Boolean,System.Boolean)" -->
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetCustomAttibutesByInheritance(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+              Replacement for a <c>Type.GetCustomAttributes</c> method in case
+              when an <paramref name="inherit"/> parameter is set for <c>true</c>
+              Then attributes are taken also from superclasses,
+              but are also ordered with inheritance order.
+            </summary>
+            <param name="aType">A type which attributes are searched</param>
+            <param name="inherit">Search in superclasses?</param>
+            <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+            <returns>A table of attributes</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetCustomAttibutesByInheritance``1(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+              Replacement for a <c>Type.GetCustomAttributes</c> method in case
+              when an <paramref name="inherit"/> parameter is set for <c>true</c>
+              Then attributes are taken also from superclasses,
+              but are also ordered with inheritance order.
+              Only attributes of a specified type are returned.
+            </summary>
+            <typeparam name="TAttribute">A type of searched attributes</typeparam>
+            <param name="aType">A type which attributes are searched</param>
+            <param name="inherit">Search in superclasses?</param>
+            <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+            <returns>A table of attributes</returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.CopyProperties(System.Object,System.Object,System.Boolean)">
             <summary>
             Copying public properties from a <paramref name="source"/> object to a <paramref name="target"/> object.

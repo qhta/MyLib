@@ -12,16 +12,28 @@ namespace Qhta.WPF.Utils
 {
   public static partial class TreeViewBehavior
   {
+    /// <summary>
+    /// For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
+    /// but also all tree view item items sources.
+    /// </summary>
     public static bool GetMultiSelect(DependencyObject obj)
     {
       return (bool)obj.GetValue(MultiSelectProperty);
     }
 
+    /// <summary>
+    /// For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
+    /// but also all tree view item items sources.
+    /// </summary>
     public static void SetMultiSelect(DependencyObject obj, bool value)
     {
       obj.SetValue(MultiSelectProperty, value);
     }
 
+    /// <summary>
+    /// For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
+    /// but also all tree view item items sources.
+    /// </summary>
     public static readonly DependencyProperty MultiSelectProperty = DependencyProperty.RegisterAttached
       ("MultiSelect", typeof(bool), typeof(TreeViewBehavior),
           new UIPropertyMetadata(false, MultiSelectChanged));
@@ -31,7 +43,7 @@ namespace Qhta.WPF.Utils
       if (obj is TreeView treeView)
       {
         if ((bool)args.NewValue)
-        {
+        {           
           treeView.GotFocus += OnTreeViewItemGotFocus;
           treeView.PreviewMouseLeftButtonDown += OnTreeViewItemPreviewMouseDown;
           treeView.PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
@@ -185,10 +197,10 @@ namespace Qhta.WPF.Utils
 
     public static void SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
     {
-      // first deselect all items
+      //Debug.WriteLine($"SelectSingleItem({treeViewItem})");
       DeselectAllItems(treeView, null);
       if (treeView.ItemsSource is IListSelector listSelector)
-        listSelector.SelectItem(treeViewItem, true);
+        listSelector.SelectItem(treeViewItem.DataContext ?? treeViewItem, true);
       SetStartItem(treeView, treeViewItem);
     }
 
@@ -229,7 +241,7 @@ namespace Qhta.WPF.Utils
 
     public static void SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
     {
-      Debug.WriteLine($"SelectMultipleItemsRandomly({treeViewItem})");
+      //Debug.WriteLine($"SelectMultipleItemsRandomly({treeViewItem})");
       SetIsItemSelected(treeViewItem, !GetIsItemSelected(treeViewItem));
       if (GetStartItem(treeView) == null || Keyboard.Modifiers == ModifierKeys.Control)
       {
@@ -249,7 +261,7 @@ namespace Qhta.WPF.Utils
 
     public static void SelectMultipleItemsContinuously(TreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
     {
-      Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem})");
+      //Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem})");
       TreeViewItem startItem = GetStartItem(treeView);
       if (startItem != null)
       {
@@ -261,7 +273,7 @@ namespace Qhta.WPF.Utils
 
         ICollection<TreeViewItem> allItems = new List<TreeViewItem>();
         GetAllItems(treeView, null, allItems);
-        //DeSelectAllItems(treeView, null);
+        //DeselectAllItems(treeView, null);
         bool isBetween = false;
         foreach (var item in allItems)
         {

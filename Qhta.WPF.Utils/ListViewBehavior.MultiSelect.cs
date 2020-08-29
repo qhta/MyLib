@@ -13,16 +13,25 @@ namespace Qhta.WPF.Utils
 {
   public partial class ListViewBehavior
   {
+    /// <summary>
+    ///   For MultiSelect behavior list view items source should implement IListSelector interface.
+    /// </summary>
     public static bool GetMultiSelect(DependencyObject obj)
     {
       return (bool)obj.GetValue(MultiSelectProperty);
     }
 
+    /// <summary>
+    ///   For MultiSelect behavior list view items source should implement IListSelector interface.
+    /// </summary>
     public static void SetMultiSelect(DependencyObject obj, bool value)
     {
         obj.SetValue(MultiSelectProperty, value);
     }
 
+    /// <summary>
+    ///   For MultiSelect behavior list view items source should implement IListSelector interface.
+    /// </summary>
     public static readonly DependencyProperty MultiSelectProperty = DependencyProperty.RegisterAttached
       ("MultiSelect", typeof(bool), typeof(ListViewBehavior),
           new UIPropertyMetadata(false, MultiSelectChanged));
@@ -33,8 +42,6 @@ namespace Qhta.WPF.Utils
       {
         if ((bool)args.NewValue)
         {
-          if (listView.ItemsSource as IListSelector == null)
-            Debug.WriteLine($"ListView with MultiSelect behavior should implement IListSelector interface");
           listView.SelectionMode = SelectionMode.Extended;
           listView.GotFocus += OnListViewItemGotFocus;
           listView.PreviewMouseLeftButtonDown += OnListViewItemPreviewMouseDown;
@@ -123,21 +130,20 @@ namespace Qhta.WPF.Utils
       if (e.OriginalSource is ListView) return;
 
       var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
-      Debug.WriteLine($"OnListViewItemGotFocus({listViewItem})");
+      //Debug.WriteLine($"OnListViewItemGotFocus({listViewItem})");
       if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(listViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
       {
         _selectListViewItemOnMouseUp = listViewItem;
       }
       else
         e.Handled = SelectItems(listViewItem, sender as ListView);
-      Debug.WriteLine($"GotFocus handled={e.Handled}");
+      //Debug.WriteLine($"GotFocus handled={e.Handled}");
     }
 
     public static bool SelectItems(ListViewItem listViewItem, ListView listView)
     {
       if (listViewItem != null && listView != null)
       {
-        Debug.WriteLine($"SelectItems({listViewItem})");
         if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
         {
           return SelectMultipleItemsContinuously(listView, listViewItem, true);
@@ -161,7 +167,6 @@ namespace Qhta.WPF.Utils
     public static void OnListViewItemPreviewMouseDown(object sender, MouseEventArgs e)
     {
       var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
-      Debug.WriteLine($"OnListViewItemPreviewMouseDown({listViewItem})");
       if (listViewItem != null && listViewItem.IsFocused)
         OnListViewItemGotFocus(sender, e);
     }
@@ -169,7 +174,6 @@ namespace Qhta.WPF.Utils
     public static void OnListViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {
       var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
-      Debug.WriteLine($"OnListViewItemPreviewMouseUp({listViewItem})");
       if (listViewItem == _selectListViewItemOnMouseUp)
       {
         SelectItems(listViewItem, sender as ListView);
@@ -192,11 +196,10 @@ namespace Qhta.WPF.Utils
 
     public static bool SelectSingleItem(ListView listView, ListViewItem listViewItem)
     {
-      Debug.WriteLine($"SelectSingleItem({listViewItem})");
-      // first deselect all items
+      //Debug.WriteLine($"SelectSingleItem({listViewItem})");
       DeselectAllItems(listView);
       if (listView.ItemsSource is IListSelector listSelector)
-        listSelector.SelectItem(listViewItem, true);
+        listSelector.SelectItem(listViewItem.DataContext ?? listViewItem, true);
       else
         SetIsItemSelected(listViewItem, true);
       SetStartItem(listView, listViewItem);
@@ -260,7 +263,7 @@ namespace Qhta.WPF.Utils
 
     public static bool SelectMultipleItemsRandomly(ListView listView, ListViewItem listViewItem)
     {
-      Debug.WriteLine($"SelectMultipleItemsRandomly({listViewItem})");
+      //Debug.WriteLine($"SelectMultipleItemsRandomly({listViewItem})");
       // Do not change IsSelected here as it conflicts with ListView original behavior
       //SetIsItemSelected(listViewItem, !GetIsItemSelected(listViewItem));
       if (GetStartItem(listView) == null || Keyboard.Modifiers == ModifierKeys.Control)
@@ -282,7 +285,7 @@ namespace Qhta.WPF.Utils
 
     public static bool SelectMultipleItemsContinuously(ListView listView, ListViewItem listViewItem, bool shiftControl = false)
     {
-      Debug.WriteLine($"SelectMultipleItemsContinuously({listViewItem})");
+      //Debug.WriteLine($"SelectMultipleItemsContinuously({listViewItem})");
       ListViewItem startItem = GetStartItem(listView);
       if (startItem != null)
       {
