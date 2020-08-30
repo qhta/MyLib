@@ -14,7 +14,7 @@
               BorderBrush="Gray">
               <ContentPresenter x:Name="PART_Content"
                                 Content="{TemplateBinding ContentControl.Content}"
-                                SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
             <Rectangle x:Name="EnableMask" Opacity="0.5" >
               <Rectangle.Style>

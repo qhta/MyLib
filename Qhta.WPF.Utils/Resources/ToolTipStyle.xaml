@@ -6,11 +6,11 @@
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
                     >
 
-  <LinearGradientBrush x:Key="ToolTipBackground" LinearGradientBrush.StartPoint="0,0" LinearGradientBrush.EndPoint="0,1" 
+  <LinearGradientBrush x:Key="ToolTipBackground" StartPoint="0,0" EndPoint="0,1" 
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <GradientBrush.GradientStops>
-      <GradientStop GradientStop.Color="#FFFFFF" GradientStop.Offset="0" />
-      <GradientStop GradientStop.Color="#E4E5F0" GradientStop.Offset="1" />
+      <GradientStop Color="#FFFFFF" Offset="0" />
+      <GradientStop Color="#E4E5F0" Offset="1" />
     </GradientBrush.GradientStops>
   </LinearGradientBrush>
 
@@ -18,33 +18,33 @@
     <Setter Property="TextWrapping" Value="Wrap"/>
   </Style>
   
-  <Style x:Key="{x:Type ToolTip}" Style.TargetType="{x:Type ToolTip}" >
-    <Setter Setter.Property="Control.BorderThickness" Setter.Value="1" />
-    <Setter Setter.Property="Control.BorderBrush" Setter.Value="#FF767676" />
-    <Setter Setter.Property="Control.Background" Setter.Value="{StaticResource ToolTipBackground}" />
-    <Setter Setter.Property="Control.Foreground" Setter.Value="#FF575757" />
-    <Setter Setter.Property="Control.FontFamily" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontFamilyKey}}" />
-    <Setter Setter.Property="Control.FontSize" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontSizeKey}}" />
-    <Setter Setter.Property="Control.FontStyle" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontStyleKey}}" />
-    <Setter Setter.Property="Control.FontWeight" Setter.Value="{DynamicResource {x:Static SystemFonts.StatusFontWeightKey}}" />
-    <Setter Setter.Property="Control.Padding" Setter.Value="5,1,5,4" />
-    <Setter Setter.Property="Control.HorizontalContentAlignment" Setter.Value="Left" />
-    <Setter Setter.Property="Control.VerticalContentAlignment" Setter.Value="Center" />
-    <Setter Setter.Property="ToolTip.HasDropShadow" Setter.Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
-    <Setter Setter.Property="RenderOptions.ClearTypeHint" Setter.Value="Enabled" />
+  <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" >
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Control.BorderBrush" Value="#FF767676" />
+    <Setter Property="Background" Value="{StaticResource ToolTipBackground}" />
+    <Setter Property="Control.Foreground" Value="#FF575757" />
+    <Setter Property="Control.FontFamily" Value="{DynamicResource {x:Static SystemFonts.StatusFontFamilyKey}}" />
+    <Setter Property="Control.FontSize" Value="{DynamicResource {x:Static SystemFonts.StatusFontSizeKey}}" />
+    <Setter Property="Control.FontStyle" Value="{DynamicResource {x:Static SystemFonts.StatusFontStyleKey}}" />
+    <Setter Property="Control.FontWeight" Value="{DynamicResource {x:Static SystemFonts.StatusFontWeightKey}}" />
+    <Setter Property="Control.Padding" Value="5,1,5,4" />
+    <Setter Property="Control.HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Control.VerticalContentAlignment" Value="Center" />
+    <Setter Property="ToolTip.HasDropShadow" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
+    <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
     <Setter Property="MaxWidth" Value="600"/>
-    <Setter Setter.Property="Control.Template">
+    <Setter Property="Control.Template">
       <Setter.Value>
-        <ControlTemplate ControlTemplate.TargetType="{x:Type ToolTip}">
+        <ControlTemplate TargetType="{x:Type ToolTip}">
           <theme:SystemDropShadowChrome x:Name="Shdw" 
                                         theme:SystemDropShadowChrome.Color="Transparent" 
                                         p7:UIElement.SnapsToDevicePixels="True" theme:SystemDropShadowChrome.CornerRadius="2" 
                                         xmlns:p7="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
                                         >
-            <Border Border.Background="{TemplateBinding Control.Background}" Border.BorderThickness="{TemplateBinding Control.BorderThickness}" Border.BorderBrush="{TemplateBinding Control.BorderBrush}" Border.Padding="{TemplateBinding Control.Padding}" Border.CornerRadius="2">
-              <ContentPresenter FrameworkElement.HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
-                                FrameworkElement.VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-                                UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+            <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Border.Padding="{TemplateBinding Padding}" Border.CornerRadius="2">
+              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                 >
                 <ContentPresenter.Resources>
                   <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource WrappingStyle}"/>
@@ -53,9 +53,9 @@
             </Border>
           </theme:SystemDropShadowChrome>
           <ControlTemplate.Triggers>
-            <Trigger Trigger.Property="ToolTip.HasDropShadow" Trigger.Value="True">
-              <Setter Setter.TargetName="Shdw" Setter.Property="FrameworkElement.Margin" Setter.Value="0,0,5,5" />
-              <Setter Setter.TargetName="Shdw" Setter.Property="Color" Setter.Value="#71000000" />
+            <Trigger Property="ToolTip.HasDropShadow" Value="True">
+              <Setter TargetName="Shdw" Property="Margin" Value="0,0,5,5" />
+              <Setter TargetName="Shdw" Property="Color" Value="#71000000" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
