@@ -20,7 +20,7 @@ namespace TestMultiSelectTreeView
     private static ItemsListViewModel BuildTreeModel()
     {
       var model = new ItemsListViewModel();
-      for (int i = 1; i <= 10; i++)
+      for (int i = 0; i <= 9; i++)
       {
         model.Add(BuildTreeModel(i));
       }
@@ -32,7 +32,7 @@ namespace TestMultiSelectTreeView
       var model = new TreeItemViewModel($"Node {n}");
       model.IsExpanded=true;
       model.Children = new ItemsListViewModel();
-      for (int i = 1; i <= 10; i++)
+      for (int i = 1; i <= 9; i++)
       {
         model.Children.Add(BuildTreeModel(n, i));
       }
@@ -43,7 +43,7 @@ namespace TestMultiSelectTreeView
     {
       var model = new TreeItemViewModel($"Node {n}.{m}");
       model.Children = new ItemsListViewModel();
-      for (int i = 1; i <= 10; i++)
+      for (int i = 0; i <= 9; i++)
       {
         model.Children.Add(new TreeItemViewModel($"Node {n}.{m}.{i}"));
       }

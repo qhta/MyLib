@@ -8,8 +8,11 @@
         >
 
   <Window.Resources>
-
-    <Style x:Key="TreeViewItemFocusVisual">
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    <!--<Style x:Key="TreeViewItemFocusVisual">
       <Setter Property="Control.Template">
         <Setter.Value>
           <ControlTemplate>
@@ -17,17 +20,17 @@
           </ControlTemplate>
         </Setter.Value>
       </Setter>
-    </Style>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
-    <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181"/>
-    <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+    </Style>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>-->
+    <!--<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF"/>-->
+    <!--<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181"/>-->
+    <!--<Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
       <Setter Property="Focusable" Value="False"/>
       <Setter Property="Width" Value="16"/>
       <Setter Property="Height" Value="16"/>
@@ -67,8 +70,8 @@
           </ControlTemplate>
         </Setter.Value>
       </Setter>
-    </Style>
-    <Style TargetType="{x:Type TreeViewItem}" x:Key="MyTreeViewItemStyle">
+    </Style>-->
+    <!--<Style TargetType="{x:Type TreeViewItem}" x:Key="MyTreeViewItemStyle">
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
       <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -131,12 +134,13 @@
           </Setter>
         </Trigger>
       </Style.Triggers>
-    </Style>
+    </Style>-->
 
 
     <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" ItemsSource="{Binding Children}">
       <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
     </HierarchicalDataTemplate>
+    </ResourceDictionary>
 
   </Window.Resources>
 
@@ -162,36 +166,18 @@
 
     <TreeView ItemsSource="{Binding RootNodes}"
               utils:TreeViewBehavior.MultiSelect="true"
-              ItemContainerStyle="{StaticResource MultiselectTreeViewItemStyle}"
-              
               >
       <!--
-      
-              utils:TreeViewBehavior.SelectedItems="{Binding SelectedNodes}"
+      ItemContainerStyle="{StaticResource MultiselectTreeViewItemStyle}"
+      utils:TreeViewBehavior.SelectedItems="{Binding SelectedNodes}"
       -->
 
-      <!--<TreeView.ItemContainerStyle>
-        <Style TargetType="{x:Type TreeViewItem}" >
-          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-          <Setter Property="utils:TreeViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-          <Style.Triggers>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="utils:TreeViewBehavior.IsItemSelected" Value="True"/>
-                <Condition Property="IsFocused" Value="True"/>
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" Value="DeepSkyBlue" />
-            </MultiTrigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="utils:TreeViewBehavior.IsItemSelected" Value="True"/>
-                <Condition Property="IsFocused" Value="False"/>
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" Value="SkyBlue" />
-            </MultiTrigger>
-          </Style.Triggers>
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}" 
+         BasedOn="{StaticResource MultiselectTreeViewItemStyle}">
+          <Setter Property="HorizontalAlignment" Value="Stretch"/>
         </Style>
-      </TreeView.ItemContainerStyle>-->
+      </TreeView.ItemContainerStyle>
     </TreeView>
   </DockPanel>
 

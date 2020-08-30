@@ -171,6 +171,10 @@
     <Compile Include="ClipboardUtils\ClipboardUtils.Interop.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\AeroStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\ClearButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,6 +184,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\ImageButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\MulticolumnTreeViewItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Resources\TreeViewItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -196,10 +208,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\ToolTipStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\MulticolumnTreeViewItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -2,8 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:utils="clr-namespace:Qhta.WPF.Utils"
                     >
-    <Style x:Key="MultiselectTreeViewItemStyle" TargetType="{x:Type TreeViewItem}" >
-      <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  <Style x:Key="MultiselectTreeViewItemStyle" TargetType="{x:Type TreeViewItem}" 
+    BasedOn="{StaticResource {x:Type TreeViewItem}}">
+    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
       <Setter Property="utils:TreeViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
       <Style.Triggers>
         <MultiTrigger>

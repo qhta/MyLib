@@ -6,8 +6,9 @@
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ComboBoxStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/MultiselectListViewItemStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/GridViewStyle.xaml"/>
-    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/MultiselectTreeViewItemStyle.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/MulticolumnTreeViewItemStyle.xaml"/>
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/MultiselectTreeViewItemStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ImageButtonStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToggleButtonStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToolTipStyle.xaml"/>

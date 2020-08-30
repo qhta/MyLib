@@ -245,7 +245,7 @@ namespace Qhta.WPF.Utils
       SetIsItemSelected(treeViewItem, !GetIsItemSelected(treeViewItem));
       if (GetStartItem(treeView) == null || Keyboard.Modifiers == ModifierKeys.Control)
       {
-        if (GetIsItemSelected(treeViewItem))
+        //if (GetIsItemSelected(treeViewItem))
         {
           SetStartItem(treeView, treeViewItem);
         }
@@ -270,7 +270,7 @@ namespace Qhta.WPF.Utils
           SelectSingleItem(treeView, treeViewItem);
           return;
         }
-
+        var isSelected = GetIsItemSelected(treeViewItem);
         ICollection<TreeViewItem> allItems = new List<TreeViewItem>();
         GetAllItems(treeView, null, allItems);
         //DeselectAllItems(treeView, null);
@@ -284,13 +284,13 @@ namespace Qhta.WPF.Utils
             isBetween = !isBetween;
 
             // set boundary element
-            SetIsItemSelected(item, true);
+            SetIsItemSelected(item, !isSelected);
             continue;
           }
 
           if (isBetween)
           {
-            SetIsItemSelected(item, true);
+            SetIsItemSelected(item, !isSelected);
             continue;
           }
 
