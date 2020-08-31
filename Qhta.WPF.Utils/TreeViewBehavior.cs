@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
+using Qhta.HtmlUtils;
+using Qhta.MVVM;
+using static Qhta.WPF.Utils.GridViewBehavior;
 
 namespace Qhta.WPF.Utils
 {
@@ -12,6 +20,7 @@ namespace Qhta.WPF.Utils
   {
     private static Dictionary<DependencyObject, TreeViewSelectedItemBehavior> behaviors = new Dictionary<DependencyObject, TreeViewSelectedItemBehavior>();
 
+    #region SelectedItem support
     public static object GetSelectedItem(DependencyObject obj)
     {
       return obj.GetValue(SelectedItemProperty);
@@ -85,17 +94,68 @@ namespace Qhta.WPF.Utils
           TreeViewSelectedItemBehavior behavior = behaviors[obj];
           behavior.ChangeSelectedItem(args.NewValue);
         }
-        //var newValue = args.NewValue;
-        //{
-        //  var item = treeView.ContainerFromItem(newValue);
-        //  Debug.WriteLine($"TreeViewBehavior.SelectedItemChanged item={item}");
-        //  if (item is TreeViewItem treeViewItem)
-        //    SelectSingleItem(treeView, treeViewItem);
-        //}
-
       }
     }
+    #endregion
 
+
+    #region CopyToClipboard methods
+    public static int CopyToClipboard(TreeView treeView, Type itemType, List<GridViewColumnInfo> columns)
+    {
+      var itemsView = treeView.Items;
+
+      StringWriter text = new StringWriter();
+      StringBuilder html = new StringBuilder();
+      var headers = columns.Select(item => item.Header).ToArray();
+      text.WriteLine(String.Join("\t", headers));
+      html.Append("<table>");
+      html.Append("<tr>");
+      for (int i = 0; i < headers.Count(); i++)
+        html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i], true)}</p></td>");
+      html.Append("</tr>");
+
+      int count = WriteCollection(text, html, treeView.ItemsSource.Cast<ISelectable>(), columns);
+
+      html.Append("</table>");
+      text.Flush();
+      var plainText = text.ToString();
+      var htmlText = html.ToString();
+      var htmlFormat = HtmlTextUtils.FormatHtmlForClipboard(htmlText);
+      var dataObject = new DataObject();
+      dataObject.SetData(DataFormats.Html, htmlFormat);
+      dataObject.SetData(DataFormats.Text, plainText);
+      Clipboard.SetDataObject(dataObject, true);
+      return count;
+    }
+
+    private static int WriteCollection(StringWriter text, StringBuilder html, IEnumerable<ISelectable> collection, List<GridViewColumnInfo> columns)
+    {
+      int count = 0;
+
+      foreach (var item in collection.ToList())
+      {
+        if (item.IsSelected)
+        {
+          count++;
+          var values = new string[columns.Count()];
+          for (int i = 0; i < columns.Count(); i++)
+            values[i] = columns[i].Property.GetValue(item)?.ToString();
+          text.WriteLine(String.Join("\t", values));
+          html.Append("<tr>");
+          for (int i = 0; i < values.Count(); i++)
+            html.Append($"<td>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(values[i], true)}</td>");
+          html.Append("</tr>");
+        }
+        if (item is ICompoundItem container)
+        {
+          count+=WriteCollection(text, html, container.Items.Cast<ISelectable>(), columns);
+        }
+      }
+      return count;
+    }
+    #endregion
+
+    #region TreeViewSelectedItemBehavior
     private class TreeViewSelectedItemBehavior
     {
       private TreeView TreeView;
@@ -233,8 +293,6 @@ namespace Qhta.WPF.Utils
         }
       }
     }
-
-
-
+    #endregion
   }
 }

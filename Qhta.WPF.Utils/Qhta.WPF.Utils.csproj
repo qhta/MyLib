@@ -80,6 +80,7 @@
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="Converters\DecimalValueConverter.cs" />
     <Compile Include="Converters\IndexingConverter.cs" />
+    <Compile Include="ICompoundItem.cs" />
     <Compile Include="IListSelector.cs" />
     <Compile Include="LocalCommand.cs" />
     <Compile Include="TextBoxBehavior.cs" />
