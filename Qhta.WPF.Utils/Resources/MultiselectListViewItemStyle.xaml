@@ -11,6 +11,7 @@
           <Condition Property="IsSelected" Value="True"/>
           <Condition Property="IsFocused" Value="True"/>
         </MultiTrigger.Conditions>
+        <!--<Setter Property="Background" Value="DeepSkyBlue" />-->
         <Setter Property="Background" Value="DeepSkyBlue" />
       </MultiTrigger>
       <MultiTrigger>

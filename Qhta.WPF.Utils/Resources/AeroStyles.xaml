@@ -1,8 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:wpf="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils" xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
-    xmlns:ui="clr-namespace:System.Windows.Documents.Serialization;assembly=PresentationFramework"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
   <Style x:Key="Ñ">
     <Setter Property="Control.Template">
@@ -289,7 +286,7 @@
               </Border>
             </Border>
             <Rectangle x:Name="PART_DisabledVisual" Opacity="0" Visibility="Collapsed" Stretch="Fill"
-                StrokeThickness="1" Rectangle.RadiusX="2" Rectangle.RadiusY="2" Stroke="{StaticResource Õ}"
+                StrokeThickness="1" RadiusX="2" RadiusY="2" Stroke="{StaticResource Õ}"
                 Fill="{StaticResource Õ}" />
           </Grid>
           <ControlTemplate.Triggers>
@@ -435,11 +432,11 @@
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Rectangle x:Name="TodayBackground" RadiusX="1" RadiusY="1" Opacity="0" Fill="#FFAAAAAA" />
-            <Rectangle x:Name="SelectedBackground" Rectangle.RadiusX="1" Rectangle.RadiusY="1" Opacity="0"
+            <Rectangle x:Name="SelectedBackground" RadiusX="1" RadiusY="1" Opacity="0"
                 Fill="#FFBADDE9" />
             <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"
                 BorderBrush="{TemplateBinding BorderBrush}" />
-            <Rectangle x:Name="HighlightBackground" Rectangle.RadiusX="1" Rectangle.RadiusY="1" Opacity="0"
+            <Rectangle x:Name="HighlightBackground" RadiusX="1" RadiusY="1" Opacity="0"
                 Fill="#FFBADDE9" />
             <ContentPresenter Name="NormalText" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="5,1,5,1">
@@ -451,7 +448,7 @@
                 RenderTransformOrigin="0.5,0.5" Fill="#FF000000" Stretch="Fill"
                 Data="M8.1772461,11.029181L10.433105,11.029181 11.700684,12.801641 12.973633,11.029181 15.191895,11.029181 12.844727,13.999395 15.21875,17.060919 12.962891,17.060919 11.673828,15.256231 10.352539,17.060919 8.1396484,17.060919 10.519043,14.042364z" />
             <Rectangle x:Name="DayButtonFocusVisual" Visibility="Collapsed" IsHitTestVisible="False"
-                Rectangle.RadiusX="1" Rectangle.RadiusY="1" Stroke="#FF45D6FA" />
+                RadiusX="1" RadiusY="1" Stroke="#FF45D6FA" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -546,9 +543,9 @@
                 </VisualState>
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-            <Rectangle x:Name="SelectedBackground" Rectangle.RadiusX="1" Rectangle.RadiusY="1" Opacity="0"
+            <Rectangle x:Name="SelectedBackground" RadiusX="1" RadiusY="1" Opacity="0"
                 Fill="{TemplateBinding Background}" />
-            <Rectangle x:Name="Background" Rectangle.RadiusX="1" Rectangle.RadiusY="1" Opacity="0"
+            <Rectangle x:Name="Background" RadiusX="1" RadiusY="1" Opacity="0"
                 Fill="{TemplateBinding Background}" />
             <ContentPresenter Name="NormalText" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="1,0,1,1">
@@ -557,7 +554,7 @@
               </TextElement.Foreground>
             </ContentPresenter>
             <Rectangle x:Name="CalendarButtonFocusVisual" Visibility="Collapsed" IsHitTestVisible="False"
-                Rectangle.RadiusX="1" Rectangle.RadiusY="1" Stroke="#FF45D6FA" />
+                RadiusX="1" RadiusY="1" Stroke="#FF45D6FA" />
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsFocused" Value="True">
@@ -740,8 +737,8 @@
                         Width="{Binding ElementName=ContextMenuBorder,Path=ActualWidth}"
                         Fill="{Binding ElementName=ContextMenuBorder,Path=Background}" />
                   </Canvas>
-                  <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="1,2" Rectangle.RadiusX="2"
-                      Rectangle.RadiusY="2" />
+                  <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="1,2" RadiusX="2"
+                      RadiusY="2" />
                   <Rectangle HorizontalAlignment="Left" Width="1" Margin="29,2,0,2" Fill="#FFE2E3E3" />
                   <Rectangle HorizontalAlignment="Left" Width="1" Margin="30,2,0,2" Fill="#FFFFFFFF" />
                   <ItemsPresenter Name="ItemsPresenter" Margin="{TemplateBinding Padding}"
@@ -1430,8 +1427,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                   </Grid.ColumnDefinitions>
-                  <Rectangle Grid.Row="0" Grid.Column="0" Rectangle.RadiusX="1" Rectangle.RadiusY="1" Fill="#A5FFFFFF" />
-                  <Rectangle Grid.Row="0" Grid.Column="1" Rectangle.RadiusX="1" Rectangle.RadiusY="1" Fill="#A5FFFFFF"
+                  <Rectangle Grid.Row="0" Grid.Column="0" RadiusX="1" RadiusY="1" Fill="#A5FFFFFF" />
+                  <Rectangle Grid.Row="0" Grid.Column="1" RadiusX="1" RadiusY="1" Fill="#A5FFFFFF"
                       Height="18" Width="19" Margin="3,0,3,0" />
                   <Popup x:Name="PART_Popup" Placement="Bottom" StaysOpen="False"
                       AllowsTransparency="True" PlacementTarget="{Binding ElementName=PART_TextBox}" />
@@ -2130,32 +2127,28 @@
                   Property="Background" />
               <Setter Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Property="Foreground" />
             </Trigger>
-            <!--<MultiTrigger>
+            <MultiTrigger>
               <MultiTrigger.Conditions>
-                <Condition Property="ListBoxItem.IsSelected"
-                           Value="True" />
-                <Condition Property="Selector.IsSelectionActive"
-                           Value="False" />
+                <Condition Property="ListBoxItem.IsSelected" Value="True" />
+                <Condition Property="Selector.IsSelectionActive" Value="False" />
               </MultiTrigger.Conditions>
-              <Setter TargetName="Bd"
-                      Value="{DynamicResource {x:Static  InternalSystemColorsExtendedStart}}"
-                      Property="Background" />
+              <Setter TargetName="Bd" Value="{DynamicResource InternalSystemColorsExtendedStart}"
+                  Property="Background" />
               <Setter Value="{DynamicResource {x:Static  SystemColors.InactiveSelectionHighlightBrush}}"
-                      Property="Foreground" />
-            </MultiTrigger>-->
+                  Property="Foreground" />
+            </MultiTrigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Property="Foreground" />
             </Trigger>
-            <!--<MultiDataTrigger>
+            <MultiDataTrigger>
               <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=(base:AccessibilitySwitches.UseNetFx47CompatibleAccessibilityFeatures)}"
-                           Value="false" />
-                <Condition Binding="{Binding Path=(SystemParameters.HighContrast)}"
-                           Value="true" />
+                <Condition
+                    Binding="{Binding Path=AccessibilitySwitches.UseNetFx47CompatibleAccessibilityFeatures}"
+                    Value="false" />
+                <Condition Binding="{Binding Path=(SystemParameters.HighContrast)}" Value="true" />
               </MultiDataTrigger.Conditions>
-              <Setter Value="{StaticResource đ}"
-                      Property="FocusVisualStyle" />
-            </MultiDataTrigger>-->
+              <Setter Value="{StaticResource đ}" Property="FocusVisualStyle" />
+            </MultiDataTrigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
@@ -2389,7 +2382,7 @@
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate>
-          <Rectangle StrokeThickness="1" Rectangle.RadiusX="2" Rectangle.RadiusY="2" Stroke="#8E6EA6F5" />
+          <Rectangle StrokeThickness="1" RadiusX="2" RadiusY="2" Stroke="#8E6EA6F5" />
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -2526,8 +2519,8 @@
       TargetType="{x:Type ContentControl}">
     <Border Background="{StaticResource ġ}" BorderBrush="#FF959595" BorderThickness="1">
       <Grid>
-        <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="2" Rectangle.RadiusX="2"
-            Rectangle.RadiusY="2" />
+        <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="2" RadiusX="2"
+            RadiusY="2" />
         <Rectangle HorizontalAlignment="Left" Width="1" Margin="30,2,0,2" Fill="#FFE2E3E3" />
         <Rectangle HorizontalAlignment="Left" Width="1" Margin="31,2,0,2" Fill="#FFFFFFFF" />
         <ContentPresenter Grid.ColumnSpan="2" Margin="1,0" />
@@ -2650,9 +2643,9 @@
       x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type MenuItem},ResourceId=TopLevelItemTemplateKey}"
       TargetType="{x:Type MenuItem}">
     <Grid SnapsToDevicePixels="True">
-      <Rectangle x:Name="OuterBorder" Rectangle.RadiusX="2" Rectangle.RadiusY="2" />
+      <Rectangle x:Name="OuterBorder" RadiusX="2" RadiusY="2" />
       <Rectangle Name="Bg" Margin="1" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}"
-          StrokeThickness="1" Rectangle.RadiusX="1" Rectangle.RadiusY="1" />
+          StrokeThickness="1" RadiusX="1" RadiusY="1" />
       <Rectangle x:Name="InnerBorder" Margin="2" />
       <DockPanel>
         <ContentPresenter Name="Icon" Margin="4,0,6,0" VerticalAlignment="Center" ContentSource="Icon"
@@ -2691,9 +2684,9 @@
       x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type MenuItem},ResourceId=TopLevelHeaderTemplateKey}"
       TargetType="{x:Type MenuItem}">
     <Grid SnapsToDevicePixels="True">
-      <Rectangle x:Name="OuterBorder" Rectangle.RadiusX="2" Rectangle.RadiusY="2" />
+      <Rectangle x:Name="OuterBorder" RadiusX="2" RadiusY="2" />
       <Rectangle Name="Bg" Margin="1" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}"
-          StrokeThickness="1" Rectangle.RadiusX="1" Rectangle.RadiusY="1" />
+          StrokeThickness="1" RadiusX="1" RadiusY="1" />
       <Rectangle x:Name="InnerBorder" Margin="2" />
       <DockPanel>
         <ContentPresenter Name="Icon" Margin="4,0,6,0" VerticalAlignment="Center" ContentSource="Icon"
@@ -2717,8 +2710,8 @@
                       Height="{Binding ElementName=SubMenuBorder,Path=ActualHeight}"
                       Width="{Binding ElementName=SubMenuBorder,Path=ActualWidth}" />
                 </Canvas>
-                <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="1,2" Rectangle.RadiusX="2"
-                    Rectangle.RadiusY="2" />
+                <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="1,2" RadiusX="2"
+                    RadiusY="2" />
                 <Rectangle HorizontalAlignment="Left" Width="1" Margin="29,2,0,2" Fill="#FFE2E3E3" />
                 <Rectangle HorizontalAlignment="Left" Width="1" Margin="30,2,0,2" Fill="#FFFFFFFF" />
                 <ItemsPresenter Name="ItemsPresenter" Margin="2" KeyboardNavigation.TabNavigation="Cycle"
@@ -2777,8 +2770,8 @@
       TargetType="{x:Type MenuItem}">
     <Grid SnapsToDevicePixels="True">
       <Rectangle Name="Bg" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}"
-          StrokeThickness="1" Rectangle.RadiusX="2" Rectangle.RadiusY="2" />
-      <Rectangle x:Name="InnerBorder" Margin="1" Rectangle.RadiusX="2" Rectangle.RadiusY="2" />
+          StrokeThickness="1" RadiusX="2" RadiusY="2" />
+      <Rectangle x:Name="InnerBorder" Margin="1" RadiusX="2" RadiusY="2" />
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition MinWidth="24" Width="Auto" DefinitionBase.SharedSizeGroup="MenuItemIconColumnGroup" />
@@ -2826,9 +2819,9 @@
       TargetType="{x:Type MenuItem}">
     <Grid SnapsToDevicePixels="True">
       <Rectangle Name="Bg" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}"
-          StrokeThickness="1" Rectangle.RadiusX="2" Rectangle.RadiusY="2" />
-      <Rectangle x:Name="InnerBorder" Margin="1" Stroke="#00FFFFFF" StrokeThickness="1" Rectangle.RadiusX="2"
-          Rectangle.RadiusY="2" />
+          StrokeThickness="1" RadiusX="2" RadiusY="2" />
+      <Rectangle x:Name="InnerBorder" Margin="1" Stroke="#00FFFFFF" StrokeThickness="1" RadiusX="2"
+          RadiusY="2" />
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition MinWidth="24" Width="Auto" DefinitionBase.SharedSizeGroup="MenuItemIconColumnGroup" />
@@ -2866,8 +2859,8 @@
                       Height="{Binding ElementName=SubMenuBorder,Path=ActualHeight}"
                       Width="{Binding ElementName=SubMenuBorder,Path=ActualWidth}" />
                 </Canvas>
-                <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="1,2" Rectangle.RadiusX="2"
-                    Rectangle.RadiusY="2" />
+                <Rectangle Fill="#FFF1F1F1" HorizontalAlignment="Left" Width="28" Margin="1,2" RadiusX="2"
+                    RadiusY="2" />
                 <Rectangle HorizontalAlignment="Left" Width="1" Margin="29,2,0,2" Fill="#FFE2E3E3" />
                 <Rectangle HorizontalAlignment="Left" Width="1" Margin="30,2,0,2" Fill="#FFFFFFFF" />
                 <ItemsPresenter Name="ItemsPresenter" Margin="2" KeyboardNavigation.TabNavigation="Cycle"
@@ -3432,7 +3425,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ProgressBar}">
           <Grid Name="TemplateRoot" SnapsToDevicePixels="True">
-            <Rectangle Fill="{TemplateBinding Background}" Rectangle.RadiusX="2" Rectangle.RadiusY="2" />
+            <Rectangle Fill="{TemplateBinding Background}" RadiusX="2" RadiusY="2" />
             <Border Background="{StaticResource Ĳ}" Margin="1" CornerRadius="2" />
             <Border BorderBrush="#80FFFFFF" Background="{StaticResource ı}" BorderThickness="1,0,1,1" Margin="1" />
             <Rectangle Name="PART_Track" Margin="1" />
@@ -3453,10 +3446,10 @@
                     <RowDefinition />
                     <RowDefinition />
                   </Grid.RowDefinitions>
-                  <Rectangle x:Name="LeftDark" Grid.RowSpan="2" Fill="{StaticResource ķ}" Rectangle.RadiusX="1"
-                      Rectangle.RadiusY="1" Margin="1,1,0,1" />
-                  <Rectangle x:Name="RightDark" Grid.RowSpan="2" Grid.Column="2" Rectangle.RadiusX="1"
-                      Rectangle.RadiusY="1" Fill="{StaticResource ĸ}" Margin="0,1,1,1" />
+                  <Rectangle x:Name="LeftDark" Grid.RowSpan="2" Fill="{StaticResource ķ}" RadiusX="1"
+                      RadiusY="1" Margin="1,1,0,1" />
+                  <Rectangle x:Name="RightDark" Grid.RowSpan="2" Grid.Column="2" RadiusX="1"
+                      RadiusY="1" Fill="{StaticResource ĸ}" Margin="0,1,1,1" />
                   <Rectangle x:Name="LeftLight" Grid.Column="0" Grid.Row="2" Fill="{StaticResource Ĵ}" />
                   <Rectangle x:Name="CenterLight" Grid.Column="1" Grid.Row="2" Fill="{StaticResource ĵ}" />
                   <Rectangle x:Name="RightLight" Grid.Column="2" Grid.Row="2" Fill="{StaticResource Ķ}" />
