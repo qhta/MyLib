@@ -272,7 +272,13 @@ namespace Qhta.WPF.Utils
     {
       //Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem})");
       TreeViewItem startItem = GetStartItem(treeView);
-      if (startItem != null)
+
+      if (startItem == null)
+      {
+        SelectSingleItem(treeView, treeViewItem);
+         return true;
+      }
+      else
       {
         if (startItem == treeViewItem)
         {
