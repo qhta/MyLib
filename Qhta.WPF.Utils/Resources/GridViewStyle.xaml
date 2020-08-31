@@ -382,6 +382,7 @@
       </Setter.Value>
     </Setter>
   </Style>
+  
   <LinearGradientBrush x:Key="GridView.ListViewItem.IsMouseOver.Background" StartPoint="0,0" EndPoint="0,1">
     <GradientBrush.GradientStops>
       <GradientStop Color="#FFF1FBFF" Offset="0" />

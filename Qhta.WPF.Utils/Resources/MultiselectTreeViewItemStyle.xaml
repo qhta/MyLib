@@ -5,26 +5,11 @@
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/TreeViewItemStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
+  
   <Style x:Key="MultiselectTreeViewItemStyle" TargetType="{x:Type TreeViewItem}" 
-    BasedOn="{StaticResource {x:Type TreeViewItem}}">
+    BasedOn="{StaticResource MyTreeViewItem}">
     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
       <Setter Property="utils:TreeViewBehavior.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-      <Style.Triggers>
-        <MultiTrigger>
-          <MultiTrigger.Conditions>
-            <Condition Property="utils:TreeViewBehavior.IsItemSelected" Value="True"/>
-            <Condition Property="IsFocused" Value="True"/>
-          </MultiTrigger.Conditions>
-          <Setter Property="Background" Value="DeepSkyBlue" />
-        </MultiTrigger>
-        <MultiTrigger>
-          <MultiTrigger.Conditions>
-            <Condition Property="utils:TreeViewBehavior.IsItemSelected" Value="True"/>
-            <Condition Property="IsFocused" Value="False"/>
-          </MultiTrigger.Conditions>
-          <Setter Property="Background" Value="SkyBlue" />
-        </MultiTrigger>
-      </Style.Triggers>
     </Style>
   
 </ResourceDictionary>

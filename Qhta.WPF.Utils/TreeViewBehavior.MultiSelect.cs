@@ -136,31 +136,38 @@ namespace Qhta.WPF.Utils
         _selectTreeViewItemOnMouseUp = treeViewItem;
         return;
       }
-
-      SelectItems(treeViewItem, sender as TreeView);
+      if (sender is TreeView treeView)
+      {
+        if (SelectItems(treeViewItem, treeView))
+        {
+          if (treeView.ItemsSource is IListSelector listSelector)
+            listSelector.NotifySelectionChanged();
+        }
+      }
     }
 
-    public static void SelectItems(TreeViewItem treeViewItem, TreeView treeView)
+    public static bool SelectItems(TreeViewItem treeViewItem, TreeView treeView)
     {
       if (treeViewItem != null && treeView != null)
       {
         if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
         {
-          SelectMultipleItemsContinuously(treeView, treeViewItem, true);
+          return SelectMultipleItemsContinuously(treeView, treeViewItem, true);
         }
         else if (Keyboard.Modifiers == ModifierKeys.Control)
         {
-          SelectMultipleItemsRandomly(treeView, treeViewItem);
+          return SelectMultipleItemsRandomly(treeView, treeViewItem);
         }
         else if (Keyboard.Modifiers == ModifierKeys.Shift)
         {
-          SelectMultipleItemsContinuously(treeView, treeViewItem);
+          return SelectMultipleItemsContinuously(treeView, treeViewItem);
         }
         else
         {
-          SelectSingleItem(treeView, treeViewItem);
+          return SelectSingleItem(treeView, treeViewItem);
         }
       }
+      return false;
     }
 
     public static void OnTreeViewItemPreviewMouseDown(object sender, MouseEventArgs e)
@@ -195,13 +202,14 @@ namespace Qhta.WPF.Utils
       return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
     }
 
-    public static void SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
+    public static bool SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
     {
       //Debug.WriteLine($"SelectSingleItem({treeViewItem})");
       DeselectAllItems(treeView, null);
       if (treeView.ItemsSource is IListSelector listSelector)
         listSelector.SelectItem(treeViewItem.DataContext ?? treeViewItem, true);
       SetStartItem(treeView, treeViewItem);
+      return true;
     }
 
     public static void DeselectAllItems(TreeView treeView, TreeViewItem treeViewItem)
@@ -239,7 +247,7 @@ namespace Qhta.WPF.Utils
       return treeView ?? FindTreeView(VisualTreeHelper.GetParent(dependencyObject));
     }
 
-    public static void SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
+    public static bool SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
     {
       //Debug.WriteLine($"SelectMultipleItemsRandomly({treeViewItem})");
       SetIsItemSelected(treeViewItem, !GetIsItemSelected(treeViewItem));
@@ -257,9 +265,10 @@ namespace Qhta.WPF.Utils
           SetStartItem(treeView, null);
         }
       }
+      return true;
     }
 
-    public static void SelectMultipleItemsContinuously(TreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
+    public static bool SelectMultipleItemsContinuously(TreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
     {
       //Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem})");
       TreeViewItem startItem = GetStartItem(treeView);
@@ -268,7 +277,7 @@ namespace Qhta.WPF.Utils
         if (startItem == treeViewItem)
         {
           SelectSingleItem(treeView, treeViewItem);
-          return;
+          return true;
         }
         var isSelected = GetIsItemSelected(treeViewItem);
         ICollection<TreeViewItem> allItems = new List<TreeViewItem>();
@@ -298,6 +307,7 @@ namespace Qhta.WPF.Utils
             SetIsItemSelected(item, false);
         }
       }
+      return true;
     }
 
     public static void GetAllItems(TreeView treeView, TreeViewItem treeViewItem, ICollection<TreeViewItem> allItems)

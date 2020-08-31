@@ -17,15 +17,15 @@ namespace TestMultiSelectListView
     }
 
 
-    private static ListViewModel BuildListModel()
+    private static ItemsListViewModel BuildListModel()
     {
-      var model = new ListViewModel();
+      var model = new ItemsListViewModel();
       for (int i = 1; i <= 1000; i++)
         model.Add(new ListItemViewModel($"Node {i}"));
       return model;
     }
 
-    public ListViewModel RootNodes { get; set; }
+    public ItemsListViewModel RootNodes { get; set; }
 
     //public ObservableCollection<ListItemViewModel> SelectedNodes { get; set; }
 

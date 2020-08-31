@@ -11,5 +11,7 @@ namespace Qhta.WPF.Utils
     int SelectedItemsCount { get; }
 
     IEnumerable<object> SelectedItems { get; }
+
+    void NotifySelectionChanged();
   }
 }

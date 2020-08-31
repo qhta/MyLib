@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,7 @@ namespace TestMultiSelectTreeView
     {
       if (e.PropertyName == "IsSelected")
       {
-        OnPropertyChanged(new PropertyChangedEventArgs("Count"));
-        OnPropertyChanged(new PropertyChangedEventArgs("SelectedItems"));
+        NotifySelectionChanged();
       }
     }
 
@@ -40,11 +40,9 @@ namespace TestMultiSelectTreeView
       if (item is TreeItemViewModel)
       {
         (item as TreeItemViewModel).IsSelected = select;
-        OnPropertyChanged(new PropertyChangedEventArgs("Count"));
-        OnPropertyChanged(new PropertyChangedEventArgs("SelectedItems"));
+        NotifySelectionChanged();
       }
     }
-
     public void SelectAll(bool select)
     {
       foreach (var item in Items)
@@ -52,7 +50,12 @@ namespace TestMultiSelectTreeView
         item.IsSelected = select;
         item.Children?.SelectAll(select);
       }
-      OnPropertyChanged(new PropertyChangedEventArgs("Count"));
+      NotifySelectionChanged();
+    }
+
+    public void NotifySelectionChanged()
+    {
+      OnPropertyChanged(new PropertyChangedEventArgs("SelectedItemsCount"));
       OnPropertyChanged(new PropertyChangedEventArgs("SelectedItems"));
     }
 
