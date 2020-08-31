@@ -374,7 +374,7 @@ namespace Qhta.WPF.Utils
       return names.Count() > 1;
     }
 
-    private static string[] GetPropertyNames(string properyNames)
+    public static string[] GetPropertyNames(string properyNames)
     {
       var names = properyNames.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
       for (int i = 0; i < names.Count(); i++)
@@ -538,11 +538,9 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region CopyToClipboard methods
-    public static int CopyToClipboard(ListView listView, Type itemType)
+    public static int CopyToClipboard(ListView listView, Type itemType, List<GridViewColumnInfo> columns)
     {
       var itemsView = listView.Items;
-      var gridView = listView.View as GridView;
-      var columns = GetColumnsViewInfo(gridView, itemType);
       SortDescriptionCollection sortDescriptions = null;
       if (GridViewBehavior.GetSortEnabled(listView))
       {
@@ -608,12 +606,12 @@ namespace Qhta.WPF.Utils
       return count;
     }
 
-    public static List<GridViewColumnInfo> GetColumnsViewInfo(GridView gridView, Type itemType)
+    public static List<GridViewColumnInfo> GetColumnsViewInfo(GridViewColumnCollection columns, Type itemType)
     {
       var infos = new List<GridViewColumnInfo>();
-      for (int i = 0; i < gridView.Columns.Count; i++)
+      for (int i = 0; i < columns.Count; i++)
       {
-        var column = gridView.Columns[i];
+        var column = columns[i];
         string propertyName = null;
         var binding = column.DisplayMemberBinding;
         if (binding is Binding dataBinding)
@@ -701,7 +699,6 @@ namespace Qhta.WPF.Utils
       return result;
     }
     #endregion
-
 
     #region FitLastColumnWidth
     public static readonly DependencyProperty FitLastColumnWidthProperty = DependencyProperty.RegisterAttached(
@@ -823,7 +820,6 @@ namespace Qhta.WPF.Utils
 
 
     #endregion FitLastColumnWidth
-
 
     #region GridViewColumnInfo nested class
     public class GridViewColumnInfo : ViewModel
