@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 
 namespace TestMultiSelectListView
@@ -12,6 +13,7 @@ namespace TestMultiSelectListView
       RootNodes.CollectionChanged += RootNodes_CollectionChanged;
       RootNodes.PropertyChanged += RootNodes_PropertyChanged;
       InitializeComponent();
+      //Debug.WriteLine($"{SystemColors.HighlightBrush.ToString()}");
     }
 
 

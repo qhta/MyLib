@@ -64,13 +64,14 @@ namespace Qhta.WPF.Utils
 
     public static bool GetIsItemSelected(ListViewItem element)
     {
+      //return element.IsSelected;
       return (bool)element.GetValue(IsItemSelectedProperty);
     }
 
     public static void SetIsItemSelected(ListViewItem element, Boolean value)
     {
       if (element == null) return;
-
+      element.IsSelected = value;
       element.SetValue(IsItemSelectedProperty, value);
     }
 

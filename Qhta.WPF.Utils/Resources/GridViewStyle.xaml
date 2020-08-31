@@ -240,7 +240,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <!--<Style x:Key="GridViewScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Control.Template">
@@ -372,7 +372,7 @@
       </Setter.Value>
     </Setter>
   </Style>-->
-  
+
   <Style x:Key="GridView.ListViewItem.FocusVisualStyle">
     <Setter Property="Control.Template">
       <Setter.Value>
@@ -388,37 +388,22 @@
       <GradientStop Color="#FFD5F1FE" Offset="1" />
     </GradientBrush.GradientStops>
   </LinearGradientBrush>
+  <SolidColorBrush x:Key="GridView.ListViewItem.IsMouseOver.Border" Color="Cyan" />
   <LinearGradientBrush x:Key="GridView.ListViewItem.IsSelected.Background" StartPoint="0,0" EndPoint="0,1">
     <GradientBrush.GradientStops>
-      <GradientStop Color="#FFD9F4FF" Offset="0" />
-      <GradientStop Color="#FF9BDDFB" Offset="1" />
+      <GradientStop Color="LightCyan" Offset="0" />
+      <GradientStop Color="DeepSkyBlue" Offset="1" />
     </GradientBrush.GradientStops>
   </LinearGradientBrush>
-  <LinearGradientBrush x:Key="GridView.ListViewItem.IsSelected.IsMouseOver.Background" StartPoint="0,0" EndPoint="0,1">
+  <SolidColorBrush x:Key="GridView.ListViewItem.IsSelected.Border" Color="DarkCyan" />
+  <LinearGradientBrush x:Key="GridView.ListViewItem.IsFocused.Background" StartPoint="0,0" EndPoint="0,1">
     <GradientBrush.GradientStops>
-      <GradientStop Color="#FFEAF9FF" Offset="0" />
-      <GradientStop Color="#FFC9EDFD" Offset="1" />
+      <GradientStop Color="DodgerBlue" Offset="0" />
+      <GradientStop Color="MediumBlue" Offset="1" />
     </GradientBrush.GradientStops>
   </LinearGradientBrush>
-  <LinearGradientBrush x:Key="GridView.ListViewItem.IsSelected.NonActive.Background" StartPoint="0,0" EndPoint="0,1">
-    <GradientBrush.GradientStops>
-      <GradientStop Color="#FFEEEDED" Offset="0" />
-      <GradientStop Color="#FFDDDDDD" Offset="1" />
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
-  <LinearGradientBrush x:Key="GridView.ListViewItem.IsSelected.Focused.Background" StartPoint="0,0" EndPoint="0,1">
-    <GradientBrush.GradientStops>
-      <GradientStop Color="#FF0000AD" Offset="0" />
-      <GradientStop Color="#FF00008D" Offset="1" />
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
-  <LinearGradientBrush x:Key="GridView.ListViewItem.Focused.NotSelected.Background" StartPoint="0,0" EndPoint="0,1">
-    <GradientBrush.GradientStops>
-      <GradientStop Color="#FF7F7FAD" Offset="0" />
-      <GradientStop Color="#FF7F7F8D" Offset="1" />
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
-  
+  <SolidColorBrush x:Key="GridView.ListViewItem.IsFocused.Border" Color="Navy" />
+
   <Style x:Key="MyGridViewItemContainerStyle" TargetType="{x:Type ListViewItem}">
     <Setter Property="FocusVisualStyle" Value="{StaticResource GridView.ListViewItem.FocusVisualStyle}" />
     <Setter Property="Background" Value="#00FFFFFF" />
@@ -432,76 +417,40 @@
         <ControlTemplate TargetType="{x:Type ListViewItem}">
           <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"
               Background="{TemplateBinding Background}" CornerRadius="2" SnapsToDevicePixels="True">
-            <Border Name="InnerBorder" CornerRadius="1" BorderThickness="1">
               <Grid>
-                <!--<Grid.RowDefinitions>
-                  <RowDefinition MaxHeight="3" />
-                  <RowDefinition />
-                </Grid.RowDefinitions>-->
-                <!--<Rectangle Name="UpperHighlight" Visibility="Collapsed" Fill="#75FFFFFF" />-->
+                <Rectangle x:Name="FocusBackground" Visibility="Collapsed" Margin="0,-2"
+                    Fill="{StaticResource GridView.ListViewItem.IsFocused.Background}"
+                    Stroke="{StaticResource GridView.ListViewItem.IsFocused.Border}" StrokeThickness="1" />
+              <Rectangle x:Name="SelectionBackground" Visibility="Collapsed" Margin="0,-2" Opacity="0.5"
+                    Fill="{StaticResource GridView.ListViewItem.IsSelected.Background}"
+                    Stroke="{StaticResource GridView.ListViewItem.IsSelected.Border}" StrokeThickness="1" />
+              <Rectangle x:Name="HoverBackground" Visibility="Collapsed" Margin="0,-2" Opacity="0.5"
+                    Fill="{StaticResource GridView.ListViewItem.IsMouseOver.Background}"
+                    Stroke="{StaticResource GridView.ListViewItem.IsMouseOver.Border}" StrokeThickness="1" />
                 <GridViewRowPresenter Grid.RowSpan="2" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
               </Grid>
             </Border>
-          </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource GridView.ListViewItem.IsMouseOver.Background}" />
-              <Setter Property="BorderBrush" Value="#FFCCF0FF" />
-              <!--<Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />-->
+              <Setter TargetName="HoverBackground" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="ListBoxItem.IsSelected" Value="True">
-              <Setter Property="Background" Value="{StaticResource GridView.ListViewItem.IsSelected.Background}"/>
-              <Setter Property="BorderBrush" Value="#FF98DDFB" />
-              <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#80FFFFFF" />
-              <!--<Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
-              <Setter TargetName="UpperHighlight" Property="Shape.Fill" Value="#40FFFFFF" />-->
+            <Trigger Property="ListBox.IsSelected" Value="True">
+              <Setter TargetName="SelectionBackground" Property="Visibility" Value="Visible" />
             </Trigger>
-            <!--<MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="ListBoxItem.IsSelected" Value="True" />
-                <Condition Property="Selector.IsSelectionActive" Value="False" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Background"
-                  Value="{StaticResource GridView.ListViewItem.IsSelected.NonActive.Background}" />
-              <Setter Property="BorderBrush" Value="#FFCFCFCF" />
-            </MultiTrigger>-->
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="ListBoxItem.IsSelected" Value="True" />
-                <Condition Property="IsMouseOver" Value="True" />
-              </MultiTrigger.Conditions>
-              <Setter Value="{StaticResource GridView.ListViewItem.IsSelected.IsMouseOver.Background}"
-                  Property="Background" />
-              <Setter Property="BorderBrush" Value="#FF98DDFB" />
-            </MultiTrigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="ListBoxItem.IsSelected" Value="True" />
-                <Condition Property="IsFocused" Value="true" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" Value="{StaticResource GridView.ListViewItem.IsSelected.Focused.Background}" />
+            <Trigger Property="IsFocused" Value="True">
+              <Setter TargetName="FocusBackground" Property="Visibility" Value="Visible" />
               <Setter Property="Foreground" Value="White" />
-              <Setter Property="BorderBrush" Value="#FFCFCFCF" />
-            </MultiTrigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="ListBoxItem.IsSelected" Value="False" />
-                <Condition Property="IsFocused" Value="true" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" Value="{StaticResource GridView.ListViewItem.Focused.NotSelected.Background}" />
-              <Setter Property="Foreground" Value="White" />
-              <Setter Property="BorderBrush" Value="#FFCFCFCF" />
-            </MultiTrigger>
+            </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-              <Setter Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Property="Foreground" />
+              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <!--<Color x:Key="SelectedBackgroundColor">#FFC5CBF9</Color>
   <Color x:Key="SelectedUnfocusedColor">#FFDDDDDD</Color>
   <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
@@ -543,5 +492,5 @@
       </Setter.Value>
     </Setter>
   </Style>-->
-  
+
 </ResourceDictionary>

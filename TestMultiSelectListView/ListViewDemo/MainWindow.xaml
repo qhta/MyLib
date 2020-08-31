@@ -105,10 +105,10 @@
     </Grid>
     <ListView ItemsSource="{Binding RootNodes}"
               utils:ListViewBehavior.MultiSelect="true"
-              Style="{StaticResource MyGridViewStyle}" 
-              ItemContainerStyle="{StaticResource MyGridViewItemContainerStyle}">
+              Style="{StaticResource MyGridViewStyle}" ItemContainerStyle="{StaticResource MultiselectListViewItemStyle}">
       <!--<ListView.ItemContainerStyle>
               ItemContainerStyle="{StaticResource MultiselectListViewItemStyle}"
+              ItemContainerStyle="{StaticResource MyGridViewItemContainerStyle}">
       <Style TargetType="{x:Type ListViewItem}" >
           <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
           <Style.Triggers>
