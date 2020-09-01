@@ -71,7 +71,6 @@ namespace Qhta.WPF.Utils
     public static void SetIsItemSelected(TreeViewItem element, Boolean value)
     {
       if (element == null) return;
-
       element.SetValue(IsItemSelectedProperty, value);
     }
 
@@ -110,16 +109,17 @@ namespace Qhta.WPF.Utils
     }
 
     public static readonly DependencyProperty StartItemProperty = DependencyProperty.RegisterAttached
-      ("StartItem", typeof(TreeViewItem), typeof(TreeViewBehavior));
+      ("StartItem", typeof(object), typeof(TreeViewBehavior));
 
 
-    public static TreeViewItem GetStartItem(TreeView element)
+    public static object GetStartItem(TreeView element)
     {
-      return (TreeViewItem)element.GetValue(StartItemProperty);
+      return element.GetValue(StartItemProperty);
     }
 
-    public static void SetStartItem(TreeView element, TreeViewItem value)
+    public static void SetStartItem(TreeView element, object value)
     {
+      //Debug.WriteLine($"TreeViewBehavior.MultiSelect.SetStartItem({value})");
       element.SetValue(StartItemProperty, value);
     }
 
@@ -208,7 +208,8 @@ namespace Qhta.WPF.Utils
       DeselectAllItems(treeView, null);
       if (treeView.ItemsSource is IListSelector listSelector)
         listSelector.SelectItem(treeViewItem.DataContext ?? treeViewItem, true);
-      SetStartItem(treeView, treeViewItem);
+      SetSelectedItem(treeView, treeViewItem.DataContext ?? treeViewItem);
+      SetStartItem(treeView, treeViewItem.DataContext ?? treeViewItem);
       return true;
     }
 
@@ -255,7 +256,7 @@ namespace Qhta.WPF.Utils
       {
         //if (GetIsItemSelected(treeViewItem))
         {
-          SetStartItem(treeView, treeViewItem);
+          SetStartItem(treeView, treeViewItem.DataContext ?? treeViewItem);
         }
       }
       else
@@ -271,7 +272,7 @@ namespace Qhta.WPF.Utils
     public static bool SelectMultipleItemsContinuously(TreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
     {
       //Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem})");
-      TreeViewItem startItem = GetStartItem(treeView);
+      var startItem = GetStartItem(treeView);
 
       if (startItem == null)
       {
@@ -280,39 +281,40 @@ namespace Qhta.WPF.Utils
       }
       else
       {
-        if (startItem == treeViewItem)
+        if (startItem == treeViewItem || startItem == treeViewItem.DataContext)
         {
           SelectSingleItem(treeView, treeViewItem);
           return true;
         }
-        var isSelected = GetIsItemSelected(treeViewItem);
+        var isSelected = true;// GetIsItemSelected(treeViewItem);
         ICollection<TreeViewItem> allItems = new List<TreeViewItem>();
         GetAllItems(treeView, null, allItems);
         //DeselectAllItems(treeView, null);
         bool isBetween = false;
         foreach (var item in allItems)
         {
-          if (item == treeViewItem || item == startItem)
+          if (item == treeViewItem || item == startItem || item.DataContext == startItem)
           {
             // toggle to true if first element is found and
             // back to false if last element is found
             isBetween = !isBetween;
 
             // set boundary element
-            SetIsItemSelected(item, !isSelected);
+            SetIsItemSelected(item, isSelected);
             continue;
           }
 
           if (isBetween)
           {
-            SetIsItemSelected(item, !isSelected);
+            SetIsItemSelected(item, isSelected);
             continue;
           }
 
-          if (!shiftControl)
-            SetIsItemSelected(item, false);
+          //if (!shiftControl)
+          //  SetIsItemSelected(item, false);
         }
       }
+      //Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem}) end");
       return true;
     }
 
