@@ -5,14 +5,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+
+using Qhta.MVVM;
 
 namespace Qhta.WPF.Utils
 {
   public partial class ListViewBehavior
   {
+    private static ListViewItem _selectListViewItemOnMouseUp;
+
+    #region MultiSelect property
     /// <summary>
     ///   For MultiSelect behavior list view items source should implement IListSelector interface.
     /// </summary>
@@ -55,10 +61,9 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
-    public static ListViewItem _selectListViewItemOnMouseUp;
-
-
+    #region IsItemSelected property
     public static readonly DependencyProperty IsItemSelectedProperty = DependencyProperty.RegisterAttached
       ("IsItemSelected", typeof(Boolean), typeof(ListViewBehavior), new PropertyMetadata(false, OnIsItemSelectedPropertyChanged));
 
@@ -95,7 +100,9 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
+    #region SelectedItems property
     public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.RegisterAttached
       ("SelectedItems", typeof(IList), typeof(ListViewBehavior));
 
@@ -108,22 +115,94 @@ namespace Qhta.WPF.Utils
     {
       element.SetValue(SelectedItemsProperty, value);
     }
+    #endregion
 
-    public static readonly DependencyProperty StartItemProperty = DependencyProperty.RegisterAttached
-      ("StartItem", typeof(ListViewItem), typeof(ListViewBehavior));
+    #region CurrentItem property
+    public static readonly DependencyProperty CurrentItemProperty = DependencyProperty.RegisterAttached
+      ("CurrentItem", typeof(object), typeof(ListViewBehavior), new PropertyMetadata(null, CurrentItemChanged));
 
-
-    public static ListViewItem GetStartItem(ListView element)
+    public static object GetCurrentItem(ListView element)
     {
-      return (ListViewItem)element.GetValue(StartItemProperty);
+      var value = element.GetValue(CurrentItemProperty);
+      //Debug.WriteLine($"ListViewBehavior.GetCurrentItem({value})");
+      return value;
+
     }
 
-    public static void SetStartItem(ListView element, ListViewItem value)
+    public static void SetCurrentItem(ListView listView, object value)
+    {
+      //Debug.WriteLine($"ListViewBehavior.SetCurrentItem({value})");
+      listView.SetValue(CurrentItemProperty, value);
+    }
+
+    public static void UpdateCurrentItem(ListView listView, object value)
+    {
+      //Debug.WriteLine($"ListViewBehavior.UpdateCurrentItem({value})");
+      listView.SetCurrentValue(CurrentItemProperty, value);
+    }
+    #endregion
+
+    #region UseCurrentItemChangeEvent property
+    public static bool GetUseCurrentItemChangeEvent(DependencyObject obj)
+    {
+      return (bool)obj.GetValue(UseCurrentItemChangeEventProperty);
+    }
+
+    public static void SetUseCurrentItemChangeEvent(DependencyObject obj, bool value)
+    {
+      obj.SetValue(UseCurrentItemChangeEventProperty, value);
+    }
+
+    public static readonly DependencyProperty UseCurrentItemChangeEventProperty = DependencyProperty.RegisterAttached
+      ("UseCurrentItemChangeEvent", typeof(bool), typeof(ListViewBehavior),
+          new UIPropertyMetadata(false));
+    #endregion
+
+    #region CurrentItemChange event
+    public static void AddCurrentItemChangeHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.AddHandler(ListViewBehavior.CurrentItemChangeEvent, handler);
+    }
+
+    public static void RemoveCurrentItemChangeHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.RemoveHandler(ListViewBehavior.CurrentItemChangeEvent, handler);
+    }
+
+    public static readonly RoutedEvent CurrentItemChangeEvent = EventManager.RegisterRoutedEvent
+      ("CurrentItemChange", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ListViewBehavior));
+
+
+    private static void CurrentItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+    {
+      //Debug.WriteLine($"ListViewBehavior.CurrentItemChanged({obj})");
+      if (obj is ListView listView)
+      {
+        if (GetUseCurrentItemChangeEvent(listView))
+            listView.RaiseEvent(new RoutedPropertyChangedEventArgs<object>(args.OldValue, args.NewValue)
+            { RoutedEvent = ListViewBehavior.CurrentItemChangeEvent, Source = obj });
+      }
+    }
+    #endregion
+
+    #region StartItem property
+    public static readonly DependencyProperty StartItemProperty = DependencyProperty.RegisterAttached
+      ("StartItem", typeof(object), typeof(ListViewBehavior));
+
+    public static object GetStartItem(ListView element)
+    {
+      return element.GetValue(StartItemProperty);
+    }
+
+    public static void SetStartItem(ListView element, object value)
     {
       element.SetValue(StartItemProperty, value);
     }
+    #endregion
 
-
+    #region ListViewItem event handlers
     public static void OnListViewItemGotFocus(object sender, RoutedEventArgs e)
     {
       _selectListViewItemOnMouseUp = null;
@@ -141,6 +220,49 @@ namespace Qhta.WPF.Utils
       //Debug.WriteLine($"GotFocus handled={e.Handled}");
     }
 
+    public static void OnListViewItemPreviewMouseDown(object sender, MouseEventArgs e)
+    {
+      var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
+      if (listViewItem != null && listViewItem.IsFocused)
+        OnListViewItemGotFocus(sender, e);
+    }
+
+    public static void OnListViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
+    {
+      var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
+      if (listViewItem == _selectListViewItemOnMouseUp)
+      {
+        SelectItems(listViewItem, sender as ListView);
+      }
+    }
+    #endregion
+
+    #region Find methods
+    public static ListView FindListView(DependencyObject dependencyObject)
+    {
+      if (dependencyObject == null)
+      {
+        return null;
+      }
+      var ListView = dependencyObject as ListView;
+      return ListView ?? FindListView(VisualTreeHelper.GetParent(dependencyObject));
+    }
+
+    public static ListViewItem FindListViewItem(DependencyObject dependencyObject)
+    {
+      if (!(dependencyObject is Visual || dependencyObject is Visual3D))
+        return null;
+      var ListViewItem = dependencyObject as ListViewItem;
+      if (ListViewItem != null)
+      {
+        return ListViewItem;
+      }
+      return FindListViewItem(VisualTreeHelper.GetParent(dependencyObject));
+    }
+
+    #endregion
+
+    #region SelectItems methods
     public static bool SelectItems(ListViewItem listViewItem, ListView listView)
     {
       if (listViewItem != null && listView != null)
@@ -165,36 +287,6 @@ namespace Qhta.WPF.Utils
       return false;
     }
 
-    public static void OnListViewItemPreviewMouseDown(object sender, MouseEventArgs e)
-    {
-      var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
-      if (listViewItem != null && listViewItem.IsFocused)
-        OnListViewItemGotFocus(sender, e);
-    }
-
-    public static void OnListViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
-    {
-      var listViewItem = FindListViewItem(e.OriginalSource as DependencyObject);
-      if (listViewItem == _selectListViewItemOnMouseUp)
-      {
-        SelectItems(listViewItem, sender as ListView);
-      }
-    }
-
-    public static ListViewItem FindListViewItem(DependencyObject dependencyObject)
-    {
-      if (!(dependencyObject is Visual || dependencyObject is Visual3D))
-        return null;
-
-      var ListViewItem = dependencyObject as ListViewItem;
-      if (ListViewItem != null)
-      {
-        return ListViewItem;
-      }
-
-      return FindListViewItem(VisualTreeHelper.GetParent(dependencyObject));
-    }
-
     public static bool SelectSingleItem(ListView listView, ListViewItem listViewItem)
     {
       //Debug.WriteLine($"SelectSingleItem({listViewItem})");
@@ -203,7 +295,8 @@ namespace Qhta.WPF.Utils
         listSelector.SelectItem(listViewItem.DataContext ?? listViewItem, true);
       else
         SetIsItemSelected(listViewItem, true);
-      SetStartItem(listView, listViewItem);
+      SetStartItem(listView, listViewItem.DataContext ?? listViewItem);
+      UpdateCurrentItem(listView, listViewItem.DataContext ?? listViewItem);
       return true;
     }
 
@@ -250,17 +343,6 @@ namespace Qhta.WPF.Utils
       }
     }
 
-    public static ListView FindListView(DependencyObject dependencyObject)
-    {
-      if (dependencyObject == null)
-      {
-        return null;
-      }
-
-      var ListView = dependencyObject as ListView;
-
-      return ListView ?? FindListView(VisualTreeHelper.GetParent(dependencyObject));
-    }
 
     public static bool SelectMultipleItemsRandomly(ListView listView, ListViewItem listViewItem)
     {
@@ -271,7 +353,7 @@ namespace Qhta.WPF.Utils
       {
         if (GetIsItemSelected(listViewItem))
         {
-          SetStartItem(listView, listViewItem);
+          SetStartItem(listView, listViewItem.DataContext ?? listViewItem);
         }
       }
       else
@@ -281,16 +363,17 @@ namespace Qhta.WPF.Utils
           SetStartItem(listView, null);
         }
       }
+      UpdateCurrentItem(listView, listViewItem.DataContext ?? listViewItem);
       return true;
     }
 
     public static bool SelectMultipleItemsContinuously(ListView listView, ListViewItem listViewItem, bool shiftControl = false)
     {
       //Debug.WriteLine($"SelectMultipleItemsContinuously({listViewItem})");
-      ListViewItem startItem = GetStartItem(listView);
+      object startItem = GetStartItem(listView);
       if (startItem != null)
       {
-        if (startItem == listViewItem)
+        if (startItem == listViewItem || startItem == listViewItem.DataContext)
         {
           SelectSingleItem(listView, listViewItem);
           return true;
@@ -302,7 +385,7 @@ namespace Qhta.WPF.Utils
         bool isBetween = false;
         foreach (var item in allItems)
         {
-          if (item == listViewItem || item == startItem)
+          if (item == listViewItem || item == startItem || item.DataContext==startItem)
           {
             // toggle to true if first element is found and
             // back to false if last element is found
@@ -322,6 +405,7 @@ namespace Qhta.WPF.Utils
           if (!shiftControl)
             SetIsItemSelected(item, false);
         }
+        UpdateCurrentItem(listView, listViewItem.DataContext ?? listViewItem);
         return true;
       }
       return false;
@@ -341,6 +425,7 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
   }
 }

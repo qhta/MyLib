@@ -12,6 +12,9 @@ namespace Qhta.WPF.Utils
 {
   public static partial class TreeViewBehavior
   {
+    private static TreeViewItem _selectTreeViewItemOnMouseUp;
+
+    #region MultiSelect property
     /// <summary>
     /// For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
     /// but also all tree view item items sources.
@@ -43,7 +46,7 @@ namespace Qhta.WPF.Utils
       if (obj is TreeView treeView)
       {
         if ((bool)args.NewValue)
-        {           
+        {
           treeView.GotFocus += OnTreeViewItemGotFocus;
           treeView.PreviewMouseLeftButtonDown += OnTreeViewItemPreviewMouseDown;
           treeView.PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
@@ -56,10 +59,9 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
-    public static TreeViewItem _selectTreeViewItemOnMouseUp;
-
-
+    #region IsItemSelected property
     public static readonly DependencyProperty IsItemSelectedProperty = DependencyProperty.RegisterAttached
       ("IsItemSelected", typeof(Boolean), typeof(TreeViewBehavior), new PropertyMetadata(false, OnIsItemSelectedPropertyChanged));
 
@@ -94,7 +96,9 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
+    #region SelectedItems property
     public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.RegisterAttached
       ("SelectedItems", typeof(IList), typeof(TreeViewBehavior));
 
@@ -107,7 +111,78 @@ namespace Qhta.WPF.Utils
     {
       element.SetValue(SelectedItemsProperty, value);
     }
+    #endregion
 
+    #region CurrentItem property
+
+    public static readonly DependencyProperty CurrentItemProperty = DependencyProperty.RegisterAttached
+      ("CurrentItem", typeof(object), typeof(TreeViewBehavior),
+          new UIPropertyMetadata(null, CurrentItemChanged));
+    
+    public static object CurrentItem(TreeView treeView)
+    {
+      return treeView.GetValue(CurrentItemProperty);
+    }
+
+    public static void SetCurrentItem(TreeView obj, object treeView)
+    {
+      if (treeView != null)
+      {
+        //Debug.WriteLine($"TreeViewItemBehavior.SetSelectedItem({value})");
+        obj.SetValue(CurrentItemProperty, treeView);
+      }
+    }
+
+    public static void UpdateCurrentItem(TreeView treeView, object value)
+    {
+      //Debug.WriteLine($"TreeViewBehavior.UpdateCurrentItem({value})");
+      treeView.SetCurrentValue(CurrentItemProperty, value);
+    }
+    #endregion
+
+    #region UseCurrentItemChangedEvent property
+    public static readonly DependencyProperty UseCurrentItemChangeEventProperty = DependencyProperty.RegisterAttached
+      ("UseCurrentItemChangeEvent", typeof(bool), typeof(TreeViewBehavior),
+          new UIPropertyMetadata(false));
+    public static bool GetUseCurrentItemChangeEvent(DependencyObject obj)
+    {
+      return (bool)obj.GetValue(UseCurrentItemChangeEventProperty);
+    }
+
+    public static void SetUseCurrentItemChangeEvent(DependencyObject obj, bool value)
+    {
+      obj.SetValue(UseCurrentItemChangeEventProperty, value);
+    }
+    #endregion
+
+    #region CurrentItemChanged event
+    public static readonly RoutedEvent CurrentItemChangeEvent = EventManager.RegisterRoutedEvent
+      ("CurrentItemChange", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TreeViewBehavior));
+
+    public static void AddCurrentItemChangeHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.AddHandler(TreeViewBehavior.CurrentItemChangeEvent, handler);
+    }
+
+    public static void RemoveCurrentItemChangeHandler(DependencyObject obj, RoutedEventHandler handler)
+    {
+      if (obj is UIElement element)
+        element.RemoveHandler(TreeViewBehavior.CurrentItemChangeEvent, handler);
+    }
+
+    private static void CurrentItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+    {
+      if (obj is TreeView treeView)
+      {
+        if (GetUseCurrentItemChangeEvent(treeView))
+          treeView.RaiseEvent(new RoutedPropertyChangedEventArgs<object>(args.OldValue, args.NewValue)
+          { RoutedEvent = TreeViewBehavior.CurrentItemChangeEvent, Source = obj });
+      }
+    }
+    #endregion
+
+    #region StartItem property
     public static readonly DependencyProperty StartItemProperty = DependencyProperty.RegisterAttached
       ("StartItem", typeof(object), typeof(TreeViewBehavior));
 
@@ -122,7 +197,26 @@ namespace Qhta.WPF.Utils
       //Debug.WriteLine($"TreeViewBehavior.MultiSelect.SetStartItem({value})");
       element.SetValue(StartItemProperty, value);
     }
+    #endregion
 
+    #region TreeViewItem event handlers
+    public static void OnTreeViewItemPreviewMouseDown(object sender, MouseEventArgs e)
+    {
+      var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+
+      if (treeViewItem != null && treeViewItem.IsFocused)
+        OnTreeViewItemGotFocus(sender, e);
+    }
+
+    public static void OnTreeViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
+    {
+      var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+
+      if (treeViewItem == _selectTreeViewItemOnMouseUp)
+      {
+        SelectItems(treeViewItem, sender as TreeView);
+      }
+    }
 
     public static void OnTreeViewItemGotFocus(object sender, RoutedEventArgs e)
     {
@@ -145,7 +239,31 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
+    #region Find methods
+    public static TreeViewItem FindTreeViewItem(DependencyObject dependencyObject)
+    {
+      if (!(dependencyObject is Visual || dependencyObject is Visual3D))
+        return null;
+      var treeViewItem = dependencyObject as TreeViewItem;
+      if (treeViewItem != null)
+      {
+        return treeViewItem;
+      }
+      return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
+    }
+
+    public static TreeView FindTreeView(DependencyObject dependencyObject)
+    {
+      if (dependencyObject == null)
+        return null;
+      var treeView = dependencyObject as TreeView;
+      return treeView ?? FindTreeView(VisualTreeHelper.GetParent(dependencyObject));
+    }
+    #endregion
+
+    #region SelectItems methods
     public static bool SelectItems(TreeViewItem treeViewItem, TreeView treeView)
     {
       if (treeViewItem != null && treeView != null)
@@ -170,38 +288,6 @@ namespace Qhta.WPF.Utils
       return false;
     }
 
-    public static void OnTreeViewItemPreviewMouseDown(object sender, MouseEventArgs e)
-    {
-      var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-
-      if (treeViewItem != null && treeViewItem.IsFocused)
-        OnTreeViewItemGotFocus(sender, e);
-    }
-
-    public static void OnTreeViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
-    {
-      var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-
-      if (treeViewItem == _selectTreeViewItemOnMouseUp)
-      {
-        SelectItems(treeViewItem, sender as TreeView);
-      }
-    }
-
-    public static TreeViewItem FindTreeViewItem(DependencyObject dependencyObject)
-    {
-      if (!(dependencyObject is Visual || dependencyObject is Visual3D))
-        return null;
-
-      var treeViewItem = dependencyObject as TreeViewItem;
-      if (treeViewItem != null)
-      {
-        return treeViewItem;
-      }
-
-      return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
-    }
-
     public static bool SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
     {
       //Debug.WriteLine($"SelectSingleItem({treeViewItem})");
@@ -210,6 +296,7 @@ namespace Qhta.WPF.Utils
         listSelector.SelectItem(treeViewItem.DataContext ?? treeViewItem, true);
       SetSelectedItem(treeView, treeViewItem.DataContext ?? treeViewItem);
       SetStartItem(treeView, treeViewItem.DataContext ?? treeViewItem);
+      UpdateCurrentItem(treeView, treeViewItem.DataContext ?? treeViewItem);
       return true;
     }
 
@@ -236,18 +323,6 @@ namespace Qhta.WPF.Utils
       }
     }
 
-    public static TreeView FindTreeView(DependencyObject dependencyObject)
-    {
-      if (dependencyObject == null)
-      {
-        return null;
-      }
-
-      var treeView = dependencyObject as TreeView;
-
-      return treeView ?? FindTreeView(VisualTreeHelper.GetParent(dependencyObject));
-    }
-
     public static bool SelectMultipleItemsRandomly(TreeView treeView, TreeViewItem treeViewItem)
     {
       //Debug.WriteLine($"SelectMultipleItemsRandomly({treeViewItem})");
@@ -266,6 +341,7 @@ namespace Qhta.WPF.Utils
           SetStartItem(treeView, null);
         }
       }
+      UpdateCurrentItem(treeView, treeViewItem.DataContext ?? treeViewItem);
       return true;
     }
 
@@ -277,7 +353,7 @@ namespace Qhta.WPF.Utils
       if (startItem == null)
       {
         SelectSingleItem(treeView, treeViewItem);
-         return true;
+        return true;
       }
       else
       {
@@ -313,6 +389,7 @@ namespace Qhta.WPF.Utils
           //if (!shiftControl)
           //  SetIsItemSelected(item, false);
         }
+        UpdateCurrentItem(treeView, treeViewItem.DataContext ?? treeViewItem);
       }
       //Debug.WriteLine($"SelectMultipleItemsContinuously({treeViewItem}) end");
       return true;
@@ -345,6 +422,7 @@ namespace Qhta.WPF.Utils
         }
       }
     }
+    #endregion
 
   }
 }
