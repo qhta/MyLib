@@ -211,30 +211,38 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="ListBoxItem.IsSelected" Value="True">
-              <Setter TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+              <Setter TargetName="Bd"
+                  Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
                   Property="Background" />
-              <Setter Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Property="Foreground" />
+              <Setter
+                  Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"
+                  Property="Foreground" />
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="ListBoxItem.IsSelected" Value="True" />
                 <Condition Property="Selector.IsSelectionActive" Value="False" />
               </MultiTrigger.Conditions>
-              <Setter TargetName="Bd" Value="{DynamicResource InternalSystemColorsExtendedStart}" Property="Background" />
-              <Setter Value="{DynamicResource {x:Static  SystemColors.InactiveSelectionHighlightBrush}}"
+              <!--<Setter TargetName="Bd"
+                  Value="{DynamicResource InternalSystemColorsExtendedStart}"
+                  Property="Background" />-->
+              <Setter
+                  Value="{DynamicResource {x:Static  SystemColors.InactiveSelectionHighlightBrush}}"
                   Property="Foreground" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="False">
-              <Setter Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Property="Foreground" />
+              <Setter
+                  Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                  Property="Foreground" />
             </Trigger>
-            <MultiDataTrigger>
+            <!--<MultiDataTrigger>
               <MultiDataTrigger.Conditions>
                 <Condition Binding="{Binding Path=AccessibilitySwitches.UseNetFx47CompatibleAccessibilityFeatures}"
                     Value="false" />
                 <Condition Binding="{Binding Path=(SystemParameters.HighContrast)}" Value="true" />
               </MultiDataTrigger.Conditions>
               <Setter Value="{StaticResource ListBoxItem.FocusVisualStyle}" Property="FocusVisualStyle" />
-            </MultiDataTrigger>
+            </MultiDataTrigger>-->
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

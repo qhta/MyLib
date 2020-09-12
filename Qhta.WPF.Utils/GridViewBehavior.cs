@@ -538,7 +538,7 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region CopyToClipboard methods
-    public static int CopyToClipboard(ListView listView, Type itemType, List<GridViewColumnInfo> columns)
+    public static int CopyToClipboard(ListView listView, Type itemType, ColumnsViewInfo columnsInfo)
     {
       var itemsView = listView.Items;
       SortDescriptionCollection sortDescriptions = null;
@@ -546,10 +546,10 @@ namespace Qhta.WPF.Utils
       {
         sortDescriptions = (itemsView as ICollectionView).SortDescriptions;
       }
-
+      var selectedColumns = columnsInfo.Where(item => item.IsVisible).ToList();
       StringWriter text = new StringWriter();
       StringBuilder html = new StringBuilder();
-      var headers = columns.Select(item => item.Header).ToArray();
+      var headers = selectedColumns.Select(item => item.Header).ToArray();
       text.WriteLine(String.Join("\t", headers));
       html.Append("<table>");
       html.Append("<tr>");
@@ -584,9 +584,9 @@ namespace Qhta.WPF.Utils
         if (item.IsSelected)
         {
           count++;
-          var values = new string[columns.Count()];
-          for (int i = 0; i < columns.Count(); i++)
-            values[i] = columns[i].Property.GetValue(item)?.ToString();
+          var values = new string[selectedColumns.Count()];
+          for (int i = 0; i < selectedColumns.Count(); i++)
+            values[i] = selectedColumns[i].Property.GetValue(item)?.ToString();
           text.WriteLine(String.Join("\t", values));
           html.Append("<tr>");
           for (int i = 0; i < values.Count(); i++)
@@ -606,9 +606,9 @@ namespace Qhta.WPF.Utils
       return count;
     }
 
-    public static List<GridViewColumnInfo> GetColumnsViewInfo(GridViewColumnCollection columns, Type itemType)
+    public static ColumnsViewInfo GetColumnsViewInfo(GridViewColumnCollection columns, Type itemType)
     {
-      var infos = new List<GridViewColumnInfo>();
+      var infos = new ColumnsViewInfo();
       for (int i = 0; i < columns.Count; i++)
       {
         var column = columns[i];
@@ -909,6 +909,44 @@ namespace Qhta.WPF.Utils
 
     public class ColumnsViewInfo : List<GridViewColumnInfo>
     {
+      // Do not save Capacity
+      public new int Capacity { get; set; }
+
+      public bool? AllSelected
+      {
+        get
+        {
+          bool areAllSelected = true; 
+          bool areAllUnselected = true;
+          foreach (var item in this)
+          {
+            if (item.IsVisible)
+              areAllUnselected = false;
+            else
+              areAllSelected = false;
+          }
+          if (areAllSelected && !areAllUnselected)
+            return true;
+          if (!areAllSelected && areAllUnselected)
+            return false;
+          return null;
+        }
+        set 
+        { 
+          if (value==true)
+          { 
+            foreach (var item in this)
+              item.IsVisible = true;
+          }
+          else
+          if (value == false)
+          {
+            foreach (var item in this)
+              item.IsVisible = false;
+          }
+
+        }
+      }
     }
     #endregion
   }
