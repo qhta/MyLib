@@ -8,4 +8,3 @@ D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.csproj.CoreCom
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.xml
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.csprojAssemblyReference.cache

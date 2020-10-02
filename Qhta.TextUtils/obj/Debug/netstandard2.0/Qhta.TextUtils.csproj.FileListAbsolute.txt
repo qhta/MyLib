@@ -1,9 +1,0 @@
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\netstandard2.0\Qhta.TextUtils.deps.json
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\netstandard2.0\Qhta.TextUtils.dll
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\netstandard2.0\Qhta.TextUtils.pdb
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.csprojAssemblyReference.cache
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.csproj.CoreCompileInputs.cache
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.AssemblyInfoInputs.cache
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.AssemblyInfo.cs
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.dll
-D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.pdb

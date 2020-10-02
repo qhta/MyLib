@@ -1,13 +1,13 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": ""
+    "signature": "cfe1dc2a80602aef150a12815387068463a61a0d"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.TypeUtils/1.1.0": {
+      "Qhta.TypeUtils/1.2.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3"
         },
@@ -24,7 +24,7 @@
     }
   },
   "libraries": {
-    "Qhta.TypeUtils/1.1.0": {
+    "Qhta.TypeUtils/1.2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

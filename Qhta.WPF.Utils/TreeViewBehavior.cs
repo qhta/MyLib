@@ -100,7 +100,7 @@ namespace Qhta.WPF.Utils
 
 
     #region CopyToClipboard methods
-    public static int CopyToClipboard(TreeView treeView, Type itemType, List<GridViewColumnInfo> columns)
+    public static int CopyToClipboard(TreeView treeView, Type itemType, ColumnsViewInfo columns)
     {
       var itemsView = treeView.Items;
 
@@ -128,7 +128,7 @@ namespace Qhta.WPF.Utils
       return count;
     }
 
-    private static int WriteCollection(StringWriter text, StringBuilder html, IEnumerable<ISelectable> collection, List<GridViewColumnInfo> columns)
+    private static int WriteCollection(StringWriter text, StringBuilder html, IEnumerable<ISelectable> collection, ColumnsViewInfo columns)
     {
       int count = 0;
 
@@ -139,7 +139,7 @@ namespace Qhta.WPF.Utils
           count++;
           var values = new string[columns.Count()];
           for (int i = 0; i < columns.Count(); i++)
-            values[i] = columns[i].Property.GetValue(item)?.ToString();
+            values[i] = columns[i].PropertyInfo.GetValue(item)?.ToString();
           text.WriteLine(String.Join("\t", values));
           html.Append("<tr>");
           for (int i = 0; i < values.Count(); i++)

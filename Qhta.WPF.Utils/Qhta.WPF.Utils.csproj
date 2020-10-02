@@ -50,17 +50,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\PresentationUI\3.0.0.0__31bf3856ad364e35\PresentationUI.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.DispatchedObjects, Version=1.0.2.0, Culture=neutral, PublicKeyToken=2eb9223338263fec, processorArchitecture=MSIL">
-      <HintPath>..\Qhta.WPF.Controls\packages\Qhta.DispatchedObjects.1.0.2\lib\netstandard2.0\Qhta.DispatchedObjects.dll</HintPath>
+    <Reference Include="Qhta.HtmlUtils, Version=1.0.1.0, Culture=neutral, PublicKeyToken=326eec3dee131ef7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Qhta.HtmlUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.MVVM, Version=1.0.4.0, Culture=neutral, PublicKeyToken=374081c06722bca0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Qhta.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Qhta.OrdNumbers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=05534810d7fc4a77, processorArchitecture=MSIL">
       <HintPath>..\..\WordAddIns\MyAddIns\packages\Qhta.OrdNumbers.2.2.1\lib\netstandard2.0\Qhta.OrdNumbers.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.TextUtils, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3df087af4582f9cb, processorArchitecture=MSIL">
-      <HintPath>..\..\WordAddIns\WordProc\packages\Qhta.TextUtils.2.1.0\lib\netstandard2.0\Qhta.TextUtils.dll</HintPath>
+    <Reference Include="Qhta.TextUtils, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3df087af4582f9cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Qhta.TextUtils.dll</HintPath>
     </Reference>
     <Reference Include="Qhta.TypeUtils, Version=1.1.0.0, Culture=neutral, PublicKeyToken=65d5029c6a0a744e, processorArchitecture=MSIL">
-      <HintPath>..\..\WordAddIns\MyAddIns\packages\Qhta.TypeUtils.1.1.0\lib\netstandard2.0\Qhta.TypeUtils.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Qhta.TypeUtils.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -78,16 +85,20 @@
     <Compile Include="ArrayGraphics.cs" />
     <Compile Include="BackgroundBehavior.cs" />
     <Compile Include="CollectionViewBehavior.cs" />
+    <Compile Include="DragData.cs" />
+    <Compile Include="BorderLine.cs" />
+    <Compile Include="ListBoxBehavior.cs" />
+    <Compile Include="ColumnViewInfo.cs" />
     <Compile Include="Converters\DecimalValueConverter.cs" />
     <Compile Include="Converters\IndexingConverter.cs" />
     <Compile Include="ICompoundItem.cs" />
     <Compile Include="IListSelector.cs" />
     <Compile Include="LocalCommand.cs" />
+    <Compile Include="ObservableCommand.cs" />
     <Compile Include="TextBoxBehavior.cs" />
     <Compile Include="ComboBoxBehavior.cs" />
     <Compile Include="Converters\BitTestConverter.cs" />
     <Compile Include="JoinStrings.cs" />
-    <Compile Include="ObservableCommand.cs" />
     <Compile Include="TimingMessageBox.xaml.cs">
       <DependentUpon>TimingMessageBox.xaml</DependentUpon>
     </Compile>
@@ -188,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\ListBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\ImageButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -245,16 +260,6 @@
   <ItemGroup>
     <Resource Include="Resources\ArrowPlus.cur" />
     <Content Include="Resources\image.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Qhta.HtmlUtils\Qhta.HtmlUtils.csproj">
-      <Project>{f620611d-6f30-4c69-80ad-3e7baa49e658}</Project>
-      <Name>Qhta.HtmlUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Qhta.MVVM\Qhta.MVVM.csproj">
-      <Project>{27002170-5bfe-44bd-97d1-a4f5d911ef32}</Project>
-      <Name>Qhta.MVVM</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

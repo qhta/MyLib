@@ -125,20 +125,20 @@ namespace Qhta.WPF.Utils
         );
     #endregion
 
-    #region HiddenWidth property
-    public static Double GetHiddenWidth(DependencyObject obj)
+    #region Width property
+    public static Double GetWidth(DependencyObject obj)
     {
-      return (Double)obj.GetValue(HiddenWidthProperty);
+      return (Double)obj.GetValue(WidthProperty);
     }
 
-    public static void SetHiddenWidth(DependencyObject obj, Double value)
+    public static void SetWidth(DependencyObject obj, Double value)
     {
-      obj.SetValue(HiddenWidthProperty, value);
+      obj.SetValue(WidthProperty, value);
     }
 
-    public static readonly DependencyProperty HiddenWidthProperty =
+    public static readonly DependencyProperty WidthProperty =
         DependencyProperty.RegisterAttached(
-            "HiddenWidth",
+            "Width",
             typeof(double),
             typeof(GridViewBehavior),
             new UIPropertyMetadata(double.NaN)
@@ -164,7 +164,7 @@ namespace Qhta.WPF.Utils
                 {
                   ListView listView = obj as ListView;
                   GridView gridView = obj as GridView;
-                  if (gridView == null && listView!=null)
+                  if (gridView == null && listView != null)
                     gridView = listView.View as GridView;
 
 
@@ -586,7 +586,7 @@ namespace Qhta.WPF.Utils
           count++;
           var values = new string[selectedColumns.Count()];
           for (int i = 0; i < selectedColumns.Count(); i++)
-            values[i] = selectedColumns[i].Property.GetValue(item)?.ToString();
+            values[i] = selectedColumns[i].PropertyInfo.GetValue(item)?.ToString();
           text.WriteLine(String.Join("\t", values));
           html.Append("<tr>");
           for (int i = 0; i < values.Count(); i++)
@@ -606,46 +606,6 @@ namespace Qhta.WPF.Utils
       return count;
     }
 
-    public static ColumnsViewInfo GetColumnsViewInfo(GridViewColumnCollection columns, Type itemType)
-    {
-      var infos = new ColumnsViewInfo();
-      for (int i = 0; i < columns.Count; i++)
-      {
-        var column = columns[i];
-        string propertyName = null;
-        var binding = column.DisplayMemberBinding;
-        if (binding is Binding dataBinding)
-          propertyName = dataBinding.Path.Path;
-        if (propertyName == null)
-          propertyName = GridViewBehavior.GetPropertyName(column);
-        if (propertyName != null)
-        {
-          var info = new GridViewColumnInfo();
-          info.PropertyName = propertyName;
-          string header = column.Header?.ToString();
-          string header2 = GetColumnHeader(column);
-          if (header2 != null)
-            header = header2;
-          info.Header = header;
-          var propertyNames = GetPropertyNames(propertyName);
-          var headerStrings = header.Split(new char[] { ',', ';' });
-          for (int k = 0; k < propertyNames.Count(); k++)
-          {
-            propertyName = propertyNames[k];
-            info.PropertyName = propertyName;
-            header = k < headerStrings.Count() ? headerStrings[k] : headerStrings.LastOrDefault();
-            info.Header = header;
-            var property = itemType.GetProperty(propertyName);
-            if (property == null)
-              throw new InvalidOperationException($"Property \"{propertyName}\" not found in {itemType} type");
-            info.Property = property;
-            infos.Add(info);
-            info = info.Duplicate();
-          }
-        }
-      }
-      return infos;
-    }
     #endregion
 
     #region ColumnsViewInfo property and methods
@@ -664,8 +624,12 @@ namespace Qhta.WPF.Utils
             "ColumnsViewInfo",
             typeof(ColumnsViewInfo),
             typeof(GridViewBehavior),
-            new UIPropertyMetadata(null)
+            new UIPropertyMetadata(null, ColumnsViewInfoChanged)
         );
+    public static void ColumnsViewInfoChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+    {
+      //ChangeColumnsView(obj as ListView, args.NewValue as ColumnsViewInfo);
+    }
 
     public static ColumnsViewInfo InitColumnsViewInfo(ListView listView)
     {
@@ -675,28 +639,157 @@ namespace Qhta.WPF.Utils
       {
         var column = gridView.Columns[i];
         bool isVisible = true;
-        if (column.Header is String columnHeader)
+        var columnHeader = column.Header?.ToString();
+        var columnWidth = GetWidth(column);
+        if (Double.IsNaN(columnWidth))
         {
-          var columnWidth = GetHiddenWidth(column);
-          if (Double.IsNaN(columnWidth))
-          {
-            columnWidth = column.Width;
-          }
-          else if (column.Width == 0)
-            isVisible = false;
-          var columnInfo = new GridViewColumnInfo { ColumnNumber = i, Header = columnHeader, IsVisible = isVisible, HiddenWidth = columnWidth };
-          result.Add(columnInfo);
-          var path = new PropertyPath("(0)[(1)].ActualWidth", new object[] { GridViewBehavior.ColumnsViewInfoProperty, i });
-          var binding = new Binding
-          {
-            Path = path,
-            Source = listView
-          };
-          BindingOperations.SetBinding(column, GridViewColumn.WidthProperty, binding);
+          columnWidth = column.Width;
         }
+        else if (column.Width == 0)
+          isVisible = false;
+        var columnInfo = new ColumnViewInfo { Header = columnHeader, IsVisible = isVisible, Width = columnWidth };
+        result.Add(columnInfo);
+        var path = new PropertyPath("(0)[(1)].ActualWidth", new object[] { GridViewBehavior.ColumnsViewInfoProperty, i });
+        var binding = new Binding
+        {
+          Path = path,
+          Source = listView
+        };
+        BindingOperations.SetBinding(column, GridViewColumn.WidthProperty, binding);
       }
       SetColumnsViewInfo(listView, result);
       return result;
+    }
+
+    //public static void ChangeColumnsView(ListView listView, ColumnsViewInfo newColumns)
+    //{
+    //  var gridView = listView.View as GridView;
+    //  var oldColumns = gridView.Columns.ToList();
+    //  var columnsNeedAdd = newColumns.Count > oldColumns.Count;
+    //  var columnsNeedRemove = newColumns.Count < oldColumns.Count;
+    //  var columnsNeedMove = false;
+    //  for (int i = 0; i < oldColumns.Count && i < newColumns.Count; i++)
+    //  {
+    //    if (oldColumns[i].PropertyName != newColumns[i].PropertyName)
+    //    {
+    //      columnsNeedMove = true;
+    //      break;
+    //    }
+    //  }
+    //  if (columnsNeedMove || columnsNeedRemove)
+    //  {
+    //    var oldGridColumns = gridView.Columns.ToList();
+    //    gridView.Columns.Clear();
+    //    var newGridColumns = new GridViewColumn[newColumns.Count];
+    //    for (int i = 0; i < oldColumns.Count(); i++)
+    //    {
+    //      if (oldColumns[i].PropertyName == newColumns[i].PropertyName)
+    //        newGridColumns[i] = oldGridColumns[i];
+    //      else
+    //      {
+    //        for (int j = 0; j < newColumns.Count; j++)
+    //        {
+    //          if (oldColumns[i].PropertyName == newColumns[j].PropertyName)
+    //          {
+    //            newGridColumns[j] = oldGridColumns[i];
+    //            break;
+    //          }
+    //        }
+    //      }
+    //    }
+    //    for (int i = 0; i < newGridColumns.Count(); i++)
+    //      gridView.Columns.Add(newGridColumns[i]);
+    //  }
+    //  for (int i = 0; i < gridView.Columns.Count; i++)
+    //  {
+    //    var column = gridView.Columns[i];
+    //    var columnInfo = newColumns[i];
+    //    var columnHeader = column.Header?.ToString();
+    //    if (columnHeader != columnInfo.Header)
+    //      column.Header = columnInfo.Header;
+    //    if (columnInfo.IsVisible == false)
+    //      column.Width = 0;
+    //    else
+    //    {
+    //      if (!Double.IsNaN(columnInfo.Width))
+    //        column.Width = columnInfo.Width;
+    //    }
+    //  }
+    //}
+
+    public static ColumnsViewInfo GetColumnsViewInfo(GridViewColumnCollection columns, Type itemType)
+    {
+      var infos = new ColumnsViewInfo();
+      for (int i = 0; i < columns.Count; i++)
+      {
+        var column = columns[i];
+        string propertyName = null;
+        var binding = column.DisplayMemberBinding;
+        if (binding is Binding dataBinding)
+          propertyName = dataBinding.Path.Path;
+        if (propertyName == null)
+          propertyName = GridViewBehavior.GetPropertyName(column);
+        if (propertyName != null)
+        {
+          var info = new ColumnViewInfo();
+          info.PropertyName = propertyName;
+          string header = column.Header?.ToString();
+          string header2 = GetColumnHeader(column);
+          if (header2 != null)
+            header = header2;
+          info.Header = header;
+          var propertyNames = GetPropertyNames(propertyName);
+          var headerStrings = header.Split(new char[] { ',', ';' });
+          for (int k = 0; k < propertyNames.Count(); k++)
+          {
+            propertyName = propertyNames[k];
+            info.PropertyName = propertyName;
+            header = k < headerStrings.Count() ? headerStrings[k] : headerStrings.LastOrDefault();
+            info.Header = header;
+
+            var isVisible = true;
+            var width = column.ActualWidth;
+            if (Double.IsNaN(width))
+            {
+              width = GetWidth(column);
+            }
+            else if (column.ActualWidth == 0)
+            {
+              width = GetWidth(column);
+              isVisible = false;
+            }
+            info.Width = width;
+            info.IsVisible = isVisible;
+
+            var property = itemType.GetProperty(propertyName);
+            if (property == null)
+              throw new InvalidOperationException($"Property \"{propertyName}\" not found in {itemType} type");
+            info.PropertyInfo = property;
+            infos.Add(info);
+            info = info.Duplicate();
+          }
+        }
+      }
+      return infos;
+    }
+
+    public static void FindProperties(ColumnsViewInfo infos, Type itemType)
+    {
+      for (int i = 0; i < infos.Count; i++)
+      {
+        var info = infos[i];
+        string propertyName = info.PropertyName;
+        var propertyNames = GetPropertyNames(propertyName);
+        for (int k = 0; k < propertyNames.Count(); k++)
+        {
+          propertyName = propertyNames[k];
+          info.PropertyName = propertyName;
+          var property = itemType.GetProperty(propertyName);
+          if (property == null)
+            throw new InvalidOperationException($"Property \"{propertyName}\" not found in {itemType} type");
+          info.PropertyInfo = property;
+        }
+      }
     }
     #endregion
 
@@ -821,133 +914,5 @@ namespace Qhta.WPF.Utils
 
     #endregion FitLastColumnWidth
 
-    #region GridViewColumnInfo nested class
-    public class GridViewColumnInfo : ViewModel
-    {
-      public GridViewColumnInfo() { }
-
-      public GridViewColumnInfo Duplicate()
-      {
-        return new GridViewColumnInfo
-        {
-          ActualWidth = this.ActualWidth,
-          ColumnNumber = this.ColumnNumber,
-          Header = this.Header,
-          HiddenWidth = this.HiddenWidth,
-          IsVisible = this.IsVisible,
-          PropertyName = this.PropertyName,
-        };
-      }
-
-      public int ColumnNumber { get; set; }
-      public string Header { get; set; }
-      public string PropertyName { get; set; }
-
-      public PropertyInfo Property { get; set; }
-
-      /// <summary>
-      /// Property to change column visibility.
-      /// A converter to Control.Visibility may be needed to bind to column Visibility.
-      /// If IsVisibile is changed then ActualWidth is also changed.
-      /// </summary>
-      public bool IsVisible
-      {
-        get => _isVisible;
-        set
-        {
-          if (_isVisible != value)
-          {
-            _isVisible = value;
-            if (IsVisible)
-              ActualWidth = HiddenWidth;
-            else
-              ActualWidth = 0;
-            NotifyPropertyChanged(nameof(IsVisible));
-          }
-        }
-      }
-      private bool _isVisible = true;
-
-      /// <summary>
-      /// Actual width of the column. Is changed between 0 and HiddenWidth
-      /// when IsVisible is changed.
-      /// </summary>
-      public double ActualWidth
-      {
-        get => _actualWidth;
-        set
-        {
-          if (_actualWidth != value)
-          {
-            _actualWidth = value;
-            NotifyPropertyChanged(nameof(ActualWidth));
-          }
-        }
-      }
-      private double _actualWidth = double.NaN;
-
-      /// <summary>
-      /// Hidden width of the column. Should be initialized 
-      /// if ActualWidth is to be changed when IsVisible changes.
-      public double HiddenWidth
-      {
-        get => _hiddenWidth;
-        set
-        {
-          if (_hiddenWidth != value)
-          {
-            _hiddenWidth = value;
-            NotifyPropertyChanged(nameof(HiddenWidth));
-            if (IsVisible)
-              ActualWidth = value;
-          }
-        }
-
-      }
-      private double _hiddenWidth = double.NaN;
-    }
-
-    public class ColumnsViewInfo : List<GridViewColumnInfo>
-    {
-      // Do not save Capacity
-      public new int Capacity { get; set; }
-
-      public bool? AllSelected
-      {
-        get
-        {
-          bool areAllSelected = true; 
-          bool areAllUnselected = true;
-          foreach (var item in this)
-          {
-            if (item.IsVisible)
-              areAllUnselected = false;
-            else
-              areAllSelected = false;
-          }
-          if (areAllSelected && !areAllUnselected)
-            return true;
-          if (!areAllSelected && areAllUnselected)
-            return false;
-          return null;
-        }
-        set 
-        { 
-          if (value==true)
-          { 
-            foreach (var item in this)
-              item.IsVisible = true;
-          }
-          else
-          if (value == false)
-          {
-            foreach (var item in this)
-              item.IsVisible = false;
-          }
-
-        }
-      }
-    }
-    #endregion
   }
 }
