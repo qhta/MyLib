@@ -2,7 +2,6 @@ D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Utils.dll.config
 D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Utils.dll
 D:\Dane\VS\Projects\MyLib\bin\Qhta.WPF.Utils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ClassicStyles.PresentationUI.baml
-D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ListBoxStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ImageButtonStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MulticolumnTreeViewItemStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ToggleButtonStyle.baml
@@ -17,6 +16,7 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils_MarkupCompile.
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils_MarkupCompile.lref
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ClearButtonStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ComboBoxStyle.baml
+D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ListBoxStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\TreeViewItemStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MultiselectListViewItemStyle.baml
 D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MultiselectTreeViewItemStyle.baml

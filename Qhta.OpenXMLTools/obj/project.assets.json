@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "DocumentFormat.OpenXml/2.11.0": {
+      "DocumentFormat.OpenXml/2.11.3": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "4.7.0"
@@ -38,6 +38,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Qhta.OrdNumbers/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
+        }
+      },
       "System.IO.Packaging/4.7.0": {
         "type": "package",
         "compile": {
@@ -50,15 +59,14 @@
     }
   },
   "libraries": {
-    "DocumentFormat.OpenXml/2.11.0": {
-      "sha512": "q+BkHWQ8ZlZxpVcfY5IMnXPzD3jrIxUsgf+qwjUpDqyNPR4YvkEKf/o1CTQ0I+ivifuJnG1MJhoFVWEoGLfXtA==",
+    "DocumentFormat.OpenXml/2.11.3": {
+      "sha512": "dCugN386ka+LwcOHnxi4gUHbiDeIw0/GEYw1sXFhYiErGFbJpRpscRcn5b12dywUReFCOgGNJ/l16zG5udkC/A==",
       "type": "package",
-      "path": "documentformat.openxml/2.11.0",
+      "path": "documentformat.openxml/2.11.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "CodeSignSummary-e257ad32-d5dd-4803-b795-592500c9fbdc.md",
-        "documentformat.openxml.2.11.0.nupkg.sha512",
+        "documentformat.openxml.2.11.3.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "icon.png",
         "lib/net35/DocumentFormat.OpenXml.dll",
@@ -216,6 +224,18 @@
         "netstandard.library.nuspec"
       ]
     },
+    "Qhta.OrdNumbers/2.2.1": {
+      "sha512": "+59JlQ6SrZGRGJnaNNTfIpHnQTohTJjAxRS0CYBNzvAy4j+w8XG+L9IAZTVcgPUu2tSdT2BHm+bqU73RShTLCg==",
+      "type": "package",
+      "path": "qhta.ordnumbers/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Qhta.OrdNumbers.dll",
+        "qhta.ordnumbers.2.2.1.nupkg.sha512",
+        "qhta.ordnumbers.nuspec"
+      ]
+    },
     "System.IO.Packaging/4.7.0": {
       "sha512": "9VV4KAbgRQZ79iEoG40KIeZy38O30oWwewScAST879+oki8g/Wa2HXZQgrhDDxQM4GkP1PnRJll05NMiVPbYAw==",
       "type": "package",
@@ -246,8 +266,9 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "DocumentFormat.OpenXml >= 2.11.0",
-      "NETStandard.Library >= 2.0.3"
+      "DocumentFormat.OpenXml >= 2.11.3",
+      "NETStandard.Library >= 2.0.3",
+      "Qhta.OrdNumbers >= 2.2.1"
     ]
   },
   "packageFolders": {
@@ -293,13 +314,17 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[2.11.0, )"
+            "version": "[2.11.3, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.OrdNumbers": {
+            "target": "Package",
+            "version": "[2.2.1, )"
           }
         },
         "imports": [

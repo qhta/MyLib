@@ -1,0 +1,8 @@
+D:\Dane\VS\Projects\MyLib\bin\Qhta.Collections.deps.json
+D:\Dane\VS\Projects\MyLib\bin\Qhta.Collections.dll
+D:\Dane\VS\Projects\MyLib\bin\Qhta.Collections.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.AssemblyInfoInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.AssemblyInfo.cs
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.dll
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.pdb

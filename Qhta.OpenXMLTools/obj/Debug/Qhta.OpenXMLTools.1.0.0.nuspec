@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.OpenXMLTools</id>
+    <version>1.0.0</version>
+    <authors>Qhta.OpenXMLTools</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="DocumentFormat.OpenXml" version="2.11.3" exclude="Build,Analyzers" />
+        <dependency id="Qhta.OrdNumbers" version="2.2.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Dane\VS\Projects\MyLib\bin\Qhta.OpenXMLTools.dll" target="lib\netstandard2.0\Qhta.OpenXMLTools.dll" />
+  </files>
+</package>
