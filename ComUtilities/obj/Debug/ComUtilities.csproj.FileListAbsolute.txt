@@ -1,0 +1,6 @@
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Debug\ComUtilities.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Debug\ComUtilities.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\ComUtilities\bin\Debug\ComUtilities.dll
+D:\Dane\VS\Projects\MyLib\ComUtilities\bin\Debug\ComUtilities.pdb
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Debug\ComUtilities.dll
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Debug\ComUtilities.pdb
