@@ -492,6 +492,19 @@
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
         </member>
+        <member name="F:Qhta.TypeUtils.TypeUtils.NumericSupertypes">
+            <summary>
+            Mapping from a numeric type to possible numeric supertype
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.IsNumericSupertypeOf(System.Type,System.Type)">
+            <summary>
+            Check if this type can be a supertype of other type
+            </summary>
+            <param name="thisType"></param>
+            <param name="otherType"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.IsDefaultValue(System.Type,System.Object)">
             <summary>
             Checks if the given value is the default value of the given type

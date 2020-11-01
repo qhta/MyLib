@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     public class ComPtr : SafeHandle, ICustomTypeDescriptor
     {

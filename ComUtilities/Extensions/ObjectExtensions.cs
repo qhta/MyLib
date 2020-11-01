@@ -11,7 +11,7 @@ namespace SolidEdge.Spy.Extensions
     {
         public static bool IsIDispatch(this object o)
         {
-            return o is SolidEdge.Spy.InteropServices.IDispatch;
+            return o is ComUtilities.IDispatch;
         }
 
         public static object SafeInvokeGetProperty(this object o, string name, object defaultValue)

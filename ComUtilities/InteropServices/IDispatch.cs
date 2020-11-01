@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     [ComImport()]
     [Guid(NativeMethods.IID_IDispatch)]

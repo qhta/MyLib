@@ -14,6 +14,88 @@ namespace Qhta.TypeUtils
   public static class TypeUtils
   {
     /// <summary>
+    /// Mapping from a numeric type to possible numeric supertype
+    /// </summary>
+    public static Type[,] NumericSupertypes = new Type[,]
+    {
+      { typeof(SByte), typeof(Byte) },
+      { typeof(SByte), typeof(Int16) },
+      { typeof(SByte), typeof(Int32) },
+      { typeof(SByte), typeof(Int64) },
+      { typeof(SByte), typeof(UInt16) },
+      { typeof(SByte), typeof(UInt32) },
+      { typeof(SByte), typeof(UInt64) },
+      { typeof(SByte), typeof(Single) },
+      { typeof(SByte), typeof(Double) },
+      { typeof(SByte), typeof(Decimal) },
+
+      { typeof(Byte), typeof(SByte) },
+      { typeof(Byte), typeof(Int16) },
+      { typeof(Byte), typeof(Int32) },
+      { typeof(Byte), typeof(Int64) },
+      { typeof(Byte), typeof(UInt16) },
+      { typeof(Byte), typeof(UInt32) },
+      { typeof(Byte), typeof(UInt64) },
+      { typeof(Byte), typeof(Single) },
+      { typeof(Byte), typeof(Double) },
+      { typeof(Byte), typeof(Decimal) },
+
+      { typeof(Int16), typeof(UInt16) },
+      { typeof(Int16), typeof(Int32) },
+      { typeof(Int16), typeof(Int64) },
+      { typeof(Int16), typeof(UInt32) },
+      { typeof(Int16), typeof(UInt64) },
+      { typeof(Int16), typeof(Single) },
+      { typeof(Int16), typeof(Double) },
+      { typeof(Int16), typeof(Decimal) },
+
+      { typeof(UInt16), typeof(Int16) },
+      { typeof(UInt16), typeof(Int32) },
+      { typeof(UInt16), typeof(Int64) },
+      { typeof(UInt16), typeof(UInt32) },
+      { typeof(UInt16), typeof(UInt64) },
+      { typeof(UInt32), typeof(Single) },
+      { typeof(UInt32), typeof(Double) },
+      { typeof(UInt32), typeof(Decimal) },
+
+      { typeof(Int32), typeof(UInt32) },
+      { typeof(Int32), typeof(Int64) },
+      { typeof(Int32), typeof(UInt64) },
+      { typeof(Int32), typeof(Single) },
+      { typeof(Int32), typeof(Double) },
+      { typeof(Int32), typeof(Decimal) },
+
+      { typeof(UInt32), typeof(Int32) },
+      { typeof(UInt32), typeof(Int64) },
+      { typeof(UInt32), typeof(UInt64) },
+      { typeof(UInt32), typeof(Single) },
+      { typeof(UInt32), typeof(Double) },
+      { typeof(UInt32), typeof(Decimal) },
+
+      { typeof(Single), typeof(Double) },
+      { typeof(Single), typeof(Decimal) },
+
+      { typeof(Double), typeof(Decimal) },
+
+    };
+
+    /// <summary>
+    /// Check if this type can be a supertype of other type
+    /// </summary>
+    /// <param name="thisType"></param>
+    /// <param name="otherType"></param>
+    /// <returns></returns>
+    public static bool IsNumericSupertypeOf(this Type thisType, Type otherType)
+    {
+      for (int i=0; i<NumericSupertypes.GetLength(0); i++)
+      {
+        if (NumericSupertypes[i, 0] == otherType && NumericSupertypes[i, 1] == thisType)
+          return true;
+      }
+      return false;
+    }
+
+    /// <summary>
     /// Checks if the given value is the default value of the given type
     /// </summary>
     /// <param name="valueType"></param>

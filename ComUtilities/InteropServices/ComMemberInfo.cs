@@ -6,7 +6,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Linq;
 using System.Text;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     public abstract class ComMemberInfo
     {

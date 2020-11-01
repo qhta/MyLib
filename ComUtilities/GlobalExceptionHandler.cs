@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace SolidEdge.Spy
+namespace ComUtilities
 {
     static class GlobalExceptionHandler
     {

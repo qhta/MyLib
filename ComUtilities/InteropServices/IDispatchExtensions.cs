@@ -6,7 +6,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     public static class IDispatchExtensions
     {

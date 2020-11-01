@@ -2,7 +2,7 @@
 //using System.Runtime.InteropServices;
 //using System.Threading;
 
-//namespace SolidEdge.Spy.InteropServices
+//namespace ComUtilities
 //{
 //    /// <summary>
 //    /// Class that implements the OLE IMessageFilter interface.

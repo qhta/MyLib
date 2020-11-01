@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     public delegate void ComTypeLibrarySelectedHandler(object sender, ComTypeLibrary comTypeLibrary);
     public delegate void ComTypeInfoSelectedHandler(object sender, ComTypeInfo comTypeInfo);

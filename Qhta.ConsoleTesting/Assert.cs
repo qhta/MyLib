@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -54,6 +55,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if condition is false.
+    [DebuggerNonUserCode]
     public static void IsTrue(bool condition)
     {
       IsTrue(condition, string.Empty, null);
@@ -75,6 +77,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if condition is false.
+    [DebuggerNonUserCode]
     public static void IsTrue(bool condition, string message)
     {
       IsTrue(condition, message, null);
@@ -99,6 +102,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if condition is false.
+    [DebuggerNonUserCode]
     public static void IsTrue(bool condition, string message, params object[] parameters)
     {
       if (!condition)
@@ -119,6 +123,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if condition is true.
+    [DebuggerNonUserCode]
     public static void IsFalse(bool condition)
     {
       IsFalse(condition, string.Empty, null);
@@ -140,6 +145,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if condition is true.
+    [DebuggerNonUserCode]
     public static void IsFalse(bool condition, string message)
     {
       IsFalse(condition, message, null);
@@ -164,6 +170,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if condition is true.
+    [DebuggerNonUserCode]
     public static void IsFalse(bool condition, string message, params object[] parameters)
     {
       if (condition)
@@ -183,6 +190,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is not null.
+    [DebuggerNonUserCode]
     public static void IsNull(object value)
     {
       IsNull(value, string.Empty, null);
@@ -203,6 +211,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is not null.
+    [DebuggerNonUserCode]
     public static void IsNull(object value, string message)
     {
       IsNull(value, message, null);
@@ -226,6 +235,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is not null.
+    [DebuggerNonUserCode]
     public static void IsNull(object value, string message, params object[] parameters)
     {
       if (value != null)
@@ -246,6 +256,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is null.
+    [DebuggerNonUserCode]
     public static void IsNotNull(object value)
     {
       IsNotNull(value, string.Empty, null);
@@ -267,6 +278,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is null.
+    [DebuggerNonUserCode]
     public static void IsNotNull(object value, string message)
     {
       IsNotNull(value, message, null);
@@ -291,6 +303,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is null.
+    [DebuggerNonUserCode]
     public static void IsNotNull(object value, string message, params object[] parameters)
     {
       if (value == null)
@@ -314,6 +327,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected does not refer to the same object as actual.
+    [DebuggerNonUserCode]
     public static void AreSame(object expected, object actual)
     {
       AreSame(expected, actual, string.Empty, null);
@@ -338,6 +352,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected does not refer to the same object as actual.
+    [DebuggerNonUserCode]
     public static void AreSame(object expected, object actual, string message)
     {
       AreSame(expected, actual, message, null);
@@ -365,6 +380,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected does not refer to the same object as actual.
+    [DebuggerNonUserCode]
     public static void AreSame(object expected, object actual, string message, params object[] parameters)
     {
       if (expected != actual)
@@ -398,6 +414,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected refers to the same object as actual.
+    [DebuggerNonUserCode]
     public static void AreNotSame(object notExpected, object actual)
     {
       AreNotSame(notExpected, actual, string.Empty, null);
@@ -423,6 +440,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected refers to the same object as actual.
+    [DebuggerNonUserCode]
     public static void AreNotSame(object notExpected, object actual, string message)
     {
       AreNotSame(notExpected, actual, message, null);
@@ -451,6 +469,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected refers to the same object as actual.
+    [DebuggerNonUserCode]
     public static void AreNotSame(object notExpected, object actual, string message, params object[] parameters)
     {
       if (notExpected == actual)
@@ -479,6 +498,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual<T>(T expected, T actual)
     {
       AreEqual(expected, actual, string.Empty, null);
@@ -508,6 +528,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual<T>(T expected, T actual, string message)
     {
       AreEqual(expected, actual, message, null);
@@ -540,6 +561,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual<T>(T expected, T actual, string message, params object[] parameters)
     {
       if (!object.Equals(expected, actual))
@@ -574,6 +596,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual<T>(T notExpected, T actual)
     {
       AreNotEqual(notExpected, actual, string.Empty, null);
@@ -603,6 +626,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual<T>(T notExpected, T actual, string message)
     {
       AreNotEqual(notExpected, actual, message, null);
@@ -635,6 +659,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual<T>(T notExpected, T actual, string message, params object[] parameters)
     {
       if (object.Equals(notExpected, actual))
@@ -665,6 +690,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(object expected, object actual)
     {
       AreEqual(expected, actual, string.Empty, null);
@@ -690,6 +716,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(object expected, object actual, string message)
     {
       AreEqual(expected, actual, message, null);
@@ -718,6 +745,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(object expected, object actual, string message, params object[] parameters)
     {
       Assert.AreEqual<object>(expected, actual, message, parameters);
@@ -740,6 +768,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(object notExpected, object actual)
     {
       AreNotEqual(notExpected, actual, string.Empty, null);
@@ -766,6 +795,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(object notExpected, object actual, string message)
     {
       AreNotEqual(notExpected, actual, message, null);
@@ -795,6 +825,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(object notExpected, object actual, string message, params object[] parameters)
     {
       Assert.AreNotEqual<object>(notExpected, actual, message, parameters);
@@ -819,6 +850,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(float expected, float actual, float delta)
     {
       AreEqual(expected, actual, delta, string.Empty, null);
@@ -847,6 +879,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(float expected, float actual, float delta, string message)
     {
       AreEqual(expected, actual, delta, message, null);
@@ -878,6 +911,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(float expected, float actual, float delta, string message, params object[] parameters)
     {
       if (float.IsNaN(expected) || float.IsNaN(actual) || float.IsNaN(delta))
@@ -912,6 +946,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(float notExpected, float actual, float delta)
     {
       AreNotEqual(notExpected, actual, delta, string.Empty, null);
@@ -940,6 +975,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(float notExpected, float actual, float delta, string message)
     {
       AreNotEqual(notExpected, actual, delta, message, null);
@@ -971,6 +1007,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(float notExpected, float actual, float delta, string message, params object[] parameters)
     {
       if (Math.Abs(notExpected - actual) <= delta)
@@ -999,6 +1036,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(double expected, double actual, double delta)
     {
       AreEqual(expected, actual, delta, string.Empty, null);
@@ -1027,6 +1065,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(double expected, double actual, double delta, string message)
     {
       AreEqual(expected, actual, delta, message, null);
@@ -1058,6 +1097,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(double expected, double actual, double delta, string message, params object[] parameters)
     {
       if (double.IsNaN(expected) || double.IsNaN(actual) || double.IsNaN(delta))
@@ -1093,6 +1133,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(double notExpected, double actual, double delta)
     {
       AreNotEqual(notExpected, actual, delta, string.Empty, null);
@@ -1122,6 +1163,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(double notExpected, double actual, double delta, string message)
     {
       AreNotEqual(notExpected, actual, delta, message, null);
@@ -1154,6 +1196,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(double notExpected, double actual, double delta, string message, params object[] parameters)
     {
       if (Math.Abs(notExpected - actual) <= delta)
@@ -1182,6 +1225,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(string expected, string actual, bool ignoreCase)
     {
       AreEqual(expected, actual, ignoreCase, string.Empty, null);
@@ -1210,6 +1254,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(string expected, string actual, bool ignoreCase, string message)
     {
       AreEqual(expected, actual, ignoreCase, message, null);
@@ -1241,6 +1286,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(string expected, string actual, bool ignoreCase, string message, params object[] parameters)
     {
       AreEqual(expected, actual, ignoreCase, CultureInfo.InvariantCulture, message, parameters);
@@ -1268,6 +1314,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(string expected, string actual, bool ignoreCase, CultureInfo culture)
     {
       AreEqual(expected, actual, ignoreCase, culture, string.Empty, null);
@@ -1299,6 +1346,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(string expected, string actual, bool ignoreCase, CultureInfo culture, string message)
     {
       AreEqual(expected, actual, ignoreCase, culture, message, null);
@@ -1333,6 +1381,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if expected is not equal to actual.
+    [DebuggerNonUserCode]
     public static void AreEqual(string expected, string actual, bool ignoreCase, CultureInfo culture, string message, params object[] parameters)
     {
       CheckParameterNotNull(culture, "Assert.AreEqual", "culture", string.Empty);
@@ -1373,6 +1422,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(string notExpected, string actual, bool ignoreCase)
     {
       AreNotEqual(notExpected, actual, ignoreCase, string.Empty, null);
@@ -1402,6 +1452,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(string notExpected, string actual, bool ignoreCase, string message)
     {
       AreNotEqual(notExpected, actual, ignoreCase, message, null);
@@ -1434,6 +1485,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(string notExpected, string actual, bool ignoreCase, string message, params object[] parameters)
     {
       AreNotEqual(notExpected, actual, ignoreCase, CultureInfo.InvariantCulture, message, parameters);
@@ -1462,6 +1514,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(string notExpected, string actual, bool ignoreCase, CultureInfo culture)
     {
       AreNotEqual(notExpected, actual, ignoreCase, culture, string.Empty, null);
@@ -1494,6 +1547,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(string notExpected, string actual, bool ignoreCase, CultureInfo culture, string message)
     {
       AreNotEqual(notExpected, actual, ignoreCase, culture, message, null);
@@ -1529,6 +1583,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if notExpected is equal to actual.
+    [DebuggerNonUserCode]
     public static void AreNotEqual(string notExpected, string actual, bool ignoreCase, CultureInfo culture, string message, params object[] parameters)
     {
       CheckParameterNotNull(culture, "Assert.AreNotEqual", "culture", string.Empty);
@@ -1561,6 +1616,7 @@ namespace Qhta.ConsoleTesting
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is null or expectedType is not in the inheritance hierarchy of
     //     value.
+    [DebuggerNonUserCode]
     public static void IsInstanceOfType(object value, Type expectedType)
     {
       IsInstanceOfType(value, expectedType, string.Empty, null);
@@ -1587,6 +1643,7 @@ namespace Qhta.ConsoleTesting
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is null or expectedType is not in the inheritance hierarchy of
     //     value.
+    [DebuggerNonUserCode]
     public static void IsInstanceOfType(object value, Type expectedType, string message)
     {
       IsInstanceOfType(value, expectedType, message, null);
@@ -1616,6 +1673,7 @@ namespace Qhta.ConsoleTesting
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is null or expectedType is not in the inheritance hierarchy of
     //     value.
+    [DebuggerNonUserCode]
     public static void IsInstanceOfType(object value, Type expectedType, string message, params object[] parameters)
     {
       if ((object)expectedType == null || value == null)
@@ -1652,6 +1710,7 @@ namespace Qhta.ConsoleTesting
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is not null and wrongType is in the inheritance hierarchy of
     //     value.
+    [DebuggerNonUserCode]
     public static void IsNotInstanceOfType(object value, Type wrongType)
     {
       IsNotInstanceOfType(value, wrongType, string.Empty, null);
@@ -1677,6 +1736,7 @@ namespace Qhta.ConsoleTesting
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is not null and wrongType is in the inheritance hierarchy of
     //     value.
+    [DebuggerNonUserCode]
     public static void IsNotInstanceOfType(object value, Type wrongType, string message)
     {
       IsNotInstanceOfType(value, wrongType, message, null);
@@ -1705,6 +1765,7 @@ namespace Qhta.ConsoleTesting
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if value is not null and wrongType is in the inheritance hierarchy of
     //     value.
+    [DebuggerNonUserCode]
     public static void IsNotInstanceOfType(object value, Type wrongType, string message, params object[] parameters)
     {
       if ((object)wrongType == null)
@@ -1735,6 +1796,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Always thrown.
+    [DebuggerNonUserCode]
     public static void Fail()
     {
       Fail(string.Empty, null);
@@ -1751,6 +1813,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Always thrown.
+    [DebuggerNonUserCode]
     public static void Fail(string message)
     {
       Fail(message, null);
@@ -1770,6 +1833,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Always thrown.
+    [DebuggerNonUserCode]
     public static void Fail(string message, params object[] parameters)
     {
       HandleFail("Assert.Fail", message, parameters);
@@ -1782,6 +1846,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException:
     //     Always thrown.
+    [DebuggerNonUserCode]
     public static void Inconclusive()
     {
       Inconclusive(string.Empty, null);
@@ -1798,6 +1863,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException:
     //     Always thrown.
+    [DebuggerNonUserCode]
     public static void Inconclusive(string message)
     {
       Inconclusive(message, null);
@@ -1817,6 +1883,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException:
     //     Always thrown.
+    [DebuggerNonUserCode]
     public static void Inconclusive(string message, params object[] parameters)
     {
       string text = string.Empty;
@@ -1848,6 +1915,7 @@ namespace Qhta.ConsoleTesting
     //
     // Returns:
     //     False, always.
+    [DebuggerNonUserCode]
     public new static bool Equals(object objA, object objB)
     {
       Fail(FrameworkMessages.DoNotUseAssertEquals);
@@ -1875,6 +1943,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static T ThrowsException<T>(Action action) where T : Exception
     {
       return ThrowsException<T>(action, string.Empty, null);
@@ -1905,6 +1974,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static T ThrowsException<T>(Action action, string message) where T : Exception
     {
       return ThrowsException<T>(action, message, null);
@@ -1931,6 +2001,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static T ThrowsException<T>(Func<object> action) where T : Exception
     {
       return ThrowsException<T>(action, string.Empty, null);
@@ -1961,6 +2032,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static T ThrowsException<T>(Func<object> action, string message) where T : Exception
     {
       return ThrowsException<T>(action, message, null);
@@ -1994,6 +2066,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throw exception of type T.
+    [DebuggerNonUserCode]
     public static T ThrowsException<T>(Func<object> action, string message, params object[] parameters) where T : Exception
     {
       return ThrowsException<T>(delegate
@@ -2030,6 +2103,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static T ThrowsException<T>(Action action, string message, params object[] parameters) where T : Exception
     {
       string empty = string.Empty;
@@ -2088,6 +2162,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static async Task<T> ThrowsExceptionAsync<T>(Func<Task> action) where T : Exception
     {
       return await ThrowsExceptionAsync<T>(action, string.Empty, null);
@@ -2118,6 +2193,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static async Task<T> ThrowsExceptionAsync<T>(Func<Task> action, string message) where T : Exception
     {
       return await ThrowsExceptionAsync<T>(action, message, null);
@@ -2151,6 +2227,7 @@ namespace Qhta.ConsoleTesting
     // Exceptions:
     //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
     //     Thrown if action does not throws exception of type T.
+    [DebuggerNonUserCode]
     public static async Task<T> ThrowsExceptionAsync<T>(Func<Task> action, string message, params object[] parameters) where T : Exception
     {
       _ = string.Empty;
@@ -2202,6 +2279,7 @@ namespace Qhta.ConsoleTesting
     //
     // Remarks:
     //     This is only public and still present to preserve compatibility with the V1 framework.
+    [DebuggerNonUserCode]
     public static string ReplaceNullChars(string input)
     {
       if (string.IsNullOrEmpty(input))
@@ -2225,6 +2303,7 @@ namespace Qhta.ConsoleTesting
     //
     //   parameters:
     //     The parameters.
+    [DebuggerNonUserCode]
     internal static void HandleFail(string assertionName, string message, params object[] parameters)
     {
       string text = string.Empty;
@@ -2259,6 +2338,7 @@ namespace Qhta.ConsoleTesting
     //
     //   parameters:
     //     The parameters.
+    [DebuggerNonUserCode]
     internal static void CheckParameterNotNull(object param, string assertionName, string parameterName, string message, params object[] parameters)
     {
       if (param == null)
@@ -2282,6 +2362,7 @@ namespace Qhta.ConsoleTesting
     //
     // Returns:
     //     The converted string.
+    [DebuggerNonUserCode]
     internal static string ReplaceNulls(object input)
     {
       if (input == null)
@@ -2298,6 +2379,7 @@ namespace Qhta.ConsoleTesting
       return ReplaceNullChars(text);
     }
 
+    [DebuggerNonUserCode]
     private static int CompareInternal(string expected, string actual, bool ignoreCase, CultureInfo culture)
     {
       return string.Compare(expected, actual, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);

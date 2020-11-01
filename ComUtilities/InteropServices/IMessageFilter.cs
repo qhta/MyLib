@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     /// <summary>
     /// Provides COM servers and applications with the ability to selectively handle incoming and outgoing COM

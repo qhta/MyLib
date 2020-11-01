@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     public static class ComHelper
     {

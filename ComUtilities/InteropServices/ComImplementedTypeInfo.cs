@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SolidEdge.Spy.InteropServices
+namespace ComUtilities
 {
     public class ComImplementedTypeInfo
     {
