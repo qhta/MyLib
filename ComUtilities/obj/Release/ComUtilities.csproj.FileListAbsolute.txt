@@ -1,0 +1,6 @@
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Release\ComUtilities.csprojAssemblyReference.cache
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Release\ComUtilities.csproj.CoreCompileInputs.cache
+D:\Dane\VS\Projects\MyLib\ComUtilities\bin\Release\ComUtilities.dll
+D:\Dane\VS\Projects\MyLib\ComUtilities\bin\Release\ComUtilities.pdb
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Release\ComUtilities.dll
+D:\Dane\VS\Projects\MyLib\ComUtilities\obj\Release\ComUtilities.pdb
