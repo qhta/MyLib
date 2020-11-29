@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "mj94pa3ynvGTaVZKMSfJ0JGvLfnifvl2+vGI9pQHs+OVG/L8j3pXHZriDgIZBsU/uzDQCqhwinNYs+HRN+tJIg==",
+  "dgSpecHash": "77hOLRuxcOFa1JXhVzmLfEv8F33QNYVfYPfbOzhM+A5PpOcScUhw4q+CTP/myBf0tPvOfiZdjWV/xOv1nxxDTw==",
   "success": true,
   "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jerry\\.nuget\\packages\\documentformat.openxml\\2.11.3\\documentformat.openxml.2.11.3.nupkg.sha512",
-    "C:\\Users\\Jerry\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Jerry\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
-    "C:\\Users\\Jerry\\.nuget\\packages\\qhta.ordnumbers\\2.2.1\\qhta.ordnumbers.2.2.1.nupkg.sha512",
-    "C:\\Users\\Jerry\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml\\2.11.3\\documentformat.openxml.2.11.3.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.2.1\\qhta.ordnumbers.2.2.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

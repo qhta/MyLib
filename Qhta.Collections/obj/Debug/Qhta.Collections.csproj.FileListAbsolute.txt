@@ -6,3 +6,4 @@ D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.AssemblyIn
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.pdb
+D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.csprojAssemblyReference.cache

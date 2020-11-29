@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>ObservableObjects.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Qhta.ObservableObjects.pfx</AssemblyOriginatorKeyFile>
     <Version>1.1.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>

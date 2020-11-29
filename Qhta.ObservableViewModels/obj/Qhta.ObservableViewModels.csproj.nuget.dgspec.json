@@ -10,14 +10,11 @@
         "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
         "projectName": "Qhta.ObservableObjects",
         "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
-        "packagesPath": "C:\\Users\\Jerry\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jerry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,14 +82,11 @@
         "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableViewModels\\Qhta.ObservableViewModels.csproj",
         "projectName": "Qhta.ObservableViewModels",
         "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableViewModels\\Qhta.ObservableViewModels.csproj",
-        "packagesPath": "C:\\Users\\Jerry\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ObservableViewModels\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jerry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

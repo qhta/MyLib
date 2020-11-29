@@ -10,14 +10,11 @@
         "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
         "projectName": "Qhta.OpenXMLTools",
         "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
-        "packagesPath": "C:\\Users\\Jerry\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jerry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
