@@ -87,6 +87,7 @@
     <Compile Include="CollectionViewBehavior.cs" />
     <Compile Include="DragData.cs" />
     <Compile Include="BorderLine.cs" />
+    <Compile Include="ToolTipBehavior.cs" />
     <Compile Include="ListBoxBehavior.cs" />
     <Compile Include="ColumnViewInfo.cs" />
     <Compile Include="Converters\DecimalValueConverter.cs" />

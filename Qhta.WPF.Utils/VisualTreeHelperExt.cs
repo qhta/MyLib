@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Xml;
 
@@ -88,15 +90,49 @@ namespace Qhta.WPF.Utils
     public static IEnumerable<T> FindAllDescendants<T>(DependencyObject obj) where T : class
     {
       var result = new List<T>();
-      var c = VisualTreeHelper.GetChildrenCount(obj);
+      var c = VisualTreeHelperExt.GetChildrenCount(obj);
       for (int i = 0; i < c; i++)
       {
-        var child = VisualTreeHelper.GetChild(obj, i);
+        var child = VisualTreeHelperExt.GetChild(obj, i);
         if (child is T)
           result.Add(child as T);
         result.AddRange(FindAllDescendants<T>(child));
       }
       return result;
+    }
+
+    public static int GetChildrenCount(DependencyObject obj)
+    {
+      if (obj is TextBlock textBlock)
+        return textBlock.Inlines.Count;
+      else
+      if (obj is Inline inline)
+      {
+        if (inline is AnchoredBlock block)
+          return block.Blocks.Count;
+        if (inline is InlineUIContainer container)
+          return container.Child!=null ? 1 : 0;
+        return 0;
+      }
+      else
+        return VisualTreeHelper.GetChildrenCount(obj);
+    }
+
+    public static DependencyObject GetChild(DependencyObject obj, int n)
+    {
+      if (obj is TextBlock textBlock)
+        return textBlock.Inlines.ToList()[n];
+      else
+      if (obj is Inline inline)
+      {
+        if (inline is AnchoredBlock block)
+          return block.Blocks.ToList()[n];
+        if (inline is InlineUIContainer container)
+          return container.Child;
+        return null;
+      }
+      else
+        return VisualTreeHelper.GetChild(obj, n);
     }
 
     public static T FindDescentant<T>(DependencyObject obj) where T : class
