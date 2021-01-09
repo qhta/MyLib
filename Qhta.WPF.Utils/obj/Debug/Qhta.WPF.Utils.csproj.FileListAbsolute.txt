@@ -31,7 +31,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.pdb
 D:\VS\Projects\MyLib\bin\Qhta.WPF.Utils.dll.config
 D:\VS\Projects\MyLib\bin\Qhta.WPF.Utils.dll
 D:\VS\Projects\MyLib\bin\Qhta.WPF.Utils.pdb
-D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ClassicStyles.PresentationUI.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\ImageButtonStyle.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Resources\MulticolumnTreeViewItemStyle.baml
@@ -59,3 +58,4 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CoreCompileI
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.dll
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.pdb
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\Qhta.WPF.Utils.csprojAssemblyReference.cache

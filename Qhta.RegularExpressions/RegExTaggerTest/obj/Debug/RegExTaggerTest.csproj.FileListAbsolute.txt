@@ -1,0 +1,11 @@
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\RegExTaggerTest.exe.config
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\RegExTaggerTest.exe
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\RegExTaggerTest.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.dll.config
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.exe
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.pdb

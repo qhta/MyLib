@@ -9,3 +9,14 @@ D:\Dane\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.Cons
 D:\Dane\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.FrameworkMessages.resources
 D:\Dane\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.csproj.GenerateResource.cache
 D:\Dane\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\bin\Debug\netstandard2.0\Qhta.ConsoleTesting.deps.json
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\bin\Debug\netstandard2.0\Qhta.ConsoleTesting.dll
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\bin\Debug\netstandard2.0\Qhta.ConsoleTesting.pdb
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.FrameworkMessages.resources
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.csproj.GenerateResource.cache
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.dll
+D:\VS\Projects\MyLib\Qhta.ConsoleTesting\obj\Debug\netstandard2.0\Qhta.ConsoleTesting.pdb

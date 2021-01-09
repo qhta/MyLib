@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b0/Qzwi1oj151cB9N2xF+qH8WdKUpn2RfG027ZnUCNYlIb+v37iq+++wiBTEQdmNJX+kBHQ4vibVTc8KIEYi4Q==",
+  "dgSpecHash": "/dIclf6Z45/k49KZAFKjmW2Jy/2WjBv5RZZBhHOyA260wDuniZfH1EMetde23jUp588ugOqOzjw0+b2wQuM5bg==",
   "success": true,
-  "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj",
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\mstest.testframework\\2.1.2\\mstest.testframework.2.1.2.nupkg.sha512",

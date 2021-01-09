@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\bin\Debug\netstandard2.0\Qhta.RegularExpressions.dll.config
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\bin\Debug\netstandard2.0\Qhta.RegularExpressions.deps.json
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\bin\Debug\netstandard2.0\Qhta.RegularExpressions.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\bin\Debug\netstandard2.0\Qhta.RegularExpressions.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.pdb

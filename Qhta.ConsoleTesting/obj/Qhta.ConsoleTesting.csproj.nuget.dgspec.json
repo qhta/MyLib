@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj": {}
+    "D:\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj": {}
   },
   "projects": {
-    "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj": {
+    "D:\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj",
+        "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj",
         "projectName": "Qhta.ConsoleTesting",
-        "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj",
+        "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\Qhta.ConsoleTesting.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
-        "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\obj\\",
+        "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.ConsoleTesting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,7 +61,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
