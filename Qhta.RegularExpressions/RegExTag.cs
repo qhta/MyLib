@@ -3,6 +3,7 @@
   public enum RegExTag
   {
     LiteralChar,
+    LiteralString,
     CharSet,
     CharRange,
     CharSetControlChar,
@@ -11,9 +12,13 @@
     OctalString,
     HexadecimalString,
     UnicodeString,
-    CategoryString,
+    UnicodeGroup,
     DotChar,
     Quantifier,
     Subexpression,
+    GroupControlChar,
+    GroupName,
+    NamedGroup,
+    BackRef,
   }
 }

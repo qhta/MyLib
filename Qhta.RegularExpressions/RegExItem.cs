@@ -10,7 +10,7 @@ namespace Qhta.RegularExpressions
 
     public int Start { get; set; }
 
-    public int Length { get; set; }
+    public int Length => Str?.Length ?? 0;
 
     public string Str { get; set; }
 
