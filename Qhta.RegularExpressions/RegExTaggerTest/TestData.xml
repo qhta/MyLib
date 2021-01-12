@@ -1,0 +1,477 @@
+<TestData xmlns="clr-namespace:RegExTaggerTest;assembly=RegExTaggerTest" xmlns:qr="clr-namespace:Qhta.RegularExpressions;assembly=Qhta.RegularExpressions">
+  <TestItem Pattern=" " Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str=" " Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="!" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="!" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="&quot;" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="&quot;" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="#" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="#" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="$" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="$" Tag="AnchorControl" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="%" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="%" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="&amp;" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="&amp;" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="'" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="'" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="(" Result="Unfinished">
+    <TestItem.Items>
+      <qr:RegExGroup Start="0" Status="Unfinished" Str="(" Tag="Subexpression" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern=")" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str=")" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="*" Result="Warning">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="Warning" Str="*" Tag="Quantifier" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="+" Result="Warning">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="Warning" Str="+" Tag="Quantifier" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="," Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="," Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="-" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="-" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="." Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="." Tag="DomainChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="/" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="/" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="0" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="0" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="1" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="1" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="2" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="2" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="3" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="3" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="4" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="4" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="5" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="5" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="6" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="6" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="7" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="7" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="8" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="8" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="9" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="9" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern=":" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str=":" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern=";" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str=";" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="&lt;" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="&lt;" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="=" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="=" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="&gt;" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="&gt;" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="?" Result="Warning">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="Warning" Str="?" Tag="Quantifier" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="@" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="@" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="A" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="A" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="B" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="B" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="C" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="C" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="D" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="D" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="E" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="E" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="F" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="F" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="G" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="G" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="H" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="H" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="I" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="I" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="J" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="J" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="K" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="K" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="L" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="L" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="M" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="M" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="N" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="N" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="O" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="O" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="P" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="P" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="Q" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="Q" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="R" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="R" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="S" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="S" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="T" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="T" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="U" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="U" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="V" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="V" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="W" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="W" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="X" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="X" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="Y" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="Y" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="Z" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="Z" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="[" Result="Unfinished">
+    <TestItem.Items>
+      <qr:RegExCharset Start="0" Status="Unfinished" Str="[" Tag="CharSet" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\" Result="Unfinished">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="Unfinished" Str="\" Tag="EscapedChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="]" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="]" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="^" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="^" Tag="AnchorControl" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="_" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="_" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="`" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="`" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="a" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="a" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="b" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="b" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="c" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="c" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="d" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="d" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="e" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="e" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="f" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="f" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="g" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="g" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="h" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="h" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="i" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="i" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="j" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="j" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="k" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="k" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="l" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="l" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="m" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="m" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="n" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="n" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="o" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="o" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="p" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="p" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="q" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="q" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="r" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="r" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="s" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="s" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="t" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="t" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="u" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="u" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="v" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="v" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="w" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="w" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="x" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="x" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="y" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="y" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="z" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="z" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="{}{" Result="Unfinished">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="Unfinished" Str="{}{" Tag="Quantifier" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="|" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="|" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="}" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="}" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="~" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="~" Tag="LiteralChar" />
+    </TestItem.Items>
+  </TestItem>
+</TestData>

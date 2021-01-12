@@ -1,0 +1,48 @@
+<TestData xmlns="clr-namespace:RegExTaggerTest;assembly=RegExTaggerTest" xmlns:qr="clr-namespace:Qhta.RegularExpressions;assembly=Qhta.RegularExpressions">
+  <TestItem Pattern="(?&lt;name_012&gt;subexpression[a-zA-Z0-9])" Result="OK">
+    <TestItem.Items>
+      <qr:RegExGroup Name="name_012" Start="0" Status="OK" Str="(?&lt;name_012&gt;subexpression[a-zA-Z0-9])" Tag="NamedGroup">
+        <qr:RegExGroup.Items>
+          <qr:RegExItem Start="1" Status="OK" Str="?" Tag="GroupControlChar" />
+          <qr:RegExItem Start="2" Status="OK" Str="&lt;name_012&gt;" Tag="GroupName" />
+          <qr:RegExItem Start="12" Status="OK" Str="subexpression" Tag="LiteralString" />
+          <qr:RegExCharset Start="25" Status="OK" Str="[a-zA-Z0-9]" Tag="CharSet">
+            <qr:RegExCharset.Items>
+              <qr:RegExItem Start="26" Status="OK" Str="a-z" Tag="CharRange" />
+              <qr:RegExItem Start="29" Status="OK" Str="A-Z" Tag="CharRange" />
+              <qr:RegExItem Start="32" Status="OK" Str="0-9" Tag="CharRange" />
+            </qr:RegExCharset.Items>
+          </qr:RegExCharset>
+        </qr:RegExGroup.Items>
+      </qr:RegExGroup>
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="((\w+??)[\s.])+." Result="Warning">
+    <TestItem.Items>
+      <qr:RegExGroup Start="0" Status="Warning" Str="((\w+??)[\s.])" Tag="Subexpression">
+        <qr:RegExGroup.Items>
+          <qr:RegExGroup Start="1" Status="Warning" Str="(\w+??)" Tag="Subexpression">
+            <qr:RegExGroup.Items>
+              <qr:RegExItem Start="2" Status="OK" Str="\w" Tag="DomainChar" />
+              <qr:RegExItem Start="4" Status="OK" Str="+?" Tag="Quantifier" />
+              <qr:RegExItem Start="6" Status="Warning" Str="?" Tag="Quantifier" />
+            </qr:RegExGroup.Items>
+          </qr:RegExGroup>
+          <qr:RegExCharset Start="8" Status="OK" Str="[\s.]" Tag="CharSet">
+            <qr:RegExCharset.Items>
+              <qr:RegExItem Start="9" Status="OK" Str="\s" Tag="DomainChar" />
+              <qr:RegExItem Start="11" Status="OK" Str="." Tag="LiteralChar" />
+            </qr:RegExCharset.Items>
+          </qr:RegExCharset>
+        </qr:RegExGroup.Items>
+      </qr:RegExGroup>
+      <qr:RegExItem Start="14" Status="OK" Str="+" Tag="Quantifier" />
+      <qr:RegExItem Start="15" Status="OK" Str="." Tag="DomainChar" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="." Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="." Tag="DomainChar" />
+    </TestItem.Items>
+  </TestItem>
+</TestData>

@@ -2,11 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Qhta.RegularExpressions
 {
+  //[KnownType(typeof(RegExItem))]
+  //[KnownType(typeof(RegExGroup))]
+  //[KnownType(typeof(RegExCharset))]
   public class RegExItems: IList<RegExItem>
   {
     private List<RegExItem> Items = new List<RegExItem>();
@@ -67,5 +72,27 @@ namespace Qhta.RegularExpressions
 
     public RegExItem this[int index] { get => ((IList<RegExItem>)Items)[index]; set => ((IList<RegExItem>)Items)[index] = value; }
 
+    public override bool Equals(object obj)
+    {
+      if (obj is RegExItems other)
+      {
+        if (this.Count != other.Count)
+          return false;
+        for (int i=0; i<this.Count; i++)
+        {
+          var item1 = this[i];
+          var item2 = other[i];
+          if (!item1.Equals(item2))
+            return false;
+        }
+        return true;
+      }
+      return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return base.GetHashCode();
+    }
   }
 }
