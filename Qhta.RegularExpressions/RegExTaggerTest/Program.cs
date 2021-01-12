@@ -10,6 +10,19 @@ namespace RegExTaggerTest
 {
   class Program
   {
+    [Flags]
+    enum TestOptions
+    {
+      /// <summary>
+      /// If input file is not protected && output file is not specified, 
+      /// then input file can be overwritten by the corrected or added tests.
+      /// </summary>
+      IsInputFileProtected,
+      IsOutputFileSpecified,
+      TestOneCharPatterns,
+      TestTwoCharsPatterns,
+    }
+
     const string QuantifierChars = "?+*";
     const string AnchorChars = "^$";
 
@@ -20,72 +33,23 @@ namespace RegExTaggerTest
       //@"(?<name_012>subexpression[a-zA-Z0-9])",
     };
 
-    static string testInputFileName = null;
-    static string testOutputFileName = null;
-    static bool testOneChars = false;
-    static bool testTwoChars = false;
-    static bool isInput = false;
-    static bool isOutput = false;
-
-    static TestData testInputData, testOutputData;
+    static TestData TestInputData, testOutputData;
     static RegExTagger Tagger = new RegExTagger();
+    static TextWriter TestOutput = Console.Out;
 
     static void Main(string[] args)
     {
-
-
-      if (args.Length == 0)
-      {
-
-      }
-      else
-      {
-        for (int i = 0; i < args.Length; i++)
-        {
-          //Console.WriteLine($"args[{i}]: {args[i]}");
-          var arg = args[i];
-          if (arg[0] == '/')
-          {
-            switch (arg[1])
-            {
-              case 'o':
-                isOutput = true;
-                break;
-              case 'i':
-                isInput = true;
-                break;
-              case '1':
-                testOneChars = true;
-                break;
-              case '2':
-                testTwoChars = true;
-                break;
-            }
-          }
-          else
-          {
-            if (isOutput)
-            {
-              testOutputFileName = arg;
-            }
-            else
-            {
-              testInputFileName = arg;
-            }
-          }
-        }
-        Console.WriteLine($"");
-      }
-
-      if (testOutputFileName == null && !isInput)
-        testOutputFileName = testInputFileName;
+      string testInputFileName = null;
+      string testOutputFileName = null;
+      TestOptions testOptions = 0;
+      ReadArgs(args, out testInputFileName, out testOutputFileName, out testOptions);
 
       if (testInputFileName != null)
       {
-        Console.WriteLine($"reading test data from file \"{testInputFileName}\"");
+        TestOutput.WriteLine($"reading test data from file \"{testInputFileName}\"");
         ReadTestData(testInputFileName);
-        Console.WriteLine($"read tests: {testInputData.Count}");
-        Console.WriteLine($"");
+        TestOutput.WriteLine($"read tests: {TestInputData.Count}");
+        TestOutput.WriteLine($"");
       }
       else
         CreateTestData();
@@ -93,29 +57,100 @@ namespace RegExTaggerTest
 
       bool? wholeTestResult = null;
 
-      if (testOneChars)
+      if (testOptions.HasFlag(TestOptions.TestOneCharPatterns))
         wholeTestResult = TestOneCharPatterns();
 
-      if (testInputData.Count>0)
-        wholeTestResult = TestInputData();
+      if (TestInputData.Count>0)
+        wholeTestResult = RunTestInputData();
 
-      TrySaveTestData(wholeTestResult);
+      bool? shouldSave = false;
+      if (wholeTestResult == false)
+      {
+        if (testOptions.HasFlag(TestOptions.IsOutputFileSpecified))
+          shouldSave = true;
+        if (!testOptions.HasFlag(TestOptions.IsInputFileProtected))
+          shouldSave = null;
+      }
+      TrySaveTestData(testOutputFileName, shouldSave, $"Test results differ from expected. Do you want to write test data to file \"{testOutputFileName}\"?");
 
       bool moreTestsAdded = TryAddMoreTests();
 
       if (moreTestsAdded)
-        TrySaveAddedTests();
+        TrySaveTestData(testOutputFileName, null, $"You have added some test. Do you want to save all test data to file \"{testOutputFileName}\"?");
     }
 
+    /// <summary>
+    /// Reads filenames and options from args string collection.
+    /// </summary>
+    /// <param name="args"></param>
+    static void ReadArgs(string[] args, out string inputFileName, out string outputFileName, out TestOptions options)
+    {
+      inputFileName = null;
+      outputFileName = null;
+      options = 0;
+      if (args.Length == 0)
+      {
+        WriteUsage();
+      }
+      else
+      {
+        for (int i = 0; i < args.Length; i++)
+        {
+          //TestMonitor.WriteLine($"args[{i}]: {args[i]}");
+          var arg = args[i];
+          if (arg[0] == '/')
+          {
+            switch (arg[1])
+            {
+              case 'o':
+                options |= TestOptions.IsOutputFileSpecified;
+                break;
+              case 'i':
+                options |= TestOptions.IsInputFileProtected;
+                break;
+              case '1':
+                options |= TestOptions.TestOneCharPatterns;
+                break;
+              case '2':
+                options |= TestOptions.TestTwoCharsPatterns;
+                break;
+            }
+          }
+          else
+          {
+            if (options.HasFlag(TestOptions.IsOutputFileSpecified))
+            {
+              outputFileName = arg;
+            }
+            else
+            {
+              inputFileName = arg;
+            }
+          }
+        }
+        if (outputFileName == null && !options.HasFlag(TestOptions.IsInputFileProtected))
+          outputFileName = inputFileName;
+        TestOutput.WriteLine($"");
+      }
+
+    }
+
+    /// <summary>
+    /// Writes usage help messages to console
+    /// </summary>
     static void WriteUsage()
     {
-      Console.WriteLine($"arguments: [testInputFileName [/o testOutputFileName]]");
-      Console.WriteLine($"options:");
-      Console.WriteLine($"\t/1 - test one-char patterns");
-      Console.WriteLine($"\t/2 - test two-chars patterns");
-      Console.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
+      TestOutput.WriteLine($"arguments: [testInputFileName [/o testOutputFileName]]");
+      TestOutput.WriteLine($"options:");
+      TestOutput.WriteLine($"\t/1 - test one-char patterns");
+      TestOutput.WriteLine($"\t/2 - test two-chars patterns");
+      TestOutput.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
     }
 
+    /// <summary>
+    /// Tests one-char patterns. No test input data needed. No test output data produced.
+    /// </summary>
+    /// <returns></returns>
     static bool? TestOneCharPatterns()
     {
       bool? wholeTestResult = null;
@@ -157,10 +192,16 @@ namespace RegExTaggerTest
       return wholeTestResult;
     }
 
+    /// <summary>
+    /// Runs a single test of one-char pattern
+    /// </summary>
+    /// <param name="testInputItem"></param>
+    /// <param name="testOutputItem"></param>
+    /// <returns></returns>
     static bool? RunOneTest(TestItem testInputItem, out TestItem testOutputItem)
     {
       var pattern = testInputItem.Pattern;
-      Console.WriteLine($"pattern = {pattern}");
+      TestOutput.WriteLine($"pattern = {pattern}");
       testOutputItem = new TestItem { Pattern = pattern };
       testOutputItem.Result = Tagger.TryParseText(pattern);
       testOutputItem.Items = Tagger.Items;
@@ -172,23 +213,28 @@ namespace RegExTaggerTest
           testResultOK = (testInputItem.Items == null) ||
           ItemsAreEqual(testInputItem.Items, testOutputItem.Items);
         if (testResultOK == true)
-          Console.WriteLine($"test PASSED");
+          TestOutput.WriteLine($"test PASSED");
         else if (testResultOK == false)
-          Console.WriteLine($"test FAILED");
+          TestOutput.WriteLine($"test FAILED");
       }
-      Console.WriteLine($"Result = {testOutputItem.Result}");
-      Dump(testOutputItem.Items);
-      Console.WriteLine($"");
+      TestOutput.WriteLine($"Result = {testOutputItem.Result}");
+      Dump(TestOutput, testOutputItem.Items);
+      TestOutput.WriteLine($"");
       return testResultOK;
     }
 
-    static bool? TestInputData()
+    /// <summary>
+    /// Runs testing of data stored in testInputData collections. Fills testOutputData collection.
+    /// </summary>
+    /// <returns></returns>
+    static bool? RunTestInputData()
     {
       bool? wholeTestResult = null;
-      for (int i = 0; i < testInputData.Count; i++)
+      for (int i = 0; i < TestInputData.Count; i++)
       {
-        Console.WriteLine($"Test {i + 1}:");
-        var testInputItem = testInputData[i];
+        if (TestOutput!=null)
+          TestOutput.WriteLine($"Test {i + 1}:");
+        var testInputItem = TestInputData[i];
         TestItem testOutputItem;
         var oneTestResult = RunOneTest(testInputItem, out testOutputItem);
         testOutputData.Add(testOutputItem);
@@ -203,16 +249,25 @@ namespace RegExTaggerTest
       return wholeTestResult;
     }
 
+    /// <summary>
+    /// Creates testInputData collection from testPatterns.
+    /// </summary>
     static void CreateTestData()
     {
-      testInputData = new TestData();
+      TestInputData = new TestData();
       foreach (var pattern in testPatterns)
       {
         var item = new TestItem { Pattern = pattern };
-        testInputData.Add(item);
+        TestInputData.Add(item);
       }
     }
 
+    /// <summary>
+    /// Compares two regex items for equality. Used in tests.
+    /// </summary>
+    /// <param name="items1"></param>
+    /// <param name="items2"></param>
+    /// <returns></returns>
     static bool ItemsAreEqual(RegExItems items1, RegExItems items2)
     {
       if (items1.Count == items2.Count)
@@ -230,36 +285,47 @@ namespace RegExTaggerTest
       return true;
     }
 
-    static bool TrySaveTestData(bool? wholeTestResult)
+    /// <summary>
+    /// Saves testOutputData in file depending on suggestion and user decision
+    /// </summary>
+    /// <param name="filename">name of output file</param>
+    /// <param name="shouldSave">if is null then save depends on user decision</param>
+    /// <param name="message">message to ask user for decision</param>
+    /// <returns></returns>
+    static bool TrySaveTestData(string filename, bool? shouldSave, string message)
     {
       bool testDataWritten = false;
-      if (testOutputFileName != null)
+      if (filename != null)
       {
-        if (wholeTestResult == false)
+        if (shouldSave == null)
         {
-          Console.Write($"Test results differ from expected. Do you want to write test data to file \"{testOutputFileName}\"? (Y/N)");
+          Console.Write(message+" (Y/N)");
           var key1 = Console.ReadKey();
           Console.WriteLine();
           if (key1.Key == ConsoleKey.Y)
           {
-            WriteTestData(testOutputFileName);
-            Console.WriteLine($"written tests: {testOutputData.Count}");
-            Console.WriteLine("");
+            WriteTestData(filename);
+            TestOutput.WriteLine($"written tests: {testOutputData.Count}");
+            TestOutput.WriteLine("");
             testDataWritten = true;
           }
         }
-        else if (testOutputFileName != testInputFileName)
+        else if (shouldSave == true)
         {
-          Console.WriteLine($"Writting test data to file \"{testOutputFileName}\\");
-          WriteTestData(testOutputFileName);
-          Console.WriteLine($"written tests: {testOutputData.Count}");
-          Console.WriteLine("");
+          TestOutput.WriteLine($"Writting test data to file \"{filename}\\");
+          WriteTestData(filename);
+          TestOutput.WriteLine($"written tests: {testOutputData.Count}");
+          TestOutput.WriteLine("");
           testDataWritten = true;
         }
       }
       return testDataWritten;
     }
 
+    /// <summary>
+    /// Depending on user decision tries to run and add more tests to testOutputData
+    /// </summary>
+    /// <returns></returns>
     static bool TryAddMoreTests()
     {
       bool added = false;
@@ -268,7 +334,7 @@ namespace RegExTaggerTest
       {
         Console.Write("Do you want do run new test? (Y/N) ");
         var key2 = Console.ReadKey();
-        Console.WriteLine();
+        TestOutput.WriteLine();
         if (key2.Key == ConsoleKey.Y)
         {
           Console.Write("enter test pattern:");
@@ -278,7 +344,7 @@ namespace RegExTaggerTest
           var testInputItem = new TestItem { Pattern = pattern };
           TestItem testOutputItem;
           var oneTestResult = RunOneTest(testInputItem, out testOutputItem);
-          Console.WriteLine("");
+          TestOutput.WriteLine("");
           Console.Write("Do you accept test result? (Y/N) ");
           var key1 = Console.ReadKey();
           Console.WriteLine();
@@ -294,27 +360,11 @@ namespace RegExTaggerTest
       return added;
     }
 
-    static bool TrySaveAddedTests()
-    {
-      bool saved = false;
-      Console.Write($"You have added some test. Do you want to save all test data to file \"{testOutputFileName}\"? (Y/N) ");
-      var key1 = Console.ReadKey();
-      Console.WriteLine();
-      if (key1.Key == ConsoleKey.Y)
-      {
-        WriteTestData(testOutputFileName);
-        Console.WriteLine($"written tests: {testOutputData.Count}");
-        Console.WriteLine("");
-        saved = true;
-      }
-      return saved;
-    }
-
     static void ReadTestData(string filename)
     {
       using (var reader = File.OpenText(filename))
       {
-        testInputData = (TestData)XamlServices.Load(reader);
+        TestInputData = (TestData)XamlServices.Load(reader);
       }
     }
 
@@ -327,21 +377,21 @@ namespace RegExTaggerTest
     }
 
 
-    static void Dump(RegExItems items, int level = 0)
+    static void Dump(TextWriter writer, RegExItems items, int level = 0)
     {
       foreach (var item in items)
       {
         var s = $"{item.GetType().Name}: {item}";
-        Console.WriteLine(new string(' ', level * 2) + s);
+        writer.WriteLine(new string(' ', level * 2) + s);
         if (item is RegExGroup group)
         {
           if (group.Name != null)
-            Console.WriteLine(new string(' ', (level + 1) * 2) + $"Name=\"{group.Name}\"");
-          Dump(group.Items, level + 1);
+            TestOutput.WriteLine(new string(' ', (level + 1) * 2) + $"Name=\"{group.Name}\"");
+          Dump(writer, group.Items, level + 1);
         }
         else
         if (item is RegExCharset charset)
-          Dump(charset.Items, level + 1);
+          Dump(writer, charset.Items, level + 1);
       }
     }
   }
