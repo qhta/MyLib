@@ -2,9 +2,10 @@
 {
   public enum RegExStatus
   {
-    Unfinished,
     OK,
     Warning,
     Error,
+    Unfinished,
   }
+
 }

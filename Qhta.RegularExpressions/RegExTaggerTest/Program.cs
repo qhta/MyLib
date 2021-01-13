@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xaml;
@@ -17,14 +18,20 @@ namespace RegExTaggerTest
       /// If input file is not protected && output file is not specified, 
       /// then input file can be overwritten by the corrected or added tests.
       /// </summary>
-      IsInputFileProtected,
-      IsOutputFileSpecified,
-      TestOneCharPatterns,
-      TestTwoCharsPatterns,
+      IsInputFileProtected = 1,
+      IsOutputFileSpecified = 2,
+      TestOneCharPatterns = 4,
+      TestTwoCharsPatterns = 8,
+      BreakAfterFirstFailure = 16,
+      DontShowPassedTestResults = 32,
     }
 
     const string QuantifierChars = "?+*";
     const string AnchorChars = "^$";
+    const string OpeningChars = "([{";
+    const string Anchor2ndChars = "AZzGbB";
+    const string Domain2ndChars = "DdWwSs";
+
 
     static List<string> testPatterns = new List<string>
     {
@@ -36,18 +43,27 @@ namespace RegExTaggerTest
     static TestData TestInputData, testOutputData;
     static RegExTagger Tagger = new RegExTagger();
     static TextWriter TestOutput = Console.Out;
+    static string TestInputFileName;
+    static string TestOutputFileName;
+    static TestOptions TestRunOptions = 0;
 
     static void Main(string[] args)
     {
-      string testInputFileName = null;
-      string testOutputFileName = null;
-      TestOptions testOptions = 0;
-      ReadArgs(args, out testInputFileName, out testOutputFileName, out testOptions);
-
-      if (testInputFileName != null)
+      ReadArgs(args, out TestInputFileName, out TestOutputFileName, out TestRunOptions);
+      var wholeTestResult = RunTests();
+      if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
       {
-        TestOutput.WriteLine($"reading test data from file \"{testInputFileName}\"");
-        ReadTestData(testInputFileName);
+        Console.Write("Press any key to close test");
+        Console.ReadKey();
+      }
+    }
+
+    static bool? RunTests()
+    {
+      if (TestInputFileName != null)
+      {
+        TestOutput.WriteLine($"reading test data from file \"{TestInputFileName}\"");
+        ReadTestData(TestInputFileName);
         TestOutput.WriteLine($"read tests: {TestInputData.Count}");
         TestOutput.WriteLine($"");
       }
@@ -56,27 +72,55 @@ namespace RegExTaggerTest
       testOutputData = new TestData();
 
       bool? wholeTestResult = null;
+      bool? partTestResult = null;
 
-      if (testOptions.HasFlag(TestOptions.TestOneCharPatterns))
-        wholeTestResult = TestOneCharPatterns();
+      if (TestRunOptions.HasFlag(TestOptions.TestOneCharPatterns))
+      {
+        partTestResult = TestOneCharPatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("One-char patterns test result is {0}", partTestResult);
+      }
 
-      if (TestInputData.Count>0)
-        wholeTestResult = RunTestInputData();
+      if (TestRunOptions.HasFlag(TestOptions.TestTwoCharsPatterns))
+      {
+        partTestResult = TestTwoCharsPatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Two-chars patterns test result is {0}", partTestResult);
+      }
+
+      if (TestInputData.Count > 0)
+      {
+        partTestResult = RunTestInputData();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Input data test result is {0}", partTestResult);
+      }
 
       bool? shouldSave = false;
       if (wholeTestResult == false)
       {
-        if (testOptions.HasFlag(TestOptions.IsOutputFileSpecified))
+        if (TestRunOptions.HasFlag(TestOptions.IsOutputFileSpecified))
           shouldSave = true;
-        if (!testOptions.HasFlag(TestOptions.IsInputFileProtected))
+        if (!TestRunOptions.HasFlag(TestOptions.IsInputFileProtected))
           shouldSave = null;
       }
-      TrySaveTestData(testOutputFileName, shouldSave, $"Test results differ from expected. Do you want to write test data to file \"{testOutputFileName}\"?");
+      else if (wholeTestResult == true)
+      {
+        if (TestRunOptions.HasFlag(TestOptions.IsOutputFileSpecified))
+          shouldSave = true;
+      }
+      TrySaveTestData(TestOutputFileName, shouldSave, $"Test results differ from expected. Do you want to write test data to file \"{TestOutputFileName}\"?");
 
       bool moreTestsAdded = TryAddMoreTests();
 
       if (moreTestsAdded)
-        TrySaveTestData(testOutputFileName, null, $"You have added some test. Do you want to save all test data to file \"{testOutputFileName}\"?");
+        TrySaveTestData(TestOutputFileName, null, $"You have added some test. Do you want to save all test data to file \"{TestOutputFileName}\"?");
+      return wholeTestResult;
     }
 
     /// <summary>
@@ -90,7 +134,7 @@ namespace RegExTaggerTest
       options = 0;
       if (args.Length == 0)
       {
-        WriteUsage();
+        ShowUsage();
       }
       else
       {
@@ -113,6 +157,12 @@ namespace RegExTaggerTest
                 break;
               case '2':
                 options |= TestOptions.TestTwoCharsPatterns;
+                break;
+              case 'b':
+                options |= TestOptions.BreakAfterFirstFailure;
+                break;
+              case 'd':
+                options |= TestOptions.DontShowPassedTestResults;
                 break;
             }
           }
@@ -138,13 +188,15 @@ namespace RegExTaggerTest
     /// <summary>
     /// Writes usage help messages to console
     /// </summary>
-    static void WriteUsage()
+    static void ShowUsage()
     {
       TestOutput.WriteLine($"arguments: [testInputFileName [/o testOutputFileName]]");
       TestOutput.WriteLine($"options:");
       TestOutput.WriteLine($"\t/1 - test one-char patterns");
       TestOutput.WriteLine($"\t/2 - test two-chars patterns");
       TestOutput.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
+      TestOutput.WriteLine($"\t/b - break on first failure");
+      TestOutput.WriteLine($"\t/d - don't show passed results");
     }
 
     /// <summary>
@@ -161,33 +213,385 @@ namespace RegExTaggerTest
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         RegExItem newItem;
         if (ch == '(')
-          newItem = new RegExGroup { Start = 0, Str = new string(ch, 1), Tag = RegExTag.Subexpression, Status = RegExStatus.Unfinished };
+          newItem = new RegExGroup { Start = 0, Str = pattern, Tag = RegExTag.Subexpression, Status = RegExStatus.Unfinished };
+        else
+        if (ch == ')')
+          newItem = new RegExGroup { Start = 0, Str = pattern, Tag = RegExTag.Subexpression, Status = RegExStatus.Error };
         else if (ch == '.')
-          newItem = new RegExItem { Start = 0, Str = new string(ch, 1), Tag = RegExTag.DomainChar, Status = RegExStatus.OK };
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.DotChar, Status = RegExStatus.OK };
         else if (ch == '[')
-          newItem = new RegExCharset { Start = 0, Str = new string(ch, 1), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+          newItem = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
         else if (ch == '\\')
-          newItem = new RegExItem { Start = 0, Str = new string(ch, 1), Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
         else if (QuantifierChars.Contains(ch))
-          newItem = new RegExItem { Start = 0, Str = new string(ch, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
         else if (AnchorChars.Contains(ch))
-          newItem = new RegExItem { Start = 0, Str = new string(ch, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
-        else if (ch == '{')
-          newItem = new RegExItem { Start = 0, Str = new string(ch, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Unfinished };
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+        else if (ch == '|')
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
         else
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
         testInputItem.Items.Add(newItem);
         testInputItem.Result = newItem.Status;
         TestItem testOutputItem;
-        var oneTestResult = RunOneTest(testInputItem, out testOutputItem);
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
         testOutputData.Add(testOutputItem);
-        if (oneTestResult == false)
-          wholeTestResult = false;
-        else if (oneTestResult == true)
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns. No test input data needed. No test output data produced.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestTwoCharsPatterns()
+    {
+      bool? wholeTestResult = null;
+      for (char firstChar = '('; firstChar <= '\x7E'; firstChar++)
+      {
+        bool? singleTestResult;
+        if (firstChar == '\\')
+          singleTestResult = TestEscapedChars();
+        else if (firstChar == '(')
+          singleTestResult = Test2CharSubexpression();
+        else if (firstChar == ')')
+          singleTestResult = TestInvalidClosingParen();
+        else if (firstChar == '[')
+          singleTestResult = Test2CharCharset();
+        else if (firstChar == '|')
+          singleTestResult = TestAlt2Char();
+        else if (QuantifierChars.Contains(firstChar))
+          singleTestResult = Test1stCharQuantifiers(firstChar);
+        else if (AnchorChars.Contains(firstChar))
+          singleTestResult = Test1stCharAnchors(firstChar);
+        else
+          singleTestResult = TestAnyTwoChars(firstChar);
+
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '\'.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestEscapedChars()
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { '\\', nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem;
+        if (nextChar >= '0' && nextChar <= '9')
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.BackRef, Status = RegExStatus.Warning };
+        else if (Anchor2ndChars.Contains(nextChar))
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+        else if (Domain2ndChars.Contains(nextChar))
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.DomainSeq, Status = RegExStatus.OK };
+        else if (nextChar == 'P' || nextChar == 'p')
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.Unfinished };
+        else if (nextChar == 'c')
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.ControlCharSeq, Status = RegExStatus.Unfinished };
+        else if (nextChar == 'u')
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeSeq, Status = RegExStatus.Unfinished };
+        else if (nextChar == 'x')
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.Unfinished };
+        else
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+        testInputItem.Items.Add(newItem);
+        testInputItem.Result = newItem.Status;
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '('.
+    /// </summary>
+    /// <returns></returns>
+    static bool? Test2CharSubexpression()
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { '(', nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExGroup group = new RegExGroup { Start = 0, Str = pattern, Tag = RegExTag.Subexpression, Status = nextChar==')' ? RegExStatus.OK : RegExStatus.Unfinished };
+        testInputItem.Items.Add(group);
+        testInputItem.Result = group.Status;
+        if (nextChar == '?')
         {
-          if (wholeTestResult != false)
-            wholeTestResult = true;
+          pattern = new string(nextChar, 1);
+          var subItem = new RegExItem { Start = 1, Str = pattern, Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK };
+            group.Items.Add(subItem);
         }
+        else if (nextChar != ')')
+        {
+          pattern = new string(nextChar, 1);
+          var subResult = Tagger.TryParsePattern(pattern);
+          foreach (var subItem in Tagger.Items)
+          {
+            subItem.Start += 1;
+            group.Items.Add(subItem);
+          }
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is ')'.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestInvalidClosingParen()
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { ')', nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem = new RegExGroup { Start = 0, Str = new string(')',1), Tag = RegExTag.Subexpression, Status = RegExStatus.Error };
+        testInputItem.Items.Add(newItem);
+        testInputItem.Result = newItem.Status;
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '['.
+    /// </summary>
+    /// <returns></returns>
+    static bool? Test2CharCharset()
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { '[', nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExCharset charset = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = nextChar == ']' ? RegExStatus.Error : RegExStatus.Unfinished };
+        testInputItem.Items.Add(charset);
+        testInputItem.Result = charset.Status;
+        if (nextChar == '^')
+        {
+          pattern = new string(nextChar, 1);
+          var subItem = new RegExItem { Start = 1, Str = pattern, Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+          charset.Items.Add(subItem);
+        }
+        else if (nextChar == '[')
+        {
+          pattern = new string(nextChar, 1);
+          var subItem = new RegExCharset { Start = 1, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+          charset.Items.Add(subItem);
+        }
+        else if (nextChar == '\\')
+        {
+          pattern = new string(nextChar, 1);
+          var subItem = new RegExItem { Start = 1, Str = pattern, Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
+          charset.Items.Add(subItem);
+        }
+        else if (nextChar != ']')
+        {
+          pattern = new string(nextChar, 1);
+          var subItem = new RegExItem { Start = 1, Str = pattern, Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          charset.Items.Add(subItem);
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '|'.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestAlt2Char()
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { '|', nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem firstItem = new RegExItem { Start = 0, Str = new string('|', 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
+        testInputItem.Items.Add(firstItem);
+        var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
+        testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
+        foreach (var nextItem in Tagger.Items)
+        {
+          nextItem.Start += 1;
+          testInputItem.Items.Add(nextItem);
+        }
+
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '?', '+' or '*'.
+    /// </summary>
+    /// <returns></returns>
+    static bool? Test1stCharQuantifiers(char firstChar)
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { firstChar, nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        if (nextChar == '?')
+        {
+          RegExItem newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar,1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(firstItem);
+          var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
+          testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
+          foreach (var nextItem in Tagger.Items)
+          {
+            nextItem.Start += 1;
+            testInputItem.Items.Add(nextItem);
+          }
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '^' or '$'.
+    /// </summary>
+    /// <returns></returns>
+    static bool? Test1stCharAnchors(char firstChar)
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { firstChar, nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        if (QuantifierChars.Contains(nextChar))
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar,1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          testInputItem.Result = firstItem.Status;
+          RegExItem nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.OK };
+          testInputItem.Items.Add(nextItem);
+        }
+        else
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
+          testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
+          foreach (var nextItem in Tagger.Items)
+          {
+            nextItem.Start += 1;
+            testInputItem.Items.Add(nextItem);
+          }
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where with first char predefined
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestAnyTwoChars(char firstChar)
+    {
+      bool? wholeTestResult = null;
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { firstChar, nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem;
+        if (OpeningChars.Contains(nextChar) || QuantifierChars.Contains(nextChar) || AnchorChars.Contains(nextChar) 
+          || nextChar == ')' || nextChar == '\\')
+        {
+          var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar;
+          newItem = new RegExItem { Start = 0, Str = new string(firstChar,1), Tag = tag, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
+          testInputItem.Result = RegExTools.Max(newItem.Status, nextResult);
+          foreach (var nextItem in Tagger.Items)
+          {
+            nextItem.Start += 1;
+            if (QuantifierChars.Contains(nextChar))
+            {
+              nextItem.Status = RegExStatus.OK;
+              testInputItem.Result = RegExStatus.OK;
+            }
+            testInputItem.Items.Add(nextItem);
+          }
+        }
+        else if (nextChar == '|')
+        {
+          var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar; 
+          newItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = tag, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          newItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.LiteralString, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
       }
       return wholeTestResult;
     }
@@ -198,29 +602,37 @@ namespace RegExTaggerTest
     /// <param name="testInputItem"></param>
     /// <param name="testOutputItem"></param>
     /// <returns></returns>
-    static bool? RunOneTest(TestItem testInputItem, out TestItem testOutputItem)
+    static bool? RunSingleTest(TestItem testInputItem, out TestItem testOutputItem)
     {
       var pattern = testInputItem.Pattern;
-      TestOutput.WriteLine($"pattern = {pattern}");
+      TestOutput.WriteLine($"pattern = \"{pattern}\"");
       testOutputItem = new TestItem { Pattern = pattern };
-      testOutputItem.Result = Tagger.TryParseText(pattern);
+      testOutputItem.Result = Tagger.TryParsePattern(pattern);
       testOutputItem.Items = Tagger.Items;
-      bool? testResultOK = null;
+      bool? singleTestResult = null;
       if (testInputItem.Result != null)
       {
-        testResultOK = (testInputItem.Result == testOutputItem.Result);
-        if (testResultOK == true)
-          testResultOK = (testInputItem.Items == null) ||
+        singleTestResult = (testInputItem.Result == testOutputItem.Result);
+        if (singleTestResult == true)
+          singleTestResult = (testInputItem.Items == null) ||
           ItemsAreEqual(testInputItem.Items, testOutputItem.Items);
-        if (testResultOK == true)
+        if (singleTestResult == true)
           TestOutput.WriteLine($"test PASSED");
-        else if (testResultOK == false)
+        else if (singleTestResult == false)
           TestOutput.WriteLine($"test FAILED");
       }
-      TestOutput.WriteLine($"Result = {testOutputItem.Result}");
-      Dump(TestOutput, testOutputItem.Items);
+      if (singleTestResult == false)
+      {
+        TestOutput.WriteLine($"Expected:");
+        ShowTestItem(testInputItem);
+        TestOutput.WriteLine($"Obtained:");
+        ShowTestItem(testOutputItem);
+      }
+      else if (singleTestResult != true || !TestRunOptions.HasFlag(TestOptions.DontShowPassedTestResults))
+        ShowTestItem(testOutputItem);
       TestOutput.WriteLine($"");
-      return testResultOK;
+      TestOutput.Flush();
+      return singleTestResult;
     }
 
     /// <summary>
@@ -232,19 +644,15 @@ namespace RegExTaggerTest
       bool? wholeTestResult = null;
       for (int i = 0; i < TestInputData.Count; i++)
       {
-        if (TestOutput!=null)
+        if (TestOutput != null)
           TestOutput.WriteLine($"Test {i + 1}:");
         var testInputItem = TestInputData[i];
         TestItem testOutputItem;
-        var oneTestResult = RunOneTest(testInputItem, out testOutputItem);
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
         testOutputData.Add(testOutputItem);
-        if (oneTestResult == false)
-          wholeTestResult = false;
-        else if (oneTestResult == true)
-        {
-          if (wholeTestResult != false)
-            wholeTestResult = true;
-        }
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
       }
       return wholeTestResult;
     }
@@ -299,7 +707,7 @@ namespace RegExTaggerTest
       {
         if (shouldSave == null)
         {
-          Console.Write(message+" (Y/N)");
+          Console.Write(message + " (Y/N)");
           var key1 = Console.ReadKey();
           Console.WriteLine();
           if (key1.Key == ConsoleKey.Y)
@@ -343,7 +751,7 @@ namespace RegExTaggerTest
             break;
           var testInputItem = new TestItem { Pattern = pattern };
           TestItem testOutputItem;
-          var oneTestResult = RunOneTest(testInputItem, out testOutputItem);
+          var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
           TestOutput.WriteLine("");
           Console.Write("Do you accept test result? (Y/N) ");
           var key1 = Console.ReadKey();
@@ -376,6 +784,11 @@ namespace RegExTaggerTest
       }
     }
 
+    static void ShowTestItem(TestItem item)
+    {
+      TestOutput.WriteLine($"  Result = {item.Result}");
+      Dump(TestOutput, item.Items, 1);
+    }
 
     static void Dump(TextWriter writer, RegExItems items, int level = 0)
     {
@@ -393,6 +806,28 @@ namespace RegExTaggerTest
         if (item is RegExCharset charset)
           Dump(writer, charset.Items, level + 1);
       }
+    }
+
+    static void SetTestResult(ref bool? wholeTestResult, bool? partTestResult)
+    {
+      if (wholeTestResult != false && partTestResult != null)
+      {
+        if (wholeTestResult == null || partTestResult == false)
+          wholeTestResult = partTestResult;
+      }
+    }
+
+    static void ShowTestResult(string message, bool? testResult)
+    {
+      TestOutput.WriteLine();
+      if (testResult == true)
+        TestOutput.WriteLine(String.Format(message, "PASSED"));
+      else
+      if (testResult == false)
+        TestOutput.WriteLine(String.Format(message, "FAILED"));
+      else
+        TestOutput.WriteLine(String.Format(message, "UNDECIDED"));
+      TestOutput.WriteLine();
     }
   }
 }
