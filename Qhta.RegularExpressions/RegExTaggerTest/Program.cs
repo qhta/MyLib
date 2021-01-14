@@ -25,7 +25,9 @@ namespace RegExTaggerTest
       TestTwoCharsPatterns = 32,
       TestOctalCodePatterns = 64,
       TestHexadecimalPatterns = 128,
-      TestUnicodePatterns = 256,
+      TestUnicodePatterns = 0x100,
+      TestControlCharPatterns = 0x200,
+      TestUnicodeCategories = 0x400,
     }
 
     const string QuantifierChars = "?+*";
@@ -90,6 +92,8 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/8 - test octal code patterns");
       TestOutput.WriteLine($"\t/x - test hexadecimal code patterns");
       TestOutput.WriteLine($"\t/u - test Unicode patterns");
+      TestOutput.WriteLine($"\t/c - test control char patterns");
+      TestOutput.WriteLine($"\t/p - test Unicode categories");
     }
 
     /// <summary>
@@ -137,6 +141,12 @@ namespace RegExTaggerTest
                 break;
               case 'u':
                 options |= TestOptions.TestUnicodePatterns;
+                break;
+              case 'c':
+                options |= TestOptions.TestControlCharPatterns;
+                break;
+              case 'p':
+                options |= TestOptions.TestUnicodeCategories;
                 break;
               default:
                 Console.WriteLine($"Unrecognized option \"{arg}\"");
@@ -222,6 +232,15 @@ namespace RegExTaggerTest
         if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return wholeTestResult;
         ShowTestResult("Unicode code patterns test result is {0}", partTestResult);
+      }
+
+      if (TestRunOptions.HasFlag(TestOptions.TestControlCharPatterns))
+      {
+        partTestResult = TestControlCharPatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Control char patterns test result is {0}", partTestResult);
       }
 
       if (TestInputData.Count > 0)
@@ -844,6 +863,51 @@ namespace RegExTaggerTest
         if (code.Length < digitsCount)
           AddHexadecimalCodes(codes, code, digitsCount);
       }
+    }
+
+    /// <summary>
+    /// Tests control char code patterns, i.e \cX. Note that the sequence "\c" can be tested as two-chars pattern.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestControlCharPatterns()
+    {
+      bool? wholeTestResult = null;
+      var codes = new List<string>();
+      for (int i=0; i<=32; i++)
+      {
+        codes.Add(new string((char)(i + '@'),1));
+      }
+      for (char ch = 'a'; ch <= 'z'; ch++)
+      {
+        codes.Add(new string(ch, 1));
+      }
+      for (int i = 0; i < codes.Count; i++)
+      {
+        var code = codes[i];
+        var pattern = "\\c" + code;
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem;
+        if (code[0]=='`')
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.ControlCharSeq, Status = RegExStatus.Error };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.ControlCharSeq, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
     }
 
     /// <summary>

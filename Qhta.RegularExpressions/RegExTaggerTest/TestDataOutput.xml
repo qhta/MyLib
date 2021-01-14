@@ -1,0 +1,297 @@
+<TestData xmlns="clr-namespace:RegExTaggerTest;assembly=RegExTaggerTest" xmlns:qr="clr-namespace:Qhta.RegularExpressions;assembly=Qhta.RegularExpressions">
+  <TestItem Pattern="\c@" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\c@" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cA" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cA" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cB" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cB" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cC" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cC" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cD" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cD" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cE" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cE" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cF" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cF" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cG" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cG" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cH" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cH" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cI" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cI" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cJ" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cJ" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cK" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cK" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cL" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cL" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cM" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cM" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cN" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cN" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cO" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cO" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cP" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cP" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cQ" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cQ" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cR" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cR" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cS" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cS" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cT" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cT" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cU" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cU" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cV" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cV" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cW" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cW" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cX" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cX" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cY" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cY" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cZ" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cZ" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\c[" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\c[" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\c\" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\c\" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\c]" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\c]" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\c^" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\c^" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\c_" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\c_" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\c`" Result="Error">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="Error" Str="\c`" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\ca" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\ca" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cb" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cb" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cc" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cc" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cd" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cd" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\ce" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\ce" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cf" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cf" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cg" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cg" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\ch" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\ch" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\ci" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\ci" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cj" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cj" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\ck" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\ck" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cl" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cl" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cm" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cm" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cn" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cn" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\co" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\co" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cp" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cp" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cq" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cq" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cr" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cr" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cs" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cs" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\ct" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\ct" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cu" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cu" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cv" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cv" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cw" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cw" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cx" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cx" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cy" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cy" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="\cz" Result="OK">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="\cz" Tag="ControlCharSeq" />
+    </TestItem.Items>
+  </TestItem>
+</TestData>

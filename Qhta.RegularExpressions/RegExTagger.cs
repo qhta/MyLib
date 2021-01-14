@@ -298,7 +298,7 @@ namespace Qhta.RegularExpressions
       else
       if (nextChar == 'c')
       {
-        return TryParseControlChar(pattern, ref charNdx);
+        return TryParseControlCharSeq(pattern, ref charNdx);
       }
       else
       if (nextChar == 'x')
@@ -324,23 +324,25 @@ namespace Qhta.RegularExpressions
       return status;
     }
 
-    private RegExStatus TryParseControlChar(string pattern, ref int charNdx)
+    private RegExStatus TryParseControlCharSeq(string pattern, ref int charNdx)
     {
       bool isOK = false;
+      bool isSeq = false;
       RegExStatus status = RegExStatus.Unfinished;
       var seqStart = charNdx;
       charNdx++;
-      isOK = charNdx < pattern.Length - 1;
-      if (isOK)
+      if (charNdx < pattern.Length - 1)
       {
-        var controlChar = pattern[charNdx + 1];
-        isOK = (controlChar >= '@' && controlChar <= '[');
-        if (isOK)
-        {
-          charNdx++;
-        }
-        status = isOK ? RegExStatus.OK : RegExStatus.Error;
+        charNdx++;
+        isSeq = true;
+        var nextChar = pattern[charNdx];
+        nextChar = char.ToUpperInvariant(nextChar);
+        isOK = (nextChar >= '@' && nextChar <= '_');
       }
+      if (isSeq)
+        status = isOK ? RegExStatus.OK : RegExStatus.Error;
+      else
+        status = RegExStatus.Unfinished;
       TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.ControlCharSeq, status);
       return status;
     }
