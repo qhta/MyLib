@@ -405,36 +405,29 @@ namespace Qhta.RegularExpressions
       RegExStatus status = RegExStatus.Unfinished;
       var seqStart = charNdx;
       charNdx++;
-      isOK = charNdx < pattern.Length - 1;
-      if (isOK)
+      if (charNdx < pattern.Length - 1)
       {
-        isOK = HexadecimalDigits.Contains(pattern[charNdx + 1]);
+        charNdx++;
+        isOK = HexadecimalDigits.Contains(pattern[charNdx]);
         if (isOK)
         {
-          charNdx++;
-          isOK = charNdx < pattern.Length - 1;
-          if (isOK)
+          if (charNdx < pattern.Length - 1)
           {
-            isOK = HexadecimalDigits.Contains(pattern[charNdx + 1]);
+            charNdx++;
+            isOK = HexadecimalDigits.Contains(pattern[charNdx]);
             if (isOK)
             {
-              charNdx++;
-              isOK = charNdx < pattern.Length - 1;
-              if (isOK)
+              if (charNdx < pattern.Length - 1)
               {
-                isOK = HexadecimalDigits.Contains(pattern[charNdx + 1]);
+                charNdx++;
+                isOK = HexadecimalDigits.Contains(pattern[charNdx]);
                 if (isOK)
                 {
-                  charNdx++;
-                  isOK = charNdx < pattern.Length - 1;
-                  if (isOK)
+                  if (charNdx < pattern.Length - 1)
                   {
-                    isOK = HexadecimalDigits.Contains(pattern[charNdx + 1]);
-                    if (isOK)
-                    {
-                      charNdx++;
-                      isSeq = true;
-                    }
+                    charNdx++;
+                    isOK = HexadecimalDigits.Contains(pattern[charNdx]);
+                    isSeq = true;
                   }
                 }
               }
@@ -445,7 +438,7 @@ namespace Qhta.RegularExpressions
       if (isSeq)
         status = isOK ? RegExStatus.OK : RegExStatus.Error;
       else
-        status = RegExStatus.Unfinished;
+        status = isOK ? RegExStatus.Unfinished : RegExStatus.Error;
       TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.UnicodeSeq, status);
       return status;
     }

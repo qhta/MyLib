@@ -89,6 +89,7 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/2 - test two-chars patterns");
       TestOutput.WriteLine($"\t/8 - test octal code patterns");
       TestOutput.WriteLine($"\t/x - test hexadecimal code patterns");
+      TestOutput.WriteLine($"\t/u - test Unicode patterns");
     }
 
     /// <summary>
@@ -133,6 +134,9 @@ namespace RegExTaggerTest
                 break;
               case 'x':
                 options |= TestOptions.TestHexadecimalPatterns;
+                break;
+              case 'u':
+                options |= TestOptions.TestUnicodePatterns;
                 break;
               default:
                 Console.WriteLine($"Unrecognized option \"{arg}\"");
@@ -208,7 +212,16 @@ namespace RegExTaggerTest
         SetTestResult(ref wholeTestResult, partTestResult);
         if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return wholeTestResult;
-        ShowTestResult("Octal code patterns test result is {0}", partTestResult);
+        ShowTestResult("Hexadecimal code patterns test result is {0}", partTestResult);
+      }
+
+      if (TestRunOptions.HasFlag(TestOptions.TestUnicodePatterns))
+      {
+        partTestResult = TestUnicodePatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Unicode code patterns test result is {0}", partTestResult);
       }
 
       if (TestInputData.Count > 0)
@@ -711,7 +724,7 @@ namespace RegExTaggerTest
     }
 
     /// <summary>
-    /// Tests octal code patterns, i.e \xXX. Note that the sequence "\x" cas be tested as two-chars pattern.
+    /// Tests hexadecimal code patterns, i.e \xXX. Note that the sequence "\x" can be tested as two-chars pattern.
     /// </summary>
     /// <returns></returns>
     static bool? TestHexadecimalPatterns()
@@ -745,6 +758,55 @@ namespace RegExTaggerTest
         else 
         {
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests Unicode code patterns, i.e \uXXXX. Note that the sequence "\u" can be tested as two-chars pattern.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestUnicodePatterns()
+    {
+      bool? wholeTestResult = null;
+      var codes = new List<string>();
+      for (int digitsCount = 1; digitsCount <= 4; digitsCount++)
+      {
+        AddHexadecimalCodes(codes, "", digitsCount);
+      }
+      for (int i = 0; i < codes.Count; i++)
+      {
+        var code = codes[i];
+        var pattern = "\\u" + code;
+        var digitCount = code.Length;
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem;
+        int k;
+        if ((k = code.IndexOf('g')) >= 0)
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0, k + 3), Tag = RegExTag.UnicodeSeq, Status = RegExStatus.Error };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else if (digitCount < 4)
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeSeq, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeSeq, Status = RegExStatus.OK };
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
         }
