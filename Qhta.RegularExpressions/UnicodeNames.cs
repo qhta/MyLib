@@ -25,7 +25,6 @@ namespace Qhta.RegularExpressions
 
     private static string[] _names = new string[]
     {
-			"0",
 			"C",
 			"Cc",
 			"Cf",

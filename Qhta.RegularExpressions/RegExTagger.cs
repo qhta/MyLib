@@ -313,7 +313,7 @@ namespace Qhta.RegularExpressions
       else
       if (nextChar == 'p' || nextChar == 'P')
       {
-        return TryParseUnicodeGroup(pattern, ref charNdx);
+        return TryParseUnicodeCategory(pattern, ref charNdx);
       }
       else
       {
@@ -445,10 +445,11 @@ namespace Qhta.RegularExpressions
       return status;
     }
 
-    private RegExStatus TryParseUnicodeGroup(string pattern, ref int charNdx)
+    private RegExStatus TryParseUnicodeCategory(string pattern, ref int charNdx)
     {
-      bool isSeq = false;
-      bool isOK = false;
+      bool isOK = true;
+      bool isBraceOpened = false;
+      bool isBraceClosed = false;
       RegExStatus status = RegExStatus.Unfinished;
       var seqStart = charNdx;
       charNdx += 2;
@@ -456,28 +457,48 @@ namespace Qhta.RegularExpressions
       {
         if (pattern[charNdx] == '{')
         {
-          isSeq = true;
+          isBraceOpened = true;
+          isOK = true;
           charNdx++;
           var nameStart = charNdx;
-          for (; charNdx < pattern.Length; charNdx++)
+          for (; charNdx <= pattern.Length; charNdx++)
           {
-            var ch = pattern[charNdx];
-            if (ch == '}')
+            var ch = (charNdx<pattern.Length) ? pattern[charNdx] : '\0';
+            if (ch == '}' || ch == '\0')
             {
+              isBraceClosed = ch == '}';
               if (charNdx > nameStart)
               {
                 var name = GetSubstring(pattern, nameStart, charNdx - nameStart);
                 isOK = UnicodeNames.Instance.Contains(name);
+                if (!isOK && !isBraceClosed)
+                {
+                  isOK = UnicodeNames.Instance.Where(item => item.StartsWith(name)).FirstOrDefault()!=null;
+                }
               }
+              else if (isBraceClosed)
+                isOK = false;
               break;
             }
             if (!(ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z'))
+            {
+              isOK = false;
               break;
+            }
           }
         }
+        else
+          isOK  = false;
       }
-      if (isSeq)
-        status = isOK ? RegExStatus.OK : RegExStatus.Error;
+      if (isBraceOpened)
+      {
+        if (isBraceClosed)
+          status = isOK ? RegExStatus.OK : RegExStatus.Error;
+        else
+          status = isOK ? RegExStatus.Unfinished : RegExStatus.Error;
+      }
+      else
+        status = isOK ? RegExStatus.Unfinished : RegExStatus.Error;
       TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.UnicodeCategorySeq, status);
       return status;
     }

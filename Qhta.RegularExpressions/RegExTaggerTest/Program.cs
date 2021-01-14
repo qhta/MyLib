@@ -35,13 +35,11 @@ namespace RegExTaggerTest
     const string OpeningChars = "([{";
     const string Anchor2ndChars = "AZzGbB";
     const string Domain2ndChars = "DdWwSs";
-
-
-    static List<string> testPatterns = new List<string>
+    const string UnicodeCategoryFirstLetters = "LNMPSZC";
+    static string[] UnicodeCategories = new string[]
     {
-      //@"\b(\w+?)\s\1\b",
-      //@"((\w+)[\s.])+.",
-      //@"(?<name_012>subexpression[a-zA-Z0-9])",
+      "Cc", "Cf", "Cn", "Co", "Cs", "Ll", "Lm", "Lo", "Lt", "Lu", "Mc", "Me", "Mn", "Nd", "Nl", "No", 
+      "Pc", "Pd", "Pe", "Pf", "Pi", "Po", "Ps", "Sc", "Sk", "Sm", "So", "Zl", "Zp", "Zs",
     };
 
     static TestData TestInputData, testOutputData;
@@ -182,8 +180,6 @@ namespace RegExTaggerTest
         TestOutput.WriteLine($"read tests: {TestInputData.Count}");
         TestOutput.WriteLine($"");
       }
-      else
-        CreateTestData();
       testOutputData = new TestData();
 
       bool? wholeTestResult = null;
@@ -243,7 +239,16 @@ namespace RegExTaggerTest
         ShowTestResult("Control char patterns test result is {0}", partTestResult);
       }
 
-      if (TestInputData.Count > 0)
+      if (TestRunOptions.HasFlag(TestOptions.TestUnicodeCategories))
+      {
+        partTestResult = TestUnicodeCategories();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Unicode categories test result is {0}", partTestResult);
+      }
+
+      if (TestInputData!=null && TestInputData.Count > 0)
       {
         partTestResult = RunTestInputData();
         SetTestResult(ref wholeTestResult, partTestResult);
@@ -911,7 +916,183 @@ namespace RegExTaggerTest
     }
 
     /// <summary>
-    /// Runs a single test of one-char pattern
+    /// Tests unicode categories patterns, i.e \p{ctg} && /P{ctg}. Note that the sequence "\p" can be tested as two-chars pattern.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestUnicodeCategories()
+    {
+      bool? wholeTestResult = null;
+      var singleTestResult = TestUnicodeCategories("\\p");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      return wholeTestResult;
+    }
+
+    static bool? TestUnicodeCategories(string precode)
+    {
+      bool? wholeTestResult = null;
+      var codes = new List<string>();
+      for (int charCount = 1; charCount <= 2; charCount++)
+      {
+        AddLetters(codes, "", charCount);
+      }
+      var singleTestResult = RunSingleUnicodeCategoryPatternTest(precode);
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode+"a");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{}");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      for (int i = 0; i < codes.Count; i++)
+      {
+        var code = codes[i];
+        singleTestResult = RunSingleUnicodeCategoryPatternTest(precode+"{" + code);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      for (int i = 0; i < codes.Count; i++)
+      {
+        var code = codes[i];
+        singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{" + code + "}");
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    static void AddLetters(List<string> codes, string precode, int charCount)
+    {
+      for (char ch = 'a'; ch <= 'z'; ch++)
+      {
+        var code = precode + ch;
+        codes.Add(code);
+        if (code.Length < charCount)
+          AddLetters(codes, code, charCount);
+      }
+      for (char ch = 'A'; ch <= 'Z'; ch++)
+      {
+        var code = precode + ch;
+        codes.Add(code);
+        if (code.Length < charCount)
+          AddLetters(codes, code, charCount);
+      }
+    }
+
+    /// <summary>
+    /// Runs a single test 
+    /// </summary>
+    /// <returns></returns>
+    static bool? RunSingleUnicodeCategoryPatternTest(string pattern)
+    {
+      var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+      RegExItem newItem;
+      if (pattern.Length<3)
+      {
+        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.Unfinished };
+        testInputItem.Items.Add(newItem);
+        testInputItem.Result = newItem.Status;
+      }
+      else
+      if (pattern.Length == 3)
+      {
+        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status =  (pattern[2] == '{') ? RegExStatus.Unfinished : RegExStatus.Error };
+        testInputItem.Items.Add(newItem);
+        testInputItem.Result = newItem.Status;
+      }
+      else
+      if (pattern.Length == 4)
+      {
+        RegExStatus status;
+        if (UnicodeCategoryFirstLetters.Contains(pattern[3]) || pattern[3] == 'I')
+          status = RegExStatus.Unfinished;
+        else
+          status = RegExStatus.Error;
+        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+        testInputItem.Items.Add(newItem);
+        testInputItem.Result = newItem.Status;
+      }
+      else
+      if (pattern.Length == 5)
+      {
+        if (pattern[4] == '}')
+        {
+          var ch = pattern[3];
+          RegExStatus status;
+          if (UnicodeCategoryFirstLetters.Contains(pattern[3]))
+            status = RegExStatus.OK;
+          else
+            status = RegExStatus.Error;
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          var name = pattern.Substring(3, 2);
+          RegExStatus status;
+          if (UnicodeCategories.Contains(name) || name == "Is")
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.Error;
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+      }
+      else
+      if (pattern.Length == 6)
+      {
+        if (pattern[5] == '}')
+        {
+          var name = pattern.Substring(3, 2);
+          RegExStatus status;
+          if (UnicodeCategories.Contains(name))
+            status = RegExStatus.OK;
+          else
+            status = RegExStatus.Error;
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          var name = pattern.Substring(3, 2);
+          RegExStatus status;
+          if (UnicodeCategories.Contains(name) || name == "Is")
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.Error;
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+      }
+      else
+      {
+        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.OK };
+        testInputItem.Items.Add(newItem);
+        testInputItem.Result = newItem.Status;
+      }
+      TestItem testOutputItem;
+      var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+      testOutputData.Add(testOutputItem);
+      return singleTestResult;
+    }
+
+    /// <summary>
+    /// Runs a single test of one pattern
     /// </summary>
     /// <param name="testInputItem"></param>
     /// <param name="testOutputItem"></param>
@@ -971,18 +1152,18 @@ namespace RegExTaggerTest
       return wholeTestResult;
     }
 
-    /// <summary>
-    /// Creates testInputData collection from testPatterns.
-    /// </summary>
-    static void CreateTestData()
-    {
-      TestInputData = new TestData();
-      foreach (var pattern in testPatterns)
-      {
-        var item = new TestItem { Pattern = pattern };
-        TestInputData.Add(item);
-      }
-    }
+    ///// <summary>
+    ///// Creates testInputData collection from testPatterns.
+    ///// </summary>
+    //static void CreateTestData()
+    //{
+    //  TestInputData = new TestData();
+    //  foreach (var pattern in testPatterns)
+    //  {
+    //    var item = new TestItem { Pattern = pattern };
+    //    TestInputData.Add(item);
+    //  }
+    //}
 
     /// <summary>
     /// Compares two regex items for equality. Used in tests.
