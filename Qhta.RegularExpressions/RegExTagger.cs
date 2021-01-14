@@ -372,33 +372,28 @@ namespace Qhta.RegularExpressions
     private RegExStatus TryParseHexadecimalCode(string pattern, ref int charNdx)
     {
       bool isSeq = false;
-      bool isOK = false;
+      bool isOK = true;
       RegExStatus status = RegExStatus.Unfinished;
       var seqStart = charNdx;
       charNdx++;
-      isOK = charNdx < pattern.Length - 1;
-      if (isOK)
+      if (charNdx < pattern.Length - 1)
       {
-        isOK = HexadecimalDigits.Contains(pattern[charNdx + 1]);
+        charNdx++;
+        isOK = HexadecimalDigits.Contains(pattern[charNdx]);
         if (isOK)
         {
-          charNdx++;
-          isOK = charNdx < pattern.Length - 1;
-          if (isOK)
+          if (charNdx < pattern.Length - 1)
           {
-            isOK = HexadecimalDigits.Contains(pattern[charNdx + 1]);
-            if (isOK)
-            {
-              charNdx++;
-              isSeq = true;
-            }
+            charNdx++;
+            isOK = HexadecimalDigits.Contains(pattern[charNdx]);
+            isSeq = true;
           }
         }
       }
       if (isSeq)
         status = isOK ? RegExStatus.OK : RegExStatus.Error;
       else
-        status = RegExStatus.Unfinished;
+        status = isOK ? RegExStatus.Unfinished : RegExStatus.Error;
       TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.HexadecimalSeq, status);
       return status;
     }

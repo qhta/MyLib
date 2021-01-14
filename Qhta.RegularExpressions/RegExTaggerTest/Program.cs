@@ -51,15 +51,24 @@ namespace RegExTaggerTest
 
     static void Main(string[] args)
     {
+      bool? wholeTestResult = null;
       if (args.Length == 0)
       {
         ShowUsage();
       }
-      ReadArgs(args, out TestInputFileName, out TestOutputFileName, out TestRunOptions);
-      var wholeTestResult = RunTests();
-      if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      else
       {
-        Console.Write("Press any key to close test");
+        if (!ReadArgs(args, out TestInputFileName, out TestOutputFileName, out TestRunOptions))
+        {
+          ShowUsage();
+          wholeTestResult = false;
+        }
+      }
+      if (wholeTestResult!=false)
+        wholeTestResult = RunTests();
+      if (wholeTestResult == false)
+      {
+        Console.Write("\nPress any key to close test");
         Console.ReadKey();
       }
     }
@@ -70,20 +79,23 @@ namespace RegExTaggerTest
     /// </summary>
     static void ShowUsage()
     {
-      TestOutput.WriteLine($"arguments: [testInputFileName [/o testOutputFileName]]");
+      TestOutput.WriteLine($"\narguments: [testInputFileName [/o testOutputFileName]]");
       TestOutput.WriteLine($"options:");
       TestOutput.WriteLine($"\t/b - break on first failure");
       TestOutput.WriteLine($"\t/s - suppress passed test results");
+      TestOutput.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
+      TestOutput.WriteLine($"\t/o - output file name is specified");
       TestOutput.WriteLine($"\t/1 - test one-char patterns");
       TestOutput.WriteLine($"\t/2 - test two-chars patterns");
-      TestOutput.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
+      TestOutput.WriteLine($"\t/8 - test octal code patterns");
+      TestOutput.WriteLine($"\t/x - test hexadecimal code patterns");
     }
 
     /// <summary>
     /// Reads filenames and options from args string collection.
     /// </summary>
     /// <param name="args"></param>
-    static void ReadArgs(string[] args, out string inputFileName, out string outputFileName, out TestOptions options)
+    static bool ReadArgs(string[] args, out string inputFileName, out string outputFileName, out TestOptions options)
     {
       inputFileName = null;
       outputFileName = null;
@@ -119,6 +131,12 @@ namespace RegExTaggerTest
               case '8':
                 options |= TestOptions.TestOctalCodePatterns;
                 break;
+              case 'x':
+                options |= TestOptions.TestHexadecimalPatterns;
+                break;
+              default:
+                Console.WriteLine($"Unrecognized option \"{arg}\"");
+                return false;
             }
           }
           else
@@ -136,8 +154,9 @@ namespace RegExTaggerTest
         if (outputFileName == null && !options.HasFlag(TestOptions.IsInputFileProtected))
           outputFileName = inputFileName;
         TestOutput.WriteLine($"");
+        return true;
       }
-
+      return false;
     }
 
     static bool? RunTests()
@@ -177,6 +196,15 @@ namespace RegExTaggerTest
       if (TestRunOptions.HasFlag(TestOptions.TestOctalCodePatterns))
       {
         partTestResult = TestOctalCodePatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Octal code patterns test result is {0}", partTestResult);
+      }
+
+      if (TestRunOptions.HasFlag(TestOptions.TestHexadecimalPatterns))
+      {
+        partTestResult = TestHexadecimalPatterns();
         SetTestResult(ref wholeTestResult, partTestResult);
         if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return wholeTestResult;
@@ -613,7 +641,7 @@ namespace RegExTaggerTest
     }
 
     /// <summary>
-    /// Tests octal code patterns, i.e \NNN. Some sequences are recognized as backreferences.
+    /// Tests octal code patterns, i.e \NNN. Note that some sequences are recognized as backreferences.
     /// </summary>
     /// <returns></returns>
     static bool? TestOctalCodePatterns()
@@ -682,6 +710,79 @@ namespace RegExTaggerTest
       }
     }
 
+    /// <summary>
+    /// Tests octal code patterns, i.e \xXX. Note that the sequence "\x" cas be tested as two-chars pattern.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestHexadecimalPatterns()
+    {
+      bool? wholeTestResult = null;
+      var codes = new List<string>();
+      for (int digitsCount = 1; digitsCount <= 2; digitsCount++)
+      {
+        AddHexadecimalCodes(codes, "", digitsCount);
+      }
+      for (int i = 0; i < codes.Count; i++)
+      {
+        var code = codes[i];
+        var pattern = "\\x" + code;
+        var digitCount = code.Length;
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem;
+        int k;
+        if ((k=code.IndexOf('g'))>=0)
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0,k+3), Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.Error };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else if (digitCount == 1)
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else 
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    static void AddHexadecimalCodes(List<string> codes, string precode, int digitsCount)
+    {
+      for (char digit = '0'; digit <= '9'; digit++)
+      {
+        var code = precode + digit;
+        codes.Add(code);
+        if (code.Length < digitsCount)
+          AddHexadecimalCodes(codes, code, digitsCount);
+      }
+      for (char digit = 'A'; digit <= 'F'; digit++)
+      {
+        var code = precode + digit;
+        codes.Add(code);
+        if (code.Length < digitsCount)
+          AddHexadecimalCodes(codes, code, digitsCount);
+      }
+      for (char digit = 'a'; digit <= 'g'; digit++)
+      {
+        var code = precode + digit;
+        codes.Add(code);
+        if (code.Length < digitsCount)
+          AddHexadecimalCodes(codes, code, digitsCount);
+      }
+    }
 
     /// <summary>
     /// Runs a single test of one-char pattern
