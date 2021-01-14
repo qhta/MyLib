@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xaml;
@@ -18,12 +17,15 @@ namespace RegExTaggerTest
       /// If input file is not protected && output file is not specified, 
       /// then input file can be overwritten by the corrected or added tests.
       /// </summary>
-      IsInputFileProtected = 1,
-      IsOutputFileSpecified = 2,
-      TestOneCharPatterns = 4,
-      TestTwoCharsPatterns = 8,
-      BreakAfterFirstFailure = 16,
-      DontShowPassedTestResults = 32,
+      BreakAfterFirstFailure = 1,
+      SuppressPassedTestResults = 2,
+      IsInputFileProtected = 4,
+      IsOutputFileSpecified = 8,
+      TestOneCharPatterns = 16,
+      TestTwoCharsPatterns = 32,
+      TestOctalCodePatterns = 64,
+      TestHexadecimalPatterns = 128,
+      TestUnicodePatterns = 256,
     }
 
     const string QuantifierChars = "?+*";
@@ -49,6 +51,10 @@ namespace RegExTaggerTest
 
     static void Main(string[] args)
     {
+      if (args.Length == 0)
+      {
+        ShowUsage();
+      }
       ReadArgs(args, out TestInputFileName, out TestOutputFileName, out TestRunOptions);
       var wholeTestResult = RunTests();
       if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
@@ -56,6 +62,82 @@ namespace RegExTaggerTest
         Console.Write("Press any key to close test");
         Console.ReadKey();
       }
+    }
+
+
+    /// <summary>
+    /// Writes usage help messages to console
+    /// </summary>
+    static void ShowUsage()
+    {
+      TestOutput.WriteLine($"arguments: [testInputFileName [/o testOutputFileName]]");
+      TestOutput.WriteLine($"options:");
+      TestOutput.WriteLine($"\t/b - break on first failure");
+      TestOutput.WriteLine($"\t/s - suppress passed test results");
+      TestOutput.WriteLine($"\t/1 - test one-char patterns");
+      TestOutput.WriteLine($"\t/2 - test two-chars patterns");
+      TestOutput.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
+    }
+
+    /// <summary>
+    /// Reads filenames and options from args string collection.
+    /// </summary>
+    /// <param name="args"></param>
+    static void ReadArgs(string[] args, out string inputFileName, out string outputFileName, out TestOptions options)
+    {
+      inputFileName = null;
+      outputFileName = null;
+      options = 0;
+      if (args.Length > 0)
+      {
+        for (int i = 0; i < args.Length; i++)
+        {
+          //TestMonitor.WriteLine($"args[{i}]: {args[i]}");
+          var arg = args[i];
+          if (arg[0] == '/')
+          {
+            switch (arg[1])
+            {
+              case 'b':
+                options |= TestOptions.BreakAfterFirstFailure;
+                break;
+              case 's':
+                options |= TestOptions.SuppressPassedTestResults;
+                break;
+              case 'o':
+                options |= TestOptions.IsOutputFileSpecified;
+                break;
+              case 'i':
+                options |= TestOptions.IsInputFileProtected;
+                break;
+              case '1':
+                options |= TestOptions.TestOneCharPatterns;
+                break;
+              case '2':
+                options |= TestOptions.TestTwoCharsPatterns;
+                break;
+              case '8':
+                options |= TestOptions.TestOctalCodePatterns;
+                break;
+            }
+          }
+          else
+          {
+            if (options.HasFlag(TestOptions.IsOutputFileSpecified))
+            {
+              outputFileName = arg;
+            }
+            else
+            {
+              inputFileName = arg;
+            }
+          }
+        }
+        if (outputFileName == null && !options.HasFlag(TestOptions.IsInputFileProtected))
+          outputFileName = inputFileName;
+        TestOutput.WriteLine($"");
+      }
+
     }
 
     static bool? RunTests()
@@ -92,6 +174,15 @@ namespace RegExTaggerTest
         ShowTestResult("Two-chars patterns test result is {0}", partTestResult);
       }
 
+      if (TestRunOptions.HasFlag(TestOptions.TestOctalCodePatterns))
+      {
+        partTestResult = TestOctalCodePatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Octal code patterns test result is {0}", partTestResult);
+      }
+
       if (TestInputData.Count > 0)
       {
         partTestResult = RunTestInputData();
@@ -123,81 +214,6 @@ namespace RegExTaggerTest
       return wholeTestResult;
     }
 
-    /// <summary>
-    /// Reads filenames and options from args string collection.
-    /// </summary>
-    /// <param name="args"></param>
-    static void ReadArgs(string[] args, out string inputFileName, out string outputFileName, out TestOptions options)
-    {
-      inputFileName = null;
-      outputFileName = null;
-      options = 0;
-      if (args.Length == 0)
-      {
-        ShowUsage();
-      }
-      else
-      {
-        for (int i = 0; i < args.Length; i++)
-        {
-          //TestMonitor.WriteLine($"args[{i}]: {args[i]}");
-          var arg = args[i];
-          if (arg[0] == '/')
-          {
-            switch (arg[1])
-            {
-              case 'o':
-                options |= TestOptions.IsOutputFileSpecified;
-                break;
-              case 'i':
-                options |= TestOptions.IsInputFileProtected;
-                break;
-              case '1':
-                options |= TestOptions.TestOneCharPatterns;
-                break;
-              case '2':
-                options |= TestOptions.TestTwoCharsPatterns;
-                break;
-              case 'b':
-                options |= TestOptions.BreakAfterFirstFailure;
-                break;
-              case 'd':
-                options |= TestOptions.DontShowPassedTestResults;
-                break;
-            }
-          }
-          else
-          {
-            if (options.HasFlag(TestOptions.IsOutputFileSpecified))
-            {
-              outputFileName = arg;
-            }
-            else
-            {
-              inputFileName = arg;
-            }
-          }
-        }
-        if (outputFileName == null && !options.HasFlag(TestOptions.IsInputFileProtected))
-          outputFileName = inputFileName;
-        TestOutput.WriteLine($"");
-      }
-
-    }
-
-    /// <summary>
-    /// Writes usage help messages to console
-    /// </summary>
-    static void ShowUsage()
-    {
-      TestOutput.WriteLine($"arguments: [testInputFileName [/o testOutputFileName]]");
-      TestOutput.WriteLine($"options:");
-      TestOutput.WriteLine($"\t/1 - test one-char patterns");
-      TestOutput.WriteLine($"\t/2 - test two-chars patterns");
-      TestOutput.WriteLine($"\t/i - intput file is input-only (is not rewritten)");
-      TestOutput.WriteLine($"\t/b - break on first failure");
-      TestOutput.WriteLine($"\t/d - don't show passed results");
-    }
 
     /// <summary>
     /// Tests one-char patterns. No test input data needed. No test output data produced.
@@ -328,14 +344,14 @@ namespace RegExTaggerTest
       {
         var pattern = new string(new char[] { '(', nextChar });
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
-        RegExGroup group = new RegExGroup { Start = 0, Str = pattern, Tag = RegExTag.Subexpression, Status = nextChar==')' ? RegExStatus.OK : RegExStatus.Unfinished };
+        RegExGroup group = new RegExGroup { Start = 0, Str = pattern, Tag = RegExTag.Subexpression, Status = nextChar == ')' ? RegExStatus.OK : RegExStatus.Unfinished };
         testInputItem.Items.Add(group);
         testInputItem.Result = group.Status;
         if (nextChar == '?')
         {
           pattern = new string(nextChar, 1);
           var subItem = new RegExItem { Start = 1, Str = pattern, Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK };
-            group.Items.Add(subItem);
+          group.Items.Add(subItem);
         }
         else if (nextChar != ')')
         {
@@ -368,7 +384,7 @@ namespace RegExTaggerTest
       {
         var pattern = new string(new char[] { ')', nextChar });
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
-        RegExItem newItem = new RegExGroup { Start = 0, Str = new string(')',1), Tag = RegExTag.Subexpression, Status = RegExStatus.Error };
+        RegExItem newItem = new RegExGroup { Start = 0, Str = new string(')', 1), Tag = RegExTag.Subexpression, Status = RegExStatus.Error };
         testInputItem.Items.Add(newItem);
         testInputItem.Result = newItem.Status;
         TestItem testOutputItem;
@@ -479,7 +495,7 @@ namespace RegExTaggerTest
         }
         else
         {
-          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar,1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
           testInputItem.Items.Add(firstItem);
           var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
           testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
@@ -512,7 +528,7 @@ namespace RegExTaggerTest
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         if (QuantifierChars.Contains(nextChar))
         {
-          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar,1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
           testInputItem.Items.Add(firstItem);
           testInputItem.Result = firstItem.Status;
           RegExItem nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.OK };
@@ -552,11 +568,11 @@ namespace RegExTaggerTest
         var pattern = new string(new char[] { firstChar, nextChar });
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         RegExItem newItem;
-        if (OpeningChars.Contains(nextChar) || QuantifierChars.Contains(nextChar) || AnchorChars.Contains(nextChar) 
+        if (OpeningChars.Contains(nextChar) || QuantifierChars.Contains(nextChar) || AnchorChars.Contains(nextChar)
           || nextChar == ')' || nextChar == '\\')
         {
           var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar;
-          newItem = new RegExItem { Start = 0, Str = new string(firstChar,1), Tag = tag, Status = RegExStatus.OK };
+          newItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = tag, Status = RegExStatus.OK };
           testInputItem.Items.Add(newItem);
           var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
           testInputItem.Result = RegExTools.Max(newItem.Status, nextResult);
@@ -573,7 +589,7 @@ namespace RegExTaggerTest
         }
         else if (nextChar == '|')
         {
-          var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar; 
+          var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar;
           newItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = tag, Status = RegExStatus.OK };
           testInputItem.Items.Add(newItem);
           newItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
@@ -595,6 +611,77 @@ namespace RegExTaggerTest
       }
       return wholeTestResult;
     }
+
+    /// <summary>
+    /// Tests octal code patterns, i.e \NNN. Some sequences are recognized as backreferences.
+    /// </summary>
+    /// <returns></returns>
+    static bool? TestOctalCodePatterns()
+    {
+      bool? wholeTestResult = null;
+      var codes = new List<string>();
+      for (int digitsCount = 1; digitsCount <= 3; digitsCount++)
+      {
+        AddDecimalCodes(codes, "", digitsCount);
+      }
+      for (int i=0; i<codes.Count; i++)
+      {
+        var code = codes[i];
+        var pattern = "\\" + code;
+        var digitCount = code.Length;
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        RegExItem newItem;
+        if (digitCount == 1)
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.BackRef, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        if (digitCount == 2)
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0,2), Tag = RegExTag.BackRef, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+          newItem = new RegExItem { Start = 2, Str = pattern.Substring(2, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+        }
+        else if (code.Contains('8') || code.Contains('9'))
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0, 2), Tag = RegExTag.BackRef, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+          newItem = new RegExItem { Start = 2, Str = pattern.Substring(2, 2), Tag = RegExTag.LiteralString, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+        }
+        else
+        {
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.OctalString, Status = RegExStatus.OK };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    static void AddDecimalCodes(List<string> codes, string precode, int digitsCount)
+    {
+      for (char digit = '0'; digit <= '9'; digit++)
+      {
+        var code = precode + digit;
+        codes.Add(code);
+        if (code.Length < digitsCount)
+          AddDecimalCodes(codes, code, digitsCount);
+      }
+    }
+
 
     /// <summary>
     /// Runs a single test of one-char pattern
@@ -628,7 +715,7 @@ namespace RegExTaggerTest
         TestOutput.WriteLine($"Obtained:");
         ShowTestItem(testOutputItem);
       }
-      else if (singleTestResult != true || !TestRunOptions.HasFlag(TestOptions.DontShowPassedTestResults))
+      else if (singleTestResult != true || !TestRunOptions.HasFlag(TestOptions.SuppressPassedTestResults))
         ShowTestItem(testOutputItem);
       TestOutput.WriteLine($"");
       TestOutput.Flush();
