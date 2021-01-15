@@ -10,7 +10,7 @@
     EscapedChar,
     AnchorControl,
     DotChar,
-    DomainSeq,
+    CharClass,
     ControlCharSeq,
     OctalString,
     HexadecimalSeq,

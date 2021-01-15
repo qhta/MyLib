@@ -28,6 +28,7 @@ namespace RegExTaggerTest
       TestUnicodePatterns = 0x100,
       TestControlCharPatterns = 0x200,
       TestUnicodeCategories = 0x400,
+      TestCharsetPatterns = 0x800,
     }
 
     const string QuantifierChars = "?+*";
@@ -36,33 +37,35 @@ namespace RegExTaggerTest
     const string Anchor2ndChars = "AZzGbB";
     const string Domain2ndChars = "DdWwSs";
     const string UnicodeCategoryFirstLetters = "LNMPSZC";
+    const string HexadecimalTestChars = "09AFafg";
     static string[] UnicodeCategories = new string[]
     {
-      "Cc", "Cf", "Cn", "Co", "Cs", "Ll", "Lm", "Lo", "Lt", "Lu", "Mc", "Me", "Mn", "Nd", "Nl", "No", 
+      "Cc", "Cf", "Cn", "Co", "Cs", "Ll", "Lm", "Lo", "Lt", "Lu", "Mc", "Me", "Mn", "Nd", "Nl", "No",
       "Pc", "Pd", "Pe", "Pf", "Pi", "Po", "Ps", "Sc", "Sk", "Sm", "So", "Zl", "Zp", "Zs",
     };
 
     static string[] UnicodeBlockNames = new string[]
     {
-      "IsBasicLatin", "IsLatin-1Supplement", "IsLatinExtended-A", "IsLatinExtended-B", "IsIPAExtensions", "IsSpacingModifierLetters", "IsCombiningDiacriticalMarks", 
-      "IsGreek", /* or */ "IsGreekandCoptic", 
-      "IsCyrillic", "IsCyrillicSupplement", "IsArmenian", "IsHebrew", "IsArabic", "IsSyriac", "IsThaana", "IsDevanagari", "IsBengali", "IsGurmukhi", "IsGujarati", "IsOriya", 
-      "IsTamil", "IsTelugu", "IsKannada", "IsMalayalam", "IsSinhala", "IsThai", "IsLao", "IsTibetan", "IsMyanmar", "IsGeorgian", "IsHangulJamo", "IsEthiopic", 
-      "IsCherokee", "IsUnifiedCanadianAboriginalSyllabics", "IsOgham", "IsRunic", "IsTagalog", "IsHanunoo", "IsBuhid", "IsTagbanwa", "IsKhmer", "IsMongolian", "IsLimbu", 
-      "IsTaiLe", "IsKhmerSymbols", "IsPhoneticExtensions", "IsLatinExtendedAdditional", "IsGreekExtended", 
+      "IsBasicLatin", "IsLatin-1Supplement", "IsLatinExtended-A", "IsLatinExtended-B", "IsIPAExtensions", "IsSpacingModifierLetters", "IsCombiningDiacriticalMarks",
+      "IsGreek", /* or */ "IsGreekandCoptic",
+      "IsCyrillic", "IsCyrillicSupplement", "IsArmenian", "IsHebrew", "IsArabic", "IsSyriac", "IsThaana", "IsDevanagari", "IsBengali", "IsGurmukhi", "IsGujarati", "IsOriya",
+      "IsTamil", "IsTelugu", "IsKannada", "IsMalayalam", "IsSinhala", "IsThai", "IsLao", "IsTibetan", "IsMyanmar", "IsGeorgian", "IsHangulJamo", "IsEthiopic",
+      "IsCherokee", "IsUnifiedCanadianAboriginalSyllabics", "IsOgham", "IsRunic", "IsTagalog", "IsHanunoo", "IsBuhid", "IsTagbanwa", "IsKhmer", "IsMongolian", "IsLimbu",
+      "IsTaiLe", "IsKhmerSymbols", "IsPhoneticExtensions", "IsLatinExtendedAdditional", "IsGreekExtended",
       "IsGeneralPunctuation", "IsSuperscriptsandSubscripts", "IsCurrencySymbols",
-      "IsCombiningDiacriticalMarksforSymbols", /* or */ "IsCombiningMarksforSymbols", 
-      "IsLetterlikeSymbols", "IsNumberForms", "IsArrows", "IsMathematicalOperators", "IsMiscellaneousTechnical", "IsControlPictures", "IsOpticalCharacterRecognition", 
-      "IsEnclosedAlphanumerics", "IsBoxDrawing", "IsBlockElements", "IsGeometricShapes", "IsMiscellaneousSymbols", "IsDingbats", "IsMiscellaneousMathematicalSymbols-A", 
-      "IsSupplementalArrows-A", "IsBraillePatterns", "IsSupplementalArrows-B", "IsMiscellaneousMathematicalSymbols-B", "IsSupplementalMathematicalOperators", 
-      "IsMiscellaneousSymbolsandArrows", "IsCJKRadicalsSupplement", "IsKangxiRadicals", "IsIdeographicDescriptionCharacters", "IsCJKSymbolsandPunctuation", 
-      "IsHiragana", "IsKatakana", "IsBopomofo", "IsHangulCompatibilityJamo", "IsKanbun", "IsBopomofoExtended", "IsKatakanaPhoneticExtensions", 
-      "IsEnclosedCJKLettersandMonths", "IsCJKCompatibility", "IsCJKUnifiedIdeographsExtensionA", "IsYijingHexagramSymbols", "IsCJKUnifiedIdeographs", 
-      "IsYiSyllables", "IsYiRadicals", "IsHangulSyllables", "IsHighSurrogates", "IsHighPrivateUseSurrogates", "IsLowSurrogates", 
-      "IsPrivateUse", /* or */ "IsPrivateUseArea", 
-      "IsCJKCompatibilityIdeographs", "IsAlphabeticPresentationForms", "IsArabicPresentationForms-A", "IsVariationSelectors", "IsCombiningHalfMarks", 
-      "IsCJKCompatibilityForms", "IsSmallFormVariants", "IsArabicPresentationForms-B", "IsHalfwidthandFullwidthForms", "IsSpecials", 
+      "IsCombiningDiacriticalMarksforSymbols", /* or */ "IsCombiningMarksforSymbols",
+      "IsLetterlikeSymbols", "IsNumberForms", "IsArrows", "IsMathematicalOperators", "IsMiscellaneousTechnical", "IsControlPictures", "IsOpticalCharacterRecognition",
+      "IsEnclosedAlphanumerics", "IsBoxDrawing", "IsBlockElements", "IsGeometricShapes", "IsMiscellaneousSymbols", "IsDingbats", "IsMiscellaneousMathematicalSymbols-A",
+      "IsSupplementalArrows-A", "IsBraillePatterns", "IsSupplementalArrows-B", "IsMiscellaneousMathematicalSymbols-B", "IsSupplementalMathematicalOperators",
+      "IsMiscellaneousSymbolsandArrows", "IsCJKRadicalsSupplement", "IsKangxiRadicals", "IsIdeographicDescriptionCharacters", "IsCJKSymbolsandPunctuation",
+      "IsHiragana", "IsKatakana", "IsBopomofo", "IsHangulCompatibilityJamo", "IsKanbun", "IsBopomofoExtended", "IsKatakanaPhoneticExtensions",
+      "IsEnclosedCJKLettersandMonths", "IsCJKCompatibility", "IsCJKUnifiedIdeographsExtensionA", "IsYijingHexagramSymbols", "IsCJKUnifiedIdeographs",
+      "IsYiSyllables", "IsYiRadicals", "IsHangulSyllables", "IsHighSurrogates", "IsHighPrivateUseSurrogates", "IsLowSurrogates",
+      "IsPrivateUse", /* or */ "IsPrivateUseArea",
+      "IsCJKCompatibilityIdeographs", "IsAlphabeticPresentationForms", "IsArabicPresentationForms-A", "IsVariationSelectors", "IsCombiningHalfMarks",
+      "IsCJKCompatibilityForms", "IsSmallFormVariants", "IsArabicPresentationForms-B", "IsHalfwidthandFullwidthForms", "IsSpecials",
     };
+    static string ValidChars;
 
     static TestData TestInputData, testOutputData;
     static RegExTagger Tagger = new RegExTagger();
@@ -73,6 +76,12 @@ namespace RegExTaggerTest
 
     static void Main(string[] args)
     {
+      for (char ch = ' '; ch <= '\x7E'; ch++)
+      {
+        if (!(ch > 'a' && ch < 'z' || ch > '0' && ch < '9' || ch > 'A' && ch < 'Z'))
+          ValidChars += ch;
+      }
+
       bool? wholeTestResult = null;
       if (args.Length == 0)
       {
@@ -86,7 +95,7 @@ namespace RegExTaggerTest
           wholeTestResult = false;
         }
       }
-      if (wholeTestResult!=false)
+      if (wholeTestResult != false)
         wholeTestResult = RunTests();
       if (wholeTestResult == false)
       {
@@ -114,6 +123,7 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/u - test Unicode patterns");
       TestOutput.WriteLine($"\t/c - test control char patterns");
       TestOutput.WriteLine($"\t/p - test Unicode categories");
+      TestOutput.WriteLine($"\t/[ - test charset patterns");
     }
 
     /// <summary>
@@ -167,6 +177,9 @@ namespace RegExTaggerTest
                 break;
               case 'p':
                 options |= TestOptions.TestUnicodeCategories;
+                break;
+              case '[':
+                options |= TestOptions.TestCharsetPatterns;
                 break;
               default:
                 Console.WriteLine($"Unrecognized option \"{arg}\"");
@@ -270,7 +283,16 @@ namespace RegExTaggerTest
         ShowTestResult("Unicode categories test result is {0}", partTestResult);
       }
 
-      if (TestInputData!=null && TestInputData.Count > 0)
+      if (TestRunOptions.HasFlag(TestOptions.TestCharsetPatterns))
+      {
+        partTestResult = TestCharsetPatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Unicode categories test result is {0}", partTestResult);
+      }
+
+      if (TestInputData != null && TestInputData.Count > 0)
       {
         partTestResult = RunTestInputData();
         SetTestResult(ref wholeTestResult, partTestResult);
@@ -301,7 +323,7 @@ namespace RegExTaggerTest
       return wholeTestResult;
     }
 
-
+    #region Test One Char Patterns
     /// <summary>
     /// Tests one-char patterns. No test input data needed. No test output data produced.
     /// </summary>
@@ -310,7 +332,7 @@ namespace RegExTaggerTest
     {
       bool? wholeTestResult = null;
 
-      for (char ch = ' '; ch < '\x7F'; ch++)
+      foreach (char ch in ValidChars)
       {
         var pattern = new string(ch, 1);
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
@@ -345,7 +367,9 @@ namespace RegExTaggerTest
       }
       return wholeTestResult;
     }
+    #endregion
 
+    #region Test Two Chars Patterns
     /// <summary>
     /// Tests two-chars patterns. No test input data needed. No test output data produced.
     /// </summary>
@@ -353,7 +377,7 @@ namespace RegExTaggerTest
     static bool? TestTwoCharsPatterns()
     {
       bool? wholeTestResult = null;
-      for (char firstChar = '('; firstChar <= '\x7E'; firstChar++)
+      foreach (char firstChar in ValidChars)
       {
         bool? singleTestResult;
         if (firstChar == '\\')
@@ -397,7 +421,7 @@ namespace RegExTaggerTest
         else if (Anchor2ndChars.Contains(nextChar))
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
         else if (Domain2ndChars.Contains(nextChar))
-          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.DomainSeq, Status = RegExStatus.OK };
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.CharClass, Status = RegExStatus.OK };
         else if (nextChar == 'P' || nextChar == 'p')
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.Unfinished };
         else if (nextChar == 'c')
@@ -502,12 +526,6 @@ namespace RegExTaggerTest
         {
           pattern = new string(nextChar, 1);
           var subItem = new RegExItem { Start = 1, Str = pattern, Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
-          charset.Items.Add(subItem);
-        }
-        else if (nextChar == '[')
-        {
-          pattern = new string(nextChar, 1);
-          var subItem = new RegExCharset { Start = 1, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
           charset.Items.Add(subItem);
         }
         else if (nextChar == '\\')
@@ -650,7 +668,7 @@ namespace RegExTaggerTest
     static bool? TestAnyTwoChars(char firstChar)
     {
       bool? wholeTestResult = null;
-      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      foreach (char nextChar in ValidChars)
       {
         var pattern = new string(new char[] { firstChar, nextChar });
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
@@ -698,7 +716,9 @@ namespace RegExTaggerTest
       }
       return wholeTestResult;
     }
+    #endregion
 
+    #region Test Octal Code Patterns, Test Hexadecimal Patterns, Test Unicode Patterns, Test Control Char Patterns
     /// <summary>
     /// Tests octal code patterns, i.e \NNN. Note that some sequences are recognized as backreferences.
     /// </summary>
@@ -711,7 +731,7 @@ namespace RegExTaggerTest
       {
         AddDecimalCodes(codes, "", digitsCount);
       }
-      for (int i=0; i<codes.Count; i++)
+      for (int i = 0; i < codes.Count; i++)
       {
         var code = codes[i];
         var pattern = "\\" + code;
@@ -727,7 +747,7 @@ namespace RegExTaggerTest
         else
         if (digitCount == 2)
         {
-          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0,2), Tag = RegExTag.BackRef, Status = RegExStatus.Warning };
+          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0, 2), Tag = RegExTag.BackRef, Status = RegExStatus.Warning };
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
           newItem = new RegExItem { Start = 2, Str = pattern.Substring(2, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
@@ -789,9 +809,9 @@ namespace RegExTaggerTest
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         RegExItem newItem;
         int k;
-        if ((k=code.IndexOf('g'))>=0)
+        if ((k = code.IndexOf('g')) >= 0)
         {
-          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0,k+3), Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.Error };
+          newItem = new RegExItem { Start = 0, Str = pattern.Substring(0, k + 3), Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.Error };
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
         }
@@ -801,7 +821,7 @@ namespace RegExTaggerTest
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
         }
-        else 
+        else
         {
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.OK };
           testInputItem.Items.Add(newItem);
@@ -869,21 +889,7 @@ namespace RegExTaggerTest
 
     static void AddHexadecimalCodes(List<string> codes, string precode, int digitsCount)
     {
-      for (char digit = '0'; digit <= '9'; digit++)
-      {
-        var code = precode + digit;
-        codes.Add(code);
-        if (code.Length < digitsCount)
-          AddHexadecimalCodes(codes, code, digitsCount);
-      }
-      for (char digit = 'A'; digit <= 'F'; digit++)
-      {
-        var code = precode + digit;
-        codes.Add(code);
-        if (code.Length < digitsCount)
-          AddHexadecimalCodes(codes, code, digitsCount);
-      }
-      for (char digit = 'a'; digit <= 'g'; digit++)
+      foreach (char digit in HexadecimalTestChars)
       {
         var code = precode + digit;
         codes.Add(code);
@@ -900,9 +906,9 @@ namespace RegExTaggerTest
     {
       bool? wholeTestResult = null;
       var codes = new List<string>();
-      for (int i=0; i<=32; i++)
+      for (int i = 0; i <= 32; i++)
       {
-        codes.Add(new string((char)(i + '@'),1));
+        codes.Add(new string((char)(i + '@'), 1));
       }
       for (char ch = 'a'; ch <= 'z'; ch++)
       {
@@ -914,7 +920,7 @@ namespace RegExTaggerTest
         var pattern = "\\c" + code;
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         RegExItem newItem;
-        if (code[0]=='`')
+        if (code[0] == '`')
         {
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.ControlCharSeq, Status = RegExStatus.Error };
           testInputItem.Items.Add(newItem);
@@ -936,6 +942,9 @@ namespace RegExTaggerTest
       }
       return wholeTestResult;
     }
+    #endregion
+
+    #region Test Unicode Categories
 
     /// <summary>
     /// Tests unicode categories patterns, i.e \p{ctg} && /P{ctg}. Note that the sequence "\p" can be tested as two-chars pattern.
@@ -967,7 +976,7 @@ namespace RegExTaggerTest
       SetTestResult(ref wholeTestResult, singleTestResult);
       if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
         return false;
-      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode+"a");
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "a");
       SetTestResult(ref wholeTestResult, singleTestResult);
       if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
         return false;
@@ -982,7 +991,7 @@ namespace RegExTaggerTest
       for (int i = 0; i < codes.Count; i++)
       {
         var code = codes[i];
-        singleTestResult = RunSingleUnicodeCategoryPatternTest(precode+"{" + code);
+        singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{" + code);
         SetTestResult(ref wholeTestResult, singleTestResult);
         if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return false;
@@ -1044,7 +1053,7 @@ namespace RegExTaggerTest
     {
       var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
       RegExItem newItem;
-      if (pattern.Length<3)
+      if (pattern.Length < 3)
       {
         newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.Unfinished };
         testInputItem.Items.Add(newItem);
@@ -1053,7 +1062,7 @@ namespace RegExTaggerTest
       else
       if (pattern.Length == 3)
       {
-        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status =  (pattern[2] == '{') ? RegExStatus.Unfinished : RegExStatus.Error };
+        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = (pattern[2] == '{') ? RegExStatus.Unfinished : RegExStatus.Error };
         testInputItem.Items.Add(newItem);
         testInputItem.Result = newItem.Status;
       }
@@ -1129,7 +1138,7 @@ namespace RegExTaggerTest
       {
         if (pattern.LastOrDefault() == '}')
         {
-          var name = pattern.Substring(3, pattern.Length-4);
+          var name = pattern.Substring(3, pattern.Length - 4);
           RegExStatus status;
           if (UnicodeBlockNames.Contains(name))
             status = RegExStatus.OK;
@@ -1156,6 +1165,219 @@ namespace RegExTaggerTest
       var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
       testOutputData.Add(testOutputItem);
       return singleTestResult;
+    }
+    #endregion
+
+    #region Test Charset Patterns
+    static bool? TestCharsetPatterns()
+    {
+      bool? wholeTestResult = null;
+      var singleTestResult = RunSingleCharsetTest("[]");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      singleTestResult = RunSingleCharsetTest("[[");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      foreach (var ch in ValidChars)
+      {
+        singleTestResult = RunSingleCharsetTest($"[{ch}");
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      foreach (var ch in ValidChars)
+      {
+        singleTestResult = RunSingleCharsetTest($"[{ch}]");
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      foreach (var ch1 in ValidChars)
+        foreach (var ch2 in ValidChars)
+        {
+          singleTestResult = RunSingleCharsetTest($"[{ch1}{ch2}]");
+          SetTestResult(ref wholeTestResult, singleTestResult);
+          if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+            return false;
+        }
+      foreach (var ch1 in ValidChars)
+        foreach (var ch2 in ValidChars)
+          foreach (var ch3 in ValidChars)
+          {
+            singleTestResult = RunSingleCharsetTest($"[{ch1}{ch2}{ch3}]");
+            SetTestResult(ref wholeTestResult, singleTestResult);
+            if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+              return false;
+          }
+
+      singleTestResult = RunSingleCharsetTest(@"[\p{L}\d-_]");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleCharsetTest(@"[a-z-[d-w]]");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      return wholeTestResult;
+    }
+
+
+
+    static bool? RunSingleCharsetTest(string pattern)
+    {
+      var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+      RegExCharset charset = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.OK };
+      testInputItem.Items.Add(charset);
+      if (pattern.Length < 3)
+      {
+        if (pattern == "[]")
+          charset.Status = RegExStatus.Error;
+        else
+        {
+          charset.Status = RegExStatus.Unfinished;
+          var nextChar = pattern[1];
+          RegExItem nextItem;
+          if (nextChar == '\\')
+            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
+          else if (nextChar == '^')
+            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+          else
+            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          charset.Items.Add(nextItem);
+        }
+      }
+      else if (pattern.Length == 3)
+      {
+        if (pattern.Last() == ']')
+        {
+          var nextChar = pattern[1];
+          RegExItem nextItem;
+          if (nextChar == '\\')
+          {
+            charset.Status = RegExStatus.Unfinished;
+            nextItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+          }
+          else
+          if (nextChar == '^')
+          {
+            charset.Status = RegExStatus.Error;
+            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+          }
+          else
+          {
+            charset.Status = RegExStatus.OK;
+            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          }
+          charset.Items.Add(nextItem);
+        }
+        else
+        {
+          charset.Status = RegExStatus.Unfinished;
+        }
+      }
+      else
+      {
+        if (pattern.Last() == ']')
+        {
+          var internString = pattern.Substring(1, pattern.Length - 2);
+          RegExItem nextItem;
+          charset.Status = RegExStatus.OK;
+          for (int charNdx = 0; charNdx < internString.Length; charNdx++)
+          {
+            char thisChar = internString[charNdx];
+            char nextChar = charNdx < internString.Length - 1 ? internString[charNdx + 1] : '\0';
+            if (thisChar == '\\')
+            {
+              if (nextChar != '\0')
+              {
+                if (Domain2ndChars.Contains(nextChar))
+                  nextItem = new RegExItem { Start = charNdx + 1, Str = internString.Substring(charNdx, 2), Tag = RegExTag.CharClass, Status = RegExStatus.OK };
+                else
+                if (nextChar == 'p' || nextChar == 'P')
+                {
+                  var k = internString.IndexOf('}', charNdx);
+                  nextItem = new RegExItem { Start = charNdx + 1, Str = internString.Substring(charNdx, k + 1), Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.OK };
+                  charNdx += k - 1;
+                }
+                else
+                  nextItem = new RegExItem { Start = charNdx + 1, Str = internString.Substring(charNdx, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+                charset.Items.Add(nextItem);
+                charNdx++;
+              }
+              else
+              {
+                nextItem = new RegExItem { Start = charNdx + 1, Str = "\\]", Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+                charset.Items.Add(nextItem);
+                charset.Status = RegExStatus.Unfinished;
+              }
+            }
+            else
+            {
+              if (thisChar == '^' && charNdx == 0)
+                nextItem = new RegExItem { Start = charNdx + 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+              else if (thisChar == '-' && nextChar == '[' && charNdx<internString.Length-3)
+              {
+                nextItem = new RegExItem { Start = charNdx + 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+                charset.Items.Add(nextItem);
+                charNdx += 2;
+                int k = pattern.IndexOf(']', charNdx);
+                RegExCharset intCharset = new RegExCharset { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx + 1), Tag = RegExTag.CharSet, Status = RegExStatus.OK };
+                nextItem = new RegExCharRange { Start = charNdx + 1, Str = pattern.Substring(charNdx + 1, k - charNdx - 1), Tag = RegExTag.CharRange, Status = RegExStatus.OK };
+                intCharset.Items.Add(nextItem);
+                nextItem = intCharset;
+                charNdx += k;
+              }
+              else
+              if ((charNdx < internString.Length - 2) && (nextChar == '-'))
+              {
+                nextChar = internString[charNdx + 2];
+                nextItem = new RegExCharRange { Start = charNdx + 1, Str = internString.Substring(charNdx, 3), Tag = RegExTag.CharRange, Status = nextChar >= thisChar ? RegExStatus.OK : RegExStatus.Error };
+                charNdx += 2;
+              }
+              else
+                nextItem = new RegExItem { Start = charNdx + 1, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+              charset.Items.Add(nextItem);
+              charset.Status = nextItem.Status;
+            }
+          }
+        }
+        else
+        {
+          charset.Status = RegExStatus.Unfinished;
+        }
+      }
+      testInputItem.Result = charset.Status;
+      TestItem testOutputItem;
+      var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+      testOutputData.Add(testOutputItem);
+      return singleTestResult;
+    }
+    #endregion
+
+    /// <summary>
+    /// Runs testing of data stored in testInputData collections. Fills testOutputData collection.
+    /// </summary>
+    /// <returns></returns>
+    static bool? RunTestInputData()
+    {
+      bool? wholeTestResult = null;
+      for (int i = 0; i < TestInputData.Count; i++)
+      {
+        if (TestOutput != null)
+          TestOutput.WriteLine($"Test {i + 1}:");
+        var testInputItem = TestInputData[i];
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
     }
 
     /// <summary>
@@ -1196,41 +1418,6 @@ namespace RegExTaggerTest
       TestOutput.Flush();
       return singleTestResult;
     }
-
-    /// <summary>
-    /// Runs testing of data stored in testInputData collections. Fills testOutputData collection.
-    /// </summary>
-    /// <returns></returns>
-    static bool? RunTestInputData()
-    {
-      bool? wholeTestResult = null;
-      for (int i = 0; i < TestInputData.Count; i++)
-      {
-        if (TestOutput != null)
-          TestOutput.WriteLine($"Test {i + 1}:");
-        var testInputItem = TestInputData[i];
-        TestItem testOutputItem;
-        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
-        testOutputData.Add(testOutputItem);
-        SetTestResult(ref wholeTestResult, singleTestResult);
-        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-          return false;
-      }
-      return wholeTestResult;
-    }
-
-    ///// <summary>
-    ///// Creates testInputData collection from testPatterns.
-    ///// </summary>
-    //static void CreateTestData()
-    //{
-    //  TestInputData = new TestData();
-    //  foreach (var pattern in testPatterns)
-    //  {
-    //    var item = new TestItem { Pattern = pattern };
-    //    TestInputData.Add(item);
-    //  }
-    //}
 
     /// <summary>
     /// Compares two regex items for equality. Used in tests.
