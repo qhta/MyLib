@@ -42,6 +42,28 @@ namespace RegExTaggerTest
       "Pc", "Pd", "Pe", "Pf", "Pi", "Po", "Ps", "Sc", "Sk", "Sm", "So", "Zl", "Zp", "Zs",
     };
 
+    static string[] UnicodeBlockNames = new string[]
+    {
+      "IsBasicLatin", "IsLatin-1Supplement", "IsLatinExtended-A", "IsLatinExtended-B", "IsIPAExtensions", "IsSpacingModifierLetters", "IsCombiningDiacriticalMarks", 
+      "IsGreek", /* or */ "IsGreekandCoptic", 
+      "IsCyrillic", "IsCyrillicSupplement", "IsArmenian", "IsHebrew", "IsArabic", "IsSyriac", "IsThaana", "IsDevanagari", "IsBengali", "IsGurmukhi", "IsGujarati", "IsOriya", 
+      "IsTamil", "IsTelugu", "IsKannada", "IsMalayalam", "IsSinhala", "IsThai", "IsLao", "IsTibetan", "IsMyanmar", "IsGeorgian", "IsHangulJamo", "IsEthiopic", 
+      "IsCherokee", "IsUnifiedCanadianAboriginalSyllabics", "IsOgham", "IsRunic", "IsTagalog", "IsHanunoo", "IsBuhid", "IsTagbanwa", "IsKhmer", "IsMongolian", "IsLimbu", 
+      "IsTaiLe", "IsKhmerSymbols", "IsPhoneticExtensions", "IsLatinExtendedAdditional", "IsGreekExtended", 
+      "IsGeneralPunctuation", "IsSuperscriptsandSubscripts", "IsCurrencySymbols",
+      "IsCombiningDiacriticalMarksforSymbols", /* or */ "IsCombiningMarksforSymbols", 
+      "IsLetterlikeSymbols", "IsNumberForms", "IsArrows", "IsMathematicalOperators", "IsMiscellaneousTechnical", "IsControlPictures", "IsOpticalCharacterRecognition", 
+      "IsEnclosedAlphanumerics", "IsBoxDrawing", "IsBlockElements", "IsGeometricShapes", "IsMiscellaneousSymbols", "IsDingbats", "IsMiscellaneousMathematicalSymbols-A", 
+      "IsSupplementalArrows-A", "IsBraillePatterns", "IsSupplementalArrows-B", "IsMiscellaneousMathematicalSymbols-B", "IsSupplementalMathematicalOperators", 
+      "IsMiscellaneousSymbolsandArrows", "IsCJKRadicalsSupplement", "IsKangxiRadicals", "IsIdeographicDescriptionCharacters", "IsCJKSymbolsandPunctuation", 
+      "IsHiragana", "IsKatakana", "IsBopomofo", "IsHangulCompatibilityJamo", "IsKanbun", "IsBopomofoExtended", "IsKatakanaPhoneticExtensions", 
+      "IsEnclosedCJKLettersandMonths", "IsCJKCompatibility", "IsCJKUnifiedIdeographsExtensionA", "IsYijingHexagramSymbols", "IsCJKUnifiedIdeographs", 
+      "IsYiSyllables", "IsYiRadicals", "IsHangulSyllables", "IsHighSurrogates", "IsHighPrivateUseSurrogates", "IsLowSurrogates", 
+      "IsPrivateUse", /* or */ "IsPrivateUseArea", 
+      "IsCJKCompatibilityIdeographs", "IsAlphabeticPresentationForms", "IsArabicPresentationForms-A", "IsVariationSelectors", "IsCombiningHalfMarks", 
+      "IsCJKCompatibilityForms", "IsSmallFormVariants", "IsArabicPresentationForms-B", "IsHalfwidthandFullwidthForms", "IsSpecials", 
+    };
+
     static TestData TestInputData, testOutputData;
     static RegExTagger Tagger = new RegExTagger();
     static TextWriter TestOutput = Console.Out;
@@ -926,6 +948,10 @@ namespace RegExTaggerTest
       SetTestResult(ref wholeTestResult, singleTestResult);
       if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
         return false;
+      singleTestResult = TestUnicodeCategories("\\P");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
       return wholeTestResult;
     }
 
@@ -969,6 +995,26 @@ namespace RegExTaggerTest
         if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return false;
       }
+      for (int i = 0; i < UnicodeBlockNames.Count(); i++)
+      {
+        var name = UnicodeBlockNames[i];
+        singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{" + name + "}");
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{" + UnicodeBlockNames[0]);
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{" + UnicodeBlockNames[0] + "a");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+      singleTestResult = RunSingleUnicodeCategoryPatternTest(precode + "{" + UnicodeBlockNames[0] + "a}");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
       return wholeTestResult;
     }
 
@@ -991,7 +1037,7 @@ namespace RegExTaggerTest
     }
 
     /// <summary>
-    /// Runs a single test 
+    /// Runs a single Unicode category pattern  test 
     /// </summary>
     /// <returns></returns>
     static bool? RunSingleUnicodeCategoryPatternTest(string pattern)
@@ -1081,9 +1127,30 @@ namespace RegExTaggerTest
       }
       else
       {
-        newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.OK };
-        testInputItem.Items.Add(newItem);
-        testInputItem.Result = newItem.Status;
+        if (pattern.LastOrDefault() == '}')
+        {
+          var name = pattern.Substring(3, pattern.Length-4);
+          RegExStatus status;
+          if (UnicodeBlockNames.Contains(name))
+            status = RegExStatus.OK;
+          else
+            status = RegExStatus.Error;
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          var name = pattern.Substring(3, pattern.Length - 3);
+          RegExStatus status;
+          if (UnicodeBlockNames.Contains(name))
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.Error;
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeCategorySeq, Status = status };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
       }
       TestItem testOutputItem;
       var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);

@@ -482,8 +482,13 @@ namespace Qhta.RegularExpressions
             }
             if (!(ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z'))
             {
-              isOK = false;
-              break;
+              if (charNdx-nameStart<2)
+                isOK = false;
+              else
+              if (!(ch >= '0' && ch <= '9' || ch == '-'))
+                isOK = false;
+              if (!isOK)
+                break;
             }
           }
         }
