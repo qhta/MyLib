@@ -16,6 +16,13 @@ namespace Qhta.RegularExpressions
 
     public RegExItems Items { get; private set; } = new RegExItems();
 
+    public override void MoveStart(int delta)
+    {
+      foreach (var item in Items)
+        item.MoveStart(delta);
+      base.MoveStart(delta);
+    }
+
     public override bool Equals(object obj)
     {
       if (obj is RegExGroup other)

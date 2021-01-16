@@ -124,6 +124,13 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/c - test control char patterns");
       TestOutput.WriteLine($"\t/p - test Unicode categories");
       TestOutput.WriteLine($"\t/[ - test charset patterns");
+      TestOutput.WriteLine($"");
+      TestOutput.WriteLine($"TestInputFile can be of type:");
+      TestOutput.WriteLine($"\txml - the whole test data is read with test results");
+      TestOutput.WriteLine($"\ttxt - only patterns are read (each in a separate line)");
+      TestOutput.WriteLine($"TestOutputFile is always of type xml. Is is written if the overall test result is passed.");
+      TestOutput.WriteLine($"If testInputFile is specified and not preceded with \\i option, and testOutputFile is not specified,");
+      TestOutput.WriteLine($"and testInputFile is of xml type, and if the overall test result is passed, then TestInputFile is ovewritten");
     }
 
     /// <summary>
@@ -198,8 +205,9 @@ namespace RegExTaggerTest
             }
           }
         }
-        if (outputFileName == null && !options.HasFlag(TestOptions.IsInputFileProtected))
-          outputFileName = inputFileName;
+        if (inputFileName != null)
+          if (outputFileName == null && !options.HasFlag(TestOptions.IsInputFileProtected) && Path.GetExtension(inputFileName)?.ToLower() == ".xml")
+            outputFileName = inputFileName;
         TestOutput.WriteLine($"");
         return true;
       }
@@ -218,7 +226,7 @@ namespace RegExTaggerTest
       testOutputData = new TestData();
 
       bool? wholeTestResult = null;
-      bool? partTestResult = null;
+      bool? partTestResult;
 
       if (TestRunOptions.HasFlag(TestOptions.TestOneCharPatterns))
       {
@@ -301,25 +309,33 @@ namespace RegExTaggerTest
         ShowTestResult("Input data test result is {0}", partTestResult);
       }
 
-      bool? shouldSave = false;
-      if (wholeTestResult == false)
+      if (TestOutputFileName != null)
       {
-        if (TestRunOptions.HasFlag(TestOptions.IsOutputFileSpecified))
-          shouldSave = true;
-        if (!TestRunOptions.HasFlag(TestOptions.IsInputFileProtected))
-          shouldSave = null;
+        if (wholeTestResult != true)
+        {
+          Console.Write($"Do you want to write test data to file \"{TestOutputFileName}\"? (Y/N)");
+          var key1 = Console.ReadKey();
+          Console.WriteLine();
+          if (key1.Key == ConsoleKey.Y)
+          {
+            TrySaveTestData(TestOutputFileName);
+          }
+        }
       }
-      else if (wholeTestResult == true)
-      {
-        if (TestRunOptions.HasFlag(TestOptions.IsOutputFileSpecified))
-          shouldSave = true;
-      }
-      TrySaveTestData(TestOutputFileName, shouldSave, $"Test results differ from expected. Do you want to write test data to file \"{TestOutputFileName}\"?");
+
 
       bool moreTestsAdded = TryAddMoreTests();
 
-      if (moreTestsAdded)
-        TrySaveTestData(TestOutputFileName, null, $"You have added some test. Do you want to save all test data to file \"{TestOutputFileName}\"?");
+      if (TestOutputFileName != null && moreTestsAdded)
+      {
+        Console.Write($"You have added some test. Do you want to save all test data to file \"{TestOutputFileName}\"?");
+        var key1 = Console.ReadKey();
+        Console.WriteLine();
+        if (key1.Key == ConsoleKey.Y)
+        {
+          TrySaveTestData(TestOutputFileName);
+        }
+      }
       return wholeTestResult;
     }
 
@@ -1194,6 +1210,7 @@ namespace RegExTaggerTest
         if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return false;
       }
+
       foreach (var ch1 in ValidChars)
         foreach (var ch2 in ValidChars)
         {
@@ -1202,7 +1219,9 @@ namespace RegExTaggerTest
           if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
             return false;
         }
+
       foreach (var ch1 in ValidChars)
+      //var ch1 = '_';
         foreach (var ch2 in ValidChars)
           foreach (var ch3 in ValidChars)
           {
@@ -1211,16 +1230,6 @@ namespace RegExTaggerTest
             if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
               return false;
           }
-
-      singleTestResult = RunSingleCharsetTest(@"[\p{L}\d-_]");
-      SetTestResult(ref wholeTestResult, singleTestResult);
-      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-        return false;
-
-      singleTestResult = RunSingleCharsetTest(@"[a-z-[d-w]]");
-      SetTestResult(ref wholeTestResult, singleTestResult);
-      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-        return false;
 
       return wholeTestResult;
     }
@@ -1232,10 +1241,13 @@ namespace RegExTaggerTest
       var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
       RegExCharset charset = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.OK };
       testInputItem.Items.Add(charset);
+      int charNdx=pattern.Length;
       if (pattern.Length < 3)
       {
         if (pattern == "[]")
+        {
           charset.Status = RegExStatus.Error;
+        }
         else
         {
           charset.Status = RegExStatus.Unfinished;
@@ -1254,25 +1266,34 @@ namespace RegExTaggerTest
       {
         if (pattern.Last() == ']')
         {
-          var nextChar = pattern[1];
-          RegExItem nextItem;
-          if (nextChar == '\\')
-          {
-            charset.Status = RegExStatus.Unfinished;
-            nextItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
-          }
-          else
-          if (nextChar == '^')
+          var thisChar = pattern[1];
+          if (thisChar == ']')
           {
             charset.Status = RegExStatus.Error;
-            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+            charset.Str = charset.Str.Substring(0, 2);
           }
           else
           {
-            charset.Status = RegExStatus.OK;
-            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+            RegExItem nextItem;
+
+            if (thisChar == '\\')
+            {
+              charset.Status = RegExStatus.Unfinished;
+              nextItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+            }
+            else
+          if (thisChar == '^')
+            {
+              charset.Status = RegExStatus.Error;
+              nextItem = new RegExItem { Start = 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+            }
+            else
+            {
+              charset.Status = RegExStatus.OK;
+              nextItem = new RegExItem { Start = 1, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+            }
+            charset.Items.Add(nextItem);
           }
-          charset.Items.Add(nextItem);
         }
         else
         {
@@ -1281,76 +1302,118 @@ namespace RegExTaggerTest
       }
       else
       {
-        if (pattern.Last() == ']')
+        RegExItem nextItem;
+        charset.Status = RegExStatus.Unfinished;
+        for (charNdx = 1; charNdx < pattern.Length; charNdx++)
         {
-          var internString = pattern.Substring(1, pattern.Length - 2);
-          RegExItem nextItem;
-          charset.Status = RegExStatus.OK;
-          for (int charNdx = 0; charNdx < internString.Length; charNdx++)
+          char thisChar = pattern[charNdx];
+          char nextChar = charNdx < pattern.Length - 1 ? pattern[charNdx + 1] : '\0';
+          if (thisChar == ']')
           {
-            char thisChar = internString[charNdx];
-            char nextChar = charNdx < internString.Length - 1 ? internString[charNdx + 1] : '\0';
+            if (charset.IsEmpty)
+            {
+              charset.Status = RegExStatus.Error;
+              charset.Str = charset.Str.Substring(0, charNdx + 1);
+            }
+            else
+            {
+              if (charset.Status == RegExStatus.Unfinished)
+                charset.Status = RegExStatus.OK;
+              charset.Str = charset.Str.Substring(0, charNdx + 1);
+              charNdx++;
+            }
+            break;
+          }
+          else
+          {
             if (thisChar == '\\')
             {
               if (nextChar != '\0')
               {
                 if (Domain2ndChars.Contains(nextChar))
-                  nextItem = new RegExItem { Start = charNdx + 1, Str = internString.Substring(charNdx, 2), Tag = RegExTag.CharClass, Status = RegExStatus.OK };
+                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.CharClass, Status = RegExStatus.OK };
                 else
                 if (nextChar == 'p' || nextChar == 'P')
                 {
-                  var k = internString.IndexOf('}', charNdx);
-                  nextItem = new RegExItem { Start = charNdx + 1, Str = internString.Substring(charNdx, k + 1), Tag = RegExTag.UnicodeCategorySeq, Status = RegExStatus.OK };
+                  var k = pattern.IndexOf('}', charNdx);
+                  string name;
+                  if (k >= 0)
+                    name = pattern.Substring(charNdx + 3, k - charNdx - 3);
+                  else
+                  {
+                    name = pattern.Substring(charNdx + 3);
+                    k = pattern.Length - 1;
+                  }
+                  var isOK = UnicodeCategoryFirstLetters.Contains(name) || UnicodeCategories.Contains(name) || UnicodeBlockNames.Contains(name);
+                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx + 1), Tag = RegExTag.UnicodeCategorySeq, Status = isOK ? RegExStatus.OK : RegExStatus.Error };
                   charNdx += k - 1;
                 }
                 else
-                  nextItem = new RegExItem { Start = charNdx + 1, Str = internString.Substring(charNdx, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+                if (nextChar >= '0' && nextChar <= '8')
+                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.OctalString, Status = RegExStatus.OK };
+                else
+                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
                 charset.Items.Add(nextItem);
                 charNdx++;
               }
               else
               {
-                nextItem = new RegExItem { Start = charNdx + 1, Str = "\\]", Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+                nextItem = new RegExItem { Start = charNdx, Str = "\\]", Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
                 charset.Items.Add(nextItem);
                 charset.Status = RegExStatus.Unfinished;
               }
             }
             else
             {
-              if (thisChar == '^' && charNdx == 0)
-                nextItem = new RegExItem { Start = charNdx + 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
-              else if (thisChar == '-' && nextChar == '[' && charNdx<internString.Length-3)
+              if (thisChar == '^' && charNdx == 1)
+                nextItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+              else if (thisChar == '-' && charNdx > 1 && nextChar == '[')
               {
-                nextItem = new RegExItem { Start = charNdx + 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+                nextItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
                 charset.Items.Add(nextItem);
-                charNdx += 2;
+                charNdx += 1;
                 int k = pattern.IndexOf(']', charNdx);
-                RegExCharset intCharset = new RegExCharset { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx + 1), Tag = RegExTag.CharSet, Status = RegExStatus.OK };
-                nextItem = new RegExCharRange { Start = charNdx + 1, Str = pattern.Substring(charNdx + 1, k - charNdx - 1), Tag = RegExTag.CharRange, Status = RegExStatus.OK };
-                intCharset.Items.Add(nextItem);
+                var str = pattern.Substring(charNdx, k - charNdx + 1);
+                RegExCharset intCharset = new RegExCharset { Start = charNdx, Str = str, Tag = RegExTag.CharSet, Status = (str=="[]") ? RegExStatus.Error : RegExStatus.OK };
+                if (str != "[]")
+                {
+                  nextItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx), Tag = RegExTag.CharRange, Status = RegExStatus.OK };
+                  intCharset.Items.Add(nextItem);
+                }
                 nextItem = intCharset;
                 charNdx += k;
               }
               else
-              if ((charNdx < internString.Length - 2) && (nextChar == '-'))
+              if ((charNdx < pattern.Length - 2) && (nextChar == '-') && (pattern[charNdx+2]!='[') && (pattern[charNdx + 2] != ']'))
               {
-                nextChar = internString[charNdx + 2];
-                nextItem = new RegExCharRange { Start = charNdx + 1, Str = internString.Substring(charNdx, 3), Tag = RegExTag.CharRange, Status = nextChar >= thisChar ? RegExStatus.OK : RegExStatus.Error };
+                nextChar = pattern[charNdx + 2];
+                nextItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, 3), Tag = RegExTag.CharRange, Status = nextChar >= thisChar ? RegExStatus.OK : RegExStatus.Error };
                 charNdx += 2;
               }
               else
-                nextItem = new RegExItem { Start = charNdx + 1, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+                nextItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
               charset.Items.Add(nextItem);
-              charset.Status = nextItem.Status;
+              if (nextItem.Status!=RegExStatus.OK)
+                charset.Status = nextItem.Status;
             }
           }
         }
-        else
-        {
-          charset.Status = RegExStatus.Unfinished;
-        }
       }
       testInputItem.Result = charset.Status;
+      if (testInputItem.Result!=RegExStatus.Error && charNdx<pattern.Length)
+      {
+        var status1 = Tagger.TryParsePattern(pattern.Substring(charNdx));
+        testInputItem.Result = status1;
+        int n = 0;
+        foreach (var newItem in Tagger.Items)
+        {
+          if (n == 0 && (newItem.Tag == RegExTag.Quantifier || newItem.Tag == RegExTag.AltChar) && newItem.Status == RegExStatus.Warning)
+            testInputItem.Result = newItem.Status = RegExStatus.OK;
+          n++;
+          newItem.MoveStart(charNdx);
+          testInputItem.Items.Add(newItem);
+        }
+      }
       TestItem testOutputItem;
       var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
       testOutputData.Add(testOutputItem);
@@ -1449,32 +1512,20 @@ namespace RegExTaggerTest
     /// <param name="shouldSave">if is null then save depends on user decision</param>
     /// <param name="message">message to ask user for decision</param>
     /// <returns></returns>
-    static bool TrySaveTestData(string filename, bool? shouldSave, string message)
+    static bool TrySaveTestData(string filename)
     {
       bool testDataWritten = false;
-      if (filename != null)
+      try
       {
-        if (shouldSave == null)
-        {
-          Console.Write(message + " (Y/N)");
-          var key1 = Console.ReadKey();
-          Console.WriteLine();
-          if (key1.Key == ConsoleKey.Y)
-          {
-            WriteTestData(filename);
-            TestOutput.WriteLine($"written tests: {testOutputData.Count}");
-            TestOutput.WriteLine("");
-            testDataWritten = true;
-          }
-        }
-        else if (shouldSave == true)
-        {
-          TestOutput.WriteLine($"Writting test data to file \"{filename}\\");
-          WriteTestData(filename);
-          TestOutput.WriteLine($"written tests: {testOutputData.Count}");
-          TestOutput.WriteLine("");
-          testDataWritten = true;
-        }
+        TestOutput.WriteLine($"Writting test data to file \"{filename}\\");
+        WriteTestData(filename);
+        TestOutput.WriteLine($"written tests: {testOutputData.Count}");
+        TestOutput.WriteLine("");
+        testDataWritten = true;
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"{ex.GetType().Name}: {ex.Message}");
       }
       return testDataWritten;
     }
@@ -1519,10 +1570,33 @@ namespace RegExTaggerTest
 
     static void ReadTestData(string filename)
     {
-      using (var reader = File.OpenText(filename))
+      var ext = Path.GetExtension(filename)?.ToLowerInvariant();
+
+      if (ext == ".xml")
+        using (var reader = File.OpenText(filename))
+        {
+          TestInputData = (TestData)XamlServices.Load(reader);
+        }
+      else if (ext == ".txt")
+        using (var reader = File.OpenText(filename))
+        {
+          TestInputData = ReadPatterns(reader);
+        }
+    }
+
+    static TestData ReadPatterns(TextReader reader)
+    {
+      TestData result = new TestData();
+      string line;
+      while ((line = reader.ReadLine()) != null)
       {
-        TestInputData = (TestData)XamlServices.Load(reader);
+        if (line != "")
+        {
+          TestItem newItem = new TestItem { Pattern = line };
+          result.Add(newItem);
+        }
       }
+      return result;
     }
 
     static void WriteTestData(string filename)

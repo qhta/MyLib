@@ -16,6 +16,11 @@ namespace Qhta.RegularExpressions
 
     public RegExStatus Status { get; set; }
 
+    public virtual void MoveStart(int delta)
+    {
+      Start += delta;
+    }
+
     public override string ToString()
     {
       return $"{Tag} ({Start}, {Length}) {Status}: {Str}";

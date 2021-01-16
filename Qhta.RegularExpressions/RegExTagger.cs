@@ -533,25 +533,37 @@ namespace Qhta.RegularExpressions
         if (thisChar == '\\')
         {
           isOK = true;
-          if (CharClassEscapeChars.Contains(nextChar))
-          {
-            TagSeq(pattern, charNdx, 2, RegExTag.CharClass, charNdx < pattern.Length - 1 ? RegExStatus.OK : RegExStatus.Unfinished);
-            charNdx++;
-          }
-          else
-          if (nextChar == 'p' || nextChar == 'P')
-          {
-            var status1 = TryParseEscapeSeq(pattern, ref charNdx);
-            isOK = isOK && status != RegExStatus.Error;
-          }
+          var status1 = TryParseEscapeSeq(pattern, ref charNdx);
+          if (status == RegExStatus.Error)
+            isOK = false;
           else
           {
-            TagSeq(pattern, charNdx, 2, RegExTag.EscapedChar, charNdx < pattern.Length - 1 ? RegExStatus.OK : RegExStatus.Unfinished);
-            charNdx++;
+            var lastItem = Items.LastOrDefault();
+            if (lastItem!=null)
+            {
+              if (lastItem.Tag == RegExTag.AnchorControl)
+                lastItem.Tag = RegExTag.EscapedChar;
+              else
+              if (lastItem.Tag == RegExTag.BackRef)
+              {
+                lastItem.Status = RegExStatus.OK;
+                var digit = lastItem.Str[1];
+                if (digit >= '0' && digit <= '7')
+                  lastItem.Tag = RegExTag.OctalString;
+                else
+                  lastItem.Tag = RegExTag.EscapedChar;
+                if (lastItem.Str.Length > 2)
+                {
+                  for (int i = 2; i < lastItem.Str.Length; i++)
+                    Items.Add(new RegExItem { Tag = RegExTag.LiteralChar, Start = lastItem.Start+i, Str = new string(lastItem.Str[i], 1), Status=RegExStatus.OK });
+                  lastItem.Str = lastItem.Str.Substring(0, 2);
+                }
+              }
+            }
           }
         }
         else
-        if (thisChar == ']' && (level > 0 || charNdx == pattern.Length - 1))
+        if (thisChar == ']')          
         {
           isSeq = true;
           break;
@@ -559,14 +571,15 @@ namespace Qhta.RegularExpressions
         else
         if ((thisChar == '-') && (charNdx != seqStart + 1))
         {
-          if (nextChar == '[' && !(charNdx < pattern.Length - 2 && pattern[charNdx + 2] == ']'))
+          if (nextChar == '[' /*&& !(charNdx < pattern.Length - 2 && pattern[charNdx + 2] == ']')*/)
           {
             TagSeq(pattern, charNdx, 1, RegExTag.CharSetControlChar, RegExStatus.OK);
+            //charset.IsNegative = true;
             charNdx++;
             status = TryParseCharset(pattern, ref charNdx, level + 1);
             isOK = isOK && status != RegExStatus.Error;
           }
-          else if (nextChar == ']' && !(charNdx < pattern.Length - 2 && pattern[charNdx + 2] == ']'))
+          else if (nextChar == ']' /*&& !(charNdx < pattern.Length - 2 && pattern[charNdx + 2] == ']')*/)
           {
             TagSeq(pattern, charNdx, 1, RegExTag.LiteralChar, RegExStatus.OK);
             isOK = true;
@@ -598,6 +611,7 @@ namespace Qhta.RegularExpressions
         if (thisChar == '^' && charNdx == seqStart + 1)
         {
           TagSeq(pattern, charNdx, 1, RegExTag.CharSetControlChar, RegExStatus.OK);
+          //charset.IsNegative = true;
         }
         else
         {
