@@ -23,7 +23,7 @@ namespace Qhta.RegularExpressions
 
     public override string ToString()
     {
-      return $"{Tag} ({Start}, {Length}) {Status}: {Str}";
+      return $"{Tag} ({Start}, {Length}) {Status}: \"{Str}\"";
     }
 
     public override bool Equals(object obj)
