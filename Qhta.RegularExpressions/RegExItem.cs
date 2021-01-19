@@ -16,6 +16,8 @@ namespace Qhta.RegularExpressions
 
     public RegExStatus Status { get; set; }
 
+    public virtual RegExItems SubItems => null;
+
     public virtual void MoveStart(int delta)
     {
       Start += delta;

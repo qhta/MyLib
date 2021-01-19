@@ -563,7 +563,7 @@ namespace Qhta.RegularExpressions
           }
         }
         else
-        if (thisChar == ']')          
+        if (thisChar == ']')
         {
           isSeq = true;
           break;
@@ -576,8 +576,8 @@ namespace Qhta.RegularExpressions
             TagSeq(pattern, charNdx, 1, RegExTag.CharSetControlChar, RegExStatus.OK);
             //charset.IsNegative = true;
             charNdx++;
-            status = TryParseCharset(pattern, ref charNdx, level + 1);
-            isOK = isOK && status != RegExStatus.Error;
+            var status1 = TryParseCharset(pattern, ref charNdx, level + 1);
+            isOK = isOK && status1 != RegExStatus.Error;
           }
           else if (nextChar == ']' /*&& !(charNdx < pattern.Length - 2 && pattern[charNdx + 2] == ']')*/)
           {
@@ -611,7 +611,6 @@ namespace Qhta.RegularExpressions
         if (thisChar == '^' && charNdx == seqStart + 1)
         {
           TagSeq(pattern, charNdx, 1, RegExTag.CharSetControlChar, RegExStatus.OK);
-          //charset.IsNegative = true;
         }
         else
         {

@@ -1,9 +1,14 @@
-﻿\$\d+
-[$]\d+
-[\p{L}\d-_]
-[a-z-[d-w]]
-[\p{L}-\p{Ll}]
-\G(.+)[\t\u007c](.+)\r?\n
-gr[ae]y\s\S+?[\s\p{P}]
-\bth[^o]\w+\b
-\b.*[.?!;:](\s|\z)
+﻿\G ( . + ) [ \t \u007c ] ( . + ) \r ? \n
+├┘ │ │ │ │ │ ├┘ ├────┘ │ │ │ │ │ ├┘ │ └┴ EscapedChar (23, 2) OK: "\n"
+│  │ │ │ │ │ │  │      │ │ │ │ │ │  └ Quantifier (22, 1) OK: "?"
+│  │ │ │ │ │ │  │      │ │ │ │ │ └ EscapedChar (20, 2) OK: "\r"
+│  │ │ │ │ │ │  │      │ │ │ └─│─ Quantifier (18, 1) OK: "+"
+│  │ │ │ │ │ │  │      │ │ └───│─ DotChar (17, 1) OK: "."
+│  │ │ │ │ │ │  │      │ └─────┴ Subexpression (16, 4) OK: "(.+)"
+│  │ │ │ │ │ │  └──────│─ UnicodeSeq (9, 6) OK: "\u007c"
+│  │ │ │ │ │ └─────────│─ EscapedChar (7, 2) OK: "\t"
+│  │ │ │ │ └───────────┴ CharSet (6, 10) OK: "[\t\u007c]"
+│  │ │ └─│─ Quantifier (4, 1) OK: "+"
+│  │ └───│─ DotChar (3, 1) OK: "."
+│  └─────┴ Subexpression (2, 4) OK: "(.+)"
+└ AnchorControl (0, 2) OK: "\G"

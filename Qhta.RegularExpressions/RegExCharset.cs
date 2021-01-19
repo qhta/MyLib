@@ -13,6 +13,8 @@ namespace Qhta.RegularExpressions
 
     public RegExItems Items { get; private set; } = new RegExItems();
 
+    public override RegExItems SubItems => Items;
+
     public bool IsEmpty => Items.Count == 0 || Items.Count == 1 && Items[0].Tag == RegExTag.CharSetControlChar;
 
     public override void MoveStart(int delta)

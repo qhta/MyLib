@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColoredChar.cs" />
+    <Compile Include="ColoredString.cs" />
+    <Compile Include="ColoredText.cs" />
+    <Compile Include="GraphItem.cs" />
+    <Compile Include="GraphItems.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData.cs" />
