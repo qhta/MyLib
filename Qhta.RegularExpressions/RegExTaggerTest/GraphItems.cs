@@ -21,22 +21,22 @@ namespace RegExTaggerTest
         item.ColStart = column;
         column += item.ColCount;
         if (item.SubItems != null)
-          item.SubItems.Reposition(item.ColStart + 2);
+          item.SubItems.Reposition(item.ColStart + item.BeginStr.Length);
       }
     }
 
     public List<GraphItem> ToList()
     {
-      List<GraphItem> itemsList = new List<GraphItem>();
+      List<GraphItem> items = new List<GraphItem>();
       foreach (var item in this)
       {
-        itemsList.Add(item);
+        items.Add(item);
         if (item.SubItems != null)
         {
-          itemsList.AddRange(item.SubItems.ToList());
+          items.AddRange(item.SubItems.ToList());
         }
       }
-      return itemsList;
+      return items;
     }
 
     public string PlainText

@@ -8,7 +8,37 @@ namespace Qhta.RegularExpressions
 {
   public class RegExCharRange: RegExItem
   {
-    public Char FirstChar => Str.FirstOrDefault();
-    public Char LastChar => Str.LastOrDefault();
+    public RegExItem FirstChar => Items.FirstOrDefault();
+    public RegExItem LastChar => Items.LastOrDefault();
+
+    public RegExItems Items { get; private set; } = new RegExItems();
+
+    public override RegExItems SubItems => Items;
+
+    public bool IsEmpty => Items.Count == 0 || Items.Count == 1 && Items[0].Tag == RegExTag.CharSetControlChar;
+
+    public override void MoveStart(int delta)
+    {
+      foreach (var item in Items)
+        item.MoveStart(delta);
+      base.MoveStart(delta);
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (obj is RegExCharset other)
+      {
+        if (this.Items == null || !this.Items.Equals(other.Items))
+          return false;
+        return base.Equals(obj);
+      }
+      return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return base.GetHashCode();
+    }
+
   }
 }

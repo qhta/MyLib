@@ -16,6 +16,16 @@ namespace Qhta.RegularExpressions
     const string DecimalDigits = "0123456789";
     const string HexadecimalDigits = "0123456789ABCDEFabcdef";
 
+    static RegExTag[] CharRangeTags = new RegExTag[]
+    {
+      RegExTag.LiteralChar,
+      RegExTag.EscapedChar,
+      RegExTag.OctalSeq,
+      RegExTag.HexadecimalSeq,
+      RegExTag.UnicodeSeq,
+      RegExTag.ControlCharSeq,
+    };
+
     private Stack<RegExItems> RegExStack = new Stack<RegExItems>();
 
     public RegExItems Items = new RegExItems();
@@ -55,7 +65,7 @@ namespace Qhta.RegularExpressions
       {
         status = TryParseReplacePattern(pattern, ref charNdx, finalSep);
       }
-      NormalizeTags(Items);
+      NormalizeItems(Items);
       return status;
     }
 
@@ -360,7 +370,7 @@ namespace Qhta.RegularExpressions
       {
         charNdx += 2;
         status = RegExStatus.OK;
-        TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.OctalString, status);
+        TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.OctalSeq, status);
       }
       else
       {
@@ -549,7 +559,7 @@ namespace Qhta.RegularExpressions
                 lastItem.Status = RegExStatus.OK;
                 var digit = lastItem.Str[1];
                 if (digit >= '0' && digit <= '7')
-                  lastItem.Tag = RegExTag.OctalString;
+                  lastItem.Tag = RegExTag.OctalSeq;
                 else
                   lastItem.Tag = RegExTag.EscapedChar;
                 if (lastItem.Str.Length > 2)
@@ -717,7 +727,7 @@ namespace Qhta.RegularExpressions
       if (isOK)
         isOK = Items.Count > 0 && Items.Last().Tag != RegExTag.Quantifier;
       var status = isOK ? RegExStatus.OK : RegExStatus.Warning;
-      charNdx = seqStart + seqLength - 1;
+      charNdx = seqStart + seqLength;
       TagSeq(pattern, seqStart, charNdx - seqStart + 1, RegExTag.Quantifier, status);
       return status;
     }
@@ -759,11 +769,12 @@ namespace Qhta.RegularExpressions
 
     /// <summary>
     /// This method joins literal chars to literalstring
+    /// and produces normalized RegExCharRange items
     /// </summary>
     /// <param name="items"></param>
-    private void NormalizeTags(RegExItems items)
+    private void NormalizeItems(RegExItems items)
     {
-      for (int i = items.Count - 1; i > 0; i--)
+      for (int i = items.Count - 1; i >= 0; i--)
       {
         var item = items[i];
         if (item.Tag == RegExTag.Quantifier)
@@ -772,16 +783,71 @@ namespace Qhta.RegularExpressions
         }
         else if (item.Tag == RegExTag.LiteralChar || item.Tag == RegExTag.LiteralString)
         {
-          var priorItem = items[i - 1];
-          if (priorItem.Tag == RegExTag.LiteralChar || priorItem.Tag == RegExTag.LiteralString)
+          if (i > 0)
           {
-            priorItem.Tag = RegExTag.LiteralString;
-            priorItem.Str += item.Str;
-            items.RemoveAt(i);
+            var priorItem = items[i - 1];
+            if (priorItem.Tag == RegExTag.LiteralChar || priorItem.Tag == RegExTag.LiteralString)
+            {
+              priorItem.Tag = RegExTag.LiteralString;
+              priorItem.Str += item.Str;
+              items.RemoveAt(i);
+            }
           }
         }
-        else if (item is RegExGroup group)
-          NormalizeTags(group.Items);
+        else if (item is RegExGroup)
+          NormalizeItems(item.SubItems);
+        else if (item is RegExCharset)
+          NormalizeCharsetItems(item.SubItems);
+      }
+    }
+
+    private void NormalizeCharsetItems(RegExItems items)
+    {
+      for (int i = items.Count - 1; i >= 0; i--)
+      {
+        var item = items[i];
+        if (item.Str == "-")
+        {
+          if (i < items.Count - 1 && i > 0)
+          {
+            var priorItem = items[i - 1];
+            var nextItem = items[i + 1];
+            if (CharRangeTags.Contains(priorItem.Tag) && CharRangeTags.Contains(nextItem.Tag))
+            {
+              var str = priorItem.Str + item.Str + nextItem.Str;
+              var isOK = priorItem.CharValue <= nextItem.CharValue;
+              var rangeItem = new RegExCharRange { Tag = RegExTag.CharRange, Start = priorItem.Start, Str = str, Status = isOK ? RegExStatus.OK : RegExStatus.Error};
+              rangeItem.SubItems.Add(priorItem);
+              item.Tag = RegExTag.CharSetControlChar;
+              rangeItem.SubItems.Add(item);
+              rangeItem.SubItems.Add(nextItem);
+              items.RemoveAt(i - 1);
+              items.RemoveAt(i - 1);
+              items.RemoveAt(i - 1);
+              items.Insert(i - 1, rangeItem);
+              i--;
+            }
+          }
+        }
+        else
+        if (item.Tag == RegExTag.CharRange && item.SubItems.Count==0)
+        {
+          var k = item.Str.IndexOf('-');
+          if (k > 0 && k< item.Str.Length-1)
+          {
+            var s1 = item.Str.Substring(0, k);
+            var s2 = item.Str.Substring(k + 1);
+            RegExItem priorItem = new RegExItem { Tag=RegExTag.LiteralChar, Start= item.Start, Str = s1, Status = RegExStatus.OK };
+            RegExItem midItem = new RegExItem { Tag = RegExTag.CharSetControlChar, Start = priorItem.Start+ priorItem.Length, Str = "-", Status = RegExStatus.OK };
+            RegExItem nextItem = new RegExItem { Tag = RegExTag.LiteralChar, Start = midItem.Start+midItem.Length, Str = s2, Status = RegExStatus.OK };
+            item.SubItems.Add(priorItem);
+            item.SubItems.Add(midItem);
+            item.SubItems.Add(nextItem);
+          }
+        }
+        else
+        if (item is RegExCharset)
+          NormalizeCharsetItems(item.SubItems);
       }
     }
   }

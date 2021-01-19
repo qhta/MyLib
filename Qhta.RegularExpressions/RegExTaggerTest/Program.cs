@@ -779,7 +779,7 @@ namespace RegExTaggerTest
         }
         else
         {
-          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.OctalString, Status = RegExStatus.OK };
+          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.OctalSeq, Status = RegExStatus.OK };
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
         }
@@ -1350,7 +1350,7 @@ namespace RegExTaggerTest
                 }
                 else
                 if (nextChar >= '0' && nextChar <= '8')
-                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.OctalString, Status = RegExStatus.OK };
+                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.OctalSeq, Status = RegExStatus.OK };
                 else
                   nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
                 charset.Items.Add(nextItem);
@@ -1736,27 +1736,36 @@ namespace RegExTaggerTest
             //patternColors[item.ColStart + item.Length - 1] = color;
             if (item.SubItems != null)
             {
-              for (int j = 0; j < item.SubItems.Count; j++)
+              for (int y = yMax-1; y>=0; y--)
               {
-                ConsoleColor lineColor = ConsoleColor.White;
+                ConsoleColor lineColor = ConsoleColor.Black;
                 for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
                 {
-                  if (frameMatrix[x, yMax - j - 1].Value != ' ')
+                  var curChar = frameMatrix[x, y].Value;
+                  if (curChar == '└' || curChar == '─' || curChar == '┴')
                   {
-                    lineColor = frameMatrix[x, yMax - j - 1].Color;
+                    lineColor = frameMatrix[x, y].Color;
                     break;
-                  }
-                }
-                for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
-                {
-                  if (frameMatrix[x, yMax - j - 1].Value == ' ')
-                  {
-                    frameMatrix[x, yMax - j - 1] = new ColoredChar('─', lineColor);
                   }
                   else
+                  if (curChar != ' ')
+                  {
                     break;
+                  }
                 }
-                frameMatrix[item.ColStart + item.ColCount-1, yMax - j - 1] = new ColoredChar('─', lineColor);
+                if (lineColor != ConsoleColor.Black)
+                {
+                  for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
+                  {
+                    if (frameMatrix[x, y].Value == ' ')
+                    {
+                      frameMatrix[x, y] = new ColoredChar('─', lineColor);
+                    }
+                    else
+                      break;
+                  }
+                  frameMatrix[item.ColStart + item.ColCount - 1, y] = new ColoredChar('─', lineColor);
+                }
               }
             }
           }
@@ -1808,25 +1817,31 @@ namespace RegExTaggerTest
       }
     }
 
-    static void SetupColors(List<GraphItem> items, int colorIndex = 0, ConsoleColor groupColor = ConsoleColor.Black)
+    static int SetupColors(List<GraphItem> items, int colorIndex = 0, ConsoleColor groupColor = ConsoleColor.Black)
     {
+      var lastColorIndex = -1;
+      ConsoleColor itemColor = ConsoleColor.Black;
       for (int i = 0; i < items.Count; i++)
       {
         var item = items[i];
         int index = item.Start;
-        var itemColor = ConsoleColors[colorIndex];
+        itemColor = ConsoleColors[colorIndex];
         if (i == items.Count - 1 && itemColor == groupColor)
         {
           colorIndex = (colorIndex + 1) % ConsoleColors.Count();
           itemColor = ConsoleColors[colorIndex];
         }
         item.Color = itemColor;
+        lastColorIndex = colorIndex;
         colorIndex = (colorIndex + 1) % ConsoleColors.Count();
         if (item.SubItems != null)
         {
-          SetupColors(item.SubItems, colorIndex, itemColor);
+          var  lastColor = SetupColors(item.SubItems, colorIndex, itemColor);
+          if (lastColor == colorIndex)
+            colorIndex = (colorIndex + 1) % ConsoleColors.Count();
         }
       }
+      return lastColorIndex;
     }
   }
 }

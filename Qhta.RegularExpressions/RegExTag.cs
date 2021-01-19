@@ -12,7 +12,7 @@
     DotChar,
     CharClass,
     ControlCharSeq,
-    OctalString,
+    OctalSeq,
     HexadecimalSeq,
     UnicodeSeq,
     UnicodeCategorySeq,

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Qhta.RegularExpressions
@@ -17,6 +19,34 @@ namespace Qhta.RegularExpressions
     public RegExStatus Status { get; set; }
 
     public virtual RegExItems SubItems => null;
+
+    public char CharValue
+    {
+      get
+      {
+        switch (Tag)
+        {
+          case RegExTag.LiteralChar:
+            return Str.FirstOrDefault();
+          case RegExTag.OctalSeq:
+            int n = 0;
+            for (int i = 1; i < Str.Length; i++)
+              n = n * 8 + Str[i] - '0';
+            return (char)n;
+          case RegExTag.HexadecimalSeq:
+          case RegExTag.UnicodeSeq:
+            if (Str.Length>2)
+              return (char)Int32.Parse(Str.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            return '\0';
+          case RegExTag.ControlCharSeq:
+            if (Str.Length > 2)
+              return (char)(Str[2] - '@');
+            return '\0';
+          default:
+            return '\0';
+        }
+      }
+    }
 
     public virtual void MoveStart(int delta)
     {
