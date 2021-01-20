@@ -720,9 +720,9 @@ namespace Qhta.RegularExpressions
         else
           break;
       }
-      if (!isSeq || seqLength <= 2)
+      if (!isSeq)
         return RegExStatus.Unfinished;
-
+      
       bool isOK = nums[0] > 0 && (nums[1] == 0 || nums[1] > nums[0]);
       if (isOK)
         isOK = Items.Count > 0 && Items.Last().Tag != RegExTag.Quantifier;

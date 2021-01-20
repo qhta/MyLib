@@ -111,7 +111,7 @@ namespace RegExTaggerTest
       }
     }
 
-    public ConsoleColor Color { get; set; } = ConsoleColor.White;
+    public int Color { get; set; } = 0xFFFFFF;
 
     public GraphItems SubItems { get; private set; }
 

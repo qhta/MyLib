@@ -5,9 +5,9 @@ namespace RegExTaggerTest
   public struct ColoredString
   {
     public String Value;
-    public ConsoleColor Color;
+    public int Color;
 
-    public ColoredString(String value, ConsoleColor color)
+    public ColoredString(String value, int color)
     {
       Value = value;
       Color = color;

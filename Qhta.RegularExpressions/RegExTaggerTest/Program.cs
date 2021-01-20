@@ -1667,7 +1667,7 @@ namespace RegExTaggerTest
     {
       GraphItems graphItems = new GraphItems(items);
       List<GraphItem> itemsList = graphItems.ToList();
-      SetupColors(graphItems);
+      SetupColors(itemsList);
       var plainText = graphItems.PlainText;
       var xCount = plainText.Length + 1;
       var yCount = itemsList.Count;
@@ -1675,7 +1675,7 @@ namespace RegExTaggerTest
       for (int x = 0; x < xCount; x++)
         for (int y = 0; y < yCount; y++)
         {
-          frameMatrix[x, y] = new ColoredChar(' ', ConsoleColor.White);
+          frameMatrix[x, y] = new ColoredChar(' ', 0xFFFFFF);
         }
 
       for (int i = itemsList.Count - 1; i >= 0; i--)
@@ -1683,7 +1683,7 @@ namespace RegExTaggerTest
         var item = itemsList[i];
 
         int yMax = yCount - i - 1;
-        ConsoleColor color = item.Color;
+        int color = item.Color;
 
         if (item.SubItems == null && yMax!=0)
         {
@@ -1738,7 +1738,7 @@ namespace RegExTaggerTest
             {
               for (int y = yMax-1; y>=0; y--)
               {
-                ConsoleColor lineColor = ConsoleColor.Black;
+                int lineColor = -1;
                 for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
                 {
                   var curChar = frameMatrix[x, y].Value;
@@ -1753,7 +1753,7 @@ namespace RegExTaggerTest
                     break;
                   }
                 }
-                if (lineColor != ConsoleColor.Black)
+                if (lineColor != -1)
                 {
                   for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
                   {
@@ -1777,7 +1777,7 @@ namespace RegExTaggerTest
         var coloredText = graphItems.ColoredText;
         foreach (var item in coloredText)
         { 
-          Console.ForegroundColor = item.Color;
+          Console.ForegroundColor = GetConsoleColor(item.Color);
           Console.Write(item.Value);
         }
         Console.WriteLine();
@@ -1794,7 +1794,7 @@ namespace RegExTaggerTest
         {
           for (int x = 0; x < l; x++)
           {
-            Console.ForegroundColor = frameMatrix[x, yMax].Color;
+            Console.ForegroundColor = GetConsoleColor(frameMatrix[x, yMax].Color);
             Console.Write(frameMatrix[x, yMax].Value);
           }
           Console.WriteLine(" "+item.ToString());
@@ -1817,19 +1817,45 @@ namespace RegExTaggerTest
       }
     }
 
-    static int SetupColors(List<GraphItem> items, int colorIndex = 0, ConsoleColor groupColor = ConsoleColor.Black)
+    /// <summary>
+    /// Setup colors in list of graph items and keep each adjacent colors different
+    /// </summary>
+    /// <param name="items"></param>
+    static void SetupColors(List<GraphItem> items)
+    {
+      SetupColors(items, 0, -1);
+      int priorColor = -1;
+      foreach (var item in items)
+      {
+        if (item.Color == priorColor)
+        {
+          item.Color = (item.Color + 1) % ConsoleColors.Count;
+        }
+        priorColor = item.Color;
+      }
+    }
+
+    /// <summary>
+    /// Recurrent method of colors setup. 
+    /// When iterate in subitems, it keeps that the last subitem will have different color than closing mark of the group.
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="colorIndex"></param>
+    /// <param name="groupColor"></param>
+    /// <returns></returns>
+    static int SetupColors(List<GraphItem> items, int colorIndex, int groupColor)
     {
       var lastColorIndex = -1;
-      ConsoleColor itemColor = ConsoleColor.Black;
+      int itemColor = -1;
       for (int i = 0; i < items.Count; i++)
       {
         var item = items[i];
         int index = item.Start;
-        itemColor = ConsoleColors[colorIndex];
+        itemColor = colorIndex;
         if (i == items.Count - 1 && itemColor == groupColor)
         {
           colorIndex = (colorIndex + 1) % ConsoleColors.Count();
-          itemColor = ConsoleColors[colorIndex];
+          itemColor = colorIndex;
         }
         item.Color = itemColor;
         lastColorIndex = colorIndex;
@@ -1842,6 +1868,13 @@ namespace RegExTaggerTest
         }
       }
       return lastColorIndex;
+    }
+
+    static ConsoleColor GetConsoleColor(int colorIndex)
+    {
+      if (colorIndex == 0xFFFFFF)
+        return ConsoleColor.White;
+      return ConsoleColors[colorIndex];
     }
   }
 }
