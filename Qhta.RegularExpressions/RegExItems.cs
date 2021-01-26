@@ -90,7 +90,7 @@ namespace Qhta.RegularExpressions
         }
         if (this.Count!=other.Count)
         {
-          new Inequality { Property = "Count", Obtained = this.Count, Expected = other.Count };
+          Inequality = new Inequality { Property = "Count", Obtained = this.Count, Expected = other.Count };
         }
         return result;
       }

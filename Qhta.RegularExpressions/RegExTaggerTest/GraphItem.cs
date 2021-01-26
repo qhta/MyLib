@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,7 +58,10 @@ namespace RegExTaggerTest
           var firstItem = SubItems.FirstOrDefault();
           if (firstItem!=null)
           {
-            return Str.Substring(0, firstItem.Start-this.Start) + " ";
+            var length = firstItem.Start - this.Start;
+            Debug.Assert(length >= 0, $"BeingStr invalid length {length} < 0 ");
+            Debug.Assert(length <= Str.Length, $"EndStr invalid length {length} > {Str.Length} ");
+            return Str.Substring(0, length) + " ";
           }
         }
         return Str+" ";
@@ -73,7 +77,12 @@ namespace RegExTaggerTest
           var lastItem = SubItems.LastOrDefault();
           if (lastItem != null)
           {
-            return Str.Substring(lastItem.Start-this.Start+lastItem.Length) + " ";
+            var start = lastItem.Start - this.Start + lastItem.Length;
+            Debug.Assert(start >= 0, $"EndStr invalid start {start} < 0 ") ;
+            if (start == Str.Length)
+              return "";
+            Debug.Assert(start < Str.Length, $"EndStr invalid start {start} >= {Str.Length} ");
+            return Str.Substring(start) + " ";
           }
         }
         return "";

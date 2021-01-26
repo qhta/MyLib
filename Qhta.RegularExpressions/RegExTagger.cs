@@ -252,14 +252,17 @@ namespace Qhta.RegularExpressions
 
     private RegExStatus TryParseGroupName(string pattern, ref int charNdx, RegExGroup group, char finalSep)
     {
+      TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+      charNdx++;
       RegExStatus status = RegExStatus.Unfinished;
       string name = null;
       int seqStart = charNdx;
       RegExItem nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx };
       group.Items.Add(nameItem);
-      for (charNdx++; charNdx <= pattern.Length; charNdx++)
+      char thisChar = '\0';
+      for (; charNdx <= pattern.Length; charNdx++)
       {
-        var thisChar = charNdx<pattern.Length ? pattern[charNdx] : '\0';
+        thisChar = charNdx<pattern.Length ? pattern[charNdx] : '\0';
         if (thisChar == '\0')
         {
           status = RegExStatus.Unfinished;
@@ -278,7 +281,8 @@ namespace Qhta.RegularExpressions
             status = RegExStatus.OK;
           name += thisChar;
         }
-        else if (char.IsDigit(thisChar))
+        else 
+        if (char.IsDigit(thisChar))
         {
           if (name == null)
             status = RegExStatus.Warning;
@@ -287,9 +291,21 @@ namespace Qhta.RegularExpressions
             status = RegExStatus.OK;
           name += thisChar;
         }
-        else if (thisChar == finalSep)
+        else 
+        if (thisChar=='-')
         {
-          charNdx++;
+          group.Tag = RegExTag.BalancingGroup;
+          nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
+          nameItem.Status = status;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx+1 };
+          group.Items.Add(nameItem);
+          name = null;
+          seqStart = charNdx+1;
+        }
+        else 
+        if (thisChar == finalSep)
+        {
           break;
         }
         else
@@ -298,9 +314,13 @@ namespace Qhta.RegularExpressions
           break;
         }
       }
-      var len = charNdx - seqStart;
-      nameItem.Str = GetSubstring(pattern, seqStart, len);
+      nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
       nameItem.Status = status;
+      if (thisChar == finalSep)
+      {
+        TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+        charNdx++;
+      }
       group.Name = name;
       return status;
     }

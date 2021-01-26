@@ -28,7 +28,7 @@ namespace Qhta.RegularExpressions
       {
         if (this.Name != other.Name)
         {
-          Inequality = new Inequality { Property = "Name", Obtained = this.Name, Expected = other.Name };
+          AddInequality(new Inequality { Property = "Name", Obtained = this.Name, Expected = other.Name });
           return false;
         }
         return true;
@@ -39,6 +39,13 @@ namespace Qhta.RegularExpressions
     public override int GetHashCode()
     {
       return base.GetHashCode();
+    }
+    public override string ToString()
+    {
+      var result = $"{Tag} \'{Name}\' ({Start}, {Length}) {Status}: \"{Str}\"";
+      if (Inequalities != null)
+        result += $" expected {Inequalities.ToString()}";
+      return result;
     }
   }
 }

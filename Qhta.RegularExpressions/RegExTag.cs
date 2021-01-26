@@ -22,6 +22,7 @@
     GroupControlChar,
     GroupName,
     NamedGroup,
+    BalancingGroup,
     BackRef,
   }
 }

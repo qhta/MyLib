@@ -59,18 +59,18 @@ namespace Qhta.RegularExpressions
     public override string ToString()
     {
       var result = $"{Tag} ({Start}, {Length}) {Status}: \"{Str}\"";
-      if (Inequality != null)
-        result += $" expected {Inequality.Property}={Inequality.Expected}";
+      if (Inequalities != null)
+        result += $" expected {Inequalities.ToString()}";
       return result;
     }
 
     public override bool Equals(object obj)
     {
-      Inequality = null;
+      Inequalities = null;
       bool result = true;
       if (obj!=null && this.GetType() != obj.GetType())
       {
-        Inequality = new Inequality { Property = "Type", Obtained = this.GetType(), Expected = obj.GetType() };
+        AddInequality(new Inequality { Property = "Type", Obtained = this.GetType(), Expected = obj.GetType() });
         result = false;
       }
 
@@ -78,34 +78,34 @@ namespace Qhta.RegularExpressions
       {
         if (this.Tag != other.Tag)
         {
-          Inequality = new Inequality { Property = "Tag", Obtained = this.Tag, Expected = other.Tag };
+          AddInequality(new Inequality { Property = "Tag", Obtained = this.Tag, Expected = other.Tag });
           result = false;
         }
         if (this.Status != other.Status)
         {
-          Inequality = new Inequality { Property = "Status", Obtained = this.Status, Expected = other.Status };
+          AddInequality(new Inequality { Property = "Status", Obtained = this.Status, Expected = other.Status });
           result = false;
         }
         if (this.Start != other.Start)
         {
-          Inequality = new Inequality { Property = "Start", Obtained = this.Start, Expected = other.Start };
+          AddInequality(new Inequality { Property = "Start", Obtained = this.Start, Expected = other.Start });
           result = false;
         }
         if (this.Length != other.Length)
         {
-          Inequality = new Inequality { Property = "Length", Obtained = this.Length, Expected = other.Length };
+          AddInequality(new Inequality { Property = "Length", Obtained = this.Length, Expected = other.Length });
           result = false;
         }
         if (this.Str != other.Str)
         {
-          Inequality = new Inequality { Property = "Str", Obtained = this.Str, Expected = other.Str };
+          AddInequality(new Inequality { Property = "Str", Obtained = this.Str, Expected = other.Str });
           result = false;
         }
         if (this.SubItems != null && other.SubItems != null && !this.SubItems.Equals(other.SubItems))
           result = false;
         if (this.SubItems?.Count != other.SubItems?.Count)
         {
-          Inequality = new Inequality { Property = "SubItems.Count", Obtained = this.SubItems.Count, Expected = other.SubItems.Count };
+          AddInequality(new Inequality { Property = "SubItems.Count", Obtained = this.SubItems.Count, Expected = other.SubItems.Count });
           result = false;
         }
         return result;
@@ -113,7 +113,15 @@ namespace Qhta.RegularExpressions
       return false;
     }
 
-    public Inequality Inequality { get; protected set; }
+    protected void AddInequality(Inequality item)
+    {
+      if (Inequalities == null)
+        Inequalities = new Inequalities();
+      Inequalities.Add(item);
+    }
+
+
+    public Inequalities Inequalities { get; private set; }
 
     public override int GetHashCode()
     {
