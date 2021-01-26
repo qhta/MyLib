@@ -18,30 +18,27 @@ namespace Qhta.RegularExpressions
 
     public override RegExItems SubItems => Items;
 
-    public override void MoveStart(int delta)
-    {
-      foreach (var item in Items)
-        item.MoveStart(delta);
-      base.MoveStart(delta);
-    }
-
     public override bool Equals(object obj)
     {
+      var result = base.Equals(obj);
+      if (!result)
+        return false;
+
       if (obj is RegExGroup other)
       {
         if (this.Name != other.Name)
+        {
+          Inequality = new Inequality { Property = "Name", Obtained = this.Name, Expected = other.Name };
           return false;
-        if (this.Items != null && !this.Items.Equals(other.Items))
-          return false;
-        return base.Equals(obj);
+        }
+        return true;
       }
-      return base.Equals(obj);
+      return false;
     }
 
     public override int GetHashCode()
     {
       return base.GetHashCode();
     }
-
   }
 }

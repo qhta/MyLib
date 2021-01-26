@@ -51,31 +51,69 @@ namespace Qhta.RegularExpressions
     public virtual void MoveStart(int delta)
     {
       Start += delta;
+      if (SubItems!=null)
+      foreach (var item in SubItems)
+        item.MoveStart(delta);
     }
 
     public override string ToString()
     {
-      return $"{Tag} ({Start}, {Length}) {Status}: \"{Str}\"";
+      var result = $"{Tag} ({Start}, {Length}) {Status}: \"{Str}\"";
+      if (Inequality != null)
+        result += $" expected {Inequality.Property}={Inequality.Expected}";
+      return result;
     }
 
     public override bool Equals(object obj)
     {
+      Inequality = null;
+      bool result = true;
+      if (obj!=null && this.GetType() != obj.GetType())
+      {
+        Inequality = new Inequality { Property = "Type", Obtained = this.GetType(), Expected = obj.GetType() };
+        result = false;
+      }
+
       if (obj is RegExItem other)
       {
         if (this.Tag != other.Tag)
-          return false;
+        {
+          Inequality = new Inequality { Property = "Tag", Obtained = this.Tag, Expected = other.Tag };
+          result = false;
+        }
         if (this.Status != other.Status)
-          return false;
+        {
+          Inequality = new Inequality { Property = "Status", Obtained = this.Status, Expected = other.Status };
+          result = false;
+        }
         if (this.Start != other.Start)
-          return false;
+        {
+          Inequality = new Inequality { Property = "Start", Obtained = this.Start, Expected = other.Start };
+          result = false;
+        }
         if (this.Length != other.Length)
-          return false;
+        {
+          Inequality = new Inequality { Property = "Length", Obtained = this.Length, Expected = other.Length };
+          result = false;
+        }
         if (this.Str != other.Str)
-          return false;
-        return true;
+        {
+          Inequality = new Inequality { Property = "Str", Obtained = this.Str, Expected = other.Str };
+          result = false;
+        }
+        if (this.SubItems != null && other.SubItems != null && !this.SubItems.Equals(other.SubItems))
+          result = false;
+        if (this.SubItems?.Count != other.SubItems?.Count)
+        {
+          Inequality = new Inequality { Property = "SubItems.Count", Obtained = this.SubItems.Count, Expected = other.SubItems.Count };
+          result = false;
+        }
+        return result;
       }
-      return base.Equals(obj);
+      return false;
     }
+
+    public Inequality Inequality { get; protected set; }
 
     public override int GetHashCode()
     {

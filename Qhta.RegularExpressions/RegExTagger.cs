@@ -112,6 +112,24 @@ namespace Qhta.RegularExpressions
             status1 = RegExStatus.OK;
             TagSeq(pattern, charNdx, 1, RegExTag.AnchorControl, RegExStatus.OK);
             break;
+          case '|':
+            var nextChar = (charNdx < pattern.Length - 1) ? pattern[charNdx + 1] : '\0';
+            status1 = RegExStatus.OK;
+            if (charNdx <= seqStart) 
+              status1 = RegExStatus.Warning;
+            else if (nextChar=='\0')
+              status1 = RegExStatus.Unfinished;
+            else if (nextChar == ')')
+              status1 = RegExStatus.Error;
+            TagSeq(pattern, charNdx, 1, RegExTag.AltChar, status1);
+            status = RegExTools.Max(status, status1);
+            charNdx++;
+            if (charNdx < pattern.Length)
+            {
+              status1 = TryParseSearchPattern(pattern, ref charNdx, finalSep);
+              status = RegExTools.Max(status, status1);
+            }
+            return status;
           default:
             if (thisChar == finalSep)
               return status;
@@ -119,19 +137,6 @@ namespace Qhta.RegularExpressions
             {
               status1 = RegExStatus.Error;
               TagSeq(pattern, charNdx, 1, RegExTag.Subexpression, status1);
-            }
-            else if (thisChar == '|')
-            {
-              status1 = (charNdx > seqStart && charNdx < pattern.Length - 1) ? RegExStatus.OK : RegExStatus.Warning;
-              TagSeq(pattern, charNdx, 1, RegExTag.AltChar, status1);
-              status = RegExTools.Max(status, status1);
-              charNdx++;
-              if (charNdx < pattern.Length)
-              {
-                status1 = TryParseSearchPattern(pattern, ref charNdx, finalSep);
-                status = RegExTools.Max(status, status1);
-              }
-              return status;
             }
             else
             {
@@ -186,17 +191,37 @@ namespace Qhta.RegularExpressions
       var thisChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
       if (thisChar == '?')
       {
-        TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+        var groupControlChar = TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
         charNdx++;
-        thisChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
-        if (thisChar == '<')
+        var nextChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
+        if (nextChar == '\0')
+        {
+          groupControlChar.Status = RegExStatus.OK;
+          status = RegExStatus.Unfinished;
+        }
+        else 
+        if (nextChar == '<')
           status = TryParseNamedGroup(pattern, ref charNdx, group, '>');
         else
-        if (thisChar == '\'')
+        if (nextChar == '\'')
           status = TryParseNamedGroup(pattern, ref charNdx, group, '\'');
+        else
+        {
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (group.Items.Count > 1 && group.Items[1].Tag == RegExTag.Quantifier && group.Items[1].Status == RegExStatus.OK)
+            group.Items[1].Status = RegExStatus.Warning;
+          groupControlChar.Status = RegExStatus.Warning;
+          status = RegExStatus.Warning;
+        }
       }
       else
-        status = TryParsePattern(pattern, ref charNdx, ')');
+      {
+        var status1 = TryParsePattern(pattern, ref charNdx, ')');
+        if (status1 == RegExStatus.Unfinished)
+          status = RegExStatus.Unfinished;
+        else
+          status = RegExStatus.OK;
+      }
       bool isSeq = charNdx < pattern.Length && pattern[charNdx] == ')';
       if (isSeq)
       {
@@ -216,10 +241,11 @@ namespace Qhta.RegularExpressions
     {
       group.Tag = RegExTag.NamedGroup;
       var status = TryParseGroupName(pattern, ref charNdx, group, nameEnd);
-      if (status == RegExStatus.OK)
+      if (status != RegExStatus.Unfinished)
       {
-        charNdx++;
-        status = TryParsePattern(pattern, ref charNdx, ')');
+        var status1 = TryParsePattern(pattern, ref charNdx, ')');
+        if (status1 > status)
+          status = status1;
       }
       return status;
     }
@@ -229,31 +255,41 @@ namespace Qhta.RegularExpressions
       RegExStatus status = RegExStatus.Unfinished;
       string name = null;
       int seqStart = charNdx;
-      RegExItem nameItem = new RegExItem { Tag = RegExTag.GroupName, Start = charNdx };
+      RegExItem nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx };
       group.Items.Add(nameItem);
-      for (charNdx++; charNdx < pattern.Length; charNdx++)
+      for (charNdx++; charNdx <= pattern.Length; charNdx++)
       {
-        var thisChar = pattern[charNdx];
-        if (thisChar >= 'a' && thisChar <= 'z'
-              || thisChar >= 'A' && thisChar <= 'A'
-              || thisChar == '_'
-              )
+        var thisChar = charNdx<pattern.Length ? pattern[charNdx] : '\0';
+        if (thisChar == '\0')
         {
-          status = RegExStatus.Error;
+          status = RegExStatus.Unfinished;
+          break;
+        }
+        else
+        if (thisChar == ' ')
+        {
+          status = RegExStatus.Warning;
           name += thisChar;
         }
-        else if (thisChar >= '0' && thisChar <= '9')
+        else
+        if (char.IsLetter(thisChar) || thisChar == '_' )
+        {
+          if (status==RegExStatus.Unfinished)
+            status = RegExStatus.OK;
+          name += thisChar;
+        }
+        else if (char.IsDigit(thisChar))
         {
           if (name == null)
-          {
-            status = RegExStatus.Error;
-            break;
-          }
+            status = RegExStatus.Warning;
+          else
+          if (status == RegExStatus.Unfinished)
+            status = RegExStatus.OK;
           name += thisChar;
         }
         else if (thisChar == finalSep)
         {
-          status = RegExStatus.OK;
+          charNdx++;
           break;
         }
         else
@@ -262,7 +298,7 @@ namespace Qhta.RegularExpressions
           break;
         }
       }
-      var len = charNdx - seqStart + 1;
+      var len = charNdx - seqStart;
       nameItem.Str = GetSubstring(pattern, seqStart, len);
       nameItem.Status = status;
       group.Name = name;
@@ -549,7 +585,7 @@ namespace Qhta.RegularExpressions
           else
           {
             var lastItem = Items.LastOrDefault();
-            if (lastItem!=null)
+            if (lastItem != null)
             {
               if (lastItem.Tag == RegExTag.AnchorControl)
                 lastItem.Tag = RegExTag.EscapedChar;
@@ -565,7 +601,7 @@ namespace Qhta.RegularExpressions
                 if (lastItem.Str.Length > 2)
                 {
                   for (int i = 2; i < lastItem.Str.Length; i++)
-                    Items.Add(new RegExItem { Tag = RegExTag.LiteralChar, Start = lastItem.Start+i, Str = new string(lastItem.Str[i], 1), Status=RegExStatus.OK });
+                    Items.Add(new RegExItem { Tag = RegExTag.LiteralChar, Start = lastItem.Start + i, Str = new string(lastItem.Str[i], 1), Status = RegExStatus.OK });
                   lastItem.Str = lastItem.Str.Substring(0, 2);
                 }
               }
@@ -576,6 +612,7 @@ namespace Qhta.RegularExpressions
         if (thisChar == ']')
         {
           isSeq = true;
+          charNdx++;
           break;
         }
         else
@@ -632,7 +669,7 @@ namespace Qhta.RegularExpressions
       {
         status = isRangeError ? RegExStatus.Error : (isOK ? RegExStatus.OK : RegExStatus.Error);
       }
-      charset.Str = GetSubstring(pattern, seqStart, charNdx - seqStart + 1);
+      charset.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
       charset.Status = status;
       Items = RegExStack.Pop();
       return status;
@@ -722,7 +759,7 @@ namespace Qhta.RegularExpressions
       }
       if (!isSeq)
         return RegExStatus.Unfinished;
-      
+
       bool isOK = nums[0] > 0 && (nums[1] == 0 || nums[1] > nums[0]);
       if (isOK)
         isOK = Items.Count > 0 && Items.Last().Tag != RegExTag.Quantifier;
@@ -816,7 +853,7 @@ namespace Qhta.RegularExpressions
             {
               var str = priorItem.Str + item.Str + nextItem.Str;
               var isOK = priorItem.CharValue <= nextItem.CharValue;
-              var rangeItem = new RegExCharRange { Tag = RegExTag.CharRange, Start = priorItem.Start, Str = str, Status = isOK ? RegExStatus.OK : RegExStatus.Error};
+              var rangeItem = new RegExCharRange { Tag = RegExTag.CharRange, Start = priorItem.Start, Str = str, Status = isOK ? RegExStatus.OK : RegExStatus.Error };
               rangeItem.SubItems.Add(priorItem);
               item.Tag = RegExTag.CharSetControlChar;
               rangeItem.SubItems.Add(item);
@@ -830,16 +867,16 @@ namespace Qhta.RegularExpressions
           }
         }
         else
-        if (item.Tag == RegExTag.CharRange && item.SubItems.Count==0)
+        if (item.Tag == RegExTag.CharRange && item.SubItems.Count == 0)
         {
           var k = item.Str.IndexOf('-');
-          if (k > 0 && k< item.Str.Length-1)
+          if (k > 0 && k < item.Str.Length - 1)
           {
             var s1 = item.Str.Substring(0, k);
             var s2 = item.Str.Substring(k + 1);
-            RegExItem priorItem = new RegExItem { Tag=RegExTag.LiteralChar, Start= item.Start, Str = s1, Status = RegExStatus.OK };
-            RegExItem midItem = new RegExItem { Tag = RegExTag.CharSetControlChar, Start = priorItem.Start+ priorItem.Length, Str = "-", Status = RegExStatus.OK };
-            RegExItem nextItem = new RegExItem { Tag = RegExTag.LiteralChar, Start = midItem.Start+midItem.Length, Str = s2, Status = RegExStatus.OK };
+            RegExItem priorItem = new RegExItem { Tag = RegExTag.LiteralChar, Start = item.Start, Str = s1, Status = RegExStatus.OK };
+            RegExItem midItem = new RegExItem { Tag = RegExTag.CharSetControlChar, Start = priorItem.Start + priorItem.Length, Str = "-", Status = RegExStatus.OK };
+            RegExItem nextItem = new RegExItem { Tag = RegExTag.LiteralChar, Start = midItem.Start + midItem.Length, Str = s2, Status = RegExStatus.OK };
             item.SubItems.Add(priorItem);
             item.SubItems.Add(midItem);
             item.SubItems.Add(nextItem);

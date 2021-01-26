@@ -74,25 +74,34 @@ namespace Qhta.RegularExpressions
 
     public override bool Equals(object obj)
     {
+      Inequality = null;
+      bool result = true;
       if (obj is RegExItems other)
       {
-        if (this.Count != other.Count)
-          return false;
-        for (int i=0; i<this.Count; i++)
+        int n = this.Count;
+        if (other.Count < n)
+          n = other.Count;
+        for (int i=0; i<n; i++)
         {
           var item1 = this[i];
           var item2 = other[i];
           if (!item1.Equals(item2))
-            return false;
+            result = false;
         }
-        return true;
+        if (this.Count!=other.Count)
+        {
+          new Inequality { Property = "Count", Obtained = this.Count, Expected = other.Count };
+        }
+        return result;
       }
-      return base.Equals(obj);
+      return false;
     }
 
     public override int GetHashCode()
     {
       return base.GetHashCode();
     }
+
+    public Inequality Inequality { get; protected set; }
   }
 }

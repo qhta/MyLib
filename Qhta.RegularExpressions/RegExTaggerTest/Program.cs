@@ -29,6 +29,7 @@ namespace RegExTaggerTest
       TestControlCharPatterns = 0x200,
       TestUnicodeCategories = 0x400,
       TestCharsetPatterns = 0x800,
+      TestGroupingPatterns = 0x1000,
     }
 
     const string QuantifierChars = "?+*";
@@ -124,13 +125,15 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/c - test control char patterns");
       TestOutput.WriteLine($"\t/p - test Unicode categories");
       TestOutput.WriteLine($"\t/[ - test charset patterns");
+      TestOutput.WriteLine($"\t/( - test grouping patterns");
       TestOutput.WriteLine($"");
-      TestOutput.WriteLine($"TestInputFile can be of type:");
+      TestOutput.WriteLine($"TestInputFile can be of the type:");
       TestOutput.WriteLine($"\txml - the whole test data is read with test results");
       TestOutput.WriteLine($"\ttxt - only patterns are read (each in a separate line)");
       TestOutput.WriteLine($"TestOutputFile is always of type xml. Is is written if the overall test result is passed.");
-      TestOutput.WriteLine($"If testInputFile is specified and not preceded with \\i option, and testOutputFile is not specified,");
-      TestOutput.WriteLine($"and testInputFile is of xml type, and if the overall test result is passed, then TestInputFile is ovewritten");
+      TestOutput.WriteLine($"If the input test file is specified and is not preceded by the \\i option, and the output file ");
+      TestOutput.WriteLine($"is not specified with the \\o option, then the input file may be replaced with new test results.");
+      TestOutput.WriteLine();
     }
 
     /// <summary>
@@ -187,6 +190,9 @@ namespace RegExTaggerTest
                 break;
               case '[':
                 options |= TestOptions.TestCharsetPatterns;
+                break;
+              case '(':
+                options |= TestOptions.TestGroupingPatterns;
                 break;
               default:
                 Console.WriteLine($"Unrecognized option \"{arg}\"");
@@ -297,7 +303,17 @@ namespace RegExTaggerTest
         SetTestResult(ref wholeTestResult, partTestResult);
         if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
           return wholeTestResult;
-        ShowTestResult("Unicode categories test result is {0}", partTestResult);
+        ShowTestResult("Charset patterns test result is {0}", partTestResult);
+      }
+
+
+      if (TestRunOptions.HasFlag(TestOptions.TestGroupingPatterns))
+      {
+        partTestResult = TestGroupingPatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Grouping patterns test result is {0}", partTestResult);
       }
 
       if (TestInputData != null && TestInputData.Count > 0)
@@ -1252,14 +1268,14 @@ namespace RegExTaggerTest
         {
           charset.Status = RegExStatus.Unfinished;
           var nextChar = pattern[1];
-          RegExItem nextItem;
+          RegExItem subItem;
           if (nextChar == '\\')
-            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
           else if (nextChar == '^')
-            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
           else
-            nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
-          charset.Items.Add(nextItem);
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          charset.Items.Add(subItem);
         }
       }
       else if (pattern.Length == 3)
@@ -1274,25 +1290,25 @@ namespace RegExTaggerTest
           }
           else
           {
-            RegExItem nextItem;
+            RegExItem subItem;
 
             if (thisChar == '\\')
             {
               charset.Status = RegExStatus.Unfinished;
-              nextItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+              subItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
             }
             else
           if (thisChar == '^')
             {
               charset.Status = RegExStatus.Error;
-              nextItem = new RegExItem { Start = 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+              subItem = new RegExItem { Start = 1, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
             }
             else
             {
               charset.Status = RegExStatus.OK;
-              nextItem = new RegExItem { Start = 1, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+              subItem = new RegExItem { Start = 1, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
             }
-            charset.Items.Add(nextItem);
+            charset.Items.Add(subItem);
           }
         }
         else
@@ -1302,7 +1318,7 @@ namespace RegExTaggerTest
       }
       else
       {
-        RegExItem nextItem;
+        RegExItem subItem;
         charset.Status = RegExStatus.Unfinished;
         for (charNdx = 1; charNdx < pattern.Length; charNdx++)
         {
@@ -1331,7 +1347,7 @@ namespace RegExTaggerTest
               if (nextChar != '\0')
               {
                 if (Domain2ndChars.Contains(nextChar))
-                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.CharClass, Status = RegExStatus.OK };
+                  subItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.CharClass, Status = RegExStatus.OK };
                 else
                 if (nextChar == 'p' || nextChar == 'P')
                 {
@@ -1345,61 +1361,606 @@ namespace RegExTaggerTest
                     k = pattern.Length - 1;
                   }
                   var isOK = UnicodeCategoryFirstLetters.Contains(name) || UnicodeCategories.Contains(name) || UnicodeBlockNames.Contains(name);
-                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx + 1), Tag = RegExTag.UnicodeCategorySeq, Status = isOK ? RegExStatus.OK : RegExStatus.Error };
+                  subItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx + 1), Tag = RegExTag.UnicodeCategorySeq, Status = isOK ? RegExStatus.OK : RegExStatus.Error };
                   charNdx += k - 1;
                 }
                 else
                 if (nextChar >= '0' && nextChar <= '8')
-                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.OctalSeq, Status = RegExStatus.OK };
+                  subItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.OctalSeq, Status = RegExStatus.OK };
                 else
-                  nextItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
-                charset.Items.Add(nextItem);
+                  subItem = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+                charset.Items.Add(subItem);
                 charNdx++;
               }
               else
               {
-                nextItem = new RegExItem { Start = charNdx, Str = "\\]", Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
-                charset.Items.Add(nextItem);
+                subItem = new RegExItem { Start = charNdx, Str = "\\]", Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+                charset.Items.Add(subItem);
                 charset.Status = RegExStatus.Unfinished;
               }
             }
             else
             {
               if (thisChar == '^' && charNdx == 1)
-                nextItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+                subItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
               else if (thisChar == '-' && charNdx > 1 && nextChar == '[')
               {
-                nextItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
-                charset.Items.Add(nextItem);
+                subItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK };
+                charset.Items.Add(subItem);
                 charNdx += 1;
                 int k = pattern.IndexOf(']', charNdx);
                 var str = pattern.Substring(charNdx, k - charNdx + 1);
                 RegExCharset intCharset = new RegExCharset { Start = charNdx, Str = str, Tag = RegExTag.CharSet, Status = (str == "[]") ? RegExStatus.Error : RegExStatus.OK };
                 if (str != "[]")
                 {
-                  nextItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx), Tag = RegExTag.CharRange, Status = RegExStatus.OK };
-                  intCharset.Items.Add(nextItem);
+                  subItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx), Tag = RegExTag.CharRange, Status = RegExStatus.OK };
+                  intCharset.Items.Add(subItem);
                 }
-                nextItem = intCharset;
+                subItem = intCharset;
                 charNdx += k;
               }
               else
               if ((charNdx < pattern.Length - 2) && (nextChar == '-') && (pattern[charNdx + 2] != '[') && (pattern[charNdx + 2] != ']'))
               {
                 nextChar = pattern[charNdx + 2];
-                nextItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, 3), Tag = RegExTag.CharRange, Status = nextChar >= thisChar ? RegExStatus.OK : RegExStatus.Error };
+                subItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, 3), Tag = RegExTag.CharRange, Status = nextChar >= thisChar ? RegExStatus.OK : RegExStatus.Error };
                 charNdx += 2;
               }
               else
-                nextItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
-              charset.Items.Add(nextItem);
-              if (nextItem.Status != RegExStatus.OK && charNdx<pattern.Length-1)
-                charset.Status = nextItem.Status;
+                subItem = new RegExItem { Start = charNdx, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+              charset.Items.Add(subItem);
+              if (subItem.Status != RegExStatus.OK && charNdx < pattern.Length - 1)
+                charset.Status = subItem.Status;
             }
           }
         }
       }
       testInputItem.Result = charset.Status;
+      if (testInputItem.Result != RegExStatus.Error && charNdx < pattern.Length)
+      {
+        var status1 = Tagger.TryParsePattern(pattern.Substring(charNdx));
+        testInputItem.Result = status1;
+        int n = 0;
+        foreach (var newItem in Tagger.Items)
+        {
+          if (n == 0 && (newItem.Tag == RegExTag.Quantifier || newItem.Tag == RegExTag.AltChar) && newItem.Status == RegExStatus.Warning)
+            testInputItem.Result = newItem.Status = RegExStatus.OK;
+          n++;
+          newItem.MoveStart(charNdx);
+          testInputItem.Items.Add(newItem);
+        }
+      }
+      TestItem testOutputItem;
+      var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+      testOutputData.Add(testOutputItem);
+      return singleTestResult;
+    }
+    #endregion
+
+    #region Test Grouping Patterns
+    static bool? TestGroupingPatterns()
+    {
+      bool? wholeTestResult = null;
+      bool? singleTestResult;
+
+      //singleTestResult = RunSingleGroupingTest("()");
+      //SetTestResult(ref wholeTestResult, singleTestResult);
+      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      //  return false;
+
+      singleTestResult = RunNamedGroupTest('\'');
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      //singleTestResult = RunNamedGroupTest('<');
+      //SetTestResult(ref wholeTestResult, singleTestResult);
+      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      //  return false;
+
+      //foreach (var ch in ValidChars)
+      //{
+      //  singleTestResult = RunSingleGroupingTest($"({ch}");
+      //  SetTestResult(ref wholeTestResult, singleTestResult);
+      //  if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      //    return false;
+      //}
+
+
+      //foreach (var ch in ValidChars)
+      //{
+      //  singleTestResult = RunSingleGroupingTest($"({ch})");
+      //  SetTestResult(ref wholeTestResult, singleTestResult);
+      //  if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      //    return false;
+      //}
+
+      //foreach (var ch1 in ValidChars)
+      //  foreach (var ch2 in ValidChars)
+      //  {
+      //    singleTestResult = RunSingleGroupingTest($"({ch1}{ch2})");
+      //    SetTestResult(ref wholeTestResult, singleTestResult);
+      //    if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      //      return false;
+      //  }
+
+      //foreach (var ch1 in ValidChars)
+      //  //var ch1 = '_';
+      //  foreach (var ch2 in ValidChars)
+      //    foreach (var ch3 in ValidChars)
+      //    {
+      //      singleTestResult = RunSingleGroupingTest($"({ch1}{ch2}{ch3})");
+      //      SetTestResult(ref wholeTestResult, singleTestResult);
+      //      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+      //        return false;
+      //    }
+
+      return wholeTestResult;
+    }
+
+    static bool? RunNamedGroupTest(char nextChar)
+    {
+      bool? wholeTestResult = null;
+      var closingChar = (nextChar == '<') ? '>' : nextChar;
+      bool? singleTestResult;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}invalid name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}name1{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}0name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}valid_name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}niebłędna_nazwa{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}unfinished_name`ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}unfinished_expr");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      return wholeTestResult;
+    }
+
+    static bool? RunSingleGroupingTest(string pattern)
+    {
+      var testInputItem = new TestItem { Pattern = pattern, Result = null };
+      RegExGroup group = new RegExGroup { Start = 0, Str = pattern, Tag = RegExTag.Subexpression, Status = RegExStatus.OK };
+      testInputItem.Items.Add(group);
+      int charNdx = pattern.Length;
+      if (pattern.Length < 3)
+      {
+        if (pattern == "()")
+        {
+          group.Status = RegExStatus.OK;
+        }
+        else
+        {
+          group.Status = RegExStatus.Unfinished;
+          var nextChar = pattern[1];
+          RegExItem subItem;
+          if (nextChar == '\\')
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
+          else if (nextChar == '?')
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK };
+          else if (nextChar == '.')
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.DotChar, Status = RegExStatus.OK };
+          else if (nextChar == '|')
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
+          else if (nextChar == '(')
+            subItem = new RegExGroup { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Subexpression, Status = RegExStatus.Unfinished };
+          else if (nextChar == '[')
+            subItem = new RegExCharset { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+          else if (AnchorChars.Contains(nextChar))
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+          else if (QuantifierChars.Contains(nextChar))
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          else
+            subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          group.Items.Add(subItem);
+        }
+      }
+      else
+      if (pattern.Length == 3)
+      {
+        group.Status = RegExStatus.OK;
+        var nextChar = pattern[1];
+        RegExItem subItem;
+        if (nextChar == '\\') // pattern == @"(\)"
+        {
+          subItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+          group.Status = RegExStatus.Unfinished;
+        }
+        else if (nextChar == '?') // pattern == @"(?)"
+        {
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.Warning };
+          group.Status = RegExStatus.Warning;
+        }
+        else if (nextChar == '.') // pattern == @"(.)"
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.DotChar, Status = RegExStatus.OK };
+        else if (nextChar == '|')
+        {
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
+          group.Status = RegExStatus.OK;
+        }
+        else if (nextChar == '(') // pattern == @"(()"
+        {
+          subItem = new RegExGroup { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.Subexpression, Status = RegExStatus.OK };
+          group.Status = RegExStatus.Unfinished;
+        }
+        else if (nextChar == ')') // pattern == @"())"
+        {
+          subItem = null;
+          group.Status = RegExStatus.OK;
+          group.Str = pattern.Substring(0, 2);
+          var nextItem = new RegExGroup { Start = 2, Str = pattern.Substring(2), Tag = RegExTag.Subexpression, Status = RegExStatus.Error };
+          testInputItem.Items.Add(nextItem);
+          testInputItem.Result = RegExStatus.Error;
+        }
+        else if (nextChar == '[') // pattern == @"([)"
+        {
+          var charset = new RegExCharset { Start = 1, Str = pattern.Substring(1, 2), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+          charset.Items.Add(new RegExItem { Start = 2, Str = pattern.Substring(2, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK });
+          subItem = charset;
+          group.Status = RegExStatus.Unfinished;
+        }
+        else if (AnchorChars.Contains(nextChar))
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+        else
+        if (QuantifierChars.Contains(nextChar)) // pattern == @"(*)", pattern == @"(+)", 
+        {
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          group.Status = RegExStatus.OK;
+        }
+        else
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+        if (subItem != null)
+          group.Items.Add(subItem);
+      }
+      else
+      {
+        group.Status = RegExStatus.OK;
+        var nextChar = pattern[1];
+        RegExItem subItem = null;
+        if (nextChar == '\\')
+        {
+          subItem = new RegExItem { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
+          group.Status = RegExStatus.Unfinished;
+        }
+        else if (nextChar == '?')
+        {
+          var groupControlChar = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.Warning };
+          group.Items.Add(groupControlChar);
+          nextChar = pattern[2];
+          if ((nextChar == '\'')  // pattern == @"(?')"
+            || (nextChar == '<')) // pattern ==  @"(?<)"
+          {
+            group.Tag = RegExTag.NamedGroup;
+            groupControlChar.Status = RegExStatus.OK;
+            string nameStr = null;
+            string name = null;
+            var closingChar = (nextChar == '<') ? '>' : nextChar;
+            var k = pattern.IndexOf(closingChar, 3);
+            String restStr = null;
+            if (k > 0)
+            {
+              nameStr = pattern.Substring(2, k - 1);
+              name = pattern.Substring(3, k - 3);
+              restStr = pattern.Substring(k + 1, pattern.Length - k - 2);
+            }
+            else
+            {
+              nameStr += nextChar;
+              for (k = 3; k < pattern.Length; k++)
+              {
+                var nameChar = pattern[k];
+                if (Char.IsLetterOrDigit(nameChar) || nameChar == ' ' || nameChar == '_')
+                  nameStr += nameChar;
+                else
+                {
+                  restStr = pattern.Substring(k, pattern.Length - k - 1);
+                  break;
+                }
+                name += pattern[k];
+              }
+            }
+            var groupNameItem = new RegExGroupName { Start = 2, Str = nameStr, Tag = RegExTag.GroupName, Status = RegExStatus.OK };
+            group.Name = name;
+            if (pattern.LastOrDefault() != ')')
+              groupNameItem.Status = RegExStatus.Unfinished;
+            else
+            if (nameStr.LastOrDefault() != closingChar)
+              groupNameItem.Status = RegExStatus.Error;
+            else
+              for (int i = 0; i < name.Length; i++)
+              {
+                var nameChar = name[i];
+                if (nameChar == ' ')
+                  groupNameItem.Status = RegExStatus.Warning;
+                else
+                if (i == 0 && Char.IsDigit(nameChar))
+                  groupNameItem.Status = RegExStatus.Warning;
+                else
+                if (!(Char.IsLetterOrDigit(nameChar) || (nameChar == '_')))
+                  groupNameItem.Status = RegExStatus.Error;
+              }
+            group.Items.Add(groupNameItem);
+            if (restStr != null)
+            {
+              Tagger.TryParsePattern(restStr);
+              foreach (var item in Tagger.Items)
+              {
+                item.MoveStart(2+nameStr.Length);
+                group.Items.Add(item);
+              }
+            }
+            group.Status = groupNameItem.Status;
+          }
+          else
+          if (nextChar == '(') // pattern = @"(?()"
+          {
+            var status1 = Tagger.TryParsePattern(pattern.Substring(2, pattern.Length - 2));
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(2);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.Unfinished;
+          }
+          else
+          if (nextChar == ')') // pattern = @"(?))"
+          {
+            var status1 = Tagger.TryParsePattern(pattern.Substring(3));
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(3);
+              testInputItem.Items.Add(item);
+            }
+            group.Status = RegExStatus.Warning;
+            group.Str = group.Str.Substring(0, group.Str.Length - 1);
+            testInputItem.Result = RegExStatus.Error;
+          }
+          else
+          if (nextChar == '*') // pattern = @"(?*)"
+          {
+            var status1 = Tagger.TryParsePattern(pattern.Substring(2, pattern.Length - 3));
+            foreach (var item in Tagger.Items)
+            {
+              if (item.Start == 0)
+              {
+                item.Status = RegExStatus.Warning;
+              }
+              item.MoveStart(2);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.Warning;
+          }
+          else
+          if (nextChar == '[') // pattern = @"(?[)"
+          {
+            var status1 = Tagger.TryParsePattern(pattern.Substring(2, pattern.Length - 2));
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(2);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.Unfinished;
+          }
+          else
+          if (nextChar == '\\') // pattern = @"(?\)"
+          {
+            var status1 = Tagger.TryParsePattern(pattern.Substring(2, pattern.Length - 2));
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(2);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.Unfinished;
+          }
+          else
+          {
+            var status1 = Tagger.TryParsePattern(pattern.Substring(2, pattern.Length - 3));
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(2);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.Warning;
+          }
+        }
+        else if (nextChar == '|')
+        {
+          subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
+          group.Status = RegExStatus.Warning;
+        }
+        else if (nextChar == '(')
+        {
+          var openParCount = pattern.Where(ch => ch == '(').Count();
+          var closeParCount = pattern.Where(ch => ch == ')').Count();
+          if (openParCount == closeParCount)
+          {
+            var str = pattern.Substring(1, pattern.Length - 2);
+            var status1 = Tagger.TryParsePattern(str);
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(1);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.OK;
+          }
+          else
+          {
+            var str = pattern.Substring(1);
+            var status1 = Tagger.TryParsePattern(str);
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(1);
+              group.Items.Add(item);
+            }
+            group.Status = status1 == RegExStatus.Error ? RegExStatus.Error : RegExStatus.Unfinished;
+          }
+        }
+        else if (nextChar == ')')
+        {
+          group.Str = "()";
+          group.Status = RegExStatus.OK;
+          var str = pattern.Substring(2);
+          var status1 = Tagger.TryParsePattern(str);
+          foreach (var item in Tagger.Items)
+          {
+            if (item.Start == 0 && QuantifierChars.Contains(item.Str.First()))
+            {
+              if (item.Status == RegExStatus.Warning)
+                item.Status = RegExStatus.OK;
+            }
+            else
+            if (item.Start == 0 && item.Str == "|")
+            {
+              item.Status = RegExStatus.Error;
+            }
+
+            item.MoveStart(2);
+            testInputItem.Items.Add(item);
+          }
+          testInputItem.Result = status1;
+        }
+        else if (nextChar == '[')
+        {
+          var str = pattern.Substring(2);
+          int k = pattern.LastIndexOf(']');
+          if (k < 0)
+            k = pattern.Length - 1;
+          else
+            str = pattern.Substring(2, k - 2);
+          var charset = new RegExCharset { Start = 1, Str = pattern.Substring(1, k), Tag = RegExTag.CharSet, Status = (k < pattern.Length - 1) ? RegExStatus.OK : RegExStatus.Unfinished };
+          if (str == "")
+            charset.Status = RegExStatus.Error;
+          for (int i = 0; i < str.Length; i++)
+          {
+            var curChar = str[i];
+            if (curChar == '\\' && i < str.Length)
+            {
+              charset.Items.Add(new RegExItem { Start = i + 2, Str = str.Substring(i, 2), Tag = RegExTag.EscapedChar, Status = RegExStatus.OK });
+              i++;
+            }
+            else
+            if (curChar == '^' && i == 0)
+              charset.Items.Add(new RegExItem { Start = i + 2, Str = new string(curChar, 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK });
+            else
+              charset.Items.Add(new RegExItem { Start = i + 2, Str = new string(curChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK });
+          }
+          subItem = charset;
+          group.Status = (k < pattern.Length - 1) ? RegExStatus.OK : RegExStatus.Unfinished;
+        }
+        else
+        {
+          if (pattern.EndsWith("|)"))
+          {
+            var str = pattern.Substring(1);
+            var status1 = Tagger.TryParsePattern(str);
+            foreach (var item in Tagger.Items)
+            {
+              if (item.Tag == RegExTag.Subexpression && item.Status == RegExStatus.Error)
+                break;
+              item.MoveStart(1);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.OK;
+          }
+          else
+          if (pattern.EndsWith("()") || pattern.EndsWith("[)") || pattern.EndsWith("\\)") || pattern.EndsWith("|)"))
+          {
+            var str = pattern.Substring(1);
+            var status1 = Tagger.TryParsePattern(str);
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(1);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.Unfinished;
+          }
+          else if (pattern.EndsWith("))"))//(QuantifierChars.Contains(nextChar))
+          {
+            group.Status = RegExStatus.OK;
+            var str = pattern.Substring(1, pattern.Length - 2);
+            var status1 = Tagger.TryParsePattern(str);
+            foreach (var item in Tagger.Items)
+            {
+              if (item.Status == RegExStatus.Error)
+              {
+                item.MoveStart(2);
+                item.Status = RegExStatus.Error;
+                //group.Status = RegExStatus.Warning;
+                group.Str = group.Str.Substring(0, group.Str.Length - 1);
+                testInputItem.Items.Add(item);
+                testInputItem.Result = RegExStatus.Error;
+              }
+              else
+              {
+                if (item.Tag == RegExTag.Subexpression)
+                {
+                  if (item.Status == RegExStatus.Unfinished)
+                  {
+                    item.Str += ')';
+                    item.Status = RegExStatus.OK;
+                    group.Status = RegExStatus.Unfinished;
+                  }
+                }
+                else
+                if (item.Start == 0 && item.Str == "|")
+                {
+                  item.Status = RegExStatus.Error;
+                }
+                item.MoveStart(1);
+                group.Items.Add(item);
+              }
+            }
+          }
+          else
+          {
+            var str = pattern.Substring(1, pattern.Length - 2);
+            var status1 = Tagger.TryParsePattern(str);
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(1);
+              group.Items.Add(item);
+            }
+            group.Status = RegExStatus.OK;
+          }
+        }
+        if (subItem != null)
+        {
+          group.Items.Add(subItem);
+          group.Status = RegExStatus.OK;
+        }
+      }
+      if (testInputItem.Result == null)
+        testInputItem.Result = group.Status;
       if (testInputItem.Result != RegExStatus.Error && charNdx < pattern.Length)
       {
         var status1 = Tagger.TryParsePattern(pattern.Substring(charNdx));
@@ -1459,14 +2020,8 @@ namespace RegExTaggerTest
       bool? singleTestResult = null;
       if (testInputItem.Result != null)
       {
-        singleTestResult = (testInputItem.Result == testOutputItem.Result);
-        if (singleTestResult == true)
-          singleTestResult = (testInputItem.Items == null) ||
-          ItemsAreEqual(testInputItem.Items, testOutputItem.Items);
-        if (singleTestResult == true)
-          TestOutput.WriteLine($"test PASSED");
-        else if (singleTestResult == false)
-          TestOutput.WriteLine($"test FAILED");
+        singleTestResult = (testInputItem.Items == null) || testOutputItem.Items.Equals(testInputItem.Items)
+          && (testInputItem.Result == testOutputItem.Result);
       }
       if (singleTestResult == false)
       {
@@ -1477,32 +2032,16 @@ namespace RegExTaggerTest
       }
       else if (singleTestResult != true || !TestRunOptions.HasFlag(TestOptions.SuppressPassedTestResults))
         ShowTestItem(testOutputItem);
+      if (testInputItem.Result != null)
+      {
+        if (singleTestResult == true)
+          TestOutput.WriteLine($"test PASSED");
+        else if (singleTestResult == false)
+          TestOutput.WriteLine($"test FAILED");
+      }
       TestOutput.WriteLine($"");
       TestOutput.Flush();
       return singleTestResult;
-    }
-
-    /// <summary>
-    /// Compares two regex items for equality. Used in tests.
-    /// </summary>
-    /// <param name="items1"></param>
-    /// <param name="items2"></param>
-    /// <returns></returns>
-    static bool ItemsAreEqual(RegExItems items1, RegExItems items2)
-    {
-      if (items1.Count == items2.Count)
-      {
-        for (int i = 0; i < items1.Count; i++)
-        {
-          var item1 = items1[i];
-          var item2 = items2[i];
-          if (item1.GetType() != item2.GetType())
-            return false;
-          if (!item1.Equals(item2))
-            return false;
-        }
-      }
-      return true;
     }
 
     /// <summary>
@@ -1685,7 +2224,7 @@ namespace RegExTaggerTest
         int yMax = yCount - i - 1;
         int color = item.Color;
 
-        if (item.SubItems == null && yMax!=0)
+        if (item.SubItems == null && yMax != 0)
         {
           if (item.Length == 1)
           {
@@ -1736,7 +2275,7 @@ namespace RegExTaggerTest
             //patternColors[item.ColStart + item.Length - 1] = color;
             if (item.SubItems != null)
             {
-              for (int y = yMax-1; y>=0; y--)
+              for (int y = yMax - 1; y >= 0; y--)
               {
                 int lineColor = -1;
                 for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
@@ -1776,14 +2315,18 @@ namespace RegExTaggerTest
       {
         var coloredText = graphItems.ColoredText;
         foreach (var item in coloredText)
-        { 
+        {
           Console.ForegroundColor = GetConsoleColor(item.Color);
           Console.Write(item.Value);
         }
+        //if (items.Inequality != null)
+        //  Console.Write($"  Items.Count={items.Inequality.Obtained} expected={items.Inequality.Expected}"); 
         Console.WriteLine();
       }
       else
+      {
         TestOutput.WriteLine(graphItems.PlainText);
+      }
       for (int i = itemsList.Count - 1; i >= 0; i--)
       {
         var item = itemsList[i];
@@ -1797,7 +2340,7 @@ namespace RegExTaggerTest
             Console.ForegroundColor = GetConsoleColor(frameMatrix[x, yMax].Color);
             Console.Write(frameMatrix[x, yMax].Value);
           }
-          Console.WriteLine(" "+item.ToString());
+          Console.WriteLine(" " + item.ToString());
           Console.ResetColor();
         }
         else
@@ -1862,7 +2405,7 @@ namespace RegExTaggerTest
         colorIndex = (colorIndex + 1) % ConsoleColors.Count();
         if (item.SubItems != null)
         {
-          var  lastColor = SetupColors(item.SubItems, colorIndex, itemColor);
+          var lastColor = SetupColors(item.SubItems, colorIndex, itemColor);
           if (lastColor == colorIndex)
             colorIndex = (colorIndex + 1) % ConsoleColors.Count();
         }
