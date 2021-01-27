@@ -8,3 +8,5 @@ D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.Regu
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.exe
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\obj\Debug\RegExTaggerTest.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.Descriptions.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.Descriptions.pdb

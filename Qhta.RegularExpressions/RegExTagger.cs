@@ -661,7 +661,6 @@ namespace Qhta.RegularExpressions
         if (thisChar == ']')
         {
           isSeq = true;
-          charNdx++;
           break;
         }
         else
@@ -718,7 +717,7 @@ namespace Qhta.RegularExpressions
       {
         status = isRangeError ? RegExStatus.Error : (isOK ? RegExStatus.OK : RegExStatus.Error);
       }
-      charset.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
+      charset.Str = GetSubstring(pattern, seqStart, charNdx - seqStart + (isSeq ? 1: 0));
       charset.Status = status;
       Items = RegExStack.Pop();
       return status;

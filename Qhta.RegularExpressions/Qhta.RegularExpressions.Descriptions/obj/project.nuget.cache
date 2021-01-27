@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "loX6Vda5A4KICNV4BIPOSgSwOnddPC7iXfqORy368P7cp0CqdG07u7Albi1tcahVXXHJ+ggzhfo7s6E+V3mdIQ==",
+  "success": true,
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.Descriptions\\Qhta.RegularExpressions.Descriptions.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

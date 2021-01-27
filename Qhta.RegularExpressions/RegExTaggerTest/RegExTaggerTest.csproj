@@ -62,9 +62,14 @@
       <Project>{0b0c55f8-b0ae-44ed-9d23-b45a9f98be85}</Project>
       <Name>Qhta.RegularExpressions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Qhta.RegularExpressions.Descriptions\Qhta.RegularExpressions.Descriptions.csproj">
+      <Project>{79fa7295-e04c-413d-b9e9-7e0e95af7bcd}</Project>
+      <Name>Qhta.RegularExpressions.Descriptions</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestPatterns.txt" />
+    <Content Include="TestExamples.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

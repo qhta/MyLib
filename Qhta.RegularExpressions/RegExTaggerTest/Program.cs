@@ -1,4 +1,5 @@
 ﻿using Qhta.RegularExpressions;
+using Qhta.RegularExpressions.Descriptions;
 
 using System;
 using System.Collections.Generic;
@@ -225,7 +226,11 @@ namespace RegExTaggerTest
       if (TestInputFileName != null)
       {
         TestOutput.WriteLine($"reading test data from file \"{TestInputFileName}\"");
-        ReadTestData(TestInputFileName);
+        TestInputData = ReadTestData(TestInputFileName);
+        if (TestInputData==null || TestInputData.Count==0)
+        {
+          return null;
+        }
         TestOutput.WriteLine($"read tests: {TestInputData.Count}");
         TestOutput.WriteLine($"");
       }
@@ -2096,6 +2101,13 @@ namespace RegExTaggerTest
         singleTestResult = (testInputItem.Items == null) || testOutputItem.Items.Equals(testInputItem.Items)
           && (testInputItem.Result == testOutputItem.Result);
       }
+      if (testInputItem.PatternItems != null)
+      {
+        testOutputItem.PatternItems = testOutputItem.Items.GeneratePatternItems();
+        if (singleTestResult != false)
+          singleTestResult = testOutputItem.PatternItems.Equals(testInputItem.PatternItems);
+      }
+
       if (singleTestResult == false)
       {
         TestOutput.WriteLine($"Expected:");
@@ -2112,7 +2124,7 @@ namespace RegExTaggerTest
         else if (singleTestResult == false)
           TestOutput.WriteLine($"test FAILED");
       }
-      TestOutput.WriteLine($"");
+      TestOutput.WriteLine();
       TestOutput.Flush();
       return singleTestResult;
     }
@@ -2180,32 +2192,65 @@ namespace RegExTaggerTest
       return added;
     }
 
-    static void ReadTestData(string filename)
+    static TestData ReadTestData(string filename)
     {
       var ext = Path.GetExtension(filename)?.ToLowerInvariant();
 
       if (ext == ".xml")
         using (var reader = File.OpenText(filename))
         {
-          TestInputData = (TestData)XamlServices.Load(reader);
+          return (TestData)XamlServices.Load(reader);
         }
       else if (ext == ".txt")
         using (var reader = File.OpenText(filename))
         {
-          TestInputData = ReadPatterns(reader);
+          return ReadTextInputData(reader, filename);
         }
+      return null;
     }
 
-    static TestData ReadPatterns(TextReader reader)
+    static TestData ReadTextInputData(TextReader reader, string filename)
     {
       TestData result = new TestData();
       string line;
+      TestItem testItem = null;
+      int lineNo = 0;
       while ((line = reader.ReadLine()) != null)
       {
+        lineNo++;
         if (line != "")
         {
-          TestItem newItem = new TestItem { Pattern = line };
-          result.Add(newItem);
+          if (line[0] == '\t')
+          {
+            if (testItem!=null)
+            {
+              line = line.Trim();
+              var cols = line.Split('\t');
+              if (cols.Length!=2)
+              {
+                result.RemoveAt(result.Count - 1);
+                Console.WriteLine($"Error while reading test file \"{filename}\"");
+                Console.WriteLine($"  in line {lineNo}:");
+                Console.WriteLine($"    As the line starts with a tab character, the line is treated as two column pattern parse result.");
+                Console.WriteLine($"    Columns should be separated with tab characters.");
+                Console.WriteLine($"    There were {cols.Length} columns found");
+                testItem = null; // no further trials for this pattern.
+              }
+              else
+              {
+                testItem.Result = RegExStatus.OK;
+                if (testItem.PatternItems == null)
+                  testItem.PatternItems = new PatternItems();
+                testItem.PatternItems.Add(new PatternItem { Str = cols[0], Description = cols[1].Trim() });
+              }
+            }
+          }
+          else
+          {
+            testItem = new TestItem { Pattern = line };
+            result.Add(testItem);
+          }
+
         }
       }
       return result;
@@ -2223,6 +2268,8 @@ namespace RegExTaggerTest
     {
       TestOutput.WriteLine($"TryParse = {item.Result}");
       DrawGraph(TestOutput, item.Pattern, item.Items);
+      if (item.PatternItems!=null)
+        ShowPatternItems(item.PatternItems);
     }
 
     static void SetTestResult(ref bool? wholeTestResult, bool? partTestResult)
@@ -2492,5 +2539,22 @@ namespace RegExTaggerTest
         return ConsoleColor.White;
       return ConsoleColors[colorIndex];
     }
+
+    static void ShowPatternItems(PatternItems patternItems)
+    {
+      TestOutput.WriteLine();
+      foreach (var item in patternItems)
+      {
+        string check = "";
+        if (item.IsOK == true)
+          check = "OK";
+        else if (item.IsOK == false)
+          check = "ERROR";
+        TestOutput.WriteLine($"{item.Str}\t{item.Description}\t{check}");
+      }
+      TestOutput.WriteLine();
+    }
+
+
   }
 }

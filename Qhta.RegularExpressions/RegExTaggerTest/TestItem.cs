@@ -1,4 +1,5 @@
 ﻿using Qhta.RegularExpressions;
+using Qhta.RegularExpressions.Descriptions;
 
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,8 @@ namespace RegExTaggerTest
     public RegExStatus? Result { get; set; }
 
     public RegExItems Items { get; set; } = new RegExItems();
+
+    public PatternItems PatternItems { get; set; }
+
   }
 }

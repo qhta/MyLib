@@ -103,5 +103,19 @@ namespace Qhta.RegularExpressions
     }
 
     public Inequality Inequality { get; protected set; }
+
+    public List<RegExItem> ToList()
+    {
+      List<RegExItem> items = new List<RegExItem>();
+      foreach (var item in this)
+      {
+        items.Add(item);
+        if (item.SubItems != null)
+        {
+          items.AddRange(item.SubItems.ToList());
+        }
+      }
+      return items;
+    }
   }
 }

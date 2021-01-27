@@ -1,0 +1,28 @@
+﻿\a
+	\a	Match a bell character.
+\b
+	\b	Match a word boundary.
+\t
+	\t	Match a tab character.
+\r
+	\r	Match a carriage return character.
+\v
+	\v	Match a vertical tab character.
+\f
+	\f	Match a form feed character.
+\n
+	\n	Match a new line character.
+\e
+	\e	Match an escape character.
+\G(.+)[\t\u007c](.+)\r?\n
+	\G	Begin the match where the last match ended.
+	(.+)	Match any character one or more times. This is the first capturing group.
+	[\t\u007c]	Match either a tab character or a vertical bar character.
+	(.+)	Match any character one or more times. This is the second capturing group.
+	\r?\n	Match zero or one occurrence of a carriage return character followed by a new line character.
+gr[ae]y\s\S+?[\s\p{P}]
+	gr	Match the literal characters "gr".
+	[ae]	Match either an "a" or an "e".
+	y\s	Match the literal character "y" followed by a white-space character.
+	\S+?	Match one or more occurrence of a non-white-space character, but as few as possible.
+	[\s\p{P}]	Match either a white-space character or a punctuation mark.
