@@ -22,4 +22,5 @@ gr[ae]y\s\S+?[\s\p{P}]
 ^((\w+(\s?)){2,}),\s(\w+\s\w+),(\s\d{4}(-(\d{4}|present))?,?)+\r?$
 ((?<One>abc)\d+)?(?<Two>xyz)(.*)
 \D+(?<digit>\d+)\D+(?<digit>\d+)?
-(?<name1-name2>subexpression)
+^[^<>]*(((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+)*(?(Open)(?!))$
+(?:\b(?:\w+)\W*)+\.

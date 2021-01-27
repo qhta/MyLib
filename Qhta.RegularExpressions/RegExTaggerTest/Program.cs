@@ -1458,6 +1458,11 @@ namespace RegExTaggerTest
       if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
         return false;
 
+      singleTestResult = RunSingleGroupingTest($"(?:non_capturing_group)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
       //foreach (var ch in ValidChars)
       //{
       //  singleTestResult = RunSingleGroupingTest($"({ch}");
@@ -1504,47 +1509,52 @@ namespace RegExTaggerTest
       var closingChar = (nextChar == '<') ? '>' : nextChar;
       bool? singleTestResult;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}name{closingChar}ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}invalid name{closingChar}ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}invalid name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}name1{closingChar}ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}name1{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}0name{closingChar}ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}0name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}valid_name{closingChar}ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}valid_name{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}niebłędna_nazwa{closingChar}ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}niebłędna_nazwa{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}unfinished_name`ok)");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}unfinished_name`ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
-      //singleTestResult = RunSingleGroupingTest($"(?{nextChar}unfinished_expr");
-      //SetTestResult(ref wholeTestResult, singleTestResult);
-      //if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
-      //  return false;
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}unfinished_expr");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
 
       singleTestResult = RunSingleGroupingTest($"(?{nextChar}balancing-group{closingChar}ok)");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunSingleGroupingTest($"(?{nextChar}balancing-group-two{closingChar}ok)");
       SetTestResult(ref wholeTestResult, singleTestResult);
       if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
         return false;
@@ -1662,8 +1672,23 @@ namespace RegExTaggerTest
           var groupControlChar = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.Warning };
           group.Items.Add(groupControlChar);
           nextChar = pattern[2];
-          if ((nextChar == '\'')  // pattern == @"(?')"
-            || (nextChar == '<')) // pattern ==  @"(?<)"
+          if (nextChar == ':') // pattern.StartsWith(@"(:"); // non-capturing group
+          {
+            group.Tag = RegExTag.NonCapturingGroup;
+            groupControlChar.Status = RegExStatus.OK;
+            group.Items.Add(new RegExItem { Start = 2, Str = new string(':', 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK });
+            var restStr = pattern.Substring(3, pattern.Length - 4);
+            Tagger.TryParsePattern(restStr);
+            foreach (var item in Tagger.Items)
+            {
+              item.MoveStart(3);
+              group.Items.Add(item);
+            }
+
+          }
+          else
+          if ((nextChar == '\'')  // pattern.StartsWith(@"(?'"); 
+            || (nextChar == '<')) // patternStartsWith(@"(?<"); // named group
           {
             group.Tag = RegExTag.NamedGroup;
             groupControlChar.Status = RegExStatus.OK;
@@ -1698,33 +1723,46 @@ namespace RegExTaggerTest
             group.Name = name;
             if (closingCharIndex < 0)
             {
-              if (restStr==null)
-                groupNameItem.Status = RegExStatus.Unfinished;
+              if (String.IsNullOrEmpty(restStr))
+                group.Status = groupNameItem.Status = RegExStatus.Unfinished;
               else
-                groupNameItem.Status = RegExStatus.Error;
+              {
+                groupNameItem.Status = RegExStatus.Unfinished;
+                group.Status = RegExStatus.Error;
+              }
             }
             else
             {
-              for (int i = 0; i < name.Length; i++)
+              int priorDashIndex = 0;
+              for (int nameIndex = 0; nameIndex < name.Length; nameIndex++)
               {
-                var nameChar = name[i];
+                var nameChar = name[nameIndex];
                 if (nameChar == ' ')
                   groupNameItem.Status = RegExStatus.Warning;
                 else
-                if (i == 0 && Char.IsDigit(nameChar))
+                if (nameIndex == 0 && Char.IsDigit(nameChar))
                   groupNameItem.Status = RegExStatus.Warning;
                 else
-                if (nameChar == '-')
+                if (nameChar == '-') // balancing group
                 {
                   group.Tag = RegExTag.BalancingGroup;
                   group.Items.Add(groupNameItem);
-                  group.Items.Add(new RegExItem { Start = group.Start + i + 3, Str = new string(nameChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK });
-                  if (i < name.Length)
+                  var dashItem = new RegExItem { Start = group.Start + nameIndex + 3, Str = new string(nameChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK };
+                  group.Items.Add(dashItem);
+                  if (nameIndex < name.Length)
                   {
-                    var nameRest = name.Substring(i + 1);
-                    groupNameItem.Str = groupNameItem.Str.Substring(0, i);
-                    groupNameItem = new RegExGroupName { Start = group.Start + i + 4, Str = nameRest, Tag = RegExTag.GroupName, Status = RegExStatus.OK };
-                    group.Name = nameRest;
+                    var nameRest = name.Substring(nameIndex + 1);
+                    groupNameItem.Str = name.Substring(priorDashIndex, nameIndex-priorDashIndex);
+                    if (priorDashIndex==0)
+                      group.Name = groupNameItem.Str;
+                    groupNameItem = new RegExGroupName { Start = group.Start + nameIndex + 4, Str = nameRest, Tag = RegExTag.GroupName, Status = RegExStatus.OK };
+                    if (priorDashIndex > 0)
+                    {
+                      dashItem.Status = RegExStatus.Error;
+                      groupNameItem.Status = RegExStatus.Warning;
+                      group.Status = RegExStatus.Error;
+                    }
+                    priorDashIndex = nameIndex + 1;
                   }
                   else
                     group.Status = RegExStatus.Error;
@@ -1738,8 +1776,14 @@ namespace RegExTaggerTest
             if (closingCharIndex>=0)
               group.Items.Add(new RegExItem { Start = closingCharIndex, Str = new string(closingChar, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.OK });
 
-            if (restStr != null)
+            if (!String.IsNullOrEmpty(restStr))
             {
+              if (groupNameItem.Status == RegExStatus.Unfinished)
+              {
+                closingCharIndex = 3 + groupNameItem.Length;
+                group.Items.Add(new RegExItem { Start = closingCharIndex, Str = restStr.Substring(0, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.Error });
+                restStr = restStr.Substring(1);
+              }
               Tagger.TryParsePattern(restStr);
               foreach (var item in Tagger.Items)
               {
@@ -1747,7 +1791,8 @@ namespace RegExTaggerTest
                 group.Items.Add(item);
               }
             }
-            group.Status = groupNameItem.Status;
+            if (group.Status == RegExStatus.OK)
+              group.Status = groupNameItem.Status;
           }
           else
           if (nextChar == '(') // pattern = @"(?()"

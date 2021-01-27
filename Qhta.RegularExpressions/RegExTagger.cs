@@ -199,12 +199,24 @@ namespace Qhta.RegularExpressions
           groupControlChar.Status = RegExStatus.OK;
           status = RegExStatus.Unfinished;
         }
-        else 
+        else
         if (nextChar == '<')
           status = TryParseNamedGroup(pattern, ref charNdx, group, '>');
         else
         if (nextChar == '\'')
           status = TryParseNamedGroup(pattern, ref charNdx, group, '\'');
+        else
+        if (nextChar == ':')
+        {
+          group.Tag = RegExTag.NonCapturingGroup;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (status1 == RegExStatus.Unfinished)
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.OK;
+        }
         else
         {
           var status1 = TryParsePattern(pattern, ref charNdx, ')');
@@ -260,46 +272,54 @@ namespace Qhta.RegularExpressions
       RegExItem nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx };
       group.Items.Add(nameItem);
       char thisChar = '\0';
+      string name1 = null;
       for (; charNdx <= pattern.Length; charNdx++)
       {
         thisChar = charNdx<pattern.Length ? pattern[charNdx] : '\0';
         if (thisChar == '\0')
         {
-          status = RegExStatus.Unfinished;
+          status = nameItem.Status = RegExStatus.Unfinished;
           break;
         }
         else
         if (thisChar == ' ')
         {
-          status = RegExStatus.Warning;
+          status = nameItem.Status = RegExStatus.Warning;
           name += thisChar;
         }
         else
         if (char.IsLetter(thisChar) || thisChar == '_' )
         {
           if (status==RegExStatus.Unfinished)
-            status = RegExStatus.OK;
+            status = nameItem.Status = RegExStatus.OK;
           name += thisChar;
         }
         else 
         if (char.IsDigit(thisChar))
         {
           if (name == null)
-            status = RegExStatus.Warning;
+            status = nameItem.Status = RegExStatus.Warning;
           else
           if (status == RegExStatus.Unfinished)
-            status = RegExStatus.OK;
+            status = nameItem.Status = RegExStatus.OK;
           name += thisChar;
         }
         else 
         if (thisChar=='-')
         {
           group.Tag = RegExTag.BalancingGroup;
-          nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
+          var nameStartStr = nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
           nameItem.Status = status;
-          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          var dashItem = TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
           nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx+1 };
           group.Items.Add(nameItem);
+          if (name1 == null)
+            name1 = nameStartStr;
+          else
+          {
+            status = dashItem.Status = RegExStatus.Error;
+            nameItem.Status = RegExStatus.Warning;
+          }
           name = null;
           seqStart = charNdx+1;
         }
@@ -315,13 +335,22 @@ namespace Qhta.RegularExpressions
         }
       }
       nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
-      nameItem.Status = status;
       if (thisChar == finalSep)
       {
         TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
         charNdx++;
       }
-      group.Name = name;
+      else if (thisChar!='\0')
+      {
+        TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.Error);
+        charNdx++;
+        if (nameItem.Status == RegExStatus.OK)
+          nameItem.Status = RegExStatus.Unfinished;
+      }
+      if (name1!=null)
+        group.Name = name1;
+      else
+        group.Name = name;
       return status;
     }
 

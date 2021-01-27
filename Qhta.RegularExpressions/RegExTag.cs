@@ -23,6 +23,7 @@
     GroupName,
     NamedGroup,
     BalancingGroup,
+    NonCapturingGroup,
     BackRef,
   }
 }

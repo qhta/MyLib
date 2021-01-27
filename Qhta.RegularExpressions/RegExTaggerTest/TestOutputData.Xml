@@ -691,48 +691,56 @@
     <TestItem.Items>
       <qr:RegExGroup Start="0" Status="OK" Str="((?&lt;One&gt;abc)\d+)" Tag="Subexpression">
         <qr:RegExGroup.Items>
-          <qr:RegExGroup x:Name="__ReferenceID144" Name="One" Start="1" Status="OK" Str="(?&lt;One&gt;abc)" Tag="NamedGroup">
+          <qr:RegExGroup x:Name="__ReferenceID146" Name="One" Start="1" Status="OK" Str="(?&lt;One&gt;abc)" Tag="NamedGroup">
             <qr:RegExGroup.Items>
               <qr:RegExItem x:Name="__ReferenceID141" Start="2" Status="OK" Str="?" Tag="GroupControlChar" />
-              <qr:RegExGroupName x:Name="__ReferenceID142" Start="3" Status="OK" Str="&lt;One&gt;" Tag="GroupName" />
-              <qr:RegExItem x:Name="__ReferenceID143" Start="8" Status="OK" Str="abc" Tag="LiteralString" />
+              <qr:RegExItem x:Name="__ReferenceID142" Start="3" Status="OK" Str="&lt;" Tag="GroupControlChar" />
+              <qr:RegExGroupName x:Name="__ReferenceID143" Start="4" Status="OK" Str="One" Tag="GroupName" />
+              <qr:RegExItem x:Name="__ReferenceID144" Start="7" Status="OK" Str="&gt;" Tag="GroupControlChar" />
+              <qr:RegExItem x:Name="__ReferenceID145" Start="8" Status="OK" Str="abc" Tag="LiteralString" />
             </qr:RegExGroup.Items>
             <qr:RegExGroup.SubItems>
               <x:Reference>__ReferenceID141</x:Reference>
               <x:Reference>__ReferenceID142</x:Reference>
               <x:Reference>__ReferenceID143</x:Reference>
+              <x:Reference>__ReferenceID144</x:Reference>
+              <x:Reference>__ReferenceID145</x:Reference>
             </qr:RegExGroup.SubItems>
           </qr:RegExGroup>
-          <qr:RegExItem x:Name="__ReferenceID145" Start="12" Status="OK" Str="\d" Tag="CharClass" />
-          <qr:RegExItem x:Name="__ReferenceID146" Start="14" Status="OK" Str="+" Tag="Quantifier" />
+          <qr:RegExItem x:Name="__ReferenceID147" Start="12" Status="OK" Str="\d" Tag="CharClass" />
+          <qr:RegExItem x:Name="__ReferenceID148" Start="14" Status="OK" Str="+" Tag="Quantifier" />
         </qr:RegExGroup.Items>
         <qr:RegExGroup.SubItems>
-          <x:Reference>__ReferenceID144</x:Reference>
-          <x:Reference>__ReferenceID145</x:Reference>
           <x:Reference>__ReferenceID146</x:Reference>
+          <x:Reference>__ReferenceID147</x:Reference>
+          <x:Reference>__ReferenceID148</x:Reference>
         </qr:RegExGroup.SubItems>
       </qr:RegExGroup>
       <qr:RegExItem Start="16" Status="OK" Str="?" Tag="Quantifier" />
       <qr:RegExGroup Name="Two" Start="17" Status="OK" Str="(?&lt;Two&gt;xyz)" Tag="NamedGroup">
         <qr:RegExGroup.Items>
-          <qr:RegExItem x:Name="__ReferenceID147" Start="18" Status="OK" Str="?" Tag="GroupControlChar" />
-          <qr:RegExGroupName x:Name="__ReferenceID148" Start="19" Status="OK" Str="&lt;Two&gt;" Tag="GroupName" />
-          <qr:RegExItem x:Name="__ReferenceID149" Start="24" Status="OK" Str="xyz" Tag="LiteralString" />
+          <qr:RegExItem x:Name="__ReferenceID149" Start="18" Status="OK" Str="?" Tag="GroupControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID150" Start="19" Status="OK" Str="&lt;" Tag="GroupControlChar" />
+          <qr:RegExGroupName x:Name="__ReferenceID151" Start="20" Status="OK" Str="Two" Tag="GroupName" />
+          <qr:RegExItem x:Name="__ReferenceID152" Start="23" Status="OK" Str="&gt;" Tag="GroupControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID153" Start="24" Status="OK" Str="xyz" Tag="LiteralString" />
         </qr:RegExGroup.Items>
         <qr:RegExGroup.SubItems>
-          <x:Reference>__ReferenceID147</x:Reference>
-          <x:Reference>__ReferenceID148</x:Reference>
           <x:Reference>__ReferenceID149</x:Reference>
+          <x:Reference>__ReferenceID150</x:Reference>
+          <x:Reference>__ReferenceID151</x:Reference>
+          <x:Reference>__ReferenceID152</x:Reference>
+          <x:Reference>__ReferenceID153</x:Reference>
         </qr:RegExGroup.SubItems>
       </qr:RegExGroup>
       <qr:RegExGroup Start="28" Status="OK" Str="(.*)" Tag="Subexpression">
         <qr:RegExGroup.Items>
-          <qr:RegExItem x:Name="__ReferenceID150" Start="29" Status="OK" Str="." Tag="DotChar" />
-          <qr:RegExItem x:Name="__ReferenceID151" Start="30" Status="OK" Str="*" Tag="Quantifier" />
+          <qr:RegExItem x:Name="__ReferenceID154" Start="29" Status="OK" Str="." Tag="DotChar" />
+          <qr:RegExItem x:Name="__ReferenceID155" Start="30" Status="OK" Str="*" Tag="Quantifier" />
         </qr:RegExGroup.Items>
         <qr:RegExGroup.SubItems>
-          <x:Reference>__ReferenceID150</x:Reference>
-          <x:Reference>__ReferenceID151</x:Reference>
+          <x:Reference>__ReferenceID154</x:Reference>
+          <x:Reference>__ReferenceID155</x:Reference>
         </qr:RegExGroup.SubItems>
       </qr:RegExGroup>
     </TestItem.Items>
@@ -743,35 +751,178 @@
       <qr:RegExItem Start="2" Status="OK" Str="+" Tag="Quantifier" />
       <qr:RegExGroup Name="digit" Start="3" Status="OK" Str="(?&lt;digit&gt;\d+)" Tag="NamedGroup">
         <qr:RegExGroup.Items>
-          <qr:RegExItem x:Name="__ReferenceID152" Start="4" Status="OK" Str="?" Tag="GroupControlChar" />
-          <qr:RegExGroupName x:Name="__ReferenceID153" Start="5" Status="OK" Str="&lt;digit&gt;" Tag="GroupName" />
-          <qr:RegExItem x:Name="__ReferenceID154" Start="12" Status="OK" Str="\d" Tag="CharClass" />
-          <qr:RegExItem x:Name="__ReferenceID155" Start="14" Status="OK" Str="+" Tag="Quantifier" />
-        </qr:RegExGroup.Items>
-        <qr:RegExGroup.SubItems>
-          <x:Reference>__ReferenceID152</x:Reference>
-          <x:Reference>__ReferenceID153</x:Reference>
-          <x:Reference>__ReferenceID154</x:Reference>
-          <x:Reference>__ReferenceID155</x:Reference>
-        </qr:RegExGroup.SubItems>
-      </qr:RegExGroup>
-      <qr:RegExItem Start="16" Status="OK" Str="\D" Tag="CharClass" />
-      <qr:RegExItem Start="18" Status="OK" Str="+" Tag="Quantifier" />
-      <qr:RegExGroup Name="digit" Start="19" Status="OK" Str="(?&lt;digit&gt;\d+)" Tag="NamedGroup">
-        <qr:RegExGroup.Items>
-          <qr:RegExItem x:Name="__ReferenceID156" Start="20" Status="OK" Str="?" Tag="GroupControlChar" />
-          <qr:RegExGroupName x:Name="__ReferenceID157" Start="21" Status="OK" Str="&lt;digit&gt;" Tag="GroupName" />
-          <qr:RegExItem x:Name="__ReferenceID158" Start="28" Status="OK" Str="\d" Tag="CharClass" />
-          <qr:RegExItem x:Name="__ReferenceID159" Start="30" Status="OK" Str="+" Tag="Quantifier" />
+          <qr:RegExItem x:Name="__ReferenceID156" Start="4" Status="OK" Str="?" Tag="GroupControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID157" Start="5" Status="OK" Str="&lt;" Tag="GroupControlChar" />
+          <qr:RegExGroupName x:Name="__ReferenceID158" Start="6" Status="OK" Str="digit" Tag="GroupName" />
+          <qr:RegExItem x:Name="__ReferenceID159" Start="11" Status="OK" Str="&gt;" Tag="GroupControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID160" Start="12" Status="OK" Str="\d" Tag="CharClass" />
+          <qr:RegExItem x:Name="__ReferenceID161" Start="14" Status="OK" Str="+" Tag="Quantifier" />
         </qr:RegExGroup.Items>
         <qr:RegExGroup.SubItems>
           <x:Reference>__ReferenceID156</x:Reference>
           <x:Reference>__ReferenceID157</x:Reference>
           <x:Reference>__ReferenceID158</x:Reference>
           <x:Reference>__ReferenceID159</x:Reference>
+          <x:Reference>__ReferenceID160</x:Reference>
+          <x:Reference>__ReferenceID161</x:Reference>
+        </qr:RegExGroup.SubItems>
+      </qr:RegExGroup>
+      <qr:RegExItem Start="16" Status="OK" Str="\D" Tag="CharClass" />
+      <qr:RegExItem Start="18" Status="OK" Str="+" Tag="Quantifier" />
+      <qr:RegExGroup Name="digit" Start="19" Status="OK" Str="(?&lt;digit&gt;\d+)" Tag="NamedGroup">
+        <qr:RegExGroup.Items>
+          <qr:RegExItem x:Name="__ReferenceID162" Start="20" Status="OK" Str="?" Tag="GroupControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID163" Start="21" Status="OK" Str="&lt;" Tag="GroupControlChar" />
+          <qr:RegExGroupName x:Name="__ReferenceID164" Start="22" Status="OK" Str="digit" Tag="GroupName" />
+          <qr:RegExItem x:Name="__ReferenceID165" Start="27" Status="OK" Str="&gt;" Tag="GroupControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID166" Start="28" Status="OK" Str="\d" Tag="CharClass" />
+          <qr:RegExItem x:Name="__ReferenceID167" Start="30" Status="OK" Str="+" Tag="Quantifier" />
+        </qr:RegExGroup.Items>
+        <qr:RegExGroup.SubItems>
+          <x:Reference>__ReferenceID162</x:Reference>
+          <x:Reference>__ReferenceID163</x:Reference>
+          <x:Reference>__ReferenceID164</x:Reference>
+          <x:Reference>__ReferenceID165</x:Reference>
+          <x:Reference>__ReferenceID166</x:Reference>
+          <x:Reference>__ReferenceID167</x:Reference>
         </qr:RegExGroup.SubItems>
       </qr:RegExGroup>
       <qr:RegExItem Start="32" Status="OK" Str="?" Tag="Quantifier" />
+    </TestItem.Items>
+  </TestItem>
+  <TestItem Pattern="^[^&lt;&gt;]*(((?'Open'&lt;)[^&lt;&gt;]*)+((?'Close-Open'&gt;)[^&lt;&gt;]*)+)*(?(Open)(?!))$" Result="Warning">
+    <TestItem.Items>
+      <qr:RegExItem Start="0" Status="OK" Str="^" Tag="AnchorControl" />
+      <qr:RegExCharset Start="1" Status="OK" Str="[^&lt;&gt;]" Tag="CharSet">
+        <qr:RegExCharset.Items>
+          <qr:RegExItem x:Name="__ReferenceID168" Start="2" Status="OK" Str="^" Tag="CharSetControlChar" />
+          <qr:RegExItem x:Name="__ReferenceID169" Start="3" Status="OK" Str="&lt;" Tag="LiteralChar" />
+          <qr:RegExItem x:Name="__ReferenceID170" Start="4" Status="OK" Str="&gt;" Tag="LiteralChar" />
+        </qr:RegExCharset.Items>
+        <qr:RegExCharset.SubItems>
+          <x:Reference>__ReferenceID168</x:Reference>
+          <x:Reference>__ReferenceID169</x:Reference>
+          <x:Reference>__ReferenceID170</x:Reference>
+        </qr:RegExCharset.SubItems>
+      </qr:RegExCharset>
+      <qr:RegExGroup Start="7" Status="OK" Str="(((?'Open'&lt;)[^&lt;&gt;]*)+((?'Close-Open'&gt;)[^&lt;&gt;]*)+)" Tag="Subexpression">
+        <qr:RegExGroup.Items>
+          <qr:RegExGroup x:Name="__ReferenceID193" Start="8" Status="OK" Str="((?'Open'&lt;)[^&lt;&gt;]*)" Tag="Subexpression">
+            <qr:RegExGroup.Items>
+              <qr:RegExGroup x:Name="__ReferenceID179" Name="Open" Start="9" Status="OK" Str="(?'Open'&lt;)" Tag="NamedGroup">
+                <qr:RegExGroup.Items>
+                  <qr:RegExItem x:Name="__ReferenceID171" Start="10" Status="OK" Str="?" Tag="GroupControlChar" />
+                  <qr:RegExItem x:Name="__ReferenceID172" Start="11" Status="OK" Str="'" Tag="GroupControlChar" />
+                  <qr:RegExGroupName x:Name="__ReferenceID173" Start="12" Status="OK" Str="Open" Tag="GroupName" />
+                  <qr:RegExItem x:Name="__ReferenceID174" Start="16" Status="OK" Str="'" Tag="GroupControlChar" />
+                  <qr:RegExItem x:Name="__ReferenceID175" Start="17" Status="OK" Str="&lt;" Tag="LiteralChar" />
+                </qr:RegExGroup.Items>
+                <qr:RegExGroup.SubItems>
+                  <x:Reference>__ReferenceID171</x:Reference>
+                  <x:Reference>__ReferenceID172</x:Reference>
+                  <x:Reference>__ReferenceID173</x:Reference>
+                  <x:Reference>__ReferenceID174</x:Reference>
+                  <x:Reference>__ReferenceID175</x:Reference>
+                </qr:RegExGroup.SubItems>
+              </qr:RegExGroup>
+              <qr:RegExCharset x:Name="__ReferenceID180" Start="19" Status="OK" Str="[^&lt;&gt;]" Tag="CharSet">
+                <qr:RegExCharset.Items>
+                  <qr:RegExItem x:Name="__ReferenceID176" Start="20" Status="OK" Str="^" Tag="CharSetControlChar" />
+                  <qr:RegExItem x:Name="__ReferenceID177" Start="21" Status="OK" Str="&lt;" Tag="LiteralChar" />
+                  <qr:RegExItem x:Name="__ReferenceID178" Start="22" Status="OK" Str="&gt;" Tag="LiteralChar" />
+                </qr:RegExCharset.Items>
+                <qr:RegExCharset.SubItems>
+                  <x:Reference>__ReferenceID176</x:Reference>
+                  <x:Reference>__ReferenceID177</x:Reference>
+                  <x:Reference>__ReferenceID178</x:Reference>
+                </qr:RegExCharset.SubItems>
+              </qr:RegExCharset>
+            </qr:RegExGroup.Items>
+            <qr:RegExGroup.SubItems>
+              <x:Reference>__ReferenceID179</x:Reference>
+              <x:Reference>__ReferenceID180</x:Reference>
+            </qr:RegExGroup.SubItems>
+          </qr:RegExGroup>
+          <qr:RegExItem x:Name="__ReferenceID194" Start="26" Status="OK" Str="+" Tag="Quantifier" />
+          <qr:RegExGroup x:Name="__ReferenceID195" Start="27" Status="OK" Str="((?'Close-Open'&gt;)[^&lt;&gt;]*)" Tag="Subexpression">
+            <qr:RegExGroup.Items>
+              <qr:RegExGroup x:Name="__ReferenceID191" Name="Close" Start="28" Status="OK" Str="(?'Close-Open'&gt;)" Tag="BalancingGroup">
+                <qr:RegExGroup.Items>
+                  <qr:RegExItem x:Name="__ReferenceID181" Start="29" Status="OK" Str="?" Tag="GroupControlChar" />
+                  <qr:RegExItem x:Name="__ReferenceID182" Start="30" Status="OK" Str="'" Tag="GroupControlChar" />
+                  <qr:RegExGroupName x:Name="__ReferenceID183" Start="31" Status="OK" Str="Close" Tag="GroupName" />
+                  <qr:RegExItem x:Name="__ReferenceID184" Start="36" Status="OK" Str="-" Tag="GroupControlChar" />
+                  <qr:RegExGroupName x:Name="__ReferenceID185" Start="37" Status="OK" Str="Open" Tag="GroupName" />
+                  <qr:RegExItem x:Name="__ReferenceID186" Start="41" Status="OK" Str="'" Tag="GroupControlChar" />
+                  <qr:RegExItem x:Name="__ReferenceID187" Start="42" Status="OK" Str="&gt;" Tag="LiteralChar" />
+                </qr:RegExGroup.Items>
+                <qr:RegExGroup.SubItems>
+                  <x:Reference>__ReferenceID181</x:Reference>
+                  <x:Reference>__ReferenceID182</x:Reference>
+                  <x:Reference>__ReferenceID183</x:Reference>
+                  <x:Reference>__ReferenceID184</x:Reference>
+                  <x:Reference>__ReferenceID185</x:Reference>
+                  <x:Reference>__ReferenceID186</x:Reference>
+                  <x:Reference>__ReferenceID187</x:Reference>
+                </qr:RegExGroup.SubItems>
+              </qr:RegExGroup>
+              <qr:RegExCharset x:Name="__ReferenceID192" Start="44" Status="OK" Str="[^&lt;&gt;]" Tag="CharSet">
+                <qr:RegExCharset.Items>
+                  <qr:RegExItem x:Name="__ReferenceID188" Start="45" Status="OK" Str="^" Tag="CharSetControlChar" />
+                  <qr:RegExItem x:Name="__ReferenceID189" Start="46" Status="OK" Str="&lt;" Tag="LiteralChar" />
+                  <qr:RegExItem x:Name="__ReferenceID190" Start="47" Status="OK" Str="&gt;" Tag="LiteralChar" />
+                </qr:RegExCharset.Items>
+                <qr:RegExCharset.SubItems>
+                  <x:Reference>__ReferenceID188</x:Reference>
+                  <x:Reference>__ReferenceID189</x:Reference>
+                  <x:Reference>__ReferenceID190</x:Reference>
+                </qr:RegExCharset.SubItems>
+              </qr:RegExCharset>
+            </qr:RegExGroup.Items>
+            <qr:RegExGroup.SubItems>
+              <x:Reference>__ReferenceID191</x:Reference>
+              <x:Reference>__ReferenceID192</x:Reference>
+            </qr:RegExGroup.SubItems>
+          </qr:RegExGroup>
+          <qr:RegExItem x:Name="__ReferenceID196" Start="51" Status="OK" Str="+" Tag="Quantifier" />
+        </qr:RegExGroup.Items>
+        <qr:RegExGroup.SubItems>
+          <x:Reference>__ReferenceID193</x:Reference>
+          <x:Reference>__ReferenceID194</x:Reference>
+          <x:Reference>__ReferenceID195</x:Reference>
+          <x:Reference>__ReferenceID196</x:Reference>
+        </qr:RegExGroup.SubItems>
+      </qr:RegExGroup>
+      <qr:RegExItem Start="53" Status="OK" Str="*" Tag="Quantifier" />
+      <qr:RegExGroup Start="54" Status="Warning" Str="(?(Open)(?!))" Tag="Subexpression">
+        <qr:RegExGroup.Items>
+          <qr:RegExItem x:Name="__ReferenceID200" Start="55" Status="Warning" Str="?" Tag="GroupControlChar" />
+          <qr:RegExGroup x:Name="__ReferenceID201" Start="56" Status="OK" Str="(Open)" Tag="Subexpression">
+            <qr:RegExGroup.Items>
+              <qr:RegExItem x:Name="__ReferenceID197" Start="57" Status="OK" Str="Open" Tag="LiteralString" />
+            </qr:RegExGroup.Items>
+            <qr:RegExGroup.SubItems>
+              <x:Reference>__ReferenceID197</x:Reference>
+            </qr:RegExGroup.SubItems>
+          </qr:RegExGroup>
+          <qr:RegExGroup x:Name="__ReferenceID202" Start="62" Status="Warning" Str="(?!)" Tag="Subexpression">
+            <qr:RegExGroup.Items>
+              <qr:RegExItem x:Name="__ReferenceID198" Start="63" Status="Warning" Str="?" Tag="GroupControlChar" />
+              <qr:RegExItem x:Name="__ReferenceID199" Start="64" Status="OK" Str="!" Tag="LiteralChar" />
+            </qr:RegExGroup.Items>
+            <qr:RegExGroup.SubItems>
+              <x:Reference>__ReferenceID198</x:Reference>
+              <x:Reference>__ReferenceID199</x:Reference>
+            </qr:RegExGroup.SubItems>
+          </qr:RegExGroup>
+        </qr:RegExGroup.Items>
+        <qr:RegExGroup.SubItems>
+          <x:Reference>__ReferenceID200</x:Reference>
+          <x:Reference>__ReferenceID201</x:Reference>
+          <x:Reference>__ReferenceID202</x:Reference>
+        </qr:RegExGroup.SubItems>
+      </qr:RegExGroup>
+      <qr:RegExItem Start="67" Status="OK" Str="$" Tag="AnchorControl" />
     </TestItem.Items>
   </TestItem>
 </TestData>
