@@ -332,7 +332,7 @@ namespace RegExTaggerTest
 
       if (TestOutputFileName != null)
       {
-        if (wholeTestResult != true)
+        //if (wholeTestResult != true)
         {
           Console.Write($"Do you want to write test data to file \"{TestOutputFileName}\"? (Y/N)");
           var key1 = Console.ReadKey();

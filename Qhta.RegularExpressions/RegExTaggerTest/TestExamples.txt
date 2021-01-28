@@ -14,6 +14,19 @@
 	\n	Match a new line character.
 \e
 	\e	Match an escape character.
+[ae]
+	[ae]	Match either an "a" or an "e".
+[aeiou]
+	[aeiou]	Match all vowels.
+[\p{P}\d]
+	[\p{P}\d]	Match all punctuation and decimal digit characters.
+[\s\p{P}]
+	[\s\p{P}]	Match all white space and punctuation.
+\b[A-Z]\w*\b
+	\b	Start at a word boundary.
+	[A-Z]	Match any uppercase character from A to Z.
+	\w*	Match zero or more word characters.
+	\b	Match a word boundary.
 \G(.+)[\t\u007c](.+)\r?\n
 	\G	Begin the match where the last match ended.
 	(.+)	Match any character one or more times. This is the first capturing group.

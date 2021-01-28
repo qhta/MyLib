@@ -34,6 +34,9 @@ namespace Qhta.RegularExpressions.Descriptions
     {
       {@"\s", "white-space character" },
       {@"\S", "non-white-space character" },
+      {@"\d", "decimal digit character" },
+      {@"\D", "non-decimal digit character" },
+      {@"\w", "word character" },
     };
 
     static readonly Dictionary<string, string> UnicodeCategoryNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -60,6 +63,7 @@ namespace Qhta.RegularExpressions.Descriptions
       {@"(.+)", "Match any character one or more times" },
       {@"\r?\n", "Match zero or one occurrence of a carriage return character followed by a new line character" },
       {@"[ae]", "either an \"a\" or an \"e\""},
+      {@"[aeiou]", "Match all vowels" },
     };
 
     static readonly Dictionary<int, string> OrdinalNames = new Dictionary<int, string>
@@ -89,7 +93,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static PatternItem CreatePatternItem(IList<RegExItem> itemList, ref int itemIndex, ref int groupNumber)
+    static PatternItem CreatePatternItem(IList<RegExItem> itemList, ref int itemIndex, ref int groupNumber, bool inCharset=false)
     {
       var curItem = itemList[itemIndex];
 
@@ -105,7 +109,7 @@ namespace Qhta.RegularExpressions.Descriptions
           break;
         default:
           result = CreatePatternItem(itemList, ref itemIndex);
-          if (itemIndex< itemList.Count)
+          if (curItem.Tag!=RegExTag.CharSet && itemIndex< itemList.Count)
           {
             curItem = itemList[itemIndex];
             if (curItem.Tag==RegExTag.CharClass)
@@ -165,7 +169,7 @@ namespace Qhta.RegularExpressions.Descriptions
 
     static PatternItem CreatePatternItem(IList<RegExItem> itemList, ref int itemIndex)
     {
-      var result = CreateSpecificPatternItem(itemList, ref itemIndex);
+      var result = CreateSpecificPatternItem(itemList, ref itemIndex, false);
       var nextItem = (itemIndex < itemList.Count) ? itemList[itemIndex] : null;
       if (nextItem != null && nextItem.Tag == RegExTag.Quantifier)
       {
@@ -178,7 +182,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static PatternItem CreateSpecificPatternItem(IList<RegExItem> itemList, ref int itemIndex)
+    static PatternItem CreateSpecificPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset)
     {
       var curItem = itemList[itemIndex];
       itemIndex++;
@@ -211,7 +215,10 @@ namespace Qhta.RegularExpressions.Descriptions
         case RegExTag.CharClass:
           if (!CharClassDescriptions.TryGetValue(curItem.Str, out string className))
             throw new NotImplementedException($"CreatePatternItem error: Char class name for a \"{curItem.Str}\" not found");
-          result.Description = $"{(Vowels.Contains(className.FirstOrDefault()) ? "an" : "a")} {className}";
+          if (inCharset)
+            result.Description = $"all {className}s";
+          else
+            result.Description = $"{(Vowels.Contains(className.FirstOrDefault()) ? "an" : "a")} {className}";
           break;
         case RegExTag.DotChar:
           result.Description = $"any character";
@@ -224,18 +231,60 @@ namespace Qhta.RegularExpressions.Descriptions
         case RegExTag.UnicodeCategorySeq:
           if (!UnicodeCategoryNames.TryGetValue(curItem.Str, out string categoryName))
             throw new NotImplementedException($"CreatePatternItem error: Unicode category name for a \"{curItem.Str}\" not found");
-          result.Description = $"{(Vowels.Contains(categoryName.FirstOrDefault()) ? "an" : "a")} {categoryName}";
+          if (inCharset)
+            result.Description = $"all {categoryName}s";
+          else
+            result.Description = $"{(Vowels.Contains(categoryName.FirstOrDefault()) ? "an" : "a")} {categoryName}";
           break;
         case RegExTag.Quantifier:
           throw new InvalidOperationException($"CreatePatternItem error: Quantifier must not be textualized here");
         case RegExTag.CharSet:
           subStrings = new List<string>();
           subIndex = 0;
+          bool hasAll = false;
           while (subIndex < curItem.SubItems.Count)
-            subStrings.Add(CreatePatternItem(curItem.SubItems, ref subIndex).Description);
-          result.Description = String.Join(" or ", subStrings);
-          if (curItem.SubItems.Count == 2)
-            result.Description = "either " + result.Description;
+          {
+            var subItem = CreateSpecificPatternItem(curItem.SubItems, ref subIndex, true);
+            if (subItem.Description.StartsWith("all "))
+            {
+              if (hasAll)
+                subItem.Description = subItem.Description.Substring(4);
+              hasAll = true;
+            }
+            subStrings.Add(subItem.Description);
+          }
+          if (hasAll)
+          {
+            result.Description = String.Join(" and ", subStrings);
+          }
+          else
+          {
+            result.Description = String.Join(" or ", subStrings);
+            if (curItem.SubItems.Count == 2 && curItem.SubItems[0].Tag == RegExTag.LiteralChar && curItem.SubItems[2].Tag == RegExTag.LiteralChar)
+              result.Description = "either " + result.Description;
+          }
+          break;
+        case RegExTag.CharRange:
+          subStrings = new List<string>();
+          var ch1 = (curItem.SubItems.Count > 0) ? curItem.SubItems[0].Str.FirstOrDefault() : '\0';
+          var ch2 = (curItem.SubItems.Count > 2) ? curItem.SubItems[2].Str.FirstOrDefault() : '\0';
+          if (Char.IsUpper(ch1) && Char.IsUpper(ch2))
+            subStrings.Add("uppercase");
+          subStrings.Add("from");
+          if (Char.IsUpper(ch1) && !Char.IsUpper(ch2))
+            subStrings.Add("uppercase");
+          else
+          if (Char.IsLower(ch1) && Char.IsUpper(ch2))
+            subStrings.Add("lowercase");
+          subStrings.Add($"\"{ch1}\"");
+          subStrings.Add("to");
+          if (Char.IsUpper(ch2) && !Char.IsUpper(ch1))
+            subStrings.Add("uppercase");
+          else
+          if (Char.IsLower(ch2) && Char.IsUpper(ch1))
+            subStrings.Add("lowercase");
+          subStrings.Add($"\"{ch2}\"");
+          result.Description = String.Join(" ", subStrings);
           break;
         case RegExTag.Subexpression:
           subStrings = new List<string>();
