@@ -37,14 +37,14 @@
 	\b	End at a word boundary.
 
 \b\w+(e)?s(\s|$)
-	\b	Start at a word boundary.
+	\b	Begin the match at a word boundary.
 	\w+	Match one or more word characters.
 	(e)?	Match a literal character "e" zero or one times. This is the first capturing group.
 	s	Match a literal character "s".
 	(\s|$)	Match either a white-space character or the end of the input string. This is the second capturing group.
 
 \G(.+)[\t\u007c](.+)\r?\n
-	\G	Start where the last match ended.
+	\G	Begin the match where the last match ended.
 	(.+)	Match any character one or more times. This is the first capturing group.
 	[\t\u007c]	Match either a tab character or a vertical bar character.
 	(.+)	Match any character one or more times. This is the second capturing group.
@@ -60,7 +60,7 @@ gr[ae]y\s\S+?[\s\p{P}]
 \bth[^o]\w+\b
 	\b	Start at a word boundary.
 	th	Match the literal characters "th".
-	[^o]	Match all characters except an "o".
+	[^o]	Match any character except a literal character "o".
 	\w+	Match one or more word characters.
 	\b	End at a word boundary.
 
@@ -71,7 +71,10 @@ gr[ae]y\s\S+?[\s\p{P}]
 
 \b(\p{IsGreek}+(\s)?)+\p{Pd}\s(\p{IsBasicLatin}+(\s)?)+
 	\b	Start at a word boundary.
+	\p{IsGreek}+(\s)?	Match one or more Greek characters followed by zero or one white-space character.
 	(\p{IsGreek}+(\s)?)+	Match the pattern of one or more Greek characters followed by zero or one white-space characters one or more times.
-	\p{Pd}	Match a dash punctuation.
+	\p{Pd}	Match a Punctuation, Dash character.
 	\s	Match a white-space character.
+	\p{IsBasicLatin}+	Match one or more basic Latin characters.
+	(\s)?	Match zero or one white-space character.
 	(\p{IsBasicLatin}+(\s)?)+	Match the pattern of one or more basic Latin characters followed by zero or one white-space characters one or more times.

@@ -2105,7 +2105,7 @@ namespace RegExTaggerTest
       {
         testOutputItem.PatternItems = testOutputItem.Items.GeneratePatternItems();
         if (singleTestResult != false)
-          singleTestResult = testOutputItem.PatternItems.Equals(testInputItem.PatternItems);
+          singleTestResult = PatternItemsComparator.AreEqual(testOutputItem.PatternItems, testInputItem.PatternItems);
       }
 
       if (singleTestResult == false)

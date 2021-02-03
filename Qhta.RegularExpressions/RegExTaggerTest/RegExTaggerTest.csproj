@@ -68,6 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestExamples - Copy.txt" />
     <Content Include="TestPatterns.txt" />
     <Content Include="TestExamples.txt" />
   </ItemGroup>
