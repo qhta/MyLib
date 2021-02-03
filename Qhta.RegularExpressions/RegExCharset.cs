@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Qhta.RegularExpressions
 {
-  public class RegExCharset: RegExItem
+  public class RegExCharSet: RegExItem
   {
+    public RegExCharSet()
+    {
+      Items = new RegExItems();
+    }
 
     public bool IsNegative => Items.Count > 0 && Items[0].Tag == RegExTag.CharSetControlChar;
 
-    public RegExItems Items { get; private set; } = new RegExItems();
-
-    public override RegExItems SubItems => Items;
 
     public bool IsEmpty => Items.Count == 0 || Items.Count == 1 && Items[0].Tag == RegExTag.CharSetControlChar;
 

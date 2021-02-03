@@ -382,7 +382,7 @@ namespace RegExTaggerTest
         else if (ch == '.')
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.DotChar, Status = RegExStatus.OK };
         else if (ch == '[')
-          newItem = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+          newItem = new RegExCharSet { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
         else if (ch == '\\')
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
         else if (QuantifierChars.Contains(ch))
@@ -556,7 +556,7 @@ namespace RegExTaggerTest
       {
         var pattern = new string(new char[] { '[', nextChar });
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
-        RegExCharset charset = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = nextChar == ']' ? RegExStatus.Error : RegExStatus.Unfinished };
+        RegExCharSet charset = new RegExCharSet { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = nextChar == ']' ? RegExStatus.Error : RegExStatus.Unfinished };
         testInputItem.Items.Add(charset);
         testInputItem.Result = charset.Status;
         if (nextChar == '^')
@@ -1260,7 +1260,7 @@ namespace RegExTaggerTest
     static bool? RunSingleCharsetTest(string pattern)
     {
       var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
-      RegExCharset charset = new RegExCharset { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.OK };
+      RegExCharSet charset = new RegExCharSet { Start = 0, Str = pattern, Tag = RegExTag.CharSet, Status = RegExStatus.OK };
       testInputItem.Items.Add(charset);
       int charNdx = pattern.Length;
       if (pattern.Length < 3)
@@ -1395,7 +1395,7 @@ namespace RegExTaggerTest
                 charNdx += 1;
                 int k = pattern.IndexOf(']', charNdx);
                 var str = pattern.Substring(charNdx, k - charNdx + 1);
-                RegExCharset intCharset = new RegExCharset { Start = charNdx, Str = str, Tag = RegExTag.CharSet, Status = (str == "[]") ? RegExStatus.Error : RegExStatus.OK };
+                RegExCharSet intCharset = new RegExCharSet { Start = charNdx, Str = str, Tag = RegExTag.CharSet, Status = (str == "[]") ? RegExStatus.Error : RegExStatus.OK };
                 if (str != "[]")
                 {
                   subItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, k - charNdx), Tag = RegExTag.CharRange, Status = RegExStatus.OK };
@@ -1595,7 +1595,7 @@ namespace RegExTaggerTest
           else if (nextChar == '(')
             subItem = new RegExGroup { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Subexpression, Status = RegExStatus.Unfinished };
           else if (nextChar == '[')
-            subItem = new RegExCharset { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+            subItem = new RegExCharSet { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
           else if (AnchorChars.Contains(nextChar))
             subItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
           else if (QuantifierChars.Contains(nextChar))
@@ -1644,7 +1644,7 @@ namespace RegExTaggerTest
         }
         else if (nextChar == '[') // pattern == @"([)"
         {
-          var charset = new RegExCharset { Start = 1, Str = pattern.Substring(1, 2), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
+          var charset = new RegExCharSet { Start = 1, Str = pattern.Substring(1, 2), Tag = RegExTag.CharSet, Status = RegExStatus.Unfinished };
           charset.Items.Add(new RegExItem { Start = 2, Str = pattern.Substring(2, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK });
           subItem = charset;
           group.Status = RegExStatus.Unfinished;
@@ -1935,7 +1935,7 @@ namespace RegExTaggerTest
             k = pattern.Length - 1;
           else
             str = pattern.Substring(2, k - 2);
-          var charset = new RegExCharset { Start = 1, Str = pattern.Substring(1, k), Tag = RegExTag.CharSet, Status = (k < pattern.Length - 1) ? RegExStatus.OK : RegExStatus.Unfinished };
+          var charset = new RegExCharSet { Start = 1, Str = pattern.Substring(1, k), Tag = RegExTag.CharSet, Status = (k < pattern.Length - 1) ? RegExStatus.OK : RegExStatus.Unfinished };
           if (str == "")
             charset.Status = RegExStatus.Error;
           for (int i = 0; i < str.Length; i++)
@@ -2307,7 +2307,7 @@ namespace RegExTaggerTest
           Dump(writer, group.Items, level + 1);
         }
         else
-        if (item is RegExCharset charset)
+        if (item is RegExCharSet charset)
           Dump(writer, charset.Items, level + 1);
       }
     }

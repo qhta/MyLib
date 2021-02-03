@@ -16,4 +16,10 @@
     <None Remove="RegExTaggerTest\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Xaml">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

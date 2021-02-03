@@ -17,6 +17,8 @@
     UnicodeSeq,
     UnicodeCategorySeq,
     Quantifier,
+    Number,
+    Separator,
     AltChar,
     Subexpression,
     GroupControlChar,

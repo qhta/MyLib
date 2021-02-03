@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Markup;
+using System.Xml.Serialization;
 
 namespace Qhta.RegularExpressions
 {
+  [ContentProperty(nameof(Items))]
   public class RegExItem
   {
     public RegExTag Tag { get; set; }
@@ -18,7 +21,8 @@ namespace Qhta.RegularExpressions
 
     public RegExStatus Status { get; set; }
 
-    public virtual RegExItems SubItems => null;
+
+    public RegExItems Items { get; protected set; }
 
     public char CharValue
     {
@@ -51,8 +55,8 @@ namespace Qhta.RegularExpressions
     public virtual void MoveStart(int delta)
     {
       Start += delta;
-      if (SubItems!=null)
-      foreach (var item in SubItems)
+      if (Items!=null)
+      foreach (var item in Items)
         item.MoveStart(delta);
     }
 
@@ -101,11 +105,11 @@ namespace Qhta.RegularExpressions
           AddInequality(new Inequality { Property = "Str", Obtained = this.Str, Expected = other.Str });
           result = false;
         }
-        if (this.SubItems != null && other.SubItems != null && !this.SubItems.Equals(other.SubItems))
+        if (this.Items != null && other.Items != null && !this.Items.Equals(other.Items))
           result = false;
-        if (this.SubItems?.Count != other.SubItems?.Count)
+        if (this.Items?.Count != other.Items.Count)
         {
-          AddInequality(new Inequality { Property = "SubItems.Count", Obtained = this.SubItems.Count, Expected = other.SubItems.Count });
+          AddInequality(new Inequality { Property = "SubItems.Count", Obtained = this.Items.Count, Expected = other.Items.Count });
           result = false;
         }
         return result;

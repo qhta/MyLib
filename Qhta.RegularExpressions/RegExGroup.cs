@@ -11,12 +11,14 @@ namespace Qhta.RegularExpressions
   //[XmlType("RegExGroup")]
   public class RegExGroup: RegExItem
   {
+    public RegExGroup()
+    {
+      Items = new RegExItems();
+    }
+
+
     [DefaultValue(null)]
     public string Name { get; set; }
-
-    public RegExItems Items { get; private set; } = new RegExItems();
-
-    public override RegExItems SubItems => Items;
 
     public override bool Equals(object obj)
     {

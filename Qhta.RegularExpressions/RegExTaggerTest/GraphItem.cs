@@ -18,8 +18,8 @@ namespace RegExTaggerTest
     public GraphItem(RegExItem item)
     {
       Item = item;
-      if (item.SubItems != null)
-        SubItems = new GraphItems(item.SubItems);
+      if (item.Items != null)
+        SubItems = new GraphItems(item.Items);
     }
 
     public RegExItem Item { get; private set; }
@@ -80,7 +80,7 @@ namespace RegExTaggerTest
             var start = lastItem.Start - this.Start + lastItem.Length;
             Debug.Assert(start >= 0, $"EndStr invalid start {start} < 0 ") ;
             if (start == Str.Length)
-              return "";
+              return " ";
             Debug.Assert(start < Str.Length, $"EndStr invalid start {start} >= {Str.Length} ");
             return Str.Substring(start) + " ";
           }

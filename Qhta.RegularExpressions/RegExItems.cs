@@ -110,9 +110,9 @@ namespace Qhta.RegularExpressions
       foreach (var item in this)
       {
         items.Add(item);
-        if (item.SubItems != null)
+        if (item.Items != null)
         {
-          items.AddRange(item.SubItems.ToList());
+          items.AddRange(item.Items.ToList());
         }
       }
       return items;

@@ -10,12 +10,5 @@ namespace Qhta.RegularExpressions
 {
   public class RegExGroupName: RegExItem
   {
-    //[DefaultValue(null)]
-    //public string Name { get; set; }
-
-    //public RegExItems Items { get; private set; } = new RegExItems();
-
-    //public override RegExItems SubItems => Items;
-
   }
 }
