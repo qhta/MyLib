@@ -1,0 +1,164 @@
+﻿\a
+	\a	Match a bell character.
+\t
+	\t	Match a tab character.
+\r
+	\r	Match a carriage return character.
+\v
+	\v	Match a vertical tab character.
+\f
+	\f	Match a form feed character.
+\n
+	\n	Match a new line character.
+\e
+	\e	Match an escape character.
+[ae]
+	[ae]	Match either an "a" or an "e".
+
+[aeiou]
+	[aeiou]	Match all vowels.
+
+[\p{P}\d]
+	[\p{P}\d]	Match all punctuation and decimal digit characters.
+
+[\s\p{P}]
+	[\s\p{P}]	Match all white-space and punctuation.
+
+[^aeiou]
+	[^aeiou]	Match all characters except vowels.
+
+[^\p{P}\d]
+	[^\p{P}\d]	Match all characters except punctuation and decimal digit characters.
+
+\b[A-Z]\w*\b
+	\b	Start at a word boundary.
+	[A-Z]	Match any uppercase character from A to Z.
+	\w*	Match zero or more word characters.
+	\b	End at a word boundary.
+
+\b\w+(e)?s(\s|$)
+	\b	Start at a word boundary.
+	\w+	Match one or more word characters.
+	(e)?	Match a literal character "e" zero or one time. This is the first capturing group.
+	s	Match a literal character "s".
+	(\s|$)	Match either a white-space character or the end of the input string. This is the second capturing group.
+
+\G(.+)[\t\u007c](.+)\r?\n
+	\G	Start where the last match ended.
+	(.+)	Match any character one or more times. This is the first capturing group.
+	[\t\u007c]	Match either a tab character or a vertical bar character.
+	(.+)	Match any character one or more times. This is the second capturing group.
+	\r?\n	Match zero or one occurrence of a carriage return character followed by a new line character.
+
+gr[ae]y\s\S+?[\s\p{P}]
+	gr	Match the literal characters "gr".
+	[ae]	Match either an "a" or an "e".
+	y\s	Match the literal character "y" followed by a white-space character.
+	\S+?	Match one or more occurrence of a non-white-space character, but as few as possible.
+	[\s\p{P}]	Match either a white-space character or a punctuation mark.
+
+\bth[^o]\w+\b
+	\b	Start at a word boundary.
+	th	Match the literal characters "th".
+	[^o]	Match all characters except an "o".
+	\w+	Match one or more word characters.
+	\b	End at a word boundary.
+
+\b.*[.?!;:](\s|\z)
+	\b	Start at a word boundary.
+	.*[.?!;:]	Match any character until one of five punctuation marks, including a period.
+	(\s|\z)	Match either a white-space character or the end of the string.
+
+\b(\p{IsGreek}+(\s)?)+\p{Pd}\s(\p{IsBasicLatin}+(\s)?)+
+	\b	Start at a word boundary.
+	(\p{IsGreek}+(\s)?)+	Match the pattern of one or more Greek characters followed by zero or one white-space characters one or more times.
+	\p{Pd}	Match a dash punctuation.
+	\s	Match a white-space character.
+	(\p{IsBasicLatin}+(\s)?)+	Match the pattern of one or more basic Latin characters followed by zero or one white-space characters one or more times.
+
+^[0-9-[2468]]+$
+	^	Start at the beginning of the input string.
+	[0-9-[2468]]+	Match one or more occurrences of any character from 0 to 9 except for 2, 4, 6, and 8.
+	$	End at the end of the input string.
+
+^((\w+(\s?)){2,}),\s(\w+\s\w+),(\s\d{4}(-(\d{4}|present))?,?)+
+	^	Start at the beginning of the input string.
+	((\w+(\s?)){2,})	Match the pattern of one or more word characters followed by zero or one white-space character at least two times. This is the first capturing group. This expression also defines a second and third capturing group: The second consists of the captured word, and the third consists of the captured white space.
+	,\s	Match a comma followed by a white-space character.
+	(\w+\s\w+)	Match one or more word characters followed by a white-space character, followed by one or more word characters. This is the fourth capturing group.
+	,	Match a comma.
+	(\s\d{4}(-(\d{4}|present))?,?)+	Match the pattern of a white-space character followed by four decimal digits, followed by zero or one hyphen followed by either four decimal digits or the literal characters "present", followed by zero or one occurrence of comma one or more times. This is the fifth capturing group.
+
+\G(\w+\s?\w*),?
+	\G	Begin where the last match ended.
+	(\w+\s?\w*)	Match one or more word characters followed by zero or one space, followed by zero or more word characters. This is the first capturing group.
+	,?	Match zero or one occurrence of a literal comma character.
+
+\bare\w*\b
+	\b	Begin the match at a word boundary.
+	are	Match the substring "are".
+	\w*	Match zero or more word characters.
+	\b	End the match at a word boundary.
+
+\Bqu\w+
+	\B	Do not begin the match at a word boundary.
+	qu	Match the substring "qu".
+	\w+	Match one or more word characters.
+
+\b91*9*\b
+	\b	Start at a word boundary.
+	9	Match a literal character "9".
+	1*	Match zero or more occurrences of literal character "1".
+	9*	Match zero or more occurrences of literal character "9".
+	\b	End at a word boundary.
+
+\ban+\w*?\b
+	\b	Start at a word boundary.
+	a	Match a literal character "a".
+	n+\w	Match one or more occurrence of literal character "n" followed by zero or more word characters, but as few as possible.
+	\b	End at a word boundary.
+
+\b\d+\,\d{3}\b
+	\b	Start at a word boundary.
+	\d+	Match one or more decimal digits.
+	\,	Match a comma character.
+	\d{3}	Match three decimal digits.
+	\b	End at a word boundary.
+
+\b\d{2,}\b\D+
+	\b	Start at a word boundary.
+	\d{2,}	Match at least two decimal digits.
+	\b	Match a word boundary.
+	\D+	Match at least one non-decimal digit.
+
+(00\s){2,4}
+	(00\s){2,4}	Match the pattern of literal characters "00" followed by a white-space character, between 2 and 4 times.
+
+\b\w*?oo\w*?\b
+	\b	Start at a word boundary.
+	\w*?	Match zero or more word characters, but as few characters as possible.
+	oo	Match the string "oo".
+	\w*?	Match zero or more word characters, but as few characters as possible.
+	\b	End on a word boundary.
+
+^\s*(System\.)??Console\.Write(Line)??\(??
+	^	Start at the beginning of the input string.
+	\s*	Match zero or more white-space characters.
+	(System\.)??	Match the pattern of the literal characters "System" followed by a period zero or one time.
+	Console	Match the string "Console".
+	\.	Match the period
+	Write	Match the string "Write".
+	(Line)??	Match the literal characters "Line" zero or one time.
+	\(??	Match zero or one occurrence of the opening parenthesis.
+
+\b(\w{3,}?\.){2}?\w{3,}?\b
+	\b	Start at a word boundary.
+	(\w{3,}?\.){2}?	Match the pattern of at least three word characters, but as few characters as possible, followed by a dot, two times, but as few times as possible. This is the first capturing group.
+	\w{3,}?	Match at least three word characters, but as few characters as possible.
+	\b	End the match on a word boundary.
+
+\b[A-Z](\w*?\s*?){1,10}[.!?]
+	\b	Start at a word boundary.
+	[A-Z]	Match an uppercase character from A to Z.
+	(\w*?\s*?){1,10}	Match the pattern of zero or more word characters, but as few as possible, followed by zero or more white-space characters, but as few as possible, between 1 and 10 times. This is the first capture group.
+	[.!?]	Match a "." or a "!" or a "?".

@@ -1,11 +1,38 @@
-﻿using System;
+﻿using Qhta.Collections;
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Qhta.RegularExpressions.Descriptions
 {
   public static class PatternItemsComparator
   {
+
+    private static readonly SortedSet<string> NonComparedWords = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase)
+    {
+      "a", "an", "the",
+      "either", "all", "any",
+      "of", "at", "on", "in",
+      "or", "and",
+      "mark",
+      "character", 
+      "string", "substring",
+      "occurrence", "occurrenc",
+      "literal",
+      "match",
+    };
+
+    static BiDiDictionary<string, string> Synonyms = new BiDiDictionary<string, string>
+    {
+      { "begin", "start" },
+      { "beginning", "start" },
+      { "whitespace", "space" },
+      { "one more", "least one" },
+      { "dot", "period" },
+      { "full stop", "dot" },
+    }; 
 
     public static bool AreEqual(PatternItems first, PatternItems second)
     {
@@ -44,29 +71,55 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    public static bool AreEqual(string[] first, string[] second)
+    public static bool AreEqual(string[] w1, string[] w2)
     {
       bool result = true;
-      if (first.Count() != second.Count())
-        return false;
-      int n = first.Count();
-      if (second.Count() < n)
-        n = second.Count();
+
+      int n = w1.Count();
+      if (w2.Count() < n)
+        n = w2.Count();
       for (int i = 0; i < n; i++)
       {
-        var item1 = first[i];
-        var item2 = second[i];
-        if (!AreEqual(item1, item2))
-          result = false;
+        var s1 = w1[i];
+        var s2 = w2[i];
+        if (!AreEqual(s1, s2))
+        {
+          if (i<n-1)
+          {
+            s1 += " " + w1[i + 1];
+            s2 += " " + w2[i + 1];
+            if (!AreEqual(s1, s2))
+              result = false;
+            else 
+              i++;
+          }
+          else
+            result = false;
+        }
+      }
+      if (w1.Count() != w2.Count())
+      {
+        Debug.WriteLine($"The first string has {w1.Count()} words to compare and the second has {w2.Count()} words");
+        return false;
       }
       return result;
     }
 
-    public static bool AreEqual(string first, string second)
+    public static bool AreEqual(string s1, string s2)
     {
-      first = Singularize(first);
-      second = Singularize(second);
-      bool result = first.Equals(second, StringComparison.CurrentCultureIgnoreCase);
+      bool result = s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
+      if (!result)
+      {
+        if (Synonyms.TryGetValue1(s1, out var synonym))
+          result = synonym.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
+        if (!result)
+        {
+          if (Synonyms.TryGetValue1(s2, out synonym))
+            result = synonym.Equals(s1, StringComparison.CurrentCultureIgnoreCase);
+          if (!result)
+            Debug.WriteLine($"The following words are not equal: \"{s1}\" <=> \"{s2}\"");
+        }
+      }
       return result;
     }
 
@@ -79,18 +132,6 @@ namespace Qhta.RegularExpressions.Descriptions
         str = str.Substring(0, str.Length - 1);
       return str;
     }
-
-    private static readonly SortedSet<string> NonComparedWords = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase)
-    {
-      "a", "an", "the",
-      "marks", "mark",
-      "character", "characters",
-      "either", "all", "any",
-      "or", "and",
-      "occurrences", "occurrence",
-      "occurences", "occurence",
-      "of", "at",
-    };
 
     private static string TakeFirstSentence(string description)
     {
@@ -107,7 +148,7 @@ namespace Qhta.RegularExpressions.Descriptions
       {
         var ch = chars[i];
         if (ch == '-')
-          chars[i] = ' ';
+          chars.RemoveAt(i);
         else if (ch == '"')
           chars.RemoveAt(i);
         else
@@ -119,8 +160,11 @@ namespace Qhta.RegularExpressions.Descriptions
       for (int i = words.Count - 1; i >= 0; i--)
       {
         var word = words[i];
+        word = Singularize(word).ToLower();
         if (NonComparedWords.Contains(word))
           words.RemoveAt(i);
+        else
+          words[i] = word;
       }
       return words.ToArray();
     }

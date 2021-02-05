@@ -780,7 +780,6 @@ namespace Qhta.RegularExpressions
     private RegExStatus TryParseNumQuantifier(string pattern, ref int charNdx)
     {
       RegExQuantifier quantifier = new RegExQuantifier { Tag = RegExTag.Quantifier, Start = charNdx };
-      //quantifier.Items = new RegExItems();
       Items.Add(quantifier);
       bool isSeq = false;
       var seqStart = charNdx;
@@ -800,7 +799,7 @@ namespace Qhta.RegularExpressions
         else
         if (curChar == ',')
         {
-          if (numNdx > 0)
+          if (numNdx > 0 || charNdx==numStart)
             status1 = RegExStatus.Error;
           if (charNdx > numStart)
             quantifier.Items.Add(new RegExItem { Tag = RegExTag.Number, Start = numStart, Str = GetSubstring(pattern, numStart, charNdx - numStart), Status = status1 });
@@ -856,6 +855,12 @@ namespace Qhta.RegularExpressions
       quantifier.Status = status;
       if (!isSeq)
         return RegExStatus.Unfinished;
+      else
+      if (charNdx<pattern.Length-1 && pattern[charNdx+1]=='?')
+      {
+        quantifier.Str += '?';
+        charNdx++;
+      }
       return status;
     }
 

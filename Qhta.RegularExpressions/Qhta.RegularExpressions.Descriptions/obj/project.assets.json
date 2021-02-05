@@ -26,6 +26,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Qhta.Collections/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {}
+        }
+      },
       "Qhta.RegularExpressions/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -183,6 +192,18 @@
         "netstandard.library.nuspec"
       ]
     },
+    "Qhta.Collections/1.0.0": {
+      "sha512": "14MhxkJNONvUcsjLawCsJo2p9utpYYWQVcoll3pdrqoFnIhNNEI3oVsjTKlWeV5J8o3+bD8e44Iua6zR6IwV5Q==",
+      "type": "package",
+      "path": "qhta.collections/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Qhta.Collections.dll",
+        "qhta.collections.1.0.0.nupkg.sha512",
+        "qhta.collections.nuspec"
+      ]
+    },
     "Qhta.RegularExpressions/1.0.0": {
       "type": "project",
       "path": "../Qhta.RegularExpressions.csproj",
@@ -192,6 +213,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
+      "Qhta.Collections >= 1.0.0",
       "Qhta.RegularExpressions >= 1.0.0"
     ]
   },
@@ -243,6 +265,10 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {}
+    "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {}
   },
   "projects": {
-    "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
+    "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+        "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
         "projectName": "Qhta.Collections",
-        "projectPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+        "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
-        "outputPath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Collections\\obj\\",
+        "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -57,7 +57,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

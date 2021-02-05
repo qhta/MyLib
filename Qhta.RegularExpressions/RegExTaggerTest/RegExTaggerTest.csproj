@@ -68,9 +68,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestExamples - Copy.txt" />
+    <Content Include="TestAllExamples.txt" />
     <Content Include="TestPatterns.txt" />
-    <Content Include="TestExamples.txt" />
+    <Content Include="TestExample.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

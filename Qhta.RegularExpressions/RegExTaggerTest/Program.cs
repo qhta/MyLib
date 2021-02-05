@@ -3,8 +3,10 @@ using Qhta.RegularExpressions.Descriptions;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xaml;
 
 namespace RegExTaggerTest
@@ -2218,15 +2220,15 @@ namespace RegExTaggerTest
       while ((line = reader.ReadLine()) != null)
       {
         lineNo++;
-        if (line != "")
+        if (line.Trim() != "")
         {
           if (line[0] == '\t')
           {
-            if (testItem!=null)
+            if (testItem != null)
             {
               line = line.Trim();
               var cols = line.Split('\t');
-              if (cols.Length!=2)
+              if (cols.Length != 2)
               {
                 result.RemoveAt(result.Count - 1);
                 Console.WriteLine($"Error while reading test file \"{filename}\"");
@@ -2244,13 +2246,18 @@ namespace RegExTaggerTest
                 testItem.PatternItems.Add(new PatternItem { Str = cols[0], Description = cols[1].Trim() });
               }
             }
+            else
+            {
+              Debug.WriteLine("Result data encountered without preceding pattern data:");
+              Debug.WriteLine(line);
+              throw new IOException("Result data encountered without preceding pattern data");
+            }
           }
           else
           {
             testItem = new TestItem { Pattern = line };
             result.Add(testItem);
           }
-
         }
       }
       return result;

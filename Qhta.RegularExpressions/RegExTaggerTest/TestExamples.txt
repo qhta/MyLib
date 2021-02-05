@@ -1,8 +1,0 @@
-﻿^((\w+(\s?)){2,}),\s(\w+\s\w+),(\s\d{4}(-(\d{4}|present))?,?)+
-	^	Start at the start of the input string.
-	((\w+(\s?)){2,})	Match the pattern of one or more word characters followed by zero or one white-space character at least two times. This is the first capturing group. This expression also defines a second and third capturing group: The second consists of the captured word, and the third consists of the captured white space.
-	,\s	Match a comma followed by a white-space character.
-	(\w+\s\w+)	Match one or more word characters followed by a white-space character, followed by one or more word characters. This is the fourth capturing group.
-	,	Match a comma.
-	(\s\d{4}(-(\d{4}|present))?,?)+	Match the pattern of a white-space character followed by four decimal digits, followed by zero or one hyphen followed by either four decimal digits or the literal characters "present", followed by zero or one occurrence of comma one or more times. This is the fifth capturing group.
-

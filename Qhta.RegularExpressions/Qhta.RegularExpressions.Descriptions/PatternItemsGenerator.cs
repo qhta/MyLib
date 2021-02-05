@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Qhta.RegularExpressions.Descriptions
 {
@@ -9,9 +10,24 @@ namespace Qhta.RegularExpressions.Descriptions
     static readonly Dictionary<string, string> CharNames = new Dictionary<string, string>
     {
       {@",", "comma" },
-      {@".", "period"},
+      {@".", "dot"},
       {@";", "semicolon" },
       {@"-", "hyphen" },
+      {@"+", "plus" },
+      {@"*", "asterisk" },
+      {@"/", "slash" },
+      {@"\", "backslash" },
+      {@"=", "equal symbol" },
+      {@"<", "less symbol" },
+      {@">", "greater symbol" },
+      {@"!", "exclamation mark" },
+      {@"?", "question mark" },
+      {@"(", "opening parenthesis" },
+      {@")", "closing parenthesis" },
+      {@"[", "opening bracket" },
+      {@"]", "closing bracket" },
+      {@"{", "opening brace" },
+      {@"}", "closing brace" },
     };
 
     static readonly Dictionary<string, string> EscapeSeqNames = new Dictionary<string, string>
@@ -28,11 +44,11 @@ namespace Qhta.RegularExpressions.Descriptions
 
     static readonly Dictionary<string, string> AnchorDescriptions = new Dictionary<string, string>
     {
-      {@"^", "the start of the input string" },
+      {@"^", "the beginning of the input string" },
       {@"$", "the end of the input string" },
       {@"\b", "word boundary" },
-      {@"\B", "not word boundary" },
-      {@"\A", "the start of the string"},
+      {@"\B", "Do not start at a word boundary" },
+      {@"\A", "the beginning of the string"},
       {@"\z", "the end of the string" },
       {@"\G", "where the last match ended" },
     };
@@ -42,6 +58,7 @@ namespace Qhta.RegularExpressions.Descriptions
       {@"?", "zero or one occurrence of {0}" },
       {@"+", "one or more occurrence of {0}" },
       {@"*", "zero or more occurrences of {0}" },
+      {@"??", "zero or one occurrence of {0}" },
       {@"+?", "one or more occurrence of {0}, but as few as possible" },
       {@"*?", "zero or more occurrences of {0}, but as few as possible" },
     };
@@ -51,15 +68,17 @@ namespace Qhta.RegularExpressions.Descriptions
       {@"?", "zero or one {0}" },
       {@"+", "one or more {0}" },
       {@"*", "zero or more {0}" },
+      {@"??", "zero or one {0}" },
       {@"+?", "one or more {0}, but as few as possible" },
       {@"*?", "zero or more {0}, but as few as possible" },
     };
 
     static readonly Dictionary<string, string> QuantifierSuffixDescriptions = new Dictionary<string, string>
     {
-      {@"?", "zero or one times" },
+      {@"?", "zero or one time" },
       {@"+", "one or more times" },
       {@"*", "zero or more times" },
+      {@"??", "zero or one time" },
       {@"+?", "one or more times, but as few as possible" },
       {@"*?", "zero or more times, but as few as possible" },
     };
@@ -97,7 +116,7 @@ namespace Qhta.RegularExpressions.Descriptions
       {@"\s", "white-space character" },
       {@"\S", "non-white-space character" },
       {@"\d", "decimal digit" },
-      {@"\D", "any char except decimal digit" },
+      {@"\D", "non-decimal digit" /*"any char except decimal digit"*/ },
       {@"\w", "word character" },
     };
 
@@ -405,20 +424,24 @@ namespace Qhta.RegularExpressions.Descriptions
           }
         }
       }
-      if (curItem.Tag == RegExTag.AnchorControl && itemIndex == 1)
-      {
-        if (result.Description.StartsWith("where"))
-          result.Description = "Start " + result.Description;
-        else
-          result.Description = "Start at " + result.Description;
-      }
-      else
-      if (curItem.Tag == RegExTag.AnchorControl && itemIndex == itemList.Count)
-        result.Description = "End at " + result.Description;
-      else
       if (!Char.IsUpper(result.Description.FirstOrDefault()))
-        result.Description = "Match " + result.Description;
-      result.Description += ".";
+      {
+        if (curItem.Tag == RegExTag.AnchorControl && itemIndex == 1)
+        {
+          if (result.Description.StartsWith("where"))
+            result.Description = "Start " + result.Description;
+          else
+            result.Description = "Start at " + result.Description;
+        }
+        else
+        if (curItem.Tag == RegExTag.AnchorControl && itemIndex == itemList.Count)
+          result.Description = "End at " + result.Description;
+        else
+        if (!Char.IsUpper(result.Description.FirstOrDefault()))
+          result.Description = "Match " + result.Description;
+      }
+      if (result.Description.LastOrDefault()!='.')
+        result.Description += ".";
       return result;
     }
 
@@ -464,7 +487,7 @@ namespace Qhta.RegularExpressions.Descriptions
           if (itemDescription.StartsWith("an "))
             itemDescription = itemDescription.Substring(3);
           if (quantifierDescription.Contains("more"))
-            if (!itemDescription.EndsWith("s") && !itemDescription.EndsWith("es"))
+            if (!itemDescription.EndsWith("s") && !itemDescription.EndsWith("es") && !itemDescription.StartsWith("any ") && !itemDescription.EndsWith("\""))
               itemDescription = itemDescription + "s";
           result.Description = String.Format(quantifierDescription, itemDescription);
         }
@@ -508,23 +531,24 @@ namespace Qhta.RegularExpressions.Descriptions
       if (priorItem.Tag == RegExTag.Subexpression && !underQuantifier)
       {
         if (!QuantifierSuffixDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
-          if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false))
+          if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
             throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
         result.Description = quantifierDescription;
       }
       else
       {
-        if (priorItem.Tag == RegExTag.CharClass || priorItem.Tag == RegExTag.UnicodeCategorySeq || priorItem.Tag == RegExTag.Subexpression)
+        if (priorItem.Tag == RegExTag.CharClass || priorItem.Tag == RegExTag.UnicodeCategorySeq 
+          || (priorItem.Tag == RegExTag.Subexpression && priorItem.Items.Count==1 && (priorItem.Items[0].Tag == RegExTag.CharClass || priorItem.Items[0].Tag == RegExTag.UnicodeCategorySeq)))
         {
           if (!QuantifierShortDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
-            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, true))
+            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, true, "characters"))
               throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
           result.Description = quantifierDescription;
         }
         else
         {
           if (!QuantifierLongDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
-            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false))
+            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
               throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
           result.Description = quantifierDescription;
         }
@@ -533,12 +557,12 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static bool GetNumeralQuantifierSuffix(RegExQuantifier quantifier, out string description, bool shorten)
+    static bool GetNumeralQuantifierSuffix(RegExQuantifier quantifier, out string description, bool shorten, string asFewItems)
     {
       description = null;
       if (quantifier.Str.StartsWith("{"))
       {
-        List<string> strings = new List<string>();
+        //List<string> strings = new List<string>();
         if (quantifier.LowLimit == quantifier.HighLimit)
         {
           if (quantifier.LowLimit != null)
@@ -548,21 +572,48 @@ namespace Qhta.RegularExpressions.Descriptions
               description = GetNumeral(quantifier.LowLimit.Str)+" {0}";
               if (int.TryParse(quantifier.LowLimit.Str, out var n) && n > 1)
                 description += "s";
-              return true;
+              if (quantifier.Str.LastOrDefault() == '?')
+                description += $", but as few {asFewItems} as possible";
             }
             else
-              strings.Add($"exactly {GetNumeral(quantifier.LowLimit.Str)}");
+              if (quantifier.Str.LastOrDefault() == '?')
+              description += $"{{0}}, {GetNumeral(quantifier.LowLimit.Str)} times, but as few {asFewItems} as possible";
+            else
+              description = $"exactly {GetNumeral(quantifier.LowLimit.Str)} times";
+            return true;
+          }
+        }
+        else
+        if (quantifier.HighLimit==null)
+        {
+          if (quantifier.LowLimit != null)
+          {
+            if (shorten)
+            {
+              description = "at least " + GetNumeral(quantifier.LowLimit.Str) + " {0}";
+              if (int.TryParse(quantifier.LowLimit.Str, out var n) && n > 1)
+                description += "s";
+              if (quantifier.Str.LastOrDefault() == '?')
+                description += $", but as few {asFewItems} as possible";
+            }
+            else
+              description = $"at least {GetNumeral(quantifier.LowLimit.Str)} times";
+            return true;
           }
         }
         else
         {
-          if (quantifier.LowLimit != null)
-            strings.Add($"at least {GetNumeral(quantifier.LowLimit.Str)}");
-          if (quantifier.HighLimit != null)
-            strings.Add($"at most {GetNumeral(quantifier.HighLimit.Str)}");
+          //if (quantifier.LowLimit != null)
+          //  strings.Add($"at least {GetNumeral(quantifier.LowLimit.Str)}");
+          //if (quantifier.HighLimit != null)
+          //  strings.Add($"at most {GetNumeral(quantifier.HighLimit.Str)}");
+          description = $"{{0}}, between {quantifier.LowLimit.Str} and {quantifier.HighLimit.Str} times";
+          if (quantifier.Str.LastOrDefault() == '?')
+            description += ", but as few times as possible";
+          return true;
         }
-        description = String.Join(" and ", strings) + " times";
-        return true;
+        //description = String.Join(" and ", strings) + " times";
+        //return true;
       }
       return false;
 
@@ -618,9 +669,18 @@ namespace Qhta.RegularExpressions.Descriptions
           break;
 
         case RegExTag.EscapedChar:
-          if (!EscapeSeqNames.TryGetValue(curItem.Str, out string charName))
-            throw new NotImplementedException($"CreatePatternItem error: Char name for a \"{curItem.Str}\" not found");
-          result.Description = AddAnArticle(charName) + " character";
+          if (EscapeSeqNames.TryGetValue(curItem.Str, out string escName))
+            result.Description = AddAnArticle(escName) + " character";
+          else
+          if (curItem.Str.Length == 2)
+          {
+            if (CharNames.TryGetValue(curItem.Str.Substring(1, 1), out string charName))
+              result.Description = AddAnArticle(charName);
+            else
+              result.Description = $"\"{curItem.Str.Substring(1, 1)}\" character";
+          }
+          else
+            throw new NotImplementedException($"CreatePatternItem error: Escape sequence name for a \"{curItem.Str}\" not found");
           break;
 
         case RegExTag.AnchorControl:
@@ -804,17 +864,25 @@ namespace Qhta.RegularExpressions.Descriptions
             isCompound = true;
           subStrings.Add(CreatePatternItem(curItem.Items, ref subIndex, false, true, underQuantifier).Description);
         }
-        if (subStrings.Count<=2)
-          result.Description = String.Join(" followed by ", subStrings);
-        else
+        var str = "";
+        for (int i = 0; i < subStrings.Count; i++)
         {
-          result.Description = String.Join(", followed by ", subStrings);
-          var commaIndex = result.Description.IndexOf(',');
-          if (commaIndex > 0)
-            result.Description = result.Description.Remove(commaIndex, 1);
+          if (i>0)
+          {
+            if (str.Contains(',') || str.Contains("followed"))
+              str += ",";
+            str += " followed by " + subStrings[i];
+          }
+          else
+            str = subStrings[i];
         }
-        if (isCompound && !inGroup)
-          result.Description = "the pattern of " + result.Description;
+        result.Description = str;
+        if (!inGroup)
+        {
+          if (isCompound
+            || itemIndex < itemList.Count && itemList[itemIndex].Tag == RegExTag.Quantifier && subStrings.Count > 1)
+              result.Description = "the pattern of " + result.Description;
+        }
       }
       return result;
     }

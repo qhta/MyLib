@@ -1,0 +1,5 @@
+﻿\b(\w{3,}?\.){2}?\w{3,}?\b
+	\b	Start at a word boundary.
+	(\w{3,}?\.){2}?	Match the pattern of at least three word characters, but as few characters as possible, followed by a dot, two times, but as few times as possible. This is the first capturing group.
+	\w{3,}?	Match at least three word characters, but as few characters as possible.
+	\b	End the match on a word boundary.

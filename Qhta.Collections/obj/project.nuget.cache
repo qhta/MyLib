@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2lCco1ocj8tSOKBOMklEYLXodYS3qovuBicuvuh5cJ537QOLFmsZ4NtEhAUunWyNZPqVkNCJj7cjm1+U+OHXVA==",
+  "dgSpecHash": "2zHf3MOIZfJo2tkq0SIhzntjCmSjRLE00vOcShkfwNxJjN+YhtSdErsdSzaMcg6IYcNb/UFbNv4pIf4r6SLrhQ==",
   "success": true,
-  "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
