@@ -162,3 +162,22 @@ gr[ae]y\s\S+?[\s\p{P}]
 	[A-Z]	Match an uppercase character from A to Z.
 	(\w*?\s*?){1,10}	Match the pattern of zero or more word characters, but as few as possible, followed by zero or more white-space characters, but as few as possible, between 1 and 10 times. This is the first capture group.
 	[.!?]	Match a "." or a "!" or a "?".
+
+(\w+)\s(\1)\W
+	(\w+)	Match one or more word characters. This is the first capturing group.
+	\s	Match a white-space character.
+	(\1)	Match the string in the first captured group. This is the second capturing group.
+	\W	Match a non-word character.
+
+(?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)
+	(?<duplicateWord>\w+)	Match one or more word characters . Name this capturing group "duplicateWord".
+	\s	Match a white-space character.
+	\k<duplicateWord>	Match the string from the "duplicateWord" captured group.
+	\W	Match a non-word character.
+	(?<nextWord>\w+)	Match one or more word characters. Name this capturing group nextWord.
+
+\D+(?<digit>\d+)\D+(?<digit>\d+)?
+	\D+	Match one or more non-decimal digit characters.
+	(?<digit>\d+)	Match one or more decimal digit characters. Assign the match to the digit named group.
+	\D+	Match one or more non-decimal digit characters.
+	(?<digit>\d+)?	Match zero or one occurrence of one or more decimal digit characters. Assign the match to the digit named group.

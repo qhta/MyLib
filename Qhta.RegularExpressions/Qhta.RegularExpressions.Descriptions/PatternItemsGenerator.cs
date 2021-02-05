@@ -118,6 +118,7 @@ namespace Qhta.RegularExpressions.Descriptions
       {@"\d", "decimal digit" },
       {@"\D", "non-decimal digit" /*"any char except decimal digit"*/ },
       {@"\w", "word character" },
+      {@"\W", "non-word character" },
     };
 
     static readonly Dictionary<string, string> UnicodeCategoryNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -358,12 +359,20 @@ namespace Qhta.RegularExpressions.Descriptions
       var curItem = itemList[itemIndex];
 
       PatternItem result = CreatePatternItemSentence(itemList, ref itemIndex, inCharset, inGroup);
-      if (curItem.Tag == RegExTag.Subexpression)
+      if (curItem is RegExGroup groupItem)
       {
-        result.Description += GroupNumberAppendix(ref groupNumber);
-        if (curItem.Items?.Where(item => item is RegExGroup).FirstOrDefault() != null)
+        if (curItem.Tag == RegExTag.NamedGroup)
         {
-          result.Description += GroupNumberAdditionalAppendix(curItem.Items, ref groupNumber);
+          result.Description += $" Name this group \"{groupItem.Name}\".";
+        }
+        else
+        if (curItem.Tag == RegExTag.Subexpression)
+        {
+          result.Description += GroupNumberAppendix(ref groupNumber);
+          if (curItem.Items?.Where(item => item is RegExGroup).FirstOrDefault() != null)
+          {
+            result.Description += GroupNumberAdditionalAppendix(curItem.Items, ref groupNumber);
+          }
         }
       }
       return result;
@@ -562,7 +571,6 @@ namespace Qhta.RegularExpressions.Descriptions
       description = null;
       if (quantifier.Str.StartsWith("{"))
       {
-        //List<string> strings = new List<string>();
         if (quantifier.LowLimit == quantifier.HighLimit)
         {
           if (quantifier.LowLimit != null)
@@ -630,22 +638,22 @@ namespace Qhta.RegularExpressions.Descriptions
     static PatternItem CreateSpecificPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
-      if (curItem.Tag == RegExTag.CharSet)
+      if (curItem is RegExCharSet)
       {
         return CreateCharsetPatternItem(itemList, ref itemIndex, inCharset, inGroup);
       }
       else
-      if (curItem.Tag == RegExTag.CharRange)
+      if (curItem is RegExCharRange)
       {
         if (!inCharset)
           throw new InvalidOperationException($"CreatePatternItem error: CharRange must occur in charset");
         return CreateCharRangePatternItem(itemList, ref itemIndex, inGroup);
       }
-      if (curItem.Tag == RegExTag.Subexpression)
+      if (curItem is RegExGroup)
       {
         if (inCharset)
           throw new InvalidOperationException($"CreatePatternItem error: Subexpression must not occur in charset");
-        return CreateSubexpressionPatternItem(itemList, ref itemIndex, inGroup);
+        return CreateGroupPatternItem(itemList, ref itemIndex, inGroup);
       }
 
       itemIndex++;
@@ -721,15 +729,6 @@ namespace Qhta.RegularExpressions.Descriptions
           }
           break;
 
-        case RegExTag.Quantifier:
-          throw new InvalidOperationException($"CreatePatternItem error: Quantifier must not be textualized here");
-
-        case RegExTag.CharSet:
-          throw new InvalidOperationException($"CreatePatternItem error: Charset must not be textualized here");
-
-        case RegExTag.CharRange:
-          throw new InvalidOperationException($"CreatePatternItem error: CharRange must not be textualized here");
-
         case RegExTag.CharSetControlChar:
           if (curItem.Str == "^")
             result.Description += "all characters except";
@@ -739,6 +738,29 @@ namespace Qhta.RegularExpressions.Descriptions
           else
             throw new InvalidOperationException($"CreatePatternItem error: CharSetControlChar \"{curItem.Str}\" must not be textualized here");
           break;
+
+        case RegExTag.BackRef:
+          if (curItem is RegExBackRef backrefItem)
+            result.Description = $"from the \"{backrefItem.Name}\" captured group";
+          else
+          {
+            string ordinalStr = curItem.Str;
+            if (curItem.Str.Length > 1)
+              if (int.TryParse(curItem.Str.Substring(1), out var ordinalNum))
+                if (OrdinalNames.TryGetValue(ordinalNum, out var ordinalNumName))
+                  ordinalStr = ordinalNumName;
+            result.Description = $"the string in the {ordinalStr} captured group";
+          }
+          break;
+
+        case RegExTag.Quantifier:
+          throw new InvalidOperationException($"CreatePatternItem error: Quantifier must not be textualized here");
+
+        case RegExTag.CharSet:
+          throw new InvalidOperationException($"CreatePatternItem error: Charset must not be textualized here");
+
+        case RegExTag.CharRange:
+          throw new InvalidOperationException($"CreatePatternItem error: CharRange must not be textualized here");
 
         case RegExTag.Subexpression:
           throw new InvalidOperationException($"CreatePatternItem error: Subexpression must not be textualized here");
@@ -841,13 +863,13 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static PatternItem CreateSubexpressionPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inGroup)
+    static PatternItem CreateGroupPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inGroup)
     {
-      var curItem = itemList[itemIndex];
+      var groupItem = itemList[itemIndex] as RegExGroup;
       itemIndex++;
-      PatternItem result = new PatternItem { Str = curItem.Str, Description = "" };
+      PatternItem result = new PatternItem { Str = groupItem.Str, Description = "" };
       int subIndex;
-      if (SpecialCases.TryGetValue(curItem.Str, out var specialCaseDescription))
+      if (SpecialCases.TryGetValue(groupItem.Str, out var specialCaseDescription))
       {
         result.Description = specialCaseDescription;
       }
@@ -857,12 +879,22 @@ namespace Qhta.RegularExpressions.Descriptions
         var underQuantifier = (nextItem?.Tag == RegExTag.Quantifier);
         var subStrings = new List<string>();
         subIndex = 0;
-        bool isCompound = false;
-        while (subIndex < curItem.Items.Count)
+        //string groupName = null;
+        if (subIndex < groupItem.Items.Count && groupItem.Items[subIndex].Tag == RegExTag.GroupControlChar)
         {
-          if (curItem.Items[subIndex] is RegExGroup)
+          if (groupItem.Tag == RegExTag.NamedGroup)
+          {
+            //groupName = groupItem.Name;
+            // just omit group name and its quotes
+            subIndex += 4;
+          }
+        }
+        bool isCompound = false;
+        while (subIndex < groupItem.Items.Count)
+        {
+          if (groupItem.Items[subIndex] is RegExGroup)
             isCompound = true;
-          subStrings.Add(CreatePatternItem(curItem.Items, ref subIndex, false, true, underQuantifier).Description);
+          subStrings.Add(CreatePatternItem(groupItem.Items, ref subIndex, false, true, underQuantifier).Description);
         }
         var str = "";
         for (int i = 0; i < subStrings.Count; i++)

@@ -1,5 +1,12 @@
-﻿\b(\w{3,}?\.){2}?\w{3,}?\b
-	\b	Start at a word boundary.
-	(\w{3,}?\.){2}?	Match the pattern of at least three word characters, but as few characters as possible, followed by a dot, two times, but as few times as possible. This is the first capturing group.
-	\w{3,}?	Match at least three word characters, but as few characters as possible.
-	\b	End the match on a word boundary.
+﻿(?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)
+	(?<duplicateWord>\w+)	Match one or more word characters . Name this capturing group "duplicateWord".
+	\s	Match a white-space character.
+	\k<duplicateWord>	Match the string from the "duplicateWord" captured group.
+	\W	Match a non-word character.
+	(?<nextWord>\w+)	Match one or more word characters. Name this capturing group nextWord.
+
+\D+(?<digit>\d+)\D+(?<digit>\d+)?
+	\D+	Match one or more non-decimal digit characters.
+	(?<digit>\d+)	Match one or more decimal digit characters. Assign the match to the digit named group.
+	\D+	Match one or more non-decimal digit characters.
+	(?<digit>\d+)?	Match zero or one occurrence of one or more decimal digit characters. Assign the match to the digit named group.

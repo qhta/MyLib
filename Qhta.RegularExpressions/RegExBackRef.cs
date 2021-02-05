@@ -8,10 +8,9 @@ using System.Xml.Serialization;
 
 namespace Qhta.RegularExpressions
 {
-  //[XmlType("RegExGroup")]
-  public class RegExGroup: RegExNamedItem
+  public class RegExBackRef:RegExNamedItem
   {
-    public RegExGroup()
+    public RegExBackRef()
     {
       Items = new RegExItems();
     }
@@ -22,7 +21,7 @@ namespace Qhta.RegularExpressions
       if (!result)
         return false;
 
-      if (obj is RegExGroup other)
+      if (obj is RegExBackRef other)
       {
         if (this.Name != other.Name)
         {
