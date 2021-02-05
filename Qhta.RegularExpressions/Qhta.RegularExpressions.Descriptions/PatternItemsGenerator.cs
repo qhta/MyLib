@@ -345,16 +345,15 @@ namespace Qhta.RegularExpressions.Descriptions
     {
       PatternItems result = new PatternItems();
       int itemIndex = 0;
-      int groupNumber = 0;
       while (itemIndex < itemList.Count)
       {
-        var patternItem = CreatePatternItemWithGroupNumber(itemList, ref itemIndex, false, false, ref groupNumber);
+        var patternItem = CreatePatternItemWithGroupNumber(itemList, ref itemIndex, false, false);
         result.Add(patternItem);
       }
       return result;
     }
 
-    static PatternItem CreatePatternItemWithGroupNumber(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup, ref int groupNumber)
+    static PatternItem CreatePatternItemWithGroupNumber(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
 
@@ -363,10 +362,10 @@ namespace Qhta.RegularExpressions.Descriptions
       {
         if (curItem.Tag == RegExTag.Subexpression)
         {
-          result.Description += GroupNumberAppendix(ref groupNumber);
+          result.Description += GroupNumberAppendix(groupItem);
           if (curItem.Items?.Where(item => item is RegExGroup).FirstOrDefault() != null)
           {
-            result.Description += GroupNumberAdditionalAppendix(curItem.Items, ref groupNumber);
+            result.Description += GroupNumberAdditionalAppendix(curItem.Items);
           }
         }
       }
@@ -374,25 +373,29 @@ namespace Qhta.RegularExpressions.Descriptions
     }
 
 
-    static string GroupNumberAppendix(ref int groupNumber)
+    static string GroupNumberAppendix(RegExGroup groupItem)
     {
-      groupNumber++;
-      if (!OrdinalNames.TryGetValue(groupNumber, out string ordinalName))
-        throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
-      var description = $" This is the {ordinalName} capturing group.";
-      return description;
+      var groupNumber=groupItem.GroupNumber;
+      if (groupNumber != null)
+      {
+        if (!OrdinalNames.TryGetValue((int)groupNumber, out string ordinalName))
+          throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
+        var description = $" This is the {ordinalName} capturing group.";
+        return description;
+      }
+      return null;
     }
 
-    static string GroupNumberAdditionalAppendix(IList<RegExItem> itemList, ref int groupNumber)
+    static string GroupNumberAdditionalAppendix(IList<RegExItem> itemList)
     {
-      List<string> strings = GroupNumberString(itemList, ref groupNumber);
+      List<string> strings = GroupNumberString(itemList);
       var description = String.Join(" and ", strings);
       description = AddAnArticle(description, true);
       description = $" This expression also defines {description} capturing group.";
       return description;
     }
 
-    static List<string> GroupNumberString(IList<RegExItem> itemList, ref int groupNumber)
+    static List<string> GroupNumberString(IList<RegExItem> itemList)
     {
       List<string> strings = new List<string>();
       foreach (var item in itemList)
@@ -401,11 +404,14 @@ namespace Qhta.RegularExpressions.Descriptions
         {
           if (item.Tag == RegExTag.Subexpression)
           {
-            groupNumber++;
-            if (!OrdinalNames.TryGetValue(groupNumber, out string ordinalName))
-              throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
-            strings.Add(ordinalName);
-            strings.AddRange(GroupNumberString(item.Items, ref groupNumber));
+            var groupNumber = groupItem.GroupNumber;
+            if (groupNumber != null)
+            {
+              if (!OrdinalNames.TryGetValue((int)groupNumber, out string ordinalName))
+                throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
+              strings.Add(ordinalName);
+              strings.AddRange(GroupNumberString(item.Items));
+            }
           }
           if (item.Tag == RegExTag.NamedGroup || item.Tag == RegExTag.BalancingGroup)
           {
@@ -540,7 +546,7 @@ namespace Qhta.RegularExpressions.Descriptions
       PatternItem result = new PatternItem { Str = quantifier.Str, Description = "" };
       if (priorItem.Str == "." && quantifier.Str == "*")
       {
-        result.Description += " until";
+        result.Description += "until";
         itemIndex++;
         var nextResult = CreatePatternItem(itemList, ref itemIndex, inCharset, inGroup);
         result.Str += nextResult.Str;

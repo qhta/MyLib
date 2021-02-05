@@ -62,8 +62,8 @@ namespace Qhta.RegularExpressions.Descriptions
         result = false;
       }
 
-      var description1 = Prepare(TakeFirstSentence(first.Description));
-      var description2 = Prepare(TakeFirstSentence(second.Description));
+      var description1 = Prepare(first.Description);
+      var description2 = Prepare(second.Description);
       if (!AreEqual(description1, description2))
       {
         result = false;
@@ -136,13 +136,13 @@ namespace Qhta.RegularExpressions.Descriptions
       return str;
     }
 
-    private static string TakeFirstSentence(string description)
-    {
-      int k = description.IndexOf('.');
-      if (k > 0)
-        description = description.Substring(0, k+1);
-      return description;
-    }
+    //private static string TakeFirstSentence(string description)
+    //{
+    //  int k = description.IndexOf('.');
+    //  if (k > 0)
+    //    description = description.Substring(0, k+1);
+    //  return description;
+    //}
 
     private static string[] Prepare(string description)
     {
