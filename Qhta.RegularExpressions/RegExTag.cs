@@ -22,7 +22,7 @@
     AltChar,
     Subexpression,
     GroupControlChar,
-    NameQuoteChar,
+    NameQuote,
     GroupName,
     NamedGroup,
     BalancingGroup,

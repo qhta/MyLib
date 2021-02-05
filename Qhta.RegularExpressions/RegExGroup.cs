@@ -8,13 +8,14 @@ using System.Xml.Serialization;
 
 namespace Qhta.RegularExpressions
 {
-  //[XmlType("RegExGroup")]
   public class RegExGroup: RegExNamedItem
   {
     public RegExGroup()
     {
       Items = new RegExItems();
     }
+
+    public int? GroupNumber { get; set; }
 
     public override bool Equals(object obj)
     {

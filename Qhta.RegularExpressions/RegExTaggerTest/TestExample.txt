@@ -1,12 +1,5 @@
-﻿(?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)
-	(?<duplicateWord>\w+)	Match one or more word characters . Name this capturing group "duplicateWord".
-	\s	Match a white-space character.
-	\k<duplicateWord>	Match the string from the "duplicateWord" captured group.
-	\W	Match a non-word character.
-	(?<nextWord>\w+)	Match one or more word characters. Name this capturing group nextWord.
-
-\D+(?<digit>\d+)\D+(?<digit>\d+)?
-	\D+	Match one or more non-decimal digit characters.
-	(?<digit>\d+)	Match one or more decimal digit characters. Assign the match to the digit named group.
-	\D+	Match one or more non-decimal digit characters.
-	(?<digit>\d+)?	Match zero or one occurrence of one or more decimal digit characters. Assign the match to the digit named group.
+﻿\b\d{2,}\b\D+
+	\b	Start at a word boundary.
+	\d{2,}	Match at least two decimal digits.
+	\b	Match a word boundary.
+	\D+	Match at least one non-decimal digit.

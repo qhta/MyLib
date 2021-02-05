@@ -71,10 +71,10 @@ gr[ae]y\s\S+?[\s\p{P}]
 
 \b(\p{IsGreek}+(\s)?)+\p{Pd}\s(\p{IsBasicLatin}+(\s)?)+
 	\b	Start at a word boundary.
-	(\p{IsGreek}+(\s)?)+	Match the pattern of one or more Greek characters followed by zero or one white-space characters one or more times.
+	(\p{IsGreek}+(\s)?)+	Match one or more occurrences of the pattern of one or more Greek characters followed by zero or one white-space characters.
 	\p{Pd}	Match a dash punctuation.
 	\s	Match a white-space character.
-	(\p{IsBasicLatin}+(\s)?)+	Match the pattern of one or more basic Latin characters followed by zero or one white-space characters one or more times.
+	(\p{IsBasicLatin}+(\s)?)+	 Match one or more occurrences of the pattern of one or more basic Latin characters followed by zero or one white-space characters.
 
 ^[0-9-[2468]]+$
 	^	Start at the beginning of the input string.
@@ -87,7 +87,7 @@ gr[ae]y\s\S+?[\s\p{P}]
 	,\s	Match a comma followed by a white-space character.
 	(\w+\s\w+)	Match one or more word characters followed by a white-space character, followed by one or more word characters. This is the fourth capturing group.
 	,	Match a comma.
-	(\s\d{4}(-(\d{4}|present))?,?)+	Match the pattern of a white-space character followed by four decimal digits, followed by zero or one hyphen followed by either four decimal digits or the literal characters "present", followed by zero or one occurrence of comma one or more times. This is the fifth capturing group.
+	(\s\d{4}(-(\d{4}|present))?,?)+	Match one or more occurrences of the pattern of a white-space character followed by four decimal digits, followed by zero or one occurrence of hyphen followed by either four decimal digits or the literal characters "present", followed by zero or one occurrence of comma.
 
 \G(\w+\s?\w*),?
 	\G	Begin where the last match ended.
@@ -170,14 +170,21 @@ gr[ae]y\s\S+?[\s\p{P}]
 	\W	Match a non-word character.
 
 (?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)
-	(?<duplicateWord>\w+)	Match one or more word characters . Name this capturing group "duplicateWord".
+	(?<duplicateWord>\w+)	Match one or more word characters and name this group "duplicateWord".
 	\s	Match a white-space character.
 	\k<duplicateWord>	Match the string from the "duplicateWord" captured group.
 	\W	Match a non-word character.
-	(?<nextWord>\w+)	Match one or more word characters. Name this capturing group nextWord.
+	(?<nextWord>\w+)	Match one or more word characters and name this group "nextWord".
 
 \D+(?<digit>\d+)\D+(?<digit>\d+)?
 	\D+	Match one or more non-decimal digit characters.
-	(?<digit>\d+)	Match one or more decimal digit characters. Assign the match to the digit named group.
+	(?<digit>\d+)	Match one or more decimal digit characters and name this group "digit".
 	\D+	Match one or more non-decimal digit characters.
-	(?<digit>\d+)?	Match zero or one occurrence of one or more decimal digit characters. Assign the match to the digit named group.
+	(?<digit>\d+)?	Match zero or one occurrence of one or more decimal digit characters and name this group "digit".
+
+^[^<>]*((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+$
+	^	Begin at the start of the string.
+	[^<>]*	Match zero or more occurrences of all characters except a "<" and a ">".
+	((?'Open'<)[^<>]*)+	Match one or more occurrences of the pattern of a left angle bracket followed by zero or more occurrences of all characters except a "<" and a ">". This is the second capturing group.
+	((?'Close-Open'>)[^<>]*)+	Match one or more occurrences of the pattern of a right angle bracket, assign the substring between the "Open" group and the current group to the "Close" group, and delete the definition of the "Open" group, and follow the match by zero or more occurrences of all characters except a "<" and a ">". This is the third capturing group. This expression also defines a "Close" capturing group.
+	$	End at the end of the input string.

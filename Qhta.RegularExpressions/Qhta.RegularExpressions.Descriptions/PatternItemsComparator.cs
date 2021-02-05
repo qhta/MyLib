@@ -22,6 +22,7 @@ namespace Qhta.RegularExpressions.Descriptions
       "occurrence", "occurrenc",
       "literal",
       "match",
+      "input",
     };
 
     static BiDiDictionary<string, string> Synonyms = new BiDiDictionary<string, string>
@@ -107,18 +108,20 @@ namespace Qhta.RegularExpressions.Descriptions
 
     public static bool AreEqual(string s1, string s2)
     {
+      string synonym;
       bool result = s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
       if (!result)
       {
-        if (Synonyms.TryGetValue1(s1, out var synonym))
+        if (Synonyms.TryGetValue1(s1, out  synonym))
           result = synonym.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
+        if (!result && Synonyms.TryGetValue2(s1, out synonym))
+          result = synonym.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
+        if (!result && Synonyms.TryGetValue1(s2, out synonym))
+          result = synonym.Equals(s1, StringComparison.CurrentCultureIgnoreCase);
+        if (!result && Synonyms.TryGetValue2(s2, out synonym))
+          result = synonym.Equals(s1, StringComparison.CurrentCultureIgnoreCase);
         if (!result)
-        {
-          if (Synonyms.TryGetValue1(s2, out synonym))
-            result = synonym.Equals(s1, StringComparison.CurrentCultureIgnoreCase);
-          if (!result)
-            Debug.WriteLine($"The following words are not equal: \"{s1}\" <=> \"{s2}\"");
-        }
+          Debug.WriteLine($"The following words are not equal: \"{s1}\" <=> \"{s2}\"");
       }
       return result;
     }
