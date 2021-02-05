@@ -182,7 +182,28 @@ gr[ae]y\s\S+?[\s\p{P}]
 	\D+	Match one or more non-decimal digit characters.
 	(?<digit>\d+)?	Match zero or one occurrence of one or more decimal digit characters and name this group "digit".
 
+\b\w+(?=\sis\b)
+	\b	Begin the match at a word boundary.
+	\w+	Match one or more word characters.
+	(?=\sis\b)	Determine whether the next is a white-space character followed by the string "is", followed by a word boundary. If so, the match is possible.
+
+\b(?!un)\w+\b
+	\b	Begin the match at a word boundary.
+	(?!un)	Determine whether the next is literal string "un". If it is not, a match is possible.
+	\w+	Match one or more word characters.
+	\b	End the match at a word boundary.
+
 ^[^<>]*((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+$
+	^	Begin at the start of the string.
+	[^<>]*	Match zero or more occurrences of all characters except a "<" and a ">".
+	((?'Open'<)[^<>]*)+	Match one or more occurrences of the pattern of a left angle bracket followed by zero or more occurrences of all characters except a "<" and a ">". This is the first capturing group. This expression also defines an "Open" capturing group.
+	((?'Close-Open'>)[^<>]*)+	Match one or more occurrences of the pattern of a right angle bracket, assign the substring between the "Open" group and the current group to the "Close" group, and delete the definition of the "Open" group, and follow the match by zero or more occurrences of all characters except a "<" and a ">". This is the second capturing group. This expression also defines a "Close" capturing group.
+	$	End at the end of the input string.
+
+(?(Open)(?!))
+	(?(Open)(?!))	If the "Open" group exists, abandon the match if an empty string can be matched, but do not advance the position of the regular expression engine in the string. This is a zero-width negative lookahead assertion. Because an empty string is always implicitly present in an input string, this match always fails. Failure of this match indicates that the angle brackets are not balanced.
+
+^[^<>]*((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+(?(Open)(?!))$
 	^	Begin at the start of the string.
 	[^<>]*	Match zero or more occurrences of all characters except a "<" and a ">".
 	((?'Open'<)[^<>]*)+	Match one or more occurrences of the pattern of a left angle bracket followed by zero or more occurrences of all characters except a "<" and a ">". This is the first capturing group. This expression also defines an "Open" capturing group.

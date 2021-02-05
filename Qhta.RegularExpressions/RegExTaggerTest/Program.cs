@@ -2383,6 +2383,8 @@ namespace RegExTaggerTest
             frameMatrix[item.ColStart, y] = new ColoredChar('│', color);
             if (item.Length > 1)
             {
+              //if (frameMatrix[item.ColStart + item.ColCount - 3, y].Value != ' ')
+              //  frameMatrix[item.ColStart + item.ColCount - 1, y] = frameMatrix[item.ColStart + item.ColCount + 1, y];
               frameMatrix[item.ColStart + item.ColCount - 2, y] = new ColoredChar('│', color);
             }
           }

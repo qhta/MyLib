@@ -207,9 +207,36 @@ namespace Qhta.RegularExpressions
         if (nextChar == '\'')
           status = TryParseNamedGroup(pattern, ref charNdx, group, '\'');
         else
+        if (nextChar == '(')
+          status = TryParseBackRefNamedGroup(pattern, ref charNdx, group, ')');
+        else
         if (nextChar == ':')
         {
           group.Tag = RegExTag.NonCapturingGroup;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (status1 == RegExStatus.Unfinished)
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.OK;
+        }
+        else
+        if (nextChar == '=')
+        {
+          group.Tag = RegExTag.ZeroWidthPositiveAssertion;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (status1 == RegExStatus.Unfinished)
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.OK;
+        }
+        else
+        if (nextChar == '!')
+        {
+          group.Tag = RegExTag.ZeroWidthNegativeAssertion;
           TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
           charNdx++;
           var status1 = TryParsePattern(pattern, ref charNdx, ')');
@@ -260,6 +287,35 @@ namespace Qhta.RegularExpressions
         if (status1 > status)
           status = status1;
       }
+      return status;
+    }
+
+    private RegExStatus TryParseBackRefNamedGroup(string pattern, ref int charNdx, RegExGroup group, char nameEnd)
+    {
+      group.Tag = RegExTag.BackRefNamedGroup;
+      var seqStart = charNdx;
+      var backref = new RegExBackRef { Tag = RegExTag.BackRef, Start = charNdx, Str = GetSubstring(pattern, charNdx, 1) };
+      group.Items.Add(backref);
+      RegExStack.Push(Items);
+      Items = backref.Items;
+      var nextChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
+      if (nextChar == '\0')
+      {
+        backref.Status = RegExStatus.Unfinished;
+      }
+      else
+        backref.Status = TryParseNamedGroupBackref(pattern, ref charNdx, backref, nameEnd);
+      backref.Str = GetSubstring(pattern, seqStart, charNdx - seqStart + 1);
+      charNdx++;
+      Items = RegExStack.Pop();
+      var status = backref.Status;
+      if (status != RegExStatus.Unfinished)
+      {
+        var status1 = TryParsePattern(pattern, ref charNdx, ')');
+        if (status1 > status)
+          status = status1;
+      }
+
       return status;
     }
 

@@ -690,7 +690,7 @@ namespace Qhta.RegularExpressions.Descriptions
           break;
 
         case RegExTag.LiteralString:
-          result.Description = $"the literal characters \"{curItem.Str}\"";
+          result.Description = $"a literal string \"{curItem.Str}\"";
           break;
 
         case RegExTag.EscapedChar:
@@ -899,9 +899,16 @@ namespace Qhta.RegularExpressions.Descriptions
         if (subIndex < groupItem.Items.Count && groupItem.Items[subIndex].Tag == RegExTag.GroupControlChar)
         {
           if (groupItem.Tag == RegExTag.NamedGroup || groupItem.Tag == RegExTag.BalancingGroup)
+            subIndex += 2;
+          else
+          if (groupItem.Tag == RegExTag.BackRefNamedGroup)
           {
             subIndex += 2;
+            inGroup = true;
           }
+          else
+          if (groupItem.Tag == RegExTag.ZeroWidthPositiveAssertion || groupItem.Tag == RegExTag.ZeroWidthNegativeAssertion)
+            subIndex += 2;
         }
         bool isCompound = false;
         while (subIndex < groupItem.Items.Count)
@@ -952,6 +959,46 @@ namespace Qhta.RegularExpressions.Descriptions
           }
           var secondName = groupItem.Name;
           result.Description += $", assign the substring between the \"{firstName}\" group and the current group to the \"{secondName}\" group, and delete the definition of the \"Open\" group";
+        }
+        else
+        if (groupItem.Tag == RegExTag.BackRefNamedGroup)
+        {
+          string groupName = null;
+          var backRef = groupItem.Items.Where(item => item is RegExBackRef).FirstOrDefault();
+          if (backRef != null)
+          {
+            var nameQuote = backRef.Items.Where(item => item is RegExNameQuote).FirstOrDefault();
+            if (nameQuote != null)
+            {
+              var nameItem = nameQuote.Items.Where(item => item.Tag == RegExTag.GroupName).LastOrDefault();
+              if (nameItem != null)
+                groupName = nameItem.Str;
+            }
+          }
+          var firstChar = result.Description.FirstOrDefault();
+          if (Char.IsUpper(firstChar))
+            result.Description = Char.ToLower(firstChar) + result.Description.Substring(1);
+          result.Description = $"If the \"{groupName}\" group exists, " + result.Description;
+        }
+        else
+        if (groupItem.Tag == RegExTag.ZeroWidthPositiveAssertion || groupItem.Tag == RegExTag.ZeroWidthNegativeAssertion)
+        {
+          bool isEmptyString = result.Description == "";
+          if (isEmptyString)
+            result.Description = "empty string";
+          result.Description = $"Determine whether the next is {result.Description}.";
+          if (groupItem.Tag == RegExTag.ZeroWidthPositiveAssertion)
+          {
+            result.Description += " If so, a match is possible.";
+            if (isEmptyString)
+              result.Description += " Because an empty string is always implicitly present in an input string, this assertion always succeed.";
+          }
+          else
+          {
+            result.Description += " If it is not, a match is possible.";
+            if (isEmptyString)
+              result.Description += " Because an empty string is always implicitly present in an input string, this assertion always fails.";
+          }
         }
       }
       return result;

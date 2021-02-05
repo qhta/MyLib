@@ -26,7 +26,11 @@
     GroupName,
     NamedGroup,
     BalancingGroup,
+    BackRefNamedGroup,
     NonCapturingGroup,
+    ZeroWidthPositiveAssertion,
+    ZeroWidthNegativeAssertion,
+    LocalOptionsGroup,
     BackRef,
   }
 }
