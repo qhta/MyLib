@@ -16,23 +16,32 @@ namespace Qhta.RegularExpressions.Descriptions
       "either", "all", "any",
       "of", "at", "on", "in",
       "or", "and",
-      "mark",
+      "mark", "sign", "symbol",
       "character", 
       "string", "substring",
       "occurrence", "occurrenc",
       "literal",
-      "match",
+      //"match", "begin", "start", "end",
       "input",
     };
 
     static BiDiDictionary<string, string> Synonyms = new BiDiDictionary<string, string>
     {
+      { "match", "begin" },
+      { "match", "start" },
+      { "match", "end" },
       { "begin", "start" },
       { "beginning", "start" },
       { "whitespace", "space" },
       { "one more", "least one" },
       { "dot", "period" },
       { "full stop", "dot" },
+      { "begin match", "start" },
+      { "end match", "end" },
+      { "begin match", "match" },
+      { "start match", "start" },
+      { "start match", "match" },
+      { "end match", "match" },
     }; 
 
     public static bool AreEqual(PatternItems first, PatternItems second)
@@ -75,30 +84,44 @@ namespace Qhta.RegularExpressions.Descriptions
     public static bool AreEqual(string[] w1, string[] w2)
     {
       bool result = true;
-
-      int n = w1.Count();
-      if (w2.Count() < n)
-        n = w2.Count();
-      for (int i = 0; i < n; i++)
+      int i;
+      int j;
+      for (i = 0, j = 0; i < w1.Count() && j < w2.Count(); i++, j++)
       {
-        var s1 = w1[i];
-        var s2 = w2[i];
-        if (!AreEqual(s1, s2))
+        string p1 = w1[i];
+        string q1 = w2[j];
+        string p12 = null;
+        string q12 = null;
+        result = AreEqual(p1, q1);
+        if (i< w1.Count() - 1)
+          p12 = p1 + " " + w1[i + 1];
+        if (j < w2.Count() - 1)
+           q12 = q1 + " " + w2[j + 1];
+        if (p12!=null && q12!=null && AreEqual(p12, q12))
         {
-          if (i<n-1)
-          {
-            s1 += " " + w1[i + 1];
-            s2 += " " + w2[i + 1];
-            if (!AreEqual(s1, s2))
-              result = false;
-            else 
-              i++;
-          }
-          else
-            result = false;
+          result = true;
+          i++;
+          j++;
+        }
+        else
+        if (p12 != null && AreEqual(p12, q1))
+        {
+          result = true;
+          i++;
+        }
+        else
+        if (q12 != null && AreEqual(p1, q12))
+        {
+          result = true;
+          j++;
+        }
+        if (!result)
+        {
+          Debug.WriteLine($"The following words are not equal: \"{p1}\" <=> \"{q1}\"");
+          return false;
         }
       }
-      if (w1.Count() != w2.Count())
+      if (w1.Count()-i != w2.Count()-j)
       {
         Debug.WriteLine($"The first string has {w1.Count()} words to compare and the second has {w2.Count()} words");
         return false;
@@ -120,8 +143,6 @@ namespace Qhta.RegularExpressions.Descriptions
           result = synonym.Equals(s1, StringComparison.CurrentCultureIgnoreCase);
         if (!result && Synonyms.TryGetValue2(s2, out synonym))
           result = synonym.Equals(s1, StringComparison.CurrentCultureIgnoreCase);
-        if (!result)
-          Debug.WriteLine($"The following words are not equal: \"{s1}\" <=> \"{s2}\"");
       }
       return result;
     }

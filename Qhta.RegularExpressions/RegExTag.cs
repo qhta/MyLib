@@ -28,9 +28,14 @@
     BalancingGroup,
     BackRefNamedGroup,
     NonCapturingGroup,
-    ZeroWidthPositiveAssertion,
-    ZeroWidthNegativeAssertion,
+    AheadPositiveAssertion,
+    AheadNegativeAssertion,
+    BehindPositiveAssertion,
+    BehindNegativeAssertion,
+    NonBacktrackingGroup,
     LocalOptionsGroup,
+    OptionSet,
+    OptionChar,
     BackRef,
   }
 }

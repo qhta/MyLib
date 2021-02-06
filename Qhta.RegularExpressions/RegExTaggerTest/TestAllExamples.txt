@@ -115,7 +115,7 @@ gr[ae]y\s\S+?[\s\p{P}]
 \ban+\w*?\b
 	\b	Start at a word boundary.
 	a	Match a literal character "a".
-	n+\w	Match one or more occurrence of literal character "n" followed by zero or more word characters, but as few as possible.
+	n+\w*?	Match one or more occurrence of literal character "n" followed by zero or more word characters, but as few as possible.
 	\b	End at a word boundary.
 
 \b\d+\,\d{3}\b
@@ -166,7 +166,7 @@ gr[ae]y\s\S+?[\s\p{P}]
 (\w+)\s(\1)\W
 	(\w+)	Match one or more word characters. This is the first capturing group.
 	\s	Match a white-space character.
-	(\1)	Match the string in the first captured group. This is the second capturing group.
+	(\1)	Match the match in the first captured group. This is the second capturing group.
 	\W	Match a non-word character.
 
 (?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)
@@ -185,13 +185,38 @@ gr[ae]y\s\S+?[\s\p{P}]
 \b\w+(?=\sis\b)
 	\b	Begin the match at a word boundary.
 	\w+	Match one or more word characters.
-	(?=\sis\b)	Determine whether the next is a white-space character followed by the string "is", followed by a word boundary. If so, the match is possible.
+	(?=\sis\b)	Determine whether the previous match is followed by a white-space character followed by a literal string "is", followed by a word boundary. If so, the match was successful.
 
 \b(?!un)\w+\b
 	\b	Begin the match at a word boundary.
-	(?!un)	Determine whether the next is literal string "un". If it is not, a match is possible.
+	(?!un)	Determine whether the previous match is followed by literal string "un". If it is not, the match was successful.
 	\w+	Match one or more word characters.
 	\b	End the match at a word boundary.
+
+\b\w+\b(?!\p{P})
+	\b	Begin the match at a word boundary.
+	\w+	Match one or more word characters.
+	\b	Match a word boundary.
+	(?!\p{P})	Determine whether previous match is followed by a punctuation. If it is not, the match was successful.
+
+(?<=\b20)\d{2}\b
+	(?<=\b20)	Determine whether the next match is preceded by a word boundary followed by a literal string "20". If so, the match is possible.
+	\d{2}	Match two decimal digits.
+	\b	End the match at a word boundary.
+
+(?<!(Saturday|Sunday) )\b\w+ \d{1,2}, \d{4}\b
+	(?<!(Saturday|Sunday) )	Determine whether the next match is preceded by the pattern of either a literal string "Saturday" or a literal string "Sunday" followed by a space. If it is not, the match is possible.
+	\b	Begin the match at a word boundary.
+	\w+	Match one or more word characters.
+	 \d{1,2}	Match a space followed by decimal digits, between 1 and 2 times.
+	, 	Match a literal string ", ".
+	\d{4}	Match four decimal digits.
+	\b	End the match at a word boundary.
+
+(?>(\w)\1+).\b
+	(?>(\w)\1+)	Match the pattern of a word character followed by one or more occurrences of the match in the first captured groups, but do not backtrack to the following match.
+	.	Match any character.
+	\b	End the match on a word boundary.
 
 ^[^<>]*((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+$
 	^	Begin at the start of the string.
@@ -201,11 +226,23 @@ gr[ae]y\s\S+?[\s\p{P}]
 	$	End at the end of the input string.
 
 (?(Open)(?!))
-	(?(Open)(?!))	If the "Open" group exists, abandon the match if an empty string can be matched, but do not advance the position of the regular expression engine in the string. This is a zero-width negative lookahead assertion. Because an empty string is always implicitly present in an input string, this match always fails. Failure of this match indicates that the angle brackets are not balanced.
+	(?(Open)(?!))	If the "Open" group exists, determine whether the previous match is followed by empty string. If it is not, the match was successful. Because an empty string is always implicitly present in an input string, this assertion is always false.
 
 ^[^<>]*((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+(?(Open)(?!))$
 	^	Begin at the start of the string.
 	[^<>]*	Match zero or more occurrences of all characters except a "<" and a ">".
 	((?'Open'<)[^<>]*)+	Match one or more occurrences of the pattern of a left angle bracket followed by zero or more occurrences of all characters except a "<" and a ">". This is the first capturing group. This expression also defines an "Open" capturing group.
 	((?'Close-Open'>)[^<>]*)+	Match one or more occurrences of the pattern of a right angle bracket, assign the substring between the "Open" group and the current group to the "Close" group, and delete the definition of the "Open" group, and follow the match by zero or more occurrences of all characters except a "<" and a ">". This is the second capturing group. This expression also defines a "Close" capturing group.
+	(?(Open)(?!))	If the "Open" group exists, determine whether the previous match is followed by empty string. If it is not, the match was successful. Because an empty string is always implicitly present in an input string, this assertion is always false.
 	$	End at the end of the input string.
+
+\b(?ix: d \w+)\s
+	\b	Begin the match at a word boundary.
+	(?ix: d \w+)	Using case-insensitive matching and ignoring white space in pattern, match a literal string " d " followed by one or more word characters..
+	\s	Match a white-space character.
+
+\b(?ix:) d \w+
+	\b	Begin the match at a word boundary.
+	(?ix:)	Using case-insensitive matching and ignoring white space in pattern, perform the following matches.
+	 d 	Match a literal string " d ".
+	\w+	Match one or more word characters.

@@ -9,25 +9,53 @@ namespace Qhta.RegularExpressions.Descriptions
   {
     static readonly Dictionary<string, string> CharNames = new Dictionary<string, string>
     {
-      {@",", "comma" },
-      {@".", "dot"},
-      {@";", "semicolon" },
-      {@"-", "hyphen" },
-      {@"+", "plus" },
-      {@"*", "asterisk" },
-      {@"/", "slash" },
-      {@"\", "backslash" },
-      {@"=", "equal symbol" },
-      {@"<", "left angle bracket" },
-      {@">", "right angle bracket" },
+      {@" ", "space" },
       {@"!", "exclamation mark" },
-      {@"?", "question mark" },
+      {"\"", "double quote" },
+      {@"#", "hash sign" },
+      {@"$", "dollar sign" },
+      {@"%", "percent sign" },
+      {@"&", "ampersand" },
+      {@"'", "single quote" },
       {@"(", "opening parenthesis" },
       {@")", "closing parenthesis" },
+      {@"*", "asterisk" },
+      {@"+", "plus sign" },
+      {@",", "comma" },
+      {@"-", "hyphen" },
+      {@".", "dot"},
+      {@"/", "slash" },
+      {@":", "colon" },
+      {@";", "semicolon" },
+      {@"<", "left angle bracket" },
+      {@"=", "equal sign" },
+      {@">", "right angle bracket" },
+      {@"?", "question mark" },
+      {@"@", "\"at\" sign" },
       {@"[", "opening bracket" },
+      {@"\", "backslash" },
       {@"]", "closing bracket" },
+      {@"^", "caret sign" },
+      {@"_", "underscore" },
+      {@"`", "grave" },
       {@"{", "opening brace" },
+      {@"|", "vertical bar" },
       {@"}", "closing brace" },
+      {@"~", "tilde" },
+    };
+
+    static readonly Dictionary<string, string> UnicodeSeqNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+    {
+      {@"\u007C", "vertical bar" },
+    };
+
+    static readonly Dictionary<string, string> OptionsDescriptions = new Dictionary<string, string>
+    {
+      {@"i", "case-insensitive" },
+      {@"m", "multiline"},
+      {@"s", "single line" },
+      {@"n", "explicit capture" },
+      {@"x", "ignoring white space in pattern" },
     };
 
     static readonly Dictionary<string, string> EscapeSeqNames = new Dictionary<string, string>
@@ -319,11 +347,6 @@ namespace Qhta.RegularExpressions.Descriptions
       {@"\p{IsYiSyllables}", "Yi syllables characters" },
     };
 
-    static readonly Dictionary<string, string> UnicodeSeqNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
-    {
-      {@"\u007C", "vertical bar" },
-    };
-
     static readonly Dictionary<string, string> SpecialCases = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
     {
       {@"(.+)", "Match any character one or more times" },
@@ -437,8 +460,9 @@ namespace Qhta.RegularExpressions.Descriptions
           {
             if (curItem.Tag != RegExTag.LiteralChar)
               result.Description = ChangeAdArticleToThe(result.Description);
-            result.Description += " followed by " + CreatePatternItem(itemList, ref itemIndex, inCharset, inGroup).Description;
-            result.Str += nextItem.Str;
+            var followingItem = CreatePatternItem(itemList, ref itemIndex, inCharset, inGroup);
+            result.Description += " followed by " + followingItem.Description;
+            result.Str += followingItem.Str;
             curItem = nextItem;
           }
         }
@@ -766,7 +790,7 @@ namespace Qhta.RegularExpressions.Descriptions
               if (int.TryParse(curItem.Str.Substring(1), out var ordinalNum))
                 if (OrdinalNames.TryGetValue(ordinalNum, out var ordinalNumName))
                   ordinalStr = ordinalNumName;
-            result.Description = $"the string in the {ordinalStr} captured group";
+            result.Description = $"the match in the {ordinalStr} captured group";
           }
           break;
 
@@ -907,8 +931,21 @@ namespace Qhta.RegularExpressions.Descriptions
             inGroup = true;
           }
           else
-          if (groupItem.Tag == RegExTag.ZeroWidthPositiveAssertion || groupItem.Tag == RegExTag.ZeroWidthNegativeAssertion)
+          if (groupItem.Tag == RegExTag.AheadPositiveAssertion || groupItem.Tag == RegExTag.AheadNegativeAssertion)
             subIndex += 2;
+          else
+          if (groupItem.Tag == RegExTag.BehindPositiveAssertion || groupItem.Tag == RegExTag.BehindNegativeAssertion)
+            subIndex += 3;
+          else
+          if (groupItem.Tag == RegExTag.NonBacktrackingGroup)
+            subIndex += 2;
+          else
+          if (groupItem.Tag == RegExTag.LocalOptionsGroup)
+          {
+            var skipTags = new RegExTag[] { RegExTag.GroupControlChar, RegExTag.OptionSet };
+            while (subIndex< groupItem.Items.Count && skipTags.Contains(groupItem.Items[subIndex].Tag))
+              subIndex++;
+          }
         }
         bool isCompound = false;
         while (subIndex < groupItem.Items.Count)
@@ -981,27 +1018,113 @@ namespace Qhta.RegularExpressions.Descriptions
           result.Description = $"If the \"{groupName}\" group exists, " + result.Description;
         }
         else
-        if (groupItem.Tag == RegExTag.ZeroWidthPositiveAssertion || groupItem.Tag == RegExTag.ZeroWidthNegativeAssertion)
+        if (groupItem.Tag == RegExTag.AheadPositiveAssertion || groupItem.Tag == RegExTag.AheadNegativeAssertion)
         {
           bool isEmptyString = result.Description == "";
           if (isEmptyString)
             result.Description = "empty string";
-          result.Description = $"Determine whether the next is {result.Description}.";
-          if (groupItem.Tag == RegExTag.ZeroWidthPositiveAssertion)
+          result.Description = $"Determine whether the previous match is followed by {result.Description}.";
+          if (groupItem.Tag == RegExTag.AheadPositiveAssertion)
           {
-            result.Description += " If so, a match is possible.";
+            result.Description += " If so, the match was successful.";
             if (isEmptyString)
-              result.Description += " Because an empty string is always implicitly present in an input string, this assertion always succeed.";
+              result.Description += " Because an empty string is always implicitly present in an input string, this assertion is always true.";
           }
           else
           {
-            result.Description += " If it is not, a match is possible.";
+            result.Description += " If it is not, the match was successful.";
             if (isEmptyString)
-              result.Description += " Because an empty string is always implicitly present in an input string, this assertion always fails.";
+              result.Description += " Because an empty string is always implicitly present in an input string, this assertion is always false.";
           }
+        }
+        else
+        if (groupItem.Tag == RegExTag.BehindPositiveAssertion || groupItem.Tag == RegExTag.BehindNegativeAssertion)
+        {
+          bool isEmptyString = result.Description == "";
+          if (isEmptyString)
+            result.Description = "empty string";
+          result.Description = $"Determine whether the next match is preceded by {result.Description}.";
+          if (groupItem.Tag == RegExTag.BehindPositiveAssertion)
+          {
+            result.Description += " If so, the match is possible.";
+            if (isEmptyString)
+              result.Description += " Because an empty string is always implicitly present in an input string, this assertion is always true.";
+          }
+          else
+          {
+            result.Description += " If it is not, the match is possible.";
+            if (isEmptyString)
+              result.Description += " Because an empty string is always implicitly present in an input string, this assertion is always false.";
+          }
+        }
+        else
+        if (groupItem.Tag == RegExTag.NonBacktrackingGroup)
+        {
+          result.Description += $", but do not backtrack to the following match";
+        }
+        else
+        if (groupItem.Tag == RegExTag.LocalOptionsGroup)
+        {
+          RegExOptions usingOptions = groupItem.UsingOptions;
+          RegExOptions cancelOptions = groupItem.CancelOptions;
+          string usingOptionsStr = (usingOptions!=null) ? CreateLocalOptionsDescription(usingOptions) : null;
+          string cancelOptionsStr = (cancelOptions != null) ? CreateLocalOptionsDescription(cancelOptions) : null;
+          var optionsStr = "";
+          if (usingOptionsStr != null)
+            optionsStr = "Using " + usingOptionsStr;
+          if (cancelOptionsStr != null)
+          {
+            if (optionsStr != "")
+              optionsStr += ", and canceling " + cancelOptionsStr;
+            else
+              optionsStr = "Canceling " + cancelOptionsStr;
+          }
+          if (result.Description!="")
+            result.Description = optionsStr + ", match " + result.Description;
+          else
+            result.Description = optionsStr + ", perform the following matches";
         }
       }
       return result;
+    }
+
+    static string CreateLocalOptionsDescription(RegExOptions options)
+    {
+      var str = "";
+      var lastStr = "";
+      for (int i = 0; i < options.Items.Count; i++)
+      {
+        var optionItem = options.Items[i];
+        if (optionItem.Status == RegExStatus.OK)
+        {
+          if (!OptionsDescriptions.TryGetValue(optionItem.Str, out var s1))
+            throw new InvalidOperationException($"CreatePatternItem error: local option \"{optionItem.Str}\" description not found");
+          if (optionItem.Str == "x")
+            lastStr = s1;
+          else
+          {
+            if (i >= 2)
+              str += ",";
+            if (i >= 1)
+              str += " and ";
+            str += s1;
+          }
+        }
+      }
+      if (str!="")
+        str += " matching";
+      if (lastStr!="")
+      {
+        if (str != "")
+        {
+          if (str.Contains("and"))
+            str += ", and ";
+          else
+            str += " and ";
+        }
+        str += lastStr;
+      }
+      return str;
     }
 
     static string AddAnArticle(string description, bool ignoreCase=false)

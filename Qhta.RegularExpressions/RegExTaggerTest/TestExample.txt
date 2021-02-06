@@ -1,7 +1,5 @@
-﻿^[^<>]*((?'Open'<)[^<>]*)+((?'Close-Open'>)[^<>]*)+(?(Open)(?!))$
-	^	Begin at the start of the string.
-	[^<>]*	Match zero or more occurrences of all characters except a "<" and a ">".
-	((?'Open'<)[^<>]*)+	Match one or more occurrences of the pattern of a left angle bracket followed by zero or more occurrences of all characters except a "<" and a ">". This is the first capturing group. This expression also defines an "Open" capturing group.
-	((?'Close-Open'>)[^<>]*)+	Match one or more occurrences of the pattern of a right angle bracket, assign the substring between the "Open" group and the current group to the "Close" group, and delete the definition of the "Open" group, and follow the match by zero or more occurrences of all characters except a "<" and a ">". This is the second capturing group. This expression also defines a "Close" capturing group.
-	(?(Open)(?!))	If the "Open" group exists, determine whether the next is empty string. If it is not, a match is possible. Because an empty string is always implicitly present in an input string, this assertion always fails.
-	$	End at the end of the input string.
+﻿\b(?ix:) d \w+
+	\b	Begin the match at a word boundary.
+	(?ix:)	Using case-insensitive matching and ignoring white space in pattern, perform the following matches.
+	 d 	Match a literal string " d ".
+	\w+	Match one or more word characters.

@@ -2226,7 +2226,7 @@ namespace RegExTaggerTest
           {
             if (testItem != null)
             {
-              line = line.Trim();
+              line = line.Substring(1);
               var cols = line.Split('\t');
               if (cols.Length != 2)
               {

@@ -109,7 +109,5 @@ namespace Qhta.RegularExpressions
       }
     }
 
-    public bool IsEmpty => Items.Count == 0 || Items.Count == 1 && Items[0].Tag == RegExTag.CharSetControlChar;
-
   }
 }

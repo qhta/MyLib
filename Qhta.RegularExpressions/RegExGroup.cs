@@ -17,6 +17,28 @@ namespace Qhta.RegularExpressions
 
     public int? GroupNumber { get; set; }
 
+    public RegExOptions UsingOptions
+    {
+      get
+      {
+        if (Items.Count > 1 && Items[1] is RegExOptions result)
+          return result;
+        return null;
+      }
+    }
+
+    public RegExOptions CancelOptions
+    {
+      get
+      {
+        if (Items.Count > 2 && Items[1].Tag == RegExTag.GroupControlChar && Items[2] is RegExOptions result)
+          return result;
+        if (Items.Count > 3 && Items[2].Tag == RegExTag.GroupControlChar && Items[2] is RegExOptions result2)
+          return result2;
+        return null;
+      }
+    }
+
     public override bool Equals(object obj)
     {
       var result = base.Equals(obj);
@@ -39,6 +61,7 @@ namespace Qhta.RegularExpressions
     {
       return base.GetHashCode();
     }
+
     public override string ToString()
     {
       var result = $"{Tag} \'{Name}\' ({Start}, {Length}) {Status}: \"{Str}\"";

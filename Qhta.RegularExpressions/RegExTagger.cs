@@ -15,6 +15,7 @@ namespace Qhta.RegularExpressions
     const string OctalDigits = "01234567";
     const string DecimalDigits = "0123456789";
     const string HexadecimalDigits = "0123456789ABCDEFabcdef";
+    const string OptionChars = "imnsx";
 
     static RegExTag[] CharRangeTags = new RegExTag[]
     {
@@ -106,7 +107,7 @@ namespace Qhta.RegularExpressions
             status1 = TryParseCharset(pattern, ref charNdx);
             break;
           case '(':
-            status1 = TryParseSubexpression(pattern, ref charNdx);
+            status1 = TryParseGroup(pattern, ref charNdx);
             break;
           case '^':
           case '$':
@@ -180,7 +181,7 @@ namespace Qhta.RegularExpressions
       return status;
     }
 
-    private RegExStatus TryParseSubexpression(string pattern, ref int charNdx)
+    private RegExStatus TryParseGroup(string pattern, ref int charNdx)
     {
       var seqStart = charNdx;
       charNdx++;
@@ -195,10 +196,39 @@ namespace Qhta.RegularExpressions
         var groupControlChar = TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
         charNdx++;
         var nextChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
+        var nextNextChar = charNdx < pattern.Length-1 ? pattern[charNdx+1] : '\0';
         if (nextChar == '\0')
         {
           groupControlChar.Status = RegExStatus.OK;
           status = RegExStatus.Unfinished;
+        }
+        else
+        if (nextChar == '<' && nextNextChar=='=')
+        {
+          group.Tag = RegExTag.BehindPositiveAssertion;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (status1 == RegExStatus.Unfinished)
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.OK;
+        }
+        else
+        if (nextChar == '<' && nextNextChar == '!')
+        {
+          group.Tag = RegExTag.BehindNegativeAssertion;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (status1 == RegExStatus.Unfinished)
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.OK;
         }
         else
         if (nextChar == '<')
@@ -224,7 +254,7 @@ namespace Qhta.RegularExpressions
         else
         if (nextChar == '=')
         {
-          group.Tag = RegExTag.ZeroWidthPositiveAssertion;
+          group.Tag = RegExTag.AheadPositiveAssertion;
           TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
           charNdx++;
           var status1 = TryParsePattern(pattern, ref charNdx, ')');
@@ -236,7 +266,7 @@ namespace Qhta.RegularExpressions
         else
         if (nextChar == '!')
         {
-          group.Tag = RegExTag.ZeroWidthNegativeAssertion;
+          group.Tag = RegExTag.AheadNegativeAssertion;
           TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
           charNdx++;
           var status1 = TryParsePattern(pattern, ref charNdx, ')');
@@ -244,6 +274,24 @@ namespace Qhta.RegularExpressions
             status = RegExStatus.Unfinished;
           else
             status = RegExStatus.OK;
+        }
+        else
+        if (nextChar == '>')
+        {
+          group.Tag = RegExTag.NonBacktrackingGroup;
+          TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
+          charNdx++;
+          var status1 = TryParsePattern(pattern, ref charNdx, ')');
+          if (status1 == RegExStatus.Unfinished)
+            status = RegExStatus.Unfinished;
+          else
+            status = RegExStatus.OK;
+        }
+        else
+        if (OptionChars.Contains(nextChar) || nextChar=='-' || nextChar == ':')
+        {
+          group.Tag = RegExTag.LocalOptionsGroup;
+          status = TryParseLocalOptionsGroup(pattern, ref charNdx, group);
         }
         else
         {
@@ -446,6 +494,87 @@ namespace Qhta.RegularExpressions
       else
         group.Name = name;
       Items = RegExStack.Pop();
+      return status;
+    }
+
+    private RegExStatus TryParseLocalOptionsGroup(string pattern, ref int charNdx, RegExNamedItem group)
+    {
+      RegExStatus status = TryParseLocalOptions(pattern, ref charNdx, group);
+      if (status != RegExStatus.Unfinished)
+      {
+        var status1 = TryParsePattern(pattern, ref charNdx, ')');
+        if (status1 > status)
+          status = status1;
+      }
+      group.Status = status;
+      return status;
+    }
+
+    private RegExStatus TryParseLocalOptions(string pattern, ref int charNdx, RegExNamedItem group)
+    {
+      RegExStatus status = RegExStatus.OK;
+      RegExOptions options;
+      var curChar = (charNdx < pattern.Length) ? pattern[charNdx] : '\0';
+      if (OptionChars.Contains(curChar))
+      {
+        options = new RegExOptions { Tag = RegExTag.OptionSet, Start = charNdx };
+        group.Items.Add(options);
+        status = TryParseLocalOptions(pattern, ref charNdx, options);
+        curChar = (charNdx < pattern.Length) ? pattern[charNdx] : '\0';
+      }
+      if (curChar=='-')
+      {
+        group.Items.Add(new RegExItem { Tag = RegExTag.GroupControlChar, Str = pattern.Substring(charNdx,1), Start = charNdx, Status = RegExStatus.OK });
+        charNdx++;
+        options = new RegExOptions { Tag = RegExTag.OptionSet, Start = charNdx };
+        group.Items.Add(options);
+        RegExStatus status1 = TryParseLocalOptions(pattern, ref charNdx, options);
+        curChar = (charNdx < pattern.Length) ? pattern[charNdx] : '\0';
+        if (status1 > status)
+          status = status1;
+      }
+      if (curChar == ':')
+      {
+        group.Items.Add(new RegExItem { Tag = RegExTag.GroupControlChar, Str = pattern.Substring(charNdx, 1), Start = charNdx, Status = RegExStatus.OK });
+        charNdx++;
+      }
+      else
+      if (curChar == ')')
+      {
+        status = RegExStatus.Error;
+      }
+      else
+      if (curChar != '\0')
+      {
+        status = RegExStatus.Error;
+        group.Items.Add(new RegExItem { Tag = RegExTag.GroupControlChar, Str = pattern.Substring(charNdx, 1), Start = charNdx, Status = RegExStatus.Error });
+        charNdx++;
+      }
+      else
+        status = RegExStatus.Unfinished;
+      return status;
+    }
+
+    private RegExStatus TryParseLocalOptions(string pattern, ref int charNdx, RegExOptions options)
+    {
+      RegExStatus status = RegExStatus.OK;
+      var seqStart = charNdx;
+      char curChar;
+      while (char.IsLetter(curChar = (charNdx < pattern.Length) ? pattern[charNdx] : '\0'))
+      {
+        bool isValid = OptionChars.Contains(curChar);
+        var optionStr = new string(curChar, 1);
+        bool duplicated = options.Items.Where(item => item.Str == optionStr).FirstOrDefault() != null;
+        options.Items.Add(new RegExItem { Tag = RegExTag.OptionChar, Str = optionStr, Start = charNdx, 
+          Status = isValid ? (duplicated ? RegExStatus.Warning : RegExStatus.OK) : RegExStatus.Error });
+        charNdx++;
+      }
+      if (curChar == '\0')
+      {
+        status = RegExStatus.Unfinished;
+      }
+      else
+        options.Str = pattern.Substring(seqStart, charNdx - seqStart);
       return status;
     }
 
