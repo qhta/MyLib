@@ -15,7 +15,7 @@ Ordinal numbers are easily converted to/from strings. One-segment ordinal number
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
+    <OutputPath>D:\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <PackageReleaseNotes>Operations on OrdNum parts  implemented: StartsWith, LeftSegments, RightSegments, MidSegments.</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>

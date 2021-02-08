@@ -166,13 +166,13 @@ gr[ae]y\s\S+?[\s\p{P}]
 (\w+)\s(\1)\W
 	(\w+)	Match one or more word characters. This is the first capturing group.
 	\s	Match a white-space character.
-	(\1)	Match the match in the first captured group. This is the second capturing group.
+	(\1)	Match the string captured in the first capturing group. This is the second capturing group.
 	\W	Match a non-word character.
 
 (?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)
 	(?<duplicateWord>\w+)	Match one or more word characters and name this group "duplicateWord".
 	\s	Match a white-space character.
-	\k<duplicateWord>	Match the string from the "duplicateWord" captured group.
+	\k<duplicateWord>	Match the string captured in the "duplicateWord" capturing group.
 	\W	Match a non-word character.
 	(?<nextWord>\w+)	Match one or more word characters and name this group "nextWord".
 
@@ -214,7 +214,7 @@ gr[ae]y\s\S+?[\s\p{P}]
 	\b	End the match at a word boundary.
 
 (?>(\w)\1+).\b
-	(?>(\w)\1+)	Match the pattern of a word character followed by one or more occurrences of the match in the first captured groups, but do not backtrack to the following match.
+	(?>(\w)\1+)	Match the pattern of a word character followed by one or more occurrences of the string captured in the first capturing group, but do not backtrack to the following match.
 	.	Match any character.
 	\b	End the match on a word boundary.
 

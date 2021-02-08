@@ -24,3 +24,6 @@ D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Description
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.Descriptions.pdb
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\bin\Debug\netstandard2.0\System.Xaml.dll
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\bin\Debug\netstandard2.0\System.Xaml.xml
+D:\VS\Projects\MyLib\bin\netstandard2.0\Qhta.RegularExpressions.Descriptions.deps.json
+D:\VS\Projects\MyLib\bin\netstandard2.0\Qhta.RegularExpressions.Descriptions.dll
+D:\VS\Projects\MyLib\bin\netstandard2.0\Qhta.RegularExpressions.Descriptions.pdb

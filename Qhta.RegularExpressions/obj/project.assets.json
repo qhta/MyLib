@@ -183,7 +183,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.csproj",
       "projectName": "Qhta.RegularExpressions",

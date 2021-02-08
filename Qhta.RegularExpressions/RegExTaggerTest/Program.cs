@@ -1,4 +1,5 @@
 ﻿using Qhta.RegularExpressions;
+using Qhta.RegularExpressions.ConsoleDrawing;
 using Qhta.RegularExpressions.Descriptions;
 
 using System;
@@ -33,6 +34,7 @@ namespace RegExTaggerTest
       TestUnicodeCategories = 0x400,
       TestCharsetPatterns = 0x800,
       TestGroupingPatterns = 0x1000,
+      TestReplacePatterns = 0x2000,
     }
 
     const string QuantifierChars = "?+*";
@@ -77,6 +79,8 @@ namespace RegExTaggerTest
     static string TestInputFileName;
     static string TestOutputFileName;
     static TestOptions TestRunOptions = 0;
+    static RegExConsolePresenter Presenter = new RegExConsolePresenter();
+    static PatternItemsGenerator Generator = new PatternItemsGenerator();
 
     static void Main(string[] args)
     {
@@ -129,13 +133,14 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/p - test Unicode categories");
       TestOutput.WriteLine($"\t/[ - test charset patterns");
       TestOutput.WriteLine($"\t/( - test grouping patterns");
+      TestOutput.WriteLine($"\t/r - test replace patterns (applies to input file and user-input patterns");
       TestOutput.WriteLine($"");
       TestOutput.WriteLine($"TestInputFile can be of the type:");
       TestOutput.WriteLine($"\txml - the whole test data is read with test results");
       TestOutput.WriteLine($"\ttxt - only patterns are read (each in a separate line)");
       TestOutput.WriteLine($"TestOutputFile is always of type xml. Is is written if the overall test result is passed.");
-      TestOutput.WriteLine($"If the input test file is specified and is not preceded by the \\i option, and the output file ");
-      TestOutput.WriteLine($"is not specified with the \\o option, then the input file may be replaced with new test results.");
+      TestOutput.WriteLine($"\tIf the input test file is specified and is not preceded by the \\i option, and the output file ");
+      TestOutput.WriteLine($"\tis not specified with the \\o option, then the input file may be replaced with new test results.");
       TestOutput.WriteLine();
     }
 
@@ -196,6 +201,9 @@ namespace RegExTaggerTest
                 break;
               case '(':
                 options |= TestOptions.TestGroupingPatterns;
+                break;
+              case 'r':
+                options |= TestOptions.TestReplacePatterns;
                 break;
               default:
                 Console.WriteLine($"Unrecognized option \"{arg}\"");
@@ -325,6 +333,10 @@ namespace RegExTaggerTest
 
       if (TestInputData != null && TestInputData.Count > 0)
       {
+        if (TestRunOptions.HasFlag(TestOptions.TestReplacePatterns))
+        {
+          Tagger.Kind = SearchOrReplace.Replace;
+        }
         partTestResult = RunTestInputData();
         SetTestResult(ref wholeTestResult, partTestResult);
         if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
@@ -2105,7 +2117,8 @@ namespace RegExTaggerTest
       }
       if (testInputItem.PatternItems != null)
       {
-        testOutputItem.PatternItems = testOutputItem.Items.GeneratePatternItems();
+        Generator.Kind = TestRunOptions.HasFlag(TestOptions.TestReplacePatterns) ? SearchOrReplace.Replace : SearchOrReplace.Search;
+        testOutputItem.PatternItems = Generator.GeneratePatternItems(testOutputItem.Items);
         if (singleTestResult != false)
           singleTestResult = PatternItemsComparator.AreEqual(testOutputItem.PatternItems, testInputItem.PatternItems);
       }
@@ -2274,7 +2287,8 @@ namespace RegExTaggerTest
     static void ShowTestItem(TestItem item)
     {
       TestOutput.WriteLine($"TryParse = {item.Result}");
-      DrawGraph(TestOutput, item.Pattern, item.Items);
+      if (item.Items.Count>0)
+        Presenter.DrawGraph(TestOutput, item.Pattern, item.Items);
       if (item.PatternItems!=null)
         ShowPatternItems(item.PatternItems);
     }
@@ -2317,236 +2331,6 @@ namespace RegExTaggerTest
         if (item is RegExCharSet charset)
           Dump(writer, charset.Items, level + 1);
       }
-    }
-
-    static List<ConsoleColor> ConsoleColors = new List<ConsoleColor>
-    {
-      ConsoleColor.Green,
-      ConsoleColor.Red,
-      ConsoleColor.Cyan,
-      ConsoleColor.Magenta,
-      ConsoleColor.Yellow,
-    };
-
-
-    static void DrawGraph(TextWriter writer, string pattern, RegExItems items)
-    {
-      GraphItems graphItems = new GraphItems(items);
-      List<GraphItem> itemsList = graphItems.ToList();
-      SetupColors(itemsList);
-      var plainText = graphItems.PlainText;
-      var xCount = plainText.Length + 1;
-      var yCount = itemsList.Count;
-      ColoredChar[,] frameMatrix = new ColoredChar[xCount, yCount];
-      for (int x = 0; x < xCount; x++)
-        for (int y = 0; y < yCount; y++)
-        {
-          frameMatrix[x, y] = new ColoredChar(' ', 0xFFFFFF);
-        }
-
-      for (int i = itemsList.Count - 1; i >= 0; i--)
-      {
-        var item = itemsList[i];
-
-        int yMax = yCount - i - 1;
-        int color = item.Color;
-
-        if (item.SubItems == null && yMax != 0)
-        {
-          if (item.Length == 1)
-          {
-            for (int y = 0; y < yMax; y++)
-            {
-              frameMatrix[item.ColStart, y] = new ColoredChar('│', color);
-            }
-            frameMatrix[item.ColStart, yMax] = new ColoredChar('└', color);
-          }
-          else
-          {
-            frameMatrix[item.ColStart, 0] = new ColoredChar('├', color);
-            for (int x = 1; x < item.ColCount - 2; x++)
-            {
-              frameMatrix[item.ColStart + x, 0] = new ColoredChar('─', color);
-            }
-            frameMatrix[item.ColStart + item.ColCount - 2, 0] = new ColoredChar('┘', color);
-            for (int y = 1; y < yMax; y++)
-            {
-              frameMatrix[item.ColStart, y] = new ColoredChar('│', color);
-            }
-            frameMatrix[item.ColStart, yMax] = new ColoredChar('└', color);
-          }
-        }
-        else
-        {
-          for (int y = 0; y < yMax; y++)
-          {
-            frameMatrix[item.ColStart, y] = new ColoredChar('│', color);
-            if (item.Length > 1)
-            {
-              //if (frameMatrix[item.ColStart + item.ColCount - 3, y].Value != ' ')
-              //  frameMatrix[item.ColStart + item.ColCount - 1, y] = frameMatrix[item.ColStart + item.ColCount + 1, y];
-              frameMatrix[item.ColStart + item.ColCount - 2, y] = new ColoredChar('│', color);
-            }
-          }
-
-          if (item.Length == 1)
-          {
-            frameMatrix[item.ColStart, yMax] = new ColoredChar('└', color);
-          }
-          else
-          {
-            frameMatrix[item.ColStart, yMax] = new ColoredChar('└', color);
-            for (int x = 1; x < item.ColCount - 1; x++)
-            {
-              frameMatrix[item.ColStart + x, yMax] = new ColoredChar('─', color);
-            }
-            frameMatrix[item.ColStart + item.ColCount - 2, yMax] = new ColoredChar('┴', color);
-            //patternColors[item.ColStart + item.Length - 1] = color;
-            if (item.SubItems != null)
-            {
-              for (int y = yMax - 1; y >= 0; y--)
-              {
-                int lineColor = -1;
-                for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
-                {
-                  var curChar = frameMatrix[x, y].Value;
-                  if (curChar == '└' || curChar == '─' || curChar == '┴')
-                  {
-                    lineColor = frameMatrix[x, y].Color;
-                    break;
-                  }
-                  else
-                  if (curChar != ' ')
-                  {
-                    break;
-                  }
-                }
-                if (lineColor != -1)
-                {
-                  for (int x = item.ColStart + item.ColCount - 3; x >= 0; x--)
-                  {
-                    if (frameMatrix[x, y].Value == ' ')
-                    {
-                      frameMatrix[x, y] = new ColoredChar('─', lineColor);
-                    }
-                    else
-                      break;
-                  }
-                  frameMatrix[item.ColStart + item.ColCount - 1, y] = new ColoredChar('─', lineColor);
-                }
-              }
-            }
-          }
-        }
-      }
-
-      if (TestOutput == Console.Out)
-      {
-        var coloredText = graphItems.ColoredText;
-        foreach (var item in coloredText)
-        {
-          Console.ForegroundColor = GetConsoleColor(item.Color);
-          Console.Write(item.Value);
-        }
-        //if (items.Inequality != null)
-        //  Console.Write($"  Items.Count={items.Inequality.Obtained} expected={items.Inequality.Expected}"); 
-        Console.WriteLine();
-      }
-      else
-      {
-        TestOutput.WriteLine(graphItems.PlainText);
-      }
-      for (int i = itemsList.Count - 1; i >= 0; i--)
-      {
-        var item = itemsList[i];
-        int yMax = yCount - i - 1;
-        int l = xCount;
-        while (l > 0 && frameMatrix[l - 1, yMax].Value == ' ') l--;
-        if (TestOutput == Console.Out)
-        {
-          for (int x = 0; x < l; x++)
-          {
-            Console.ForegroundColor = GetConsoleColor(frameMatrix[x, yMax].Color);
-            Console.Write(frameMatrix[x, yMax].Value);
-          }
-          Console.WriteLine(" " + item.ToString());
-          Console.ResetColor();
-        }
-        else
-        {
-          string frameLine = "";
-          if (l > 0)
-          {
-            var frameRow = new char[l];
-            for (int x = 0; x < l; x++)
-              frameRow[x] = frameMatrix[x, yMax].Value;
-            frameLine = new string(frameRow);
-          }
-          TestOutput.Write(frameLine);
-          var s = $"{item}";
-          TestOutput.WriteLine($" {s}");
-        }
-      }
-    }
-
-    /// <summary>
-    /// Setup colors in list of graph items and keep each adjacent colors different
-    /// </summary>
-    /// <param name="items"></param>
-    static void SetupColors(List<GraphItem> items)
-    {
-      SetupColors(items, 0, -1);
-      int priorColor = -1;
-      foreach (var item in items)
-      {
-        if (item.Color == priorColor)
-        {
-          item.Color = (item.Color + 1) % ConsoleColors.Count;
-        }
-        priorColor = item.Color;
-      }
-    }
-
-    /// <summary>
-    /// Recurrent method of colors setup. 
-    /// When iterate in subitems, it keeps that the last subitem will have different color than closing mark of the group.
-    /// </summary>
-    /// <param name="items"></param>
-    /// <param name="colorIndex"></param>
-    /// <param name="groupColor"></param>
-    /// <returns></returns>
-    static int SetupColors(List<GraphItem> items, int colorIndex, int groupColor)
-    {
-      var lastColorIndex = -1;
-      int itemColor = -1;
-      for (int i = 0; i < items.Count; i++)
-      {
-        var item = items[i];
-        int index = item.Start;
-        itemColor = colorIndex;
-        if (i == items.Count - 1 && itemColor == groupColor)
-        {
-          colorIndex = (colorIndex + 1) % ConsoleColors.Count();
-          itemColor = colorIndex;
-        }
-        item.Color = itemColor;
-        lastColorIndex = colorIndex;
-        colorIndex = (colorIndex + 1) % ConsoleColors.Count();
-        if (item.SubItems != null)
-        {
-          var lastColor = SetupColors(item.SubItems, colorIndex, itemColor);
-          if (lastColor == colorIndex)
-            colorIndex = (colorIndex + 1) % ConsoleColors.Count();
-        }
-      }
-      return lastColorIndex;
-    }
-
-    static ConsoleColor GetConsoleColor(int colorIndex)
-    {
-      if (colorIndex == 0xFFFFFF)
-        return ConsoleColor.White;
-      return ConsoleColors[colorIndex];
     }
 
     static void ShowPatternItems(PatternItems patternItems)

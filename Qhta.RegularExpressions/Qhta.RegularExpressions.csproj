@@ -2,18 +2,35 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\VS\Projects\MyLib\bin\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Qhta.RegularExpressions.ConsoleDrawing\**" />
     <Compile Remove="Qhta.RegularExpressions.Decriptions\**" />
     <Compile Remove="Qhta.RegularExpressions.Descriptions\**" />
     <Compile Remove="RegExTaggerTest\**" />
+    <EmbeddedResource Remove="Qhta.RegularExpressions.ConsoleDrawing\**" />
     <EmbeddedResource Remove="Qhta.RegularExpressions.Decriptions\**" />
     <EmbeddedResource Remove="Qhta.RegularExpressions.Descriptions\**" />
     <EmbeddedResource Remove="RegExTaggerTest\**" />
+    <None Remove="Qhta.RegularExpressions.ConsoleDrawing\**" />
     <None Remove="Qhta.RegularExpressions.Decriptions\**" />
     <None Remove="Qhta.RegularExpressions.Descriptions\**" />
     <None Remove="RegExTaggerTest\**" />
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -12,3 +12,5 @@ D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.Regu
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.Descriptions.pdb
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.Collections.dll
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.ConsoleDrawing.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\RegExTaggerTest\bin\Debug\Qhta.RegularExpressions.ConsoleDrawing.pdb

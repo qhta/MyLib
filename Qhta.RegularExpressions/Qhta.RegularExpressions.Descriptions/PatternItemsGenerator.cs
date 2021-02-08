@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Qhta.RegularExpressions.Descriptions
 {
-  public static class PatternItemsGenerator
+  public class PatternItemsGenerator
   {
     static readonly Dictionary<string, string> CharNames = new Dictionary<string, string>
     {
@@ -364,7 +364,14 @@ namespace Qhta.RegularExpressions.Descriptions
 
     const string Vowels = "aeiouy";
 
-    public static PatternItems GeneratePatternItems(this RegExItems itemList)
+    public PatternItemsGenerator(SearchOrReplace kind = SearchOrReplace.Search)
+    {
+      Kind = kind;
+    }
+
+    public SearchOrReplace Kind { get; set; }
+
+    public PatternItems GeneratePatternItems(RegExItems itemList)
     {
       PatternItems result = new PatternItems();
       int itemIndex = 0;
@@ -376,7 +383,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static PatternItem CreatePatternItemWithGroupNumber(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
+    private PatternItem CreatePatternItemWithGroupNumber(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
 
@@ -396,20 +403,23 @@ namespace Qhta.RegularExpressions.Descriptions
     }
 
 
-    static string GroupNumberAppendix(RegExGroup groupItem)
+    private string GroupNumberAppendix(RegExGroup groupItem)
     {
       var groupNumber=groupItem.GroupNumber;
       if (groupNumber != null)
       {
         if (!OrdinalNames.TryGetValue((int)groupNumber, out string ordinalName))
-          throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
+        {
+          ordinalName = ((int)groupNumber).ToString();
+          //throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
+        }
         var description = $" This is the {ordinalName} capturing group.";
         return description;
       }
       return null;
     }
 
-    static string GroupNumberAdditionalAppendix(IList<RegExItem> itemList)
+    private string GroupNumberAdditionalAppendix(IList<RegExItem> itemList)
     {
       List<string> strings = GroupNumberString(itemList);
       var description = String.Join(" and ", strings);
@@ -418,7 +428,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return description;
     }
 
-    static List<string> GroupNumberString(IList<RegExItem> itemList)
+    private List<string> GroupNumberString(IList<RegExItem> itemList)
     {
       List<string> strings = new List<string>();
       foreach (var item in itemList)
@@ -431,7 +441,10 @@ namespace Qhta.RegularExpressions.Descriptions
             if (groupNumber != null)
             {
               if (!OrdinalNames.TryGetValue((int)groupNumber, out string ordinalName))
-                throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
+              {
+                ordinalName = ((int)groupNumber).ToString();
+                //throw new NotImplementedException($"CreatePatternItem error: Ordinal name for a \"{groupNumber}\" group number not found");
+              }
               strings.Add(ordinalName);
               strings.AddRange(GroupNumberString(item.Items));
             }
@@ -445,7 +458,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return strings;
     }
 
-    static PatternItem CreatePatternItemSentence(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
+    private PatternItem CreatePatternItemSentence(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
 
@@ -481,14 +494,19 @@ namespace Qhta.RegularExpressions.Descriptions
           result.Description = "End at " + result.Description;
         else
         if (!Char.IsUpper(result.Description.FirstOrDefault()))
-          result.Description = "Match " + result.Description;
+        {
+          if (Kind == SearchOrReplace.Replace)
+            result.Description = "Add " + result.Description;
+          else
+            result.Description = "Match " + result.Description;
+        }
       }
       if (result.Description.LastOrDefault()!='.')
         result.Description += ".";
       return result;
     }
 
-    static PatternItem CreatePatternItemSpecialCase(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
+    private PatternItem CreatePatternItemSpecialCase(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
       var str = "";
@@ -510,7 +528,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return null;
     }
 
-    static PatternItem CreatePatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup, bool underQuantifier = false)
+    private PatternItem CreatePatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup, bool underQuantifier = false)
     {
       var curItem = itemList[itemIndex];
       var result = CreateSpecificPatternItem(itemList, ref itemIndex, inCharset, inGroup);
@@ -530,7 +548,7 @@ namespace Qhta.RegularExpressions.Descriptions
           else
           if (itemDescription.StartsWith("an "))
             itemDescription = itemDescription.Substring(3);
-          if (quantifier.IsMultiplying)
+          if (quantifier.IsMultiplying && ! itemDescription.Contains("captured"))
               itemDescription = Pluralize(itemDescription);
           result.Description = String.Format(quantifierDescription, itemDescription);
         }
@@ -553,7 +571,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    private static string Pluralize(string str)
+    private string Pluralize(string str)
     {
       if (Char.IsLetter(str.LastOrDefault()) && !str.EndsWith("s") && !str.EndsWith("es") && !str.StartsWith("any ") && !str.EndsWith("\"") 
         && !str.StartsWith("the pattern"))
@@ -561,61 +579,74 @@ namespace Qhta.RegularExpressions.Descriptions
       return str;
     }
 
-    static PatternItem CreateQuantifierPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup, bool underQuantifier)
+    private PatternItem CreateQuantifierPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup, bool underQuantifier)
     {
       var quantifier = itemList[itemIndex] as RegExQuantifier;
-      if (itemIndex == 0)
-        throw new InvalidOperationException($"CreatePatternItem error: quantifier {quantifier.Str} must not be the first item");
-      var priorItem = itemList[itemIndex - 1];
       PatternItem result = new PatternItem { Str = quantifier.Str, Description = "" };
-      if (priorItem.Str == "." && quantifier.Str == "*")
+      if (itemIndex > 0)
       {
-        result.Description += "until";
-        itemIndex++;
-        var nextResult = CreatePatternItem(itemList, ref itemIndex, inCharset, inGroup);
-        result.Str += nextResult.Str;
-        result.Description += " " + nextResult.Description;
-        itemIndex--;
-      }
-      else
-      if (priorItem.Tag == RegExTag.Subexpression && !underQuantifier)
-      {
-        string quantifierDescription;
-        if (priorItem.Items?.Where(item => item is RegExGroup).FirstOrDefault() != null)
+        var priorItem = itemList[itemIndex - 1];
+        if (priorItem.Str == "." && quantifier.Str == "*")
         {
-          if (!QuantifierLongDescriptions.TryGetValue(quantifier.Str, out quantifierDescription))
-            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
-              throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
+          result.Description += "until";
+          itemIndex++;
+          var nextResult = CreatePatternItem(itemList, ref itemIndex, inCharset, inGroup);
+          result.Str += nextResult.Str;
+          result.Description += " " + nextResult.Description;
+          itemIndex--;
         }
         else
-        if (!QuantifierSuffixDescriptions.TryGetValue(quantifier.Str, out quantifierDescription))
-          if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
-            throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
-        result.Description = quantifierDescription;
-      }
-      else
-      {
-        if (priorItem.Tag == RegExTag.CharClass || priorItem.Tag == RegExTag.UnicodeCategorySeq 
-          || (priorItem.Tag == RegExTag.Subexpression && priorItem.Items.Count==1 && (priorItem.Items[0].Tag == RegExTag.CharClass || priorItem.Items[0].Tag == RegExTag.UnicodeCategorySeq)))
+        if (priorItem.Tag == RegExTag.Subexpression && !underQuantifier)
         {
-          if (!QuantifierShortDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
-            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, true, "characters"))
-              throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
+          string quantifierDescription;
+          if (priorItem.Items?.Where(item => item is RegExGroup).FirstOrDefault() != null)
+          {
+            if (!QuantifierLongDescriptions.TryGetValue(quantifier.Str, out quantifierDescription))
+              if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
+              {
+                quantifierDescription = quantifier.Str;
+                //throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
+              }
+          }
+          else
+          if (!QuantifierSuffixDescriptions.TryGetValue(quantifier.Str, out quantifierDescription))
+            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
+            {
+              quantifierDescription = quantifier.Str;
+              //throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
+            }
           result.Description = quantifierDescription;
         }
         else
         {
-          if (!QuantifierLongDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
-            if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
-              throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
-          result.Description = quantifierDescription;
+          if (priorItem.Tag == RegExTag.CharClass || priorItem.Tag == RegExTag.UnicodeCategorySeq
+            || (priorItem.Tag == RegExTag.Subexpression && priorItem.Items.Count == 1 && (priorItem.Items[0].Tag == RegExTag.CharClass || priorItem.Items[0].Tag == RegExTag.UnicodeCategorySeq)))
+          {
+            if (!QuantifierShortDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
+              if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, true, "characters"))
+              {
+                quantifierDescription = quantifier.Str;
+                //throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
+              }
+            result.Description = quantifierDescription;
+          }
+          else
+          {
+            if (!QuantifierLongDescriptions.TryGetValue(quantifier.Str, out string quantifierDescription))
+              if (!GetNumeralQuantifierSuffix(quantifier, out quantifierDescription, false, "times"))
+              {
+                quantifierDescription = quantifier.Str;
+                //throw new NotImplementedException($"CreatePatternItem error: quantifier description for a \"{quantifier.Str}\" not found");
+              }
+            result.Description = quantifierDescription;
+          }
         }
       }
       itemIndex++;
       return result;
     }
 
-    static bool GetNumeralQuantifierSuffix(RegExQuantifier quantifier, out string description, bool shorten, string asFewItems)
+    private bool GetNumeralQuantifierSuffix(RegExQuantifier quantifier, out string description, bool shorten, string asFewItems)
     {
       description = null;
       if (quantifier.Str.StartsWith("{"))
@@ -668,7 +699,7 @@ namespace Qhta.RegularExpressions.Descriptions
 
     }
 
-    static string GetNumeral(string str)
+    private string GetNumeral(string str)
     {
       if (int.TryParse(str, out var n))
         if (NumeralNames.TryGetValue(n, out var numeral))
@@ -676,7 +707,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return str;
     }
 
-    static PatternItem CreateSpecificPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
+    private PatternItem CreateSpecificPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
       if (curItem is RegExCharSet)
@@ -686,14 +717,14 @@ namespace Qhta.RegularExpressions.Descriptions
       else
       if (curItem is RegExCharRange)
       {
-        if (!inCharset)
-          throw new InvalidOperationException($"CreatePatternItem error: CharRange must occur in charset");
+        //if (!inCharset)
+        //  throw new InvalidOperationException($"CreatePatternItem error: CharRange must occur in charset");
         return CreateCharRangePatternItem(itemList, ref itemIndex, inGroup);
       }
       if (curItem is RegExGroup)
       {
-        if (inCharset)
-          throw new InvalidOperationException($"CreatePatternItem error: Subexpression must not occur in charset");
+        //if (inCharset)
+        //  throw new InvalidOperationException($"CreatePatternItem error: Subexpression must not occur in charset");
         return CreateGroupPatternItem(itemList, ref itemIndex, inGroup);
       }
 
@@ -782,7 +813,7 @@ namespace Qhta.RegularExpressions.Descriptions
 
         case RegExTag.BackRef:
           if (curItem is RegExBackRef backrefItem)
-            result.Description = $"from the \"{backrefItem.Name}\" captured group";
+            result.Description = $"the string captured in the \"{backrefItem.Name}\" capturing group";
           else
           {
             string ordinalStr = curItem.Str;
@@ -790,7 +821,7 @@ namespace Qhta.RegularExpressions.Descriptions
               if (int.TryParse(curItem.Str.Substring(1), out var ordinalNum))
                 if (OrdinalNames.TryGetValue(ordinalNum, out var ordinalNumName))
                   ordinalStr = ordinalNumName;
-            result.Description = $"the match in the {ordinalStr} captured group";
+            result.Description = $"the string captured in the {ordinalStr} capturing group";
           }
           break;
 
@@ -812,14 +843,27 @@ namespace Qhta.RegularExpressions.Descriptions
         case RegExTag.Number:
           throw new InvalidOperationException($"CreatePatternItem error: Number must not be textualized here");
 
-        //default:
-        //  throw new NotImplementedException($"CreatePatternItem for a {curItem.Tag} not implemented");
+        case RegExTag.Replacement:
+          if (curItem is RegExBackRef backrefItem1)
+            result.Description = $"the string captured by the \"{backrefItem1.Name}\" capturing group";
+          else
+          {
+            string ordinalStr = curItem.Str;
+            if (curItem.Str.Length > 1)
+              if (int.TryParse(curItem.Str.Substring(1), out var ordinalNum))
+                if (OrdinalNames.TryGetValue(ordinalNum, out var ordinalNumName))
+                  ordinalStr = ordinalNumName;
+            result.Description = $"the string captured by the {ordinalStr} capturing group";
+          }
+          break;
+        default:
+          throw new NotImplementedException($"CreatePatternItem for a {curItem.Tag} not implemented");
       }
       return result;
     }
 
 
-    static PatternItem CreateCharsetPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
+    private PatternItem CreateCharsetPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inCharset, bool inGroup)
     {
       var curItem = itemList[itemIndex];
       itemIndex++;
@@ -864,7 +908,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static PatternItem CreateCharRangePatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inGroup)
+    private PatternItem CreateCharRangePatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inGroup)
     {
       var curItem = itemList[itemIndex] as RegExCharRange;
       itemIndex++;
@@ -904,7 +948,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static PatternItem CreateGroupPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inGroup)
+    private PatternItem CreateGroupPatternItem(IList<RegExItem> itemList, ref int itemIndex, bool inGroup)
     {
       var groupItem = itemList[itemIndex] as RegExGroup;
       itemIndex++;
@@ -1088,7 +1132,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return result;
     }
 
-    static string CreateLocalOptionsDescription(RegExOptions options)
+    private string CreateLocalOptionsDescription(RegExOptions options)
     {
       var str = "";
       var lastStr = "";
@@ -1127,7 +1171,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return str;
     }
 
-    static string AddAnArticle(string description, bool ignoreCase=false)
+    private string AddAnArticle(string description, bool ignoreCase=false)
     {
       string str;
       var firstChar = description.Where(ch => Char.IsLetter(ch)).FirstOrDefault();
@@ -1145,7 +1189,7 @@ namespace Qhta.RegularExpressions.Descriptions
       return str;
     }
 
-    static string ChangeAdArticleToThe(string description)
+    private string ChangeAdArticleToThe(string description)
     {
       if (description.StartsWith("a "))
         description = "the " + description.Substring(2);

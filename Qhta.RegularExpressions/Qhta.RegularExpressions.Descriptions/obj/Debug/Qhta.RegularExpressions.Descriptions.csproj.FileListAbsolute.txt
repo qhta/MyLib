@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.Descriptions.deps.json
+D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.Descriptions.dll
+D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.Descriptions.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.Descriptions\obj\Debug\Qhta.RegularExpressions.Descriptions.pdb

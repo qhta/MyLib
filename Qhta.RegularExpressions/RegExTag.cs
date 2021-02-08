@@ -4,10 +4,10 @@
   {
     LiteralChar,
     LiteralString,
+    EscapedChar,
     CharSet,
     CharRange,
     CharSetControlChar,
-    EscapedChar,
     AnchorControl,
     DotChar,
     CharClass,
@@ -37,5 +37,6 @@
     OptionSet,
     OptionChar,
     BackRef,
+    Replacement,
   }
 }

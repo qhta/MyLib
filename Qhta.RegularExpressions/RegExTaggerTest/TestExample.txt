@@ -1,5 +1,6 @@
-﻿\b(?ix:) d \w+
-	\b	Begin the match at a word boundary.
-	(?ix:)	Using case-insensitive matching and ignoring white space in pattern, perform the following matches.
-	 d 	Match a literal string " d ".
-	\w+	Match one or more word characters.
+﻿${day}-${month}-${year}
+	${day}	Add the string captured by the "day" capturing group.
+	-	Add a hyphen.
+	${month}	Add the string captured by the "month" capturing group.
+	-	Add a hyphen.
+	${year}	Add the string captured by the "year" capturing group.

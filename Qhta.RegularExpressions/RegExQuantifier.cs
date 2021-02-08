@@ -92,7 +92,7 @@ namespace Qhta.RegularExpressions
       get
       {
         var item = Items.FirstOrDefault();
-        if (item.Tag == RegExTag.Number)
+        if (item!=null && item.Tag == RegExTag.Number)
           return item;
         return null;
       }
@@ -103,7 +103,7 @@ namespace Qhta.RegularExpressions
       get
       {
         var item = Items.LastOrDefault();
-        if (item.Tag == RegExTag.Number)
+        if (item != null && item.Tag == RegExTag.Number)
           return item;
         return null;
       }

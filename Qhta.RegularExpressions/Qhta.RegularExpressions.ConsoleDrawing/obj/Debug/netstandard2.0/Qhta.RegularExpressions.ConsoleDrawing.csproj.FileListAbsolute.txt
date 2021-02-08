@@ -1,0 +1,14 @@
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.deps.json
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\Qhta.RegularExpressions.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\System.Xaml.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\Qhta.RegularExpressions.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\bin\Debug\netstandard2.0\System.Xaml.xml
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\netstandard2.0\Qhta.RegularExpressions.ConsoleDrawing.pdb

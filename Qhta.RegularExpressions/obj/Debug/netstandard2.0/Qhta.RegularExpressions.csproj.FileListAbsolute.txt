@@ -10,3 +10,6 @@ D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.Regul
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\bin\Debug\netstandard2.0\System.Xaml.dll
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\bin\Debug\netstandard2.0\System.Xaml.xml
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\netstandard2.0\Qhta.RegularExpressions.csproj.CopyComplete
+D:\VS\Projects\MyLib\bin\netstandard2.0\Qhta.RegularExpressions.deps.json
+D:\VS\Projects\MyLib\bin\netstandard2.0\Qhta.RegularExpressions.dll
+D:\VS\Projects\MyLib\bin\netstandard2.0\Qhta.RegularExpressions.pdb

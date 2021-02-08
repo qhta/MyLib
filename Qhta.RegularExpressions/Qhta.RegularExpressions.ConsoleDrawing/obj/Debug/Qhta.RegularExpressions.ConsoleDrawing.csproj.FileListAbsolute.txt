@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.ConsoleDrawing.deps.json
+D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.ConsoleDrawing.dll
+D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.ConsoleDrawing.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.ConsoleDrawing\obj\Debug\Qhta.RegularExpressions.ConsoleDrawing.csprojAssemblyReference.cache
