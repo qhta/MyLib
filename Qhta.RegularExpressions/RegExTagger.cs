@@ -81,6 +81,7 @@ namespace Qhta.RegularExpressions
       {
         RegExStatus status1 = RegExStatus.Unfinished;
         var thisChar = pattern[charNdx];
+        var nextChar = (charNdx < pattern.Length - 1) ? pattern[charNdx + 1] : '\0';
         switch (thisChar)
         {
           case '\\':
@@ -96,8 +97,9 @@ namespace Qhta.RegularExpressions
             status1 = TryParseQuantifier(pattern, ref charNdx);
             break;
           case '{':
-            status1 = TryParseNumQuantifier(pattern, ref charNdx);
-            if (status1 == RegExStatus.Unfinished)
+            if (char.IsDigit(nextChar) || nextChar=='}')
+              status1 = TryParseNumQuantifier(pattern, ref charNdx);
+            else
             {
               status1 = RegExStatus.OK;
               TagSeq(pattern, charNdx, 1, RegExTag.LiteralChar, RegExStatus.OK);
@@ -115,7 +117,6 @@ namespace Qhta.RegularExpressions
             TagSeq(pattern, charNdx, 1, RegExTag.AnchorControl, RegExStatus.OK);
             break;
           case '|':
-            var nextChar = (charNdx < pattern.Length - 1) ? pattern[charNdx + 1] : '\0';
             status1 = RegExStatus.OK;
             if (charNdx <= seqStart)
               status1 = RegExStatus.Warning;
@@ -514,10 +515,16 @@ namespace Qhta.RegularExpressions
         nameQuote.Str = pattern.Substring(nameQuote.Start, charNdx - nameQuote.Start + 1);
         charNdx++;
       }
-      else if (thisChar != '\0')
+      else //if (thisChar != '\0')
       {
-        TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.Error);
-        charNdx++;
+        nameQuote.Status = RegExStatus.Unfinished;
+        nameQuote.Str = pattern.Substring(nameQuote.Start, charNdx - nameQuote.Start);
+        if (thisChar != '\0')
+        {
+          var invalidChar = new RegExItem { Start = charNdx, Str = pattern.Substring(charNdx, 1), Tag = RegExTag.GroupControlChar, Status = RegExStatus.Error };
+          group.Items.Add(invalidChar);
+          charNdx++;
+        }
         if (nameItem.Status == RegExStatus.OK)
           nameItem.Status = RegExStatus.Unfinished;
       }

@@ -81,10 +81,18 @@ namespace Qhta.RegularExpressions.ConsoleDrawing
           if (lastItem != null)
           {
             var start = lastItem.Start - this.Start + lastItem.Length;
-            Debug.Assert(start >= 0, $"EndStr invalid start {start} < 0 ") ;
+            if (start < 0)
+            {
+              //Debug.Assert(start >= 0, $"EndStr invalid start {start} < 0 ");
+              return " ";
+            }
             if (start == Str.Length)
               return " ";
-            Debug.Assert(start < Str.Length, $"EndStr invalid start {start} >= {Str.Length} ");
+            if (start > Str.Length)
+            {
+              //Debug.Assert(start < Str.Length, $"EndStr invalid start {start} >= {Str.Length} ");
+              return " ";
+            }
             return Str.Substring(start) + " ";
           }
         }

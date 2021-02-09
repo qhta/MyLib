@@ -7,3 +7,4 @@ D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.pdb
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\Qhta.RegularExpressions.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\Qhta.RegularExpressions.dll
 D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\Qhta.RegularExpressions.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\obj\Debug\Qhta.RegularExpressions.csprojAssemblyReference.cache

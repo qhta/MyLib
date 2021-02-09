@@ -107,7 +107,7 @@ namespace Qhta.RegularExpressions
         }
         if (this.Items != null && other.Items != null && !this.Items.Equals(other.Items))
           result = false;
-        if (this.Items?.Count != other.Items.Count)
+        if (this.Items!=null && other.Items != null && this.Items.Count != other.Items.Count)
         {
           AddInequality(new Inequality { Property = "SubItems.Count", Obtained = this.Items.Count, Expected = other.Items.Count });
           result = false;
