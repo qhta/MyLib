@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Qhta.RegularExpressions
@@ -16,6 +17,7 @@ namespace Qhta.RegularExpressions
     const string DecimalDigits = "0123456789";
     const string HexadecimalDigits = "0123456789ABCDEFabcdef";
     const string OptionChars = "imnsx";
+    const string ReplacementChars = "$&`'_";
 
     static RegExTag[] CharRangeTags = new RegExTag[]
     {
@@ -167,9 +169,21 @@ namespace Qhta.RegularExpressions
         {
           status1 = TryParseEscapeSeq(pattern, ref charNdx);
         }
-        else if (thisChar == '$' && nextChar=='{')
-        { 
+        else if (thisChar == '$' && nextChar == '{')
+        {
           status1 = TryParseNamedGroupReplacement(pattern, ref charNdx);
+        }
+        else
+        if (thisChar == '$' && char.IsDigit(nextChar))
+        {
+          status1 = TryParseNumGroupReplacement(pattern, ref charNdx);
+        }
+        else
+        if (thisChar == '$' && ReplacementChars.Contains(nextChar))
+        {
+          var item = new RegExItem { Tag = RegExTag.Replacement, Start = charNdx, Str = GetSubstring(pattern, charNdx, 2) };
+          Items.Add(item);
+          return status;
         }
         else
         if (thisChar == finalSep)
@@ -331,10 +345,14 @@ namespace Qhta.RegularExpressions
       return status;
     }
 
-    private RegExStatus TryParseNamedGroup(string pattern, ref int charNdx, RegExGroup group, char nameEnd)
+    private RegExStatus TryParseNamedGroup(string pattern, ref int charNdx, RegExGroup group, char finalSep)
     {
       group.Tag = RegExTag.NamedGroup;
-      var status = TryParseGroupName(pattern, ref charNdx, group, nameEnd);
+      var status = TryParseGroupName(pattern, ref charNdx, group, finalSep, out var nameQuote);
+      if (nameQuote.Items.Count>1)
+      {
+        group.Tag = RegExTag.BalancingGroup; 
+      }
       if (status != RegExStatus.Unfinished)
       {
         var status1 = TryParsePattern(pattern, ref charNdx, ')');
@@ -354,21 +372,44 @@ namespace Qhta.RegularExpressions
       Items = backref.Items;
       var nextChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
       if (nextChar == '\0')
-      {
         backref.Status = RegExStatus.Unfinished;
-      }
       else
         backref.Status = TryParseNamedGroupBackref(pattern, ref charNdx, backref, '}');
       backref.Str = GetSubstring(pattern, seqStart, charNdx - seqStart + 1);
       charNdx++;
       Items = RegExStack.Pop();
       var status = backref.Status;
-      if (status != RegExStatus.Unfinished)
+      return status;
+    }
+
+    private RegExStatus TryParseNumGroupReplacement(string pattern, ref int charNdx)
+    {
+      var seqStart = charNdx;
+      var backref = new RegExBackRef { Tag = RegExTag.Replacement, Start = charNdx, Str = GetSubstring(pattern, charNdx, 1) };
+      Items.Add(backref);
+      charNdx++;
+      var nextChar = (charNdx<pattern.Length) ? pattern[charNdx] : '\0';
+      if (nextChar == '\0')
+        backref.Status = RegExStatus.Unfinished;
+      else
       {
-        var status1 = TryParsePattern(pattern, ref charNdx, ')');
-        if (status1 > status)
-          status = status1;
+        for (; charNdx <= pattern.Length; charNdx++)
+        {
+          var curChar = (charNdx<pattern.Length) ? pattern[charNdx] : '\0';
+          if (!char.IsDigit(curChar))
+            break;
+        }
+        var str = pattern.Substring(seqStart + 1, charNdx - seqStart - 1);
+        backref.Str += str;
+        if (int.TryParse(str, out var n))
+        {
+          backref.Number = n;
+          backref.Status = RegExStatus.OK;
+        }
+        else
+          backref.Status = RegExStatus.Error;
       }
+      var status = backref.Status;
       return status;
     }
 
@@ -410,9 +451,7 @@ namespace Qhta.RegularExpressions
       charNdx += 2;
       var nextChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
       if (nextChar == '\0')
-      {
         backref.Status = RegExStatus.Unfinished;
-      }
       else
       if (nextChar == '<')
         backref.Status = TryParseNamedGroupBackref(pattern, ref charNdx, backref, '>');
@@ -426,17 +465,27 @@ namespace Qhta.RegularExpressions
       return backref.Status;
     }
 
-    private RegExStatus TryParseNamedGroupBackref(string pattern, ref int charNdx, RegExBackRef group, char nameEnd)
+    private RegExStatus TryParseNamedGroupBackref(string pattern, ref int charNdx, RegExBackRef backref, char finalSep)
     {
-      var status = TryParseGroupName(pattern, ref charNdx, group, nameEnd);
-      if (status != RegExStatus.Unfinished)
-        charNdx--;
+      var status = TryParseGroupName(pattern, ref charNdx, backref, finalSep, out var nameQuote);
+      if (nameQuote.Items.Count > 1)
+      {
+        for (int i=0; i<nameQuote.Items.Count; i++)
+        {
+          var item = nameQuote.Items[i];
+          if (i == 1)
+            item.Status = RegExStatus.Error;
+          else if (i>1)
+            item.Status = RegExStatus.Warning;
+        }
+        status = backref.Status = nameQuote.Status = RegExStatus.Error;
+      }
       return status;
     }
 
-    private RegExStatus TryParseGroupName(string pattern, ref int charNdx, RegExNamedItem group, char finalSep)
+    private RegExStatus TryParseGroupName(string pattern, ref int charNdx, RegExNamedItem group, char finalSep, out RegExNameQuote nameQuote)
     {
-      var nameQuote = TagSeq(pattern, charNdx, 1, RegExTag.NameQuote, RegExStatus.Unfinished);
+      nameQuote = TagSeq(pattern, charNdx, 1, RegExTag.NameQuote, RegExStatus.Unfinished) as RegExNameQuote;
       charNdx++;
       RegExStack.Push(Items);
       Items = nameQuote.Items;
@@ -444,7 +493,6 @@ namespace Qhta.RegularExpressions
       string name = null;
       int seqStart = charNdx;
       RegExItem nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx };
-      nameQuote.Items.Add(nameItem);
       char thisChar = '\0';
       string name1 = null;
       for (; charNdx <= pattern.Length; charNdx++)
@@ -481,12 +529,12 @@ namespace Qhta.RegularExpressions
         else
         if (thisChar == '-')
         {
-          group.Tag = RegExTag.BalancingGroup;
           var nameStartStr = nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
           nameItem.Status = status;
+          if (!String.IsNullOrEmpty(nameItem.Str))
+            nameQuote.Items.Add(nameItem);
           var dashItem = TagSeq(pattern, charNdx, 1, RegExTag.GroupControlChar, RegExStatus.OK);
           nameItem = new RegExGroupName { Tag = RegExTag.GroupName, Start = charNdx + 1 };
-          nameQuote.Items.Add(nameItem);
           if (name1 == null)
             name1 = nameStartStr;
           else
@@ -509,6 +557,9 @@ namespace Qhta.RegularExpressions
         }
       }
       nameItem.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
+      if (!String.IsNullOrEmpty(nameItem.Str))
+        nameQuote.Items.Add(nameItem);
+
       if (thisChar == finalSep)
       {
         nameQuote.Status = RegExStatus.OK;
@@ -1059,18 +1110,23 @@ namespace Qhta.RegularExpressions
       for (; charNdx <= pattern.Length; charNdx++)
       {
         var curChar = charNdx < pattern.Length ? pattern[charNdx] : '\0';
-        if (curChar == '\0')
-        {
-          quantifier.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
-          break;
-        }
-        else
-        if (curChar == ',')
+        //if (curChar == '\0')
+        //{
+        //  quantifier.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
+        //  break;
+        //}
+        //else
+        if (curChar == ',' || curChar=='\0')
         {
           if (numNdx > 0 || charNdx == numStart)
             status1 = RegExStatus.Error;
           if (charNdx > numStart)
             quantifier.Items.Add(new RegExItem { Tag = RegExTag.Number, Start = numStart, Str = GetSubstring(pattern, numStart, charNdx - numStart), Status = status1 });
+          if (curChar == '\0')
+          {
+            quantifier.Str = GetSubstring(pattern, seqStart, charNdx - seqStart);
+            break;
+          }
           quantifier.Items.Add(new RegExItem { Tag = RegExTag.Separator, Start = charNdx, Str = GetSubstring(pattern, charNdx, 1), Status = status1 });
           numNdx++;
           numStart = charNdx + 1;

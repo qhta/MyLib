@@ -33,16 +33,17 @@ namespace RegExTaggerTest
       TestUnicodeCategories = 0x400,
       TestCharsetPatterns = 0x800,
       TestGroupingPatterns = 0x1000,
-      TestReplacePatterns = 0x2000,
+      TestSubstitutionPatterns = 0x2000,
     }
 
     const string QuantifierChars = "?+*";
     const string AnchorChars = "^$";
-    const string OpeningChars = "([{";
+    const string OpeningChars = "([";
     const string Anchor2ndChars = "AZzGbB";
     const string Domain2ndChars = "DdWwSs";
     const string UnicodeCategoryFirstLetters = "LNMPSZC";
     const string HexadecimalTestChars = "09AFafg";
+    const string LiteralReplacementChars = "$&`'_";
     static string[] UnicodeCategories = new string[]
     {
       "Cc", "Cf", "Cn", "Co", "Cs", "Ll", "Lm", "Lo", "Lt", "Lu", "Mc", "Me", "Mn", "Nd", "Nl", "No",
@@ -132,7 +133,7 @@ namespace RegExTaggerTest
       TestOutput.WriteLine($"\t/p - test Unicode categories");
       TestOutput.WriteLine($"\t/[ - test charset patterns");
       TestOutput.WriteLine($"\t/( - test grouping patterns");
-      TestOutput.WriteLine($"\t/r - test replace patterns (applies to input file and user-input patterns");
+      TestOutput.WriteLine($"\t/$ - test substitution patterns");
       TestOutput.WriteLine($"");
       TestOutput.WriteLine($"TestInputFile can be of the type:");
       TestOutput.WriteLine($"\txml - the whole test data is read with test results");
@@ -201,8 +202,8 @@ namespace RegExTaggerTest
               case '(':
                 options |= TestOptions.TestGroupingPatterns;
                 break;
-              case 'r':
-                options |= TestOptions.TestReplacePatterns;
+              case '$':
+                options |= TestOptions.TestSubstitutionPatterns;
                 break;
               default:
                 Console.WriteLine($"Unrecognized option \"{arg}\"");
@@ -330,9 +331,20 @@ namespace RegExTaggerTest
         ShowTestResult("Grouping patterns test result is {0}", partTestResult);
       }
 
+
+      if (TestRunOptions.HasFlag(TestOptions.TestSubstitutionPatterns))
+      {
+        Tagger.Kind = SearchOrReplace.Replace;
+        partTestResult = TestReplacementPatterns();
+        SetTestResult(ref wholeTestResult, partTestResult);
+        if (wholeTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return wholeTestResult;
+        ShowTestResult("Replace patterns test result is {0}", partTestResult);
+      }
+
       if (TestInputData != null && TestInputData.Count > 0)
       {
-        if (TestRunOptions.HasFlag(TestOptions.TestReplacePatterns))
+        if (TestRunOptions.HasFlag(TestOptions.TestSubstitutionPatterns))
         {
           Tagger.Kind = SearchOrReplace.Replace;
         }
@@ -399,7 +411,7 @@ namespace RegExTaggerTest
         else if (ch == '\\')
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
         else if (QuantifierChars.Contains(ch))
-          newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          newItem = new RegExQuantifier { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
         else if (AnchorChars.Contains(ch))
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
         else if (ch == '|')
@@ -440,6 +452,10 @@ namespace RegExTaggerTest
           singleTestResult = Test2CharCharset();
         else if (firstChar == '|')
           singleTestResult = TestAlt2Char();
+        else if (firstChar == '.')
+          singleTestResult = Test1stCharDot();
+        else if (firstChar == '{')
+          singleTestResult = Test1stCharOpeningBrace();
         else if (QuantifierChars.Contains(firstChar))
           singleTestResult = Test1stCharQuantifiers(firstChar);
         else if (AnchorChars.Contains(firstChar))
@@ -480,6 +496,8 @@ namespace RegExTaggerTest
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.UnicodeSeq, Status = RegExStatus.Unfinished };
         else if (nextChar == 'x')
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.HexadecimalSeq, Status = RegExStatus.Unfinished };
+        else if (nextChar == 'k')
+          newItem = new RegExBackRef { Start = 0, Str = pattern, Tag = RegExTag.BackRef, Status = RegExStatus.Unfinished };
         else
           newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.EscapedChar, Status = RegExStatus.OK };
         testInputItem.Items.Add(newItem);
@@ -644,13 +662,31 @@ namespace RegExTaggerTest
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         if (nextChar == '?')
         {
-          RegExItem newItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          RegExItem newItem = new RegExQuantifier { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
         }
         else
+        if (nextChar == '|')
         {
-          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          RegExItem newItem = new RegExQuantifier { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
+          testInputItem.Items.Add(newItem);
+          newItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        if (firstChar=='{' && char.IsDigit(nextChar))
+        {
+          RegExItem newItem = new RegExQuantifier { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(newItem);
+          //newItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Unfinished };
+          //testInputItem.Items.Add(newItem);
+          testInputItem.Result = newItem.Status;
+        }
+        else
+        {
+          RegExItem firstItem = new RegExQuantifier { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.Warning };
           testInputItem.Items.Add(firstItem);
           var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
           testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
@@ -686,8 +722,18 @@ namespace RegExTaggerTest
           RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
           testInputItem.Items.Add(firstItem);
           testInputItem.Result = firstItem.Status;
-          RegExItem nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.OK };
+          RegExItem nextItem = new RegExQuantifier{ Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.OK };
           testInputItem.Items.Add(nextItem);
+        }
+        else
+        if (nextChar=='|')
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.AnchorControl, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          testInputItem.Result = firstItem.Status;
+          RegExItem nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(nextItem);
+          testInputItem.Result = RegExStatus.Unfinished;
         }
         else
         {
@@ -712,6 +758,130 @@ namespace RegExTaggerTest
     }
 
     /// <summary>
+    /// Tests two-chars patterns where the first char is '.' 
+    /// </summary>
+    /// <returns></returns>
+    static bool? Test1stCharDot()
+    {
+      bool? wholeTestResult = null;
+      var firstChar = '.';
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { firstChar, nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        if (QuantifierChars.Contains(nextChar))
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.DotChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          testInputItem.Result = firstItem.Status;
+          RegExItem nextItem = new RegExQuantifier { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.OK };
+          testInputItem.Items.Add(nextItem);
+        }
+        else
+        if (nextChar == '|')
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.DotChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          testInputItem.Result = firstItem.Status;
+          RegExItem nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(nextItem);
+          testInputItem.Result = RegExStatus.Unfinished;
+        }
+        else
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.DotChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
+          testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
+          foreach (var nextItem in Tagger.Items)
+          {
+            nextItem.Start += 1;
+            testInputItem.Items.Add(nextItem);
+          }
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
+    /// Tests two-chars patterns where the first char is '{' 
+    /// </summary>
+    /// <returns></returns>
+    static bool? Test1stCharOpeningBrace()
+    {
+      bool? wholeTestResult = null;
+      var firstChar = '{';
+      for (char nextChar = ' '; nextChar <= '\x7E'; nextChar++)
+      {
+        var pattern = new string(new char[] { firstChar, nextChar });
+        var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+        if (char.IsDigit(nextChar))
+        {
+          RegExItem quantifier = new RegExQuantifier { Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(quantifier);
+          quantifier.Items.Add(new RegExItem { Tag = RegExTag.Number, Start = 1, Str = new string(nextChar, 1), Status = RegExStatus.OK });
+          testInputItem.Result = RegExStatus.Unfinished;
+        }
+        else
+        if (nextChar == '|')
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          testInputItem.Result = firstItem.Status;
+          RegExItem nextItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(nextItem);
+          testInputItem.Result = RegExStatus.Unfinished;
+        }
+        else 
+        if (AnchorChars.Contains(nextChar) || OpeningChars.Contains(nextChar) || nextChar==')' || nextChar=='.' || nextChar=='\\')
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          var nextResult = Tagger.TryParsePattern(new string(nextChar, 1));
+          testInputItem.Result = RegExTools.Max(firstItem.Status, nextResult);
+          foreach (var nextItem in Tagger.Items)
+          {
+            nextItem.Start += 1;
+            testInputItem.Items.Add(nextItem);
+          }
+        }
+        else
+        if (QuantifierChars.Contains(nextChar))
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+          RegExItem nextItem = new RegExQuantifier { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.Quantifier, Status = RegExStatus.OK };
+          testInputItem.Items.Add(nextItem);
+        }
+        else
+        if (nextChar=='}')
+        {
+          RegExItem firstItem = new RegExQuantifier{ Start = 0, Str = pattern, Tag = RegExTag.Quantifier, Status = RegExStatus.Error };
+          testInputItem.Items.Add(firstItem);
+          testInputItem.Result = RegExStatus.Error;
+        }
+        else
+        {
+          RegExItem firstItem = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.LiteralString, Status = RegExStatus.OK };
+          testInputItem.Items.Add(firstItem);
+        }
+        TestItem testOutputItem;
+        var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+        testOutputData.Add(testOutputItem);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+      return wholeTestResult;
+    }
+
+    /// <summary>
     /// Tests two-chars patterns where with first char predefined
     /// </summary>
     /// <returns></returns>
@@ -724,7 +894,7 @@ namespace RegExTaggerTest
         var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
         RegExItem newItem;
         if (OpeningChars.Contains(nextChar) || QuantifierChars.Contains(nextChar) || AnchorChars.Contains(nextChar)
-          || nextChar == ')' || nextChar == '\\')
+          || nextChar == ')' || nextChar == '\\' || nextChar == '.')
         {
           var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar;
           newItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = tag, Status = RegExStatus.OK };
@@ -747,7 +917,7 @@ namespace RegExTaggerTest
           var tag = (firstChar == '.') ? RegExTag.DotChar : RegExTag.LiteralChar;
           newItem = new RegExItem { Start = 0, Str = new string(firstChar, 1), Tag = tag, Status = RegExStatus.OK };
           testInputItem.Items.Add(newItem);
-          newItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Warning };
+          newItem = new RegExItem { Start = 1, Str = new string(nextChar, 1), Tag = RegExTag.AltChar, Status = RegExStatus.Unfinished };
           testInputItem.Items.Add(newItem);
           testInputItem.Result = newItem.Status;
         }
@@ -1268,8 +1438,6 @@ namespace RegExTaggerTest
       return wholeTestResult;
     }
 
-
-
     static bool? RunSingleCharsetTest(string pattern)
     {
       var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
@@ -1422,6 +1590,9 @@ namespace RegExTaggerTest
               {
                 nextChar = pattern[charNdx + 2];
                 subItem = new RegExCharRange { Start = charNdx, Str = pattern.Substring(charNdx, 3), Tag = RegExTag.CharRange, Status = nextChar >= thisChar ? RegExStatus.OK : RegExStatus.Error };
+                subItem.Items.Add(new RegExItem { Start = charNdx + 0, Str = new string(thisChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK });
+                subItem.Items.Add(new RegExItem { Start = charNdx + 1, Str = new string('-', 1), Tag = RegExTag.CharSetControlChar, Status = RegExStatus.OK });
+                subItem.Items.Add(new RegExItem { Start = charNdx + 2, Str = new string(nextChar, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK });
                 charNdx += 2;
               }
               else
@@ -1909,7 +2080,7 @@ namespace RegExTaggerTest
 
     static bool IsValidName(string groupName)
     {
-      return !(groupName.Contains(' ') || Char.IsDigit(groupName.FirstOrDefault()));
+      return !(groupName.Contains(' ') || Char.IsDigit(groupName.FirstOrDefault()) || groupName.Contains('-'));
     }
 
     static bool? RunNonCapturingGroupTest(string pattern)
@@ -1941,7 +2112,6 @@ namespace RegExTaggerTest
       }
       return FinishGroupTest(group, pattern, charNdx);
     }
-    #endregion
 
     static void PrepareRestGroupItemsToTest(RegExGroup group, string pattern, ref int charNdx)
     {
@@ -1985,8 +2155,216 @@ namespace RegExTaggerTest
       var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
       testOutputData.Add(testOutputItem);
       return singleTestResult;
-
     }
+
+    #endregion
+
+    #region Test Replacement Patterns
+
+    static bool? TestReplacementPatterns()
+    {
+      bool? wholeTestResult = null;
+      bool? singleTestResult;
+
+
+      singleTestResult = RunTwoCharReplacementTests();
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunNamedGroupReplacementTests();
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      return wholeTestResult;
+    }
+
+    static bool? RunTwoCharReplacementTests()
+    {
+      bool? wholeTestResult = null;
+      foreach (char secondChar in ValidChars)
+        if (secondChar != '{')
+        {
+          bool? singleTestResult;
+          singleTestResult = RunTwoCharReplacementTest($"${secondChar}");
+
+          SetTestResult(ref wholeTestResult, singleTestResult);
+          if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+            return false;
+        }
+      return wholeTestResult;
+    }
+
+    static bool? RunTwoCharReplacementTest(string pattern)
+    {
+      var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+      RegExItem replacement;
+      int charNdx = pattern.Length;
+      if (pattern.Length < 3)
+      {
+        var nextChar = pattern[1];
+        if (LiteralReplacementChars.Contains(nextChar))
+        {
+          replacement = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.Replacement, Status = RegExStatus.OK };
+          testInputItem.Items.Add(replacement);
+        }
+        else
+        if (char.IsDigit(nextChar))
+        {
+          replacement = new RegExBackRef { Start = 0, Str = pattern, Tag = RegExTag.Replacement, Status = RegExStatus.OK, Number = (int)(nextChar - '0') };
+          testInputItem.Items.Add(replacement);
+        }
+        else
+        if (nextChar == '\\')
+        {
+          replacement = new RegExItem { Start = 0, Str = pattern.Substring(0, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+          testInputItem.Items.Add(replacement);
+          replacement = new RegExItem { Start = 1, Str = pattern.Substring(1, 1), Tag = RegExTag.EscapedChar, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(replacement);
+          testInputItem.Result = RegExStatus.Unfinished;
+        }
+        else
+        {
+          replacement = new RegExItem { Start = 0, Str = pattern, Tag = RegExTag.LiteralString, Status = RegExStatus.OK };
+          testInputItem.Items.Add(replacement);
+        }
+      }
+      TestItem testOutputItem;
+      var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+      testOutputData.Add(testOutputItem);
+      return singleTestResult;
+    }
+
+
+    static bool? RunNamedGroupReplacementTests()
+    {
+      bool? wholeTestResult = null;
+      bool? singleTestResult;
+
+      var testString = "${name}";
+      for (int n = 1; n <= testString.Length; n++)
+      {
+        var substring = testString.Substring(0, n);
+        singleTestResult = RunNamedGroupReplacementTest(substring);
+        SetTestResult(ref wholeTestResult, singleTestResult);
+        if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+          return false;
+      }
+
+      singleTestResult = RunNamedGroupReplacementTest("${invalid name}");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunNamedGroupReplacementTest("${NiebłędnaNazwa}");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunNamedGroupReplacementTest("${0invalidname}");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunNamedGroupReplacementTest("${invalid-name}");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      singleTestResult = RunNamedGroupReplacementTest("${invalid-name-unfinished");
+      SetTestResult(ref wholeTestResult, singleTestResult);
+      if (singleTestResult == false && TestRunOptions.HasFlag(TestOptions.BreakAfterFirstFailure))
+        return false;
+
+      return wholeTestResult;
+    }
+
+    static bool? RunNamedGroupReplacementTest(string pattern)
+    {
+      var testInputItem = new TestItem { Pattern = pattern, Result = RegExStatus.OK };
+      RegExItem replacement;
+      int charNdx = pattern.Length;
+      if (pattern.Length == 1)
+      {
+        replacement = new RegExItem { Start = 0, Str = pattern.Substring(0, 1), Tag = RegExTag.LiteralChar, Status = RegExStatus.OK };
+        testInputItem.Items.Add(replacement);
+      }
+      else
+      {
+        var nextChar = pattern.LastOrDefault();
+        if (nextChar == '}')
+        {
+          testInputItem.Result = RegExStatus.OK;
+          replacement = new RegExBackRef { Start = 0, Str = pattern, Tag = RegExTag.Replacement, Status = RegExStatus.OK };
+          testInputItem.Items.Add(replacement);
+          var nameQuote = new RegExNameQuote { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.NameQuote, Status = RegExStatus.OK };
+          replacement.Items.Add(nameQuote);
+          if (pattern.Length > 2)
+          {
+            var name = pattern.Substring(2, pattern.Length - 3);
+            testInputItem.Result = PrepareNameQuote(replacement as RegExBackRef, nameQuote, name);
+          }
+        }
+        else
+        {
+          testInputItem.Result = RegExStatus.Unfinished;
+          replacement = new RegExBackRef { Start = 0, Str = pattern, Tag = RegExTag.Replacement, Status = RegExStatus.Unfinished };
+          testInputItem.Items.Add(replacement);
+          var nameQuote = new RegExNameQuote { Start = 1, Str = pattern.Substring(1), Tag = RegExTag.NameQuote, Status = RegExStatus.Unfinished };
+          replacement.Items.Add(nameQuote);
+          if (pattern.Length > 2)
+          {
+            var name = pattern.Substring(2);
+            testInputItem.Result = PrepareNameQuote(replacement as RegExBackRef, nameQuote, name);
+          }
+        }
+      }
+      TestItem testOutputItem;
+      var singleTestResult = RunSingleTest(testInputItem, out testOutputItem);
+      testOutputData.Add(testOutputItem);
+      return singleTestResult;
+    }
+
+    static RegExStatus PrepareNameQuote(RegExBackRef replacement, RegExNameQuote nameQuote, string name)
+    {
+      RegExGroupName nameItem = null;
+
+      if (name.Contains('-'))
+      {
+        var names = name.Split('-');
+        int namePos = 2;
+        for (int i = 0; i < names.Count(); i++)
+        {
+          if (i > 0)
+          {
+            var dashItem = new RegExItem { Start = namePos, Str = "-", Tag = RegExTag.GroupControlChar, Status = (i==1) ? RegExStatus.Error : RegExStatus.Warning };
+            namePos++;
+            nameQuote.Items.Add(dashItem);
+          }
+          else
+            replacement.Name = names[i];
+          nameItem = new RegExGroupName { Start = namePos, Str = names[i], Tag = RegExTag.GroupName, Status = (i == 0) ? RegExStatus.OK : RegExStatus.Warning };
+          namePos += names[i].Length;
+          nameQuote.Items.Add(nameItem);
+        }
+        return replacement.Status = nameQuote.Status = RegExStatus.Error;
+      }
+      else
+      {
+        nameItem = new RegExGroupName { Start = 2, Str = name, Tag = RegExTag.GroupName, Status = replacement.Str.EndsWith("}") ? RegExStatus.OK : RegExStatus.Unfinished };
+        nameQuote.Items.Add(nameItem);
+        replacement.Name = name;
+      }
+      if (!IsValidName(replacement.Name))
+      {
+        return replacement.Status = nameItem.Status = RegExStatus.Warning;
+      }
+      return replacement.Str.EndsWith("}") ?  RegExStatus.OK: RegExStatus.Unfinished;
+    }
+    #endregion
+
+
     /// <summary>
     /// Runs testing of data stored in testInputData collections. Fills testOutputData collection.
     /// </summary>
@@ -2030,7 +2408,7 @@ namespace RegExTaggerTest
       }
       if (testInputItem.PatternItems != null)
       {
-        Generator.Kind = TestRunOptions.HasFlag(TestOptions.TestReplacePatterns) ? SearchOrReplace.Replace : SearchOrReplace.Search;
+        Generator.Kind = TestRunOptions.HasFlag(TestOptions.TestSubstitutionPatterns) ? SearchOrReplace.Replace : SearchOrReplace.Search;
         testOutputItem.PatternItems = Generator.GeneratePatternItems(testOutputItem.Items);
         if (singleTestResult != false)
           singleTestResult = PatternItemsComparator.AreEqual(testOutputItem.PatternItems, testInputItem.PatternItems);

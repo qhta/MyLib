@@ -15,6 +15,8 @@ namespace Qhta.RegularExpressions
       Items = new RegExItems();
     }
 
+    public int? Number { get; set; }
+
     public override bool Equals(object obj)
     {
       var result = base.Equals(obj);
@@ -26,6 +28,12 @@ namespace Qhta.RegularExpressions
         if (this.Name != other.Name)
         {
           AddInequality(new Inequality { Property = "Name", Obtained = this.Name, Expected = other.Name });
+          return false;
+        }
+        else
+        if (this.Number != other.Number)
+        {
+          AddInequality(new Inequality { Property = "Number", Obtained = this.Number, Expected = other.Number });
           return false;
         }
         return true;
