@@ -10,11 +10,16 @@ using System.Windows.Markup;
 
 namespace RegExTaggerTest
 {
-  public class TestItem
+  [ContentProperty(nameof(Items))]
+  public class TestPattern
   {
-    public TestPattern Search { get; set; }
+    public string Pattern { get; set; }
 
-    public TestPattern Replace { get; set; }
+    public RegExStatus? Result { get; set; }
+
+    public RegExItems Items { get; set; } = new RegExItems();
+
+    public PatternItems PatternItems { get; set; }
 
   }
 }

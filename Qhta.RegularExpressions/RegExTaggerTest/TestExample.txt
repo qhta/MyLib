@@ -1,4 +1,12 @@
-﻿${day}-${month}-${year}
+﻿\b(?<month>\d{1,2})/(?<day>\d{1,2})/(?<year>\d{2,4})\b
+	\b	Begin the match at a word boundary.
+	(?<month>\d{1,2})	Match decimal digits, between 1 and 2 times, and name this group "month".
+	/	Match the slash mark.
+	(?<day>\d{1,2})	Match decimal digits, between 1 and 2 times, and name this group "day".
+	/	Match the slash mark.
+	(?<year>\d{2,4})	Match decimal digits, between 2 and 4 times, and name this group "year".
+	\b	End the match at a word boundary.
+${day}-${month}-${year}
 	${day}	Add the string captured by the "day" capturing group.
 	-	Add a hyphen.
 	${month}	Add the string captured by the "month" capturing group.

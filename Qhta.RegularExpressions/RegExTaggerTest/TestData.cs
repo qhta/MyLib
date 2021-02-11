@@ -18,6 +18,16 @@ namespace RegExTaggerTest
       ((ICollection<TestItem>)Data).Add(item);
     }
 
+    public void AddSearchPattern(TestPattern pattern)
+    {
+      ((ICollection<TestItem>)Data).Add(new TestItem { Search = pattern });
+    }
+
+    public void AddReplacePattern(TestPattern pattern)
+    {
+      ((ICollection<TestItem>)Data).Last().Replace = pattern;
+    }
+
     public void Clear()
     {
       ((ICollection<TestItem>)Data).Clear();
