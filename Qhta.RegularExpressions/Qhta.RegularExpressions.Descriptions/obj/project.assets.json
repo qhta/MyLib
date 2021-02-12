@@ -35,7 +35,7 @@
           "lib/netstandard2.0/Qhta.Collections.dll": {}
         }
       },
-      "Qhta.RegularExpressions/1.1.0": {
+      "Qhta.RegularExpressions/1.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -204,7 +204,7 @@
         "qhta.collections.nuspec"
       ]
     },
-    "Qhta.RegularExpressions/1.1.0": {
+    "Qhta.RegularExpressions/1.2.0": {
       "type": "project",
       "path": "../Qhta.RegularExpressions.csproj",
       "msbuildProject": "../Qhta.RegularExpressions.csproj"
@@ -214,14 +214,14 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Qhta.Collections >= 1.0.0",
-      "Qhta.RegularExpressions >= 1.1.0"
+      "Qhta.RegularExpressions >= 1.2.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.1.0",
+    "version": "1.2.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.Descriptions\\Qhta.RegularExpressions.Descriptions.csproj",
       "projectName": "Qhta.RegularExpressions.Descriptions",

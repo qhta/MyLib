@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\bin\Debug\Qhta.RegularExpressions.FCTB.Tools.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\bin\Debug\Qhta.RegularExpressions.FCTB.Tools.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\bin\Debug\FastColoredTextBox.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\bin\Debug\FastColoredTextBox.pdb
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\bin\Debug\FastColoredTextBox.xml
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\obj\Debug\Qhta.RegularExpressions.FCTB.Tools.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\obj\Debug\Qhta.RegularExpressions.FCTB.Tools.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\obj\Debug\Qhta.RegularExpressions.FCTB.Tools.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\obj\Debug\Qhta.RegularExpressions.FCTB.Tools.dll
+D:\VS\Projects\MyLib\Qhta.RegularExpressions\Qhta.RegularExpressions.FCTB.Tools\obj\Debug\Qhta.RegularExpressions.FCTB.Tools.pdb

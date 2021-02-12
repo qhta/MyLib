@@ -14,7 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		License.txt = License.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.RegularExpressions.ConsoleDrawing", "Qhta.RegularExpressions.ConsoleDrawing\Qhta.RegularExpressions.ConsoleDrawing.csproj", "{DAE2D168-4FE1-4480-AB28-2B2DE8823C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.RegularExpressions.ConsoleDrawing", "Qhta.RegularExpressions.ConsoleDrawing\Qhta.RegularExpressions.ConsoleDrawing.csproj", "{DAE2D168-4FE1-4480-AB28-2B2DE8823C7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastColoredTextBox", "..\..\FastColoredTextBox\FastColoredTextBox\FastColoredTextBox.csproj", "{6DD14A85-CCFC-4774-BD26-0F5772512319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.RegularExpressions.FCTB.Test", "Qhta.RegularExpressions.FCTB.Test\Qhta.RegularExpressions.FCTB.Test.csproj", "{EE604824-0106-41FD-85E7-68F501FFA0DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.RegularExpressions.FCTB.Tools", "Qhta.RegularExpressions.FCTB.Tools\Qhta.RegularExpressions.FCTB.Tools.csproj", "{875AD37D-412A-4F93-809B-5DA16B1BD7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +44,18 @@ Global
 		{DAE2D168-4FE1-4480-AB28-2B2DE8823C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAE2D168-4FE1-4480-AB28-2B2DE8823C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAE2D168-4FE1-4480-AB28-2B2DE8823C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE604824-0106-41FD-85E7-68F501FFA0DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE604824-0106-41FD-85E7-68F501FFA0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE604824-0106-41FD-85E7-68F501FFA0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE604824-0106-41FD-85E7-68F501FFA0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{875AD37D-412A-4F93-809B-5DA16B1BD7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{875AD37D-412A-4F93-809B-5DA16B1BD7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{875AD37D-412A-4F93-809B-5DA16B1BD7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{875AD37D-412A-4F93-809B-5DA16B1BD7CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

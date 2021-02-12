@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.RegularExpressions.Descriptions</id>
+    <version>1.2.0</version>
+    <authors>Qhta.RegularExpressions.Descriptions</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">License.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.RegularExpressions" version="1.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="1.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\bin\Qhta.RegularExpressions.Descriptions.dll" target="lib\netstandard2.0\Qhta.RegularExpressions.Descriptions.dll" />
+    <file src="D:\VS\Projects\MyLib\Qhta.RegularExpressions\License.txt" target="License.txt" />
+  </files>
+</package>

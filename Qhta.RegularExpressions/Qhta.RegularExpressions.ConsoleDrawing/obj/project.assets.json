@@ -26,7 +26,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.RegularExpressions/1.1.0": {
+      "Qhta.RegularExpressions/1.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -183,7 +183,7 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Qhta.RegularExpressions/1.1.0": {
+    "Qhta.RegularExpressions/1.2.0": {
       "type": "project",
       "path": "../Qhta.RegularExpressions.csproj",
       "msbuildProject": "../Qhta.RegularExpressions.csproj"
@@ -192,14 +192,14 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.RegularExpressions >= 1.1.0"
+      "Qhta.RegularExpressions >= 1.2.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.1.0",
+    "version": "1.2.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.ConsoleDrawing\\Qhta.RegularExpressions.ConsoleDrawing.csproj",
       "projectName": "Qhta.RegularExpressions.ConsoleDrawing",

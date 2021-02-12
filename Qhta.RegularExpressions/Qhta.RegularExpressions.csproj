@@ -7,7 +7,7 @@
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,14 +18,23 @@
     <Compile Remove="Qhta.RegularExpressions.ConsoleDrawing\**" />
     <Compile Remove="Qhta.RegularExpressions.Decriptions\**" />
     <Compile Remove="Qhta.RegularExpressions.Descriptions\**" />
+    <Compile Remove="Qhta.RegularExpressions.FCTB.Test\**" />
+    <Compile Remove="Qhta.RegularExpressions.FCTB.Tools\**" />
+    <Compile Remove="Qhta.RegularExpressions.FCTB\**" />
     <Compile Remove="RegExTaggerTest\**" />
     <EmbeddedResource Remove="Qhta.RegularExpressions.ConsoleDrawing\**" />
     <EmbeddedResource Remove="Qhta.RegularExpressions.Decriptions\**" />
     <EmbeddedResource Remove="Qhta.RegularExpressions.Descriptions\**" />
+    <EmbeddedResource Remove="Qhta.RegularExpressions.FCTB.Test\**" />
+    <EmbeddedResource Remove="Qhta.RegularExpressions.FCTB.Tools\**" />
+    <EmbeddedResource Remove="Qhta.RegularExpressions.FCTB\**" />
     <EmbeddedResource Remove="RegExTaggerTest\**" />
     <None Remove="Qhta.RegularExpressions.ConsoleDrawing\**" />
     <None Remove="Qhta.RegularExpressions.Decriptions\**" />
     <None Remove="Qhta.RegularExpressions.Descriptions\**" />
+    <None Remove="Qhta.RegularExpressions.FCTB.Test\**" />
+    <None Remove="Qhta.RegularExpressions.FCTB.Tools\**" />
+    <None Remove="Qhta.RegularExpressions.FCTB\**" />
     <None Remove="RegExTaggerTest\**" />
     <None Include="License.txt">
       <Pack>True</Pack>

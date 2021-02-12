@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.ConsoleDrawing\\Qhta.RegularExpressions.ConsoleDrawing.csproj": {
-      "version": "1.1.0",
+      "version": "1.2.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.ConsoleDrawing\\Qhta.RegularExpressions.ConsoleDrawing.csproj",
         "projectName": "Qhta.RegularExpressions.ConsoleDrawing",
@@ -66,7 +66,7 @@
       }
     },
     "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.csproj": {
-      "version": "1.1.0",
+      "version": "1.2.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.RegularExpressions\\Qhta.RegularExpressions.csproj",
         "projectName": "Qhta.RegularExpressions",
