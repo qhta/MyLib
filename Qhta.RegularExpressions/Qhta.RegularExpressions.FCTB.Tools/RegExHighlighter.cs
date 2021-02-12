@@ -51,6 +51,7 @@ namespace Qhta.RegularExpressions.FCTB.Tools
     TextStyle QuantifierStyle = new TextStyle(Brushes.DarkViolet, null, FontStyle.Regular);
     TextStyle GroupStyle = new TextStyle(Brushes.DarkSeaGreen, null, FontStyle.Regular);
     //MarkerStyle SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(40, Color.Gray)));
+    Style invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
 
     public void HighlightOnTextChanged(TextChangedEventArgs e)
     {
@@ -58,8 +59,8 @@ namespace Qhta.RegularExpressions.FCTB.Tools
         return;
       FCTB.LeftBracket = '(';
       FCTB.RightBracket = ')';
-      FCTB.LeftBracket2 = '\x0';
-      FCTB.RightBracket2 = '\x0';
+      FCTB.LeftBracket2 = '[';
+      FCTB.RightBracket2 = ']';
       //clear style of changed range
       e.ChangedRange.ClearStyle(CharsetStyle, EscapeStyle,  NumberStyle, NameStyle);
 
@@ -79,6 +80,8 @@ namespace Qhta.RegularExpressions.FCTB.Tools
       e.ChangedRange.SetFoldingMarkers(@"{", @"}");//allow to collapse braces block
       e.ChangedRange.SetFoldingMarkers(@"\[", @"]");//allow to collapse charset block
       e.ChangedRange.SetFoldingMarkers(@"\(", @"\)");//allow to collapse group subexpression
+      e.ChangedRange.ClearStyle(invisibleCharsStyle);
+      e.ChangedRange.SetStyle(invisibleCharsStyle, @".$|.\r\n|\s");
     }
 
     public void fctb_SelectionChangedDelayed(object sender, EventArgs e)

@@ -194,7 +194,7 @@ namespace Tester
       this.fctb.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*" +
     "(?<range>:)\\s*(?<range>[^;]+);";
       this.fctb.AutoIndentExistingLines = false;
-      this.fctb.AutoScrollMinSize = new System.Drawing.Size(410, 15);
+      this.fctb.AutoScrollMinSize = new System.Drawing.Size(380, 15);
       this.fctb.BackBrush = null;
       this.fctb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.fctb.CharHeight = 15;
@@ -214,6 +214,7 @@ namespace Tester
       this.fctb.ReservedCountOfLineNumberChars = 2;
       this.fctb.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
       this.fctb.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctb.ServiceColors")));
+      this.fctb.ShowLineNumbers = false;
       this.fctb.Size = new System.Drawing.Size(605, 149);
       this.fctb.TabIndex = 3;
       this.fctb.Text = "\\b(?<month>\\d{1,2})/(?<day>\\d{1,2})/(?<year>\\d{2,4})\\b";
