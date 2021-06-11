@@ -7,9 +7,9 @@ D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csproj.C
 D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.dll
 D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csprojAssemblyReference.cache
-D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csprojAssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csproj.CoreCompileInputs.cache
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.dll
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.pdb
+D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csproj.AssemblyReference.cache

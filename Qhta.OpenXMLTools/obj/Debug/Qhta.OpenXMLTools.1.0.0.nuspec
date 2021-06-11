@@ -4,11 +4,10 @@
     <id>Qhta.OpenXMLTools</id>
     <version>1.0.0</version>
     <authors>Qhta.OpenXMLTools</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="DocumentFormat.OpenXml" version="2.11.3" exclude="Build,Analyzers" />
+        <dependency id="DocumentFormat.OpenXml" version="2.13.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.OrdNumbers" version="2.2.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
