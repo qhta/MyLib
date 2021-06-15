@@ -3,7 +3,7 @@ using HtmlAgilityPack;
 
 namespace Qhta.HtmlUtils
 {
-  public static class HtmlNodeUtils
+  public static class HtmlNodeUtils 
   {
     public static HtmlNode NextElement(this HtmlNode node)
     {
