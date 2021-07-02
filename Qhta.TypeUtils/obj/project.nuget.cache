@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "eUhlBzmsBgh/wYKuAKiHBRZRQSsZLtz+9n6v2KTbKdc9R3oVgdCNNzWZBMBqUJ9oRJ0FHDEvam80xKIoyhqcgg==",
+  "dgSpecHash": "BQ26CO1dXfZyXGMZNiIJCQCHLCUmtm+qId/BC6N/ycmuaHYtxeQPTQjfSOjJFxx6grr6mXqWwwB6loxrDh2kkQ==",
   "success": true,
-  "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj",
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jerry\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Jerry\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }

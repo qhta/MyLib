@@ -9,3 +9,10 @@ D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.xml
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.xml
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\Qhta.TypeUtils.csproj.CoreCompileInputs.cache

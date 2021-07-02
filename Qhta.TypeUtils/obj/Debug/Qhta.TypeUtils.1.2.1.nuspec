@@ -4,7 +4,6 @@
     <id>Qhta.TypeUtils</id>
     <version>1.2.1</version>
     <authors>Yarreck Qhta</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A package of functions to supplement System.Reflections.</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />

@@ -118,6 +118,50 @@
             <param name="converter"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.TypeUtils.NonComparableAttribute">
+            <summary>
+             Attribute to set at non-comparable property.
+            </summary>
+        </member>
+        <member name="T:Qhta.TypeUtils.CompareResult">
+            <summary>
+            The result of object comparison
+            </summary>
+        </member>
+        <member name="P:Qhta.TypeUtils.CompareResult.AreEqual">
+            <summary>
+            Indicates if objects are equal
+            </summary>
+        </member>
+        <member name="P:Qhta.TypeUtils.CompareResult.DiffPath">
+            <summary>
+            If objects are not equal then this value holds the property path to first different properties
+            </summary>
+        </member>
+        <member name="T:Qhta.TypeUtils.ObjectComparer">
+            <summary>
+            Utility class to object deep comparison
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.ObjectComparer.AreEqual(System.Object,System.Object)">
+            <summary>
+            Compares two objects in deep. All public read/write properties are compared
+            except those marked with NonComparable attribute.
+            If objects are different then diffPath is returned with a property path to first different properties.
+            If objects are of different type then diffPath is "@Type".
+            </summary>
+            <param name="this"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.ObjectComparer.AreEqualAsync(System.Object,System.Object)">
+            <summary>
+            Asynchronous object comparison
+            </summary>
+            <param name="this"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.ObjectCopier">
             <summary>
             Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx
