@@ -4,7 +4,6 @@
     <id>Qhta.TextUtils</id>
     <version>2.2.0</version>
     <authors>Yarreck Qhta</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />

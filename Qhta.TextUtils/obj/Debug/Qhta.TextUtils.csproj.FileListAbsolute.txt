@@ -7,3 +7,8 @@ D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfo.c
 D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.dll
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.csproj.CoreCompileInputs.cache

@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "zc5V45BBGBPJH/kH7CfpUKGjKtYEb+B2T1cjb0hGAexuJRGRUEXM4hb4Vc+ELzeQldBN0zO4fHMCQ3401Cu60Q==",
+  "dgSpecHash": "ZJrY8WR9QnICzkczTRJEoFetMVwmHkihzdVCQUVP/+EY1eaPIDmIKHGOdI/qMZwdAuJNvpyGEk/p8+Qca1iF/A==",
   "success": true,
-  "projectFilePath": "D:\\Dane\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj",
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj",
   "expectedPackageFiles": [
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }
