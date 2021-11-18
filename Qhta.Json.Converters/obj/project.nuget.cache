@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "mlzGZNJ8N3oTqs2dDbp/mbKihjZdJPVfYAZVjuXvcEXZmHbMx8ERYfNriFOlJ6p+XE2miULa1iZyJWwKIWJBPw==",
+  "success": true,
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Json.Converters\\Qhta.Json.Converters.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
