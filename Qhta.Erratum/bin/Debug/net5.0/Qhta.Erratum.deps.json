@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Qhta.Erratum/1.0.0": {
+        "runtime": {
+          "Qhta.Erratum.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.Erratum/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
