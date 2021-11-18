@@ -11,6 +11,8 @@ namespace Qhta.Erratum
 {
   public class Errata : Dictionary<string, List<ErrLine>>, IXmlSerializable
   {
+    public Errata() { }
+
     public XmlSchema GetSchema()
     {
       return null;

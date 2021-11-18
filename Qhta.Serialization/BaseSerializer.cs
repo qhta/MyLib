@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using System.Collections;
 using System.Diagnostics;
 using System.Collections.Specialized;
-using System.Reflection.PortableExecutable;
 using System.Reflection;
 using System.IO;
 using System.Runtime.Serialization;
@@ -21,48 +20,56 @@ namespace Qhta.Serialization
   /// but can be uses as a base not only for <see cref="XmlSerializer"/>
   /// but for other serializers as well.
   /// </summary>
-  public abstract class BaseSerializer: IDisposable
+  public abstract class BaseSerializer : IXSerializer, IDisposable
   {
-    public Dictionary<XmlQualifiedName, Type> KnownTypes { get; set; } = new Dictionary<XmlQualifiedName, Type>();
+    public KnownTypesDictionary KnownTypes { get; init; } = new KnownTypesDictionary();
 
-    public SerializationOptions Options { get; set; } = new SerializationOptions();
+    public SerializationOptions Options { get; init; } = new SerializationOptions();
 
     #region Creator methods
 
-    public BaseSerializer()
+    protected BaseSerializer()
     {
-    }
-
-    public BaseSerializer(Type type)
-    {
-      AddKnownType(type, "");
-    }
-
-    public BaseSerializer(Type type, string defaultNamespace)
-    {
-      AddKnownType(type, defaultNamespace);
-    }
-
-    public BaseSerializer(Type type, Type[] extraTypes)
-    {
-      AddKnownType(type, "");
-      foreach (var item in extraTypes)
-        AddKnownType(item, "");
     }
 
     protected void AddKnownType(Type aType, string ns)
     {
-      var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>();
-      XmlQualifiedName aName;
+      //if (aType.Name=="Legend")
+      //  Debug.Assert(true);
+      var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
+      XmlQualifiedName qName;
       if (xmlRootAttrib?.ElementName != null)
-        aName = new XmlQualifiedName(xmlRootAttrib.ElementName, ns);
+        qName = new XmlQualifiedName(xmlRootAttrib.ElementName, ns);
       else
-        aName = new XmlQualifiedName(aType.Name, ns);
-      if (!KnownTypes.ContainsKey(aName))
+        qName = new XmlQualifiedName(aType.Name, ns);
+      var aName = qName.ToString();
+      if (!KnownTypes.TryGetValue(aName, out var oldItem))
       {
-        KnownTypes.Add(aName, aType);
-        foreach (var property in aType.GetProperties())
-          AddKnownType(property.GetType(), ns);
+        var newItem = new SerializedTypeInfo { Type = aType };
+        if (!aType.IsAbstract)
+        {
+          var constructor = aType.GetConstructor(new Type[0]);
+          if (constructor == null)
+            throw new InvalidOperationException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization.");
+          newItem.KnownConstructor = constructor;
+        }
+        KnownTypes.Add(aName, newItem);
+        newItem.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
+        newItem.PropsAsElements = GetPropsAsXmlElements(aType);
+        newItem.PropsAsArrays = GetPropsAsXmlArrays(aType);
+        foreach (var prop in newItem.PropsAsAttributes.Values)
+          AddKnownType(prop.GetType(), ns);
+        foreach (var prop in newItem.PropsAsElements.Values)
+          AddKnownType(prop.GetType(), ns);
+        foreach (var prop in newItem.PropsAsArrays.Values)
+          AddKnownType(prop.GetType(), ns);
+      }
+      else
+      {
+        var bType = oldItem.Type;
+        if (aType.FullName!=bType.FullName)
+          throw new InvalidOperationException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type.");
+
       }
     }
     #endregion
@@ -103,19 +110,19 @@ namespace Qhta.Serialization
     #region Read methods
     public abstract object DeserializeObject();
 
-    public abstract void ReadObject(object obj);
+    //public abstract void ReadObject(object obj);
 
-    public abstract int ReadAttributesBase(object obj);
+    //public abstract int ReadAttributesBase(object obj);
 
-    public abstract int ReadExtraAttributes(object obj, IDictionary<string, object> properties);
+    //public abstract int ReadExtraAttributes(object obj, IDictionary<string, object> properties);
 
-    public abstract int ReadPropertiesBase(string tag, object obj);
+    //public abstract int ReadPropertiesBase(string tag, object obj);
 
-    public abstract int ReadCollectionBase(string propTag, IList collection);
+    //public abstract int ReadCollectionBase(string propTag, IList collection);
 
-    public abstract bool ReadStartElement(string propTag);
+    //public abstract bool ReadStartElement(string propTag);
 
-    public abstract bool ReadEndElement(string propTag);
+    //public abstract bool ReadEndElement(string propTag);
 
     //public abstract string ReadAttributeString(string attrName);
 
@@ -126,7 +133,7 @@ namespace Qhta.Serialization
 
     #region Helper methods
 
-    public static int PropOrderComparison(SerializePropertyInfo a, SerializePropertyInfo b)
+    public static int PropOrderComparison(SerializedPropertyInfo a, SerializedPropertyInfo b)
     {
       if (a.Order > b.Order)
         return 1;
@@ -137,11 +144,11 @@ namespace Qhta.Serialization
         return String.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public virtual List<SerializePropertyInfo> GetPropsAsXmlAttributes(object obj)
+    public virtual KnownPropertiesDictionary GetPropsAsXmlAttributes(Type aType)
     {
-      var propList = new List<SerializePropertyInfo>();
-      var props = obj.GetType().GetProperties().Where(item => item.CanWrite && item.CanRead && item.GetCustomAttributes(true)
-      .OfType<XmlAttributeAttribute>().Count() > 0).ToList();
+      var propList = new KnownPropertiesDictionary();
+      var props = aType.GetProperties().Where(item => item.CanWrite && item.CanRead 
+        && item.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().Count() > 0).ToList();
       if (props.Count() == 0)
         return propList;
       int n = 0;
@@ -157,19 +164,19 @@ namespace Qhta.Serialization
             attrName = LowercaseName(attrName);
 
           var order = ++n + 100;
-          if (xmlAttribute is XmlAttribute2Attribute attr2 && attr2.Order > 0)
+          if (xmlAttribute is XmlOrderedAttribute attr2 && attr2.Order > 0)
             order = attr2.Order;
-          var serializePropInfo = new SerializePropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
+          var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
           propList.Add(serializePropInfo);
         }
       }
       return propList;
     }
 
-    public virtual List<SerializePropertyInfo> GetPropsAsXmlElements(object obj)
+    public virtual KnownPropertiesDictionary GetPropsAsXmlElements(Type aType)
     {
-      var propList = new List<SerializePropertyInfo>();
-      var props = obj.GetType().GetProperties().Where(item => item.CanWrite && item.CanRead && item.GetCustomAttributes(true)
+      var propList = new KnownPropertiesDictionary();
+      var props = aType.GetProperties().Where(item => item.CanWrite && item.CanRead && item.GetCustomAttributes(true)
       .OfType<XmlElementAttribute>().Count() > 0).ToList();
       if (props.Count() == 0)
         return propList;
@@ -188,17 +195,17 @@ namespace Qhta.Serialization
           var order = ++n + 100;
           if (xmlAttribute.Order > 0)
             order = xmlAttribute.Order;
-          var serializePropInfo = new SerializePropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
+          var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
           propList.Add(serializePropInfo);
         }
       }
       return propList;
     }
 
-    public virtual List<SerializePropertyInfo> GetPropsAsXmlArrays(object obj)
+    public virtual KnownPropertiesDictionary GetPropsAsXmlArrays(Type aType)
     {
-      var propList = new List<SerializePropertyInfo>();
-      var props = obj.GetType().GetProperties().Where(item => item.CanRead && item.GetCustomAttributes(true)
+      var propList = new KnownPropertiesDictionary();
+      var props = aType.GetProperties().Where(item => item.CanRead && item.GetCustomAttributes(true)
       .OfType<XmlArrayAttribute>().Count() > 0).ToList();
       if (props.Count() == 0)
         return propList;
@@ -217,7 +224,7 @@ namespace Qhta.Serialization
           var order = ++n + 100;
           if (xmlAttribute.Order > 0)
             order = xmlAttribute.Order;
-          var serializePropInfo = new SerializePropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
+          var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
           propList.Add(serializePropInfo);
         }
       }
@@ -236,7 +243,7 @@ namespace Qhta.Serialization
       return isSimpleValue;
     }
 
-    public static string LowercaseName(string str)
+    public virtual string LowercaseName(string str)
     {
       if (IsUpper(str))
         return str.ToLower();

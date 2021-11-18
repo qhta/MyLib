@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Qhta.Serialization
 {
-  public interface IQSerializable
+  public interface IXSerializable
   {
-    void Serialize(BaseSerializer serializer);
-    void Deserialize(BaseSerializer baseSerializer);
+    void Serialize(IXSerializer serializer);
+    void Deserialize(IXSerializer baseSerializer);
   }
 }

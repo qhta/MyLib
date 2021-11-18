@@ -22,16 +22,13 @@ namespace Qhta.Serialization
     {
     }
 
-    public XmlSerializer(Type type) : base(type)
+    public XmlSerializer(Type type, Type[] extraTypes, SerializationOptions options)
     {
-    }
-
-    public XmlSerializer(Type type, string defaultNamespace) : base(type, defaultNamespace)
-    {
-    }
-
-    public XmlSerializer(Type type, Type[] extraTypes) : base(type, extraTypes)
-    {
+      Options = options;
+      AddKnownType(type, "");
+      if (extraTypes != null)
+        foreach (Type t in extraTypes)
+          AddKnownType(t, "");
     }
     #endregion
 
@@ -58,7 +55,7 @@ namespace Qhta.Serialization
       try
       {
         writer = xmlWriter;
-        if (obj is IQSerializable serializableItem)
+        if (obj is IXSerializable serializableItem)
         {
           serializableItem.Serialize(this);
         }
@@ -75,7 +72,7 @@ namespace Qhta.Serialization
 
     public void SerializeObject(object obj)
     {
-      if (obj is IQSerializable qSerializable)
+      if (obj is IXSerializable qSerializable)
       {
         qSerializable.Serialize(this);
       }
@@ -107,8 +104,10 @@ namespace Qhta.Serialization
 
     public override int WriteAttributesBase(object obj)
     {
-      var propList = GetPropsAsXmlAttributes(obj);
-      propList.Sort(PropOrderComparison);
+      var aType = obj.GetType();
+      if (!KnownTypes.TryGetValue(aType, out var typeInfo))
+        throw new InvalidOperationException($"Unknown type \"{aType.Name}\" while serializing object attributes");
+      var propList = typeInfo.PropsAsAttributes;
       int attrsWritten = 0;
       foreach (var item in propList)
       {
@@ -136,19 +135,34 @@ namespace Qhta.Serialization
 
     public override int WritePropertiesBase(string tag, object obj)
     {
-      var attribs = GetPropsAsXmlAttributes(obj);
-      var props = GetPropsAsXmlElements(obj);
-      var arrays = GetPropsAsXmlArrays(obj);
-      var propList = new List<SerializePropertyInfo>();
-
-      attribs.RemoveAll(item => IsSimpleValue(item.PropInfo.GetValue(obj)));
-      propList.AddRange(attribs);
-
-      propList.AddRange(props);
-      propList.Sort(PropOrderComparison);
+      var aType = obj.GetType();
+      if (!KnownTypes.TryGetValue(aType, out var typeInfo))
+        throw new InvalidOperationException($"Unknown type \"{aType.Name}\" while serializing object attributes");
+      var attribs = typeInfo.PropsAsAttributes;
+      var props = typeInfo.PropsAsElements;
+      var arrays = typeInfo.PropsAsArrays;
 
       int propsWritten = 0;
-      foreach (var item in propList)
+      foreach (var item in attribs)
+      {
+        var propInfo = item.PropInfo;
+        string propTag = item.Name;
+        if (Options.HasFlag(SerializationOptions.PrecedePropertyNameWithElementName))
+          propTag = tag + "." + propTag;
+        var propValue = propInfo.GetValue(obj);
+        if (propValue != null && !IsSimpleValue(propValue))
+        {
+          WriteStartElement(propTag);
+          if (propValue is IXSerializable serializableValue)
+            serializableValue.Serialize(this);
+          else
+            WriteValue(propValue.ToString());
+          WriteEndElement(propTag);
+          propsWritten++;
+        }
+      }
+
+      foreach (var item in props)
       {
         var propInfo = item.PropInfo;
         string propTag = item.Name;
@@ -158,7 +172,7 @@ namespace Qhta.Serialization
         if (propValue != null)
         {
           WriteStartElement(propTag);
-          if (propValue is IQSerializable serializableValue)
+          if (propValue is IXSerializable serializableValue)
             serializableValue.Serialize(this);
           else
             WriteValue(propValue.ToString());
@@ -179,7 +193,7 @@ namespace Qhta.Serialization
         var propValue = propInfo.GetValue(obj);
         if (propValue != null)
         {
-          if (propValue is IQSerializable serializableValue)
+          if (propValue is IXSerializable serializableValue)
             serializableValue.Serialize(this);
           else
           if (propValue is ICollection collection)
@@ -202,7 +216,7 @@ namespace Qhta.Serialization
       {
         if (item != null)
         {
-          if (item is IQSerializable serializableItem)
+          if (item is IXSerializable serializableItem)
             serializableItem.Serialize(this);
           else if (item.GetType().Name.StartsWith("KeyValuePair`"))
           {
@@ -216,7 +230,7 @@ namespace Qhta.Serialization
               {
                 WriteStartElement("Item");
                 WriteAttributeString("key", key.ToString());
-                if (val is IQSerializable serializableVal)
+                if (val is IXSerializable serializableVal)
                   serializableVal.Serialize(this);
                 else if (val is string strVal)
                   WriteValue(strVal);
@@ -259,7 +273,7 @@ namespace Qhta.Serialization
         writer.WriteValue(value.ToString().ToLower());
       else if (value is int)
         writer.WriteValue(value.ToString().ToLower());
-      else if (value is IQSerializable qSerializable)
+      else if (value is IXSerializable qSerializable)
         qSerializable.Serialize(this);
     }
 
@@ -310,14 +324,14 @@ namespace Qhta.Serialization
         return null;
       var xmlName = reader.Name;
       var aName = new XmlQualifiedName(xmlName, reader.Prefix);
-      if (!KnownTypes.TryGetValue(aName, out var aType))
+      if (!KnownTypes.TryGetValue(aName.ToString(), out var aTypeInfo))
         throw new InvalidOperationException($"Element {aName} not recognized while deserialization.");
-      var constructor = aType.GetConstructor(new Type[0]);
+      var constructor = aTypeInfo.KnownConstructor;
       if (constructor == null)
-        throw new InvalidOperationException($"Type {aType.Name} must have a public, parameterless constructor.");
+        throw new InvalidOperationException($"Type {aTypeInfo.Type.Name} must have a public, parameterless constructor.");
       var obj = constructor.Invoke(new object[0]);
 
-      if (obj is IQSerializable qSerializable)
+      if (obj is IXSerializable qSerializable)
       {
         qSerializable.Deserialize(this);
       }
@@ -327,223 +341,223 @@ namespace Qhta.Serialization
       }
       else if (obj != null)
       {
-        ReadObject(obj);
+        //ReadObject(obj);
       }
       return obj;
     }
     #endregion
 
 
-    #region Read methods
+    //#region Read methods
 
-    public override void ReadObject(object obj)
-    {
-      string tag = obj.GetType().Name;
-      var xmlAttribute = obj.GetType().GetCustomAttributes(true).OfType<XmlRootAttribute>().FirstOrDefault();
-      if (xmlAttribute != null && xmlAttribute.ElementName != null)
-        tag = xmlAttribute.ElementName;
-      ReadAttributesBase(obj);
-      ReadPropertiesBase(tag, obj);
-      reader.ReadEndElement();
-    }
-
-    public override int ReadAttributesBase(object obj)
-    {
-      var propList = GetPropsAsXmlAttributes(obj);
-      propList.AddRange(GetPropsAsXmlElements(obj));
-      int attrsRead = 0;
-      reader.MoveToFirstAttribute();
-      while (reader.NodeType == XmlNodeType.Attribute)
-      {
-        string attrName = reader.Name;
-        var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
-        if (propertyToRead == null)
-          break;
-        object propValue = null;
-        Type propType = propertyToRead.PropInfo.PropertyType;
-        reader.ReadAttributeValue();
-        if (propType == typeof(string))
-          propValue = reader.ReadContentAsString();
-        else if (propType == typeof(bool) || propType == typeof(bool?))
-          propValue = reader.ReadContentAsBoolean();
-        else if (propType == typeof(int) || propType == typeof(int?))
-          propValue = reader.ReadContentAsInt();
-        else
-          throw new XmlException($"Attribute \"{attrName}\" type \"{propType}\" not supported for \"{obj.GetType().Name}\" class on deserialize.");
-        if (propValue != null)
-        {
-          propertyToRead.PropInfo.SetValue(obj, propValue);
-          attrsRead++;
-        }
-        reader.MoveToNextAttribute();
-      }
-      reader.Read();
-      return attrsRead;
-    }
-
-    public override int ReadExtraAttributes(object obj, IDictionary<string, object> properties)
-    {
-      //int attrsRead = 0;
-      ////reader.MoveToFirstAttribute();
-      //while (reader.NodeType == XmlNodeType.Attribute)
-      //{
-      //  string attrName = reader.Name;        
-      //  object propValue = null;
-      //  Type propType = propertyToRead.PropInfo.PropertyType;
-      //  reader.ReadAttributeValue();
-      //  if (propType == typeof(string))
-      //    propValue = reader.ReadContentAsString();
-      //  else if (propType == typeof(bool) || propType == typeof(bool?))
-      //    propValue = reader.ReadContentAsBoolean();
-      //  else if (propType == typeof(int) || propType == typeof(int?))
-      //    propValue = reader.ReadContentAsInt();
-      //  else
-      //    throw new XmlException($"Attribute \"{attrName}\" type \"{propType}\" not supported for \"{obj.GetType().Name}\" class on deserialize.");
-      //  if (propValue != null)
-      //  {
-      //    propertyToRead.PropInfo.SetValue(obj, propValue);
-      //    attrsRead++;
-      //  }
-      //  reader.MoveToNextAttribute();
-      //}
-      //reader.Read();
-      //return attrsRead;
-      return 0;
-    }
-
-    public override int ReadPropertiesBase(string tag, object obj)
-    {
-      var propList = GetPropsAsXmlElements(obj);
-      var attribs = GetPropsAsXmlAttributes(obj);
-      var arrays = GetPropsAsXmlArrays(obj);
-      propList.AddRange(attribs);
-      propList.AddRange(arrays);
-
-
-      while (reader.NodeType == XmlNodeType.Whitespace)
-        reader.Read();
-      int propsRead = 0;
-      while (reader.NodeType == XmlNodeType.Element)
-      {
-        var elementName = reader.Name;
-        var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
-        if (propertyToRead == null)
-          //throw new XmlException($"Property \"{elementName}\" not found for \"{obj.GetType().Name}\" class on deserialize.");
-          break;
-        reader.Read();
-        object propValue = null;
-        Type propType = propertyToRead.PropInfo.PropertyType;
-        if (propType == typeof(string))
-        {
-          propValue = reader.ReadContentAsString();
-          reader.ReadEndElement();
-        }
-        else if (propType == typeof(bool) || propType == typeof(bool?))
-        {
-          propValue = reader.ReadContentAsBoolean();
-          reader.ReadEndElement();
-        }
-        else if (propType == typeof(int) || propType == typeof(int?))
-        {
-          propValue = reader.ReadContentAsInt();
-          reader.ReadEndElement();
-        }
-        else
-        {
-          propValue = DeserializeObject();
-        }
-        if (propValue != null)
-          propertyToRead.PropInfo.SetValue(obj, propValue);
-        propsRead++;
-        while (reader.NodeType == XmlNodeType.Whitespace)
-          reader.Read();
-      }
-      return propsRead;
-    }
-
-    public override int ReadCollectionBase(string propTag, IList collection)
-    {
-      int itemsRead = 0;
-      while (reader.NodeType == XmlNodeType.Element)
-      {
-        var elementName = reader.Name;
-        object value = null;
-        if (elementName=="Item")
-        { 
-          reader.Read();
-        }
-        else
-        {
-          value = DeserializeObject();
-        }
-        if (value!=null)
-          collection.Add(value);
-        itemsRead++;
-        while (reader.NodeType == XmlNodeType.Whitespace)
-          reader.Read();
-      }
-      /*
-      foreach (var item in collection)
-      {
-        if (item != null)
-        {
-          if (item is IXmlSerializable serializableItem)
-            serializableItem.ReadXml(reader);
-          else if (item.GetType().Name.StartsWith("KeyValuePair`"))
-          {
-            var keyProp = item.GetType().GetProperty("Key");
-            var valProp = item.GetType().GetProperty("Value");
-            if (keyProp != null && valProp != null)
-            {
-              var key = keyProp.GetValue(item);
-              var val = valProp.GetValue(item);
-              if (key != null)
-              {
-                //reader.WriteStartElement("Item");
-                //reader.WriteAttributeString("key", key.ToString());
-                //if (val is IXmlSerializable serializableVal)
-                //  serializableVal.WriteXml(writer);
-                //else if (val is string strVal)
-                //  writer.WriteString(strVal);
-                //else if (val != null)
-                //  WriteObject(writer, val, options);
-                //writer.WriteEndElement();
-              }
-            }
-          }
-          itemsRead++;
-        }
-        else
-          throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
-      }
-      */
-      return itemsRead;
-    }
-
-    public override bool ReadStartElement(string propTag)
-    {
-      while (reader.NodeType == XmlNodeType.Whitespace) reader.Read();
-      return (reader.NodeType == XmlNodeType.Element && reader.Name == propTag);
-    }
-
-    public override bool ReadEndElement(string propTag)
-    {
-      while (reader.NodeType == XmlNodeType.Whitespace) reader.Read();
-      return (reader.NodeType == XmlNodeType.EndElement && reader.Name == propTag);
-    }
-
-    //public override string ReadAttributeString(string attrName)
+    //public override void ReadObject(object obj)
     //{
-    //  string text = null;
-    //  if (reader.NodeType == XmlNodeType.Attribute);
-    //    text = reader.ReadContentAsString();
-    //  return text;
+    //  string tag = obj.GetType().Name;
+    //  var xmlAttribute = obj.GetType().GetCustomAttributes(true).OfType<XmlRootAttribute>().FirstOrDefault();
+    //  if (xmlAttribute != null && xmlAttribute.ElementName != null)
+    //    tag = xmlAttribute.ElementName;
+    //  ReadAttributesBase(obj);
+    //  ReadPropertiesBase(tag, obj);
+    //  reader.ReadEndElement();
     //}
 
-    //public abstract object ReadValue();
+    //public override int ReadAttributesBase(object obj)
+    //{
+    //  var propList = GetPropsAsXmlAttributes(obj);
+    //  propList.AddRange(GetPropsAsXmlElements(obj));
+    //  int attrsRead = 0;
+    //  reader.MoveToFirstAttribute();
+    //  while (reader.NodeType == XmlNodeType.Attribute)
+    //  {
+    //    string attrName = reader.Name;
+    //    var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
+    //    if (propertyToRead == null)
+    //      break;
+    //    object propValue = null;
+    //    Type propType = propertyToRead.PropInfo.PropertyType;
+    //    reader.ReadAttributeValue();
+    //    if (propType == typeof(string))
+    //      propValue = reader.ReadContentAsString();
+    //    else if (propType == typeof(bool) || propType == typeof(bool?))
+    //      propValue = reader.ReadContentAsBoolean();
+    //    else if (propType == typeof(int) || propType == typeof(int?))
+    //      propValue = reader.ReadContentAsInt();
+    //    else
+    //      throw new XmlException($"Attribute \"{attrName}\" type \"{propType}\" not supported for \"{obj.GetType().Name}\" class on deserialize.");
+    //    if (propValue != null)
+    //    {
+    //      propertyToRead.PropInfo.SetValue(obj, propValue);
+    //      attrsRead++;
+    //    }
+    //    reader.MoveToNextAttribute();
+    //  }
+    //  reader.Read();
+    //  return attrsRead;
+    //}
 
-    //public abstract object ReadValue(string propTag);
-    #endregion
+    //public override int ReadExtraAttributes(object obj, IDictionary<string, object> properties)
+    //{
+    //  //int attrsRead = 0;
+    //  ////reader.MoveToFirstAttribute();
+    //  //while (reader.NodeType == XmlNodeType.Attribute)
+    //  //{
+    //  //  string attrName = reader.Name;        
+    //  //  object propValue = null;
+    //  //  Type propType = propertyToRead.PropInfo.PropertyType;
+    //  //  reader.ReadAttributeValue();
+    //  //  if (propType == typeof(string))
+    //  //    propValue = reader.ReadContentAsString();
+    //  //  else if (propType == typeof(bool) || propType == typeof(bool?))
+    //  //    propValue = reader.ReadContentAsBoolean();
+    //  //  else if (propType == typeof(int) || propType == typeof(int?))
+    //  //    propValue = reader.ReadContentAsInt();
+    //  //  else
+    //  //    throw new XmlException($"Attribute \"{attrName}\" type \"{propType}\" not supported for \"{obj.GetType().Name}\" class on deserialize.");
+    //  //  if (propValue != null)
+    //  //  {
+    //  //    propertyToRead.PropInfo.SetValue(obj, propValue);
+    //  //    attrsRead++;
+    //  //  }
+    //  //  reader.MoveToNextAttribute();
+    //  //}
+    //  //reader.Read();
+    //  //return attrsRead;
+    //  return 0;
+    //}
+
+    //public override int ReadPropertiesBase(string tag, object obj)
+    //{
+    //  var propList = GetPropsAsXmlElements(obj);
+    //  var attribs = GetPropsAsXmlAttributes(obj);
+    //  var arrays = GetPropsAsXmlArrays(obj);
+    //  propList.AddRange(attribs);
+    //  propList.AddRange(arrays);
+
+
+    //  while (reader.NodeType == XmlNodeType.Whitespace)
+    //    reader.Read();
+    //  int propsRead = 0;
+    //  while (reader.NodeType == XmlNodeType.Element)
+    //  {
+    //    var elementName = reader.Name;
+    //    var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
+    //    if (propertyToRead == null)
+    //      //throw new XmlException($"Property \"{elementName}\" not found for \"{obj.GetType().Name}\" class on deserialize.");
+    //      break;
+    //    reader.Read();
+    //    object propValue = null;
+    //    Type propType = propertyToRead.PropInfo.PropertyType;
+    //    if (propType == typeof(string))
+    //    {
+    //      propValue = reader.ReadContentAsString();
+    //      reader.ReadEndElement();
+    //    }
+    //    else if (propType == typeof(bool) || propType == typeof(bool?))
+    //    {
+    //      propValue = reader.ReadContentAsBoolean();
+    //      reader.ReadEndElement();
+    //    }
+    //    else if (propType == typeof(int) || propType == typeof(int?))
+    //    {
+    //      propValue = reader.ReadContentAsInt();
+    //      reader.ReadEndElement();
+    //    }
+    //    else
+    //    {
+    //      propValue = DeserializeObject();
+    //    }
+    //    if (propValue != null)
+    //      propertyToRead.PropInfo.SetValue(obj, propValue);
+    //    propsRead++;
+    //    while (reader.NodeType == XmlNodeType.Whitespace)
+    //      reader.Read();
+    //  }
+    //  return propsRead;
+    //}
+
+    //public override int ReadCollectionBase(string propTag, IList collection)
+    //{
+    //  int itemsRead = 0;
+    //  while (reader.NodeType == XmlNodeType.Element)
+    //  {
+    //    var elementName = reader.Name;
+    //    object value = null;
+    //    if (elementName=="Item")
+    //    { 
+    //      reader.Read();
+    //    }
+    //    else
+    //    {
+    //      value = DeserializeObject();
+    //    }
+    //    if (value!=null)
+    //      collection.Add(value);
+    //    itemsRead++;
+    //    while (reader.NodeType == XmlNodeType.Whitespace)
+    //      reader.Read();
+    //  }
+    //  /*
+    //  foreach (var item in collection)
+    //  {
+    //    if (item != null)
+    //    {
+    //      if (item is IXmlSerializable serializableItem)
+    //        serializableItem.ReadXml(reader);
+    //      else if (item.GetType().Name.StartsWith("KeyValuePair`"))
+    //      {
+    //        var keyProp = item.GetType().GetProperty("Key");
+    //        var valProp = item.GetType().GetProperty("Value");
+    //        if (keyProp != null && valProp != null)
+    //        {
+    //          var key = keyProp.GetValue(item);
+    //          var val = valProp.GetValue(item);
+    //          if (key != null)
+    //          {
+    //            //reader.WriteStartElement("Item");
+    //            //reader.WriteAttributeString("key", key.ToString());
+    //            //if (val is IXmlSerializable serializableVal)
+    //            //  serializableVal.WriteXml(writer);
+    //            //else if (val is string strVal)
+    //            //  writer.WriteString(strVal);
+    //            //else if (val != null)
+    //            //  WriteObject(writer, val, options);
+    //            //writer.WriteEndElement();
+    //          }
+    //        }
+    //      }
+    //      itemsRead++;
+    //    }
+    //    else
+    //      throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
+    //  }
+    //  */
+    //  return itemsRead;
+    //}
+
+    //public override bool ReadStartElement(string propTag)
+    //{
+    //  while (reader.NodeType == XmlNodeType.Whitespace) reader.Read();
+    //  return (reader.NodeType == XmlNodeType.Element && reader.Name == propTag);
+    //}
+
+    //public override bool ReadEndElement(string propTag)
+    //{
+    //  while (reader.NodeType == XmlNodeType.Whitespace) reader.Read();
+    //  return (reader.NodeType == XmlNodeType.EndElement && reader.Name == propTag);
+    //}
+
+    ////public override string ReadAttributeString(string attrName)
+    ////{
+    ////  string text = null;
+    ////  if (reader.NodeType == XmlNodeType.Attribute);
+    ////    text = reader.ReadContentAsString();
+    ////  return text;
+    ////}
+
+    ////public abstract object ReadValue();
+
+    ////public abstract object ReadValue(string propTag);
+    //#endregion
 
   }
 }
