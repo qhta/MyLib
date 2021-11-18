@@ -1,0 +1,11 @@
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\bin\Debug\net5.0\Qhta.XmlSerialization.deps.json
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\bin\Debug\net5.0\Qhta.XmlSerialization.dll
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\bin\Debug\net5.0\ref\Qhta.XmlSerialization.dll
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\bin\Debug\net5.0\Qhta.XmlSerialization.pdb
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\Qhta.XmlSerialization.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\Qhta.XmlSerialization.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\Qhta.XmlSerialization.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\Qhta.XmlSerialization.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\Qhta.XmlSerialization.dll
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\ref\Qhta.XmlSerialization.dll
+D:\VS\Projects\MyLib\Qhta.XmlSerialization\obj\Debug\net5.0\Qhta.XmlSerialization.pdb

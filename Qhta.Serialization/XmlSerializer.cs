@@ -1,0 +1,549 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
+using System.Xml;
+using System.Xml.Serialization;
+
+namespace Qhta.Serialization
+{
+  public class XmlSerializer : BaseSerializer
+  {
+    private XmlWriter writer { get; set; }
+
+    private XmlReader reader { get; set; }
+
+    #region Creator methods
+    public XmlSerializer()
+    {
+    }
+
+    public XmlSerializer(Type type) : base(type)
+    {
+    }
+
+    public XmlSerializer(Type type, string defaultNamespace) : base(type, defaultNamespace)
+    {
+    }
+
+    public XmlSerializer(Type type, Type[] extraTypes) : base(type, extraTypes)
+    {
+    }
+    #endregion
+
+    #region Serialize methods
+    public override void Serialize(Stream stream, object obj)
+    {
+      using (XmlWriter xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
+      {
+        Serialize(xmlWriter, obj);
+      }
+    }
+
+
+    public override void Serialize(TextWriter textWriter, object obj)
+    {
+      using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings { Indent = true }))
+      {
+        Serialize(xmlWriter, obj);
+      }
+    }
+
+    public void Serialize(XmlWriter xmlWriter, object obj)
+    {
+      try
+      {
+        writer = xmlWriter;
+        if (obj is IQSerializable serializableItem)
+        {
+          serializableItem.Serialize(this);
+        }
+        else if (obj != null)
+        {
+          WriteObject(obj);
+        }
+      }
+      finally
+      {
+        writer = null;
+      }
+    }
+
+    public void SerializeObject(object obj)
+    {
+      if (obj is IQSerializable qSerializable)
+      {
+        qSerializable.Serialize(this);
+      }
+      else if (obj is IXmlSerializable xmlSerializable)
+      {
+        xmlSerializable.WriteXml(writer);
+      }
+      else if (obj != null)
+      {
+        WriteObject(obj);
+      }
+    }
+    #endregion
+
+    #region Write methods
+    public override void WriteObject(object obj)
+    {
+      string tag = obj.GetType().Name;
+      var xmlAttribute = obj.GetType().GetCustomAttributes(true).OfType<XmlRootAttribute>().FirstOrDefault();
+      if (xmlAttribute != null && xmlAttribute.ElementName != null)
+        tag = xmlAttribute.ElementName;
+      writer.WriteStartElement(tag);
+      WriteAttributesBase(obj);
+      WritePropertiesBase(tag, obj);
+      if (obj is ICollection collection)
+        WriteCollectionBase(null, collection);
+      writer.WriteEndElement();
+    }
+
+    public override int WriteAttributesBase(object obj)
+    {
+      var propList = GetPropsAsXmlAttributes(obj);
+      propList.Sort(PropOrderComparison);
+      int attrsWritten = 0;
+      foreach (var item in propList)
+      {
+        var propInfo = item.PropInfo;
+        string attrName = item.Name;
+        var propValue = propInfo.GetValue(obj);
+        if (propValue != null)
+        {
+          string str = null;
+          if (propValue is string)
+            str = propValue.ToString();
+          else if (propValue is bool || propValue.GetType() == typeof(bool?))
+            str = propValue.ToString().ToLower();
+          else if (propValue is int || propValue.GetType() == typeof(int?))
+            str = propValue.ToString();
+          if (str != null)
+          {
+            writer.WriteAttributeString(attrName, str);
+            attrsWritten++;
+          }
+        }
+      }
+      return attrsWritten;
+    }
+
+    public override int WritePropertiesBase(string tag, object obj)
+    {
+      var attribs = GetPropsAsXmlAttributes(obj);
+      var props = GetPropsAsXmlElements(obj);
+      var arrays = GetPropsAsXmlArrays(obj);
+      var propList = new List<SerializePropertyInfo>();
+
+      attribs.RemoveAll(item => IsSimpleValue(item.PropInfo.GetValue(obj)));
+      propList.AddRange(attribs);
+
+      propList.AddRange(props);
+      propList.Sort(PropOrderComparison);
+
+      int propsWritten = 0;
+      foreach (var item in propList)
+      {
+        var propInfo = item.PropInfo;
+        string propTag = item.Name;
+        if (Options.HasFlag(SerializationOptions.PrecedePropertyNameWithElementName))
+          propTag = tag + "." + propTag;
+        var propValue = propInfo.GetValue(obj);
+        if (propValue != null)
+        {
+          WriteStartElement(propTag);
+          if (propValue is IQSerializable serializableValue)
+            serializableValue.Serialize(this);
+          else
+            WriteValue(propValue.ToString());
+          WriteEndElement(propTag);
+          propsWritten++;
+        }
+      }
+
+      foreach (var item in arrays)
+      {
+        var propInfo = item.PropInfo;
+        string propTag = item.Name;
+        if (propTag != null)
+        {
+          if (Options.HasFlag(SerializationOptions.PrecedePropertyNameWithElementName))
+            propTag = tag + "." + propTag;
+        }
+        var propValue = propInfo.GetValue(obj);
+        if (propValue != null)
+        {
+          if (propValue is IQSerializable serializableValue)
+            serializableValue.Serialize(this);
+          else
+          if (propValue is ICollection collection)
+          {
+            WriteCollectionBase(propTag, collection);
+          }
+          propsWritten++;
+        }
+      }
+      return propsWritten;
+    }
+
+
+    public override int WriteCollectionBase(string propTag, ICollection collection)
+    {
+      if (!String.IsNullOrEmpty(propTag))
+        writer.WriteStartElement(propTag);
+      int itemsWritten = 0;
+      foreach (var item in collection)
+      {
+        if (item != null)
+        {
+          if (item is IQSerializable serializableItem)
+            serializableItem.Serialize(this);
+          else if (item.GetType().Name.StartsWith("KeyValuePair`"))
+          {
+            var keyProp = item.GetType().GetProperty("Key");
+            var valProp = item.GetType().GetProperty("Value");
+            if (keyProp != null && valProp != null)
+            {
+              var key = keyProp.GetValue(item);
+              var val = valProp.GetValue(item);
+              if (key != null)
+              {
+                WriteStartElement("Item");
+                WriteAttributeString("key", key.ToString());
+                if (val is IQSerializable serializableVal)
+                  serializableVal.Serialize(this);
+                else if (val is string strVal)
+                  WriteValue(strVal);
+                else if (val != null)
+                  WriteObject(val);
+                WriteEndElement("Item");
+              }
+            }
+          }
+          itemsWritten++;
+        }
+        else
+          throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
+      }
+      if (!String.IsNullOrEmpty(propTag))
+        writer.WriteEndElement();
+      return itemsWritten;
+    }
+
+    public override void WriteStartElement(string propTag)
+    {
+      writer.WriteStartElement(propTag);
+    }
+
+    public override void WriteEndElement(string propTag)
+    {
+      writer.WriteEndElement();
+    }
+
+    public override void WriteAttributeString(string attrName, string valStr)
+    {
+      writer.WriteAttributeString(attrName, valStr);
+    }
+
+    public override void WriteValue(object value)
+    {
+      if (value is string valStr)
+        writer.WriteValue(valStr);
+      else if (value is bool)
+        writer.WriteValue(value.ToString().ToLower());
+      else if (value is int)
+        writer.WriteValue(value.ToString().ToLower());
+      else if (value is IQSerializable qSerializable)
+        qSerializable.Serialize(this);
+    }
+
+    public override void WriteValue(string propTag, object value)
+    {
+      WriteStartElement(propTag);
+      WriteValue(value);
+      WriteEndElement(propTag);
+    }
+    #endregion
+
+    #region Deserialize methods
+    public override object Deserialize(Stream stream)
+    {
+      using (XmlReader xmlReader = XmlReader.Create(stream))
+      {
+        return Deserialize(xmlReader);
+      }
+    }
+
+    public override object Deserialize(TextReader textReader)
+    {
+      using (XmlReader xmlReader = XmlReader.Create(textReader))
+      {
+        return Deserialize(xmlReader);
+      }
+    }
+
+    public object Deserialize(XmlReader xmlReader)
+    {
+      object obj = null;
+      try
+      {
+        reader = xmlReader;
+        obj = DeserializeObject();
+      }
+      finally
+      {
+        reader = null;
+      }
+      return obj;
+    }
+
+    public override object DeserializeObject()
+    {
+      while (!reader.EOF && reader.NodeType != XmlNodeType.Element) reader.Read();
+      if (reader.EOF)
+        return null;
+      var xmlName = reader.Name;
+      var aName = new XmlQualifiedName(xmlName, reader.Prefix);
+      if (!KnownTypes.TryGetValue(aName, out var aType))
+        throw new InvalidOperationException($"Element {aName} not recognized while deserialization.");
+      var constructor = aType.GetConstructor(new Type[0]);
+      if (constructor == null)
+        throw new InvalidOperationException($"Type {aType.Name} must have a public, parameterless constructor.");
+      var obj = constructor.Invoke(new object[0]);
+
+      if (obj is IQSerializable qSerializable)
+      {
+        qSerializable.Deserialize(this);
+      }
+      else if (obj is IXmlSerializable xmlSerializable)
+      {
+        xmlSerializable.ReadXml(reader);
+      }
+      else if (obj != null)
+      {
+        ReadObject(obj);
+      }
+      return obj;
+    }
+    #endregion
+
+
+    #region Read methods
+
+    public override void ReadObject(object obj)
+    {
+      string tag = obj.GetType().Name;
+      var xmlAttribute = obj.GetType().GetCustomAttributes(true).OfType<XmlRootAttribute>().FirstOrDefault();
+      if (xmlAttribute != null && xmlAttribute.ElementName != null)
+        tag = xmlAttribute.ElementName;
+      ReadAttributesBase(obj);
+      ReadPropertiesBase(tag, obj);
+      reader.ReadEndElement();
+    }
+
+    public override int ReadAttributesBase(object obj)
+    {
+      var propList = GetPropsAsXmlAttributes(obj);
+      propList.AddRange(GetPropsAsXmlElements(obj));
+      int attrsRead = 0;
+      reader.MoveToFirstAttribute();
+      while (reader.NodeType == XmlNodeType.Attribute)
+      {
+        string attrName = reader.Name;
+        var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
+        if (propertyToRead == null)
+          break;
+        object propValue = null;
+        Type propType = propertyToRead.PropInfo.PropertyType;
+        reader.ReadAttributeValue();
+        if (propType == typeof(string))
+          propValue = reader.ReadContentAsString();
+        else if (propType == typeof(bool) || propType == typeof(bool?))
+          propValue = reader.ReadContentAsBoolean();
+        else if (propType == typeof(int) || propType == typeof(int?))
+          propValue = reader.ReadContentAsInt();
+        else
+          throw new XmlException($"Attribute \"{attrName}\" type \"{propType}\" not supported for \"{obj.GetType().Name}\" class on deserialize.");
+        if (propValue != null)
+        {
+          propertyToRead.PropInfo.SetValue(obj, propValue);
+          attrsRead++;
+        }
+        reader.MoveToNextAttribute();
+      }
+      reader.Read();
+      return attrsRead;
+    }
+
+    public override int ReadExtraAttributes(object obj, IDictionary<string, object> properties)
+    {
+      //int attrsRead = 0;
+      ////reader.MoveToFirstAttribute();
+      //while (reader.NodeType == XmlNodeType.Attribute)
+      //{
+      //  string attrName = reader.Name;        
+      //  object propValue = null;
+      //  Type propType = propertyToRead.PropInfo.PropertyType;
+      //  reader.ReadAttributeValue();
+      //  if (propType == typeof(string))
+      //    propValue = reader.ReadContentAsString();
+      //  else if (propType == typeof(bool) || propType == typeof(bool?))
+      //    propValue = reader.ReadContentAsBoolean();
+      //  else if (propType == typeof(int) || propType == typeof(int?))
+      //    propValue = reader.ReadContentAsInt();
+      //  else
+      //    throw new XmlException($"Attribute \"{attrName}\" type \"{propType}\" not supported for \"{obj.GetType().Name}\" class on deserialize.");
+      //  if (propValue != null)
+      //  {
+      //    propertyToRead.PropInfo.SetValue(obj, propValue);
+      //    attrsRead++;
+      //  }
+      //  reader.MoveToNextAttribute();
+      //}
+      //reader.Read();
+      //return attrsRead;
+      return 0;
+    }
+
+    public override int ReadPropertiesBase(string tag, object obj)
+    {
+      var propList = GetPropsAsXmlElements(obj);
+      var attribs = GetPropsAsXmlAttributes(obj);
+      var arrays = GetPropsAsXmlArrays(obj);
+      propList.AddRange(attribs);
+      propList.AddRange(arrays);
+
+
+      while (reader.NodeType == XmlNodeType.Whitespace)
+        reader.Read();
+      int propsRead = 0;
+      while (reader.NodeType == XmlNodeType.Element)
+      {
+        var elementName = reader.Name;
+        var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
+        if (propertyToRead == null)
+          //throw new XmlException($"Property \"{elementName}\" not found for \"{obj.GetType().Name}\" class on deserialize.");
+          break;
+        reader.Read();
+        object propValue = null;
+        Type propType = propertyToRead.PropInfo.PropertyType;
+        if (propType == typeof(string))
+        {
+          propValue = reader.ReadContentAsString();
+          reader.ReadEndElement();
+        }
+        else if (propType == typeof(bool) || propType == typeof(bool?))
+        {
+          propValue = reader.ReadContentAsBoolean();
+          reader.ReadEndElement();
+        }
+        else if (propType == typeof(int) || propType == typeof(int?))
+        {
+          propValue = reader.ReadContentAsInt();
+          reader.ReadEndElement();
+        }
+        else
+        {
+          propValue = DeserializeObject();
+        }
+        if (propValue != null)
+          propertyToRead.PropInfo.SetValue(obj, propValue);
+        propsRead++;
+        while (reader.NodeType == XmlNodeType.Whitespace)
+          reader.Read();
+      }
+      return propsRead;
+    }
+
+    public override int ReadCollectionBase(string propTag, IList collection)
+    {
+      int itemsRead = 0;
+      while (reader.NodeType == XmlNodeType.Element)
+      {
+        var elementName = reader.Name;
+        object value = null;
+        if (elementName=="Item")
+        { 
+          reader.Read();
+        }
+        else
+        {
+          value = DeserializeObject();
+        }
+        if (value!=null)
+          collection.Add(value);
+        itemsRead++;
+        while (reader.NodeType == XmlNodeType.Whitespace)
+          reader.Read();
+      }
+      /*
+      foreach (var item in collection)
+      {
+        if (item != null)
+        {
+          if (item is IXmlSerializable serializableItem)
+            serializableItem.ReadXml(reader);
+          else if (item.GetType().Name.StartsWith("KeyValuePair`"))
+          {
+            var keyProp = item.GetType().GetProperty("Key");
+            var valProp = item.GetType().GetProperty("Value");
+            if (keyProp != null && valProp != null)
+            {
+              var key = keyProp.GetValue(item);
+              var val = valProp.GetValue(item);
+              if (key != null)
+              {
+                //reader.WriteStartElement("Item");
+                //reader.WriteAttributeString("key", key.ToString());
+                //if (val is IXmlSerializable serializableVal)
+                //  serializableVal.WriteXml(writer);
+                //else if (val is string strVal)
+                //  writer.WriteString(strVal);
+                //else if (val != null)
+                //  WriteObject(writer, val, options);
+                //writer.WriteEndElement();
+              }
+            }
+          }
+          itemsRead++;
+        }
+        else
+          throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
+      }
+      */
+      return itemsRead;
+    }
+
+    public override bool ReadStartElement(string propTag)
+    {
+      while (reader.NodeType == XmlNodeType.Whitespace) reader.Read();
+      return (reader.NodeType == XmlNodeType.Element && reader.Name == propTag);
+    }
+
+    public override bool ReadEndElement(string propTag)
+    {
+      while (reader.NodeType == XmlNodeType.Whitespace) reader.Read();
+      return (reader.NodeType == XmlNodeType.EndElement && reader.Name == propTag);
+    }
+
+    //public override string ReadAttributeString(string attrName)
+    //{
+    //  string text = null;
+    //  if (reader.NodeType == XmlNodeType.Attribute);
+    //    text = reader.ReadContentAsString();
+    //  return text;
+    //}
+
+    //public abstract object ReadValue();
+
+    //public abstract object ReadValue(string propTag);
+    #endregion
+
+  }
+}
