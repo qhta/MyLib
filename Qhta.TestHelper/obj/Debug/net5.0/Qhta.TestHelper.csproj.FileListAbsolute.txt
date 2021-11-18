@@ -1,0 +1,12 @@
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net5.0\Qhta.TestHelper.deps.json
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net5.0\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net5.0\ref\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net5.0\Qhta.TestHelper.pdb
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\ref\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net5.0\Qhta.TestHelper.pdb
