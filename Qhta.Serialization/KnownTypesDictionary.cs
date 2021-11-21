@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace Qhta.Serialization
 {
@@ -15,11 +17,10 @@ namespace Qhta.Serialization
     private SortedDictionary<string, SerializedTypeInfo> StringIndexedItems = new SortedDictionary<string, SerializedTypeInfo>();
     private Dictionary<string, SerializedTypeInfo> TypeIndexedItems = new Dictionary<string, SerializedTypeInfo>();
 
+    #region IDictionary implementation
     public void Add(string key, SerializedTypeInfo value)
     {
       ((IDictionary<string, SerializedTypeInfo>)StringIndexedItems).Add(key, value);
-      //if (value.Type.Name=="WikiLink")
-      //  Debug.Assert(true);
       if (!TypeIndexedItems.ContainsKey(value.Type.FullName))
         TypeIndexedItems.Add(value.Type.FullName, value);
     }
@@ -105,6 +106,8 @@ namespace Qhta.Serialization
     }
 
     public SerializedTypeInfo this[Type key] { get => (TypeIndexedItems)[key.FullName]; set => (TypeIndexedItems)[key.FullName] = value; }
+    #endregion
+
 
   }
 }

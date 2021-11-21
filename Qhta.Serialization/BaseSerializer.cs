@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 using System.Reflection;
 using System.IO;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Qhta.Serialization
 {
@@ -32,7 +33,7 @@ namespace Qhta.Serialization
     {
     }
 
-    protected void AddKnownType(Type aType, string ns)
+    protected SerializedTypeInfo AddKnownType(Type aType, string ns)
     {
       //if (aType.Name=="Legend")
       //  Debug.Assert(true);
@@ -43,33 +44,37 @@ namespace Qhta.Serialization
       else
         qName = new XmlQualifiedName(aType.Name, ns);
       var aName = qName.ToString();
-      if (!KnownTypes.TryGetValue(aName, out var oldItem))
+      if (!KnownTypes.TryGetValue(aName, out var oldTypeInfo))
       {
-        var newItem = new SerializedTypeInfo { Type = aType };
-        if (!aType.IsAbstract)
+        var newTypeInfo = new SerializedTypeInfo { Type = aType, ElementName = aName };
+
+        if (!IsSimple(aType) && !aType.IsAbstract)
         {
           var constructor = aType.GetConstructor(new Type[0]);
           if (constructor == null)
             throw new InvalidOperationException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization.");
-          newItem.KnownConstructor = constructor;
+          newTypeInfo.KnownConstructor = constructor;
         }
-        KnownTypes.Add(aName, newItem);
-        newItem.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
-        newItem.PropsAsElements = GetPropsAsXmlElements(aType);
-        newItem.PropsAsArrays = GetPropsAsXmlArrays(aType);
-        foreach (var prop in newItem.PropsAsAttributes.Values)
+        KnownTypes.Add(aName, newTypeInfo);
+        newTypeInfo.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
+        newTypeInfo.PropsAsElements = GetPropsAsXmlElements(aType);
+        newTypeInfo.PropsAsArrays = GetPropsAsXmlArrays(aType);
+        newTypeInfo.KnownItems = GetKnownItems(aType, ns);
+        newTypeInfo.TypeConverter = GetTypeConverter(aType);
+        foreach (var prop in newTypeInfo.PropsAsAttributes.Values)
           AddKnownType(prop.GetType(), ns);
-        foreach (var prop in newItem.PropsAsElements.Values)
+        foreach (var prop in newTypeInfo.PropsAsElements.Values)
           AddKnownType(prop.GetType(), ns);
-        foreach (var prop in newItem.PropsAsArrays.Values)
+        foreach (var prop in newTypeInfo.PropsAsArrays.Values)
           AddKnownType(prop.GetType(), ns);
+        return newTypeInfo;
       }
       else
       {
-        var bType = oldItem.Type;
-        if (aType.FullName!=bType.FullName)
+        var bType = oldTypeInfo.Type;
+        if (aType.FullName != bType.FullName)
           throw new InvalidOperationException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type.");
-
+        return oldTypeInfo;
       }
     }
     #endregion
@@ -85,13 +90,13 @@ namespace Qhta.Serialization
 
     public abstract int WriteAttributesBase(object obj);
 
-    public abstract int WritePropertiesBase(string tag, object obj);
+    public abstract int WritePropertiesBase(string elementTag, object obj);
 
-    public abstract int WriteCollectionBase(string propTag, ICollection collection);
+    public abstract int WriteCollectionBase(string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes = null);
 
-    public abstract void WriteStartElement(string propTag);
+    public abstract void WriteStartElement(string elementTag);
 
-    public abstract void WriteEndElement(string propTag);
+    public abstract void WriteEndElement(string elementTag);
 
     public abstract void WriteAttributeString(string attrName, string valStr);
 
@@ -147,7 +152,7 @@ namespace Qhta.Serialization
     public virtual KnownPropertiesDictionary GetPropsAsXmlAttributes(Type aType)
     {
       var propList = new KnownPropertiesDictionary();
-      var props = aType.GetProperties().Where(item => item.CanWrite && item.CanRead 
+      var props = aType.GetProperties().Where(item => item.CanWrite && item.CanRead
         && item.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().Count() > 0).ToList();
       if (props.Count() == 0)
         return propList;
@@ -160,11 +165,11 @@ namespace Qhta.Serialization
           var attrName = xmlAttribute.AttributeName;
           if (string.IsNullOrEmpty(attrName))
             attrName = propInfo.Name;
-          if (Options.HasFlag(SerializationOptions.LowercaseAttributeName))
+          if (Options?.LowercaseAttributeName == true)
             attrName = LowercaseName(attrName);
 
           var order = ++n + 100;
-          if (xmlAttribute is XmlOrderedAttribute attr2 && attr2.Order > 0)
+          if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order > 0)
             order = attr2.Order;
           var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
           propList.Add(serializePropInfo);
@@ -189,7 +194,7 @@ namespace Qhta.Serialization
           var attrName = xmlAttribute.ElementName;
           if (string.IsNullOrEmpty(attrName))
             attrName = propInfo.Name;
-          if (Options.HasFlag(SerializationOptions.LowercasePropertyName))
+          if (Options?.LowercasePropertyName == true)
             attrName = LowercaseName(attrName);
 
           var order = ++n + 100;
@@ -218,7 +223,7 @@ namespace Qhta.Serialization
           var attrName = xmlAttribute.ElementName;
           if (string.IsNullOrEmpty(attrName))
             attrName = null;
-          if (Options.HasFlag(SerializationOptions.LowercasePropertyName))
+          if (Options?.LowercasePropertyName == true)
             attrName = LowercaseName(attrName);
 
           var order = ++n + 100;
@@ -231,7 +236,72 @@ namespace Qhta.Serialization
       return propList;
     }
 
-    public virtual bool IsSimpleValue(object propValue)
+    protected KnownTypesDictionary GetKnownItems(Type aType, string ns)
+    {
+      KnownTypesDictionary knownItems = null;
+      var itemTagAttributes = aType.GetCustomAttributes<XmlItemElementAttribute>(false);
+      if (itemTagAttributes.Count() > 0)
+      {
+        knownItems = new KnownTypesDictionary();
+        foreach (var itemTagAttribute in itemTagAttributes)
+        {
+          var itemType = itemTagAttribute.Type;
+          if (itemType == null)
+            itemType = typeof(object);
+          if (!KnownTypes.TryGetValue(itemType, out var itemTypeInfo))
+          {
+            itemTypeInfo = AddKnownType(itemType, ns);
+          }
+          if (!String.IsNullOrEmpty(itemTagAttribute.ElementName))
+            knownItems.Add(itemTagAttribute.ElementName, itemTypeInfo);
+          else
+          {
+            knownItems.Add(itemTypeInfo.ElementName, itemTypeInfo);
+          }
+        }
+      }
+      return knownItems;
+    }
+
+    protected TypeConverter GetTypeConverter(Type aType)
+    {
+      var typeConverterAttribute = aType.GetCustomAttribute<TypeConverterAttribute>();
+      if (typeConverterAttribute != null)
+      {
+        var converterTypeName = typeConverterAttribute.ConverterTypeName;
+        converterTypeName = converterTypeName.Split(',').FirstOrDefault();
+        var converterType = aType.Assembly.GetType(converterTypeName);
+        if (converterType != null)
+        {
+          var constructor = converterType.GetConstructor(new Type[0]);
+          var result = (TypeConverter)constructor.Invoke(new object[0]);
+          if (result.CanConvertTo(typeof(string)) && result.CanConvertFrom(typeof(string)))
+            return result;
+        }
+        //else
+        //{
+        //  foreach (var type in aType.Assembly.GetTypes())
+        //    Debug.WriteLine(type.FullName);
+        //}
+      }
+      return null;
+    }
+
+    public virtual bool IsSimple(Type aType)
+    {
+      bool isSimpleValue = false;
+      if (aType == typeof(string))
+        isSimpleValue = true;
+      else if (aType == typeof(bool))
+        isSimpleValue = true;
+      else if (aType == typeof(int))
+        isSimpleValue = true;
+      else if (aType.Name.StartsWith("`Nullable"))
+        return IsSimple(aType.GetGenericArguments().FirstOrDefault());
+      return isSimpleValue;
+    }
+
+    public virtual bool IsSimple(object propValue)
     {
       bool isSimpleValue = false;
       if (propValue is string)

@@ -12,9 +12,9 @@ namespace Qhta.Value.Converters
   public class ObjectConverter : TypeConverter
   {
 
-    public List<(string ass, string ns)> TypePaths { get; set; } 
+    public List<(string ass, string ns)> TypePaths { get; set; }
       = new List<(string ass, string ns)>
-        (new (string ass, string ns)[] { new("System.Runtime", "System" ) });
+        (new (string ass, string ns)[] { new("System.Runtime", "System") });
 
     public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
     {
@@ -26,7 +26,7 @@ namespace Qhta.Value.Converters
       if (value is string str)
       {
         if (!str.Contains('"'))
-          return '"'+str+'"';
+          return '"' + str + '"';
         if (!str.Contains('\''))
           return '\'' + str + '\'';
         return '"' + str.Replace("\"", "\\\"") + '"';
@@ -119,10 +119,12 @@ namespace Qhta.Value.Converters
           }
         }
       }
-      type = GetType(str);
-      if (type != null)
-        return type;
-
+      if (!String.IsNullOrEmpty(str))
+      {
+        type = GetType(str);
+        if (type != null)
+          return type;
+      }
       return value;
     }
 

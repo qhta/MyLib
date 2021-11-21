@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices.ComTypes;
 using System.Xml;
 using System.Xml.Serialization;
@@ -90,15 +92,15 @@ namespace Qhta.Serialization
     #region Write methods
     public override void WriteObject(object obj)
     {
-      string tag = obj.GetType().Name;
-      var xmlAttribute = obj.GetType().GetCustomAttributes(true).OfType<XmlRootAttribute>().FirstOrDefault();
-      if (xmlAttribute != null && xmlAttribute.ElementName != null)
-        tag = xmlAttribute.ElementName;
+      var aType = obj.GetType();
+      if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
+        throw new InvalidOperationException($"Type \"{aType}\" not registered");
+      var tag = serializedTypeInfo.ElementName;
       writer.WriteStartElement(tag);
       WriteAttributesBase(obj);
       WritePropertiesBase(tag, obj);
       if (obj is ICollection collection)
-        WriteCollectionBase(null, collection);
+        WriteCollectionBase(tag, null, collection);
       writer.WriteEndElement();
     }
 
@@ -133,7 +135,7 @@ namespace Qhta.Serialization
       return attrsWritten;
     }
 
-    public override int WritePropertiesBase(string tag, object obj)
+    public override int WritePropertiesBase(string elementTag, object obj)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
@@ -147,10 +149,11 @@ namespace Qhta.Serialization
       {
         var propInfo = item.PropInfo;
         string propTag = item.Name;
-        if (Options.HasFlag(SerializationOptions.PrecedePropertyNameWithElementName))
-          propTag = tag + "." + propTag;
+        if (elementTag != null)
+          if (Options?.PrecedePropertyNameWithElementName == true)
+            propTag = elementTag + "." + propTag;
         var propValue = propInfo.GetValue(obj);
-        if (propValue != null && !IsSimpleValue(propValue))
+        if (propValue != null && !IsSimple(propValue))
         {
           WriteStartElement(propTag);
           if (propValue is IXSerializable serializableValue)
@@ -166,8 +169,8 @@ namespace Qhta.Serialization
       {
         var propInfo = item.PropInfo;
         string propTag = item.Name;
-        if (Options.HasFlag(SerializationOptions.PrecedePropertyNameWithElementName))
-          propTag = tag + "." + propTag;
+        if (Options?.PrecedePropertyNameWithElementName == true)
+          propTag = elementTag + "." + propTag;
         var propValue = propInfo.GetValue(obj);
         if (propValue != null)
         {
@@ -185,10 +188,10 @@ namespace Qhta.Serialization
       {
         var propInfo = item.PropInfo;
         string propTag = item.Name;
-        if (propTag != null)
+        if (propTag != null && elementTag != null)
         {
-          if (Options.HasFlag(SerializationOptions.PrecedePropertyNameWithElementName))
-            propTag = tag + "." + propTag;
+          if (Options?.PrecedePropertyNameWithElementName == true)
+            propTag = elementTag + "." + propTag;
         }
         var propValue = propInfo.GetValue(obj);
         if (propValue != null)
@@ -198,7 +201,7 @@ namespace Qhta.Serialization
           else
           if (propValue is ICollection collection)
           {
-            WriteCollectionBase(propTag, collection);
+            WriteCollectionBase(null, propTag, collection);
           }
           propsWritten++;
         }
@@ -207,46 +210,98 @@ namespace Qhta.Serialization
     }
 
 
-    public override int WriteCollectionBase(string propTag, ICollection collection)
+    public override int WriteCollectionBase(string elementTag, string propTag, ICollection collection, KnownTypesDictionary itemTypes = null)
     {
-      if (!String.IsNullOrEmpty(propTag))
-        writer.WriteStartElement(propTag);
       int itemsWritten = 0;
-      foreach (var item in collection)
+      if (collection != null && collection.Count > 0)
       {
-        if (item != null)
+        if (itemTypes == null)
         {
-          if (item is IXSerializable serializableItem)
-            serializableItem.Serialize(this);
-          else if (item.GetType().Name.StartsWith("KeyValuePair`"))
+          var colType = collection.GetType();
+          if (KnownTypes.TryGetValue(colType, out var colTypeInfo))
+            itemTypes = colTypeInfo.KnownItems;
+        }
+        if (propTag != null && elementTag != null)
+        {
+          if (Options?.PrecedePropertyNameWithElementName == true)
+            propTag = elementTag + "." + propTag;
+        }
+
+        if (!String.IsNullOrEmpty(propTag))
+          writer.WriteStartElement(propTag);
+
+        foreach (var item in collection)
+        {
+          if (item != null)
           {
-            var keyProp = item.GetType().GetProperty("Key");
-            var valProp = item.GetType().GetProperty("Value");
-            if (keyProp != null && valProp != null)
+            var itemTag = Options.ItemTag ?? "item";
+            //if (IsSimpleValue(item))
+            //{
+            //  if (aTag != null)
+            //    WriteStartElement(aTag);
+            //  WriteObject(item);
+            //  if (aTag != null)
+            //    WriteEndElement(aTag);
+            //}
+            //else if (item is IXSerializable serializableItem)
+            //  serializableItem.Serialize(this);
+            //else 
+            if (item.GetType().Name.StartsWith("KeyValuePair`"))
             {
-              var key = keyProp.GetValue(item);
-              var val = valProp.GetValue(item);
-              if (key != null)
+              var keyProp = item.GetType().GetProperty("Key");
+              var valProp = item.GetType().GetProperty("Value");
+              if (keyProp != null && valProp != null)
               {
-                WriteStartElement("Item");
-                WriteAttributeString("key", key.ToString());
-                if (val is IXSerializable serializableVal)
-                  serializableVal.Serialize(this);
-                else if (val is string strVal)
-                  WriteValue(strVal);
-                else if (val != null)
-                  WriteObject(val);
-                WriteEndElement("Item");
+                var key = keyProp.GetValue(item);
+                var val = valProp.GetValue(item);
+                if (key != null)
+                {
+                  WriteStartElement(itemTag);
+                  WriteAttributeString("key", key.ToString());
+                  //if (val is string strVal)
+                  //  WriteValue(strVal);
+                  //else 
+                  if (val != null)
+                    SerializeObject(val);
+                  WriteEndElement(itemTag);
+                }
               }
             }
+            else
+            {
+              TypeConverter typeConverter = null;
+              if (itemTypes != null)
+              {
+                var itemType=item.GetType();
+                if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
+                {
+                  itemTypeInfo = itemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Value.Type)).Value;
+                }
+                if (itemTypeInfo != null)
+                {
+                  itemTag = itemTypes.FirstOrDefault(item => item.Value == itemTypeInfo).Key;
+                  if (itemTag == itemTypeInfo.ElementName)
+                    itemTag = null;
+                  typeConverter = itemTypeInfo.TypeConverter;
+                }
+              }
+              if (!String.IsNullOrEmpty(itemTag))
+                WriteStartElement(itemTag);
+              if (typeConverter != null)
+                WriteValue(typeConverter.ConvertToString(item));
+              else
+                SerializeObject(item);
+              if (!String.IsNullOrEmpty(itemTag))
+                WriteEndElement(itemTag);
+            }
+            itemsWritten++;
           }
-          itemsWritten++;
+          else
+            throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
         }
-        else
-          throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
+        if (!String.IsNullOrEmpty(propTag))
+          writer.WriteEndElement();
       }
-      if (!String.IsNullOrEmpty(propTag))
-        writer.WriteEndElement();
       return itemsWritten;
     }
 

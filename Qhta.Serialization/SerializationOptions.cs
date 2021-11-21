@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Qhta.Serialization
 {
-  [Flags]
-  public enum SerializationOptions
+  public class SerializationOptions
   {
-    LowercaseAttributeName = 1,
-    LowercasePropertyName = 2,
-    PrecedePropertyNameWithElementName = 4,
+    public bool LowercaseAttributeName { get; set; }
+    public bool LowercasePropertyName {  get; set; }
+    public bool PrecedePropertyNameWithElementName { get; set; }
+
+    public string ItemTag { get; set; }
   }
 }

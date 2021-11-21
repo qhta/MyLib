@@ -21,6 +21,12 @@ namespace Qhta.Serialization
   /// </summary>
   public interface IXSerializer
   {
+
+    /// <summary>
+    /// Collection of types registered at the beginning.
+    /// </summary>
+    KnownTypesDictionary KnownTypes { get; }
+
     /// <summary>
     /// Options used while serialization
     /// </summary>
@@ -67,20 +73,22 @@ namespace Qhta.Serialization
     /// and do not have simple values (string etc).
     /// </summary>
     /// <param name="obj">Any object to serialize its properties as XML elements</param>
-    /// <param name="elementName">XML element name to place before each property name 
+    /// <param name="elementTag">XML element name to place before each property name 
     /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
-    int WritePropertiesBase(string elementName, object obj);
+    int WritePropertiesBase(string elementTag, object obj);
 
     /// <summary>
     /// Write some collection as XML element with children.
     /// Each element is written as XML element.
-    /// The elements that have simple value (string etc) are written as "item1", "item2" elements
-    /// (according to <see cref="SerializationOptions"/>).
+    /// The elements that have simple value (string etc) are written as "item" elements
+    /// (according to <see cref="SerializationOptions.ItemTag"/> option).
     /// </summary>
     /// <param name="collection">Any object implementing <see cref="System.Collections.ICollection"/> interface</param>
-    /// <param name="elementName">XML element name to place before each property name 
+    /// <param name="elementTag">XML element name to place before collection tag 
     /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
-    int WriteCollectionBase(string elementName, ICollection collection);
+    /// <param name="collectionTag">XML element name to place before the whole collection.</param>
+    /// <param name="itemTypes">information about serializing items of the collection</param>
+    int WriteCollectionBase(string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes=null);
 
     /// <summary>
     /// Write XML element starting tag.
@@ -132,7 +140,7 @@ namespace Qhta.Serialization
     #endregion
 
     #region Helper methods
-    bool IsSimpleValue (object value);
+    bool IsSimple (object value);
 
     string LowercaseName (string name);
     #endregion

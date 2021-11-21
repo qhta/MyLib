@@ -2,6 +2,7 @@ D:\VS\Projects\MyLib\Qhta.Value.Converters\bin\Debug\net5.0\Qhta.Value.Converter
 D:\VS\Projects\MyLib\Qhta.Value.Converters\bin\Debug\net5.0\Qhta.Value.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Value.Converters\bin\Debug\net5.0\ref\Qhta.Value.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Value.Converters\bin\Debug\net5.0\Qhta.Value.Converters.pdb
+D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.GeneratedMSBuildEditorConfig.editorconfig
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.AssemblyInfo.cs
@@ -9,4 +10,3 @@ D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converter
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\ref\Qhta.Value.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.pdb
-D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net5.0\Qhta.Value.Converters.csproj.AssemblyReference.cache
