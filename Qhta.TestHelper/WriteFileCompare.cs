@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Qhta.TestHelper
 {
@@ -13,15 +14,24 @@ namespace Qhta.TestHelper
 
     public bool WriteContentIfEquals { get; set; }
 
-    public bool StopAfterFirstDiff { get; set; }
+    /// <summary>
+    /// How many differences to show before return.
+    /// </summary>
+    public int DiffLimit { get; set; }
 
-    public bool StopAfterManyDiff { get; set; }
 
-    public int DiffLimit { get; set; } = 10;
+    /// <summary>
+    /// What is the maximum distance to search for the same line when difference.
+    /// </summary>
+    public int SyncLimit { get; set; }
 
-    public int SynchronizationLimit { get; set; } = 10;
+    /// <summary>
+    /// What is the maximum number of same lines between two diffs to consider as a single diff.
+    /// </summary>
+    public int DiffGapLimit { get; set; }
 
     public string EqualityMsg { get; set; }
+
     public string InequalityMsg { get; set; }
   }
 
@@ -48,6 +58,15 @@ namespace Qhta.TestHelper
       int outIndex, expIndex;
       bool areEqual = true;
       int diffCount = 0;
+
+      int syncLimit = 0;
+      if (options != null)
+        syncLimit = options.SyncLimit;
+
+      int diffLimit = 0;
+      if (options != null)
+        diffLimit = options.DiffLimit;
+
       bool stopped = false;
       bool writeEqualLine = options != null && options.WriteContentIfEquals;
       bool writeToConsole = options != null || options.WriteToConsole;
@@ -63,13 +82,13 @@ namespace Qhta.TestHelper
             if (writeToConsole)
               Console.WriteLine(outLine);
             if (writeToDebug)
-              Debug.WriteLine("    "+ outLine);
+              Debug.WriteLine("    " + outLine);
           }
         }
         else
         {
           areEqual = false;
-          if (options != null && options.StopAfterFirstDiff)
+          if (syncLimit == 0)
           {
             if (writeToConsole)
             {
@@ -82,62 +101,21 @@ namespace Qhta.TestHelper
             }
             if (writeToDebug)
             {
-              Debug.WriteLine("out:" + outLine);
-              Debug.WriteLine("exp:" + expLine);
+              Debug.WriteLine("out1:" + outLine);
+              Debug.WriteLine("exp1:" + expLine);
             }
+          }
+          else
+          {
+            if (!TrySynchronize(outLines, ref outIndex, expLines, ref expIndex, syncLimit, options))
+              break;
+          }
+          diffCount++;
+          if (diffCount >= diffLimit)
+          {
             stopped = true;
             break;
           }
-          diffCount++;
-          if (options != null && options.StopAfterManyDiff)
-          {
-            int diffLimit = 10;
-            if (options.DiffLimit > 0)
-              diffLimit = options.DiffLimit;
-            if (diffCount >= diffLimit)
-            {
-              stopped = true;
-              break;
-            }
-          }
-          int syncLimit = 10;
-          if (options != null && options.SynchronizationLimit > 0)
-            syncLimit = options.SynchronizationLimit;
-          if (TrySynchronize(outLines, outIndex, expLines, expIndex, syncLimit, out int newOutIndex, out int newExpIndex))
-          {
-            var color = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (newOutIndex > outIndex)
-              do
-              {
-                if (writeToConsole)
-                  Console.WriteLine(outLines[outIndex]);
-                if (writeToDebug)
-                  Debug.WriteLine("out:" +outLines[outIndex]);
-                if (outIndex >= newOutIndex - 1)
-                  break;
-                outIndex++;
-              } while (true);
-            else
-              outIndex--;
-            Console.ForegroundColor = ConsoleColor.Green;
-            if (newExpIndex > expIndex)
-              do
-              {
-                if (writeToConsole)
-                  Console.WriteLine(expLines[expIndex]);
-                if (writeToDebug)
-                  Debug.WriteLine("exp:" + outLines[outIndex]);
-                if (expIndex >= newExpIndex - 1)
-                  break;
-                expIndex++;
-              } while (true);
-            else
-              expIndex--;
-            Console.ForegroundColor = color;
-          }
-          else
-            break;
         }
       }
       if (!stopped)
@@ -145,17 +123,17 @@ namespace Qhta.TestHelper
         if (outIndex < outLines.Count())
         {
           var color = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Red;
+          Console.ForegroundColor = ConsoleColor.Red;
           if (writeToConsole)
             Console.WriteLine(new string('-', 20));
           if (writeToDebug)
             Debug.WriteLine(new string('-', 20));
           for (; outIndex < outLines.Count(); outIndex++)
-          { 
+          {
             if (writeToConsole)
               Console.WriteLine(outLines[outIndex]);
             if (writeToDebug)
-              Debug.WriteLine("out:"+outLines[outIndex]);
+              Debug.WriteLine("out:" + outLines[outIndex]);
           }
           Console.ForegroundColor = color;
         }
@@ -168,7 +146,7 @@ namespace Qhta.TestHelper
           if (writeToDebug)
             Debug.WriteLine(new string('-', 20));
           for (; expIndex < expLines.Count(); expIndex++)
-          { 
+          {
             if (writeToConsole)
               Console.WriteLine(expLines[expIndex]);
             if (writeToDebug)
@@ -202,38 +180,127 @@ namespace Qhta.TestHelper
       return areEqual;
     }
 
-    private static bool TrySynchronize(string[] outLines, int outIndex, string[] expLines, int expIndex, int maxDist, out int newOutIndex, out int newExpIndex)
-    {
+    private static string EndOfDiffs = new string('-', 20);
 
-      int minOutIndex = int.MaxValue;
-      for (int i = expIndex; i < expLines.Count() && expIndex - i <= maxDist; i++)
+    private static bool TrySynchronize(string[] outLines, ref int outIndex, string[] expLines, ref int expIndex, int syncLimit, WriteCompareOptions options)
+    {
+      int gapLimit = 0;
+      if (options != null)
+        gapLimit = options.DiffGapLimit;
+      if (Synchronize(outLines, outIndex, expLines, expIndex, syncLimit, gapLimit, out int newOutIndex, out int newExpIndex))
       {
-        if (TryFindEqualLine(outLines, outIndex, expLines[i], maxDist, out var foundOutIndex))
-          if (foundOutIndex < minOutIndex)
-            minOutIndex = foundOutIndex;
+        bool writeToConsole = options != null || options.WriteToConsole;
+        bool writeToDebug = options != null || options.WriteToDebug;
+        string prefix = "   ";
+        var color = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        if (newOutIndex >= outIndex)
+        {
+          prefix = "out:";
+          do
+          {
+            if (writeToConsole)
+              Console.WriteLine(outLines[outIndex]);
+            if (writeToDebug)
+              Debug.WriteLine(prefix + outLines[outIndex]);
+            prefix = "    ";
+            if (outIndex >= newOutIndex - 1)
+              break;
+            outIndex++;
+          } while (true);
+        }
+        outIndex = newOutIndex - 1;
+        Console.ForegroundColor = ConsoleColor.Green;
+        if (newExpIndex >= expIndex)
+        {
+          prefix = "exp:";
+          do
+          {
+            if (writeToConsole)
+              Console.WriteLine(expLines[expIndex]);
+            if (writeToDebug)
+              Debug.WriteLine(prefix + expLines[expIndex]);
+            prefix = "    ";
+            if (expIndex >= newExpIndex - 1)
+              break;
+            expIndex++;
+          } while (true);
+        }
+        expIndex = newExpIndex - 1;
+        Console.ForegroundColor = color;
+        if (writeToConsole)
+          Console.WriteLine(EndOfDiffs);
+        if (writeToDebug)
+          Debug.WriteLine(EndOfDiffs);
+
+        return true;
       }
-      int minExpIndex = int.MaxValue;
-      for (int i = outIndex; i < outLines.Count() && expIndex - i <= maxDist; i++)
-      {
-        if (TryFindEqualLine(expLines, expIndex, outLines[i], maxDist, out var foundExpIndex))
-          if (foundExpIndex < minExpIndex)
-            minExpIndex = foundExpIndex;
-      }
+      return false;
+    }
+
+    private static bool Synchronize(string[] outLines, int outIndex, string[] expLines, int expIndex, int maxDist, int maxGap, out int newOutIndex, out int newExpIndex)
+    {
+      bool gapFound = false;
       bool found = false;
-      if (minOutIndex < int.MaxValue)
+      do
       {
-        found = true;
-        newOutIndex = minOutIndex;
-      }
-      else
-        newOutIndex = -1;
-      if (minExpIndex < int.MaxValue)
-      {
-        found = true;
-        newExpIndex = minExpIndex;
-      }
-      else
-        newExpIndex = -1;
+        int minOutIndex = int.MaxValue;
+        for (int i = expIndex; i < expLines.Count() && expIndex - i <= maxDist; i++)
+        {
+          if (TryFindEqualLine(outLines, outIndex, expLines[i], maxDist, out var foundOutIndex))
+            if (foundOutIndex < minOutIndex)
+              minOutIndex = foundOutIndex;
+        }
+        int minExpIndex = int.MaxValue;
+        for (int i = outIndex; i < outLines.Count() && expIndex - i <= maxDist; i++)
+        {
+          if (TryFindEqualLine(expLines, expIndex, outLines[i], maxDist, out var foundExpIndex))
+            if (foundExpIndex < minExpIndex)
+              minExpIndex = foundExpIndex;
+        }
+        if (minOutIndex < int.MaxValue)
+        {
+          found = true;
+          newOutIndex = minOutIndex;
+        }
+        else
+          newOutIndex = -1;
+        if (minExpIndex < int.MaxValue)
+        {
+          found = true;
+          newExpIndex = minExpIndex;
+        }
+        else
+          newExpIndex = -1;
+        gapFound = false;
+        if (found)
+        {
+          outIndex = newOutIndex;
+          expIndex = newExpIndex;
+          for (int i = 2; i <= maxGap; i++)
+          {
+            outIndex++;
+            expIndex++;
+            if (outIndex < outLines.Count() && expIndex < expLines.Count())
+            {
+              var outLine = outLines[outIndex];
+              var expLine = expLines[expIndex];
+              if (outLine.Trim() != expLine.Trim())
+              {
+                //outIndex--;
+                //expIndex--;
+                gapFound = true;
+                break;
+              }
+            }
+          }
+          if (gapFound)
+          {
+            newOutIndex = outIndex;
+            newExpIndex = expIndex;
+          }
+        }
+      } while (gapFound);
       return found;
     }
 
