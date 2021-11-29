@@ -81,7 +81,7 @@ namespace Qhta.TestHelper
         }
       var outNodes = outXml.Elements().ToList();
       var expNodes = expXml.Elements().ToList();
-      if (!AreEqual(outNodes.Count, outNodes.Count))
+      if (!AreEqual(outNodes.Count, expNodes.Count))
       { 
         ShowUnequalElements(outXml, expXml);
         return false;
