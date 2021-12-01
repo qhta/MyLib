@@ -47,56 +47,73 @@ namespace Qhta.TestHelper
       return areEqual;
     }
 
-    public bool CompareXmlElement(XElement outXml, XElement expXml)
+    public bool CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal = true)
     {
-      if (outXml.NodeType != expXml.NodeType)
+      if (outXml.NodeType != expXml.NodeType
+        || !AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName)
+        || !AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
       {
-        ShowUnequalElements(outXml, expXml);
+        if (showUnequal)
+          ShowUnequalElements(outXml, expXml);
         return false;
       }
-      if (!AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName))
+      if (!CompareXmlAttributes(outXml, expXml))
       {
-        ShowUnequalElements(outXml, expXml);
+        if (showUnequal)
+          ShowUnequalElements(outXml, expXml);
         return false;
       }
-      if (!AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
-      {
-        ShowUnequalElements(outXml, expXml);
-        return false;
+
+      var outNodes = outXml.Elements().ToList();
+      var expNodes = expXml.Elements().ToList();
+      int diffCount = 0;
+      bool areEqual = true;
+      int outNodesCount = outNodes.Count;
+      int expNodesCount = expNodes.Count;
+      for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
+      { 
+        if (!CompareXmlElement(outNodes[i], expNodes[i], outNodesCount==expNodesCount))
+        {
+          areEqual = false;
+          if (outNodesCount == expNodesCount)
+          {
+            diffCount++;
+            if (diffCount >= Options.DiffLimit)
+              return false;
+          }
+          else
+          {
+            if (showUnequal)
+            {
+              ShowLine(Options.StartOfDiffOut);
+              for (int j = i; j < outNodesCount; j++)
+                ShowXmlElement(outNodes[j], false, Options.SyncLimit);
+              ShowLine(Options.StartOfDiffExp);
+              for (int j = i; j < expNodesCount; j++)
+                ShowXmlElement(expNodes[j], true, Options.SyncLimit);
+              ShowLine(Options.EndOfDiffs);
+              return false;
+            }
+          }
+        }
       }
-      if (outXml.NodeType != System.Xml.XmlNodeType.Element)
-        return true;
+      return areEqual;
+    }
+
+    public bool CompareXmlAttributes(XElement outXml, XElement expXml)
+    {
       var outAttributes = outXml.Attributes().ToList();
       var expAttributes = expXml.Attributes().ToList();
-      if (!AreEqual(outAttributes.Count, outAttributes.Count))
+      if (!AreEqual(outAttributes.Count, expAttributes.Count))
       {
-        ShowUnequalElements(outXml, expXml);
         return false;
       }
       for (int i = 0; i < outAttributes.Count; i++)
         if (!CompareXmlAttribute(outAttributes[i], expAttributes[i]))
         {
-          ShowUnequalElements(outXml, expXml);
           return false;
         }
-      var outNodes = outXml.Elements().ToList();
-      var expNodes = expXml.Elements().ToList();
-      if (!AreEqual(outNodes.Count, expNodes.Count))
-      { 
-        ShowUnequalElements(outXml, expXml);
-        return false;
-      }
-      int diffCount = 0;
-      bool areEqual = true;
-      for (int i = 0; i < outNodes.Count; i++)
-        if (!CompareXmlElement(outNodes[i], expNodes[i]))
-        {
-          areEqual = false;
-          diffCount++;
-          if (diffCount >= Options.DiffLimit)
-            return false;
-        }
-      return areEqual;
+      return true;
     }
 
     public bool CompareXmlAttribute(XAttribute outXml, XAttribute expXml)
@@ -119,15 +136,19 @@ namespace Qhta.TestHelper
     public void ShowUnequalElements(XElement outXml, XElement expXml)
     {
       ShowLine(Options.StartOfDiffOut);
-      ShowXmlElement(outXml, false);
+      ShowXmlElement(outXml, false, Options.SyncLimit);
       ShowLine(Options.StartOfDiffExp);
-      ShowXmlElement(expXml, true);
+      ShowXmlElement(expXml, true, Options.SyncLimit);
       ShowLine(Options.EndOfDiffs);
     }
 
-    protected void ShowXmlElement(XElement element, bool? isExp = null)
+    protected void ShowXmlElement(XElement element, bool? isExp = null, int linesLimit=0)
     {
       var lines = ToStrings(element);
+      if (linesLimit > 0 && linesLimit < lines.Count())
+      {
+        lines = lines.AsSpan(0, linesLimit).ToArray().Append("...").ToArray();
+      }
       ShowLines(lines, isExp);
     }
 
@@ -139,10 +160,6 @@ namespace Qhta.TestHelper
         xmlWriter.Formatting = Formatting.Indented;
         element.WriteTo(xmlWriter);
         var lines = stringWriter.ToString().Split("\r\n");
-        if (Options.SyncLimit > 0 && Options.SyncLimit < lines.Count())
-        {
-          lines = lines.AsSpan(0, Options.SyncLimit).ToArray();
-        }
         return lines;
       }
     }
