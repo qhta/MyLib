@@ -338,6 +338,9 @@ namespace Qhta.Serialization
       WriteValue(value);
       WriteEndElement(propTag);
     }
+
+    public override string EncodeStringValue(string str)
+      => str.Replace("\t","&#9;");
     #endregion
 
     #region Deserialize methods

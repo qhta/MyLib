@@ -104,6 +104,9 @@ namespace Qhta.Serialization
 
     public abstract void WriteValue(string propTag, object value);
 
+    public abstract string EncodeStringValue(string str);
+
+
     #endregion
 
     #region Deserialize methods

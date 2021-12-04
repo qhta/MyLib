@@ -63,7 +63,6 @@ namespace Qhta.TestHelper
           ShowUnequalElements(outXml, expXml);
         return false;
       }
-
       var outNodes = outXml.Elements().ToList();
       var expNodes = expXml.Elements().ToList();
       int diffCount = 0;
@@ -97,6 +96,13 @@ namespace Qhta.TestHelper
           }
         }
       }
+      if (areEqual)
+        if (outXml.Value != expXml.Value)
+        {
+          if (showUnequal)
+            ShowUnequalElements(outXml, expXml);
+          return false;
+        }
       return areEqual;
     }
 
