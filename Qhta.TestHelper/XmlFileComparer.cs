@@ -114,12 +114,28 @@ namespace Qhta.TestHelper
       {
         return false;
       }
+      if (Options.IgnoreAttributesOrder)
+      {
+        outAttributes.Sort(CompareAttrName);
+        expAttributes.Sort(CompareAttrName);
+      }
       for (int i = 0; i < outAttributes.Count; i++)
         if (!CompareXmlAttribute(outAttributes[i], expAttributes[i]))
         {
           return false;
         }
       return true;
+    }
+
+    public int CompareAttrName(XAttribute attr1, XAttribute attr2)
+    {
+      var name1 = attr1.Name;
+      var name2 = attr2.Name;
+      var result = name1.Namespace.ToString().CompareTo(name2.Namespace.ToString());
+      if (result != 0)
+        return result;
+      result = name1.LocalName.ToString().CompareTo(name2.LocalName.ToString());
+      return result;
     }
 
     public bool CompareXmlAttribute(XAttribute outXml, XAttribute expXml)

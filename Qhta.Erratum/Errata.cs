@@ -54,7 +54,7 @@ namespace Qhta.Erratum
           reader.MoveToElement();
           string repl = null;
           int move = 0;
-          bool delete = false;
+          //bool delete = false;
           if (reader.IsStartElement("repl"))
           {
             reader.ReadStartElement();
@@ -79,7 +79,7 @@ namespace Qhta.Erratum
           else if (reader.IsStartElement("delete"))
           {
             reader.ReadStartElement();
-            delete = true;
+            //delete = true;
             reader.ReadEndElement(); // "delete"
           }
           reader.ReadEndElement(); // "line"

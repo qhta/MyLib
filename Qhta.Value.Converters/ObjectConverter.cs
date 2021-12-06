@@ -18,31 +18,36 @@ namespace Qhta.Value.Converters
 
     public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
     {
-      return destinationType == typeof(string);
+      if (destinationType == typeof(string))
+        return true;
+      return base.CanConvertTo(context, destinationType);
     }
 
     public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
     {
-      if (value is string str)
+      if (destinationType != typeof(string))
       {
-        if (!str.Contains('"'))
-          return '"' + str + '"';
-        if (!str.Contains('\''))
-          return '\'' + str + '\'';
-        return '"' + str.Replace("\"", "\\\"") + '"';
-      }
-      if (value is Type typeValue)
-        return typeValue.Name;
-      if (value is Array arrayValue)
-      {
-        var arrayType = value.GetType();
-        var itemType = arrayType.GetElementType();
-        var typeName = itemType.Name;
-        var itemStrs = new List<string>();
-        foreach (var item in arrayValue)
-          itemStrs.Add(ConvertToString(item));
-        var result = $"{typeName}[]{{{String.Join(",", itemStrs)}}}";
-        return result;
+        if (value is string str)
+        {
+          if (!str.Contains('"'))
+            return '"' + str + '"';
+          if (!str.Contains('\''))
+            return '\'' + str + '\'';
+          return '"' + str.Replace("\"", "\\\"") + '"';
+        }
+        if (value is Type typeValue)
+          return typeValue.Name;
+        if (value is Array arrayValue)
+        {
+          var arrayType = value.GetType();
+          var itemType = arrayType.GetElementType();
+          var typeName = itemType.Name;
+          var itemStrs = new List<string>();
+          foreach (var item in arrayValue)
+            itemStrs.Add(ConvertToString(item));
+          var result = $"{typeName}[]{{{String.Join(",", itemStrs)}}}";
+          return result;
+        }
       }
       return base.ConvertTo(context, culture, value, destinationType);
     }

@@ -23,10 +23,10 @@ namespace Qhta.TestHelper
     {
       line1 = line1.Trim();
       line2 = line2.Trim();
-      if (Options.CaseSensitive)
-        return line1.Equals(line2);
-      else
+      if (Options.IgnoreCase)
         return line1.Equals(line2, StringComparison.InvariantCultureIgnoreCase);
+      else
+        return line1.Equals(line2);
     }
 
     protected bool AreEqual(int? val1, int? val2)

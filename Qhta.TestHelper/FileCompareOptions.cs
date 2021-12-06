@@ -2,7 +2,9 @@
 {
   public class FileCompareOptions
   {
-    public bool CaseSensitive { get; set; } = true;
+    public bool IgnoreCase { get; set; } = false;
+
+    public bool IgnoreAttributesOrder { get; set; } = false;
 
     public bool WriteToConsole { get; set; } = true;
 
