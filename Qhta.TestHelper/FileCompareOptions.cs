@@ -31,9 +31,9 @@
 
     public string InequalityMsg { get; set; }
 
-    public string StartOfDiffOut { get; set; } = "--- out "+new string('-', 20);
+    public string StartOfDiffOut { get; set; } = "--- out " + new string('-', 20);
 
-    public string StartOfDiffExp { get; set; } = "--- exp "+new string('-', 20);
+    public string StartOfDiffExp { get; set; } = "--- exp " + new string('-', 20);
 
     public string EndOfDiffs { get; set; } = new string('=', 28);
 

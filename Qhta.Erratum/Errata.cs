@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -196,10 +195,10 @@ namespace Qhta.Erratum
             count = lines.Count - lineNum;
           else
             count = lineItem.Count;
-          for (int i = 0; i<count; i++)
+          for (int i = 0; i < count; i++)
           {
-            int lineNdx = lineNum+i;
-            if (lineItem.Repl==null)
+            int lineNdx = lineNum + i;
+            if (lineItem.Repl == null)
               lineNdx = lineNum + Count - i - 1;
             var aLine = lines[lineNdx] + "\n";
             bool found = aLine.IndexOf(find) >= 0;

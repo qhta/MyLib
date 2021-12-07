@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using System.Xml;
 
 namespace Qhta.Serialization
 {
-  public class KnownTypesDictionary: IDictionary<string, SerializedTypeInfo>
+  public class KnownTypesDictionary : IDictionary<string, SerializedTypeInfo>
   {
     private SortedDictionary<string, SerializedTypeInfo> StringIndexedItems = new SortedDictionary<string, SerializedTypeInfo>();
     private Dictionary<string, SerializedTypeInfo> TypeIndexedItems = new Dictionary<string, SerializedTypeInfo>();

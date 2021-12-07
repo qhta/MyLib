@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using System.Xml;
-using System.Xml.Linq;
 using System.Collections;
-using System.Diagnostics;
-using System.Collections.Specialized;
-using System.Reflection;
-using System.IO;
-using System.Runtime.Serialization;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Qhta.Serialization
 {

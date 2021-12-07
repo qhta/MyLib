@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Qhta.TestHelper
 {
@@ -33,7 +29,7 @@ namespace Qhta.TestHelper
     {
       if (val1 == null || val2 == null)
         return true;
-      return (int)val1==(int)val2;
+      return (int)val1 == (int)val2;
     }
 
 
@@ -69,7 +65,7 @@ namespace Qhta.TestHelper
 
     protected void ShowLine(string line, bool? isExp)
     {
-      ShowLines(new[] {line}, isExp);
+      ShowLines(new[] { line }, isExp);
     }
 
     protected void ShowLine(string msg)

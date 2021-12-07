@@ -3,7 +3,7 @@
 namespace Qhta.Serialization
 {
   [AttributeUsage(AttributeTargets.Class, Inherited = true)]
-  public class ContentPropertyAttribute: Attribute
+  public class ContentPropertyAttribute : Attribute
   {
     public ContentPropertyAttribute(string name)
     {

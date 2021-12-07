@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 using System;
 
 /// <summary>
@@ -16,7 +16,7 @@ namespace Qhta.Json.Converters
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-      return existingValue == null || (string)existingValue =="";
+      return existingValue == null || (string)existingValue == "";
     }
 
     public override bool CanWrite => false;

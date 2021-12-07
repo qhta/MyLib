@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Runtime.InteropServices.ComTypes;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -272,7 +267,7 @@ namespace Qhta.Serialization
               TypeConverter typeConverter = null;
               if (itemTypes != null)
               {
-                var itemType=item.GetType();
+                var itemType = item.GetType();
                 if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
                 {
                   itemTypeInfo = itemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Value.Type)).Value;
@@ -340,7 +335,7 @@ namespace Qhta.Serialization
     }
 
     public override string EncodeStringValue(string str)
-      => str.Replace("\t","&#9;");
+      => str.Replace("\t", "&#9;");
     #endregion
 
     #region Deserialize methods

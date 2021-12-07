@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Qhta.Serialization
 {
-  public class KnownPropertiesDictionary: ICollection<SerializedPropertyInfo>
+  public class KnownPropertiesDictionary : ICollection<SerializedPropertyInfo>
   {
     private static readonly PropOrderComparer propertyInfoOrderComparer = new PropOrderComparer();
 

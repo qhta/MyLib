@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using System.Xml;
-using System.Xml.Linq;
-using System.Collections;
-using System.Diagnostics;
-using System.Collections.Specialized;
-using System.Reflection.PortableExecutable;
-using System.Reflection;
+﻿using System.Collections;
 using System.IO;
-using System.Runtime.Serialization;
 
 namespace Qhta.Serialization
 {
@@ -88,7 +75,7 @@ namespace Qhta.Serialization
     /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
     /// <param name="collectionTag">XML element name to place before the whole collection.</param>
     /// <param name="itemTypes">information about serializing items of the collection</param>
-    int WriteCollectionBase(string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes=null);
+    int WriteCollectionBase(string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes = null);
 
     /// <summary>
     /// Write XML element starting tag.
@@ -140,9 +127,9 @@ namespace Qhta.Serialization
     #endregion
 
     #region Helper methods
-    bool IsSimple (object value);
+    bool IsSimple(object value);
 
-    string LowercaseName (string name);
+    string LowercaseName(string name);
     #endregion
   }
 }

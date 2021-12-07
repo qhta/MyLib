@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Qhta.TestHelper
 {
@@ -94,9 +91,9 @@ namespace Qhta.TestHelper
         {
           ShowLine(Options.StartOfDiffOut);
           int count = newOutIndex - outIndex;
-          if (count == 0) 
+          if (count == 0)
             count = 1;
-          else if (newExpIndex==expIndex && newOutIndex<outLines.Count()-1)
+          else if (newExpIndex == expIndex && newOutIndex < outLines.Count() - 1)
             count++;
           ShowLines(outLines.AsSpan(outIndex, count).ToArray(), false);
         }
@@ -105,7 +102,7 @@ namespace Qhta.TestHelper
         {
           ShowLine(Options.StartOfDiffExp);
           int count = newExpIndex - expIndex;
-          if (count == 0) 
+          if (count == 0)
             count = 1;
           else if (newOutIndex == outIndex && newExpIndex < expLines.Count() - 1)
             count++;
@@ -147,7 +144,7 @@ namespace Qhta.TestHelper
       }
       return found;
     }
-      protected bool TryFindEqualLine(string[] lines, int startIndex, string expLine, int maxDist, out int foundIndex)
+    protected bool TryFindEqualLine(string[] lines, int startIndex, string expLine, int maxDist, out int foundIndex)
     {
       for (foundIndex = startIndex; foundIndex < lines.Count() && foundIndex - startIndex <= maxDist; foundIndex++)
       {

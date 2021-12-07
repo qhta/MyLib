@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Xml.Linq;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Qhta.TestHelper
 {
@@ -70,8 +67,8 @@ namespace Qhta.TestHelper
       int outNodesCount = outNodes.Count;
       int expNodesCount = expNodes.Count;
       for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
-      { 
-        if (!CompareXmlElement(outNodes[i], expNodes[i], outNodesCount==expNodesCount))
+      {
+        if (!CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount))
         {
           areEqual = false;
           if (outNodesCount == expNodesCount)
@@ -164,7 +161,7 @@ namespace Qhta.TestHelper
       ShowLine(Options.EndOfDiffs);
     }
 
-    protected void ShowXmlElement(XElement element, bool? isExp = null, int linesLimit=0)
+    protected void ShowXmlElement(XElement element, bool? isExp = null, int linesLimit = 0)
     {
       var lines = ToStrings(element);
       if (linesLimit > 0 && linesLimit < lines.Count())

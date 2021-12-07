@@ -39,11 +39,11 @@ namespace Qhta.Json.Converters
             arrayResult.Add(item);
           }
           MethodInfo addObject = objectType.GetMethod("AddObject");
-          if (addObject!=null)
+          if (addObject != null)
           {
             object resultObj = objectType.GetConstructor(new Type[0]).Invoke(new object[0]);
             foreach (var arrayItem in arrayResult)
-              addObject.Invoke(resultObj, new object[]{ arrayItem });
+              addObject.Invoke(resultObj, new object[] { arrayItem });
             return resultObj;
           }
           return arrayResult;

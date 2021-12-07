@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 using System;
 using System.Diagnostics;
 
 namespace Qhta.Json.Converters
 {
-  public class JsonTypeConverter: JsonConverter
+  public class JsonTypeConverter : JsonConverter
   {
     public override bool CanConvert(Type objectType)
     {

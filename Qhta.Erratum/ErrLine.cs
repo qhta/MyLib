@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Qhta.Erratum
+﻿namespace Qhta.Erratum
 {
   public class ErrLine
   {
@@ -12,9 +6,9 @@ namespace Qhta.Erratum
 
     public int Count { get; internal set; } = 1;
 
-    public string Text {  get; internal set; }
-    
-    public string Repl {  get; internal set; }
+    public string Text { get; internal set; }
+
+    public string Repl { get; internal set; }
 
     public int Move { get; internal set; }
 
@@ -37,7 +31,7 @@ namespace Qhta.Erratum
 
     public ErrLine(int lineNo, string text, int move)
     {
-      Number=lineNo;
+      Number = lineNo;
       Text = text;
       Move = move;
     }
