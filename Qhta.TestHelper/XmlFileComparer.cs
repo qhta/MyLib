@@ -8,6 +8,18 @@ namespace Qhta.TestHelper
 {
   public class XmlFileComparer : FileComparer
   {
+    protected enum CompResult
+    {
+      areEqual,
+      nameDiff,
+      attrDiff,
+      elementDiff,
+      elementCountDiff,
+      valueDiff,
+    }
+
+    private int diffCount;
+
     public XmlFileComparer(FileCompareOptions options) : base(options)
     {
     }
@@ -16,7 +28,7 @@ namespace Qhta.TestHelper
     {
       XDocument outXml;
       XDocument expXml;
-
+      diffCount=0;
       using (TextReader aReader = File.OpenText(outFilename))
         outXml = XDocument.Load(aReader);
 
@@ -28,7 +40,7 @@ namespace Qhta.TestHelper
 
     public bool CompareXml(XDocument outXml, XDocument expXml)
     {
-      var areEqual = CompareXmlElement(outXml.Root, expXml.Root);
+      var areEqual = CompareXmlElement(outXml.Root, expXml.Root) == CompResult.areEqual;
       if (areEqual)
       {
         var msg = Options?.EqualityMsg;
@@ -44,63 +56,87 @@ namespace Qhta.TestHelper
       return areEqual;
     }
 
-    public bool CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal = true)
+    protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal = true)
     {
       if (outXml.NodeType != expXml.NodeType
         || !AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName)
         || !AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
       {
         if (showUnequal)
-          ShowUnequalElements(outXml, expXml);
-        return false;
+          ShowUnequalElements(outXml, expXml, 1);
+        return CompResult.nameDiff;
       }
       if (!CompareXmlAttributes(outXml, expXml))
       {
         if (showUnequal)
-          ShowUnequalElements(outXml, expXml);
-        return false;
+          ShowUnequalElements(outXml, expXml, 1);
+        return CompResult.attrDiff;
       }
       var outNodes = outXml.Elements().ToList();
       var expNodes = expXml.Elements().ToList();
-      int diffCount = 0;
-      bool areEqual = true;
       int outNodesCount = outNodes.Count;
       int expNodesCount = expNodes.Count;
+      bool areEqual = true;
       for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
       {
-        if (!CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount))
+        var result = CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount);
+        if (result != CompResult.areEqual)
         {
           areEqual = false;
           if (outNodesCount == expNodesCount)
           {
             diffCount++;
             if (diffCount >= Options.DiffLimit)
-              return false;
+              break;
           }
           else
           {
             if (showUnequal)
             {
+              int linesLimit = Options.SyncLimit;
               ShowLine(Options.StartOfDiffOut);
-              for (int j = i; j < outNodesCount; j++)
-                ShowXmlElement(outNodes[j], false, Options.SyncLimit);
+              for (int j = 0; j < linesLimit; j++)
+              {
+                var ndx = i + j;
+                if (ndx >= outNodesCount)
+                  break;
+                var linesShown = ShowXmlElement(outNodes[ndx], false, linesLimit);
+                linesLimit -= linesShown;
+                if (linesLimit<=0)
+                {
+                  ShowLine("...");
+                  break;
+                }
+              }
+              linesLimit = Options.SyncLimit;
               ShowLine(Options.StartOfDiffExp);
-              for (int j = i; j < expNodesCount; j++)
-                ShowXmlElement(expNodes[j], true, Options.SyncLimit);
-              ShowLine(Options.EndOfDiffs);
-              return false;
+              for (int j = 0; j < linesLimit; j++)
+              {
+                var ndx = i + j;
+                if (ndx >= expNodesCount)
+                  break;
+                var linesShown = ShowXmlElement(expNodes[ndx], true, linesLimit);
+                linesLimit -= linesShown;
+                if (linesLimit <= 0)
+                {
+                  ShowLine("...");
+                  break;
+                }
+              }
             }
+            return CompResult.elementCountDiff;
           }
         }
       }
-      if (areEqual)
-        if (outXml.Value != expXml.Value)
-        {
-          if (showUnequal)
-            ShowUnequalElements(outXml, expXml);
-          return false;
-        }
-      return areEqual;
+      if (!areEqual)
+        return CompResult.elementDiff;
+      if (outXml.Value != expXml.Value)
+      {
+        if (showUnequal)
+          ShowUnequalElements(outXml, expXml);
+        return CompResult.valueDiff;
+      }
+      return CompResult.areEqual;
     }
 
     public bool CompareXmlAttributes(XElement outXml, XElement expXml)
@@ -152,23 +188,33 @@ namespace Qhta.TestHelper
       return true;
     }
 
-    public void ShowUnequalElements(XElement outXml, XElement expXml)
+    public void ShowUnequalElements(XElement outXml, XElement expXml, int linesLimit = 0)
     {
+      if (linesLimit == 0)
+        linesLimit = Options.SyncLimit;
       ShowLine(Options.StartOfDiffOut);
-      ShowXmlElement(outXml, false, Options.SyncLimit);
+      ShowXmlElement(outXml, false, linesLimit);
       ShowLine(Options.StartOfDiffExp);
-      ShowXmlElement(expXml, true, Options.SyncLimit);
+      ShowXmlElement(expXml, true, linesLimit);
       ShowLine(Options.EndOfDiffs);
     }
 
-    protected void ShowXmlElement(XElement element, bool? isExp = null, int linesLimit = 0)
+    /// <returns>lines shown</returns>
+    protected int ShowXmlElement(XElement element, bool? isExpected = null, int linesLimit = 0)
     {
       var lines = ToStrings(element);
       if (linesLimit > 0 && linesLimit < lines.Count())
       {
-        lines = lines.AsSpan(0, linesLimit).ToArray().Append("...").ToArray();
+        if (linesLimit == 1)
+        {
+          lines = lines.AsSpan(0, 1).ToArray();
+          lines[0] += "...";
+        }
+        else
+          lines = lines.AsSpan(0, linesLimit).ToArray().Append("...").ToArray();
       }
-      ShowLines(lines, isExp);
+      ShowLines(lines, isExpected);
+      return lines.Count();
     }
 
     protected string[] ToStrings(XElement element)

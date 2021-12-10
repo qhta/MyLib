@@ -38,13 +38,13 @@ namespace Qhta.TestHelper
       return val1 == val2;
     }
 
-    protected void ShowLines(string[] lines, bool? isExp = null)
+    protected void ShowLines(string[] lines, bool? isExpected = null)
     {
       if (Options.WriteToConsole)
       {
-        if (isExp != null)
+        if (isExpected != null)
         {
-          if ((bool)isExp)
+          if ((bool)isExpected)
             Console.ForegroundColor = ConsoleColor.Green;
           else
             Console.ForegroundColor = ConsoleColor.Red;
