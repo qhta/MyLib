@@ -6,10 +6,6 @@
 
     public bool IgnoreAttributesOrder { get; set; } = false;
 
-    public bool WriteToConsole { get; set; } = true;
-
-    public bool WriteToDebug { get; set; } = true;
-
     public bool WriteContentIfEquals { get; set; }
 
     /// <summary>

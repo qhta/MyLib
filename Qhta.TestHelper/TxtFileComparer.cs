@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -7,7 +8,9 @@ namespace Qhta.TestHelper
 
   public class TxtFileComparer : FileComparer
   {
-    public TxtFileComparer(FileCompareOptions options) : base(options) { }
+    public TxtFileComparer(FileCompareOptions options, TextWriterTraceListener listener) : base(options, listener)
+    {
+    }
 
     public override bool CompareFiles(string outFilename, string expFilename)
     {

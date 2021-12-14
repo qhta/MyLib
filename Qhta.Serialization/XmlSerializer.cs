@@ -10,7 +10,7 @@ namespace Qhta.Serialization
 {
   public class XmlSerializer : BaseSerializer
   {
-    private XmlWriter writer { get; set; }
+    //private XmlWriter writer { get; set; }
 
     private XmlReader reader { get; set; }
 
@@ -32,7 +32,7 @@ namespace Qhta.Serialization
     #region Serialize methods
     public override void Serialize(Stream stream, object obj)
     {
-      using (XmlWriter xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
+      using (QXmlWriter xmlWriter = new QXmlWriter(new StreamWriter(stream)))
       {
         Serialize(xmlWriter, obj);
       }
@@ -41,65 +41,57 @@ namespace Qhta.Serialization
 
     public override void Serialize(TextWriter textWriter, object obj)
     {
-      using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings { Indent = true }))
+      using (QXmlWriter xmlWriter = new QXmlWriter(textWriter))
       {
         Serialize(xmlWriter, obj);
       }
     }
 
-    public void Serialize(XmlWriter xmlWriter, object obj)
+    public void Serialize(IXWriter writer, object obj)
     {
-      try
+      if (obj is IXSerializable serializableItem)
       {
-        writer = xmlWriter;
-        if (obj is IXSerializable serializableItem)
-        {
-          serializableItem.Serialize(this);
-        }
-        else if (obj != null)
-        {
-          WriteObject(obj);
-        }
-      }
-      finally
-      {
-        writer = null;
-      }
-    }
-
-    public void SerializeObject(object obj)
-    {
-      if (obj is IXSerializable qSerializable)
-      {
-        qSerializable.Serialize(this);
-      }
-      else if (obj is IXmlSerializable xmlSerializable)
-      {
-        xmlSerializable.WriteXml(writer);
+        serializableItem.Serialize(this, writer);
       }
       else if (obj != null)
       {
-        WriteObject(obj);
+        WriteObject(writer, obj);
+      }
+    }
+
+    public void SerializeObject(IXWriter writer, object obj)
+    {
+      if (obj is IXSerializable qSerializable)
+      {
+        qSerializable.Serialize(this, writer);
+      }
+      else if (obj is IXmlSerializable xmlSerializable)
+      {
+        //xmlSerializable.WriteXml(writer);
+      }
+      else if (obj != null)
+      {
+        WriteObject(writer, obj);
       }
     }
     #endregion
 
     #region Write methods
-    public override void WriteObject(object obj)
+    public override void WriteObject(IXWriter writer, object obj)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
         throw new InvalidOperationException($"Type \"{aType}\" not registered");
       var tag = serializedTypeInfo.ElementName;
       writer.WriteStartElement(tag);
-      WriteAttributesBase(obj);
-      WritePropertiesBase(tag, obj);
+      WriteAttributesBase(writer, obj);
+      WritePropertiesBase(writer, tag, obj);
       if (obj is ICollection collection)
-        WriteCollectionBase(tag, null, collection);
-      writer.WriteEndElement();
+        WriteCollectionBase(writer, tag, null, collection);
+      writer.WriteEndElement(tag);
     }
 
-    public override int WriteAttributesBase(object obj)
+    public override int WriteAttributesBase(IXWriter writer, object obj)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
@@ -130,7 +122,7 @@ namespace Qhta.Serialization
       return attrsWritten;
     }
 
-    public override int WritePropertiesBase(string elementTag, object obj)
+    public override int WritePropertiesBase(IXWriter writer, string elementTag, object obj)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
@@ -150,12 +142,12 @@ namespace Qhta.Serialization
         var propValue = propInfo.GetValue(obj);
         if (propValue != null && !IsSimple(propValue))
         {
-          WriteStartElement(propTag);
+          WriteStartElement(writer,propTag);
           if (propValue is IXSerializable serializableValue)
-            serializableValue.Serialize(this);
+            serializableValue.Serialize(this, writer);
           else
-            WriteValue(propValue.ToString());
-          WriteEndElement(propTag);
+            WriteValue(writer, propValue.ToString());
+          WriteEndElement(writer, propTag);
           propsWritten++;
         }
       }
@@ -169,12 +161,12 @@ namespace Qhta.Serialization
         var propValue = propInfo.GetValue(obj);
         if (propValue != null)
         {
-          WriteStartElement(propTag);
+          WriteStartElement(writer, propTag);
           if (propValue is IXSerializable serializableValue)
-            serializableValue.Serialize(this);
+            serializableValue.Serialize(this, writer);
           else
-            WriteValue(propValue.ToString());
-          WriteEndElement(propTag);
+            WriteValue(writer, propValue.ToString());
+          WriteEndElement(writer, propTag);
           propsWritten++;
         }
       }
@@ -192,11 +184,11 @@ namespace Qhta.Serialization
         if (propValue != null)
         {
           if (propValue is IXSerializable serializableValue)
-            serializableValue.Serialize(this);
+            serializableValue.Serialize(this, writer);
           else
           if (propValue is ICollection collection)
           {
-            WriteCollectionBase(null, propTag, collection);
+            WriteCollectionBase(writer, null, propTag, collection);
           }
           propsWritten++;
         }
@@ -205,7 +197,7 @@ namespace Qhta.Serialization
     }
 
 
-    public override int WriteCollectionBase(string elementTag, string propTag, ICollection collection, KnownTypesDictionary itemTypes = null)
+    public override int WriteCollectionBase(IXWriter writer, string elementTag, string propTag, ICollection collection, KnownTypesDictionary itemTypes = null)
     {
       int itemsWritten = 0;
       if (collection != null && collection.Count > 0)
@@ -251,14 +243,14 @@ namespace Qhta.Serialization
                 var val = valProp.GetValue(item);
                 if (key != null)
                 {
-                  WriteStartElement(itemTag);
-                  WriteAttributeString("key", key.ToString());
+                  WriteStartElement(writer, itemTag);
+                  WriteAttributeString(writer, "key", key.ToString());
                   //if (val is string strVal)
                   //  WriteValue(strVal);
                   //else 
                   if (val != null)
-                    SerializeObject(val);
-                  WriteEndElement(itemTag);
+                    SerializeObject(writer, val);
+                  WriteEndElement(writer, itemTag);
                 }
               }
             }
@@ -281,13 +273,13 @@ namespace Qhta.Serialization
                 }
               }
               if (!String.IsNullOrEmpty(itemTag))
-                WriteStartElement(itemTag);
+                WriteStartElement(writer, itemTag);
               if (typeConverter != null)
-                WriteValue(typeConverter.ConvertToString(item));
+                WriteValue(writer, typeConverter.ConvertToString(item));
               else
-                SerializeObject(item);
+                SerializeObject(writer, item);
               if (!String.IsNullOrEmpty(itemTag))
-                WriteEndElement(itemTag);
+                WriteEndElement(writer,itemTag);
             }
             itemsWritten++;
           }
@@ -295,27 +287,27 @@ namespace Qhta.Serialization
             throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
         }
         if (!String.IsNullOrEmpty(propTag))
-          writer.WriteEndElement();
+          writer.WriteEndElement(propTag);
       }
       return itemsWritten;
     }
 
-    public override void WriteStartElement(string propTag)
+    public override void WriteStartElement(IXWriter writer, string propTag)
     {
       writer.WriteStartElement(propTag);
     }
 
-    public override void WriteEndElement(string propTag)
+    public override void WriteEndElement(IXWriter writer, string propTag)
     {
-      writer.WriteEndElement();
+      writer.WriteEndElement(propTag);
     }
 
-    public override void WriteAttributeString(string attrName, string valStr)
+    public override void WriteAttributeString(IXWriter writer, string attrName, string valStr)
     {
       writer.WriteAttributeString(attrName, valStr);
     }
 
-    public override void WriteValue(object value)
+    public override void WriteValue(IXWriter writer, object value)
     {
       if (value is string valStr)
         writer.WriteValue(valStr);
@@ -324,14 +316,14 @@ namespace Qhta.Serialization
       else if (value is int)
         writer.WriteValue(value.ToString().ToLower());
       else if (value is IXSerializable qSerializable)
-        qSerializable.Serialize(this);
+        qSerializable.Serialize(this, writer);
     }
 
-    public override void WriteValue(string propTag, object value)
+    public override void WriteValue(IXWriter writer, string propTag, object value)
     {
-      WriteStartElement(propTag);
-      WriteValue(value);
-      WriteEndElement(propTag);
+      WriteStartElement(writer, propTag);
+      WriteValue(writer, value);
+      WriteEndElement(writer, propTag);
     }
 
     public override string EncodeStringValue(string str)

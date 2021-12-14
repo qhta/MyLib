@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -20,7 +21,7 @@ namespace Qhta.TestHelper
 
     private int diffCount;
 
-    public XmlFileComparer(FileCompareOptions options) : base(options)
+    public XmlFileComparer(FileCompareOptions options, TextWriterTraceListener listener) : base(options, listener)
     {
     }
 

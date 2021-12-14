@@ -7,10 +7,12 @@ namespace Qhta.TestHelper
   public abstract class FileComparer
   {
     protected FileCompareOptions Options { get; init; }
+    protected TextWriterTraceListener Listener {get; init; }
 
-    public FileComparer(FileCompareOptions options)
+    public FileComparer(FileCompareOptions options, TextWriterTraceListener listener = null)
     {
       Options = options;
+      Listener = listener;
     }
 
     public abstract bool CompareFiles(string outFilename, string expFilename);
@@ -40,26 +42,10 @@ namespace Qhta.TestHelper
 
     protected void ShowLines(string[] lines, bool? isExpected = null)
     {
-      if (Options.WriteToConsole)
+      foreach (var line in lines)
       {
-        if (isExpected != null)
-        {
-          if ((bool)isExpected)
-            Console.ForegroundColor = ConsoleColor.Green;
-          else
-            Console.ForegroundColor = ConsoleColor.Red;
-        }
-        else
-          Console.ResetColor();
-        foreach (var line in lines)
-        {
-          if (Options.WriteToConsole)
-            Console.WriteLine(line);
-          if (Options.WriteToDebug)
-            Debug.WriteLine(line);
-        }
-        if (Options.WriteToConsole)
-          Console.ResetColor();
+        if (Listener != null)
+          Listener.WriteLine(line);
       }
     }
 
@@ -70,15 +56,8 @@ namespace Qhta.TestHelper
 
     protected void ShowLine(string msg)
     {
-      if (Options.WriteToConsole)
-      {
-        Console.ResetColor();
-        Console.WriteLine(msg);
-      }
-      if (Options.WriteToDebug)
-      {
-        Debug.WriteLine(msg);
-      }
+      if (Listener != null)
+        Listener.WriteLine(msg);
     }
   }
 }

@@ -79,23 +79,23 @@ namespace Qhta.Serialization
     #endregion
 
     #region Write methods
-    public abstract void WriteObject(object obj);
+    public abstract void WriteObject(IXWriter writer, object obj);
 
-    public abstract int WriteAttributesBase(object obj);
+    public abstract int WriteAttributesBase(IXWriter writer, object obj);
 
-    public abstract int WritePropertiesBase(string elementTag, object obj);
+    public abstract int WritePropertiesBase(IXWriter writer, string elementTag, object obj);
 
-    public abstract int WriteCollectionBase(string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes = null);
+    public abstract int WriteCollectionBase(IXWriter writer, string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes = null);
 
-    public abstract void WriteStartElement(string elementTag);
+    public abstract void WriteStartElement(IXWriter writer, string elementTag);
 
-    public abstract void WriteEndElement(string elementTag);
+    public abstract void WriteEndElement(IXWriter writer, string elementTag);
 
-    public abstract void WriteAttributeString(string attrName, string valStr);
+    public abstract void WriteAttributeString(IXWriter writer, string attrName, string valStr);
 
-    public abstract void WriteValue(object value);
+    public abstract void WriteValue(IXWriter writer, object value);
 
-    public abstract void WriteValue(string propTag, object value);
+    public abstract void WriteValue(IXWriter writer, string propTag, object value);
 
     public abstract string EncodeStringValue(string str);
 

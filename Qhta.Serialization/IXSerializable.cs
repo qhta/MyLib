@@ -2,7 +2,7 @@
 {
   public interface IXSerializable
   {
-    void Serialize(IXSerializer serializer);
+    void Serialize(IXSerializer serializer, IXWriter writer);
     void Deserialize(IXSerializer baseSerializer);
   }
 }
