@@ -17,14 +17,14 @@ namespace Qhta.Value.Converters
 
     public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
     {
-      if (destinationType == typeof(string))
+      //if (destinationType == typeof(string))
         return true;
-      return base.CanConvertTo(context, destinationType);
+      //return base.CanConvertTo(context, destinationType);
     }
 
     public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
     {
-      if (destinationType != typeof(string))
+      if (destinationType == typeof(string))
       {
         if (value is string str)
         {
@@ -48,6 +48,9 @@ namespace Qhta.Value.Converters
           return result;
         }
       }
+      var constructor = destinationType.GetConstructor(new Type[] { value.GetType() });
+      if (constructor != null)
+        return constructor.Invoke(new object[] { value });
       return base.ConvertTo(context, culture, value, destinationType);
     }
 

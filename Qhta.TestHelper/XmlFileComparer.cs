@@ -29,7 +29,7 @@ namespace Qhta.TestHelper
     {
       XDocument outXml;
       XDocument expXml;
-      diffCount=0;
+      diffCount = 0;
       using (TextReader aReader = File.OpenText(outFilename))
         outXml = XDocument.Load(aReader);
 
@@ -59,6 +59,8 @@ namespace Qhta.TestHelper
 
     protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal = true)
     {
+      //if (outXml.Name=="LinkText")
+      //  Debug.Assert(true);
       if (outXml.NodeType != expXml.NodeType
         || !AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName)
         || !AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
@@ -77,7 +79,7 @@ namespace Qhta.TestHelper
       var expNodes = expXml.Elements().ToList();
       int outNodesCount = outNodes.Count;
       int expNodesCount = expNodes.Count;
-      bool areEqual = true;
+      bool areEqual = outNodesCount == expNodesCount;
       for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
       {
         var result = CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount);
@@ -92,7 +94,7 @@ namespace Qhta.TestHelper
           }
           else
           {
-            if (showUnequal)
+            if (showUnequal && result != CompResult.elementCountDiff && result != CompResult.elementDiff)
             {
               int linesLimit = Options.SyncLimit;
               ShowLine(Options.StartOfDiffOut);
@@ -103,7 +105,7 @@ namespace Qhta.TestHelper
                   break;
                 var linesShown = ShowXmlElement(outNodes[ndx], false, linesLimit);
                 linesLimit -= linesShown;
-                if (linesLimit<=0)
+                if (linesLimit <= 0)
                 {
                   ShowLine("...");
                   break;
@@ -124,13 +126,22 @@ namespace Qhta.TestHelper
                   break;
                 }
               }
+              ShowLine(Options.EndOfDiffs);
             }
-            return CompResult.elementCountDiff;
+            return CompResult.elementDiff;
           }
         }
       }
       if (!areEqual)
+      {
+        if (outNodesCount != expNodesCount)
+        {
+          if (showUnequal)
+            ShowUnequalElements(outXml, expXml);
+          return CompResult.elementCountDiff;
+        }
         return CompResult.elementDiff;
+      }
       if (outXml.Value != expXml.Value)
       {
         if (showUnequal)
