@@ -8,7 +8,6 @@ namespace Qhta.TestHelper
   {
     ConsoleColor ForegroundColor {get; set; }
     ConsoleColor BackgroundColor { get; set; }
-
     void ResetColor();
 
     void Write(string str);
