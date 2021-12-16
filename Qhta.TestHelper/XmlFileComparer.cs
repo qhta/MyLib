@@ -21,7 +21,7 @@ namespace Qhta.TestHelper
 
     private int diffCount;
 
-    public XmlFileComparer(FileCompareOptions options, TextWriterTraceListener listener) : base(options, listener)
+    public XmlFileComparer(FileCompareOptions options, ITraceWriter listener) : base(options, listener)
     {
     }
 
@@ -59,8 +59,6 @@ namespace Qhta.TestHelper
 
     protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal = true)
     {
-      //if (outXml.Name=="LinkText")
-      //  Debug.Assert(true);
       if (outXml.NodeType != expXml.NodeType
         || !AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName)
         || !AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
@@ -98,6 +96,7 @@ namespace Qhta.TestHelper
             {
               int linesLimit = Options.SyncLimit;
               ShowLine(Options.StartOfDiffOut);
+              Listener.ForegroundColor = ConsoleColor.Red;
               for (int j = 0; j < linesLimit; j++)
               {
                 var ndx = i + j;
@@ -112,7 +111,9 @@ namespace Qhta.TestHelper
                 }
               }
               linesLimit = Options.SyncLimit;
+              Listener.ResetColor();
               ShowLine(Options.StartOfDiffExp);
+              Listener.ForegroundColor = ConsoleColor.Green;
               for (int j = 0; j < linesLimit; j++)
               {
                 var ndx = i + j;
@@ -126,6 +127,7 @@ namespace Qhta.TestHelper
                   break;
                 }
               }
+              Listener.ResetColor();
               ShowLine(Options.EndOfDiffs);
             }
             return CompResult.elementDiff;
@@ -191,10 +193,10 @@ namespace Qhta.TestHelper
         return false;
       if (!AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
         return false;
-      if (outXml.NodeType != System.Xml.XmlNodeType.Element)
+      if (outXml.NodeType != System.Xml.XmlNodeType.Attribute)
         return true;
       var outValue = outXml.Value;
-      var expValue = outXml.Value;
+      var expValue = expXml.Value;
       if (!AreEqual(outValue, expValue))
         return false;
       return true;
@@ -205,9 +207,13 @@ namespace Qhta.TestHelper
       if (linesLimit == 0)
         linesLimit = Options.SyncLimit;
       ShowLine(Options.StartOfDiffOut);
+      Listener.ForegroundColor = ConsoleColor.Red;
       ShowXmlElement(outXml, false, linesLimit);
+      Listener.ResetColor();
       ShowLine(Options.StartOfDiffExp);
+      Listener.ForegroundColor = ConsoleColor.Green;
       ShowXmlElement(expXml, true, linesLimit);
+      Listener.ResetColor();
       ShowLine(Options.EndOfDiffs);
     }
 

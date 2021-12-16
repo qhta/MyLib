@@ -8,7 +8,7 @@ namespace Qhta.TestHelper
 
   public class TxtFileComparer : FileComparer
   {
-    public TxtFileComparer(FileCompareOptions options, TextWriterTraceListener listener) : base(options, listener)
+    public TxtFileComparer(FileCompareOptions options, ITraceWriter listener) : base(options, listener)
     {
     }
 
@@ -93,23 +93,27 @@ namespace Qhta.TestHelper
         if (newOutIndex >= outIndex)
         {
           ShowLine(Options.StartOfDiffOut);
+          Listener.ForegroundColor = ConsoleColor.Red;
           int count = newOutIndex - outIndex;
           if (count == 0)
             count = 1;
           else if (newExpIndex == expIndex && newOutIndex < outLines.Count() - 1)
             count++;
           ShowLines(outLines.AsSpan(outIndex, count).ToArray(), false);
+          Listener.ResetColor();
         }
         outIndex = newOutIndex - 1;
         if (newExpIndex >= expIndex)
         {
           ShowLine(Options.StartOfDiffExp);
+          Listener.ForegroundColor = ConsoleColor.Green;
           int count = newExpIndex - expIndex;
           if (count == 0)
             count = 1;
           else if (newOutIndex == outIndex && newExpIndex < expLines.Count() - 1)
             count++;
           ShowLines(expLines.AsSpan(expIndex, count).ToArray(), true);
+          Listener.ResetColor();
         }
         expIndex = newExpIndex - 1;
         ShowLine(Options.EndOfDiffs);

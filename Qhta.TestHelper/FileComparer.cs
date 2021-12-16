@@ -7,9 +7,9 @@ namespace Qhta.TestHelper
   public abstract class FileComparer
   {
     protected FileCompareOptions Options { get; init; }
-    protected TextWriterTraceListener Listener {get; init; }
+    protected ITraceWriter Listener {get; init; }
 
-    public FileComparer(FileCompareOptions options, TextWriterTraceListener listener = null)
+    public FileComparer(FileCompareOptions options, ITraceWriter listener = null)
     {
       Options = options;
       Listener = listener;
@@ -56,8 +56,7 @@ namespace Qhta.TestHelper
 
     protected void ShowLine(string msg)
     {
-      if (Listener != null)
-        Listener.WriteLine(msg);
+      Listener?.WriteLine(msg);
     }
   }
 }
