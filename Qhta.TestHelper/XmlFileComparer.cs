@@ -211,7 +211,7 @@ namespace Qhta.TestHelper
       ShowLine(Options.EndOfDiffs);
     }
 
-    /// <returns>lines shown</returns>
+    /// <returns>number of lines shown</returns>
     protected int ShowXmlElement(XElement element, bool? isExpected = null, int linesLimit = 0)
     {
       var lines = ToStrings(element);

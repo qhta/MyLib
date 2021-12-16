@@ -42,7 +42,7 @@
           "dependencies": {
             "System.CodeDom": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[6.0.0, )"
             },
             "System.Collections.Specialized": {
               "target": "Package",
@@ -50,7 +50,7 @@
             },
             "System.Security.Permissions": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[6.0.0, )"
             }
           },
           "imports": [
