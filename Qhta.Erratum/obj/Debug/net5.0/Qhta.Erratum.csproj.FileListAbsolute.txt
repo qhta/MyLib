@@ -10,3 +10,6 @@ D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.csproj.CoreCompi
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\ref\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.pdb
+D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.TestHelper.pdb
+D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.csproj.CopyComplete

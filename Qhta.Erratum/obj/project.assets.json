@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "Qhta.TestHelper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Qhta.TestHelper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TestHelper.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Qhta.TestHelper/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.TestHelper/Qhta.TestHelper.csproj",
+      "msbuildProject": "../Qhta.TestHelper/Qhta.TestHelper.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "Qhta.TestHelper >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

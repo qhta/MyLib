@@ -2,15 +2,31 @@
 {
   public class ErrLine
   {
-    public int Number { get; internal set; }
+    /// <summary>
+    /// Number of the line in a file
+    /// </summary>
+    public int Number { get; init; }
 
-    public int Count { get; internal set; } = 1;
+    /// <summary>
+    /// How many lines are changed in one operation.
+    /// Usually 1.
+    /// </summary>
+    public int Count { get; init; } = 1;
 
-    public string Text { get; internal set; }
+    /// <summary>
+    /// A text to search.
+    /// </summary>
+    public string Text { get; init; }
 
-    public string Repl { get; internal set; }
+    /// <summary>
+    /// A text to replace
+    /// </summary>
+    public string Repl { get; init; }
 
-    public int Move { get; internal set; }
+    /// <summary>
+    /// Move distance.
+    /// </summary>
+    public int Move { get; init; }
 
     public ErrLine() { }
 
