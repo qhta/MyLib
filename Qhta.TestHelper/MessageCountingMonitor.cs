@@ -16,24 +16,38 @@ namespace Qhta.TestHelper
 
     private string Filename { get; init; }
 
-    private static SortedDictionary<string, SortedDictionary<String, int>> Messages = new SortedDictionary<string, SortedDictionary<string, int>>();
+    private SortedDictionary<string, SortedDictionary<String, int>> Messages = new SortedDictionary<string, SortedDictionary<string, int>>();
+
+    public bool WasNotified(string msg, [CallerMemberName] string? callerName = null)
+    {
+      lock (this)
+      {
+        if (callerName == null)
+          callerName = string.Empty;
+        if (Messages.TryGetValue(callerName, out var messagesForCaller))
+        {
+          if (messagesForCaller.TryGetValue(msg, out var delimiterCounter))
+            return true;
+        }
+      }
+      return false;
+    }
 
     public void Notify(string msg, [CallerMemberName] string? callerName = null)
     {
       lock (this)
       {
-        if (callerName != null)
+        if (callerName == null)
+          callerName = string.Empty;
+        if (!Messages.TryGetValue(callerName, out var messagesForCaller))
         {
-          if (!Messages.TryGetValue(callerName, out var messagesForCaller))
-          {
-            messagesForCaller = new SortedDictionary<string, int>();
-            Messages.Add(callerName, messagesForCaller);
-          }
-          if (!messagesForCaller.TryGetValue(msg, out var delimiterCounter))
-            messagesForCaller.Add(msg, 1);
-          else
-            messagesForCaller[msg] += 1;
+          messagesForCaller = new SortedDictionary<string, int>();
+          Messages.Add(callerName, messagesForCaller);
         }
+        if (!messagesForCaller.TryGetValue(msg, out var delimiterCounter))
+          messagesForCaller.Add(msg, 1);
+        else
+          messagesForCaller[msg] += 1;
       }
     }
 
@@ -56,7 +70,7 @@ namespace Qhta.TestHelper
 
     public void Clear()
     {
-      lock(this)
+      lock (this)
         Messages.Clear();
     }
 
