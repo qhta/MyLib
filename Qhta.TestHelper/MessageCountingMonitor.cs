@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 #nullable enable
@@ -39,6 +40,8 @@ namespace Qhta.TestHelper
       {
         if (callerName == null)
           callerName = string.Empty;
+        if (callerName.StartsWith("ReadValue"))
+          Debug.Assert(true);
         if (!Messages.TryGetValue(callerName, out var messagesForCaller))
         {
           messagesForCaller = new SortedDictionary<string, int>();
