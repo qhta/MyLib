@@ -62,7 +62,7 @@ namespace Qhta.TestHelper
           {
             writer.WriteLine(item.Key);
             foreach (var item2 in item.Value)
-              writer.WriteLine($"\t{item2.Key.Replace("\n", "\\n").Replace(" ", "\\s")}\t{item2.Value}");
+              writer.WriteLine($"\t{item2.Key}\t{item2.Value}");
           }
         }
       }
