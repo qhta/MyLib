@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Qhta.Erratum
 {
-  public class Changes: Stack<Change>
+  public class SourceChanges: Stack<SourceChange>
   {
     public ITraceWriter? ChangeWriter { get; set; }
 
     public void Add(int pos, string? text, string? replacement)
     {
-      Push (new Change (pos, text, replacement));
+      Push (new SourceChange (pos, text, replacement));
       if (ChangeWriter != null)
       {
         ChangeWriter.Write($"Source changed at pos {pos}: ");

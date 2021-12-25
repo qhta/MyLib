@@ -17,6 +17,16 @@ namespace Qhta.Erratum
       return null;
     }
 
+    public void Add(string filename, ErrLine line)
+    {
+      if (!TryGetValue(filename, out var lines))
+      {
+        lines = new List<ErrLine>();
+        Add(filename, lines);
+      }
+      lines.Add(line);
+    }
+
     public void ReadXml(XmlReader reader)
     {
       reader.ReadStartElement("Errata");
