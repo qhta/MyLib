@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 #nullable enable
 
 namespace Qhta.TestHelper
@@ -59,13 +60,15 @@ namespace Qhta.TestHelper
       lock (this)
       {
         var filename = Filename;
-        using (var writer = File.CreateText(filename))
+        using (var writer = new StreamWriter(File.Create(filename), new UTF8Encoding(false, false)))
         {
           foreach (var item in Messages)
           {
             writer.WriteLine(item.Key);
             foreach (var item2 in item.Value)
+            {
               writer.WriteLine($"\t{item2.Key}\t{item2.Value}");
+            }
           }
         }
       }
