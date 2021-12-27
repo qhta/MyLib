@@ -21,10 +21,10 @@ namespace Qhta.Erratum
     private Errata Errata { get; init; } = new Errata();
 
 
-    public void NotifyReplacement(string filename, int lineNum, string text, string replacement, [CallerMemberName] string? callerName = null)
+    public void NotifyReplacement(string? filename, int lineNum, string text, string replacement, string comment, [CallerMemberName] string? callerName = null)
     {
-      var line = new ErrLine{ Number = lineNum, Text = text, Repl = replacement };
-      Errata.Add(filename, line);
+      var line = new ErrLine{ Number = lineNum, Text = text.Replace("\n", "\\n"), Repl = replacement.Replace("\n", "\\n"), Comment = comment};
+      Errata.Add(filename ?? "", line);
     }
 
     public void Flush()

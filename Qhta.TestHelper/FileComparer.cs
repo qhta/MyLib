@@ -9,6 +9,7 @@ namespace Qhta.TestHelper
     protected FileCompareOptions Options { get; init; }
     protected ITraceWriter Listener {get; init; }
 
+    [DebuggerStepThrough]
     public FileComparer(FileCompareOptions options, ITraceWriter listener = null)
     {
       Options = options;

@@ -11,16 +11,17 @@ namespace Qhta.TestHelper
   {
     protected enum CompResult
     {
-      areEqual,
-      nameDiff,
-      attrDiff,
-      elementDiff,
-      elementCountDiff,
-      valueDiff,
+      AreEqual,
+      NameDiff,
+      AttrDiff,
+      ElementDiff,
+      ElementCountDiff,
+      ValueDiff,
     }
 
     private int diffCount;
 
+    [DebuggerStepThrough]
     public XmlFileComparer(FileCompareOptions options, ITraceWriter listener) : base(options, listener)
     {
     }
@@ -41,7 +42,10 @@ namespace Qhta.TestHelper
 
     public bool CompareXml(XDocument outXml, XDocument expXml)
     {
-      var areEqual = CompareXmlElement(outXml.Root, expXml.Root) == CompResult.areEqual;
+      var areEqual = CompareXmlElement(outXml.Root, expXml.Root, true, out var shown) == CompResult.AreEqual;
+      if (!areEqual && !shown)
+      {
+      }
       if (areEqual)
       {
         var msg = Options?.EqualityMsg;
@@ -57,31 +61,38 @@ namespace Qhta.TestHelper
       return areEqual;
     }
 
-    protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal = true)
+    protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal, out bool shown)
     {
+      shown = false;
       if (outXml.NodeType != expXml.NodeType
         || !AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName)
         || !AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
       {
         if (showUnequal)
-          ShowUnequalElements(outXml, expXml, 1);
-        return CompResult.nameDiff;
+        {
+          ShowUnequalElement(outXml, expXml, 1);
+          shown = true;
+        }
+        return CompResult.NameDiff;
       }
       if (!CompareXmlAttributes(outXml, expXml))
       {
         if (showUnequal)
-          ShowUnequalElements(outXml, expXml, 1);
-        return CompResult.attrDiff;
+        {
+          ShowUnequalElement(outXml, expXml, 1);
+          shown = true;
+        }
+        return CompResult.AttrDiff;
       }
-      var outNodes = outXml.Elements().ToList();
-      var expNodes = expXml.Elements().ToList();
-      int outNodesCount = outNodes.Count;
-      int expNodesCount = expNodes.Count;
+      var outNodes = outXml.Elements().ToArray();
+      var expNodes = expXml.Elements().ToArray();
+      int outNodesCount = outNodes.Count();
+      int expNodesCount = expNodes.Count();
       bool areEqual = outNodesCount == expNodesCount;
       for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
       {
-        var result = CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount);
-        if (result != CompResult.areEqual)
+        var result = CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount, out shown);
+        if (result != CompResult.AreEqual)
         {
           areEqual = false;
           if (outNodesCount == expNodesCount)
@@ -92,45 +103,30 @@ namespace Qhta.TestHelper
           }
           else
           {
-            if (showUnequal && result != CompResult.elementCountDiff && result != CompResult.elementDiff)
+            if (showUnequal && !shown)
             {
-              int linesLimit = Options.SyncLimit;
-              ShowLine(Options.StartOfDiffOut);
-              Listener.ForegroundColor = ConsoleColor.Red;
-              for (int j = 0; j < linesLimit; j++)
+              if (result == CompResult.ElementCountDiff)
               {
-                var ndx = i + j;
-                if (ndx >= outNodesCount)
-                  break;
-                var linesShown = ShowXmlElement(outNodes[ndx], false, linesLimit);
-                linesLimit -= linesShown;
-                if (linesLimit <= 0)
-                {
-                  ShowLine("...");
-                  break;
-                }
+                var fromIndex = Math.Min(outNodesCount, expNodesCount);
+                if (fromIndex > 0)
+                  fromIndex--;
+                if (fromIndex > 0)
+                  fromIndex--;
+                ShowUnequalItemElements(outXml, expXml, fromIndex, 20);
+                shown = true;
               }
-              linesLimit = Options.SyncLimit;
-              Listener.ResetColor();
-              ShowLine(Options.StartOfDiffExp);
-              Listener.ForegroundColor = ConsoleColor.Green;
-              for (int j = 0; j < linesLimit; j++)
+              else if (result == CompResult.ElementDiff)
               {
-                var ndx = i + j;
-                if (ndx >= expNodesCount)
-                  break;
-                var linesShown = ShowXmlElement(expNodes[ndx], true, linesLimit);
-                linesLimit -= linesShown;
-                if (linesLimit <= 0)
-                {
-                  ShowLine("...");
-                  break;
-                }
+                ShowUnequalElements(outNodes, expNodes, i);
+                shown = true;
               }
-              Listener.ResetColor();
-              ShowLine(Options.EndOfDiffs);
+              else if (result == CompResult.NameDiff)
+              {
+                ShowUnequalElements(outNodes, expNodes, i);
+                shown = true;
+              }
             }
-            return CompResult.elementDiff;
+            return CompResult.ElementDiff;
           }
         }
       }
@@ -138,19 +134,25 @@ namespace Qhta.TestHelper
       {
         if (outNodesCount != expNodesCount)
         {
-          if (showUnequal)
-            ShowUnequalElements(outXml, expXml);
-          return CompResult.elementCountDiff;
+          if (showUnequal && !shown)
+          {
+            ShowUnequalElement(outXml, expXml);
+            shown = true;
+          }
+          return CompResult.ElementCountDiff;
         }
-        return CompResult.elementDiff;
+        return CompResult.ElementDiff;
       }
       if (outXml.Value != expXml.Value)
       {
         if (showUnequal)
-          ShowUnequalElements(outXml, expXml);
-        return CompResult.valueDiff;
+        {
+          ShowUnequalElement(outXml, expXml);
+          shown = true;
+        }
+        return CompResult.ValueDiff;
       }
-      return CompResult.areEqual;
+      return CompResult.AreEqual;
     }
 
     public bool CompareXmlAttributes(XElement outXml, XElement expXml)
@@ -202,7 +204,7 @@ namespace Qhta.TestHelper
       return true;
     }
 
-    public void ShowUnequalElements(XElement outXml, XElement expXml, int linesLimit = 0)
+    public void ShowUnequalElement(XElement outXml, XElement expXml, int linesLimit = 0)
     {
       if (linesLimit == 0)
         linesLimit = Options.SyncLimit;
@@ -213,6 +215,79 @@ namespace Qhta.TestHelper
       ShowLine(Options.StartOfDiffExp);
       Listener.ForegroundColor = ConsoleColor.Green;
       ShowXmlElement(expXml, true, linesLimit);
+      Listener.ResetColor();
+      ShowLine(Options.EndOfDiffs);
+    }
+
+    public void ShowUnequalElements(XElement[] outNodes, XElement[] expNodes, int fromIndex)
+    {
+      int linesLimit = Options.SyncLimit;
+      ShowLine(Options.StartOfDiffOut);
+      Listener.ForegroundColor = ConsoleColor.Red;
+      for (int j = 0; j < linesLimit; j++)
+      {
+        var ndx = fromIndex + j;
+        if (ndx >= outNodes.Count())
+          break;
+        var linesShown = ShowXmlElement(outNodes[ndx], false, linesLimit);
+        linesLimit -= linesShown;
+        if (linesLimit <= 0)
+        {
+          if (linesLimit < -1)// -1 means that "..." line was shown
+            ShowLine("...");
+          break;
+        }
+      }
+      linesLimit = Options.SyncLimit;
+      Listener.ResetColor();
+      ShowLine(Options.StartOfDiffExp);
+      Listener.ForegroundColor = ConsoleColor.Green;
+      for (int j = 0; j < linesLimit; j++)
+      {
+        var ndx = fromIndex + j;
+        if (ndx >= expNodes.Count())
+          break;
+        var linesShown = ShowXmlElement(expNodes[ndx], true, linesLimit);
+        linesLimit -= linesShown;
+        if (linesLimit <= 0)
+        {
+          if (linesLimit < -1)// -1 means that "..." line was shown
+            ShowLine("...");
+          break;
+        }
+      }
+      Listener.ResetColor();
+      ShowLine(Options.EndOfDiffs);
+
+    }
+
+    public void ShowUnequalItemElements(XElement outXml, XElement expXml, int fromIndex, int linesLimit)
+    {
+      if (linesLimit == 0)
+        linesLimit = Options.SyncLimit;
+      ShowLine(Options.StartOfDiffOut);
+      Listener.ForegroundColor = ConsoleColor.Red;
+      var outElements = outXml.Elements().ToArray();
+      int outLimit = linesLimit;
+      for (int i = fromIndex; i < outElements.Count(); i++)
+      {
+        if (i-fromIndex > outLimit)
+          break;
+        var linesShown = ShowXmlElement(outElements[i], false, outLimit);
+        outLimit -= linesShown;
+      }
+      Listener.ResetColor();
+      ShowLine(Options.StartOfDiffExp);
+      Listener.ForegroundColor = ConsoleColor.Green;
+      var expElements = expXml.Elements().ToArray();
+      int expLimit = linesLimit;
+      for (int i = fromIndex; i < expElements.Count(); i++)
+      {
+        if (i - fromIndex > expLimit)
+          break;
+        var linesShown = ShowXmlElement(expElements[i], true, expLimit);
+        expLimit -= linesShown;
+      }
       Listener.ResetColor();
       ShowLine(Options.EndOfDiffs);
     }

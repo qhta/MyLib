@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+#nullable enable
 
 namespace Qhta.Erratum
 {
@@ -12,7 +13,7 @@ namespace Qhta.Erratum
   {
     public Errata() { }
 
-    public XmlSchema GetSchema()
+    public XmlSchema? GetSchema()
     {
       return null;
     }
@@ -33,7 +34,7 @@ namespace Qhta.Erratum
       reader.MoveToContent();
       while (reader.IsStartElement("file"))
       {
-        string filename = reader.GetAttribute("name");
+        string? filename = reader.GetAttribute("name");
         var list = new List<ErrLine>();
         reader.ReadStartElement();
         reader.MoveToContent();
@@ -50,7 +51,7 @@ namespace Qhta.Erratum
             from = GetIntAttribute(reader, "from");
             to = GetIntAttribute(reader, "to");
           }
-
+          string? comment = GetStringAttribute(reader, "comment");
 
           reader.ReadStartElement();
           reader.MoveToContent();
@@ -61,7 +62,7 @@ namespace Qhta.Erratum
           var text = reader.ReadContentAsString();
           reader.ReadEndElement(); // "text"
           reader.MoveToElement();
-          string repl = null;
+          string? repl = null;
           int move = 0;
           //bool delete = false;
           if (reader.IsStartElement("repl"))
@@ -92,7 +93,7 @@ namespace Qhta.Erratum
             reader.ReadEndElement(); // "delete"
           }
           reader.ReadEndElement(); // "line"
-          ErrLine errLine;
+          ErrLine? errLine = null;
           if (number != null)
           {
             if (move != 0)
@@ -100,7 +101,7 @@ namespace Qhta.Erratum
             else
               errLine = new ErrLine((int)number, text, repl);
           }
-          else
+          else if (from != null)
           {
             int count = int.MaxValue;
             if (to != null)
@@ -109,20 +110,26 @@ namespace Qhta.Erratum
               errLine = new ErrLine((int)from, count, text, move);
             else
               errLine = new ErrLine((int)from, count, text, repl);
-
           }
-          list.Add(errLine);
+          if (errLine != null)
+            list.Add(errLine);
           reader.MoveToElement();
         }
         reader.ReadEndElement(); // "file"
-        this.Add(filename, list);
+        this.Add(filename ?? "", list);
       }
       reader.ReadEndElement(); // "Errata"
     }
 
+    private string? GetStringAttribute(XmlReader reader, string attrName)
+    {
+      string? str = reader.GetAttribute(attrName);
+      return str;
+    }
+
     private int? GetIntAttribute(XmlReader reader, string attrName)
     {
-      string numberStr = reader.GetAttribute(attrName);
+      string? numberStr = reader.GetAttribute(attrName);
       if (numberStr != null)
       {
         if (!int.TryParse(numberStr, out var number))
@@ -153,6 +160,9 @@ namespace Qhta.Erratum
             if (lineItem.Count != int.MaxValue)
               writer.WriteAttributeString("to", (lineItem.Number + lineItem.Count).ToString());
           }
+          if (lineItem.Comment != null)
+            writer.WriteAttributeString("comment", lineItem.Comment);
+
           writer.WriteElementString("text", lineItem.Text);
           if (lineItem.Move != 0)
           {
@@ -163,6 +173,8 @@ namespace Qhta.Erratum
           }
           else
             writer.WriteElementString("repl", lineItem.Repl);
+
+
           writer.WriteEndElement();
         }
         writer.WriteEndElement();
@@ -195,7 +207,7 @@ namespace Qhta.Erratum
       foreach (var lineItem in list.OrderByDescending(item => item.Number))
       {
         string find = lineItem.Text.Replace("\\n", "\n");
-        string repl = lineItem.Repl?.Replace("\\n", "\n");
+        string? repl = lineItem.Repl?.Replace("\\n", "\n");
         int move = lineItem.Move;
         int lineNum = lineItem.Number - 1;
         if (lineNum >= 0 && lineNum < lines.Count())

@@ -16,6 +16,11 @@
     /// <summary>
     /// A text to search.
     /// </summary>
+    public string Comment { get; init; }
+
+    /// <summary>
+    /// A text to search.
+    /// </summary>
     public string Text { get; init; }
 
     /// <summary>
