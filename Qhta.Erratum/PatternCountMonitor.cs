@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace Qhta.Erratum
 {
-  public class PatternCountMonitor : IPatternMonitor
+  public class PatternCountMonitor// : IPatternMonitor
   {
 
     public PatternCountMonitor(string filename)
@@ -20,51 +20,7 @@ namespace Qhta.Erratum
 
     private string Filename { get; init; }
 
-    private SortedDictionary<String, int> patterns = new();
-
-    public bool WasNotified(string msg, [CallerMemberName] string? callerName = null)
-    {
-      lock (this)
-      {
-        if (patterns.TryGetValue(msg, out var delimiterCounter))
-          return true;
-      }
-      return false;
-    }
-
-    public void Notify(string msg, [CallerMemberName] string? callerName = null)
-    {
-      lock (this)
-      {
-        if (!patterns.TryGetValue(msg, out var delimiterCounter))
-          patterns.Add(msg, 1);
-        else
-          patterns[msg] += 1;
-      }
-    }
-
-    public void Flush()
-    {
-      lock (this)
-      {
-        var filename = Filename;
-        using (var writer = new StreamWriter(File.Create(filename), new UTF8Encoding(false, false)))
-        {
-          foreach (var item in patterns.OrderByDescending(item => item.Value))
-          {
-            writer.WriteLine($"{item.Key}\t{item.Value}");
-          }
-        }
-      }
-    }
-
-    public void Clear()
-    {
-      lock (this)
-        patterns.Clear();
-    }
-
-    public string CreatePattern(in string str)
+    public string CreatePattern(string str)
     {
       if (str.Length == 0)
         return str;
@@ -73,14 +29,10 @@ namespace Qhta.Erratum
       {
         if (Char.IsLetterOrDigit(pattern[i]))
         {
-          if (i < pattern.Count - 1 && pattern[i + 1] == '*')
+          if (i < pattern.Count - 1 && pattern[i + 1] == 'A')
             pattern.RemoveAt(i);
           else
-            pattern[i] = '*';
-        }
-        else if (pattern[i] == '*')
-        {
-          pattern.Insert(i, '\\');
+            pattern[i] = 'A';
         }
         else if (pattern[i] == ' ')
         {
@@ -89,9 +41,46 @@ namespace Qhta.Erratum
         }
       }
       var result = new string(pattern.ToArray());
-      result = result.Replace(" ", "\\s").Replace("\n", "\\n").Replace("\t", "\\t");
       return result;
     }
+
+    private PatternSetDictionary patternSets = new();
+
+    public void Notify(string? prePattern, string mainPattern, string? postPattern)
+    {
+      //Notify(prePattern + mainPattern);
+      //Notify(prePattern + mainPattern + postPattern);
+      //Notify(mainPattern + postPattern);
+      lock (this)
+      {
+        patternSets.Add(prePattern, mainPattern, postPattern);
+      }
+    }
+
+    //public void Notify(string pattern)
+    //{
+      //lock (this)
+      //{
+      //  if (!patterns.TryGetValue(pattern, out var delimiterCounter))
+      //    patterns.Add(pattern, 1);
+      //  else
+      //    patterns[pattern] += 1;
+      //}
+    //}
+
+    public void Flush()
+    {
+      lock (this)
+      {
+        patternSets.Store(Filename);
+      }
+    }
+
+    //public void Clear()
+    //{
+      //lock (this)
+      //  patterns.Clear();
+    //}
 
   }
 }
