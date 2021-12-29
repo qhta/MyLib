@@ -42,7 +42,9 @@ namespace Qhta.TestHelper
 
     public bool CompareXml(XDocument outXml, XDocument expXml)
     {
-      var areEqual = CompareXmlElement(outXml.Root, expXml.Root, true, out var shown) == CompResult.AreEqual;
+      bool shown = false;
+      var result = CompareXmlElement(outXml.Root, expXml.Root, true, ref shown);
+      var areEqual = result == CompResult.AreEqual;
       if (!areEqual && !shown)
       {
       }
@@ -61,9 +63,8 @@ namespace Qhta.TestHelper
       return areEqual;
     }
 
-    protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal, out bool shown)
+    protected CompResult CompareXmlElement(XElement outXml, XElement expXml, bool showUnequal, ref bool shown)
     {
-      shown = false;
       if (outXml.NodeType != expXml.NodeType
         || !AreEqual(outXml.Name.NamespaceName, expXml.Name.NamespaceName)
         || !AreEqual(outXml.Name.LocalName, expXml.Name.LocalName))
@@ -91,7 +92,7 @@ namespace Qhta.TestHelper
       bool areEqual = outNodesCount == expNodesCount;
       for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
       {
-        var result = CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount, out shown);
+        var result = CompareXmlElement(outNodes[i], expNodes[i], outNodesCount == expNodesCount, ref shown);
         if (result != CompResult.AreEqual)
         {
           areEqual = false;
@@ -115,12 +116,7 @@ namespace Qhta.TestHelper
                 ShowUnequalItemElements(outXml, expXml, fromIndex, 20);
                 shown = true;
               }
-              else if (result == CompResult.ElementDiff)
-              {
-                ShowUnequalElements(outNodes, expNodes, i);
-                shown = true;
-              }
-              else if (result == CompResult.NameDiff)
+              else 
               {
                 ShowUnequalElements(outNodes, expNodes, i);
                 shown = true;
@@ -145,11 +141,8 @@ namespace Qhta.TestHelper
       }
       if (outXml.Value != expXml.Value)
       {
-        if (showUnequal)
-        {
-          ShowUnequalElement(outXml, expXml);
-          shown = true;
-        }
+        ShowUnequalElement(outXml, expXml);
+        shown = true;
         return CompResult.ValueDiff;
       }
       return CompResult.AreEqual;
@@ -271,7 +264,7 @@ namespace Qhta.TestHelper
       int outLimit = linesLimit;
       for (int i = fromIndex; i < outElements.Count(); i++)
       {
-        if (i-fromIndex > outLimit)
+        if (i - fromIndex > outLimit)
           break;
         var linesShown = ShowXmlElement(outElements[i], false, outLimit);
         outLimit -= linesShown;
