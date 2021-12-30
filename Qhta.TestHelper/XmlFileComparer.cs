@@ -108,7 +108,7 @@ namespace Qhta.TestHelper
             {
               if (result == CompResult.ElementCountDiff)
               {
-                var fromIndex = Math.Min(outNodesCount, expNodesCount);
+                var fromIndex = i;
                 if (fromIndex > 0)
                   fromIndex--;
                 if (fromIndex > 0)
@@ -130,11 +130,8 @@ namespace Qhta.TestHelper
       {
         if (outNodesCount != expNodesCount)
         {
-          if (showUnequal && !shown)
-          {
-            ShowUnequalElement(outXml, expXml);
-            shown = true;
-          }
+          ShowUnequalElement(outXml, expXml);
+          shown = true;
           return CompResult.ElementCountDiff;
         }
         return CompResult.ElementDiff;

@@ -105,17 +105,22 @@ namespace Qhta.Serialization
         var propValue = propInfo.GetValue(obj);
         if (propValue != null)
         {
-          string str = null;
-          if (propValue is string)
-            str = propValue.ToString();
-          else if (propValue is bool || propValue.GetType() == typeof(bool?))
-            str = propValue.ToString().ToLower();
-          else if (propValue is int || propValue.GetType() == typeof(int?))
-            str = propValue.ToString();
-          if (str != null)
+          var defaultValue =
+            (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
+          if (defaultValue == null || !propValue.Equals(defaultValue))
           {
-            writer.WriteAttributeString(attrName, str);
-            attrsWritten++;
+            string str = null;
+            if (propValue is string)
+              str = propValue.ToString();
+            else if (propValue is bool || propValue.GetType() == typeof(bool?))
+              str = propValue.ToString().ToLower();
+            else if (propValue is int || propValue.GetType() == typeof(int?))
+              str = propValue.ToString();
+            if (str != null)
+            {
+              writer.WriteAttributeString(attrName, str);
+              attrsWritten++;
+            }
           }
         }
       }
@@ -142,7 +147,7 @@ namespace Qhta.Serialization
         var propValue = propInfo.GetValue(obj);
         if (propValue != null && !IsSimple(propValue))
         {
-          WriteStartElement(writer,propTag);
+          WriteStartElement(writer, propTag);
           if (propValue is IXSerializable serializableValue)
             serializableValue.Serialize(this, writer);
           else
@@ -279,7 +284,7 @@ namespace Qhta.Serialization
               else
                 SerializeObject(writer, item);
               if (!String.IsNullOrEmpty(itemTag))
-                WriteEndElement(writer,itemTag);
+                WriteEndElement(writer, itemTag);
             }
             itemsWritten++;
           }
