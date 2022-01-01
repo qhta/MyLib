@@ -12,6 +12,14 @@ namespace Qhta.Serialization
 
     public XmlOrderedAttribAttribute(Type type) { }
 
-    public int Order { get; set; }
+    public XmlOrderedAttribAttribute(int order) : base() { Order = order; }
+
+    public XmlOrderedAttribAttribute(string attributeName, int order) : base(attributeName) { Order = order; }
+
+    public XmlOrderedAttribAttribute(string attributeName, Type type, int order) : base(attributeName, type) { Order = order; }
+
+    public XmlOrderedAttribAttribute(Type type, int order) { Order = order; }
+
+    public int? Order { get; set; }
   }
 }

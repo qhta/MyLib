@@ -165,8 +165,8 @@ namespace Qhta.Serialization
             attrName = LowercaseName(attrName);
 
           var order = ++n + 100;
-          if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order > 0)
-            order = attr2.Order;
+          if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order != null)
+            order = (int)attr2.Order;
           var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
           propList.Add(serializePropInfo);
         }

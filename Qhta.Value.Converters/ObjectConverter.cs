@@ -28,11 +28,7 @@ namespace Qhta.Value.Converters
       {
         if (value is string str)
         {
-          if (!str.Contains('"'))
-            return '"' + str + '"';
-          if (!str.Contains('\''))
-            return '\'' + str + '\'';
-          return '"' + str.Replace("\"", "\\\"") + '"';
+          return str;
         }
         if (value is Type typeValue)
           return typeValue.Name;
