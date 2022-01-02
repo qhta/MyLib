@@ -2,14 +2,14 @@ D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.Erratum.deps.json
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\ref\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.Erratum.pdb
+D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.TestHelper.pdb
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.GeneratedMSBuildEditorConfig.editorconfig
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\ref\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.pdb
-D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.TestHelper.dll
-D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net5.0\Qhta.TestHelper.pdb
-D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net5.0\Qhta.Erratum.csproj.CopyComplete
