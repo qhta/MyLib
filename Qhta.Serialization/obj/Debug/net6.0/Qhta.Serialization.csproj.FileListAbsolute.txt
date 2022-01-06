@@ -1,6 +1,5 @@
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Serialization.deps.json
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Serialization.dll
-D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\ref\Qhta.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Serialization.pdb
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Serialization.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Serialization.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,3 +9,4 @@ D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Serialization.cspr
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\ref\Qhta.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Serialization.pdb
+D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\refint\Qhta.Serialization.dll

@@ -1,6 +1,5 @@
 D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.Json.Converters.deps.json
 D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.Json.Converters.dll
-D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\ref\Qhta.Json.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.Json.Converters.pdb
 D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\Qhta.Json.Converters.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\Qhta.Json.Converters.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,3 +9,4 @@ D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\Qhta.Json.Converters.
 D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\Qhta.Json.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\ref\Qhta.Json.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\Qhta.Json.Converters.pdb
+D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\refint\Qhta.Json.Converters.dll
