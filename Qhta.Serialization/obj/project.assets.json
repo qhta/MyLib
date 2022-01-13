@@ -338,6 +338,16 @@
             "rid": "win"
           }
         }
+      },
+      "Qhta.TestHelper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Qhta.TestHelper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TestHelper.dll": {}
+        }
       }
     }
   },
@@ -1585,10 +1595,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Qhta.TestHelper/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.TestHelper/Qhta.TestHelper.csproj",
+      "msbuildProject": "../Qhta.TestHelper/Qhta.TestHelper.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Qhta.TestHelper >= 1.0.0",
       "System.CodeDom >= 6.0.0",
       "System.Collections.Specialized >= 4.3.0",
       "System.Security.Permissions >= 6.0.0"
@@ -1620,7 +1636,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
+using Qhta.TestHelper;
+
 namespace Qhta.Serialization
 {
   public class XmlSerializer : BaseSerializer
@@ -81,7 +83,7 @@ namespace Qhta.Serialization
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-        throw new InvalidOperationException($"Type \"{aType}\" not registered");
+        throw new InternalException($"Type \"{aType}\" not registered");
       var tag = serializedTypeInfo.ElementName;
       writer.WriteStartElement(tag);
       WriteAttributesBase(writer, obj);
@@ -95,7 +97,7 @@ namespace Qhta.Serialization
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
-        throw new InvalidOperationException($"Unknown type \"{aType.Name}\" while serializing object attributes");
+        throw new InternalException($"Unknown type \"{aType.Name}\" while serializing object attributes");
       var propList = typeInfo.PropsAsAttributes;
       int attrsWritten = 0;
       foreach (var item in propList)
@@ -131,7 +133,7 @@ namespace Qhta.Serialization
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
-        throw new InvalidOperationException($"Unknown type \"{aType.Name}\" while serializing object attributes");
+        throw new InternalException($"Unknown type \"{aType.Name}\" while serializing object attributes");
       var attribs = typeInfo.PropsAsAttributes;
       var props = typeInfo.PropsAsElements;
       var arrays = typeInfo.PropsAsArrays;
@@ -375,10 +377,10 @@ namespace Qhta.Serialization
       var xmlName = reader.Name;
       var aName = new XmlQualifiedName(xmlName, reader.Prefix);
       if (!KnownTypes.TryGetValue(aName.ToString(), out var aTypeInfo))
-        throw new InvalidOperationException($"Element {aName} not recognized while deserialization.");
+        throw new InternalException($"Element {aName} not recognized while deserialization.");
       var constructor = aTypeInfo.KnownConstructor;
       if (constructor == null)
-        throw new InvalidOperationException($"Type {aTypeInfo.Type.Name} must have a public, parameterless constructor.");
+        throw new InternalException($"Type {aTypeInfo.Type.Name} must have a public, parameterless constructor.");
       var obj = constructor.Invoke(new object[0]);
 
       if (obj is IXSerializable qSerializable)

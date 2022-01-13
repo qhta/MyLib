@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
+
+using Qhta.TestHelper;
 
 namespace Qhta.Serialization
 {
@@ -28,8 +31,8 @@ namespace Qhta.Serialization
 
     protected SerializedTypeInfo AddKnownType(Type aType, string ns)
     {
-      //if (aType.Name=="Legend")
-      //  Debug.Assert(true);
+      if (aType.Name=="AndExpr")
+        Debug.Assert(true);
       var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
       XmlQualifiedName qName;
       if (xmlRootAttrib?.ElementName != null)
@@ -41,11 +44,11 @@ namespace Qhta.Serialization
       {
         var newTypeInfo = new SerializedTypeInfo { Type = aType, ElementName = aName };
 
-        if (!IsSimple(aType) && !aType.IsAbstract)
+        if (!IsSimple(aType) && !aType.IsAbstract && !aType.IsEnum)
         {
           var constructor = aType.GetConstructor(new Type[0]);
           if (constructor == null)
-            throw new InvalidOperationException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization.");
+            throw new InternalException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization.");
           newTypeInfo.KnownConstructor = constructor;
         }
         KnownTypes.Add(aName, newTypeInfo);
@@ -65,8 +68,8 @@ namespace Qhta.Serialization
       else
       {
         var bType = oldTypeInfo.Type;
-        if (aType.FullName != bType.FullName)
-          throw new InvalidOperationException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type.");
+        if (aType.Name != bType.Name)
+          throw new InternalException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type.");
         return oldTypeInfo;
       }
     }

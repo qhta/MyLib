@@ -16,4 +16,8 @@
     <PackageReference Include="System.Security.Permissions" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
+  </ItemGroup>
+
 </Project>

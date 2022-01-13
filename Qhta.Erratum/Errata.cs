@@ -5,6 +5,8 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+
+using Qhta.TestHelper;
 #nullable enable
 
 namespace Qhta.Erratum
@@ -43,7 +45,7 @@ namespace Qhta.Erratum
       if (numberStr != null)
       {
         if (!int.TryParse(numberStr, out var number))
-          throw new InvalidOperationException($"Line number expected but \"{numberStr}\" when reading errata file");
+          throw new InternalException($"Line number expected but \"{numberStr}\" when reading errata file");
         return number;
       }
       return null;

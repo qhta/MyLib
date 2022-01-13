@@ -47,7 +47,7 @@ namespace Qhta.TestHelper
       var areEqual = result == CompResult.AreEqual;
       if (!areEqual && !shown)
       {
-        throw new InvalidOperationException("XmlFileComparer have not shown unequal elements");
+        throw new InternalException("XmlFileComparer have not shown unequal elements");
       }
       if (areEqual)
       {
