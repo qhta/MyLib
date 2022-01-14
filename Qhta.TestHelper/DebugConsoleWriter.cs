@@ -29,6 +29,7 @@ namespace Qhta.TestHelper
 
     static DebugConsoleWriter()
     {
+      Debug.IndentSize=2;
       Console.ResetColor();
       initialForegroundColor = Console.ForegroundColor;
       initialBackgroundColor = Console.BackgroundColor;
