@@ -329,6 +329,8 @@ namespace Qhta.Serialization
     }
     public static bool IsUpper(string text)
     {
+      if (text==null)
+        return false;
       foreach (var ch in text)
         if (char.IsLetter(ch) && !Char.IsUpper(ch))
           return false;

@@ -27,7 +27,7 @@ namespace Qhta.Serialization
     public void WriteAttributeString(string attrName, string str) => _writer.WriteAttributeString(attrName, str);
     public void WriteValue(string str) => _writer.WriteValue(str);
 
-    public void WriteValue(string tagName, string str)
+    public void WriteElementString(string tagName, string str)
     { 
       _writer.WriteStartElement(tagName);
       _writer.WriteValue(str);
