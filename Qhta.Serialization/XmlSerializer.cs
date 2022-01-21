@@ -291,8 +291,6 @@ namespace Qhta.Serialization
             }
             itemsWritten++;
           }
-          else
-            throw new NotImplementedException($"Item of type \"{item.GetType().Name}\" is not serializable");
         }
         if (!String.IsNullOrEmpty(propTag))
           writer.WriteEndElement(propTag);
