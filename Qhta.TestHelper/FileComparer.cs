@@ -10,7 +10,7 @@ namespace Qhta.TestHelper
     protected ITraceWriter Listener {get; init; }
 
     [DebuggerStepThrough]
-    public FileComparer(FileCompareOptions options, ITraceWriter listener = null)
+    public FileComparer(FileCompareOptions options, ITraceWriter listener)
     {
       Options = options;
       Listener = listener;

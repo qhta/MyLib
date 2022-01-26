@@ -26,6 +26,16 @@ namespace Qhta.TestHelper
     public override Encoding Encoding { get; } = Encoding.UTF8;
 
     public List<object> Buffer { get; init; } = new List<object>();
+    
+    #region ignored properties
+    public int IndentLevel { get; set; }
+
+    public int IndentSize { get; set; } = 2;
+
+    public bool AutoFlush { get; set; } = true;
+    #endregion
+
+    public char LastChar { get; private set; } = '\n';
 
     public object LockObject { get; init; }
 
@@ -41,9 +51,9 @@ namespace Qhta.TestHelper
     static ConsoleColor initialForegroundColor;
     static ConsoleColor initialBackgroundColor;
 
-    public DebugConsoleWriter(object lockObject) : base()
+    public DebugConsoleWriter(object? lockObject = null) : base()
     {
-      LockObject = lockObject;
+      LockObject = lockObject ?? this;
     }
 
     public ConsoleColor ForegroundColor

@@ -4,22 +4,25 @@ using System.Runtime.CompilerServices;
 
 namespace Qhta.TestHelper
 {
-  public interface ITraceWriter
+  public interface ITraceWriter: IConsoleWriter
   {
-    ConsoleColor ForegroundColor {get; set; }
-    ConsoleColor BackgroundColor { get; set; }
-    void ResetColor();
+    //void Write(string str);
 
-    void Write(string str);
+    //void WriteLine(string line);
 
-    void WriteLine(string line);
+    //void WriteLine();
 
-    void WriteLine();
-
-    void Flush();
+    //void Flush();
 
     void Indent();
 
     void Unindent();
+
+    int IndentLevel { get; set; }
+
+    int IndentSize { get; set; }
+
+    bool AutoFlush { get; set; }
+
   }
 }

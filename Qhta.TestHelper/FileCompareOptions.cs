@@ -23,9 +23,9 @@
     ///// </summary>
     //public int DiffGapLimit { get; set; }
 
-    public string EqualityMsg { get; set; }
+    public string? EqualityMsg { get; set; }
 
-    public string InequalityMsg { get; set; }
+    public string? InequalityMsg { get; set; }
 
     public string StartOfDiffOut { get; set; } = "--- out " + new string('-', 20);
 

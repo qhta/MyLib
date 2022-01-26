@@ -44,10 +44,12 @@ namespace Qhta.TestHelper
     public bool CompareXml(XDocument outXml, XDocument expXml)
     {
       bool shown = false;
-      if (outXml.Root != null && expXml.Root != null)
+
+      if (outXml?.Root == null && expXml?.Root == null)
         return true;
-      if (outXml.Root != null || expXml.Root != null)
+      if (outXml?.Root == null || expXml?.Root == null)
         return false;
+
       var result = CompareXmlElement(outXml.Root, expXml.Root, true, ref shown);
       var areEqual = result == CompResult.AreEqual;
       if (!areEqual && !shown)
