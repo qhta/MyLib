@@ -14,6 +14,12 @@ namespace Qhta.TestHelper
 
     void WriteLine(string line);
 
+    void WriteLine();
+
     void Flush();
+
+    void Indent();
+
+    void Unindent();
   }
 }

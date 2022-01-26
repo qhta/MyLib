@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Qhta.TestHelper
 {
@@ -43,6 +44,10 @@ namespace Qhta.TestHelper
     public bool CompareXml(XDocument outXml, XDocument expXml)
     {
       bool shown = false;
+      if (outXml.Root != null && expXml.Root != null)
+        return true;
+      if (outXml.Root != null || expXml.Root != null)
+        return false;
       var result = CompareXmlElement(outXml.Root, expXml.Root, true, ref shown);
       var areEqual = result == CompResult.AreEqual;
       if (!areEqual && !shown)
@@ -303,11 +308,13 @@ namespace Qhta.TestHelper
 
     protected string[] ToStrings(XElement element)
     {
+      if (element.NodeType == XmlNodeType.Element && element.Name=="t")
+        Debug.Assert(true);
       using (var stringWriter = new StringWriter())
       {
         var xmlWriter = new XmlTextWriter(stringWriter);
         xmlWriter.Formatting = Formatting.Indented;
-        element.WriteTo(xmlWriter);
+        (element as IXmlSerializable).WriteXml(xmlWriter);
         var lines = stringWriter.ToString().Split("\r\n");
         return lines;
       }

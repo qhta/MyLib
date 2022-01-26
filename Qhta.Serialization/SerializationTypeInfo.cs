@@ -4,8 +4,14 @@ using System.Reflection;
 
 namespace Qhta.Serialization
 {
-  public class SerializedTypeInfo
+  public class SerializationTypeInfo
   {
+
+    public SerializationTypeInfo(String elementName, Type aType)
+    {
+      ElementName = elementName;
+      Type = aType;
+    }
 
     /// <summary>
     /// XmlElement name for a type
@@ -20,12 +26,12 @@ namespace Qhta.Serialization
     /// <summary>
     /// A public constructor to invoke while deserialization
     /// </summary>
-    public ConstructorInfo KnownConstructor { get; set; }
+    public ConstructorInfo? KnownConstructor { get; set; }
 
     /// <summary>
     /// Converter to/from string value.
     /// </summary>
-    public TypeConverter TypeConverter { get; set; }
+    public TypeConverter? TypeConverter { get; set; }
 
     /// <summary>
     /// Known properties to serialize as XML attributes.
@@ -36,11 +42,6 @@ namespace Qhta.Serialization
     /// Known properties to serialize as XML elements.
     /// </summary>
     public KnownPropertiesDictionary PropsAsElements { get; set; } = new KnownPropertiesDictionary();
-
-    /// <summary>
-    /// Known properties to serialize as XML arrays.
-    /// </summary>
-    public KnownPropertiesDictionary PropsAsArrays { get; set; } = new KnownPropertiesDictionary();
 
     /// <summary>
     /// KnownTypes for collection items.

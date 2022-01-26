@@ -29,10 +29,8 @@ namespace Qhta.Serialization
     {
     }
 
-    protected SerializedTypeInfo AddKnownType(Type aType, string ns)
+    protected SerializationTypeInfo AddKnownType(Type aType, string ns)
     {
-      if (aType.Name=="AndExpr")
-        Debug.Assert(true);
       var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
       XmlQualifiedName qName;
       if (xmlRootAttrib?.ElementName != null)
@@ -42,7 +40,7 @@ namespace Qhta.Serialization
       var aName = qName.ToString();
       if (!KnownTypes.TryGetValue(aName, out var oldTypeInfo))
       {
-        var newTypeInfo = new SerializedTypeInfo { Type = aType, ElementName = aName };
+        var newTypeInfo = new SerializationTypeInfo(aName, aType);
 
         if (!IsSimple(aType) && !aType.IsAbstract && !aType.IsEnum)
         {
@@ -53,22 +51,21 @@ namespace Qhta.Serialization
         }
         KnownTypes.Add(aName, newTypeInfo);
         newTypeInfo.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
+        //if (aType.Name=="SwitchExpr")
+        //  TestUtils.Stop();
         newTypeInfo.PropsAsElements = GetPropsAsXmlElements(aType);
-        newTypeInfo.PropsAsArrays = GetPropsAsXmlArrays(aType);
         newTypeInfo.KnownItems = GetKnownItems(aType, ns);
         newTypeInfo.TypeConverter = GetTypeConverter(aType);
         foreach (var prop in newTypeInfo.PropsAsAttributes.Values)
           AddKnownType(prop.GetType(), ns);
         foreach (var prop in newTypeInfo.PropsAsElements.Values)
           AddKnownType(prop.GetType(), ns);
-        foreach (var prop in newTypeInfo.PropsAsArrays.Values)
-          AddKnownType(prop.GetType(), ns);
         return newTypeInfo;
       }
       else
       {
         var bType = oldTypeInfo.Type;
-        if (aType.Name != bType.Name)
+        if (bType!=null && aType.Name != bType.Name)
           throw new InternalException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type.");
         return oldTypeInfo;
       }
@@ -84,11 +81,13 @@ namespace Qhta.Serialization
     #region Write methods
     public abstract void WriteObject(IXWriter writer, object obj);
 
+    public abstract void WriteObjectInterior(IXWriter writer, string? tag, object obj);
+
     public abstract int WriteAttributesBase(IXWriter writer, object obj);
 
-    public abstract int WritePropertiesBase(IXWriter writer, string elementTag, object obj);
+    public abstract int WritePropertiesBase(IXWriter writer, string? elementTag, object obj);
 
-    public abstract int WriteCollectionBase(IXWriter writer, string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes = null);
+    public abstract int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownTypesDictionary? itemTypes = null);
 
     public abstract void WriteStartElement(IXWriter writer, string elementTag);
 
@@ -96,7 +95,7 @@ namespace Qhta.Serialization
 
     public abstract void WriteAttributeString(IXWriter writer, string attrName, string valStr);
 
-    public abstract void WriteValue(IXWriter writer, object value);
+    public abstract void WriteValue(IXWriter writer, object? value);
 
     public abstract void WriteValue(IXWriter writer, string propTag, object value);
 
@@ -106,13 +105,13 @@ namespace Qhta.Serialization
     #endregion
 
     #region Deserialize methods
-    public abstract object Deserialize(Stream stream);
+    public abstract object? Deserialize(Stream stream);
 
-    public abstract object Deserialize(TextReader textReader);
+    public abstract object? Deserialize(TextReader textReader);
     #endregion
 
     #region Read methods
-    public abstract object DeserializeObject();
+    public abstract object? DeserializeObject();
 
     //public abstract void ReadObject(object obj);
 
@@ -137,7 +136,7 @@ namespace Qhta.Serialization
 
     #region Helper methods
 
-    public static int PropOrderComparison(SerializedPropertyInfo a, SerializedPropertyInfo b)
+    public static int PropOrderComparison(SerializationPropertyInfo a, SerializationPropertyInfo b)
     {
       if (a.Order > b.Order)
         return 1;
@@ -170,7 +169,7 @@ namespace Qhta.Serialization
           var order = ++n + 100;
           if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order != null)
             order = (int)attr2.Order;
-          var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
+          var serializePropInfo = new SerializationPropertyInfo(attrName, propInfo, order);
           propList.Add(serializePropInfo);
         }
       }
@@ -179,69 +178,104 @@ namespace Qhta.Serialization
 
     public virtual KnownPropertiesDictionary GetPropsAsXmlElements(Type aType)
     {
+      //if (aType.Name=="SwitchExpr")
+      //  TestUtils.Stop();
       var propList = new KnownPropertiesDictionary();
       var props = aType.GetProperties().Where(item => item.CanWrite && item.CanRead && item.GetCustomAttributes(true)
-      .OfType<XmlElementAttribute>().Count() > 0).ToList();
-      if (props.Count() == 0)
-        return propList;
-      int n = 1000;
-      foreach (var propInfo in props)
-      {
-        var xmlAttribute = propInfo.GetCustomAttributes(true).OfType<XmlElementAttribute>().FirstOrDefault();
-        if (xmlAttribute != null)
-        {
-          var attrName = xmlAttribute.ElementName;
-          if (string.IsNullOrEmpty(attrName))
-            attrName = propInfo.Name;
-          if (Options?.LowercasePropertyName == true)
-            attrName = LowercaseName(attrName);
-
-          var order = ++n + 100;
-          if (xmlAttribute.Order > 0)
-            order = xmlAttribute.Order;
-          var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
-          propList.Add(serializePropInfo);
-        }
-      }
-      return propList;
-    }
-
-    public virtual KnownPropertiesDictionary GetPropsAsXmlArrays(Type aType)
-    {
-      var propList = new KnownPropertiesDictionary();
-      var props = aType.GetProperties().Where(item => item.CanRead && item.GetCustomAttributes(true)
+      .OfType<XmlElementAttribute>().Count() > 0 || item.CanRead && item.GetCustomAttributes(true)
       .OfType<XmlArrayAttribute>().Count() > 0).ToList();
       if (props.Count() == 0)
         return propList;
-      int n = 2000;
+      int n = 1000;
+      int order;
       foreach (var propInfo in props)
       {
-        var xmlAttribute = propInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
-        if (xmlAttribute != null)
+        var elementAttribute = propInfo.GetCustomAttributes(true).OfType<XmlElementAttribute>().FirstOrDefault();
+        if (elementAttribute != null)
         {
-          var attrName = xmlAttribute.ElementName;
-          if (string.IsNullOrEmpty(attrName))
-            attrName = null;
+          var elementName = elementAttribute.ElementName;
+          if (string.IsNullOrEmpty(elementName))
+            elementName = propInfo.Name;
           if (Options?.LowercasePropertyName == true)
-            attrName = LowercaseName(attrName);
+            elementName = LowercaseName(elementName);
 
-          var order = ++n + 100;
-          if (xmlAttribute.Order > 0)
-            order = xmlAttribute.Order;
-          var serializePropInfo = new SerializedPropertyInfo { Order = order, Name = attrName, PropInfo = propInfo };
+          order = ++n + 100;
+          if (elementAttribute.Order > 0)
+            order = elementAttribute.Order;
+          var serializePropInfo = new SerializationPropertyInfo(elementName, propInfo, order);
           propList.Add(serializePropInfo);
+        }
+        var arrayAttribute = propInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
+        if (arrayAttribute != null)
+        {
+          var elementName = arrayAttribute.ElementName;
+          if (string.IsNullOrEmpty(elementName))
+            elementName = "";
+          else if (Options?.LowercasePropertyName == true)
+            elementName = LowercaseName(elementName);
+          order = ++n + 100;
+          if (arrayAttribute.Order > 0)
+            order = arrayAttribute.Order;
+          var serializeArrayInfo = new SerializationArrayInfo(elementName, propInfo, order);
+          propList.Add(serializeArrayInfo);
+
+          var arrayItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToList();
+          foreach (var arrayItemAttribute in arrayItemAttributes)
+          {
+            elementName = arrayItemAttribute.ElementName;
+            var elementType = arrayItemAttribute.Type;
+            if (string.IsNullOrEmpty(elementName))
+            {
+              if (elementType==null)
+                throw new InternalException($"Element name or type must be specified in ArrayItemAttribute in specification of {aType.Name} type");
+              elementName = elementType.Name;
+            }
+            else if (Options?.LowercasePropertyName == true)
+              elementName = LowercaseName(elementName);
+            if (elementType == null)
+              elementType = typeof(object);
+            serializeArrayInfo.Add(elementName, elementType);
+          }
         }
       }
       return propList;
     }
 
+    //public virtual KnownPropertiesDictionary GetPropsAsXmlArrays(Type aType)
+    //{
+    //  var propList = new KnownPropertiesDictionary();
+    //  var props = aType.GetProperties().Where(item => item.CanRead && item.GetCustomAttributes(true)
+    //  .OfType<XmlArrayAttribute>().Count() > 0).ToList();
+    //  if (props.Count() == 0)
+    //    return propList;
+    //  int n = 2000;
+    //  foreach (var propInfo in props)
+    //  {
+    //    var arrayAttribute = propInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
+    //    if (arrayAttribute != null)
+    //    {
+    //      var attrName = arrayAttribute.ElementName;
+    //      if (string.IsNullOrEmpty(attrName))
+    //        attrName = null;
+    //      if (Options?.LowercasePropertyName == true)
+    //        attrName = LowercaseName(attrName);
+
+    //      var order = ++n + 100;
+    //      if (arrayAttribute.Order > 0)
+    //        order = arrayAttribute.Order;
+    //      var serializePropInfo = new SerializedPropertyInfo(attrName, propInfo, order);
+    //      propList.Add(serializePropInfo);
+    //    }
+    //  }
+    //  return propList;
+    //}
+
     protected KnownTypesDictionary GetKnownItems(Type aType, string ns)
     {
-      KnownTypesDictionary knownItems = null;
+      KnownTypesDictionary knownItems = new();
       var itemTagAttributes = aType.GetCustomAttributes<XmlItemElementAttribute>(false);
       if (itemTagAttributes.Count() > 0)
       {
-        knownItems = new KnownTypesDictionary();
         foreach (var itemTagAttribute in itemTagAttributes)
         {
           var itemType = itemTagAttribute.Type;
@@ -262,26 +296,25 @@ namespace Qhta.Serialization
       return knownItems;
     }
 
-    protected TypeConverter GetTypeConverter(Type aType)
+    protected TypeConverter? GetTypeConverter(Type aType)
     {
       var typeConverterAttribute = aType.GetCustomAttribute<TypeConverterAttribute>();
       if (typeConverterAttribute != null)
       {
         var converterTypeName = typeConverterAttribute.ConverterTypeName;
-        converterTypeName = converterTypeName.Split(',').FirstOrDefault();
+        if (converterTypeName == null)
+          throw new InternalException($"Converter type name in a TypeConverter attribute must not be null");
+        converterTypeName = converterTypeName.Split(',').First();
         var converterType = aType.Assembly.GetType(converterTypeName);
         if (converterType != null)
         {
           var constructor = converterType.GetConstructor(new Type[0]);
-          var result = (TypeConverter)constructor.Invoke(new object[0]);
+          if (constructor == null)
+            throw new InternalException($"A TypeConverter {converterType} must have a public unparameterized contstructor");
+          var result = (TypeConverter)(constructor.Invoke(new object[0]));
           if (result.CanConvertTo(typeof(string)) && result.CanConvertFrom(typeof(string)))
             return result;
         }
-        //else
-        //{
-        //  foreach (var type in aType.Assembly.GetTypes())
-        //    Debug.WriteLine(type.FullName);
-        //}
       }
       return null;
     }
@@ -296,7 +329,7 @@ namespace Qhta.Serialization
       else if (aType == typeof(int))
         isSimpleValue = true;
       else if (aType.Name.StartsWith("`Nullable"))
-        return IsSimple(aType.GetGenericArguments().FirstOrDefault());
+        return IsSimple(aType.GetGenericArguments().First());
       return isSimpleValue;
     }
 

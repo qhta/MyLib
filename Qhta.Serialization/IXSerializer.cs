@@ -44,6 +44,14 @@ namespace Qhta.Serialization
     void WriteObject(IXWriter writer, object obj);
 
     /// <summary>
+    /// Write object interior to the serialization target.
+    /// </summary>
+    /// <param name="writer">target writer</param>
+    /// <param name="tag">elementName used to write internal properties</param>
+    /// <param name="obj">Any object to serialize</param>
+    void WriteObjectInterior(IXWriter writer, string? tag, object obj);
+
+    /// <summary>
     /// Write object properties as XML attributes.
     /// Writes only properties that are marked with <see cref="System.Xml.XmlAttribute"/>
     /// or <see cref="XmlOrderedAttribute"/>
@@ -65,7 +73,7 @@ namespace Qhta.Serialization
     /// <param name="obj">Any object to serialize its properties as XML elements</param>
     /// <param name="elementTag">XML element name to place before each property name 
     /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
-    int WritePropertiesBase(IXWriter writer, string elementTag, object obj);
+    int WritePropertiesBase(IXWriter writer, string? elementTag, object obj);
 
     /// <summary>
     /// Write some collection as XML element with children.
@@ -79,7 +87,7 @@ namespace Qhta.Serialization
     /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
     /// <param name="collectionTag">XML element name to place before the whole collection.</param>
     /// <param name="itemTypes">information about serializing items of the collection</param>
-    int WriteCollectionBase(IXWriter writer, string elementTag, string collectionTag, ICollection collection, KnownTypesDictionary itemTypes = null);
+    int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownTypesDictionary? itemTypes = null);
 
     /// <summary>
     /// Write XML element starting tag.
@@ -108,7 +116,7 @@ namespace Qhta.Serialization
     /// </summary>
     /// <param name="writer">target writer</param>
     /// <param name="value">Any value to write as a content of XML element</param>
-    void WriteValue(IXWriter writer, object value);
+    void WriteValue(IXWriter writer, object? value);
 
     /// <summary>
     /// Write XML element with a value.
@@ -126,13 +134,13 @@ namespace Qhta.Serialization
     /// Deserialize any object from a stream
     /// </summary>
     /// <param name="stream"></param>
-    object Deserialize(Stream stream);
+    object? Deserialize(Stream stream);
 
     /// <summary>
     /// Serialize any object from a text reader
     /// </summary>
     /// <param name="textReader"></param>
-    object Deserialize(TextReader textReader);
+    object? Deserialize(TextReader textReader);
     #endregion
 
     #region Helper methods

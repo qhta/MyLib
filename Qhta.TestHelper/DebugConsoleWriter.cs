@@ -23,6 +23,8 @@ namespace Qhta.TestHelper
       public ColorTag(TagType type, ConsoleColor? color=null) { Type = type; Color = color; }
     }
 
+    public override Encoding Encoding { get; } = Encoding.UTF8;
+
     public List<object> Buffer { get; init; } = new List<object>();
 
     public object LockObject { get; init; }
@@ -79,14 +81,16 @@ namespace Qhta.TestHelper
       Buffer.Add(new ColorTag(TagType.Reset));
     }
 
-    public override void Write(string str)
+    public override void Write(string? str)
     {
+      if (str == null) return;
       str = str.Replace("\n", "\\n");
       Buffer.Add(str);
     }
 
-    public override void WriteLine(string line)
+    public override void WriteLine(string? line)
     {
+      if (line == null) return;
       line = line.Replace("\n", "\\n");
       Buffer.Add(line + "\n");
     }
@@ -125,6 +129,7 @@ namespace Qhta.TestHelper
       }
     }
 
-    public override Encoding Encoding { get; }
+    public void Indent() { }
+    public void Unindent() { }
   }
 }
