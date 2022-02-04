@@ -1,7 +1,6 @@
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TestHelper.deps.json
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TestHelper.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TestHelper.pdb
-D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.GeneratedMSBuildEditorConfig.editorconfig
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.AssemblyInfo.cs
@@ -9,4 +8,7 @@ D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.Cor
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\ref\Qhta.TestHelper.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.pdb
-D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\refint\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\ref\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Interop.IWshRuntimeLibrary.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.CopyComplete
