@@ -2,12 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	<Nullable>enable</Nullable>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="TraceWriting\TraceWriter.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Interop.IWshRuntimeLibrary">

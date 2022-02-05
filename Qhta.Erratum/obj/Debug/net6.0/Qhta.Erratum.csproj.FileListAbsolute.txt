@@ -12,4 +12,5 @@ D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\Qhta.Erratum.csproj.CopyCompl
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\ref\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\Qhta.Erratum.pdb
-D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\refint\Qhta.Erratum.dll
+D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\ref\Qhta.Erratum.dll
+D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Interop.IWshRuntimeLibrary.dll

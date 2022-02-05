@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 
+using Qhta.TestHelper;
+
 using System;
 
 /// <summary>
@@ -16,7 +18,11 @@ namespace Qhta.Json.Converters
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-      return existingValue == null || (string)existingValue == "";
+      if (existingValue == null)
+        return true;
+      if (existingValue is bool boolValue)
+        return boolValue;
+      throw new InternalException($"Cannot convert {existingValue} to bool");
     }
 
     public override bool CanWrite => false;

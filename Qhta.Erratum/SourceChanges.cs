@@ -10,7 +10,7 @@ namespace Qhta.Erratum
 {
   public class SourceChanges: Stack<SourceChange>
   {
-    public ITraceWriter? ChangeWriter { get; set; }
+    public ITraceTextWriter? ChangeWriter { get; set; }
 
     public void Add(int pos, string? text, string? replacement)
     {
