@@ -1,14 +1,6 @@
-﻿using IWshRuntimeLibrary;
-
+﻿
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using File = System.IO.File;
-
-using System.Diagnostics.CodeAnalysis;
-using System.Xml.Serialization;
 
 namespace Qhta.TestHelper
 {
@@ -78,14 +70,32 @@ namespace Qhta.TestHelper
     }
 
     /// <summary>
-    /// Abstract test preparation 
+    /// Abstract test preparation. Output parameter <paramref name="plannedTests"/> must be filled.
+    /// If not - return false
     /// </summary>
-    /// <param name="plannedTests"></param>
-    /// <returns></returns>
+    /// <param name="plannedTests">Result collection of planned test cases</param>
+    /// <returns>if result collection prepared</returns>
     protected abstract bool Prepare(out TestCase[]? plannedTests);
 
+    /// <summary>
+    /// Abstract test execution. Planned test cases are given as input parameter.
+    /// Result is number of test cases that were run and number of test cases failed.
+    /// </summary>
+    /// <param name="plannedTests">Collection od planned test cases</param>
+    /// <param name="doneTestsCount">Number of planned test cases that were run</param>
+    /// <param name="failedTestsCount">Number of failed test cases</param>
+    /// <returns>If all the test cases were run succesfully</returns>
     protected abstract bool Execute(TestCase[] plannedTests, out int doneTestsCount, out int failedTestsCount);
 
+    /// <summary>
+    /// Virtual test finalization. Input parameters are: collection of planned test cases,
+    /// and number of test cases that were run and number of test cases failed.
+    /// Appriopriate messages are written to <see cref="TraceWriter"/>
+    /// </summary>
+    /// <param name="plannedTests">Collection od planned test cases</param>
+    /// <param name="doneTestsCount">Number of planned test cases that were run</param>
+    /// <param name="failedTestsCount">Number of failed test cases</param>
+    /// <returns>False only if not tests were planned</returns>
     protected virtual bool Finalize(TestCase[]? plannedTests, int doneTestsCount, int failedTestsCount)
     {
       TraceWriter?.WriteLine();
@@ -102,6 +112,7 @@ namespace Qhta.TestHelper
       return true;
     }
 
+    #region IDisposed implementation
     private bool disposedValue1;
 
     protected virtual void Dispose(bool disposing)
@@ -122,7 +133,11 @@ namespace Qhta.TestHelper
       Dispose(disposing: true);
       GC.SuppressFinalize(this);
     }
+    #endregion
 
+    /// <summary>
+    /// Virtual method called on dispose
+    /// </summary>
     protected virtual void OnDispose()
     {
       TraceWriter?.Dispose();

@@ -12,14 +12,25 @@ namespace Qhta.TestHelper
     {
       Name = name;
     }
+    public TestCase(string name, Func<bool> execFunc)
+    {
+      Name = name;
+      ExecFunction = execFunc;
+    }
 
     public string Name { get; init; }
 
     public bool? Result { get; set; }
 
+
+    public Func<bool>? ExecFunction { get; set; }
+
     public virtual bool Execute()
     {
-      throw new InternalException("Not implemented execute function in test case");
+      if (ExecFunction == null)
+        throw new InternalException($"ExecFunction nust be specified to run these test case");
+      Result = ExecFunction();
+      return (bool)Result;
     }
   }
 }

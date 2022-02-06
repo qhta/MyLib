@@ -1,19 +1,20 @@
 ﻿using IWshRuntimeLibrary;
 
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using File = System.IO.File;
-
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
+
+using File = System.IO.File;
 
 namespace Qhta.TestHelper
 {
 
-  public abstract class AbstractFileGen : AbstractTest
+  /// <summary>
+  /// Abstract test with file generating. Contains output file comparison with expected content.
+  /// </summary>
+  public abstract class AbstractFileGenTest : AbstractTest
   {
     public bool AcceptOnFail { get; set; }
 
@@ -23,7 +24,7 @@ namespace Qhta.TestHelper
     protected static FileCompareOptions writeCompareOptions { get; set; }
       = new FileCompareOptions { SyncLimit = 20, DiffLimit = 3, IgnoreAttributesOrder = true };
 
-    static AbstractFileGen()
+    static AbstractFileGenTest()
     {
       string filepath = Assembly.GetExecutingAssembly().Location;
       while (Path.GetFileName(filepath) != "bin")
@@ -76,7 +77,6 @@ namespace Qhta.TestHelper
       }
       return true;
     }
-
 
     protected bool CompareResultFiles(string filename, string expFilename, string outFilename, bool acceptOnFail)
     {
