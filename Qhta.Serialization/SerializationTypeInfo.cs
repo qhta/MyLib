@@ -44,9 +44,15 @@ namespace Qhta.Serialization
     public KnownPropertiesDictionary PropsAsElements { get; set; } = new KnownPropertiesDictionary();
 
     /// <summary>
+    /// Known property to accept content object.
+    /// </summary>
+    public SerializationPropertyInfo KnownContentProperty { get; set; }
+
+    /// <summary>
     /// KnownTypes for collection items.
     /// </summary>
     public KnownTypesDictionary KnownItems { get; set; } = new KnownTypesDictionary();
+
 
   }
 }

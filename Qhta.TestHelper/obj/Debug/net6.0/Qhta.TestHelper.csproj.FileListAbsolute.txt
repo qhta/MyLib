@@ -10,5 +10,5 @@ D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\ref\Qhta.TestHelper.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.pdb
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\ref\Qhta.TestHelper.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Interop.IWshRuntimeLibrary.dll
-D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.AssemblyReference.cache

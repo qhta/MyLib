@@ -25,11 +25,8 @@ namespace Qhta.Serialization
 
     #region Creator methods
 
-    protected BaseSerializer()
-    {
-    }
 
-    protected SerializationTypeInfo AddKnownType(Type aType, string ns)
+    protected SerializationTypeInfo? AddKnownType(Type aType, string ns)
     {
       var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
       XmlQualifiedName qName;
@@ -46,13 +43,15 @@ namespace Qhta.Serialization
         {
           var constructor = aType.GetConstructor(new Type[0]);
           if (constructor == null)
-            throw new InternalException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization.");
+          {
+            if (Options.IgnoreTypesWithoutParameterlessConstructor)
+              return null;
+            throw new InternalException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization");
+          }
           newTypeInfo.KnownConstructor = constructor;
         }
         KnownTypes.Add(aName, newTypeInfo);
         newTypeInfo.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
-        //if (aType.Name=="SwitchExpr")
-        //  TestUtils.Stop();
         newTypeInfo.PropsAsElements = GetPropsAsXmlElements(aType);
         newTypeInfo.KnownItems = GetKnownItems(aType, ns);
         newTypeInfo.TypeConverter = GetTypeConverter(aType);
@@ -60,13 +59,22 @@ namespace Qhta.Serialization
           AddKnownType(prop.GetType(), ns);
         foreach (var prop in newTypeInfo.PropsAsElements.Values)
           AddKnownType(prop.GetType(), ns);
+        var contentPropertyAttrib = aType.GetCustomAttribute<ContentPropertyAttribute>(true);
+        if (contentPropertyAttrib!=null)
+        {
+          var contentPropertyName = contentPropertyAttrib.Name;
+          var contentPropertyInfo = aType.GetProperty(contentPropertyName);
+          if (contentPropertyInfo==null)
+            throw new InternalException($"Content property \"{contentPropertyName}\" in {aType.Name} not found");
+          newTypeInfo.KnownContentProperty = new SerializationPropertyInfo(contentPropertyName, contentPropertyInfo);
+        }
         return newTypeInfo;
       }
       else
       {
         var bType = oldTypeInfo.Type;
         if (bType!=null && aType.Name != bType.Name)
-          throw new InternalException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type.");
+          throw new InternalException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type");
         return oldTypeInfo;
       }
     }
@@ -76,6 +84,9 @@ namespace Qhta.Serialization
     public abstract void Serialize(Stream stream, object obj);
 
     public abstract void Serialize(TextWriter textWriter, object obj);
+
+    public abstract string Serialize(object obj);
+
     #endregion
 
     #region Write methods
@@ -108,11 +119,12 @@ namespace Qhta.Serialization
     public abstract object? Deserialize(Stream stream);
 
     public abstract object? Deserialize(TextReader textReader);
+
+    public abstract object? Deserialize(string str);
+
     #endregion
 
     #region Read methods
-    public abstract object? DeserializeObject();
-
     //public abstract void ReadObject(object obj);
 
     //public abstract int ReadAttributesBase(object obj);
@@ -178,12 +190,10 @@ namespace Qhta.Serialization
 
     public virtual KnownPropertiesDictionary GetPropsAsXmlElements(Type aType)
     {
-      //if (aType.Name=="SwitchExpr")
-      //  TestUtils.Stop();
       var propList = new KnownPropertiesDictionary();
-      var props = aType.GetProperties().Where(item => item.CanWrite && item.CanRead && item.GetCustomAttributes(true)
-      .OfType<XmlElementAttribute>().Count() > 0 || item.CanRead && item.GetCustomAttributes(true)
-      .OfType<XmlArrayAttribute>().Count() > 0).ToList();
+      var props = aType.GetProperties().Where(
+           item => item.GetCustomAttributes(true).OfType<XmlElementAttribute>().Count() > 0 && item.CanWrite && item.CanRead 
+        || item.GetCustomAttributes(true).OfType<XmlArrayAttribute>().Count() > 0 && item.CanRead).ToList();
       if (props.Count() == 0)
         return propList;
       int n = 1000;
