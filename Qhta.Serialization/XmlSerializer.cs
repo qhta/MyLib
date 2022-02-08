@@ -390,30 +390,33 @@ namespace Qhta.Serialization
     #region Deserialize methods
     public override object? Deserialize(Stream stream)
     {
-      using (XmlReader xmlReader = XmlReader.Create(stream))
+      using (XmlTextReader xmlReader = new XmlTextReader(stream))
       {
+        xmlReader.WhitespaceHandling = WhitespaceHandling.None;
         return Deserialize(xmlReader);
       }
     }
 
     public override object? Deserialize(TextReader textReader)
     {
-      using (XmlReader xmlReader = XmlReader.Create(textReader))
+      using (XmlTextReader xmlReader = new XmlTextReader(textReader))
       {
+        xmlReader.WhitespaceHandling = WhitespaceHandling.None;
         return Deserialize(xmlReader);
       }
     }
 
     public override object? Deserialize(string str)
     {
-      using (XmlReader xmlReader = XmlReader.Create(new StringReader(str)))
+      using (XmlTextReader xmlReader = new XmlTextReader(new StringReader(str)))
       {
+        xmlReader.WhitespaceHandling = WhitespaceHandling.None;
         return Deserialize(xmlReader);
       }
     }
 
 
-    public object? Deserialize(XmlReader reader)
+    public object? Deserialize(XmlTextReader reader)
     {
       if (reader == null)
         throw new InternalException("$Reader must be set prior to deserialize");
@@ -447,20 +450,20 @@ namespace Qhta.Serialization
 
 
     #region Read methods
-
-    public void SkipToElement(XmlReader reader)
+   
+    public void SkipToElement(XmlTextReader reader)
     {
-      while (!reader.EOF && reader.NodeType != XmlNodeType.Element) 
+      while (!reader.EOF && reader.NodeType != XmlNodeType.Element)
         reader.Read();
     }
 
-    public void SkipWhitespaces(XmlReader reader)
+    public void SkipWhitespaces(XmlTextReader reader)
     {
       while (reader.NodeType == XmlNodeType.Whitespace)
         reader.Read();
     }
 
-    public void ReadObject(object obj, XmlReader reader)
+    public void ReadObject(object obj, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -471,9 +474,12 @@ namespace Qhta.Serialization
       if (isEmptyElement)
         return;
       ReadElementsBase(obj, reader);
+      ReadTextValue(obj, reader);
+      if (reader.NodeType == XmlNodeType.EndElement)
+        reader.Read();
     }
 
-    public int ReadAttributesBase(object obj, XmlReader reader)
+    public int ReadAttributesBase(object obj, XmlTextReader reader)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
@@ -490,24 +496,36 @@ namespace Qhta.Serialization
       while (reader.NodeType == XmlNodeType.Attribute)
       {
         string attrName = reader.Name;
-        var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
-        if (propertyToRead == null)
-          throw new XmlInternalException($"Unknown property for attribute \"{attrName}\" in type {aType.Name}", reader);
-        object? propValue = null;
-        Type propType = propertyToRead.PropInfo.PropertyType;
-        reader.ReadAttributeValue();
-        propValue = ReadValue(propType, reader);
-        if (propValue != null)
+        if (attrName == "xml:space")
         {
-          propertyToRead.PropInfo.SetValue(obj, propValue);
-          attrsRead++;
+          reader.ReadAttributeValue();
+          var str = reader.ReadContentAsString();
+          if (str == "preserve")
+            reader.WhitespaceHandling = WhitespaceHandling.Significant;
+          else
+            reader.WhitespaceHandling = WhitespaceHandling.None;
+        }
+        else
+        {
+          var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
+          if (propertyToRead == null)
+            throw new XmlInternalException($"Unknown property for attribute \"{attrName}\" in type {aType.Name}", reader);
+          object? propValue = null;
+          Type propType = propertyToRead.PropInfo.PropertyType;
+          reader.ReadAttributeValue();
+          propValue = ReadValue(propType, reader);
+          if (propValue != null)
+          {
+            propertyToRead.PropInfo.SetValue(obj, propValue);
+            attrsRead++;
+          }
         }
         reader.MoveToNextAttribute();
       }
       return attrsRead;
     }
 
-    public int ReadElementsBase(object obj, XmlReader reader)
+    public int ReadElementsBase(object obj, XmlTextReader reader)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
@@ -570,7 +588,7 @@ namespace Qhta.Serialization
       return propsRead;
     }
 
-    public object? ReadElementAsObject(Type expectedType, XmlReader reader)
+    public object? ReadElementAsObject(Type expectedType, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -587,7 +605,7 @@ namespace Qhta.Serialization
       return obj;
     }
 
-    protected void ReadElementAsCollectionProperty(object obj, SerializationArrayInfo propertyArrayInfo, XmlReader reader)
+    protected void ReadElementAsCollectionProperty(object obj, SerializationArrayInfo propertyArrayInfo, XmlTextReader reader)
     {
       var collectionType = propertyArrayInfo.PropInfo.PropertyType;
       if (reader.NodeType != XmlNodeType.Element)
@@ -604,14 +622,14 @@ namespace Qhta.Serialization
           if (collectionType.IsArray)
           {
             var itemType = collectionType.GetElementType();
-            if (itemType==null)
+            if (itemType == null)
               throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
             var tempCollection = new List<object>();
             reader.Read();
             ReadCollectionItems(tempCollection, itemType, reader);
             var itemArray = Array.CreateInstance(itemType, tempCollection.Count);
             for (int i = 0; i < tempCollection.Count; i++)
-              itemArray.SetValue(tempCollection[i],i);
+              itemArray.SetValue(tempCollection[i], i);
             propertyArrayInfo.PropInfo.SetValue(obj, itemArray);
           }
           else
@@ -622,29 +640,29 @@ namespace Qhta.Serialization
           if (!(typeInfo.Type == collectionType || typeInfo.Type.IsSubclassOf(collectionType)))
             throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
               $" but {collectionType.Name} or its subclass expected", reader);
-            if (typeInfo.KnownConstructor == null)
-              throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
-            collection = typeInfo.KnownConstructor.Invoke(new object[0]);
-            propertyArrayInfo.PropInfo.SetValue(obj, collection);
-            reader.MoveToContent();
+          if (typeInfo.KnownConstructor == null)
+            throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
+          collection = typeInfo.KnownConstructor.Invoke(new object[0]);
+          propertyArrayInfo.PropInfo.SetValue(obj, collection);
+          reader.MoveToContent();
         }
       }
     }
 
-    protected int ReadCollectionItems(ICollection<object> collection, Type expectedItemType, XmlReader reader)
+    protected int ReadCollectionItems(ICollection<object> collection, Type expectedItemType, XmlTextReader reader)
     {
       int itemsRead = 0;
       while (reader.NodeType == XmlNodeType.Element)
       {
         var item = ReadElementAsItem(expectedItemType, reader);
-        if (item!=null)
+        if (item != null)
           collection.Add(item);
         SkipWhitespaces(reader);
       }
       return itemsRead;
     }
 
-    public object? ReadElementAsItem(Type expectedType, XmlReader reader)
+    public object? ReadElementAsItem(Type expectedType, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -658,7 +676,22 @@ namespace Qhta.Serialization
       return obj;
     }
 
-    protected object? ReadValue(Type propType, XmlReader reader)
+    public void ReadTextValue(object obj, XmlTextReader reader)
+    {
+      if (reader.NodeType == XmlNodeType.Text)
+      {
+        var aType = obj.GetType();
+        if (!KnownTypes.TryGetValue(aType, out var typeInfo))
+          throw new XmlInternalException($"Unknown type {aType.Name} on deserialize", reader);
+        var textPropertyInfo = typeInfo.KnownTextProperty;
+        if (textPropertyInfo == null)
+          throw new XmlInternalException($"Unknown text property in {aType.Name} on deserialize", reader);
+        var value = ReadValue(textPropertyInfo.PropInfo.PropertyType, reader);
+        textPropertyInfo.PropInfo.SetValue(obj, value);
+      }
+    }
+
+    protected object? ReadValue(Type propType, XmlTextReader reader)
     {
       var str = reader.ReadContentAsString();
       object? propValue;

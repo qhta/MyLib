@@ -44,9 +44,14 @@ namespace Qhta.Serialization
     public KnownPropertiesDictionary PropsAsElements { get; set; } = new KnownPropertiesDictionary();
 
     /// <summary>
-    /// Known property to accept content object.
+    /// Known property to accept content of XmlElement.
     /// </summary>
-    public SerializationPropertyInfo KnownContentProperty { get; set; }
+    public SerializationPropertyInfo? KnownContentProperty { get; set; }
+
+    /// <summary>
+    /// Known property to accept text content of XmlElement.
+    /// </summary>
+    public SerializationPropertyInfo? KnownTextProperty { get; set; }
 
     /// <summary>
     /// KnownTypes for collection items.

@@ -59,21 +59,29 @@ namespace Qhta.Serialization
           AddKnownType(prop.GetType(), ns);
         foreach (var prop in newTypeInfo.PropsAsElements.Values)
           AddKnownType(prop.GetType(), ns);
+
         var contentPropertyAttrib = aType.GetCustomAttribute<ContentPropertyAttribute>(true);
-        if (contentPropertyAttrib!=null)
+        if (contentPropertyAttrib != null)
         {
           var contentPropertyName = contentPropertyAttrib.Name;
           var contentPropertyInfo = aType.GetProperty(contentPropertyName);
-          if (contentPropertyInfo==null)
+          if (contentPropertyInfo == null)
             throw new InternalException($"Content property \"{contentPropertyName}\" in {aType.Name} not found");
           newTypeInfo.KnownContentProperty = new SerializationPropertyInfo(contentPropertyName, contentPropertyInfo);
         }
+
+        var textPropertyInfo = aType.GetProperties().Where(item =>
+            item.CanWrite && item.CanRead &&
+            item.GetCustomAttributes(true).OfType<XmlTextAttribute>().Count() > 0).FirstOrDefault();
+        if (textPropertyInfo != null)
+          newTypeInfo.KnownTextProperty = new SerializationPropertyInfo("", textPropertyInfo);
+
         return newTypeInfo;
       }
       else
       {
         var bType = oldTypeInfo.Type;
-        if (bType!=null && aType.Name != bType.Name)
+        if (bType != null && aType.Name != bType.Name)
           throw new InternalException($"Name \"{aName}\" already defined for \"{bType}\" while registering \"{aType}\" type");
         return oldTypeInfo;
       }
@@ -192,7 +200,7 @@ namespace Qhta.Serialization
     {
       var propList = new KnownPropertiesDictionary();
       var props = aType.GetProperties().Where(
-           item => item.GetCustomAttributes(true).OfType<XmlElementAttribute>().Count() > 0 && item.CanWrite && item.CanRead 
+           item => item.GetCustomAttributes(true).OfType<XmlElementAttribute>().Count() > 0 && item.CanWrite && item.CanRead
         || item.GetCustomAttributes(true).OfType<XmlArrayAttribute>().Count() > 0 && item.CanRead).ToList();
       if (props.Count() == 0)
         return propList;
@@ -236,7 +244,7 @@ namespace Qhta.Serialization
             var elementType = arrayItemAttribute.Type;
             if (string.IsNullOrEmpty(elementName))
             {
-              if (elementType==null)
+              if (elementType == null)
                 throw new InternalException($"Element name or type must be specified in ArrayItemAttribute in specification of {aType.Name} type");
               elementName = elementType.Name;
             }
@@ -295,12 +303,13 @@ namespace Qhta.Serialization
           {
             itemTypeInfo = AddKnownType(itemType, ns);
           }
-          if (!String.IsNullOrEmpty(itemTagAttribute.ElementName))
-            knownItems.Add(itemTagAttribute.ElementName, itemTypeInfo);
-          else
-          {
-            knownItems.Add(itemTypeInfo.ElementName, itemTypeInfo);
-          }
+          if (itemTypeInfo!=null)
+            if (!string.IsNullOrEmpty(itemTagAttribute.ElementName))
+              knownItems.Add(itemTagAttribute.ElementName, itemTypeInfo);
+            else
+            {
+              knownItems.Add(itemTypeInfo.ElementName, itemTypeInfo);
+            }
         }
       }
       return knownItems;
@@ -372,7 +381,7 @@ namespace Qhta.Serialization
     }
     public static bool IsUpper(string text)
     {
-      if (text==null)
+      if (text == null)
         return false;
       foreach (var ch in text)
         if (char.IsLetter(ch) && !Char.IsUpper(ch))
