@@ -3,15 +3,29 @@ using System.Reflection;
 
 namespace Qhta.Serialization
 {
-  public class SerializationItemInfo: SerializationTypeInfo
+  /// <summary>
+  /// Info on an array property item
+  /// </summary>
+  public class SerializationItemInfo 
   {
 
-    public SerializationItemInfo(string elementName, PropertyInfo info, Type type): base(elementName, type)
+    public SerializationItemInfo(string elementName, Type itemType)
     {
-      PropInfo = info;
+      ElementName = elementName;
+      ItemType = itemType;
     }
 
-    public PropertyInfo PropInfo { get; init; }
+    /// <summary>
+    /// Name of the Xml/Json element
+    /// </summary>
+    public string ElementName {get; init; }
+
+    /// <summary>
+    /// Type of the array item
+    /// </summary>
+    public Type ItemType { get; init; }
+
+    public SerializationTypeInfo? TypeInfo { get; set; }
 
   }
 

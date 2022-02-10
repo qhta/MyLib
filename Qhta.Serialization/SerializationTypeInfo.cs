@@ -1,13 +1,18 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
+
+using Qhta.TestHelper;
+using Qhta.TypeUtils;
 
 namespace Qhta.Serialization
 {
   public class SerializationTypeInfo
   {
 
-    public SerializationTypeInfo(String elementName, Type aType)
+    public SerializationTypeInfo(String? elementName, Type aType)
     {
       ElementName = elementName;
       Type = aType;
@@ -16,7 +21,7 @@ namespace Qhta.Serialization
     /// <summary>
     /// XmlElement name for a type
     /// </summary>
-    public string ElementName { get; set; }
+    public string? ElementName { get; set; }
 
     /// <summary>
     /// A type to serialize or deserialize

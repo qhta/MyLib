@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BaseSerializer.cs" />
     <Compile Remove="XmlElement2Attribute.cs" />
     <Compile Remove="XmlMapping.cs" />
     <Compile Remove="XmlSerializer.new.cs" />
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
+    <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
   </ItemGroup>
 
 </Project>

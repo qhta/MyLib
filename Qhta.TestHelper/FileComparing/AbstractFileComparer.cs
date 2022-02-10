@@ -115,7 +115,7 @@ namespace Qhta.TestHelper
       bool colorChanged = false;
       if (isExpected == true)
       {
-        if (Options.ExpLinesColor!=null)
+        if (Options.ExpLinesColor!=null && Writer!=null)
         {
           Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
           colorChanged = true;
@@ -123,7 +123,7 @@ namespace Qhta.TestHelper
       }
       if (isExpected == false)
       {
-        if (Options.OutLinesColor != null)
+        if (Options.OutLinesColor != null && Writer!=null)
         {
           Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
           colorChanged = true;
@@ -135,7 +135,7 @@ namespace Qhta.TestHelper
           Writer.WriteLine(line);
       }
       if (colorChanged)
-        Writer.ResetColors();
+        Writer?.ResetColors();
     }
 
     /// <summary>

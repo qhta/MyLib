@@ -6,10 +6,20 @@ namespace Qhta.Serialization
   {
     /// <summary>
     /// Types to be deserialized must have parameterless constructor.
-    /// If a type found during scanning available types, the exception is thrown
-    /// unless this option is set.
+    /// If a type found during scanning available types hase no public parameterless constructor, 
+    /// the exception is thrown unless this option is set.
     /// </summary>
     public bool IgnoreTypesWithoutParameterlessConstructor { get; set; }
+
+    /// <summary>
+    /// Usually types are registered for serialization/deserialization with unique names.
+    /// So if an application tries to register the same type with two different names,
+    /// the exception is thrown unless this option is set.
+    /// Note that when a type is registered with multiple names, 
+    /// it can be recognized with different names on deserialization.
+    /// On serialization, only one name is used.
+    /// </summary>
+    public bool AllowMultipleTypeRegistration { get; set; }
 
     /// <summary>
     /// If attribute names should be changed to lowercase on serialization

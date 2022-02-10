@@ -265,16 +265,16 @@ namespace Qhta.TestHelper
       if (linesLimit == 0)
         linesLimit = Options.SyncLimit;
       ShowLine(Options.StartOfDiffOut);
-      if (Options.OutLinesColor != null)
+      if (Options.OutLinesColor != null && Writer != null)
         Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
       ShowXmlElement(outElement, false, linesLimit);
-      if (Options.OutLinesColor != null)
+      if (Options.OutLinesColor != null && Writer != null)
         Writer.ResetColors();
       ShowLine(Options.StartOfDiffExp);
-      if (Options.ExpLinesColor != null)
+      if (Options.ExpLinesColor != null && Writer != null)
         Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
       ShowXmlElement(expElement, true, linesLimit);
-      if (Options.ExpLinesColor != null)
+      if (Options.ExpLinesColor != null && Writer != null)
         Writer.ResetColors();
       ShowLine(Options.EndOfDiffs);
     }
@@ -294,7 +294,7 @@ namespace Qhta.TestHelper
 
       var outLinesLimit = linesLimit;
       ShowLine(Options.StartOfDiffOut);
-      if (Options.OutLinesColor != null)
+      if (Options.OutLinesColor != null && Writer != null)
         Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
       for (int i = 0; i < outLinesLimit; i++)
       {
@@ -309,11 +309,11 @@ namespace Qhta.TestHelper
           break;
         }
       }
-      if (Options.OutLinesColor != null)
+      if (Options.OutLinesColor != null && Writer != null)
         Writer.ResetColors();
 
       ShowLine(Options.StartOfDiffExp);
-      if (Options.ExpLinesColor != null)
+      if (Options.ExpLinesColor != null && Writer != null)
         Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
       var expLinesLimit = linesLimit;
       for (int i = 0; i < outLinesLimit; i++)
@@ -329,7 +329,7 @@ namespace Qhta.TestHelper
           break;
         }
       }
-      if (Options.ExpLinesColor != null)
+      if (Options.ExpLinesColor != null && Writer != null)
         Writer.ResetColors();
 
       ShowLine(Options.EndOfDiffs);
@@ -348,7 +348,7 @@ namespace Qhta.TestHelper
       if (linesLimit == 0)
         linesLimit = Options.SyncLimit;
       ShowLine(Options.StartOfDiffOut);
-      if (Options.OutLinesColor != null)
+      if (Options.OutLinesColor != null && Writer != null)
         Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
       var outElements = outElement.Elements().ToArray();
       int outLimit = linesLimit;
@@ -359,11 +359,11 @@ namespace Qhta.TestHelper
         var linesShown = ShowXmlElement(outElements[i], false, outLimit);
         outLimit -= linesShown;
       }
-      if (Options.OutLinesColor != null)
+      if (Options.OutLinesColor != null && Writer != null)
         Writer.ResetColors();
 
       ShowLine(Options.StartOfDiffExp);
-      if (Options.ExpLinesColor != null)
+      if (Options.ExpLinesColor != null && Writer != null)
         Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
       var expElements = expElement.Elements().ToArray();
       int expLimit = linesLimit;
@@ -374,7 +374,7 @@ namespace Qhta.TestHelper
         var linesShown = ShowXmlElement(expElements[i], true, expLimit);
         expLimit -= linesShown;
       }
-      if (Options.ExpLinesColor != null)
+      if (Options.ExpLinesColor != null && Writer != null)
         Writer.ResetColors();
 
       ShowLine(Options.EndOfDiffs);

@@ -12,10 +12,10 @@ namespace Qhta.Serialization
 
     #region IDictionary implementation
 
-    public void Add(string key, Type type)
-    {
-      this.Add(key, new SerializationTypeInfo(key, type));
-    }
+    //public void Add(string key, Type type)
+    //{
+    //  this.Add(key, new SerializationTypeInfo(key, type));
+    //}
 
     public void Add(string key, SerializationTypeInfo value)
     {

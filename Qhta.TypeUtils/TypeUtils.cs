@@ -14,6 +14,49 @@ namespace Qhta.TypeUtils
   public static class TypeUtils
   {
     /// <summary>
+    /// Table of numeric types
+    /// </summary>
+    public static Type[] NumeralTypes = new Type[]
+    {
+      typeof(Byte),
+      typeof(SByte),
+      typeof(Int16),
+      typeof(Int32),
+      typeof(Int64),
+      typeof(UInt16),
+      typeof(UInt32),
+      typeof(UInt64),
+      typeof(Single),
+      typeof(Double),
+      typeof(Decimal),
+    };
+
+    /// <summary>
+    /// Table of simple types - i.e. types serialized as simple text strings.
+    /// </summary>
+    public static Type[] SimpleTypes = new Type[]
+    {
+      typeof(String),
+      typeof(Boolean),
+      typeof(Char),
+      typeof(Byte),
+      typeof(SByte),
+      typeof(Int16),
+      typeof(Int32),
+      typeof(Int64),
+      typeof(UInt16),
+      typeof(UInt32),
+      typeof(UInt64),
+      typeof(Single),
+      typeof(Double),
+      typeof(Decimal),
+      typeof(DateTime),
+      typeof(TimeSpan),
+      typeof(Guid),
+      typeof(Enum),
+    };
+
+    /// <summary>
     /// Mapping from a numeric type to possible numeric supertype
     /// </summary>
     public static Type[,] NumericSupertypes = new Type[,]
@@ -80,6 +123,29 @@ namespace Qhta.TypeUtils
     };
 
     /// <summary>
+    /// If aType is a simple type: string, bool, char, numeric, enum, dateTime, timespan, Guid
+    /// or nullable based on this type.
+    /// </summary>
+    /// <param name="aType"></param>
+    /// <returns></returns>
+    public static bool IsSimpleType(this Type aType)
+    {
+      if (aType.Name.StartsWith("Nullable`1"))
+      {
+        aType = aType.GetGenericArguments()[0];
+      }
+      return SimpleTypes.Contains(aType);
+    }
+
+    /// <summary>
+    /// If aType is a numeric type
+    /// </summary>
+    /// <param name="aType"></param>
+    /// <returns></returns>
+    public static bool IsNumeralType (this Type aType)
+      => NumeralTypes.Contains(aType);
+
+    /// <summary>
     /// Check if this type can be a supertype of other type
     /// </summary>
     /// <param name="thisType"></param>
@@ -87,7 +153,7 @@ namespace Qhta.TypeUtils
     /// <returns></returns>
     public static bool IsNumericSupertypeOf(this Type thisType, Type otherType)
     {
-      for (int i=0; i<NumericSupertypes.GetLength(0); i++)
+      for (int i = 0; i < NumericSupertypes.GetLength(0); i++)
       {
         if (NumericSupertypes[i, 0] == otherType && NumericSupertypes[i, 1] == thisType)
           return true;
@@ -103,7 +169,7 @@ namespace Qhta.TypeUtils
     /// <returns></returns>
     public static bool IsDefaultValue(this Type valueType, object value)
     {
-      if (valueType.Name.StartsWith("Nullable"))
+      if (valueType.Name.StartsWith("Nullable`1"))
       {
         var argTypes = valueType.GenericTypeArguments;
         if (argTypes.Length == 1)

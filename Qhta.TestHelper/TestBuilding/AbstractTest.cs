@@ -40,21 +40,21 @@ namespace Qhta.TestHelper
     /// <returns>True if test passes, false if failed</returns>
     public virtual bool Run()
     {
-        if (!Init())
-          return false;
-        var testResult = Prepare(out var plannedTest);
-        int doneTestCount = 0;
-        int failTestCount = 0;
-        var t1 = DateTime.Now;
-        if (testResult && plannedTest!=null && plannedTest.Count() != 0)
-        {
-          testResult = Execute(plannedTest, out doneTestCount, out failTestCount);
-        }
-        if (!Finalize(plannedTest, doneTestCount, failTestCount))
-          testResult = false;
-        var t2 = DateTime.Now;
-        TraceWriter?.WriteLine($"Total test execution time = {(t2 - t1).TotalSeconds} seconds");
-        return testResult;
+      if (!Init())
+        return false;
+      var testResult = Prepare(out var plannedTest);
+      int doneTestCount = 0;
+      int failTestCount = 0;
+      var t1 = DateTime.Now;
+      if (testResult && plannedTest != null && plannedTest.Count() != 0)
+      {
+        testResult = Execute(plannedTest, out doneTestCount, out failTestCount);
+      }
+      if (!Finalize(plannedTest, doneTestCount, failTestCount))
+        testResult = false;
+      var t2 = DateTime.Now;
+      TraceWriter?.WriteLine($"Total test execution time = {(t2 - t1).TotalSeconds} seconds");
+      return testResult;
     }
 
     /// <summary>
@@ -102,13 +102,22 @@ namespace Qhta.TestHelper
       var plannedTestsCount = plannedTests?.Length ?? 0;
       if (plannedTestsCount == 0)
       {
-        TraceWriter?.WriteLine("No test planned");
+        TraceWriter?.WriteLine("No test cases planned");
         return false;
       }
       if (plannedTestsCount != doneTestsCount)
-        TraceWriter?.WriteLine($"{plannedTestsCount} tests planned but {doneTestsCount} run.");
+        TraceWriter?.WriteLine($"{plannedTestsCount} test cases planned but {doneTestsCount} run.");
       else
-        TraceWriter?.WriteLine($"{doneTestsCount} tests run.");
+        TraceWriter?.WriteLine($"{doneTestsCount} test cases run.");
+
+      if (failedTestsCount == 0)
+        TraceWriter?.WriteLine($"All test cases passed.");
+      else
+      if (failedTestsCount == doneTestsCount)
+        TraceWriter?.WriteLine($"All test cases failed.");
+      else
+        TraceWriter?.WriteLine($"{failedTestsCount} test cases failed.");
+
       return true;
     }
 

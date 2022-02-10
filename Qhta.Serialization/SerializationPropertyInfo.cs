@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel;
+using System.Reflection;
 
 namespace Qhta.Serialization
 {
@@ -12,12 +13,12 @@ namespace Qhta.Serialization
     /// Constructor with parameters
     /// </summary>
     /// <param name="name"Attribute or element name used for serialization></param>
-    /// <param name="info">Applied property info</param>
+    /// <param name="propertyInfo">Applied property info</param>
     /// <param name="order">Needed to sort the order of properties for serialization</param>
-    public SerializationPropertyInfo(string name, PropertyInfo info, int order=int.MaxValue)
+    public SerializationPropertyInfo(string name, PropertyInfo propertyInfo, int order=int.MaxValue)
     {
       Name = name;
-      PropInfo = info;
+      PropInfo = propertyInfo;
       Order = order;
     }
 
@@ -36,6 +37,15 @@ namespace Qhta.Serialization
     /// </summary>
     public PropertyInfo PropInfo { get; init; }
 
+    /// <summary>
+    /// Applied type info
+    /// </summary>
+    public SerializationTypeInfo? TypeInfo { get; set; }
+
+    /// <summary>
+    /// Used for conversion value from/to string
+    /// </summary>
+    public TypeConverter? TypeConverter { get; set; }
   }
 
 }

@@ -536,10 +536,35 @@
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
         </member>
+        <member name="F:Qhta.TypeUtils.TypeUtils.NumeralTypes">
+            <summary>
+            Table of numeric types
+            </summary>
+        </member>
+        <member name="F:Qhta.TypeUtils.TypeUtils.SimpleTypes">
+            <summary>
+            Table of simple types - i.e. types serialized as simple text strings.
+            </summary>
+        </member>
         <member name="F:Qhta.TypeUtils.TypeUtils.NumericSupertypes">
             <summary>
             Mapping from a numeric type to possible numeric supertype
             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.IsSimpleType(System.Type)">
+            <summary>
+            If aType is a simple type: string, bool, char, numeric, enum, dateTime, timespan, Guid
+            or nullable based on this type.
+            </summary>
+            <param name="aType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.IsNumeralType(System.Type)">
+            <summary>
+            If aType is a numeric type
+            </summary>
+            <param name="aType"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.IsNumericSupertypeOf(System.Type,System.Type)">
             <summary>

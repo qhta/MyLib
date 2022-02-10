@@ -9,6 +9,7 @@
       "Qhta.Serialization/1.0.0": {
         "dependencies": {
           "Qhta.TestHelper": "1.0.0",
+          "Qhta.TypeUtils": "1.2.1",
           "System.CodeDom": "6.0.0",
           "System.Collections.Specialized": "4.3.0",
           "System.Security.Permissions": "6.0.0"
@@ -234,6 +235,11 @@
           "Qhta.TestHelper.dll": {}
         }
       },
+      "Qhta.TypeUtils/1.2.1": {
+        "runtime": {
+          "Qhta.TypeUtils.dll": {}
+        }
+      },
       "Interop.IWshRuntimeLibrary/1.0.0.0": {
         "runtime": {
           "Interop.IWshRuntimeLibrary.dll": {
@@ -419,6 +425,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "Qhta.TestHelper/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.TypeUtils/1.2.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
