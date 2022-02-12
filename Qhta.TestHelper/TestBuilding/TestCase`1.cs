@@ -14,7 +14,7 @@ namespace Qhta.TestHelper
       Data = data;
     }
 
-    public TestCase(string name, DataType data, Func<DataType?, bool> execFunc): base(name)
+    public TestCase(string name, DataType data, Func<DataType?, TestResult> execFunc): base(name)
     {
       Data = data;
       ExecFunction = execFunc;
@@ -22,14 +22,14 @@ namespace Qhta.TestHelper
 
     public DataType Data { get; init; }
 
-    public new Func<DataType?, bool>? ExecFunction { get; set; }
+    public new Func<DataType?, TestResult>? ExecFunction { get; set; }
 
-    public override bool Execute()
+    public override TestResult Execute()
     {
       if (ExecFunction == null)
         throw new InternalException($"ExecFunction nust be specified to run these test case");
       Result = ExecFunction(Data);
-      return (bool)Result;
+      return Result;
     }
   }
 }

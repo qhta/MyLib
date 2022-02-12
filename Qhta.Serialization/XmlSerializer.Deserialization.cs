@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Qhta.TestHelper;
+using Qhta.TypeUtils;
 
 namespace Qhta.Serialization
 {
@@ -199,7 +201,7 @@ namespace Qhta.Serialization
               ReadElementAsCollectionProperty(obj, arrayPropertyInfo, reader);
             else
             {
-              propValue = ReadElementAsObject(propType, reader);
+              propValue = ReadElementAsProperty(propType, propertyToRead, reader);
               if (propValue != null)
               {
                 propertyToRead.PropInfo.SetValue(obj, propValue);
@@ -222,8 +224,25 @@ namespace Qhta.Serialization
       var name = reader.Name;
       if (!KnownTypes.TryGetValue(name, out var typeInfo))
       {
-        //if (expectedType != null)
-        //    typeInfo = AddKnownType(expectedType);
+        if (typeInfo == null)
+          throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
+      }
+      if (expectedType != null)
+        if (!(typeInfo.Type == expectedType || typeInfo.Type.IsSubclassOf(expectedType)))
+          throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
+            $" but {expectedType.Name} or its subclass expected", reader);
+      return ReadElementWithKnownType(typeInfo, reader);
+    }
+
+    public object? ReadElementAsProperty(Type? expectedType, SerializationPropertyInfo propertyInfo, XmlTextReader reader)
+    {
+      if (reader.NodeType != XmlNodeType.Element)
+        throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
+      var name = reader.Name;
+      if (!KnownTypes.TryGetValue(name, out var typeInfo))
+      {
+        if (expectedType != null)
+          typeInfo = AddKnownType(expectedType);
         if (typeInfo == null)
           throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
       }
@@ -272,53 +291,210 @@ namespace Qhta.Serialization
 
     }
 
+    private enum CollectionTypeKind
+    {
+      Array,
+      Collection,
+      List,
+      Dictionary,
+    }
     protected void ReadElementAsCollectionProperty(object obj, SerializationArrayInfo propertyArrayInfo, XmlTextReader reader)
     {
-      var collectionType = propertyArrayInfo.PropInfo.PropertyType;
+      Type collectionType = propertyArrayInfo.PropInfo.PropertyType;
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
-      var name = reader.Name;
+      var elementName = reader.Name;
+
+      // all items will be read to this temporary list;
+      List<object> tempList = new List<object>();
+
       var collection = propertyArrayInfo.PropInfo.GetValue(obj);
       if (collection == null)
-      {
+      { // Check if collection can be written - if not we will not be able to set the property
         if (!propertyArrayInfo.PropInfo.CanWrite)
           throw new XmlInternalException($"Collection at property {propertyArrayInfo.PropInfo.Name}" +
-            $" of type {obj.GetType().Name} is null but readonly", reader);
-        if (!KnownTypes.TryGetValue(name, out var typeInfo))
-        {
-          if (collectionType.IsArray)
-          {
-            var itemType = collectionType.GetElementType();
-            if (itemType == null)
-              throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
-            var tempCollection = new List<object>();
-            if (reader.IsStartElement(propertyArrayInfo.Name) && !reader.IsEmptyElement)
-            {
-              reader.Read();
-              ReadCollectionItems(tempCollection, itemType, propertyArrayInfo, reader);
-            }
-            var itemArray = Array.CreateInstance(itemType, tempCollection.Count);
-            for (int i = 0; i < tempCollection.Count; i++)
-              itemArray.SetValue(tempCollection[i], i);
-            propertyArrayInfo.PropInfo.SetValue(obj, itemArray);
-
-          }
-          else
-            throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
-        }
-        else
-        {
-          if (!(typeInfo.Type == collectionType || typeInfo.Type.IsSubclassOf(collectionType)))
-            throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
-              $" but {collectionType.Name} or its subclass expected", reader);
-          if (typeInfo.KnownConstructor == null)
-            throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
-          collection = typeInfo.KnownConstructor.Invoke(new object[0]);
-          propertyArrayInfo.PropInfo.SetValue(obj, collection);
-          reader.MoveToContent();
-        }
-        reader.Read();
+            $" of type {obj.GetType().Name} is  but readonly", reader);
       }
+
+
+      CollectionTypeKind? collectionTypeKind = null;
+      Type? itemType = null;
+      //Type? keyType = null;
+      if (collectionType.IsArray)
+      {
+        itemType = collectionType.GetElementType();
+        if (itemType == null)
+          throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
+        collectionTypeKind = CollectionTypeKind.Array;
+      }
+      //else if (collectionType.Name.StartsWith("Dictionary`1"))
+      //{
+        //keyType = collectionType.GetGenericArguments()[0];
+        //itemType = collectionType.GetGenericArguments()[1];
+        //if (keyType == null)
+        //  throw new XmlInternalException($"Unknown key type of {collectionType} collection", reader);
+        //if (itemType == null)
+        //  throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
+        //collectionTypeKind = CollectionTypeKind.Dictionary;
+      //}
+      else if (collectionType.IsList(out itemType))
+      {
+        if (itemType == null)
+          throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
+        collectionTypeKind = CollectionTypeKind.List;
+      }
+      else if (collectionType.IsCollection(out itemType))
+      {
+        if (itemType == null)
+          throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
+        collectionTypeKind = CollectionTypeKind.Collection;
+      }
+
+
+
+      if (collectionTypeKind == null)
+        throw new XmlInternalException($"Invalid type kind of {collectionType} collection", reader);
+
+      if (itemType == null)
+        throw new XmlInternalException($"Unknown item type of {collectionType} collection", reader);
+
+      if (reader.IsStartElement(propertyArrayInfo.Name) && !reader.IsEmptyElement)
+      {
+        reader.Read();
+        ReadCollectionItems(tempList, itemType, propertyArrayInfo, reader);
+      }
+      if (collection == null)
+      {
+        switch (collectionTypeKind)
+        {
+          case CollectionTypeKind.Array:
+            var arrayObject = Array.CreateInstance(itemType, tempList.Count);
+            for (int i = 0; i < tempList.Count; i++)
+              arrayObject.SetValue(tempList[i], i);
+            propertyArrayInfo.PropInfo.SetValue(obj, arrayObject);
+            break;
+
+          case CollectionTypeKind.Collection:
+            // We can't use non-generic ICollection interface because implementation of ICollection<T>
+            // does implicate implementation of ICollection.
+            object? newCollectionObject;
+            if (collectionType.IsConstructedGenericType)
+            {
+              Type d1 = typeof(Collection<>);
+              Type[] typeArgs = { itemType };
+              Type newListType = d1.MakeGenericType(typeArgs);
+              newCollectionObject = Activator.CreateInstance(newListType);
+            }
+            else
+            {
+              var constructor = collectionType.GetConstructor(new Type[0]);
+              if (constructor == null)
+                throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", reader);
+              newCollectionObject = constructor.Invoke(new object[0]);
+            }
+            if (newCollectionObject == null)
+              throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", reader);
+
+            // ICollection has no Add method so we must localize this method using reflection.
+            var addMethod = newCollectionObject.GetType().GetMethod("Add");
+            if (addMethod == null)
+              throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", reader);
+            for (int i = 0; i < tempList.Count; i++)
+              addMethod.Invoke(newCollectionObject, new object[]{ tempList[i] });
+            propertyArrayInfo.PropInfo.SetValue(obj, newCollectionObject);
+            break;
+
+          case CollectionTypeKind.List:
+            IList? newListObject;
+            if (collectionType.IsConstructedGenericType)
+            {
+              Type d1 = typeof(List<>);
+              Type[] typeArgs = { itemType };
+              Type newListType = d1.MakeGenericType(typeArgs);
+              newListObject = Activator.CreateInstance(newListType) as IList;
+            }
+            else
+            {
+              var constructor = collectionType.GetConstructor(new Type[0]);
+              if (constructor == null)
+                throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", reader);
+              newListObject = constructor.Invoke(new object[0]) as IList;
+            }
+            if (newListObject == null)
+              throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", reader);
+            for (int i = 0; i < tempList.Count; i++)
+              newListObject.Add(tempList[i]);
+            propertyArrayInfo.PropInfo.SetValue(obj, newListObject);
+            break;
+
+          default:
+            throw new XmlInternalException($"Collection type {collectionType} is not implemented for creation", reader);
+        }
+      }
+      else
+      {
+        switch (collectionTypeKind)
+        {
+          case CollectionTypeKind.Array:
+            var arrayObject = collection as Array;
+            if (arrayObject == null)
+              throw new XmlInternalException($"Collection value at property {propertyArrayInfo.PropInfo.Name} cannot be typecasted to Array", reader);
+            if (arrayObject.Length == tempList.Count)
+              for (int i = 0; i < tempList.Count; i++)
+                arrayObject.SetValue(tempList[i], i);
+            else            
+            if (!propertyArrayInfo.PropInfo.CanWrite)
+              throw new XmlInternalException($"Collection at property {propertyArrayInfo.PropInfo.Name}" +
+                $" is an array of different length than number of read items but is readonly and can't be changed", reader);
+            var itemArray = Array.CreateInstance(itemType, tempList.Count);
+            for (int i = 0; i < tempList.Count; i++)
+              itemArray.SetValue(tempList[i], i);
+            propertyArrayInfo.PropInfo.SetValue(obj, itemArray);
+            break;
+
+          case CollectionTypeKind.Collection:
+            // We can't cast a collection to non-generic ICollection because implementation of ICollection<T>
+            // does implicate implementation of ICollection.
+            object? collectionObject = collection;
+            // ICollection has no Add method so we must localize this method using reflection.
+            var addMethod = collectionObject.GetType().GetMethod("Add");
+            if (addMethod == null)
+              throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", reader);
+            // We must do the same with Clear method.
+            var clearMethod = collectionObject.GetType().GetMethod("Clear");
+            if (clearMethod == null)
+              throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", reader);
+
+            clearMethod.Invoke(collectionObject, new object[0]);
+            for (int i = 0; i < tempList.Count; i++)
+              addMethod.Invoke(collectionObject,  new object[]{tempList[i] });
+            break;
+
+          case CollectionTypeKind.List:
+            IList? listObject = collection as IList;
+            if (listObject == null)
+              throw new XmlInternalException($"Collection value at property {propertyArrayInfo.PropInfo.Name} cannot be typecasted to IList", reader);
+            listObject.Clear();
+            for (int i = 0; i < tempList.Count; i++)
+              listObject.Add(tempList[i]);
+            break;
+
+          default:
+            throw new XmlInternalException($"Collection type {collectionType} is not implemented for set content", reader);
+        }
+      }
+
+      //{
+      //  if (!(typeInfo.Type == collectionType || typeInfo.Type.IsSubclassOf(collectionType)))
+      //    throw new XmlInternalException($"Element \"{elementName}\" is mapped to {typeInfo.Type.Name}" +
+      //      $" but {collectionType.Name} or its subclass expected", reader);
+      //  if (typeInfo.KnownConstructor == null)
+      //    throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
+      //  collection = typeInfo.KnownConstructor.Invoke(new object[0]);
+      //  propertyArrayInfo.PropInfo.SetValue(obj, collection);
+      //  reader.MoveToContent();
+      //}
+      reader.Read();
     }
 
     protected int ReadCollectionItems(ICollection<object> collection, Type expectedItemType, SerializationArrayInfo propertyArrayInfo, XmlTextReader reader)

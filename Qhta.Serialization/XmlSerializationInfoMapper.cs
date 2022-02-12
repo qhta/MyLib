@@ -175,9 +175,10 @@ namespace Qhta.Serialization
     /// <summary>
     /// Registers properties which are intended to be serialized as XML element.
     /// These properties are marked in the type header with <see cref="System.Xml.Serialization.XmlElementAttribute"/>
-    /// or <see cref="System.Xml.Serialization.XmlArrayAttribute"/>. 
+    /// or <see cref="System.Xml.Serialization.XmlArrayAttribute"/> or <see cref="Qhta.Serialization.XmlDictionaryAttribute"/>. 
     /// For arrays also all <see cref="System.Xml.Serialization.XmlArrayItemAttribute"/> are recognized
     /// to create known item types dictionary for each array.
+    /// For dictionaries also all <see cref="Qhta.Serialization.XmlDictionaryItemAttribute"/> are recognized.
     /// </summary>
     /// <param name="aType">Type to reflect</param>
     /// <returns>A dictionary of known properties</returns>
@@ -186,7 +187,9 @@ namespace Qhta.Serialization
       var propList = new KnownPropertiesDictionary();
       var props = aType.GetProperties().Where(
            item => item.GetCustomAttributes(true).OfType<XmlElementAttribute>().Count() > 0 && item.CanWrite && item.CanRead
-        || item.GetCustomAttributes(true).OfType<XmlArrayAttribute>().Count() > 0 && item.CanRead).ToList();
+        || item.GetCustomAttributes(true).OfType<XmlArrayAttribute>().Count() > 0 && item.CanRead
+        || item.GetCustomAttributes(true).OfType<XmlDictionaryAttribute>().Count() > 0 && item.CanRead
+        ).ToList();
       if (props.Count() == 0)
         return propList;
       int n = 1000;
@@ -211,54 +214,56 @@ namespace Qhta.Serialization
         }
         var arrayAttribute = propInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
         if (arrayAttribute != null)
-        {
-          var elementName = arrayAttribute.ElementName;
-          if (string.IsNullOrEmpty(elementName))
-            elementName = "";
-          else if (Options?.LowercasePropertyName == true)
-            elementName = LowercaseName(elementName);
-          order = ++n + 100;
-          if (arrayAttribute.Order > 0)
-            order = arrayAttribute.Order;
-          var serializeArrayInfo = new SerializationArrayInfo(elementName, propInfo, order);
-          serializeArrayInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
-          propList.Add(serializeArrayInfo);
-
-          var arrayItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToList();
-          foreach (var arrayItemAttribute in arrayItemAttributes)
-          {
-            elementName = arrayItemAttribute.ElementName;
-            var itemType = arrayItemAttribute.Type;
-            if (string.IsNullOrEmpty(elementName))
-            {
-              if (itemType == null)
-                throw new InternalException($"Element name or type must be specified in ArrayItemAttribute in specification of {aType.Name} type");
-              elementName = itemType.Name;
-            }
-            else if (Options?.LowercasePropertyName == true)
-              elementName = LowercaseName(elementName);
-            if (itemType == null)
-              itemType = typeof(object);
-            var itemTypeInfo = AddKnownType(itemType);
-            if (itemTypeInfo != null)
-              serializeArrayInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
-          }
-        }
+          propList.Add(CreateSerializationArrayInfo(propInfo, arrayAttribute, ++n + 1000));
       }
       return propList;
     }
 
-    /// <summary>
-    /// Registers a property which is indended to be serialized as a text content of the Xml element.
-    /// This is the first property which is marked with <see cref="System.Xml.Serialization.XmlTextAttribute"/>.
-    /// Note that only the first found property is used. If others are found, an exception is thrown.
-    /// </summary>
-    /// <param name="aType">Type to reflect</param>
-    /// <returns>A serialization property info or null if not found</returns>
-    /// <exception cref="InternalException">
-    ///   If a property pointed out with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/> is not found.
-    /// </exception>
-    public virtual SerializationPropertyInfo? GetTextProperty(Type aType)
+    protected SerializationArrayInfo CreateSerializationArrayInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute, int defaultOrder)
+    {
+      var elementName = arrayAttribute.ElementName;
+      if (string.IsNullOrEmpty(elementName))
+        elementName = "";
+      else if (Options?.LowercasePropertyName == true)
+        elementName = LowercaseName(elementName);
+      if (arrayAttribute.Order > 0)
+        defaultOrder = arrayAttribute.Order;
+      var serializeArrayInfo = new SerializationArrayInfo(elementName, propInfo, defaultOrder);
+      serializeArrayInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
+
+      var arrayItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToList();
+      foreach (var arrayItemAttribute in arrayItemAttributes)
+      {
+        elementName = arrayItemAttribute.ElementName;
+        var itemType = arrayItemAttribute.Type;
+        if (string.IsNullOrEmpty(elementName))
+        {
+          if (itemType == null)
+            throw new InternalException($"Element name or type must be specified in ArrayItemAttribute in specification of {propInfo?.DeclaringType?.Name} type");
+          elementName = itemType.Name;
+        }
+        else if (Options?.LowercasePropertyName == true)
+          elementName = LowercaseName(elementName);
+        if (itemType == null)
+          itemType = typeof(object);
+        var itemTypeInfo = AddKnownType(itemType);
+        if (itemTypeInfo != null)
+          serializeArrayInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
+      }
+      return serializeArrayInfo;
+    }  
+
+  /// <summary>
+  /// Registers a property which is indended to be serialized as a text content of the Xml element.
+  /// This is the first property which is marked with <see cref="System.Xml.Serialization.XmlTextAttribute"/>.
+  /// Note that only the first found property is used. If others are found, an exception is thrown.
+  /// </summary>
+  /// <param name="aType">Type to reflect</param>
+  /// <returns>A serialization property info or null if not found</returns>
+  /// <exception cref="InternalException">
+  ///   If a property pointed out with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/> is not found.
+  /// </exception>
+  public virtual SerializationPropertyInfo? GetTextProperty(Type aType)
     {
       var textProperties = aType.GetProperties().Where(item =>
         item.CanWrite && item.CanRead &&

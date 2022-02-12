@@ -29,12 +29,9 @@ namespace Qhta.TestHelper
       {
         var propType = prop.PropertyType;
         if (propType.Name.StartsWith("Nullable`1"))
-        {
-          if (propType.Name.StartsWith("Nullable`1"))
             propType = propType.GetGenericArguments()[0];
-          if (propType == typeof(string) || propType.IsValueType)
-            Properties.Add(new (prop, 0));
-        }
+        if (propType == typeof(string) || propType.IsValueType)
+          Properties.Add(new (prop, 0));
       }
     }
 

@@ -487,37 +487,99 @@
             <summary>
             Categorization of a type
             </summary>
-            <param name="type"></param>
-            <returns></returns>
+            <param name="aType">checked type</param>
+            <returns>a <see cref="T:Qhta.TypeUtils.TypeCategory"/> of a type or 0 if not known</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsSimple(System.Type)">
             <summary>
-            Is it a simple type
+            Is a type a simple type? A simple type is string, char, boolean, all numeral types, date/time, time span and guid type.
+            Also an enum type is a simple type.
             </summary>
-            <param name="type"></param>
-            <returns></returns>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a simple type</returns>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type,System.Type@)">
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsTextual(System.Type)">
             <summary>
-            Is it a nullable type of some specific base type
+            Is a type a textual type, i.e. string or char type
             </summary>
-            <param name="type"></param>
-            <param name="baseType"></param>
-            <returns></returns>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a textual type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type)">
             <summary>
-            Is it a nullable type
+            Is a type a nullable type, i.e. it's name starts with "Nullable`1".
             </summary>
-            <param name="type"></param>
-            <returns></returns>
+            <returns>true if a type is a nullable type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type,System.Type@)">
+            <summary>
+            Checks if a type is a nullable type, i.e. it's name starts with "Nullable`1"
+            and returns it's base type
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="baseType">based type of the nullable type</param>
+            <returns>true if a type is a nullable type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsNumeral(System.Type)">
             <summary>
-            Is it a numeral type
+            Is a type a numeral type, i.e. integer or float or decimal type
             </summary>
-            <param name="type"></param>
-            <returns></returns>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a numeral type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsList(System.Type)">
+            <summary>
+            Is a type a list type, i.e. it's name starts with "List`1"
+            or if it is a defined type which implements a IList`1 interface.
+            </summary>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a list type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsList(System.Type,System.Type@)">
+            <summary>
+            Checks if a type a list type, i.e. it's name starts with "List`1"
+            or if it is a defined type which implements a IList`1 interface.
+            If so it returns the item type of the list.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">item type if a type is a list</param>
+            <returns>true if a type is a list type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsCollection(System.Type)">
+            <summary>
+            Is a type a collection type, i.e. it's name starts with "Collection`1"
+            or if it is a defined type which implements a ICollection`1 interface.
+            </summary>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a collection type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsCollection(System.Type,System.Type@)">
+            <summary>
+            Is a type a collection type, i.e. it's name starts with "Collection`1"
+            or if it is a defined type which implements a ICollection`1 interface.
+            If so it returns the item type of the collection.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">item type if a type is a collection</param>
+            <returns>true if a type is a collection type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsEnumerable(System.Type)">
+            <summary>
+            Is a type an enumerable type, i.e. it's name starts with "Enumerable`1"
+            or if it is a defined type which implements a IEnumerable`1 interface.
+            </summary>
+            <param name="aType">checked type</param>
+            <returns>true if a type is an enumerable type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsEnumerable(System.Type,System.Type@)">
+            <summary>
+            Is a type an enumerable type, i.e. it's name starts with "Enumerable`1"
+            or if it is a defined type which implements a IEnumerable`1 interface.
+            If so it returns the item type of the collection.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">item type if a type is am enumerable</param>
+            <returns>true if a type is an enumerable type</returns>
         </member>
         <member name="T:Qhta.TypeUtils.TypeNaming">
             <summary>
@@ -536,35 +598,10 @@
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
         </member>
-        <member name="F:Qhta.TypeUtils.TypeUtils.NumeralTypes">
-            <summary>
-            Table of numeric types
-            </summary>
-        </member>
-        <member name="F:Qhta.TypeUtils.TypeUtils.SimpleTypes">
-            <summary>
-            Table of simple types - i.e. types serialized as simple text strings.
-            </summary>
-        </member>
         <member name="F:Qhta.TypeUtils.TypeUtils.NumericSupertypes">
             <summary>
             Mapping from a numeric type to possible numeric supertype
             </summary>
-        </member>
-        <member name="M:Qhta.TypeUtils.TypeUtils.IsSimpleType(System.Type)">
-            <summary>
-            If aType is a simple type: string, bool, char, numeric, enum, dateTime, timespan, Guid
-            or nullable based on this type.
-            </summary>
-            <param name="aType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.TypeUtils.TypeUtils.IsNumeralType(System.Type)">
-            <summary>
-            If aType is a numeric type
-            </summary>
-            <param name="aType"></param>
-            <returns></returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.IsNumericSupertypeOf(System.Type,System.Type)">
             <summary>

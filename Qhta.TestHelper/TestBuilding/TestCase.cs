@@ -12,7 +12,7 @@ namespace Qhta.TestHelper
     {
       Name = name;
     }
-    public TestCase(string name, Func<bool> execFunc)
+    public TestCase(string name, Func<TestResult> execFunc)
     {
       Name = name;
       ExecFunction = execFunc;
@@ -20,17 +20,16 @@ namespace Qhta.TestHelper
 
     public string Name { get; init; }
 
-    public bool? Result { get; set; }
+    public TestResult? Result { get; set; }
 
+    public Func<TestResult>? ExecFunction { get; set; }
 
-    public Func<bool>? ExecFunction { get; set; }
-
-    public virtual bool Execute()
+    public virtual TestResult Execute()
     {
       if (ExecFunction == null)
         throw new InternalException($"ExecFunction nust be specified to run these test case");
       Result = ExecFunction();
-      return (bool)Result;
+      return Result;
     }
   }
 }
