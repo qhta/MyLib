@@ -581,6 +581,25 @@
             <param name="itemType">item type if a type is am enumerable</param>
             <returns>true if a type is an enumerable type</returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsDictionary(System.Type)">
+            <summary>
+            Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
+            or if it is a defined type which implements a IDictionary`2 interface.
+            </summary>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a dictionary type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsDictionary(System.Type,System.Type@,System.Type@)">
+            <summary>
+            Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
+            or if it is a defined type which implements a IDictionary`2 interface.
+            If so it returns the key type and the value type of the dictionary.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="keyType">item type if a type is a list</param>
+            <param name="valueType">item type if a type is a list</param>
+            <returns>true if a type is a dictionary type</returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeNaming">
             <summary>
             More friendy type names

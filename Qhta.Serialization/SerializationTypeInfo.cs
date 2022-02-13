@@ -63,6 +63,5 @@ namespace Qhta.Serialization
     /// </summary>
     public KnownTypesDictionary KnownItems { get; set; } = new KnownTypesDictionary();
 
-
   }
 }

@@ -10,12 +10,12 @@ namespace Qhta.Serialization
     {
     }
 
-    public XmlDictionaryItemAttribute(string elementName, string keyAttribute, Type? type = null) : base(elementName, type) 
+    public XmlDictionaryItemAttribute(string elementName, string keyName, Type? type = null) : base(elementName, type) 
     { 
-      KeyAttribute = keyAttribute;
+      KeyName = keyName;
     }
 
-    public string? KeyAttribute { get; init; }
+    public string? KeyName { get; init; }
 
   }
 }

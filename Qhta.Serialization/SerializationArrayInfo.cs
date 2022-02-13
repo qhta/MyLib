@@ -9,7 +9,7 @@ namespace Qhta.Serialization
     public SerializationArrayInfo(string name, PropertyInfo propInfo, int order): 
       base(name, propInfo, order) { }
 
-    public KnownTypesDictionary KnownItemTypes { get; private set; } = new ();
+    public KnownItemTypesDictionary KnownItemTypes { get; private set; } = new ();
   }
 
 }

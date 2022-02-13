@@ -279,5 +279,45 @@ namespace Qhta.TypeUtils
       itemType = null;
       return false;
     }
+
+    /// <summary>
+    /// Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
+    /// or if it is a defined type which implements a IDictionary`2 interface.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <returns>true if a type is a dictionary type</returns>
+    public static bool IsDictionary(this Type aType)
+    {
+      return aType.Name.StartsWith("Dictionary`2") || aType.GetInterfaces().FirstOrDefault(item => item.Name.StartsWith("IDictionary`2")) != null;
+    }
+
+    /// <summary>
+    /// Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
+    /// or if it is a defined type which implements a IDictionary`2 interface.
+    /// If so it returns the key type and the value type of the dictionary.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="keyType">item type if a type is a list</param>
+    /// <param name="valueType">item type if a type is a list</param>
+    /// <returns>true if a type is a dictionary type</returns>
+    public static bool IsDictionary(this Type aType, out Type keyType, out Type valueType)
+    {
+      if (aType.Name.StartsWith("Dictionary`2"))
+      {
+        keyType = aType.GenericTypeArguments[0];
+        valueType = aType.GenericTypeArguments[1];
+        return true;
+      }
+      var intf = aType.GetInterfaces().FirstOrDefault(item => item.Name.StartsWith("IDictionary`2"));
+      if (intf != null)
+      {
+        keyType = intf.GenericTypeArguments[0];
+        valueType = intf.GenericTypeArguments[1];
+        return true;
+      }
+      keyType = null;
+      valueType = null;
+      return false;
+    }
   }
 }

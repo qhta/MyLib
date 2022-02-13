@@ -212,9 +212,15 @@ namespace Qhta.Serialization
           serializePropInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
           propList.Add(serializePropInfo);
         }
-        var arrayAttribute = propInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
-        if (arrayAttribute != null)
-          propList.Add(CreateSerializationArrayInfo(propInfo, arrayAttribute, ++n + 1000));
+        var dictionaryAttribute = propInfo.GetCustomAttributes(true).OfType<XmlDictionaryAttribute>().FirstOrDefault();
+        if (dictionaryAttribute != null)
+          propList.Add(CreateSerializationDictionaryInfo(propInfo, dictionaryAttribute, ++n + 1000));
+        else
+        {
+          var arrayAttribute = propInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
+          if (arrayAttribute != null)
+            propList.Add(CreateSerializationArrayInfo(propInfo, arrayAttribute, ++n + 1000));
+        }
       }
       return propList;
     }
@@ -231,8 +237,8 @@ namespace Qhta.Serialization
       var serializeArrayInfo = new SerializationArrayInfo(elementName, propInfo, defaultOrder);
       serializeArrayInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
 
-      var arrayItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToList();
-      foreach (var arrayItemAttribute in arrayItemAttributes)
+      var arrayItemAttrib = propInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToList();
+      foreach (var arrayItemAttribute in arrayItemAttrib)
       {
         elementName = arrayItemAttribute.ElementName;
         var itemType = arrayItemAttribute.Type;
@@ -246,24 +252,62 @@ namespace Qhta.Serialization
           elementName = LowercaseName(elementName);
         if (itemType == null)
           itemType = typeof(object);
-        var itemTypeInfo = AddKnownType(itemType);
-        if (itemTypeInfo != null)
-          serializeArrayInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
+        var typeInfo = AddKnownType(itemType);
+        var itemTypeInfo = new SerializationItemTypeInfo(elementName, typeInfo);
+        serializeArrayInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
       }
       return serializeArrayInfo;
-    }  
+    }
 
-  /// <summary>
-  /// Registers a property which is indended to be serialized as a text content of the Xml element.
-  /// This is the first property which is marked with <see cref="System.Xml.Serialization.XmlTextAttribute"/>.
-  /// Note that only the first found property is used. If others are found, an exception is thrown.
-  /// </summary>
-  /// <param name="aType">Type to reflect</param>
-  /// <returns>A serialization property info or null if not found</returns>
-  /// <exception cref="InternalException">
-  ///   If a property pointed out with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/> is not found.
-  /// </exception>
-  public virtual SerializationPropertyInfo? GetTextProperty(Type aType)
+    protected SerializationDictionaryInfo CreateSerializationDictionaryInfo(PropertyInfo propInfo, XmlDictionaryAttribute dictionaryAttribute, int defaultOrder)
+    {
+      var elementName = dictionaryAttribute.ElementName;
+      if (string.IsNullOrEmpty(elementName))
+        elementName = "";
+      else if (Options?.LowercasePropertyName == true)
+        elementName = LowercaseName(elementName);
+      if (dictionaryAttribute.Order > 0)
+        defaultOrder = dictionaryAttribute.Order;
+      var serializeDictionaryInfo = new SerializationDictionaryInfo(elementName, propInfo, dictionaryAttribute.KeyType ?? typeof(object), defaultOrder);
+      serializeDictionaryInfo.KeyName = dictionaryAttribute.KeyName;
+      serializeDictionaryInfo.ValueType = dictionaryAttribute.ValueType;
+
+      serializeDictionaryInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
+
+      var dictionaryItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToList();
+      foreach (var dictionaryItemAttrib in dictionaryItemAttributes)
+      {
+        elementName = dictionaryItemAttrib.ElementName;
+        var itemType = dictionaryItemAttrib.Type;
+        if (string.IsNullOrEmpty(elementName))
+        {
+          if (itemType == null)
+            throw new InternalException($"Element name or type must be specified in DictionaryItemAttribute in specification of {propInfo?.DeclaringType?.Name} type");
+          elementName = itemType.Name;
+        }
+        else if (Options?.LowercasePropertyName == true)
+          elementName = LowercaseName(elementName);
+        if (itemType == null)
+          itemType = typeof(object);
+        var typeInfo = AddKnownType(itemType);
+        var itemTypeInfo = new SerializationItemTypeInfo(elementName, typeInfo);
+        serializeDictionaryInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
+        itemTypeInfo.KeyName = dictionaryItemAttrib.KeyName;
+      }
+      return serializeDictionaryInfo;
+    }
+
+    /// <summary>
+    /// Registers a property which is indended to be serialized as a text content of the Xml element.
+    /// This is the first property which is marked with <see cref="System.Xml.Serialization.XmlTextAttribute"/>.
+    /// Note that only the first found property is used. If others are found, an exception is thrown.
+    /// </summary>
+    /// <param name="aType">Type to reflect</param>
+    /// <returns>A serialization property info or null if not found</returns>
+    /// <exception cref="InternalException">
+    ///   If a property pointed out with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/> is not found.
+    /// </exception>
+    public virtual SerializationPropertyInfo? GetTextProperty(Type aType)
     {
       var textProperties = aType.GetProperties().Where(item =>
         item.CanWrite && item.CanRead &&
@@ -364,7 +408,7 @@ namespace Qhta.Serialization
         if (converterTypeName == null)
           throw new InternalException($"Converter type name in a TypeConverter attribute must not be null");
         var result = FindTypeConverter(converterTypeName);
-        if (result==null)
+        if (result == null)
           throw new InternalException($"Type converter \"{converterTypeName}\" not found");
         if (!(result.CanConvertTo(typeof(string)) && result.CanConvertFrom(typeof(string))))
           throw new InternalException($"Type converter \"{converterTypeName}\" not found");

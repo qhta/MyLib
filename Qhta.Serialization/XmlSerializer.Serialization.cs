@@ -188,9 +188,9 @@ namespace Qhta.Serialization
                 string? itemName = null;
                 if (arrayInfo != null)
                 {
-                  itemTypeInfo = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType == item.Value.Type).Value;
+                  itemTypeInfo = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType == item.Value.Type).Value.TypeInfo;
                   if (itemTypeInfo == null)
-                    itemTypeInfo = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Value.Type)).Value;
+                    itemTypeInfo = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Value.Type)).Value.TypeInfo;
                   if (itemTypeInfo != null)
                     itemName = itemTypeInfo.ElementName;
                 }
