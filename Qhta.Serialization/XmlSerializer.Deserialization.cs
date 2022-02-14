@@ -196,7 +196,7 @@ namespace Qhta.Serialization
           }
           if (onUnknownProperty == null)
             throw new XmlInternalException($"No property to read and no content property found for element \"{elementName}\"" +
-              $" in type \"{aType.Name}\"", reader);
+              $" in type {aType.FullName}", reader);
           onUnknownProperty(obj, elementName);
         }
         else
@@ -681,6 +681,7 @@ namespace Qhta.Serialization
       object? propValue;
       if (expectedType.Name.StartsWith("Nullable`1"))
         expectedType = expectedType.GetGenericArguments()[0];
+
       if (expectedType == typeof(string))
         propValue = str;
       else

@@ -6,7 +6,7 @@ namespace Qhta.Serialization
   /// <summary>
   /// Info of an array property item
   /// </summary>
-  public class SerializationItemTypeInfo 
+  public class SerializationItemTypeInfo: ITypeInfo
   {
 
     public SerializationItemTypeInfo(string elementName, SerializationTypeInfo itemTypeInfo)

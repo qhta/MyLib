@@ -79,7 +79,7 @@ namespace Qhta.Serialization
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
-      var tag = serializedTypeInfo.ElementName;
+      var tag = KnownTypes.KnownTags(serializedTypeInfo.Type).FirstOrDefault();
       if (tag != null)
         writer.WriteStartElement(tag);
       WriteAttributesBase(writer, obj);
@@ -188,11 +188,15 @@ namespace Qhta.Serialization
                 string? itemName = null;
                 if (arrayInfo != null)
                 {
-                  itemTypeInfo = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType == item.Value.Type).Value.TypeInfo;
-                  if (itemTypeInfo == null)
-                    itemTypeInfo = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Value.Type)).Value.TypeInfo;
-                  if (itemTypeInfo != null)
-                    itemName = itemTypeInfo.ElementName;
+
+                  var itemTypeInfoPair = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType == item.Type);
+                  if (itemTypeInfoPair == null)
+                    itemTypeInfoPair = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+                  if (itemTypeInfoPair != null)
+                  {
+                    itemTypeInfo = itemTypeInfoPair.TypeInfo;
+                    itemName = itemTypeInfoPair.ElementName;
+                  }
                 }
                 if (itemName == null)
                   itemName = arrayItem.GetType().Name;
@@ -280,11 +284,11 @@ namespace Qhta.Serialization
                 var itemType = item.GetType();
                 if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
                 {
-                  itemTypeInfo = itemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Value.Type)).Value;
+                  itemTypeInfo = itemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
                 }
                 if (itemTypeInfo != null)
                 {
-                  itemTag = itemTypes.FirstOrDefault(item => item.Value == itemTypeInfo).Key;
+                  itemTag = itemTypes.KnownTags(itemTypeInfo.Type).FirstOrDefault();
                   if (itemTag == itemTypeInfo.ElementName)
                     itemTag = null;
                   typeConverter = itemTypeInfo.TypeConverter;

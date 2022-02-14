@@ -16,24 +16,23 @@ namespace Qhta.Serialization
   public partial class XmlSerializer : IXSerializer
   {
     #region Creation methods
-    public XmlSerializer(): this(null, null, null) {  }
 
     public XmlSerializer(Type type) : this(type, null, null) { }
 
     public XmlSerializer(Type type, Type[]? extraTypes) : this(type, extraTypes, null) { }
 
-    public XmlSerializer(Type? type, SerializationOptions? options) : this(type, null, options) { }
+    public XmlSerializer(Type type, SerializationOptions? options) : this(type, null, options) { }
 
-    public XmlSerializer(Type? type, Type[]? extraTypes, SerializationOptions? options)
+    public XmlSerializer(Type type, Type[]? extraTypes, SerializationOptions? options)
     {
       if (options != null)
         Options = options;
-      SerializationInfoMapper = new XmlSerializationInfoMapper(Options);
+      SerializationInfoMapper = new XmlSerializationInfoMapper(Options, type.Namespace);
       if (type!=null)
-        AddKnownType(type, "");
+        RegisterKnownType(type);
       if (extraTypes != null)
         foreach (Type t in extraTypes)
-          AddKnownType(t, "");
+          RegisterKnownType(t);
     }
 
     public KnownTypesDictionary KnownTypes => SerializationInfoMapper.KnownTypes;
@@ -42,9 +41,14 @@ namespace Qhta.Serialization
 
     protected XmlSerializationInfoMapper SerializationInfoMapper { get; init; }
 
-    protected SerializationTypeInfo? AddKnownType(Type aType, string? ns = null)
+    protected SerializationTypeInfo? RegisterKnownType(Type aType)
     {
-      return SerializationInfoMapper.AddKnownType(aType, ns);
+      return SerializationInfoMapper.RegisterKnownType(aType);
+    }
+
+    protected SerializationTypeInfo? AddKnownType(Type aType)
+    {
+      return SerializationInfoMapper.AddKnownType(aType);
     }
     #endregion
 

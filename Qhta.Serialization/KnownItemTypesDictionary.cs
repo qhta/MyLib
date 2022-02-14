@@ -5,8 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Qhta.Serialization
 {
-  public class KnownItemTypesDictionary : Dictionary<string, SerializationItemTypeInfo>
+  public class KnownItemTypesDictionary: TypesDictionary<SerializationItemTypeInfo>
   {
-
   }
 }

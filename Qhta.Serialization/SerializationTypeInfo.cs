@@ -9,12 +9,11 @@ using Qhta.TypeUtils;
 
 namespace Qhta.Serialization
 {
-  public class SerializationTypeInfo
+  public class SerializationTypeInfo: ITypeInfo
   {
 
-    public SerializationTypeInfo(String? elementName, Type aType)
+    public SerializationTypeInfo(Type aType)
     {
-      ElementName = elementName;
       Type = aType;
     }
 

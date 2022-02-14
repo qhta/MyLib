@@ -22,10 +22,17 @@ namespace Qhta.Serialization
     /// To create a mapper you need serialization options.
     /// </summary>
     /// <param name="options">Instance of the serialization options - set only once</param>
-    public XmlSerializationInfoMapper(SerializationOptions options)
+    public XmlSerializationInfoMapper(SerializationOptions options, string? baseNamespace)
     {
       Options = options;
+      BaseNamespace = baseNamespace ?? "";
     }
+
+    /// <summary>
+    /// A namespace of the main type. If registered type are in the same namespace,
+    /// they are indexed without prefixes.
+    /// </summary>
+    public string BaseNamespace {get; init; }
 
     /// <summary>
     /// Only some of the options are used:
@@ -44,6 +51,45 @@ namespace Qhta.Serialization
     /// Types are registered by the name of the type or by the <see cref="XmlRootAttribute"/>
     /// </summary>
     public KnownTypesDictionary KnownTypes { get; init; } = new KnownTypesDictionary();
+
+    public SerializationTypeInfo RegisterKnownType(Type aType)
+    {
+      var typeInfo = AddKnownType(aType);
+
+      #region Checking if a type qualified name was already used
+      var ns = aType.Namespace ?? "";
+      if (ns==BaseNamespace)      
+        ns = null;
+      else
+      if (ns.StartsWith(BaseNamespace+"."))
+        ns = ns.Substring(BaseNamespace.Length+1);
+
+      var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
+      XmlQualifiedName qName;
+      if (xmlRootAttrib?.ElementName != null)
+        qName = new XmlQualifiedName(xmlRootAttrib.ElementName, ns);
+      else
+      {
+        string typeName = aType.Name;
+        if (typeName.Contains("`") && aType.FullName!=null)
+          typeName = aType.FullName;
+        qName = new XmlQualifiedName(typeName, ns);
+      }
+      var aName = qName.ToString();
+
+      if (KnownTypes.TryGetValue(aName, out var oldTypeInfo))
+      {
+        var bType = oldTypeInfo.Type;
+        if (bType != null && aType != bType)
+          throw new InternalException($"Name \"{aName}\" already defined for {bType.FullName} while registering {aType.FullName} type");
+        return oldTypeInfo;
+      }
+      #endregion
+
+      typeInfo.ElementName = qName.Name;
+      KnownTypes.Add(aName, typeInfo);
+      return typeInfo;
+    }
 
     /// <summary>
     /// Creates the <see cref="SerializationTypeInfo"/> item and adds it to the known types dictionary.
@@ -69,41 +115,15 @@ namespace Qhta.Serialization
     ///     </item>
     ///   </list>
     /// </exception>
-    public SerializationTypeInfo AddKnownType(Type aType, string? ns = null)
+    public SerializationTypeInfo AddKnownType(Type aType)
     {
-      #region Creating a qualified name for the type
-      var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
-      XmlQualifiedName qName;
-      if (xmlRootAttrib?.ElementName != null)
-        qName = new XmlQualifiedName(xmlRootAttrib.ElementName, ns);
-      else
-        qName = new XmlQualifiedName(aType.Name, ns);
-      var aName = qName.ToString();
-      #endregion
-
-      #region Checking if the qualified name was already used
-      if (KnownTypes.TryGetValue(aName, out var oldTypeInfo))
-      {
-        var bType = oldTypeInfo.Type;
-        if (bType != null && aType.Name != bType.Name)
-          throw new InternalException($"Name \"{aName}\" already defined for {bType.Name} while registering {aType.Name} type");
-        return oldTypeInfo;
-      }
-      #endregion
-
-      #region Checking if the type was already registered with a different name
-      if (KnownTypes.TryGetValue(aType, out oldTypeInfo))
-      {
-        if (!Options.AllowMultipleTypeRegistration)
-          throw new InternalException($"A type {aType.Name} was already registered with a \"{oldTypeInfo.ElementName}\" name");
-        KnownTypes.Add(aName, oldTypeInfo);
-        return oldTypeInfo;
-      }
+      #region Checking if a type was already registered
+      if (KnownTypes.TryGetValue(aType, out var knownTypeInfo))
+        return knownTypeInfo;
       #endregion
 
       #region Creating and registering a new serialization info
-      var newTypeInfo = new SerializationTypeInfo(aName, aType);
-      KnownTypes.Add(aName, newTypeInfo);
+      var newTypeInfo = new SerializationTypeInfo(aType);
       #endregion
 
       #region Checking and registering a known construtor - optional for simple types
@@ -121,7 +141,7 @@ namespace Qhta.Serialization
 
       newTypeInfo.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
       newTypeInfo.PropsAsElements = GetPropsAsXmlElements(aType);
-      newTypeInfo.KnownItems = GetKnownItems(aType, ns);
+      newTypeInfo.KnownItems = GetKnownItems(aType);
       newTypeInfo.KnownContentProperty = GetContentProperty(aType);
       newTypeInfo.KnownTextProperty = GetTextProperty(aType);
       newTypeInfo.TypeConverter = GetTypeConverter(aType);
@@ -157,9 +177,9 @@ namespace Qhta.Serialization
 
           var order = ++n + 100;
           if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order != null)
-            order = (int)attr2.Order;
+          order = (int)attr2.Order;
           var serializePropInfo = new SerializationPropertyInfo(attrName, propInfo, order);
-          serializePropInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
+          serializePropInfo.TypeInfo = RegisterKnownType(propInfo.PropertyType);
           var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
           if (converterTypeName != null)
             serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
@@ -252,6 +272,8 @@ namespace Qhta.Serialization
           elementName = LowercaseName(elementName);
         if (itemType == null)
           itemType = typeof(object);
+        //if (itemType.Name=="Category")
+        //  TestUtils.Stop();
         var typeInfo = AddKnownType(itemType);
         var itemTypeInfo = new SerializationItemTypeInfo(elementName, typeInfo);
         serializeArrayInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
@@ -356,7 +378,7 @@ namespace Qhta.Serialization
     /// </summary>
     /// <param name="aType">Type to reflect</param>
     /// <returns>A dictionary of known item types</returns>
-    public virtual KnownTypesDictionary GetKnownItems(Type aType, string? ns)
+    public virtual KnownTypesDictionary GetKnownItems(Type aType)
     {
       KnownTypesDictionary knownItems = new();
       var itemTagAttributes = aType.GetCustomAttributes<XmlItemElementAttribute>(false);
@@ -369,16 +391,16 @@ namespace Qhta.Serialization
             itemType = typeof(object);
           if (!KnownTypes.TryGetValue(itemType, out var itemTypeInfo))
           {
-            itemTypeInfo = AddKnownType(itemType, ns);
+            itemTypeInfo = AddKnownType(itemType);
           }
           if (itemTypeInfo != null)
             if (!string.IsNullOrEmpty(itemTagAttribute.ElementName))
               knownItems.Add(itemTagAttribute.ElementName, itemTypeInfo);
-            else
-            {
-              if (itemTypeInfo.ElementName != null)
-                knownItems.Add(itemTypeInfo.ElementName, itemTypeInfo);
-            }
+            //else
+            //{
+            //  if (itemTypeInfo.ElementName != null)
+            //    knownItems.Add(itemTypeInfo.ElementName, itemTypeInfo);
+            //}
         }
       }
       return knownItems;
