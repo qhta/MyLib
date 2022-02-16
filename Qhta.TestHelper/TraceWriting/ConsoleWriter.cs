@@ -30,8 +30,8 @@ namespace Qhta.TestHelper
     static ConsoleWriter()
     {
       Console.ResetColor();
-      initialForegroundColor = Console.ForegroundColor;
-      initialBackgroundColor = Console.BackgroundColor;
+      initialForegroundColor = ConsoleColor.Gray; //Console.ForegroundColor;
+      initialBackgroundColor = ConsoleColor.Black;//Console.BackgroundColor;
     }
 
     #region initial console colors
