@@ -52,10 +52,11 @@ namespace Qhta.Serialization
     /// </summary>
     public KnownTypesDictionary KnownTypes { get; init; } = new KnownTypesDictionary();
 
-    public SerializationTypeInfo RegisterKnownType(Type aType)
+    public SerializationTypeInfo? RegisterKnownType(Type aType)
     {
       var typeInfo = AddKnownType(aType);
-
+      if (aType.IsAbstract)
+        return null;
       #region Checking if a type qualified name was already used
       var ns = aType.Namespace ?? "";
       if (ns==BaseNamespace)      
@@ -80,7 +81,7 @@ namespace Qhta.Serialization
       if (KnownTypes.TryGetValue(aName, out var oldTypeInfo))
       {
         var bType = oldTypeInfo.Type;
-        if (bType != null && aType != bType)
+        if (bType != null && aType != bType && !Options.IgnoreMultipleTypeRegistration)
           throw new InternalException($"Name \"{aName}\" already defined for {bType.FullName} while registering {aType.FullName} type");
         return oldTypeInfo;
       }
@@ -111,7 +112,7 @@ namespace Qhta.Serialization
     ///     </item>
     ///     <item>
     ///       A type was registered with a different name
-    ///       and an option <see cref="SerializationOptions.AllowMultipleTypeRegistration"/> is not set.
+    ///       and an option <see cref="SerializationOptions.IgnoreMultipleTypeRegistration"/> is not set.
     ///     </item>
     ///   </list>
     /// </exception>

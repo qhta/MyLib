@@ -128,7 +128,19 @@ namespace Qhta.TypeUtils
       TypeCategory category = GetCategory(aType);
       return category.HasFlag(TypeCategory.Textual);
     }
+    
+    /// <summary>
+    /// Is a type a numeral type, i.e. integer or float or decimal type
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <returns>true if a type is a numeral type</returns>
+    public static bool IsNumeral(this Type aType)
+    {
+      TypeCategory category = aType.GetCategory();
+      return category.HasFlag(TypeCategory.Numeral);
+    }
 
+    #region IsNullable
     /// <summary>
     /// Is a type a nullable type, i.e. it's name starts with "Nullable`1".
     /// </summary>
@@ -159,19 +171,53 @@ namespace Qhta.TypeUtils
       baseType = null;
       return false;
     }
+    #endregion
 
 
+    #region IsArray
     /// <summary>
-    /// Is a type a numeral type, i.e. integer or float or decimal type
+    /// Is a type an array type.
     /// </summary>
     /// <param name="aType">checked type</param>
-    /// <returns>true if a type is a numeral type</returns>
-    public static bool IsNumeral(this Type aType)
+    /// <returns>true if a type is an array type</returns>
+    public static bool IsArray(this Type aType)
     {
-      TypeCategory category = aType.GetCategory();
-      return category.HasFlag(TypeCategory.Numeral);
+      return aType.IsArray;
     }
 
+    /// <summary>
+    /// Is a type an array type.
+    /// If so it returns the item type of the array.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="itemType">returned item type if a type is an array</param>
+    /// <returns>true if a type is an array type</returns>
+    public static bool IsArray(this Type aType, out Type itemType)
+    {
+      if (aType.IsArray)
+      {
+        itemType = aType.GetElementType();
+        return true;
+      }
+      itemType = null;
+      return false;
+    }
+
+    /// <summary>
+    /// Is a type an array type.
+    /// If so it check the item type of the array.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="itemType">checked item type if a type is an array</param>
+    /// <returns>true if a type is an array type of item Type</returns>
+    public static bool IsArray(this Type aType, Type itemType)
+    {
+      return IsArray(aType, out var foundItemType)
+        && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+    }
+    #endregion
+
+    #region IsList
     /// <summary>
     /// Is a type a list type, i.e. it's name starts with "List`1"
     /// or if it is a defined type which implements a IList`1 interface.
@@ -189,7 +235,7 @@ namespace Qhta.TypeUtils
     /// If so it returns the item type of the list.
     /// </summary>
     /// <param name="aType">checked type</param>
-    /// <param name="itemType">item type if a type is a list</param>
+    /// <param name="itemType">returned item type if a type is a list</param>
     /// <returns>true if a type is a list type</returns>
     public static bool IsList(this Type aType, out Type itemType)
     {
@@ -209,6 +255,22 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
+    /// Is a type an list type, i.e. it's name starts with "List`1"
+    /// or if it is a defined type which implements a IList`1 interface.
+    /// If so it check the item type of the collection.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="itemType">checked item type if a type is a list</param>
+    /// <returns>true if a type is an enumerable type of item Type</returns>
+    public static bool IsList(this Type aType, Type itemType)
+    {
+      return IsList(aType, out var foundItemType)
+        && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+    }
+    #endregion
+
+    #region IsCollection
+    /// <summary>
     /// Is a type a collection type, i.e. it's name starts with "Collection`1"
     /// or if it is a defined type which implements a ICollection`1 interface.
     /// </summary>
@@ -225,7 +287,7 @@ namespace Qhta.TypeUtils
     /// If so it returns the item type of the collection.
     /// </summary>
     /// <param name="aType">checked type</param>
-    /// <param name="itemType">item type if a type is a collection</param>
+    /// <param name="itemType">returned item type if a type is a collection</param>
     /// <returns>true if a type is a collection type</returns>
     public static bool IsCollection(this Type aType, out Type itemType)
     {
@@ -245,6 +307,22 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
+    /// Is a type a collection type, i.e. it's name starts with "Collection`1"
+    /// or if it is a defined type which implements a ICollection`1 interface.
+    /// If so it checks the item type of the collection.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="itemType">checked item type if a type is a collection</param>
+    /// <returns>true if a type is a collection type of item type</returns>
+    public static bool IsCollection(this Type aType, Type itemType)
+    {
+      return IsCollection(aType, out var foundItemType) 
+        && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+    }
+    #endregion
+
+    #region IsEnumerable
+    /// <summary>
     /// Is a type an enumerable type, i.e. it's name starts with "Enumerable`1"
     /// or if it is a defined type which implements a IEnumerable`1 interface.
     /// </summary>
@@ -261,7 +339,7 @@ namespace Qhta.TypeUtils
     /// If so it returns the item type of the collection.
     /// </summary>
     /// <param name="aType">checked type</param>
-    /// <param name="itemType">item type if a type is am enumerable</param>
+    /// <param name="itemType">returned item type if a type is an enumerable</param>
     /// <returns>true if a type is an enumerable type</returns>
     public static bool IsEnumerable(this Type aType, out Type itemType)
     {
@@ -281,6 +359,22 @@ namespace Qhta.TypeUtils
     }
 
     /// <summary>
+    /// Is a type an enumerable type, i.e. it's name starts with "Enumerable`1"
+    /// or if it is a defined type which implements a IEnumerable`1 interface.
+    /// If so it check the item type of the collection.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="itemType">checked item type if a type is an enumerable</param>
+    /// <returns>true if a type is an enumerable type of item Type</returns>
+    public static bool IsEnumerable(this Type aType, Type itemType)
+    {
+      return IsEnumerable(aType, out var foundItemType) 
+        && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+    }
+    #endregion
+
+    #region IsDictionary
+    /// <summary>
     /// Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
     /// or if it is a defined type which implements a IDictionary`2 interface.
     /// </summary>
@@ -297,9 +391,9 @@ namespace Qhta.TypeUtils
     /// If so it returns the key type and the value type of the dictionary.
     /// </summary>
     /// <param name="aType">checked type</param>
-    /// <param name="keyType">item type if a type is a list</param>
-    /// <param name="valueType">item type if a type is a list</param>
-    /// <returns>true if a type is a dictionary type</returns>
+    /// <param name="keyType">returned item type if a type is a list</param>
+    /// <param name="valueType">returned item type if a type is a list</param>
+    /// <returns>true if a type is a dictionary type of key and value type</returns>
     public static bool IsDictionary(this Type aType, out Type keyType, out Type valueType)
     {
       if (aType.Name.StartsWith("Dictionary`2"))
@@ -319,5 +413,22 @@ namespace Qhta.TypeUtils
       valueType = null;
       return false;
     }
+
+    /// <summary>
+    /// Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
+    /// or if it is a defined type which implements a IDictionary`2 interface.
+    /// If so it checks the key type and the value type of the dictionary.
+    /// </summary>
+    /// <param name="aType">checked type</param>
+    /// <param name="keyType">checked item type if a type is a list</param>
+    /// <param name="valueType">checked item type if a type is a list</param>
+    /// <returns>true if a type is a dictionary type</returns>
+    public static bool IsDictionary(this Type aType, Type keyType, Type valueType)
+    {
+      return IsDictionary(aType, out var foundKeyType, out var foundValueType) 
+        && foundKeyType==keyType || keyType.IsSubclassOf(foundKeyType)
+        && foundValueType==valueType || valueType.IsSubclassOf(foundValueType);
+    }
+    #endregion IsDictionary
   }
 }

@@ -505,6 +505,13 @@
             <param name="aType">checked type</param>
             <returns>true if a type is a textual type</returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNumeral(System.Type)">
+            <summary>
+            Is a type a numeral type, i.e. integer or float or decimal type
+            </summary>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a numeral type</returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type)">
             <summary>
             Is a type a nullable type, i.e. it's name starts with "Nullable`1".
@@ -520,12 +527,30 @@
             <param name="baseType">based type of the nullable type</param>
             <returns>true if a type is a nullable type</returns>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNumeral(System.Type)">
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type)">
             <summary>
-            Is a type a numeral type, i.e. integer or float or decimal type
+            Is a type an array type.
             </summary>
             <param name="aType">checked type</param>
-            <returns>true if a type is a numeral type</returns>
+            <returns>true if a type is an array type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type,System.Type@)">
+            <summary>
+            Is a type an array type.
+            If so it returns the item type of the array.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">returned item type if a type is an array</param>
+            <returns>true if a type is an array type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type,System.Type)">
+            <summary>
+            Is a type an array type.
+            If so it check the item type of the array.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">checked item type if a type is an array</param>
+            <returns>true if a type is an array type of item Type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsList(System.Type)">
             <summary>
@@ -542,8 +567,18 @@
             If so it returns the item type of the list.
             </summary>
             <param name="aType">checked type</param>
-            <param name="itemType">item type if a type is a list</param>
+            <param name="itemType">returned item type if a type is a list</param>
             <returns>true if a type is a list type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsList(System.Type,System.Type)">
+            <summary>
+            Is a type an list type, i.e. it's name starts with "List`1"
+            or if it is a defined type which implements a IList`1 interface.
+            If so it check the item type of the collection.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">checked item type if a type is a list</param>
+            <returns>true if a type is an enumerable type of item Type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsCollection(System.Type)">
             <summary>
@@ -560,8 +595,18 @@
             If so it returns the item type of the collection.
             </summary>
             <param name="aType">checked type</param>
-            <param name="itemType">item type if a type is a collection</param>
+            <param name="itemType">returned item type if a type is a collection</param>
             <returns>true if a type is a collection type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsCollection(System.Type,System.Type)">
+            <summary>
+            Is a type a collection type, i.e. it's name starts with "Collection`1"
+            or if it is a defined type which implements a ICollection`1 interface.
+            If so it checks the item type of the collection.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">checked item type if a type is a collection</param>
+            <returns>true if a type is a collection type of item type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsEnumerable(System.Type)">
             <summary>
@@ -578,8 +623,18 @@
             If so it returns the item type of the collection.
             </summary>
             <param name="aType">checked type</param>
-            <param name="itemType">item type if a type is am enumerable</param>
+            <param name="itemType">returned item type if a type is an enumerable</param>
             <returns>true if a type is an enumerable type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsEnumerable(System.Type,System.Type)">
+            <summary>
+            Is a type an enumerable type, i.e. it's name starts with "Enumerable`1"
+            or if it is a defined type which implements a IEnumerable`1 interface.
+            If so it check the item type of the collection.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="itemType">checked item type if a type is an enumerable</param>
+            <returns>true if a type is an enumerable type of item Type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsDictionary(System.Type)">
             <summary>
@@ -596,8 +651,19 @@
             If so it returns the key type and the value type of the dictionary.
             </summary>
             <param name="aType">checked type</param>
-            <param name="keyType">item type if a type is a list</param>
-            <param name="valueType">item type if a type is a list</param>
+            <param name="keyType">returned item type if a type is a list</param>
+            <param name="valueType">returned item type if a type is a list</param>
+            <returns>true if a type is a dictionary type of key and value type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsDictionary(System.Type,System.Type,System.Type)">
+            <summary>
+            Is a type a dictionary type, i.e. it's name starts with "Dictionary`2"
+            or if it is a defined type which implements a IDictionary`2 interface.
+            If so it checks the key type and the value type of the dictionary.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="keyType">checked item type if a type is a list</param>
+            <param name="valueType">checked item type if a type is a list</param>
             <returns>true if a type is a dictionary type</returns>
         </member>
         <member name="T:Qhta.TypeUtils.TypeNaming">

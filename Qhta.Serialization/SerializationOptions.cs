@@ -19,7 +19,7 @@ namespace Qhta.Serialization
     /// it can be recognized with different names on deserialization.
     /// On serialization, only one name is used.
     /// </summary>
-    public bool AllowMultipleTypeRegistration { get; set; }
+    public bool IgnoreMultipleTypeRegistration { get; set; }
 
     /// <summary>
     /// If attribute names should be changed to lowercase on serialization
