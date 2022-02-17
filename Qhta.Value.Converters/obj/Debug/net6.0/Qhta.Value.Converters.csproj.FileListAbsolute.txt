@@ -9,4 +9,3 @@ D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net6.0\Qhta.Value.Converter
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net6.0\ref\Qhta.Value.Converters.dll
 D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net6.0\Qhta.Value.Converters.pdb
 D:\VS\Projects\MyLib\Qhta.Value.Converters\bin\Debug\net6.0\ref\Qhta.Value.Converters.dll
-D:\VS\Projects\MyLib\Qhta.Value.Converters\obj\Debug\net6.0\Qhta.Value.Converters.csproj.AssemblyReference.cache

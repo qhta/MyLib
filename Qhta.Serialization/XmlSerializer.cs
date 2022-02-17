@@ -29,24 +29,24 @@ namespace Qhta.Serialization
         Options = options;
       SerializationInfoMapper = new XmlSerializationInfoMapper(Options, type.Namespace);
       if (type!=null)
-        RegisterKnownType(type);
+        RegisterType(type);
       if (extraTypes != null)
         foreach (Type t in extraTypes)
-          RegisterKnownType(t);
+          RegisterType(t);
     }
 
     public KnownTypesDictionary KnownTypes => SerializationInfoMapper.KnownTypes;
 
     public SerializationOptions Options { get; init; } = new SerializationOptions();
 
-    protected XmlSerializationInfoMapper SerializationInfoMapper { get; init; }
+    public XmlSerializationInfoMapper SerializationInfoMapper { get; init; }
 
-    protected SerializationTypeInfo? RegisterKnownType(Type aType)
+    public SerializationTypeInfo? RegisterType(Type aType)
     {
-      return SerializationInfoMapper.RegisterKnownType(aType);
+      return SerializationInfoMapper.RegisterType(aType);
     }
 
-    protected SerializationTypeInfo? AddKnownType(Type aType)
+    public SerializationTypeInfo? AddKnownType(Type aType)
     {
       return SerializationInfoMapper.AddKnownType(aType);
     }

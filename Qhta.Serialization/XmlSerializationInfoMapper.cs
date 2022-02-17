@@ -52,7 +52,7 @@ namespace Qhta.Serialization
     /// </summary>
     public KnownTypesDictionary KnownTypes { get; init; } = new KnownTypesDictionary();
 
-    public SerializationTypeInfo? RegisterKnownType(Type aType)
+    public SerializationTypeInfo? RegisterType(Type aType)
     {
       var typeInfo = AddKnownType(aType);
       if (aType.IsAbstract)
@@ -180,7 +180,7 @@ namespace Qhta.Serialization
           if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order != null)
           order = (int)attr2.Order;
           var serializePropInfo = new SerializationPropertyInfo(attrName, propInfo, order);
-          serializePropInfo.TypeInfo = RegisterKnownType(propInfo.PropertyType);
+          serializePropInfo.TypeInfo = RegisterType(propInfo.PropertyType);
           var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
           if (converterTypeName != null)
             serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
