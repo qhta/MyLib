@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public class KnownPropertiesDictionary : IEnumerable<SerializationPropertyInfo>
   {

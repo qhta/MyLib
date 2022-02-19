@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public class XmlNullableBoolConverter : TypeConverter
   {

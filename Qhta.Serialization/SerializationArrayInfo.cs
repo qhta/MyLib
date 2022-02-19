@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Collections.Generic;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public class SerializationArrayInfo: SerializationPropertyInfo
   {

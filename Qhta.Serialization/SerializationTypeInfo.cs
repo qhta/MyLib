@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using Qhta.TestHelper;
 using Qhta.TypeUtils;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public class SerializationTypeInfo: ITypeInfo
   {

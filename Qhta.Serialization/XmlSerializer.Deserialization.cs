@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 using Qhta.TestHelper;
 using Qhta.TypeUtils;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public delegate void OnUnknownProperty(object readObject, string elementName);
 

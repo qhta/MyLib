@@ -1,7 +1,7 @@
 ﻿using System;
 #nullable enable
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
   public class XmlDictionaryItemAttribute : XmlItemElementAttribute

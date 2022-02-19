@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public class TypesDictionary<ItemType>: IEnumerable<ItemType> where ItemType : ITypeInfo
   {

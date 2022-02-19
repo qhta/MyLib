@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   /// <summary>
   /// The purpose of this class is to build serialization info on types and properties

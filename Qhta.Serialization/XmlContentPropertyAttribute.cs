@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   /// <summary>
   /// This is a replacement for <see cref="System.Windows.Markup.ContentPropertyAttribute"/>

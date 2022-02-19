@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   /// <summary>
   /// Info of an array property item

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OQZG7m1Hnf4i7XSAspwvDvwbS+n7/25NCC4vEnC5PjAoSgelnKTf4WCJO15tAhHzEBYP5PH214O2AIy4PnSPvw==",
+  "dgSpecHash": "8/gUOtyZX0z0T1lOWHu7adchd+L2enahZfJwMVrKxCvJNAnar5vkOjv8X9drlu4sDia/48wt4vRC2TDgH1Ztdw==",
   "success": true,
-  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Serialization.csproj",
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

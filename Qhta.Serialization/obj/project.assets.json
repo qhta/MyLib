@@ -1632,9 +1632,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Serialization.csproj",
-      "projectName": "Qhta.Serialization",
-      "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Serialization.csproj",
+      "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj",
+      "projectName": "Qhta.Xml.Serialization",
+      "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj",
       "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
       "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\obj\\",
       "projectStyle": "PackageReference",

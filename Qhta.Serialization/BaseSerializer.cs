@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 using Qhta.TestHelper;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   /// <summary>
   /// This basic serializer uses some <see cref="System.Xml.Serialization"/> classes,

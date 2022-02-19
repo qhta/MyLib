@@ -1,4 +1,4 @@
-﻿namespace Qhta.Serialization
+﻿namespace Qhta.Xml.Serialization
 {
   public interface IXSerializable
   {

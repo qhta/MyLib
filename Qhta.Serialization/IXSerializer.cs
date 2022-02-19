@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.IO;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   /// <summary>
   /// This basic interface for a XML serializer or may by a JSON serializer.

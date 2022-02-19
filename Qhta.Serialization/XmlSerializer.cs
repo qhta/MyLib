@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 using Qhta.TestHelper;
 
-namespace Qhta.Serialization
+namespace Qhta.Xml.Serialization
 {
   public partial class XmlSerializer : IXSerializer
   {
