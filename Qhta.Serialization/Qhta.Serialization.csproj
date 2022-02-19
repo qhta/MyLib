@@ -9,6 +9,8 @@
     <Compile Remove="BaseSerializer.cs" />
     <Compile Remove="XmlElement2Attribute.cs" />
     <Compile Remove="XmlMapping.cs" />
+    <Compile Remove="XmlSafeCollectionConverter.cs" />
+    <Compile Remove="XmlSafeConvertExtensions.cs" />
     <Compile Remove="XmlSerializer.new.cs" />
   </ItemGroup>
 

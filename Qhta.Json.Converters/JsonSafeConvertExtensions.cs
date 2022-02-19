@@ -52,10 +52,10 @@ namespace Qhta.Json.Converters
       else if (expectArray)
       {
         //to object via JArray
-        return new JArray(jToken).ToObject(objectType, jsonSerializer);
+        return new JArray(jToken).ToObjectSafe(objectType, jsonSerializer);
       }
 
-      var result = jToken.ToObject(objectType, jsonSerializer);
+      var result = jToken.ToObjectSafe(objectType, jsonSerializer);
       return result;
     }
 
@@ -67,6 +67,11 @@ namespace Qhta.Json.Converters
     public static T ToObjectCollectionSafe<T>(this JToken jToken, JsonSerializer jsonSerializer)
     {
       return (T)ToObjectCollectionSafe(jToken, typeof(T), jsonSerializer);
+    }
+
+    public static object ToObjectSafe(this JToken jToken, Type objectType, JsonSerializer jsonSerializer)
+    {
+       return jToken.Value<object>();
     }
   }
 }

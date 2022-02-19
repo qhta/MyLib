@@ -18,6 +18,12 @@ namespace Qhta.Serialization
           yield return item.Key;
     }
 
+    public void Add(ItemType value)
+    {
+      if (!TypeIndexedItems.ContainsKey(value.Type))
+        TypeIndexedItems.Add(value.Type, value);
+    }
+
     public void Add(string key, ItemType value)
     {
       if (!TypeIndexedItems.ContainsKey(value.Type))
@@ -44,7 +50,7 @@ namespace Qhta.Serialization
 
     public ICollection<string> Keys => (StringIndexedItems).Keys;
 
-    public ICollection<ItemType> Values => (StringIndexedItems).Values;
+    public ICollection<ItemType> Values => (TypeIndexedItems).Values;
 
     public void Add(KeyValuePair<string, ItemType> item)
     {
@@ -53,7 +59,8 @@ namespace Qhta.Serialization
 
     public void Clear()
     {
-      ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).Clear();
+      StringIndexedItems.Clear();
+      TypeIndexedItems.Clear();
     }
 
     public bool Contains(KeyValuePair<string, ItemType> item)

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Qhta.Serialization
 {
-  public class KnownPropertiesDictionary : ICollection<SerializationPropertyInfo>
+  public class KnownPropertiesDictionary : IEnumerable<SerializationPropertyInfo>
   {
     private static readonly PropOrderComparer propertyInfoOrderComparer = new PropOrderComparer();
 
@@ -67,25 +67,25 @@ namespace Qhta.Serialization
       return (OrderedItems).GetEnumerator();
     }
 
-    public void Add(SerializationPropertyInfo item)
-    {
-      (OrderedItems).Add(item);
-    }
+    //public void Add(SerializationPropertyInfo item)
+    //{
+    //  (OrderedItems).Add(item);
+    //}
 
-    public bool Contains(SerializationPropertyInfo item)
-    {
-      return (OrderedItems).Contains(item);
-    }
+    //public bool Contains(SerializationPropertyInfo item)
+    //{
+    //  return (OrderedItems).Contains(item);
+    //}
 
-    public void CopyTo(SerializationPropertyInfo[] array, int arrayIndex)
-    {
-      (OrderedItems).CopyTo(array, arrayIndex);
-    }
+    //public void CopyTo(SerializationPropertyInfo[] array, int arrayIndex)
+    //{
+    //  (OrderedItems).CopyTo(array, arrayIndex);
+    //}
 
-    public bool Remove(SerializationPropertyInfo item)
-    {
-      return (OrderedItems).Remove(item);
-    }
+    //public bool Remove(SerializationPropertyInfo item)
+    //{
+    //  return (OrderedItems).Remove(item);
+    //}
 
     IEnumerator<SerializationPropertyInfo> IEnumerable<SerializationPropertyInfo>.GetEnumerator()
     {

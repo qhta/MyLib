@@ -10,6 +10,8 @@ namespace Qhta.Serialization
       base(name, propInfo, order) { }
 
     public KnownItemTypesDictionary KnownItemTypes { get; private set; } = new ();
+
+    public Type? CollectionType { get; set; }
   }
 
 }

@@ -14,9 +14,7 @@ namespace Qhta.Serialization
 
     public XmlItemElementAttribute(Type? type) : base(type)
     {
-      //      NoItemElement = true;
     }
 
-    //    public bool NoItemElement { get; set; }
   }
 }

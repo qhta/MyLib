@@ -3,14 +3,14 @@
 
 namespace Qhta.Serialization
 {
-  [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-  public class XmlDictionaryItemAttribute : System.Xml.Serialization.XmlArrayItemAttribute
+  [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+  public class XmlDictionaryItemAttribute : XmlItemElementAttribute
   {
     public XmlDictionaryItemAttribute(string elementName) : base(elementName)
     {
     }
 
-    public XmlDictionaryItemAttribute(string elementName, string keyName, Type? type = null) : base(elementName, type) 
+    public XmlDictionaryItemAttribute(string elementName, string keyName, Type? itemType = null) : base(elementName, itemType) 
     { 
       KeyName = keyName;
     }
