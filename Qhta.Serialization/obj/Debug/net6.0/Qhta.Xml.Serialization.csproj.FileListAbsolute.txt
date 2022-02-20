@@ -16,3 +16,4 @@ D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Xml.Serialization.
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Xml.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\ref\Qhta.Xml.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Xml.Serialization.pdb
+D:\VS\Projects\MyLib\Qhta.Serialization\obj\Debug\net6.0\Qhta.Xml.Serialization.csproj.AssemblyReference.cache

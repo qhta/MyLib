@@ -323,7 +323,16 @@ namespace Qhta.Xml.Serialization
         throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
       }
       var obj = typeInfo.KnownConstructor.Invoke(new object[0]);
-      ReadObject(obj, reader, typeInfo);
+      if (obj is IXSerializable qSerializable)
+      {
+        qSerializable.Deserialize(this);
+      }
+      else if (obj is IXmlSerializable xmlSerializable)
+      {
+        xmlSerializable.ReadXml(reader);
+      }
+      else
+        ReadObject(obj, reader, typeInfo);
       return obj;
     }
 

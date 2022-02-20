@@ -50,7 +50,7 @@ namespace Qhta.TestHelper
       }
     }
 
-    public IEnumerable<string> GetEmptyProps()
+    public List<string> GetEmptyProps()
     {
       List<string> result = new();
       foreach (var item in Properties)
