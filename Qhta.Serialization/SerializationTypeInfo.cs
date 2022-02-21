@@ -33,6 +33,11 @@ namespace Qhta.Xml.Serialization
     public ConstructorInfo? KnownConstructor { get; set; }
 
     /// <summary>
+    /// Converter to read write XML.
+    /// </summary>
+    public XmlConverter? XmlConverter { get; set; }
+
+    /// <summary>
     /// Converter to/from string value.
     /// </summary>
     public TypeConverter? TypeConverter { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Qhta.Xml.Serialization
 {
-  [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false)]
+  [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
   public class XmlConverterAttribute : Attribute
   {
     public XmlConverterAttribute(Type type)

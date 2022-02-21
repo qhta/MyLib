@@ -201,7 +201,7 @@ namespace Qhta.Xml.Serialization
             {
               itemTypeInfo = typeInfo.KnownItems.FirstOrDefault<SerializationTypeInfo>();
               if (itemTypeInfo == null)
-                throw new XmlInternalException($"Unknown item type in type {aType.FullName}", reader);
+                throw new XmlInternalException($"Unrecognized element \"{elementName}\"", reader);
             }
             var item = ReadElementWithKnownTypeInfo(itemTypeInfo, reader);
             if (item == null)
@@ -311,6 +311,8 @@ namespace Qhta.Xml.Serialization
 
     protected object? ReadElementWithKnownTypeInfo(SerializationTypeInfo typeInfo, XmlTextReader reader)
     {
+      if (typeInfo.XmlConverter!=null && typeInfo.XmlConverter.CanRead)
+        return typeInfo.XmlConverter.ReadXml(reader, typeInfo.Type, null, null);
       if (typeInfo.KnownConstructor == null)
       {
         if (IsSimple(typeInfo.Type))

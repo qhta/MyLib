@@ -150,6 +150,7 @@ namespace Qhta.Xml.Serialization
       typeInfo.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
       typeInfo.PropsAsElements = GetPropsAsXmlElements(aType);
       typeInfo.KnownItems = GetKnownItems(aType);
+      typeInfo.XmlConverter = GetXmlConverter(aType);
       typeInfo.KnownContentProperty = GetContentProperty(aType);
       typeInfo.KnownTextProperty = GetTextProperty(aType);
       typeInfo.TypeConverter = GetTypeConverter(aType);
@@ -158,7 +159,7 @@ namespace Qhta.Xml.Serialization
     /// <summary>
     /// Registers properties which are intended to be serialized as XML attributes.
     /// These properties are marked in the type with <see cref="System.Xml.Serialization.XmlAttributeAttribute"/>
-    /// or <see cref="Qhta.Serialization.XmlOrderedAttribAttribute"/> (which is a subclass of the previous one).
+    /// or <see cref="Qhta.Xml.Serialization.XmlOrderedAttribAttribute"/> (which is a subclass of the previous one).
     /// </summary>
     /// <param name="aType">Type to reflect</param>
     /// <returns>A dictionary of known properties</returns>
@@ -189,7 +190,7 @@ namespace Qhta.Xml.Serialization
           var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
           if (converterTypeName != null)
             serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
-          var converterType = propInfo.GetCustomAttribute<XmlConverterAttribute>()?.ConverterType;
+          var converterType = propInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
           if (converterType != null)
             serializePropInfo.TypeConverter = CreateTypeConverter(converterType);
           propList.Add(attrName, serializePropInfo);
@@ -202,10 +203,10 @@ namespace Qhta.Xml.Serialization
     /// Registers properties which are intended to be serialized as XML element.
     /// These properties are marked in the type header with <see cref="System.Xml.Serialization.XmlElementAttribute"/>
     /// or <see cref="System.Xml.Serialization.XmlArrayAttribute"/> or <see cref="System.Xml.Serialization.XmlCollectionAttribute"/>
-    /// or <see cref="Qhta.Serialization.XmlDictionaryAttribute"/>. 
+    /// or <see cref="Qhta.Xml.Serialization.XmlDictionaryAttribute"/>. 
     /// For arrays and collections also all <see cref="System.Xml.Serialization.XmlArrayItemAttribute"/> are recognized
     /// to create known item types dictionary for each array.
-    /// For dictionaries also all <see cref="Qhta.Serialization.XmlDictionaryItemAttribute"/> are recognized.
+    /// For dictionaries also all <see cref="Qhta.Xml.Serialization.XmlDictionaryItemAttribute"/> are recognized.
     /// </summary>
     /// <param name="aType">Type to reflect</param>
     /// <returns>A dictionary of known properties</returns>
@@ -345,7 +346,7 @@ namespace Qhta.Xml.Serialization
     /// <param name="aType">Type to reflect</param>
     /// <returns>A serialization property info or null if not found</returns>
     /// <exception cref="InternalException">
-    ///   If a property pointed out with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/> is not found.
+    ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute"/> is not found.
     /// </exception>
     public virtual SerializationPropertyInfo? GetTextProperty(Type aType)
     {
@@ -366,13 +367,13 @@ namespace Qhta.Xml.Serialization
 
     /// <summary>
     /// Registers a property which is indended to get/set Xml content of the Xml element.
-    /// This property are marked in the type header with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/>.
+    /// This property are marked in the type header with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute"/>.
     /// Note that <see cref="System.Windows.Markup.ContentPropertyAttribute"/> is not used to avoid the need of System.Xaml package.
     /// </summary>
     /// <param name="aType">Type to reflect</param>
     /// <returns>A serialization property info or null if not found</returns>
     /// <exception cref="InternalException">
-    ///   If a property pointed out with <see cref="Qhta.Serialization.XmlContentPropertyAttribute"/> is not found.
+    ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute"/> is not found.
     /// </exception>
     public virtual SerializationPropertyInfo? GetContentProperty(Type aType)
     {
@@ -391,8 +392,33 @@ namespace Qhta.Xml.Serialization
     }
 
     /// <summary>
+    /// Registers a converter to read/write using XmlReader/XmlWriter.
+    /// This converter is declared in the type header with <see cref="XmlConverterAttribute"/>.
+    /// </summary>
+    /// <param name="aType">Type to reflect</param>
+    /// <returns>An instance of <see cref="XmlConverter"/></returns>
+    public virtual XmlConverter? GetXmlConverter(Type aType)
+    {
+      var xmlTypeConverterAttrib = aType.GetCustomAttribute<XmlConverterAttribute>(true);
+      if (xmlTypeConverterAttrib != null)
+      {
+        var converterType = xmlTypeConverterAttrib.ConverterType;
+        if (converterType == null)
+          throw new InternalException($"Converter type not declared in {typeof(XmlConverterAttribute).Name} in {aType.Name}");
+        var constructor = converterType.GetConstructor(new Type[0]);
+        if (constructor == null)
+          throw new InternalException($"Converter type {converterType.Name} has no parameterless public constructor");
+        var converter = constructor.Invoke(new object[0]) as XmlConverter;
+        if (converter == null)
+          throw new InternalException($"Converter type {converterType.Name} is not a subclass of {typeof(XmlConverter).Name}");
+        return converter;
+      }
+      return null;
+    }
+
+    /// <summary>
     /// Registers types, which are indended to be serialized as Xml children elements.
-    /// These types are marked for the type with <see cref="Qhta.Serialization.XmlItemElementAttribute"/>
+    /// These types are marked for the type with <see cref="Qhta.Xml.Serialization.XmlItemElementAttribute"/>
     /// </summary>
     /// <param name="aType">Type to reflect</param>
     /// <returns>A dictionary of known item types</returns>
