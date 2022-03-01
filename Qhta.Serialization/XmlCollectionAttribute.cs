@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Qhta.Xml.Serialization
 {
-  [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+  [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false)]
   public class XmlCollectionAttribute : XmlArrayAttribute
   {
 

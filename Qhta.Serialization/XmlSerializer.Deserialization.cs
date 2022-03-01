@@ -106,8 +106,6 @@ namespace Qhta.Xml.Serialization
       if (isEmptyElement)
         return;
       ReadElementsBase(obj, reader, typeInfo);
-      if (reader.NodeType != XmlNodeType.Text)
-        reader.Read();
       ReadTextPropertyValue(obj, reader);
       if (reader.NodeType == XmlNodeType.EndElement)
         reader.Read();

@@ -115,7 +115,7 @@ namespace Qhta.Xml.Serialization
       #endregion
 
       #region Creating and registering a new serialization info
-      var newTypeInfo = new SerializationTypeInfo(aType);
+      SerializationTypeInfo newTypeInfo = new SerializationTypeInfo(aType);
       KnownTypes.Add(aType, newTypeInfo);
       #endregion
 
@@ -527,7 +527,7 @@ namespace Qhta.Xml.Serialization
           argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
         var constructor = converterType.GetConstructor(argTypes);
         if (constructor == null)
-          throw new InternalException($"Converter type {converterType.Name} has appropriate constructor");
+          throw new InternalException($"Converter type {converterType.Name} has no appropriate constructor");
         var converter = constructor.Invoke(xmlTypeConverterAttrib.Args) as XmlConverter;
         if (converter == null)
           throw new InternalException($"Converter type {converterType.Name} is not a subclass of {typeof(XmlConverter).Name}");
