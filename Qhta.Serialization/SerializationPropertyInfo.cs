@@ -25,7 +25,7 @@ namespace Qhta.Xml.Serialization
     /// <summary>
     /// Needed to sort the order of properties for serialization
     /// </summary>
-    public int Order { get; init; }
+    public int Order { get; set; }
 
     /// <summary>
     /// Attribute or element name used for serialization
@@ -46,6 +46,11 @@ namespace Qhta.Xml.Serialization
     /// Used for conversion value from/to string
     /// </summary>
     public TypeConverter? TypeConverter { get; set; }
+
+    /// <summary>
+    /// Used for conversion value from/to xml
+    /// </summary>
+    public XmlConverter? XmlConverter { get; set; }
   }
 
 }

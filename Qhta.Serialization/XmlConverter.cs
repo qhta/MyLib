@@ -20,7 +20,9 @@ namespace Qhta.Xml.Serialization
 
     public abstract void WriteXml(XmlWriter writer, object? value, XmlSerializer? serializer);
 
-    public abstract object? ReadXml(XmlReader reader, Type objectType, object? existingValue, XmlSerializer? serializer);
+    public abstract object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo, 
+      SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, XmlSerializer? serializer);
+
 
     public abstract bool CanConvert(Type objectType);
   }

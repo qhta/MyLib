@@ -2,14 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Qhta.Xml.Serialization
 {
-  public class TypesDictionary<ItemType>: IEnumerable<ItemType> where ItemType : ITypeInfo
+  public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<string, ItemType>, IDictionary<Type, ItemType> where ItemType : ITypeInfo
   {
     private Dictionary<Type, ItemType> TypeIndexedItems = new Dictionary<Type, ItemType>();
     private SortedDictionary<string, ItemType> StringIndexedItems = new SortedDictionary<string, ItemType>();
 
+    public ItemType? FindTypeInfo(Type itemType)
+    {
+      var result = (this as IEnumerable<ItemType>).FirstOrDefault(item => itemType == item.Type);
+      if (result == null)
+        result = (this as IEnumerable<ItemType>).FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+      return result;
+    }
 
     public IEnumerable<string> KnownTags(Type type)
     {
@@ -78,7 +86,7 @@ namespace Qhta.Xml.Serialization
       return ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).Remove(item);
     }
 
-    public int Count => ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).Count;
+    public int Count => Math.Max(StringIndexedItems.Count, TypeIndexedItems.Count);
 
     public bool IsReadOnly => ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).IsReadOnly;
 
@@ -120,6 +128,35 @@ namespace Qhta.Xml.Serialization
     IEnumerator IEnumerable.GetEnumerator()
     {
       return ((IEnumerable)Values).GetEnumerator();
+    }
+
+    public ItemType this[Type key] { get => ((IDictionary<Type, ItemType>)TypeIndexedItems)[key]; set => ((IDictionary<Type, ItemType>)TypeIndexedItems)[key] = value; }
+
+    ICollection<Type> IDictionary<Type, ItemType>.Keys => ((IDictionary<Type, ItemType>)TypeIndexedItems).Keys;
+
+    public void Add(KeyValuePair<Type, ItemType> item)
+    {
+      ((ICollection<KeyValuePair<Type, ItemType>>)TypeIndexedItems).Add(item);
+    }
+
+    public bool Contains(KeyValuePair<Type, ItemType> item)
+    {
+      return ((ICollection<KeyValuePair<Type, ItemType>>)TypeIndexedItems).Contains(item);
+    }
+
+    public void CopyTo(KeyValuePair<Type, ItemType>[] array, int arrayIndex)
+    {
+      ((ICollection<KeyValuePair<Type, ItemType>>)TypeIndexedItems).CopyTo(array, arrayIndex);
+    }
+
+    public bool Remove(KeyValuePair<Type, ItemType> item)
+    {
+      return ((ICollection<KeyValuePair<Type, ItemType>>)TypeIndexedItems).Remove(item);
+    }
+
+    IEnumerator<KeyValuePair<Type, ItemType>> IEnumerable<KeyValuePair<Type, ItemType>>.GetEnumerator()
+    {
+      return ((IEnumerable<KeyValuePair<Type, ItemType>>)TypeIndexedItems).GetEnumerator();
     }
   }
 }

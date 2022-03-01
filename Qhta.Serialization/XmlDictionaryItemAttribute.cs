@@ -15,6 +15,10 @@ namespace Qhta.Xml.Serialization
       KeyName = keyName;
     }
 
+    public XmlDictionaryItemAttribute(string elementName, Type? itemType, string? keyName = null ) : base(elementName, itemType)
+    {
+      KeyName = keyName;
+    }
     public string? KeyName { get; init; }
 
   }

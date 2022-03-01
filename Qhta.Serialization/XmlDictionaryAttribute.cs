@@ -4,7 +4,7 @@
 namespace Qhta.Xml.Serialization
 {
   [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-  public class XmlDictionaryAttribute : System.Xml.Serialization.XmlArrayAttribute
+  public class XmlDictionaryAttribute : XmlCollectionAttribute
   {
 
     public XmlDictionaryAttribute(string? elementName) : base(elementName) { }
@@ -15,5 +15,8 @@ namespace Qhta.Xml.Serialization
 
     public Type? ValueType { get; init; }
 
+    public bool AttributesAreKeys { get; set; }
+
+    public bool ElementsAreKeys { get; set; }
   }
 }

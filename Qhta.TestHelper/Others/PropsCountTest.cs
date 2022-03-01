@@ -25,19 +25,24 @@ namespace Qhta.TestHelper
     {
       Type = type;
       Properties = new();
+      if (type.Name.StartsWith("KeyValuePair`"))
+      {
+      }
       foreach (var prop in type.GetProperties())
       {
         var propType = prop.PropertyType;
-        if (propType.Name.StartsWith("Nullable`1"))
+        {
+          if (propType.Name.StartsWith("Nullable`1"))
             propType = propType.GetGenericArguments()[0];
-        if (propType == typeof(string) || propType.IsValueType)
-          Properties.Add(new (prop, 0));
+          if (propType == typeof(string) || propType.IsValueType)
+            Properties.Add(new(prop, 0));
+        }
       }
     }
 
     public Type Type { get; init; }
 
-    List<ChangeableKeyValuePair<PropertyInfo, int>> Properties { get; init;}
+    List<ChangeableKeyValuePair<PropertyInfo, int>> Properties { get; init; }
 
     public void CountFilledProps(object obj)
     {

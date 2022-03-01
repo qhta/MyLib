@@ -4,20 +4,16 @@ using System.Collections.Generic;
 
 namespace Qhta.Xml.Serialization
 {
-  public class SerializationDictionaryInfo: SerializationArrayInfo
+  public class SerializationDictionaryInfo: SerializationCollectionInfo
   {
-    public SerializationDictionaryInfo(string name, PropertyInfo propInfo,  Type keyType, int order): 
-      base(name, propInfo, order) 
-    { 
-      KeyType = keyType;
-    }
+    public SerializationDictionaryInfo(string name, PropertyInfo propInfo): 
+      base(name, propInfo) { }
 
-    public Type KeyType { get; set; }
+    public SerializationTypeInfo? KeyTypeInfo { get; set; }
 
     public string? KeyName { get; set; }
 
-    public Type? ValueType { get; set; }
-
+    public SerializationTypeInfo? ValueTypeInfo { get; set; }
   }
 
 }

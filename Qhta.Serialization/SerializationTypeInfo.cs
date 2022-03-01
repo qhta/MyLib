@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -63,9 +64,9 @@ namespace Qhta.Xml.Serialization
     public SerializationPropertyInfo? KnownTextProperty { get; set; }
 
     /// <summary>
-    /// KnownTypes for collection items.
+    /// Known types for collection items.
     /// </summary>
-    public KnownTypesDictionary KnownItems { get; set; } = new KnownTypesDictionary();
+    public KnownItemTypesDictionary KnownItemTypes { get; set; } = new KnownItemTypesDictionary();
 
   }
 }

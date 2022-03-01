@@ -2,13 +2,13 @@
 {
   public record TestResult
   {
-    public TestResult(bool success, string message)
+    public TestResult(bool? success, string message)
     {
-     Success = success;
+      Success = success;
       Message = message;
     }
 
-    public bool Success { get; init;}
+    public bool? Success { get; init;}
     public string Message {get; init; }
   }
 }

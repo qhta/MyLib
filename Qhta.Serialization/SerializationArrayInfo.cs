@@ -6,12 +6,14 @@ namespace Qhta.Xml.Serialization
 {
   public class SerializationArrayInfo: SerializationPropertyInfo
   {
-    public SerializationArrayInfo(string name, PropertyInfo propInfo, int order): 
-      base(name, propInfo, order) { }
+    public SerializationArrayInfo(string name, PropertyInfo propInfo): 
+      base(name, propInfo) 
+    { 
+      Order = Order;
+    }
 
     public KnownItemTypesDictionary KnownItemTypes { get; private set; } = new ();
 
-    public Type? CollectionType { get; set; }
   }
 
 }

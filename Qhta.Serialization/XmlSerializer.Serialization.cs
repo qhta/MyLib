@@ -189,9 +189,7 @@ namespace Qhta.Xml.Serialization
                 if (arrayInfo != null)
                 {
 
-                  var itemTypeInfoPair = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType == item.Type);
-                  if (itemTypeInfoPair == null)
-                    itemTypeInfoPair = arrayInfo.KnownItemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+                  var itemTypeInfoPair = arrayInfo.KnownItemTypes.FindTypeInfo(itemType);
                   if (itemTypeInfoPair != null)
                   {
                     itemTypeInfo = itemTypeInfoPair.TypeInfo;
@@ -219,7 +217,7 @@ namespace Qhta.Xml.Serialization
     }
 
 
-    public int WriteCollectionBase(IXWriter writer, string? elementTag, string? propTag, ICollection collection, KnownTypesDictionary? itemTypes = null)
+    public int WriteCollectionBase(IXWriter writer, string? elementTag, string? propTag, ICollection collection, KnownItemTypesDictionary? itemTypes = null)
     {
       int itemsWritten = 0;
       if (collection != null && collection.Count > 0)
@@ -228,7 +226,7 @@ namespace Qhta.Xml.Serialization
         {
           var colType = collection.GetType();
           if (KnownTypes.TryGetValue(colType, out var colTypeInfo))
-            itemTypes = colTypeInfo.KnownItems;
+            itemTypes = colTypeInfo.KnownItemTypes;
         }
         if (propTag != null && elementTag != null)
         {
@@ -284,14 +282,14 @@ namespace Qhta.Xml.Serialization
                 var itemType = item.GetType();
                 if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
                 {
-                  itemTypeInfo = itemTypes.FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+                  itemTypeInfo = itemTypes.FindTypeInfo(itemType);
                 }
                 if (itemTypeInfo != null)
                 {
                   itemTag = itemTypes.KnownTags(itemTypeInfo.Type).FirstOrDefault();
                   if (itemTag == itemTypeInfo.ElementName)
                     itemTag = null;
-                  typeConverter = itemTypeInfo.TypeConverter;
+                  typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
                 }
               }
               if (!string.IsNullOrEmpty(itemTag))

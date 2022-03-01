@@ -666,6 +666,27 @@
             <param name="valueType">checked item type if a type is a list</param>
             <returns>true if a type is a dictionary type</returns>
         </member>
+        <member name="F:Qhta.TypeUtils.TypeCategorization.NumericSupertypes">
+            <summary>
+            Mapping from a numeric type to possible numeric supertype
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNumericSupertypeOf(System.Type,System.Type)">
+            <summary>
+            Check if this type can be a supertype of other type
+            </summary>
+            <param name="thisType"></param>
+            <param name="otherType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsEqualOrSubclassOf(System.Type,System.Type)">
+            <summary>
+            Shortcut of type equality comparison or IsSubclassOf function
+            </summary>
+            <param name="thisType"></param>
+            <param name="otherType"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeNaming">
             <summary>
             More friendy type names
@@ -682,19 +703,6 @@
             <summary>
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
-        </member>
-        <member name="F:Qhta.TypeUtils.TypeUtils.NumericSupertypes">
-            <summary>
-            Mapping from a numeric type to possible numeric supertype
-            </summary>
-        </member>
-        <member name="M:Qhta.TypeUtils.TypeUtils.IsNumericSupertypeOf(System.Type,System.Type)">
-            <summary>
-            Check if this type can be a supertype of other type
-            </summary>
-            <param name="thisType"></param>
-            <param name="otherType"></param>
-            <returns></returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.IsDefaultValue(System.Type,System.Object)">
             <summary>

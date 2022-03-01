@@ -95,7 +95,7 @@ namespace Qhta.Xml.Serialization
         reader.Read();
     }
 
-    protected void ReadObject(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
+    public void ReadObject(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -106,12 +106,14 @@ namespace Qhta.Xml.Serialization
       if (isEmptyElement)
         return;
       ReadElementsBase(obj, reader, typeInfo);
+      if (reader.NodeType != XmlNodeType.Text)
+        reader.Read();
       ReadTextPropertyValue(obj, reader);
       if (reader.NodeType == XmlNodeType.EndElement)
         reader.Read();
     }
 
-    protected int ReadAttributesBase(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
+    public int ReadAttributesBase(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
     {
       var aType = obj.GetType();
       var attribs = typeInfo.PropsAsAttributes;
@@ -167,7 +169,7 @@ namespace Qhta.Xml.Serialization
       return attrsRead;
     }
 
-    protected int ReadElementsBase(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
+    public int ReadElementsBase(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
     {
       var aType = obj.GetType();
       var attribs = typeInfo.PropsAsAttributes;
@@ -183,7 +185,35 @@ namespace Qhta.Xml.Serialization
       {
         var elementName = reader.Name;
         var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
-        if (propertyToRead == null)
+        if (propertyToRead != null)
+        {
+          object? propValue = null;
+          Type propType = propertyToRead.PropInfo.PropertyType;
+          if (propertyToRead.XmlConverter != null)
+          {
+            propValue = propertyToRead.XmlConverter.ReadXml(reader, typeInfo, propertyToRead, null, this);
+          }
+          else
+          {
+            if (propType.IsClass && propType != typeof(string))
+            {
+              if (propertyToRead is SerializationArrayInfo arrayPropertyInfo)
+                ReadElementAsCollectionProperty(obj, arrayPropertyInfo, reader);
+              else
+              {
+                propValue = ReadElementAsProperty(propType, propertyToRead, reader);
+              }
+            }
+            else
+              throw new XmlInternalException($"Element \"{elementName}\" cannot be read on deserialize", reader);
+          }
+          if (propValue != null)
+          {
+            propertyToRead.PropInfo.SetValue(obj, propValue);
+            propsRead++;
+          }
+        }
+        else
         {
           if (typeInfo.KnownContentProperty != null)
           {
@@ -195,24 +225,27 @@ namespace Qhta.Xml.Serialization
               continue;
             }
           }
-          if (typeInfo.KnownItems != null)
+          if (typeInfo.KnownItemTypes != null)
           {
-            if (!typeInfo.KnownItems.TryGetValue(elementName, out var itemTypeInfo))
+            if (!typeInfo.KnownItemTypes.TryGetValue(elementName, out var knownItemTypeInfo))
             {
-              itemTypeInfo = typeInfo.KnownItems.FirstOrDefault<SerializationTypeInfo>();
-              if (itemTypeInfo == null)
-                throw new XmlInternalException($"Unrecognized element \"{elementName}\"", reader);
+              knownItemTypeInfo = (typeInfo.KnownItemTypes as IEnumerable<SerializationItemTypeInfo>).FirstOrDefault();
+              if (knownItemTypeInfo == null)
+                if (KnownTypes.TryGetValue(elementName, out var itemTypeInfo))
+                  knownItemTypeInfo = new SerializationItemTypeInfo(elementName, itemTypeInfo);
+                else
+                  throw new XmlInternalException($"Unrecognized element \"{elementName}\"", reader);
             }
-            var item = ReadElementWithKnownTypeInfo(itemTypeInfo, reader);
+            var item = ReadElementWithKnownTypeInfo(knownItemTypeInfo, reader);
             if (item == null)
-              throw new XmlInternalException($"Item of type {itemTypeInfo.Type} could not be read at \"{elementName}\"", reader);
+              throw new XmlInternalException($"Item of type {knownItemTypeInfo.Type} could not be read at \"{elementName}\"", reader);
             if (obj is IDictionary dictionaryObj)
-                dictionaryObj.Add(elementName, item);
+              dictionaryObj.Add(elementName, item);
             else if (obj is ICollection collectionObj)
             {
-              var adddMethod = obj.GetType().GetMethod("Add", new Type[] { itemTypeInfo.Type });
+              var adddMethod = obj.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
               if (adddMethod == null)
-                throw new XmlInternalException($"Add method for {itemTypeInfo.Type} item not found in type {aType.FullName}", reader);
+                throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
               adddMethod.Invoke(obj, new object[] { item });
             }
             propsRead++;
@@ -225,33 +258,13 @@ namespace Qhta.Xml.Serialization
           }
           onUnknownProperty(obj, elementName);
         }
-        else
-        {
-          object? propValue = null;
-          Type propType = propertyToRead.PropInfo.PropertyType;
-          if (propType.IsClass && propType != typeof(string))
-          {
-            if (propertyToRead is SerializationArrayInfo arrayPropertyInfo)
-              ReadElementAsCollectionProperty(obj, arrayPropertyInfo, reader);
-            else
-            {
-              propValue = ReadElementAsProperty(propType, propertyToRead, reader);
-              if (propValue != null)
-              {
-                propertyToRead.PropInfo.SetValue(obj, propValue);
-                propsRead++;
-              }
-            }
-          }
-          else
-            throw new XmlInternalException($"Element \"{elementName}\" cannot be read on deserialize", reader);
-        }
+
         SkipWhitespaces(reader);
       }
       return propsRead;
     }
 
-    protected object? ReadElementAsObject(Type? expectedType, XmlTextReader reader)
+    public object? ReadElementAsObject(Type? expectedType, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -262,13 +275,13 @@ namespace Qhta.Xml.Serialization
           throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
       }
       if (expectedType != null)
-        if (!(typeInfo.Type == expectedType || typeInfo.Type.IsSubclassOf(expectedType)))
+        if (!typeInfo.Type.IsEqualOrSubclassOf(expectedType))
           throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
             $" but {expectedType.Name} or its subclass expected", reader);
       return ReadElementWithKnownTypeInfo(typeInfo, reader);
     }
 
-    protected object? ReadElementAsProperty(Type? expectedType, SerializationPropertyInfo propertyInfo, XmlTextReader reader)
+    public object? ReadElementAsProperty(Type? expectedType, SerializationPropertyInfo propertyInfo, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -281,13 +294,13 @@ namespace Qhta.Xml.Serialization
           throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
       }
       if (expectedType != null)
-        if (!(typeInfo.Type == expectedType || typeInfo.Type.IsSubclassOf(expectedType)))
+        if (!typeInfo.Type.IsEqualOrSubclassOf(expectedType))
           throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
             $" but {expectedType.Name} or its subclass expected", reader);
       return ReadElementWithKnownTypeInfo(typeInfo, reader);
     }
 
-    protected object? ReadElementAsItem(Type? expectedType, SerializationArrayInfo arrayInfo, XmlTextReader reader)
+    public object? ReadElementAsItem(Type? expectedType, SerializationArrayInfo arrayInfo, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -303,16 +316,16 @@ namespace Qhta.Xml.Serialization
       if (typeInfo == null)
         throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
       if (expectedType != null)
-        if (!(typeInfo.Type == expectedType || typeInfo.Type.IsSubclassOf(expectedType)))
+        if (!typeInfo.Type.IsEqualOrSubclassOf(expectedType))
           throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
             $" but {expectedType.Name} or its subclass expected", reader);
       return ReadElementWithKnownTypeInfo(typeInfo, reader);
     }
 
-    protected object? ReadElementWithKnownTypeInfo(SerializationTypeInfo typeInfo, XmlTextReader reader)
+    public object? ReadElementWithKnownTypeInfo(SerializationTypeInfo typeInfo, XmlTextReader reader)
     {
-      if (typeInfo.XmlConverter!=null && typeInfo.XmlConverter.CanRead)
-        return typeInfo.XmlConverter.ReadXml(reader, typeInfo.Type, null, null);
+      if (typeInfo.XmlConverter != null && typeInfo.XmlConverter.CanRead)
+        return typeInfo.XmlConverter.ReadXml(reader, typeInfo, null, null, this);
       if (typeInfo.KnownConstructor == null)
       {
         if (IsSimple(typeInfo.Type))
@@ -338,7 +351,107 @@ namespace Qhta.Xml.Serialization
       return obj;
     }
 
-    protected object? ReadElementAsKVPair(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
+    public object? ReadElementWithKnownTypeInfo(SerializationItemTypeInfo itemTypeInfo, XmlTextReader reader)
+    {
+      var typeInfo = itemTypeInfo.TypeInfo;
+      if (typeInfo.XmlConverter != null && typeInfo.XmlConverter.CanRead)
+        return typeInfo.XmlConverter.ReadXml(reader, typeInfo, null, itemTypeInfo, this);
+      if (typeInfo.KnownConstructor == null)
+      {
+        if (IsSimple(typeInfo.Type))
+        {
+          reader.Read();
+          var result = ReadValue(typeInfo.Type, null, reader);
+          reader.Read();
+          return result;
+        }
+        throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
+      }
+      var obj = typeInfo.KnownConstructor.Invoke(new object[0]);
+      if (obj is IXSerializable qSerializable)
+      {
+        qSerializable.Deserialize(this);
+      }
+      else if (obj is IXmlSerializable xmlSerializable)
+      {
+        xmlSerializable.ReadXml(reader);
+      }
+      else
+        ReadObject(obj, reader, typeInfo);
+      return obj;
+    }
+
+    public object? ReadElementAsDictionaryItem(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
+    {
+      //if (dictionaryInfo.ElementsAreKeys)
+      //  return ReadElementAsKVPair1(expectedKeyType, expectedValueType, dictionaryInfo, reader);
+      //else
+      return ReadElementAsKVObject(expectedKeyType, expectedValueType, dictionaryInfo, reader);
+    }
+
+    public object? ReadElementAsKVPair1(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
+    {
+      if (reader.NodeType != XmlNodeType.Element)
+        throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
+      var keyName = reader.Name;
+      SerializationTypeInfo? typeInfo = null;
+      if (dictionaryInfo.KnownItemTypes.Count > 0)
+      {
+        if (dictionaryInfo.KnownItemTypes.TryGetValue(keyName, out var typeItemInfo))
+        {
+          typeInfo = typeItemInfo.TypeInfo;
+          keyName = typeItemInfo.KeyName;
+        }
+      }
+      if (keyName == null)
+        keyName = dictionaryInfo.KeyName;
+      //if (keyName == null)
+      //  throw new XmlInternalException($"Key name unknown for dictionary item \"{name}\" on deserialize", reader);
+      if (typeInfo == null)
+        throw new XmlInternalException($"Unknown type for element \"{keyName}\" on deserialize", reader);
+      var foundValueType = typeInfo.Type;
+      if (expectedValueType != null)
+        if (!foundValueType.IsEqualOrSubclassOf(expectedValueType))
+        {
+          if (!expectedValueType.IsCollection(foundValueType))
+            throw new XmlInternalException($"Element \"{keyName}\" is mapped to {typeInfo.Type.Name}" +
+              $" but {expectedValueType.Name} or its subclass expected", reader);
+        }
+      if (typeInfo.KnownConstructor == null)
+      {
+        if (IsSimple(typeInfo.Type))
+        {
+          reader.Read(); // read to end of start tag
+          var result = ReadValue(typeInfo.Type, null, reader);
+          reader.Read();
+          return result;
+        }
+        throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
+      }
+      KVPair kvPair = new KVPair();
+      kvPair.Value = typeInfo.KnownConstructor.Invoke(new object[0]);
+      ReadObject(kvPair.Value, reader, typeInfo, (object readObject, string elementName) =>
+      {
+        if (reader.NodeType == XmlNodeType.Attribute)
+        {
+          if (elementName == keyName)
+          {
+            var keyValue = ReadValue(dictionaryInfo.KeyTypeInfo?.Type ?? typeof(string), null, reader);
+            kvPair.Key = keyValue;
+          }
+          else
+            throw new XmlInternalException($"Unknown attribute \"{elementName}\" in type {typeInfo.Type.Name} on deserialize", reader);
+        }
+        else
+        if (reader.NodeType == XmlNodeType.Element)
+        {
+          throw new XmlInternalException($"Unknown element \"{elementName}\" in type {typeInfo.Type.Name} on deserialize", reader);
+        }
+      });
+      return kvPair;
+    }
+
+    public object? ReadElementAsKVObject(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -355,19 +468,23 @@ namespace Qhta.Xml.Serialization
       }
       if (keyName == null)
         keyName = dictionaryInfo.KeyName;
-      if (keyName == null)
-        throw new XmlInternalException($"Key name unknown for dictionary item \"{name}\" on deserialize", reader);
+      //if (keyName == null)
+      //  throw new XmlInternalException($"Key name unknown for dictionary item \"{name}\" on deserialize", reader);
       if (typeInfo == null)
         throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
+      var foundValueType = typeInfo.Type;
       if (expectedValueType != null)
-        if (!(typeInfo.Type == expectedValueType || typeInfo.Type.IsSubclassOf(expectedValueType)))
-          throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
-            $" but {expectedValueType.Name} or its subclass expected", reader);
+        if (!foundValueType.IsEqualOrSubclassOf(expectedValueType))
+        {
+          if (!expectedValueType.IsCollection(foundValueType))
+            throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
+              $" but {expectedValueType.Name} or its subclass expected", reader);
+        }
       if (typeInfo.KnownConstructor == null)
       {
         if (IsSimple(typeInfo.Type))
         {
-          reader.Read();
+          reader.Read(); // read to end of start tag
           var result = ReadValue(typeInfo.Type, null, reader);
           reader.Read();
           return result;
@@ -382,7 +499,7 @@ namespace Qhta.Xml.Serialization
         {
           if (elementName == keyName)
           {
-            var keyValue = ReadValue(dictionaryInfo.KeyType, null, reader);
+            var keyValue = ReadValue(dictionaryInfo.KeyTypeInfo?.Type ?? typeof(string), null, reader);
             kvPair.Key = keyValue;
           }
           else
@@ -391,20 +508,13 @@ namespace Qhta.Xml.Serialization
         else
         if (reader.NodeType == XmlNodeType.Element)
         {
-          //if (elementName == keyName)
-          //{
-          //  var keyValue = ReadValue(dictionaryInfo.KeyType, null, reader);
-          //  kvPair.Key = keyValue;
-          //}
-          //else
           throw new XmlInternalException($"Unknown element \"{elementName}\" in type {typeInfo.Type.Name} on deserialize", reader);
         }
       });
       return kvPair;
     }
 
-
-    private enum CollectionTypeKind
+    public enum CollectionTypeKind
     {
       Array,
       Collection,
@@ -412,15 +522,20 @@ namespace Qhta.Xml.Serialization
       Dictionary,
     }
 
-    protected record KVPair
+    public record KVPair
     {
       public object? Key { get; set; }
       public object? Value { get; set; }
     }
 
-    protected void ReadElementAsCollectionProperty(object obj, SerializationArrayInfo arrayInfo, XmlTextReader reader)
+    public void ReadElementAsCollectionProperty(object obj, SerializationArrayInfo arrayInfo, XmlTextReader reader)
     {
-      Type collectionType = arrayInfo.CollectionType ?? arrayInfo.PropInfo.PropertyType;
+      if (arrayInfo.TypeInfo?.Type == null)
+        throw new XmlInternalException($"Collection type at property {arrayInfo.PropInfo.Name}" +
+          $" of type {obj.GetType().Name} unknown", reader);
+
+      var collectionType = arrayInfo.TypeInfo.Type;
+
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
       var elementName = reader.Name;
@@ -660,12 +775,12 @@ namespace Qhta.Xml.Serialization
       reader.Read();
     }
 
-    protected int ReadCollectionItems(ICollection<object> collection, Type expectedItemType, SerializationArrayInfo propertyArrayInfo, XmlTextReader reader)
+    public int ReadCollectionItems(ICollection<object> collection, Type collectionItemType, SerializationArrayInfo propertyArrayInfo, XmlTextReader reader)
     {
       int itemsRead = 0;
       while (reader.NodeType == XmlNodeType.Element)
       {
-        var item = ReadElementAsItem(expectedItemType, propertyArrayInfo, reader);
+        var item = ReadElementAsItem(collectionItemType, propertyArrayInfo, reader);
         if (item != null)
           collection.Add(item);
         SkipWhitespaces(reader);
@@ -673,12 +788,12 @@ namespace Qhta.Xml.Serialization
       return itemsRead;
     }
 
-    protected int ReadDictionaryItems(ICollection<object> collection, Type keyType, Type expectedValueType, SerializationDictionaryInfo propertyDictionaryInfo, XmlTextReader reader)
+    public int ReadDictionaryItems(ICollection<object> collection, Type collectionKeyType, Type collectionValueType, SerializationDictionaryInfo propertyDictionaryInfo, XmlTextReader reader)
     {
       int itemsRead = 0;
       while (reader.NodeType == XmlNodeType.Element)
       {
-        var item = ReadElementAsKVPair(expectedValueType, expectedValueType, propertyDictionaryInfo, reader);
+        var item = ReadElementAsDictionaryItem(collectionKeyType, collectionValueType, propertyDictionaryInfo, reader);
         if (item != null)
           collection.Add(item);
         SkipWhitespaces(reader);
@@ -705,14 +820,14 @@ namespace Qhta.Xml.Serialization
     {
     }
 
-    protected object? ReadValue(SerializationPropertyInfo serializationPropertyInfo, XmlTextReader reader)
+    public object? ReadValue(SerializationPropertyInfo serializationPropertyInfo, XmlTextReader reader)
     {
       var propType = serializationPropertyInfo.PropInfo.PropertyType;
       var typeConverter = serializationPropertyInfo.TypeConverter;
       return ReadValue(propType, typeConverter, reader);
     }
 
-    protected object? ReadValue(Type expectedType, TypeConverter? typeConverter, XmlTextReader reader)
+    public object? ReadValue(Type expectedType, TypeConverter? typeConverter, XmlTextReader reader)
     {
       var str = reader.ReadContentAsString();
       object? propValue;
@@ -721,6 +836,9 @@ namespace Qhta.Xml.Serialization
 
       if (expectedType == typeof(string))
         propValue = str;
+      else
+      if (str == "")
+        return null;
       else
       if (expectedType == typeof(char))
       {

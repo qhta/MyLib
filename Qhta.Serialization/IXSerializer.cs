@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Qhta.Xml.Serialization
@@ -87,7 +88,7 @@ namespace Qhta.Xml.Serialization
     /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
     /// <param name="collectionTag">XML element name to place before the whole collection.</param>
     /// <param name="itemTypes">information about serializing items of the collection</param>
-    int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownTypesDictionary? itemTypes = null);
+    int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownItemTypesDictionary? itemTypes = null);
 
     /// <summary>
     /// Write XML element starting tag.

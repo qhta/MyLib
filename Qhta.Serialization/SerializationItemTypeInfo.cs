@@ -9,7 +9,7 @@ namespace Qhta.Xml.Serialization
   public class SerializationItemTypeInfo: ITypeInfo
   {
 
-    public SerializationItemTypeInfo(string elementName, SerializationTypeInfo itemTypeInfo)
+    public SerializationItemTypeInfo(string? elementName, SerializationTypeInfo itemTypeInfo)
     {
       ElementName = elementName;
       TypeInfo = itemTypeInfo;
@@ -18,7 +18,7 @@ namespace Qhta.Xml.Serialization
     /// <summary>
     /// Name of the Xml/Json element
     /// </summary>
-    public string ElementName {get; init; }
+    public string? ElementName {get; init; }
 
     /// <summary>
     /// Refers to the existing TypeInfo
@@ -31,6 +31,11 @@ namespace Qhta.Xml.Serialization
     /// Used when this info is a dictionary item info
     /// </summary>
     public string? KeyName { get; set; }
+
+    /// <summary>
+    /// Used to add item to collection or dictionary
+    /// </summary>
+    public MethodInfo? AddMethod { get; set; }
 
   }
 

@@ -16,5 +16,6 @@ namespace Qhta.Xml.Serialization
     {
     }
 
+    public string? AddMethod { get; set; }
   }
 }
