@@ -50,7 +50,9 @@ namespace Qhta.TestHelper
     {
       base.FlushBuffer();
       if (TraceOutputEnabled)
+      {
         Trace.Flush();
+      }
     }
   }
 }

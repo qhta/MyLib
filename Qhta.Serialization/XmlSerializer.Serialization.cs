@@ -178,7 +178,7 @@ namespace Qhta.Xml.Serialization
             serializableValue.Serialize(this, writer);
           else if (propValue is ICollection collection)
           {
-            var arrayInfo = prop as SerializationArrayInfo;
+            var arrayInfo = prop as ArrayPropertyInfo;
             foreach (var arrayItem in collection)
             {
               if (arrayItem != null)

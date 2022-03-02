@@ -119,22 +119,23 @@ namespace Qhta.TestHelper
     /// <param name="str">Flushed string</param>
     protected virtual void FlushColorTag(ColorTag tag)
     {
-      if (ColorEnabled)
-      {
-        switch (tag.Type)
+      if (ConsoleOutputEnabled)
+        if (ColorEnabled)
         {
-          case ColorOp.Foreground:
-            Console.ForegroundColor = tag.Color ?? _ForegroundColor;
-            break;
-          case ColorOp.Background:
-            Console.BackgroundColor = tag.Color ?? _BackgroundColor;
-            break;
-          default:
-            Console.ResetColor();
-            _ForegroundColor = Console.ForegroundColor;
-            _BackgroundColor = Console.BackgroundColor;
-            break;
-        }
+          switch (tag.Type)
+          {
+            case ColorOp.Foreground:
+              Console.ForegroundColor = tag.Color ?? _ForegroundColor;
+              break;
+            case ColorOp.Background:
+              Console.BackgroundColor = tag.Color ?? _BackgroundColor;
+              break;
+            default:
+              Console.ResetColor();
+              _ForegroundColor = Console.ForegroundColor;
+              _BackgroundColor = Console.BackgroundColor;
+              break;
+          }
       }
     }
 
@@ -145,7 +146,7 @@ namespace Qhta.TestHelper
     /// </summary>
     protected override void FlushBuffer()
     {
-      if (!ConsoleOutputEnabled) return;
+      //if (!ConsoleOutputEnabled) return;
       foreach (var item in Buffer)
       {
         if (item is string str)

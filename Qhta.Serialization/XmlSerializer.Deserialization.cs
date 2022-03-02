@@ -101,7 +101,7 @@ namespace Qhta.Xml.Serialization
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
       bool isEmptyElement = reader.IsEmptyElement;
       ReadAttributesBase(obj, reader, typeInfo, onUnknownProperty);
-      reader.Read();
+      reader.Read(); // read end of start element and go to its content;
       SkipWhitespaces(reader);
       if (isEmptyElement)
         return;
@@ -195,7 +195,7 @@ namespace Qhta.Xml.Serialization
           {
             if (propType.IsClass && propType != typeof(string))
             {
-              if (propertyToRead is SerializationArrayInfo arrayPropertyInfo)
+              if (propertyToRead is ArrayPropertyInfo arrayPropertyInfo)
                 ReadElementAsCollectionProperty(obj, arrayPropertyInfo, reader);
               else
               {
@@ -298,7 +298,7 @@ namespace Qhta.Xml.Serialization
       return ReadElementWithKnownTypeInfo(typeInfo, reader);
     }
 
-    public object? ReadElementAsItem(Type? expectedType, SerializationArrayInfo arrayInfo, XmlTextReader reader)
+    public object? ReadElementAsItem(Type? expectedType, ArrayPropertyInfo arrayInfo, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -379,7 +379,7 @@ namespace Qhta.Xml.Serialization
       return obj;
     }
 
-    public object? ReadElementAsDictionaryItem(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
+    public object? ReadElementAsDictionaryItem(Type? expectedKeyType, Type? expectedValueType, DictionaryPropertyInfo dictionaryInfo, XmlTextReader reader)
     {
       //if (dictionaryInfo.ElementsAreKeys)
       //  return ReadElementAsKVPair1(expectedKeyType, expectedValueType, dictionaryInfo, reader);
@@ -387,7 +387,7 @@ namespace Qhta.Xml.Serialization
       return ReadElementAsKVObject(expectedKeyType, expectedValueType, dictionaryInfo, reader);
     }
 
-    public object? ReadElementAsKVPair1(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
+    public object? ReadElementAsKVPair1(Type? expectedKeyType, Type? expectedValueType, DictionaryPropertyInfo dictionaryInfo, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -449,7 +449,7 @@ namespace Qhta.Xml.Serialization
       return kvPair;
     }
 
-    public object? ReadElementAsKVObject(Type? expectedKeyType, Type? expectedValueType, SerializationDictionaryInfo dictionaryInfo, XmlTextReader reader)
+    public object? ReadElementAsKVObject(Type? expectedKeyType, Type? expectedValueType, DictionaryPropertyInfo dictionaryInfo, XmlTextReader reader)
     {
       if (reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -526,7 +526,7 @@ namespace Qhta.Xml.Serialization
       public object? Value { get; set; }
     }
 
-    public void ReadElementAsCollectionProperty(object obj, SerializationArrayInfo arrayInfo, XmlTextReader reader)
+    public void ReadElementAsCollectionProperty(object obj, ArrayPropertyInfo arrayInfo, XmlTextReader reader)
     {
       if (arrayInfo.TypeInfo?.Type == null)
         throw new XmlInternalException($"Collection type at property {arrayInfo.PropInfo.Name}" +
@@ -592,7 +592,7 @@ namespace Qhta.Xml.Serialization
 
       if (collectionTypeKind == CollectionTypeKind.Dictionary)
       {
-        var dictionaryInfo = arrayInfo as SerializationDictionaryInfo;
+        var dictionaryInfo = arrayInfo as DictionaryPropertyInfo;
         if (dictionaryInfo == null)
           throw new XmlInternalException($"Collection of type {collectionType} must be marked with SerializationDictionaryInfo attribute", reader);
         if (reader.IsStartElement(arrayInfo.Name) && !reader.IsEmptyElement)
@@ -773,7 +773,7 @@ namespace Qhta.Xml.Serialization
       reader.Read();
     }
 
-    public int ReadCollectionItems(ICollection<object> collection, Type collectionItemType, SerializationArrayInfo propertyArrayInfo, XmlTextReader reader)
+    public int ReadCollectionItems(ICollection<object> collection, Type collectionItemType, ArrayPropertyInfo propertyArrayInfo, XmlTextReader reader)
     {
       int itemsRead = 0;
       while (reader.NodeType == XmlNodeType.Element)
@@ -786,7 +786,7 @@ namespace Qhta.Xml.Serialization
       return itemsRead;
     }
 
-    public int ReadDictionaryItems(ICollection<object> collection, Type collectionKeyType, Type collectionValueType, SerializationDictionaryInfo propertyDictionaryInfo, XmlTextReader reader)
+    public int ReadDictionaryItems(ICollection<object> collection, Type collectionKeyType, Type collectionValueType, DictionaryPropertyInfo propertyDictionaryInfo, XmlTextReader reader)
     {
       int itemsRead = 0;
       while (reader.NodeType == XmlNodeType.Element)

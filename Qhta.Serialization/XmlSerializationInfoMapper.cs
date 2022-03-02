@@ -297,7 +297,7 @@ namespace Qhta.Xml.Serialization
       return propList;
     }
 
-    protected SerializationArrayInfo CreateSerializationArrayInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute)
+    protected ArrayPropertyInfo CreateSerializationArrayInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute)
     {
       if (!propInfo.PropertyType.IsArray)
       {
@@ -312,7 +312,7 @@ namespace Qhta.Xml.Serialization
         elementName = "";
       else if (Options?.LowercasePropertyName == true)
         elementName = LowercaseName(elementName);
-      var serializeArrayInfo = new SerializationArrayInfo(elementName, propInfo);
+      var serializeArrayInfo = new ArrayPropertyInfo(elementName, propInfo);
       if (arrayAttribute is XmlCollectionAttribute collAttrib && collAttrib.CollectionType != null)
         serializeArrayInfo.TypeInfo = AddKnownType(collAttrib.CollectionType);
       else
@@ -340,14 +340,14 @@ namespace Qhta.Xml.Serialization
       return serializeArrayInfo;
     }
 
-    protected SerializationArrayInfo CreateSerializationCollectionInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute)
+    protected ArrayPropertyInfo CreateSerializationCollectionInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute)
     {
       var elementName = arrayAttribute.ElementName;
       if (string.IsNullOrEmpty(elementName))
         elementName = "";
       else if (Options?.LowercasePropertyName == true)
         elementName = LowercaseName(elementName);
-      var serializeArrayInfo = new SerializationArrayInfo(elementName, propInfo);
+      var serializeArrayInfo = new ArrayPropertyInfo(elementName, propInfo);
       if (arrayAttribute is XmlCollectionAttribute collAttrib && collAttrib.CollectionType != null)
         serializeArrayInfo.TypeInfo = AddKnownType(collAttrib.CollectionType);
       else
@@ -376,7 +376,7 @@ namespace Qhta.Xml.Serialization
     }
 
 
-    protected SerializationDictionaryInfo CreateSerializationDictionaryInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute)
+    protected DictionaryPropertyInfo CreateSerializationDictionaryInfo(PropertyInfo propInfo, XmlArrayAttribute arrayAttribute)
     {
       if (!propInfo.PropertyType.IsDictionary(out var propertyKeyType, out var propertyValueType))
         throw new InternalException($"Property {propInfo.PropertyType}.{propInfo.Name} has XmlDictionaryItemAttribute but is not a dictionary");
@@ -386,7 +386,7 @@ namespace Qhta.Xml.Serialization
         elementName = "";
       else if (Options?.LowercasePropertyName == true)
         elementName = LowercaseName(elementName);
-      var serializeDictionaryInfo = new SerializationDictionaryInfo(elementName, propInfo);
+      var serializeDictionaryInfo = new DictionaryPropertyInfo(elementName, propInfo);
       serializeDictionaryInfo.TypeInfo = AddKnownType(propInfo.PropertyType);
 
       var collectionType = serializeDictionaryInfo.TypeInfo.Type;

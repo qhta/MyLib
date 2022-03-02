@@ -18,6 +18,15 @@ namespace Qhta.TestHelper
     public static void Stop([CallerMemberName] string? callerName = null)
     { }
 
+    public static TraceTextWriter? TraceWriter { get; set; }
+
+    public static void WriteLine(string str)
+    {
+      if (TraceWriter == null)
+        TraceWriter = new TraceTextWriter(false, true);
+      TraceWriter.WriteLine(str);
+    }
+
     public static List<PropertyInfo> GetPropsToTest (Type type)
     {
       List<PropertyInfo> props = new();
