@@ -27,6 +27,7 @@ namespace Qhta.TestHelper
       Properties = new();
       if (type.Name.StartsWith("KeyValuePair`"))
       {
+        type = type.GetGenericArguments()[1];
       }
       foreach (var prop in type.GetProperties())
       {

@@ -836,7 +836,14 @@ namespace Qhta.Xml.Serialization
         propValue = str;
       else
       if (str == "")
+      {
+        if (typeConverter != null)
+        {
+          propValue = typeConverter.ConvertFromString(str);
+          return propValue;
+        }
         return null;
+      }
       else
       if (expectedType == typeof(char))
       {
