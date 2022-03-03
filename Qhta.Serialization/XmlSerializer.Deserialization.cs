@@ -254,8 +254,9 @@ namespace Qhta.Xml.Serialization
                 var adddMethod = obj.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
                 if (adddMethod != null)
                   adddMethod.Invoke(obj, new object[] { item });
-                if (obj is ICollection collectionObj)
-                  throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
+                else
+                  if (obj is ICollection collectionObj)
+                    throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
               }
             }
             propsRead++;
