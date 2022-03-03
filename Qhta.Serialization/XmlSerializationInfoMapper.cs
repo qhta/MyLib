@@ -577,6 +577,15 @@ namespace Qhta.Xml.Serialization
               foreach (var addMethod in addMethods)
               {
                 var parameters = addMethod.GetParameters();
+                if (parameters.Length == 1)
+                {
+                  if (itemType.IsEqualOrSubclassOf(parameters[0].ParameterType))
+                  {
+                    addMethodInfo = addMethod;
+                    break;
+                  }
+                }
+                else
                 if (parameters.Length == 2)
                 {
                   if (itemType.IsEqualOrSubclassOf(parameters[1].ParameterType))

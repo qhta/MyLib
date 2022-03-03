@@ -238,14 +238,25 @@ namespace Qhta.Xml.Serialization
             var item = ReadElementWithKnownTypeInfo(knownItemTypeInfo, reader);
             if (item == null)
               throw new XmlInternalException($"Item of type {knownItemTypeInfo.Type} could not be read at \"{elementName}\"", reader);
-            if (obj is IDictionary dictionaryObj)
-              dictionaryObj.Add(elementName, item);
-            else if (obj is ICollection collectionObj)
+            if (knownItemTypeInfo.AddMethod != null)
             {
-              var adddMethod = obj.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
-              if (adddMethod == null)
-                throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
-              adddMethod.Invoke(obj, new object[] { item });
+              if (obj is IDictionary dictionaryObj)
+                knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { elementName, item });
+              else
+                knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { item });
+            }
+            else
+            {
+              if (obj is IDictionary dictionaryObj)
+                dictionaryObj.Add(elementName, item);
+              else
+              {
+                var adddMethod = obj.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
+                if (adddMethod != null)
+                  adddMethod.Invoke(obj, new object[] { item });
+                if (obj is ICollection collectionObj)
+                  throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
+              }
             }
             propsRead++;
             continue;
