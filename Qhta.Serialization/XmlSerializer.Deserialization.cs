@@ -123,7 +123,8 @@ namespace Qhta.Xml.Serialization
 
       int attrsRead = 0;
       reader.MoveToFirstAttribute();
-      while (reader.NodeType == XmlNodeType.Attribute)
+      var attrCount = reader.AttributeCount;
+      for (int i = 0; i < attrCount; i++)
       {
         string attrName = reader.Name;
         if (attrName == "xml:space")
@@ -678,7 +679,7 @@ namespace Qhta.Xml.Serialization
             IDictionary? newDictionaryObject;
             if (collectionType.IsConstructedGenericType)
             {
-              Type d1 = typeof(DictionaryBase);
+              Type d1 = typeof(Dictionary<,>);
               Type[] typeArgs = { keyType, valueType };
               Type newListType = d1.MakeGenericType(typeArgs);
               newDictionaryObject = Activator.CreateInstance(newListType) as IDictionary;
