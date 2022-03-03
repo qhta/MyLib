@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
+    <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
   </ItemGroup>
 
 </Project>

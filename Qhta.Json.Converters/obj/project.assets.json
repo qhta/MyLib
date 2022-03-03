@@ -20,6 +20,16 @@
         "runtime": {
           "bin/placeholder/Qhta.TestHelper.dll": {}
         }
+      },
+      "Qhta.TypeUtils/1.2.1": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        }
       }
     }
   },
@@ -55,12 +65,18 @@
       "type": "project",
       "path": "../Qhta.TestHelper/Qhta.TestHelper.csproj",
       "msbuildProject": "../Qhta.TestHelper/Qhta.TestHelper.csproj"
+    },
+    "Qhta.TypeUtils/1.2.1": {
+      "type": "project",
+      "path": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj",
+      "msbuildProject": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Newtonsoft.Json >= 13.0.1",
-      "Qhta.TestHelper >= 1.0.0"
+      "Qhta.TestHelper >= 1.0.0",
+      "Qhta.TypeUtils >= 1.2.1"
     ]
   },
   "packageFolders": {
@@ -92,6 +108,9 @@
           "projectReferences": {
             "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
+            },
+            "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
             }
           }
         }

@@ -14,3 +14,6 @@ D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.TestHelper.dll
 D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.TestHelper.pdb
 D:\VS\Projects\MyLib\Qhta.Json.Converters\obj\Debug\net6.0\Qhta.Json.Converters.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Interop.IWshRuntimeLibrary.dll
+D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.TypeUtils.pdb
+D:\VS\Projects\MyLib\Qhta.Json.Converters\bin\Debug\net6.0\Qhta.TypeUtils.xml

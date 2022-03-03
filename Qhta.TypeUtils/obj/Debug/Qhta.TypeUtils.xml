@@ -651,9 +651,9 @@
             If so it returns the key type and the value type of the dictionary.
             </summary>
             <param name="aType">checked type</param>
-            <param name="keyType">returned item type if a type is a list</param>
-            <param name="valueType">returned item type if a type is a list</param>
-            <returns>true if a type is a dictionary type of key and value type</returns>
+            <param name="keyType">returned key type if a type is a dictionary</param>
+            <param name="valueType">returned value type if a type is a dictionary</param>
+            <returns>true if a type is a dictionary type</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsDictionary(System.Type,System.Type,System.Type)">
             <summary>
@@ -662,9 +662,36 @@
             If so it checks the key type and the value type of the dictionary.
             </summary>
             <param name="aType">checked type</param>
-            <param name="keyType">checked item type if a type is a list</param>
-            <param name="valueType">checked item type if a type is a list</param>
-            <returns>true if a type is a dictionary type</returns>
+            <param name="keyType">checked key type if a type is a dictionary</param>
+            <param name="valueType">checked value type if a type is a dictionary</param>
+            <returns>true if a type is a dictionary type of key and value type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsKeyValuePair(System.Type)">
+            <summary>
+            Is a type a key value pair type, i.e. it's name starts with "KeyValuePair`2"
+            </summary>
+            <param name="aType">checked type</param>
+            <returns>true if a type is a key value pair type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsKeyValuePair(System.Type,System.Type@,System.Type@)">
+            <summary>
+            Is a type a key value pair  type, i.e. it's name starts with  "KeyValuePair`2"
+            If so it returns the key type and the value type of the pair.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="keyType">returned key type if a type is a key value pair</param>
+            <param name="valueType">returned value type if a type is a key value pair</param>
+            <returns>true if a type is a key value pair type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsKeyValuePair(System.Type,System.Type,System.Type)">
+            <summary>
+            Is a type a key value pair  type, i.e. it's name starts with "KeyValuePair`2"
+            If so it checks the key type and the value type of the pair.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="keyType">checked item type if a type is a key value pair </param>
+            <param name="valueType">checked item type if a type is a key value pair </param>
+            <returns>true if a type is a key value pair type  of key and value type</returns>
         </member>
         <member name="F:Qhta.TypeUtils.TypeCategorization.NumericSupertypes">
             <summary>
