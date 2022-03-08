@@ -46,7 +46,9 @@ namespace Qhta.Xml.Serialization
 
     public bool Remove(string key)
     {
-      return (StringIndexedItems).Remove(key);
+      if (StringIndexedItems.TryGetValue(key, out var typeInfo))
+        TypeIndexedItems.Remove(typeInfo.Type);
+      return StringIndexedItems.Remove(key);
     }
 
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out ItemType value)

@@ -18,6 +18,12 @@ namespace Qhta.Xml.Serialization
       Type = aType;
     }
 
+    public SerializationTypeInfo(string elementName, Type aType)
+    {
+      ElementName = elementName;
+      Type = aType;
+    }
+
     /// <summary>
     /// XmlElement name for a type
     /// </summary>
@@ -68,5 +74,14 @@ namespace Qhta.Xml.Serialization
     /// </summary>
     public KnownItemTypesDictionary KnownItemTypes { get; set; } = new KnownItemTypesDictionary();
 
+    /// <summary>
+    /// Optional collection info filled if a property is an array, collection or dictionary
+    /// </summary>
+    public CollectionInfo? CollectionInfo { get; set; }
+
+    public override string ToString()
+    {
+      return $"{this.GetType().Name}({Type?.Name})";
+    }
   }
 }

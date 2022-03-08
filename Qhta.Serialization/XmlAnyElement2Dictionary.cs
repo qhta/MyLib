@@ -54,7 +54,7 @@ namespace Qhta.Xml.Serialization
       if (dict == null)
         throw new InternalException($"Type {serializationTypeInfo.Type} must implement IDictionary interface");
 
-      var valueTypeInfo = (propertyInfo as DictionaryPropertyInfo)?.ValueTypeInfo;
+      var valueTypeInfo = (propertyInfo?.CollectionInfo as DictionaryInfo)?.ValueTypeInfo;
       if (valueTypeInfo == null && ItemType != null)
         valueTypeInfo = serializer.KnownTypes[ItemType];
       if (valueTypeInfo == null)

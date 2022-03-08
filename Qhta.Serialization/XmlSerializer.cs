@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Qhta.TestHelper;
+using Qhta.TypeUtils;
 
 namespace Qhta.Xml.Serialization
 {
@@ -42,29 +43,22 @@ namespace Qhta.Xml.Serialization
     public XmlSerializationInfoMapper SerializationInfoMapper { get; init; }
 
     public SerializationTypeInfo? RegisterType(Type aType)
-    {
+    {     
       return SerializationInfoMapper.RegisterType(aType);
     }
 
     public SerializationTypeInfo? AddKnownType(Type aType)
     {
-      return SerializationInfoMapper.AddKnownType(aType);
+      return SerializationInfoMapper.GetKnownType(aType);
     }
     #endregion
 
     #region helper methods
     public virtual bool IsSimple(Type aType)
     {
-      bool isSimpleValue = false;
-      if (aType == typeof(string))
-        isSimpleValue = true;
-      else if (aType == typeof(bool))
-        isSimpleValue = true;
-      else if (aType == typeof(int))
-        isSimpleValue = true;
-      else if (aType.Name.StartsWith("`Nullable"))
-        return IsSimple(aType.GetGenericArguments().First());
-      return isSimpleValue;
+      if (aType.Name.StartsWith("`Nullable"))
+        aType = aType.GetGenericArguments().First();
+      return aType.IsSimple();
     }
 
     public virtual bool IsSimple(object propValue)
