@@ -137,11 +137,6 @@ namespace Qhta.Xml.Serialization
         return false;
       }
       #endregion
-      if (aType.Name == "OresScore")
-        TestUtils.Stop();
-      if (aType.Name == "ImageInfo")
-        TestUtils.Stop();
-
 
       #region Creating and registering a new serialization info
       // first create a new type info
@@ -287,10 +282,6 @@ namespace Qhta.Xml.Serialization
     /// <returns>A dictionary of known properties</returns>
     public virtual KnownPropertiesDictionary GetPropsAsXmlElements(Type aType)
     {
-      if (aType.Name == "RevisionInfo")
-        TestUtils.Stop();
-      if (aType.Name == "OresScore")
-        TestUtils.Stop();
       var propList = new KnownPropertiesDictionary();
       var props = aType.GetProperties().Where(
            item => item.GetCustomAttributes(true).OfType<XmlElementAttribute>().Count() > 0 && item.CanWrite && item.CanRead
@@ -304,8 +295,6 @@ namespace Qhta.Xml.Serialization
       int order;
       foreach (var propInfo in props)
       {
-        if (propInfo.Name == "OresScores")
-          TestUtils.Stop();
         SerializationPropertyInfo? serializePropInfo = null;
         string? elementName = null;
         int? attrOrder = null;
@@ -727,8 +716,6 @@ namespace Qhta.Xml.Serialization
     /// <returns>A dictionary of known item types</returns>
     public virtual KnownItemTypesDictionary GetKnownItems(Type aType)
     {
-      if (aType.Name == "OresScore")
-        TestUtils.Stop();
       KnownItemTypesDictionary knownItems = new();
       var xmlItemElementAttributes = aType.GetCustomAttributes<XmlItemElementAttribute>(false).ToList();
       var xmlDictionaryItemAttributes = aType.GetCustomAttributes<XmlDictionaryItemAttribute>(false);

@@ -11,6 +11,7 @@
     <Compile Remove="XmlMapping.cs" />
     <Compile Remove="XmlSafeCollectionConverter.cs" />
     <Compile Remove="XmlSafeConvertExtensions.cs" />
+    <Compile Remove="XmlSerializer - Copy.Deserialization.cs" />
     <Compile Remove="XmlSerializer.new.cs" />
   </ItemGroup>
 
