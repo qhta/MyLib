@@ -8,47 +8,74 @@ using System.Reflection;
 using Qhta.TypeUtils;
 using Qhta.TestHelper;
 using System.Collections;
+using System.Globalization;
 
 namespace Qhta.Json.Converters
 {
   public static class JsonSafeConvertExtensions
   {
-    public static object ToObjectSafe(this JToken jToken, Type objectType, JsonSerializer jsonSerializer)
+    public static object? ToObjectSafe(this JToken jToken, Type objectType, JsonSerializer jsonSerializer)
     {
       //return jToken.Value<object>();
       return jToken.ToObject(objectType);
     }
 
-    public static (object key, object value) ToKeyValuePairSafe(this JToken jToken, Type keyType, Type valueType, JsonSerializer jsonSerializer)
+    public static (object? key, object? value) ToKeyValuePairSafe(this JToken jToken, Type keyType, Type valueType, JsonSerializer jsonSerializer)
     {
       if (jToken is JProperty jProperty)
       {
-        object? key = null;
+        object? key;
         if (keyType == typeof(string))
           key = jProperty.Name;
         else
+        if (keyType == typeof(DateTime))
+          key = DateTime.Parse(jProperty.Name);
+        else
           throw new InternalException($"Unsupported key type {keyType}.");
+        if (valueType.IsNullable(out var baseType))
+          valueType = baseType;
         object? value = null;
-        if (valueType == typeof(string))
-          value = jProperty.Value<string>();
-        else if (valueType.IsClass)
+        if (valueType.IsClass)
           value = ToObjectSafe(jProperty.Value, valueType, jsonSerializer);
         else
-          throw new InternalException($"Unsupported value type {valueType}.");
+        {
+          var valStr = jProperty.Value.ToString();
+          if (valStr == "null" || valStr == "")
+            valStr = null;
+          if (valStr != null)
+          {
+            if (valueType == typeof(string))
+              value = valStr;
+            else
+            if (valueType == typeof(int))
+              value = Int32.Parse(valStr);
+            else
+            if (valueType == typeof(Int64))
+              value = Int64.Parse(valStr);
+            else
+            if (valueType == typeof(Single))
+              value = Single.Parse(valStr, CultureInfo.InvariantCulture);
+            else
+            if (valueType == typeof(Double))
+              value = Double.Parse(valStr, CultureInfo.InvariantCulture);
+            else
+              throw new InternalException($"Unsupported value type {valueType}.");
+          }
+        }
         return (key, value);
       }
       throw new InternalException($"JProperty expected.");
     }
 
-    public static object ToObjectCollectionSafe(this JToken jToken, Type objectType)
+    public static object? ToObjectCollectionSafe(this JToken jToken, Type objectType)
     {
       return ToObjectCollectionSafe(jToken, objectType, JsonSerializer.CreateDefault());
     }
 
-    public static object ToObjectCollectionSafe(this JToken jToken, Type objectType, JsonSerializer jsonSerializer)
+    public static object? ToObjectCollectionSafe(this JToken jToken, Type objectType, JsonSerializer jsonSerializer)
     {
       var expectArray = typeof(System.Collections.IEnumerable).IsAssignableFrom(objectType);
-      object result;
+      object? result;
       if (jToken is JArray jArray)
       {
         if (!expectArray)
@@ -58,26 +85,28 @@ namespace Qhta.Json.Converters
             return JValue.CreateNull().ToObject(objectType, jsonSerializer);
 
           if (jArray.Count == 1)
-            return jArray.First.ToObject(objectType, jsonSerializer);
+            return jArray.First?.ToObject(objectType, jsonSerializer);
           var arrayResult = new List<object>();
           var arrayAttribute = objectType.GetCustomAttributes(true).OfType<JsonVariantArrayAttribute>().FirstOrDefault();
           var itemType = arrayAttribute?.ItemType ?? typeof(object);
           foreach (var token in jArray)
           {
             var item = token.ToObjectCollectionSafe(itemType, jsonSerializer);
-            arrayResult.Add(item);
+            if (item != null)
+              arrayResult.Add(item);
           }
-          MethodInfo addObject = objectType.GetMethod("AddObject");
+          MethodInfo? addObject = objectType?.GetMethod("AddObject");
           if (addObject != null)
           {
-            object resultObj = objectType.GetConstructor(new Type[0]).Invoke(new object[0]);
-            foreach (var arrayItem in arrayResult)
-              addObject.Invoke(resultObj, new object[] { arrayItem });
+            object? resultObj = objectType?.GetConstructor(new Type[0])?.Invoke(new object[0]);
+            if (resultObj != null)
+              foreach (var arrayItem in arrayResult)
+                addObject.Invoke(resultObj, new object[] { arrayItem });
             return resultObj;
           }
           return arrayResult;
         }
-        else if (jArray.Count==0)
+        else if (jArray.Count == 0)
           return Activator.CreateInstance(objectType);
       }
       else if (expectArray)
@@ -99,17 +128,7 @@ namespace Qhta.Json.Converters
       return result;
     }
 
-    public static T ToObjectCollectionSafe<T>(this JToken jToken)
-    {
-      return (T)ToObjectCollectionSafe(jToken, typeof(T));
-    }
-
-    public static T ToObjectCollectionSafe<T>(this JToken jToken, JsonSerializer jsonSerializer)
-    {
-      return (T)ToObjectCollectionSafe(jToken, typeof(T), jsonSerializer);
-    }
-
-    public static object ToObjectDictionarySafe(this JToken jToken, Type keyType, Type valueType, JsonSerializer jsonSerializer)
+    public static object? ToObjectDictionarySafe(this JToken jToken, Type keyType, Type valueType, JsonSerializer jsonSerializer)
     {
       Type dType = typeof(Dictionary<,>);
       Type[] dTypeArgs = { keyType, valueType };
@@ -128,21 +147,21 @@ namespace Qhta.Json.Converters
             return JValue.CreateNull().ToObject(dictionaryType, jsonSerializer);
 
           if (jArray.Count == 1)
-            return jArray.First.ToObject(dictionaryType, jsonSerializer);
+            return jArray.First?.ToObject(dictionaryType, jsonSerializer);
           var arrayResult = new List<object>();
-          //var arrayAttribute = dictionaryType.GetCustomAttributes(true).OfType<JsonDictionaryAttribute>().FirstOrDefault();
-          //var itemType = arrayAttribute?. ?? typeof(object);
           foreach (var token in jArray)
           {
             var item = token.ToObjectCollectionSafe(itemType, jsonSerializer);
-            arrayResult.Add(item);
+            if (item != null)
+              arrayResult.Add(item);
           }
-          MethodInfo addObject = dictionaryType.GetMethod("AddObject");
+          MethodInfo? addObject = dictionaryType?.GetMethod("AddObject");
           if (addObject != null)
           {
-            object resultObj = dictionaryType.GetConstructor(new Type[0]).Invoke(new object[0]);
-            foreach (var arrayItem in arrayResult)
-              addObject.Invoke(resultObj, new object[] { arrayItem });
+            object? resultObj = dictionaryType?.GetConstructor(new Type[0])?.Invoke(new object[0]);
+            if (resultObj != null)
+              foreach (var arrayItem in arrayResult)
+                addObject.Invoke(resultObj, new object[] { arrayItem });
             return resultObj;
           }
           return arrayResult;
@@ -150,16 +169,20 @@ namespace Qhta.Json.Converters
       }
       else if (expectArray)
       {
-        var dictionary = (IDictionary)Activator.CreateInstance(dictionaryType);
-        var token = jToken.FirstOrDefault();
-        for (int i = 0; i < jToken.Count(); i++)
+        var dictionary = Activator.CreateInstance(dictionaryType) as IDictionary;
+        if (dictionary != null)
         {
-          if (token != null)
+          var token = jToken.FirstOrDefault();
+          for (int i = 0; i < jToken.Count(); i++)
           {
-            var kvpair = token.ToKeyValuePairSafe(keyType, valueType, jsonSerializer);
-            dictionary.Add(kvpair.key, kvpair.value);
+            if (token != null)
+            {
+              var kvpair = token.ToKeyValuePairSafe(keyType, valueType, jsonSerializer);
+              if (kvpair.key != null)
+                dictionary.Add(kvpair.key, kvpair.value);
+              token = token.Next;
+            }
           }
-          token = token.Next;
         }
         return dictionary;
       }
@@ -168,14 +191,5 @@ namespace Qhta.Json.Converters
       return result;
     }
 
-    public static T ToObjectDictionarySafe<T>(this JToken jToken)
-    {
-      return (T)ToObjectCollectionSafe(jToken, typeof(T));
-    }
-
-    public static T ToObjectDictionarySafe<T>(this JToken jToken, JsonSerializer jsonSerializer)
-    {
-      return (T)ToObjectCollectionSafe(jToken, typeof(T), jsonSerializer);
-    }
   }
 }

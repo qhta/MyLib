@@ -15,15 +15,17 @@ namespace Qhta.Json.Converters
       return true;
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
       //This not works for Populate (on existingValue)
-      return serializer.Deserialize<JToken>(reader).ToObjectCollectionSafe(objectType, serializer);
+
+      var jToken = serializer.Deserialize<JToken>(reader);
+      return jToken?.ToObjectCollectionSafe(objectType, serializer);
     }
 
     public override bool CanWrite => false;
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
       throw new NotImplementedException();
     }

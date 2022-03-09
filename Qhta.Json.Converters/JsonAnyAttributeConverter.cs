@@ -14,28 +14,32 @@ namespace Qhta.Json.Converters
   {
     public override bool CanConvert(Type objectType)
     {
-      return objectType.GetInterface("IDictionary")!=null && objectType.GetConstructor(new Type[0])!=null;
+      return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
       if (reader.TokenType == JsonToken.Null)
         return null;
       var dict = serializer.Deserialize<Dictionary<string, string>>(reader);
-      var constructor = objectType.GetConstructor(new Type[0]);
-      if (constructor !=null)
+      if (dict != null)
       {
-        var obj = constructor.Invoke(new object[0]) as IDictionary<string, string>;
-        foreach (var item in dict)
-          obj.Add(item.Key, item.Value);
-        return obj;
+        var constructor = objectType.GetConstructor(new Type[0]);
+        if (constructor != null)
+        {
+          var obj = constructor.Invoke(new object[0]);
+          if (obj is IDictionary<string, string> dictObj)
+            foreach (var item in dict)
+              dictObj.Add(item.Key, item.Value);
+          return obj;
+        }
       }
       return dict;
     }
 
     public override bool CanWrite => false;
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
       throw new NotImplementedException();
     }

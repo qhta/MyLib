@@ -183,8 +183,6 @@ namespace Qhta.Xml.Serialization
       while (reader.NodeType == XmlNodeType.Element)
       {
         var elementName = reader.Name;
-        if (elementName == "normalized")
-          TestUtils.Stop();
         var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
         if (propertyToRead != null)
         {
@@ -235,83 +233,63 @@ namespace Qhta.Xml.Serialization
               if (knownItemTypeInfo == null)
                 if (KnownTypes.TryGetValue(elementName, out var itemTypeInfo))
                   knownItemTypeInfo = new SerializationItemTypeInfo(elementName, itemTypeInfo);
-              //else
-              //{
-              //  throw new XmlInternalException($"Unrecognized element \"{elementName}\"", reader);
-              //}
+                else
+                  throw new XmlInternalException($"Unrecognized element \"{elementName}\"", reader);
             }
-            if (knownItemTypeInfo != null)
+            object? key = elementName;
+            object? item;
+            if (knownItemTypeInfo.DictionaryInfo != null)
             {
-              object? key = elementName;
-              object? item;
-              if (knownItemTypeInfo.DictionaryInfo != null)
+              var collectionInfo = typeInfo.CollectionInfo;
+              if (collectionInfo is DictionaryInfo dictionaryInfo)
               {
-                var collectionInfo = typeInfo.CollectionInfo;
-                if (collectionInfo is DictionaryInfo dictionaryInfo)
-                {
-                  (key, item) = ReadElementAsKVPair(null, knownItemTypeInfo.Type, dictionaryInfo, reader);
-                }
-                else
-                  throw new InternalException($"TypeInfo({typeInfo.Type}).CollectionInfo must be a DictionaryInfo");
+                (key, item) = ReadElementAsKVPair(null, knownItemTypeInfo.Type, dictionaryInfo, reader);
               }
               else
-                item = ReadElementWithKnownTypeInfo(knownItemTypeInfo, reader);
-
-              if (item == null)
-                throw new XmlInternalException($"Item of type {knownItemTypeInfo.Type} could not be read at \"{elementName}\"", reader);
-
-              if (key == null)
-                throw new InternalException($"Key for {item} must be not null");
-
-              if (knownItemTypeInfo.AddMethod != null)
-              {
-                if (obj is IDictionary dictionaryObj)
-                {
-                  if (key != null)
-                    knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { key, item });
-                }
-                else
-                  knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { item });
-              }
-              else
-              {
-                if (obj is IDictionary dictionaryObj)
-                  dictionaryObj.Add(key, item);
-                else
-                {
-                  var adddMethod = obj.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
-                  if (adddMethod != null)
-                    adddMethod.Invoke(obj, new object[] { item });
-                  else
-                    if (obj is ICollection collectionObj)
-                    throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
-                }
-              }
-              propsRead++;
-              continue;
+                throw new InternalException($"TypeInfo({typeInfo.Type}).CollectionInfo must be a DictionaryInfo");
             }
+            else
+              item = ReadElementWithKnownTypeInfo(knownItemTypeInfo, reader);
+
+            if (item == null)
+              throw new XmlInternalException($"Item of type {knownItemTypeInfo.Type} could not be read at \"{elementName}\"", reader);
+
+            if (key == null)
+              throw new InternalException($"Key for {item} must be not null");
+
+            if (knownItemTypeInfo.AddMethod != null)
+            {
+              if (obj is IDictionary dictionaryObj)
+              {
+                if (key != null)
+                  knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { key, item });
+              }
+              else
+                knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { item });
+            }
+            else
+            {
+              if (obj is IDictionary dictionaryObj)
+                dictionaryObj.Add(key, item);
+              else
+              {
+                var adddMethod = obj.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
+                if (adddMethod != null)
+                  adddMethod.Invoke(obj, new object[] { item });
+                else
+                  if (obj is ICollection collectionObj)
+                  throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", reader);
+              }
+            }
+            propsRead++;
+            continue;
           }
-          if (onUnknownProperty != null)
-            onUnknownProperty(obj, elementName);
-          else
+          if (onUnknownProperty == null)
           {
-            if (Options.IgnoreUnknownElements)
-            {
-              if (reader.IsEmptyElement)
-                reader.Read();
-              else
-              {
-                do 
-                {
-                  reader.Read();
-                }  while (!(reader.Name==elementName && !reader.IsStartElement()));
-                reader.Read();
-              }
-              continue;
-            }
             throw new XmlInternalException($"No property to read and no content property found for element \"{elementName}\"" +
               $" in type {aType.FullName}", reader);
           }
+          onUnknownProperty(obj, elementName);
         }
 
         SkipWhitespaces(reader);
@@ -475,7 +453,7 @@ namespace Qhta.Xml.Serialization
             throw new XmlInternalException($"Key name unknown for dictionary item \"{reader.Name}\" on deserialize", reader);
           reader.MoveToAttribute(keyName);
           var key = reader.Value;
-          if (key == "2022-03-07")
+          if (key== "2022-03-07")
             TestUtils.Stop();
           if (emptyElement)
           {

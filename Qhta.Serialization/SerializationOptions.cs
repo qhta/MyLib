@@ -55,7 +55,16 @@ namespace Qhta.Xml.Serialization
 
     /// <summary>
     /// Culture is important on serialization/deserialization numbers and dates.
+    /// Default is invariant culture.
     /// </summary>
     public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
+
+    /// <summary>
+    /// Specifies that when the deserializer finds an unknown XML element, 
+    /// it skips to the closing one (or ignores if it is an empty element).
+    /// </summary>
+    public bool IgnoreUnknownElements { get; set; }
+
+
   }
 }

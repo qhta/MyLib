@@ -163,7 +163,7 @@ namespace Qhta.TypeUtils
     /// <returns>true if a type is a nullable type</returns>
     public static bool IsNullable(this Type aType, out Type baseType)
     {
-      if (aType.Name.StartsWith("Nullable``"))
+      if (aType.Name.StartsWith("Nullable`1"))
       {
         baseType = aType.GenericTypeArguments[0];
         return true;
