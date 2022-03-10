@@ -204,11 +204,11 @@ namespace Qhta.Xml.Serialization
 
       #region Checking and registering a known construtor - optional for simple types
       var constructor = aType.GetConstructor(new Type[0]);
-      if (!IsSimple(aType) && !aType.IsAbstract && !aType.IsEnum)
+      if (!aType.IsSimple() && !aType.IsAbstract && !aType.IsEnum)
       {
         if (constructor == null)
         {
-          if (!Options.IgnoreTypesWithoutParameterlessConstructor)
+          if (!Options.IgnoreTypesWithoutParameterlessConstructor && aType.IsNullable())
             throw new InternalException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization");
         }
         typeInfo.KnownConstructor = constructor;
@@ -839,6 +839,8 @@ namespace Qhta.Xml.Serialization
       var type = Assembly.GetExecutingAssembly().GetType(typeName);
       if (type == null)
         type = Assembly.GetCallingAssembly().GetType(typeName);
+      if (type == null)
+        type = Assembly.GetEntryAssembly()?.GetType(typeName);
       if (type != null)
         return CreateTypeConverter(type);
       return null;
