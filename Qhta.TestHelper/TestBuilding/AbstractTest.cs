@@ -27,9 +27,14 @@ namespace Qhta.TestHelper
     /// <summary>
     /// If failed test case breaks the whole test
     /// </summary>
+    public bool AcceptOnFail { get; set; }
+
+    /// <summary>
+    /// If failed test case breaks the whole test
+    /// </summary>
     public bool ShowTestRunTime { get; set; }
 
-    public ITraceTextWriter? TraceWriter { get; set; }
+    public TraceTextWriter? TraceWriter { get; set; }
 
     /// <summary>
     /// Main method to run a test. Creates a TraceTextWriter to monitor a test and show results.

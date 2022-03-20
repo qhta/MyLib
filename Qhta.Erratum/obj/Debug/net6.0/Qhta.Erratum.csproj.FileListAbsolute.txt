@@ -7,7 +7,6 @@ D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Qhta.Erratum.deps.json
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Qhta.Erratum.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Qhta.Erratum.pdb
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Qhta.TestHelper.dll
-D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Interop.IWshRuntimeLibrary.dll
 D:\VS\Projects\MyLib\Qhta.Erratum\bin\Debug\net6.0\Qhta.TestHelper.pdb
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\Qhta.Erratum.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.Erratum\obj\Debug\net6.0\Qhta.Erratum.dll

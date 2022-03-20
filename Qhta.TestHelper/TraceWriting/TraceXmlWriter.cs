@@ -44,7 +44,7 @@ namespace Qhta.TestHelper
 
     protected override void FlushBuffer()
     {
-      base.Flush();
+      base.FlushBuffer();
       _writer?.Flush();
     }
 

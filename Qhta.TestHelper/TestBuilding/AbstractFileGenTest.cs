@@ -16,8 +16,6 @@ namespace Qhta.TestHelper
   /// </summary>
   public abstract class AbstractFileGenTest : AbstractTest
   {
-    public bool AcceptOnFail { get; set; }
-
     protected static string testDir { get; set; }
 
     protected static XmlSerializer? serializer { get; set; }

@@ -731,6 +731,17 @@
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetTopmostMethod(System.Type,System.String)">
+            <summary>
+            When a class defines a new method with the same name as an inherited method,
+            a "GetMethod" function return an error. 
+            This "GetTopmostMethod" method searches the original class first 
+            and if it will not find a method, then searches the base class recursively.
+            </summary>
+            <param name="aType"></param>
+            <param name="methodName"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.IsDefaultValue(System.Type,System.Object)">
             <summary>
             Checks if the given value is the default value of the given type

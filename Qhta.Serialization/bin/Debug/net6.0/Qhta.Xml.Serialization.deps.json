@@ -239,14 +239,6 @@
         "runtime": {
           "Qhta.TypeUtils.dll": {}
         }
-      },
-      "Interop.IWshRuntimeLibrary/1.0.0.0": {
-        "runtime": {
-          "Interop.IWshRuntimeLibrary.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -431,11 +423,6 @@
     },
     "Qhta.TypeUtils/1.2.1": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Interop.IWshRuntimeLibrary/1.0.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

@@ -13,7 +13,24 @@ namespace Qhta.TypeUtils
   /// </summary>
   public static class TypeUtils
   {
-  
+    /// <summary>
+    /// When a class defines a new method with the same name as an inherited method,
+    /// a "GetMethod" function return an error. 
+    /// This "GetTopmostMethod" method searches the original class first 
+    /// and if it will not find a method, then searches the base class recursively.
+    /// </summary>
+    /// <param name="aType"></param>
+    /// <param name="methodName"></param>
+    /// <returns></returns>
+    public static MethodInfo GetTopmostMethod(this Type aType, string methodName)
+    {
+      var bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
+      var methodInfo = aType.GetMethod(methodName, bindingFlags);
+      if (methodInfo == null && aType.BaseType!=null)
+        methodInfo = GetTopmostMethod(aType.BaseType, methodName);
+      return methodInfo;
+    }
+
     /// <summary>
     /// Checks if the given value is the default value of the given type
     /// </summary>
@@ -905,6 +922,7 @@ namespace Qhta.TypeUtils
     /// A type of target items
     /// </summary>
     public Type TargetItemType { get; set; }
+
   }
 
 }

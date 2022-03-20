@@ -29,8 +29,8 @@ namespace Qhta.TestHelper
       LockObject = this;
       if (filename != null)
       {
-      OutputStream = File.Create(filename);
-      _writer = new StreamWriter(OutputStream);
+        OutputStream = File.Create(filename);
+        _writer = new StreamWriter(OutputStream);
         StreamOutputEnabled = true;
       }
       ConsoleOutputEnabled = consoleOutputEnabled;
@@ -59,14 +59,15 @@ namespace Qhta.TestHelper
     /// <summary>
     /// Output stream
     /// </summary>
-    public Stream? OutputStream 
-    { 
+    public Stream? OutputStream
+    {
       get => _outputStream;
       set
       {
         if (value != _outputStream)
         {
-          Flush();
+          if (_outputStream != null)
+            Flush();
           _outputStream = value;
           if (_outputStream != null)
           {
@@ -88,7 +89,7 @@ namespace Qhta.TestHelper
     /// <summary>
     /// Usually set to <see cref="_outputStream"/>
     /// </summary>
-    protected TextWriter? _writer {get; private set; }
+    protected TextWriter? _writer { get; private set; }
 
     /// <summary>
     /// This implementation uses <see cref="TraceWriter.FlushString"/> operation first
