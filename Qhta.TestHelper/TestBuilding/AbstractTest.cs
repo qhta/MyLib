@@ -36,6 +36,8 @@ namespace Qhta.TestHelper
 
     public TraceTextWriter? TraceWriter { get; set; }
 
+    public string TestCasesStr { get; set; } = "test cases";
+
     /// <summary>
     /// Main method to run a test. Creates a TraceTextWriter to monitor a test and show results.
     /// First invokes <see cref="Init"/> method. 
@@ -107,21 +109,21 @@ namespace Qhta.TestHelper
       var plannedTestsCount = plannedTests?.Length ?? 0;
       if (plannedTestsCount == 0)
       {
-        TraceWriter?.WriteLine("No test cases planned");
+        TraceWriter?.WriteLine($"No {TestCasesStr} planned");
         return false;
       }
       if (plannedTestsCount != doneTestsCount)
-        TraceWriter?.WriteLine($"{plannedTestsCount} test cases planned but {doneTestsCount} run.");
+        TraceWriter?.WriteLine($"{plannedTestsCount} {TestCasesStr} planned but {doneTestsCount} run.");
       else
-        TraceWriter?.WriteLine($"{doneTestsCount} test cases run.");
+        TraceWriter?.WriteLine($"{doneTestsCount} {TestCasesStr} run.");
 
       if (failedTestsCount == 0)
-        TraceWriter?.WriteLine($"All test cases passed.");
+        TraceWriter?.WriteLine($"All {TestCasesStr} passed.");
       else
       if (failedTestsCount == doneTestsCount)
-        TraceWriter?.WriteLine($"All test cases failed.");
+        TraceWriter?.WriteLine($"All {TestCasesStr} failed.");
       else
-        TraceWriter?.WriteLine($"{failedTestsCount} test cases failed.");
+        TraceWriter?.WriteLine($"{failedTestsCount} {TestCasesStr} failed.");
 
       return true;
     }

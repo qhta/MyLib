@@ -1,0 +1,12 @@
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\bin\Debug\net6.0\Qhta.EFCoreUtils.deps.json
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\bin\Debug\net6.0\Qhta.EFCoreUtils.dll
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\bin\Debug\net6.0\Qhta.EFCoreUtils.pdb
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.dll
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\refint\Qhta.EFCoreUtils.dll
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\Qhta.EFCoreUtils.pdb
+D:\VS\Projects\MyLib\Qhta.EFCoreUtils\obj\Debug\net6.0\ref\Qhta.EFCoreUtils.dll

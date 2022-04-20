@@ -17,10 +17,15 @@ namespace Qhta.Json.Converters
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
-      //This not works for Populate (on existingValue)
-
-      var jToken = serializer.Deserialize<JToken>(reader);
-      return jToken?.ToObjectCollectionSafe(objectType, serializer);
+      try
+      {
+        var jToken = serializer.Deserialize<JToken>(reader);
+        return jToken?.ToObjectCollectionSafe(objectType, serializer);
+      }
+      catch
+      {
+      }
+      return null;
     }
 
     public override bool CanWrite => false;

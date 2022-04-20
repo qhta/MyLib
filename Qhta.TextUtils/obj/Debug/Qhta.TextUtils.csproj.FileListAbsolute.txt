@@ -12,3 +12,5 @@ D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.pdb
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\Qhta.TextUtils.GeneratedMSBuildEditorConfig.editorconfig
