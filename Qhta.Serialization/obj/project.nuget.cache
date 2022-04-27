@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lQoY+WDpIVFWu/O5+pqdj0kTEZkDURk+tkWzz8iCjHr2Rdao0gFMCHa71Sn8qZEO124hGcTybK2UktkhsuPg9g==",
+  "dgSpecHash": "WuUN6OVMbpHWMLX8oHz975tMaTHntvClTHPpfajf2dvDucBUArNqTL3sizl3Qyo9JdDNgLPaUw1MsAQxgDYh8Q==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj",
   "expectedPackageFiles": [
