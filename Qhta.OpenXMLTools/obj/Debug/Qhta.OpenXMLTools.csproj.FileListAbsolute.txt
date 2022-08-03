@@ -13,3 +13,4 @@ D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csproj.CoreCo
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.dll
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.pdb
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\Qhta.OpenXMLTools.GeneratedMSBuildEditorConfig.editorconfig

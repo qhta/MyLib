@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NLLGYagiCnMJQ43Kv3UsRfOBgqh5OywI6pVXp3aLmtr2rpAAafvy/g6FRWe0JKOUdnBF/7ZGwCFl3mApskV2jQ==",
+  "dgSpecHash": "ABGMHDaOb4Jmub6aP7749HxfaktXU7RvC+hJhFamQ/p+GUZhrlpFhC/YpGBVBAjRF3oPum5P0+ZV2PsK/Mg39A==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

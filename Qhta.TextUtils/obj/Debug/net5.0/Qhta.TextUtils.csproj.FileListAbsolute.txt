@@ -1,0 +1,12 @@
+D:\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\net5.0\Qhta.TextUtils.deps.json
+D:\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\net5.0\Qhta.TextUtils.dll
+D:\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\net5.0\Qhta.TextUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.dll
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\refint\Qhta.TextUtils.dll
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\Qhta.TextUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net5.0\ref\Qhta.TextUtils.dll
