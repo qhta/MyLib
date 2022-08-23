@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Qhta.TypeUtils
@@ -289,7 +291,7 @@ namespace Qhta.TypeUtils
     /// <param name="aType">checked type</param>
     /// <param name="itemType">returned item type if a type is a collection</param>
     /// <returns>true if a type is a collection type</returns>
-    public static bool IsCollection(this Type aType, out Type itemType)
+    public static bool IsCollection(this Type aType, [NotNullWhen(true)] out Type? itemType)
     {
       if (aType.Name.StartsWith("Collection`1"))
       {
@@ -317,8 +319,9 @@ namespace Qhta.TypeUtils
     public static bool IsCollection(this Type aType, Type itemType)
     {
       return IsCollection(aType, out var foundItemType) 
-        && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+        && (foundItemType == itemType || itemType.IsSubclassOf(foundItemType));
     }
+
     #endregion
 
     #region IsEnumerable

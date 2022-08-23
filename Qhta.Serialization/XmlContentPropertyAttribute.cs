@@ -22,6 +22,6 @@ namespace Qhta.Xml.Serialization
     /// <summary>
     ///  name of the public property of any type
     /// </summary>
-    public string Name { get; init; }
+    public string Name { get;}
   }
 }

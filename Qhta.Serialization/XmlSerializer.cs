@@ -14,7 +14,7 @@ using Qhta.TypeUtils;
 
 namespace Qhta.Xml.Serialization
 {
-  public partial class XmlSerializer : IXSerializer
+  public partial class XmlSerializer
   {
     #region Creation methods
 
@@ -61,17 +61,17 @@ namespace Qhta.Xml.Serialization
       return aType.IsSimple();
     }
 
-    public virtual bool IsSimple(object propValue)
-    {
-      bool isSimpleValue = false;
-      if (propValue is string)
-        isSimpleValue = true;
-      else if (propValue is bool)
-        isSimpleValue = true;
-      else if (propValue is int)
-        isSimpleValue = true;
-      return isSimpleValue;
-    }
+    //public virtual bool IsSimple(object propValue)
+    //{
+    //  bool isSimpleValue = false;
+    //  if (propValue is string)
+    //    isSimpleValue = true;
+    //  else if (propValue is bool)
+    //    isSimpleValue = true;
+    //  else if (propValue is int)
+    //    isSimpleValue = true;
+    //  return isSimpleValue;
+    //}
 
     public virtual string LowercaseName(string str)
     {

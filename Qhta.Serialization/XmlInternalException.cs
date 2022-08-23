@@ -1,6 +1,4 @@
-﻿using Qhta.TestHelper;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,10 +9,10 @@ using System.Xml;
 namespace Qhta.Xml.Serialization
 {
   /// <summary>
-  /// Class extending <see cref="InternalException"/> to hold
+  /// Class extending <see cref="Exception"/> to hold
   /// <see cref="LineNumber"/> and <see cref="LinePosition"/>.
   /// </summary>
-  public class XmlInternalException: InternalException
+  public class XmlInternalException: Exception
   {
     /// <summary>
     /// Extending constructor. 
@@ -26,7 +24,7 @@ namespace Qhta.Xml.Serialization
     /// <param name="innerException"></param>
     /// <param name="methodName"></param>
     public XmlInternalException(string message, XmlReader xmlReader, Exception? innerException = null,
-       [CallerMemberName] string? methodName = null) : base(ComposeMessage(message, xmlReader), innerException, methodName)
+       [CallerMemberName] string? methodName = null) : base(ComposeMessage(message, xmlReader), innerException)
     {
       if (xmlReader is XmlTextReader xmlTextReader)
       {
@@ -46,7 +44,7 @@ namespace Qhta.Xml.Serialization
       return message;
     }
 
-    public int? LineNumber { get; init; }
-    public int? LinePosition { get; init; }
+    public int? LineNumber { get;}
+    public int? LinePosition { get;}
   }
 }

@@ -726,6 +726,127 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.TypeUtils.TypeReflectionByInheritance">
+            <summary>
+            Extension methods for getting members in order of inheritance
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMembersByInheritance(System.Type)">
+            <summary>
+              Replacement for a <c>Type.GetMembers</c> method.
+              The members are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMembersByInheritance(System.Type,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetMembers</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then members are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodsByInheritance(System.Type)">
+            <summary>
+              Replacement for a <c>Type.GetMethods</c> method.
+              The methods are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodsByInheritance(System.Type,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetMethods(BindingFlags)</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String)">
+            <summary>
+              Replacement for a <c>Type.GetMethod(string)</c> method.
+              The methods are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetMethod(string, BindingFlags)</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String,System.Type[])">
+            <summary>
+              Replacement for a <c>Type.GetMethod(string, Type[])</c> method.
+              The methods are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String,System.Reflection.BindingFlags,System.Type[])">
+            <summary>
+              Replacement for a <c>Type.GetMethod(string, BindingFlags, Type[])</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertiesByInheritance(System.Type)">
+            <summary>
+              Replacement for a <c>Type.GetProperties</c> method.
+              The properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertiesByInheritance(System.Type,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetProperties(BindingFlags)</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertyByInheritance(System.Type,System.String)">
+            <summary>
+              Replacement for a <c>Type.GetProperty(string)</c> method.
+              The properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertyByInheritance(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetProperty(string, BindingFlags)</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetCustomAttibutesByInheritance(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+              Replacement for a <c>Type.GetCustomAttributes</c> method in case
+              when an <paramref name="inherit"/> parameter is set for <c>true</c>
+              Then attributes are taken also from superclasses,
+              but are also ordered with inheritance order.
+            </summary>
+            <param name="aType">A type which attributes are searched</param>
+            <param name="inherit">Search in superclasses?</param>
+            <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+            <returns>A table of attributes</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetCustomAttibutesByInheritance``1(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+              Replacement for a <c>Type.GetCustomAttributes</c> method in case
+              when an <paramref name="inherit"/> parameter is set for <c>true</c>
+              Then attributes are taken also from superclasses,
+              but are also ordered with inheritance order.
+              Only attributes of a specified type are returned.
+            </summary>
+            <typeparam name="TAttribute">A type of searched attributes</typeparam>
+            <param name="aType">A type which attributes are searched</param>
+            <param name="inherit">Search in superclasses?</param>
+            <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+            <returns>A table of attributes</returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeUtils">
             <summary>
             Helper functions that operate on types and supplement <c>System.Reflection</c> library
@@ -834,40 +955,6 @@
             </summary>
             <param name="aInfo">info of a method that redefines</param>
             <param name="bInfo">info of a method that is redefined</param>
-        </member>
-        <member name="M:Qhta.TypeUtils.TypeUtils.GetMembersByInheritance(System.Type,System.Reflection.BindingFlags)">
-            <summary>
-              Replacement for a <c>Type.GetMembers</c> method in case
-              when a <paramref name="Flags"/> parameter does not have option
-              <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
-              but are also ordered with inheritance order (from top superclass first).
-             </summary>
-        </member>
-        <member name="M:Qhta.TypeUtils.TypeUtils.GetCustomAttibutesByInheritance(System.Type,System.Boolean,System.Boolean)">
-            <summary>
-              Replacement for a <c>Type.GetCustomAttributes</c> method in case
-              when an <paramref name="inherit"/> parameter is set for <c>true</c>
-              Then attributes are taken also from superclasses,
-              but are also ordered with inheritance order.
-            </summary>
-            <param name="aType">A type which attributes are searched</param>
-            <param name="inherit">Search in superclasses?</param>
-            <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
-            <returns>A table of attributes</returns>
-        </member>
-        <member name="M:Qhta.TypeUtils.TypeUtils.GetCustomAttibutesByInheritance``1(System.Type,System.Boolean,System.Boolean)">
-            <summary>
-              Replacement for a <c>Type.GetCustomAttributes</c> method in case
-              when an <paramref name="inherit"/> parameter is set for <c>true</c>
-              Then attributes are taken also from superclasses,
-              but are also ordered with inheritance order.
-              Only attributes of a specified type are returned.
-            </summary>
-            <typeparam name="TAttribute">A type of searched attributes</typeparam>
-            <param name="aType">A type which attributes are searched</param>
-            <param name="inherit">Search in superclasses?</param>
-            <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
-            <returns>A table of attributes</returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.CopyProperties(System.Object,System.Object,System.Boolean)">
             <summary>

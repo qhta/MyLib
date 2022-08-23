@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RootNamespace>Qhta.TypeUtils</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

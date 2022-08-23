@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-
 using Qhta.TestHelper;
 using Qhta.TypeUtils;
 
@@ -65,15 +64,16 @@ namespace Qhta.Xml.Serialization
         throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", reader);
       var obj = constructor.Invoke(new object[0]);
 
-      if (obj is IXSerializable qSerializable)
-      {
-        qSerializable.Deserialize(this);
-      }
-      else if (obj is IXmlSerializable xmlSerializable)
+      //if (obj is IXSerializable qSerializable)
+      //{
+      //  qSerializable.Deserialize(this);
+      //}
+      //else 
+      if (obj is IXmlSerializable xmlSerializable)
       {
         xmlSerializable.ReadXml(reader);
       }
-      else if (obj != null)
+      else
       {
         ReadObject(obj, reader, typeInfo);
       }
@@ -393,11 +393,12 @@ namespace Qhta.Xml.Serialization
         throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
       }
       var obj = typeInfo.KnownConstructor.Invoke(new object[0]);
-      if (obj is IXSerializable qSerializable)
-      {
-        qSerializable.Deserialize(this);
-      }
-      else if (obj is IXmlSerializable xmlSerializable)
+      //if (obj is IXSerializable qSerializable)
+      //{
+      //  qSerializable.Deserialize(this);
+      //}
+      //else 
+      if (obj is IXmlSerializable xmlSerializable)
       {
         xmlSerializable.ReadXml(reader);
       }
@@ -423,11 +424,12 @@ namespace Qhta.Xml.Serialization
         throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
       }
       var obj = typeInfo.KnownConstructor.Invoke(new object[0]);
-      if (obj is IXSerializable qSerializable)
-      {
-        qSerializable.Deserialize(this);
-      }
-      else if (obj is IXmlSerializable xmlSerializable)
+      //if (obj is IXSerializable qSerializable)
+      //{
+      //  qSerializable.Deserialize(this);
+      //}
+      //else 
+      if (obj is IXmlSerializable xmlSerializable)
       {
         xmlSerializable.ReadXml(reader);
       }

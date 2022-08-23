@@ -11,9 +11,9 @@ namespace Qhta.Xml.Serialization
       Args = args;
     }
 
-    public Type ConverterType { get; init; }
+    public Type ConverterType { get;}
 
-    public object[] Args { get; init; }
+    public object[] Args { get;}
 
   }
 }

@@ -1,8 +1,8 @@
-﻿using Qhta.TestHelper;
-
+﻿
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -19,7 +19,7 @@ namespace Qhta.Xml.Serialization
       ItemType = itemType;
     }
 
-    public Type? ItemType { get; init; }
+    public Type? ItemType { get; }
 
     public override bool CanConvert(Type objectType)
     {
@@ -30,11 +30,11 @@ namespace Qhta.Xml.Serialization
       SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, XmlSerializer? serializer)
     {
       if (serializer == null)
-        throw new InternalException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");
+        throw new IOException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");
 
       var aReader = reader as XmlTextReader;
       if (aReader == null)
-        throw new InternalException($"Reader type in {this.GetType()}.{nameof(ReadXml)} must be of {typeof(IXmlTextReaderInitializer).Name} type.");
+        throw new IOException($"Reader type in {this.GetType()}.{nameof(ReadXml)} must be of {typeof(IXmlTextReaderInitializer).Name} type.");
 
       var rootElementName = reader.Name;
 
@@ -42,27 +42,27 @@ namespace Qhta.Xml.Serialization
       if (serializationTypeInfo == null)
         serializationTypeInfo = objectTypeInfo;
       if (serializationTypeInfo == null)
-        throw new InternalException($"Unknown type info for property {this.GetType()}");
+        throw new IOException($"Unknown type info for property {this.GetType()}");
 
       if (reader.EOF)
         return null;
       var constructor = serializationTypeInfo.KnownConstructor;
 
       if (constructor == null)
-        throw new InternalException($"Type {serializationTypeInfo.Type} has no parameterless public constructor");
+        throw new IOException($"Type {serializationTypeInfo.Type} has no parameterless public constructor");
       var dict = constructor.Invoke(new object[0]) as IDictionary;
       if (dict == null)
-        throw new InternalException($"Type {serializationTypeInfo.Type} must implement IDictionary interface");
+        throw new IOException($"Type {serializationTypeInfo.Type} must implement IDictionary interface");
 
       var valueTypeInfo = (propertyInfo?.CollectionInfo as DictionaryInfo)?.ValueTypeInfo;
       if (valueTypeInfo == null && ItemType != null)
         valueTypeInfo = serializer.KnownTypes[ItemType];
       if (valueTypeInfo == null)
-        throw new InternalException($"Unknown value type info for property {this.GetType()}");
+        throw new IOException($"Unknown value type info for property {this.GetType()}");
 
       var valueConstructor = (valueTypeInfo.KnownConstructor);
       if (valueConstructor == null && valueTypeInfo.Type != typeof(string))
-        throw new InternalException($"Type {valueTypeInfo.Type} has no parameterless public constructor");
+        throw new IOException($"Type {valueTypeInfo.Type} has no parameterless public constructor");
       reader.Read();
       while (reader.NodeType != XmlNodeType.EndElement)
       {

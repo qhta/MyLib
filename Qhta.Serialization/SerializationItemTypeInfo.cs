@@ -18,7 +18,7 @@ namespace Qhta.Xml.Serialization
     /// <summary>
     /// Name of the Xml/Json element
     /// </summary>
-    public string? ElementName {get; init; }
+    public string? ElementName {get; }
 
     /// <summary>
     /// Refers to the existing TypeInfo

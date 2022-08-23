@@ -5,9 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 
-using Qhta.TestHelper;
-using Qhta.TypeUtils;
-
 namespace Qhta.Xml.Serialization
 {
   public class SerializationTypeInfo: ITypeInfo

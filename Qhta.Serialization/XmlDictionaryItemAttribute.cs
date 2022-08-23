@@ -19,9 +19,9 @@ namespace Qhta.Xml.Serialization
     {
       KeyAttributeName = keyName;
     }
-    public string? KeyAttributeName { get; init; }
+    public string? KeyAttributeName { get;}
 
-    public string? ValueAttributeName { get; init; }
+    public string? ValueAttributeName { get;}
 
   }
 }

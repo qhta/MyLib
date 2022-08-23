@@ -10,6 +10,6 @@ namespace Qhta.Xml.Serialization
       ConverterType = type;
     }
 
-    public Type ConverterType { get; init; }
+    public Type ConverterType { get;}
   }
 }

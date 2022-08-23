@@ -1,0 +1,7 @@
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Interop.IWshRuntimeLibrary.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.csproj.ResolveComReference.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.csproj.CoreCompileInputs.cache

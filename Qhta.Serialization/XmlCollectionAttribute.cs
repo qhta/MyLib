@@ -13,9 +13,9 @@ namespace Qhta.Xml.Serialization
       CollectionType = collectionType;
     }
 
-    public Type? CollectionType { get; init; }
+    public Type? CollectionType { get;}
 
-    //public Type? ItemType { get; init; }
+    //public Type? ItemType { get;}
 
     public string? AddMethod { get; set; }
 

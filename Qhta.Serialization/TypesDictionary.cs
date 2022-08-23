@@ -51,7 +51,7 @@ namespace Qhta.Xml.Serialization
       return StringIndexedItems.Remove(key);
     }
 
-    public bool TryGetValue(string key, [MaybeNullWhen(false)] out ItemType value)
+    public bool TryGetValue(string key, /*[MaybeNullWhen(false)]*/ out ItemType value)
     {
       return (StringIndexedItems).TryGetValue(key, out value);
     }
@@ -117,7 +117,7 @@ namespace Qhta.Xml.Serialization
       return TypeIndexedItems.Remove(type);
     }
 
-    public bool TryGetValue(Type type, [MaybeNullWhen(false)] out ItemType value)
+    public bool TryGetValue(Type type, /*[MaybeNullWhen(false)]*/ out ItemType value)
     {
       return TypeIndexedItems.TryGetValue(type, out value);
     }

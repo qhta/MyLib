@@ -9,11 +9,11 @@ namespace Qhta.Xml.Serialization
 
     public XmlDictionaryAttribute(string? elementName) : base(elementName) { }
 
-    public Type? KeyType { get; init; }
+    public Type? KeyType { get;}
 
-    public string? KeyName { get; init; }
+    public string? KeyName { get;}
 
-    public Type? ValueType { get; init; }
+    public Type? ValueType { get;}
 
     public bool AttributesAreKeys { get; set; }
 

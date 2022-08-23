@@ -1,7 +1,7 @@
-﻿using Qhta.TestHelper;
-
+﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -21,17 +21,17 @@ namespace Qhta.Xml.Serialization
       if (serializationTypeInfo == null)
         serializationTypeInfo = objectTypeInfo;
       if (serializationTypeInfo == null)
-        throw new InternalException($"Unknown type info for property XmlConverter");
+        throw new IOException($"Unknown type info for property XmlConverter");
 
       if (reader.EOF)
         return null;
       var constructor = serializationTypeInfo.KnownConstructor;
 
       if (constructor == null)
-        throw new InternalException($"Type {serializationTypeInfo.Type} has no parameterless public constructor");
+        throw new IOException($"Type {serializationTypeInfo.Type} has no parameterless public constructor");
       var dict = constructor.Invoke(new object[0]) as Dictionary<string, string>;
       if (dict == null)
-        throw new InternalException($"Type {serializationTypeInfo.Type} must be a Dictionary<string, string>");
+        throw new IOException($"Type {serializationTypeInfo.Type} must be a Dictionary<string, string>");
       reader.MoveToFirstAttribute();
       for (int i = 0; i < reader.AttributeCount; i++)
       {

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace Qhta.Xml.Serialization
 {
@@ -19,6 +20,7 @@ namespace Qhta.Xml.Serialization
     {
       Name = name;
       PropInfo = propertyInfo;
+      IsNullable = PropInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable;
       Order = order;
     }
 
@@ -30,12 +32,14 @@ namespace Qhta.Xml.Serialization
     /// <summary>
     /// Attribute or element name used for serialization
     /// </summary>
-    public string Name { get; init; }
+    public string Name { get;}
 
     /// <summary>
     /// Applied property info
     /// </summary>
-    public PropertyInfo PropInfo { get; init; }
+    public PropertyInfo PropInfo { get;}
+
+    public bool? IsNullable { get;}
 
     /// <summary>
     /// Applied type info

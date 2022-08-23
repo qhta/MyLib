@@ -8,10 +8,14 @@
           "System.IO.Packaging": "4.7.0"
         },
         "compile": {
-          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {}
+          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {}
+          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -50,10 +54,14 @@
       "System.IO.Packaging/4.7.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/System.IO.Packaging.dll": {}
+          "ref/netstandard2.0/System.IO.Packaging.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.IO.Packaging.dll": {}
+          "lib/netstandard2.0/System.IO.Packaging.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -337,11 +345,12 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

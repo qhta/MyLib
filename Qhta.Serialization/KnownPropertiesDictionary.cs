@@ -29,7 +29,7 @@ namespace Qhta.Xml.Serialization
       return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Remove(key);
     }
 
-    public bool TryGetValue(string key, [MaybeNullWhen(false)] out SerializationPropertyInfo value)
+    public bool TryGetValue(string key, /*[MaybeNullWhen(false)]*/ out SerializationPropertyInfo value)
     {
       return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).TryGetValue(key, out value);
     }
