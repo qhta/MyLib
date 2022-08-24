@@ -186,8 +186,7 @@ namespace Qhta.Xml.Serialization
       {
         var propInfo = prop.PropInfo;
         string propTag = prop.Name;
-        if (propTag == "HeadingPairs")
-          Debug.Assert(true);
+
 
         if (Options?.PrecedePropertyNameWithElementName == true)
           propTag = elementTag + "." + propTag;

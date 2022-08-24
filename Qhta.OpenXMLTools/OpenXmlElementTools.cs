@@ -6,12 +6,13 @@ namespace Qhta.OpenXMLTools
 {
   public static class OpenXmlElementTools
   {
-    public static OpenXmlPart GetDocumentPart(this OpenXmlElement xmlElement)
+    public static OpenXmlPart? GetDocumentPart(this OpenXmlElement? xmlElement)
     {
       if (xmlElement == null)
       {
         return null;
       }
+
       if (xmlElement is Document document)
       {
         return document.MainDocumentPart;
@@ -28,6 +29,18 @@ namespace Qhta.OpenXMLTools
       }
 
       return GetDocumentPart(xmlElement.Parent);
+    }
+
+    public static Document? GetParentDocument(OpenXmlElement element)
+    {
+      while (element is not Document)
+      {
+        if (element.Parent == null)
+          return null;
+        element = element.Parent;
+      }
+
+      return element as Document;
     }
   }
 }
