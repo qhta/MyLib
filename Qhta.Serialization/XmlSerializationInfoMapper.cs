@@ -189,9 +189,6 @@ namespace Qhta.Xml.Serialization
     /// </exception>
     protected void FillTypeInfo(SerializationTypeInfo typeInfo)
     {
-      if (typeInfo.Type.Name == "TitlesOfParts")
-        Debug.Assert(true);
-
       var aType = typeInfo.Type;
 
       var xmlDictionaryAttribute = aType.GetCustomAttribute<XmlDictionaryAttribute>();
@@ -223,9 +220,8 @@ namespace Qhta.Xml.Serialization
       #endregion
 
       CategorizeProperties(aType, typeInfo);
+      SearchShouldSerializeMethods(aType, typeInfo);
 
-      //typeInfo.PropsAsAttributes = GetPropsAsXmlAttributes(aType);
-      //typeInfo.PropsAsElements = GetPropsAsXmlElements(aType);
       typeInfo.KnownItemTypes = GetKnownItems(aType);
       typeInfo.XmlConverter = GetXmlConverter(aType);
       typeInfo.KnownContentProperty = GetContentProperty(aType);
@@ -235,8 +231,6 @@ namespace Qhta.Xml.Serialization
 
     public virtual void CategorizeProperties(Type aType, SerializationTypeInfo typeInfo)
     {
-      if (aType.Name == "TitlesOfParts")
-        Debug.Assert(true);
       var props = aType.GetPropertiesByInheritance().Where(item => item.CanRead);
       if (!props.Any())
         return;
@@ -244,8 +238,6 @@ namespace Qhta.Xml.Serialization
       int elemCount = 0;
       foreach (var propInfo in props)
       {
-        if (propInfo.Name == "TitlesOfParts")
-          Debug.Assert(true);
         var xmlAttribute = propInfo.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().FirstOrDefault();
         if (xmlAttribute != null)
           TryAddPropertyAsAttribute(typeInfo, propInfo, xmlAttribute, attrCount++);
@@ -1011,6 +1003,30 @@ namespace Qhta.Xml.Serialization
       return constructor.Invoke(null) as TypeConverter;
     }
 
+    protected void SearchShouldSerializeMethods(Type aType, SerializationTypeInfo typeInfo)
+    {
+      var methodInfos = aType
+        .GetMethodsByInheritance(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+        .Where(item => item.Name.StartsWith(Options.ShouldSerializeMethodPrefix)).ToArray();
+      if (methodInfos.Length > 0)
+      {
+        foreach (var attrPropInfo in typeInfo.PropsAsAttributes)
+          SearchShouldSerializeMethod(methodInfos, attrPropInfo);
+        foreach (var elemPropInfo in typeInfo.PropsAsElements)
+          SearchShouldSerializeMethod(methodInfos, elemPropInfo);
+      }
+    }
+
+    protected void SearchShouldSerializeMethod(MethodInfo[] methodInfos, SerializationPropertyInfo propInfo)
+    {
+      var methodInfo = methodInfos.FirstOrDefault(item=>item.Name.EndsWith(propInfo.PropInfo.Name));
+      if (methodInfo != null)
+      {
+        if (methodInfo.ReturnType == typeof(bool))
+          if (!methodInfo.GetParameters().Any())
+            propInfo.ShouldSerializeMethod = methodInfo;
+      }
+    }
 
     public virtual bool IsSimple(Type aType)
     {

@@ -130,6 +130,7 @@ namespace Qhta.Xml.Serialization
       WritePropertiesBase(writer, tag, obj, typeInfo);
       WriteCollectionBase(writer, tag, null, obj, typeInfo);
     }
+
     public int WriteAttributesBase(XmlWriter writer, object obj, SerializationTypeInfo typeInfo)
     {
       var aType = obj.GetType();
@@ -137,6 +138,14 @@ namespace Qhta.Xml.Serialization
       int attrsWritten = 0;
       foreach (var item in propList)
       {
+        if (item.ShouldSerializeMethod != null)
+        {
+          var shouldSerializeProperty = item.ShouldSerializeMethod.Invoke(new object[] { obj }, new object[0]);
+          if (shouldSerializeProperty is bool shouldSerialize)
+            if (!shouldSerialize)
+              continue;
+        }
+
         var propInfo = item.PropInfo;
         string? attrName = item.Name;
         var propValue = propInfo.GetValue(obj);
@@ -184,6 +193,14 @@ namespace Qhta.Xml.Serialization
 
       foreach (var prop in props)
       {
+        if (prop.ShouldSerializeMethod != null)
+        {
+          var shouldSerializeProperty = prop.ShouldSerializeMethod.Invoke(obj, new object[0]);
+          if (shouldSerializeProperty is bool shouldSerialize)
+            if (!shouldSerialize)
+              continue;
+        }
+
         var propInfo = prop.PropInfo;
         string propTag = prop.Name;
 
