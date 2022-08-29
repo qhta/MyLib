@@ -1,46 +1,45 @@
 ﻿using System;
 #nullable enable
 
-namespace Qhta.Xml.Serialization
+namespace Qhta.Xml.Serialization;
+
+public enum XmlAttributeNameType
 {
-  public enum XmlAttributeNameType
+  Element,
+  Property,
+  Method,
+}
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class XmlNameAttribute: System.Attribute
+{
+  public XmlNameAttribute() { }
+
+  public XmlNameAttribute(string? elementName)
   {
-    Element,
-    Property,
-    Method,
+    ElementName = elementName;
   }
 
-  [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-  public class XmlNameAttribute: System.Attribute
-  {
-    public XmlNameAttribute() { }
+  private string? Name {get; set; }
 
-    public XmlNameAttribute(string? elementName)
-    {
-      ElementName = elementName;
-    }
+  public XmlAttributeNameType NameType { get; set; }
 
-    private string? Name {get; set; }
-
-    public XmlAttributeNameType NameType { get; set; }
-
-    public string? ElementName 
-    { 
-      get => (NameType == XmlAttributeNameType.Element) ? Name : null;
-      set { Name = value; NameType = XmlAttributeNameType.Element; }
-    }
-
-    public string? PropertyName
-    {
-      get => (NameType == XmlAttributeNameType.Property) ? Name : null;
-      set { Name = value; NameType = XmlAttributeNameType.Property; }
-    }
-
-    public string? MethodName
-    {
-      get => (NameType == XmlAttributeNameType.Method) ? Name : null;
-      set { Name = value; NameType = XmlAttributeNameType.Method; }
-    }
-
+  public string? ElementName 
+  { 
+    get => (NameType == XmlAttributeNameType.Element) ? Name : null;
+    set { Name = value; NameType = XmlAttributeNameType.Element; }
   }
+
+  public string? PropertyName
+  {
+    get => (NameType == XmlAttributeNameType.Property) ? Name : null;
+    set { Name = value; NameType = XmlAttributeNameType.Property; }
+  }
+
+  public string? MethodName
+  {
+    get => (NameType == XmlAttributeNameType.Method) ? Name : null;
+    set { Name = value; NameType = XmlAttributeNameType.Method; }
+  }
+
 }

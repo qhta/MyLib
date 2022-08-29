@@ -1,21 +1,20 @@
-﻿namespace Qhta.Xml.Serialization
+﻿namespace Qhta.Xml.Serialization;
+
+public interface IXWriter
 {
-  public interface IXWriter
-  {
-    void WriteStartElement(string tag);
+  void WriteStartElement(string tag);
 
-    void WriteEndElement(string tag);
+  void WriteEndElement(string tag);
 
-    void WriteAttributeString(string? prefix, string localName, string? ns, string? value);
+  void WriteAttributeString(string? prefix, string localName, string? ns, string? value);
 
-    void WriteAttributeString(string localName, string? ns, string? value);
+  void WriteAttributeString(string localName, string? ns, string? value);
 
-    void WriteAttributeString(string attrName, string str);
+  void WriteAttributeString(string attrName, string str);
 
-    void WriteElementString(string tagName, string str);
+  void WriteElementString(string tagName, string str);
 
-    void WriteValue(string str);
+  void WriteValue(string str);
 
-    void WriteSignificantSpaces(bool value);
-  }
+  void WriteSignificantSpaces(bool value);
 }

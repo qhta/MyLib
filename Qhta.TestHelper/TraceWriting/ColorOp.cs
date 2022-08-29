@@ -1,12 +1,11 @@
-﻿namespace Qhta.TestHelper
+﻿namespace Qhta.TestHelper;
+
+/// <summary>
+/// Color operation encoded in <see cref="ColorTag"/>
+/// </summary>
+public enum ColorOp
 {
-  /// <summary>
-  /// Color operation encoded in <see cref="ColorTag"/>
-  /// </summary>
-  public enum ColorOp
-  {
-    Reset,
-    Foreground,
-    Background,
-  }
+  Reset,
+  Foreground,
+  Background,
 }

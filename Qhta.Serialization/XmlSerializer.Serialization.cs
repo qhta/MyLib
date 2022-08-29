@@ -2,11 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -15,453 +13,443 @@ using Qhta.TestHelper;
 using Qhta.TypeUtils;
 
 
-namespace Qhta.Xml.Serialization
+namespace Qhta.Xml.Serialization;
+
+public partial class XmlSerializer
 {
-  public partial class XmlSerializer
-  {
-    private const string xsi = @"http://www.w3.org/2001/XMLSchema-instance";
+  private const string xsi = @"http://www.w3.org/2001/XMLSchema-instance";
 
-    public Dictionary<string, string> Namespaces { get; } = new Dictionary<string, string>();
+  public Dictionary<string, string> Namespaces { get; } = new Dictionary<string, string>();
 
-    public XmlWriterSettings XmlWriterSettings { get; set; } = new XmlWriterSettings
+  public XmlWriterSettings XmlWriterSettings { get; set; } = new XmlWriterSettings
     { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
 
-    #region Serialize methods
-    public void Serialize(Stream stream, object? obj)
+  #region Serialize methods
+  public void Serialize(Stream stream, object? obj)
+  {
+    if (obj == null)
+      return;
+    using (XmlWriter xmlWriter = XmlWriter.Create(new StreamWriter(stream), XmlWriterSettings))
     {
-      if (obj == null)
-        return;
-      using (XmlWriter xmlWriter = XmlWriter.Create(new StreamWriter(stream), XmlWriterSettings))
-      {
-        Serialize(xmlWriter, obj);
-      }
+      Serialize(xmlWriter, obj);
+    }
+  }
+
+  public void Serialize(XmlWriter writer, object? obj)
+  {
+    if (obj == null)
+      return;
+    using (XmlWriter xmlWriter = XmlWriter.Create(writer, XmlWriterSettings))
+    {
+      WriteObject(xmlWriter, obj);
+    }
+  }
+
+  public void Serialize(TextWriter textWriter, object? obj)
+  {
+    if (obj == null)
+      return;
+    using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings))
+    {
+      WriteObject(xmlWriter, obj);
+    }
+  }
+
+  public string Serialize(object obj)
+  {
+    using (var stream = new MemoryStream())
+    {
+      Serialize(stream, obj);
+      stream.Flush();
+      var bytes = stream.ToArray();
+      return Encoding.UTF8.GetString(bytes);
+    }
+  }
+
+
+
+  //public void Serialize(XmlWriter writer, object? obj)
+  //{
+  //  if (obj is IXSerializable serializableItem)
+  //  {
+  //    serializableItem.Serialize(this, writer);
+  //  }
+  //  else if (obj != null)
+  //  {
+  //    WriteObject(writer, obj);
+  //  }
+  //}
+
+  //public void SerializeObject(XmlWriter writer, object? obj)
+  //{
+  //  if (obj is IXSerializable qSerializable)
+  //  {
+  //    qSerializable.Serialize(this, writer);
+  //  }
+  //  //else if (obj is IXmlSerializable xmlSerializable)
+  //  //{
+  //  //  xmlSerializable.WriteXml(writer);
+  //  //}
+  //  else if (obj != null)
+  //  {
+  //    WriteObject(writer, obj);
+  //  }
+  //}
+  #endregion
+
+  #region Write methods
+
+  public void WriteObject(XmlWriter writer, object obj)
+  {
+    var aType = obj.GetType();
+    if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
+      throw new InternalException($"Type \"{aType}\" not registered");
+    var tag = KnownTypes.KnownTags(serializedTypeInfo.Type).FirstOrDefault();
+    if (tag != null)
+    {
+      if (tag.Contains(':'))
+        tag = tag.Split(':').Last();
+      writer.WriteStartElement(tag);
+    }
+    if (Options.UseNilAttribute && !Namespaces.ContainsKey("xsi"))
+    {
+      Namespaces.Add("xsi", xsi);
+      writer.WriteAttributeString("xmlns", "xsi", null, xsi);
     }
 
-    public void Serialize(XmlWriter writer, object? obj)
+    WriteObjectInterior(writer, null, obj, serializedTypeInfo);
+    if (tag != null)
+      writer.WriteEndElement();
+  }
+
+  public void WriteObjectInterior(XmlWriter writer, string? tag, object obj, SerializationTypeInfo typeInfo)
+  {
+    WriteAttributesBase(writer, obj, typeInfo);
+    WritePropertiesBase(writer, tag, obj, typeInfo);
+    WriteCollectionBase(writer, tag, null, obj, typeInfo);
+  }
+
+  public int WriteAttributesBase(XmlWriter writer, object obj, SerializationTypeInfo typeInfo)
+  {
+    var aType = obj.GetType();
+    var propList = typeInfo.PropsAsAttributes.OrderBy(item => item.Order).ToList();
+    int attrsWritten = 0;
+    foreach (var item in propList)
     {
-      if (obj == null)
-        return;
-      using (XmlWriter xmlWriter = XmlWriter.Create(writer, XmlWriterSettings))
+      if (item.ShouldSerializeMethod != null)
       {
-        WriteObject(xmlWriter, obj);
-      }
-    }
-
-    public void Serialize(TextWriter textWriter, object? obj)
-    {
-      if (obj == null)
-        return;
-      using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings))
-      {
-        WriteObject(xmlWriter, obj);
-      }
-    }
-
-    public string Serialize(object obj)
-    {
-      using (var stream = new MemoryStream())
-      {
-        Serialize(stream, obj);
-        stream.Flush();
-        var bytes = stream.ToArray();
-        return Encoding.UTF8.GetString(bytes);
-      }
-    }
-
-
-
-    //public void Serialize(XmlWriter writer, object? obj)
-    //{
-    //  if (obj is IXSerializable serializableItem)
-    //  {
-    //    serializableItem.Serialize(this, writer);
-    //  }
-    //  else if (obj != null)
-    //  {
-    //    WriteObject(writer, obj);
-    //  }
-    //}
-
-    //public void SerializeObject(XmlWriter writer, object? obj)
-    //{
-    //  if (obj is IXSerializable qSerializable)
-    //  {
-    //    qSerializable.Serialize(this, writer);
-    //  }
-    //  //else if (obj is IXmlSerializable xmlSerializable)
-    //  //{
-    //  //  xmlSerializable.WriteXml(writer);
-    //  //}
-    //  else if (obj != null)
-    //  {
-    //    WriteObject(writer, obj);
-    //  }
-    //}
-    #endregion
-
-    #region Write methods
-
-    public void WriteObject(XmlWriter writer, object obj)
-    {
-      var aType = obj.GetType();
-      if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-        throw new InternalException($"Type \"{aType}\" not registered");
-      var tag = KnownTypes.KnownTags(serializedTypeInfo.Type).FirstOrDefault();
-      if (tag != null)
-      {
-        if (tag.Contains(':'))
-          tag = tag.Split(':').Last();
-        writer.WriteStartElement(tag);
-      }
-      if (Options.UseNilAttribute && !Namespaces.ContainsKey("xsi"))
-      {
-        Namespaces.Add("xsi", xsi);
-        writer.WriteAttributeString("xmlns", "xsi", null, xsi);
+        var shouldSerializeProperty = item.ShouldSerializeMethod.Invoke(new object[] { obj }, new object[0]);
+        if (shouldSerializeProperty is bool shouldSerialize)
+          if (!shouldSerialize)
+            continue;
       }
 
-      WriteObjectInterior(writer, null, obj, serializedTypeInfo);
-      if (tag != null)
-        writer.WriteEndElement();
-    }
-
-    public void WriteObjectInterior(XmlWriter writer, string? tag, object obj, SerializationTypeInfo typeInfo)
-    {
-      WriteAttributesBase(writer, obj, typeInfo);
-      WritePropertiesBase(writer, tag, obj, typeInfo);
-      WriteCollectionBase(writer, tag, null, obj, typeInfo);
-    }
-
-    public int WriteAttributesBase(XmlWriter writer, object obj, SerializationTypeInfo typeInfo)
-    {
-      var aType = obj.GetType();
-      var propList = typeInfo.PropsAsAttributes.OrderBy(item=>item.Order).ToList();
-      int attrsWritten = 0;
-      foreach (var item in propList)
+      var propInfo = item.PropInfo;
+      string? attrName = item.Name;
+      var propValue = propInfo.GetValue(obj);
+      if (propValue != null)
       {
-        if (item.ShouldSerializeMethod != null)
+        var defaultValue =
+          (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
+        if (defaultValue != null && propValue.Equals(defaultValue))
+          continue;
+        string? str = GetValueString(propValue);
+        if (str != null)
         {
-          var shouldSerializeProperty = item.ShouldSerializeMethod.Invoke(new object[] { obj }, new object[0]);
-          if (shouldSerializeProperty is bool shouldSerialize)
-            if (!shouldSerialize)
-              continue;
+          writer.WriteAttributeString(attrName, str);
+          attrsWritten++;
+        }
+      }
+    }
+    return attrsWritten;
+  }
+
+  public int WritePropertiesBase(XmlWriter writer, string? elementTag, object obj, SerializationTypeInfo typeInfo)
+  {
+    var props = typeInfo.PropsAsElements;
+
+    int propsWritten = 0;
+
+    foreach (var prop in props)
+    {
+      if (prop.ShouldSerializeMethod != null)
+      {
+        var shouldSerializeProperty = prop.ShouldSerializeMethod.Invoke(obj, new object[0]);
+        if (shouldSerializeProperty is bool shouldSerialize)
+          if (!shouldSerialize)
+            continue;
+      }
+
+      var propInfo = prop.PropInfo;
+      string propTag = prop.Name;
+
+      if (Options?.PrecedePropertyNameWithElementName == true)
+        propTag = elementTag + "." + propTag;
+      var propValue = propInfo.GetValue(obj);
+      if (propValue == null)
+      {
+        if (Options?.UseNilAttribute == true && prop.IsNullable == true)
+        {
+          if (!String.IsNullOrEmpty(propTag))
+            WriteStartElement(writer, propTag);
+          writer.WriteAttributeString(null, "nil", xsi, "true");
+          if (!String.IsNullOrEmpty(propTag))
+            WriteEndElement(writer, propTag);
+        }
+      }
+      else
+      {
+        var defaultValue =
+          (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as
+            DefaultValueAttribute)?.Value;
+        if (defaultValue != null)
+        {
+          if (propValue.Equals(defaultValue))
+            continue;
+          if (defaultValue is int iv && iv==0 && (int)propValue == 0)
+            continue;
         }
 
-        var propInfo = item.PropInfo;
-        string? attrName = item.Name;
-        var propValue = propInfo.GetValue(obj);
-        if (propValue != null)
+        if (!String.IsNullOrEmpty(propTag))
+          WriteStartElement(writer, propTag);
+        //if (propValue is IXSerializable serializableValue)
+        //  serializableValue.Serialize(this, writer);
+        //else
         {
-          var defaultValue =
-            (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
-          if (defaultValue == null || !propValue.Equals(defaultValue))
+          var pType = propValue.GetType();
+          if (pType.IsSimple())
           {
-            string? str = GetValueString(propValue);
-            if (str != null)
-            {
-              writer.WriteAttributeString(attrName, str);
-              attrsWritten++;
-            }
+            WriteValue(writer, GetValueString(propValue));
+          }
+          else
+          if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
+          {
+            WriteObjectInterior(writer, null, propValue, serializedTypeInfo);
+          }
+          //else if (propValue is ICollection collection)
+          //{
+          //  var arrayInfo = prop.CollectionInfo;
+          //  foreach (var arrayItem in collection)
+          //  {
+          //    if (arrayItem != null)
+          //    {
+          //      var itemType = arrayItem.GetType();
+          //      //SerializationTypeInfo? itemTypeInfo;
+          //      string? itemName = null;
+          //      if (arrayInfo != null)
+          //      {
+
+          //        var itemTypeInfoPair = arrayInfo.KnownItemTypes.FindTypeInfo(itemType);
+          //        if (itemTypeInfoPair != null)
+          //        {
+          //          //itemTypeInfo = itemTypeInfoPair.TypeInfo;
+          //          itemName = itemTypeInfoPair.ElementName;
+          //        }
+          //      }
+
+          //      if (itemName == null)
+          //        itemName = arrayItem.GetType().Name;
+          //      WriteStartElement(writer, itemName);
+          //      if (arrayItem.GetType().Name == "SwitchCase")
+          //        TestUtils.Stop();
+          //      WriteObjectInterior(writer, itemName, arrayItem);
+          //      WriteEndElement(writer, itemName);
+          //    }
+          //  }
+          //}
+          else
+          {
+            WriteValue(writer, GetValueString(propValue));
           }
         }
+        if (!String.IsNullOrEmpty(propTag))
+          WriteEndElement(writer, propTag);
+        propsWritten++;
       }
-      return attrsWritten;
+
+    }
+    return propsWritten;
+  }
+
+  public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, Object obj, SerializationTypeInfo typeInfo)
+  {
+    if (typeInfo.CollectionInfo != null)
+      return WriteCollectionBase(writer, elementTag, propTag, obj, typeInfo.CollectionInfo);
+    return 0;
+  }
+
+  public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, Object obj, CollectionInfo collectionInfo)
+  {
+    var itemsWritten = 0;
+    var collection = obj as IEnumerable;
+    if (collection == null)
+      return 0;
+    var itemTypes = collectionInfo.KnownItemTypes;
+    if (propTag != null && elementTag != null)
+    {
+      if (Options?.PrecedePropertyNameWithElementName == true)
+        propTag = elementTag + "." + propTag;
     }
 
-    public int WritePropertiesBase(XmlWriter writer, string? elementTag, object obj, SerializationTypeInfo typeInfo)
+    if (!String.IsNullOrEmpty(propTag))
+      writer.WriteStartElement(propTag);
+    foreach (var item in collection)
     {
-      var aType = obj.GetType();
-      var attribs = typeInfo.PropsAsAttributes;
-      var props = typeInfo.PropsAsElements;
-
-      int propsWritten = 0;
-      //foreach (var item in attribs)
-      //{
-      //  var propInfo = item.PropInfo;
-      //  string? propTag = item.Name;
-      //  if (elementTag != null)
-      //    if (Options?.PrecedePropertyNameWithElementName == true)
-      //      propTag = elementTag + "." + propTag;
-      //  var propValue = propInfo.GetValue(obj);
-      //  if (propValue != null && !IsSimple(propValue))
-      //  {
-      //    WriteStartElement(writer, propTag);
-      //    WriteValue(writer, propValue?.ToString());
-      //    WriteEndElement(writer, propTag);
-      //    propsWritten++;
-      //  }
-      //}
-
-      foreach (var prop in props)
+      if (item != null)
       {
-        if (prop.ShouldSerializeMethod != null)
+        var itemTag = Options?.ItemTag ?? "item";
+        if (item.GetType().IsSimple())
         {
-          var shouldSerializeProperty = prop.ShouldSerializeMethod.Invoke(obj, new object[0]);
-          if (shouldSerializeProperty is bool shouldSerialize)
-            if (!shouldSerialize)
-              continue;
+          itemTag = GetItemTag(item.GetType());
+          WriteStartElement(writer, itemTag);
+          WriteValue(writer, item);
+          WriteEndElement(writer, itemTag);
         }
-
-        var propInfo = prop.PropInfo;
-        string propTag = prop.Name;
-
-
-        if (Options?.PrecedePropertyNameWithElementName == true)
-          propTag = elementTag + "." + propTag;
-        var propValue = propInfo.GetValue(obj);
-        if (propValue == null)
+        //else if (item is IXSerializable serializableItem)
+        //  serializableItem.Serialize(this);
+        else
+        if (item.GetType().Name.StartsWith("KeyValuePair`"))
         {
-          if (Options?.UseNilAttribute == true && prop.IsNullable == true)
+          var keyProp = item.GetType().GetProperty("Key");
+          var valProp = item.GetType().GetProperty("Value");
+          if (keyProp != null && valProp != null)
           {
-            if (!String.IsNullOrEmpty(propTag))
-              WriteStartElement(writer, propTag);
-            writer.WriteAttributeString(null, "nil", xsi, "true");
-            if (!String.IsNullOrEmpty(propTag))
-              WriteEndElement(writer, propTag);
+            var key = keyProp.GetValue(item);
+            var val = valProp.GetValue(item);
+            if (key != null)
+            {
+              WriteStartElement(writer, itemTag);
+              WriteAttributeString(writer, "key", key.ToString() ?? "");
+              //if (val is string strVal)
+              //  WriteValue(strVal);
+              //else 
+              if (val != null)
+                WriteObject(writer, val);
+              WriteEndElement(writer, itemTag);
+            }
           }
         }
         else
         {
-          if (!String.IsNullOrEmpty(propTag))
-            WriteStartElement(writer, propTag);
-          //if (propValue is IXSerializable serializableValue)
-          //  serializableValue.Serialize(this, writer);
-          //else
+          TypeConverter? typeConverter = null;
+          if (itemTypes != null)
           {
-            var pType = propValue.GetType();
-            if (pType.IsSimple())
+            var itemType = item.GetType();
+            if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
             {
-              WriteValue(writer, GetValueString(propValue));
+              itemTypeInfo = itemTypes.FindTypeInfo(itemType);
             }
-            else
-            if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
+            if (itemTypeInfo != null)
             {
-              WriteObjectInterior(writer, null, propValue, serializedTypeInfo);
-            }
-            //else if (propValue is ICollection collection)
-            //{
-            //  var arrayInfo = prop.CollectionInfo;
-            //  foreach (var arrayItem in collection)
-            //  {
-            //    if (arrayItem != null)
-            //    {
-            //      var itemType = arrayItem.GetType();
-            //      //SerializationTypeInfo? itemTypeInfo;
-            //      string? itemName = null;
-            //      if (arrayInfo != null)
-            //      {
-
-            //        var itemTypeInfoPair = arrayInfo.KnownItemTypes.FindTypeInfo(itemType);
-            //        if (itemTypeInfoPair != null)
-            //        {
-            //          //itemTypeInfo = itemTypeInfoPair.TypeInfo;
-            //          itemName = itemTypeInfoPair.ElementName;
-            //        }
-            //      }
-
-            //      if (itemName == null)
-            //        itemName = arrayItem.GetType().Name;
-            //      WriteStartElement(writer, itemName);
-            //      if (arrayItem.GetType().Name == "SwitchCase")
-            //        TestUtils.Stop();
-            //      WriteObjectInterior(writer, itemName, arrayItem);
-            //      WriteEndElement(writer, itemName);
-            //    }
-            //  }
-            //}
-            else
-            {
-              WriteValue(writer, GetValueString(propValue));
+              itemTag = itemTypes.KnownTags(itemTypeInfo.Type).FirstOrDefault();
+              if (itemTag == itemTypeInfo.ElementName)
+                itemTag = itemType.Name;
+              typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
             }
           }
-          if (!String.IsNullOrEmpty(propTag))
-            WriteEndElement(writer, propTag);
-          propsWritten++;
+          if (!string.IsNullOrEmpty(itemTag))
+            WriteStartElement(writer, itemTag);
+          if (typeConverter != null)
+            WriteValue(writer, typeConverter.ConvertToString(item) ?? "");
+          else
+            WriteObject(writer, item);
+          if (!string.IsNullOrEmpty(itemTag))
+            WriteEndElement(writer, itemTag);
         }
-
-      }
-      return propsWritten;
-    }
-
-    public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, Object obj, SerializationTypeInfo typeInfo)
-    {
-      if (typeInfo.CollectionInfo != null)
-        return WriteCollectionBase(writer, elementTag, propTag, obj, typeInfo.CollectionInfo);
-      return 0;
-    }
-
-    public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, Object obj, CollectionInfo collectionInfo)
-    {
-      var itemsWritten = 0;
-      var collection = obj as IEnumerable;
-      if (collection == null)
-        return 0;
-      var itemTypes = collectionInfo.KnownItemTypes;
-      if (propTag != null && elementTag != null)
-      {
-        if (Options?.PrecedePropertyNameWithElementName == true)
-          propTag = elementTag + "." + propTag;
+        itemsWritten++;
       }
 
       if (!String.IsNullOrEmpty(propTag))
-        writer.WriteStartElement(propTag);
-      foreach (var item in collection)
-      {
-        if (item != null)
-        {
-          var itemTag = Options?.ItemTag ?? "item";
-          if (item.GetType().IsSimple())
-          {
-            itemTag = GetItemTag(item.GetType());
-            WriteStartElement(writer,itemTag);
-            WriteValue(writer, item);
-            WriteEndElement(writer, itemTag);
-          }
-          //else if (item is IXSerializable serializableItem)
-          //  serializableItem.Serialize(this);
-          //else 
-          if (item.GetType().Name.StartsWith("KeyValuePair`"))
-          {
-            var keyProp = item.GetType().GetProperty("Key");
-            var valProp = item.GetType().GetProperty("Value");
-            if (keyProp != null && valProp != null)
-            {
-              var key = keyProp.GetValue(item);
-              var val = valProp.GetValue(item);
-              if (key != null)
-              {
-                WriteStartElement(writer, itemTag);
-                WriteAttributeString(writer, "key", key.ToString() ?? "");
-                //if (val is string strVal)
-                //  WriteValue(strVal);
-                //else 
-                if (val != null)
-                  WriteObject(writer, val);
-                WriteEndElement(writer, itemTag);
-              }
-            }
-          }
-          else
-          {
-            TypeConverter? typeConverter = null;
-            if (itemTypes != null)
-            {
-              var itemType = item.GetType();
-              if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
-              {
-                itemTypeInfo = itemTypes.FindTypeInfo(itemType);
-              }
-              if (itemTypeInfo != null)
-              {
-                itemTag = itemTypes.KnownTags(itemTypeInfo.Type).FirstOrDefault();
-                if (itemTag == itemTypeInfo.ElementName)
-                  itemTag = itemType.Name;
-                typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
-              }
-            }
-            if (!string.IsNullOrEmpty(itemTag))
-              WriteStartElement(writer, itemTag);
-            if (typeConverter != null)
-              WriteValue(writer, typeConverter.ConvertToString(item) ?? "");
-            else
-              WriteObject(writer, item);
-            if (!string.IsNullOrEmpty(itemTag))
-              WriteEndElement(writer, itemTag);
-          }
-          itemsWritten++;
-        }
-
-        if (!String.IsNullOrEmpty(propTag))
-          writer.WriteEndElement();
-      }
-
-      writer.Flush();
-      return itemsWritten;
+        writer.WriteEndElement();
     }
 
-    public void WriteStartElement(XmlWriter writer, string propTag)
-    {
-      writer.WriteStartElement(propTag);
-    }
-
-    public void WriteEndElement(XmlWriter writer, string propTag)
-    {
-      writer.WriteEndElement();
-    }
-
-    public void WriteAttributeString(XmlWriter writer, string attrName, string valStr)
-    {
-      writer.WriteAttributeString(attrName, valStr);
-    }
-
-    public void WriteValue(XmlWriter writer, object? value)
-    {
-      if (value is IXmlSerializable xmlSerializable)
-        xmlSerializable.WriteXml(writer);
-      else
-      {
-        var valStr = GetValueString(value);
-        if (valStr!=null)
-          writer.WriteValue(valStr);
-      }
-    }
-
-    //public void WriteValue(XmlWriter writer, string str)
-    //{
-    //  if (str.StartsWith(' ') || str.EndsWith(' '))
-    //    writer.WriteSignificantSpaces(true);
-    //  writer.WriteValue(str);
-    //}
-
-    public void WriteValue(XmlWriter writer, string propTag, object value)
-    {
-      WriteStartElement(writer, propTag);
-      WriteValue(writer, value);
-      WriteEndElement(writer, propTag);
-    }
-
-    protected string GetItemTag(Type aType)
-    {
-      return aType.Name.ToLowerInvariant();
-    }
-
-    protected string? GetValueString(object? propValue)
-    {
-      if (propValue == null)
-        return null;
-      if (propValue is string str)
-        return EncodeStringValue(str);
-      if (propValue is bool || propValue is bool?)
-        return ((bool)propValue) ? Options.TrueString : Options.FalseString;
-      if (propValue is float || propValue is float?)
-        return ((float)propValue).ToString(CultureInfo.InvariantCulture);
-      if (propValue is double || propValue is double?)
-        return ((double)propValue).ToString(CultureInfo.InvariantCulture);
-      if (propValue is decimal || propValue is decimal?)
-        return ((decimal)propValue).ToString(CultureInfo.InvariantCulture);
-      if (propValue is DateTime || propValue is DateTime?)
-        return ((DateTime)propValue).ToString(Options.DateTimeFormat, CultureInfo.InvariantCulture);
-      return propValue.ToString() ?? "";
-    }
-
-
-    public string EncodeStringValue(string str)
-    {
-      var sb = new StringBuilder();
-      foreach (var ch in str)
-      {
-        sb.Append(ch switch
-        {
-          '\\' => "\\\\",
-          '\t' => "\\t",
-          '\r' => "\\r",
-          '\n' => "\\n",
-          '\xA0' => "\\s",
-          _ => ch
-        });
-      }
-      return sb.ToString();
-    }
-    #endregion
-
+    writer.Flush();
+    return itemsWritten;
   }
+
+  public void WriteStartElement(XmlWriter writer, string propTag)
+  {
+    writer.WriteStartElement(propTag);
+  }
+
+  public void WriteEndElement(XmlWriter writer, string propTag)
+  {
+    writer.WriteEndElement();
+  }
+
+  public void WriteAttributeString(XmlWriter writer, string attrName, string valStr)
+  {
+    writer.WriteAttributeString(attrName, valStr);
+  }
+
+  public void WriteValue(XmlWriter writer, object? value)
+  {
+    if (value is IXmlSerializable xmlSerializable)
+      xmlSerializable.WriteXml(writer);
+    else
+    {
+      var valStr = GetValueString(value);
+      if (valStr != null)
+        writer.WriteValue(valStr);
+    }
+  }
+
+  //public void WriteValue(XmlWriter writer, string str)
+  //{
+  //  if (str.StartsWith(' ') || str.EndsWith(' '))
+  //    writer.WriteSignificantSpaces(true);
+  //  writer.WriteValue(str);
+  //}
+
+  public void WriteValue(XmlWriter writer, string propTag, object value)
+  {
+    WriteStartElement(writer, propTag);
+    WriteValue(writer, value);
+    WriteEndElement(writer, propTag);
+  }
+
+  protected string GetItemTag(Type aType)
+  {
+    return aType.Name.ToLowerInvariant();
+  }
+
+  protected string? GetValueString(object? propValue)
+  {
+    if (propValue == null)
+      return null;
+    if (propValue is string str)
+      return EncodeStringValue(str);
+    if (propValue is bool || propValue is bool?)
+      return ((bool)propValue) ? Options.TrueString : Options.FalseString;
+    if (propValue is float || propValue is float?)
+      return ((float)propValue).ToString(CultureInfo.InvariantCulture);
+    if (propValue is double || propValue is double?)
+      return ((double)propValue).ToString(CultureInfo.InvariantCulture);
+    if (propValue is decimal || propValue is decimal?)
+      return ((decimal)propValue).ToString(CultureInfo.InvariantCulture);
+    if (propValue is DateTime || propValue is DateTime?)
+      return ((DateTime)propValue).ToString(Options.DateTimeFormat, CultureInfo.InvariantCulture);
+    return propValue.ToString() ?? "";
+  }
+
+
+  public string EncodeStringValue(string str)
+  {
+    var sb = new StringBuilder();
+    foreach (var ch in str)
+    {
+      sb.Append(ch switch
+      {
+        '\\' => "\\\\",
+        '\t' => "\\t",
+        '\r' => "\\r",
+        '\n' => "\\n",
+        '\xA0' => "\\s",
+        _ => ch
+      });
+    }
+    return sb.ToString();
+  }
+  #endregion
+
 }

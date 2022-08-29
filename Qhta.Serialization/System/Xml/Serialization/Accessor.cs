@@ -5,13 +5,12 @@
 // <owner current="true" primary="true">[....]</owner> 
 //-----------------------------------------------------------------------------
 
-namespace System.Xml.Serialization
+namespace System.Xml.Serialization;
+
+internal class Accessor
 {
-  internal class Accessor
+  internal static string UnescapeName(object name)
   {
-    internal static string UnescapeName(object name)
-    {
-      throw new NotImplementedException();
-    }
+    throw new NotImplementedException();
   }
 }

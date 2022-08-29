@@ -1,95 +1,92 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Qhta.Xml.Serialization
+namespace Qhta.Xml.Serialization;
+
+public class KnownPropertiesDictionary : IEnumerable<SerializationPropertyInfo>
 {
-  public class KnownPropertiesDictionary : IEnumerable<SerializationPropertyInfo>
+  private static readonly PropOrderComparer propertyInfoOrderComparer = new PropOrderComparer();
+
+  private SortedDictionary<string, SerializationPropertyInfo> StringIndexedItems = new SortedDictionary<string, SerializationPropertyInfo>();
+  private SortedSet<SerializationPropertyInfo> OrderedItems = new SortedSet<SerializationPropertyInfo>(propertyInfoOrderComparer);
+
+  public void Add(string key, SerializationPropertyInfo value)
   {
-    private static readonly PropOrderComparer propertyInfoOrderComparer = new PropOrderComparer();
+    ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Add(key, value);
+    OrderedItems.Add(value);
+  }
 
-    private SortedDictionary<string, SerializationPropertyInfo> StringIndexedItems = new SortedDictionary<string, SerializationPropertyInfo>();
-    private SortedSet<SerializationPropertyInfo> OrderedItems = new SortedSet<SerializationPropertyInfo>(propertyInfoOrderComparer);
+  public bool ContainsKey(string key)
+  {
+    return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).ContainsKey(key);
+  }
 
-    public void Add(string key, SerializationPropertyInfo value)
-    {
-      ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Add(key, value);
-      OrderedItems.Add(value);
-    }
+  public bool Remove(string key)
+  {
+    return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Remove(key);
+  }
 
-    public bool ContainsKey(string key)
-    {
-      return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).ContainsKey(key);
-    }
+  public bool TryGetValue(string key, /*[MaybeNullWhen(false)]*/ out SerializationPropertyInfo value)
+  {
+    return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).TryGetValue(key, out value);
+  }
 
-    public bool Remove(string key)
-    {
-      return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Remove(key);
-    }
+  public SerializationPropertyInfo this[string key] { get => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems)[key]; set => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems)[key] = value; }
 
-    public bool TryGetValue(string key, /*[MaybeNullWhen(false)]*/ out SerializationPropertyInfo value)
-    {
-      return ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).TryGetValue(key, out value);
-    }
+  public ICollection<string> Keys => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Keys;
 
-    public SerializationPropertyInfo this[string key] { get => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems)[key]; set => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems)[key] = value; }
-
-    public ICollection<string> Keys => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Keys;
-
-    public ICollection<SerializationPropertyInfo> Values => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Values;
+  public ICollection<SerializationPropertyInfo> Values => ((IDictionary<string, SerializationPropertyInfo>)StringIndexedItems).Values;
 
 
-    public void Clear()
-    {
-      (StringIndexedItems).Clear();
-    }
+  public void Clear()
+  {
+    (StringIndexedItems).Clear();
+  }
 
-    public bool Contains(KeyValuePair<string, SerializationPropertyInfo> item)
-    {
-      return (StringIndexedItems).Contains(item);
-    }
+  public bool Contains(KeyValuePair<string, SerializationPropertyInfo> item)
+  {
+    return (StringIndexedItems).Contains(item);
+  }
 
-    public void CopyTo(KeyValuePair<string, SerializationPropertyInfo>[] array, int arrayIndex)
-    {
-      (StringIndexedItems).CopyTo(array, arrayIndex);
-    }
-
-
-    public int Count => (OrderedItems).Count;
-
-    public bool IsReadOnly => false;
+  public void CopyTo(KeyValuePair<string, SerializationPropertyInfo>[] array, int arrayIndex)
+  {
+    (StringIndexedItems).CopyTo(array, arrayIndex);
+  }
 
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return (OrderedItems).GetEnumerator();
-    }
+  public int Count => (OrderedItems).Count;
 
-    //public void Add(SerializationPropertyInfo item)
-    //{
-    //  (OrderedItems).Add(item);
-    //}
+  public bool IsReadOnly => false;
 
-    //public bool Contains(SerializationPropertyInfo item)
-    //{
-    //  return (OrderedItems).Contains(item);
-    //}
 
-    //public void CopyTo(SerializationPropertyInfo[] array, int arrayIndex)
-    //{
-    //  (OrderedItems).CopyTo(array, arrayIndex);
-    //}
+  IEnumerator IEnumerable.GetEnumerator()
+  {
+    return (OrderedItems).GetEnumerator();
+  }
 
-    //public bool Remove(SerializationPropertyInfo item)
-    //{
-    //  return (OrderedItems).Remove(item);
-    //}
+  //public void Add(SerializationPropertyInfo item)
+  //{
+  //  (OrderedItems).Add(item);
+  //}
 
-    IEnumerator<SerializationPropertyInfo> IEnumerable<SerializationPropertyInfo>.GetEnumerator()
-    {
-      return ((IEnumerable<SerializationPropertyInfo>)OrderedItems).GetEnumerator();
-    }
+  //public bool Contains(SerializationPropertyInfo item)
+  //{
+  //  return (OrderedItems).Contains(item);
+  //}
+
+  //public void CopyTo(SerializationPropertyInfo[] array, int arrayIndex)
+  //{
+  //  (OrderedItems).CopyTo(array, arrayIndex);
+  //}
+
+  //public bool Remove(SerializationPropertyInfo item)
+  //{
+  //  return (OrderedItems).Remove(item);
+  //}
+
+  IEnumerator<SerializationPropertyInfo> IEnumerable<SerializationPropertyInfo>.GetEnumerator()
+  {
+    return ((IEnumerable<SerializationPropertyInfo>)OrderedItems).GetEnumerator();
   }
 }

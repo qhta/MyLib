@@ -2,46 +2,44 @@
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace Qhta.OpenXMLTools
+namespace Qhta.OpenXMLTools;
+
+public static class OpenXmlElementTools
 {
-  public static class OpenXmlElementTools
+  public static OpenXmlPart? GetDocumentPart(this OpenXmlElement? xmlElement)
   {
-    public static OpenXmlPart? GetDocumentPart(this OpenXmlElement? xmlElement)
+    if (xmlElement == null)
     {
-      if (xmlElement == null)
-      {
+      return null;
+    }
+
+    if (xmlElement is Document document)
+    {
+      return document.MainDocumentPart;
+    }
+
+    if (xmlElement is Header header)
+    {
+      return header.HeaderPart;
+    }
+
+    if (xmlElement is Footer footer)
+    {
+      return footer.FooterPart;
+    }
+
+    return GetDocumentPart(xmlElement.Parent);
+  }
+
+  public static Document? GetParentDocument(OpenXmlElement element)
+  {
+    while (element is not Document)
+    {
+      if (element.Parent == null)
         return null;
-      }
-
-      if (xmlElement is Document document)
-      {
-        return document.MainDocumentPart;
-      }
-
-      if (xmlElement is Header header)
-      {
-        return header.HeaderPart;
-      }
-
-      if (xmlElement is Footer footer)
-      {
-        return footer.FooterPart;
-      }
-
-      return GetDocumentPart(xmlElement.Parent);
+      element = element.Parent;
     }
 
-    public static Document? GetParentDocument(OpenXmlElement element)
-    {
-      while (element is not Document)
-      {
-        if (element.Parent == null)
-          return null;
-        element = element.Parent;
-      }
-
-      return element as Document;
-    }
+    return element as Document;
   }
 }
-

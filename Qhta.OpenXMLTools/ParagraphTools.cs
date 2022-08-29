@@ -2,14 +2,13 @@
 using System.Linq;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace Qhta.OpenXMLTools
-{
-  public static class ParagraphTools
-  {
+namespace Qhta.OpenXMLTools;
 
-    public static string GetText(this Paragraph paragraph)
-    {
-      return String.Join("", paragraph.Elements<Run>().Select(item => item.GetText()));
-    }
+public static class ParagraphTools
+{
+
+  public static string GetText(this Paragraph paragraph)
+  {
+    return String.Join("", paragraph.Elements<Run>().Select(item => item.GetText()));
   }
 }

@@ -1,8 +1,7 @@
-﻿namespace Qhta.Xml.Serialization
+﻿namespace Qhta.Xml.Serialization;
+
+public interface IXSerializable
 {
-  public interface IXSerializable
-  {
-    void Serialize(IXSerializer serializer, IXWriter writer);
-    void Deserialize(IXSerializer baseSerializer);
-  }
+  void Serialize(IXSerializer serializer, IXWriter writer);
+  void Deserialize(IXSerializer baseSerializer);
 }

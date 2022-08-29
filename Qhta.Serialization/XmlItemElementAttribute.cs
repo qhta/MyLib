@@ -1,21 +1,20 @@
 ﻿using System;
 #nullable enable
 
-namespace Qhta.Xml.Serialization
+namespace Qhta.Xml.Serialization;
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class XmlItemElementAttribute : System.Xml.Serialization.XmlArrayItemAttribute
 {
-  [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-  public class XmlItemElementAttribute : System.Xml.Serialization.XmlArrayItemAttribute
+  public XmlItemElementAttribute() : base() { }
+
+  public XmlItemElementAttribute(string? elementName) : base(elementName) { }
+
+  public XmlItemElementAttribute(string? elementName, Type? type) : base(elementName, type) { }
+
+  public XmlItemElementAttribute(Type? type) : base(type)
   {
-    public XmlItemElementAttribute() : base() { }
-
-    public XmlItemElementAttribute(string? elementName) : base(elementName) { }
-
-    public XmlItemElementAttribute(string? elementName, Type? type) : base(elementName, type) { }
-
-    public XmlItemElementAttribute(Type? type) : base(type)
-    {
-    }
-
-    public string? AddMethod { get; set; }
   }
+
+  public string? AddMethod { get; set; }
 }

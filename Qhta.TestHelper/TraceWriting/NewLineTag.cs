@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Qhta.TestHelper;
 
-namespace Qhta.TestHelper
+public class NewLineTag
 {
-  public class NewLineTag
-  {
-  }
 }
