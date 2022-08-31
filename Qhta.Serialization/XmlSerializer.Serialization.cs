@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+//using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -22,7 +19,7 @@ public partial class XmlSerializer
   public Dictionary<string, string> Namespaces { get; } = new Dictionary<string, string>();
 
   public XmlWriterSettings XmlWriterSettings { get; set; } = new XmlWriterSettings
-    { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
+  { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
 
   #region Serialize methods
   public void Serialize(Stream stream, object? obj)
@@ -111,6 +108,8 @@ public partial class XmlSerializer
         tag = tag.Split(':').Last();
       writer.WriteStartElement(tag);
     }
+    //else
+    //  throw new InternalException($"Unknown tag for type \"{serializedTypeInfo.Type}\"");
     if (Options.UseNilAttribute && !Namespaces.ContainsKey("xsi"))
     {
       Namespaces.Add("xsi", xsi);
@@ -118,12 +117,19 @@ public partial class XmlSerializer
     }
 
     WriteObjectInterior(writer, null, obj, serializedTypeInfo);
-    if (tag != null)
+    if (tag!=null)
       writer.WriteEndElement();
   }
 
-  public void WriteObjectInterior(XmlWriter writer, string? tag, object obj, SerializationTypeInfo typeInfo)
+  public void WriteObjectInterior(XmlWriter writer, string? tag, object obj, SerializationTypeInfo? typeInfo)
   {
+    if (typeInfo == null)
+    {
+      var aType = obj.GetType();
+      if (!KnownTypes.TryGetValue(aType, out typeInfo))
+        throw new InternalException($"Type \"{aType}\" not registered");
+    }
+
     WriteAttributesBase(writer, obj, typeInfo);
     WritePropertiesBase(writer, tag, obj, typeInfo);
     WriteCollectionBase(writer, tag, null, obj, typeInfo);
@@ -206,7 +212,7 @@ public partial class XmlSerializer
         {
           if (propValue.Equals(defaultValue))
             continue;
-          if (defaultValue is int iv && iv==0 && (int)propValue == 0)
+          if (defaultValue is int iv && iv == 0 && (int)propValue == 0)
             continue;
         }
 
@@ -320,9 +326,6 @@ public partial class XmlSerializer
             {
               WriteStartElement(writer, itemTag);
               WriteAttributeString(writer, "key", key.ToString() ?? "");
-              //if (val is string strVal)
-              //  WriteValue(strVal);
-              //else 
               if (val != null)
                 WriteObject(writer, val);
               WriteEndElement(writer, itemTag);
@@ -347,14 +350,26 @@ public partial class XmlSerializer
               typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
             }
           }
-          if (!string.IsNullOrEmpty(itemTag))
-            WriteStartElement(writer, itemTag);
+
           if (typeConverter != null)
+          {
+            if (!string.IsNullOrEmpty(itemTag))
+              WriteStartElement(writer, itemTag);
             WriteValue(writer, typeConverter.ConvertToString(item) ?? "");
+            if (!string.IsNullOrEmpty(itemTag))
+              WriteEndElement(writer, itemTag);
+          }
           else
-            WriteObject(writer, item);
-          if (!string.IsNullOrEmpty(itemTag))
-            WriteEndElement(writer, itemTag);
+          {
+            if (string.IsNullOrEmpty(itemTag))
+              WriteObject(writer, item);
+            else
+            {
+              WriteStartElement(writer, itemTag);
+              WriteObjectInterior(writer, itemTag, item, null);
+              WriteEndElement(writer, itemTag);
+            }
+          }
         }
         itemsWritten++;
       }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class XmlOrderedAttribAttribute : System.Xml.Serialization.XmlAttributeAttribute
 {

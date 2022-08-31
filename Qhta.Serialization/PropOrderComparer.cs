@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class PropOrderComparer : IComparer<SerializationPropertyInfo>
 {

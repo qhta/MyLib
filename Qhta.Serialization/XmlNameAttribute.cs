@@ -1,5 +1,4 @@
-﻿using System;
-#nullable enable
+﻿#nullable enable
 
 namespace Qhta.Xml.Serialization;
 

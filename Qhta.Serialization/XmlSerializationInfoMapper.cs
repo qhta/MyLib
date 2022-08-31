@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Collections;
 using System.IO;
 using Qhta.TestHelper;
 using Qhta.TypeUtils;

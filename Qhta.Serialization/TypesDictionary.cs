@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<string, ItemType>, IDictionary<Type, ItemType> where ItemType : ITypeInfo
 {
-  private Dictionary<Type, ItemType> TypeIndexedItems = new Dictionary<Type, ItemType>();
-  private SortedDictionary<string, ItemType> StringIndexedItems = new SortedDictionary<string, ItemType>();
+  private readonly Dictionary<Type, ItemType> TypeIndexedItems = new Dictionary<Type, ItemType>();
+  private readonly SortedDictionary<string, ItemType> StringIndexedItems = new SortedDictionary<string, ItemType>();
 
   public ItemType? FindTypeInfo(Type itemType)
   {
@@ -50,7 +45,7 @@ public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<strin
     return StringIndexedItems.Remove(key);
   }
 
-  public bool TryGetValue(string key, /*[MaybeNullWhen(false)]*/ out ItemType value)
+  public bool TryGetValue(string key, [MaybeNullWhen(false)] out ItemType value)
   {
     return (StringIndexedItems).TryGetValue(key, out value);
   }

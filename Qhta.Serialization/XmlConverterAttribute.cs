@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false)]
 public class XmlConverterAttribute : Attribute

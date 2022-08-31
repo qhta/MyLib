@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Reflection;
 
 namespace Qhta.Xml.Serialization;
@@ -75,6 +74,6 @@ public class SerializationTypeInfo: ITypeInfo
 
   public override string ToString()
   {
-    return $"{this.GetType().Name}({Type?.Name})";
+    return $"{this.GetType().Name}({Type?.FullName})";
   }
 }
