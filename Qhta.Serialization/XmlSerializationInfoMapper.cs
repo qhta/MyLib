@@ -1,12 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
-using Qhta.TestHelper;
-using Qhta.TypeUtils;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 /// The purpose of this class is to build serialization info on types and properties
@@ -676,6 +668,18 @@ public class XmlSerializationInfoMapper
     {
       dictionaryInfo.ValueTypeInfo = GetKnownType(propertyValueType);
     }
+    if (dictionaryInfo.KeyName != null)
+    {
+      if (dictionaryInfo.ValueTypeInfo == null)
+        throw new InternalException($"Unknown value type for {propertyValueType}");
+      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperty(dictionaryInfo.KeyName);
+    }
+    else
+    {
+      if (dictionaryInfo.ValueTypeInfo == null)
+        throw new InternalException($"Unknown value type for {propertyValueType}");
+      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperties().FirstOrDefault(item => item.GetCustomAttribute<KeyAttribute>() != null);
+    }
 
     var dictionaryItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToList();
     foreach (var dictionaryItemAttrib in dictionaryItemAttributes)
@@ -751,7 +755,20 @@ public class XmlSerializationInfoMapper
     }
     else
     {
-      dictionaryInfo.ValueTypeInfo = GetKnownType(propertyValueType);
+      dictionaryInfo.ValueTypeInfo = RegisterType(propertyValueType);
+    }
+
+    if (dictionaryInfo.KeyName != null)
+    {
+      if (dictionaryInfo.ValueTypeInfo == null)
+        throw new InternalException($"Unknown value type for {aType}");
+      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperty(dictionaryInfo.KeyName);
+    }
+    else
+    {
+      if (dictionaryInfo.ValueTypeInfo == null)
+        throw new InternalException($"Unknown value type for {aType}");
+      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperties().FirstOrDefault(item => item.GetCustomAttribute<KeyAttribute>()!=null);
     }
 
     var xmlDictionaryItemAttributes = aType.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToList();

@@ -472,8 +472,6 @@ public partial class XmlSerializer
           throw new XmlInternalException($"Key name unknown for dictionary item \"{reader.Name}\" on deserialize", reader);
         reader.MoveToAttribute(keyName);
         var key = reader.Value;
-        if (key == "2022-03-07")
-          TestUtils.Stop();
         if (emptyElement)
         {
           reader.Read(); // read to end of start element

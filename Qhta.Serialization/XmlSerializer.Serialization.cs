@@ -116,12 +116,12 @@ public partial class XmlSerializer
       writer.WriteAttributeString("xmlns", "xsi", null, xsi);
     }
 
-    WriteObjectInterior(writer, null, obj, serializedTypeInfo);
-    if (tag!=null)
+    WriteObjectInterior(writer, obj, null, serializedTypeInfo);
+    if (tag != null)
       writer.WriteEndElement();
   }
 
-  public void WriteObjectInterior(XmlWriter writer, string? tag, object obj, SerializationTypeInfo? typeInfo)
+  public void WriteObjectInterior(XmlWriter writer, object obj, string? tag = null, SerializationTypeInfo? typeInfo = null)
   {
     if (typeInfo == null)
     {
@@ -230,7 +230,7 @@ public partial class XmlSerializer
           else
           if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
           {
-            WriteObjectInterior(writer, null, propValue, serializedTypeInfo);
+            WriteObjectInterior(writer, propValue, null, serializedTypeInfo);
           }
           //else if (propValue is ICollection collection)
           //{
@@ -324,11 +324,19 @@ public partial class XmlSerializer
             var val = valProp.GetValue(item);
             if (key != null)
             {
-              WriteStartElement(writer, itemTag);
-              WriteAttributeString(writer, "key", key.ToString() ?? "");
-              if (val != null)
+              if (collectionInfo is DictionaryInfo dictionaryInfo && dictionaryInfo.KeyProperty!=null && val!=null 
+                && KnownTypes.KnownTags(val.GetType()).FirstOrDefault()!=null)
+              {
                 WriteObject(writer, val);
-              WriteEndElement(writer, itemTag);
+              }
+              else
+              {
+                WriteStartElement(writer, itemTag);
+                WriteAttributeString(writer, "key", key.ToString() ?? "");
+                if (val != null)
+                  WriteObjectInterior(writer, val);
+                WriteEndElement(writer, itemTag);
+              }
             }
           }
         }
@@ -366,7 +374,7 @@ public partial class XmlSerializer
             else
             {
               WriteStartElement(writer, itemTag);
-              WriteObjectInterior(writer, itemTag, item, null);
+              WriteObjectInterior(writer, item, itemTag, null);
               WriteEndElement(writer, itemTag);
             }
           }
