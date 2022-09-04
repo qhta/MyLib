@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public enum XmlAttributeNameType
 {

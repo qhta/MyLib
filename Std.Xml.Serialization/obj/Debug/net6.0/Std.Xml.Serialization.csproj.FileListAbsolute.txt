@@ -1,0 +1,5 @@
+D:\VS\Projects\MyLib\Std.Xml.Serialization\obj\Debug\net6.0\Std.Xml.Serialization.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Std.Xml.Serialization\obj\Debug\net6.0\Std.Xml.Serialization.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Std.Xml.Serialization\obj\Debug\net6.0\Std.Xml.Serialization.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Std.Xml.Serialization\obj\Debug\net6.0\Std.Xml.Serialization.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Std.Xml.Serialization\obj\Debug\net6.0\Std.Xml.Serialization.csproj.CoreCompileInputs.cache

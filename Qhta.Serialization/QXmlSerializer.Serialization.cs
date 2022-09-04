@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-//using System.Diagnostics;
+﻿//using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -12,7 +11,7 @@ using Qhta.TypeUtils;
 
 namespace Qhta.Xml.Serialization;
 
-public partial class XmlSerializer
+public partial class QXmlSerializer
 {
   private const string xsi = @"http://www.w3.org/2001/XMLSchema-instance";
 
@@ -22,34 +21,10 @@ public partial class XmlSerializer
   { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
 
   #region Serialize methods
-  public void Serialize(Stream stream, object? obj)
-  {
-    if (obj == null)
-      return;
-    using (XmlWriter xmlWriter = XmlWriter.Create(new StreamWriter(stream), XmlWriterSettings))
-    {
-      Serialize(xmlWriter, obj);
-    }
-  }
 
-  public void Serialize(XmlWriter writer, object? obj)
+  protected partial void SerializeObject(XmlWriter xmlWriter, object? obj, XmlSerializerNamespaces? namespaces, string? encodingStyle, string? id)
   {
-    if (obj == null)
-      return;
-    using (XmlWriter xmlWriter = XmlWriter.Create(writer, XmlWriterSettings))
-    {
-      WriteObject(xmlWriter, obj);
-    }
-  }
-
-  public void Serialize(TextWriter textWriter, object? obj)
-  {
-    if (obj == null)
-      return;
-    using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings))
-    {
-      WriteObject(xmlWriter, obj);
-    }
+    SerializeObject(xmlWriter, obj);
   }
 
   public string Serialize(object obj)
@@ -64,34 +39,22 @@ public partial class XmlSerializer
   }
 
 
-
-  //public void Serialize(XmlWriter writer, object? obj)
-  //{
-  //  if (obj is IXSerializable serializableItem)
-  //  {
-  //    serializableItem.Serialize(this, writer);
-  //  }
-  //  else if (obj != null)
-  //  {
-  //    WriteObject(writer, obj);
-  //  }
-  //}
-
-  //public void SerializeObject(XmlWriter writer, object? obj)
-  //{
-  //  if (obj is IXSerializable qSerializable)
-  //  {
-  //    qSerializable.Serialize(this, writer);
-  //  }
-  //  //else if (obj is IXmlSerializable xmlSerializable)
-  //  //{
-  //  //  xmlSerializable.WriteXml(writer);
-  //  //}
-  //  else if (obj != null)
-  //  {
-  //    WriteObject(writer, obj);
-  //  }
-  //}
+  public void SerializeObject(XmlWriter writer, object? obj)
+  {
+    //if (obj is IXSerializable qSerializable)
+    //{
+    //  qSerializable.Serialize(this, writer);
+    //}
+    //else
+    if (obj is IXmlSerializable xmlSerializable)
+    {
+      xmlSerializable.WriteXml(writer);
+    }
+    else if (obj != null)
+    {
+      WriteObject(writer, obj);
+    }
+  }
   #endregion
 
   #region Write methods
@@ -104,13 +67,11 @@ public partial class XmlSerializer
     var tag = KnownTypes.KnownTags(serializedTypeInfo.Type).FirstOrDefault();
     if (tag != null)
     {
-      if (tag.Contains(':'))
-        tag = tag.Split(':').Last();
-      writer.WriteStartElement(tag);
+      writer.WriteStartElement(tag.Name, tag.Namespace);
     }
     //else
     //  throw new InternalException($"Unknown tag for type \"{serializedTypeInfo.Type}\"");
-    if (Options.UseNilAttribute && !Namespaces.ContainsKey("xsi"))
+    if (Options.UseNilValue && !Namespaces.ContainsKey("xsi"))
     {
       Namespaces.Add("xsi", xsi);
       writer.WriteAttributeString("xmlns", "xsi", null, xsi);
@@ -189,12 +150,12 @@ public partial class XmlSerializer
       var propInfo = prop.PropInfo;
       string propTag = prop.Name;
 
-      if (Options?.PrecedePropertyNameWithElementName == true)
+      if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
       var propValue = propInfo.GetValue(obj);
       if (propValue == null)
       {
-        if (Options?.UseNilAttribute == true && prop.IsNullable == true)
+        if (Options?.UseNilValue == true && prop.IsNullable == true)
         {
           if (!String.IsNullOrEmpty(propTag))
             WriteStartElement(writer, propTag);
@@ -293,7 +254,7 @@ public partial class XmlSerializer
     var itemTypes = collectionInfo.KnownItemTypes;
     if (propTag != null && elementTag != null)
     {
-      if (Options?.PrecedePropertyNameWithElementName == true)
+      if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
     }
 
@@ -352,9 +313,6 @@ public partial class XmlSerializer
             }
             if (itemTypeInfo != null)
             {
-              itemTag = itemTypes.KnownTags(itemTypeInfo.Type).FirstOrDefault();
-              if (itemTag == itemTypeInfo.ElementName)
-                itemTag = itemType.Name;
               typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
             }
           }

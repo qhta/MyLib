@@ -29,56 +29,57 @@ public class SerializationOptions
   /// <summary>
   /// If simple type properties not marked with any XmlAttribute are accepted to serialize as attributes.
   /// </summary>
-  public bool AcceptNotIgnoredPropertiesAsAttributes { get; set; }
+  public bool AcceptSimplePropertiesAsAttributes { get; set; }
 
   /// <summary>
-  /// If attribute names should be changed to lowercase on serialization.
+  /// If XML attribute names should change case on serialization.
   /// </summary>
-  public bool LowercaseAttributeName { get; set; }
+  public SerializationCase AttributeNameCase { get; set; }
 
   /// <summary>
-  /// If property names should be changed to lowercase on serialization.
+  /// If XML element names should change case on serialization.
   /// </summary>
-  public bool LowercasePropertyName { get; set; }
+  public SerializationCase ElementNameCase { get; set; }
 
   /// <summary>
-  /// If pProperty names should be preceded with element name on serialization.
+  /// If enumeration value names should change case on serialization.
   /// </summary>
-  public bool PrecedePropertyNameWithElementName { get; set; }
-
-  /// <summary>
-  /// A string to markup items in collections as XmlElement names.
-  /// </summary>
-  public string? ItemTag { get; set; }
-
-  /// <summary>
-  /// If enum values should be changed to lowercase on serialization.
-  /// Boolean is treated as enum.
-  /// </summary>
-  public bool LowerCaseEnum { get; set; }
+  public SerializationCase EnumNameCase { get; set; }
 
   /// <summary>
   /// If enum values letter case should be ignored on deserialization.
   /// Boolean case is always ignored.
   /// </summary>
-  public bool IgnoreCaseEnum { get; set; }
+  public bool IgnoreCaseOnEnum { get; set; }
 
   /// <summary>
-  /// Culture is important on serialization/deserialization numbers and dates.
+  /// If property names serialized as Xml element should be preceded with its class name.
+  /// A dot character ('.') is used as a separator (like in XAML).
+  /// </summary>
+  public bool PrecedePropertyNameWithClassName { get; set; }
+
+  /// <summary>
+  /// A string to markup items in collections.
+  /// If not specified, items are serialized directly.
+  /// </summary>
+  public string? ItemTag { get; set; }
+
+  /// <summary>
+  /// Culture used in numbers during serialization/deserialization. 
   /// Default is invariant culture.
   /// </summary>
   public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
 
   /// <summary>
   /// Specifies that when the deserializer finds an unknown XML element, 
-  /// it skips to the closing one (or ignores if it is an empty element).
+  /// it skips to the closing element (or ignores if it is an empty element).
   /// </summary>
   public bool IgnoreUnknownElements { get; set; }
 
   /// <summary>
   /// Writes xsi:nil="true" attribute when value is null.
   /// </summary>
-  public bool UseNilAttribute { get; set; } = true;
+  public bool UseNilValue { get; set; } = true;
 
   /// <summary>
   /// String to write as false value;

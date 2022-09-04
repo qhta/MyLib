@@ -12,10 +12,10 @@ public abstract class XmlConverter
 
   public virtual bool CanWrite => true;
 
-  public abstract void WriteXml(XmlWriter writer, object? value, XmlSerializer? serializer);
+  public abstract void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer);
 
   public abstract object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo, 
-    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, XmlSerializer? serializer);
+    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, QXmlSerializer? serializer);
 
 
   public abstract bool CanConvert(Type objectType);

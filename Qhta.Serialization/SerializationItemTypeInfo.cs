@@ -8,16 +8,16 @@ namespace Qhta.Xml.Serialization;
 public class SerializationItemTypeInfo: ITypeInfo
 {
 
-  public SerializationItemTypeInfo(string? elementName, SerializationTypeInfo itemTypeInfo)
+  public SerializationItemTypeInfo(string elementName, SerializationTypeInfo itemTypeInfo)
   {
-    ElementName = elementName;
+    Name = new QualifiedName(elementName);
     TypeInfo = itemTypeInfo;
   }
 
   /// <summary>
   /// Name of the Xml/Json element
   /// </summary>
-  public string? ElementName {get; }
+  public QualifiedName Name { get; }
 
   /// <summary>
   /// Refers to the existing TypeInfo

@@ -8,6 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="BaseSerializer.cs" />
+    <Compile Remove="IXmlSerializer.cs" />
+    <Compile Remove="XmlSerializer - Copy.base.cs" />
+    <Compile Remove="XmlSerializer.base.copy.cs" />
+    <Compile Remove="_Compilation.cs" />
+    <Compile Remove="_DateTimeSerializationSection.cs" />
+    <Compile Remove="_XmlCustomFormatter.cs" />
+    <Compile Remove="_XmlSerializationWriter.cs" />
   </ItemGroup>
 
 
@@ -20,6 +27,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
     <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
   </ItemGroup>
 
 </Project>

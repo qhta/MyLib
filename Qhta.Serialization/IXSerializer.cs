@@ -71,7 +71,7 @@ public interface IXSerializer
   /// <param name="writer">target writer</param>
   /// <param name="obj">Any object to serialize its properties as XML elements</param>
   /// <param name="elementTag">XML element name to place before each property name 
-  /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
+  /// when <see cref="SerializationOptions.PrecedePropertyNameWithClassName"/> is set</param>
   int WritePropertiesBase(IXWriter writer, string? elementTag, object obj);
 
   /// <summary>
@@ -83,7 +83,7 @@ public interface IXSerializer
   /// <param name="writer">target writer</param>
   /// <param name="collection">Any object implementing <see cref="System.Collections.ICollection"/> interface</param>
   /// <param name="elementTag">XML element name to place before collection tag 
-  /// when <see cref="SerializationOptions.PrecedePropertyNameWithElementName"/> is set</param>
+  /// when <see cref="SerializationOptions.PrecedePropertyNameWithClassName"/> is set</param>
   /// <param name="collectionTag">XML element name to place before the whole collection.</param>
   /// <param name="itemTypes">information about serializing items of the collection</param>
   int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownItemTypesDictionary? itemTypes = null);

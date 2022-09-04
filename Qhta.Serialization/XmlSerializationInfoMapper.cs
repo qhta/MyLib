@@ -10,6 +10,7 @@ public class XmlSerializationInfoMapper
   /// To create a mapper you need serialization options.
   /// </summary>
   /// <param name="options">Instance of the serialization options - set only once</param>
+  /// <param name="baseNamespace">default namespace for elements</param>
   public XmlSerializationInfoMapper(SerializationOptions options, string? baseNamespace)
   {
     Options = options;
@@ -27,8 +28,8 @@ public class XmlSerializationInfoMapper
   /// <list type="bullet">
   ///  <item>
   ///     <see cref="SerializationOptions.IgnoreTypesWithoutParameterlessConstructor"/>
-  ///     <see cref="SerializationOptions.LowercaseAttributeName"/>
-  ///     <see cref="SerializationOptions.LowercasePropertyName"/>
+  ///     <see cref="SerializationOptions.AttributeNameCase"/>
+  ///     <see cref="SerializationOptions.ElementNameCase"/>
   ///   </item>
   /// </list>
   /// </summary>
@@ -58,25 +59,10 @@ public class XmlSerializationInfoMapper
   /// <exception cref="InternalException">thrown if a name is already used for a different type</exception>
   public bool TryRegisterType(Type aType, out SerializationTypeInfo result)
   {
+    if (aType.IsNullable(out var baseType))
+      aType = baseType;
     var typeInfo = GetKnownType(aType);
-    string? aName = typeInfo.ElementName;
-
-    if (aName == null)
-    { // elementName was not taken from any custom attribute
-      var ns = aType.Namespace ?? "";
-      if (ns == BaseNamespace)
-        ns = null;
-      else
-      if (ns.StartsWith(BaseNamespace + "."))
-        ns = ns.Substring(BaseNamespace.Length + 1);
-
-      XmlQualifiedName qName;
-      string typeName = aType.Name;
-      if (typeName.Contains('`') && aType.FullName != null)
-        typeName = aType.FullName;
-      qName = new XmlQualifiedName(typeName, ns);
-      aName = qName.ToString();
-    }
+    var aName = typeInfo.Name;
 
     if (KnownTypes.TryGetValue(aName, out var oldTypeInfo))
     {
@@ -146,20 +132,23 @@ public class XmlSerializationInfoMapper
   /// <returns></returns>
   protected SerializationTypeInfo CreateTypeInfo(Type aType)
   {
+    if (aType.IsNullable(out var baseType))
+      aType = baseType;
+    var aName = aType.Name;
     SerializationTypeInfo typeInfo = new SerializationTypeInfo(aType);
     var xmlDictionaryAttribute = aType.GetCustomAttribute<XmlDictionaryAttribute>();
     if (xmlDictionaryAttribute != null)
-      typeInfo.ElementName = xmlDictionaryAttribute.ElementName;
+      typeInfo.Name = new QualifiedName(xmlDictionaryAttribute.ElementName);
     else
     {
       var xmlCollectionAttribute = aType.GetCustomAttribute<XmlCollectionAttribute>();
       if (xmlCollectionAttribute != null)
-        typeInfo.ElementName = xmlCollectionAttribute.ElementName;
+        typeInfo.Name = new QualifiedName(xmlCollectionAttribute.ElementName);
       else
       {
         var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
         if (xmlRootAttrib?.ElementName != null)
-          typeInfo.ElementName = xmlRootAttrib.ElementName;
+          typeInfo.Name = new QualifiedName(xmlRootAttrib.ElementName);
       }
     }
     return typeInfo;
@@ -262,9 +251,9 @@ public class XmlSerializationInfoMapper
                     TryAddPropertyAsCollection(typeInfo, propInfo, null, elemCount++);
                 }
                 else
-                  //if (propInfo.PropertyType.GetInterface(nameof(IEnumerable)) != null)
-                  //  AddPropertyAsArray(typeInfo, propInfo, null, elemCount++);
-                  //else 
+                //if (propInfo.PropertyType.GetInterface(nameof(IEnumerable)) != null)
+                //  AddPropertyAsArray(typeInfo, propInfo, null, elemCount++);
+                //else 
                 if (Options.AcceptAllNotIgnoredProperties
                     && !propInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
                 {
@@ -274,19 +263,19 @@ public class XmlSerializationInfoMapper
                     {
                       if (propInfo.CanWrite)
                       {
-                        if (Options.AcceptNotIgnoredPropertiesAsAttributes)
+                        if (Options.AcceptSimplePropertiesAsAttributes)
                           TryAddPropertyAsAttribute(typeInfo, propInfo, null, attrCount++);
                         else
                           TryAddPropertyAsElement(typeInfo, propInfo, null, elemCount++);
                       }
                     }
                     else
-                      //if (propInfo.PropertyType.IsDictionary())
-                      //  TryAddPropertyAsDictionary(typeInfo, propInfo, null, elemCount++);
-                      //else
-                      //if (propInfo.PropertyType.IsCollection())
-                      //  TryAddPropertyAsCollection(typeInfo, propInfo, null, elemCount++);
-                      //else
+                    //if (propInfo.PropertyType.IsDictionary())
+                    //  TryAddPropertyAsDictionary(typeInfo, propInfo, null, elemCount++);
+                    //else
+                    //if (propInfo.PropertyType.IsCollection())
+                    //  TryAddPropertyAsCollection(typeInfo, propInfo, null, elemCount++);
+                    //else
                     if (propInfo.CanWrite)
                       TryAddPropertyAsElement(typeInfo, propInfo, null, elemCount++);
                   }
@@ -312,8 +301,8 @@ public class XmlSerializationInfoMapper
     var attrName = xmlAttribute?.AttributeName;
     if (string.IsNullOrEmpty(attrName))
       attrName = propInfo.Name;
-    if (Options?.LowercaseAttributeName == true)
-      attrName = LowercaseName(attrName);
+    if (Options.AttributeNameCase != 0)
+      attrName = QXmlSerializer.ChangeCase(attrName, Options.AttributeNameCase);
     if (typeInfo.PropsAsAttributes.ContainsKey((attrName)))
       return false;
     if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order != null)
@@ -343,8 +332,8 @@ public class XmlSerializationInfoMapper
     var elemName = xmlAttribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
-    if (Options?.LowercasePropertyName == true)
-      elemName = LowercaseName(elemName);
+    if (Options.ElementNameCase !=0)
+      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
     if (typeInfo.PropsAsElements.ContainsKey(elemName))
       return false;
     if (xmlAttribute?.Order > 0)
@@ -374,15 +363,15 @@ public class XmlSerializationInfoMapper
     var elemName = xmlAttribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
-    if (Options?.LowercasePropertyName == true)
-      elemName = LowercaseName(elemName);
+    if (Options.ElementNameCase != 0)
+      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
     if (typeInfo.PropsAsElements.ContainsKey(elemName))
       return false;
     if (xmlAttribute?.Order > 0)
       order = xmlAttribute.Order;
     var serializePropInfo = new SerializationPropertyInfo(elemName, propInfo, order);
     serializePropInfo.TypeInfo?.PropsAsElements?.Clear();
-    serializePropInfo.CollectionInfo = CreateDictionaryInfo(propInfo, xmlAttribute);
+    serializePropInfo.CollectionInfo = CreateDictionaryInfo(propInfo.PropertyType, xmlAttribute);
     if (TryRegisterType(propInfo.PropertyType, out var propTypeInfo))
       serializePropInfo.TypeInfo = propTypeInfo;
     var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
@@ -407,18 +396,17 @@ public class XmlSerializationInfoMapper
     var elemName = xmlAttribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
-    if (Options?.LowercasePropertyName == true)
-      elemName = LowercaseName(elemName);
-
+    if (Options.ElementNameCase != 0)
+      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
     if (typeInfo.PropsAsElements.ContainsKey(elemName))
       return false;
     if (xmlAttribute?.Order > 0)
       order = xmlAttribute.Order;
     var serializePropInfo = new SerializationPropertyInfo(elemName, propInfo, order);
-    serializePropInfo.CollectionInfo = CreateCollectionInfo(propInfo, xmlAttribute);
+    serializePropInfo.CollectionInfo = CreateCollectionInfo(propInfo.PropertyType, xmlAttribute);
     if (TryRegisterType(propInfo.PropertyType, out var propTypeInfo))
     {
-      propTypeInfo.CollectionInfo = serializePropInfo.CollectionInfo; 
+      propTypeInfo.CollectionInfo = serializePropInfo.CollectionInfo;
       serializePropInfo.TypeInfo = propTypeInfo;
     }
     var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
@@ -443,8 +431,8 @@ public class XmlSerializationInfoMapper
     var elemName = xmlAttribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
-    if (Options?.LowercasePropertyName == true)
-      elemName = LowercaseName(elemName);
+    if (Options.ElementNameCase != 0)
+      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
     if (typeInfo.PropsAsElements.ContainsKey(elemName))
       return false;
     if (xmlAttribute?.Order > 0)
@@ -468,14 +456,14 @@ public class XmlSerializationInfoMapper
     if (!propInfo.PropertyType.IsArray)
     {
       if (propInfo.PropertyType.IsDictionary())
-        return CreateDictionaryInfo(propInfo, arrayAttribute);
+        return CreateDictionaryInfo(propInfo.PropertyType, arrayAttribute);
     }
 
-    var elementName = arrayAttribute?.ElementName;
-    if (string.IsNullOrEmpty(elementName))
-      elementName = "";
-    else if (Options?.LowercasePropertyName == true)
-      elementName = LowercaseName(elementName);
+    var elemName = arrayAttribute?.ElementName;
+    if (string.IsNullOrEmpty(elemName))
+      elemName = "";
+    if (Options.ElementNameCase != 0)
+      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
     var arrayPropertyInfo = new CollectionInfo();
 
     Type? itemType = null;
@@ -484,14 +472,14 @@ public class XmlSerializationInfoMapper
     {
       foreach (var arrayItemAttribute in arrayItemAttrib)
       {
-        elementName = arrayItemAttribute.ElementName;
+        elemName = arrayItemAttribute.ElementName;
         itemType = arrayItemAttribute.Type;
-        if (string.IsNullOrEmpty(elementName))
+        if (string.IsNullOrEmpty(elemName))
         {
           if (itemType == null)
             throw new InternalException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {propInfo?.DeclaringType?.Name} type");
-          elementName = itemType.Name;
+          elemName = itemType.Name;
         }
       }
     }
@@ -508,103 +496,112 @@ public class XmlSerializationInfoMapper
       }
     }
 
-    if (Options?.LowercasePropertyName == true)
-      elementName = LowercaseName(elementName);
+    if (Options.ElementNameCase != 0)
+      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
 
     if (itemType == null)
       itemType = typeof(object);
     var typeInfo = GetKnownType(itemType);
-    var itemTypeInfo = new SerializationItemTypeInfo(elementName, typeInfo);
-    arrayPropertyInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
-      
+    var itemTypeInfo = new SerializationItemTypeInfo(elemName, typeInfo);
+    arrayPropertyInfo.KnownItemTypes.Add(elemName, itemTypeInfo);
+
     return arrayPropertyInfo;
   }
 
-  protected CollectionInfo? CreateCollectionInfo(PropertyInfo propInfo, XmlArrayAttribute? arrayAttribute)
-  {
-    var result = CreateArrayPropertyInfo(propInfo, arrayAttribute);
-    var collectionAttribute = arrayAttribute as XmlCollectionAttribute;
+  //protected CollectionInfo? CreateCollectionInfo(PropertyInfo propInfo, XmlArrayAttribute? arrayAttribute)
+  //{
+  //  var result = CreateArrayPropertyInfo(propInfo, arrayAttribute);
+  //  var collectionAttribute = arrayAttribute as XmlCollectionAttribute;
 
-    Type? collectionType = null;
-    if (collectionAttribute != null)
-    {
-      collectionType = collectionAttribute.CollectionType;
-      if (collectionType!=null && !collectionType.IsEqualOrSubclassOf(propInfo.PropertyType))
-        throw new InternalException($"Declared collection type {collectionType} must be a subclass of {propInfo.PropertyType}" +
-                                    $" in declaration of property {propInfo.DeclaringType}.{propInfo.Name}");
-    }
-    //else
-    //{
-    //  var propType = 
-    //  collectionType = propInfo.PropertyType.GenericTypeArguments.FirstOrDefault();
-    //}
-    if (collectionType == null)
-      collectionType = propInfo.PropertyType;
-    result.CollectionTypeInfo = GetKnownType(collectionType);
-    if (result.CollectionTypeInfo == null)
-      throw new InternalException($"Unknown collection type {collectionType}" +
-                                  $" in declaration of property {propInfo.DeclaringType}.{propInfo.Name}");
-
-
-    var addMethodName = collectionAttribute?.AddMethod;
-    if (addMethodName == null)
-      addMethodName = "Add";
+  //  Type? collectionType = null;
+  //  if (collectionAttribute != null)
+  //  {
+  //    collectionType = collectionAttribute.CollectionType;
+  //    if (collectionType!=null && !collectionType.IsEqualOrSubclassOf(propInfo.PropertyType))
+  //      throw new InternalException($"Declared collection type {collectionType} must be a subclass of {propInfo.PropertyType}" +
+  //                                  $" in declaration of property {propInfo.DeclaringType}.{propInfo.Name}");
+  //  }
+  //else
+  //{
+  //  var propType = 
+  //  collectionType = propInfo.PropertyType.GenericTypeArguments.FirstOrDefault();
+  //}
+  //  if (collectionType == null)
+  //    collectionType = propInfo.PropertyType;
+  //  result.CollectionTypeInfo = GetKnownType(collectionType);
+  //  if (result.CollectionTypeInfo == null)
+  //    throw new InternalException($"Unknown collection type {collectionType}" +
+  //                                $" in declaration of property {propInfo.DeclaringType}.{propInfo.Name}");
 
 
-    var addMethodsInfo = new List<MethodInfo>();
-    if (result.KnownItemTypes.Count>0)
-    {
-      foreach (var knownItemType in result.KnownItemTypes)
-      {
-        var addMethodInfo =
-          collectionType.GetMethodByInheritance(addMethodName, BindingFlags.Public | BindingFlags.Instance, new Type[]{ knownItemType.Value.Type});
-        if (addMethodInfo != null)
-        {
-          knownItemType.Value.AddMethod = addMethodInfo;
-          addMethodsInfo.Add(addMethodInfo);
-        }
-      }
-    }
-    if (addMethodsInfo.Count==0)
-    {
-      var addMethodInfo =
-        collectionType.GetMethodByInheritance(addMethodName, BindingFlags.Public | BindingFlags.Instance);
-      if (addMethodInfo != null)
-        addMethodsInfo.Add(addMethodInfo);
-      result.AddMethodInfo = addMethodInfo;
-    }
-    if (addMethodsInfo.Count==0)
-      return null;
-      
-    return result;
-  }
+  //  var addMethodName = collectionAttribute?.AddMethod;
+  //  if (addMethodName == null)
+  //    addMethodName = "Add";
+
+
+  //  var addMethodsInfo = new List<MethodInfo>();
+  //  if (result.KnownItemTypes.Count>0)
+  //  {
+  //    foreach (var knownItemType in result.KnownItemTypes)
+  //    {
+  //      var addMethodInfo =
+  //        collectionType.GetMethodByInheritance(addMethodName, BindingFlags.Public | BindingFlags.Instance, new Type[]{ knownItemType.Value.Type});
+  //      if (addMethodInfo != null)
+  //      {
+  //        knownItemType.Value.AddMethod = addMethodInfo;
+  //        addMethodsInfo.Add(addMethodInfo);
+  //      }
+  //    }
+  //  }
+  //  if (addMethodsInfo.Count==0)
+  //  {
+  //    var addMethodInfo =
+  //      collectionType.GetMethodByInheritance(addMethodName, BindingFlags.Public | BindingFlags.Instance);
+  //    if (addMethodInfo != null)
+  //      addMethodsInfo.Add(addMethodInfo);
+  //    result.AddMethodInfo = addMethodInfo;
+  //  }
+  //  if (addMethodsInfo.Count==0)
+  //    return null;
+
+  //  return result;
+  //}
 
   protected CollectionInfo CreateCollectionInfo(Type aType, XmlArrayAttribute? arrayAttribute)
   {
+    if (aType.Name == "HeadingPairs")
+      TestTools.Stop();
     var collectionTypeInfo = new CollectionInfo();
-    collectionTypeInfo.ItemTypeInfo = GetKnownType(GetCollectionItemType(aType) ?? typeof(object));
+    var itemTypeInfo = collectionTypeInfo.ItemTypeInfo = RegisterType(GetCollectionItemType(aType) ?? typeof(object));
     var arrayItemAttribs = aType.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToList();
     if (arrayItemAttribs.Count != 0)
     {
       foreach (var arrayItemAttribute in arrayItemAttribs)
       {
-        var elementName = arrayItemAttribute.ElementName;
+        var elemName = arrayItemAttribute.ElementName;
         var itemType = arrayItemAttribute.Type;
-        if (string.IsNullOrEmpty(elementName))
+        if (string.IsNullOrEmpty(elemName))
         {
           if (itemType == null)
             throw new InternalException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
-          elementName = itemType.Name;
+          elemName = itemType.Name;
         }
-        else if (Options?.LowercasePropertyName == true)
-          elementName = LowercaseName(elementName);
+        else
+        if (Options.ElementNameCase != 0)
+          elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
 
         if (itemType == null)
           itemType = typeof(object);
-        var serializationItemTypeInfo = new SerializationItemTypeInfo(elementName, GetKnownType(itemType));
-        GetKnownType(itemType).KnownItemTypes.Add(elementName, serializationItemTypeInfo);
+        var serializationItemTypeInfo = new SerializationItemTypeInfo(elemName, GetKnownType(itemType));
+        GetKnownType(itemType).KnownItemTypes.Add(elemName, serializationItemTypeInfo);
       }
+    }
+    else
+    {
+      var elementName = itemTypeInfo.Name?.Name;
+      if (elementName!=null)
+        collectionTypeInfo.KnownItemTypes.Add(new SerializationItemTypeInfo(elementName, itemTypeInfo));
     }
     return collectionTypeInfo;
   }
@@ -618,102 +615,103 @@ public class XmlSerializationInfoMapper
     return null;
   }
 
-  protected DictionaryInfo CreateDictionaryInfo(PropertyInfo propInfo, XmlArrayAttribute? arrayAttribute)
-  {
-    var dictionaryType = propInfo.PropertyType;
-    if (!dictionaryType.IsDictionary(out var propertyKeyType, out var propertyValueType))
-      throw new InternalException($"Property {propInfo.PropertyType}.{propInfo.Name} has XmlDictionaryItemAttribute but is not a dictionary");
+  //protected DictionaryInfo CreateDictionaryInfo(PropertyInfo propInfo, XmlArrayAttribute? arrayAttribute)
+  //{
+  //  var dictionaryType = propInfo.PropertyType;
+  //  if (!dictionaryType.IsDictionary(out var propertyKeyType, out var propertyValueType))
+  //    throw new InternalException($"Property {propInfo.PropertyType}.{propInfo.Name} has XmlDictionaryItemAttribute but is not a dictionary");
+  //  return CreateDictionaryInfo(propInfo.PropertyType, arrayAttribute);
 
-    var elementName = arrayAttribute?.ElementName;
-    if (string.IsNullOrEmpty(elementName))
-      elementName = "";
-    else if (Options?.LowercasePropertyName == true)
-      elementName = LowercaseName(elementName);
-    var dictionaryInfo = new DictionaryInfo();
+  //var elementName = arrayAttribute?.ElementName;
+  //if (string.IsNullOrEmpty(elementName))
+  //  elementName = "";
+  //else if (Options?.LowercasePropertyName == true)
+  //  elementName = LowercaseName(elementName);
+  //var dictionaryInfo = new DictionaryInfo();
 
-    if (arrayAttribute is XmlCollectionAttribute collectionAttribute)
-    {
+  //if (arrayAttribute is XmlCollectionAttribute collectionAttribute)
+  //{
 
-      if (collectionAttribute.CollectionType != null)
-        dictionaryInfo.CollectionTypeInfo = GetKnownType(collectionAttribute.CollectionType);
-      else
-        dictionaryInfo.CollectionTypeInfo = GetKnownType(propInfo.PropertyType);
+  //  if (collectionAttribute.CollectionType != null)
+  //    dictionaryInfo.CollectionTypeInfo = GetKnownType(collectionAttribute.CollectionType);
+  //  else
+  //    dictionaryInfo.CollectionTypeInfo = GetKnownType(propInfo.PropertyType);
 
-      if (arrayAttribute is XmlDictionaryAttribute dictionaryAttribute)
-      {
-        dictionaryInfo.KeyName = dictionaryAttribute.KeyName;
-        if (dictionaryAttribute.KeyType != null)
-          dictionaryInfo.KeyTypeInfo = GetKnownType(dictionaryAttribute.KeyType);
-        if (dictionaryAttribute.ValueType != null)
-          dictionaryInfo.ValueTypeInfo = GetKnownType(dictionaryAttribute.ValueType);
-      }
-    }
+  //  if (arrayAttribute is XmlDictionaryAttribute dictionaryAttribute)
+  //  {
+  //    dictionaryInfo.KeyName = dictionaryAttribute.KeyName;
+  //    if (dictionaryAttribute.KeyType != null)
+  //      dictionaryInfo.KeyTypeInfo = GetKnownType(dictionaryAttribute.KeyType);
+  //    if (dictionaryAttribute.ValueType != null)
+  //      dictionaryInfo.ValueTypeInfo = GetKnownType(dictionaryAttribute.ValueType);
+  //  }
+  //}
 
-    if (dictionaryInfo.KeyTypeInfo != null)
-    {
-      if (!dictionaryInfo.KeyTypeInfo.Type.IsEqualOrSubclassOf(propertyKeyType))
-        throw new InternalException($"Declared key type {dictionaryInfo.KeyTypeInfo.Type} must be equal or subclass of {propertyKeyType}");
-    }
-    else
-    {
-      dictionaryInfo.KeyTypeInfo = GetKnownType(propertyKeyType);
-    }
+  //if (dictionaryInfo.KeyTypeInfo != null)
+  //{
+  //  if (!dictionaryInfo.KeyTypeInfo.Type.IsEqualOrSubclassOf(propertyKeyType))
+  //    throw new InternalException($"Declared key type {dictionaryInfo.KeyTypeInfo.Type} must be equal or subclass of {propertyKeyType}");
+  //}
+  //else
+  //{
+  //  dictionaryInfo.KeyTypeInfo = GetKnownType(propertyKeyType);
+  //}
 
-    if (dictionaryInfo.ValueTypeInfo != null)
-    {
-      if (!dictionaryInfo.ValueTypeInfo.Type.IsEqualOrSubclassOf(propertyValueType))
-        throw new InternalException($"Declared value type {dictionaryInfo.ValueTypeInfo.Type} must be equal or subclass of {propertyValueType}");
-    }
-    else
-    {
-      dictionaryInfo.ValueTypeInfo = GetKnownType(propertyValueType);
-    }
-    if (dictionaryInfo.KeyName != null)
-    {
-      if (dictionaryInfo.ValueTypeInfo == null)
-        throw new InternalException($"Unknown value type for {propertyValueType}");
-      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperty(dictionaryInfo.KeyName);
-    }
-    else
-    {
-      if (dictionaryInfo.ValueTypeInfo == null)
-        throw new InternalException($"Unknown value type for {propertyValueType}");
-      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperties().FirstOrDefault(item => item.GetCustomAttribute<KeyAttribute>() != null);
-    }
+  //if (dictionaryInfo.ValueTypeInfo != null)
+  //{
+  //  if (!dictionaryInfo.ValueTypeInfo.Type.IsEqualOrSubclassOf(propertyValueType))
+  //    throw new InternalException($"Declared value type {dictionaryInfo.ValueTypeInfo.Type} must be equal or subclass of {propertyValueType}");
+  //}
+  //else
+  //{
+  //  dictionaryInfo.ValueTypeInfo = GetKnownType(propertyValueType);
+  //}
+  //if (dictionaryInfo.KeyName != null)
+  //{
+  //  if (dictionaryInfo.ValueTypeInfo == null)
+  //    throw new InternalException($"Unknown value type for {propertyValueType}");
+  //  dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperty(dictionaryInfo.KeyName);
+  //}
+  //else
+  //{
+  //  if (dictionaryInfo.ValueTypeInfo == null)
+  //    throw new InternalException($"Unknown value type for {propertyValueType}");
+  //  dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperties().FirstOrDefault(item => item.GetCustomAttribute<KeyAttribute>() != null);
+  //}
 
-    var dictionaryItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToList();
-    foreach (var dictionaryItemAttrib in dictionaryItemAttributes)
-    {
-      elementName = dictionaryItemAttrib.ElementName;
-      var itemType = dictionaryItemAttrib.Type;
-      if (string.IsNullOrEmpty(elementName))
-      {
-        if (itemType == null)
-          throw new InternalException($"Element name or type must be specified in DictionaryItemAttribute in specification of {propInfo?.DeclaringType?.Name} type");
-        elementName = itemType.Name;
-      }
-      else if (Options?.LowercasePropertyName == true)
-        elementName = LowercaseName(elementName);
-      if (itemType == null)
-        itemType = typeof(object);
-      var typeInfo = GetKnownType(itemType);
-      var itemTypeInfo = new SerializationItemTypeInfo(elementName, typeInfo);
-      dictionaryInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
-      itemTypeInfo.KeyName = dictionaryItemAttrib.KeyAttributeName;
-      if (dictionaryItemAttrib.KeyAttributeName != null)
-      {
-        var genericAttributes = propInfo.PropertyType.GetGenericArguments();
-        if (genericAttributes.Count() >= 2)
-        {
-          var keyType = genericAttributes[0];
-          var valueType = genericAttributes[1];
-          dictionaryInfo.KeyTypeInfo = GetKnownType(keyType);
-          dictionaryInfo.ValueTypeInfo = GetKnownType(valueType);
-        }
-      }
-    }
-    return dictionaryInfo;
-  }
+  //var dictionaryItemAttributes = propInfo.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToList();
+  //foreach (var dictionaryItemAttrib in dictionaryItemAttributes)
+  //{
+  //  elementName = dictionaryItemAttrib.ElementName;
+  //  var itemType = dictionaryItemAttrib.Type;
+  //  if (string.IsNullOrEmpty(elementName))
+  //  {
+  //    if (itemType == null)
+  //      throw new InternalException($"Element name or type must be specified in DictionaryItemAttribute in specification of {propInfo?.DeclaringType?.Name} type");
+  //    elementName = itemType.Name;
+  //  }
+  //  else if (Options?.LowercasePropertyName == true)
+  //    elementName = LowercaseName(elementName);
+  //  if (itemType == null)
+  //    itemType = typeof(object);
+  //  var typeInfo = GetKnownType(itemType);
+  //  var itemTypeInfo = new SerializationItemTypeInfo(elementName, typeInfo);
+  //  dictionaryInfo.KnownItemTypes.Add(elementName, itemTypeInfo);
+  //  itemTypeInfo.KeyName = dictionaryItemAttrib.KeyAttributeName;
+  //  if (dictionaryItemAttrib.KeyAttributeName != null)
+  //  {
+  //    var genericAttributes = propInfo.PropertyType.GetGenericArguments();
+  //    if (genericAttributes.Count() >= 2)
+  //    {
+  //      var keyType = genericAttributes[0];
+  //      var valueType = genericAttributes[1];
+  //      dictionaryInfo.KeyTypeInfo = GetKnownType(keyType);
+  //      dictionaryInfo.ValueTypeInfo = GetKnownType(valueType);
+  //    }
+  //  }
+  //}
+  //return dictionaryInfo;
+  //}
 
   protected DictionaryInfo CreateDictionaryInfo(Type aType, XmlArrayAttribute? arrayAttribute)
   {
@@ -768,27 +766,28 @@ public class XmlSerializationInfoMapper
     {
       if (dictionaryInfo.ValueTypeInfo == null)
         throw new InternalException($"Unknown value type for {aType}");
-      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperties().FirstOrDefault(item => item.GetCustomAttribute<KeyAttribute>()!=null);
+      dictionaryInfo.KeyProperty = dictionaryInfo.ValueTypeInfo.Type.GetProperties().FirstOrDefault(item => item.GetCustomAttribute<KeyAttribute>() != null);
     }
 
     var xmlDictionaryItemAttributes = aType.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToList();
     foreach (var xmlDictionaryItemAttrib in xmlDictionaryItemAttributes)
     {
-      var elementName = xmlDictionaryItemAttrib.ElementName;
+      var elemName = xmlDictionaryItemAttrib.ElementName;
       var itemType = xmlDictionaryItemAttrib.Type;
-      if (string.IsNullOrEmpty(elementName))
+      if (string.IsNullOrEmpty(elemName))
       {
         if (itemType == null)
           throw new InternalException($"Element name or type must be specified in DictionaryItemAttribute in specification of {aType?.DeclaringType?.Name} type");
-        elementName = itemType.Name;
+        elemName = itemType.Name;
       }
-      else if (Options?.LowercasePropertyName == true)
-        elementName = LowercaseName(elementName);
+      else
+      if (Options.ElementNameCase != 0)
+        elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
       if (itemType == null)
         itemType = typeof(object);
       var itemTypeInfo = GetKnownType(itemType);
-      var serializationItemTypeInfo = new SerializationItemTypeInfo(elementName, itemTypeInfo);
-      dictionaryInfo.KnownItemTypes.Add(elementName, serializationItemTypeInfo);
+      var serializationItemTypeInfo = new SerializationItemTypeInfo(elemName, itemTypeInfo);
+      dictionaryInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
       serializationItemTypeInfo.KeyName = xmlDictionaryItemAttrib.KeyAttributeName;
       serializationItemTypeInfo.ValueName = xmlDictionaryItemAttrib.ValueAttributeName;
     }
@@ -1038,7 +1037,7 @@ public class XmlSerializationInfoMapper
 
   protected void SearchShouldSerializeMethod(MethodInfo[] methodInfos, SerializationPropertyInfo propInfo)
   {
-    var methodInfo = methodInfos.FirstOrDefault(item=>item.Name.EndsWith(propInfo.PropInfo.Name));
+    var methodInfo = methodInfos.FirstOrDefault(item => item.Name.EndsWith(propInfo.PropInfo.Name));
     if (methodInfo != null)
     {
       if (methodInfo.ReturnType == typeof(bool))
@@ -1049,6 +1048,8 @@ public class XmlSerializationInfoMapper
 
   public virtual bool IsSimple(Type aType)
   {
+    if (aType.IsNullable(out var baseType))
+      return IsSimple(baseType);
     bool isSimpleValue = false;
     if (aType == typeof(string))
       isSimpleValue = true;
@@ -1056,8 +1057,6 @@ public class XmlSerializationInfoMapper
       isSimpleValue = true;
     else if (aType == typeof(int))
       isSimpleValue = true;
-    else if (aType.Name.StartsWith("`Nullable"))
-      return IsSimple(aType.GetGenericArguments().First());
     return isSimpleValue;
   }
 

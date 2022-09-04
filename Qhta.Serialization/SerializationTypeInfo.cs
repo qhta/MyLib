@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
+﻿using System.Xml.Linq;
 
 namespace Qhta.Xml.Serialization;
 
@@ -8,19 +7,20 @@ public class SerializationTypeInfo: ITypeInfo
 
   public SerializationTypeInfo(Type aType)
   {
-    Type = aType;
-  }
-
-  public SerializationTypeInfo(string elementName, Type aType)
-  {
-    ElementName = elementName;
+    var aName = aType.Name;
+    var rootAttribute = aType.GetCustomAttribute<XmlRootAttribute>();
+    if (rootAttribute != null)
+      aName = rootAttribute.ElementName;
+    Debug.WriteLine($"CreateSerializationTypeInfo`1({aName}, {aType})");
+    var aNamespace = aType.Namespace;
+    Name = new QualifiedName(aName,aNamespace);
     Type = aType;
   }
 
   /// <summary>
   /// XmlElement name for a type
   /// </summary>
-  public string? ElementName { get; set; }
+  public QualifiedName Name { get; set; }
 
   /// <summary>
   /// A type to serialize or deserialize

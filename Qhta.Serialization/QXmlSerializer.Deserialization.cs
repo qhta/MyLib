@@ -1,62 +1,69 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-using Qhta.TestHelper;
-using Qhta.TypeUtils;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public delegate void OnUnknownProperty(object readObject, string elementName);
 
-public partial class XmlSerializer
+public partial class QXmlSerializer
 {
 
   #region Deserialize methods
-  public object? Deserialize(Stream stream)
+  //public object? Deserialize(Stream stream)
+  //{
+  //  using (var xmlReader = new XmlTextReader(stream))
+  //  {
+  //    xmlReader.WhitespaceHandling = WhitespaceHandling.None;
+  //    return Deserialize(xmlReader);
+  //  }
+  //}
+
+  //public object? Deserialize(TextReader textReader)
+  //{
+  //  using (var xmlReader = new XmlTextReader(textReader))
+  //  {
+  //    xmlReader.WhitespaceHandling = WhitespaceHandling.None;
+  //    return Deserialize(xmlReader);
+  //  }
+  //}
+
+  //public object? Deserialize(string str)
+  //{
+  //  using (var xmlReader = new XmlTextReader(new StringReader(str)))
+  //  {
+  //    xmlReader.WhitespaceHandling = WhitespaceHandling.None;
+  //    return Deserialize(xmlReader);
+  //  }
+  //}
+
+  public partial bool CanDeserialize(XmlReader xmlReader)
   {
-    using (XmlTextReader xmlReader = new XmlTextReader(stream))
-    {
-      xmlReader.WhitespaceHandling = WhitespaceHandling.None;
-      return Deserialize(xmlReader);
-    }
+    throw new NotImplementedException("CanDeserialize(XmlReader)");
   }
 
-  public object? Deserialize(TextReader textReader)
-  {
-    using (XmlTextReader xmlReader = new XmlTextReader(textReader))
-    {
-      xmlReader.WhitespaceHandling = WhitespaceHandling.None;
-      return Deserialize(xmlReader);
-    }
-  }
-
-  public object? Deserialize(string str)
-  {
-    using (XmlTextReader xmlReader = new XmlTextReader(new StringReader(str)))
-    {
-      xmlReader.WhitespaceHandling = WhitespaceHandling.None;
-      return Deserialize(xmlReader);
-    }
-  }
 
 
-  public object? Deserialize(XmlTextReader reader)
+  protected partial object? DeserializeObject(XmlReader xmlReader, string? encodingStyle, XmlDeserializationEvents events)
   {
-    if (reader == null)
+    if (xmlReader == null)
       throw new InternalException("$Reader must be set prior to deserialize");
-    SkipToElement(reader);
-    if (reader.EOF)
+    SkipToElement(xmlReader);
+    if (xmlReader.EOF)
       return null;
-    var xmlName = reader.Name;
-    var aName = new XmlQualifiedName(xmlName, reader.Prefix);
-    if (!KnownTypes.TryGetValue(aName.ToString(), out var typeInfo))
-      throw new XmlInternalException($"Element {aName} not recognized while deserialization.", reader);
+    var name = xmlReader.Name;
+    var prefix = xmlReader.Prefix;
+    SerializationTypeInfo? typeInfo;
+    if (String.IsNullOrEmpty(prefix))
+    {
+      if (!KnownTypes.TryGetValue(name, out typeInfo))
+        throw new XmlInternalException($"Element {name} not recognized while deserialization.", xmlReader);
+    }
+    else
+    {
+      var aName = new QualifiedName(name, prefix);
+      if (!KnownTypes.TryGetValue(aName, out typeInfo))
+        throw new XmlInternalException($"Element {aName} not recognized while deserialization.", xmlReader);
+    }
     var constructor = typeInfo.KnownConstructor;
     if (constructor == null)
-      throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", reader);
+      throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", xmlReader);
     var obj = constructor.Invoke(new object[0]);
 
     //if (obj is IXSerializable qSerializable)
@@ -66,31 +73,48 @@ public partial class XmlSerializer
     //else 
     if (obj is IXmlSerializable xmlSerializable)
     {
-      xmlSerializable.ReadXml(reader);
+      xmlSerializable.ReadXml(xmlReader);
     }
     else
     {
-      ReadObject(obj, reader, typeInfo);
+      ReadObject(obj, xmlReader, typeInfo);
     }
     return obj;
   }
+
+
+  //public object? Deserialize(XmlReader xmlReader, string? encodingStyle)
+  //{
+  //  throw new NotImplementedException($"XmlSerializer.Deserialize");
+  //}
+
+  //public object? Deserialize(XmlReader xmlReader, string? encodingStyle, XmlDeserializationEvents events)
+  //{
+  //  throw new NotImplementedException($"XmlSerializer.Deserialize");
+  //}
+
+  //public bool CanDeserialize(XmlReader xmlReader)
+  //{
+  //  throw new NotImplementedException($"XmlSerializer.CanDeserialize");
+  //}
+
   #endregion
 
   #region Read methods
 
-  public void SkipToElement(XmlTextReader reader)
+  public void SkipToElement(XmlReader reader)
   {
     while (!reader.EOF && reader.NodeType != XmlNodeType.Element)
       reader.Read();
   }
 
-  public void SkipWhitespaces(XmlTextReader reader)
+  public void SkipWhitespaces(XmlReader reader)
   {
     while (reader.NodeType == XmlNodeType.Whitespace)
       reader.Read();
   }
 
-  public void ReadObject(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
+  public void ReadObject(object obj, XmlReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
   {
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -106,7 +130,7 @@ public partial class XmlSerializer
       reader.Read();
   }
 
-  public int ReadAttributesBase(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
+  public int ReadAttributesBase(object obj, XmlReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
   {
     var aType = obj.GetType();
     var attribs = typeInfo.PropsAsAttributes;
@@ -121,49 +145,76 @@ public partial class XmlSerializer
     var attrCount = reader.AttributeCount;
     for (int i = 0; i < attrCount; i++)
     {
-      string attrName = reader.Name;
-      if (attrName == "xml:space")
+      string attrPrefix = reader.Prefix;
+      string attrName = reader.LocalName;
+      if (!String.IsNullOrEmpty(attrPrefix))
       {
-        reader.ReadAttributeValue();
-        var str = reader.ReadContentAsString();
-        if (str == "preserve")
-          reader.WhitespaceHandling = WhitespaceHandling.Significant;
-        else
-          reader.WhitespaceHandling = WhitespaceHandling.None;
+        TestTools.Stop();
+        switch (attrPrefix)
+        {
+          case "xml":
+            if (attrName == "space")
+            {
+              reader.ReadAttributeValue();
+              var str = reader.ReadContentAsString();
+              if (reader is XmlTextReader xmlTextReader)
+              {
+                if (str == "preserve")
+                  xmlTextReader.WhitespaceHandling = WhitespaceHandling.Significant;
+                else
+                  xmlTextReader.WhitespaceHandling = WhitespaceHandling.None;
+              }
+            }
+            reader.MoveToNextAttribute();
+            continue;
+          case "xmlns":
+            if (!Namespaces.ContainsKey(attrName))
+            {
+              reader.ReadAttributeValue();
+              var str = reader.ReadContentAsString();
+              Namespaces.Add(attrName, str);
+            }
+            reader.MoveToNextAttribute();
+            continue;
+          case "xsd":
+
+            reader.MoveToNextAttribute();
+            continue;
+        }
+      }
+
+      var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
+      if (propertyToRead == null)
+      {
+        if (onUnknownProperty == null)
+          throw new XmlInternalException($"Unknown property for attribute \"{attrName}\" in type {aType.Name}", reader);
+        onUnknownProperty(obj, attrName);
       }
       else
       {
-        var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
-        if (propertyToRead == null)
+        reader.ReadAttributeValue();
+        object? propValue = ReadValue(propertyToRead, reader);
+        if (propValue != null)
         {
-          if (onUnknownProperty == null)
-            throw new XmlInternalException($"Unknown property for attribute \"{attrName}\" in type {aType.Name}", reader);
-          onUnknownProperty(obj, attrName);
-        }
-        else
-        {
-          reader.ReadAttributeValue();
-          object? propValue = ReadValue(propertyToRead, reader);
-          if (propValue != null)
+          try
           {
-            try
-            {
-              propertyToRead.PropInfo.SetValue(obj, propValue);
-            }
-            catch (Exception ex)
-            {
-              throw new XmlInternalException($"Could not set value for property {propertyToRead.PropInfo} in type {aType.Name}", reader, ex);
-            }
-            attrsRead++;
+            propertyToRead.PropInfo.SetValue(obj, propValue);
           }
+          catch (Exception ex)
+          {
+            throw new XmlInternalException($"Could not set value for property {propertyToRead.PropInfo} in type {aType.Name}", reader, ex);
+          }
+
+          attrsRead++;
         }
       }
+
       reader.MoveToNextAttribute();
     }
     return attrsRead;
   }
 
-  public int ReadElementsBase(object obj, XmlTextReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
+  public int ReadElementsBase(object obj, XmlReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
   {
     var aType = obj.GetType();
     var attribs = typeInfo.PropsAsAttributes;
@@ -177,9 +228,10 @@ public partial class XmlSerializer
     int propsRead = 0;
     while (reader.NodeType == XmlNodeType.Element)
     {
-      var elementName = reader.Name;
-      if (elementName == "normalized")
-        TestUtils.Stop();
+      var elementPrefix = reader.Prefix;
+      var elementName = reader.LocalName;
+      if (elementName == "HeadingPairs")
+        TestTools.Stop();
       var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
       if (propertyToRead != null)
       {
@@ -296,10 +348,10 @@ public partial class XmlSerializer
               reader.Read();
             else
             {
-              do 
+              do
               {
                 reader.Read();
-              }  while (!(reader.Name==elementName && !reader.IsStartElement()));
+              } while (!(reader.Name == elementName && !reader.IsStartElement()));
               reader.Read();
             }
             continue;
@@ -314,7 +366,7 @@ public partial class XmlSerializer
     return propsRead;
   }
 
-  public object? ReadElementAsObject(Type? expectedType, XmlTextReader reader)
+  public object? ReadElementAsObject(Type? expectedType, XmlReader reader)
   {
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -331,7 +383,7 @@ public partial class XmlSerializer
     return ReadElementWithKnownTypeInfo(typeInfo, reader);
   }
 
-  public object? ReadElementAsProperty(Type? expectedType, SerializationPropertyInfo propertyInfo, XmlTextReader reader)
+  public object? ReadElementAsProperty(Type? expectedType, SerializationPropertyInfo propertyInfo, XmlReader reader)
   {
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -343,18 +395,26 @@ public partial class XmlSerializer
       if (typeInfo == null)
         throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
     }
+
     if (expectedType != null)
+    {
+      if (expectedType.IsNullable(out var baseType))
+        expectedType = baseType;
       if (!typeInfo.Type.IsEqualOrSubclassOf(expectedType))
         throw new XmlInternalException($"Element \"{name}\" is mapped to {typeInfo.Type.Name}" +
                                        $" but {expectedType.Name} or its subclass expected", reader);
+    }
+
     return ReadElementWithKnownTypeInfo(typeInfo, reader);
   }
 
-  public object? ReadElementAsItem(Type? expectedType, CollectionInfo collectionInfo, XmlTextReader reader)
+  public object? ReadElementAsItem(Type? expectedType, CollectionInfo collectionInfo, XmlReader reader)
   {
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
     var name = reader.Name;
+    if (name == "HeadingPair")
+      TestTools.Stop();
     SerializationTypeInfo? typeInfo = null;
     if (collectionInfo.KnownItemTypes.Count > 0)
     {
@@ -372,13 +432,13 @@ public partial class XmlSerializer
     return ReadElementWithKnownTypeInfo(typeInfo, reader);
   }
 
-  public object? ReadElementWithKnownTypeInfo(SerializationTypeInfo typeInfo, XmlTextReader reader)
+  public object? ReadElementWithKnownTypeInfo(SerializationTypeInfo typeInfo, XmlReader reader)
   {
     if (typeInfo.XmlConverter != null && typeInfo.XmlConverter.CanRead)
       return typeInfo.XmlConverter.ReadXml(reader, typeInfo, null, null, this);
     if (typeInfo.KnownConstructor == null)
     {
-      if (IsSimple(typeInfo.Type))
+      if (typeInfo.Type.IsSimple())
       {
         reader.Read();
         var result = ReadValue(typeInfo.Type, null, reader);
@@ -402,14 +462,14 @@ public partial class XmlSerializer
     return obj;
   }
 
-  public object? ReadElementWithKnownTypeInfo(SerializationItemTypeInfo itemTypeInfo, XmlTextReader reader)
+  public object? ReadElementWithKnownTypeInfo(SerializationItemTypeInfo itemTypeInfo, XmlReader reader)
   {
     var typeInfo = itemTypeInfo.TypeInfo;
     if (typeInfo.XmlConverter != null && typeInfo.XmlConverter.CanRead)
       return typeInfo.XmlConverter.ReadXml(reader, typeInfo, null, itemTypeInfo, this);
     if (typeInfo.KnownConstructor == null)
     {
-      if (IsSimple(typeInfo.Type))
+      if (typeInfo.Type.IsSimple())
       {
         reader.Read();
         var result = ReadValue(typeInfo.Type, null, reader);
@@ -434,7 +494,7 @@ public partial class XmlSerializer
   }
 
 
-  public (object? key, object? value) ReadElementAsKVPair(Type? expectedKeyType, Type? expectedValueType, DictionaryInfo dictionaryInfo, XmlTextReader reader)
+  public (object? key, object? value) ReadElementAsKVPair(Type? expectedKeyType, Type? expectedValueType, DictionaryInfo dictionaryInfo, XmlReader reader)
   {
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -465,7 +525,7 @@ public partial class XmlSerializer
       }
     if (typeInfo.KnownConstructor == null)
     {
-      if (IsSimple(typeInfo.Type))
+      if (typeInfo.Type.IsSimple())
       {
         var emptyElement = reader.IsEmptyElement;
         if (keyName == null)
@@ -530,13 +590,15 @@ public partial class XmlSerializer
     }
   }
 
-  public void ReadElementAsCollectionProperty(object obj, SerializationPropertyInfo propertyInfo, CollectionInfo collectionInfo, XmlTextReader reader)
+  public void ReadElementAsCollectionProperty(object obj, SerializationPropertyInfo propertyInfo, CollectionInfo collectionInfo, XmlReader reader)
   {
+    if (propertyInfo.Name == "HeadingPairs")
+      TestTools.Stop();
     if (propertyInfo.TypeInfo == null)
       throw new XmlInternalException($"Collection type at property {propertyInfo.PropInfo.Name}" +
                                      $" of type {obj.GetType().Name} unknown", reader);
     var collectionType = collectionInfo.CollectionTypeInfo?.Type;
-    if (collectionInfo == null)
+    if (collectionType == null)
       collectionType = propertyInfo.PropInfo.PropertyType;
     if (collectionType == null)
       throw new XmlInternalException($"Unknown collection type for {propertyInfo.PropInfo.DeclaringType}.{propertyInfo.PropInfo.Name}", reader);
@@ -784,9 +846,11 @@ public partial class XmlSerializer
     reader.Read();
   }
 
-  public int ReadCollectionItems(ICollection<object> collection, Type collectionItemType, CollectionInfo collectionInfo, XmlTextReader reader)
+  public int ReadCollectionItems(ICollection<object> collection, Type collectionItemType, CollectionInfo collectionInfo, XmlReader reader)
   {
     int itemsRead = 0;
+    while (reader.NodeType == XmlNodeType.Whitespace)
+      reader.Read();
     while (reader.NodeType == XmlNodeType.Element)
     {
       var item = ReadElementAsItem(collectionItemType, collectionInfo, reader);
@@ -797,7 +861,7 @@ public partial class XmlSerializer
     return itemsRead;
   }
 
-  public int ReadDictionaryItems(ICollection<object> collection, Type collectionKeyType, Type collectionValueType, DictionaryInfo dictionaryInfo, XmlTextReader reader)
+  public int ReadDictionaryItems(ICollection<object> collection, Type collectionKeyType, Type collectionValueType, DictionaryInfo dictionaryInfo, XmlReader reader)
   {
     int itemsRead = 0;
     while (reader.NodeType == XmlNodeType.Element)
@@ -811,7 +875,7 @@ public partial class XmlSerializer
     return itemsRead;
   }
 
-  public void ReadTextPropertyValue(object obj, XmlTextReader reader)
+  public void ReadTextPropertyValue(object obj, XmlReader reader)
   {
     if (reader.NodeType == XmlNodeType.Text)
     {
@@ -826,18 +890,18 @@ public partial class XmlSerializer
     }
   }
 
-  public void ReadTextValue(Type valueType, XmlTextReader reader)
+  public void ReadTextValue(Type valueType, XmlReader reader)
   {
   }
 
-  public object? ReadValue(SerializationPropertyInfo serializationPropertyInfo, XmlTextReader reader)
+  public object? ReadValue(SerializationPropertyInfo serializationPropertyInfo, XmlReader reader)
   {
     var propType = serializationPropertyInfo.PropInfo.PropertyType;
     var typeConverter = serializationPropertyInfo.TypeConverter;
     return ReadValue(propType, typeConverter, reader);
   }
 
-  public object? ReadValue(Type expectedType, TypeConverter? typeConverter, XmlTextReader reader)
+  public object? ReadValue(Type expectedType, TypeConverter? typeConverter, XmlReader reader)
   {
     var str = reader.ReadContentAsString();
     object? propValue;
@@ -894,7 +958,7 @@ public partial class XmlSerializer
     }
     else if (expectedType.IsEnum)
     {
-      if (!Enum.TryParse(expectedType, str, Options.IgnoreCaseEnum, out propValue))
+      if (!Enum.TryParse(expectedType, str, Options.IgnoreCaseOnEnum, out propValue))
         throw new XmlInternalException($"Cannot convert \"{str}\" to enum value of type {expectedType.Name}", reader);
     }
     else if (expectedType == typeof(int))

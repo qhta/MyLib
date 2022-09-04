@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Qhta.TestHelper;
 
-public static class TestUtils
+public static class TestTools
 {
   public static string? MethodName([CallerMemberName] string? callerName = null)
   { 

@@ -22,7 +22,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
   }
 
   public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, XmlSerializer? serializer)
+    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, QXmlSerializer? serializer)
   {
     if (serializer == null)
       throw new IOException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");
@@ -102,7 +102,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
 
   public override bool CanWrite => false;
 
-  public override void WriteXml(XmlWriter writer, object? value, XmlSerializer? serializer)
+  public override void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer)
   {
     throw new NotImplementedException();
   }

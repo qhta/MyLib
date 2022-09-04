@@ -1,9 +1,9 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<string, ItemType>, IDictionary<Type, ItemType> where ItemType : ITypeInfo
+public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<QualifiedName, ItemType>, IDictionary<Type, ItemType> where ItemType : ITypeInfo
 {
   private readonly Dictionary<Type, ItemType> TypeIndexedItems = new Dictionary<Type, ItemType>();
-  private readonly SortedDictionary<string, ItemType> StringIndexedItems = new SortedDictionary<string, ItemType>();
+  private readonly SortedDictionary<QualifiedName, ItemType> NameIndexedItems = new SortedDictionary<QualifiedName, ItemType>();
 
   public ItemType? FindTypeInfo(Type itemType)
   {
@@ -13,9 +13,9 @@ public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<strin
     return result;
   }
 
-  public IEnumerable<string> KnownTags(Type type)
+  public IEnumerable<QualifiedName> KnownTags(Type type)
   {
-    foreach (var item in StringIndexedItems)
+    foreach (var item in NameIndexedItems)
       if (type == item.Value.Type)
         yield return item.Key;
   }
@@ -24,71 +24,94 @@ public class TypesDictionary<ItemType>: IEnumerable<ItemType>, IDictionary<strin
   {
     if (!TypeIndexedItems.ContainsKey(value.Type))
       TypeIndexedItems.Add(value.Type, value);
+    var key = value.Name;
+    if (!NameIndexedItems.ContainsKey(key)) 
+      (NameIndexedItems).Add(key, value);
   }
 
-  public void Add(string key, ItemType value)
+  public void Add(string elementName, ItemType value)
   {
     if (!TypeIndexedItems.ContainsKey(value.Type))
       TypeIndexedItems.Add(value.Type, value);
-    (StringIndexedItems).Add(key, value);
+    (NameIndexedItems).Add(new QualifiedName(elementName), value);
   }
 
-  public bool ContainsKey(string key)
+  public void Add(QualifiedName key, ItemType value)
   {
-    return (StringIndexedItems).ContainsKey(key);
+    if (!TypeIndexedItems.ContainsKey(value.Type))
+      TypeIndexedItems.Add(value.Type, value);
+    (NameIndexedItems).Add(key, value);
   }
 
-  public bool Remove(string key)
+  public bool ContainsKey(QualifiedName key)
   {
-    if (StringIndexedItems.TryGetValue(key, out var typeInfo))
+    return (NameIndexedItems).ContainsKey(key);
+  }
+
+  public bool Remove(QualifiedName key)
+  {
+    if (NameIndexedItems.TryGetValue(key, out var typeInfo))
       TypeIndexedItems.Remove(typeInfo.Type);
-    return StringIndexedItems.Remove(key);
+    return NameIndexedItems.Remove(key);
   }
 
-  public bool TryGetValue(string key, [MaybeNullWhen(false)] out ItemType value)
+  public bool TryGetValue(string elementName, [MaybeNullWhen(false)] out ItemType value)
   {
-    return (StringIndexedItems).TryGetValue(key, out value);
+    if (NameIndexedItems.TryGetValue(new QualifiedName(elementName), out value))
+      return true;
+    var candidates = NameIndexedItems.Where(item => item.Key.Name == elementName).ToArray();
+    if (candidates.Length == 1)
+    {
+      value = candidates.First().Value;
+      return true;
+    }
+    return false;
   }
 
-  public ItemType this[string key] { get => (StringIndexedItems)[key]; set => (StringIndexedItems)[key] = value; }
+  public bool TryGetValue(QualifiedName key, [MaybeNullWhen(false)] out ItemType value)
+  {
+    return NameIndexedItems.TryGetValue(key, out value);
+  }
 
-  public ICollection<string> Keys => (StringIndexedItems).Keys;
+  public ItemType this[QualifiedName key] { get => (NameIndexedItems)[key]; set => (NameIndexedItems)[key] = value; }
+
+  public ICollection<QualifiedName> Keys => (NameIndexedItems).Keys;
 
   public ICollection<ItemType> Values => (TypeIndexedItems).Values;
 
-  public void Add(KeyValuePair<string, ItemType> item)
+  public void Add(KeyValuePair<QualifiedName, ItemType> item)
   {
-    ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).Add(item);
+    ((ICollection<KeyValuePair<QualifiedName, ItemType>>)NameIndexedItems).Add(item);
   }
 
   public void Clear()
   {
-    StringIndexedItems.Clear();
+    NameIndexedItems.Clear();
     TypeIndexedItems.Clear();
   }
 
-  public bool Contains(KeyValuePair<string, ItemType> item)
+  public bool Contains(KeyValuePair<QualifiedName, ItemType> item)
   {
-    return ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).Contains(item);
+    return ((ICollection<KeyValuePair<QualifiedName, ItemType>>)NameIndexedItems).Contains(item);
   }
 
-  public void CopyTo(KeyValuePair<string, ItemType>[] array, int arrayIndex)
+  public void CopyTo(KeyValuePair<QualifiedName, ItemType>[] array, int arrayIndex)
   {
-    ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).CopyTo(array, arrayIndex);
+    ((ICollection<KeyValuePair<QualifiedName, ItemType>>)NameIndexedItems).CopyTo(array, arrayIndex);
   }
 
-  public bool Remove(KeyValuePair<string, ItemType> item)
+  public bool Remove(KeyValuePair<QualifiedName, ItemType> item)
   {
-    return ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).Remove(item);
+    return ((ICollection<KeyValuePair<QualifiedName, ItemType>>)NameIndexedItems).Remove(item);
   }
 
-  public int Count => Math.Max(StringIndexedItems.Count, TypeIndexedItems.Count);
+  public int Count => Math.Max(NameIndexedItems.Count, TypeIndexedItems.Count);
 
-  public bool IsReadOnly => ((ICollection<KeyValuePair<string, ItemType>>)StringIndexedItems).IsReadOnly;
+  public bool IsReadOnly => ((ICollection<KeyValuePair<QualifiedName, ItemType>>)NameIndexedItems).IsReadOnly;
 
-  public IEnumerator<KeyValuePair<string, ItemType>> GetEnumerator()
+  public IEnumerator<KeyValuePair<QualifiedName, ItemType>> GetEnumerator()
   {
-    return ((IEnumerable<KeyValuePair<string, ItemType>>)StringIndexedItems).GetEnumerator();
+    return ((IEnumerable<KeyValuePair<QualifiedName, ItemType>>)NameIndexedItems).GetEnumerator();
   }
 
   //IEnumerator IEnumerable.GetEnumerator()

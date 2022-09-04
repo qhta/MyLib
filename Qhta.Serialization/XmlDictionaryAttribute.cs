@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false)]
 public class XmlDictionaryAttribute : XmlCollectionAttribute

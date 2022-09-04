@@ -11,7 +11,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
   }
 
   public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, XmlSerializer? serializer)
+    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, QXmlSerializer? serializer)
   {
     var serializationTypeInfo = propertyInfo?.TypeInfo;
     if (serializationTypeInfo == null)
@@ -40,7 +40,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
 
   public override bool CanWrite => false;
 
-  public override void WriteXml(XmlWriter writer, object? value, XmlSerializer? serializer)
+  public override void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer)
   {
     throw new NotImplementedException();
   }
