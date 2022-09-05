@@ -5,16 +5,17 @@ namespace Qhta.Xml.Serialization;
 /// <summary>
 /// Info of an array property item
 /// </summary>
-public class SerializationItemTypeInfo: ITypeInfo
+public class SerializationItemInfo: ITypeInfo
 {
+  public SerializationItemInfo() { }
 
-  public SerializationItemTypeInfo(string elementName, SerializationTypeInfo itemTypeInfo)
+  public SerializationItemInfo(string elementName, SerializationTypeInfo itemTypeInfo)
   {
     Name = new QualifiedName(elementName);
     TypeInfo = itemTypeInfo;
   }
 
-  public SerializationItemTypeInfo(QualifiedName qualifiedName, SerializationTypeInfo itemTypeInfo)
+  public SerializationItemInfo(QualifiedName qualifiedName, SerializationTypeInfo itemTypeInfo)
   {
     Name = qualifiedName;
     TypeInfo = itemTypeInfo;
@@ -29,7 +30,7 @@ public class SerializationItemTypeInfo: ITypeInfo
   /// Refers to the existing TypeInfo
   /// </summary>
   [XmlReference]
-  public SerializationTypeInfo TypeInfo { get; set; }
+  public SerializationTypeInfo TypeInfo { get; set; } = null!;
 
   /// <summary>
   /// Used when this info is a dictionary item info

@@ -64,7 +64,7 @@ public partial class QXmlSerializer
     var aType = obj.GetType();
     if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
       throw new InternalException($"Type \"{aType}\" not registered");
-    var tag = KnownTypes.GetXmlQualifiedName(serializedTypeInfo.Name);
+    var tag = SerializationInfoMapper.GetXmlQualifiedName(serializedTypeInfo.Name);
     writer.WriteStartElement(tag.Name, tag.Namespace);
     if (Options.UseNilValue && !Namespaces.ContainsKey("xsi"))
     {
@@ -335,7 +335,7 @@ public partial class QXmlSerializer
                 WriteEndElement(writer, itemTag);
               }
             }
-            if (string.IsNullOrEmpty(itemTag))
+            if (KnownTypes.TryGetValue(item.GetType(), out var serializationTypeInfo))
               WriteObject(writer, item);
             else
             {

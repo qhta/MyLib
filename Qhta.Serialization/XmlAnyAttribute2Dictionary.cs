@@ -11,7 +11,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
   }
 
   public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, QXmlSerializer? serializer)
+    SerializationPropertyInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
   {
     var serializationTypeInfo = propertyInfo?.TypeInfo;
     if (serializationTypeInfo == null)

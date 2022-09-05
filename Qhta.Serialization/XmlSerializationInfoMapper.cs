@@ -21,7 +21,12 @@ public partial class XmlSerializationInfoMapper
   /// A namespace of the main type. If registered type are in the same namespace,
   /// they are indexed without prefixes.
   /// </summary>
-  public string BaseNamespace { get; }
+  public string BaseNamespace { get; set; }
+
+
+  private Dictionary<string, string> PrefixToNamespace { get; set; } = new();
+
+  private Dictionary<string, string> NamespaceToPrefix { get; set; } = new();
 
   /// <summary>
   /// Only some of the options are used:
@@ -153,7 +158,7 @@ public partial class XmlSerializationInfoMapper
     CategorizeProperties(aType, typeInfo);
     SearchShouldSerializeMethods(aType, typeInfo);
 
-    typeInfo.KnownItemTypes = GetKnownItems(aType);
+    //typeInfo.KnownItemTypes = GetKnownItems(aType);
     typeInfo.XmlConverter = GetXmlConverter(aType);
     typeInfo.KnownContentProperty = GetContentProperty(aType);
     typeInfo.KnownTextProperty = GetTextProperty(aType);
@@ -169,6 +174,8 @@ public partial class XmlSerializationInfoMapper
     int elemCount = 0;
     foreach (var propInfo in props)
     {
+      if (propInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
+        continue;
       //if (propInfo.Name == "MajorFont")
       //  Debug.Assert(true);
       var xmlAttribute = propInfo.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().FirstOrDefault();
@@ -201,8 +208,7 @@ public partial class XmlSerializationInfoMapper
                   TryAddPropertyAsCollection(typeInfo, propInfo, null, elemCount++);
               }
               else
-              if (Options.AcceptAllNotIgnoredProperties
-                  && !propInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
+              if (Options.AcceptAllNotIgnoredProperties)
               {
                 if (propInfo.GetIndexParameters().Length == 0)
                 {
@@ -409,14 +415,14 @@ public partial class XmlSerializationInfoMapper
 
         if (itemType == null)
           itemType = typeof(object);
-        var serializationItemTypeInfo = new SerializationItemTypeInfo(elemName, RegisterType(itemType));
-        RegisterType(itemType).KnownItemTypes.Add(elemName, serializationItemTypeInfo);
+        var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
+        collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
       }
     }
     else if (aType.IsCollection(out var itemType))
     {
       var itemTypeInfo = RegisterType(itemType);
-      collectionTypeInfo.KnownItemTypes.Add(new SerializationItemTypeInfo(itemTypeInfo.Name, itemTypeInfo));
+      collectionTypeInfo.KnownItemTypes.Add(new SerializationItemInfo(itemTypeInfo.Name, itemTypeInfo));
     }
     return collectionTypeInfo;
   }
@@ -461,15 +467,15 @@ public partial class XmlSerializationInfoMapper
 
         if (itemType == null)
           itemType = typeof(object);
-        var serializationItemTypeInfo = new SerializationItemTypeInfo(elemName, RegisterType(itemType));
-        RegisterType(itemType).KnownItemTypes.Add(elemName, serializationItemTypeInfo);
+        var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
+        dictionaryTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
       }
     }
     else if (aType.IsDictionary(out var keyType, out var valType))
     {
       dictionaryTypeInfo.KeyTypeInfo = RegisterType(keyType);
       var itemTypeInfo = RegisterType(valType);
-      dictionaryTypeInfo.KnownItemTypes.Add(new SerializationItemTypeInfo(itemTypeInfo.Name, itemTypeInfo));
+      dictionaryTypeInfo.KnownItemTypes.Add(new SerializationItemInfo(itemTypeInfo.Name, itemTypeInfo));
     }
     return dictionaryTypeInfo;
   }
@@ -581,11 +587,11 @@ public partial class XmlSerializationInfoMapper
         }
         if (itemTypeInfo == null)
           throw new InternalException($"Unknown type {itemType} for deserialization");
-        SerializationItemTypeInfo knownItemTypeInfo;
+        SerializationItemInfo knownItemTypeInfo;
         if (!string.IsNullOrEmpty(xmlItemElementAttribute.ElementName))
-          knownItemTypeInfo = new SerializationItemTypeInfo(xmlItemElementAttribute.ElementName, itemTypeInfo);
+          knownItemTypeInfo = new SerializationItemInfo(xmlItemElementAttribute.ElementName, itemTypeInfo);
         else
-          knownItemTypeInfo = new SerializationItemTypeInfo(null, itemTypeInfo);
+          knownItemTypeInfo = new SerializationItemInfo(null, itemTypeInfo);
         var addMethodName = xmlItemElementAttribute.AddMethod;
         if (xmlItemElementAttribute is XmlDictionaryItemAttribute xmlDictionaryItemAttribute)
         {
@@ -770,7 +776,7 @@ public partial class XmlSerializationInfoMapper
   }
   public static bool IsUpper(string text)
   {
-    if (text == null)
+    if (string.IsNullOrEmpty(text))
       return false;
     foreach (var ch in text)
       if (char.IsLetter(ch) && !Char.IsUpper(ch))
@@ -779,4 +785,17 @@ public partial class XmlSerializationInfoMapper
   }
   #endregion
 
+  public XmlQualifiedName GetXmlQualifiedName(QualifiedName qualifiedName)
+  {
+    if (NamespaceToPrefix.TryGetValue(qualifiedName.Namespace, out var xmlNamespace))
+      return new XmlQualifiedName(qualifiedName.Name, xmlNamespace);
+    return new XmlQualifiedName(qualifiedName.Name);
+  }
+
+  public QualifiedName GetQualifiedName(XmlQualifiedName xmlQualifiedName)
+  {
+    if (PrefixToNamespace.TryGetValue(xmlQualifiedName.Namespace, out var clrNamespace))
+      return new QualifiedName(xmlQualifiedName.Name, clrNamespace);
+    return new QualifiedName(xmlQualifiedName.Name);
+  }
 }

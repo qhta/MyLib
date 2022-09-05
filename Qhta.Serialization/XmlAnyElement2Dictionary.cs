@@ -22,7 +22,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
   }
 
   public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationPropertyInfo? propertyInfo, SerializationItemTypeInfo? itemInfo, QXmlSerializer? serializer)
+    SerializationPropertyInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
   {
     if (serializer == null)
       throw new IOException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");
@@ -80,7 +80,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
           itemInfo.AddMethod.Invoke(dict, new object[] { key, value });
         else
         {
-          var itemTypeInfo = (objectTypeInfo)?.KnownItemTypes.FindTypeInfo(value.GetType());
+          var itemTypeInfo = (objectTypeInfo)?.CollectionInfo?.KnownItemTypes.FindTypeInfo(value.GetType());
           if (itemTypeInfo != null && itemTypeInfo.AddMethod != null)
             itemTypeInfo.AddMethod.Invoke(dict, new object[] { key, value });
           else

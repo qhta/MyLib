@@ -11,10 +11,6 @@ public class KnownTypesDictionary: ICollection<SerializationTypeInfo>
 
   public SortedDictionary<QualifiedName, SerializationTypeInfo> NameIndexedItems { get; set; } = new();
 
-  private Dictionary<string, string> PrefixToNamespace { get; set; } = new();
-
-  private Dictionary<string, string> NamespaceToPrefix { get; set; } = new();
-
   public void Add(SerializationTypeInfo item)
   {
     TypeIndexedItems.Add(item.Type, item);
@@ -25,8 +21,6 @@ public class KnownTypesDictionary: ICollection<SerializationTypeInfo>
   {
     TypeIndexedItems.Clear();
     NameIndexedItems.Clear();
-    PrefixToNamespace.Clear();
-    NamespaceToPrefix.Clear();
   }
 
   public bool Contains(SerializationTypeInfo item)
@@ -61,23 +55,6 @@ public class KnownTypesDictionary: ICollection<SerializationTypeInfo>
         return true;
     return false;
   }
-
-  public bool TryGetValue(XmlQualifiedName xmlQualifiedName, [MaybeNullWhen(false)] out SerializationTypeInfo typeInfo)
-  {
-    if (PrefixToNamespace.TryGetValue(xmlQualifiedName.Namespace, out var clrNamespace))
-      if (NameIndexedItems.TryGetValue(new QualifiedName(xmlQualifiedName.Name, clrNamespace), out typeInfo))
-        return true;
-    typeInfo = null;
-    return false;
-  }
-
-  public XmlQualifiedName GetXmlQualifiedName(QualifiedName qualifiedName)
-  {
-    if (NamespaceToPrefix.TryGetValue(qualifiedName.Namespace, out var xmlNamespace))
-      return new XmlQualifiedName(qualifiedName.Name, xmlNamespace);
-    return new XmlQualifiedName(qualifiedName.Name);
-  }
-
   public IEnumerator<SerializationTypeInfo> GetEnumerator()
   {
     foreach (var item in TypeIndexedItems.Values)
@@ -87,5 +64,13 @@ public class KnownTypesDictionary: ICollection<SerializationTypeInfo>
   IEnumerator IEnumerable.GetEnumerator()
   {
     return GetEnumerator();
+  }
+
+  public SerializationTypeInfo? FindTypeInfo(Type itemType)
+  {
+    var result = (this as IEnumerable<SerializationTypeInfo>).FirstOrDefault(item => itemType == item.Type);
+    if (result == null)
+      result = (this as IEnumerable<SerializationTypeInfo>).FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+    return result;
   }
 }

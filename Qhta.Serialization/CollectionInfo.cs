@@ -13,7 +13,7 @@ public class CollectionInfo
   /// Known types for collection items.
   /// </summary>
   [XmlReferences]
-  public KnownItemTypesDictionary KnownItemTypes { get; set; } = new KnownItemTypesDictionary();
+  public KnownItemTypesDictionary KnownItemTypes { get; set; } = new ();
 
   public MethodInfo? AddMethodInfo { get; set; }
 

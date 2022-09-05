@@ -1,5 +1,5 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public class KnownItemTypesDictionary: TypesDictionary<SerializationItemTypeInfo>
+public class KnownItemTypesDictionary: TypesDictionary<SerializationItemInfo>
 {
 }

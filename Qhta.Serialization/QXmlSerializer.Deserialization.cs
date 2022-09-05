@@ -57,9 +57,10 @@ public partial class QXmlSerializer
     }
     else
     {
-      var aName = new XmlQualifiedName(name, prefix);
-      if (!KnownTypes.TryGetValue(aName, out typeInfo))
-        throw new XmlInternalException($"Element {aName} not recognized while deserialization.", xmlReader);
+      var xmlName = new XmlQualifiedName(name, prefix);
+      var clrName = SerializationInfoMapper.GetQualifiedName(xmlName);
+      if (!KnownTypes.TryGetValue(clrName, out typeInfo))
+        throw new XmlInternalException($"Element {xmlName} not recognized while deserialization.", xmlReader);
     }
     var constructor = typeInfo.KnownConstructor;
     if (constructor == null)
@@ -274,14 +275,14 @@ public partial class QXmlSerializer
             continue;
           }
         }
-        if (typeInfo.KnownItemTypes != null)
+        if (typeInfo.CollectionInfo?.KnownItemTypes != null)
         {
-          if (!typeInfo.KnownItemTypes.TryGetValue(elementName, out var knownItemTypeInfo))
+          if (!typeInfo.CollectionInfo.KnownItemTypes.TryGetValue(elementName, out var knownItemTypeInfo))
           {
-            knownItemTypeInfo = (typeInfo.KnownItemTypes as IEnumerable<SerializationItemTypeInfo>).FirstOrDefault();
+            knownItemTypeInfo = (typeInfo.CollectionInfo.KnownItemTypes as IEnumerable<SerializationItemInfo>).FirstOrDefault();
             if (knownItemTypeInfo == null)
               if (KnownTypes.TryGetValue(elementName, out var itemTypeInfo))
-                knownItemTypeInfo = new SerializationItemTypeInfo(elementName, itemTypeInfo);
+                knownItemTypeInfo = new SerializationItemInfo(elementName, itemTypeInfo);
             //else
             //{
             //  throw new XmlInternalException($"Unrecognized element \"{elementName}\"", reader);
@@ -462,7 +463,7 @@ public partial class QXmlSerializer
     return obj;
   }
 
-  public object? ReadElementWithKnownTypeInfo(SerializationItemTypeInfo itemTypeInfo, XmlReader reader)
+  public object? ReadElementWithKnownTypeInfo(SerializationItemInfo itemTypeInfo, XmlReader reader)
   {
     var typeInfo = itemTypeInfo.TypeInfo;
     if (typeInfo.XmlConverter != null && typeInfo.XmlConverter.CanRead)

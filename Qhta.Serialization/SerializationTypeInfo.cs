@@ -62,10 +62,10 @@ public class SerializationTypeInfo: ITypeInfo
   /// </summary>
   public SerializationPropertyInfo? KnownTextProperty { get; set; }
 
-  /// <summary>
-  /// Known types for collection items.
-  /// </summary>
-  public KnownItemTypesDictionary KnownItemTypes { get; set; } = new KnownItemTypesDictionary();
+  ///// <summary>
+  ///// Known types for collection items.
+  ///// </summary>
+  //public KnownItemTypesDictionary KnownItemTypes { get; set; } = new KnownItemTypesDictionary();
 
   /// <summary>
   /// Optional collection info filled if a property is an array, collection or dictionary
