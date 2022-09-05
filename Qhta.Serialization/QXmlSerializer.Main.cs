@@ -72,10 +72,10 @@ public partial class QXmlSerializer
     return SerializationInfoMapper.RegisterType(aType);
   }
 
-  public SerializationTypeInfo? AddKnownType(Type aType)
-  {
-    return SerializationInfoMapper.GetKnownType(aType);
-  }
+  //public SerializationTypeInfo? AddKnownType(Type aType)
+  //{
+  //  return SerializationInfoMapper.GetKnownType(aType);
+  //}
 
 
 }

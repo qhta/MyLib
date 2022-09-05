@@ -51,7 +51,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
 
     var valueTypeInfo = (propertyInfo?.CollectionInfo as DictionaryInfo)?.ValueTypeInfo;
     if (valueTypeInfo == null && ItemType != null)
-      valueTypeInfo = serializer.KnownTypes[ItemType];
+      serializer.KnownTypes.TryGetValue(ItemType, out valueTypeInfo);
     if (valueTypeInfo == null)
       throw new IOException($"Unknown value type info for property {this.GetType()}");
 

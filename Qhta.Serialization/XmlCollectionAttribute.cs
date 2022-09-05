@@ -5,6 +5,9 @@ namespace Qhta.Xml.Serialization;
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false)]
 public class XmlCollectionAttribute : XmlArrayAttribute
 {
+  public XmlCollectionAttribute()
+  {
+  }
 
   public XmlCollectionAttribute(string? elementName, Type? collectionType = null)
   { 

@@ -19,7 +19,7 @@ public class SerializationPropertyInfo
   {
     Name = name;
     PropInfo = propertyInfo;
-    IsNullable = PropInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable;
+    IsNullable = PropInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     Order = order;
   }
 
@@ -38,11 +38,14 @@ public class SerializationPropertyInfo
   /// </summary>
   public PropertyInfo PropInfo { get;}
 
-  public bool? IsNullable { get; init;}
+  public bool IsNullable { get; set;}
+
+  public bool IsReference { get; set; }
 
   /// <summary>
   /// Applied type info
   /// </summary>
+  [XmlReference]
   public SerializationTypeInfo? TypeInfo { get; set; }
 
   /// <summary>

@@ -11,21 +11,21 @@ public class SerializationTypeInfo: ITypeInfo
     var rootAttribute = aType.GetCustomAttribute<XmlRootAttribute>();
     if (rootAttribute != null)
       aName = rootAttribute.ElementName;
-    Debug.WriteLine($"CreateSerializationTypeInfo`1({aName}, {aType})");
     var aNamespace = aType.Namespace;
-    Name = new QualifiedName(aName,aNamespace);
+    Name = new QualifiedName(aName, aNamespace);
     Type = aType;
   }
+
+  /// <summary>
+  /// A type to serialize or deserialize
+  /// </summary>
+  public Type Type { get; set; }
 
   /// <summary>
   /// XmlElement name for a type
   /// </summary>
   public QualifiedName Name { get; set; }
 
-  /// <summary>
-  /// A type to serialize or deserialize
-  /// </summary>
-  public Type Type { get; set; }
 
   /// <summary>
   /// A public constructor to invoke while deserialization

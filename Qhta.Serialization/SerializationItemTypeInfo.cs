@@ -14,6 +14,12 @@ public class SerializationItemTypeInfo: ITypeInfo
     TypeInfo = itemTypeInfo;
   }
 
+  public SerializationItemTypeInfo(QualifiedName qualifiedName, SerializationTypeInfo itemTypeInfo)
+  {
+    Name = qualifiedName;
+    TypeInfo = itemTypeInfo;
+  }
+
   /// <summary>
   /// Name of the Xml/Json element
   /// </summary>
@@ -22,6 +28,7 @@ public class SerializationItemTypeInfo: ITypeInfo
   /// <summary>
   /// Refers to the existing TypeInfo
   /// </summary>
+  [XmlReference]
   public SerializationTypeInfo TypeInfo { get; set; }
 
   /// <summary>
@@ -62,6 +69,7 @@ public class SerializationItemTypeInfo: ITypeInfo
   /// <summary>
   /// Used when this info is a dictionary item info
   /// </summary>
+  [XmlReference]
   public SerializationTypeInfo? KeyTypeInfo 
   {
     get => DictionaryInfo?.KeyTypeInfo;
@@ -76,6 +84,7 @@ public class SerializationItemTypeInfo: ITypeInfo
   /// <summary>
   /// Used when this info is a dictionary item info
   /// </summary>
+  [XmlReference]
   public SerializationTypeInfo? ValueTypeInfo
   {
     get => DictionaryInfo?.ValueTypeInfo;

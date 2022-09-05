@@ -57,7 +57,7 @@ public partial class QXmlSerializer
     }
     else
     {
-      var aName = new QualifiedName(name, prefix);
+      var aName = new XmlQualifiedName(name, prefix);
       if (!KnownTypes.TryGetValue(aName, out typeInfo))
         throw new XmlInternalException($"Element {aName} not recognized while deserialization.", xmlReader);
     }
@@ -391,7 +391,7 @@ public partial class QXmlSerializer
     if (!KnownTypes.TryGetValue(name, out var typeInfo))
     {
       if (expectedType != null)
-        typeInfo = AddKnownType(expectedType);
+        typeInfo = RegisterType(expectedType);
       if (typeInfo == null)
         throw new XmlInternalException($"Unknown type for element \"{name}\" on deserialize", reader);
     }

@@ -64,13 +64,8 @@ public partial class QXmlSerializer
     var aType = obj.GetType();
     if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
       throw new InternalException($"Type \"{aType}\" not registered");
-    var tag = KnownTypes.KnownTags(serializedTypeInfo.Type).FirstOrDefault();
-    if (tag != null)
-    {
-      writer.WriteStartElement(tag.Name, tag.Namespace);
-    }
-    //else
-    //  throw new InternalException($"Unknown tag for type \"{serializedTypeInfo.Type}\"");
+    var tag = KnownTypes.GetXmlQualifiedName(serializedTypeInfo.Name);
+    writer.WriteStartElement(tag.Name, tag.Namespace);
     if (Options.UseNilValue && !Namespaces.ContainsKey("xsi"))
     {
       Namespaces.Add("xsi", xsi);
@@ -78,8 +73,7 @@ public partial class QXmlSerializer
     }
 
     WriteObjectInterior(writer, obj, null, serializedTypeInfo);
-    if (tag != null)
-      writer.WriteEndElement();
+    writer.WriteEndElement();
   }
 
   public void WriteObjectInterior(XmlWriter writer, object obj, string? tag = null, SerializationTypeInfo? typeInfo = null)
@@ -191,7 +185,10 @@ public partial class QXmlSerializer
           else
           if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
           {
-            WriteObjectInterior(writer, propValue, null, serializedTypeInfo);
+            if (prop.IsReference)
+              WriteValue(writer, GetValueString(propValue));
+            else
+              WriteObjectInterior(writer, propValue, null, serializedTypeInfo);
           }
           //else if (propValue is ICollection collection)
           //{
@@ -286,7 +283,7 @@ public partial class QXmlSerializer
             if (key != null)
             {
               if (collectionInfo is DictionaryInfo dictionaryInfo && dictionaryInfo.KeyProperty!=null && val!=null 
-                && KnownTypes.KnownTags(val.GetType()).FirstOrDefault()!=null)
+                && KnownTypes.TryGetValue(val.GetType(), out var serializationTypeInfo))
               {
                 WriteObject(writer, val);
               }
@@ -327,6 +324,17 @@ public partial class QXmlSerializer
           }
           else
           {
+            if (collectionInfo.IsReferences)
+            {
+              if (string.IsNullOrEmpty(itemTag))
+                WriteValue(writer, item.ToString());
+              else
+              {
+                WriteStartElement(writer, itemTag);
+                WriteValue(writer, item.ToString());
+                WriteEndElement(writer, itemTag);
+              }
+            }
             if (string.IsNullOrEmpty(itemTag))
               WriteObject(writer, item);
             else

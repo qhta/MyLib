@@ -12,7 +12,9 @@ public class DictionaryInfo: CollectionInfo
 
   //public PropertyInfo? ValueProperty { get; set; }
 
+  [XmlReference]
   public SerializationTypeInfo? KeyTypeInfo { get; set; }
 
+  [XmlReference]
   public SerializationTypeInfo? ValueTypeInfo { get; set; }
 }
