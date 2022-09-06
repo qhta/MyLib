@@ -705,15 +705,19 @@ public partial class XmlSerializationInfoMapper
 
   protected void SearchShouldSerializeMethods(Type aType, SerializationTypeInfo typeInfo)
   {
-    var methodInfos = aType
-      .GetMethodsByInheritance(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-      .Where(item => item.Name.StartsWith(Options.ShouldSerializeMethodPrefix)).ToArray();
-    if (methodInfos.Length > 0)
+    if (Options.CheckMethod.EndsWith('*'))
     {
-      foreach (var attrPropInfo in typeInfo.PropertiesAsAttributes)
-        SearchShouldSerializeMethod(methodInfos, attrPropInfo);
-      foreach (var elemPropInfo in typeInfo.PropertiesAsElements)
-        SearchShouldSerializeMethod(methodInfos, elemPropInfo);
+      var prefix = Options.CheckMethod.Substring(0, Options.CheckMethod.Length - 1);
+      var methodInfos = aType
+        .GetMethodsByInheritance(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+        .Where(item => item.Name.StartsWith(prefix)).ToArray();
+      if (methodInfos.Length > 0)
+      {
+        foreach (var attrPropInfo in typeInfo.PropertiesAsAttributes)
+          SearchShouldSerializeMethod(methodInfos, attrPropInfo);
+        foreach (var elemPropInfo in typeInfo.PropertiesAsElements)
+          SearchShouldSerializeMethod(methodInfos, elemPropInfo);
+      }
     }
   }
 

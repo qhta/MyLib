@@ -87,9 +87,9 @@ public class SerializationOptions
   public string DateTimeFormat { get; set; } = "yyyy-MM-ddTHH:mm:sszzz";
 
   /// <summary>
-  /// Start of name of the method used to specify if a property should be serialized.
-  /// The name ends with the property name.
+  /// Generic name of the method used to specify if a property should be serialized.
+  /// Asterisk represents a property name.
   /// The method should be a parameterless function of type boolean.
   /// </summary>
-  public string ShouldSerializeMethodPrefix { get; set; } = "ShouldSerialize";
+  public string CheckMethod { get; set; } = "ShouldSerialize*";
 }

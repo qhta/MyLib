@@ -5,6 +5,10 @@ namespace Qhta.Xml.Serialization;
 
 public class CollectionInfo
 {
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public virtual bool IsDictionary => false;
+
   /// <summary>
   /// If a collection of objects stores references only.
   /// </summary>
