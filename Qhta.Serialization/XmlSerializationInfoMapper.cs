@@ -24,15 +24,15 @@ public partial class XmlSerializationInfoMapper
   public string BaseNamespace { get; set; }
 
 
-  private Dictionary<string, string> PrefixToNamespace { get; set; } = new();
+  public Dictionary<string, string> PrefixToNamespace { get; set; } = new();
 
-  private Dictionary<string, string> NamespaceToPrefix { get; set; } = new();
+  public Dictionary<string, string> NamespaceToPrefix { get; set; } = new();
 
   /// <summary>
   /// Only some of the options are used:
   /// <list type="bullet">
   ///  <item>
-  ///     <see cref="SerializationOptions.IgnoreTypesWithoutParameterlessConstructor"/>
+  ///     <see cref="SerializationOptions.IgnoreMissingConstructor"/>
   ///     <see cref="SerializationOptions.AttributeNameCase"/>
   ///     <see cref="SerializationOptions.ElementNameCase"/>
   ///   </item>
@@ -47,30 +47,16 @@ public partial class XmlSerializationInfoMapper
   /// </summary>
   public KnownTypesDictionary KnownTypes { get; } = new KnownTypesDictionary();
 
-  public SerializationTypeInfo RegisterType(Type aType)
-  {
-    TryRegisterType(aType, out var result);
-    return result;
-  }
+  public Dictionary<string, TypeConverter> TypeConverters { get; } = new();
 
-  /// <summary>
-  /// <see cref="SerializationTypeInfo"/> is created for a given type and is registered with a type name 
-  /// or name taken from <see cref="XmlRootAttribute"/>,
-  /// <see cref="XmlCollectionAttribute"/>, or <see cref="XmlDictionaryAttribute"/>.
-  /// </summary>
-  /// <param name="aType">Registered type</param>
-  /// <param name="result">Newly created serialization type info or the already registered one.</param>
-  /// <returns>true if the type info was newly added, false if it was added previously.</returns>
-  /// <exception cref="InternalException">thrown if a name is already used for a different type</exception>
-  public bool TryRegisterType(Type aType, out SerializationTypeInfo result)
+  public SerializationTypeInfo RegisterType(Type aType)
   {
     if (aType.IsNullable(out var baseType))
       aType = baseType;
     #region Checking if a type was already registered
     if (KnownTypes.TryGetValue(aType, out var knownTypeInfo))
     {
-      result = knownTypeInfo;
-      return false;
+      return knownTypeInfo;
     }
     #endregion
 
@@ -83,10 +69,8 @@ public partial class XmlSerializationInfoMapper
     FillTypeInfo(newTypeInfo);
     #endregion
 
-    result = newTypeInfo;
-    return true;
+    return newTypeInfo;
   }
-
 
 
   /// <summary>
@@ -130,7 +114,7 @@ public partial class XmlSerializationInfoMapper
   /// <param name="typeInfo"></param>
   /// <exception cref="InternalException">
   ///   Thrown if a type has no parameterless public constructor 
-  ///   and an option <see cref="SerializationOptions.IgnoreTypesWithoutParameterlessConstructor"/> is not set.
+  ///   and an option <see cref="SerializationOptions.IgnoreMissingConstructor"/> is not set.
   /// </exception>
   protected void FillTypeInfo(SerializationTypeInfo typeInfo)
   {
@@ -148,7 +132,7 @@ public partial class XmlSerializationInfoMapper
     {
       if (constructor == null)
       {
-        if (!Options.IgnoreTypesWithoutParameterlessConstructor && aType.IsNullable())
+        if (!Options.IgnoreMissingConstructor && aType.IsNullable())
           throw new IOException($"Type {aType.Name} must have a public, parameterless constructor to allow deserialization");
       }
       typeInfo.KnownConstructor = constructor;
@@ -160,8 +144,6 @@ public partial class XmlSerializationInfoMapper
 
     //typeInfo.KnownItemTypes = GetKnownItems(aType);
     typeInfo.XmlConverter = GetXmlConverter(aType);
-    typeInfo.KnownContentProperty = GetContentProperty(aType);
-    typeInfo.KnownTextProperty = GetTextProperty(aType);
     typeInfo.TypeConverter = GetTypeConverter(aType);
   }
 
@@ -170,45 +152,50 @@ public partial class XmlSerializationInfoMapper
     var props = aType.GetPropertiesByInheritance().Where(item => item.CanRead);
     if (!props.Any())
       return;
+    typeInfo.ContentProperty = GetContentProperty(aType);
+    typeInfo.TextProperty = GetTextProperty(aType);
+
     int attrCount = 0;
     int elemCount = 0;
     foreach (var propInfo in props)
     {
       if (propInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
-      //if (propInfo.Name == "MajorFont")
-      //  Debug.Assert(true);
+      if (propInfo == typeInfo.ContentProperty?.Property)
+        continue;
+      if (propInfo == typeInfo.TextProperty?.Property)
+        continue;
       var xmlAttribute = propInfo.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().FirstOrDefault();
       if (xmlAttribute != null)
-        TryAddPropertyAsAttribute(typeInfo, propInfo, xmlAttribute, attrCount++);
+        TryAddPropertyAsAttribute(typeInfo, propInfo, xmlAttribute, ++attrCount);
       else
       {
         var elementAttribute = propInfo.GetCustomAttributes(true).OfType<XmlElementAttribute>().FirstOrDefault();
         if (elementAttribute != null)
-          TryAddPropertyAsElement(typeInfo, propInfo, elementAttribute, elemCount++);
+          TryAddPropertyAsElement(typeInfo, propInfo, elementAttribute, ++elemCount);
         else
         {
           var dictionaryAttribute = propInfo.GetCustomAttributes(true).OfType<XmlDictionaryAttribute>().FirstOrDefault();
           if (dictionaryAttribute != null)
-            TryAddPropertyAsDictionary(typeInfo, propInfo, dictionaryAttribute, elemCount++);
+            TryAddPropertyAsDictionary(typeInfo, propInfo, dictionaryAttribute, ++elemCount);
           else
           {
             var collectionAttribute = propInfo.GetCustomAttributes(true).OfType<XmlCollectionAttribute>().FirstOrDefault();
             if (collectionAttribute != null)
-              TryAddPropertyAsCollection(typeInfo, propInfo, collectionAttribute, elemCount++);
+              TryAddPropertyAsCollection(typeInfo, propInfo, collectionAttribute, ++elemCount);
             else
             {
               if (propInfo.PropertyType.IsDictionary())
               {
-                TryAddPropertyAsDictionary(typeInfo, propInfo, null, elemCount++);
+                TryAddPropertyAsDictionary(typeInfo, propInfo, null, ++elemCount);
               }
               else if (propInfo.PropertyType.IsCollection())
               {
                 if (!aType.IsDictionary() || propInfo.Name != "Keys" && propInfo.Name != "Values")
-                  TryAddPropertyAsCollection(typeInfo, propInfo, null, elemCount++);
+                  TryAddPropertyAsCollection(typeInfo, propInfo, null, ++elemCount);
               }
               else
-              if (Options.AcceptAllNotIgnoredProperties)
+              if (Options.AcceptAllProperties)
               {
                 if (propInfo.GetIndexParameters().Length == 0)
                 {
@@ -216,21 +203,21 @@ public partial class XmlSerializationInfoMapper
                   {
                     if (propInfo.CanWrite)
                     {
-                      if (Options.AcceptSimplePropertiesAsAttributes)
-                        TryAddPropertyAsAttribute(typeInfo, propInfo, null, attrCount++);
+                      if (Options.SimplePropertiesAsAttributes)
+                        TryAddPropertyAsAttribute(typeInfo, propInfo, null, ++attrCount);
                       else
-                        TryAddPropertyAsElement(typeInfo, propInfo, null, elemCount++);
+                        TryAddPropertyAsElement(typeInfo, propInfo, null, ++elemCount);
                     }
                   }
                   else
                     //if (propInfo.PropertyType.IsDictionary())
-                    //  TryAddPropertyAsDictionary(typeInfo, propInfo, null, elemCount++);
+                    //  TryAddPropertyAsDictionary(typeInfo, propInfo, null, ++elemCount);
                     //else
                     //if (propInfo.PropertyType.IsCollection())
-                    //  TryAddPropertyAsCollection(typeInfo, propInfo, null, elemCount++);
+                    //  TryAddPropertyAsCollection(typeInfo, propInfo, null, ++elemCount);
                     //else
                   if (propInfo.CanWrite)
-                    TryAddPropertyAsElement(typeInfo, propInfo, null, elemCount++);
+                    TryAddPropertyAsElement(typeInfo, propInfo, null, ++elemCount);
                 }
               }
             }
@@ -247,30 +234,30 @@ public partial class XmlSerializationInfoMapper
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="propInfo">Selected property Info</param>
   /// <param name="xmlAttribute">Found XmlAttributeAttribute</param>
-  /// <param name="order">default order</param>
-  protected virtual bool TryAddPropertyAsAttribute(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlAttributeAttribute? xmlAttribute, int order)
+  /// <param name="defaultOrder">Default order of serialized attribute</param>
+  protected virtual bool TryAddPropertyAsAttribute(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlAttributeAttribute? xmlAttribute, int defaultOrder)
   {
     var attrName = xmlAttribute?.AttributeName;
     if (string.IsNullOrEmpty(attrName))
       attrName = propInfo.Name;
     if (Options.AttributeNameCase != 0)
       attrName = QXmlSerializer.ChangeCase(attrName, Options.AttributeNameCase);
-    if (typeInfo.PropsAsAttributes.ContainsKey((attrName)))
-      return false;
-    if (xmlAttribute is XmlOrderedAttribAttribute attr2 && attr2.Order != null)
-      order = (int)attr2.Order;
+    if (typeInfo.PropertiesAsAttributes.ContainsKey(attrName))
+      return false; 
+    var order = propInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializePropInfo = new SerializationPropertyInfo(attrName, propInfo, order);
     if (propInfo.GetCustomAttribute<XmlReferenceAttribute>()!=null)
       serializePropInfo.IsReference = true;
-    if (TryRegisterType(propInfo.PropertyType, out var propTypeInfo))
-      serializePropInfo.TypeInfo = propTypeInfo;
+    serializePropInfo.ValueType = RegisterType(propInfo.PropertyType);
+    serializePropInfo.DefaultValue =
+      (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
     var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
     if (converterTypeName != null)
       serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
     var converterType = propInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
     if (converterType != null)
       serializePropInfo.TypeConverter = CreateTypeConverter(converterType);
-    typeInfo.PropsAsAttributes.Add(attrName, serializePropInfo);
+    typeInfo.PropertiesAsAttributes.Add(attrName, serializePropInfo);
     return true;
   }
 
@@ -279,31 +266,31 @@ public partial class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="propInfo">Selected property Info</param>
-  /// <param name="xmlAttribute">Found XmlElementAttribute</param>
-  /// <param name="order">default order</param>
-  protected virtual bool TryAddPropertyAsElement(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlElementAttribute? xmlAttribute, int order)
+  /// <param name="attribute">Found XmlElementAttribute</param>
+  /// <param name="defaultOrder">default order</param>
+  protected virtual bool TryAddPropertyAsElement(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlElementAttribute? attribute, int defaultOrder)
   {
-    var elemName = xmlAttribute?.ElementName;
+    var elemName = attribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
     if (Options.ElementNameCase != 0)
       elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
-    if (typeInfo.PropsAsElements.ContainsKey(elemName))
+    if (typeInfo.PropertiesAsElements.ContainsKey(elemName))
       return false;
-    if (xmlAttribute?.Order > 0)
-      order = xmlAttribute.Order;
+    var order = attribute?.Order ?? propInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializePropInfo = new SerializationPropertyInfo(elemName, propInfo, order);
     if (propInfo.GetCustomAttribute<XmlReferenceAttribute>() != null)
       serializePropInfo.IsReference = true;
-    if (TryRegisterType(propInfo.PropertyType, out var propTypeInfo))
-      serializePropInfo.TypeInfo = propTypeInfo;
+    serializePropInfo.ValueType = RegisterType(propInfo.PropertyType);
+    serializePropInfo.DefaultValue =
+      (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
     var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
     if (converterTypeName != null)
       serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
     var converterType = propInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
     if (converterType != null)
       serializePropInfo.TypeConverter = CreateTypeConverter(converterType);
-    typeInfo.PropsAsElements.Add(elemName, serializePropInfo);
+    typeInfo.PropertiesAsElements.Add(elemName, serializePropInfo);
     return true;
   }
 
@@ -312,33 +299,31 @@ public partial class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="propInfo">Selected property Info</param>
-  /// <param name="xmlAttribute">Found XmlDictionaryAttribute</param>
-  /// <param name="order">default order</param>
-  protected virtual bool TryAddPropertyAsDictionary(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlDictionaryAttribute? xmlAttribute, int order)
+  /// <param name="attribute">Found XmlDictionaryAttribute</param>
+  /// <param name="defaultOrder">default order</param>
+  protected virtual bool TryAddPropertyAsDictionary(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlDictionaryAttribute? attribute, int defaultOrder)
   {
-    var elemName = xmlAttribute?.ElementName;
+    var elemName = attribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
     if (Options.ElementNameCase != 0)
       elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
-    if (typeInfo.PropsAsElements.ContainsKey(elemName))
+    if (typeInfo.PropertiesAsElements.ContainsKey(elemName))
       return false;
-    if (xmlAttribute?.Order > 0)
-      order = xmlAttribute.Order;
+    var order = attribute?.Order ?? propInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializePropInfo = new SerializationPropertyInfo(elemName, propInfo, order);
     if (propInfo.GetCustomAttribute<XmlReferenceAttribute>() != null)
       serializePropInfo.IsReference = true;
-    serializePropInfo.TypeInfo?.PropsAsElements?.Clear();
+    serializePropInfo.ValueType?.PropertiesAsElements?.Clear();
     serializePropInfo.CollectionInfo = CreateDictionaryInfo(propInfo);
-    if (TryRegisterType(propInfo.PropertyType, out var propTypeInfo))
-      serializePropInfo.TypeInfo = propTypeInfo;
+    serializePropInfo.ValueType = RegisterType(propInfo.PropertyType);
     var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
     if (converterTypeName != null)
       serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
     var converterType = propInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
     if (converterType != null)
       serializePropInfo.TypeConverter = CreateTypeConverter(converterType);
-    typeInfo.PropsAsElements.Add(elemName, serializePropInfo);
+    typeInfo.PropertiesAsElements.Add(elemName, serializePropInfo);
     return true;
   }
 
@@ -347,35 +332,30 @@ public partial class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="propInfo">Selected property Info</param>
-  /// <param name="xmlAttribute">Found XmlCollectionAttribute</param>
-  /// <param name="order">default order</param>
-  protected virtual bool TryAddPropertyAsCollection(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlCollectionAttribute? xmlAttribute, int order)
+  /// <param name="attribute">Found XmlCollectionAttribute</param>
+  /// <param name="defaultOrder">default order</param>
+  protected virtual bool TryAddPropertyAsCollection(SerializationTypeInfo typeInfo, PropertyInfo propInfo, XmlCollectionAttribute? attribute, int defaultOrder)
   {
-    var elemName = xmlAttribute?.ElementName;
+    var elemName = attribute?.ElementName;
     if (string.IsNullOrEmpty(elemName))
       elemName = propInfo.Name;
     if (Options.ElementNameCase != 0)
       elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
-    if (typeInfo.PropsAsElements.ContainsKey(elemName))
+    if (typeInfo.PropertiesAsElements.ContainsKey(elemName))
       return false;
-    if (xmlAttribute?.Order > 0)
-      order = xmlAttribute.Order;
+    var order = attribute?.Order ?? propInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializePropInfo = new SerializationPropertyInfo(elemName, propInfo, order);
     if (propInfo.GetCustomAttribute<XmlReferenceAttribute>() != null)
       serializePropInfo.IsReference = true;
     serializePropInfo.CollectionInfo = CreateCollectionInfo(propInfo);
-    if (TryRegisterType(propInfo.PropertyType, out var propTypeInfo))
-    {
-      propTypeInfo.CollectionInfo = serializePropInfo.CollectionInfo;
-      serializePropInfo.TypeInfo = propTypeInfo;
-    }
+    serializePropInfo.ValueType = RegisterType(propInfo.PropertyType);
     var converterTypeName = propInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
     if (converterTypeName != null)
       serializePropInfo.TypeConverter = FindTypeConverter(converterTypeName);
     var converterType = propInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
     if (converterType != null)
       serializePropInfo.TypeConverter = CreateTypeConverter(converterType);
-    typeInfo.PropsAsElements.Add(elemName, serializePropInfo);
+    typeInfo.PropertiesAsElements.Add(elemName, serializePropInfo);
     return true;
   }
 
@@ -416,7 +396,7 @@ public partial class XmlSerializationInfoMapper
         if (itemType == null)
           itemType = typeof(object);
         var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
-        collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
+        collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
       }
     }
     else if (aType.IsCollection(out var itemType))
@@ -468,7 +448,7 @@ public partial class XmlSerializationInfoMapper
         if (itemType == null)
           itemType = typeof(object);
         var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
-        dictionaryTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
+        dictionaryTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
       }
     }
     else if (aType.IsDictionary(out var keyType, out var valType))
@@ -504,7 +484,7 @@ public partial class XmlSerializationInfoMapper
 
     var textProperty = textProperties.First();
     var knownTextProperty = new SerializationPropertyInfo("", textProperty);
-    knownTextProperty.TypeInfo = RegisterType(textProperty.PropertyType);
+    knownTextProperty.ValueType = RegisterType(textProperty.PropertyType);
     return knownTextProperty;
   }
 
@@ -528,7 +508,7 @@ public partial class XmlSerializationInfoMapper
       if (contentProperty == null)
         throw new InternalException($"Content property \"{contentPropertyName}\" in {aType.Name} not found");
       var contentPropertyInfo = new SerializationPropertyInfo(contentPropertyName, contentProperty);
-      contentPropertyInfo.TypeInfo = RegisterType(contentProperty.PropertyType);
+      contentPropertyInfo.ValueType = RegisterType(contentProperty.PropertyType);
       return contentPropertyInfo;
     }
     return null;
@@ -591,7 +571,7 @@ public partial class XmlSerializationInfoMapper
         if (!string.IsNullOrEmpty(xmlItemElementAttribute.ElementName))
           knownItemTypeInfo = new SerializationItemInfo(xmlItemElementAttribute.ElementName, itemTypeInfo);
         else
-          knownItemTypeInfo = new SerializationItemInfo(null, itemTypeInfo);
+          knownItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
         var addMethodName = xmlItemElementAttribute.AddMethod;
         if (xmlItemElementAttribute is XmlDictionaryItemAttribute xmlDictionaryItemAttribute)
         {
@@ -666,12 +646,16 @@ public partial class XmlSerializationInfoMapper
       var converterTypeName = typeConverterAttribute.ConverterTypeName;
       if (converterTypeName == null)
         throw new InternalException($"Converter type name in a TypeConverter attribute must not be null");
-      var result = FindTypeConverter(converterTypeName);
-      if (result == null)
-        throw new InternalException($"Type converter \"{converterTypeName}\" not found");
-      if (!(result.CanConvertTo(typeof(string)) && result.CanConvertFrom(typeof(string))))
-        throw new InternalException($"Type converter \"{converterTypeName}\" not found");
-      return result;
+      if (!TypeConverters.TryGetValue(converterTypeName, out var converter))
+      {
+        converter = FindTypeConverter(converterTypeName);
+        if (converter == null)
+          throw new InternalException($"Type converter \"{converterTypeName}\" not found");
+        if (!(converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string))))
+          throw new InternalException($"Type converter \"{converterTypeName}\" not found");
+        TypeConverters.Add(converterTypeName, converter); 
+      }
+      return converter;
     }
     return null;
   }
@@ -683,19 +667,30 @@ public partial class XmlSerializationInfoMapper
       return 1;
     if (a.Order < b.Order)
       return -1;
-    return String.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase);
+    return a.Name.CompareTo(b.Name);
   }
 
   protected TypeConverter? FindTypeConverter(string typeName)
   {
-    var type = Assembly.GetExecutingAssembly().GetType(typeName);
-    if (type == null)
-      type = Assembly.GetCallingAssembly().GetType(typeName);
-    if (type == null)
-      type = Assembly.GetEntryAssembly()?.GetType(typeName);
+    //var type = Assembly.GetExecutingAssembly().GetType(typeName);
+    //if (type == null)
+    //  type = Assembly.GetCallingAssembly().GetType(typeName);
+    //if (type == null)
+    //  type = Assembly.GetEntryAssembly()?.GetType(typeName);
+    var type = Type.GetType(typeName);
+//      FindType(typeName);
     if (type != null)
       return CreateTypeConverter(type);
     return null;
+  }
+
+  private static Type? FindType(string fullName)
+  {
+    return
+      AppDomain.CurrentDomain.GetAssemblies()
+        .Where(a => !a.IsDynamic)
+        .SelectMany(a => a.GetTypes())
+        .FirstOrDefault(t => t.FullName?.Equals(fullName)==true);
   }
 
   protected TypeConverter? CreateTypeConverter(Type type)
@@ -715,21 +710,21 @@ public partial class XmlSerializationInfoMapper
       .Where(item => item.Name.StartsWith(Options.ShouldSerializeMethodPrefix)).ToArray();
     if (methodInfos.Length > 0)
     {
-      foreach (var attrPropInfo in typeInfo.PropsAsAttributes)
+      foreach (var attrPropInfo in typeInfo.PropertiesAsAttributes)
         SearchShouldSerializeMethod(methodInfos, attrPropInfo);
-      foreach (var elemPropInfo in typeInfo.PropsAsElements)
+      foreach (var elemPropInfo in typeInfo.PropertiesAsElements)
         SearchShouldSerializeMethod(methodInfos, elemPropInfo);
     }
   }
 
   protected void SearchShouldSerializeMethod(MethodInfo[] methodInfos, SerializationPropertyInfo propInfo)
   {
-    var methodInfo = methodInfos.FirstOrDefault(item => item.Name.EndsWith(propInfo.PropInfo.Name));
+    var methodInfo = methodInfos.FirstOrDefault(item => item.Name.EndsWith(propInfo.Property.Name));
     if (methodInfo != null)
     {
       if (methodInfo.ReturnType == typeof(bool))
         if (!methodInfo.GetParameters().Any())
-          propInfo.ShouldSerializeMethod = methodInfo;
+          propInfo.CheckMethod = methodInfo;
     }
   }
 
@@ -785,15 +780,19 @@ public partial class XmlSerializationInfoMapper
   }
   #endregion
 
-  public XmlQualifiedName GetXmlQualifiedName(QualifiedName qualifiedName)
+  public XmlQualifiedName ToXmlQualifiedName(QualifiedName qualifiedName)
   {
+    if (qualifiedName.Namespace == BaseNamespace)
+      return new XmlQualifiedName(qualifiedName.Name);
     if (NamespaceToPrefix.TryGetValue(qualifiedName.Namespace, out var xmlNamespace))
       return new XmlQualifiedName(qualifiedName.Name, xmlNamespace);
     return new XmlQualifiedName(qualifiedName.Name);
   }
 
-  public QualifiedName GetQualifiedName(XmlQualifiedName xmlQualifiedName)
+  public QualifiedName ToQualifiedName(XmlQualifiedName xmlQualifiedName)
   {
+    if (String.IsNullOrEmpty(xmlQualifiedName.Namespace))
+      return new QualifiedName(xmlQualifiedName.Name, BaseNamespace);
     if (PrefixToNamespace.TryGetValue(xmlQualifiedName.Namespace, out var clrNamespace))
       return new QualifiedName(xmlQualifiedName.Name, clrNamespace);
     return new QualifiedName(xmlQualifiedName.Name);

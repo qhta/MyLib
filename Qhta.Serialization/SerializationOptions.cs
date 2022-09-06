@@ -9,27 +9,17 @@ public class SerializationOptions
   /// If a type found during scanning available types hase no public parameterless constructor, 
   /// the exception is thrown unless this option is set.
   /// </summary>
-  public bool IgnoreTypesWithoutParameterlessConstructor { get; set; }
-
-  /// <summary>
-  /// Usually types are registered for serialization/deserialization with unique names.
-  /// So if an application tries to register the same type with two different names,
-  /// the exception is thrown unless this option is set.
-  /// Note that when a type is registered with multiple names, 
-  /// it can be recognized with different names on deserialization.
-  /// On serialization, only one name is used.
-  /// </summary>
-  public bool IgnoreMultipleTypeRegistration { get; set; } = true;
+  public bool IgnoreMissingConstructor { get; set; }
 
   /// <summary>
   /// If properties not marked with any XmlAttribute are accepted to serialize.
   /// </summary>
-  public bool AcceptAllNotIgnoredProperties { get; set; } = true;
+  public bool AcceptAllProperties { get; set; } = true;
 
   /// <summary>
   /// If simple type properties not marked with any XmlAttribute are accepted to serialize as attributes.
   /// </summary>
-  public bool AcceptSimplePropertiesAsAttributes { get; set; }
+  public bool SimplePropertiesAsAttributes { get; set; }
 
   /// <summary>
   /// If XML attribute names should change case on serialization.

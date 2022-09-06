@@ -1,11 +1,9 @@
-﻿using System.IO;
-using System.Xml;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class QXmlWriter: IXWriter, IDisposable
 {
   private XmlWriter _writer { get; set; }
+
   private XmlSpace _spaceBehavior { get; set; }
 
   public QXmlWriter(XmlWriter xmlWriter)

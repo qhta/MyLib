@@ -4,13 +4,11 @@ namespace Qhta.Xml.Serialization;
 
 public class DictionaryInfo: CollectionInfo
 {
+  [XmlAttribute]
   public string? KeyName { get; set; }
 
+  [XmlIgnore]
   public PropertyInfo? KeyProperty { get; set; }
-
-  public string? ValueName { get; set; }
-
-  //public PropertyInfo? ValueProperty { get; set; }
 
   [XmlReference]
   public SerializationTypeInfo? KeyTypeInfo { get; set; }

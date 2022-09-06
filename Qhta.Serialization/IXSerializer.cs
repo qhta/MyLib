@@ -53,7 +53,7 @@ public interface IXSerializer
   /// <summary>
   /// Write object properties as XML attributes.
   /// Writes only properties that are marked with <see cref="System.Xml.XmlAttribute"/>
-  /// or <see cref="XmlOrderedAttribAttribute"/>
+  /// or <see cref="SerializationOrderAttribute"/>
   /// and only that have simple values (string etc).
   /// </summary>
   /// <param name="writer">target writer</param>
@@ -65,7 +65,7 @@ public interface IXSerializer
   /// Write object properties as XML elements.
   /// Writes properties that are marked with <see cref="System.Xml.XmlElement"/>
   /// and those properties that are marked with <see cref="System.Xml.XmlAttribute"/>
-  /// or <see cref="XmlOrderedAttribAttribute"/>
+  /// or <see cref="SerializationOrderAttribute"/>
   /// and do not have simple values (string etc).
   /// </summary>
   /// <param name="writer">target writer</param>

@@ -9,6 +9,12 @@ public class SerializationItemInfo: ITypeInfo
 {
   public SerializationItemInfo() { }
 
+  public SerializationItemInfo(SerializationTypeInfo itemTypeInfo)
+  {
+    Name = QualifiedName.Empty;
+    TypeInfo = itemTypeInfo;
+  }
+
   public SerializationItemInfo(string elementName, SerializationTypeInfo itemTypeInfo)
   {
     Name = new QualifiedName(elementName);
@@ -24,11 +30,13 @@ public class SerializationItemInfo: ITypeInfo
   /// <summary>
   /// Name of the Xml/Json element
   /// </summary>
+  [XmlAttribute]
   public QualifiedName Name { get; }
 
   /// <summary>
   /// Refers to the existing TypeInfo
   /// </summary>
+  [XmlAttribute]
   [XmlReference]
   public SerializationTypeInfo TypeInfo { get; set; } = null!;
 
@@ -50,20 +58,6 @@ public class SerializationItemInfo: ITypeInfo
       if (DictionaryInfo == null)
         DictionaryInfo = new DictionaryInfo();
       DictionaryInfo.KeyName = value;
-    }
-  }
-
-  /// <summary>
-  /// Used when this info is a dictionary item info
-  /// </summary>
-  public string? ValueName
-  {
-    get => DictionaryInfo?.ValueName;
-    set
-    {
-      if (DictionaryInfo == null)
-        DictionaryInfo = new DictionaryInfo();
-      DictionaryInfo.ValueName = value;
     }
   }
 

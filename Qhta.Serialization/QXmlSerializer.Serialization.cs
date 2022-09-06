@@ -64,7 +64,7 @@ public partial class QXmlSerializer
     var aType = obj.GetType();
     if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
       throw new InternalException($"Type \"{aType}\" not registered");
-    var tag = SerializationInfoMapper.GetXmlQualifiedName(serializedTypeInfo.Name);
+    var tag = SerializationInfoMapper.ToXmlQualifiedName(serializedTypeInfo.Name);
     writer.WriteStartElement(tag.Name, tag.Namespace);
     if (Options.UseNilValue && !Namespaces.ContainsKey("xsi"))
     {
@@ -93,31 +93,32 @@ public partial class QXmlSerializer
   public int WriteAttributesBase(XmlWriter writer, object obj, SerializationTypeInfo typeInfo)
   {
     var aType = obj.GetType();
-    var propList = typeInfo.PropsAsAttributes.OrderBy(item => item.Order).ToList();
+    var propList = typeInfo.PropertiesAsAttributes;
     int attrsWritten = 0;
-    foreach (var item in propList)
+    foreach (var serializationPropertyInfo in propList)
     {
-      if (item.ShouldSerializeMethod != null)
+      if (serializationPropertyInfo.CheckMethod != null)
       {
-        var shouldSerializeProperty = item.ShouldSerializeMethod.Invoke(new object[] { obj }, new object[0]);
+        var shouldSerializeProperty = serializationPropertyInfo.CheckMethod.Invoke(new object[] { obj }, new object[0]);
         if (shouldSerializeProperty is bool shouldSerialize)
           if (!shouldSerialize)
             continue;
       }
 
-      var propInfo = item.PropInfo;
-      string? attrName = item.Name;
+      var propInfo = serializationPropertyInfo.Property;
+      var attrName = serializationPropertyInfo.Name;
+      var attrTag = SerializationInfoMapper.ToXmlQualifiedName(attrName);
       var propValue = propInfo.GetValue(obj);
       if (propValue != null)
       {
-        var defaultValue =
-          (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
+        var defaultValue = serializationPropertyInfo.DefaultValue;
         if (defaultValue != null && propValue.Equals(defaultValue))
           continue;
-        string? str = GetValueString(propValue);
+        string? str = serializationPropertyInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ??
+                      GetValueString(propValue);
         if (str != null)
         {
-          writer.WriteAttributeString(attrName, str);
+          writer.WriteAttributeString(attrTag.Namespace, attrTag.Name, null , str);
           attrsWritten++;
         }
       }
@@ -127,29 +128,30 @@ public partial class QXmlSerializer
 
   public int WritePropertiesBase(XmlWriter writer, string? elementTag, object obj, SerializationTypeInfo typeInfo)
   {
-    var props = typeInfo.PropsAsElements;
+    var props = typeInfo.PropertiesAsElements;
 
     int propsWritten = 0;
 
-    foreach (var prop in props)
+    foreach (var serializationPropertyInfo in props)
     {
-      if (prop.ShouldSerializeMethod != null)
+      if (serializationPropertyInfo.CheckMethod != null)
       {
-        var shouldSerializeProperty = prop.ShouldSerializeMethod.Invoke(obj, new object[0]);
+        var shouldSerializeProperty = serializationPropertyInfo.CheckMethod.Invoke(obj, new object[0]);
         if (shouldSerializeProperty is bool shouldSerialize)
           if (!shouldSerialize)
             continue;
       }
 
-      var propInfo = prop.PropInfo;
-      string propTag = prop.Name;
+      var propInfo = serializationPropertyInfo.Property;
+      var propTag = serializationPropertyInfo.Name.Name;
 
       if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
       var propValue = propInfo.GetValue(obj);
+      propValue = serializationPropertyInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ?? propValue;
       if (propValue == null)
       {
-        if (Options?.UseNilValue == true && prop.IsNullable == true)
+        if (Options?.UseNilValue == true && serializationPropertyInfo.IsNullable == true)
         {
           if (!String.IsNullOrEmpty(propTag))
             WriteStartElement(writer, propTag);
@@ -160,9 +162,7 @@ public partial class QXmlSerializer
       }
       else
       {
-        var defaultValue =
-          (propInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as
-            DefaultValueAttribute)?.Value;
+        var defaultValue = serializationPropertyInfo.DefaultValue;
         if (defaultValue != null)
         {
           if (propValue.Equals(defaultValue))
@@ -185,7 +185,7 @@ public partial class QXmlSerializer
           else
           if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
           {
-            if (prop.IsReference)
+            if (serializationPropertyInfo.IsReference)
               WriteValue(writer, GetValueString(propValue));
             else
               WriteObjectInterior(writer, propValue, null, serializedTypeInfo);

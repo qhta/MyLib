@@ -33,7 +33,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
 
     var rootElementName = reader.Name;
 
-    var serializationTypeInfo = propertyInfo?.TypeInfo;
+    var serializationTypeInfo = propertyInfo?.ValueType;
     if (serializationTypeInfo == null)
       serializationTypeInfo = objectTypeInfo;
     if (serializationTypeInfo == null)

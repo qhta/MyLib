@@ -58,7 +58,7 @@ public partial class QXmlSerializer
     else
     {
       var xmlName = new XmlQualifiedName(name, prefix);
-      var clrName = SerializationInfoMapper.GetQualifiedName(xmlName);
+      var clrName = SerializationInfoMapper.ToQualifiedName(xmlName);
       if (!KnownTypes.TryGetValue(clrName, out typeInfo))
         throw new XmlInternalException($"Element {xmlName} not recognized while deserialization.", xmlReader);
     }
@@ -134,8 +134,8 @@ public partial class QXmlSerializer
   public int ReadAttributesBase(object obj, XmlReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
   {
     var aType = obj.GetType();
-    var attribs = typeInfo.PropsAsAttributes;
-    var props = typeInfo.PropsAsElements;
+    var attribs = typeInfo.PropertiesAsAttributes;
+    var props = typeInfo.PropertiesAsElements;
     foreach (var prop in props)
       if (!attribs.ContainsKey(prop.Name))
         attribs.Add(prop.Name, prop);
@@ -184,7 +184,7 @@ public partial class QXmlSerializer
         }
       }
 
-      var propertyToRead = propList.FirstOrDefault(item => item.Name == attrName);
+      var propertyToRead = propList.FirstOrDefault(item => item.Name.Name == attrName);
       if (propertyToRead == null)
       {
         if (onUnknownProperty == null)
@@ -199,11 +199,11 @@ public partial class QXmlSerializer
         {
           try
           {
-            propertyToRead.PropInfo.SetValue(obj, propValue);
+            propertyToRead.Property.SetValue(obj, propValue);
           }
           catch (Exception ex)
           {
-            throw new XmlInternalException($"Could not set value for property {propertyToRead.PropInfo} in type {aType.Name}", reader, ex);
+            throw new XmlInternalException($"Could not set value for property {propertyToRead.Property} in type {aType.Name}", reader, ex);
           }
 
           attrsRead++;
@@ -218,8 +218,8 @@ public partial class QXmlSerializer
   public int ReadElementsBase(object obj, XmlReader reader, SerializationTypeInfo typeInfo, OnUnknownProperty? onUnknownProperty = null)
   {
     var aType = obj.GetType();
-    var attribs = typeInfo.PropsAsAttributes;
-    var props = typeInfo.PropsAsElements;
+    var attribs = typeInfo.PropertiesAsAttributes;
+    var props = typeInfo.PropertiesAsElements;
     foreach (var prop in attribs)
       if (!props.ContainsKey(prop.Name))
         props.Add(prop.Name, prop);
@@ -233,11 +233,11 @@ public partial class QXmlSerializer
       var elementName = reader.LocalName;
       if (elementName == "HeadingPairs")
         TestTools.Stop();
-      var propertyToRead = propList.FirstOrDefault(item => item.Name == elementName);
+      var propertyToRead = propList.FirstOrDefault(item => item.Name.Name == elementName);
       if (propertyToRead != null)
       {
         object? propValue = null;
-        Type propType = propertyToRead.PropInfo.PropertyType;
+        Type propType = propertyToRead.Property.PropertyType;
         if (propertyToRead.XmlConverter != null)
         {
           propValue = propertyToRead.XmlConverter.ReadXml(reader, typeInfo, propertyToRead, null, this);
@@ -259,18 +259,18 @@ public partial class QXmlSerializer
         }
         if (propValue != null)
         {
-          propertyToRead.PropInfo.SetValue(obj, propValue);
+          propertyToRead.Property.SetValue(obj, propValue);
           propsRead++;
         }
       }
       else
       {
-        if (typeInfo.KnownContentProperty != null)
+        if (typeInfo.ContentProperty != null)
         {
-          var content = ReadElementAsObject(typeInfo.KnownContentProperty.PropInfo.PropertyType, reader);
+          var content = ReadElementAsObject(typeInfo.ContentProperty.Property.PropertyType, reader);
           if (content != null)
           {
-            typeInfo.KnownContentProperty.PropInfo.SetValue(obj, content);
+            typeInfo.ContentProperty.Property.SetValue(obj, content);
             propsRead++;
             continue;
           }
@@ -500,7 +500,6 @@ public partial class QXmlSerializer
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
     var keyName = reader.Name;
-    string? valueName = null;
     SerializationTypeInfo? typeInfo = null;
     if (dictionaryInfo.KnownItemTypes.Count > 0)
     {
@@ -508,7 +507,6 @@ public partial class QXmlSerializer
       {
         typeInfo = typeItemInfo.TypeInfo;
         keyName = typeItemInfo.KeyName;
-        valueName = typeItemInfo.ValueName;
       }
     }
 
@@ -548,7 +546,7 @@ public partial class QXmlSerializer
       }
       throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
     }
-    KVPair kvPair = new KVPair();
+    KVPair kvPair = new();
     kvPair.Value = typeInfo.KnownConstructor.Invoke(new object[0]);
     ReadObject(kvPair.Value, reader, typeInfo, (object readObject, string elementName) =>
     {
@@ -593,16 +591,14 @@ public partial class QXmlSerializer
 
   public void ReadElementAsCollectionProperty(object obj, SerializationPropertyInfo propertyInfo, CollectionInfo collectionInfo, XmlReader reader)
   {
-    if (propertyInfo.Name == "HeadingPairs")
+    if (propertyInfo.Property.Name == "HeadingPairs")
       TestTools.Stop();
-    if (propertyInfo.TypeInfo == null)
-      throw new XmlInternalException($"Collection type at property {propertyInfo.PropInfo.Name}" +
+    if (propertyInfo.ValueType == null)
+      throw new XmlInternalException($"Collection type at property {propertyInfo.Property.Name}" +
                                      $" of type {obj.GetType().Name} unknown", reader);
-    var collectionType = collectionInfo.CollectionTypeInfo?.Type;
+    var collectionType = propertyInfo.Property.PropertyType;
     if (collectionType == null)
-      collectionType = propertyInfo.PropInfo.PropertyType;
-    if (collectionType == null)
-      throw new XmlInternalException($"Unknown collection type for {propertyInfo.PropInfo.DeclaringType}.{propertyInfo.PropInfo.Name}", reader);
+      throw new XmlInternalException($"Unknown collection type for {propertyInfo.Property.DeclaringType}.{propertyInfo.Property.Name}", reader);
 
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -611,11 +607,11 @@ public partial class QXmlSerializer
     // all items will be read to this temporary list;
     List<object> tempList = new List<object>();
 
-    var collection = propertyInfo.PropInfo.GetValue(obj);
+    var collection = propertyInfo.Property.GetValue(obj);
     if (collection == null)
     { // Check if collection can be written - if not we will not be able to set the property
-      if (!propertyInfo.PropInfo.CanWrite)
-        throw new XmlInternalException($"Collection at property {propertyInfo.PropInfo.Name}" +
+      if (!propertyInfo.Property.CanWrite)
+        throw new XmlInternalException($"Collection at property {propertyInfo.Property.Name}" +
                                        $" of type {obj.GetType().Name} is  but readonly", reader);
     }
 
@@ -667,7 +663,7 @@ public partial class QXmlSerializer
       var dictionaryInfo = propertyInfo.CollectionInfo as DictionaryInfo;
       if (dictionaryInfo == null)
         throw new XmlInternalException($"Collection of type {collectionType} must be marked with {nameof(XmlDictionaryAttribute)} attribute", reader);
-      if (reader.IsStartElement(propertyInfo.Name) && !reader.IsEmptyElement)
+      if (reader.IsStartElement(propertyInfo.Name.Name) && !reader.IsEmptyElement)
       {
         reader.Read();
         ReadDictionaryItems(tempList, keyType, valueType, dictionaryInfo, reader);
@@ -678,7 +674,7 @@ public partial class QXmlSerializer
       if (collectionInfo == null)
         throw new XmlInternalException($"Collection of type {collectionType} must be marked with {nameof(XmlCollectionAttribute)} attribute", reader);
 
-      if (reader.IsStartElement(propertyInfo.Name) && !reader.IsEmptyElement)
+      if (reader.IsStartElement(propertyInfo.Name.Name) && !reader.IsEmptyElement)
       {
         reader.Read();
         ReadCollectionItems(tempList, itemType, collectionInfo, reader);
@@ -693,7 +689,7 @@ public partial class QXmlSerializer
           var arrayObject = Array.CreateInstance(itemType, tempList.Count);
           for (int i = 0; i < tempList.Count; i++)
             arrayObject.SetValue(tempList[i], i);
-          propertyInfo.PropInfo.SetValue(obj, arrayObject);
+          propertyInfo.Property.SetValue(obj, arrayObject);
           break;
 
         case CollectionTypeKind.Collection:
@@ -723,7 +719,7 @@ public partial class QXmlSerializer
             throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", reader);
           for (int i = 0; i < tempList.Count; i++)
             addMethod.Invoke(newCollectionObject, new object[] { tempList[i] });
-          propertyInfo.PropInfo.SetValue(obj, newCollectionObject);
+          propertyInfo.Property.SetValue(obj, newCollectionObject);
           break;
 
         case CollectionTypeKind.List:
@@ -746,7 +742,7 @@ public partial class QXmlSerializer
             throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", reader);
           for (int i = 0; i < tempList.Count; i++)
             newListObject.Add(tempList[i]);
-          propertyInfo.PropInfo.SetValue(obj, newListObject);
+          propertyInfo.Property.SetValue(obj, newListObject);
           break;
 
         case CollectionTypeKind.Dictionary:
@@ -772,7 +768,7 @@ public partial class QXmlSerializer
             var kvPair = (KeyValuePair<object, object?>)item;
             newDictionaryObject.Add(kvPair.Key, kvPair.Value);
           }
-          propertyInfo.PropInfo.SetValue(obj, newDictionaryObject);
+          propertyInfo.Property.SetValue(obj, newDictionaryObject);
           break;
 
         default:
@@ -786,18 +782,18 @@ public partial class QXmlSerializer
         case CollectionTypeKind.Array:
           var arrayObject = collection as Array;
           if (arrayObject == null)
-            throw new XmlInternalException($"Collection value at property {propertyInfo.PropInfo.Name} cannot be typecasted to Array", reader);
+            throw new XmlInternalException($"Collection value at property {propertyInfo.Property.Name} cannot be typecasted to Array", reader);
           if (arrayObject.Length == tempList.Count)
             for (int i = 0; i < tempList.Count; i++)
               arrayObject.SetValue(tempList[i], i);
           else
-          if (!propertyInfo.PropInfo.CanWrite)
-            throw new XmlInternalException($"Collection at property {propertyInfo.PropInfo.Name}" +
+          if (!propertyInfo.Property.CanWrite)
+            throw new XmlInternalException($"Collection at property {propertyInfo.Property.Name}" +
                                            $" is an array of different length than number of read items but is readonly and can't be changed", reader);
           var itemArray = Array.CreateInstance(itemType, tempList.Count);
           for (int i = 0; i < tempList.Count; i++)
             itemArray.SetValue(tempList[i], i);
-          propertyInfo.PropInfo.SetValue(obj, itemArray);
+          propertyInfo.Property.SetValue(obj, itemArray);
           break;
 
         case CollectionTypeKind.Collection:
@@ -821,7 +817,7 @@ public partial class QXmlSerializer
         case CollectionTypeKind.List:
           IList? listObject = collection as IList;
           if (listObject == null)
-            throw new XmlInternalException($"Collection value at property {propertyInfo.PropInfo.Name} cannot be typecasted to IList", reader);
+            throw new XmlInternalException($"Collection value at property {propertyInfo.Property.Name} cannot be typecasted to IList", reader);
           listObject.Clear();
           for (int i = 0; i < tempList.Count; i++)
             listObject.Add(tempList[i]);
@@ -830,7 +826,7 @@ public partial class QXmlSerializer
         case CollectionTypeKind.Dictionary:
           IDictionary? dictionaryObject = collection as IDictionary;
           if (dictionaryObject == null)
-            throw new XmlInternalException($"Collection value at property {propertyInfo.PropInfo.Name} cannot be typecasted to IDictionary", reader);
+            throw new XmlInternalException($"Collection value at property {propertyInfo.Property.Name} cannot be typecasted to IDictionary", reader);
           dictionaryObject.Clear();
           for (int i = 0; i < tempList.Count; i++)
           {
@@ -883,11 +879,11 @@ public partial class QXmlSerializer
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var typeInfo))
         throw new XmlInternalException($"Unknown type {aType.Name} on deserialize", reader);
-      var textPropertyInfo = typeInfo.KnownTextProperty;
+      var textPropertyInfo = typeInfo.TextProperty;
       if (textPropertyInfo == null)
         throw new XmlInternalException($"Unknown text property in {aType.Name} on deserialize", reader);
       var value = ReadValue(textPropertyInfo, reader);
-      textPropertyInfo.PropInfo.SetValue(obj, value);
+      textPropertyInfo.Property.SetValue(obj, value);
     }
   }
 
@@ -897,8 +893,8 @@ public partial class QXmlSerializer
 
   public object? ReadValue(SerializationPropertyInfo serializationPropertyInfo, XmlReader reader)
   {
-    var propType = serializationPropertyInfo.PropInfo.PropertyType;
-    var typeConverter = serializationPropertyInfo.TypeConverter;
+    var propType = serializationPropertyInfo.Property.PropertyType;
+    var typeConverter = serializationPropertyInfo.GetTypeConverter();
     return ReadValue(propType, typeConverter, reader);
   }
 

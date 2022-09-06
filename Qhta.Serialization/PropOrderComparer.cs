@@ -11,9 +11,9 @@ public class PropOrderComparer : IComparer<SerializationPropertyInfo>
     var result = x.Order.CompareTo(y.Order);
     if (result != 0)
       return result;
-    if (x.Name == null && y.Name == null)
+    if (x.Name.IsEmpty() && y.Name.IsEmpty())
       return 1;
-    if (x.Name == null || y.Name == null)
+    if (x.Name.IsEmpty() || y.Name.IsEmpty())
       return 0;
     return x.Name.CompareTo(y.Name);
   }
