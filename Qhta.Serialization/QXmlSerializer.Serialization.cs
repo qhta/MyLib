@@ -13,18 +13,32 @@ namespace Qhta.Xml.Serialization;
 
 public partial class QXmlSerializer
 {
-  private const string xsi = @"http://www.w3.org/2001/XMLSchema-instance";
+  private const string xsiNamespace = @"http://www.w3.org/2001/XMLSchema-instance";
+  private const string xsdNamespace = @"http://www.w3.org/2001/XMLSchema";
 
-  public Dictionary<string, string> Namespaces { get; } = new Dictionary<string, string>();
+  public XmlSerializerNamespaces Namespaces { get; private set; } = new();
 
   public XmlWriterSettings XmlWriterSettings { get; set; } = new XmlWriterSettings
   { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
 
   #region Serialize methods
 
+  /// <summary>
+  /// Main serialization entry
+  /// </summary>
+  /// <param name="xmlWriter"></param>
+  /// <param name="obj"></param>
+  /// <param name="namespaces"></param>
+  /// <param name="encodingStyle">Style of Soap encoding. Unused</param>
+  /// <param name="id">Base for Soap identifiers. Unused</param>
   protected partial void SerializeObject(XmlWriter xmlWriter, object? obj, XmlSerializerNamespaces? namespaces, string? encodingStyle, string? id)
   {
-    SerializeObject(xmlWriter, obj);
+    if (obj == null)
+      return;
+    if (namespaces != null)
+      Namespaces = namespaces;
+    WriteObject(xmlWriter, obj, true);
+    xmlWriter.Flush();
   }
 
   public string Serialize(object obj)
@@ -39,41 +53,45 @@ public partial class QXmlSerializer
   }
 
 
-  public void SerializeObject(XmlWriter writer, object? obj)
-  {
-    //if (obj is IXSerializable qSerializable)
-    //{
-    //  qSerializable.Serialize(this, writer);
-    //}
-    //else
-    if (obj is IXmlSerializable xmlSerializable)
-    {
-      xmlSerializable.WriteXml(writer);
-    }
-    else if (obj != null)
-    {
-      WriteObject(writer, obj);
-    }
-  }
   #endregion
 
   #region Write methods
 
-  public void WriteObject(XmlWriter writer, object obj)
+  public void WriteObject(XmlWriter writer, object obj, bool emitNamespaces = false)
   {
-    var aType = obj.GetType();
-    if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-      throw new InternalException($"Type \"{aType}\" not registered");
-    var tag = SerializationInfoMapper.ToXmlQualifiedName(serializedTypeInfo.Name);
-    writer.WriteStartElement(tag.Name, tag.Namespace);
-    if (Options.UseNilValue && !Namespaces.ContainsKey("xsi"))
+    if (obj is IXmlSerializable xmlSerializable)
     {
-      Namespaces.Add("xsi", xsi);
-      writer.WriteAttributeString("xmlns", "xsi", null, xsi);
+      xmlSerializable.WriteXml(writer);
     }
+    else
+    {
+      var aType = obj.GetType();
+      if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
+        throw new InternalException($"Type \"{aType}\" not registered");
+      var tag = SerializationInfoMapper.ToXmlQualifiedName(serializedTypeInfo.Name);
+      if (emitNamespaces && BaseNamespace != null)
+        writer.WriteStartElement(tag.Name, BaseNamespace);
+      else
+        writer.WriteStartElement(tag.Name, tag.Namespace);
+      if (emitNamespaces)
+      {
+        if (Options.UseNilValue)
+        {
+          //Namespaces.Add("xsi", xsiNamespace);
+          writer.WriteAttributeString("xmlns", "xsi", null, xsiNamespace);
+        }
 
-    WriteObjectInterior(writer, obj, null, serializedTypeInfo);
-    writer.WriteEndElement();
+        if (Options.UseXsdScheme)
+        {
+          //Namespaces.Add("xsd", xsdNamespace);
+          writer.WriteAttributeString("xmlns", "xsd", null, xsdNamespace);
+        }
+
+      }
+
+      WriteObjectInterior(writer, obj, null, serializedTypeInfo);
+      writer.WriteEndElement();
+    }
   }
 
   public void WriteObjectInterior(XmlWriter writer, object obj, string? tag = null, SerializationTypeInfo? typeInfo = null)
@@ -118,7 +136,7 @@ public partial class QXmlSerializer
                       GetValueString(propValue);
         if (str != null)
         {
-          writer.WriteAttributeString(attrTag.Namespace, attrTag.Name, null , str);
+          writer.WriteAttributeString(attrTag.Namespace, attrTag.Name, null, str);
           attrsWritten++;
         }
       }
@@ -155,7 +173,7 @@ public partial class QXmlSerializer
         {
           if (!String.IsNullOrEmpty(propTag))
             WriteStartElement(writer, propTag);
-          writer.WriteAttributeString(null, "nil", xsi, "true");
+          writer.WriteAttributeString(null, "nil", xsiNamespace, "true");
           if (!String.IsNullOrEmpty(propTag))
             WriteEndElement(writer, propTag);
         }
@@ -282,7 +300,7 @@ public partial class QXmlSerializer
             var val = valProp.GetValue(item);
             if (key != null)
             {
-              if (collectionInfo is DictionaryInfo dictionaryInfo && dictionaryInfo.KeyProperty!=null && val!=null 
+              if (collectionInfo is DictionaryInfo dictionaryInfo && dictionaryInfo.KeyProperty != null && val != null
                 && KnownTypes.TryGetValue(val.GetType(), out var serializationTypeInfo))
               {
                 WriteObject(writer, val);
@@ -324,7 +342,7 @@ public partial class QXmlSerializer
           }
           else
           {
-            if (collectionInfo.IsReferences)
+            if (collectionInfo.StoresReferences)
             {
               if (string.IsNullOrEmpty(itemTag))
                 WriteValue(writer, item.ToString());

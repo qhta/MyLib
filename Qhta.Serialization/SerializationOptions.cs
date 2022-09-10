@@ -67,9 +67,15 @@ public class SerializationOptions
   public bool IgnoreUnknownElements { get; set; }
 
   /// <summary>
+  /// Writes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" in the first element.
   /// Writes xsi:nil="true" attribute when value is null.
   /// </summary>
   public bool UseNilValue { get; set; } = true;
+
+  /// <summary>
+  /// Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element
+  /// </summary>
+  public bool UseXsdScheme { get; set; } = true;
 
   /// <summary>
   /// String to write as false value;

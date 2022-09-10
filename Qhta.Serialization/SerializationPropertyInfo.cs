@@ -89,10 +89,47 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
   [DefaultValue(false)]
   public bool HasCheckMethod => CheckMethod != null;
 
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsPolymorfic => GetKnownSubtypes() != null;
+
+  /// <summary>
+  /// If a valueType can be substituted by subclasses then these classes are listed here.
+  /// </summary>
+  [XmlElement]
+  public KnownTypesDictionary? KnownSubtypes { get; set; }
+
+  /// <summary>
+  /// Get KnownSubtypes as saved or from ValueType.
+  /// </summary>
+  /// <returns></returns>
+  public KnownTypesDictionary? GetKnownSubtypes() => KnownSubtypes ?? ValueType?.KnownSubtypes;
+
+  /// <summary>
+  /// If a type is serialized as a collection but not as a dictionary
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsCollection => GetCollectionInfo() != null && !IsDictionary;
+
+  /// <summary>
+  /// If a type is serialized as a dictionary but not as a collection
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsDictionary => GetCollectionInfo() is DictionaryInfo;
+
   /// <summary>
   /// Optional collection info filled if a property is an array, collection or dictionary.
   /// </summary>
+  [XmlElement]
   public CollectionInfo? CollectionInfo { get; set; }
+
+  /// <summary>
+  /// Get CollectionInfo as saved or from ValueType.
+  /// </summary>
+  /// <returns></returns>
+  public CollectionInfo? GetCollectionInfo() => CollectionInfo ?? ValueType?.CollectionInfo;
 
   public int CompareTo(SerializationPropertyInfo? other)
   {

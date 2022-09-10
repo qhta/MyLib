@@ -4,15 +4,6 @@ namespace Qhta.Xml.Serialization;
 
 public class DictionaryInfo: CollectionInfo
 {
-  [XmlAttribute]
-  [DefaultValue(false)]
-  public override bool IsDictionary => true;
-
-  [XmlAttribute]
-  public string? KeyName { get; set; }
-
-  [XmlIgnore]
-  public PropertyInfo? KeyProperty { get; set; }
 
   [XmlAttribute]
   [XmlReference]
@@ -21,4 +12,10 @@ public class DictionaryInfo: CollectionInfo
   [XmlAttribute]
   [XmlReference]
   public SerializationTypeInfo? ValueTypeInfo { get; set; }
+
+  [XmlAttribute]
+  public string? KeyName { get; set; }
+
+  [XmlIgnore]
+  public PropertyInfo? KeyProperty { get; set; }
 }

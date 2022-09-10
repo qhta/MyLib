@@ -169,12 +169,9 @@ public partial class QXmlSerializer
             reader.MoveToNextAttribute();
             continue;
           case "xmlns":
-            if (!Namespaces.ContainsKey(attrName))
-            {
-              reader.ReadAttributeValue();
-              var str = reader.ReadContentAsString();
-              Namespaces.Add(attrName, str);
-            }
+            reader.ReadAttributeValue();
+            var ns = reader.ReadContentAsString();
+            Namespaces.Add(attrName, ns);
             reader.MoveToNextAttribute();
             continue;
           case "xsd":

@@ -63,6 +63,10 @@ public partial class QXmlSerializer
 
   public KnownTypesDictionary KnownTypes => SerializationInfoMapper.KnownTypes;
 
+  public string? BaseNamespace => SerializationInfoMapper.BaseNamespace;
+
+
+  [DebuggerBrowsable(DebuggerBrowsableState.Never)]
   public SerializationOptions Options { get; private set; } = new SerializationOptions();
 
   public XmlSerializationInfoMapper SerializationInfoMapper { get; private set; } = null!;

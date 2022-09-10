@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SerializationTest\**" />
+    <EmbeddedResource Remove="SerializationTest\**" />
+    <None Remove="SerializationTest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="BaseSerializer.cs" />
     <Compile Remove="IXmlSerializer.cs" />
     <Compile Remove="XmlSerializer - Copy.base.cs" />

@@ -1,24 +1,40 @@
-﻿using System.Reflection;
+﻿using System.Runtime.Serialization;
 
 namespace Qhta.Xml.Serialization;
 
-
-public class CollectionInfo
+[KnownType(typeof(DictionaryInfo))]
+public class CollectionInfo: IEquatable<CollectionInfo>
 {
-  [XmlAttribute]
-  [DefaultValue(false)]
-  public virtual bool IsDictionary => false;
-
   /// <summary>
   /// If a collection of objects stores references only.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsReferences { get; set;}
+  public bool StoresReferences { get; set;}
 
   /// <summary>
   /// Known types for collection items.
   /// </summary>
   [XmlReferences]
   public KnownItemTypesDictionary KnownItemTypes { get; set; } = new();
+
+  public bool Equals(CollectionInfo? other)
+  {
+    if (ReferenceEquals(null, other)) return false;
+    if (ReferenceEquals(this, other)) return true;
+    return StoresReferences == other.StoresReferences && KnownItemTypes.Equals(other.KnownItemTypes);
+  }
+
+  //public override bool Equals(object? obj)
+  //{
+  //  if (ReferenceEquals(null, obj)) return false;
+  //  if (ReferenceEquals(this, obj)) return true;
+  //  if (obj.GetType() != this.GetType()) return false;
+  //  return Equals((CollectionInfo)obj);
+  //}
+
+  //public override int GetHashCode()
+  //{
+  //  return HashCode.Combine(IsReferences, KnownItemTypes);
+  //}
 }

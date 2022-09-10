@@ -83,15 +83,32 @@ public class SerializationTypeInfo: ITypeInfo
   /// </summary>
   public SerializationPropertyInfo? TextProperty { get; set; }
 
-  ///// <summary>
-  ///// Known types for collection items.
-  ///// </summary>
-  //public KnownItemTypesDictionary KnownItemTypes { get; set; } = new KnownItemTypesDictionary();
+  /// <summary>
+  /// If a class can be substituted by subclasses then these classes are listed here.
+  /// </summary>
+  [XmlElement]
+  public KnownTypesDictionary? KnownSubtypes { get; set; }
+
+  /// <summary>
+  /// Specifies if a type is serialized as a collection but not as a dictionary.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsCollection => CollectionInfo != null && !IsDictionary;
+
+  /// <summary>
+  /// Specifies If a type is serialized as a dictionary but not as a collection.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsDictionary => CollectionInfo is DictionaryInfo;
 
   /// <summary>
   /// Optional collection info filled if a property is an array, collection or dictionary
   /// </summary>
+  [XmlElement]
   public CollectionInfo? CollectionInfo { get; set; }
+
 
   public override string ToString()
   {

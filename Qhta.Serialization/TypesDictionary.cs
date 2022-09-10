@@ -1,6 +1,9 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿using System.Collections;
+using static System.HashCode;
 
-public class TypesDictionary<ItemType> : ICollection<ItemType> where ItemType: ITypeInfo
+namespace Qhta.Xml.Serialization;
+
+public class TypesDictionary<ItemType> : ICollection<ItemType>, IEquatable<TypesDictionary<ItemType>> where ItemType: ITypeInfo
 {
   [XmlAttribute]
   public string? BaseNamespace { get; set; }
@@ -71,4 +74,26 @@ public class TypesDictionary<ItemType> : ICollection<ItemType> where ItemType: I
       result = (this as IEnumerable<ItemType>).FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
     return result;
   }
+
+  public bool Equals(TypesDictionary<ItemType>? other)
+  {
+    if (ReferenceEquals(null, other)) return false;
+    if (ReferenceEquals(this, other)) return true;
+    return BaseNamespace == other.BaseNamespace 
+           && TypeIndexedItems.Equals(other.TypeIndexedItems) 
+           && NameIndexedItems.Equals(other.NameIndexedItems);
+  }
+
+  //public override bool Equals(object? obj)
+  //{
+  //  if (ReferenceEquals(null, obj)) return false;
+  //  if (ReferenceEquals(this, obj)) return true;
+  //  if (obj.GetType() != this.GetType()) return false;
+  //  return Equals((TypesDictionary<ItemType>)obj);
+  //}
+
+  //public override int GetHashCode()
+  //{
+  //  return Combine(BaseNamespace, TypeIndexedItems, NameIndexedItems);
+  //}
 }
