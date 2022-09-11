@@ -821,6 +821,36 @@
               but are also ordered with inheritance order (from top superclass first).
              </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldsByInheritance(System.Type)">
+            <summary>
+              Replacement for a <c>Type.GetFields</c> method.
+              The properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldsByInheritance(System.Type,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetFields(BindingFlags)</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldByInheritance(System.Type,System.String)">
+            <summary>
+              Replacement for a <c>Type.GetField(string)</c> method.
+              The properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldByInheritance(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+              Replacement for a <c>Type.GetField(string, BindingFlags)</c> method in case
+              when a <paramref name="flags"/> parameter does not have option
+              <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
+              but are also ordered with inheritance order (from top superclass first).
+             </summary>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetCustomAttibutesByInheritance(System.Type,System.Boolean,System.Boolean)">
             <summary>
               Replacement for a <c>Type.GetCustomAttributes</c> method in case
@@ -927,6 +957,32 @@
             Expanded <see cref="M:System.Type.GetElementType"/> method
             with <see cref="M:System.Type.GetInterfaces"/>
             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetValueType(System.Reflection.MemberInfo)">
+            <summary>
+            If memberInfo is PropertyInfo it returns PropertyType.
+            Either if memberInfo is FieldInfo it returns FieldType.
+            Otherwise it returns null.
+            </summary>
+            <param name="memberInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.CanWrite(System.Reflection.MemberInfo)">
+            <summary>
+            If memberInfo is PropertyInfo it returns PropertyInfo.CanWrite.
+            Either if memberInfo is FieldInfo it returns negated FieldInfo.IsInitOnly.
+            Otherwise it returns null.
+            </summary>
+            <param name="memberInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.IsIndexer(System.Reflection.MemberInfo)">
+            <summary>
+            If memberInfo is PropertyInfo it checks if it is indeksed property
+            Otherwise it returns false.
+            </summary>
+            <param name="memberInfo"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.Redefines(System.Reflection.MemberInfo,System.Reflection.MemberInfo)">
             <summary>

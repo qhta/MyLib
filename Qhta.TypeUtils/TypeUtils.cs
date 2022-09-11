@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace Qhta.TypeUtils;
 
@@ -22,11 +24,11 @@ public static class TypeUtils
   /// <param name="aType"></param>
   /// <param name="methodName"></param>
   /// <returns></returns>
-  public static MethodInfo GetTopmostMethod(this Type aType, string methodName)
+  public static MethodInfo? GetTopmostMethod(this Type aType, string methodName)
   {
     var bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
     var methodInfo = aType.GetMethod(methodName, bindingFlags);
-    if (methodInfo == null && aType.BaseType!=null)
+    if (methodInfo == null && aType.BaseType != null)
       methodInfo = GetTopmostMethod(aType.BaseType, methodName);
     return methodInfo;
   }
@@ -37,7 +39,7 @@ public static class TypeUtils
   /// <param name="valueType"></param>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static bool IsDefaultValue(this Type valueType, object value)
+  public static bool IsDefaultValue(this Type valueType, [MaybeNullWhen(false)] object value)
   {
     if (valueType.Name.StartsWith("Nullable`1"))
     {
@@ -88,7 +90,7 @@ public static class TypeUtils
   /// <param name="text">enum name to convert</param>
   /// <param name="value">enum value after conversion</param>
   /// <returns></returns>
-  public static bool TryGetEnumValue(this Type valueType, string text, out object value)
+  public static bool TryGetEnumValue(this Type valueType, string text, [MaybeNullWhen(false)] out object? value)
   {
     bool ok = false;
     value = null;
@@ -115,12 +117,11 @@ public static class TypeUtils
   /// <param name="targetObject">target object to set value</param>
   /// <param name="value">value to set</param>
   /// <returns></returns>
-  public static bool TrySetValue(this PropertyInfo property, object targetObject, object value)
+  public static bool TrySetValue(this PropertyInfo property, object targetObject, object? value)
   {
     if (value != null && value.GetType() != property.PropertyType)
     {
-      object conValue;
-      if (property.PropertyType.TryConvertValue(value, out conValue))
+      if (property.PropertyType.TryConvertValue(value, out var conValue))
         value = conValue;
     }
     try
@@ -145,67 +146,62 @@ public static class TypeUtils
   /// <param name="valueType"></param>
   /// <param name="typeConverter"></param>
   /// <returns></returns>
-  public static bool TryGetConverter(this Type valueType, out TypeConverter typeConverter)
+  public static bool TryGetConverter(this Type valueType, [MaybeNullWhen(false)] out TypeConverter typeConverter)
   {
     typeConverter = null;
-    TypeConverterAttribute typeConverterAttribute = valueType.GetCustomAttribute<TypeConverterAttribute>();
+    var typeConverterAttribute = valueType.GetCustomAttribute<TypeConverterAttribute>();
     if (typeConverterAttribute != null)
     {
       string typeConverterName = typeConverterAttribute.ConverterTypeName;
-      if (typeConverterName != null)
+      if (!KnownTypeConverters.TryGetValue(typeConverterName, out typeConverter))
       {
-        if (!KnownTypeConverters.TryGetValue(typeConverterName, out typeConverter))
+        string[] typeNameStrings = typeConverterName.Split(',');
+        if (typeNameStrings.Length > 1)
         {
-          string[] typeNameStrings = typeConverterName.Split(',');
-          if (typeNameStrings.Length > 1)
+          Assembly typeConverterAssembly = Assembly.Load(typeNameStrings[1]);
+          var converterType = typeConverterAssembly.GetType(typeNameStrings[0]);
+          if (converterType != null)
           {
-            Assembly typeConverterAssembly = Assembly.Load(typeNameStrings[1]);
-            if (typeConverterAssembly != null)
+            ConstructorInfo? constructor = null;
+            if (valueType.IsGenericType)
             {
-              Type converterType = typeConverterAssembly.GetType(typeNameStrings[0]);
-              if (converterType != null)
+              constructor = converterType.GetConstructor(new Type[] { typeof(Type) });
+              if (constructor != null)
               {
-                ConstructorInfo constructor = null;
-                if (valueType.IsGenericType)
+                try
                 {
-                  constructor = converterType.GetConstructor(new Type[] { typeof(Type) });
-                  if (constructor != null)
-                  {
-                    try
-                    {
-                      object obj = constructor.Invoke(new object[] { valueType.GenericTypeArguments[0] });
-                      typeConverter = obj as TypeConverter;
-                    }
-                    catch (Exception ex)
-                    {
-                      Debug.WriteLine(String.Format("Error while {0} creation", converterType.Name));
-                      Debug.WriteLine(ex.Message);
-                    }
-                  }
+                  object obj = constructor.Invoke(new object[] { valueType.GenericTypeArguments[0] });
+                  typeConverter = obj as TypeConverter;
                 }
-                else
+                catch (Exception ex)
                 {
-                  constructor = converterType.GetConstructor(new Type[] { });
-                  if (constructor != null)
-                  {
-                    try
-                    {
-                      object obj = constructor.Invoke(new object[] { });
-                      typeConverter = obj as TypeConverter;
-                    }
-                    catch (Exception ex)
-                    {
-                      Debug.WriteLine(String.Format("Error while {0} creation", converterType.Name));
-                      Debug.WriteLine(ex.Message);
-                    }
-                  }
+                  Debug.WriteLine($"Error while {converterType.Name} creation");
+                  Debug.WriteLine(ex.Message);
+                }
+              }
+            }
+            else
+            {
+              constructor = converterType.GetConstructor(new Type[] { });
+              if (constructor != null)
+              {
+                try
+                {
+                  object obj = constructor.Invoke(new object[] { });
+                  typeConverter = obj as TypeConverter;
+                }
+                catch (Exception ex)
+                {
+                  Debug.WriteLine($"Error while {converterType.Name} creation");
+                  Debug.WriteLine(ex.Message);
                 }
               }
             }
           }
-          KnownTypeConverters.Add(typeConverterName, typeConverter);
         }
       }
+      if (typeConverter != null)
+        KnownTypeConverters.Add(typeConverterName, typeConverter);
     }
     return typeConverter != null;
   }
@@ -217,12 +213,11 @@ public static class TypeUtils
   /// <param name="value">value to convert from</param>
   /// <param name="result">conversion result</param>
   /// <returns></returns>
-  public static bool TryConvertValue(this Type valueType, object value, out object result)
+  public static bool TryConvertValue(this Type valueType, object value, [MaybeNullWhen(false)] out object result)
   {
     bool ok = false;
     result = null;
-    TypeConverter typeConverter;
-    if (TryGetConverter(valueType, out typeConverter))
+    if (TryGetConverter(valueType, out var typeConverter))
     {
       result = typeConverter.ConvertFrom(value);
       ok = true;
@@ -238,14 +233,14 @@ public static class TypeUtils
   /// <param name="str">string to convert from</param>
   /// <param name="value">conversion result</param>
   /// <returns></returns>
-  public static bool TryParseEnum(this Type enumType, string str, out object value)
+  public static bool TryParseEnum(this Type enumType, string str, [MaybeNullWhen(false)] out object value)
   {
     bool ok = false;
     value = null;
     if (!enumType.IsEnum)
       return ok;
     List<string> enumNames = enumType.GetEnumNames().ToList();
-    string enumName = enumNames.FirstOrDefault(item => item.Equals(str,
+    string? enumName = enumNames.FirstOrDefault(item => item.Equals(str,
       StringComparison.InvariantCultureIgnoreCase));
     if (enumName != null)
     {
@@ -260,13 +255,13 @@ public static class TypeUtils
   /// Expanded <see cref="Type.GetElementType"/> method
   /// with <see cref="Type.GetInterfaces"/>
   /// </summary>
-  public static Type GetElementType(this Type aType)
+  public static Type? GetElementType(this Type aType)
   {
     if (aType.HasElementType)
       return aType.GetElementType();
     else
     {
-      Type result = null;
+      Type? result = null;
       Type[] interfaces = aType.GetInterfaces();
       foreach (Type aInterface in interfaces)
       {
@@ -288,6 +283,51 @@ public static class TypeUtils
   }
 
   /// <summary>
+  /// If memberInfo is PropertyInfo it returns PropertyType.
+  /// Either if memberInfo is FieldInfo it returns FieldType.
+  /// Otherwise it returns null.
+  /// </summary>
+  /// <param name="memberInfo"></param>
+  /// <returns></returns>
+  public static Type? GetValueType(this MemberInfo memberInfo)
+  {
+    if (memberInfo is PropertyInfo propInfo)
+      return propInfo.PropertyType;
+    if (memberInfo is FieldInfo fieldInfo)
+      return fieldInfo.FieldType;
+    return null;
+  }
+
+  /// <summary>
+  /// If memberInfo is PropertyInfo it returns PropertyInfo.CanWrite.
+  /// Either if memberInfo is FieldInfo it returns negated FieldInfo.IsInitOnly.
+  /// Otherwise it returns null.
+  /// </summary>
+  /// <param name="memberInfo"></param>
+  /// <returns></returns>
+  public static bool? CanWrite(this MemberInfo memberInfo)
+  {
+    if (memberInfo is PropertyInfo propInfo)
+      return propInfo.CanWrite;
+    if (memberInfo is FieldInfo fieldInfo)
+      return !fieldInfo.IsInitOnly;
+    return null;
+  }
+
+  /// <summary>
+  /// If memberInfo is PropertyInfo it checks if it is indeksed property
+  /// Otherwise it returns false.
+  /// </summary>
+  /// <param name="memberInfo"></param>
+  /// <returns></returns>
+  public static bool IsIndexer(this MemberInfo memberInfo)
+  {
+    if (memberInfo is PropertyInfo propInfo)
+      return propInfo.CanWrite;
+    return false;
+  }
+
+  /// <summary>
   /// Checking in a <paramref name="aInfo"/> member redefinines a <paramref name="bInfo"/> member.
   /// </summary>
   /// <param name="aInfo">info of a member that redefines</param>
@@ -297,12 +337,12 @@ public static class TypeUtils
     if (aInfo.GetType() != bInfo.GetType())
       return false;
 
-    if (aInfo.GetType() == typeof(FieldInfo))
-      return (aInfo as FieldInfo).Redefines(bInfo as FieldInfo);
-    if (aInfo.GetType() == typeof(PropertyInfo))
-      return (aInfo as PropertyInfo).Redefines(bInfo as PropertyInfo);
-    if (aInfo.GetType() == typeof(MethodInfo))
-      return (aInfo as MethodInfo).Redefines(bInfo as MethodInfo);
+    if (aInfo is PropertyInfo aPropInfo && bInfo is PropertyInfo bPropInfo)
+      return aPropInfo.Redefines(bPropInfo);
+    if (aInfo is FieldInfo aFieldInfo && bInfo is FieldInfo bFieldInfo)
+      return aFieldInfo.Redefines(bFieldInfo);
+    if (aInfo is MethodInfo aMethodInfo && bInfo is MethodInfo bMethodInfo)
+      return aMethodInfo.Redefines(bMethodInfo);
     return false;
   }
 
@@ -377,35 +417,31 @@ public static class TypeUtils
   public static Dictionary<string, CopyPropertyMethod> GetDeclaredCopyDelegates(Type sourceType, Type targetType)
   {
     Dictionary<string, CopyPropertyMethod> delegates = new Dictionary<string, CopyPropertyMethod>();
-    object lastKey = null;
+    object? lastKey = null;
     try
     {
       foreach (CopyPropertyConversionAttribute attrib in targetType.GetCustomAttributes(typeof(CopyPropertyConversionAttribute), true).Cast<CopyPropertyConversionAttribute>())
       {
-        if (attrib.PropertyName != null && attrib.MethodName != null)
-        {
-          CopyPropertyDelegate delegator = new CopyPropertyDelegate(targetType, attrib.MethodName);
-          lastKey = attrib.PropertyName;
-          delegates.Add(attrib.PropertyName, delegator.CopyProperty);
-        }
+        CopyPropertyDelegate delegator = new CopyPropertyDelegate(targetType, attrib.MethodName);
+        lastKey = attrib.PropertyName;
+        delegates.Add(attrib.PropertyName, delegator.CopyProperty);
       }
       Dictionary<string, CopyItemsDelegate> delegators = new Dictionary<string, CopyItemsDelegate>();
       foreach (CopyPropertyItemConversionAttribute attrib in targetType.GetCustomAttributes(typeof(CopyPropertyItemConversionAttribute), true).Cast<CopyPropertyItemConversionAttribute>())
       {
-        if (attrib.PropertyName != null && attrib.SourceItemType != null && attrib.TargetItemType != null)
+        if (!delegators.TryGetValue(attrib.PropertyName, out var delegator))
         {
-          CopyItemsDelegate delegator;
-          if (!delegators.TryGetValue(attrib.PropertyName, out delegator))
+          var targetProperty = targetType.GetProperty(attrib.PropertyName);
+          if (targetProperty != null)
           {
-            PropertyInfo targetProperty = targetType.GetProperty(attrib.PropertyName);
             delegator = new CopyItemsDelegate(targetProperty.PropertyType);
             lastKey = attrib.PropertyName;
             delegators.Add(attrib.PropertyName, delegator);
             lastKey = attrib.PropertyName;
             delegates.Add(attrib.PropertyName, delegator.CopyItems);
+            lastKey = attrib.SourceItemType;
+            delegator.Add(attrib.SourceItemType, attrib.TargetItemType);
           }
-          lastKey = attrib.SourceItemType;
-          delegator.Add(attrib.SourceItemType, attrib.TargetItemType);
         }
       }
     }
@@ -427,17 +463,16 @@ public static class TypeUtils
     Dictionary<string, CopyItemsDelegate> delegators = new Dictionary<string, CopyItemsDelegate>();
     foreach (CopyPropertyItemConversionAttribute attrib in sourceType.GetCustomAttributes(typeof(CopyPropertyItemConversionAttribute), true).Cast<CopyPropertyItemConversionAttribute>())
     {
-      if (attrib.PropertyName != null && attrib.SourceItemType != null && attrib.TargetItemType != null)
+      if (!delegators.TryGetValue(attrib.PropertyName, out var delegator))
       {
-        CopyItemsDelegate delegator;
-        if (!delegators.TryGetValue(attrib.PropertyName, out delegator))
+        var targetProperty = targetType.GetProperty(attrib.PropertyName);
+        if (targetProperty != null)
         {
-          PropertyInfo targetProperty = targetType.GetProperty(attrib.PropertyName);
           delegator = new CopyItemsDelegate(targetProperty.PropertyType);
           delegators.Add(attrib.PropertyName, delegator);
           delegates.Add(attrib.PropertyName, delegator.CopyItems);
+          delegator.Add(attrib.TargetItemType, attrib.SourceItemType);
         }
-        delegator.Add(attrib.TargetItemType, attrib.SourceItemType);
       }
     }
     return delegates;
@@ -464,27 +499,27 @@ public static class TypeUtils
 
     foreach (PropertyInfo sourceProperty in sameProperties)
     {
-      MethodInfo getMethod = sourceProperty.GetGetMethod();
+      MethodInfo? getMethod = sourceProperty.GetGetMethod();
       if (getMethod != null)
       {
         PropertyInfo targetProperty = targetProperties.First(targetProp => targetProp.Name == sourceProperty.Name);
-        MethodInfo setMethod = targetProperty.GetSetMethod();
+        MethodInfo? setMethod = targetProperty.GetSetMethod();
         if (setMethod != null)
         {
-          object sourceValue = sourceProperty.GetValue(source, new object[0]);
-          object targetValue = sourceValue;
+          object? sourceValue = sourceProperty.GetValue(source, new object[0]);
+          object? targetValue = sourceValue;
 
           if (delegates != null)
           {
-            CopyPropertyMethod duplicator;
-            if (delegates.TryGetValue(sourceProperty.Name, out duplicator))
+            if (delegates.TryGetValue(sourceProperty.Name, out var duplicator))
             {
               try
               {
                 getMethod = targetProperty.GetGetMethod();
                 if (getMethod != null)
                   targetValue = targetProperty.GetValue(target, new object[0]);
-                targetValue = duplicator(source, sourceValue, target, targetValue);
+                if (sourceValue != null && targetValue != null)
+                  targetValue = duplicator(source, sourceValue, target, targetValue);
               }
               catch (Exception ex1)
               {
@@ -492,10 +527,10 @@ public static class TypeUtils
               }
             }
           }
-          Type targetValueType = null;
-          if (targetValue != null)
-            targetValueType = targetValue.GetType();
-          Type targetPropertyType = targetProperty.PropertyType;
+          //Type? targetValueType;
+          //if (targetValue != null)
+          //  targetValueType = targetValue.GetType();
+          //Type targetPropertyType = targetProperty.PropertyType;
           //if (targetPropertyType!=targetValueType && targetValueType!=null)
           //{
           //  Debug.Assert(true);
@@ -528,8 +563,10 @@ public static class TypeUtils
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public bool Equals(PropertyInfo x, PropertyInfo y)
+    public bool Equals(PropertyInfo? x, PropertyInfo? y)
     {
+      if (x == null || y == null)
+        return false;
       return x.Name == y.Name;
     }
 
@@ -552,7 +589,7 @@ public static class TypeUtils
   /// <param name="target"></param>
   /// <param name="targetValue"></param>
   /// <returns></returns>
-  public delegate object CopyPropertyMethod(object source, object sourceValue, object target, object targetValue);
+  public delegate object? CopyPropertyMethod(object source, object sourceValue, object target, object targetValue);
 
 }
 
@@ -562,8 +599,8 @@ public static class TypeUtils
 /// </summary>
 public class CopyPropertyDelegate
 {
-  private Type TargetType;
-  private string TargetMethod;
+  private readonly Type TargetType;
+  private readonly string TargetMethod;
 
   /// <summary>
   /// Constructor to init delegate
@@ -584,9 +621,9 @@ public class CopyPropertyDelegate
   /// <param name="target"></param>
   /// <param name="targetValue"></param>
   /// <returns></returns>
-  public object CopyProperty(object source, object sourceValue, object target, object targetValue)
+  public object? CopyProperty(object source, object sourceValue, object target, object targetValue)
   {
-    MethodInfo targetMethod = TargetType.GetMethod(TargetMethod, BindingFlags.Public | BindingFlags.Static);
+    MethodInfo? targetMethod = TargetType.GetMethod(TargetMethod, BindingFlags.Public | BindingFlags.Static);
     if (targetMethod == null)
       throw new InvalidOperationException(String.Format("Public static method {1} not found in type {0}", TargetType.Name, TargetMethod));
     Delegate delegator = Delegate.CreateDelegate(typeof(TypeUtils.CopyPropertyMethod), null, targetMethod);
@@ -628,8 +665,9 @@ public class CopyItemsDelegate
   {
     typePairs.Add(sourceItemType, targetItemType);
   }
-  Type TargetPropertyType;
-  Dictionary<Type, Type> typePairs = new Dictionary<Type, Type>();
+
+  readonly Type TargetPropertyType;
+  readonly Dictionary<Type, Type> typePairs = new Dictionary<Type, Type>();
 
   /// <summary>
   /// A method to copy items from source to target
@@ -641,19 +679,19 @@ public class CopyItemsDelegate
   /// <returns></returns>
   public object CopyItems(object source, object sourceValue, object target, object targetValue)
   {
-    if (sourceValue == null)
-    {
-      IEmpty checker = source as IEmpty;
-      if (checker != null && checker.IsEmpty)
-        return null;
-      return targetValue;
-    }
-    IEnumerable<object> sourceItems = sourceValue as IEnumerable<object>;
-    IList targetItems = targetValue as IList;
-    object targetItemsTemp = null;
+    //if (sourceValue == null)
+    //{
+    //  IEmpty checker = source as IEmpty;
+    //  if (checker != null && checker.IsEmpty)
+    //    return null;
+    //  return targetValue;
+    //}
+    var sourceItems = sourceValue as IEnumerable<object>;
+    var targetItems = targetValue as IList;
+    object? targetItemsTemp = null;
     if (targetItems == null)
     {
-      ConstructorInfo constructor = TargetPropertyType.GetConstructor(new Type[] { });
+      ConstructorInfo? constructor = TargetPropertyType.GetConstructor(new Type[] { });
       if (constructor != null)
       {
         targetItemsTemp = constructor.Invoke(new object[] { });
@@ -664,50 +702,52 @@ public class CopyItemsDelegate
     }
     else
       targetItems.Clear();
-    foreach (object sourceItem in sourceItems.Where(item => item != null))
-    {
-      Type sourceItemType = sourceItem.GetType();
-      Type targetItemType;
-      Type targetType = target.GetType();
-      if (typePairs.TryGetValue(sourceItem.GetType(), out targetItemType))
+    if (sourceItems != null)
+      foreach (var sourceItem in sourceItems.Where(item => item != null))
       {
-        object targetItem = null;
-        ConstructorInfo constructor = targetItemType.GetConstructor(new Type[] { targetType, sourceItemType });
-        if (constructor != null)
-          targetItem = constructor.Invoke(new object[] { target, sourceItem });
-        else
+        Type sourceItemType = sourceItem.GetType();
+        Type targetType = target.GetType();
+        if (typePairs.TryGetValue(sourceItem.GetType(), out var targetItemType))
         {
-          constructor = targetItemType.GetConstructor(new Type[] { sourceItemType });
+          object? targetItem = null;
+          ConstructorInfo? constructor = targetItemType.GetConstructor(new Type[] { targetType, sourceItemType });
           if (constructor != null)
-            targetItem = constructor.Invoke(new object[] { sourceItem });
+            targetItem = constructor.Invoke(new object[] { target, sourceItem });
           else
           {
-            constructor = targetItemType.GetConstructor(new Type[] { targetType });
+            constructor = targetItemType.GetConstructor(new Type[] { sourceItemType });
             if (constructor != null)
-              targetItem = constructor.Invoke(new object[] { target });
+              targetItem = constructor.Invoke(new object[] { sourceItem });
             else
             {
-              constructor = targetItemType.GetConstructor(new Type[] { });
+              constructor = targetItemType.GetConstructor(new Type[] { targetType });
               if (constructor != null)
-                targetItem = constructor.Invoke(new object[] { });
+                targetItem = constructor.Invoke(new object[] { target });
+              else
+              {
+                constructor = targetItemType.GetConstructor(new Type[] { });
+                if (constructor != null)
+                  targetItem = constructor.Invoke(new object[] { });
+              }
+              if (targetItem != null)
+                TypeUtils.CopyProperties(sourceItem, targetItem);
             }
-            if (targetItem != null)
-              TypeUtils.CopyProperties(sourceItem, targetItem);
           }
+          targetItems.Add(targetItem);
         }
-        targetItems.Add(targetItem);
       }
-    }
     if (TargetPropertyType.IsArray)
     {
-      Type elementType = TargetPropertyType.GetElementType();
-      Array targetArray = Array.CreateInstance(elementType, new int[] { targetItems.Count });
-      targetItems.CopyTo(targetArray, 0);
-      return targetArray;
+      Type? elementType = TargetPropertyType.GetElementType();
+      if (elementType != null)
+      {
+        Array targetArray = Array.CreateInstance(elementType, new int[] { targetItems.Count });
+        targetItems.CopyTo(targetArray, 0);
+        return targetArray;
+      }
     }
     return targetItems;
   }
-
 }
 
 /// <summary>

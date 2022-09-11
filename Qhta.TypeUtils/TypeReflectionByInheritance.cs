@@ -308,6 +308,72 @@ public static class TypeReflectionByInheritance
 
   #endregion
 
+  #region GetFields
+  /// <summary>
+  ///   Replacement for a <c>Type.GetFields</c> method.
+  ///   The properties are taken also from superclasses,
+  ///   but are also ordered with inheritance order (from top superclass first).
+  ///  </summary>
+  public static FieldInfo[] GetFieldsByInheritance(this Type aType) =>
+    GetFieldsByInheritance(aType, BindingFlags.Public | BindingFlags.Instance);
+
+  /// <summary>
+  ///   Replacement for a <c>Type.GetFields(BindingFlags)</c> method in case
+  ///   when a <paramref name="flags"/> parameter does not have option
+  ///   <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
+  ///   but are also ordered with inheritance order (from top superclass first).
+  ///  </summary>
+  public static FieldInfo[] GetFieldsByInheritance(this Type aType, BindingFlags flags)
+  {
+    var memberInfo = GetMembersByInheritance(aType, flags);
+    var propInfos = memberInfo.OfType<FieldInfo>().ToList();
+    for (int i = propInfos.Count - 1; i > 0; i--)
+    {
+      var currentProp = propInfos[i];
+      for (int j = i - 1; j >= 0; j--)
+      {
+        if (IsSameField(propInfos[j], currentProp))
+        {
+          propInfos[j] = currentProp;
+          propInfos.RemoveAt(i);
+          break;
+        }
+      }
+    }
+    return propInfos.ToArray();
+  }
+
+  private static bool IsSameField(FieldInfo field1, FieldInfo field2)
+  {
+    if (field1.Name != field2.Name)
+      return false;
+    if (field1.FieldType != field2.FieldType)
+      return false;
+    return true;
+  }
+
+  /// <summary>
+  ///   Replacement for a <c>Type.GetField(string)</c> method.
+  ///   The properties are taken also from superclasses,
+  ///   but are also ordered with inheritance order (from top superclass first).
+  ///  </summary>
+  public static FieldInfo? GetFieldByInheritance(this Type aType, string fieldName) =>
+    GetFieldByInheritance(aType, fieldName, BindingFlags.Public | BindingFlags.Instance);
+
+  /// <summary>
+  ///   Replacement for a <c>Type.GetField(string, BindingFlags)</c> method in case
+  ///   when a <paramref name="flags"/> parameter does not have option
+  ///   <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
+  ///   but are also ordered with inheritance order (from top superclass first).
+  ///  </summary>
+  public static FieldInfo? GetFieldByInheritance(this Type aType, string fieldName, BindingFlags flags)
+  {
+    var propInfos = GetFieldsByInheritance(aType, flags);
+    return propInfos.FirstOrDefault(item => item.Name == fieldName);
+  }
+
+  #endregion
+
   #region GetCustomAttributes
   /// <summary>
   ///   Replacement for a <c>Type.GetCustomAttributes</c> method in case

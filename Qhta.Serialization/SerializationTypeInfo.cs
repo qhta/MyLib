@@ -21,16 +21,6 @@ public class SerializationTypeInfo: ITypeInfo
   /// </summary>
   [XmlAttribute]
   public QualifiedName Name { get; set; }
-  //{
-  //  get => _Name;
-  //  set
-  //  {
-  //    _Name = value;
-  //    if (Type == null)
-  //      Type = Type.GetType(Name.ToString().Replace(':', '.'));
-  //  }
-  //}
-  //private QualifiedName _Name;
 
   /// <summary>
   /// A type to serialize or deserialize
@@ -62,26 +52,26 @@ public class SerializationTypeInfo: ITypeInfo
   /// <summary>
   /// Known properties to serialize as XML attributes.
   /// </summary>
-  public KnownPropertiesDictionary PropertiesAsAttributes { get; set; } = new ();
+  public KnownPropertiesDictionary MembersAsAttributes { get; set; } = new ();
 
-  public bool ShouldSerializePropertiesAsAttributes() => PropertiesAsAttributes.Any();
+  public bool ShouldSerializePropertiesAsAttributes() => MembersAsAttributes.Any();
 
   /// <summary>
   /// Known properties to serialize as XML elements.
   /// </summary>
-  public KnownPropertiesDictionary PropertiesAsElements { get; set; } = new ();
+  public KnownPropertiesDictionary MembersAsElements { get; set; } = new ();
 
-  public bool ShouldSerializePropertiesAsElements() => PropertiesAsElements.Any();
+  public bool ShouldSerializePropertiesAsElements() => MembersAsElements.Any();
 
   /// <summary>
   /// Known property to accept content of XmlElement.
   /// </summary>
-  public SerializationPropertyInfo? ContentProperty { get; set; }
+  public SerializationMemberInfo? ContentProperty { get; set; }
 
   /// <summary>
   /// Known property to accept text content of XmlElement.
   /// </summary>
-  public SerializationPropertyInfo? TextProperty { get; set; }
+  public SerializationMemberInfo? TextProperty { get; set; }
 
   /// <summary>
   /// If a class can be substituted by subclasses then these classes are listed here.

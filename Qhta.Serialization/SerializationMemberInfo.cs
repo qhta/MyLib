@@ -4,24 +4,52 @@ using System.Xml.Serialization;
 namespace Qhta.Xml.Serialization;
 
 /// <summary>
-/// Represents the information about property needed for serialization/deserialization.
+/// Represents the information about property or field needed for serialization/deserialization.
 /// </summary>
-public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
+public class SerializationMemberInfo: IComparable<SerializationMemberInfo>
 {
 
   /// <summary>
   /// Constructor with parameters.
   /// </summary>
-  /// <param name="name"Attribute or element name used for serialization></param>
-  /// <param name="propertyInfo">Applied property info</param>
-  /// <param name="order">Needed to sort the order of properties for serialization</param>
-  public SerializationPropertyInfo(string name, PropertyInfo propertyInfo, int order=int.MaxValue)
+  /// <param name="name">Attribute or element name used for serialization></param>
+  /// <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
+  /// <param name="order">Needed to sort the order for serialization</param>
+  public SerializationMemberInfo(string name, MemberInfo memberInfo, int order=int.MaxValue)
   {
     Name = new QualifiedName(name);
-    Property = propertyInfo;
-    IsNullable = Property.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
+    Member = memberInfo;
+    IsNullable = Member.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     Order = order;
   }
+
+  [XmlIgnore]
+  public bool IsField => Member is FieldInfo;
+
+  [XmlIgnore]
+  public FieldInfo? Field => Member as FieldInfo;
+
+  [XmlIgnore]
+  public bool IsProperty => Member is PropertyInfo;
+
+  [XmlIgnore]
+  public PropertyInfo? Property => Member as PropertyInfo;
+
+  public Type? MemberType => Property?.PropertyType ?? Field?.FieldType;
+
+  public bool CanWrite => Property?.CanWrite ?? !Field?.IsInitOnly ?? false;
+
+  public object? GetValue(object? obj) => Property?.GetValue(obj) ?? Field?.GetValue(obj);
+
+  public void SetValue(object? obj, object? value)
+  {
+    if (IsProperty)
+      Property?.SetValue(obj, value);
+    else
+      Field?.SetValue(obj, value);
+  }
+
+  
 
   /// <summary>
   /// Needed to sort the order of properties for serialization.
@@ -36,20 +64,20 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
   public QualifiedName Name { get; init; }
 
   /// <summary>
-  /// Applied property info.
+  /// Applied member info.
   /// </summary>
   [XmlIgnore]
-  public PropertyInfo Property { get;}
+  public MemberInfo Member { get;}
 
   /// <summary>
-  /// Specifies if a property is nullable.
+  /// Specifies if a member is nullable.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsNullable { get; set;}
 
   /// <summary>
-  /// Specifies if  property is serialized as a reference to an object.
+  /// Specifies if  member is serialized as a reference to an object.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
@@ -62,7 +90,7 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
   public object? DefaultValue { get; set; }
 
   /// <summary>
-  /// Applied type info of the property value.
+  /// Applied type info of the member value.
   /// </summary>
   [XmlAttribute]
   [XmlReference]
@@ -79,7 +107,7 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
   public XmlConverter? XmlConverter { get; set; }
 
   /// <summary>
-  /// A method used to specify if a property should be serialized at run-time.
+  /// A method used to specify if a member should be serialized at run-time.
   /// The method should be a parameterless function of type boolean.
   /// </summary>
   [XmlIgnore]
@@ -120,7 +148,7 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
   public bool IsDictionary => GetCollectionInfo() is DictionaryInfo;
 
   /// <summary>
-  /// Optional collection info filled if a property is an array, collection or dictionary.
+  /// Optional collection info filled if a member is an array, collection or dictionary.
   /// </summary>
   [XmlElement]
   public CollectionInfo? CollectionInfo { get; set; }
@@ -131,7 +159,7 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
   /// <returns></returns>
   public CollectionInfo? GetCollectionInfo() => CollectionInfo ?? ValueType?.CollectionInfo;
 
-  public int CompareTo(SerializationPropertyInfo? other)
+  public int CompareTo(SerializationMemberInfo? other)
   {
     if (this.Order >= other?.Order)
       return 1;
@@ -140,7 +168,7 @@ public class SerializationPropertyInfo: IComparable<SerializationPropertyInfo>
 
   public override string ToString()
   {
-    return $"{this.GetType().Name}({Property.Name})";
+    return $"{this.GetType().Name}({Member.Name})";
   }
 
   public TypeConverter? GetTypeConverter() => TypeConverter ?? ValueType?.TypeConverter;

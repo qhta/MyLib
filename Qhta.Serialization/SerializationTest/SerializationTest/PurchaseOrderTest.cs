@@ -67,7 +67,7 @@ public class PurchaseOrderTest
     // Read and write purchase orders.
     PurchaseOrderTest t = new ();
     t.CreatePO("po.xml");
-    //t.ReadPO("po.xml");
+    t.ReadPO("po.xml");
   }
 
   private void CreatePO(string filename)
@@ -75,50 +75,54 @@ public class PurchaseOrderTest
     // Create an instance of the XmlSerializer class;
     // specify the type of object to serialize.
     var serializer = new QXmlSerializer(typeof(PurchaseOrder));
-    TextWriter writer = new StreamWriter(filename);
-    PurchaseOrder po = new PurchaseOrder();
-
-    // Create an address to ship and bill to.
-    Address billAddress = new Address();
-    billAddress.Name = "Teresa Atkinson";
-    billAddress.Line1 = "1 Main St.";
-    billAddress.City = "AnyTown";
-    billAddress.State = "WA";
-    billAddress.Zip = "00000";
-    // Set ShipTo and BillTo to the same addressee.
-    po.ShipTo = billAddress;
-    po.OrderDate = System.DateTime.Now.ToLongDateString();
-
-    // Create an OrderedItem object.
-    OrderedItem i1 = new OrderedItem();
-    i1.ItemName = "Widget S";
-    i1.Description = "Small widget";
-    i1.UnitPrice = (decimal)5.23;
-    i1.Quantity = 3;
-    i1.Calculate();
-
-    // Insert the item into the array.
-    OrderedItem[] items = { i1 };
-    po.OrderedItems = items;
-    // Calculate the total cost.
-    decimal subTotal = new decimal();
-    foreach (OrderedItem oi in items)
+    using (var textWriter = new StreamWriter(filename))
     {
-      subTotal += oi.LineTotal;
+      XmlWriter writer = XmlWriter.Create(textWriter, new XmlWriterSettings { Indent = true });
+      PurchaseOrder po = new PurchaseOrder();
+
+      // Create an address to ship and bill to.
+      Address billAddress = new Address();
+      billAddress.Name = "Teresa Atkinson";
+      billAddress.Line1 = "1 Main St.";
+      billAddress.City = "AnyTown";
+      billAddress.State = "WA";
+      billAddress.Zip = "00000";
+      // Set ShipTo and BillTo to the same addressee.
+      po.ShipTo = billAddress;
+      po.OrderDate = System.DateTime.Parse("10.09.2022").ToLongDateString();
+
+      // Create an OrderedItem object.
+      OrderedItem i1 = new OrderedItem();
+      i1.ItemName = "Widget S";
+      i1.Description = "Small widget";
+      i1.UnitPrice = (decimal)5.23;
+      i1.Quantity = 3;
+      i1.Calculate();
+
+      // Insert the item into the array.
+      OrderedItem[] items = { i1 };
+      po.OrderedItems = items;
+      // Calculate the total cost.
+      decimal subTotal = new decimal();
+      foreach (OrderedItem oi in items)
+      {
+        subTotal += oi.LineTotal;
+      }
+
+      po.SubTotal = subTotal;
+      po.ShipCost = (decimal)12.51;
+      po.TotalCost = po.SubTotal + po.ShipCost;
+      // Serialize the purchase order, and close the TextWriter.
+      serializer.Serialize(writer, po);
+      writer.Close();
     }
-    po.SubTotal = subTotal;
-    po.ShipCost = (decimal)12.51;
-    po.TotalCost = po.SubTotal + po.ShipCost;
-    // Serialize the purchase order, and close the TextWriter.
-    serializer.Serialize(writer, po);
-    writer.Close();
   }
 
   protected void ReadPO(string filename)
   {
     // Create an instance of the XmlSerializer class;
     // specify the type of object to be deserialized.
-    XmlSerializer serializer = new XmlSerializer(typeof(PurchaseOrder));
+    var serializer = new QXmlSerializer(typeof(PurchaseOrder));
     /* If the XML document has been altered with unknown
     nodes or attributes, handle them with the
     UnknownNode and UnknownAttribute events.*/

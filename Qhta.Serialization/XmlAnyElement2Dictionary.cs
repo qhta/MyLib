@@ -22,7 +22,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
   }
 
   public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationPropertyInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
+    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
   {
     if (serializer == null)
       throw new IOException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");

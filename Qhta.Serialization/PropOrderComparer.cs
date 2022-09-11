@@ -1,8 +1,8 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public class PropOrderComparer : IComparer<SerializationPropertyInfo>
+public class PropOrderComparer : IComparer<SerializationMemberInfo>
 {
-  public int Compare(SerializationPropertyInfo? x, SerializationPropertyInfo? y)
+  public int Compare(SerializationMemberInfo? x, SerializationMemberInfo? y)
   {
     if (x== null && y == null)
       return 1;

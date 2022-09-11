@@ -69,7 +69,7 @@ public partial class QXmlSerializer
       if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
       var tag = SerializationInfoMapper.ToXmlQualifiedName(serializedTypeInfo.Name);
-      if (emitNamespaces && BaseNamespace != null)
+      if (/*emitNamespaces && */BaseNamespace != null)
         writer.WriteStartElement(tag.Name, BaseNamespace);
       else
         writer.WriteStartElement(tag.Name, tag.Namespace);
@@ -111,7 +111,7 @@ public partial class QXmlSerializer
   public int WriteAttributesBase(XmlWriter writer, object obj, SerializationTypeInfo typeInfo)
   {
     var aType = obj.GetType();
-    var propList = typeInfo.PropertiesAsAttributes;
+    var propList = typeInfo.MembersAsAttributes;
     int attrsWritten = 0;
     foreach (var serializationPropertyInfo in propList)
     {
@@ -123,10 +123,10 @@ public partial class QXmlSerializer
             continue;
       }
 
-      var propInfo = serializationPropertyInfo.Property;
+      var propInfo = serializationPropertyInfo.Member;
       var attrName = serializationPropertyInfo.Name;
       var attrTag = SerializationInfoMapper.ToXmlQualifiedName(attrName);
-      var propValue = propInfo.GetValue(obj);
+      var propValue = serializationPropertyInfo.GetValue(obj);
       if (propValue != null)
       {
         var defaultValue = serializationPropertyInfo.DefaultValue;
@@ -146,7 +146,7 @@ public partial class QXmlSerializer
 
   public int WritePropertiesBase(XmlWriter writer, string? elementTag, object obj, SerializationTypeInfo typeInfo)
   {
-    var props = typeInfo.PropertiesAsElements;
+    var props = typeInfo.MembersAsElements;
 
     int propsWritten = 0;
 
@@ -160,12 +160,12 @@ public partial class QXmlSerializer
             continue;
       }
 
-      var propInfo = serializationPropertyInfo.Property;
+      var propInfo = serializationPropertyInfo.Member;
       var propTag = serializationPropertyInfo.Name.Name;
 
       if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
-      var propValue = propInfo.GetValue(obj);
+      var propValue = serializationPropertyInfo.GetValue(obj);
       propValue = serializationPropertyInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ?? propValue;
       if (propValue == null)
       {
