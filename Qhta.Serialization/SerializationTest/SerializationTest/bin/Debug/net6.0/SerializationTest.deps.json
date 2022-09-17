@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "SerializationTest/1.0.0": {
         "dependencies": {
+          "Qhta.TestHelper": "1.0.0",
           "Qhta.Xml.Serialization": "1.0.0"
         },
         "runtime": {

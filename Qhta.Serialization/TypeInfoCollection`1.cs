@@ -3,19 +3,19 @@ using static System.HashCode;
 
 namespace Qhta.Xml.Serialization;
 
-public class TypesDictionary<ItemType> : ICollection<ItemType>, IEquatable<TypesDictionary<ItemType>> where ItemType: ITypeInfo
+public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEquatable<TypesInfoCollection<TypeNameInfo>> where TypeNameInfo: ITypeNameInfo
 {
   [XmlAttribute]
-  public string? BaseNamespace { get; set; }
+  public string? DefaultNamespace { get; set; }
 
-  private Dictionary<Type, ItemType> TypeIndexedItems { get; set; } = new();
+  private Dictionary<Type, TypeNameInfo> TypeIndexedItems { get; set; } = new();
 
-  private SortedDictionary<QualifiedName, ItemType> NameIndexedItems { get; set; } = new();
+  private SortedDictionary<QualifiedName, TypeNameInfo> NameIndexedItems { get; set; } = new();
 
-  public void Add(ItemType item)
+  public void Add(TypeNameInfo item)
   {
     TypeIndexedItems.Add(item.Type, item);
-    NameIndexedItems.Add(item.Name, item);
+    NameIndexedItems.Add(new QualifiedName(item.XmlName, item.XmlNamespace), item);
   }
 
   public void Clear()
@@ -24,16 +24,16 @@ public class TypesDictionary<ItemType> : ICollection<ItemType>, IEquatable<Types
     NameIndexedItems.Clear();
   }
 
-  public bool Contains(ItemType item)
+  public bool Contains(TypeNameInfo item)
     => TypeIndexedItems.Values.Contains(item);
 
-  public void CopyTo(ItemType[] array, int arrayIndex)
+  public void CopyTo(TypeNameInfo[] array, int arrayIndex)
     => TypeIndexedItems.Values.CopyTo(array, arrayIndex);
 
-  public bool Remove(ItemType item)
+  public bool Remove(TypeNameInfo item)
   {
     var ok1 = TypeIndexedItems.Remove(item.Type);
-    var ok2 = NameIndexedItems.Remove(item.Name);
+    var ok2 = NameIndexedItems.Remove(new QualifiedName(item.XmlName, item.ClrNamespace));
     return ok1 || ok2;
   }
 
@@ -41,22 +41,24 @@ public class TypesDictionary<ItemType> : ICollection<ItemType>, IEquatable<Types
 
   public bool IsReadOnly => false;
 
-  public bool TryGetValue(Type type, [MaybeNullWhen(false)] out ItemType typeInfo)
+  public bool TryGetValue(Type type, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
     => TypeIndexedItems.TryGetValue(type, out typeInfo);
 
-  public bool TryGetValue(QualifiedName qualifiedName, [MaybeNullWhen(false)] out ItemType typeInfo)
+  public bool TryGetValue(QualifiedName qualifiedName, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
     => NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
 
-  public bool TryGetValue(string name, [MaybeNullWhen(false)] out ItemType typeInfo)
+  public bool TryGetValue(string name, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
+    if (name == "OrderedItem")
+      TestTools.Stop();
     if (NameIndexedItems.TryGetValue(new QualifiedName(name), out typeInfo))
       return true;
-    if (BaseNamespace != null)
-      if (NameIndexedItems.TryGetValue(new QualifiedName(name, BaseNamespace), out typeInfo))
+    if (DefaultNamespace != null)
+      if (NameIndexedItems.TryGetValue(new QualifiedName(name, DefaultNamespace), out typeInfo))
         return true;
     return false;
   }
-  public IEnumerator<ItemType> GetEnumerator()
+  public IEnumerator<TypeNameInfo> GetEnumerator()
   {
     foreach (var item in NameIndexedItems.Values)
       yield return item;
@@ -67,19 +69,19 @@ public class TypesDictionary<ItemType> : ICollection<ItemType>, IEquatable<Types
     return GetEnumerator();
   }
 
-  public ItemType? FindTypeInfo(Type itemType)
+  public TypeNameInfo? FindTypeInfo(Type itemType)
   {
-    var result = (this as IEnumerable<ItemType>).FirstOrDefault(item => itemType == item.Type);
+    var result = (this as IEnumerable<TypeNameInfo>).FirstOrDefault(item => itemType == item.Type);
     if (result == null)
-      result = (this as IEnumerable<ItemType>).FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+      result = (this as IEnumerable<TypeNameInfo>).FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
     return result;
   }
 
-  public bool Equals(TypesDictionary<ItemType>? other)
+  public bool Equals(TypesInfoCollection<TypeNameInfo>? other)
   {
     if (ReferenceEquals(null, other)) return false;
     if (ReferenceEquals(this, other)) return true;
-    return BaseNamespace == other.BaseNamespace 
+    return DefaultNamespace == other.DefaultNamespace 
            && TypeIndexedItems.Equals(other.TypeIndexedItems) 
            && NameIndexedItems.Equals(other.NameIndexedItems);
   }

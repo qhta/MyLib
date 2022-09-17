@@ -6,7 +6,7 @@ namespace Qhta.Xml.Serialization;
 /// <summary>
 /// Represents the information about property or field needed for serialization/deserialization.
 /// </summary>
-public class SerializationMemberInfo: IComparable<SerializationMemberInfo>
+public class SerializationMemberInfo: INamedElement, IComparable<SerializationMemberInfo>
 {
 
   /// <summary>
@@ -17,7 +17,21 @@ public class SerializationMemberInfo: IComparable<SerializationMemberInfo>
   /// <param name="order">Needed to sort the order for serialization</param>
   public SerializationMemberInfo(string name, MemberInfo memberInfo, int order=int.MaxValue)
   {
-    Name = new QualifiedName(name);
+    XmlName = name;
+    Member = memberInfo;
+    Order = order;
+  }
+
+  /// <summary>
+  /// Constructor with parameters.
+  /// </summary>
+  /// <param name="name">Attribute or element name used for serialization></param>
+  /// <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
+  /// <param name="order">Needed to sort the order for serialization</param>
+  public SerializationMemberInfo(QualifiedName name, MemberInfo memberInfo, int order = int.MaxValue)
+  {
+    XmlName = name.Name;
+    ClrNamespace = name.Namespace;
     Member = memberInfo;
     IsNullable = Member.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     Order = order;
@@ -61,13 +75,35 @@ public class SerializationMemberInfo: IComparable<SerializationMemberInfo>
   /// Attribute or element name used for serialization.
   /// </summary>
   [XmlAttribute]
-  public QualifiedName Name { get; init; }
+  public string XmlName { get; init; }
+
+  /// <summary>
+  /// Attribute or element XML namespace used for serialization.
+  /// </summary>
+  [XmlAttribute]
+  public string XmlNamespace { get; init; }
+
+  /// <summary>
+  /// ClrNamespace of the property or field.
+  /// </summary>
+  [XmlAttribute]
+  public string ClrNamespace { get; init; }
+
+  [XmlIgnore]
+  public QualifiedName QualifiedName => new QualifiedName(XmlName, ClrNamespace);
 
   /// <summary>
   /// Applied member info.
   /// </summary>
   [XmlIgnore]
   public MemberInfo Member { get;}
+
+  /// <summary>
+  /// Specifies if a member is nullable.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(0)]
+  public string XmlDataType { get; set; }
 
   /// <summary>
   /// Specifies if a member is nullable.
@@ -125,13 +161,13 @@ public class SerializationMemberInfo: IComparable<SerializationMemberInfo>
   /// If a valueType can be substituted by subclasses then these classes are listed here.
   /// </summary>
   [XmlElement]
-  public KnownTypesDictionary? KnownSubtypes { get; set; }
+  public KnownTypesCollection? KnownSubtypes { get; set; }
 
   /// <summary>
   /// Get KnownSubtypes as saved or from ValueType.
   /// </summary>
   /// <returns></returns>
-  public KnownTypesDictionary? GetKnownSubtypes() => KnownSubtypes ?? ValueType?.KnownSubtypes;
+  public KnownTypesCollection? GetKnownSubtypes() => KnownSubtypes ?? ValueType?.KnownSubtypes;
 
   /// <summary>
   /// If a type is serialized as a collection but not as a dictionary

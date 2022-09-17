@@ -5,33 +5,63 @@ namespace Qhta.Xml.Serialization;
 /// <summary>
 /// Info of an array property item
 /// </summary>
-public class SerializationItemInfo: ITypeInfo
+public class SerializationItemInfo: ITypeNameInfo, INamedElement
 {
   public SerializationItemInfo() { }
 
   public SerializationItemInfo(SerializationTypeInfo itemTypeInfo)
   {
-    Name = QualifiedName.Empty;
     TypeInfo = itemTypeInfo;
+    XmlName = itemTypeInfo.XmlName;
+    XmlNamespace = itemTypeInfo.XmlNamespace;
   }
 
   public SerializationItemInfo(string elementName, SerializationTypeInfo itemTypeInfo)
   {
-    Name = new QualifiedName(elementName);
     TypeInfo = itemTypeInfo;
+    XmlName = elementName;
+    XmlNamespace = itemTypeInfo.XmlNamespace;
   }
 
-  public SerializationItemInfo(QualifiedName qualifiedName, SerializationTypeInfo itemTypeInfo)
+  public SerializationItemInfo(string elementName, string xmlNamespace, SerializationTypeInfo itemTypeInfo)
   {
-    Name = qualifiedName;
     TypeInfo = itemTypeInfo;
+    XmlName = elementName;
+    XmlNamespace = xmlNamespace;
   }
 
   /// <summary>
-  /// Name of the Xml/Json element
+  /// Name of the Xml element
   /// </summary>
   [XmlAttribute]
-  public QualifiedName Name { get; }
+  public string XmlName
+  {
+    get => _XmlName ?? TypeInfo?.XmlName ?? "";
+    set => _XmlName = value;
+  } 
+  private string? _XmlName;
+
+  /// <summary>
+  /// XmlNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? XmlNamespace
+  {
+    get => _XmlNameNamespace ?? TypeInfo?.XmlNamespace;
+    set => _XmlNameNamespace = value;
+  }
+  private string? _XmlNameNamespace;
+
+  /// <summary>
+  /// ClrNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? ClrNamespace
+  {
+    get => _ClrNameNamespace ?? TypeInfo?.ClrNamespace;
+    set => _ClrNameNamespace = value;
+  }
+  private string? _ClrNameNamespace;
 
   /// <summary>
   /// Refers to the existing TypeInfo

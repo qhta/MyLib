@@ -50,15 +50,15 @@ public partial class QXmlSerializer
     var name = xmlReader.Name;
     var prefix = xmlReader.Prefix;
     SerializationTypeInfo? typeInfo;
-    if (String.IsNullOrEmpty(prefix))
+    //if (String.IsNullOrEmpty(prefix))
+    //{
+    //  if (!KnownTypes.TryGetValue(name, out typeInfo))
+    //    throw new XmlInternalException($"Element {name} not recognized while deserialization.", xmlReader);
+    //}
+    //else
     {
-      if (!KnownTypes.TryGetValue(name, out typeInfo))
-        throw new XmlInternalException($"Element {name} not recognized while deserialization.", xmlReader);
-    }
-    else
-    {
-      var xmlName = new XmlQualifiedName(name, prefix);
-      var clrName = SerializationInfoMapper.ToQualifiedName(xmlName);
+      var xmlName = new XmlQualifiedTagName(name, prefix);
+      var clrName = Mapper.ToQualifiedName(xmlName);
       if (!KnownTypes.TryGetValue(clrName, out typeInfo))
         throw new XmlInternalException($"Element {xmlName} not recognized while deserialization.", xmlReader);
     }
@@ -137,8 +137,8 @@ public partial class QXmlSerializer
     var attribs = typeInfo.MembersAsAttributes;
     var props = typeInfo.MembersAsElements;
     foreach (var prop in props)
-      if (!attribs.ContainsKey(prop.Name))
-        attribs.Add(prop.Name, prop);
+      if (!attribs.ContainsKey(prop.QualifiedName))
+        attribs.Add(prop.QualifiedName, prop);
     var propList = attribs;
 
     int attrsRead = 0;
@@ -185,7 +185,7 @@ public partial class QXmlSerializer
         }
       }
 
-      var propertyToRead = propList.FirstOrDefault(item => item.Name.Name == attrName);
+      var propertyToRead = propList.FirstOrDefault(item => item.XmlName == attrName);
       if (propertyToRead == null)
       {
         if (onUnknownMember == null)
@@ -222,8 +222,8 @@ public partial class QXmlSerializer
     var attribs = typeInfo.MembersAsAttributes;
     var props = typeInfo.MembersAsElements;
     foreach (var prop in attribs)
-      if (!props.ContainsKey(prop.Name))
-        props.Add(prop.Name, prop);
+      if (!props.ContainsKey(prop.QualifiedName))
+        props.Add(prop.QualifiedName, prop);
     var propList = props;
 
 
@@ -234,11 +234,11 @@ public partial class QXmlSerializer
       var elementName = reader.LocalName;
       if (elementName == "HeadingPairs")
         TestTools.Stop();
-      var propertyToRead = propList.FirstOrDefault(item => item.Name.Name == elementName);
+      var propertyToRead = propList.FirstOrDefault(item => item.XmlName == elementName);
       if (propertyToRead != null)
       {
         object? propValue = null;
-        Type propType = propertyToRead.MemberType;
+        Type propType = propertyToRead.MemberType ?? typeof(Object);
         if (propertyToRead.XmlConverter != null)
         {
           propValue = propertyToRead.XmlConverter.ReadXml(reader, typeInfo, propertyToRead, null, this);
@@ -315,10 +315,7 @@ public partial class QXmlSerializer
             if (knownItemTypeInfo.AddMethod != null)
             {
               if (obj is IDictionary dictionaryObj)
-              {
-                if (key != null)
-                  knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { key, item });
-              }
+                knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { key, item });
               else
                 knownItemTypeInfo.AddMethod.Invoke(obj, new object[] { item });
             }
@@ -418,7 +415,7 @@ public partial class QXmlSerializer
     if (name == "HeadingPair")
       TestTools.Stop();
     SerializationTypeInfo? typeInfo = null;
-    if (collectionInfo.KnownItemTypes.Count > 0)
+    if (collectionInfo.KnownItemTypes.Any())
     {
       if (collectionInfo.KnownItemTypes.TryGetValue(name, out var typeItemInfo))
         typeInfo = typeItemInfo.TypeInfo;
@@ -446,6 +443,11 @@ public partial class QXmlSerializer
         var result = ReadValue(typeInfo.Type, null, reader);
         reader.Read();
         return result;
+      }
+      if (typeInfo.Type.IsArray)
+      {
+        reader.Read();
+        return null;
       }
       throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
     }
@@ -664,7 +666,7 @@ public partial class QXmlSerializer
       var dictionaryInfo = propertyInfo.CollectionInfo as DictionaryInfo;
       if (dictionaryInfo == null)
         throw new XmlInternalException($"Collection of type {collectionType} must be marked with {nameof(XmlDictionaryAttribute)} attribute", reader);
-      if (reader.IsStartElement(propertyInfo.Name.Name) && !reader.IsEmptyElement)
+      if (reader.IsStartElement(propertyInfo.XmlName) && !reader.IsEmptyElement)
       {
         reader.Read();
         ReadDictionaryItems(tempList, keyType, valueType, dictionaryInfo, reader);
@@ -675,7 +677,7 @@ public partial class QXmlSerializer
       if (collectionInfo == null)
         throw new XmlInternalException($"Collection of type {collectionType} must be marked with {nameof(XmlCollectionAttribute)} attribute", reader);
 
-      if (reader.IsStartElement(propertyInfo.Name.Name) && !reader.IsEmptyElement)
+      if (reader.IsStartElement(propertyInfo.XmlName) && !reader.IsEmptyElement)
       {
         reader.Read();
         ReadCollectionItems(tempList, itemType, collectionInfo, reader);

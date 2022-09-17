@@ -11,10 +11,10 @@ public class PropOrderComparer : IComparer<SerializationMemberInfo>
     var result = x.Order.CompareTo(y.Order);
     if (result != 0)
       return result;
-    if (x.Name.IsEmpty() && y.Name.IsEmpty())
+    if (x.QualifiedName.IsEmpty() && y.QualifiedName.IsEmpty())
       return 1;
-    if (x.Name.IsEmpty() || y.Name.IsEmpty())
+    if (x.QualifiedName.IsEmpty() || y.QualifiedName.IsEmpty())
       return 0;
-    return x.Name.CompareTo(y.Name);
+    return x.QualifiedName.CompareTo(y.QualifiedName);
   }
 }

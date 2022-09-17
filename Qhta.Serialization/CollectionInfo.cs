@@ -16,7 +16,7 @@ public class CollectionInfo: IEquatable<CollectionInfo>
   /// Known types for collection items.
   /// </summary>
   [XmlReferences]
-  public KnownItemTypesDictionary KnownItemTypes { get; set; } = new();
+  public KnownItemTypesCollection KnownItemTypes { get; set; } = new();
 
   public bool Equals(CollectionInfo? other)
   {

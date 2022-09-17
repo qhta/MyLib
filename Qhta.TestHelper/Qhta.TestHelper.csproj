@@ -17,4 +17,8 @@
     </COMReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ObjectComparing\" />
+  </ItemGroup>
+
 </Project>

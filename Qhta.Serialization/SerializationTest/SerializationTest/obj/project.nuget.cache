@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WVGJD8QHngrsk9anuDHjkE2Dk77dl4U1gpJOtQLvRg2Yu+1AlShi9eaiYfFW/L1kqYjnRdp8Bbu+zmfEyIWWSw==",
+  "dgSpecHash": "58alF4NHjb7bjN3N1EmDxvOvVuAvOG9xt/2DFi+Zht2GTJ6vF+IpVcrXQ1DE2k2OcoqXnyZj6DcZSuoZg42+Iw==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\SerializationTest\\SerializationTest\\SerializationTest.csproj",
   "expectedPackageFiles": [

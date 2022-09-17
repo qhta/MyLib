@@ -13,11 +13,6 @@ namespace Qhta.Xml.Serialization;
 
 public partial class QXmlSerializer
 {
-  private const string xsiNamespace = @"http://www.w3.org/2001/XMLSchema-instance";
-  private const string xsdNamespace = @"http://www.w3.org/2001/XMLSchema";
-
-  public XmlSerializerNamespaces Namespaces { get; private set; } = new();
-
   public XmlWriterSettings XmlWriterSettings { get; set; } = new XmlWriterSettings
   { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
 
@@ -68,11 +63,15 @@ public partial class QXmlSerializer
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
-      var tag = SerializationInfoMapper.ToXmlQualifiedName(serializedTypeInfo.Name);
-      if (/*emitNamespaces && */BaseNamespace != null)
-        writer.WriteStartElement(tag.Name, BaseNamespace);
+      var tag = Mapper.GetXmlTag(serializedTypeInfo);
+      //if (emitNamespaces && writer is XmlTextWriter xmlTextWriter)
+      //{
+      //  xmlTextWriter.Namespaces = true;
+      //}
+      if (DefaultNamespace != null)
+        writer.WriteStartElement(tag.Name, DefaultNamespace);
       else
-        writer.WriteStartElement(tag.Name, tag.Namespace);
+        writer.WriteStartElement(tag.Name, tag.XmlNamespace);
       if (emitNamespaces)
       {
         if (Options.UseNilValue)
@@ -86,7 +85,7 @@ public partial class QXmlSerializer
           //Namespaces.Add("xsd", xsdNamespace);
           writer.WriteAttributeString("xmlns", "xsd", null, xsdNamespace);
         }
-
+        emitNamespaces = false;
       }
 
       WriteObjectInterior(writer, obj, null, serializedTypeInfo);
@@ -123,9 +122,8 @@ public partial class QXmlSerializer
             continue;
       }
 
-      var propInfo = serializationPropertyInfo.Member;
-      var attrName = serializationPropertyInfo.Name;
-      var attrTag = SerializationInfoMapper.ToXmlQualifiedName(attrName);
+      var attrName = serializationPropertyInfo.XmlName;
+      var attrTag = Mapper.GetXmlTag(serializationPropertyInfo);
       var propValue = serializationPropertyInfo.GetValue(obj);
       if (propValue != null)
       {
@@ -136,7 +134,7 @@ public partial class QXmlSerializer
                       GetValueString(propValue);
         if (str != null)
         {
-          writer.WriteAttributeString(attrTag.Namespace, attrTag.Name, null, str);
+          writer.WriteAttributeString(attrTag.Prefix, attrTag.Name, attrTag.XmlNamespace, str);
           attrsWritten++;
         }
       }
@@ -161,7 +159,7 @@ public partial class QXmlSerializer
       }
 
       var propInfo = serializationPropertyInfo.Member;
-      var propTag = serializationPropertyInfo.Name.Name;
+      var propTag = serializationPropertyInfo.XmlName;
 
       if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;

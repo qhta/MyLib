@@ -10,8 +10,8 @@ public class QualifiedNameTypeConverter: TypeConverter
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (value is string str)
-      return new QualifiedName(str);
-    throw new NotSupportedException($"Cannot convert {nameof(QualifiedName)} from {value.GetType().Name}");
+      return new XmlQualifiedTagName(str);
+    throw new NotSupportedException($"Cannot convert {nameof(XmlQualifiedTagName)} from {value.GetType().Name}");
   }
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
@@ -21,8 +21,8 @@ public class QualifiedNameTypeConverter: TypeConverter
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
-    if (value is QualifiedName aName && destinationType == typeof(string))
+    if (value is XmlQualifiedTagName aName && destinationType == typeof(string))
       return aName.ToString();
-    throw new NotSupportedException($"Cannot convert {nameof(QualifiedName)} to {destinationType.Name}");
+    throw new NotSupportedException($"Cannot convert {nameof(XmlQualifiedTagName)} to {destinationType.Name}");
   }
 }

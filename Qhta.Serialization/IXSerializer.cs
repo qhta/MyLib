@@ -11,7 +11,7 @@ public interface IXSerializer
   /// <summary>
   /// Collection of types registered at the beginning.
   /// </summary>
-  KnownTypesDictionary KnownTypes { get; }
+  KnownTypesCollection KnownTypes { get; }
 
   /// <summary>
   /// Options used while serialization
@@ -86,7 +86,7 @@ public interface IXSerializer
   /// when <see cref="SerializationOptions.PrecedePropertyNameWithClassName"/> is set</param>
   /// <param name="collectionTag">XML element name to place before the whole collection.</param>
   /// <param name="itemTypes">information about serializing items of the collection</param>
-  int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownItemTypesDictionary? itemTypes = null);
+  int WriteCollectionBase(IXWriter writer, string? elementTag, string? collectionTag, ICollection collection, KnownItemTypesCollection? itemTypes = null);
 
   /// <summary>
   /// Write XML element starting tag.

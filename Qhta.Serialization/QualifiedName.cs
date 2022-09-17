@@ -37,7 +37,7 @@ public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedNam
     Name = name;
   }
 
-  public bool IsEmpty() => Name == "" && Namespace == "";
+  public bool IsEmpty() => Name == "" ;
 
   public static QualifiedName Empty => new QualifiedName("");
 
@@ -48,8 +48,6 @@ public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedNam
     return String.Compare(Name, other.Name, StringComparison.Ordinal);
   }
 
-
-
   public override string ToString()
   {
     if (Namespace=="")
@@ -57,8 +55,8 @@ public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedNam
     return Namespace+":"+Name;
   }
 
-  //public static implicit operator string(QualifiedName value) => value.ToString();
-  //public static implicit operator QualifiedName(string value) => new QualifiedName(value);
+  public static implicit operator string(QualifiedName value) => value.ToString();
+  public static implicit operator QualifiedName(string value) => new QualifiedName(value);
 
   #region Equality members
   public bool Equals(QualifiedName other)

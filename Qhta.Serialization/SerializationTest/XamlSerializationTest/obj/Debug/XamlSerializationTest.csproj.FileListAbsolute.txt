@@ -1,0 +1,8 @@
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\bin\Debug\XamlSerializationTest.exe.config
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\bin\Debug\XamlSerializationTest.exe
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\bin\Debug\XamlSerializationTest.pdb
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\obj\Debug\XamlSerializationTest.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\obj\Debug\XamlSerializationTest.csproj.SuggestedBindingRedirects.cache
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\obj\Debug\XamlSerializationTest.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\obj\Debug\XamlSerializationTest.exe
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\XamlSerializationTest\obj\Debug\XamlSerializationTest.pdb

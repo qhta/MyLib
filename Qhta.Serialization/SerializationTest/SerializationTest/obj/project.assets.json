@@ -1695,6 +1695,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Qhta.TestHelper >= 1.0.0",
       "Qhta.Xml.Serialization >= 1.0.0"
     ]
   },
@@ -1732,6 +1733,9 @@
           "projectReferences": {
             "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj"
+            },
+            "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
             }
           }
         }
@@ -1761,7 +1765,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

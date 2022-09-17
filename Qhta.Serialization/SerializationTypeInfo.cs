@@ -2,7 +2,7 @@
 
 namespace Qhta.Xml.Serialization;
 
-public class SerializationTypeInfo: ITypeInfo
+public class SerializationTypeInfo: ITypeNameInfo, INamedElement
 {
 
   public SerializationTypeInfo(Type aType)
@@ -11,23 +11,36 @@ public class SerializationTypeInfo: ITypeInfo
     var rootAttribute = aType.GetCustomAttribute<XmlRootAttribute>();
     if (rootAttribute != null)
       aName = rootAttribute.ElementName;
-    var aNamespace = aType.Namespace;
     Type = aType;
-    Name = new QualifiedName(aName, aNamespace);
+    XmlName = aName;
+    if (rootAttribute!=null)
+      XmlNamespace = rootAttribute.Namespace;
+    ClrNamespace = aType.Namespace;
   }
 
   /// <summary>
-  /// XmlElement name for a type
+  /// Name of the Xml element
   /// </summary>
   [XmlAttribute]
-  public QualifiedName Name { get; set; }
+  public string XmlName {get; set;}
 
   /// <summary>
-  /// A type to serialize or deserialize
+  /// XmlNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? XmlNamespace {get; set;}
+
+  /// <summary>
+  /// ClrNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? ClrNamespace { get; set;}
+  /// <summary>
+  ///   Mapped type
   /// </summary>
   public Type Type { get; set; }
 
-  public bool ShouldSerializeType() => Name != new QualifiedName(Type.Name, Type.Namespace);
+  public bool ShouldSerializeType() => String.IsNullOrEmpty(XmlName);
 
   /// <summary>
   /// A public constructor to invoke while deserialization
@@ -52,14 +65,14 @@ public class SerializationTypeInfo: ITypeInfo
   /// <summary>
   /// Known properties to serialize as XML attributes.
   /// </summary>
-  public KnownPropertiesDictionary MembersAsAttributes { get; set; } = new ();
+  public KnownMembersCollection MembersAsAttributes { get; set; } = new ();
 
   public bool ShouldSerializePropertiesAsAttributes() => MembersAsAttributes.Any();
 
   /// <summary>
   /// Known properties to serialize as XML elements.
   /// </summary>
-  public KnownPropertiesDictionary MembersAsElements { get; set; } = new ();
+  public KnownMembersCollection MembersAsElements { get; set; } = new ();
 
   public bool ShouldSerializePropertiesAsElements() => MembersAsElements.Any();
 
@@ -77,7 +90,7 @@ public class SerializationTypeInfo: ITypeInfo
   /// If a class can be substituted by subclasses then these classes are listed here.
   /// </summary>
   [XmlElement]
-  public KnownTypesDictionary? KnownSubtypes { get; set; }
+  public KnownTypesCollection? KnownSubtypes { get; set; }
 
   /// <summary>
   /// Specifies if a type is serialized as a collection but not as a dictionary.
@@ -102,6 +115,8 @@ public class SerializationTypeInfo: ITypeInfo
 
   public override string ToString()
   {
-    return Name.ToString();
+    if (XmlNamespace != null)
+      return $"{XmlNamespace}:{XmlName} => {Type.FullName}";
+    return $"{XmlName} => {Type.FullName}";
   }
 }

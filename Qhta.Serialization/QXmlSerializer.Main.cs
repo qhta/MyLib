@@ -2,6 +2,10 @@
 
 public partial class QXmlSerializer
 {
+  private const string xsiNamespace = @"http://www.w3.org/2001/XMLSchema-instance";
+  private const string xsdNamespace = @"http://www.w3.org/2001/XMLSchema";
+
+  public XmlSerializerNamespaces Namespaces { get; private set; } = new();
 
   protected partial void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
     string? location) => Init(type, overrides, extraTypes, root, defaultNamespace, location, new SerializationOptions());
@@ -9,13 +13,23 @@ public partial class QXmlSerializer
   protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
     string? location, SerializationOptions options)
   {
-    DefaultNamespace = defaultNamespace;
+    var sameInitParams = RootType == type
+                         && Array.Equals(ExtraTypes, extraTypes)
+                         && Options.Equals(options);
+    if (sameInitParams)
+      return;
+
+    RootType = type;
+    ExtraTypes = extraTypes;
     Options = options;
-    SerializationInfoMapper = new XmlSerializationInfoMapper(options, defaultNamespace ?? type.Namespace);
+    Mapper = new XmlSerializationInfoMapper(options, defaultNamespace);
+
     RegisterType(type);
     if (extraTypes != null)
       foreach (Type t in extraTypes)
         RegisterType(t);
+    KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
+    KnownTypes.Dump();
   }
 
   protected partial void Init(XmlTypeMapping xmlTypeMapping)
@@ -61,19 +75,25 @@ public partial class QXmlSerializer
     Init(xmlTypeMapping);
   }
 
-  public KnownTypesDictionary KnownTypes => SerializationInfoMapper.KnownTypes;
+  protected string? DefaultNamespace => Mapper.DefaultNamespace;
 
-  public string? BaseNamespace => SerializationInfoMapper.BaseNamespace;
+  public KnownTypesCollection KnownTypes => Mapper.KnownTypes;
 
+  public KnownNamespacesCollection KnownNamespaces => Mapper.KnownNamespaces;
+
+  public static Type? RootType { get; protected set; }
+
+  public static Type[]? ExtraTypes { get; protected set; }
 
   [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-  public SerializationOptions Options { get; private set; } = new SerializationOptions();
+  public static SerializationOptions Options { get; protected set; } = new SerializationOptions();
 
-  public XmlSerializationInfoMapper SerializationInfoMapper { get; private set; } = null!;
+  public static XmlSerializationInfoMapper Mapper { get; protected set; } = null!;
+
 
   public SerializationTypeInfo? RegisterType(Type aType)
   {
-    return SerializationInfoMapper.RegisterType(aType);
+    return Mapper.RegisterType(aType);
   }
 
   //public SerializationTypeInfo? AddKnownType(Type aType)

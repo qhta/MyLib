@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Qhta.Xml.Serialization;
 
-public class KnownPropertiesDictionary : ICollection<SerializationMemberInfo>
+public class KnownMembersCollection : ICollection<SerializationMemberInfo>
 {
   private static readonly PropOrderComparer propertyInfoOrderComparer = new PropOrderComparer();
 
@@ -16,7 +16,7 @@ public class KnownPropertiesDictionary : ICollection<SerializationMemberInfo>
   {
     Items.Add(item);
     OrderedItems.Add(item);
-    NameIndexedItems.Add(item.Name, item);
+    NameIndexedItems.Add(new QualifiedName(item.XmlName), item);
   }
 
   public void Add(QualifiedName name, SerializationMemberInfo item)
@@ -56,7 +56,7 @@ public class KnownPropertiesDictionary : ICollection<SerializationMemberInfo>
   {
     var ok0 = Items.Remove(item);
     var ok1 = OrderedItems.Remove(item);
-    var ok2 = NameIndexedItems.Remove(item.Name);
+    var ok2 = NameIndexedItems.Remove(item.QualifiedName);
     return ok0 || ok1 || ok2;
   }
 
@@ -87,4 +87,18 @@ public class KnownPropertiesDictionary : ICollection<SerializationMemberInfo>
     return GetEnumerator();
   }
 
+  public void Dump(string header)
+  {
+    if (Count==0) return;
+    Debug.WriteLine(header);
+    Debug.Indent();
+    foreach (var item in this)
+    {
+      if (item.Member is FieldInfo field)
+        Debug.WriteLine($"{item.QualifiedName} = field {field.Name}: {item.MemberType}");
+      if (item.Member is PropertyInfo property)
+        Debug.WriteLine($"{item.QualifiedName} = property {property.Name}: {item.MemberType}");
+    }
+    Debug.Unindent();
+  }
 }

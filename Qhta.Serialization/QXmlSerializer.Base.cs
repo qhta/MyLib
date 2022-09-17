@@ -23,7 +23,6 @@ public partial class QXmlSerializer
 
   protected XmlDeserializationEvents _events = new XmlDeserializationEvents();
 
-  protected string? DefaultNamespace {get; set;}
 
   protected static XmlSerializerNamespaces DefaultNamespaces
   {
@@ -107,12 +106,12 @@ public partial class QXmlSerializer
 
   public void Serialize(XmlWriter xmlWriter, object? o)
   {
-    Serialize(xmlWriter, o, null);
+    Serialize(xmlWriter, o, null, null, null);
   }
 
   public void Serialize(XmlWriter xmlWriter, object? o, XmlSerializerNamespaces? namespaces)
   {
-    Serialize(xmlWriter, o, namespaces, null);
+    Serialize(xmlWriter, o, namespaces, null, null);
   }
 
   public void Serialize(XmlWriter xmlWriter, object? o, XmlSerializerNamespaces? namespaces, string? encodingStyle)
