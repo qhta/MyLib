@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Qhta.Conversion/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Qhta.Conversion.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Conversion.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Qhta.Conversion/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
+      "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Qhta.Conversion >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
@@ -38,7 +57,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

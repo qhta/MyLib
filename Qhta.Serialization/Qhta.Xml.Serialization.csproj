@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
     <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
     <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
   </ItemGroup>

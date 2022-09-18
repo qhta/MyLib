@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.TypeUtils", "..\..\Qht
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.TestHelper", "..\..\Qhta.TestHelper\Qhta.TestHelper.csproj", "{416BCC29-226B-4F8A-BC79-8845650E501C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.Conversion", "..\..\Qhta.Conversion\Qhta.Conversion.csproj", "{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{416BCC29-226B-4F8A-BC79-8845650E501C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{416BCC29-226B-4F8A-BC79-8845650E501C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{416BCC29-226B-4F8A-BC79-8845650E501C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

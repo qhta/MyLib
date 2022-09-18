@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.AccessControl;
+using Qhta.Conversion;
+using Qhta.TypeUtils;
 
 namespace Qhta.Xml.Serialization;
 
@@ -172,6 +174,8 @@ public partial class XmlSerializationInfoMapper
     int elemCount = 0;
     foreach (var memberInfo in members)
     {
+      //if (memberInfo.Name == "GroupNumber")
+      //  TestTools.Stop();
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
       if (memberInfo == typeInfo.ContentProperty?.Member)
@@ -270,6 +274,9 @@ public partial class XmlSerializationInfoMapper
     serializationMemberInfo.DefaultValue = xmlAttribute?.DataType;
     typeInfo.MembersAsAttributes.Add(serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
+    if (memberInfo.GetValueType()?.IsArray(out var itemType)==true)
+      if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
+        serializationMemberInfo.TypeConverter = new ArrayTypeConverter(itemType);
     return true;
   }
 
@@ -347,6 +354,8 @@ public partial class XmlSerializationInfoMapper
     serializationMemberInfo.CollectionInfo = CreateCollectionInfo(memberInfo);
     typeInfo.MembersAsElements.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
+    if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
+      serializationMemberInfo.TypeConverter = new ArrayConverter();
     return true;
   }
 

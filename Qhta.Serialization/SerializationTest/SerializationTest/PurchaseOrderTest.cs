@@ -5,6 +5,8 @@ using System.IO;
 using Qhta.Xml.Serialization;
 using Qhta.TestHelper;
 
+namespace TestData
+{
 /* The XmlRootAttribute allows you to set an alternate name
    (PurchaseOrder) of the XML element, the element namespace; by
    default, the XmlSerializer uses the class name. The attribute
@@ -12,206 +14,148 @@ using Qhta.TestHelper;
    the attribute sets the IsNullable property, which specifies whether
    the xsi:null attribute appears if the class instance is set to
    a null reference. */
-[XmlRootAttribute("PurchaseOrder", Namespace = "http://www.cpandl.com",
-IsNullable = false)]
-public class PurchaseOrder
-{
-  public Address ShipTo;
-  public string OrderDate;
-  /* The XmlArrayAttribute changes the XML element name
-   from the default of "OrderedItems" to "Items". */
-  [XmlArrayAttribute("Items")]
-  public OrderedItem[] OrderedItems;
-  public decimal SubTotal;
-  public decimal ShipCost;
-  public decimal TotalCost;
-}
-
-public class Address
-{
-  /* The XmlAttribute instructs the XmlSerializer to serialize the Name
-     field as an XML attribute instead of an XML element (the default
-     behavior). */
-  [XmlAttribute]
-  public string Name;
-  public string Line1;
-
-  /* Setting the IsNullable property to false instructs the
-     XmlSerializer that the XML attribute will not appear if
-     the City field is set to a null reference. */
-  [XmlElementAttribute(IsNullable = false)]
-  public string City;
-  public string State;
-  public string Zip;
-}
-
-public class OrderedItem
-{
-  public string ItemName;
-  public string Description;
-  public decimal UnitPrice;
-  public int Quantity;
-  public decimal LineTotal;
-
-  /* Calculate is a custom method that calculates the price per item,
-     and stores the value in a field. */
-  public void Calculate()
+  [XmlRootAttribute("PurchaseOrder", Namespace = "http://www.cpandl.com",
+    IsNullable = false)]
+  public class PurchaseOrder
   {
-    LineTotal = UnitPrice * Quantity;
+    public Address ShipTo;
+
+    public string OrderDate;
+
+    /* The XmlArrayAttribute changes the XML element name
+     from the default of "OrderedItems" to "Items". */
+    [XmlArrayAttribute("Items")]
+    public OrderedItem[] OrderedItems;
+
+    public decimal SubTotal;
+    public decimal ShipCost;
+    public decimal TotalCost;
   }
-}
 
-public class PurchaseOrderTest
-{
-  public static void Run()
+  public class Address
   {
-    TraceTextWriter traceWriter = new TraceTextWriter(true, true);
-    // Read and write purchase orders.
-    var order = CreateOrder();
-    WriteOrder("PurchaseOrder.xml", order);
-    if (File.Exists("PurchaseOrder.xml") && File.Exists("PurchaseOrder.OK.xml"))
+    /* The XmlAttribute instructs the XmlSerializer to serialize the Name
+       field as an XML attribute instead of an XML element (the default
+       behavior). */
+    [XmlAttribute] public string Name;
+    public string Line1;
+
+    /* Setting the IsNullable property to false instructs the
+       XmlSerializer that the XML attribute will not appear if
+       the City field is set to a null reference. */
+    [XmlElementAttribute(IsNullable = false)]
+    public string City;
+
+    public string State;
+    public string Zip;
+  }
+
+  public class OrderedItem
+  {
+    public string ItemName;
+    public string Description;
+    public decimal UnitPrice;
+    public int Quantity;
+    public decimal LineTotal;
+
+    /* Calculate is a custom method that calculates the price per item,
+       and stores the value in a field. */
+    public void Calculate()
     {
-      var xmlFileComparer = new XmlFileComparer(new FileCompareOptions(), traceWriter);
-      var writeOK = xmlFileComparer.CompareFiles("PurchaseOrder.xml", "PurchaseOrder.OK.xml");
-      if (writeOK)
-        Console.WriteLine("Serialization passed");
-      else
-        Console.WriteLine("Serialization failed");
+      LineTotal = UnitPrice * Quantity;
     }
-    var order2 = ReadOrder("PurchaseOrder.xml");
-    ShowOrder(order2);
-    var objectComparer = new ObjectComparer(traceWriter);
-    var readOK = objectComparer.DeepCompare(order, order2);
-    if (readOK)
-      Console.WriteLine("Deserialization passed");
-    else
-      Console.WriteLine("Deserialization failed");
   }
 
-  private static PurchaseOrder CreateOrder()
+}
+
+namespace SerializationTest
+{
+  using TestData;
+
+  public class PurchaseOrderTest : SerializerTest<PurchaseOrder>
   {
-    PurchaseOrder po = new PurchaseOrder();
 
-    // Create an address to ship and bill to.
-    Address billAddress = new Address();
-    billAddress.Name = "Teresa Atkinson";
-    billAddress.Line1 = "1 Main St.";
-    billAddress.City = "AnyTown";
-    billAddress.State = "WA";
-    billAddress.Zip = "00000";
-    // Set ShipTo and BillTo to the same addressee.
-    po.ShipTo = billAddress;
-    po.OrderDate = System.DateTime.Parse("10.09.2022").ToLongDateString();
-
-    // Create an OrderedItem object.
-    OrderedItem i1 = new OrderedItem();
-    i1.ItemName = "Widget S";
-    i1.Description = "Small widget";
-    i1.UnitPrice = (decimal)5.23;
-    i1.Quantity = 3;
-    i1.Calculate();
-
-    // Insert the item into the array.
-    OrderedItem[] items = { i1 };
-    po.OrderedItems = items;
-    // Calculate the total cost.
-    decimal subTotal = new decimal();
-    foreach (OrderedItem oi in items)
+    public override bool Run()
     {
-      subTotal += oi.LineTotal;
+      return base.Run("PurchaseOrder.xml");
     }
 
-    po.SubTotal = subTotal;
-    po.ShipCost = (decimal)12.51;
-    po.TotalCost = po.SubTotal + po.ShipCost;
-    // Serialize the purchase order, and close the TextWriter.
-    return po;
-  }
-
-  private static void WriteOrder(string filename, PurchaseOrder po)
-  {
-    // Create an instance of the XmlSerializer class;
-    // specify the type of object to serialize.
-    var serializer = new QXmlSerializer(typeof(PurchaseOrder));
-    using (var textWriter = new StreamWriter(filename))
+    protected override PurchaseOrder CreateObject()
     {
-      XmlWriter writer = XmlWriter.Create(textWriter, new XmlWriterSettings { Indent = true });
+      PurchaseOrder po = new PurchaseOrder();
+
+      // Create an address to ship and bill to.
+      Address billAddress = new Address();
+      billAddress.Name = "Teresa Atkinson";
+      billAddress.Line1 = "1 Main St.";
+      billAddress.City = "AnyTown";
+      billAddress.State = "WA";
+      billAddress.Zip = "00000";
+      // Set ShipTo and BillTo to the same addressee.
+      po.ShipTo = billAddress;
+      po.OrderDate = System.DateTime.Parse("10.09.2022").ToLongDateString();
+
+      // Create an OrderedItem object.
+      OrderedItem i1 = new OrderedItem();
+      i1.ItemName = "Widget S";
+      i1.Description = "Small widget";
+      i1.UnitPrice = (decimal)5.23;
+      i1.Quantity = 3;
+      i1.Calculate();
+
+      // Insert the item into the array.
+      OrderedItem[] items = { i1 };
+      po.OrderedItems = items;
+      // Calculate the total cost.
+      decimal subTotal = new decimal();
+      foreach (OrderedItem oi in items)
+      {
+        subTotal += oi.LineTotal;
+      }
+
+      po.SubTotal = subTotal;
+      po.ShipCost = (decimal)12.51;
+      po.TotalCost = po.SubTotal + po.ShipCost;
       // Serialize the purchase order, and close the TextWriter.
-      serializer.Serialize(writer, po);
-      writer.Close();
+      return po;
     }
-  }
 
-  protected static PurchaseOrder ReadOrder(string filename)
-  {
-    // Create an instance of the XmlSerializer class;
-    // specify the type of object to be deserialized.
-    var serializer = new QXmlSerializer(typeof(PurchaseOrder));
-    /* If the XML document has been altered with unknown
-    nodes or attributes, handle them with the
-    UnknownNode and UnknownAttribute events.*/
-    serializer.UnknownNode += new XmlNodeEventHandler(serializer_UnknownNode);
-    serializer.UnknownAttribute += new XmlAttributeEventHandler(serializer_UnknownAttribute);
-
-    // A FileStream is needed to read the XML document.
-    FileStream fs = new FileStream(filename, FileMode.Open);
-    // Declare an object variable of the type to be deserialized.
-    PurchaseOrder po;
-    /* Use the Deserialize method to restore the object's state with
-    data from the XML document. */
-    po = (PurchaseOrder)serializer.Deserialize(fs);
-    return po;
-  }
-
-  private static void serializer_UnknownNode
-  (object sender, XmlNodeEventArgs e)
-  {
-    Console.WriteLine("Unknown Node:" + e.Name + "\t" + e.Text);
-  }
-
-  private static void serializer_UnknownAttribute
-  (object sender, XmlAttributeEventArgs e)
-  {
-    System.Xml.XmlAttribute attr = e.Attr;
-    Console.WriteLine("Unknown attribute " +
-    attr.Name + "='" + attr.Value + "'");
-  }
-
-  private static void ShowOrder(PurchaseOrder po)
-  {
-    // Read the order date.
-    Console.WriteLine("OrderDate: " + po.OrderDate);
-
-    // Read the shipping address.
-    Address shipTo = po.ShipTo;
-    ShowAddress(shipTo, "Ship To:");
-    // Read the list of ordered items.
-    OrderedItem[] items = po.OrderedItems;
-    Console.WriteLine("Items to be shipped:");
-    foreach (OrderedItem oi in items)
+    protected override void ShowObject(PurchaseOrder obj)
     {
-      Console.WriteLine("\t" +
-                        oi.ItemName + "\t" +
-                        oi.Description + "\t" +
-                        oi.UnitPrice + "\t" +
-                        oi.Quantity + "\t" +
-                        oi.LineTotal);
-    }
-    // Read the subtotal, shipping cost, and total cost.
-    Console.WriteLine("\t\t\t\t\t Subtotal\t" + po.SubTotal);
-    Console.WriteLine("\t\t\t\t\t Shipping\t" + po.ShipCost);
-    Console.WriteLine("\t\t\t\t\t Total\t\t" + po.TotalCost);
-  }
+      // Read the order date.
+      Console.WriteLine("OrderDate: " + obj.OrderDate);
 
-  protected static void ShowAddress(Address a, string label)
-  {
-    // Read the fields of the Address object.
-    Console.WriteLine(label);
-    Console.WriteLine("\t" + a.Name);
-    Console.WriteLine("\t" + a.Line1);
-    Console.WriteLine("\t" + a.City);
-    Console.WriteLine("\t" + a.State);
-    Console.WriteLine("\t" + a.Zip);
-    Console.WriteLine();
+      // Read the shipping address.
+      Address shipTo = obj.ShipTo;
+      ShowAddress(shipTo, "Ship To:");
+      // Read the list of ordered items.
+      OrderedItem[] items = obj.OrderedItems;
+      Console.WriteLine("Items to be shipped:");
+      foreach (OrderedItem oi in items)
+      {
+        Console.WriteLine("\t" +
+                          oi.ItemName + "\t" +
+                          oi.Description + "\t" +
+                          oi.UnitPrice + "\t" +
+                          oi.Quantity + "\t" +
+                          oi.LineTotal);
+      }
+      // Read the subtotal, shipping cost, and total cost.
+      Console.WriteLine("\t\t\t\t\t Subtotal\t" + obj.SubTotal);
+      Console.WriteLine("\t\t\t\t\t Shipping\t" + obj.ShipCost);
+      Console.WriteLine("\t\t\t\t\t Total\t\t" + obj.TotalCost);
+    }
+
+    protected static void ShowAddress(Address a, string label)
+    {
+      // Read the fields of the Address object.
+      Console.WriteLine(label);
+      Console.WriteLine("\t" + a.Name);
+      Console.WriteLine("\t" + a.Line1);
+      Console.WriteLine("\t" + a.City);
+      Console.WriteLine("\t" + a.State);
+      Console.WriteLine("\t" + a.Zip);
+      Console.WriteLine();
+    }
   }
 }

@@ -30,3 +30,5 @@ D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\SerializationTest\bin\
 D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\SerializationTest\bin\Debug\net6.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\SerializationTest\bin\Debug\net6.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\SerializationTest\obj\Debug\net6.0\SerializationTest.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\SerializationTest\bin\Debug\net6.0\Qhta.Conversion.dll
+D:\VS\Projects\MyLib\Qhta.Serialization\SerializationTest\SerializationTest\bin\Debug\net6.0\Qhta.Conversion.pdb

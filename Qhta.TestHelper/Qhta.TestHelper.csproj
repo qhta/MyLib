@@ -21,4 +21,8 @@
     <Folder Include="ObjectComparing\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
+  </ItemGroup>
+
 </Project>

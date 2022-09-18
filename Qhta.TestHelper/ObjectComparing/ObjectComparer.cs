@@ -66,8 +66,12 @@ public class ObjectComparer
         return double1 == double2;
       if (obj1 is decimal decimal1 && obj2 is decimal decimal2)
         return decimal1 == decimal2;
+      if (obj1 is DateTime dateTime1 && obj2 is DateTime dateTime2)
+        return dateTime1 == dateTime2;
+      if (obj1 is TimeSpan timespan1 && obj2 is TimeSpan timespan2)
+        return timespan1 == timespan2;
       if (aType.IsEnum)
-        return (int)obj1 == (int)obj2;
+        return Enum.Equals(obj1, obj2);
       throw new InvalidOperationException($"Unhandled type {aType}");
     }
     foreach (var fieldInfo in aType.GetFields())

@@ -393,9 +393,22 @@
           }
         }
       },
+      "Qhta.Conversion/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Qhta.Conversion.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Conversion.dll": {}
+        }
+      },
       "Qhta.TestHelper/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Qhta.Conversion": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Qhta.TestHelper.dll": {}
         },
@@ -1660,6 +1673,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Qhta.Conversion/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
+      "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
+    },
     "Qhta.TestHelper/1.0.0": {
       "type": "project",
       "path": "../Qhta.TestHelper/Qhta.TestHelper.csproj",
@@ -1673,6 +1691,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Qhta.Conversion >= 1.0.0",
       "Qhta.TestHelper >= 1.0.0",
       "Qhta.TypeUtils >= 1.2.1",
       "System.CodeDom >= 6.0.0",
@@ -1712,6 +1731,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
+            },
             "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
             },

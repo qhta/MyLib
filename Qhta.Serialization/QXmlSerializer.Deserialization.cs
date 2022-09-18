@@ -890,9 +890,6 @@ public partial class QXmlSerializer
     }
   }
 
-  public void ReadTextValue(Type valueType, XmlReader reader)
-  {
-  }
 
   public object? ReadValue(SerializationMemberInfo serializationMemberInfo, XmlReader reader)
   {
@@ -1044,6 +1041,12 @@ public partial class QXmlSerializer
     else if (expectedType == typeof(object))
     {
       propValue = str;
+    }
+    else if (expectedType.IsArray)
+    {
+      if (typeConverter == null)
+        throw new XmlInternalException($"Array type converter not supporter", reader);
+      propValue = typeConverter.ConvertFrom(str);
     }
     else
       throw new XmlInternalException($"Value type \"{expectedType}\" not supported for deserialization", reader);

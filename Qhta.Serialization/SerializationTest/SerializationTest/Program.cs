@@ -1,1 +1,1 @@
-﻿PurchaseOrderTest.Run();
+﻿new SerializationTest.XmlAttributeAttributeTest().Run();

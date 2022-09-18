@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Qhta.TestHelper/1.0.0": {
+        "dependencies": {
+          "Qhta.Conversion": "1.0.0"
+        },
         "runtime": {
           "Qhta.TestHelper.dll": {}
+        }
+      },
+      "Qhta.Conversion/1.0.0": {
+        "runtime": {
+          "Qhta.Conversion.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Qhta.TestHelper/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.Conversion/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
