@@ -15,3 +15,6 @@ D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.Res
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.Conversion.pdb
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TypeUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TypeUtils.xml

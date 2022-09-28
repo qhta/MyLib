@@ -5,11 +5,24 @@
       "Qhta.Conversion/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Qhta.TypeUtils": "1.2.1"
+        },
         "compile": {
           "bin/placeholder/Qhta.Conversion.dll": {}
         },
         "runtime": {
           "bin/placeholder/Qhta.Conversion.dll": {}
+        }
+      },
+      "Qhta.TypeUtils/1.2.1": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
         }
       }
     }
@@ -19,6 +32,11 @@
       "type": "project",
       "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
       "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
+    },
+    "Qhta.TypeUtils/1.2.1": {
+      "type": "project",
+      "path": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj",
+      "msbuildProject": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {

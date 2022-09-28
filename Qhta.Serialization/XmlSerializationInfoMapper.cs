@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.AccessControl;
+using System.Xml;
+
 using Qhta.Conversion;
 using Qhta.TypeUtils;
 
@@ -271,12 +273,8 @@ public partial class XmlSerializationInfoMapper
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qAttrName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
-    serializationMemberInfo.DefaultValue = xmlAttribute?.DataType;
+    serializationMemberInfo.DataType = xmlAttribute?.DataType;
     typeInfo.MembersAsAttributes.Add(serializationMemberInfo);
-    //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
-    if (memberInfo.GetValueType()?.IsArray(out var itemType)==true)
-      if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
-        serializationMemberInfo.TypeConverter = new ArrayTypeConverter(itemType);
     return true;
   }
 
@@ -285,12 +283,12 @@ public partial class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="memberInfo">Selected property/field</param>
-  /// <param name="attribute">Found XmlElementAttribute</param>
+  /// <param name="xmlAttribute">Found XmlElementAttribute</param>
   /// <param name="defaultOrder">default order</param>
-  protected virtual bool TryAddMemberAsElement(SerializationTypeInfo typeInfo, MemberInfo memberInfo, XmlElementAttribute? attribute, int defaultOrder)
+  protected virtual bool TryAddMemberAsElement(SerializationTypeInfo typeInfo, MemberInfo memberInfo, XmlElementAttribute? xmlAttribute, int defaultOrder)
   {
-    var elemName = attribute?.ElementName;
-    var elemNamespace = attribute?.Namespace;
+    var elemName = xmlAttribute?.ElementName;
+    var elemNamespace = xmlAttribute?.Namespace;
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
     if (Options.ElementNameCase != 0)
@@ -298,9 +296,10 @@ public partial class XmlSerializationInfoMapper
     var qElemName = new QualifiedName(elemName, elemNamespace);
     if (typeInfo.MembersAsElements.ContainsKey(qElemName))
       return false;
-    var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
+    var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
+    serializationMemberInfo.DataType = xmlAttribute?.DataType;
     typeInfo.MembersAsElements.Add(serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
     return true;
@@ -377,6 +376,14 @@ public partial class XmlSerializationInfoMapper
     var converterType = memberInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
     if (converterType != null)
       serializationMemberInfo.TypeConverter = CreateTypeConverter(converterType);
+    var xmlDataFormat = memberInfo.GetCustomAttribute<XmlDataFormatAttribute>();
+    if (xmlDataFormat != null)
+    {
+      if (xmlDataFormat.Format != null)
+        serializationMemberInfo.Format = xmlDataFormat.Format;
+      if (xmlDataFormat.Culture != null)
+        serializationMemberInfo.Culture = xmlDataFormat.Culture;
+    }
     return serializationMemberInfo;
   }
 
@@ -737,7 +744,7 @@ public partial class XmlSerializationInfoMapper
     {
       var converterTypeName = typeConverterAttribute.ConverterTypeName;
       if (converterTypeName == null)
-        throw new InternalException($"Converter type name in a TypeConverter attribute must not be null");
+        throw new InternalException($"Converter type name in a TypeConverter xmlAttribute must not be null");
       if (!TypeConverters.TryGetValue(converterTypeName, out var converter))
       {
         converter = FindTypeConverter(converterTypeName);

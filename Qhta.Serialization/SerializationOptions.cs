@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 
+using Qhta.Conversion;
+
 namespace Qhta.Xml.Serialization;
 
 public class SerializationOptions: IEquatable<SerializationOptions>
@@ -86,6 +88,15 @@ public class SerializationOptions: IEquatable<SerializationOptions>
   /// String to write as false value;
   /// </summary>
   public string TrueString { get; set; } = "true";
+
+  /// <summary>
+  /// Conversion options for default TypeConverter
+  /// </summary>
+  public ConversionOptions ConversionOptions { get; set; } = 
+    new ConversionOptions
+    {
+      DateTimeSeparator = 'T', ShowSecondsFractionalPart = true, ShowTimeZone = true,
+    };
 
   /// <summary>
   /// Format to use for DateTime value;

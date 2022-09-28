@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
 public class XmlConverterAttribute : Attribute
 {
   public XmlConverterAttribute(Type converterType, params object[] args)

@@ -75,9 +75,9 @@ namespace SerializationTest
   public class PurchaseOrderTest : SerializerTest<PurchaseOrder>
   {
 
-    public override bool Run()
+    public override bool? Run()
     {
-      return base.Run("PurchaseOrder.xml");
+      return base.RunOnFile("PurchaseOrder.xml");
     }
 
     protected override PurchaseOrder CreateObject()

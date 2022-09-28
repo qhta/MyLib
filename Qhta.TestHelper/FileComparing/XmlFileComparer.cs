@@ -226,18 +226,18 @@ public class XmlFileComparer : AbstractFileComparer
   {
     var name1 = attr1.Name;
     var name2 = attr2.Name;
-    var result = name1.Namespace.ToString().CompareTo(name2.Namespace.ToString());
+    var result = String.Compare((name1.Namespace??"").ToString(), (name2.Namespace??"").ToString(), StringComparison.Ordinal);
     if (result != 0)
       return result;
-    result = name1.LocalName.ToString().CompareTo(name2.LocalName.ToString());
+    result = String.Compare(name1.LocalName.ToString(), name2.LocalName.ToString(), StringComparison.Ordinal);
     return result;
   }
 
   /// <summary>
   /// Helper method to compare two attributes. Attribute namespaces, localnames and values are compared.
   /// </summary>
-  /// <param name="attr1">First attribute to compare</param>
-  /// <param name="attr2">Second attribute to compare</param>
+  /// <param name="outAttribute">First attribute to compare</param>
+  /// <param name="expAttribute">Second attribute to compare</param>
   /// <returns>true if both attributes are euqal</returns>
   protected virtual bool CompareXmlAttribute(XAttribute outAttribute, XAttribute expAttribute)
   {
@@ -282,15 +282,16 @@ public class XmlFileComparer : AbstractFileComparer
   /// Helper method to show unequal elements. Two collections of elements are taken.
   /// Limits from <see cref="FileCompareOptions.SyncLimit"/> is applied.
   /// </summary>
-  /// <param name="outElement">Collection of received output Xml elements</param>
-  /// <param name="expElement">Collection of expected content Xml elements</param>
+  /// <param name="outElements">Collection of received output Xml elements</param>
+  /// <param name="expElements">Collection of expected content Xml elements</param>
   /// <param name="linesLimit">Limit of content lines to show 
   /// (default 0 changed to <see cref="FileCompareOptions.SyncLimit"/>)</param>
   protected virtual void ShowUnequalElements(XElement[] outElements, XElement[] expElements, int linesLimit=0)
   {
     if (linesLimit == 0)
       linesLimit = Options.SyncLimit;
-
+    if (linesLimit == 0)
+      linesLimit = int.MaxValue;
     var outLinesLimit = linesLimit;
     ShowLine(Options.StartOfDiffOut);
     if (Options.OutLinesColor != null && Writer != null)

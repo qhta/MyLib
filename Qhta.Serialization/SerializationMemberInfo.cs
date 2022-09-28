@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Xml.Serialization;
 
+using Qhta.Conversion;
+
 namespace Qhta.Xml.Serialization;
 
 /// <summary>
@@ -37,14 +39,15 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
     Order = order;
   }
 
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsAttribute { get; set; }
+
   [XmlIgnore]
   public bool IsField => Member is FieldInfo;
 
   [XmlIgnore]
   public FieldInfo? Field => Member as FieldInfo;
-
-  [XmlIgnore]
-  public bool IsProperty => Member is PropertyInfo;
 
   [XmlIgnore]
   public PropertyInfo? Property => Member as PropertyInfo;
@@ -57,13 +60,11 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
 
   public void SetValue(object? obj, object? value)
   {
-    if (IsProperty)
-      Property?.SetValue(obj, value);
-    else
+    if (IsField)
       Field?.SetValue(obj, value);
+    else
+      Property?.SetValue(obj, value);
   }
-
-  
 
   /// <summary>
   /// Needed to sort the order of properties for serialization.
@@ -81,13 +82,13 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
   /// Attribute or element XML namespace used for serialization.
   /// </summary>
   [XmlAttribute]
-  public string XmlNamespace { get; init; }
+  public string? XmlNamespace { get; init; }
 
   /// <summary>
   /// ClrNamespace of the property or field.
   /// </summary>
   [XmlAttribute]
-  public string ClrNamespace { get; init; }
+  public string? ClrNamespace { get; init; }
 
   [XmlIgnore]
   public QualifiedName QualifiedName => new QualifiedName(XmlName, ClrNamespace);
@@ -99,11 +100,28 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
   public MemberInfo Member { get;}
 
   /// <summary>
-  /// Specifies if a member is nullable.
+  /// XSD standard data type for simple value text conversion.
   /// </summary>
   [XmlAttribute]
-  [DefaultValue(0)]
-  public string XmlDataType { get; set; }
+  public string? DataType { get; set; }
+
+  /// <summary>
+  /// Specific format for text conversion.
+  /// </summary>
+  [XmlAttribute]
+  public string? Format { get; set; }
+
+  /// <summary>
+  /// Specific culture info for text conversion.
+  /// </summary>
+  [XmlAttribute]
+  public CultureInfo? Culture { get; set; }
+
+  /// <summary>
+  /// Conversion options for default TypeConverter.
+  /// </summary>
+  [XmlAttribute]
+  public ConversionOptions? ConversionOptions { get; set; }
 
   /// <summary>
   /// Specifies if a member is nullable.

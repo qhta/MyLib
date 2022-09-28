@@ -1,4 +1,6 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿using Qhta.Conversion;
+
+namespace Qhta.Xml.Serialization;
 
 public delegate void OnUnknownMember(object readObject, string elementName);
 
@@ -232,8 +234,8 @@ public partial class QXmlSerializer
     {
       var elementPrefix = reader.Prefix;
       var elementName = reader.LocalName;
-      if (elementName == "HeadingPairs")
-        TestTools.Stop();
+      //if (elementName == "Base64Binary")
+      //  TestTools.Stop();
       var propertyToRead = propList.FirstOrDefault(item => item.XmlName == elementName);
       if (propertyToRead != null)
       {
@@ -382,7 +384,7 @@ public partial class QXmlSerializer
     return ReadElementWithKnownTypeInfo(typeInfo, reader);
   }
 
-  public object? ReadElementAsMember(Type? expectedType, SerializationMemberInfo propertyInfo, XmlReader reader)
+  public object? ReadElementAsMember(Type? expectedType, SerializationMemberInfo memberInfo, XmlReader reader)
   {
     if (reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", reader);
@@ -404,7 +406,60 @@ public partial class QXmlSerializer
                                        $" but {expectedType.Name} or its subclass expected", reader);
     }
 
-    return ReadElementWithKnownTypeInfo(typeInfo, reader);
+    return ReadMemberWithKnownTypeInfo(typeInfo, memberInfo, reader);
+  }
+
+  public object? ReadMemberWithKnownTypeInfo(SerializationTypeInfo typeInfo, SerializationMemberInfo memberInfo, XmlReader reader)
+  {
+    if (typeInfo.XmlConverter?.CanRead == true)
+      return typeInfo.XmlConverter.ReadXml(reader, typeInfo, null, null, this);
+    if (typeInfo.KnownConstructor == null)
+    {
+      if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte))
+      {
+        reader.Read();
+        var str = reader.ReadContentAsString();
+        var result = ConvertMemberValueFromString(memberInfo, str);
+        reader.Read();
+        return result;
+      }
+      if (typeInfo.Type.IsArray)
+      {
+        reader.Read();
+        return null;
+      }
+      throw new XmlInternalException($"Unknown constructor for type {typeInfo.Type.Name} on deserialize", reader);
+    }
+    var obj = typeInfo.KnownConstructor.Invoke(new object[0]);
+    if (obj is IXmlSerializable xmlSerializable)
+    {
+      xmlSerializable.ReadXml(reader);
+    }
+    else
+      ReadObject(obj, reader, typeInfo);
+    return obj;
+  }
+
+  protected object? ConvertMemberValueFromString(SerializationMemberInfo memberInfo, string? str)
+  {
+    if (str == null)
+      return null;
+    if (memberInfo.Property == null)
+      return null;
+    var typeConverter = memberInfo.GetTypeConverter();
+    if (typeConverter == null)
+      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, memberInfo.DataType, 
+        memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
+    var result = typeConverter.ConvertFromInvariantString(str);
+    return result;
+
+
+    //if (propValue is string str)
+    //  return EncodeStringValue(str);
+    //if (propValue is bool || propValue is bool?)
+    //  return ((bool)propValue) ? Options.TrueString : Options.FalseString;
+    //if (propValue is DateTime || propValue is DateTime?)
+    //  return ((DateTime)propValue).ToString(Options.DateTimeFormat, CultureInfo.InvariantCulture);
   }
 
   public object? ReadElementAsItem(Type? expectedType, CollectionInfo collectionInfo, XmlReader reader)
@@ -433,11 +488,11 @@ public partial class QXmlSerializer
 
   public object? ReadElementWithKnownTypeInfo(SerializationTypeInfo typeInfo, XmlReader reader)
   {
-    if (typeInfo.XmlConverter != null && typeInfo.XmlConverter.CanRead)
+    if (typeInfo.XmlConverter?.CanRead==true)
       return typeInfo.XmlConverter.ReadXml(reader, typeInfo, null, null, this);
     if (typeInfo.KnownConstructor == null)
     {
-      if (typeInfo.Type.IsSimple())
+      if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType==typeof(byte))
       {
         reader.Read();
         var result = ReadValue(typeInfo.Type, null, reader);
@@ -1044,9 +1099,10 @@ public partial class QXmlSerializer
     }
     else if (expectedType.IsArray)
     {
-      if (typeConverter == null)
-        throw new XmlInternalException($"Array type converter not supporter", reader);
-      propValue = typeConverter.ConvertFrom(str);
+      if (typeConverter != null)
+        propValue = typeConverter.ConvertFrom(str);
+      else
+        throw new XmlInternalException($"Array type converter not supported", reader);
     }
     else
       throw new XmlInternalException($"Value type \"{expectedType}\" not supported for deserialization", reader);

@@ -5,7 +5,8 @@ namespace Qhta.Conversion;
 
 public class ArrayTypeConverter : ValueTypeConverter
 {
-  public ArrayTypeConverter(Type objectType) : base(objectType)
+  public ArrayTypeConverter(Type objectType, string? dataType, string format, CultureInfo culture, ConversionOptions options) : 
+    base(objectType, dataType,format, culture, options )
   {
   }
 

@@ -1,1 +1,1 @@
-﻿new SerializationTest.XmlAttributeAttributeTest().Run();
+﻿new SerializationTest.XmlDataTypeTest().Run();

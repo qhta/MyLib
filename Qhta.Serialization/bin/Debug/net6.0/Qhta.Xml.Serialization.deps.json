@@ -232,6 +232,9 @@
         }
       },
       "Qhta.Conversion/1.0.0": {
+        "dependencies": {
+          "Qhta.TypeUtils": "1.2.1"
+        },
         "runtime": {
           "Qhta.Conversion.dll": {}
         }

@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-
+using Qhta.Conversion;
 using Qhta.TestHelper;
 using Qhta.TypeUtils;
 
@@ -112,26 +112,25 @@ public partial class QXmlSerializer
     var aType = obj.GetType();
     var propList = typeInfo.MembersAsAttributes;
     int attrsWritten = 0;
-    foreach (var serializationPropertyInfo in propList)
+    foreach (var memberInfo in propList)
     {
-      if (serializationPropertyInfo.CheckMethod != null)
+      if (memberInfo.CheckMethod != null)
       {
-        var shouldSerializeProperty = serializationPropertyInfo.CheckMethod.Invoke(new object[] { obj }, new object[0]);
+        var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(new object[] { obj }, new object[0]);
         if (shouldSerializeProperty is bool shouldSerialize)
           if (!shouldSerialize)
             continue;
       }
 
-      var attrName = serializationPropertyInfo.XmlName;
-      var attrTag = Mapper.GetXmlTag(serializationPropertyInfo);
-      var propValue = serializationPropertyInfo.GetValue(obj);
+      var attrName = memberInfo.XmlName;
+      var attrTag = Mapper.GetXmlTag(memberInfo);
+      var propValue = memberInfo.GetValue(obj);
       if (propValue != null)
       {
-        var defaultValue = serializationPropertyInfo.DefaultValue;
+        var defaultValue = memberInfo.DefaultValue;
         if (defaultValue != null && propValue.Equals(defaultValue))
           continue;
-        string? str = serializationPropertyInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ??
-                      GetValueString(propValue);
+        string? str = ConvertMemberValueToString(memberInfo, propValue);
         if (str != null)
         {
           writer.WriteAttributeString(attrTag.Prefix, attrTag.Name, attrTag.XmlNamespace, str);
@@ -148,26 +147,25 @@ public partial class QXmlSerializer
 
     int propsWritten = 0;
 
-    foreach (var serializationPropertyInfo in props)
+    foreach (var memberInfo in props)
     {
-      if (serializationPropertyInfo.CheckMethod != null)
+      if (memberInfo.CheckMethod != null)
       {
-        var shouldSerializeProperty = serializationPropertyInfo.CheckMethod.Invoke(obj, new object[0]);
+        var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(obj, new object[0]);
         if (shouldSerializeProperty is bool shouldSerialize)
           if (!shouldSerialize)
             continue;
       }
 
-      var propInfo = serializationPropertyInfo.Member;
-      var propTag = serializationPropertyInfo.XmlName;
+      var propTag = memberInfo.XmlName;
 
       if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
-      var propValue = serializationPropertyInfo.GetValue(obj);
-      propValue = serializationPropertyInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ?? propValue;
+      var propValue = memberInfo.GetValue(obj);
+      propValue = memberInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ?? propValue;
       if (propValue == null)
       {
-        if (Options?.UseNilValue == true && serializationPropertyInfo.IsNullable == true)
+        if (Options?.UseNilValue == true && memberInfo.IsNullable == true)
         {
           if (!String.IsNullOrEmpty(propTag))
             WriteStartElement(writer, propTag);
@@ -178,7 +176,7 @@ public partial class QXmlSerializer
       }
       else
       {
-        var defaultValue = serializationPropertyInfo.DefaultValue;
+        var defaultValue = memberInfo.DefaultValue;
         if (defaultValue != null)
         {
           if (propValue.Equals(defaultValue))
@@ -194,15 +192,15 @@ public partial class QXmlSerializer
         //else
         {
           var pType = propValue.GetType();
-          if (pType.IsSimple())
+          if (pType.IsSimple() || pType.IsArray(out var itemType) && itemType==typeof(byte))
           {
-            WriteValue(writer, GetValueString(propValue));
+            WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
           }
           else
           if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
           {
-            if (serializationPropertyInfo.IsReference)
-              WriteValue(writer, GetValueString(propValue));
+            if (memberInfo.IsReference)
+              WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
             else
               WriteObjectInterior(writer, propValue, null, serializedTypeInfo);
           }
@@ -239,7 +237,7 @@ public partial class QXmlSerializer
           //}
           else
           {
-            WriteValue(writer, GetValueString(propValue));
+            WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
           }
         }
         if (!String.IsNullOrEmpty(propTag))
@@ -393,9 +391,13 @@ public partial class QXmlSerializer
       xmlSerializable.WriteXml(writer);
     else
     {
-      var valStr = GetValueString(value);
-      if (valStr != null)
-        writer.WriteValue(valStr);
+      if (value != null)
+      {
+        var typeConverter = new ValueTypeConverter(value.GetType(), null, null, null, Options.ConversionOptions);
+        var valStr = typeConverter.ConvertToInvariantString(value);
+        if (valStr != null)
+          writer.WriteValue(valStr);
+      }
     }
   }
 
@@ -418,23 +420,26 @@ public partial class QXmlSerializer
     return aType.Name.ToLowerInvariant();
   }
 
-  protected string? GetValueString(object? propValue)
+  protected string? ConvertMemberValueToString(SerializationMemberInfo memberInfo, object? propValue)
   {
     if (propValue == null)
       return null;
-    if (propValue is string str)
-      return EncodeStringValue(str);
-    if (propValue is bool || propValue is bool?)
-      return ((bool)propValue) ? Options.TrueString : Options.FalseString;
-    if (propValue is float || propValue is float?)
-      return ((float)propValue).ToString(CultureInfo.InvariantCulture);
-    if (propValue is double || propValue is double?)
-      return ((double)propValue).ToString(CultureInfo.InvariantCulture);
-    if (propValue is decimal || propValue is decimal?)
-      return ((decimal)propValue).ToString(CultureInfo.InvariantCulture);
-    if (propValue is DateTime || propValue is DateTime?)
-      return ((DateTime)propValue).ToString(Options.DateTimeFormat, CultureInfo.InvariantCulture);
-    return propValue.ToString() ?? "";
+    if (memberInfo.Property == null)
+      return null;
+    var typeConverter = memberInfo.GetTypeConverter();
+    if (typeConverter == null)
+      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, memberInfo.DataType, 
+        memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
+    var str = typeConverter.ConvertToInvariantString(propValue);
+    return str;
+
+
+    //if (propValue is string str)
+    //  return EncodeStringValue(str);
+    //if (propValue is bool || propValue is bool?)
+    //  return ((bool)propValue) ? Options.TrueString : Options.FalseString;
+    //if (propValue is DateTime || propValue is DateTime?)
+    //  return ((DateTime)propValue).ToString(Options.DateTimeFormat, CultureInfo.InvariantCulture);
   }
 
 

@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Qhta.Conversion/1.0.0": {
+        "dependencies": {
+          "Qhta.TypeUtils": "1.2.1"
+        },
         "runtime": {
           "Qhta.Conversion.dll": {}
+        }
+      },
+      "Qhta.TypeUtils/1.2.1": {
+        "runtime": {
+          "Qhta.TypeUtils.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Qhta.Conversion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.TypeUtils/1.2.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

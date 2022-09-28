@@ -83,6 +83,8 @@ public static class TypeCategorization
     { typeof(double),  TypeCategory.Simple | TypeCategory.Numeral | TypeCategory.Signed | TypeCategory.Float },
     { typeof(DateTime),  TypeCategory.Simple | TypeCategory.Temporal },
     { typeof(TimeSpan),  TypeCategory.Simple | TypeCategory.Temporal },
+    { typeof(DateOnly),  TypeCategory.Simple | TypeCategory.Temporal },
+    { typeof(TimeOnly),  TypeCategory.Simple | TypeCategory.Temporal },
     { typeof(Guid),  TypeCategory.Simple },
   };
 

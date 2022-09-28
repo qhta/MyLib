@@ -10,3 +10,7 @@ D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\refint\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.pdb
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\ref\Qhta.Conversion.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\bin\Debug\net6.0\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\bin\Debug\net6.0\Qhta.TypeUtils.pdb
+D:\VS\Projects\MyLib\Qhta.Conversion\bin\Debug\net6.0\Qhta.TypeUtils.xml
+D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.csproj.CopyComplete
