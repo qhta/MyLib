@@ -82,20 +82,20 @@ namespace Qhta.Conversion
     {
       { typeof(string), new StringTypeConverter() },
       { typeof(bool), new BooleanTypeConverter() },
-      { typeof(int), new NumericTypeConverter{ ValueType = typeof(int)} },
-      { typeof(byte), new NumericTypeConverter{ ValueType = typeof(byte)} },
-      { typeof(uint), new NumericTypeConverter{ ValueType = typeof(uint)} },
-      { typeof(sbyte), new NumericTypeConverter{ ValueType = typeof(sbyte)} },
-      { typeof(short), new NumericTypeConverter{ ValueType = typeof(short)} },
-      { typeof(ushort), new NumericTypeConverter{ ValueType = typeof(ushort)} },
-      { typeof(long), new NumericTypeConverter{ ValueType = typeof(long)} },
-      { typeof(ulong), new NumericTypeConverter{ ValueType = typeof(ulong)} },
-      { typeof(float), new NumericTypeConverter{ ValueType = typeof(float)} },
-      { typeof(double), new NumericTypeConverter{ ValueType = typeof(double)} },
-      { typeof(decimal), new NumericTypeConverter{ ValueType = typeof(decimal)} },
-      { typeof(DateTime), new DateTimeTypeConverter{ Mode=DateTimeFormatMode.Default } },
-      { typeof(DateOnly), new DateTimeTypeConverter{ Mode=DateTimeFormatMode.DateOnly } },
-      { typeof(TimeOnly), new DateTimeTypeConverter{ Mode=DateTimeFormatMode.TimeOnly } },
+      { typeof(int), new NumericTypeConverter{ ExpectedType = typeof(int)} },
+      { typeof(byte), new NumericTypeConverter{ ExpectedType = typeof(byte)} },
+      { typeof(uint), new NumericTypeConverter{ ExpectedType = typeof(uint)} },
+      { typeof(sbyte), new NumericTypeConverter{ ExpectedType = typeof(sbyte)} },
+      { typeof(short), new NumericTypeConverter{ ExpectedType = typeof(short)} },
+      { typeof(ushort), new NumericTypeConverter{ ExpectedType = typeof(ushort)} },
+      { typeof(long), new NumericTypeConverter{ ExpectedType = typeof(long)} },
+      { typeof(ulong), new NumericTypeConverter{ ExpectedType = typeof(ulong)} },
+      { typeof(float), new NumericTypeConverter{ ExpectedType = typeof(float)} },
+      { typeof(double), new NumericTypeConverter{ ExpectedType = typeof(double)} },
+      { typeof(decimal), new NumericTypeConverter{ ExpectedType = typeof(decimal)} },
+      { typeof(DateTime), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.Default } },
+      { typeof(DateOnly), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.DateOnly } },
+      { typeof(TimeOnly), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.TimeOnly } },
     };
 
     private readonly Dictionary<string, TypeConverter> SpecialTypeConverters = new Dictionary<string, TypeConverter>
@@ -103,10 +103,10 @@ namespace Qhta.Conversion
 
       { "base64Binary", new Base64BinaryTypeConverter() },
       { "hexBinary", new HexBinaryTypeConverter() },
-      { "date", new DateTimeTypeConverter{ Mode=DateTimeFormatMode.DateOnly } },
-      { "dateTime", new DateTimeTypeConverter{ Mode=DateTimeFormatMode.DateTime} },
-      { "time", new DateTimeTypeConverter{ Mode=DateTimeFormatMode.TimeOnly } },
-      { "defaultDateTime", new DateTimeTypeConverter{ Mode=DateTimeFormatMode.Default } },
+      { "date", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.DateOnly } },
+      { "dateTime", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.DateTime} },
+      { "time", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.TimeOnly } },
+      { "defaultDateTime", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.Default } },
     };
 
     public ValueTypeConverter(Type objectType, string? xmlDataType, string? format, CultureInfo? culture, ConversionOptions? options = null)
@@ -137,21 +137,21 @@ namespace Qhta.Conversion
         switch (xmlDataType)
         {
           case "date":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeFormatMode.DateOnly, format, culture, options);
+            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.DateOnly, format, culture, options);
             return;
           case "dateTime":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeFormatMode.DateTime, format, culture, options);
+            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.DateTime, format, culture, options);
             return;
           case "time":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeFormatMode.TimeOnly, format, culture, options);
+            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.TimeOnly, format, culture, options);
             return;
           case "defaultDateTime":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeFormatMode.Default, format, culture, options);
+            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.Default, format, culture, options);
             return;
           case "boolean":
             ValueStringConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
             if (objectType != typeof(bool))
-              InternalTypeConverter = new NumericTypeConverter { ValueType = objectType, Format = format };
+              InternalTypeConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
             ExpDataType = typeof(bool);
             return;
           case "integer":
@@ -159,7 +159,7 @@ namespace Qhta.Conversion
           case "nonNegativeInteger":
           case "nonPositiveInteger":
           case "positiveInteger":
-            ValueStringConverter = new NumericTypeConverter { ValueType = objectType };
+            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType };
             if (objectType == typeof(bool))
               InternalTypeConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
             ExpDataType = objectType;
@@ -173,20 +173,20 @@ namespace Qhta.Conversion
           case "ushort":
           case "long":
           case "ulong":
-            ValueStringConverter = new NumericTypeConverter { ValueType = objectType, Format = format };
+            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
             if (objectType == typeof(bool))
               InternalTypeConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
             ExpDataType = objectType;
             return;
           case "decimal":
-            ValueStringConverter = new NumericTypeConverter { ValueType = objectType, Format = format };
+            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
             if (objectType == typeof(bool))
               InternalTypeConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
             ExpDataType = objectType;
             return;
           case "float":
           case "double":
-            ValueStringConverter = new NumericTypeConverter { ValueType = objectType, Format = format };
+            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
             ExpDataType = objectType;
             return;
         }
@@ -203,7 +203,7 @@ namespace Qhta.Conversion
         throw new InvalidOperationException($"TypeConverter for {xmlDataType} not found");
     }
 
-    private DateTimeTypeConverter CreateDateTimeTypeConverter(DateTimeFormatMode mode, string? format, CultureInfo? culture,
+    private DateTimeTypeConverter CreateDateTimeTypeConverter(DateTimeConversionMode mode, string? format, CultureInfo? culture,
       ConversionOptions? options)
     {
       var result = new DateTimeTypeConverter

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jwvT7/bQUMxKgEQMm/Rr8mAZRudHwDxgsYj+uVLliggyuZ0GGo2qqWcbNkGPYIiyTiFgsBj5f6Wm746nJiMl8A==",
+  "dgSpecHash": "8KtgbCYLCsA/bguqjdN9JYrR29pXigTGTSfNeGqpw4SCUVTrgTmt9jyBDtWWiZaHvMcSdTnlIBiOHw0zJ7s3XA==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\1.0.0\\qhta.collections.1.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

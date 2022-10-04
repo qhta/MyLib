@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ConversionTest\**" />
+    <EmbeddedResource Remove="ConversionTest\**" />
+    <None Remove="ConversionTest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.Collections\Qhta.Collections.csproj" />
     <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
   </ItemGroup>
 
 </Project>

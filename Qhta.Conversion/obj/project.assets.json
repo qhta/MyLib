@@ -2,6 +2,16 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Qhta.Collections/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Qhta.Collections.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Collections.dll": {}
+        }
+      },
       "Qhta.TypeUtils/1.2.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -15,6 +25,11 @@
     }
   },
   "libraries": {
+    "Qhta.Collections/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.Collections/Qhta.Collections.csproj",
+      "msbuildProject": "../Qhta.Collections/Qhta.Collections.csproj"
+    },
     "Qhta.TypeUtils/1.2.1": {
       "type": "project",
       "path": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj",
@@ -23,6 +38,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Qhta.Collections >= 1.0.0",
       "Qhta.TypeUtils >= 1.2.1"
     ]
   },
@@ -58,6 +74,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj"
+            },
             "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
             }

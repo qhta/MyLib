@@ -4,7 +4,6 @@
     <id>Qhta.Collections</id>
     <version>1.0.0</version>
     <authors>Qhta.Collections</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />

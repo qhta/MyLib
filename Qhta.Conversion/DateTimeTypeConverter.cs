@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace Qhta.Conversion;
 
-public enum DateTimeFormatMode
+public enum DateTimeConversionMode
 {
   Default,
   DateTime,
@@ -15,7 +15,7 @@ public enum DateTimeFormatMode
 
 public class DateTimeTypeConverter : TypeConverter
 {
-  public DateTimeFormatMode Mode { get; set; }
+  public DateTimeConversionMode Mode { get; set; }
 
   /// <summary>
   /// The character to insert between the date and time when serializing a DateTime value.
@@ -65,17 +65,17 @@ public class DateTimeTypeConverter : TypeConverter
         if (format == null)
           switch (Mode)
           {
-            case DateTimeFormatMode.DateTime:
+            case DateTimeConversionMode.DateTime:
               format = "yyyy-MM-dd" + DateTimeSeparator + "HH:mm:ss";
               if (ShowSecondsFractionalPart)
                 format += ".fffffff";
               if (ShowTimeZone)
                 format += "zzz";
               break;
-            case DateTimeFormatMode.DateOnly:
+            case DateTimeConversionMode.DateOnly:
               format = "yyyy-MM-dd";
               break;
-            case DateTimeFormatMode.TimeOnly:
+            case DateTimeConversionMode.TimeOnly:
               format = "HH:mm:ss";
               if (ShowSecondsFractionalPart)
                 format += ".fffffff";
@@ -123,7 +123,7 @@ public class DateTimeTypeConverter : TypeConverter
     {
       var result = DateTime.Parse(str);
 
-      if (Mode == DateTimeFormatMode.TimeOnly)
+      if (Mode == DateTimeConversionMode.TimeOnly)
       {
         var timeOnly = TimeOnly.FromDateTime(result);
         var dateOnly = new DateOnly(1, 1, 1);

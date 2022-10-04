@@ -15,4 +15,5 @@ D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.pdb
 D:\VS\Projects\MyLib\bin\Qhta.Collections.deps.json
 D:\VS\Projects\MyLib\bin\Qhta.Collections.dll
 D:\VS\Projects\MyLib\bin\Qhta.Collections.pdb
-D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.csprojAssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\Qhta.Collections.GeneratedMSBuildEditorConfig.editorconfig
