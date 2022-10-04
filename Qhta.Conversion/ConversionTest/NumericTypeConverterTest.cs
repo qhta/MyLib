@@ -545,4 +545,65 @@ public class NumericTypeConverterTest
         Assert.That(value2, Is.EqualTo(value));
     }
   }
+
+  [Test]
+  public void TestHexFormatNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter{Format = "X"};
+    var value = 0x1234567890ABCDEF;
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo("1234567890ABCDEF"));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestHexSmallFormatNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { Format = "x" };
+    var value = 0x1234567890ABCDEF;
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo("1234567890abcdef"));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestExpectedTypeNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter{ ExpectedType = typeof(byte) };
+    var value = 255;
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo(value.ToString()));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+      Assert.That(value2, Is.TypeOf<byte>());
+    }
+  }
+
+  [Test]
+  public void TestExpectedTypeOverflowNumericTypeConverter()
+  {
+    Assert.Throws(typeof(OverflowException), () =>
+    {
+      var converter = new NumericTypeConverter { ExpectedType = typeof(byte) };
+      var value = 256;
+      var str = converter.ConvertTo(value, typeof(string));
+      Assert.That(str, Is.EqualTo(value.ToString()));
+      if (str != null)
+      {
+        var value2 = converter.ConvertFrom(str);
+        Assert.That(value2, Is.EqualTo(value));
+        Assert.That(value2, Is.TypeOf<byte>());
+      }
+    });
+  }
 }

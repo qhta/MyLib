@@ -10,7 +10,7 @@ public class ConversionOptions
   /// <summary>
   /// Specifies whether to display the fractional part of seconds when serializing a DateTime value.
   /// </summary>
-  public bool ShowSecondsFractionalPart { get; set; }
+  public bool ShowFullTime { get; set; }
 
   /// <summary>
   /// Specifies whether to display the time zone when serializing a DateTime value.

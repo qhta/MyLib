@@ -209,13 +209,13 @@ namespace Qhta.Conversion
       var result = new DateTimeTypeConverter
       {
         Mode = mode,
-        Format = format,
-        Culture = culture,
+        //Format = format,
+        //Culture = culture,
       };
       if (options != null)
       {
         result.DateTimeSeparator = options.DateTimeSeparator;
-        result.ShowSecondsFractionalPart = options.ShowSecondsFractionalPart;
+        result.ShowFullTime = options.ShowFullTime;
         result.ShowTimeZone = options.ShowTimeZone;
       }
       return result;

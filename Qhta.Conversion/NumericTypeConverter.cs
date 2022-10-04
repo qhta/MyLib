@@ -88,7 +88,7 @@ public class NumericTypeConverter : TypeConverter
           return Convert.ChangeType(number, ExpectedType, culture);
         return number;
       }
-      return base.ConvertFrom(context, culture, value);
+      throw new InvalidDataException($"NumericTypeConverter cannot convert from string \"{str}\"");
     }
     return base.ConvertFrom(context, culture, value);
   }
