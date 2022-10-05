@@ -25,19 +25,24 @@ public class DateTimeTypeConverter : TypeConverter
   public char DateTimeSeparator { get; set; } = ' ';
 
   /// <summary>
-  /// Specifies whether to display the fractional part of seconds when serializing a DateTime value.
+  /// Specifies whether to add the fractional part of seconds to time format.
   /// </summary>
   public bool ShowFullTime { get; set; }
 
   /// <summary>
-  /// Specifies whether to display the time zone when serializing a DateTime value.
+  /// Specifies whether to add the time zone to time format.
   /// </summary>
   public bool ShowTimeZone { get; set; }
 
-  ///// <summary>
-  ///// It can be DateTimeFormat or string.
-  ///// </summary>
-  //public object? Format { get; set; }
+  /// <summary>
+  /// Specifies format for ConvertTo method.
+  /// </summary>
+  public string? Format { get; set; }
+
+  public DateTimeFormatInfo? FormatInfo  {get; set;}
+
+  public DateTimeStyles DateTimeStyle { get; set;}
+
 
   //public CultureInfo? Culture { get; set; }
 
@@ -66,25 +71,26 @@ public class DateTimeTypeConverter : TypeConverter
     {
       if (destinationType == typeof(string))
       {
-        string? format = null;
-        switch (mode)
-        {
-          case DateTimeConversionMode.DateTime:
-            format = GetDateTimeFormat(culture);
-            break;
-          case DateTimeConversionMode.DateOnly:
-            format = GetDateFormat(culture);
-            break;
-          case DateTimeConversionMode.TimeOnly:
-            format = GetTimeFormat(culture);
-            break;
-          default:
-            if (dt.TimeOfDay.TotalMilliseconds == 0)
-              format = GetDateFormat(culture);
-            else
+        string? format = Format;
+        if (format == null)
+          switch (mode)
+          {
+            case DateTimeConversionMode.DateTime:
               format = GetDateTimeFormat(culture);
-            break;
-        }
+              break;
+            case DateTimeConversionMode.DateOnly:
+              format = GetDateFormat(culture);
+              break;
+            case DateTimeConversionMode.TimeOnly:
+              format = GetTimeFormat(culture);
+              break;
+            default:
+              if (dt.TimeOfDay.TotalMilliseconds == 0)
+                format = GetDateFormat(culture);
+              else
+                format = GetDateTimeFormat(culture);
+              break;
+          }
         return dt.ToString(format);
       }
     }
@@ -99,15 +105,18 @@ public class DateTimeTypeConverter : TypeConverter
 
   private string GetDateFormat(CultureInfo? culture)
   {
+
     if (culture != null)
       return culture.DateTimeFormat.ShortDatePattern;
+    if (FormatInfo != null)
+      return FormatInfo.ShortDatePattern;
     var format = "yyyy-MM-dd";
     return format;
   }
 
   private string GetTimeFormat(CultureInfo? culture)
   {
-    var format = culture!=null ? culture.DateTimeFormat.LongTimePattern : "HH:mm:ss";
+    var format = culture?.DateTimeFormat.LongTimePattern ?? FormatInfo?.ShortTimePattern ?? "HH:mm:ss";
     if (ShowFullTime)
       format += ".FFFFFFF";
     if (ShowTimeZone)
@@ -131,8 +140,9 @@ public class DateTimeTypeConverter : TypeConverter
     {
       if (str == String.Empty)
         return null;
-
-      var result = (culture != null) ? DateTime.Parse(str, culture) : DateTime.Parse(str);
+      var style = DateTimeStyle;
+      var result = (culture != null) ? DateTime.Parse(str, culture, style) 
+        : (FormatInfo != null) ? DateTime.Parse(str, FormatInfo, style) : DateTime.Parse(str, null, style);
 
       if (ExpectedType == typeof(DateOnly))
         return DateOnly.FromDateTime(result);

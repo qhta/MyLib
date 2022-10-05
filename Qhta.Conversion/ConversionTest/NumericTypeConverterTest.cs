@@ -606,4 +606,48 @@ public class NumericTypeConverterTest
       }
     });
   }
+
+  [Test]
+  public void TestLeadingSpacesNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { NumberStyle = NumberStyles.AllowLeadingWhite };
+    var value = 123;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo("123"));
+    if (str != null)
+    {
+      str = "   "+str;
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestTrailingSpacesNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { NumberStyle = NumberStyles.AllowTrailingWhite };
+    var value = 123;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo("123"));
+    if (str != null)
+    {
+      str = str + "   ";
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestGroupingThousandsNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { Format="###,###,###", NumberStyle = NumberStyles.AllowThousands };
+    var value = 123456789;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo("123,456,789"));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
 }

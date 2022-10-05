@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using NUnit.Framework;
 
@@ -248,7 +249,7 @@ public class DateTimeTypeConverterTest
     var culture = CultureInfo.InvariantCulture;
     var converter = new DateTimeTypeConverter();
     var now = DateTime.Now;
-    var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+    var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(null, culture, value, typeof(string));
     var dtFormat = culture.DateTimeFormat;
     var format = dtFormat.ShortDatePattern + ' ' + dtFormat.LongTimePattern;
@@ -260,4 +261,70 @@ public class DateTimeTypeConverterTest
     }
   }
 
+  [Test]
+  public void TestFormattedDateTimeTypeConverter()
+  {
+    var dtFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+    var format = dtFormat.LongDatePattern + ' ' + dtFormat.ShortTimePattern;
+    var converter = new DateTimeTypeConverter{ Format = format };
+    var now = DateTime.Now;
+    var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo(value.ToString(format)));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestFormattedTimeOnlyDateTimeTypeConverter()
+  {
+    var dtFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+    var format = dtFormat.ShortTimePattern;
+    var converter = new DateTimeTypeConverter { Format = format, ExpectedType = typeof(TimeOnly) };
+    var now = DateTime.Now;
+    var value = new TimeOnly(now.Hour, now.Minute, 0);
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo(value.ToString(format)));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestFormatInfoDateTimeTypeConverter()
+  {
+    var dtFormat = CultureInfo.InvariantCulture.DateTimeFormat;
+    var format = dtFormat.ShortDatePattern + ' ' + dtFormat.ShortTimePattern;
+    var converter = new DateTimeTypeConverter { Format = format, FormatInfo = CultureInfo.InvariantCulture.DateTimeFormat };
+    var now = DateTime.Now;
+    var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo(value.ToString(format)));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestStyleDateTimeTypeConverter()
+  {
+    var converter = new DateTimeTypeConverter { DateTimeStyle = DateTimeStyles.AssumeUniversal };
+    var now = DateTime.Now;
+    var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-dd HH:mm:ss")));
+    if (str != null)
+    {
+      str = str.Insert(10, "T");
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value.AddHours(+2)));
+    }
+  }
 }

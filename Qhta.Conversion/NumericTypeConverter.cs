@@ -18,7 +18,7 @@ public class NumericTypeConverter : TypeConverter
       {
         _Format = value;
         if (_Format != null && (_Format.Contains('X', StringComparison.InvariantCultureIgnoreCase)))
-          NumberStyle = NumberStyles.HexNumber;
+          NumberStyle |= NumberStyles.HexNumber;
       }
     }
   }
@@ -104,8 +104,7 @@ public class NumericTypeConverter : TypeConverter
       culture = CultureInfo.InvariantCulture;
     if (str.Contains("E+", StringComparison.Ordinal) || str.Contains("E-", StringComparison.Ordinal))
     {
-      if (numberStyle == NumberStyles.None)
-        numberStyle = NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
+      numberStyle |= NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
       if (double.TryParse(str, numberStyle, culture, out var dbl))
       {
         value = dbl;
@@ -115,8 +114,7 @@ public class NumericTypeConverter : TypeConverter
     }
     if (str.Contains(culture.NumberFormat.NumberDecimalSeparator))
     {
-      if (numberStyle == NumberStyles.None)
-        numberStyle = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
+      numberStyle |= NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
       if (decimal.TryParse(str, numberStyle, culture, out var dm))
       {
         value = dm;
@@ -124,11 +122,10 @@ public class NumericTypeConverter : TypeConverter
       }
       return false;
     }
-    if (str[0] == '-')
+    if (str.Contains(culture.NumberFormat.NegativeSign))
     {
-      if (numberStyle == NumberStyles.None)
-        numberStyle= NumberStyles.AllowLeadingSign;
-      if (Int64.TryParse(str, out var i64))
+      numberStyle |= NumberStyles.AllowLeadingSign;
+      if (Int64.TryParse(str, numberStyle, culture, out var i64))
       {
         if (i64 >= Int32.MinValue)
           value = (Int32)i64;
@@ -136,7 +133,7 @@ public class NumericTypeConverter : TypeConverter
           value = i64;
         return true;
       }
-      if (decimal.TryParse(str, out var dm))
+      if (decimal.TryParse(str, numberStyle, culture, out var dm))
       {
         value = dm;
         return true;
@@ -150,19 +147,7 @@ public class NumericTypeConverter : TypeConverter
     }
     else
     {
-      if (numberStyle.HasFlag(NumberStyles.HexNumber))
-      {
-        if (UInt64.TryParse(str, numberStyle, culture, out var uhex))
-        {
-          if (uhex <= Int32.MaxValue)
-            value = (Int32)uhex;
-          else
-            value = uhex;
-          return true;
-        }
-        return false;
-      }
-      if (UInt64.TryParse(str, out var u64))
+      if (UInt64.TryParse(str, numberStyle, culture, out var u64))
       {
         if (u64 <= Int32.MaxValue)
           value = (Int32)u64;
@@ -170,23 +155,22 @@ public class NumericTypeConverter : TypeConverter
           value = u64;
         return true;
       }
-      if (decimal.TryParse(str, out var dm))
+      if (decimal.TryParse(str, numberStyle, culture, out var dm))
       {
         value = dm;
         return true;
       }
+      if (String.Equals(str, "NaN", StringComparison.InvariantCultureIgnoreCase))
+      {
+        value = double.NaN;
+        return true;
+      }
+      if (str.StartsWith("INF", StringComparison.InvariantCultureIgnoreCase))
+      {
+        value = double.PositiveInfinity;
+        return true;
+      }
+      return false;
     }
-    if (String.Equals(str, "NaN", StringComparison.InvariantCultureIgnoreCase))
-    {
-      value = double.NaN;
-      return true;
-    }
-    if (str.StartsWith("INF", StringComparison.InvariantCultureIgnoreCase))
-    {
-      value = double.PositiveInfinity;
-      return true;
-    }
-    return false;
   }
-
 }
