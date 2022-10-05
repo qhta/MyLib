@@ -264,7 +264,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestFormattedDateTimeTypeConverter()
   {
-    var dtFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+    var dtFormat = CultureInfo.InvariantCulture.DateTimeFormat;
     var format = dtFormat.LongDatePattern + ' ' + dtFormat.ShortTimePattern;
     var converter = new DateTimeTypeConverter{ Format = format };
     var now = DateTime.Now;

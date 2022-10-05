@@ -138,8 +138,11 @@ public class DateTimeTypeConverter : TypeConverter
       if (str == String.Empty)
         return null;
       var style = DateTimeStyle;
-      var result = (culture != null) ? DateTime.Parse(str, culture, style) 
-        : (FormatInfo != null) ? DateTime.Parse(str, FormatInfo, style) : DateTime.Parse(str, null, style);
+      var format = Format;
+      var result = (format!=null) ? DateTime.ParseExact(str, format, culture, style)
+        : (culture != null) ? DateTime.Parse(str, culture, style) 
+        : (FormatInfo != null) ? DateTime.Parse(str, FormatInfo, style) 
+        : DateTime.Parse(str, null, style);
 
       if (ExpectedType == typeof(DateOnly))
         return DateOnly.FromDateTime(result);
