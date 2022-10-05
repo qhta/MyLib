@@ -43,9 +43,6 @@ public class DateTimeTypeConverter : TypeConverter
 
   public DateTimeStyles DateTimeStyle { get; set;}
 
-
-  //public CultureInfo? Culture { get; set; }
-
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
