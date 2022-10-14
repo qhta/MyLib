@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 using NUnit.Framework;
 
@@ -20,7 +21,7 @@ public class TimeSpanTypeConverterTest
   [Test]
   public void TestNullTimeSpanTypeConverter()
   {
-    var converter = new TimeSpanTypeConverter();
+    var converter = new TimeSpanTypeConverter(); 
     object? value = null;
     var str = converter.ConvertTo(value, typeof(string));
     Assert.That(str, Is.Null);
@@ -83,4 +84,47 @@ public class TimeSpanTypeConverterTest
     }
   }
 
+  [Test]
+  public void TestGenericFormatTimeSpanTypeConverter()
+  {
+    var converter = new TimeSpanTypeConverter { Format = "G" };
+    var now = DateTime.Now;
+    var value = now-new DateTime(2000,1,1);
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo(value.ToString("G", CultureInfo.InvariantCulture)));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestDurationFormatTimeSpanTypeConverter()
+  {
+    var converter = new TimeSpanTypeConverter { Format = "D" };
+    var now = DateTime.Now;
+    var value = now - new DateTime(2000, 1, 1);
+    value = new TimeSpan(value.Days, value.Hours, value.Minutes, value.Seconds, value.Milliseconds);
+    var str = converter.ConvertTo(value, typeof(string));
+    var str2 = value.ToString("g", CultureInfo.InvariantCulture);
+    var chars = str2.ToArray();
+    string replacements = "DHMS";
+    int k = 0;
+    for (int i = 0; i < chars.Length; i++)
+    {
+      if (chars[i] == ':')
+        chars[i] = replacements[k++];
+    }
+    k = str2.IndexOf('.');
+    if (k < 0)
+      k = chars.Length;
+    str2 = "P"+new string(chars[0..k])+(value.Milliseconds/1000.0).ToString(".####",CultureInfo.InvariantCulture)+'S';
+    Assert.That(str, Is.EqualTo(str2));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
 }

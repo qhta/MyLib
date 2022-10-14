@@ -17,7 +17,7 @@ public class HexBinaryConverterTest
   [Test]
   public void TestNullHexBinaryTypeConverter()
   {
-    var converter = new HexBinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.HexBinary };
     byte[]? bytes1 = null;
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.Null);
@@ -28,7 +28,7 @@ public class HexBinaryConverterTest
   [Test]
   public void TestEmptyHexBinaryTypeConverter()
   {
-    var converter = new HexBinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.HexBinary };
     byte[]? bytes1 = new byte[0];
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.EqualTo(""));
@@ -42,7 +42,7 @@ public class HexBinaryConverterTest
   [Test]
   public void TestZeroHexBinaryTypeConverter()
   {
-    var converter = new HexBinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.HexBinary };
     byte[]? bytes1 = new byte[256];
     var str = converter.ConvertTo(bytes1, typeof(string));
     if (str != null)
@@ -55,7 +55,7 @@ public class HexBinaryConverterTest
   [Test]
   public void TestShortHexBinaryTypeConverter()
   {
-    var converter = new HexBinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.HexBinary };
     byte[]? bytes1 = new byte[256];
     for (int i = 0; i < 256; i++)
       bytes1[i]=(byte)i;
@@ -71,7 +71,7 @@ public class HexBinaryConverterTest
   public void TestLongHexBinaryTypeConverter()
   {
     int lenth = 1000000;
-    var converter = new HexBinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.HexBinary };
     byte[]? bytes1 = new byte[lenth];
     for (int i = 0; i < lenth; i++)
       bytes1[i] = (byte)i;
@@ -90,7 +90,7 @@ public class HexBinaryConverterTest
       Assert.Throws(typeof(OutOfMemoryException), () =>
       {
         int maxLength = int.MaxValue;
-        var converter = new HexBinaryTypeConverter();
+        var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.HexBinary };
         byte[]? bytes1 = new byte[maxLength];
         for (int i = 0; i < maxLength; i++)
           bytes1[i] = (byte)i;

@@ -17,7 +17,7 @@ public class Base64BinaryConverterTest
   [Test]
   public void TestNullBase64BinaryTypeConverter()
   {
-    var converter = new Base64BinaryTypeConverter();
+    var converter = new ArrayTypeConverter{ Mode = ByteArrayConversionMode.Base64Binary};
     byte[]? bytes1 = null;
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.Null);
@@ -28,7 +28,7 @@ public class Base64BinaryConverterTest
   [Test]
   public void TestEmptyBase64BinaryTypeConverter()
   {
-    var converter = new Base64BinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.Base64Binary };
     byte[]? bytes1 = new byte[0];
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.EqualTo(""));
@@ -42,7 +42,7 @@ public class Base64BinaryConverterTest
   [Test]
   public void TestZeroBase64BinaryTypeConverter()
   {
-    var converter = new Base64BinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.Base64Binary };
     byte[]? bytes1 = new byte[256];
     var str = converter.ConvertTo(bytes1, typeof(string));
     if (str != null)
@@ -55,7 +55,7 @@ public class Base64BinaryConverterTest
   [Test]
   public void TestShortBase64BinaryTypeConverter()
   {
-    var converter = new Base64BinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.Base64Binary };
     byte[]? bytes1 = new byte[256];
     for (int i = 0; i < 256; i++)
       bytes1[i] = (byte)i;
@@ -71,7 +71,7 @@ public class Base64BinaryConverterTest
   public void TestLongBase64BinaryTypeConverter()
   {
     int lenth = 10000000;
-    var converter = new Base64BinaryTypeConverter();
+    var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.Base64Binary };
     byte[]? bytes1 = new byte[lenth];
     for (int i = 0; i < lenth; i++)
       bytes1[i] = (byte)i;
@@ -89,7 +89,7 @@ public class Base64BinaryConverterTest
     Assert.Throws(typeof(OutOfMemoryException), () =>
     {
       int maxLength = int.MaxValue;
-      var converter = new Base64BinaryTypeConverter();
+      var converter = new ArrayTypeConverter { Mode = ByteArrayConversionMode.Base64Binary };
       byte[]? bytes1 = new byte[maxLength];
       for (int i = 0; i < maxLength; i++)
         bytes1[i] = (byte)i;

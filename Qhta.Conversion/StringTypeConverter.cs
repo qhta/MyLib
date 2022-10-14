@@ -9,6 +9,10 @@ namespace Qhta.Conversion;
 
 public class StringTypeConverter : StringConverter
 {
+  public Type ExpectedType { get; set; } = typeof(string);
+
+  public int MaxLength { get; set; }
+
   public bool UseEscapeSequences { get; set; }
   public bool UseHtmlEntities { get; set; }
   public bool HexEntities { get; set; }
@@ -35,12 +39,6 @@ public class StringTypeConverter : StringConverter
     { '&', "&amp;" },
     { '"', "&quot;" },
     { '\'', "&apos;" },
-    { '¢', "&cent;" },
-    { '£', "&pound;" },
-    { '¥', "&yen;" },
-    { '€', "&euro;" },
-    { '©', "&copy;" },
-    { '®', "&reg;" },
   };
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
@@ -52,6 +50,8 @@ public class StringTypeConverter : StringConverter
   {
     if (value is null)
       return null;
+    if (value is char ch)
+      value = ch.ToString();
     if (value is string str)
     {
       if (UseEscapeSequences)
@@ -77,13 +77,17 @@ public class StringTypeConverter : StringConverter
       return null;
     if (value is string str)
     {
+      var result = str;
       if (UseEscapeSequences)
-        return DecodeEscapeSequences(str);
+        result = DecodeEscapeSequences(str);
       else
       if (UseHtmlEntities)
-        return DecodeHtmlEntities(str);
-      else
-        return str;
+        result = DecodeHtmlEntities(str);
+      if (MaxLength>0 && result.Length > MaxLength)
+        result = result.Substring(0, MaxLength);
+      if (ExpectedType == typeof(char))
+        return result.FirstOrDefault();
+      return result;
     }
     return base.ConvertFrom(context, culture, value);
   }
@@ -164,86 +168,86 @@ public class StringTypeConverter : StringConverter
         }
       }
     }
-    if (start<str.Length)
+    if (start < str.Length)
       sb.Append(str.Substring(start, str.Length - start));
     var result = sb.ToString();
     return result;
   }
 
-public string EncodeHtmlEntities(string str)
-{
-  var sb = new StringBuilder();
-  int start = 0;
-  for (int i = 0; i < str.Length; i++)
+  public string EncodeHtmlEntities(string str)
   {
-    var ch = str[i];
-    string? entity = null;
-    if (char.IsControl(ch) || HtmlEntities.TryGetValue2(ch, out entity))
+    var sb = new StringBuilder();
+    int start = 0;
+    for (int i = 0; i < str.Length; i++)
     {
-      if (i > start)
-        sb.Append(str.Substring(start, i - start));
-      start = i + 1;
-      if (!String.IsNullOrEmpty(entity))
-        sb.Append(entity);
-      else if (ch <= '\x7F')
+      var ch = str[i];
+      string? entity = null;
+      if (char.IsControl(ch) || HtmlEntities.TryGetValue2(ch, out entity))
       {
-        if (HexEntities)
-          sb.Append($"&#x{(byte)ch:X2};");
+        if (i > start)
+          sb.Append(str.Substring(start, i - start));
+        start = i + 1;
+        if (!String.IsNullOrEmpty(entity))
+          sb.Append(entity);
+        else if (ch <= '\x7F')
+        {
+          if (HexEntities)
+            sb.Append($"&#x{(byte)ch:X2};");
+          else
+            sb.Append($"&#{(byte)ch};");
+        }
         else
-          sb.Append($"&#{(byte)ch};");
-      }
-      else
-      {
-        if (HexEntities)
-          sb.Append($"&#x{(UInt16)ch:X4};");
-        else
-          sb.Append($"&#{(UInt16)ch};");
+        {
+          if (HexEntities)
+            sb.Append($"&#x{(UInt16)ch:X4};");
+          else
+            sb.Append($"&#{(UInt16)ch};");
+        }
       }
     }
+    if (start < str.Length)
+      sb.Append(str.Substring(start, str.Length - start));
+    var result = sb.ToString();
+    return result;
   }
-  if (start < str.Length)
-    sb.Append(str.Substring(start, str.Length - start));
-  var result = sb.ToString();
-  return result;
-}
 
-public string DecodeHtmlEntities(string str)
-{
-  var sb = new StringBuilder();
-  int start = 0;
-  for (int i = 0; i < str.Length; i++)
+  public string DecodeHtmlEntities(string str)
   {
-    if (i < str.Length - 1 && str[i] == '&')
+    var sb = new StringBuilder();
+    int start = 0;
+    for (int i = 0; i < str.Length; i++)
     {
-      var k = str.IndexOf(';', i + 2, Math.Min(str.Length - i - 2, 10));
-      if (k > i)
+      if (i < str.Length - 1 && str[i] == '&')
       {
-        char? charValue = null;
-        if (i < str.Length - 2 && str[i + 1] == '#')
+        var k = str.IndexOf(';', i + 2, Math.Min(str.Length - i - 2, 10));
+        if (k > i)
         {
-          if (str[i + 2] == 'x')
-            charValue = Convert.ToChar(Convert.ToInt32(str.Substring(i + 3, k - i - 3), 16));
-          else if (str[i + 2] is >= '0' && str[i + 2] <= '9')
-            charValue = Convert.ToChar(Convert.ToInt32(str.Substring(i + 2, k - i - 2), 10));
-        }
-        else
-        if (HtmlEntities.TryGetValue1(str.Substring(i, k - i + 1), out var charVal))
-          charValue = charVal;
-        if (charValue != null)
-        {
-          if (start < i)
-            sb.Append(str.Substring(start, i - start));
-          sb.Append(charValue);
-          i = k;
-          start = i + 1;
+          char? charValue = null;
+          if (i < str.Length - 2 && str[i + 1] == '#')
+          {
+            if (str[i + 2] == 'x')
+              charValue = Convert.ToChar(Convert.ToInt32(str.Substring(i + 3, k - i - 3), 16));
+            else if (str[i + 2] is >= '0' && str[i + 2] <= '9')
+              charValue = Convert.ToChar(Convert.ToInt32(str.Substring(i + 2, k - i - 2), 10));
+          }
+          else
+          if (HtmlEntities.TryGetValue1(str.Substring(i, k - i + 1), out var charVal))
+            charValue = charVal;
+          if (charValue != null)
+          {
+            if (start < i)
+              sb.Append(str.Substring(start, i - start));
+            sb.Append(charValue);
+            i = k;
+            start = i + 1;
+          }
         }
       }
     }
+    if (start < str.Length)
+      sb.Append(str.Substring(start, str.Length - start));
+    var result = sb.ToString();
+    return result;
   }
-  if (start < str.Length)
-    sb.Append(str.Substring(start, str.Length - start));
-  var result = sb.ToString();
-  return result;
-}
 
 }

@@ -9,22 +9,20 @@ namespace Qhta.Conversion
 {
   public class ValueTypeConverter : TypeConverter
   {
-    protected readonly TypeConverter? InternalTypeConverter;
-    protected readonly TypeConverter ValueStringConverter;
+    protected TypeConverter? InternalTypeConverter {get; set;}
+    protected TypeConverter? InternalConverter { get; set; }
+
     /// <summary>
     /// Declared in constructor as parameter
     /// </summary>
-    public readonly Type ObjectType;
-    /// <summary>
-    /// Declared in constructor as parameter
-    /// </summary>
-    public readonly string? XmlDataType;
+    public string? XmlDataType { get; set; }
+
     /// <summary>
     /// A type resulting from XmlDataType
     /// </summary>
-    public readonly Type ExpDataType;
+    public Type ExpectedType { get; set; } /*= typeof(object)*/
 
-    private readonly Dictionary<string, Type[]> XmlDataToType = new Dictionary<string, Type[]>
+    private static readonly Dictionary<string, Type[]> XmlDataToType = new Dictionary<string, Type[]>
     {
       { "base64Binary", new Type[] { typeof(byte[]) } },
       { "hexBinary", new Type[] { typeof(byte[]) } },
@@ -78,7 +76,7 @@ namespace Qhta.Conversion
       { "token", new Type[] { typeof(String) } },
     };
 
-    private readonly Dictionary<Type, TypeConverter> StandardTypeConverters = new Dictionary<Type, TypeConverter>
+    private static readonly Dictionary<Type, TypeConverter> StandardTypeConverters = new Dictionary<Type, TypeConverter>
     {
       { typeof(string), new StringTypeConverter() },
       { typeof(bool), new BooleanTypeConverter() },
@@ -98,71 +96,74 @@ namespace Qhta.Conversion
       { typeof(TimeOnly), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.TimeOnly } },
     };
 
-    private readonly Dictionary<string, TypeConverter> SpecialTypeConverters = new Dictionary<string, TypeConverter>
+    private static readonly Dictionary<string, TypeConverter> SpecialTypeConverters = new Dictionary<string, TypeConverter>
     {
 
-      { "base64Binary", new Base64BinaryTypeConverter() },
-      { "hexBinary", new HexBinaryTypeConverter() },
+      //{ "base64Binary", new ArrayTypeConverter() },
+      //{ "hexBinary", new ArrayTypeConverter() },
       { "date", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.DateOnly } },
       { "dateTime", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.DateTime} },
       { "time", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.TimeOnly } },
-      { "defaultDateTime", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.Default } },
+      //{ "defaultDateTime", new DateTimeTypeConverter{ Mode=DateTimeConversionMode.Default } },
     };
 
-    public ValueTypeConverter(Type objectType, string? xmlDataType, string? format, CultureInfo? culture, ConversionOptions? options = null)
+    //public ValueTypeConverter()
+    //{}
+
+    public ValueTypeConverter(Type expectedType, string? xmlDataType = null, string? format = null, CultureInfo? culture = null, ConversionOptions? options = null)
     {
-      if (objectType.IsNullable(out var baseType))
-        objectType = baseType;
-      ObjectType = objectType;
+      if (expectedType.IsNullable(out var baseType))
+        expectedType = baseType;
+      ExpectedType = expectedType;
       if (string.IsNullOrEmpty(xmlDataType))
       {
-        if (!StandardTypeConverters.TryGetValue(objectType, out var standardTypeConverter))
-          throw new InvalidOperationException($"XmlDataType for {objectType.Name} not found");
-        ValueStringConverter = standardTypeConverter;
-        //XmlDataType = xmlDataType;
-        ExpDataType = objectType;
+        if (!StandardTypeConverters.TryGetValue(expectedType, out var standardTypeConverter))
+          throw new InvalidOperationException($"XmlDataType for {expectedType.Name} not found");
+        InternalConverter = standardTypeConverter;
+        ExpectedType = expectedType;
         return;
       }
       else
       {
         if (!XmlDataToType.TryGetValue(xmlDataType, out var allowedTypes))
           throw new InvalidOperationException($"Unrecognized XmlDataType \"{xmlDataType}\"");
-        if (!allowedTypes.Contains(objectType))
-          throw new InvalidOperationException($"XmlDataType {xmlDataType} can not be applied to {objectType.Name}");
+        if (!allowedTypes.Contains(expectedType))
+          throw new InvalidOperationException($"XmlDataType {xmlDataType} can not be applied to {expectedType.Name}");
         XmlDataType = xmlDataType;
-        ExpDataType = allowedTypes[0];
+        ExpectedType = allowedTypes[0];
       }
-      if (/*xmlDataType!=null ||*/ format != null || culture != null || options != null)
+
+      if (format != null || culture != null || options != null)
       {
         switch (xmlDataType)
         {
           case "date":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.DateOnly, format, culture, options);
+            InternalConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.DateOnly, format, culture, options);
             return;
           case "dateTime":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.DateTime, format, culture, options);
+            InternalConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.DateTime, format, culture, options);
             return;
           case "time":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.TimeOnly, format, culture, options);
+            InternalConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.TimeOnly, format, culture, options);
             return;
           case "defaultDateTime":
-            ValueStringConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.Default, format, culture, options);
+            InternalConverter = CreateDateTimeTypeConverter(DateTimeConversionMode.Default, format, culture, options);
             return;
           case "boolean":
-            ValueStringConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
-            if (objectType != typeof(bool))
-              InternalTypeConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
-            ExpDataType = typeof(bool);
+            InternalConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
+            if (expectedType != typeof(bool))
+              InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
+            ExpectedType = typeof(bool);
             return;
           case "integer":
           case "negativeInteger":
           case "nonNegativeInteger":
           case "nonPositiveInteger":
           case "positiveInteger":
-            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType };
-            if (objectType == typeof(bool))
-              InternalTypeConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
-            ExpDataType = objectType;
+            InternalConverter = new NumericTypeConverter { ExpectedType = expectedType };
+            if (expectedType == typeof(bool))
+              InternalTypeConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
+            ExpectedType = expectedType;
             return;
 
           case "int":
@@ -173,33 +174,33 @@ namespace Qhta.Conversion
           case "ushort":
           case "long":
           case "ulong":
-            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
-            if (objectType == typeof(bool))
-              InternalTypeConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
-            ExpDataType = objectType;
+            InternalConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
+            if (expectedType == typeof(bool))
+              InternalTypeConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
+            ExpectedType = expectedType;
             return;
           case "decimal":
-            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
-            if (objectType == typeof(bool))
-              InternalTypeConverter = CreateBooleanTypeConverter(objectType, format, culture, options);
-            ExpDataType = objectType;
+            InternalConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
+            if (expectedType == typeof(bool))
+              InternalTypeConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
+            ExpectedType = expectedType;
             return;
           case "float":
           case "double":
-            ValueStringConverter = new NumericTypeConverter { ExpectedType = objectType, Format = format };
-            ExpDataType = objectType;
+            InternalConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
+            ExpectedType = expectedType;
             return;
         }
       }
-      if (ValueStringConverter == null && SpecialTypeConverters.TryGetValue(xmlDataType, out var specialConverter))
+      if (InternalConverter == null && SpecialTypeConverters.TryGetValue(xmlDataType, out var specialConverter))
       {
-        ValueStringConverter = specialConverter;
+        InternalConverter = specialConverter;
       }
-      if (ValueStringConverter == null && StandardTypeConverters.TryGetValue(objectType, out var standardConverter))
+      if (InternalConverter == null && StandardTypeConverters.TryGetValue(expectedType, out var standardConverter))
       {
-        ValueStringConverter = standardConverter;
+        InternalConverter = standardConverter;
       }
-      if (ValueStringConverter == null)
+      if (InternalConverter == null)
         throw new InvalidOperationException($"TypeConverter for {xmlDataType} not found");
     }
 
@@ -209,7 +210,7 @@ namespace Qhta.Conversion
       var result = new DateTimeTypeConverter
       {
         Mode = mode,
-        //Format = format,
+        Format = format,
         //Culture = culture,
       };
       if (options != null)
@@ -234,22 +235,22 @@ namespace Qhta.Conversion
       if (culture == null)
         culture = CultureInfo.InvariantCulture;
       if (InternalTypeConverter != null)
-        value = InternalTypeConverter.ConvertTo(context, culture, value, ExpDataType);
-      return ValueStringConverter.ConvertTo(context, culture, value, destinationType);
+        value = InternalTypeConverter.ConvertTo(context, culture, value, ExpectedType);
+      return InternalConverter.ConvertTo(context, culture, value, destinationType);
     }
 
     public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
     {
       if (culture == null)
         culture = CultureInfo.InvariantCulture;
-      if (ExpDataType != ObjectType)
+      if (ExpectedType != ExpectedType)
       {
-        var val = ValueStringConverter.ConvertFrom(context, culture, value);
-        if (val != null && val.GetType() == ObjectType)
+        var val = InternalConverter.ConvertFrom(context, culture, value);
+        if (val != null && val.GetType() == ExpectedType)
           return val;
-        return ValueStringConverter.ConvertTo(context, culture, val, ObjectType);
+        return InternalConverter.ConvertTo(context, culture, val, ExpectedType);
       }
-      return ValueStringConverter.ConvertFrom(context, culture, value);
+      return InternalConverter.ConvertFrom(context, culture, value);
     }
   }
 }

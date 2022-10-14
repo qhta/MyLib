@@ -69,6 +69,41 @@ namespace ConversionTest
     }
 
     [Test]
+    public void TestTooLongStringTypeConverter()
+    {
+      var converter = new StringTypeConverter();
+      var sb = new StringBuilder();
+      for (int i = 0; i < 2; i++)
+        sb.Append("Long string ");
+      string? str1 = sb.ToString(); 
+      converter.MaxLength = "Long string".Length;
+      var str2 = converter.ConvertTo(str1, typeof(string));
+      Assert.That(str2, Is.EqualTo(str1));
+      if (str2 != null)
+      {
+        var str3 = converter.ConvertFrom(str2) as string;
+        Assert.That(str3, Is.EqualTo("Long string"));
+      }
+    }
+
+    [Test]
+    public void TestCharStringTypeConverter()
+    {
+      var converter = new StringTypeConverter { ExpectedType = typeof(char) };
+      var sb = new StringBuilder();
+      string? str1 = "char";
+      converter.MaxLength = "Long string".Length;
+      var str2 = converter.ConvertTo(str1, typeof(string));
+      Assert.That(str2, Is.EqualTo(str1));
+      if (str2 != null)
+      {
+        var str3 = converter.ConvertFrom(str2);
+        Assert.That(str3, Is.TypeOf<Char>());
+        Assert.That(str3, Is.EqualTo('c'));
+      }
+    }
+
+    [Test]
     public void TestAsciiStringTypeConverter()
     {
       var converter = new StringTypeConverter();
