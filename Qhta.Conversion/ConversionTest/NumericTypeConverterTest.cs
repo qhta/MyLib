@@ -650,4 +650,126 @@ public class NumericTypeConverterTest
       Assert.That(value2, Is.EqualTo(value));
     }
   }
+
+
+  [Test]
+  public void TestTotalDigitsNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { TotalDigits=5 };
+    var value = 123;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo("00123"));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestFractionDigitsNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { FractionDigits = 4 };
+    var value = 123.45;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo("123.4500"));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
+  [Test]
+  public void TestMaxExclusiveNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { MaxExclusive = 123 };
+    var value = 124;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+    Assert.Throws(typeof(InvalidDataException), () =>
+    {
+      value = 123;
+      str = converter.ConvertTo(value, typeof(string)) as string;
+      if (str != null)
+      {
+        var value2 = converter.ConvertFrom(str);
+        Assert.That(value2, Is.EqualTo(value));
+      }
+    });
+  }
+
+  [Test]
+  public void TestMinInclusiveNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { MinInclusive = 124 };
+    var value = 124;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+    Assert.Throws(typeof(InvalidDataException), () =>
+    {
+      value = 123;
+      str = converter.ConvertTo(value, typeof(string)) as string;
+      if (str != null)
+      {
+        var value2 = converter.ConvertFrom(str);
+        Assert.That(value2, Is.EqualTo(value));
+      }
+    });
+  }
+
+
+  [Test]
+  public void TestMaxInclusiveNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { MaxInclusive = 123 };
+    var value = 123;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+    Assert.Throws(typeof(InvalidDataException), () =>
+    {
+      value = 124;
+      str = converter.ConvertTo(value, typeof(string)) as string;
+      if (str != null)
+      {
+        var value2 = converter.ConvertFrom(str);
+        Assert.That(value2, Is.EqualTo(value));
+      }
+    });
+  }
+
+  [Test]
+  public void TestMinExclusiveNumericTypeConverter()
+  {
+    var converter = new NumericTypeConverter { MinExclusive = 124 };
+    var value = 123;
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+    Assert.Throws(typeof(InvalidDataException), () =>
+    {
+      value = 124;
+      str = converter.ConvertTo(value, typeof(string)) as string;
+      if (str != null)
+      {
+        var value2 = converter.ConvertFrom(str);
+        Assert.That(value2, Is.EqualTo(value));
+      }
+    });
+  }
 }

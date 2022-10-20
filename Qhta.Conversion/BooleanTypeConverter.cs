@@ -10,7 +10,7 @@ public enum BooleanConversionMode
   OnOff = 2,
 }
 
-public class BooleanTypeConverter : TypeConverter
+public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrictions
 {
   public BooleanConversionMode Mode { get; set; }
 
@@ -52,15 +52,107 @@ public class BooleanTypeConverter : TypeConverter
       if (str == String.Empty)
         return null;
       str = str.ToLowerInvariant();
+      StringComparison comparison;
+      CultureInfo? cultureSave = null;
+      if (culture == null)
+        comparison = (CaseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
+      else
+      if (culture == CultureInfo.InvariantCulture)
+        comparison = (CaseInsensitive ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture);
+      else
+      {
+        comparison = (CaseInsensitive ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture);
+        if (culture != CultureInfo.CurrentCulture)
+        {
+          cultureSave = CultureInfo.CurrentCulture;
+          CultureInfo.CurrentCulture = culture;
+        }
+      }
+      bool? ok = null;
       foreach (var bs in BooleanStrings)
       {
-        if (str.Equals(bs.Item1, StringComparison.InvariantCultureIgnoreCase))
-          return true;
-        if (str.Equals(bs.Item2, StringComparison.InvariantCultureIgnoreCase))
-          return false;
+        if (str.Equals(bs.Item1, comparison))
+        {
+          ok = true;
+          break;
+        }
+        if (str.Equals(bs.Item2, comparison))
+        {
+          ok = false;
+          break;
+        }
       }
+      if (cultureSave != null)
+        CultureInfo.CurrentCulture = cultureSave;
+      if (ok != null)
+        return ok;
     }
     return base.ConvertFrom(context, culture, value);
   }
 
+  /// <summary>
+  /// Unused for this converter
+  /// </summary>
+  public string? Format { get; set; }
+
+  /// <summary>
+  /// Always Boolean.
+  /// </summary>
+  public Type? ExpectedType
+  {
+    get => typeof(Boolean);
+    set { }
+  }
+
+  public XsdSimpleType? XsdType
+  {
+    get
+    {
+      if (Mode == BooleanConversionMode.Boolean) return XsdSimpleType.Boolean;
+      if (Mode == BooleanConversionMode.Numeric) return XsdSimpleType.Integer;
+      if (Mode == BooleanConversionMode.OnOff) return XsdSimpleType.String;
+      return null;
+    }
+    set
+    {
+      if (value == XsdSimpleType.Boolean)
+        Mode = BooleanConversionMode.Boolean;
+      else if (value == XsdSimpleType.Int || value == XsdSimpleType.Integer)
+        Mode = BooleanConversionMode.Numeric;
+      else if (value == XsdSimpleType.String || value == XsdSimpleType.NormalizedString)
+        Mode = BooleanConversionMode.OnOff;
+    }
+  }
+
+  /// <summary>
+  /// Unused for this converter
+  /// </summary>
+  public string[]? Patterns { get; set; }
+
+  /// <summary>
+  /// Set BooleanStrings
+  /// </summary>
+  public string[]? Enumerations 
+  {
+    get
+    {
+      var strs = new List<string>();
+      foreach (var ps in BooleanStrings)
+      {
+        strs.Add(ps.Item1);
+        strs.Add(ps.Item2);
+      }
+      return strs.ToArray();
+    }
+    set
+    {
+      if (value!=null)
+        for (int i = 0; i < value.Length / 2; i += 2)
+        {
+          BooleanStrings[i] = (value[i*2], value[i*2 + 1]);
+        }
+    }
+  }
+  
+  public bool CaseInsensitive { get; set; } = true;
 }

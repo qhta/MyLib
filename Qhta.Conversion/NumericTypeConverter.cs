@@ -5,9 +5,61 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class NumericTypeConverter : TypeConverter
+public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestrictions
 {
   public Type? ExpectedType { get; set; }
+
+  public XsdSimpleType? XsdType
+  {
+    get => _XsdType;
+    set
+    {
+      _XsdType = value;
+      if (ExpectedType == null)
+      {
+        if (value == XsdSimpleType.Byte)
+          ExpectedType = typeof(SByte);
+        else
+        if (value == XsdSimpleType.UnsignedByte)
+          ExpectedType = typeof(Byte);
+        else
+        if (value == XsdSimpleType.Short)
+          ExpectedType = typeof(Int16);
+        else
+        if (value == XsdSimpleType.UnsignedShort)
+          ExpectedType = typeof(UInt16);
+        else
+        if (value == XsdSimpleType.Int)
+          ExpectedType = typeof(Int32);
+        else
+        if (value == XsdSimpleType.UnsignedInt)
+          ExpectedType = typeof(UInt32);
+        else
+        if (value == XsdSimpleType.Long)
+          ExpectedType = typeof(Int64);
+        else
+        if (value == XsdSimpleType.UnsignedLong)
+          ExpectedType = typeof(UInt64);
+        else
+        if (value == XsdSimpleType.UnsignedLong)
+          ExpectedType = typeof(UInt64);
+        else
+        if (value == XsdSimpleType.Decimal)
+          ExpectedType = typeof(Decimal);
+        else
+        if (value == XsdSimpleType.Float)
+          ExpectedType = typeof(Single);
+        else
+        if (value == XsdSimpleType.Double)
+          ExpectedType = typeof(Double);
+        else
+        if (value == XsdSimpleType.Integer || value == XsdSimpleType.PositiveInteger || value == XsdSimpleType.NegativeInteger
+          || value == XsdSimpleType.NonNegativeInteger || value == XsdSimpleType.NonPositiveInteger)
+          ExpectedType = typeof(Decimal);
+      }
+    }
+  }
+  protected XsdSimpleType? _XsdType;
 
   public string? Format
   {
@@ -36,33 +88,51 @@ public class NumericTypeConverter : TypeConverter
   {
     if (value == null)
       return null;
+    var format = Format;
+    var valueType = value.GetType();
+    if (TotalDigits != null || FractionDigits != null)
+    {
+      if (valueType == typeof(Decimal) || valueType == typeof(Single) || valueType == typeof(Double))
+      {
+        if (format == null)
+          format = "F";
+        if (FractionDigits != null)
+          format += FractionDigits.ToString();
+      }
+      else
+      {
+        if (format == null)
+          format = "D";
+        if (TotalDigits != null)
+          format += TotalDigits.ToString();
+      }
+    }
     if (destinationType == typeof(string))
     {
       if (culture == null)
         culture = CultureInfo.InvariantCulture;
-      Type valueType = value.GetType();
       if (valueType == typeof(int))
-        return ((int)value).ToString(Format, culture);
+        return ((int)value).ToString(format, culture);
       if (valueType == typeof(byte))
-        return ((byte)value).ToString(Format, culture);
+        return ((byte)value).ToString(format, culture);
       if (valueType == typeof(uint))
-        return ((uint)value).ToString(Format, culture);
+        return ((uint)value).ToString(format, culture);
       if (valueType == typeof(sbyte))
-        return ((sbyte)value).ToString(Format, culture);
+        return ((sbyte)value).ToString(format, culture);
       if (valueType == typeof(short))
-        return ((short)value).ToString(Format, culture);
+        return ((short)value).ToString(format, culture);
       if (valueType == typeof(ushort))
-        return ((ushort)value).ToString(Format, culture);
+        return ((ushort)value).ToString(format, culture);
       if (valueType == typeof(long))
-        return ((long)value).ToString(Format, culture);
+        return ((long)value).ToString(format, culture);
       if (valueType == typeof(ulong))
-        return ((ulong)value).ToString(Format, culture);
+        return ((ulong)value).ToString(format, culture);
       if (valueType == typeof(float))
-        return ((float)value).ToString(Format, culture);
+        return ((float)value).ToString(format, culture);
       if (valueType == typeof(double))
-        return ((double)value).ToString(Format, culture);
+        return ((double)value).ToString(format, culture);
       if (valueType == typeof(decimal))
-        return ((decimal)value).ToString(Format, culture);
+        return ((decimal)value).ToString(format, culture);
     }
     return Convert.ChangeType(value, destinationType, culture);
   }
@@ -84,6 +154,17 @@ public class NumericTypeConverter : TypeConverter
         return null;
       if (TryParseAnyNumber(str, NumberStyle, culture, out var number))
       {
+        if (number != null)
+        {
+          if (MaxExclusive != null && Convert.ToDouble(number) <= MaxExclusive)
+            throw new InvalidDataException($"Converter value {number} is not greater than max exclusive value {MaxExclusive}");
+          if (MinInclusive != null && Convert.ToDouble(number) < MinInclusive)
+            throw new InvalidDataException($"Converter value {number} is less than min inclusive value {MinInclusive}");
+          if (MaxInclusive != null && Convert.ToDouble(number) > MaxInclusive)
+            throw new InvalidDataException($"Converter value {number} is greater than max inclusive value {MaxInclusive}");
+          if (MinExclusive != null && Convert.ToDouble(number) >= MinExclusive)
+            throw new InvalidDataException($"Converter value {number} is not less than max exclusive value {MinExclusive}");
+        }
         if (ExpectedType != null)
           return Convert.ChangeType(number, ExpectedType, culture);
         return number;
@@ -173,4 +254,11 @@ public class NumericTypeConverter : TypeConverter
       return false;
     }
   }
+
+  public int? TotalDigits { get; set; }
+  public int? FractionDigits { get; set; }
+  public double? MinExclusive { get; set; }
+  public double? MaxExclusive { get; set; }
+  public double? MinInclusive { get; set; }
+  public double? MaxInclusive { get; set; }
 }

@@ -105,3 +105,14 @@ D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\ConversionT
 D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\ref\ConversionTest.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\Qhta.Collections.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll

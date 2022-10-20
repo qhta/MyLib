@@ -117,4 +117,19 @@ public class BooleanTypeConverterTest
     }
   }
 
+  [Test]
+  public void TestWłBooleanTypeConverter()
+  {
+    var converter = new BooleanTypeConverter { XsdType = XsdSimpleType.String };
+    converter.Enumerations = new string[] { "true", "false", "1", "0", "wł", "wył" };
+    Boolean value = true;
+    var str = converter.ConvertTo(value, typeof(string));
+    Assert.That(str, Is.EqualTo("wł"));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom("WŁ");
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
 }

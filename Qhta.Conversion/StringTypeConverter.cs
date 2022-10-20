@@ -1,21 +1,93 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
 
 using Qhta.Collections;
 
 namespace Qhta.Conversion;
 
-public class StringTypeConverter : StringConverter
+public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
 {
-  public Type ExpectedType { get; set; } = typeof(string);
+  public string? Format { get; set; }
+  public Type? ExpectedType { get; set; } = typeof(string);
 
-  public int MaxLength { get; set; }
+  public XsdSimpleType? XsdType
+  {
+    get => _XsdType;
+    set
+    {
+      _XsdType = value;
+      switch (_XsdType)
+      {
+        case XsdSimpleType.NormalizedString:
+          Whitespaces = WhitespaceBehavior.Replace;
+          break;
+        case XsdSimpleType.Token:
+          Whitespaces = WhitespaceBehavior.Collapse;
+          MinLength = 1;
+          break;
+        case XsdSimpleType.NmToken:
+          Whitespaces = WhitespaceBehavior.Collapse;
+          MinLength = 1;
+          Patterns = new string[] { @"(\p{L}|\p{N}|\p{M}|[-.:])+" };
+          break;
+        case XsdSimpleType.Name:
+          Whitespaces = WhitespaceBehavior.Collapse;
+          MinLength = 1;
+          Patterns = new string[] { @"(\p{L}|\p{M}|[:_])(\p{L}|\p{N}|\p{M}|[-.:_])*" };
+          break;
+        case XsdSimpleType.NcName:
+        case XsdSimpleType.Id:
+        case XsdSimpleType.IdRef:
+        case XsdSimpleType.Entity:
+          Whitespaces = WhitespaceBehavior.Collapse;
+          MinLength = 1;
+          Patterns = new string[] { @"(\p{L}|\p{M}|[_])(\p{L}|\p{N}|\p{M}|[-._])*" };
+          break;
+        case XsdSimpleType.Language:
+          Whitespaces = WhitespaceBehavior.Collapse;
+          MinLength = 1;
+          Patterns = new string[] { @"([a-zA-Z]{2}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*" };
+          break;
+        case XsdSimpleType.Notation:
+          Whitespaces = WhitespaceBehavior.Collapse;
+          WhitespacesFixed = true;
+          break;
+      }
+    }
+  }
+
+  protected XsdSimpleType? _XsdType;
+
+  public int? MinLength { get; set; }
+  public int? MaxLength { get; set; }
+
+  public string[]? Patterns { get; set; }
+  public string[]? Enumerations { get; set; }
+  public bool CaseInsensitive { get; set; }
 
   public bool UseEscapeSequences { get; set; }
   public bool UseHtmlEntities { get; set; }
   public bool HexEntities { get; set; }
+
+  public WhitespaceBehavior Whitespaces
+  {
+    get => _Whitespaces;
+    set
+    {
+      if (!WhitespacesFixed)
+        _Whitespaces = value;
+    }
+  }
+
+  protected WhitespaceBehavior _Whitespaces;
+
+  public bool WhitespacesFixed { get; set; }
+
   public BiDiDictionary<char, string> EscapeSequences { get; set; } = new BiDiDictionary<char, string>()
   {
     { '\0', "\\0"},
@@ -54,6 +126,16 @@ public class StringTypeConverter : StringConverter
       value = ch.ToString();
     if (value is string str)
     {
+      if (Whitespaces != 0)
+        str = ValidateWhitespaces(str, Whitespaces);
+      str = ValidateStrLength(str, MinLength, MaxLength);
+      if (Patterns != null)
+        if (!ValidatePatterns(str, Patterns))
+          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+      if (Enumerations != null)
+        if (ValidateEnumerations(str, Enumerations, CaseInsensitive)<0)
+          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+
       if (UseEscapeSequences)
         return EncodeEscapeSequences(str);
       else
@@ -77,17 +159,24 @@ public class StringTypeConverter : StringConverter
       return null;
     if (value is string str)
     {
-      var result = str;
       if (UseEscapeSequences)
-        result = DecodeEscapeSequences(str);
+        str = DecodeEscapeSequences(str);
       else
       if (UseHtmlEntities)
-        result = DecodeHtmlEntities(str);
-      if (MaxLength>0 && result.Length > MaxLength)
-        result = result.Substring(0, MaxLength);
+        str = DecodeHtmlEntities(str);
+      if (Whitespaces != 0)
+        str = ValidateWhitespaces(str, Whitespaces);
+      str = ValidateStrLength(str, MinLength, MaxLength);
+      if (Patterns != null)
+        if (!ValidatePatterns(str, Patterns))
+          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+      if (Enumerations != null)
+        if (ValidateEnumerations(str, Enumerations, CaseInsensitive) < 0)
+          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+
       if (ExpectedType == typeof(char))
-        return result.FirstOrDefault();
-      return result;
+        return str.FirstOrDefault();
+      return str;
     }
     return base.ConvertFrom(context, culture, value);
   }
@@ -248,6 +337,67 @@ public class StringTypeConverter : StringConverter
       sb.Append(str.Substring(start, str.Length - start));
     var result = sb.ToString();
     return result;
+  }
+
+  public static string ValidateStrLength(string str, int? minLength, int? maxLength)
+  {
+    if (maxLength != null && str.Length > maxLength)
+      str = str.Substring(0, (int)maxLength);
+    if (minLength != null && str.Length < minLength)
+      str += new string(' ', (int)minLength - str.Length);
+    return str;
+  }
+
+  public static string ValidateWhitespaces(string str, WhitespaceBehavior behavior)
+  {
+    var chars = str.ToArray();
+    bool replaced = false;
+    for (int i = 0; i < str.Length; i++)
+    {
+      var ch = chars[i];
+      if (char.IsWhiteSpace(ch) && ch != ' ')
+      {
+        chars[i] = ' ';
+        replaced = true;
+      }
+    }
+    if (replaced)
+      str = new string(chars);
+    if (behavior == WhitespaceBehavior.Collapse)
+    {
+      str = str.Trim();
+      for (int i = str.Length-1; i>0; i--)
+      {
+        if (str[i]==' ' && str[i-1]==' ')
+          str = str.Remove(i,1);
+      }
+    }
+    return str;
+  }
+
+  public static bool ValidatePatterns(string str, string[] patterns)
+  {
+    var ok = true;
+    foreach (var pattern in patterns)
+      if (!ValidatePattern(str, pattern))
+        ok = false;
+    return ok;
+  }
+
+  public static bool ValidatePattern(string str, string pattern)
+  {
+    pattern = @"\A" + pattern + @"\Z";
+    Regex regex = new Regex(pattern);
+    return regex.Match(str).Success;
+  }
+
+  public static int ValidateEnumerations(string str, string[] enumerations, bool caseSensitive)
+  {
+    for (int i=0; i<enumerations.Length; i++)
+      if (string.Equals(str, enumerations[i], 
+            caseSensitive ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture))
+        return i;
+    return -1;
   }
 
 }
