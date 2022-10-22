@@ -107,7 +107,7 @@ public class TimeSpanTypeConverterTest
     var value = now - new DateTime(2000, 1, 1);
     value = new TimeSpan(value.Days, value.Hours, value.Minutes, value.Seconds, value.Milliseconds);
     var str = converter.ConvertTo(value, typeof(string));
-    var str2 = value.ToString("g", CultureInfo.InvariantCulture);
+    var str2 = value.ToString("G", CultureInfo.InvariantCulture);
     var chars = str2.ToArray();
     string replacements = "DHMS";
     int k = 0;

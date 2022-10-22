@@ -10,31 +10,38 @@ namespace Qhta.Conversion
 {
   public class ValueTypeConverter : TypeConverter, ITypeConverter
   {
-    protected TypeConverter? InternalTypeConverter { get; set; }
+    public TypeConverter? InternalTypeConverter { get; set; }
+
     public string? Format { get; set; }
+
     public Type? ExpectedType { get; set; }
+
     public XsdSimpleType? XsdType { get; set; }
+
+    public CultureInfo? Culture { get; set; }
+
+    public ConversionOptions? Options { get; set;}
 
     public static readonly Dictionary<XsdSimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
     {
       { XsdSimpleType.Base64Binary, new Type[] { typeof(byte[]) } },
       { XsdSimpleType.HexBinary, new Type[] { typeof(byte[]) } },
-      { XsdSimpleType.Boolean, new Type[] { typeof(bool), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) } },
-      { XsdSimpleType.Integer, new Type[] { typeof(Decimal), typeof(bool), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool) } },
-      { XsdSimpleType.NegativeInteger, new Type[] { typeof(Decimal), typeof(bool), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool) } },
-      { XsdSimpleType.NonNegativeInteger, new Type[] { typeof(Decimal), typeof(bool), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool) } },
-      { XsdSimpleType.NonPositiveInteger, new Type[] { typeof(Decimal), typeof(bool), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool) } },
-      { XsdSimpleType.PositiveInteger, new Type[] { typeof(Decimal), typeof(bool), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool) } },
-      { XsdSimpleType.Int, new Type[] { typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool), } },
-      { XsdSimpleType.Byte, new Type[] { typeof(sbyte), typeof(int), typeof(byte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool), } },
-      { XsdSimpleType.UnsignedByte, new Type[] { typeof(byte), typeof(sbyte), typeof(int), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool), } },
-      { XsdSimpleType.UnsignedInt, new Type[] { typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool), } },
-      { XsdSimpleType.Short, new Type[] { typeof(short), typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(long), typeof(bool), } },
-      { XsdSimpleType.UnsignedShort, new Type[] { typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(long), typeof(bool), } },
-      { XsdSimpleType.Long, new Type[] { typeof(long), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(bool), } },
-      { XsdSimpleType.UnsignedLong, new Type[] { typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(long), typeof(bool), } },
+      { XsdSimpleType.Boolean, new Type[] { typeof(bool) } },
+      { XsdSimpleType.Integer, new Type[] { typeof(Decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) } },
+      { XsdSimpleType.NegativeInteger, new Type[] { typeof(Decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) } },
+      { XsdSimpleType.NonNegativeInteger, new Type[] { typeof(Decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) } },
+      { XsdSimpleType.NonPositiveInteger, new Type[] { typeof(Decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) } },
+      { XsdSimpleType.PositiveInteger, new Type[] { typeof(Decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) } },
+      { XsdSimpleType.Int, new Type[] { typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), } },
+      { XsdSimpleType.Byte, new Type[] { typeof(sbyte), typeof(int), typeof(byte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), } },
+      { XsdSimpleType.UnsignedByte, new Type[] { typeof(byte), typeof(sbyte), typeof(int), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), } },
+      { XsdSimpleType.UnsignedInt, new Type[] { typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(long), typeof(ulong), } },
+      { XsdSimpleType.Short, new Type[] { typeof(short), typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(long), } },
+      { XsdSimpleType.UnsignedShort, new Type[] { typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(long), } },
+      { XsdSimpleType.Long, new Type[] { typeof(long), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), } },
+      { XsdSimpleType.UnsignedLong, new Type[] { typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(long), } },
 
-      { XsdSimpleType.Decimal, new Type[] { typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(bool), } },
+      { XsdSimpleType.Decimal, new Type[] { typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong), } },
       { XsdSimpleType.Float, new Type[] { typeof(float), typeof(double) } },
       { XsdSimpleType.Double, new Type[] { typeof(double), typeof(float) } },
 
@@ -99,6 +106,11 @@ namespace Qhta.Conversion
       { XsdSimpleType.Time, new DateTimeTypeConverter{ Mode=DateTimeConversionMode.TimeOnly } },
     };
 
+    public void Init()
+    {
+      Init(ExpectedType, XsdType, Format, Culture, Options);
+    }
+
     public void Init(Type? expectedType, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
     {
       if (expectedType?.IsNullable(out var baseType) == true)
@@ -123,8 +135,6 @@ namespace Qhta.Conversion
       }
       ExpectedType = expectedType;
 
-      if (Format != null || culture != null || options != null)
-      {
         switch (XsdType)
         {
           case XsdSimpleType.Date:
@@ -140,7 +150,6 @@ namespace Qhta.Conversion
             InternalTypeConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
             if (expectedType != typeof(bool))
               InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
-            ExpectedType = typeof(bool);
             return;
           case XsdSimpleType.Integer:
           case XsdSimpleType.NegativeInteger:
@@ -150,7 +159,6 @@ namespace Qhta.Conversion
             InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType };
             if (expectedType == typeof(bool))
               InternalTypeConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
-            ExpectedType = expectedType;
             return;
 
           case XsdSimpleType.Int:
@@ -170,29 +178,38 @@ namespace Qhta.Conversion
             InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
             if (expectedType == typeof(bool))
               InternalTypeConverter = CreateBooleanTypeConverter(expectedType, format, culture, options);
-            ExpectedType = expectedType;
             return;
           case XsdSimpleType.Float:
           case XsdSimpleType.Double:
             InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
-            ExpectedType = expectedType;
             return;
-        }
+          default:
+            InternalTypeConverter = CreateStringTypeConverter(xsdType, format, culture, options);
+            break;
+
       }
-      if (XsdType != null)
-      {
-        if (InternalTypeConverter == null && SpecialTypeConverters.TryGetValue((XsdSimpleType)XsdType, out var specialConverter))
-          InternalTypeConverter = specialConverter;
-        if (InternalTypeConverter == null && expectedType == null)
-          throw new InvalidOperationException($"TypeConverter for {XsdType} not found");
-      }
-      if (expectedType != null)
-      {
-        if (InternalTypeConverter == null && StandardTypeConverters.TryGetValue(expectedType, out var standardConverter))
-          InternalTypeConverter = standardConverter;
-        if (InternalTypeConverter == null)
-          throw new InvalidOperationException($"TypeConverter for {expectedType.Name} not found");
-      }
+      //}
+      //if (XsdType != null)
+      //{
+      //  if (InternalTypeConverter == null && SpecialTypeConverters.TryGetValue((XsdSimpleType)XsdType, out var specialConverter))
+      //    InternalTypeConverter = specialConverter;
+      //  if (InternalTypeConverter == null && expectedType == null)
+      //    throw new InvalidOperationException($"TypeConverter for {XsdType} not found");
+      //}
+      //if (expectedType != null)
+      //{
+      //  if (InternalTypeConverter == null && StandardTypeConverters.TryGetValue(expectedType, out var standardConverter))
+      //    InternalTypeConverter = standardConverter;
+      if (InternalTypeConverter == null)
+        throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} not found");
+      //}
+    }
+
+    private StringTypeConverter CreateStringTypeConverter(XsdSimpleType? xsdType, string? format, CultureInfo? culture,
+      ConversionOptions? options)
+    {
+      var result = new StringTypeConverter { XsdType = xsdType, Format = format };
+      return result;
     }
 
     private DateTimeTypeConverter CreateDateTimeTypeConverter(DateTimeConversionMode mode, string? format, CultureInfo? culture,

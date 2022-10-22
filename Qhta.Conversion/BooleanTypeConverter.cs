@@ -15,7 +15,7 @@ public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrict
   public BooleanConversionMode Mode { get; set; }
 
   public (string, string)[] BooleanStrings { get; set; }
-    = { ("true", "false"), ("1", "0"), ("on", "off") };
+    = { ("True", "False"), ("1", "0"), ("on", "off") };
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {

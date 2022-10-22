@@ -13,11 +13,38 @@ public enum DateTimeConversionMode
   TimeOnly,
 }
 
-public class DateTimeTypeConverter : TypeConverter
+public class DateTimeTypeConverter : TypeConverter, ITypeConverter
 {
   public DateTimeConversionMode Mode { get; set; }
 
   public Type? ExpectedType { get; set; }
+  public XsdSimpleType? XsdType 
+  { get => _XsdType;
+    set
+    {
+      if (Mode == DateTimeConversionMode.Default && value != null)
+      {
+        switch (value)
+        {
+          case XsdSimpleType.DateTime:
+            Mode = DateTimeConversionMode.DateTime;
+            break;
+          case XsdSimpleType.Date:
+            Mode = DateTimeConversionMode.DateOnly;
+            break;
+          case XsdSimpleType.Time:
+            Mode = DateTimeConversionMode.TimeOnly;
+            break;
+          default:
+            return;
+        }
+        _XsdType = value;
+      }
+    }
+
+  }
+
+  protected XsdSimpleType? _XsdType;
 
   /// <summary>
   /// The character to insert between the date and time when serializing a DateTime value.

@@ -90,7 +90,7 @@ public class TimeSpanTypeConverter : TypeConverter
     if (minutes > 0 || started)
     {
       started = true;
-      sb.Append(minutes.ToString("D2") + "M");
+      sb.Append(minutes.ToString("D") + "M");
     }
     var seconds = Math.Abs(ts.Seconds);
     var milliseconds = Math.Abs(ts.Milliseconds);

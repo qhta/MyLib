@@ -238,7 +238,6 @@ namespace ConversionTest
     public void TestNotationStringTypeConverter()
     {
       var converter = new StringTypeConverter { XsdType = XsdSimpleType.Notation };
-      Assert.That(converter.WhitespacesFixed, Is.True);
       string? str1 = " a b \t c \r\n d \xA0 e ";
       var str0 = "a b c d e";
       var str2 = converter.ConvertTo(str1, typeof(string)) as string;
@@ -328,7 +327,7 @@ namespace ConversionTest
       converter.Enumerations = enumerations;
       var validStrings = new string[]
       {
-        "ABC", "Abc", "abc", "GHI", 
+        "ABC", "Abc", "abc", "GHI",
       };
       foreach (var str in validStrings)
         SubTestValidString(str, converter);

@@ -38,8 +38,8 @@ public class BooleanTypeConverterTest
   {
     var converter = new BooleanTypeConverter();
     Boolean value = true;
-    var str = converter.ConvertTo(value, typeof(string));
-    Assert.That(str, Is.EqualTo("true"));
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    StringAssert.AreEqualIgnoringCase(str, "true");
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);
@@ -52,8 +52,8 @@ public class BooleanTypeConverterTest
   {
     var converter = new BooleanTypeConverter();
     Boolean value = false;
-    var str = converter.ConvertTo(value, typeof(string));
-    Assert.That(str, Is.EqualTo("false"));
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    StringAssert.AreEqualIgnoringCase(str, "false");
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);

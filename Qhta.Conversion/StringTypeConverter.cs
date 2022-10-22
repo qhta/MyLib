@@ -20,9 +20,11 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
     get => _XsdType;
     set
     {
-      _XsdType = value;
-      switch (_XsdType)
+      switch (value)
       {
+        case XsdSimpleType.String:
+          Whitespaces = WhitespaceBehavior.Preserve;
+          break;
         case XsdSimpleType.NormalizedString:
           Whitespaces = WhitespaceBehavior.Replace;
           break;
@@ -51,13 +53,16 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
         case XsdSimpleType.Language:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
-          Patterns = new string[] { @"([a-zA-Z]{2}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*" };
+          Patterns = new string[] { @"([a-zA-Z]{2}|[a-zA-Z]{3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*" };
           break;
         case XsdSimpleType.Notation:
           Whitespaces = WhitespaceBehavior.Collapse;
           WhitespacesFixed = true;
           break;
+        default:
+          return;
       }
+      _XsdType = value;
     }
   }
 
@@ -130,11 +135,9 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
         str = ValidateWhitespaces(str, Whitespaces);
       str = ValidateStrLength(str, MinLength, MaxLength);
       if (Patterns != null)
-        if (!ValidatePatterns(str, Patterns))
-          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+        ValidatePatterns(str, Patterns);
       if (Enumerations != null)
-        if (ValidateEnumerations(str, Enumerations, CaseInsensitive)<0)
-          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+        ValidateEnumerations(str, Enumerations);
 
       if (UseEscapeSequences)
         return EncodeEscapeSequences(str);
@@ -168,17 +171,17 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
         str = ValidateWhitespaces(str, Whitespaces);
       str = ValidateStrLength(str, MinLength, MaxLength);
       if (Patterns != null)
-        if (!ValidatePatterns(str, Patterns))
-          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+        ValidatePatterns(str, Patterns);
       if (Enumerations != null)
-        if (ValidateEnumerations(str, Enumerations, CaseInsensitive) < 0)
-          throw new InvalidOperationException($"Invalid string \"{str}\" in StringTypeConverter");
+        ValidateEnumerations(str, Enumerations);
 
       if (ExpectedType == typeof(char))
         return str.FirstOrDefault();
-      return str;
+      if (ExpectedType == null|| ExpectedType == typeof(string))
+        return str;
+      return Convert.ChangeType(str, ExpectedType ?? typeof(string));
     }
-    return base.ConvertFrom(context, culture, value);
+    return Convert.ChangeType(value, ExpectedType ?? typeof(string));
   }
 
   public string EncodeEscapeSequences(string str)
@@ -375,29 +378,48 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
     return str;
   }
 
-  public static bool ValidatePatterns(string str, string[] patterns)
+  public void ValidatePatterns(string str, string[] patterns)
   {
-    var ok = true;
+    var ok = patterns.Length==0;
     foreach (var pattern in patterns)
-      if (!ValidatePattern(str, pattern))
-        ok = false;
-    return ok;
+      if (ValidatePattern(str, pattern))
+      {
+        ok = true;
+        break;
+      }
+    if (!ok)
+    {
+      var msg = $"Invalid string \"{str}\" in StringTypeConverter";
+      if (XsdType != null)
+        msg += $" with XsdType={XsdType}";
+      throw new InvalidOperationException(msg);
+    }
   }
 
-  public static bool ValidatePattern(string str, string pattern)
+  public bool ValidatePattern(string str, string pattern)
   {
     pattern = @"\A" + pattern + @"\Z";
     Regex regex = new Regex(pattern);
     return regex.Match(str).Success;
   }
 
-  public static int ValidateEnumerations(string str, string[] enumerations, bool caseSensitive)
+  public void ValidateEnumerations(string str, string[] enumerations)
   {
+    var ok = enumerations.Length == 0;
     for (int i=0; i<enumerations.Length; i++)
-      if (string.Equals(str, enumerations[i], 
-            caseSensitive ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture))
-        return i;
-    return -1;
+      if (string.Equals(str, enumerations[i],
+            CaseInsensitive ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture))
+      {
+        ok = true;
+        break;
+      }
+    if (!ok)
+    {
+      var msg = $"No enumeration encompassed for \"{str}\" in StringTypeConverter";
+      if (XsdType != null)
+        msg += $" with XsdType={XsdType}";
+      throw new InvalidOperationException(msg);
+    }
   }
 
 }

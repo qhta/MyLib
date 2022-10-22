@@ -14,48 +14,54 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
     get => _XsdType;
     set
     {
-      _XsdType = value;
-      if (ExpectedType == null)
+      if (ExpectedType == null && value != null)
       {
-        if (value == XsdSimpleType.Byte)
-          ExpectedType = typeof(SByte);
-        else
-        if (value == XsdSimpleType.UnsignedByte)
-          ExpectedType = typeof(Byte);
-        else
-        if (value == XsdSimpleType.Short)
-          ExpectedType = typeof(Int16);
-        else
-        if (value == XsdSimpleType.UnsignedShort)
-          ExpectedType = typeof(UInt16);
-        else
-        if (value == XsdSimpleType.Int)
-          ExpectedType = typeof(Int32);
-        else
-        if (value == XsdSimpleType.UnsignedInt)
-          ExpectedType = typeof(UInt32);
-        else
-        if (value == XsdSimpleType.Long)
-          ExpectedType = typeof(Int64);
-        else
-        if (value == XsdSimpleType.UnsignedLong)
-          ExpectedType = typeof(UInt64);
-        else
-        if (value == XsdSimpleType.UnsignedLong)
-          ExpectedType = typeof(UInt64);
-        else
-        if (value == XsdSimpleType.Decimal)
-          ExpectedType = typeof(Decimal);
-        else
-        if (value == XsdSimpleType.Float)
-          ExpectedType = typeof(Single);
-        else
-        if (value == XsdSimpleType.Double)
-          ExpectedType = typeof(Double);
-        else
-        if (value == XsdSimpleType.Integer || value == XsdSimpleType.PositiveInteger || value == XsdSimpleType.NegativeInteger
-          || value == XsdSimpleType.NonNegativeInteger || value == XsdSimpleType.NonPositiveInteger)
-          ExpectedType = typeof(Decimal);
+        switch (value)
+        {
+          case XsdSimpleType.Byte:
+            ExpectedType = typeof(SByte);
+            break;
+          case XsdSimpleType.UnsignedByte:
+            ExpectedType = typeof(Byte);
+            break;
+          case XsdSimpleType.Short:
+            ExpectedType = typeof(Int16);
+            break;
+          case XsdSimpleType.UnsignedShort:
+            ExpectedType = typeof(UInt16);
+            break;
+          case XsdSimpleType.Int:
+            ExpectedType = typeof(Int32);
+            break;
+          case XsdSimpleType.UnsignedInt:
+            ExpectedType = typeof(UInt32);
+            break;
+          case XsdSimpleType.Long:
+            ExpectedType = typeof(Int64);
+            break;
+          case XsdSimpleType.UnsignedLong:
+            ExpectedType = typeof(UInt64);
+            break;
+          case XsdSimpleType.Decimal:
+            ExpectedType = typeof(Decimal);
+            break;
+          case XsdSimpleType.Float:
+            ExpectedType = typeof(Single);
+            break;
+          case XsdSimpleType.Double:
+            ExpectedType = typeof(Double);
+            break;
+          case XsdSimpleType.Integer:
+          case XsdSimpleType.PositiveInteger:
+          case XsdSimpleType.NegativeInteger:
+          case XsdSimpleType.NonNegativeInteger:
+          case XsdSimpleType.NonPositiveInteger:
+            ExpectedType = typeof(Decimal);
+            break;
+          default:
+            return;
+        }
+        _XsdType = value;
       }
     }
   }
