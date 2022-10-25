@@ -5,46 +5,13 @@ using System.Runtime.Serialization;
 
 namespace Qhta.Conversion;
 
-public enum DateTimeConversionMode
-{
-  Default,
-  DateTime,
-  DateOnly,
-  TimeOnly,
-}
-
 public class DateTimeTypeConverter : TypeConverter, ITypeConverter
 {
-  public DateTimeConversionMode Mode { get; set; }
+  //public DateTimeConversionMode Mode { get; set; }
 
-  public Type? ExpectedType { get; set; }
-  public XsdSimpleType? XsdType 
-  { get => _XsdType;
-    set
-    {
-      if (Mode == DateTimeConversionMode.Default && value != null)
-      {
-        switch (value)
-        {
-          case XsdSimpleType.DateTime:
-            Mode = DateTimeConversionMode.DateTime;
-            break;
-          case XsdSimpleType.Date:
-            Mode = DateTimeConversionMode.DateOnly;
-            break;
-          case XsdSimpleType.Time:
-            Mode = DateTimeConversionMode.TimeOnly;
-            break;
-          default:
-            return;
-        }
-        _XsdType = value;
-      }
-    }
+  public Type? ExpectedType { get; set; } = typeof(DateTime);
 
-  }
-
-  protected XsdSimpleType? _XsdType;
+  public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.DateTime;
 
   /// <summary>
   /// The character to insert between the date and time when serializing a DateTime value.
@@ -79,16 +46,16 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
   {
     if (value == null)
       return null;
-    var mode = Mode;
+    var mode = XsdType;
     if (value is DateOnly dateOnly)
     {
       value = dateOnly.ToDateTime(new TimeOnly());
-      mode = DateTimeConversionMode.DateOnly;
+      mode = XsdSimpleType.Date;
     }
     if (value is TimeOnly timeOnly)
     {
       value = new DateOnly(1, 1, 1).ToDateTime(timeOnly);
-      mode = DateTimeConversionMode.TimeOnly;
+      mode = XsdSimpleType.Time;
     }
 
     if (value is DateTime dt)
@@ -99,13 +66,13 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
         if (format == null)
           switch (mode)
           {
-            case DateTimeConversionMode.DateTime:
+            case XsdSimpleType.DateTime:
               format = GetDateTimeFormat(culture);
               break;
-            case DateTimeConversionMode.DateOnly:
+            case XsdSimpleType.Date:
               format = GetDateFormat(culture);
               break;
-            case DateTimeConversionMode.TimeOnly:
+            case XsdSimpleType.Time:
               format = GetTimeFormat(culture);
               break;
             default:
@@ -177,7 +144,7 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
       if (ExpectedType == typeof(TimeOnly))
         return TimeOnly.FromDateTime(result);
 
-      if (Mode == DateTimeConversionMode.TimeOnly)
+      if (XsdType == XsdSimpleType.Time)
       {
         var timeOnly = TimeOnly.FromDateTime(result);
         var dateOnly = new DateOnly(1, 1, 1);

@@ -54,7 +54,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateTimeModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter{ Mode = DateTimeConversionMode.DateTime};
+    var converter = new DateTimeTypeConverter{ XsdType = XsdSimpleType.DateTime};
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));
@@ -73,7 +73,7 @@ public class DateTimeTypeConverterTest
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
     var str = converter.ConvertTo(value, typeof(string));
-    Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-dd")));
+    Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-dd HH:mm:ss")));
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);
@@ -84,7 +84,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateTimeModeTimeZeroDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { Mode = DateTimeConversionMode.DateTime };
+    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
     var str = converter.ConvertTo(value, typeof(string));
@@ -99,7 +99,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateOnlyModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { Mode = DateTimeConversionMode.DateOnly };
+    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.Date };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));
@@ -115,7 +115,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestTimeOnlyModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { Mode = DateTimeConversionMode.TimeOnly };
+    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.Time };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));

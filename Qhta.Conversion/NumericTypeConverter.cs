@@ -56,7 +56,7 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
           case XsdSimpleType.NegativeInteger:
           case XsdSimpleType.NonNegativeInteger:
           case XsdSimpleType.NonPositiveInteger:
-            ExpectedType = typeof(Decimal);
+            ExpectedType = typeof(String);
             break;
           default:
             return;
@@ -158,6 +158,8 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
     {
       if (str == String.Empty)
         return null;
+      if (ExpectedType==typeof(string))
+        return str;
       if (TryParseAnyNumber(str, NumberStyle, culture, out var number))
       {
         if (number != null)

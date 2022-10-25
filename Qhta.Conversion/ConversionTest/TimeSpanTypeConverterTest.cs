@@ -119,7 +119,10 @@ public class TimeSpanTypeConverterTest
     k = str2.IndexOf('.');
     if (k < 0)
       k = chars.Length;
-    str2 = "P"+new string(chars[0..k])+(value.Milliseconds/1000.0).ToString(".####",CultureInfo.InvariantCulture)+'S';
+    str2 = new string(chars[0..k]);
+    str2=str2.Replace("D0", "D");
+    str2=str2.Replace("H0", "H");
+    str2 = "P"+str2+(value.Milliseconds/1000.0).ToString(".####",CultureInfo.InvariantCulture)+'S';
     Assert.That(str, Is.EqualTo(str2));
     if (str != null)
     {

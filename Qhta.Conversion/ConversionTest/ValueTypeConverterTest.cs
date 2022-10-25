@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Reflection.Metadata;
 using System.Text;
 
 using Qhta.Conversion;
@@ -81,10 +82,16 @@ namespace ConversionTest
       foreach (var data in TestData)
       {
         var testType = data.ExpectedType ?? data.Value.GetType();
+
         if (testType == allowedType)
         {
           if (data.XsdType == null || data.XsdType == xsdType)
+          {
+            converter.ExpectedType = data.Value.GetType();
+            converter.XsdType = xsdType;
+            converter.Init();
             TestSingleValueValueTypeConverter(converter, allowedType, data);
+          }
         }
       }
     }
@@ -97,7 +104,12 @@ namespace ConversionTest
         if (testType == expectedType)
         {
           if (data.XsdType == xsdType)
+          {
+            converter.ExpectedType = expectedType;
+            converter.XsdType = xsdType;
+            converter.Init();
             TestSingleValueValueTypeConverter(converter, expectedType, data);
+          }
         }
       }
     }
@@ -105,7 +117,21 @@ namespace ConversionTest
     {
       new ConverterTestData{ Value = true, Text="True" },
       new ConverterTestData{ Value = false, Text="False" },
-      new ConverterTestData{ Value = "abc", /*XsdType = XsdSimpleType.String, */Text="abc" },
+      new ConverterTestData{ Value = true, XsdType = XsdSimpleType.Integer, Text="1" },
+      new ConverterTestData{ Value = false, XsdType = XsdSimpleType.Integer, Text="0" },
+      new ConverterTestData{ Value = true, XsdType = XsdSimpleType.String, Text="on" },
+      new ConverterTestData{ Value = false, XsdType = XsdSimpleType.String, Text="off" },
+      new ConverterTestData{ Value = "abc", XsdType = XsdSimpleType.String, Text="abc" },
+      new ConverterTestData{ Value = "abc", XsdType = XsdSimpleType.Token, Text="abc" },
+      new ConverterTestData{ Value = "abc", XsdType = XsdSimpleType.NmToken, Text="abc" },
+      new ConverterTestData{ Value = "abc", XsdType = XsdSimpleType.Id, Text="abc" },
+      new ConverterTestData{ Value = "abc", XsdType = XsdSimpleType.IdRef, Text="abc" },
+      new ConverterTestData{ Value = "abc", XsdType = XsdSimpleType.Entity, Text="abc" },
+      new ConverterTestData{ Value = "1", XsdType = XsdSimpleType.Integer, Text="1" },
+      new ConverterTestData{ Value = "1", XsdType = XsdSimpleType.PositiveInteger, Text="1" },
+      new ConverterTestData{ Value = "0", XsdType = XsdSimpleType.NonNegativeInteger, Text="0" },
+      new ConverterTestData{ Value = "0", XsdType = XsdSimpleType.NonPositiveInteger, Text="0" },
+      new ConverterTestData{ Value = "-1", XsdType = XsdSimpleType.NegativeInteger, Text="-1" },
     };
 
     public void TestSingleValueValueTypeConverter(ValueTypeConverter converter, Type expectedType, ConverterTestData data)
