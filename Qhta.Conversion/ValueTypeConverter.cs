@@ -52,11 +52,11 @@ namespace Qhta.Conversion
       { XsdSimpleType.AnyUri, new Type[]{ typeof(Uri), typeof(string) } },
       { XsdSimpleType.Entity, new Type[] { typeof(String) } },
       { XsdSimpleType.Entities, new Type[] { typeof(String[]) } },
-      { XsdSimpleType.GDay, new Type[] { typeof(String) } },
-      { XsdSimpleType.GMonth, new Type[] { typeof(String) } },
-      { XsdSimpleType.GMonthDay, new Type[] { typeof(String) } },
-      { XsdSimpleType.GYear, new Type[] { typeof(String) } },
-      { XsdSimpleType.GYearMonth, new Type[] { typeof(String) } },
+      { XsdSimpleType.GDay, new Type[] { typeof(GDate) } },
+      { XsdSimpleType.GMonth, new Type[] { typeof(GDate) } },
+      { XsdSimpleType.GMonthDay, new Type[] { typeof(GDate) } },
+      { XsdSimpleType.GYear, new Type[] { typeof(GDate) } },
+      { XsdSimpleType.GYearMonth, new Type[] { typeof(GDate) } },
       { XsdSimpleType.Id, new Type[] { typeof(String) } },
       { XsdSimpleType.IdRef, new Type[] { typeof(String) } },
       { XsdSimpleType.IdRefs, new Type[] { typeof(String[]) } },
@@ -100,16 +100,7 @@ namespace Qhta.Conversion
       { typeof(Array), typeof(ArrayTypeConverter) },
       { typeof(XmlQualifiedName), typeof(StringTypeConverter) },
       { typeof(Uri), typeof(StringTypeConverter) },
-    };
-
-    private static readonly Dictionary<XsdSimpleType, TypeConverter> SpecialTypeConverters = new()
-    {
-
-      { XsdSimpleType.Base64Binary, new ArrayTypeConverter() },
-      { XsdSimpleType.HexBinary, new ArrayTypeConverter() },
-      { XsdSimpleType.Date, new DateTimeTypeConverter{ XsdType=XsdSimpleType.Date } },
-      { XsdSimpleType.Time, new DateTimeTypeConverter{ XsdType=XsdSimpleType.Time } },
-      { XsdSimpleType.DateTime, new DateTimeTypeConverter{ XsdType=XsdSimpleType.DateTime} },
+      { typeof(GDate), typeof(GDateTypeConverter) },
     };
 
     public void Init()
@@ -177,6 +168,13 @@ namespace Qhta.Conversion
           case XsdSimpleType.Float:
           case XsdSimpleType.Double:
             InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
+            return;
+          case XsdSimpleType.GYear:
+          case XsdSimpleType.GYearMonth:
+          case XsdSimpleType.GMonth:
+          case XsdSimpleType.GMonthDay:
+          case XsdSimpleType.GDay:
+            InternalTypeConverter = new GDateTypeConverter { XsdType = xsdType };
             return;
         }
       }

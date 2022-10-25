@@ -7,8 +7,6 @@ namespace Qhta.Conversion;
 
 public class DateTimeTypeConverter : TypeConverter, ITypeConverter
 {
-  //public DateTimeConversionMode Mode { get; set; }
-
   public Type? ExpectedType { get; set; } = typeof(DateTime);
 
   public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.DateTime;
