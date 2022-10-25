@@ -97,29 +97,10 @@ namespace Qhta.Conversion
       { typeof(TimeSpan), typeof(TimeSpanTypeConverter) },
       { typeof(byte[]), typeof(ArrayTypeConverter) },
       { typeof(string[]), typeof(ArrayTypeConverter) },
+      { typeof(Array), typeof(ArrayTypeConverter) },
       { typeof(XmlQualifiedName), typeof(StringTypeConverter) },
       { typeof(Uri), typeof(StringTypeConverter) },
     };
-
-    //public static readonly Dictionary<Type, ITypeConverter> StandardTypeConverters = new Dictionary<Type, ITypeConverter>
-    //{
-    //  { typeof(string), new StringTypeConverter() },
-    //  { typeof(bool), new BooleanTypeConverter() },
-    //  { typeof(int), new NumericTypeConverter{ ExpectedType = typeof(int)} },
-    //  { typeof(byte), new NumericTypeConverter{ ExpectedType = typeof(byte)} },
-    //  { typeof(uint), new NumericTypeConverter{ ExpectedType = typeof(uint)} },
-    //  { typeof(sbyte), new NumericTypeConverter{ ExpectedType = typeof(sbyte)} },
-    //  { typeof(short), new NumericTypeConverter{ ExpectedType = typeof(short)} },
-    //  { typeof(ushort), new NumericTypeConverter{ ExpectedType = typeof(ushort)} },
-    //  { typeof(long), new NumericTypeConverter{ ExpectedType = typeof(long)} },
-    //  { typeof(ulong), new NumericTypeConverter{ ExpectedType = typeof(ulong)} },
-    //  { typeof(float), new NumericTypeConverter{ ExpectedType = typeof(float)} },
-    //  { typeof(double), new NumericTypeConverter{ ExpectedType = typeof(double)} },
-    //  { typeof(decimal), new NumericTypeConverter{ ExpectedType = typeof(decimal)} },
-    //  { typeof(DateTime), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.Default } },
-    //  { typeof(DateOnly), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.DateOnly } },
-    //  { typeof(TimeOnly), new DateTimeTypeConverter{ Mode=DateTimeConversionMode.TimeOnly } },
-    //};
 
     private static readonly Dictionary<XsdSimpleType, TypeConverter> SpecialTypeConverters = new()
     {
@@ -144,7 +125,7 @@ namespace Qhta.Conversion
 
       XsdType = xsdType;
       Format = format;
-      if (XsdType != null)
+      if (XsdType != null && XsdType!=0)
       {
         if (!XsdSimpleTypeAcceptedTypes.TryGetValue((XsdSimpleType)XsdType, out var allowedTypes))
           throw new InvalidOperationException($"Unrecognized XmlDataType \"{XsdType}\"");

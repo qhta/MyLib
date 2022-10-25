@@ -2,8 +2,10 @@ using System;
 using System.ComponentModel;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Xml;
 
 using Qhta.Conversion;
+using Qhta.TypeUtils;
 
 namespace ConversionTest
 {
@@ -34,86 +36,49 @@ namespace ConversionTest
 
     public void TestXsdTypeValueTypeConverter(XsdSimpleType xsdType)
     {
-      var converter = new ValueTypeConverter { XsdType = xsdType };
-      converter.Init();
-      Assert.IsNotNull(converter.InternalTypeConverter);
-      var allowedTypes = ValueTypeConverter.XsdSimpleTypeAcceptedTypes[xsdType];
-      var expectedType = allowedTypes.FirstOrDefault();
-      Assert.That(converter.ExpectedType, Is.EqualTo(expectedType));
-      object? value = null;
-      var str1 = converter.ConvertTo(value, typeof(string));
-      Assert.IsNull(str1);
-      foreach (var allowedType in allowedTypes)
-        TestAllowedTypeValueTypeConverter(converter, allowedType, xsdType);
+      if (ValueTypeConverter.XsdSimpleTypeAcceptedTypes.TryGetValue(xsdType, out var allowedTypes))
+        foreach (var allowedType in allowedTypes)
+          TestTypedValueTypeConverter(allowedType, xsdType);
     }
 
     [Test]
-    public void TestAllAllowedTypesValueTypeConverter()
+    public void TestKnownTypesValueTypeConverter()
     {
-      var allowedTypes = new List<Type>();
-      foreach (var pair in ValueTypeConverter.XsdSimpleTypeAcceptedTypes)
+      foreach (var item in ValueTypeConverter.KnownTypeConvertersTypes)
       {
-        foreach (var type in pair.Value)
-        {
-          if (!allowedTypes.Contains(type))
-          {
-            allowedTypes.Add(type);
-          }
-        }
+        TestExpectedTypeValueTypeConverter(item.Key);
       }
-      foreach (var type in allowedTypes)
-        TestExpectedTypeValueTypeConverter(type);
     }
+
     public void TestExpectedTypeValueTypeConverter(Type expectedType)
     {
-      var converter = new ValueTypeConverter { ExpectedType = expectedType };
-      converter.Init();
-      Assert.IsNotNull(converter.InternalTypeConverter);
-      Assert.That(converter.ExpectedType, Is.EqualTo(expectedType));
-      object? value = null;
-      var str1 = converter.ConvertTo(value, typeof(string));
-      Assert.IsNull(str1);
       foreach (var xsdType in typeof(XsdSimpleType).GetEnumValues().Cast<XsdSimpleType>())
-        TestExpectedTypeValueTypeConverter(converter, expectedType, xsdType);
+        TestTypedValueTypeConverter(expectedType, xsdType);
     }
 
-    public void TestAllowedTypeValueTypeConverter(ValueTypeConverter converter, Type allowedType, XsdSimpleType xsdType)
+    public void TestTypedValueTypeConverter(Type allowedType, XsdSimpleType xsdType)
     {
       foreach (var data in TestData)
       {
-        var testType = data.ExpectedType ?? data.Value.GetType();
-
-        if (testType == allowedType)
-        {
-          if (data.XsdType == null || data.XsdType == xsdType)
-          {
-            converter.ExpectedType = data.Value.GetType();
-            converter.XsdType = xsdType;
-            converter.Init();
-            TestSingleValueValueTypeConverter(converter, allowedType, data);
-          }
-        }
-      }
-    }
-
-    public void TestExpectedTypeValueTypeConverter(ValueTypeConverter converter, Type expectedType, XsdSimpleType xsdType)
-    {
-      foreach (var data in TestData)
-      {
-        var testType = data.ExpectedType ?? data.Value.GetType();
-        if (testType == expectedType)
+        var testDataType = data.Value.GetType();
+        if (testDataType == allowedType)
         {
           if (data.XsdType == xsdType)
           {
-            converter.ExpectedType = expectedType;
-            converter.XsdType = xsdType;
-            converter.Init();
-            TestSingleValueValueTypeConverter(converter, expectedType, data);
+            TestSingleValueTypeConverter(allowedType, xsdType, data);
           }
         }
+        else if (allowedType == typeof(Array) && testDataType.IsCollection())
+          if (data.XsdType == xsdType)
+          {
+            TestSingleValueTypeConverter(allowedType, xsdType, data);
+          }
+
       }
     }
-    private static ConverterTestData[] TestData = 
+
+
+    private static ConverterTestData[] TestData =
     {
       //new ConverterTestData{ Value = true, XsdType = XsdSimpleType.Boolean, Text="True" },
       //new ConverterTestData{ Value = false, XsdType = XsdSimpleType.Boolean, Text="False" },
@@ -141,25 +106,56 @@ namespace ConversionTest
       //new ConverterTestData{ Value = long.MaxValue, XsdType = XsdSimpleType.Long, Text="9223372036854775807" },
       //new ConverterTestData{ Value = ulong.MaxValue, XsdType = XsdSimpleType.UnsignedLong, Text="18446744073709551615" },
       //new ConverterTestData{ Value = decimal.MaxValue, XsdType = XsdSimpleType.UnsignedLong, Text="79228162514264337593543950335" },
-      new ConverterTestData{ Value = float.MaxValue, XsdType = XsdSimpleType.Float, Text="3.4028235E+38" },
-      //new ConverterTestData{ Value = double.MaxValue, XsdType = XsdSimpleType.Double, Text="3.4028235E+38" },
-      //new ConverterTestData{ Value = new byte[]{1,2,3}, XsdType = XsdSimpleType.Integer, Text="-1" },
+      //new ConverterTestData{ Value = float.MaxValue, XsdType = XsdSimpleType.Float, Text="3.4028235E+38" },
+      //new ConverterTestData{ Value = double.MaxValue, XsdType = XsdSimpleType.Double, Text="1.7976931348623157E+308" },
+      //new ConverterTestData{ Value = int.MinValue, XsdType = XsdSimpleType.Int, Text="-2147483648" },
+      //new ConverterTestData{ Value = uint.MinValue, XsdType = XsdSimpleType.UnsignedInt, Text="0" },
+      //new ConverterTestData{ Value = sbyte.MinValue, XsdType = XsdSimpleType.Byte, Text="-128" },
+      //new ConverterTestData{ Value = byte.MinValue, XsdType = XsdSimpleType.UnsignedByte, Text="0" },
+      //new ConverterTestData{ Value = short.MinValue, XsdType = XsdSimpleType.Short, Text="-32768" },
+      //new ConverterTestData{ Value = ushort.MinValue, XsdType = XsdSimpleType.UnsignedShort, Text="0" },
+      //new ConverterTestData{ Value = long.MinValue, XsdType = XsdSimpleType.Long, Text="-9223372036854775808" },
+      //new ConverterTestData{ Value = ulong.MinValue, XsdType = XsdSimpleType.UnsignedLong, Text="0" },
+      //new ConverterTestData{ Value = decimal.MinValue, XsdType = XsdSimpleType.UnsignedLong, Text="-79228162514264337593543950335" },
+      //new ConverterTestData{ Value = float.MinValue, XsdType = XsdSimpleType.Float, Text="-3.4028235E+38" },
+      //new ConverterTestData{ Value = double.MinValue, XsdType = XsdSimpleType.Double, Text="-1.7976931348623157E+308" },
+      //new ConverterTestData{ Value = decimal.MaxValue, XsdType = XsdSimpleType.Integer, Text="79228162514264337593543950335" },
+      //new ConverterTestData{ Value = decimal.MaxValue, XsdType = XsdSimpleType.PositiveInteger, Text="79228162514264337593543950335" },
+      //new ConverterTestData{ Value = 0, XsdType = XsdSimpleType.NonNegativeInteger, Text="0" },
+      //new ConverterTestData{ Value = 0, XsdType = XsdSimpleType.NonPositiveInteger, Text="0" },
+      //new ConverterTestData{ Value = decimal.MinValue, XsdType = XsdSimpleType.NegativeInteger, Text="-79228162514264337593543950335" },
+      //new ConverterTestData{ Value = new byte[]{1,2,3}, XsdType = XsdSimpleType.Base64Binary, Text="AQID" },
+      //new ConverterTestData{ Value = new byte[]{1,2,3}, XsdType = XsdSimpleType.HexBinary, Text="010203" },
+      //new ConverterTestData{ Value = new byte[]{1,2,3}, XsdType = 0, Text="1 2 3" },
+      //new ConverterTestData{ Value = new string[]{"1","2","3"}, XsdType = 0, Text="1 2 3" },
+      //new ConverterTestData{ Value = new int[]{1,2,3}, XsdType = 0, Text="1 2 3" },
+      //new ConverterTestData{ Value = new Uri("HTTP://www.Contoso.com:80/thick%20and%20thin.htm"), XsdType = 0, Text="HTTP://www.Contoso.com:80/thick%20and%20thin.htm" },
+      new ConverterTestData{ Value = new XmlQualifiedName("name","prefix"), XsdType = 0, Text="prefix:name" },
+
     };
 
-    public void TestSingleValueValueTypeConverter(ValueTypeConverter converter, Type expectedType, ConverterTestData data)
+    public void TestSingleValueTypeConverter(Type? expectedType, XsdSimpleType? xsdType, ConverterTestData data)
     {
+      if (xsdType == 0)
+        xsdType = null;
+      ValueTypeConverter converter = new ValueTypeConverter { ExpectedType = expectedType, XsdType = xsdType };
+      if (expectedType == null)
+        converter.ExpectedType = data.Value.GetType();
+      converter.Init();
+
       var str1 = converter.ConvertTo(data.Value, typeof(string)) as string;
       var str0 = data.Text;
       //StringAssert.AreEqualIgnoringCase(str1, str0);
       Assert.That(str1, Is.EqualTo(str0), $"Expected string was \"{str0}\" but \"{str1}\" produced" + ErrorMsgTail(converter, data.XsdType));
       var value = converter.ConvertFrom(str1);
       Assert.IsNotNull(value, $"Value expected but null produced" + ErrorMsgTail(converter, data.XsdType));
-      Assert.That(value.GetType, Is.EqualTo(expectedType), $"Expected type was {expectedType.Name} but {value.GetType().Name} produced" + ErrorMsgTail(converter, data.XsdType));
+      if (expectedType != null && value!=null)
+        Assert.That(value.GetType, Is.EqualTo(expectedType), $"Expected type was {expectedType.Name} but {value.GetType().Name} produced" + ErrorMsgTail(converter, data.XsdType));
     }
 
     private string ErrorMsgTail(ValueTypeConverter converter, XsdSimpleType? xsdType)
     {
-      return $" in {converter.InternalTypeConverter?.GetType().Name}" +(xsdType == null ? null : $" with XsdType = {xsdType}");
+      return $" in {converter.InternalTypeConverter?.GetType().Name}" + (xsdType == null ? null : $" with XsdType = {xsdType}");
     }
   }
 }
