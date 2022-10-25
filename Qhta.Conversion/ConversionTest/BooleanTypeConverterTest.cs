@@ -64,7 +64,7 @@ public class BooleanTypeConverterTest
   [Test]
   public void TestOneBooleanTypeConverter()
   {
-    var converter = new BooleanTypeConverter{ Mode = BooleanConversionMode.Numeric};
+    var converter = new BooleanTypeConverter{ XsdType =XsdSimpleType.Integer};
     Boolean value = true;
     var str = converter.ConvertTo(value, typeof(string));
     Assert.That(str, Is.EqualTo("1"));
@@ -78,7 +78,7 @@ public class BooleanTypeConverterTest
   [Test]
   public void TestZeroBooleanTypeConverter()
   {
-    var converter = new BooleanTypeConverter { Mode = BooleanConversionMode.Numeric };
+    var converter = new BooleanTypeConverter { XsdType = XsdSimpleType.Integer };
     Boolean value = false;
     var str = converter.ConvertTo(value, typeof(string));
     Assert.That(str, Is.EqualTo("0"));
@@ -92,7 +92,7 @@ public class BooleanTypeConverterTest
   [Test]
   public void TestOnBooleanTypeConverter()
   {
-    var converter = new BooleanTypeConverter { Mode = BooleanConversionMode.OnOff };
+    var converter = new BooleanTypeConverter { XsdType = XsdSimpleType.String };
     Boolean value = true;
     var str = converter.ConvertTo(value, typeof(string));
     Assert.That(str, Is.EqualTo("on"));
@@ -106,7 +106,7 @@ public class BooleanTypeConverterTest
   [Test]
   public void TestOffBooleanTypeConverter()
   {
-    var converter = new BooleanTypeConverter { Mode = BooleanConversionMode.OnOff };
+    var converter = new BooleanTypeConverter { XsdType = XsdSimpleType.String };
     Boolean value = false;
     var str = converter.ConvertTo(value, typeof(string));
     Assert.That(str, Is.EqualTo("off"));

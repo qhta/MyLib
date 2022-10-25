@@ -253,22 +253,22 @@ namespace Qhta.Conversion
       return result;
     }
 
-    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)
     {
       if (InternalTypeConverter == null)
-        Init(ExpectedType, XsdType, Format, culture);
+        Init(ExpectedType, XsdType, Format, Culture);
       if (InternalTypeConverter != null)
-        return InternalTypeConverter.ConvertTo(context, culture, value, destinationType);
-      return base.ConvertTo(context, culture, value, destinationType);
+        return InternalTypeConverter.ConvertTo(context, Culture, value, destinationType);
+      return base.ConvertTo(context, Culture, value, destinationType);
     }
 
     public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
     {
       if (InternalTypeConverter == null)
-        Init(ExpectedType, XsdType, Format, culture);
+        Init(ExpectedType, XsdType, Format, Culture);
       if (InternalTypeConverter != null)
-        return InternalTypeConverter.ConvertFrom(context, culture, value);
-      return base.ConvertFrom(context, culture, value);
+        return InternalTypeConverter.ConvertFrom(context, Culture, value);
+      return base.ConvertFrom(context, Culture, value);
     }
   }
 }

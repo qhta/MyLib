@@ -81,6 +81,8 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
     }
   }
 
+  public CultureInfo? Culture { get; set; }
+
   private string? _Format;
 
   public NumberStyles NumberStyle { get; set; } = NumberStyles.None;

@@ -9,9 +9,10 @@ namespace Qhta.Conversion;
 public class ArrayTypeConverter : TypeConverter, ITypeConverter, ILengthRestrictions
 {
 
-  public string? Format { get; set; }
   public Type? ExpectedType { get; set; }
   public XsdSimpleType? XsdType { get; set; }
+  public string? Format { get; set; }
+  public CultureInfo? Culture { get; set; }
 
   public int? MinLength { get; set; }
   public int? MaxLength { get; set; }

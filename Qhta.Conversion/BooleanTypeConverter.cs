@@ -3,17 +3,8 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public enum BooleanConversionMode
-{
-  Boolean = 0,
-  Numeric = 1,
-  OnOff = 2,
-}
-
 public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrictions
 {
-  public BooleanConversionMode Mode { get; set; }
-
   public (string, string)[] BooleanStrings { get; set; }
     = { ("True", "False"), ("1", "0"), ("on", "off") };
 
@@ -28,9 +19,16 @@ public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrict
       return null;
     if (value is bool bv)
     {
+      int mode = 0;
+      if (XsdType == XsdSimpleType.Int || XsdType == XsdSimpleType.Integer)
+        mode = 1;
+      else if (XsdType == XsdSimpleType.String || XsdType == XsdSimpleType.NormalizedString)
+        mode = 2;
+
+
       if (destinationType == typeof(string))
       {
-        var result = bv ? BooleanStrings[(int)Mode].Item1 : BooleanStrings[(int)Mode].Item2;
+        var result = bv ? BooleanStrings[mode].Item1 : BooleanStrings[mode].Item2;
         return result;
       }
     }
@@ -95,6 +93,8 @@ public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrict
   /// </summary>
   public string? Format { get; set; }
 
+  public CultureInfo? Culture { get; set; }
+
   /// <summary>
   /// Always Boolean.
   /// </summary>
@@ -104,25 +104,7 @@ public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrict
     set { }
   }
 
-  public XsdSimpleType? XsdType
-  {
-    get
-    {
-      if (Mode == BooleanConversionMode.Boolean) return XsdSimpleType.Boolean;
-      if (Mode == BooleanConversionMode.Numeric) return XsdSimpleType.Integer;
-      if (Mode == BooleanConversionMode.OnOff) return XsdSimpleType.String;
-      return null;
-    }
-    set
-    {
-      if (value == XsdSimpleType.Boolean)
-        Mode = BooleanConversionMode.Boolean;
-      else if (value == XsdSimpleType.Int || value == XsdSimpleType.Integer)
-        Mode = BooleanConversionMode.Numeric;
-      else if (value == XsdSimpleType.String || value == XsdSimpleType.NormalizedString)
-        Mode = BooleanConversionMode.OnOff;
-    }
-  }
+  public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.Boolean;
 
   /// <summary>
   /// Unused for this converter

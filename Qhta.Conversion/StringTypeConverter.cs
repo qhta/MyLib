@@ -13,6 +13,8 @@ namespace Qhta.Conversion;
 public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
 {
   public string? Format { get; set; }
+  public CultureInfo? Culture { get; set; }
+
   public Type? ExpectedType { get; set; } = typeof(string);
 
   public XsdSimpleType? XsdType

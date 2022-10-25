@@ -22,6 +22,11 @@ public class AnyUriTypeConverter : UriTypeConverter, ITypeConverter
   /// </summary>
   public string? Format { get; set; }
 
+  /// <summary>
+  /// Not used
+  /// </summary>
+  public CultureInfo? Culture { get; set; }
+
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);

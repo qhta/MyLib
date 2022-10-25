@@ -23,6 +23,8 @@ public class XmlQualifiedNameTypeConverter : TypeConverter, ITypeConverter
   /// </summary>
   public string? Format { get; set; }
 
+  public CultureInfo? Culture { get; set; }
+
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);

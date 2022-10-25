@@ -33,6 +33,8 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
   /// </summary>
   public string? Format { get; set; }
 
+  public CultureInfo? Culture { get; set; }
+
   public DateTimeFormatInfo? FormatInfo  {get; set;}
 
   public DateTimeStyles DateTimeStyle { get; set;}
