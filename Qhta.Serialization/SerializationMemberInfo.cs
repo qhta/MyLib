@@ -103,7 +103,7 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
   /// XSD standard data type for simple value text conversion.
   /// </summary>
   [XmlAttribute]
-  public string? DataType { get; set; }
+  public XsdSimpleType? DataType { get; set; }
 
   /// <summary>
   /// Specific format for text conversion.

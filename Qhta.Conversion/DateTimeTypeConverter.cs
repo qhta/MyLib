@@ -47,71 +47,88 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
     if (value == null)
       return null;
     var mode = XsdType;
+    var showTimeZone = ShowTimeZone || value is DateTimeOffset;
     if (value is DateOnly dateOnly)
     {
-      value = dateOnly.ToDateTime(new TimeOnly());
+      value = new DateTimeOffset(dateOnly.ToDateTime(new TimeOnly()));
       mode = XsdSimpleType.Date;
     }
+    else
     if (value is TimeOnly timeOnly)
     {
-      value = new DateOnly(1, 1, 1).ToDateTime(timeOnly);
+      value = new DateTimeOffset(new DateOnly(1, 1, 1).ToDateTime(timeOnly));
       mode = XsdSimpleType.Time;
     }
+    else
+    if (value is DateTime dateTime)
+    {
+      value = new DateTimeOffset(dateTime);
+    }
 
-    if (value is DateTime dt)
+    if (value is DateTimeOffset dt)
     {
       if (destinationType == typeof(string))
       {
         string? format = Format;
         if (format == null)
+        {
+          var showFullTime = ShowFullTime || dt.TimeOfDay.Milliseconds != 0;
           switch (mode)
           {
             case XsdSimpleType.DateTime:
-              format = GetDateTimeFormat(culture);
+              format = GetDateTimeFormat(culture, showFullTime, showTimeZone);
               break;
             case XsdSimpleType.Date:
               format = GetDateFormat(culture);
               break;
             case XsdSimpleType.Time:
-              format = GetTimeFormat(culture);
+              format = GetTimeFormat(culture, showFullTime, showTimeZone);
               break;
             default:
               if (dt.TimeOfDay.TotalMilliseconds == 0)
                 format = GetDateFormat(culture);
               else
-                format = GetDateTimeFormat(culture);
+                format = GetDateTimeFormat(culture, showFullTime, showTimeZone);
               break;
           }
+        }
         return dt.ToString(format);
       }
     }
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
-  private string GetDateTimeFormat(CultureInfo? culture)
+
+  private string GetDateTimeFormat(CultureInfo? culture, bool showFullTime, bool showTimeZone)
   {
-    var format = GetDateFormat(culture) + DateTimeSeparator + GetTimeFormat(culture);
+    var format = GetDateFormat(culture) + DateTimeSeparator + GetTimeFormat(culture, showFullTime, showTimeZone);
     return format;
   }
 
   private string GetDateFormat(CultureInfo? culture)
   {
-
-    if (culture != null)
+    if (culture != null && culture != CultureInfo.InvariantCulture)
       return culture.DateTimeFormat.ShortDatePattern;
     if (FormatInfo != null)
       return FormatInfo.ShortDatePattern;
-    var format = "yyyy-MM-dd";
-    return format;
+    return "yyyy-MM-dd";
   }
 
-  private string GetTimeFormat(CultureInfo? culture)
+
+  private string GetTimeFormat(CultureInfo? culture, bool showFullTime, bool showTimeZone)
   {
-    var format = culture?.DateTimeFormat.LongTimePattern ?? FormatInfo?.ShortTimePattern ?? "HH:mm:ss";
-    if (ShowFullTime)
-      format += ".FFFFFFF";
-    if (ShowTimeZone)
-      format += "zzz";
+    string format;
+    if (culture != null && culture!=CultureInfo.InvariantCulture)
+      format = culture.DateTimeFormat.LongTimePattern;
+    else if (FormatInfo != null) format = FormatInfo.LongTimePattern;
+    else
+    {
+      format = "HH:mm:ss";
+      if (showFullTime)
+        format += ".fffffff";
+      if (showTimeZone)
+        format += "zzzz";
+    }
     return format;
   }
 
@@ -133,23 +150,28 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
         return null;
       var style = DateTimeStyle;
       var format = Format;
-      var result = (format!=null) ? DateTime.ParseExact(str, format, culture, style)
-        : (culture != null) ? DateTime.Parse(str, culture, style) 
-        : (FormatInfo != null) ? DateTime.Parse(str, FormatInfo, style) 
-        : DateTime.Parse(str, null, style);
+      DateTimeOffset result;
+      if (format!=null) result = DateTimeOffset.ParseExact(str, format, culture, style);
+      else if (culture != null) result = DateTimeOffset.Parse(str, culture, style);
+      else if (FormatInfo != null) result = DateTimeOffset.Parse(str, FormatInfo, style);
+      else result = DateTimeOffset.Parse(str, null, style);
 
       if (ExpectedType == typeof(DateOnly))
-        return DateOnly.FromDateTime(result);
+        return DateOnly.FromDateTime(result.Date);
 
       if (ExpectedType == typeof(TimeOnly))
-        return TimeOnly.FromDateTime(result);
+        return TimeOnly.FromDateTime(result.DateTime);
 
-      if (XsdType == XsdSimpleType.Time)
-      {
-        var timeOnly = TimeOnly.FromDateTime(result);
-        var dateOnly = new DateOnly(1, 1, 1);
-        result = dateOnly.ToDateTime(timeOnly);
-      }
+      if (ExpectedType == typeof(DateTime))
+        return result.DateTime;
+
+      //if (XsdType == XsdSimpleType.Time)
+      //{
+      //  var timeOnly = TimeOnly.FromDateTime(result.DateTime);
+      //  var dateOnly = new DateOnly(1, 1, 1);
+      //  result = dateOnly.ToDateTime(timeOnly);
+      //  if (ExpectedType == typeof(DateTimeOffset)
+      //}
       return result;
     }
     return base.ConvertFrom(context, culture, value);

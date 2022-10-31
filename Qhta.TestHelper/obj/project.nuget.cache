@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "mQ830Cn4Kfp3B4Ph4WjBBOFvZnWWBvBTAkhjt+yfK6A5LPuLpix7su7Jn7edv2U5VY+mUhAFDnO1M0H1BbOwsQ==",
+  "dgSpecHash": "5SYiEmGFuo4LGZbVAAkaDY77XrUpfN4ZqOHOxE4uPE98CMfNjSS3g9U27ObgaX+FPVsFoP7XbvTunKaLcu0ZLg==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\1.0.0\\qhta.collections.1.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

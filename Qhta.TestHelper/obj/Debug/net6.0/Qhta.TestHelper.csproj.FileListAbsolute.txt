@@ -18,3 +18,5 @@ D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\net6.0\Qhta.TestHelper.csproj.Cop
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TypeUtils.dll
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.TypeUtils.xml
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.Collections.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\bin\Debug\net6.0\Qhta.Collections.pdb

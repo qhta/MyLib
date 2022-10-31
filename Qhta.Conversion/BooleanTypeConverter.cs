@@ -104,7 +104,7 @@ public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrict
     set { }
   }
 
-  public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.Boolean;
+  public XsdSimpleType? XsdType { get; set; }
 
   /// <summary>
   /// Unused for this converter

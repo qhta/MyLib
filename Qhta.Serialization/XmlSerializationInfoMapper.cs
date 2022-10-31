@@ -273,7 +273,8 @@ public partial class XmlSerializationInfoMapper
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qAttrName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
-    serializationMemberInfo.DataType = xmlAttribute?.DataType;
+    if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
+      serializationMemberInfo.DataType = xsdType;
     typeInfo.MembersAsAttributes.Add(serializationMemberInfo);
     return true;
   }
@@ -299,7 +300,8 @@ public partial class XmlSerializationInfoMapper
     var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
-    serializationMemberInfo.DataType = xmlAttribute?.DataType;
+    if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
+      serializationMemberInfo.DataType = xsdType;
     typeInfo.MembersAsElements.Add(serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
     return true;

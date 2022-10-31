@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Xml;
@@ -44,7 +45,7 @@ namespace ConversionTest
     [Test]
     public void TestKnownTypesValueTypeConverter()
     {
-      foreach (var item in ValueTypeConverter.KnownTypeConvertersTypes)
+      foreach (var item in ValueTypeConverter.KnownTypeConverters)
       {
         TestExpectedTypeValueTypeConverter(item.Key);
       }
@@ -142,9 +143,12 @@ namespace ConversionTest
     {
       if (xsdType == 0)
         xsdType = null;
+
       ValueTypeConverter converter = new ValueTypeConverter { ExpectedType = expectedType, XsdType = xsdType };
       if (expectedType == null)
         converter.ExpectedType = data.Value.GetType();
+      if (expectedType == typeof(bool) && xsdType == XsdSimpleType.String)
+        Debug.Assert(true);
       converter.Init();
 
       var str1 = converter.ConvertTo(data.Value, typeof(string)) as string;

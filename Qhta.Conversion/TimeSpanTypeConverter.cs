@@ -99,7 +99,7 @@ public class TimeSpanTypeConverter : TypeConverter
       started = true;
       sb.Append(seconds.ToString(CultureInfo.InvariantCulture));
       if (milliseconds>0)
-        sb.Append("."+milliseconds.ToString("D3", CultureInfo.InvariantCulture));
+        sb.Append("."+milliseconds.ToString("D3"));
       sb.Append('S');
 
     }

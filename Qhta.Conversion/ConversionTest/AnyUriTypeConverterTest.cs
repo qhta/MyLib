@@ -36,7 +36,7 @@ public class AnyUriTypeConverterTest
   [Test]
   public void TestValidUriTypeConverter()
   {
-    var converter = new UriTypeConverter();
+    var converter = new AnyUriTypeConverter();
     var str0 = "HTTP://www.Contoso.com:80/thick%20and%20thin.htm";
     Uri value = new Uri(str0);
     var str = converter.ConvertTo(value, typeof(string)) as string;
@@ -48,5 +48,34 @@ public class AnyUriTypeConverterTest
     }
   }
 
+  [Test]
+  public void TestSpacedUriTypeConverter()
+  {
+    var converter = new AnyUriTypeConverter();
+    var str0 = "HTTP://www.Contoso.com:80/thick and thin.htm";
+    Uri value = new Uri(str0);
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo(str0));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
 
+
+  [Test]
+  public void TestUnicodeUriTypeConverter()
+  {
+    var converter = new AnyUriTypeConverter();
+    var str0 = "HTTP://www.Contoso.com:80/Błąd";
+    Uri value = new Uri(str0);
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo(str0));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
 }

@@ -92,10 +92,9 @@ public class SerializationOptions: IEquatable<SerializationOptions>
   /// <summary>
   /// Conversion options for default TypeConverter
   /// </summary>
-  public ConversionOptions ConversionOptions { get; set; } = 
-    new ConversionOptions
+  public ConversionOptions ConversionOptions { get; set; } = new ConversionOptions
     {
-      DateTimeSeparator = 'T', ShowSecondsFractionalPart = true, ShowTimeZone = true,
+      DateTimeSeparator = 'T', ShowFullTime = true, ShowTimeZone = true,
     };
 
   /// <summary>

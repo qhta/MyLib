@@ -54,10 +54,12 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateTimeModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter{ XsdType = XsdSimpleType.DateTime};
+    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));
+    var timeZone = TimeZoneInfo.Local.BaseUtcOffset;
+    var timeZoneStr = timeZone.ToString(@"hh\:mm");
     Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-dd HH:mm:ss")));
     if (str != null)
     {
@@ -123,7 +125,7 @@ public class DateTimeTypeConverterTest
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);
-      value = new DateTime(1, 1, 1, now.Hour, now.Minute, now.Second);
+      value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
       Assert.That(value2, Is.EqualTo(value));
     }
   }
@@ -148,7 +150,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateExpectedTypeConverter()
   {
-    var converter = new DateTimeTypeConverter{ ExpectedType = typeof(DateOnly)};
+    var converter = new DateTimeTypeConverter { ExpectedType = typeof(DateOnly) };
     var now = DateTime.Now;
     var value = DateOnly.FromDateTime(now);
     var str = converter.ConvertTo(value, typeof(string));
@@ -181,11 +183,11 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestFullTimeExpectedTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { ExpectedType = typeof(TimeOnly), ShowFullTime = true};
+    var converter = new DateTimeTypeConverter { ExpectedType = typeof(TimeOnly), ShowFullTime = true };
     var now = DateTime.Now;
     var value = TimeOnly.FromDateTime(now);
     var str = converter.ConvertTo(value, typeof(string));
-    Assert.That(str, Is.EqualTo(value.ToString("HH:mm:ss.FFFFFFF")));
+    Assert.That(str, Is.EqualTo(value.ToString("HH:mm:ss.fffffff")));
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);
@@ -201,7 +203,9 @@ public class DateTimeTypeConverterTest
     var now = DateTime.Now;
     var value = TimeOnly.FromDateTime(now);
     var str = converter.ConvertTo(value, typeof(string));
-    Assert.That(str, Is.EqualTo(value.ToString("HH:mm:ss.FFFFFFF") + "+02:00"));
+    var timeZone = TimeZoneInfo.Local.BaseUtcOffset;
+    var timeZoneStr = timeZone.ToString(@"hh\:mm");
+    Assert.That(str, Is.EqualTo(value.ToString("HH:mm:ss.fffffff") + "+" + timeZoneStr));
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);
@@ -213,11 +217,11 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestWebDefaultDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter{ DateTimeSeparator = 'T', ShowFullTime = true, ShowTimeZone = true };
+    var converter = new DateTimeTypeConverter { Format = "O" };
     var now = DateTime.Now;
     var value = now;
     var str = converter.ConvertTo(value, typeof(string));
-    Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFzzz")));
+    Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")));
     if (str != null)
     {
       var value2 = converter.ConvertFrom(str);
@@ -252,7 +256,7 @@ public class DateTimeTypeConverterTest
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(null, culture, value, typeof(string));
     var dtFormat = culture.DateTimeFormat;
-    var format = dtFormat.ShortDatePattern + ' ' + dtFormat.LongTimePattern;
+    var format = "yyyy-MM-dd" + ' ' + dtFormat.LongTimePattern;
     Assert.That(str, Is.EqualTo(value.ToString(format)));
     if (str != null)
     {
@@ -266,7 +270,7 @@ public class DateTimeTypeConverterTest
   {
     var dtFormat = CultureInfo.InvariantCulture.DateTimeFormat;
     var format = dtFormat.LongDatePattern + ' ' + dtFormat.ShortTimePattern;
-    var converter = new DateTimeTypeConverter{ Format = format };
+    var converter = new DateTimeTypeConverter { Format = format };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
     var str = converter.ConvertTo(value, typeof(string));
@@ -322,9 +326,24 @@ public class DateTimeTypeConverterTest
     Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-dd HH:mm:ss")));
     if (str != null)
     {
-      str = str.Insert(10, "T");
       var value2 = converter.ConvertFrom(str);
-      Assert.That(value2, Is.EqualTo(value.AddHours(+2)));
+      Assert.That(value2, Is.EqualTo(value));
     }
   }
+
+  [Test]
+  public void TestDateTimeOffsetTypeConverter()
+  {
+    var converter = new DateTimeTypeConverter{ExpectedType = typeof(DateTimeOffset)};
+    var now = DateTime.Now;
+    var value = new DateTimeOffset(now);
+    var str = converter.ConvertTo(value, typeof(string)) as string;
+    Assert.That(str, Is.EqualTo(value.ToString("yyyy-MM-dd HH:mm:ss.fffffffzzzz")));
+    if (str != null)
+    {
+      var value2 = converter.ConvertFrom(str);
+      Assert.That(value2, Is.EqualTo(value));
+    }
+  }
+
 }
