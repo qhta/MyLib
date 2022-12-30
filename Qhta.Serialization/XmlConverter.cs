@@ -14,7 +14,7 @@ public abstract class XmlConverter
 
   public abstract void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer);
 
-  public abstract object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo, 
+  public abstract object? ReadXml(object context, XmlReader reader, SerializationTypeInfo objectTypeInfo, 
     SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer);
 
 

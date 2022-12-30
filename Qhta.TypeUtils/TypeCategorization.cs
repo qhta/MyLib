@@ -83,8 +83,8 @@ public static class TypeCategorization
     { typeof(double),  TypeCategory.Simple | TypeCategory.Numeral | TypeCategory.Signed | TypeCategory.Float },
     { typeof(DateTime),  TypeCategory.Simple | TypeCategory.Temporal },
     { typeof(TimeSpan),  TypeCategory.Simple | TypeCategory.Temporal },
-    { typeof(DateOnly),  TypeCategory.Simple | TypeCategory.Temporal },
-    { typeof(TimeOnly),  TypeCategory.Simple | TypeCategory.Temporal },
+    //{ typeof(DateOnly),  TypeCategory.Simple | TypeCategory.Temporal },
+    //{ typeof(TimeOnly),  TypeCategory.Simple | TypeCategory.Temporal },
     { typeof(Guid),  TypeCategory.Simple },
   };
 
@@ -118,7 +118,7 @@ public static class TypeCategorization
   public static bool IsSimple(this Type aType)
   {
     TypeCategory category = GetCategory(aType);
-    return category.HasFlag(TypeCategory.Simple) || aType.IsEnum;
+    return category.HasFlag(TypeCategory.Simple) || aType.IsEnum || aType.IsValueType;
   }
 
   /// <summary>
@@ -164,7 +164,7 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="baseType">based type of the nullable type</param>
   /// <returns>true if a type is a nullable type</returns>
-  public static bool IsNullable(this Type aType, out Type baseType)
+  public static bool IsNullable(this Type aType, out Type? baseType)
   {
     if (aType.Name.StartsWith("Nullable`1"))
     {
@@ -195,7 +195,7 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is an array</param>
   /// <returns>true if a type is an array type</returns>
-  public static bool IsArray(this Type aType, out Type itemType)
+  public static bool IsArray(this Type aType, out Type? itemType)
   {
     if (aType.IsArray)
     {
@@ -215,8 +215,8 @@ public static class TypeCategorization
   /// <returns>true if a type is an array type of item Type</returns>
   public static bool IsArray(this Type aType, Type itemType)
   {
-    return IsArray(aType, out var foundItemType)
-      && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+    return IsArray(aType, out var foundItemType) 
+      && foundItemType == itemType ||  foundItemType != null && itemType.IsSubclassOf(foundItemType);
   }
   #endregion
 
@@ -240,7 +240,7 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is a list</param>
   /// <returns>true if a type is a list type</returns>
-  public static bool IsList(this Type aType, out Type itemType)
+  public static bool IsList(this Type aType, out Type? itemType)
   {
     if (aType.Name.StartsWith("List`1"))
     {
@@ -268,7 +268,7 @@ public static class TypeCategorization
   public static bool IsList(this Type aType, Type itemType)
   {
     return IsList(aType, out var foundItemType)
-      && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+      && foundItemType == itemType || (foundItemType != null) && itemType.IsSubclassOf(foundItemType);
   }
   #endregion
 
@@ -292,7 +292,7 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is a collection</param>
   /// <returns>true if a type is a collection type</returns>
-  public static bool IsCollection(this Type aType, [NotNullWhen(true)] out Type? itemType)
+  public static bool IsCollection(this Type aType, out Type? itemType)
   {
     if (aType.Name.StartsWith("Collection`1"))
     {
@@ -320,7 +320,7 @@ public static class TypeCategorization
   public static bool IsCollection(this Type aType, Type itemType)
   {
     return IsCollection(aType, out var foundItemType) 
-           && (foundItemType == itemType || itemType.IsSubclassOf(foundItemType));
+           && (foundItemType == itemType || (foundItemType!=null && itemType.IsSubclassOf(foundItemType)));
   }
 
   #endregion
@@ -345,7 +345,7 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is an enumerable</param>
   /// <returns>true if a type is an enumerable type</returns>
-  public static bool IsEnumerable(this Type aType, out Type itemType)
+  public static bool IsEnumerable(this Type aType, out Type? itemType)
   {
     if (aType.Name.StartsWith("Enumerable`1"))
     {
@@ -373,7 +373,7 @@ public static class TypeCategorization
   public static bool IsEnumerable(this Type aType, Type itemType)
   {
     return IsEnumerable(aType, out var foundItemType) 
-      && foundItemType == itemType || itemType.IsSubclassOf(foundItemType);
+      && foundItemType == itemType || (foundItemType != null && itemType.IsSubclassOf(foundItemType));
   }
   #endregion
 
@@ -398,7 +398,7 @@ public static class TypeCategorization
   /// <param name="keyType">returned key type if a type is a dictionary</param>
   /// <param name="valueType">returned value type if a type is a dictionary</param>
   /// <returns>true if a type is a dictionary type</returns>
-  public static bool IsDictionary(this Type aType, out Type keyType, out Type valueType)
+  public static bool IsDictionary(this Type aType, out Type? keyType, out Type? valueType)
   {
     if (aType.Name.StartsWith("Dictionary`2"))
     {
@@ -430,8 +430,8 @@ public static class TypeCategorization
   public static bool IsDictionary(this Type aType, Type keyType, Type valueType)
   {
     return IsDictionary(aType, out var foundKeyType, out var foundValueType) 
-      && foundKeyType==keyType || keyType.IsSubclassOf(foundKeyType)
-      && foundValueType==valueType || valueType.IsSubclassOf(foundValueType);
+      && foundKeyType==keyType || (foundKeyType!=null && keyType.IsSubclassOf(foundKeyType))
+      && foundValueType==valueType || (foundValueType != null && valueType.IsSubclassOf(foundValueType));
   }
   #endregion IsDictionary
 
@@ -454,7 +454,7 @@ public static class TypeCategorization
   /// <param name="keyType">returned key type if a type is a key value pair</param>
   /// <param name="valueType">returned value type if a type is a key value pair</param>
   /// <returns>true if a type is a key value pair type</returns>
-  public static bool IsKeyValuePair(this Type aType, out Type keyType, out Type valueType)
+  public static bool IsKeyValuePair(this Type aType, out Type? keyType, out Type? valueType)
   {
     if (aType.Name.StartsWith("KeyValuePair`2"))
     {
@@ -485,8 +485,8 @@ public static class TypeCategorization
   public static bool IsKeyValuePair(this Type aType, Type keyType, Type valueType)
   {
     return IsKeyValuePair(aType, out var foundKeyType, out var foundValueType)
-      && foundKeyType == keyType || keyType.IsSubclassOf(foundKeyType)
-      && foundValueType == valueType || valueType.IsSubclassOf(foundValueType);
+      && foundKeyType == keyType ||(foundKeyType!=null && keyType.IsSubclassOf(foundKeyType))
+      && foundValueType == valueType || (foundValueType!=null && valueType.IsSubclassOf(foundValueType));
   }
   #endregion IsDictionary
 

@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Qhta.TypeUtils;
 
@@ -15,12 +16,12 @@ public class JointProperties
   /// <summary>
   /// Source property info (copy from)
   /// </summary>
-  public PropertyInfo SourceProp;
+  public PropertyInfo SourceProp = null!;
 
   /// <summary>
   /// Target property info (copy to)
   /// </summary>
-  public PropertyInfo TargetProp;
+  public PropertyInfo TargetProp = null!;
 
   /// <summary>
   /// First - get list of common data members
@@ -48,7 +49,7 @@ public class JointProperties
     foreach (var pair in jointProperties)
     {
       var value = pair.SourceProp.GetValue(sourceDataObject);
-      if (TryGetTypeConverter(pair.TargetProp, out var targetTypeConverter) && targetTypeConverter.CanConvertFrom(pair.SourceProp.PropertyType))
+      if (TryGetTypeConverter(pair.TargetProp, out var targetTypeConverter) && targetTypeConverter!=null && targetTypeConverter.CanConvertFrom(pair.SourceProp.PropertyType))
         pair.TargetProp.SetValue(targetDataObject, targetTypeConverter.ConvertFrom(value));
       else
         pair.TargetProp.SetValue(targetDataObject, value);
@@ -72,7 +73,7 @@ public class JointProperties
   /// <param name="property"></param>
   /// <param name="converter"></param>
   /// <returns></returns>
-  public static bool TryGetTypeConverter(PropertyInfo property, out TypeConverter converter)
+  public static bool TryGetTypeConverter(PropertyInfo property, out TypeConverter? converter)
   {
     var typeConverterAttribute = property.PropertyType.GetCustomAttribute<TypeConverterAttribute>();
     if (typeConverterAttribute!=null)

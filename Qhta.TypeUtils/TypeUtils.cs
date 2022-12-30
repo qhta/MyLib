@@ -39,7 +39,7 @@ public static class TypeUtils
   /// <param name="valueType"></param>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static bool IsDefaultValue(this Type valueType, [MaybeNullWhen(false)] object value)
+  public static bool IsDefaultValue(this Type valueType, object value)
   {
     if (valueType.Name.StartsWith("Nullable`1"))
     {
@@ -90,7 +90,7 @@ public static class TypeUtils
   /// <param name="text">enum name to convert</param>
   /// <param name="value">enum value after conversion</param>
   /// <returns></returns>
-  public static bool TryGetEnumValue(this Type valueType, string text, [MaybeNullWhen(false)] out object? value)
+  public static bool TryGetEnumValue(this Type valueType, string text, out object? value)
   {
     bool ok = false;
     value = null;
@@ -146,7 +146,7 @@ public static class TypeUtils
   /// <param name="valueType"></param>
   /// <param name="typeConverter"></param>
   /// <returns></returns>
-  public static bool TryGetConverter(this Type valueType, [MaybeNullWhen(false)] out TypeConverter typeConverter)
+  public static bool TryGetConverter(this Type valueType, out TypeConverter? typeConverter)
   {
     typeConverter = null;
     var typeConverterAttribute = valueType.GetCustomAttribute<TypeConverterAttribute>();
@@ -213,11 +213,11 @@ public static class TypeUtils
   /// <param name="value">value to convert from</param>
   /// <param name="result">conversion result</param>
   /// <returns></returns>
-  public static bool TryConvertValue(this Type valueType, object value, [MaybeNullWhen(false)] out object result)
+  public static bool TryConvertValue(this Type valueType, object value, out object? result)
   {
     bool ok = false;
     result = null;
-    if (TryGetConverter(valueType, out var typeConverter))
+    if (TryGetConverter(valueType, out var typeConverter) && typeConverter!=null)
     {
       result = typeConverter.ConvertFrom(value);
       ok = true;
@@ -233,7 +233,7 @@ public static class TypeUtils
   /// <param name="str">string to convert from</param>
   /// <param name="value">conversion result</param>
   /// <returns></returns>
-  public static bool TryParseEnum(this Type enumType, string str, [MaybeNullWhen(false)] out object value)
+  public static bool TryParseEnum(this Type enumType, string str, out object? value)
   {
     bool ok = false;
     value = null;
@@ -283,6 +283,31 @@ public static class TypeUtils
   }
 
   /// <summary>
+  ///   Determine if a type has property with a specified name.
+  ///   Equivalent to <c>type.GetProperty(name) != null</c>.
+  /// </summary>
+  /// <param name="type"></param>
+  /// <param name="name"></param>
+  /// <returns></returns>
+  public static bool HasProperty(this Type type, string name)
+  {
+    return type.GetProperty(name) != null;
+  }
+
+  /// <summary>
+  ///   Determine if a type has property with a specified name using BindingFlags.
+  ///   Equivalent to <c>type.GetProperty(name, flags) != null</c>.
+  /// </summary>
+  /// <param name="type"></param>
+  /// <param name="name"></param>
+  /// <param name="flags"></param>
+  /// <returns></returns>
+  public static bool HasProperty(this Type type, string name, BindingFlags flags)
+  {
+    return type.GetProperty(name, flags) != null;
+  }
+
+  /// <summary>
   /// If memberInfo is PropertyInfo it returns PropertyType.
   /// Either if memberInfo is FieldInfo it returns FieldType.
   /// Otherwise it returns null.
@@ -323,7 +348,9 @@ public static class TypeUtils
   public static bool IsIndexer(this MemberInfo memberInfo)
   {
     if (memberInfo is PropertyInfo propInfo)
-      return propInfo.CanWrite;
+    {
+      return propInfo.GetIndexParameters().Length > 0;
+    }
     return false;
   }
 

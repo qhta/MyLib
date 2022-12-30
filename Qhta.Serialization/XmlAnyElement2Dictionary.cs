@@ -21,7 +21,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
     return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
   }
 
-  public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
+  public override object? ReadXml(object context, XmlReader reader, SerializationTypeInfo objectTypeInfo,
     SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
   {
     if (serializer == null)
@@ -72,7 +72,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
       else
       {
         aReader.Read();
-        value = serializer.ReadValue(valueTypeInfo.Type, null, aReader);
+        value = serializer.ReadValue(context, valueTypeInfo.Type, null, propertyInfo, aReader);
       }
       if (value != null)
       {

@@ -4,6 +4,12 @@ namespace Qhta.Xml.Serialization;
 
 public class KnownTypesCollection: TypesInfoCollection<SerializationTypeInfo>
 {
+  public KnownTypesCollection(KnownNamespacesCollection knownNamespaces)
+  {
+    KnownNamespaces = knownNamespaces;
+  }
+
+  private KnownNamespacesCollection KnownNamespaces;
 
   public void Dump()
   {
@@ -11,10 +17,16 @@ public class KnownTypesCollection: TypesInfoCollection<SerializationTypeInfo>
     Debug.Indent();
     foreach (var item in this)
     {
-      Debug.WriteLine($"\"{item.XmlName}\" = type {item.Type}");
-      item.MembersAsAttributes.Dump("  Attributes:");
-      item.MembersAsElements.Dump("  Elements:");
+      Dump(item);
     }
     Debug.Unindent();
+  }
+
+  public void Dump(SerializationTypeInfo typeInfo)
+  {
+    KnownNamespaces.XmlNamespaceToPrefix.TryGetValue(typeInfo.XmlNamespace ?? "", out var prefix);
+    Debug.WriteLine($"\"{prefix}:{typeInfo.XmlName}\" = type {typeInfo.Type}");
+    typeInfo.MembersAsAttributes.Dump("  Attributes:", KnownNamespaces);
+    typeInfo.MembersAsElements.Dump("  Elements:", KnownNamespaces);
   }
 }

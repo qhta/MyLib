@@ -322,13 +322,13 @@ namespace Qhta.TextUtils
   {
     public uint From;
     public uint To;
-    public string Name;
+    public string Name = string.Empty;
   }
 
   public class UnicodeBlockSpan
   {
     public UnicodeBlock Block;
-    public string Text;
+    public string Text = string.Empty;
   }
 
   public static class UnicodeUtils

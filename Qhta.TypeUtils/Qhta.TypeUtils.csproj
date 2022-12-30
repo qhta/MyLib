@@ -1,23 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RootNamespace>Qhta.TypeUtils</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>A package of functions to supplement System.Reflections.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>1.2.1</Version>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <SignAssembly>False</SignAssembly>
-    <AssemblyOriginatorKeyFile>Qhta.TypeUtils.pfx</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
-    <FileVersion>1.2.2.0</FileVersion>
+    <Version>1.3</Version>
   </PropertyGroup>
 
 </Project>

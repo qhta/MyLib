@@ -18,6 +18,12 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
     NameIndexedItems.Add(new QualifiedName(item.XmlName, item.XmlNamespace), item);
   }
 
+  public void Add(string name, TypeNameInfo item)
+  {
+    TypeIndexedItems.Add(item.Type, item);
+    NameIndexedItems.Add(name, item);
+  }
+
   public void Clear()
   {
     TypeIndexedItems.Clear();
@@ -49,7 +55,7 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
 
   public bool TryGetValue(string name, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
-    if (name == "OrderedItem")
+    if (name == "sbyte")
       TestTools.Stop();
     if (NameIndexedItems.TryGetValue(new QualifiedName(name), out typeInfo))
       return true;

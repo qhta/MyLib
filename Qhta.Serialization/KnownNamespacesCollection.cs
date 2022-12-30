@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Qhta.Xml.Serialization;
 
@@ -16,6 +17,13 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
   internal Dictionary<string, string> XmlNamespaceToPrefix { get; set; } = new();
   internal Dictionary<string, string> PrefixToXmlNamespace { get; set; } = new();
 
+  public bool TryAdd(string clrNamespace)
+  {
+    if (!ClrToXmlNamespace.TryGetValue(clrNamespace, out var xmlNamespace))
+      xmlNamespace = clrNamespace;
+    return TryAdd(xmlNamespace, clrNamespace);
+  }
+
   public bool TryAdd(string xmlNamespace, string clrNamespace)
   {
     if (xmlNamespace == "")
@@ -25,7 +33,10 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
     if (hasXmlNamespace && hasClrNamespace)
       return false;
     if (hasClrNamespace)
-      throw new InvalidOperationException($"ClrNamespace {clrNamespace} is already assigned to XmlNamespace {xmlNamespace}");
+      return false;
+    //throw new InvalidOperationException($"ClrNamespace {clrNamespace} is already assigned to XmlNamespace {xmlNamespace}");
+    var xmlNamespaceInfo = new XmlNamespaceInfo { ClrNamespace = clrNamespace, XmlNamespace = xmlNamespace };
+    Add(xmlNamespaceInfo);
     return true;
   }
 
@@ -50,7 +61,6 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
   {
     XmlNamespaceToPrefix.Clear();
     PrefixToXmlNamespace.Clear();
-    int i = 0;
     foreach (var item in Items)
     {
       if (item.Prefix == null)
@@ -58,20 +68,42 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
         if (item.XmlNamespace == defaultNamespace)
           item.Prefix = "";
         else
-          item.Prefix = $"n{++i}";
+        {
+          var prefix = (item.ClrNamespace!=null) ?
+          NamespaceToPrefix(item.ClrNamespace) : "n";
+          int i = 2;
+          var pfx = prefix;
+          while (PrefixToXmlNamespace.ContainsKey(prefix))
+          {
+            prefix = pfx + (i++).ToString();
+          }
+          item.Prefix = prefix;
+        }
       }
-
       XmlNamespaceToPrefix.Add(item.XmlNamespace, item.Prefix);
       PrefixToXmlNamespace.Add(item.Prefix, item.XmlNamespace);
     }
 
-    Dump();
+    //Dump();
   }
 
   public void AssignPrefix(XmlNamespaceInfo item, string prefix)
   {
     XmlNamespaceToPrefix.Add(item.XmlNamespace, prefix);
     PrefixToXmlNamespace.Add(prefix, item.XmlNamespace);
+  }
+
+  private string NamespaceToPrefix(string nspace)
+  {
+    if (nspace == "System")
+      return "sys";
+    var sb = new StringBuilder();
+    foreach (var ch in nspace)
+    {
+      if (Char.IsUpper(ch))
+        sb.Append(Char.ToLower(ch));
+    }
+    return sb.ToString();
   }
 
   public void Clear()

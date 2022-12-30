@@ -29,7 +29,8 @@ public partial class QXmlSerializer
       foreach (Type t in extraTypes)
         RegisterType(t);
     KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
-    KnownTypes.Dump();
+
+    //KnownTypes.Dump();
   }
 
   protected partial void Init(XmlTypeMapping xmlTypeMapping)

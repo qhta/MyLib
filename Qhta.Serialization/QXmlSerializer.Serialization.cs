@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
 using Qhta.Conversion;
 using Qhta.TestHelper;
 using Qhta.TypeUtils;
@@ -104,7 +105,7 @@ public partial class QXmlSerializer
 
     WriteAttributesBase(writer, obj, typeInfo);
     WritePropertiesBase(writer, tag, obj, typeInfo);
-    WriteCollectionBase(writer, tag, null, obj, typeInfo);
+    WriteCollectionBase(writer, tag, null, obj as IEnumerable, typeInfo);
   }
 
   public int WriteAttributesBase(XmlWriter writer, object obj, SerializationTypeInfo typeInfo)
@@ -191,19 +192,40 @@ public partial class QXmlSerializer
         //  serializableValue.Serialize(this, writer);
         //else
         {
+          //if (typeInfo?.XmlName == "HeadingPairs")
+          //  Debug.Assert(true);
           var pType = propValue.GetType();
-          if (pType.IsSimple() || pType.IsArray(out var itemType) && itemType==typeof(byte))
+          KnownTypes.TryGetValue(pType, out var serializedTypeInfo);
+          if (memberInfo.CollectionInfo != null)
+          {
+            WriteCollectionBase(writer, null, null, propValue as IEnumerable, memberInfo.ValueType);
+          }
+          else
+          if (memberInfo.ValueType?.CollectionInfo != null)
+          {
+            WriteCollectionBase(writer, null, null, propValue as IEnumerable, memberInfo.ValueType);
+          }
+          else
+          if (pType.IsSimple())
+          {
+            if (memberInfo.TypeConverter != null)
+              WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
+            else if (propValue is String str)
+              WriteValue(writer, str);
+            else
+              WriteValue(writer, propValue.ToString());
+          }
+          else
+          if (pType.IsArray(out var itemType) && itemType == typeof(byte))
           {
             WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
           }
           else
-          if (KnownTypes.TryGetValue(pType, out var serializedTypeInfo))
-          {
-            if (memberInfo.IsReference)
-              WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
-            else
-              WriteObjectInterior(writer, propValue, null, serializedTypeInfo);
-          }
+          if (memberInfo.IsReference)
+            WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
+          else
+            WriteObjectInterior(writer, propValue, null, serializedTypeInfo);
+
           //else if (propValue is ICollection collection)
           //{
           //  var arrayInfo = prop.CollectionInfo;
@@ -235,10 +257,10 @@ public partial class QXmlSerializer
           //    }
           //  }
           //}
-          else
-          {
-            WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
-          }
+          //else
+          //{
+          //  WriteValue(writer, ConvertMemberValueToString(memberInfo, propValue));
+          //}
         }
         if (!String.IsNullOrEmpty(propTag))
           WriteEndElement(writer, propTag);
@@ -249,17 +271,16 @@ public partial class QXmlSerializer
     return propsWritten;
   }
 
-  public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, Object obj, SerializationTypeInfo typeInfo)
+  public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, IEnumerable? collection, SerializationTypeInfo? typeInfo)
   {
-    if (typeInfo.CollectionInfo != null)
-      return WriteCollectionBase(writer, elementTag, propTag, obj, typeInfo.CollectionInfo);
+    if (typeInfo?.CollectionInfo != null)
+      return WriteCollectionBase(writer, elementTag, propTag, collection, typeInfo.CollectionInfo);
     return 0;
   }
 
-  public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, Object obj, CollectionInfo collectionInfo)
+  public int WriteCollectionBase(XmlWriter writer, string? elementTag, string? propTag, IEnumerable? collection, CollectionInfo collectionInfo)
   {
     var itemsWritten = 0;
-    var collection = obj as IEnumerable;
     if (collection == null)
       return 0;
     var itemTypes = collectionInfo.KnownItemTypes;
@@ -275,10 +296,25 @@ public partial class QXmlSerializer
     {
       if (item != null)
       {
-        var itemTag = Options?.ItemTag ?? "item";
+//        var itemTag = Options?.ItemTag ?? "item";
+        var itemTag = GetItemTag(item.GetType());
+        TypeConverter? typeConverter = null;
+        if (itemTypes != null)
+        {
+          var itemType = item.GetType();
+          if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
+            itemTypeInfo = itemTypes.FindTypeInfo(itemType);
+
+          if (itemTypeInfo != null)
+          {
+            itemTag = itemTypeInfo.XmlName;
+            typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
+          }
+        }
+
         if (item.GetType().IsSimple())
         {
-          itemTag = GetItemTag(item.GetType());
+          //itemTag = GetItemTag(item.GetType());
           WriteStartElement(writer, itemTag);
           WriteValue(writer, item);
           WriteEndElement(writer, itemTag);
@@ -314,20 +350,6 @@ public partial class QXmlSerializer
         }
         else
         {
-          TypeConverter? typeConverter = null;
-          if (itemTypes != null)
-          {
-            var itemType = item.GetType();
-            if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
-            {
-              itemTypeInfo = itemTypes.FindTypeInfo(itemType);
-            }
-            if (itemTypeInfo != null)
-            {
-              typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
-            }
-          }
-
           if (typeConverter != null)
           {
             if (!string.IsNullOrEmpty(itemTag))
@@ -361,7 +383,11 @@ public partial class QXmlSerializer
         }
         itemsWritten++;
       }
-
+      else
+      {
+        WriteStartElement(writer, "null");
+        WriteEndElement(writer, "null");
+      }
       if (!String.IsNullOrEmpty(propTag))
         writer.WriteEndElement();
     }
@@ -396,7 +422,10 @@ public partial class QXmlSerializer
         var typeConverter = new ValueTypeConverter(value.GetType(), null, null, null, Options.ConversionOptions);
         var valStr = typeConverter.ConvertToInvariantString(value);
         if (valStr != null)
+        {
+          valStr = EncodeStringValue(valStr);
           writer.WriteValue(valStr);
+        }
       }
     }
   }
@@ -427,13 +456,18 @@ public partial class QXmlSerializer
     if (memberInfo.Property == null)
       return null;
     var typeConverter = memberInfo.GetTypeConverter();
-    if (typeConverter == null)
-      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, memberInfo.DataType, 
-        memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
-    var str = typeConverter.ConvertToInvariantString(propValue);
-    return str;
-
-
+    if (typeConverter != null)
+    {
+      //typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, memberInfo.DataType,
+      //  memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
+      var str = typeConverter.ConvertToInvariantString(propValue);
+      return str;
+    }
+    else
+    {
+      var str = Convert.ToString(propValue);
+      return str;
+    }
     //if (propValue is string str)
     //  return EncodeStringValue(str);
     //if (propValue is bool || propValue is bool?)
@@ -448,17 +482,116 @@ public partial class QXmlSerializer
     var sb = new StringBuilder();
     foreach (var ch in str)
     {
-      sb.Append(ch switch
+      if (ch >= ' ' && ch < '\x7f')
+        sb.Append(ch);
+      else
       {
-        '\\' => "\\\\",
-        '\t' => "\\t",
-        '\r' => "\\r",
-        '\n' => "\\n",
-        '\xA0' => "\\s",
-        _ => ch
-      });
+        var ctx = Char.GetUnicodeCategory(ch);
+        switch (ctx)
+        {
+          case UnicodeCategory.NonSpacingMark:
+          //case UnicodeCategory.SpacingCombiningMark:
+          //case UnicodeCategory.EnclosingMark:
+          case UnicodeCategory.SpaceSeparator:
+          case UnicodeCategory.LineSeparator:
+          case UnicodeCategory.ParagraphSeparator:
+          case UnicodeCategory.Control:
+          case UnicodeCategory.Format:
+          case UnicodeCategory.Surrogate:
+          case UnicodeCategory.PrivateUse:
+          //case UnicodeCategory.ConnectorPunctuation:
+          //case UnicodeCategory.ClosePunctuation:
+          //case UnicodeCategory.OtherPunctuation:
+          //case UnicodeCategory.ModifierSymbol:
+          case UnicodeCategory.OtherNotAssigned:
+            sb.Append(EncodeCharValue(ch));
+            break;
+          default:
+            sb.Append(ch);
+            break;
+        }
+      }
     }
     return sb.ToString();
+  }
+
+  public string EncodeCharValue(Char ch)
+  {
+    switch (ch)
+    {
+      case '\\':
+        return "\\\\";
+      case '\t':
+        return "\\t";
+      case '\r':
+        return "\\r";
+      case '\n':
+        return "\\n";
+      case '\xA0':
+        return "\\s";
+      default:
+        return "\\u" + ((UInt16)ch).ToString("X4");
+    }
+  }
+
+  public string DecodeStringValue(string str)
+  {
+    var sb = new StringBuilder();
+    for (int i = 0; i < str.Length; i++)
+    {
+      var ch = str[i];
+      if (ch == '\\' && i < str.Length - 1)
+      {
+        i++;
+        sb.Append(DecodeEscapeSeq(str, ref i));
+      }
+      else
+        sb.Append(ch);
+    }
+    return sb.ToString();
+  }
+
+  public string DecodeEscapeSeq(string str, ref int index)
+  {
+    var ch = str[index];
+    switch (ch)
+    {
+      case '\\':
+        index++;
+        return "\\";
+      case 't':
+        index++;
+        return "\t";
+      case 'r':
+        index++;
+        return "\r";
+      case 'n':
+        index++;
+        return "\n";
+      case 's':
+        index++;
+        return "\xA0";
+      case 'u':
+        index++;
+        UInt16 code = 0;
+        for (int i = 0; i < 4; i++)
+        {
+          char ch1 = str[index+i];
+          if (ch1 >= '0' && ch1 <= '9')
+            code = (UInt16)(code * 16 + (UInt16)(ch1 - '0'));
+          else
+          if (ch1 >= 'A' && ch1 <= 'F')
+            code = (UInt16)(code * 16 + (UInt16)(ch1 - 'A')+10);
+          else
+          if (ch1 >= 'a' && ch1 <= 'f')
+            code = (UInt16)(code * 16 + (UInt16)(ch1 - 'a') + 10);
+        }
+        index += 4;
+        return new string((char)code,1);
+      default:
+        index++;
+        return new string(ch,1);
+    }
   }
   #endregion
 

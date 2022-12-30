@@ -20,13 +20,13 @@ public static class ObjectCopier
   /// <param name="source">The object instance to copy.</param>
   /// <returns>The copied object.</returns>
   [DebuggerStepThrough]
-  public static T Clone<T>(this T source)
+  public static T? Clone<T>(this T source)
   {
 
     // Don't serialize a null object, simply return the default for that object
     if (Object.ReferenceEquals(source, null))
     {
-      return default(T);
+      return default;
     }
 
     if (!typeof(T).IsSerializable)

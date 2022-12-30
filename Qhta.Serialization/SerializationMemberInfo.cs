@@ -19,6 +19,8 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
   /// <param name="order">Needed to sort the order for serialization</param>
   public SerializationMemberInfo(string name, MemberInfo memberInfo, int order=int.MaxValue)
   {
+    if (name == "VariantType")
+      Debug.Assert(true);
     XmlName = name;
     Member = memberInfo;
     Order = order;
@@ -32,6 +34,8 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
   /// <param name="order">Needed to sort the order for serialization</param>
   public SerializationMemberInfo(QualifiedName name, MemberInfo memberInfo, int order = int.MaxValue)
   {
+    if (name.Name=="VariantType")
+      Debug.Assert(true);
     XmlName = name.Name;
     ClrNamespace = name.Namespace;
     Member = memberInfo;

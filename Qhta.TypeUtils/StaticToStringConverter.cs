@@ -12,7 +12,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string CharToString(Char value)
+  public static string? CharToString(Char value)
   {
     return value.ToString();
   }
@@ -22,7 +22,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string BoolToString(bool value)
+  public static string? BoolToString(bool value)
   {
     return value.ToString();
   }
@@ -32,7 +32,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string SByteToString(SByte value)
+  public static string? SByteToString(SByte value)
   {
     return value.ToString();
   }
@@ -43,7 +43,7 @@ public static class StaticToStringConverter
   /// <param name="value"></param>
   /// <returns></returns>
 
-  public static string Int16ToString(Int16 value)
+  public static string? Int16ToString(Int16 value)
   {
     return value.ToString();
   }
@@ -54,7 +54,7 @@ public static class StaticToStringConverter
   /// <param name="value"></param>
   /// <returns></returns>
 
-  public static string Int32ToString(Int32 value)
+  public static string? Int32ToString(Int32 value)
   {
     return value.ToString();
   }
@@ -64,7 +64,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string Int64ToString(Int64 value)
+  public static string? Int64ToString(Int64 value)
   {
     return value.ToString();
   }
@@ -74,7 +74,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string ByteToString(Byte value)
+  public static string? ByteToString(Byte value)
   {
     return value.ToString();
   }
@@ -84,7 +84,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string UInt16ToString(UInt16 value)
+  public static string? UInt16ToString(UInt16 value)
   {
     return value.ToString();
   }
@@ -94,7 +94,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string UInt32ToString(UInt32 value)
+  public static string? UInt32ToString(UInt32 value)
   {
     return value.ToString();
   }
@@ -104,7 +104,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string UInt64ToString(UInt64 value)
+  public static string? UInt64ToString(UInt64 value)
   {
     return value.ToString();
   }
@@ -114,7 +114,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string FloatToString(float value)
+  public static string? FloatToString(float value)
   {
     return value.ToString();
   }
@@ -124,7 +124,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string DoubleToString(double value)
+  public static string? DoubleToString(double value)
   {
     return value.ToString();
   }
@@ -134,7 +134,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string DateTimeToString(DateTime value)
+  public static string? DateTimeToString(DateTime value)
   {
     return value.ToString();
   }
@@ -144,7 +144,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string TimeSpanToString(TimeSpan value)
+  public static string? TimeSpanToString(TimeSpan value)
   {
     return value.ToString();
   }
@@ -154,11 +154,11 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string EnumToString(object value)
+  public static string? EnumToString(object? value)
   {
     if (value == null)
       return null;
-    string result = value.ToString();
+    string result = value.ToString() ?? "";
     result = result.Replace(", ", "+");
     return result;
   }
@@ -168,7 +168,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableCharToString(Char? value)
+  public static string? NullableCharToString(Char? value)
   {
     return value.ToString();
   }
@@ -178,7 +178,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableBoolToString(bool? value)
+  public static string? NullableBoolToString(bool? value)
   {
     return value.ToString();
   }
@@ -188,7 +188,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableSByteToString(SByte? value)
+  public static string? NullableSByteToString(SByte? value)
   {
     return value.ToString();
   }
@@ -198,7 +198,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableInt16ToString(Int16? value)
+  public static string? NullableInt16ToString(Int16? value)
   {
     return value.ToString();
   }
@@ -208,7 +208,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableInt32ToString(Int32? value)
+  public static string? NullableInt32ToString(Int32? value)
   {
     return value.ToString();
   }
@@ -218,7 +218,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableInt64ToString(Int64? value)
+  public static string? NullableInt64ToString(Int64? value)
   {
     return value.ToString();
   }
@@ -228,7 +228,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableByteToString(Byte? value)
+  public static string? NullableByteToString(Byte? value)
   {
     return value.ToString();
   }
@@ -238,7 +238,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableUInt16ToString(UInt16? value)
+  public static string? NullableUInt16ToString(UInt16? value)
   {
     return value.ToString();
   }
@@ -248,7 +248,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableUInt32ToString(UInt32? value)
+  public static string? NullableUInt32ToString(UInt32? value)
   {
     return value.ToString();
   }
@@ -258,7 +258,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableUInt64ToString(UInt64? value)
+  public static string? NullableUInt64ToString(UInt64? value)
   {
     return value.ToString();
   }
@@ -268,7 +268,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableFloatToString(float? value)
+  public static string? NullableFloatToString(float? value)
   {
     return value.ToString();
   }
@@ -278,7 +278,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableDoubleToString(double? value)
+  public static string? NullableDoubleToString(double? value)
   {
     return value.ToString();
   }
@@ -288,7 +288,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableDateTimeToString(DateTime? value)
+  public static string? NullableDateTimeToString(DateTime? value)
   {
     return value.ToString();
   }
@@ -298,7 +298,7 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableTimeSpanToString(TimeSpan? value)
+  public static string? NullableTimeSpanToString(TimeSpan? value)
   {
     return value.ToString();
   }
@@ -308,11 +308,11 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string NullableEnumToString(object value)
+  public static string? NullableEnumToString(object? value)
   {
     if (value == null)
       return null;
-    string result = value.ToString();
+    string result = value.ToString() ?? "";
     result = result.Replace(", ", "+");
     return result;
   }
@@ -322,9 +322,8 @@ public static class StaticToStringConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string ClassToString(object value)
+  public static string? ClassToString(object? value)
   {
-    string result = value.ToString();
-    return result;
+    return value?.ToString();
   }
 }

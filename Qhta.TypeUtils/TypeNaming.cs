@@ -35,7 +35,7 @@ public static class TypeNaming
   /// <returns></returns>
   public static string GetTypeName(this Type type)
   {
-    string name;
+    string? name;
     if (typeNames.TryGetValue(type, out name))
       return name;
     name = type.Name;

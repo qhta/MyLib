@@ -72,6 +72,7 @@ namespace Qhta.Conversion
 
     public static readonly Dictionary<Type, TypeConverter> KnownTypeConverters = new Dictionary<Type, TypeConverter>
     {
+      //{ typeof(Object), new ObjectTypeConverter() },
       { typeof(Array), new ArrayTypeConverter() },
       { typeof(bool), new BooleanTypeConverter() },
       { typeof(byte), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedByte } },
@@ -88,6 +89,7 @@ namespace Qhta.Conversion
       { typeof(long), new NumericTypeConverter{ XsdType = XsdSimpleType.Long } },
       { typeof(sbyte), new NumericTypeConverter{ XsdType = XsdSimpleType.Byte } },
       { typeof(short), new NumericTypeConverter{ XsdType = XsdSimpleType.Short } },
+      { typeof(char), new StringTypeConverter() },
       { typeof(string), new StringTypeConverter() },
       { typeof(string[]), new ArrayTypeConverter() },
       { typeof(TimeOnly), new DateTimeTypeConverter{ XsdType = XsdSimpleType.Time } },
@@ -203,7 +205,7 @@ namespace Qhta.Conversion
 
       if (InternalTypeConverter == null)
       {
-        if (expectedType != null)
+        if (expectedType != null && expectedType != typeof(object))
           throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
         if (xsdType != null)
           throw new InvalidOperationException($"TypeConverter for xsdType={xsdType} not found");

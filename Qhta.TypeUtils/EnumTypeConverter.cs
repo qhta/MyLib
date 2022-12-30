@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -43,35 +44,38 @@ public static class EnumTypeConverter
 
           UInt64 value = 0;
           var obj = enumMember.GetValue(null);
-          if (uType==typeof(byte))
-            value = (byte)obj;
-          else if (uType==typeof(sbyte))
-            value = (UInt64)(sbyte)obj;
-          else if (uType==typeof(short))
-            value = (UInt64)(short)obj;
-          else if (uType==typeof(ushort))
-            value = (ushort)obj;
-          else if (uType==typeof(uint))
-            value = (UInt64)(uint)obj;
-          else if (uType==typeof(Int64))
-            value = (UInt64)(Int64)obj;
-          else if (uType==typeof(UInt64))
-            value = (UInt64)obj;
-          else
-            value = (UInt64)(int)obj;
-          var enumMemberAttribute = enumMember.GetCustomAttributes(typeof(EnumMemberAttribute), false).FirstOrDefault() as EnumMemberAttribute;
-          if (enumMemberAttribute!=null)
+          if (obj != null)
           {
-            dicts.ValueToString.TryAdd(value, enumMemberAttribute.Value);
-            string s = enumMemberAttribute.Value.ToLower();
-            dicts.StringToValue.TryAdd(s, value);
-            if (s!=enumMember.Name.ToLower())
+            if (uType == typeof(byte))
+              value = (byte)obj;
+            else if (uType == typeof(sbyte))
+              value = (UInt64)(sbyte)obj;
+            else if (uType == typeof(short))
+              value = (UInt64)(short)obj;
+            else if (uType == typeof(ushort))
+              value = (ushort)obj;
+            else if (uType == typeof(uint))
+              value = (UInt64)(uint)obj;
+            else if (uType == typeof(Int64))
+              value = (UInt64)(Int64)obj;
+            else if (uType == typeof(UInt64))
+              value = (UInt64)obj;
+            else
+              value = (UInt64)(int)obj;
+            var enumMemberAttribute = enumMember.GetCustomAttributes(typeof(EnumMemberAttribute), false).FirstOrDefault() as EnumMemberAttribute;
+            if (enumMemberAttribute != null)
+            {
+              dicts.ValueToString.TryAdd(value, enumMemberAttribute.Value);
+              string s = enumMemberAttribute.Value.ToLower();
+              dicts.StringToValue.TryAdd(s, value);
+              if (s != enumMember.Name.ToLower())
+                dicts.StringToValue.TryAdd(enumMember.Name.ToLower(), value);
+            }
+            else
+            {
+              dicts.ValueToString.TryAdd(value, enumMember.Name);
               dicts.StringToValue.TryAdd(enumMember.Name.ToLower(), value);
-          }
-          else
-          {
-            dicts.ValueToString.TryAdd(value, enumMember.Name);
-            dicts.StringToValue.TryAdd(enumMember.Name.ToLower(), value);
+            }
           }
         }
         var strings = dicts.StringToValue.ToList();
@@ -160,10 +164,10 @@ public static class EnumTypeConverter
   /// <returns></returns>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   [DebuggerStepThrough]
-  public static EType Decode<EType>(string value) where EType : struct, IConvertible
+  public static EType? Decode<EType>(string value) where EType : struct, IConvertible
   {
-    EType result;
-    if (!TryDecode(value, out result, out string invKey))
+    EType? result;
+    if (!TryDecode(value, out result, out string? invKey))
       throw new KeyNotFoundException($"Key \"{invKey}\" not found in {typeof(EType).Name} type");
     return result;
   }
@@ -177,9 +181,9 @@ public static class EnumTypeConverter
   /// <returns></returns>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   [DebuggerStepThrough]
-  public static bool TryDecode<EType>(string value, out EType result) where EType : struct, IConvertible
+  public static bool TryDecode<EType>(string value, out EType? result) where EType : struct, IConvertible
   {
-    return TryDecode<EType>(value, out result, out string invKey);
+    return TryDecode<EType>(value, out result, out string? invKey);
   }
 
   /// <summary>
@@ -191,7 +195,7 @@ public static class EnumTypeConverter
   /// <param name="invalidKey"></param>
   /// <returns></returns>
   [DebuggerStepThrough]
-  public static bool TryDecode<EType>(string value, out EType result, out string invalidKey) where EType : struct, IConvertible
+  public static bool TryDecode<EType>(string value, out EType? result, out string? invalidKey) where EType : struct, IConvertible
   {
     result = default(EType);
     invalidKey = null;

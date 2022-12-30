@@ -6,10 +6,10 @@
     <authors>Qhta.TextUtils</authors>
     <description>Package Description</description>
     <dependencies>
-      <group targetFramework="net6.0" />
+      <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\VS\Projects\MyLib\Qhta.TextUtils\bin\Debug\net6.0\Qhta.TextUtils.dll" target="lib\net6.0\Qhta.TextUtils.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TextUtils.dll" target="lib\netstandard2.0\Qhta.TextUtils.dll" />
   </files>
 </package>

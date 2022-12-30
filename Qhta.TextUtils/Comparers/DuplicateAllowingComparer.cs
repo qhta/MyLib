@@ -27,9 +27,9 @@ namespace Qhta.TextUtils
 
     public int GetHashCode(T obj)
     {
-      if (obj is string)
+      if (obj is string str)
       {
-        int hash = (obj as string).GetHashCode();
+        int hash = str.GetHashCode();
         while (hashes.Contains(hash))
           hash++;
         hashes.Add(hash);

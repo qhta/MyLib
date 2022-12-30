@@ -10,7 +10,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
     return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
   }
 
-  public override object? ReadXml(XmlReader reader, SerializationTypeInfo objectTypeInfo,
+  public override object? ReadXml(object context, XmlReader reader, SerializationTypeInfo objectTypeInfo,
     SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
   {
     var serializationTypeInfo = propertyInfo?.ValueType;

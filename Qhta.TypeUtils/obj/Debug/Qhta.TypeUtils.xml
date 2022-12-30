@@ -53,7 +53,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TypeUtils.EnumTypeConverter.TryDecode``1(System.String,``0@)">
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.TryDecode``1(System.String,System.Nullable{``0}@)">
             <summary>
             Trying translating string value to enum value
             </summary>
@@ -62,7 +62,7 @@
             <param name="result"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TypeUtils.EnumTypeConverter.TryDecode``1(System.String,``0@,System.String@)">
+        <member name="M:Qhta.TypeUtils.EnumTypeConverter.TryDecode``1(System.String,System.Nullable{``0}@,System.String@)">
             <summary>
             Trying translating string value to enum value
             </summary>
@@ -957,6 +957,25 @@
             Expanded <see cref="M:System.Type.GetElementType"/> method
             with <see cref="M:System.Type.GetInterfaces"/>
             </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.HasProperty(System.Type,System.String)">
+            <summary>
+              Determine if a type has property with a specified name.
+              Equivalent to <c>type.GetProperty(name) != null</c>.
+            </summary>
+            <param name="type"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeUtils.HasProperty(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+              Determine if a type has property with a specified name using BindingFlags.
+              Equivalent to <c>type.GetProperty(name, flags) != null</c>.
+            </summary>
+            <param name="type"></param>
+            <param name="name"></param>
+            <param name="flags"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.TypeUtils.TypeUtils.GetValueType(System.Reflection.MemberInfo)">
             <summary>

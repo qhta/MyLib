@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security.AccessControl;
 using System.Xml;
@@ -24,6 +25,8 @@ public partial class XmlSerializationInfoMapper
   {
     Options = options;
     DefaultNamespace = defaultNamespace;
+    KnownNamespaces = new KnownNamespacesCollection();
+    KnownTypes = new KnownTypesCollection(KnownNamespaces);
   }
 
   /// <summary>
@@ -31,7 +34,7 @@ public partial class XmlSerializationInfoMapper
   /// </summary>
   public string? DefaultNamespace { get; set; }
 
-  public KnownNamespacesCollection KnownNamespaces { get; set; } = new();
+  public KnownNamespacesCollection KnownNamespaces { get; }
 
   /// <summary>
   /// Only some of the options are used:
@@ -50,16 +53,16 @@ public partial class XmlSerializationInfoMapper
   /// Types are registered by the name of the type or by <see cref="XmlRootAttribute"/>,
   /// <see cref="XmlCollectionAttribute"/>, or <see cref="XmlDictionaryAttribute"/>.
   /// </summary>
-  public KnownTypesCollection KnownTypes { get; } = new KnownTypesCollection();
+  public KnownTypesCollection KnownTypes { get; }
 
   public Dictionary<string, TypeConverter> TypeConverters { get; } = new();
 
   public SerializationTypeInfo RegisterType(Type aType)
   {
-    if (aType.IsNullable(out var baseType))
+    if (aType.IsNullable(out var baseType) && baseType!=null)
       aType = baseType;
     #region Checking if a type was already registered
-    if (KnownTypes.TryGetValue(aType, out var knownTypeInfo))
+    if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null)
     {
       return knownTypeInfo;
     }
@@ -77,6 +80,20 @@ public partial class XmlSerializationInfoMapper
     FillTypeInfo(newTypeInfo);
     #endregion
 
+    #region Registering TypeConverter as ValueTypeConverter
+    if (newTypeInfo.TypeConverter != null && !ValueTypeConverter.KnownTypeConverters.ContainsKey(aType))
+      ValueTypeConverter.KnownTypeConverters.Add(aType, newTypeInfo.TypeConverter);
+    #endregion
+
+
+    #region Registering included types
+    foreach (var attrib in aType.GetCustomAttributes<XmlIncludeAttribute>())
+    {
+      if (attrib.Type!=null)
+        RegisterType(attrib.Type);
+    }
+    #endregion
+
     return newTypeInfo;
   }
 
@@ -89,38 +106,50 @@ public partial class XmlSerializationInfoMapper
   /// <returns></returns>
   protected SerializationTypeInfo CreateTypeInfo(Type aType)
   {
-    if (aType.IsNullable(out var baseType))
+    if (aType.Name == "HexWord")
+      TestTools.Stop();
+    if (aType.IsNullable(out var baseType) && baseType!=null)
       aType = baseType;
     SerializationTypeInfo typeInfo = new SerializationTypeInfo(aType);
     var xmlRootAttrib = aType.GetCustomAttribute<XmlRootAttribute>(false);
-    var elemName = xmlRootAttrib?.ElementName;
-    if (String.IsNullOrEmpty(elemName))
-      elemName = aType.Name;
-    var elemNamespace = xmlRootAttrib?.Namespace;
-    //var qElemName = new QualifiedName(elemName ?? "", elemNamespace);
-    if (elemNamespace != null && DefaultNamespace == null)
-      DefaultNamespace = elemNamespace;
-    //if (qElemName.IsEmpty())
-    //{
-    //  var xmlCollectionAttribute = aType.GetCustomAttribute<XmlCollectionAttribute>();
-    //  if (xmlCollectionAttribute != null)
-    //    qElemName = new QualifiedName(xmlCollectionAttribute.ElementName);
-    //  if (qElemName.IsEmpty())
-    //  {
-    //    var xmlDictionaryAttribute = aType.GetCustomAttribute<XmlDictionaryAttribute>();
-    //    if (xmlDictionaryAttribute != null)
-    //      qElemName = new QualifiedName(xmlDictionaryAttribute.ElementName);
-    //    if (qElemName.IsEmpty())
-    //    {
-    //      qElemName = new QualifiedName(aType.Name, elemNamespace);
-    //    }
-    //  }
-    //}
+    var elementName = xmlRootAttrib?.ElementName;
+    if (String.IsNullOrEmpty(elementName))
+      elementName = GetElementName(aType);
+    var elementNamespace = xmlRootAttrib?.Namespace;
+    if (String.IsNullOrEmpty(elementNamespace))
+      elementNamespace = GetElementNamespace(aType);
+    if (elementNamespace != null && DefaultNamespace == null)
+      DefaultNamespace = elementNamespace;
 
-    typeInfo.XmlName = elemName;
-    typeInfo.XmlNamespace = elemNamespace;
+    typeInfo.XmlName = elementName;
+    typeInfo.XmlNamespace = elementNamespace;
     typeInfo.ClrNamespace = aType.Namespace;
     return typeInfo;
+  }
+
+  private string GetElementName(Type aType)
+  {
+    var elementName = aType.Name;
+    int k = elementName.IndexOf('`');
+    if (k >=0) 
+    {
+      elementName = elementName.Substring(0, k);
+      foreach (var argType in aType.GenericTypeArguments)
+        elementName += "_" + GetElementName(argType);
+    }
+    return elementName;
+  }
+
+  private string GetElementNamespace(Type aType)
+  {
+    var elementNamespace = aType.Namespace ?? "";
+    int k = aType.Name.IndexOf('`');
+    if (k >= 0)
+    {
+      foreach (var argType in aType.GenericTypeArguments)
+        elementNamespace += "_" + GetElementNamespace(argType);
+    }
+    return elementNamespace;
   }
 
   /// <summary>
@@ -138,6 +167,9 @@ public partial class XmlSerializationInfoMapper
 
     if (aType.IsDictionary())
       typeInfo.CollectionInfo = CreateDictionaryInfo(aType);
+    else
+    if (aType.IsList())
+      typeInfo.CollectionInfo = CreateCollectionInfo(aType);
     else
     if (aType.IsCollection())
       typeInfo.CollectionInfo = CreateCollectionInfo(aType);
@@ -166,7 +198,11 @@ public partial class XmlSerializationInfoMapper
 
   public virtual void MapPropertiesAndFields(Type aType, SerializationTypeInfo typeInfo)
   {
-    var members = aType.GetMembersByInheritance().Where(item => item is FieldInfo || item is PropertyInfo).ToList();
+    List<MemberInfo> members;
+    if (Options.AcceptFields)
+      members = aType.GetMembersByInheritance().Where(item => item is FieldInfo || item is PropertyInfo).ToList();
+    else
+      members = aType.GetMembersByInheritance().Where(item => item is PropertyInfo).ToList();
     if (!members.Any())
       return;
     typeInfo.ContentProperty = GetContentProperty(aType);
@@ -288,13 +324,15 @@ public partial class XmlSerializationInfoMapper
   /// <param name="defaultOrder">default order</param>
   protected virtual bool TryAddMemberAsElement(SerializationTypeInfo typeInfo, MemberInfo memberInfo, XmlElementAttribute? xmlAttribute, int defaultOrder)
   {
-    var elemName = xmlAttribute?.ElementName;
-    var elemNamespace = xmlAttribute?.Namespace;
-    if (string.IsNullOrEmpty(elemName))
-      elemName = memberInfo.Name;
+    var elementName = xmlAttribute?.ElementName;
+    var elementNamespace = xmlAttribute?.Namespace;
+    if (string.IsNullOrEmpty(elementName))
+      elementName = memberInfo.Name;
     if (Options.ElementNameCase != 0)
-      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
-    var qElemName = new QualifiedName(elemName, elemNamespace);
+      elementName = QXmlSerializer.ChangeCase(elementName, Options.ElementNameCase);
+    if (string.IsNullOrEmpty(elementNamespace))
+      elementNamespace = memberInfo.DeclaringType?.Namespace ?? "";
+    var qElemName = new QualifiedName(elementName, elementNamespace);
     if (typeInfo.MembersAsElements.ContainsKey(qElemName))
       return false;
     var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
@@ -303,7 +341,7 @@ public partial class XmlSerializationInfoMapper
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
     typeInfo.MembersAsElements.Add(serializationMemberInfo);
-    //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
+    KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;
   }
 
@@ -434,10 +472,15 @@ public partial class XmlSerializationInfoMapper
         if (itemType == null)
           itemType = typeof(object);
         var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
-        collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
+        if (arrayItemAttribute is QXmlArrayItemAttribute qArrayItemAttribute)
+          serializationItemTypeInfo.Value = qArrayItemAttribute.Value;
+        if (elemName!=null)
+          collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
+        else
+          collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
       }
     }
-    else if (aType.IsCollection(out var itemType))
+    else if (aType.IsCollection(out var itemType) && itemType!=null)
     {
       var itemTypeInfo = RegisterType(itemType);
       var elemName = itemType.Name;
@@ -497,7 +540,7 @@ public partial class XmlSerializationInfoMapper
         dictionaryTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
       }
     }
-    else if (aType.IsDictionary(out var keyType, out var valType))
+    else if (aType.IsDictionary(out var keyType, out var valType) && keyType!=null && valType!=null)
     {
       dictionaryTypeInfo.KeyTypeInfo = RegisterType(keyType);
       var elemName = "Item";
@@ -600,7 +643,7 @@ public partial class XmlSerializationInfoMapper
     var xmlKnownTypeAttributes = aType.GetCustomAttributes<KnownTypeAttribute>(false).ToList();
     if (xmlKnownTypeAttributes.Any())
     {
-      knownItems = new();
+      knownItems = new KnownTypesCollection(KnownNamespaces);
       foreach (var xmlKnownTypeAttribute in xmlKnownTypeAttributes)
       {
         var itemType = xmlKnownTypeAttribute.Type;
@@ -835,7 +878,7 @@ public partial class XmlSerializationInfoMapper
 
   public virtual bool IsSimple(Type aType)
   {
-    if (aType.IsNullable(out var baseType))
+    if (aType.IsNullable(out var baseType) && baseType != null)
       return IsSimple(baseType);
     bool isSimpleValue = false;
     if (aType == typeof(string))

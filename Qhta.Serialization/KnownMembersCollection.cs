@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace Qhta.Xml.Serialization;
@@ -7,10 +8,23 @@ public class KnownMembersCollection : ICollection<SerializationMemberInfo>
 {
   private static readonly PropOrderComparer propertyInfoOrderComparer = new PropOrderComparer();
 
-  private List<SerializationMemberInfo> Items { get; set; } = new();
+  private ObservableCollection<SerializationMemberInfo> Items { get; set; } = new();
   private SortedSet<SerializationMemberInfo> OrderedItems { get; set; } = new();
   private SortedDictionary<QualifiedName, SerializationMemberInfo> NameIndexedItems { get; set; } = new();
 
+  public KnownMembersCollection()
+  {
+    //Items.CollectionChanged += Items_CollectionChanged;
+  }
+
+  //private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
+  //{
+  //  if (args.Action == NotifyCollectionChangedAction.Add)
+  //    if (args.NewItems!=null)
+  //      foreach (var item in args.NewItems.Cast<SerializationMemberInfo>())
+  //        if (item.XmlName == "Value")
+  //          Debug.Assert(true);
+  //}
 
   public void Add(SerializationMemberInfo item)
   {
@@ -87,17 +101,18 @@ public class KnownMembersCollection : ICollection<SerializationMemberInfo>
     return GetEnumerator();
   }
 
-  public void Dump(string header)
+  public void Dump(string header, KnownNamespacesCollection KnownNamespaces)
   {
     if (Count==0) return;
     Debug.WriteLine(header);
     Debug.Indent();
     foreach (var item in this)
     {
+      KnownNamespaces.XmlNamespaceToPrefix.TryGetValue(item.XmlNamespace ?? "", out var prefix);
       if (item.Member is FieldInfo field)
-        Debug.WriteLine($"{item.QualifiedName} = field {field.Name}: {item.MemberType}");
+        Debug.WriteLine($"{prefix}:{item.XmlName} = field {field.Name}: {item.MemberType}");
       if (item.Member is PropertyInfo property)
-        Debug.WriteLine($"{item.QualifiedName} = property {property.Name}: {item.MemberType}");
+        Debug.WriteLine($"{prefix}:{item.XmlName} = property {property.Name}: {item.MemberType}");
     }
     Debug.Unindent();
   }

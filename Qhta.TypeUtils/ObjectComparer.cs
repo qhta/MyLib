@@ -27,7 +27,7 @@ public class CompareResult
   /// <summary>
   /// If objects are not equal then this value holds the property path to first different properties
   /// </summary>
-  public string DiffPath { get; set; }
+  public string? DiffPath { get; set; }
 }
 
 /// <summary>
@@ -46,11 +46,11 @@ public static class ObjectComparer
   /// <returns></returns>
   public static CompareResult AreEqual(object @this, object other)
   {
-    return AreEqual(@this, other, null);
+    return AreEqual(@this, other, string.Empty);
   }
 
 
-  private static CompareResult AreEqual(object @this, object other, string propName)
+  private static CompareResult AreEqual(object? @this, object? other, string propName)
   {
     if (@this == null && other == null)
       return new CompareResult { AreEqual = true };
@@ -68,13 +68,14 @@ public static class ObjectComparer
           return new CompareResult { AreEqual = true };
       return new CompareResult { AreEqual = false, DiffPath = propName };
     }
-    if (@this.GetType() != other.GetType())
+    if (@this!=null && other!=null && @this.GetType() != other.GetType())
     {
       return new CompareResult { AreEqual = false, DiffPath = "@Type" };
     }
 
-    var props = @this.GetType().GetProperties();
+    var props = @this?.GetType().GetProperties();
     bool compared = false;
+    if (props!=null)
     foreach (var propInfo in props)
     {
       var getMethod = propInfo.GetMethod;
@@ -148,20 +149,19 @@ public static class ObjectComparer
     }
     if (!compared)
     {
-      var isEqual = @this.Equals(other);
-      if (!isEqual)
+      var isEqual = @this?.Equals(other);
+      if (isEqual!=true)
         return new CompareResult { AreEqual = false };
     }
     return new CompareResult { AreEqual = true };
   }
 
-  private static string GetItemId(object item)
+  private static string? GetItemId(object item)
   {
     var idProp = item.GetType().GetProperty("ID") ?? item.GetType().GetProperty("Id");
     if (idProp != null)
     {
-      string id = idProp.GetValue(item)?.ToString();
-      return id;
+      return idProp.GetValue(item)?.ToString();
     }
     return null;
   }
@@ -174,10 +174,10 @@ public static class ObjectComparer
   /// <returns></returns>
   public static CompareResult AreEqualAsync(object @this, object other)
   {
-    return AreEqualAsync(@this, other, null).Result;
+    return AreEqualAsync(@this, other, string.Empty).Result;
   }
 
-  private static Task<CompareResult> AreEqualAsync(object @this, object other, string propName)
+  private static Task<CompareResult> AreEqualAsync(object? @this, object? other, string propName)
   {
     return Task.Factory.StartNew<CompareResult>(() =>
     {
@@ -198,14 +198,15 @@ public static class ObjectComparer
             return new CompareResult { AreEqual = true };
         return new CompareResult { AreEqual = false, DiffPath = propName };
       }
-      if (@this.GetType() != other.GetType())
+      if (@this?.GetType() != other?.GetType())
       {
         return new CompareResult { AreEqual = false, DiffPath = "@Type" };
       }
 
-      var props = @this.GetType().GetProperties();
+      var props = @this?.GetType().GetProperties();
       bool compared = false;
       List<Task<CompareResult>> propCompTasksList = new List<Task<CompareResult>>(props.Count());
+      if (props!=null)
       foreach (var propInfo in props)
       {
         var getMethod = propInfo.GetMethod;
@@ -293,8 +294,8 @@ public static class ObjectComparer
       }
       if (!compared)
       {
-        var isEqual = @this.Equals(other);
-        if (!isEqual)
+        var isEqual = @this?.Equals(other);
+        if (isEqual!=true)
           return new CompareResult { AreEqual = false };
       }
       return new CompareResult { AreEqual = true };

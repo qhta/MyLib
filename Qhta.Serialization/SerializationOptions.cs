@@ -19,6 +19,11 @@ public class SerializationOptions: IEquatable<SerializationOptions>
   public bool AcceptAllProperties { get; set; } = true;
 
   /// <summary>
+  /// If fields are accepted to serialize along with properties.
+  /// </summary>
+  public bool AcceptFields { get; set; }
+
+  /// <summary>
   /// If simple type properties not marked with any XmlAttribute are accepted to serialize as attributes.
   /// </summary>
   public bool SimplePropertiesAsAttributes { get; set; }

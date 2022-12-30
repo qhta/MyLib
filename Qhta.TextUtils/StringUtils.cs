@@ -163,9 +163,9 @@ namespace Qhta.TextUtils
       return words;
     }
 
-    public static string Precede(this string str, string prefix) => str != null ? prefix + str : null;
+    public static string? Precede(this string str, string prefix) => str != null ? prefix + str : null;
 
-    public static string Attach(this string str, string suffix) => str != null ? str + suffix : null;
+    public static string? Attach(this string str, string suffix) => str != null ? str + suffix : null;
 
     public static bool ContainsAt(this string str, string substring, int atIndex)
     {
@@ -216,20 +216,20 @@ namespace Qhta.TextUtils
     public static bool IsLike(this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
     {
       var wildcardCount = pattern.Where(c => c == '*').Count();
-      if (wildcardCount == 1 && pattern.EndsWith('*'))
+      if (wildcardCount == 1 && pattern.EndsWith("*"))
       {
         pattern = pattern.Substring(0, pattern.Length - 1);
         return key.StartsWith(pattern, stringComparison);
       }
-      if (wildcardCount == 1 && pattern.StartsWith('*'))
+      if (wildcardCount == 1 && pattern.StartsWith("*"))
       {
         pattern = pattern.Substring(1, pattern.Length - 1);
         return key.EndsWith(pattern, stringComparison);
       }
-      if (wildcardCount == 2 && pattern.EndsWith('*') && pattern.StartsWith('*'))
+      if (wildcardCount == 2 && pattern.EndsWith("*") && pattern.StartsWith("*"))
       {
         pattern = pattern.Substring(1, pattern.Length - 2);
-        return key.Contains(pattern, stringComparison);
+        return key.IndexOf(pattern,stringComparison)>=0;
       }
       if (wildcardCount > 0)
       {
@@ -272,7 +272,7 @@ namespace Qhta.TextUtils
     {
       wildKey = null;
       var wildcardCount = pattern.Where(c => c == '*').Count();
-      if (wildcardCount == 1 && pattern.EndsWith('*'))
+      if (wildcardCount == 1 && pattern.EndsWith("*"))
       {
         pattern = pattern.Substring(0, pattern.Length - 1);
         if (key.StartsWith(pattern, stringComparison))
@@ -282,7 +282,7 @@ namespace Qhta.TextUtils
         }
         return false;
       }
-      if (wildcardCount == 1 && pattern.StartsWith('*'))
+      if (wildcardCount == 1 && pattern.StartsWith("*"))
       {
         pattern = pattern.Substring(1, pattern.Length - 1);
         if (key.EndsWith(pattern, stringComparison))
@@ -292,7 +292,7 @@ namespace Qhta.TextUtils
         }
         return false;
       }
-      if (wildcardCount == 2 && pattern.EndsWith('*') && pattern.StartsWith('*'))
+      if (wildcardCount == 2 && pattern.EndsWith("*") && pattern.StartsWith("*"))
       {
         pattern = pattern.Substring(1, pattern.Length - 2);
         int patternPos = key.IndexOf(pattern, stringComparison);
@@ -301,7 +301,7 @@ namespace Qhta.TextUtils
           var wKeys = new string[2];
           wKeys[0] = key.Substring(0, patternPos);
           wKeys[1] = key.Substring(patternPos + pattern.Length);
-          wildKey = String.Join('*', wKeys);
+          wildKey = String.Join("*", wKeys);
           return true;
         }
       }
@@ -310,7 +310,7 @@ namespace Qhta.TextUtils
         var patternParts = pattern.Split('*').ToList();
         if (MatchPatternParts(key, patternParts, out var wildKeyParts, stringComparison))
         {
-          wildKey = String.Join('*', wildKeyParts);
+          wildKey = String.Join("*", wildKeyParts);
           return true;
         }
         return false;
@@ -348,7 +348,7 @@ namespace Qhta.TextUtils
 
     public static bool IsLikeNumber(this string key, string pattern, out string? wildKey, out int wildNum)
     {
-      if (pattern.EndsWith('#') && pattern.StartsWith('#'))
+      if (pattern.EndsWith("#") && pattern.StartsWith("#"))
       {
         pattern = pattern.Substring(1, pattern.Length - 2);
         int patternPos = key.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase);
@@ -359,7 +359,7 @@ namespace Qhta.TextUtils
             return true;
         }
       }
-      else if (pattern.EndsWith('#'))
+      else if (pattern.EndsWith("#"))
       {
         pattern = pattern.Substring(0, pattern.Length - 1);
         if (key.StartsWith(pattern, StringComparison.CurrentCultureIgnoreCase))
@@ -369,7 +369,7 @@ namespace Qhta.TextUtils
             return true;
         }
       }
-      if (pattern.StartsWith('#'))
+      if (pattern.StartsWith("#"))
       {
         pattern = pattern.Substring(1, pattern.Length - 1);
         if (key.EndsWith(pattern, StringComparison.CurrentCultureIgnoreCase))
@@ -418,7 +418,7 @@ namespace Qhta.TextUtils
 
     public static string TrimEnclosings(this string text, char openParen, char closeParen, (char open, char close)[]? enclosings = null)
     {
-      if (text.StartsWith(openParen) && text.EndsWith(closeParen))
+      if (text.StartsWith(new String(openParen,1)) && text.EndsWith(new String(closeParen,1)))
       {
         if (enclosings == null)
           return text.Substring(1, text.Length - 2).Trim();
@@ -452,7 +452,7 @@ namespace Qhta.TextUtils
     [DebuggerStepThrough]
     public static string TrimDblQuotes(this string text)
     {
-      if (text.Length >= 2 && text.StartsWith('\"') && text.EndsWith('\"'))
+      if (text.Length >= 2 && text.StartsWith("\"") && text.EndsWith("\""))
         return text.Substring(1, text.Length - 2);
       return text;
     }
@@ -559,22 +559,24 @@ namespace Qhta.TextUtils
       return result;
     }
 
-    private static Dictionary<char, char> braces = new Dictionary<char, char>()
+    private static (char open, char close)[] DefaultBraces = new (char open, char close)[]
     {
-      { '(', ')' },
-      { '[', ']' },
-      { '{', '}' },
+      ( '(', ')' ),
+      ( '[', ']' ),
+      ( '{', '}' ),
     };
 
     /// <summary>
     /// Split text with delimiter omitting quotes
     /// </summary>
     [DebuggerStepThrough]
-    public static string[] SplitSpecial(this string text, char delimiter)
+    public static string[] SplitSpecial(this string text, char delimiter, (char Open,char Close)[] bracesTuples = null!)
     {
       var result = new List<string>();
       StringBuilder sb = new StringBuilder();
       bool inQuotes = false;
+      if (bracesTuples==null)
+        bracesTuples = DefaultBraces;
       for (int i = 0; i < text.Length; i++)
       {
         char ch = text[i];
@@ -584,9 +586,10 @@ namespace Qhta.TextUtils
           sb.Append(ch);
         else
         {
-          if (braces.TryGetValue(ch, out var endbrace))
+          (char Open, char Close) foundTuple = bracesTuples.FirstOrDefault(tuple => tuple.Open == ch);
+          if (foundTuple != default)
           {
-
+            var endbrace = foundTuple.Close;
             sb.Append(ch);
             i++;
             var embedStr = text.SubstringUntil(endbrace, i, out var endPos);

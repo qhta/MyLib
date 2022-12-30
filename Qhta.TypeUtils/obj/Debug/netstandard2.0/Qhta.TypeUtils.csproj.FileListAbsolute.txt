@@ -9,3 +9,15 @@ D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.pdb
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\bin\Debug\netstandard2.0\Qhta.TypeUtils.xml
 D:\Dane\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.xml
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TypeUtils.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TypeUtils.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TypeUtils.xml
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.xml
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.pdb

@@ -89,7 +89,7 @@ public partial class QXmlSerializer
 
   public void Serialize(TextWriter textWriter, object? o, XmlSerializerNamespaces? namespaces)
   {
-    XmlWriter xmlWriter = XmlWriter.Create(textWriter);
+    XmlWriter xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings);
     Serialize(xmlWriter, o, namespaces);
   }
 

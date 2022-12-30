@@ -28,8 +28,8 @@ namespace Qhta.Xml.Serialization
         private bool _isSoap;
         //private readonly ElementAccessor _accessor;
         private string? _key;
-        private readonly bool _shallow;
-        private readonly XmlMappingAccess _access;
+        //private bool _shallow;
+        //private XmlMappingAccess _access;
 
         //public XmlMapping(TypeScope? scope, ElementAccessor accessor) : this(scope, accessor, XmlMappingAccess.Read | XmlMappingAccess.Write)
         //{
@@ -56,7 +56,7 @@ namespace Qhta.Xml.Serialization
         /// <devdoc>
         ///    <para>[To be supplied.]</para>
         /// </devdoc>
-        public string ElementName
+        public string? ElementName
         {
             get { return null;/* System.Xml.Serialization.Accessor.UnescapeName(Accessor.Name);*/ }
         }
@@ -64,7 +64,7 @@ namespace Qhta.Xml.Serialization
         /// <devdoc>
         ///    <para>[To be supplied.]</para>
         /// </devdoc>
-        public string XsdElementName
+        public string? XsdElementName
         {
             get
             {
@@ -89,12 +89,12 @@ namespace Qhta.Xml.Serialization
 
         public bool IsReadable
         {
-            get { return ((_access & XmlMappingAccess.Read) != 0); }
+            get { return ((/*_access & */XmlMappingAccess.Read) != 0); }
         }
 
         public bool IsWriteable
         {
-            get { return ((_access & XmlMappingAccess.Write) != 0); }
+            get { return ((/*_access & */XmlMappingAccess.Write) != 0); }
         }
 
         public bool IsSoap
@@ -127,22 +127,22 @@ namespace Qhta.Xml.Serialization
 
         public string? Key { get { return _key; } }
 
-        public void CheckShallow()
-        {
-            if (_shallow)
-            {
-                throw new InvalidOperationException("XmlMelformMapping");
-            }
-        }
+        //public void CheckShallow()
+        //{
+        //    if (_shallow)
+        //    {
+        //        throw new InvalidOperationException("XmlMelformMapping");
+        //    }
+        //}
 
-        public static bool IsShallow(XmlMapping[] mappings)
-        {
-            for (int i = 0; i < mappings.Length; i++)
-            {
-                if (mappings[i] == null || mappings[i]._shallow)
-                    return true;
-            }
-            return false;
-        }
+        //public static bool IsShallow(XmlMapping[] mappings)
+        //{
+        //    for (int i = 0; i < mappings.Length; i++)
+        //    {
+        //        if (mappings[i] == null || mappings[i]._shallow)
+        //            return true;
+        //    }
+        //    return false;
+        //}
     }
 }

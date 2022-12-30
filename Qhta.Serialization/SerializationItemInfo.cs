@@ -122,6 +122,11 @@ public class SerializationItemInfo: ITypeNameInfo, INamedElement
   }
 
   /// <summary>
+  /// Preset value of the item
+  /// </summary>
+  public object? Value { get; set; }
+
+  /// <summary>
   /// Used to add item to collection or dictionary
   /// </summary>
   public MethodInfo? AddMethod { get; set; }
