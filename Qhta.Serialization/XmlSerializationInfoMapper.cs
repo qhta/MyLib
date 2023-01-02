@@ -170,8 +170,7 @@ public partial class XmlSerializationInfoMapper
       typeInfo.ContentInfo = CreateCollectionInfo(aType);
     else if (aType.IsCollection())
       typeInfo.ContentInfo = CreateCollectionInfo(aType);
-    else
-      ;
+
     #region Checking and registering a known constructor - optional for simple types
     var constructor = aType.GetConstructor(Type.EmptyTypes);
     if (!aType.IsSimple() && !aType.IsAbstract && !aType.IsEnum && !aType.IsNullable())
@@ -488,8 +487,12 @@ public partial class XmlSerializationInfoMapper
         if (itemType == null)
           itemType = typeof(object);
         var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
-        if (arrayItemAttribute is QXmlArrayItemAttribute qArrayItemAttribute)
-          serializationItemTypeInfo.Value = qArrayItemAttribute.Value;
+        if (arrayItemAttribute is QXmlElementTypeAttribute qXmlElementTypeAttribute)
+        {
+          serializationItemTypeInfo.Value = qXmlElementTypeAttribute.Value;
+          if (qXmlElementTypeAttribute.ConverterType != null)
+            serializationItemTypeInfo.TypeInfo.TypeConverter = CreateTypeConverter(qXmlElementTypeAttribute.ConverterType);
+        }
         if (elemName!=null)
           collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
         else

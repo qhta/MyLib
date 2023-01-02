@@ -269,7 +269,7 @@ public class QXmlSerializationWriter
           }
           else
           {
-            var itemTag = GetItemTag(item.GetType());
+            var itemTag = item.GetType().GetTypeTag();
             TypeConverter? typeConverter = null;
             if (itemTypes != null)
             {
@@ -365,7 +365,7 @@ public class QXmlSerializationWriter
       }
       else
       {
-        var itemTag = GetItemTag(item.GetType());
+        var itemTag = item.GetType().GetTypeTag();
         TypeConverter? typeConverter = null;
         if (itemTypes != null)
         {
@@ -504,11 +504,6 @@ public class QXmlSerializationWriter
     WriteStartElement(propTag);
     WriteValue(value);
     WriteEndElement(propTag);
-  }
-
-  protected string GetItemTag(Type aType)
-  {
-    return aType.Name.ToLowerInvariant();
   }
 
   protected string? ConvertMemberValueToString(SerializationMemberInfo memberInfo, object? propValue)

@@ -7,6 +7,16 @@ public static class QXmlSerializationHelper
   public const string xsiNamespace = @"http://www.w3.org/2001/XMLSchema-instance";
   public const string xsdNamespace = @"http://www.w3.org/2001/XMLSchema";
 
+  public static string GetTypeTag(this Type aType)
+  {
+    var result = aType.Name.ToLowerInvariant();
+    if (result.EndsWith("[]"))
+    {
+      result = result.Substring(0, result.Length - 2) + "s";
+    }
+    return result;
+  }
+
   public static string ChangeCase(this string str, SerializationCase nameCase)
   {
     switch (nameCase)
