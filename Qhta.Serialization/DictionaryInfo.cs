@@ -2,7 +2,7 @@
 
 namespace Qhta.Xml.Serialization;
 
-public class DictionaryInfo: CollectionInfo
+public class DictionaryInfo: ContentItemInfo
 {
 
   [XmlAttribute]

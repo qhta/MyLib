@@ -97,21 +97,20 @@ public class SerializationTypeInfo: ITypeNameInfo, INamedElement
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => CollectionInfo != null && !IsDictionary;
+  public bool IsCollection => ContentProperty!=null && ContentInfo != null && !IsDictionary;
 
   /// <summary>
   /// Specifies If a type is serialized as a dictionary but not as a collection.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsDictionary => CollectionInfo is DictionaryInfo;
+  public bool IsDictionary => ContentInfo is DictionaryInfo;
 
   /// <summary>
   /// Optional collection info filled if a property is an array, collection or dictionary
   /// </summary>
   [XmlElement]
-  public CollectionInfo? CollectionInfo { get; set; }
-
+  public ContentItemInfo? ContentInfo { get; set; }
 
   public override string ToString()
   {

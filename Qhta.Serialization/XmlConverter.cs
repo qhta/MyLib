@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 /// Xml equivalent of JsonConverter.
@@ -12,10 +10,10 @@ public abstract class XmlConverter
 
   public virtual bool CanWrite => true;
 
-  public abstract void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer);
+  public abstract void WriteXml(IXmlConverterWriter writer, object? value);
 
-  public abstract object? ReadXml(object context, XmlReader reader, SerializationTypeInfo objectTypeInfo, 
-    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer);
+  public abstract object? ReadXml(object context, IXmlConverterReader reader, SerializationTypeInfo objectTypeInfo, 
+    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo);
 
 
   public abstract bool CanConvert(Type objectType);

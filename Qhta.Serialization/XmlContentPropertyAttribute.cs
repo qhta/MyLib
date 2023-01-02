@@ -4,7 +4,7 @@
 /// This is a replacement for <see cref="System.Windows.Markup.ContentPropertyAttribute"/>
 /// which is allowed only for .NET Framework 4.8, but not for .NET Core.
 /// </summary>
-[AttributeUsage(AttributeTargets.Class, Inherited = true)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class XmlContentPropertyAttribute : Attribute
 {
   /// <summary>

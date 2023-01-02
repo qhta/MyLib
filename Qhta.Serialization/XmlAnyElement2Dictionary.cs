@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Xml;
 
 namespace Qhta.Xml.Serialization;
 
@@ -21,14 +20,14 @@ public class XmlAnyElement2Dictionary : XmlConverter
     return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
   }
 
-  public override object? ReadXml(object context, XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
+  public override object? ReadXml(object context, IXmlConverterReader? iReader, SerializationTypeInfo objectTypeInfo,
+    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo)
   {
-    if (serializer == null)
+    if (iReader == null)
       throw new IOException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");
 
-    var aReader = reader as XmlTextReader;
-    if (aReader == null)
+    var reader = iReader.Reader as XmlTextReader;
+    if (reader == null)
       throw new IOException($"Reader type in {this.GetType()}.{nameof(ReadXml)} must be of {typeof(IXmlTextReaderInitializer).Name} type.");
 
     var rootElementName = reader.Name;
@@ -49,9 +48,9 @@ public class XmlAnyElement2Dictionary : XmlConverter
     if (dict == null)
       throw new IOException($"Type {serializationTypeInfo.Type} must implement IDictionary interface");
 
-    var valueTypeInfo = (propertyInfo?.CollectionInfo as DictionaryInfo)?.ValueTypeInfo;
+    var valueTypeInfo = (propertyInfo?.ContentInfo as DictionaryInfo)?.ValueTypeInfo;
     if (valueTypeInfo == null && ItemType != null)
-      serializer.KnownTypes.TryGetValue(ItemType, out valueTypeInfo);
+      iReader.KnownTypes.TryGetValue(ItemType, out valueTypeInfo);
     if (valueTypeInfo == null)
       throw new IOException($"Unknown value type info for property {this.GetType()}");
 
@@ -67,12 +66,12 @@ public class XmlAnyElement2Dictionary : XmlConverter
       if (valueConstructor != null)
       {
         value = valueConstructor.Invoke(new object[0]);
-        serializer.ReadObject(value, aReader, valueTypeInfo);
+        iReader.ReadObject(value, valueTypeInfo);
       }
       else
       {
-        aReader.Read();
-        value = serializer.ReadValue(context, valueTypeInfo.Type, null, propertyInfo, aReader);
+        reader.Read();
+        value = iReader.ReadValue(context, valueTypeInfo.Type, null, propertyInfo);
       }
       if (value != null)
       {
@@ -80,7 +79,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
           itemInfo.AddMethod.Invoke(dict, new object[] { key, value });
         else
         {
-          var itemTypeInfo = (objectTypeInfo)?.CollectionInfo?.KnownItemTypes.FindTypeInfo(value.GetType());
+          var itemTypeInfo = (objectTypeInfo)?.ContentInfo?.KnownItemTypes.FindTypeInfo(value.GetType());
           if (itemTypeInfo != null && itemTypeInfo.AddMethod != null)
             itemTypeInfo.AddMethod.Invoke(dict, new object[] { key, value });
           else
@@ -102,7 +101,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
 
   public override bool CanWrite => false;
 
-  public override void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer)
+  public override void WriteXml(IXmlConverterWriter iWriter, object? value)
   {
     throw new NotImplementedException();
   }

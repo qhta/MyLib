@@ -15,6 +15,8 @@
   <ItemGroup>
     <Compile Remove="BaseSerializer.cs" />
     <Compile Remove="IXmlSerializer.cs" />
+    <Compile Remove="QXmlSerializer.Deserialization.cs" />
+    <Compile Remove="QXmlSerializer.Serialization.cs" />
     <Compile Remove="XmlSerializer - Copy.base.cs" />
     <Compile Remove="XmlSerializer.base.copy.cs" />
     <Compile Remove="_Compilation.cs" />

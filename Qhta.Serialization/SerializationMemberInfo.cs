@@ -209,13 +209,13 @@ public class SerializationMemberInfo: INamedElement, IComparable<SerializationMe
   /// Optional collection info filled if a member is an array, collection or dictionary.
   /// </summary>
   [XmlElement]
-  public CollectionInfo? CollectionInfo { get; set; }
+  public ContentItemInfo? ContentInfo { get; set; }
 
   /// <summary>
   /// Get CollectionInfo as saved or from ValueType.
   /// </summary>
   /// <returns></returns>
-  public CollectionInfo? GetCollectionInfo() => CollectionInfo ?? ValueType?.CollectionInfo;
+  public ContentItemInfo? GetCollectionInfo() => ContentInfo ?? ValueType?.ContentInfo;
 
   public int CompareTo(SerializationMemberInfo? other)
   {

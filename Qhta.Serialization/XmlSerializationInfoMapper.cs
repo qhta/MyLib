@@ -3,8 +3,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security.AccessControl;
-using System.Xml;
-
 using Qhta.Conversion;
 using Qhta.TypeUtils;
 
@@ -166,14 +164,14 @@ public partial class XmlSerializationInfoMapper
     var aType = typeInfo.Type;
 
     if (aType.IsDictionary())
-      typeInfo.CollectionInfo = CreateDictionaryInfo(aType);
+      typeInfo.ContentInfo = CreateDictionaryInfo(aType);
     else
     if (aType.IsList())
-      typeInfo.CollectionInfo = CreateCollectionInfo(aType);
+      typeInfo.ContentInfo = CreateCollectionInfo(aType);
+    else if (aType.IsCollection())
+      typeInfo.ContentInfo = CreateCollectionInfo(aType);
     else
-    if (aType.IsCollection())
-      typeInfo.CollectionInfo = CreateCollectionInfo(aType);
-
+      ;
     #region Checking and registering a known constructor - optional for simple types
     var constructor = aType.GetConstructor(Type.EmptyTypes);
     if (!aType.IsSimple() && !aType.IsAbstract && !aType.IsEnum && !aType.IsNullable())
@@ -206,7 +204,10 @@ public partial class XmlSerializationInfoMapper
     if (!members.Any())
       return;
     typeInfo.ContentProperty = GetContentProperty(aType);
-    typeInfo.TextProperty = GetTextProperty(aType);
+    if (typeInfo.ContentProperty != null)
+      typeInfo.ContentInfo = CreateCollectionInfo(aType);
+    else
+      typeInfo.TextProperty = GetTextProperty(aType);
 
     int attrCount = 0;
     int elemCount = 0;
@@ -302,7 +303,7 @@ public partial class XmlSerializationInfoMapper
     if (string.IsNullOrEmpty(attrName))
       attrName = memberInfo.Name;
     if (Options.AttributeNameCase != 0)
-      attrName = QXmlSerializer.ChangeCase(attrName, Options.AttributeNameCase);
+      attrName = attrName.ChangeCase(Options.AttributeNameCase);
     var qAttrName = new QualifiedName(attrName, attrNamespace);
     if (typeInfo.MembersAsAttributes.ContainsKey(qAttrName))
       return false;
@@ -329,7 +330,7 @@ public partial class XmlSerializationInfoMapper
     if (string.IsNullOrEmpty(elementName))
       elementName = memberInfo.Name;
     if (Options.ElementNameCase != 0)
-      elementName = QXmlSerializer.ChangeCase(elementName, Options.ElementNameCase);
+      elementName = elementName.ChangeCase(Options.ElementNameCase);
     if (string.IsNullOrEmpty(elementNamespace))
       elementNamespace = memberInfo.DeclaringType?.Namespace ?? "";
     var qElemName = new QualifiedName(elementName, elementNamespace);
@@ -359,7 +360,7 @@ public partial class XmlSerializationInfoMapper
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
     if (Options.ElementNameCase != 0)
-      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
+      elemName = elemName.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName, elemNamespace);
     if (typeInfo.MembersAsElements.ContainsKey(qElemName))
       return false;
@@ -371,7 +372,7 @@ public partial class XmlSerializationInfoMapper
   }
 
   /// <summary>
-  /// Adds property/field to <see cref="SerializationTypeInfo.MembersAsElements"/> with <see cref="CollectionInfo"/>
+  /// Adds property/field to <see cref="SerializationTypeInfo.MembersAsElements"/> with <see cref="ContentItemInfo"/>
   /// </summary>
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="memberInfo">Selected property/field</param>
@@ -384,13 +385,13 @@ public partial class XmlSerializationInfoMapper
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
     if (Options.ElementNameCase != 0)
-      elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
+      elemName = elemName.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName, elemNamespace);
     if (typeInfo.MembersAsElements.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
-    serializationMemberInfo.CollectionInfo = CreateCollectionInfo(memberInfo);
+    serializationMemberInfo.ContentInfo = CreateCollectionInfo(memberInfo);
     typeInfo.MembersAsElements.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
     if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
@@ -428,12 +429,27 @@ public partial class XmlSerializationInfoMapper
   }
 
   #region Collection Handling
-  protected CollectionInfo CreateCollectionInfo(Type aType)
+  protected ContentItemInfo CreateCollectionInfo(Type aType)
   {
     return CreateCollectionInfo(aType, aType.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray());
   }
 
-  protected CollectionInfo? CreateCollectionInfo(MemberInfo memberInfo)
+  protected ContentItemInfo? CreateContentInfo(MemberInfo memberInfo)
+  {
+    var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
+    if (arrayItemsAttributes.Length == 0)
+      return null;
+    var valueType = memberInfo.GetValueType();
+    if (valueType == null)
+      return null;
+    RegisterType(valueType);
+    var result = CreateCollectionInfo(valueType, arrayItemsAttributes);
+    if (memberInfo.GetCustomAttribute<XmlReferencesAttribute>() != null)
+      result.StoresReferences = true;
+    return result;
+  }
+
+  protected ContentItemInfo? CreateCollectionInfo(MemberInfo memberInfo)
   {
     var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
@@ -442,16 +458,16 @@ public partial class XmlSerializationInfoMapper
     var valueType = memberInfo.GetValueType();
     if (valueType == null)
       return null;
-    var valueTypeInfo = RegisterType(valueType);
+    RegisterType(valueType);
     var result = CreateCollectionInfo(valueType, arrayItemsAttributes);
     if (memberInfo.GetCustomAttribute<XmlReferencesAttribute>() != null)
       result.StoresReferences = true;
     return result;
   }
 
-  protected CollectionInfo CreateCollectionInfo(Type aType, IEnumerable<XmlArrayItemAttribute> arrayItemAttribs)
+  protected ContentItemInfo CreateCollectionInfo(Type aType, IEnumerable<XmlArrayItemAttribute> arrayItemAttribs)
   {
-    var collectionTypeInfo = new CollectionInfo();
+    var collectionTypeInfo = new ContentItemInfo();
     if (arrayItemAttribs.Count() != 0)
     {
       foreach (var arrayItemAttribute in arrayItemAttribs)
@@ -467,7 +483,7 @@ public partial class XmlSerializationInfoMapper
         }
         else
         if (Options.ElementNameCase != 0)
-          elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
+          elemName = elemName.ChangeCase(Options.ElementNameCase);
 
         if (itemType == null)
           itemType = typeof(object);
@@ -532,7 +548,7 @@ public partial class XmlSerializationInfoMapper
         }
         else
         if (Options.ElementNameCase != 0)
-          elemName = QXmlSerializer.ChangeCase(elemName, Options.ElementNameCase);
+          elemName = elemName.ChangeCase(Options.ElementNameCase);
 
         if (itemType == null)
           itemType = typeof(object);

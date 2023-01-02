@@ -8,9 +8,14 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
 {
   private List<XmlNamespaceInfo> Items { get; set; } = new();
 
-  //private XmlNameTable? NameTable => NamespaceManager.NameTable;
+  //public KnownNamespacesCollection(){}
 
-  //private XmlNamespaceManager NamespaceManager { get; set; } = new XmlNamespaceManager(new System.Xml.NameTable());
+  //public KnownNamespacesCollection(XmlSerializerNamespaces namespaces)
+  //{
+  //  foreach (var ns in namespaces.ToArray())
+  //    Items.Add(new XmlNamespaceInfo(ns));
+  //}
+
 
   internal Dictionary<string, string> ClrToXmlNamespace { get; set; } = new();
 
@@ -57,7 +62,7 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
     PrefixToXmlNamespace.Add(prefix, item.XmlNamespace);
   }
 
-  public void AssignPrefixes(string? defaultNamespace)
+  public void AssignPrefixes(string? defaultNamespace, XmlSerializerNamespaces? namespaces = null)
   {
     XmlNamespaceToPrefix.Clear();
     PrefixToXmlNamespace.Clear();
@@ -69,8 +74,11 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
           item.Prefix = "";
         else
         {
-          var prefix = (item.ClrNamespace!=null) ?
-          NamespaceToPrefix(item.ClrNamespace) : "n";
+          string? prefix = null;
+          if (namespaces != null)
+            prefix = namespaces.ToArray().FirstOrDefault(item1 => item1.Namespace == item.ClrNamespace)?.Name;
+          if (prefix == null)
+            prefix = (item.ClrNamespace!=null) ? NamespaceToPrefix(item.ClrNamespace) : "n";
           int i = 2;
           var pfx = prefix;
           while (PrefixToXmlNamespace.ContainsKey(prefix))

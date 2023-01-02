@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Xml;
 
 namespace Qhta.Xml.Serialization;
 
@@ -10,9 +9,10 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
     return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
   }
 
-  public override object? ReadXml(object context, XmlReader reader, SerializationTypeInfo objectTypeInfo,
-    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo, QXmlSerializer? serializer)
+  public override object? ReadXml(object context, IXmlConverterReader iReader, SerializationTypeInfo objectTypeInfo,
+    SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo)
   {
+    var reader = iReader.Reader;
     var serializationTypeInfo = propertyInfo?.ValueType;
     if (serializationTypeInfo == null)
       serializationTypeInfo = objectTypeInfo;
@@ -40,7 +40,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
 
   public override bool CanWrite => false;
 
-  public override void WriteXml(XmlWriter writer, object? value, QXmlSerializer? serializer)
+  public override void WriteXml(IXmlConverterWriter iWriter, object? value)
   {
     throw new NotImplementedException();
   }

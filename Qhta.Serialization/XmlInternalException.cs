@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Xml;
 
 namespace Qhta.Xml.Serialization;
 
