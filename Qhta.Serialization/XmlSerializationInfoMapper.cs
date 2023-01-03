@@ -478,7 +478,7 @@ public partial class XmlSerializationInfoMapper
           if (itemType == null)
             throw new InternalException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
-          elemName = itemType.Name;
+          elemName = itemType.GetTypeTag();
         }
         else
         if (Options.ElementNameCase != 0)
