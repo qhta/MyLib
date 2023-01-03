@@ -1,8 +1,8 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
-/// Xml equivalent of JsonConverter.
-/// Reads and writes object from/to XML.
+///   Xml equivalent of JsonConverter.
+///   Reads and writes object from/to XML.
 /// </summary>
 public abstract class XmlConverter
 {
@@ -12,7 +12,7 @@ public abstract class XmlConverter
 
   public abstract void WriteXml(IXmlConverterWriter writer, object? value);
 
-  public abstract object? ReadXml(object context, IXmlConverterReader reader, SerializationTypeInfo objectTypeInfo, 
+  public abstract object? ReadXml(object context, IXmlConverterReader reader, SerializationTypeInfo objectTypeInfo,
     SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo);
 
 

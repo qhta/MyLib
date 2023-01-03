@@ -3,17 +3,17 @@
 namespace Qhta.Xml.Serialization;
 
 [KnownType(typeof(DictionaryInfo))]
-public class ContentItemInfo: IEquatable<ContentItemInfo>
+public class ContentItemInfo : IEquatable<ContentItemInfo>
 {
   /// <summary>
-  /// If a collection of objects stores references only.
+  ///   If a collection of objects stores references only.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool StoresReferences { get; set;}
+  public bool StoresReferences { get; set; }
 
   /// <summary>
-  /// Known types for collection items.
+  ///   Known types for collection items.
   /// </summary>
   [XmlReferences]
   public KnownItemTypesCollection KnownItemTypes { get; set; } = new();

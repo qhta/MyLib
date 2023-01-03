@@ -4,12 +4,12 @@ using System.ComponentModel;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-/// A static class that converts object type
+///   A static class that converts object type
 /// </summary>
 public class StaticTypeConverter
 {
   /// <summary>
-  /// Convert type to string
+  ///   Convert type to string
   /// </summary>
   /// <param name="value"></param>
   /// <param name="typeConverter"></param>

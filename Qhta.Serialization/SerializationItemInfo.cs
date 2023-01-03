@@ -1,13 +1,17 @@
-﻿using System.Reflection;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
-/// Info of an array property item
+///   Info of an array property item
 /// </summary>
-public class SerializationItemInfo: ITypeNameInfo, INamedElement
+public class SerializationItemInfo : ITypeNameInfo, INamedElement
 {
-  public SerializationItemInfo() { }
+  private string? _ClrNameNamespace;
+  private string? _XmlName;
+  private string? _XmlNameNamespace;
+
+  public SerializationItemInfo()
+  {
+  }
 
   public SerializationItemInfo(SerializationTypeInfo itemTypeInfo)
   {
@@ -31,57 +35,22 @@ public class SerializationItemInfo: ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  /// Name of the Xml element
-  /// </summary>
-  [XmlAttribute]
-  public string XmlName
-  {
-    get => _XmlName ?? TypeInfo?.XmlName ?? "";
-    set => _XmlName = value;
-  } 
-  private string? _XmlName;
-
-  /// <summary>
-  /// XmlNamespace of the element
-  /// </summary>
-  [XmlAttribute]
-  public string? XmlNamespace
-  {
-    get => _XmlNameNamespace ?? TypeInfo?.XmlNamespace;
-    set => _XmlNameNamespace = value;
-  }
-  private string? _XmlNameNamespace;
-
-  /// <summary>
-  /// ClrNamespace of the element
-  /// </summary>
-  [XmlAttribute]
-  public string? ClrNamespace
-  {
-    get => _ClrNameNamespace ?? TypeInfo?.ClrNamespace;
-    set => _ClrNameNamespace = value;
-  }
-  private string? _ClrNameNamespace;
-
-  /// <summary>
-  /// Refers to the existing TypeInfo
+  ///   Refers to the existing TypeInfo
   /// </summary>
   [XmlAttribute]
   [XmlReference]
   public SerializationTypeInfo TypeInfo { get; set; } = null!;
 
   /// <summary>
-  /// Used when this info is a dictionary item info
+  ///   Used when this info is a dictionary item info
   /// </summary>
   public DictionaryInfo? DictionaryInfo { get; set; }
 
-  public Type Type => TypeInfo.Type;
-
   /// <summary>
-  /// Used when this info is a dictionary item info
+  ///   Used when this info is a dictionary item info
   /// </summary>
-  public string? KeyName 
-  { 
+  public string? KeyName
+  {
     get => DictionaryInfo?.KeyName;
     set
     {
@@ -92,10 +61,10 @@ public class SerializationItemInfo: ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  /// Used when this info is a dictionary item info
+  ///   Used when this info is a dictionary item info
   /// </summary>
   [XmlReference]
-  public SerializationTypeInfo? KeyTypeInfo 
+  public SerializationTypeInfo? KeyTypeInfo
   {
     get => DictionaryInfo?.KeyTypeInfo;
     set
@@ -107,7 +76,7 @@ public class SerializationItemInfo: ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  /// Used when this info is a dictionary item info
+  ///   Used when this info is a dictionary item info
   /// </summary>
   [XmlReference]
   public SerializationTypeInfo? ValueTypeInfo
@@ -122,17 +91,49 @@ public class SerializationItemInfo: ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  /// Preset value of the item
+  ///   Preset value of the item
   /// </summary>
   public object? Value { get; set; }
 
   /// <summary>
-  /// Used to add item to collection or dictionary
+  ///   Used to add item to collection or dictionary
   /// </summary>
   public MethodInfo? AddMethod { get; set; }
 
+  /// <summary>
+  ///   Name of the Xml element
+  /// </summary>
+  [XmlAttribute]
+  public string XmlName
+  {
+    get => _XmlName ?? TypeInfo?.XmlName ?? "";
+    set => _XmlName = value;
+  }
+
+  /// <summary>
+  ///   XmlNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? XmlNamespace
+  {
+    get => _XmlNameNamespace ?? TypeInfo?.XmlNamespace;
+    set => _XmlNameNamespace = value;
+  }
+
+  /// <summary>
+  ///   ClrNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? ClrNamespace
+  {
+    get => _ClrNameNamespace ?? TypeInfo?.ClrNamespace;
+    set => _ClrNameNamespace = value;
+  }
+
+  public Type Type => TypeInfo.Type;
+
   public override string ToString()
   {
-    return $"{this.GetType().Name}({Type?.Name})";
+    return $"{GetType().Name}({Type?.Name})";
   }
 }

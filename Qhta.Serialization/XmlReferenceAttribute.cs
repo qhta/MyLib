@@ -1,7 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-public class XmlReferenceAttribute: System.Attribute
+[AttributeUsage(AttributeTargets.Property)]
+public class XmlReferenceAttribute : Attribute
 {
-
 }

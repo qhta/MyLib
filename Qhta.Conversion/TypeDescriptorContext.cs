@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Qhta.Conversion;
 
-public class TypeDescriptorContext: ITypeDescriptorContext
+public class TypeDescriptorContext : ITypeDescriptorContext
 {
   public TypeDescriptorContext(object instance, PropertyInfo? propertyInfo = null)
   {
@@ -28,9 +28,9 @@ public class TypeDescriptorContext: ITypeDescriptorContext
     return false;
   }
 
-  public IContainer Container { get; private set; } = null!;
+  public IContainer Container { get; } = null!;
 
-  public object Instance { get; private set; }
+  public object Instance { get; }
 
-  public PropertyDescriptor PropertyDescriptor { get; private set; } = null!;
+  public PropertyDescriptor PropertyDescriptor { get; } = null!;
 }

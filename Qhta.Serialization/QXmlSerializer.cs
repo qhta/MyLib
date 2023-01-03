@@ -1,64 +1,45 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public partial class QXmlSerializer
+public class QXmlSerializer
 {
-  protected partial void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
-    string? location) => Init(type, overrides, extraTypes, root, defaultNamespace, location, new SerializationOptions());
+  private static volatile XmlSerializerNamespaces? s_defaultNamespaces;
 
-  protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
-    string? location, SerializationOptions options)
-  {
-    var sameInitParams = RootType == type
-                         && Array.Equals(ExtraTypes, extraTypes)
-                         && Options.Equals(options);
-    if (sameInitParams)
-      return;
+  protected XmlDeserializationEvents _events;
 
-    RootType = type;
-    ExtraTypes = extraTypes;
-    Options = options;
-    Mapper = new XmlSerializationInfoMapper(options, defaultNamespace);
-
-    RegisterType(type);
-    if (extraTypes != null)
-      foreach (Type t in extraTypes)
-        RegisterType(t);
-    RegisterType(typeof(object));
-    KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
-
-    //KnownTypes.Dump();
-  }
-
-  protected partial void Init(XmlTypeMapping xmlTypeMapping)
-    => Init(xmlTypeMapping, new SerializationOptions());
-
-  protected void Init(XmlTypeMapping xmlTypeMapping, SerializationOptions options)
-  {
-    throw new NotImplementedException("Init(XmlTypeMapping");
-  }
-
-  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace, SerializationOptions options) :
+  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
+    SerializationOptions options) :
     this(type, overrides, extraTypes, root, defaultNamespace, null, options)
-  { }
+  {
+  }
 
 
   public QXmlSerializer(Type type, XmlRootAttribute? root, SerializationOptions options)
-    : this(type, null, Type.EmptyTypes, root, null, null, options) { }
+    : this(type, null, Type.EmptyTypes, root, null, null, options)
+  {
+  }
 
 
   public QXmlSerializer(Type type, Type[]? extraTypes, SerializationOptions options)
-    : this(type, null, extraTypes, null, null, null, options) { }
+    : this(type, null, extraTypes, null, null, null, options)
+  {
+  }
 
 
   public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, SerializationOptions options)
-    : this(type, overrides, Type.EmptyTypes, null, null, null, options) { }
+    : this(type, overrides, Type.EmptyTypes, null, null, null, options)
+  {
+  }
 
   public QXmlSerializer(Type type, SerializationOptions options)
-    : this(type, null, Type.EmptyTypes, null, null, null, options) { }
+    : this(type, null, Type.EmptyTypes, null, null, null, options)
+  {
+  }
 
 
   public QXmlSerializer(Type type, string? defaultNamespace, SerializationOptions options)
-    : this(type, null, null, null, defaultNamespace, null, options) { }
+    : this(type, null, null, null, defaultNamespace, null, options)
+  {
+  }
 
 
   public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
@@ -68,6 +49,52 @@ public partial class QXmlSerializer
   }
 
   public QXmlSerializer(XmlTypeMapping xmlTypeMapping, SerializationOptions options)
+  {
+    Init(xmlTypeMapping);
+  }
+
+  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace) :
+    this(type, overrides, extraTypes, root, defaultNamespace, (string?)null)
+  {
+  }
+
+
+  public QXmlSerializer(Type type, XmlRootAttribute? root)
+    : this(type, null, Type.EmptyTypes, root, null, (string?)null)
+  {
+  }
+
+
+  public QXmlSerializer(Type type, Type[]? extraTypes)
+    : this(type, null, extraTypes, null, null, (string?)null)
+  {
+  }
+
+
+  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides)
+    : this(type, overrides, Type.EmptyTypes, null, null, (string?)null)
+  {
+  }
+
+  public QXmlSerializer(Type type)
+    : this(type, null, null, null, null, (string?)null)
+  {
+  }
+
+
+  public QXmlSerializer(Type type, string? defaultNamespace)
+    : this(type, null, null, null, defaultNamespace, (string?)null)
+  {
+  }
+
+
+  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
+    string? location)
+  {
+    Init(type, overrides, extraTypes, root, defaultNamespace, location);
+  }
+
+  public QXmlSerializer(XmlTypeMapping xmlTypeMapping)
   {
     Init(xmlTypeMapping);
   }
@@ -83,23 +110,14 @@ public partial class QXmlSerializer
   public static Type[]? ExtraTypes { get; protected set; }
 
   [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-  public static SerializationOptions Options { get; protected set; } = new SerializationOptions();
+  public static SerializationOptions Options { get; protected set; } = new();
 
   public static XmlSerializationInfoMapper Mapper { get; protected set; } = null!;
 
 
-  public SerializationTypeInfo? RegisterType(Type aType)
-  {
-    return Mapper.RegisterType(aType);
-  }
+  public XmlWriterSettings XmlWriterSettings { get; } = new() { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
 
-
-  public XmlWriterSettings XmlWriterSettings { get; } = new XmlWriterSettings
-  { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
-
-  public XmlReaderSettings XmlReaderSettings { get; } = new XmlReaderSettings { IgnoreWhitespace = true };
-
-  protected XmlDeserializationEvents _events = new XmlDeserializationEvents();
+  public XmlReaderSettings XmlReaderSettings { get; } = new() { IgnoreWhitespace = true };
 
   protected static XmlSerializerNamespaces DefaultNamespaces
   {
@@ -107,68 +125,79 @@ public partial class QXmlSerializer
     {
       if (s_defaultNamespaces == null)
       {
-        XmlSerializerNamespaces nss = new XmlSerializerNamespaces();
+        var nss = new XmlSerializerNamespaces();
         nss.Add("xsi", XmlSchema.InstanceNamespace);
         nss.Add("xsd", XmlSchema.Namespace);
-        if (s_defaultNamespaces == null)
-        {
-          s_defaultNamespaces = nss;
-        }
+        if (s_defaultNamespaces == null) s_defaultNamespaces = nss;
       }
       return s_defaultNamespaces;
     }
   }
-  private static volatile XmlSerializerNamespaces? s_defaultNamespaces;
 
-  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace) :
-      this(type, overrides, extraTypes, root, defaultNamespace, (string?)null)
-  { }
-
-
-  public QXmlSerializer(Type type, XmlRootAttribute? root)
-    : this(type, null, Type.EmptyTypes, root, null, (string?)null) { }
-
-
-  public QXmlSerializer(Type type, Type[]? extraTypes)
-    : this(type, null, extraTypes, null, null, (string?)null) { }
-
-
-  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides)
-    : this(type, overrides, Type.EmptyTypes, null, null, (string?)null) { }
-
-  public QXmlSerializer(Type type)
-    : this(type, null, null, null, null, (string?)null) { }
-
-
-  public QXmlSerializer(Type type, string? defaultNamespace)
-  : this(type, null, null, null, defaultNamespace, (string?)null) { }
-
-
-  public QXmlSerializer(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
+  protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
     string? location)
   {
-    Init(type, overrides, extraTypes, root, defaultNamespace, location);
+    Init(type, overrides, extraTypes, root, defaultNamespace, location, new SerializationOptions());
   }
 
-  public QXmlSerializer(XmlTypeMapping xmlTypeMapping)
+  protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
+    string? location, SerializationOptions options)
   {
-    Init(xmlTypeMapping);
+    var sameInitParams = RootType == type
+                         && Equals(ExtraTypes, extraTypes)
+                         && Options.Equals(options);
+    if (sameInitParams)
+      return;
+
+    RootType = type;
+    ExtraTypes = extraTypes;
+    Options = options;
+    Mapper = new XmlSerializationInfoMapper(options, defaultNamespace);
+
+    RegisterType(type);
+    if (extraTypes != null)
+      foreach (var t in extraTypes)
+        RegisterType(t);
+    RegisterType(typeof(object));
+    KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
+
+    //KnownTypes.Dump();
   }
 
-  protected partial void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
-    string? location);
+  protected void Init(XmlTypeMapping xmlTypeMapping)
+  {
+    Init(xmlTypeMapping, new SerializationOptions());
+  }
 
-  protected partial void Init(XmlTypeMapping xmlTypeMapping);
+  protected void Init(XmlTypeMapping xmlTypeMapping, SerializationOptions options)
+  {
+    throw new NotImplementedException("Init(XmlTypeMapping");
+  }
+
+
+  public SerializationTypeInfo? RegisterType(Type aType)
+  {
+    return Mapper.RegisterType(aType);
+  }
+
+  //protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
+  //  string? location)
+  //{
+  //}
+
+  //protected void Init(XmlTypeMapping xmlTypeMapping)
+  //{
+  //}
 
   public void Serialize(TextWriter textWriter, object? o)
   {
-    XmlWriter xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings);
+    var xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings);
     SerializeObject(xmlWriter, o);
   }
 
   public void Serialize(Stream stream, object? o)
   {
-    XmlWriter xmlWriter = XmlWriter.Create(stream);
+    var xmlWriter = XmlWriter.Create(stream);
     SerializeObject(xmlWriter, o);
   }
 
@@ -178,7 +207,7 @@ public partial class QXmlSerializer
   }
 
   /// <summary>
-  /// Main serialization entry
+  ///   Main serialization entry
   /// </summary>
   protected void SerializeObject(XmlWriter xmlWriter, object? obj)
   {
@@ -192,19 +221,18 @@ public partial class QXmlSerializer
 
   public object? Deserialize(Stream stream)
   {
-    XmlReader xmlReader = XmlReader.Create(stream, XmlReaderSettings);
+    var xmlReader = XmlReader.Create(stream, XmlReaderSettings);
     return Deserialize(xmlReader);
   }
 
   public object? Deserialize(TextReader textReader)
   {
-    XmlTextReader xmlReader = new XmlTextReader(textReader);
+    var xmlReader = new XmlTextReader(textReader);
     xmlReader.WhitespaceHandling = WhitespaceHandling.Significant;
     xmlReader.Normalization = true;
     xmlReader.XmlResolver = null;
     return Deserialize(xmlReader);
   }
-
 
 
   public object? Deserialize(XmlReader xmlReader)
@@ -213,7 +241,7 @@ public partial class QXmlSerializer
   }
 
   /// <summary>
-  /// Main deserialization entry
+  ///   Main deserialization entry
   /// </summary>
   protected object? DeserializeObject(XmlReader xmlReader)
   {
@@ -249,6 +277,4 @@ public partial class QXmlSerializer
     add => _events.OnUnreferencedObject += value;
     remove => _events.OnUnreferencedObject -= value;
   }
-
-
 }

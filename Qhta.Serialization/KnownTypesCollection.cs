@@ -1,24 +1,19 @@
-﻿using System.Xml.Linq;
+﻿namespace Qhta.Xml.Serialization;
 
-namespace Qhta.Xml.Serialization;
-
-public class KnownTypesCollection: TypesInfoCollection<SerializationTypeInfo>
+public class KnownTypesCollection : TypesInfoCollection<SerializationTypeInfo>
 {
+  private readonly KnownNamespacesCollection KnownNamespaces;
+
   public KnownTypesCollection(KnownNamespacesCollection knownNamespaces)
   {
     KnownNamespaces = knownNamespaces;
   }
 
-  private KnownNamespacesCollection KnownNamespaces;
-
   public void Dump()
   {
     Debug.WriteLine("KnownTypes:");
     Debug.Indent();
-    foreach (var item in this)
-    {
-      Dump(item);
-    }
+    foreach (var item in this) Dump(item);
     Debug.Unindent();
   }
 

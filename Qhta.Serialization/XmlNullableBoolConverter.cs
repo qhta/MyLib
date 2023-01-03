@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class XmlNullableBoolConverter : TypeConverter
 {
@@ -15,7 +13,7 @@ public class XmlNullableBoolConverter : TypeConverter
       return true;
     if (value is string str)
     {
-      if (str =="")
+      if (str == "")
         return true;
       if (bool.TryParse(str, out var boolValue))
         return boolValue;
@@ -32,5 +30,4 @@ public class XmlNullableBoolConverter : TypeConverter
   {
     return base.ConvertTo(context, culture, value, destinationType);
   }
-
 }

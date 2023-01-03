@@ -2,7 +2,7 @@
 
 public class QXmlSerializerSettings
 {
-  public QXmlSerializerSettings(XmlSerializationInfoMapper mapper, SerializationOptions options, 
+  public QXmlSerializerSettings(XmlSerializationInfoMapper mapper, SerializationOptions options,
     XmlWriterSettings writeSettings, XmlReaderSettings readSettings)
   {
     Mapper = mapper;
@@ -11,11 +11,11 @@ public class QXmlSerializerSettings
     XmlReaderSettings = readSettings;
   }
 
-  public XmlSerializationInfoMapper Mapper { get; private set; }
+  public XmlSerializationInfoMapper Mapper { get; }
 
-  public SerializationOptions Options { get; private set; }
+  public SerializationOptions Options { get; }
 
-  public XmlWriterSettings XmlWriterSettings { get; private set; }
+  public XmlWriterSettings XmlWriterSettings { get; }
 
-  public XmlReaderSettings XmlReaderSettings { get; private set; }
+  public XmlReaderSettings XmlReaderSettings { get; }
 }

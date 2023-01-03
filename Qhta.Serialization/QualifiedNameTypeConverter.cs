@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public class QualifiedNameTypeConverter: TypeConverter
+public class QualifiedNameTypeConverter : TypeConverter
 {
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {

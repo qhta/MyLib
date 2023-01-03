@@ -1,29 +1,27 @@
-﻿using System.Buffers.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.Serialization;
 
 namespace Qhta.Conversion;
-
 
 public class AnyUriTypeConverter : UriTypeConverter, ITypeConverter
 {
   /// <summary>
-  /// Do not change
+  ///   Do not change
   /// </summary>
   public Type? ExpectedType { get; set; } = typeof(Uri);
+
   /// <summary>
-  /// Do not change
+  ///   Do not change
   /// </summary>
   public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.AnyUri;
 
   /// <summary>
-  /// Not used
+  ///   Not used
   /// </summary>
   public string? Format { get; set; }
 
   /// <summary>
-  /// Not used
+  ///   Not used
   /// </summary>
   public CultureInfo? Culture { get; set; }
 

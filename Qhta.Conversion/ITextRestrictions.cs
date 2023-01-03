@@ -7,5 +7,4 @@ public interface ITextRestrictions
   public string[]? Enumerations { get; set; }
 
   public bool CaseInsensitive { get; set; }
-
 }

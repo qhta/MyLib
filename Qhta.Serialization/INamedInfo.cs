@@ -8,6 +8,5 @@ public interface INamedElement
 
   string? ClrNamespace { get; }
 
-  public QualifiedName QualifiedName => new QualifiedName(XmlName, XmlNamespace);
-
+  public QualifiedName QualifiedName => new(XmlName, XmlNamespace);
 }

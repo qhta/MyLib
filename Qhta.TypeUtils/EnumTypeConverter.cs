@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -11,24 +10,13 @@ using System.Runtime.Serialization;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-/// A class that helps enum type conversion to/from string
+///   A class that helps enum type conversion to/from string
 /// </summary>
 public static class EnumTypeConverter
 {
-  class Dicts {
-    public ConcurrentDictionary<UInt64, string> ValueToString;
-    public ConcurrentDictionary<string, UInt64> StringToValue;
+  private static readonly ConcurrentDictionary<Type, Dicts> convDict = new();
 
-    public Dicts()
-    {
-      ValueToString = new ConcurrentDictionary<UInt64, string>();
-      StringToValue = new ConcurrentDictionary<string, UInt64>();
-    }
-  }
-
-  static ConcurrentDictionary<Type, Dicts> convDict = new ConcurrentDictionary<Type, Dicts>();
-
-  static void CreateDicts(Type type)
+  private static void CreateDicts(Type type)
   {
     lock (convDict)
     {
@@ -41,7 +29,6 @@ public static class EnumTypeConverter
       {
         foreach (var enumMember in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
         {
-
           UInt64 value = 0;
           var obj = enumMember.GetValue(null);
           if (obj != null)
@@ -55,7 +42,7 @@ public static class EnumTypeConverter
             else if (uType == typeof(ushort))
               value = (ushort)obj;
             else if (uType == typeof(uint))
-              value = (UInt64)(uint)obj;
+              value = (uint)obj;
             else if (uType == typeof(Int64))
               value = (UInt64)(Int64)obj;
             else if (uType == typeof(UInt64))
@@ -66,7 +53,7 @@ public static class EnumTypeConverter
             if (enumMemberAttribute != null)
             {
               dicts.ValueToString.TryAdd(value, enumMemberAttribute.Value);
-              string s = enumMemberAttribute.Value.ToLower();
+              var s = enumMemberAttribute.Value.ToLower();
               dicts.StringToValue.TryAdd(s, value);
               if (s != enumMember.Name.ToLower())
                 dicts.StringToValue.TryAdd(enumMember.Name.ToLower(), value);
@@ -82,11 +69,11 @@ public static class EnumTypeConverter
         var sortedStrings = new SortedSet<string>(strings.Select(item => item.Key).ToList());
         foreach (var kvp in strings)
         {
-          string str = kvp.Key;
+          var str = kvp.Key;
           //if (str.StartsWith("colloq"))
           //  Debug.Assert(true);
-          string s = str;
-          while (s.Length>0)
+          var s = str;
+          while (s.Length > 0)
           {
             if (!sortedStrings.Contains(s))
             {
@@ -94,17 +81,17 @@ public static class EnumTypeConverter
               sortedStrings.Add(s);
               dicts.StringToValue.TryAdd(s, kvp.Value);
             }
-            s = s.Substring(0, s.Length-1);
+            s = s.Substring(0, s.Length - 1);
           }
-          s = str.RemoveAll(1, new char[] { 'a', 'e', 'i', 'o', 'u', 'y' });
-          while (s.Length>0)
+          s = str.RemoveAll(1, new[] { 'a', 'e', 'i', 'o', 'u', 'y' });
+          while (s.Length > 0)
           {
-            if (!sortedStrings.Contains(s) && strings.Select(item => item.Key).Where(item => item.StartsWith(s)).Count()<=1)
+            if (!sortedStrings.Contains(s) && strings.Select(item => item.Key).Where(item => item.StartsWith(s)).Count() <= 1)
             {
               sortedStrings.Add(s);
               dicts.StringToValue.TryAdd(s, kvp.Value);
             }
-            s = s.Substring(0, s.Length-1);
+            s = s.Substring(0, s.Length - 1);
           }
         }
       }
@@ -112,7 +99,7 @@ public static class EnumTypeConverter
   }
 
   /// <summary>
-  /// Remove specific chars from string
+  ///   Remove specific chars from string
   /// </summary>
   /// <param name="str"></param>
   /// <param name="from"></param>
@@ -121,43 +108,39 @@ public static class EnumTypeConverter
   public static string RemoveAll(this string str, int from, char[] charsToRemove)
   {
     var chars = str.ToCharArray().ToList();
-    for (int i = from; i<chars.Count; i++)
+    for (var i = from; i < chars.Count; i++)
       if (charsToRemove.Contains(chars[i]))
         chars.RemoveAt(i--);
     return new string(chars.ToArray());
   }
 
   /// <summary>
-  /// Translating enum value to string
+  ///   Translating enum value to string
   /// </summary>
   /// <typeparam name="EType"></typeparam>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static string Encode<EType>(EType value) where EType: struct, IConvertible
+  public static string Encode<EType>(EType value) where EType : struct, IConvertible
   {
     if (!convDict.ContainsKey(typeof(EType)))
       CreateDicts(typeof(EType));
-    if (typeof(EType).GetCustomAttribute<FlagsAttribute>()!=null)
+    if (typeof(EType).GetCustomAttribute<FlagsAttribute>() != null)
     {
       UInt64 mask = 1;
-      UInt64 uVal = ((IConvertible)value).ToUInt64(null);
-      List<string> ss = new List<string>();
-      for (int i=0; i<32; i++)
+      var uVal = value.ToUInt64(null);
+      var ss = new List<string>();
+      for (var i = 0; i < 32; i++)
       {
-        if ((uVal & mask)!=0)
-        {
-          ss.Add(convDict[typeof(EType)].ValueToString[mask]);
-        }
+        if ((uVal & mask) != 0) ss.Add(convDict[typeof(EType)].ValueToString[mask]);
         mask <<= 1;
       }
       return string.Join(";", ss);
     }
-    else
-      return convDict[typeof(EType)].ValueToString[((IConvertible)value).ToUInt64(null)];
+    return convDict[typeof(EType)].ValueToString[value.ToUInt64(null)];
   }
 
   /// <summary>
-  /// Translating string value to enum value
+  ///   Translating string value to enum value
   /// </summary>
   /// <typeparam name="EType"></typeparam>
   /// <param name="value"></param>
@@ -167,13 +150,13 @@ public static class EnumTypeConverter
   public static EType? Decode<EType>(string value) where EType : struct, IConvertible
   {
     EType? result;
-    if (!TryDecode(value, out result, out string? invKey))
+    if (!TryDecode(value, out result, out var invKey))
       throw new KeyNotFoundException($"Key \"{invKey}\" not found in {typeof(EType).Name} type");
     return result;
   }
 
   /// <summary>
-  /// Trying translating string value to enum value
+  ///   Trying translating string value to enum value
   /// </summary>
   /// <typeparam name="EType"></typeparam>
   /// <param name="value"></param>
@@ -183,11 +166,11 @@ public static class EnumTypeConverter
   [DebuggerStepThrough]
   public static bool TryDecode<EType>(string value, out EType? result) where EType : struct, IConvertible
   {
-    return TryDecode<EType>(value, out result, out string? invKey);
+    return TryDecode(value, out result, out var invKey);
   }
 
   /// <summary>
-  /// Trying translating string value to enum value
+  ///   Trying translating string value to enum value
   /// </summary>
   /// <typeparam name="EType"></typeparam>
   /// <param name="value"></param>
@@ -203,11 +186,11 @@ public static class EnumTypeConverter
       CreateDicts(typeof(EType));
     lock (convDict[typeof(EType)])
     {
-      string[] ss = value.Split(new char[] { ';', ',', '|', '+' });
+      var ss = value.Split(';', ',', '|', '+');
       UInt64 n = 0;
       foreach (var s in ss)
       {
-        if (!convDict[typeof(EType)].StringToValue.TryGetValue(s.ToLower().Trim(), out UInt64 v))
+        if (!convDict[typeof(EType)].StringToValue.TryGetValue(s.ToLower().Trim(), out var v))
         {
           invalidKey = s;
           return false;
@@ -216,6 +199,18 @@ public static class EnumTypeConverter
       }
       result = (EType)Enum.ToObject(typeof(EType), n);
       return true;
+    }
+  }
+
+  private class Dicts
+  {
+    public readonly ConcurrentDictionary<string, UInt64> StringToValue;
+    public readonly ConcurrentDictionary<UInt64, string> ValueToString;
+
+    public Dicts()
+    {
+      ValueToString = new ConcurrentDictionary<UInt64, string>();
+      StringToValue = new ConcurrentDictionary<string, UInt64>();
     }
   }
 }

@@ -20,8 +20,7 @@ public struct GDate
     var str = $"{Year:D4}-{Month:D2}-{Day:D2}";
     if (Zone > 0)
       str += "+" + Zone.ToString("D2");
-    else
-    if (Zone < 0)
+    else if (Zone < 0)
       str += Zone.ToString("D2");
     return str;
   }

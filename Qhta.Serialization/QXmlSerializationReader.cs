@@ -16,11 +16,7 @@ public class QXmlSerializationReader : IXmlConverterReader
     XmlWriterSettings = settings.XmlWriterSettings;
   }
 
-  public XmlReader Reader { get; private set; }
-
   public XmlSerializationInfoMapper Mapper { get; private set; }
-
-  public KnownTypesCollection KnownTypes => Mapper.KnownTypes;
 
   public string? DefaultNamespace => Mapper.DefaultNamespace;
 
@@ -29,6 +25,10 @@ public class QXmlSerializationReader : IXmlConverterReader
   public XmlWriterSettings XmlWriterSettings { get; private set; }
 
   public XmlSerializerNamespaces Namespaces { get; private set; } = new();
+
+  public XmlReader Reader { get; private set; }
+
+  public KnownTypesCollection KnownTypes => Mapper.KnownTypes;
 
   #region Deserialize methods
 
@@ -115,7 +115,8 @@ public class QXmlSerializationReader : IXmlConverterReader
     return result;
   }
 
-  public object? ReadMemberObject(object context, SerializationTypeInfo typeInfo, SerializationMemberInfo memberInfo, OnUnknownMember? onUnknownMember = null)
+  public object? ReadMemberObject(object context, SerializationTypeInfo typeInfo, SerializationMemberInfo memberInfo,
+    OnUnknownMember? onUnknownMember = null)
   {
 #if TraceReader
     Debug.WriteLine($"begin ReadMemberObject({context}) at <{Reader.Name}>");
@@ -239,7 +240,6 @@ public class QXmlSerializationReader : IXmlConverterReader
     //    props.Add(prop.QualifiedName, prop);
     var propList = props;
 
-
     int propsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
     {
@@ -348,8 +348,7 @@ public class QXmlSerializationReader : IXmlConverterReader
                 var adddMethod = context.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
                 if (adddMethod != null)
                   adddMethod.Invoke(context, new object?[] { item });
-                else
-                if (context is ICollection collectionObj)
+                else if (context is ICollection collectionObj)
                   throw new XmlInternalException($"Add method for {knownItemTypeInfo.Type} item not found in type {aType.FullName}", Reader);
               }
             }
@@ -569,8 +568,7 @@ public class QXmlSerializationReader : IXmlConverterReader
         result = ReadValue(context, typeInfo.Type, null, null);
         Reader.Read();
       }
-      else
-      if (typeInfo.Type.IsArray)
+      else if (typeInfo.Type.IsArray)
       {
         Reader.Read();
       }
@@ -614,8 +612,7 @@ public class QXmlSerializationReader : IXmlConverterReader
           Reader.Read();
           if (name == "null")
             result = new object();
-          else
-          if (name == "DBNull")
+          else if (name == "DBNull")
             result = DBNull.Value;
         }
         else
@@ -644,7 +641,8 @@ public class QXmlSerializationReader : IXmlConverterReader
   }
 
 
-  public (object? key, object? value) ReadElementAsKVPair(object context, Type? expectedKeyType, Type? expectedValueType, DictionaryInfo dictionaryInfo)
+  public (object? key, object? value) ReadElementAsKVPair(object context, Type? expectedKeyType, Type? expectedValueType,
+    DictionaryInfo dictionaryInfo)
   {
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
@@ -709,8 +707,7 @@ public class QXmlSerializationReader : IXmlConverterReader
         else
           throw new XmlInternalException($"Unknown attribute \"{elementName}\" in type {typeInfo.Type.Name} on deserialize", Reader);
       }
-      else
-      if (Reader.NodeType == XmlNodeType.Element)
+      else if (Reader.NodeType == XmlNodeType.Element)
       {
         throw new XmlInternalException($"Unknown element \"{elementName}\" in type {typeInfo.Type.Name} on deserialize", Reader);
       }
@@ -723,7 +720,7 @@ public class QXmlSerializationReader : IXmlConverterReader
     Array,
     Collection,
     List,
-    Dictionary,
+    Dictionary
   }
 
   public record KVPair
@@ -740,7 +737,6 @@ public class QXmlSerializationReader : IXmlConverterReader
 
   public void ReadAndAddElementAsCollectionMember(object context, SerializationMemberInfo propertyInfo, ContentItemInfo collectionInfo)
   {
-
     if (propertyInfo.ValueType == null)
       throw new XmlInternalException($"Collection type at property {propertyInfo.Member.Name}" +
                                      $" of type {context.GetType().Name} unknown", Reader);
@@ -758,12 +754,12 @@ public class QXmlSerializationReader : IXmlConverterReader
 
     var collection = propertyInfo.GetValue(context);
     if (collection == null)
-    { // Check if collection can be written - if not we will not be able to set the property
+    {
+      // Check if collection can be written - if not we will not be able to set the property
       if (!propertyInfo.CanWrite)
         throw new XmlInternalException($"Collection at property {propertyInfo.Member.Name}" +
                                        $" of type {context.GetType().Name} is  but readonly", Reader);
     }
-
 
     CollectionTypeKind? collectionTypeKind = null;
     Type? itemType;
@@ -786,7 +782,6 @@ public class QXmlSerializationReader : IXmlConverterReader
         throw new XmlInternalException($"Unknown item type of {collectionType} collection", Reader);
       collectionTypeKind = CollectionTypeKind.Dictionary;
       itemType = valueType;
-
     }
     else if (collectionType.IsList(out itemType))
     {
@@ -945,10 +940,10 @@ public class QXmlSerializationReader : IXmlConverterReader
           if (arrayObject.Length == tempList.Count)
             for (int i = 0; i < tempList.Count; i++)
               arrayObject.SetValue(tempList[i], i);
-          else
-          if (!propertyInfo.CanWrite)
+          else if (!propertyInfo.CanWrite)
             throw new XmlInternalException($"Collection at property {propertyInfo.Member.Name}" +
-                                           $" is an array of different length than number of read items but is readonly and can't be changed", Reader);
+                                           $" is an array of different length than number of read items but is readonly and can't be changed",
+              Reader);
           var itemArray = Array.CreateInstance(itemType, tempList.Count);
           for (int i = 0; i < tempList.Count; i++)
             itemArray.SetValue(tempList[i], i);
@@ -1017,7 +1012,8 @@ public class QXmlSerializationReader : IXmlConverterReader
     return itemsRead;
   }
 
-  public int ReadDictionaryItems(object context, ICollection<object> collection, Type collectionKeyType, Type collectionValueType, DictionaryInfo dictionaryInfo)
+  public int ReadDictionaryItems(object context, ICollection<object> collection, Type collectionKeyType, Type collectionValueType,
+    DictionaryInfo dictionaryInfo)
   {
     int itemsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
@@ -1078,22 +1074,19 @@ public class QXmlSerializationReader : IXmlConverterReader
     // insert typeconverter invocation
     if (expectedType == typeof(string))
       propValue = str;
-    else
-    if (typeConverter != null)
+    else if (typeConverter != null)
     {
       propValue = typeConverter.ConvertFromInvariantString(new TypeDescriptorContext(context, memberInfo?.Property), str);
       return propValue;
     }
-    else
-    if (expectedType == typeof(char))
+    else if (expectedType == typeof(char))
     {
       if (str.Length > 0)
         propValue = str[0];
       else
         propValue = '\0';
     }
-    else
-    if (expectedType == typeof(bool))
+    else if (expectedType == typeof(bool))
     {
       switch (str.ToLower())
       {
@@ -1236,6 +1229,6 @@ public class QXmlSerializationReader : IXmlConverterReader
     //  throw new XmlInternalException($"Value type \"{expectedType}\" not supported for deserialization", reader);
     return propValue;
   }
-#endregion
 
+  #endregion
 }

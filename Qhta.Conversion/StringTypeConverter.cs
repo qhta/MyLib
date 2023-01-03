@@ -1,17 +1,52 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
-
 using Qhta.Collections;
 
 namespace Qhta.Conversion;
 
 public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
 {
+  protected WhitespaceBehavior _Whitespaces;
+
+  protected XsdSimpleType? _XsdType;
+
+  public bool UseEscapeSequences { get; set; }
+  public bool UseHtmlEntities { get; set; }
+  public bool HexEntities { get; set; }
+
+  public BiDiDictionary<char, string> EscapeSequences { get; set; } = new()
+  {
+    { '\0', "\\0" },
+    { '\u0007', "\\a" },
+    { '\u0008', "\\b" },
+    { '\u0009', "\\t" },
+    { '\u000A', "\\n" },
+    { '\u000B', "\\v" },
+    { '\u000C', "\\f" },
+    { '\u000D', "\\r" },
+    { '\u0022', "\\\"" },
+    { '\u0027', "\\'" },
+    { '\u005C', "\\\\" }
+  };
+
+  public BiDiDictionary<char, string> HtmlEntities { get; set; } = new()
+  {
+    { '\xA0', "&nbsp;" },
+    { '<', "&lt;" },
+    { '>', "&gt;" },
+    { '&', "&amp;" },
+    { '"', "&quot;" },
+    { '\'', "&apos;" }
+  };
+
+  public int? MinLength { get; set; }
+  public int? MaxLength { get; set; }
+
+  public string[]? Patterns { get; set; }
+  public string[]? Enumerations { get; set; }
+  public bool CaseInsensitive { get; set; }
   public string? Format { get; set; }
   public CultureInfo? Culture { get; set; }
 
@@ -37,12 +72,12 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
         case XsdSimpleType.NmToken:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
-          Patterns = new string[] { @"(\p{L}|\p{N}|\p{M}|[-.:])+" };
+          Patterns = new[] { @"(\p{L}|\p{N}|\p{M}|[-.:])+" };
           break;
         case XsdSimpleType.Name:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
-          Patterns = new string[] { @"(\p{L}|\p{M}|[:_])(\p{L}|\p{N}|\p{M}|[-.:_])*" };
+          Patterns = new[] { @"(\p{L}|\p{M}|[:_])(\p{L}|\p{N}|\p{M}|[-.:_])*" };
           break;
         case XsdSimpleType.NcName:
         case XsdSimpleType.Id:
@@ -50,12 +85,12 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
         case XsdSimpleType.Entity:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
-          Patterns = new string[] { @"(\p{L}|\p{M}|[_])(\p{L}|\p{N}|\p{M}|[-._])*" };
+          Patterns = new[] { @"(\p{L}|\p{M}|[_])(\p{L}|\p{N}|\p{M}|[-._])*" };
           break;
         case XsdSimpleType.Language:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
-          Patterns = new string[] { @"([a-zA-Z]{2}|[a-zA-Z]{3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*" };
+          Patterns = new[] { @"([a-zA-Z]{2}|[a-zA-Z]{3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*" };
           break;
         case XsdSimpleType.Notation:
           Whitespaces = WhitespaceBehavior.Collapse;
@@ -68,19 +103,6 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
     }
   }
 
-  protected XsdSimpleType? _XsdType;
-
-  public int? MinLength { get; set; }
-  public int? MaxLength { get; set; }
-
-  public string[]? Patterns { get; set; }
-  public string[]? Enumerations { get; set; }
-  public bool CaseInsensitive { get; set; }
-
-  public bool UseEscapeSequences { get; set; }
-  public bool UseHtmlEntities { get; set; }
-  public bool HexEntities { get; set; }
-
   public WhitespaceBehavior Whitespaces
   {
     get => _Whitespaces;
@@ -91,34 +113,7 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
     }
   }
 
-  protected WhitespaceBehavior _Whitespaces;
-
   public bool WhitespacesFixed { get; set; }
-
-  public BiDiDictionary<char, string> EscapeSequences { get; set; } = new BiDiDictionary<char, string>()
-  {
-    { '\0', "\\0"},
-    { '\u0007', "\\a"},
-    { '\u0008', "\\b"},
-    { '\u0009', "\\t"},
-    { '\u000A', "\\n"},
-    { '\u000B', "\\v"},
-    { '\u000C', "\\f"},
-    { '\u000D', "\\r"},
-    { '\u0022', "\\\""},
-    { '\u0027', "\\'"},
-    { '\u005C', "\\\\"},
-  };
-
-  public BiDiDictionary<char, string> HtmlEntities { get; set; } = new BiDiDictionary<char, string>()
-  {
-    { '\xA0', "&nbsp;" },
-    { '<', "&lt;" },
-    { '>', "&gt;" },
-    { '&', "&amp;" },
-    { '"', "&quot;" },
-    { '\'', "&apos;" },
-  };
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
@@ -143,11 +138,9 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
 
       if (UseEscapeSequences)
         return EncodeEscapeSequences(str);
-      else
       if (UseHtmlEntities)
         return EncodeHtmlEntities(str);
-      else
-        return str;
+      return str;
     }
     return base.ConvertTo(context, culture, value, destinationType);
   }
@@ -166,8 +159,7 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
     {
       if (UseEscapeSequences)
         str = DecodeEscapeSequences(str);
-      else
-      if (UseHtmlEntities)
+      else if (UseHtmlEntities)
         str = DecodeHtmlEntities(str);
       if (Whitespaces != 0)
         str = ValidateWhitespaces(str, Whitespaces);
@@ -179,7 +171,7 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
 
       if (ExpectedType == typeof(char))
         return str.FirstOrDefault();
-      if (ExpectedType == null|| ExpectedType == typeof(string))
+      if (ExpectedType == null || ExpectedType == typeof(string))
         return str;
       return Convert.ChangeType(str, ExpectedType ?? typeof(string));
     }
@@ -189,8 +181,8 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public string EncodeEscapeSequences(string str)
   {
     var sb = new StringBuilder();
-    int start = 0;
-    for (int i = 0; i < str.Length; i++)
+    var start = 0;
+    for (var i = 0; i < str.Length; i++)
     {
       var ch = str[i];
       string? entity = null;
@@ -200,7 +192,9 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
           sb.Append(str.Substring(start, i - start));
         start = i + 1;
         if (!String.IsNullOrEmpty(entity))
+        {
           sb.Append(entity);
+        }
         else if (ch <= '\x7F')
         {
           if (HexEntities)
@@ -226,9 +220,8 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public string DecodeEscapeSequences(string str)
   {
     var sb = new StringBuilder();
-    int start = 0;
-    for (int i = 0; i < str.Length; i++)
-    {
+    var start = 0;
+    for (var i = 0; i < str.Length; i++)
       if (i < str.Length - 2 && str[i] == '\\')
       {
         char? charValue = null;
@@ -246,8 +239,7 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
           if (k > i)
             charValue = Convert.ToChar(Convert.ToInt32(str.Substring(i + 2, k - i - 1), 16));
         }
-        else
-          if (EscapeSequences.TryGetValue1(str.Substring(i, 2), out var charVal))
+        else if (EscapeSequences.TryGetValue1(str.Substring(i, 2), out var charVal))
         {
           charValue = charVal;
           k = i + 1;
@@ -261,7 +253,6 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
           start = i + 1;
         }
       }
-    }
     if (start < str.Length)
       sb.Append(str.Substring(start, str.Length - start));
     var result = sb.ToString();
@@ -271,8 +262,8 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public string EncodeHtmlEntities(string str)
   {
     var sb = new StringBuilder();
-    int start = 0;
-    for (int i = 0; i < str.Length; i++)
+    var start = 0;
+    for (var i = 0; i < str.Length; i++)
     {
       var ch = str[i];
       string? entity = null;
@@ -282,7 +273,9 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
           sb.Append(str.Substring(start, i - start));
         start = i + 1;
         if (!String.IsNullOrEmpty(entity))
+        {
           sb.Append(entity);
+        }
         else if (ch <= '\x7F')
         {
           if (HexEntities)
@@ -308,9 +301,8 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public string DecodeHtmlEntities(string str)
   {
     var sb = new StringBuilder();
-    int start = 0;
-    for (int i = 0; i < str.Length; i++)
-    {
+    var start = 0;
+    for (var i = 0; i < str.Length; i++)
       if (i < str.Length - 1 && str[i] == '&')
       {
         var k = str.IndexOf(';', i + 2, Math.Min(str.Length - i - 2, 10));
@@ -324,9 +316,10 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
             else if (str[i + 2] is >= '0' && str[i + 2] <= '9')
               charValue = Convert.ToChar(Convert.ToInt32(str.Substring(i + 2, k - i - 2), 10));
           }
-          else
-          if (HtmlEntities.TryGetValue1(str.Substring(i, k - i + 1), out var charVal))
+          else if (HtmlEntities.TryGetValue1(str.Substring(i, k - i + 1), out var charVal))
+          {
             charValue = charVal;
+          }
           if (charValue != null)
           {
             if (start < i)
@@ -337,7 +330,6 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
           }
         }
       }
-    }
     if (start < str.Length)
       sb.Append(str.Substring(start, str.Length - start));
     var result = sb.ToString();
@@ -356,8 +348,8 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public static string ValidateWhitespaces(string str, WhitespaceBehavior behavior)
   {
     var chars = str.ToArray();
-    bool replaced = false;
-    for (int i = 0; i < str.Length; i++)
+    var replaced = false;
+    for (var i = 0; i < str.Length; i++)
     {
       var ch = chars[i];
       if (char.IsWhiteSpace(ch) && ch != ' ')
@@ -371,18 +363,16 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
     if (behavior == WhitespaceBehavior.Collapse)
     {
       str = str.Trim();
-      for (int i = str.Length-1; i>0; i--)
-      {
-        if (str[i]==' ' && str[i-1]==' ')
-          str = str.Remove(i,1);
-      }
+      for (var i = str.Length - 1; i > 0; i--)
+        if (str[i] == ' ' && str[i - 1] == ' ')
+          str = str.Remove(i, 1);
     }
     return str;
   }
 
   public void ValidatePatterns(string str, string[] patterns)
   {
-    var ok = patterns.Length==0;
+    var ok = patterns.Length == 0;
     foreach (var pattern in patterns)
       if (ValidatePattern(str, pattern))
       {
@@ -401,14 +391,14 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public bool ValidatePattern(string str, string pattern)
   {
     pattern = @"\A" + pattern + @"\Z";
-    Regex regex = new Regex(pattern);
+    var regex = new Regex(pattern);
     return regex.Match(str).Success;
   }
 
   public void ValidateEnumerations(string str, string[] enumerations)
   {
     var ok = enumerations.Length == 0;
-    for (int i=0; i<enumerations.Length; i++)
+    for (var i = 0; i < enumerations.Length; i++)
       if (string.Equals(str, enumerations[i],
             CaseInsensitive ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture))
       {
@@ -423,5 +413,4 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
       throw new InvalidOperationException(msg);
     }
   }
-
 }

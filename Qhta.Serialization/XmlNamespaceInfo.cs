@@ -12,7 +12,7 @@ public class XmlNamespaceInfo
     Prefix = qname.Name;
   }
 
-  public string XmlNamespace {get; set;} = string.Empty;
+  public string XmlNamespace { get; set; } = string.Empty;
 
   public string? ClrNamespace { get; set; }
 

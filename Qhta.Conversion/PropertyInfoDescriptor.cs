@@ -3,14 +3,20 @@ using System.Reflection;
 
 namespace Qhta.Conversion;
 
-public class PropertyInfoDescriptor: PropertyDescriptor
+public class PropertyInfoDescriptor : PropertyDescriptor
 {
+  public PropertyInfo PropertyInfo = null!;
+
   public PropertyInfoDescriptor(PropertyInfo info) : base(info.Name, info.GetCustomAttributes().ToArray())
   {
     PropertyInfo = info;
   }
 
-  public PropertyInfo PropertyInfo = null!;
+  public override Type ComponentType => PropertyInfo.DeclaringType ?? typeof(object);
+
+  public override bool IsReadOnly => false;
+
+  public override Type PropertyType => PropertyInfo.PropertyType;
 
 
   public override void SetValue(object? component, object? value)
@@ -37,10 +43,4 @@ public class PropertyInfoDescriptor: PropertyDescriptor
   {
     return false;
   }
-
-  public override Type ComponentType => PropertyInfo.DeclaringType ?? typeof(object);
-
-  public override bool IsReadOnly  => false;
-
-  public override Type PropertyType => PropertyInfo.PropertyType;
 }

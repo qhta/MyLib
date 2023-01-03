@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class XmlAnyElement2Dictionary : XmlConverter
 {
@@ -15,6 +13,8 @@ public class XmlAnyElement2Dictionary : XmlConverter
 
   public Type? ItemType { get; }
 
+  public override bool CanWrite => false;
+
   public override bool CanConvert(Type objectType)
   {
     return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
@@ -24,11 +24,11 @@ public class XmlAnyElement2Dictionary : XmlConverter
     SerializationMemberInfo? propertyInfo, SerializationItemInfo? itemInfo)
   {
     if (iReader == null)
-      throw new IOException($"Unknown serializer in {this.GetType()}.{nameof(ReadXml)}");
+      throw new IOException($"Unknown serializer in {GetType()}.{nameof(ReadXml)}");
 
     var reader = iReader.Reader as XmlTextReader;
     if (reader == null)
-      throw new IOException($"Reader type in {this.GetType()}.{nameof(ReadXml)} must be of {typeof(IXmlTextReaderInitializer).Name} type.");
+      throw new IOException($"Reader type in {GetType()}.{nameof(ReadXml)} must be of {typeof(IXmlTextReaderInitializer).Name} type.");
 
     var rootElementName = reader.Name;
 
@@ -36,7 +36,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
     if (serializationTypeInfo == null)
       serializationTypeInfo = objectTypeInfo;
     if (serializationTypeInfo == null)
-      throw new IOException($"Unknown type info for property {this.GetType()}");
+      throw new IOException($"Unknown type info for property {GetType()}");
 
     if (reader.EOF)
       return null;
@@ -52,9 +52,9 @@ public class XmlAnyElement2Dictionary : XmlConverter
     if (valueTypeInfo == null && ItemType != null)
       iReader.KnownTypes.TryGetValue(ItemType, out valueTypeInfo);
     if (valueTypeInfo == null)
-      throw new IOException($"Unknown value type info for property {this.GetType()}");
+      throw new IOException($"Unknown value type info for property {GetType()}");
 
-    var valueConstructor = (valueTypeInfo.KnownConstructor);
+    var valueConstructor = valueTypeInfo.KnownConstructor;
     if (valueConstructor == null && valueTypeInfo.Type != typeof(string))
       throw new IOException($"Type {valueTypeInfo.Type} has no parameterless public constructor");
     reader.Read();
@@ -76,12 +76,14 @@ public class XmlAnyElement2Dictionary : XmlConverter
       if (value != null)
       {
         if (itemInfo?.AddMethod != null)
-          itemInfo.AddMethod.Invoke(dict, new object[] { key, value });
+        {
+          itemInfo.AddMethod.Invoke(dict, new[] { key, value });
+        }
         else
         {
-          var itemTypeInfo = (objectTypeInfo)?.ContentInfo?.KnownItemTypes.FindTypeInfo(value.GetType());
+          var itemTypeInfo = objectTypeInfo?.ContentInfo?.KnownItemTypes.FindTypeInfo(value.GetType());
           if (itemTypeInfo != null && itemTypeInfo.AddMethod != null)
-            itemTypeInfo.AddMethod.Invoke(dict, new object[] { key, value });
+            itemTypeInfo.AddMethod.Invoke(dict, new[] { key, value });
           else
             dict.Add(key, value);
         }
@@ -92,14 +94,9 @@ public class XmlAnyElement2Dictionary : XmlConverter
         break;
       }
     }
-    if (reader.NodeType == XmlNodeType.EndElement && reader.Name == rootElementName)
-    {
-      reader.Read();
-    }
+    if (reader.NodeType == XmlNodeType.EndElement && reader.Name == rootElementName) reader.Read();
     return dict;
   }
-
-  public override bool CanWrite => false;
 
   public override void WriteXml(IXmlConverterWriter iWriter, object? value)
   {

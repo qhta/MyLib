@@ -1,13 +1,17 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
 public class XmlDictionaryAttribute : XmlCollectionAttribute
 {
-  public XmlDictionaryAttribute() : base() { }
+  public XmlDictionaryAttribute()
+  {
+  }
 
-  public XmlDictionaryAttribute(string? elementName) : base(elementName) { }
+  public XmlDictionaryAttribute(string? elementName) : base(elementName)
+  {
+  }
 
-  public Type? KeyType { get; set;}
+  public Type? KeyType { get; set; }
 
   public string? KeyName { get; set; }
 

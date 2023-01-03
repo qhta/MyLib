@@ -1,25 +1,23 @@
-﻿using System.Buffers.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.Serialization;
 using System.Xml;
 
 namespace Qhta.Conversion;
 
-
 public class XmlQualifiedNameTypeConverter : TypeConverter, ITypeConverter
 {
   /// <summary>
-  /// Do not change
+  ///   Do not change
   /// </summary>
   public Type? ExpectedType { get; set; } = typeof(XmlQualifiedName);
+
   /// <summary>
-  /// Do not change
+  ///   Do not change
   /// </summary>
   public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.QName;
 
   /// <summary>
-  /// Not used
+  ///   Not used
   /// </summary>
   public string? Format { get; set; }
 
@@ -35,12 +33,8 @@ public class XmlQualifiedNameTypeConverter : TypeConverter, ITypeConverter
     if (value == null)
       return null;
     if (value is XmlQualifiedName xmlQualifiedName)
-    {
       if (destinationType == typeof(string))
-      {
         return xmlQualifiedName.ToString();
-      }
-    }
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
@@ -49,7 +43,10 @@ public class XmlQualifiedNameTypeConverter : TypeConverter, ITypeConverter
     return sourceType == typeof(string);
   }
 
-  public new object? ConvertFrom(object value) => ConvertFrom(null, null, value);
+  public new object? ConvertFrom(object value)
+  {
+    return ConvertFrom(null, null, value);
+  }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
@@ -65,7 +62,7 @@ public class XmlQualifiedNameTypeConverter : TypeConverter, ITypeConverter
       {
         var ss = str.Split(':');
         if (ss.Length == 2)
-          return new XmlQualifiedName(ss[1],ss[0]);
+          return new XmlQualifiedName(ss[1], ss[0]);
         return new XmlQualifiedName(str);
       }
     }

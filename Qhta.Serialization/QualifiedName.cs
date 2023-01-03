@@ -1,14 +1,11 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 [TypeConverter(typeof(QualifiedNameTypeConverter))]
-public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedName>
+public struct QualifiedName : IComparable<QualifiedName>, IEquatable<QualifiedName>
 {
+  [XmlAttribute] public string Namespace { get; set; }
 
-  [XmlAttribute]
-  public string Namespace { get; set; }
-
-  [XmlAttribute]
-  public string Name { get; set; }
+  [XmlAttribute] public string Name { get; set; }
 
   public QualifiedName()
   {
@@ -37,9 +34,12 @@ public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedNam
     Name = name;
   }
 
-  public bool IsEmpty() => Name == "" ;
+  public bool IsEmpty()
+  {
+    return Name == "";
+  }
 
-  public static QualifiedName Empty => new QualifiedName("");
+  public static QualifiedName Empty => new("");
 
   public int CompareTo(QualifiedName other)
   {
@@ -50,18 +50,26 @@ public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedNam
 
   public override string ToString()
   {
-    if (Namespace=="")
+    if (Namespace == "")
       return Name;
-    return Namespace+":"+Name;
+    return Namespace + ":" + Name;
   }
 
-  public static implicit operator string(QualifiedName value) => value.ToString();
-  public static implicit operator QualifiedName(string value) => new QualifiedName(value);
+  public static implicit operator string(QualifiedName value)
+  {
+    return value.ToString();
+  }
+
+  public static implicit operator QualifiedName(string value)
+  {
+    return new(value);
+  }
 
   #region Equality members
+
   public bool Equals(QualifiedName other)
   {
-    return this.Name == other.Name && this.Namespace == other.Namespace;
+    return Name == other.Name && Namespace == other.Namespace;
   }
 
   public override bool Equals(object? obj)
@@ -74,9 +82,15 @@ public struct QualifiedName: IComparable<QualifiedName>, IEquatable<QualifiedNam
     return HashCode.Combine(Namespace, Name);
   }
 
-  public static bool operator ==(QualifiedName @this, QualifiedName other) => @this.Equals(other);
+  public static bool operator ==(QualifiedName @this, QualifiedName other)
+  {
+    return @this.Equals(other);
+  }
 
-  public static bool operator !=(QualifiedName @this, QualifiedName other) => !@this.Equals(other);
+  public static bool operator !=(QualifiedName @this, QualifiedName other)
+  {
+    return !@this.Equals(other);
+  }
+
   #endregion
-
 }

@@ -3,12 +3,12 @@
 namespace Qhta.TypeUtils;
 
 /// <summary>
-/// A static class that converts object to string
+///   A static class that converts object to string
 /// </summary>
 public static class StaticToStringConverter
 {
   /// <summary>
-  /// Converting character value to string
+  ///   Converting character value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -18,7 +18,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting boolean value to string
+  ///   Converting boolean value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -28,7 +28,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting signed byte value to string
+  ///   Converting signed byte value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -38,29 +38,27 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting int16 value to string
+  ///   Converting int16 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-
   public static string? Int16ToString(Int16 value)
   {
     return value.ToString();
   }
 
   /// <summary>
-  /// Converting int32 value to string
+  ///   Converting int32 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-
   public static string? Int32ToString(Int32 value)
   {
     return value.ToString();
   }
 
   /// <summary>
-  /// Converting int64 value to string
+  ///   Converting int64 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -70,7 +68,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting byte value to string
+  ///   Converting byte value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -80,7 +78,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting unsigned int16 value to string
+  ///   Converting unsigned int16 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -90,7 +88,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting unsigned int32 value to string
+  ///   Converting unsigned int32 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -100,7 +98,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting unsigned int64 value to string
+  ///   Converting unsigned int64 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -110,7 +108,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting float value to string
+  ///   Converting float value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -120,7 +118,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting double value to string
+  ///   Converting double value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -130,7 +128,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting DateTime value to string
+  ///   Converting DateTime value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -140,7 +138,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting TimeSpan value to string
+  ///   Converting TimeSpan value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -150,7 +148,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting enum value to string
+  ///   Converting enum value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -158,13 +156,13 @@ public static class StaticToStringConverter
   {
     if (value == null)
       return null;
-    string result = value.ToString() ?? "";
+    var result = value.ToString() ?? "";
     result = result.Replace(", ", "+");
     return result;
   }
 
   /// <summary>
-  /// Converting nullable char value to string
+  ///   Converting nullable char value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -174,7 +172,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable bool value to string
+  ///   Converting nullable bool value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -184,7 +182,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable signed byte value to string
+  ///   Converting nullable signed byte value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -194,7 +192,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable int16 value to string
+  ///   Converting nullable int16 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -204,7 +202,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable int32 value to string
+  ///   Converting nullable int32 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -214,7 +212,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable int64 value to string
+  ///   Converting nullable int64 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -224,7 +222,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable byte value to string
+  ///   Converting nullable byte value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -234,7 +232,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable unsigned int16 value to string
+  ///   Converting nullable unsigned int16 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -244,7 +242,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable unsigned int32 value to string
+  ///   Converting nullable unsigned int32 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -254,7 +252,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable unsigned int64 value to string
+  ///   Converting nullable unsigned int64 value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -264,7 +262,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable float value to string
+  ///   Converting nullable float value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -274,7 +272,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable double value to string
+  ///   Converting nullable double value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -284,7 +282,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable DateTime value to string
+  ///   Converting nullable DateTime value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -294,7 +292,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable TimeSpan value to string
+  ///   Converting nullable TimeSpan value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -304,7 +302,7 @@ public static class StaticToStringConverter
   }
 
   /// <summary>
-  /// Converting nullable enum value to string
+  ///   Converting nullable enum value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -312,13 +310,13 @@ public static class StaticToStringConverter
   {
     if (value == null)
       return null;
-    string result = value.ToString() ?? "";
+    var result = value.ToString() ?? "";
     result = result.Replace(", ", "+");
     return result;
   }
 
   /// <summary>
-  /// Converting class value to string
+  ///   Converting class value to string
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>

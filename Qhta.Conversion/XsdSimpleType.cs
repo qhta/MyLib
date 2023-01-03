@@ -5,7 +5,9 @@ namespace Qhta.Conversion;
 public enum XsdSimpleType
 {
   [XmlEnum("anyURI")] AnyUri = 1,
-  [XmlEnum("base64Binary")] Base64Binary,
+
+  [XmlEnum("base64Binary")]
+  Base64Binary,
   [XmlEnum("boolean")] Boolean,
   [XmlEnum("byte")] Byte,
   [XmlEnum("date")] Date,
@@ -31,21 +33,37 @@ public enum XsdSimpleType
   [XmlEnum("long")] Long,
   [XmlEnum("Name")] Name,
   [XmlEnum("NCName")] NcName,
-  [XmlEnum("negativeInteger")] NegativeInteger,
+
+  [XmlEnum("negativeInteger")]
+  NegativeInteger,
   [XmlEnum("NMTOKEN")] NmToken,
   [XmlEnum("NMTOKENS")] NmTokens,
-  [XmlEnum("nonNegativeInteger")] NonNegativeInteger,
-  [XmlEnum("nonPositiveInteger")] NonPositiveInteger,
-  [XmlEnum("normalizedString")] NormalizedString,
+
+  [XmlEnum("nonNegativeInteger")]
+  NonNegativeInteger,
+
+  [XmlEnum("nonPositiveInteger")]
+  NonPositiveInteger,
+
+  [XmlEnum("normalizedString")]
+  NormalizedString,
   [XmlEnum("NOTATION")] Notation,
-  [XmlEnum("positiveInteger")] PositiveInteger,
+
+  [XmlEnum("positiveInteger")]
+  PositiveInteger,
   [XmlEnum("QName")] QName,
   [XmlEnum("short")] Short,
   [XmlEnum("string")] String,
   [XmlEnum("time")] Time,
   [XmlEnum("token")] Token,
-  [XmlEnum("unsignedByte")] UnsignedByte,
+
+  [XmlEnum("unsignedByte")]
+  UnsignedByte,
   [XmlEnum("unsignedInt")] UnsignedInt,
-  [XmlEnum("unsignedLong")] UnsignedLong,
-  [XmlEnum("unsignedShort")] UnsignedShort,
+
+  [XmlEnum("unsignedLong")]
+  UnsignedLong,
+
+  [XmlEnum("unsignedShort")]
+  UnsignedShort
 }

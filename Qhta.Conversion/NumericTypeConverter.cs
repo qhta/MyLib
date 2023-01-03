@@ -1,12 +1,21 @@
-﻿using System.Buffers.Text;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Globalization;
 
 namespace Qhta.Conversion;
 
 public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestrictions
 {
+  private string? _Format;
+  protected XsdSimpleType? _XsdType;
+
+  public NumberStyles NumberStyle { get; set; } = NumberStyles.None;
+
+  public int? TotalDigits { get; set; }
+  public int? FractionDigits { get; set; }
+  public double? MinExclusive { get; set; }
+  public double? MaxExclusive { get; set; }
+  public double? MinInclusive { get; set; }
+  public double? MaxInclusive { get; set; }
   public Type? ExpectedType { get; set; }
 
   public XsdSimpleType? XsdType
@@ -65,7 +74,6 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
       }
     }
   }
-  protected XsdSimpleType? _XsdType;
 
   public string? Format
   {
@@ -75,17 +83,13 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
       if (_Format != value)
       {
         _Format = value;
-        if (_Format != null && (_Format.Contains('X', StringComparison.InvariantCultureIgnoreCase)))
+        if (_Format != null && _Format.Contains('X', StringComparison.InvariantCultureIgnoreCase))
           NumberStyle |= NumberStyles.HexNumber;
       }
     }
   }
 
   public CultureInfo? Culture { get; set; }
-
-  private string? _Format;
-
-  public NumberStyles NumberStyle { get; set; } = NumberStyles.None;
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
@@ -149,7 +153,11 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
   {
     return sourceType == typeof(string);
   }
-  public new object? ConvertFrom(object value) => ConvertFrom(null, CultureInfo.InvariantCulture, value);
+
+  public new object? ConvertFrom(object value)
+  {
+    return ConvertFrom(null, CultureInfo.InvariantCulture, value);
+  }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
@@ -160,7 +168,7 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
     {
       if (str == String.Empty)
         return null;
-      if (ExpectedType==typeof(string))
+      if (ExpectedType == typeof(string))
         return str;
       if (TryParseAnyNumber(str, NumberStyle, culture, out var number))
       {
@@ -187,10 +195,7 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
   public bool TryParseAnyNumber(string? str, NumberStyles numberStyle, CultureInfo? culture, out object? value)
   {
     value = null;
-    if (string.IsNullOrEmpty(str))
-    {
-      return true;
-    }
+    if (string.IsNullOrEmpty(str)) return true;
     if (culture == null)
       culture = CultureInfo.InvariantCulture;
     if (str.Contains("E+", StringComparison.Ordinal) || str.Contains("E-", StringComparison.Ordinal))
@@ -264,11 +269,4 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
       return false;
     }
   }
-
-  public int? TotalDigits { get; set; }
-  public int? FractionDigits { get; set; }
-  public double? MinExclusive { get; set; }
-  public double? MaxExclusive { get; set; }
-  public double? MinInclusive { get; set; }
-  public double? MaxInclusive { get; set; }
 }

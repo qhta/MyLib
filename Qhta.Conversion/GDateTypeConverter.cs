@@ -1,25 +1,22 @@
-﻿using System.Buffers.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Net.Security;
-using System.Runtime.Serialization;
 using System.Text;
 
 namespace Qhta.Conversion;
 
 public class GDateTypeConverter : TypeConverter, ITypeConverter
 {
+  /// <summary>
+  ///   Specifies whether to add the time zone to day.
+  /// </summary>
+  public bool ShowTimeZone { get; set; }
+
   public Type? ExpectedType { get; set; } = typeof(GDate);
 
   public XsdSimpleType? XsdType { get; set; }
 
   /// <summary>
-  /// Specifies whether to add the time zone to day.
-  /// </summary>
-  public bool ShowTimeZone { get; set; }
-
-  /// <summary>
-  /// Not used
+  ///   Not used
   /// </summary>
   public string? Format { get; set; }
 
@@ -36,18 +33,17 @@ public class GDateTypeConverter : TypeConverter, ITypeConverter
       return null;
 
     if (value is GDate dt)
-    {
       if (destinationType == typeof(string))
       {
         var sb = new StringBuilder();
         switch (XsdType)
         {
           case XsdSimpleType.GYear:
-            return (dt.Year.ToString("D4"));
+            return dt.Year.ToString("D4");
           case XsdSimpleType.GYearMonth:
-            return (dt.Year.ToString("D4") + "-" + dt.Month.ToString("D2"));
+            return dt.Year.ToString("D4") + "-" + dt.Month.ToString("D2");
           case XsdSimpleType.GMonth:
-            return ("--" + dt.Month.ToString("D2"));
+            return "--" + dt.Month.ToString("D2");
           case XsdSimpleType.GMonthDay:
             sb.Append("--" + dt.Month.ToString("D2") + "-" + dt.Day.ToString("D2"));
             if (ShowTimeZone)
@@ -79,27 +75,22 @@ public class GDateTypeConverter : TypeConverter, ITypeConverter
         if (ShowTimeZone && dt.Day != 0)
           str += ZoneToStr(dt);
         else
-        {
           while (str.EndsWith("-"))
             str = str.Substring(0, str.Length - 1);
-        }
         if (str.StartsWith("----"))
           str = str.Substring(1, str.Length - 1);
         return str;
       }
-    }
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
   protected string ZoneToStr(GDate dt)
   {
     if (dt.Zone > 0)
-      return ("+" + dt.Zone.ToString("D2"));
-    else
+      return "+" + dt.Zone.ToString("D2");
     if (dt.Zone < 0)
-      return (dt.Zone.ToString("D2"));
-    else
-      return ("Z");
+      return dt.Zone.ToString("D2");
+    return "Z";
   }
 
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
@@ -107,7 +98,10 @@ public class GDateTypeConverter : TypeConverter, ITypeConverter
     return sourceType == typeof(string);
   }
 
-  public new object? ConvertFrom(object value) => ConvertFrom(null, null, value);
+  public new object? ConvertFrom(object value)
+  {
+    return ConvertFrom(null, null, value);
+  }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
@@ -119,10 +113,11 @@ public class GDateTypeConverter : TypeConverter, ITypeConverter
       if (str == String.Empty)
         return null;
       var result = new GDate();
-      int i = 0;
-      int k = 0; // 0 - year expected, 1 - first separator, 2 - month exp, 3 - second sep, 4 - day exp, 5 - third sep, 6 - zone expected, 7 -end string od string
-      int val = 0;
-      bool plus = false;
+      var i = 0;
+      var
+        k = 0; // 0 - year expected, 1 - first separator, 2 - month exp, 3 - second sep, 4 - day exp, 5 - third sep, 6 - zone expected, 7 -end string od string
+      var val = 0;
+      var plus = false;
       var wasDigit = false;
       while (i <= str.Length)
       {
@@ -178,8 +173,7 @@ public class GDateTypeConverter : TypeConverter, ITypeConverter
           {
             if (k == 5 || k == 4)
               break;
-            else
-              throw new InvalidDataException($"Invalid character 'Z' at index {i} in string \"{str}\"");
+            throw new InvalidDataException($"Invalid character 'Z' at index {i} in string \"{str}\"");
           }
           if (ch == '+')
           {
@@ -193,12 +187,13 @@ public class GDateTypeConverter : TypeConverter, ITypeConverter
           k++;
         }
         else
+        {
           throw new InvalidDataException($"Invalid character at index {i} in string \"{str}\"");
+        }
         i++;
       }
       return result;
     }
     return base.ConvertFrom(context, culture, value);
   }
-
 }

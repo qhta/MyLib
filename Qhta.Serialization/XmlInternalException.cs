@@ -3,15 +3,15 @@
 namespace Qhta.Xml.Serialization;
 
 /// <summary>
-/// Class extending <see cref="Exception"/> to hold
-/// <see cref="LineNumber"/> and <see cref="LinePosition"/>.
+///   Class extending <see cref="Exception" /> to hold
+///   <see cref="LineNumber" /> and <see cref="LinePosition" />.
 /// </summary>
-public class XmlInternalException: Exception
+public class XmlInternalException : Exception
 {
   /// <summary>
-  /// Extending constructor. 
-  /// If <paramref name="xmlReader"/> is <see cref="XmlTextReader"/>
-  /// then <see cref="LineNumber"/> and <see cref="LinePosition"/> are set appriopriately.
+  ///   Extending constructor.
+  ///   If <paramref name="xmlReader" /> is <see cref="XmlTextReader" />
+  ///   then <see cref="LineNumber" /> and <see cref="LinePosition" /> are set appriopriately.
   /// </summary>
   /// <param name="message"></param>
   /// <param name="xmlReader"></param>
@@ -27,6 +27,9 @@ public class XmlInternalException: Exception
     }
   }
 
+  public int? LineNumber { get; }
+  public int? LinePosition { get; }
+
   protected static string ComposeMessage(string message, XmlReader xmlReader)
   {
     if (xmlReader is XmlTextReader xmlTextReader)
@@ -37,7 +40,4 @@ public class XmlInternalException: Exception
     }
     return message;
   }
-
-  public int? LineNumber { get;}
-  public int? LinePosition { get;}
 }

@@ -1,9 +1,9 @@
-﻿using System.IO;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 public class XmlAnyAttribute2Dictionary : XmlConverter
 {
+  public override bool CanWrite => false;
+
   public override bool CanConvert(Type objectType)
   {
     return objectType.GetInterface("IDictionary") != null && objectType.GetConstructor(new Type[0]) != null;
@@ -17,7 +17,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
     if (serializationTypeInfo == null)
       serializationTypeInfo = objectTypeInfo;
     if (serializationTypeInfo == null)
-      throw new IOException($"Unknown type info for property XmlConverter");
+      throw new IOException("Unknown type info for property XmlConverter");
 
     if (reader.EOF)
       return null;
@@ -29,7 +29,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
     if (dict == null)
       throw new IOException($"Type {serializationTypeInfo.Type} must be a Dictionary<string, string>");
     reader.MoveToFirstAttribute();
-    for (int i = 0; i < reader.AttributeCount; i++)
+    for (var i = 0; i < reader.AttributeCount; i++)
     {
       dict.Add(reader.LocalName, reader.Value);
       reader.MoveToNextAttribute();
@@ -37,8 +37,6 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
     reader.Read();
     return dict;
   }
-
-  public override bool CanWrite => false;
 
   public override void WriteXml(IXmlConverterWriter iWriter, object? value)
   {

@@ -1,116 +1,114 @@
-﻿using System.Globalization;
-
-using Qhta.Conversion;
+﻿using Qhta.Conversion;
 
 namespace Qhta.Xml.Serialization;
 
-public class SerializationOptions: IEquatable<SerializationOptions>
+public class SerializationOptions : IEquatable<SerializationOptions>
 {
   /// <summary>
-  /// Types to be deserialized must have parameterless constructor.
-  /// If a type found during scanning available types hase no public parameterless constructor, 
-  /// the exception is thrown unless this option is set.
+  ///   Types to be deserialized must have parameterless constructor.
+  ///   If a type found during scanning available types hase no public parameterless constructor,
+  ///   the exception is thrown unless this option is set.
   /// </summary>
   public bool IgnoreMissingConstructor { get; set; }
 
   /// <summary>
-  /// If properties not marked with any XmlAttribute are accepted to serialize.
+  ///   If properties not marked with any XmlAttribute are accepted to serialize.
   /// </summary>
   public bool AcceptAllProperties { get; set; } = true;
 
   /// <summary>
-  /// If fields are accepted to serialize along with properties.
+  ///   If fields are accepted to serialize along with properties.
   /// </summary>
   public bool AcceptFields { get; set; }
 
   /// <summary>
-  /// If simple type properties not marked with any XmlAttribute are accepted to serialize as attributes.
+  ///   If simple type properties not marked with any XmlAttribute are accepted to serialize as attributes.
   /// </summary>
   public bool SimplePropertiesAsAttributes { get; set; }
 
   /// <summary>
-  /// If XML attribute names should change case on serialization.
+  ///   If XML attribute names should change case on serialization.
   /// </summary>
   public SerializationCase AttributeNameCase { get; set; }
 
   /// <summary>
-  /// If XML element names should change case on serialization.
+  ///   If XML element names should change case on serialization.
   /// </summary>
   public SerializationCase ElementNameCase { get; set; }
 
   /// <summary>
-  /// If enumeration value names should change case on serialization.
+  ///   If enumeration value names should change case on serialization.
   /// </summary>
   public SerializationCase EnumNameCase { get; set; }
 
   /// <summary>
-  /// If enum values letter case should be ignored on deserialization.
-  /// Boolean case is always ignored.
+  ///   If enum values letter case should be ignored on deserialization.
+  ///   Boolean case is always ignored.
   /// </summary>
   public bool IgnoreCaseOnEnum { get; set; }
 
   /// <summary>
-  /// If property names serialized as Xml element should be preceded with its class name.
-  /// A dot character ('.') is used as a separator (like in XAML).
+  ///   If property names serialized as Xml element should be preceded with its class name.
+  ///   A dot character ('.') is used as a separator (like in XAML).
   /// </summary>
   public bool PrecedePropertyNameWithClassName { get; set; }
 
   /// <summary>
-  /// A string to markup items in collections.
-  /// If not specified, items are serialized directly.
+  ///   A string to markup items in collections.
+  ///   If not specified, items are serialized directly.
   /// </summary>
   public string? ItemTag { get; set; }
 
   /// <summary>
-  /// Culture used in numbers during serialization/deserialization. 
-  /// Default is invariant culture.
+  ///   Culture used in numbers during serialization/deserialization.
+  ///   Default is invariant culture.
   /// </summary>
   public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
 
   /// <summary>
-  /// Specifies that when the deserializer finds an unknown XML element, 
-  /// it skips to the closing element (or ignores if it is an empty element).
+  ///   Specifies that when the deserializer finds an unknown XML element,
+  ///   it skips to the closing element (or ignores if it is an empty element).
   /// </summary>
   public bool IgnoreUnknownElements { get; set; }
 
   /// <summary>
-  /// Writes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" in the first element.
-  /// Writes xsi:nil="true" attribute when value is null.
+  ///   Writes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" in the first element.
+  ///   Writes xsi:nil="true" attribute when value is null.
   /// </summary>
   public bool UseNilValue { get; set; } = true;
 
   /// <summary>
-  /// Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element
+  ///   Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element
   /// </summary>
   public bool UseXsdScheme { get; set; } = true;
 
   /// <summary>
-  /// String to write as false value;
+  ///   String to write as false value;
   /// </summary>
   public string FalseString { get; set; } = "false";
 
   /// <summary>
-  /// String to write as false value;
+  ///   String to write as false value;
   /// </summary>
   public string TrueString { get; set; } = "true";
 
   /// <summary>
-  /// Conversion options for default TypeConverter
+  ///   Conversion options for default TypeConverter
   /// </summary>
-  public ConversionOptions ConversionOptions { get; set; } = new ConversionOptions
-    {
-      DateTimeSeparator = 'T', ShowFullTime = true, ShowTimeZone = true,
-    };
+  public ConversionOptions ConversionOptions { get; set; } = new()
+  {
+    DateTimeSeparator = 'T', ShowFullTime = true, ShowTimeZone = true
+  };
 
   /// <summary>
-  /// Format to use for DateTime value;
+  ///   Format to use for DateTime value;
   /// </summary>
   public string DateTimeFormat { get; set; } = "yyyy-MM-ddTHH:mm:sszzz";
 
   /// <summary>
-  /// Generic name of the method used to specify if a property should be serialized.
-  /// Asterisk represents a property name.
-  /// The method should be a parameterless function of type boolean.
+  ///   Generic name of the method used to specify if a property should be serialized.
+  ///   Asterisk represents a property name.
+  ///   The method should be a parameterless function of type boolean.
   /// </summary>
   public string CheckMethod { get; set; } = "ShouldSerialize*";
 
@@ -118,22 +116,22 @@ public class SerializationOptions: IEquatable<SerializationOptions>
   {
     if (ReferenceEquals(null, other)) return false;
     if (ReferenceEquals(this, other)) return true;
-    return IgnoreMissingConstructor == other.IgnoreMissingConstructor 
-           && AcceptAllProperties == other.AcceptAllProperties 
-           && SimplePropertiesAsAttributes == other.SimplePropertiesAsAttributes 
-           && AttributeNameCase == other.AttributeNameCase 
-           && ElementNameCase == other.ElementNameCase 
-           && EnumNameCase == other.EnumNameCase 
-           && IgnoreCaseOnEnum == other.IgnoreCaseOnEnum 
-           && PrecedePropertyNameWithClassName == other.PrecedePropertyNameWithClassName 
-           && ItemTag == other.ItemTag 
-           && Culture.Equals(other.Culture) 
-           && IgnoreUnknownElements == other.IgnoreUnknownElements 
-           && UseNilValue == other.UseNilValue 
-           && UseXsdScheme == other.UseXsdScheme 
-           && FalseString == other.FalseString 
-           && TrueString == other.TrueString 
-           && DateTimeFormat == other.DateTimeFormat 
+    return IgnoreMissingConstructor == other.IgnoreMissingConstructor
+           && AcceptAllProperties == other.AcceptAllProperties
+           && SimplePropertiesAsAttributes == other.SimplePropertiesAsAttributes
+           && AttributeNameCase == other.AttributeNameCase
+           && ElementNameCase == other.ElementNameCase
+           && EnumNameCase == other.EnumNameCase
+           && IgnoreCaseOnEnum == other.IgnoreCaseOnEnum
+           && PrecedePropertyNameWithClassName == other.PrecedePropertyNameWithClassName
+           && ItemTag == other.ItemTag
+           && Culture.Equals(other.Culture)
+           && IgnoreUnknownElements == other.IgnoreUnknownElements
+           && UseNilValue == other.UseNilValue
+           && UseXsdScheme == other.UseXsdScheme
+           && FalseString == other.FalseString
+           && TrueString == other.TrueString
+           && DateTimeFormat == other.DateTimeFormat
            && CheckMethod == other.CheckMethod;
   }
 
@@ -141,7 +139,7 @@ public class SerializationOptions: IEquatable<SerializationOptions>
   {
     if (ReferenceEquals(null, obj)) return false;
     if (ReferenceEquals(this, obj)) return true;
-    if (obj.GetType() != this.GetType()) return false;
+    if (obj.GetType() != GetType()) return false;
     return Equals((SerializationOptions)obj);
   }
 

@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using Qhta.TypeUtils;
 
 namespace Qhta.Conversion;
 
 public class Base64TypeConverter : TypeConverter, ITypeConverter
 {
-
   public Type? ExpectedType { get; set; }
   public XsdSimpleType? XsdType { get; set; }
   public string? Format { get; set; }
@@ -18,10 +14,7 @@ public class Base64TypeConverter : TypeConverter, ITypeConverter
   {
     if (value == null)
       return null;
-    if (value is byte[] bytes)
-    {
-      return Convert.ToBase64String(bytes);
-    }
+    if (value is byte[] bytes) return Convert.ToBase64String(bytes);
     return null;
   }
 
@@ -32,5 +25,4 @@ public class Base64TypeConverter : TypeConverter, ITypeConverter
       return Convert.FromBase64String(str);
     return null;
   }
-
 }

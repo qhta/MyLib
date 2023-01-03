@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public interface ITypeNameInfo: INamedElement
+public interface ITypeNameInfo : INamedElement
 {
   //string? XmlName { get; }
 

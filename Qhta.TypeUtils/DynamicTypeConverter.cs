@@ -4,15 +4,15 @@ using System.ComponentModel;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-/// A class that helps using <c>TypeConverter</c> to change an object type in the runtime.
+///   A class that helps using <c>TypeConverter</c> to change an object type in the runtime.
 /// </summary>
 public class DynamicTypeConverter
 {
-  private TypeConverter TypeConverter;
   private Type TargetType;
+  private readonly TypeConverter TypeConverter;
 
   /// <summary>
-  /// Initializing constructor
+  ///   Initializing constructor
   /// </summary>
   /// <param name="typeConverter"></param>
   /// <param name="targetType"></param>
@@ -23,7 +23,7 @@ public class DynamicTypeConverter
   }
 
   /// <summary>
-  /// Wraps TypeConverter.ConvertFrom
+  ///   Wraps TypeConverter.ConvertFrom
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>

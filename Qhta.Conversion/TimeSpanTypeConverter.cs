@@ -1,16 +1,13 @@
-﻿using System.Buffers.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.Serialization;
 using System.Text;
 
 namespace Qhta.Conversion;
 
 public class TimeSpanTypeConverter : TypeConverter
 {
-
   /// <summary>
-  /// Specifies format for ConvertTo method.
+  ///   Specifies format for ConvertTo method.
   /// </summary>
   public string? Format { get; set; }
 
@@ -27,11 +24,10 @@ public class TimeSpanTypeConverter : TypeConverter
       return null;
     if (destinationType == typeof(string) && value is TimeSpan ts)
     {
-      string? format = Format;
+      var format = Format;
       if (format == "D")
         return DurationToString(ts);
-      else
-        return ts.ToString(format, CultureInfo.InvariantCulture);
+      return ts.ToString(format, CultureInfo.InvariantCulture);
     }
     return base.ConvertTo(context, culture, value, destinationType);
   }
@@ -41,7 +37,10 @@ public class TimeSpanTypeConverter : TypeConverter
     return sourceType == typeof(string);
   }
 
-  public new object? ConvertFrom(object value) => ConvertFrom(null, null, value);
+  public new object? ConvertFrom(object value)
+  {
+    return ConvertFrom(null, null, value);
+  }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
@@ -94,14 +93,13 @@ public class TimeSpanTypeConverter : TypeConverter
     }
     var seconds = Math.Abs(ts.Seconds);
     var milliseconds = Math.Abs(ts.Milliseconds);
-    if (seconds > 0 || milliseconds >0 || started)
+    if (seconds > 0 || milliseconds > 0 || started)
     {
       started = true;
       sb.Append(seconds.ToString(CultureInfo.InvariantCulture));
-      if (milliseconds>0)
-        sb.Append("."+milliseconds.ToString("D3"));
+      if (milliseconds > 0)
+        sb.Append("." + milliseconds.ToString("D3"));
       sb.Append('S');
-
     }
     return sb.ToString();
   }
@@ -109,14 +107,14 @@ public class TimeSpanTypeConverter : TypeConverter
   public TimeSpan ParseDuration(string str)
   {
     var neg = false;
-    int years = 0;
-    int months = 0;
-    int days = 0;
-    int hours = 0;
-    int minutes = 0;
-    int seconds = 0;
-    int milliseconds = 0;
-    int i = 0;
+    var years = 0;
+    var months = 0;
+    var days = 0;
+    var hours = 0;
+    var minutes = 0;
+    var seconds = 0;
+    var milliseconds = 0;
+    var i = 0;
     int j;
     if (str.Length > i)
     {
@@ -126,9 +124,7 @@ public class TimeSpanTypeConverter : TypeConverter
         i++;
       }
       if (str[i] == 'P')
-      {
         i++;
-      }
       else
         throw new InvalidOperationException($"Invalid duration string {str}");
       if (str.IndexOf('-', i) > 0)
@@ -147,10 +143,8 @@ public class TimeSpanTypeConverter : TypeConverter
       {
         j = str.IndexOf('M', i);
         if (j > i)
-        {
           if (Int32.TryParse(str.Substring(i, j - i), out months))
             i = j + 1;
-        }
       }
       if (str.Length > i)
       {
@@ -205,7 +199,7 @@ public class TimeSpanTypeConverter : TypeConverter
           if (!hasMilliseconds)
           {
             seconds = milliseconds;
-            milliseconds= 0;
+            milliseconds = 0;
           }
         }
       }

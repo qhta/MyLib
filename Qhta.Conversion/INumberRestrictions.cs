@@ -13,5 +13,4 @@ public interface INumberRestrictions
   public double? MinInclusive { get; set; }
 
   public double? MaxInclusive { get; set; }
-
 }

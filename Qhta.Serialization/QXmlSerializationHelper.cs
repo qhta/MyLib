@@ -9,11 +9,8 @@ public static class QXmlSerializationHelper
 
   public static string GetTypeTag(this Type aType)
   {
-    var result = aType.Name/*.ToLowerInvariant()*/;
-    if (result.EndsWith("[]"))
-    {
-      result = result.Substring(0, result.Length - 2) + "s";
-    }
+    var result = aType.Name /*.ToLowerInvariant()*/;
+    if (result.EndsWith("[]")) result = result.Substring(0, result.Length - 2) + "s";
     return result;
   }
 
@@ -33,8 +30,8 @@ public static class QXmlSerializationHelper
   {
     if (string.IsNullOrEmpty(text))
       return text;
-    char[] ss = text.ToCharArray();
-    for (int i = 0; i < ss.Length; i++)
+    var ss = text.ToCharArray();
+    for (var i = 0; i < ss.Length; i++)
       if (Char.IsLetter(ss[0]))
         ss[i] = char.ToUpper(ss[i]);
     return new string(ss);
@@ -44,8 +41,8 @@ public static class QXmlSerializationHelper
   {
     if (string.IsNullOrEmpty(text))
       return text;
-    char[] ss = text.ToCharArray();
-    for (int i=0; i<ss.Length; i++)
+    var ss = text.ToCharArray();
+    for (var i = 0; i < ss.Length; i++)
       if (Char.IsLetter(ss[0]))
         ss[i] = char.ToLower(ss[i]);
     return new string(ss);
@@ -75,9 +72,10 @@ public static class QXmlSerializationHelper
   {
     var sb = new StringBuilder();
     foreach (var ch in str)
-    {
       if (ch >= ' ' && ch < '\x7f')
+      {
         sb.Append(ch);
+      }
       else
       {
         var ctx = Char.GetUnicodeCategory(ch);
@@ -105,7 +103,6 @@ public static class QXmlSerializationHelper
             break;
         }
       }
-    }
     return sb.ToString();
   }
 
@@ -131,7 +128,7 @@ public static class QXmlSerializationHelper
   public static string DecodeStringValue(this string str)
   {
     var sb = new StringBuilder();
-    for (int i = 0; i < str.Length; i++)
+    for (var i = 0; i < str.Length; i++)
     {
       var ch = str[i];
       if (ch == '\\' && i < str.Length - 1)
@@ -140,7 +137,9 @@ public static class QXmlSerializationHelper
         sb.Append(DecodeEscapeSeq(str, ref i));
       }
       else
+      {
         sb.Append(ch);
+      }
     }
     return sb.ToString();
   }
@@ -168,16 +167,14 @@ public static class QXmlSerializationHelper
       case 'u':
         index++;
         UInt16 code = 0;
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
-          char ch1 = str[index + i];
+          var ch1 = str[index + i];
           if (ch1 >= '0' && ch1 <= '9')
             code = (UInt16)(code * 16 + (UInt16)(ch1 - '0'));
-          else
-          if (ch1 >= 'A' && ch1 <= 'F')
+          else if (ch1 >= 'A' && ch1 <= 'F')
             code = (UInt16)(code * 16 + (UInt16)(ch1 - 'A') + 10);
-          else
-          if (ch1 >= 'a' && ch1 <= 'f')
+          else if (ch1 >= 'a' && ch1 <= 'f')
             code = (UInt16)(code * 16 + (UInt16)(ch1 - 'a') + 10);
         }
         index += 4;
@@ -187,5 +184,4 @@ public static class QXmlSerializationHelper
         return new string(ch, 1);
     }
   }
-
 }

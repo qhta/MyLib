@@ -1,10 +1,7 @@
-﻿using System.Xml.Linq;
+﻿namespace Qhta.Xml.Serialization;
 
-namespace Qhta.Xml.Serialization;
-
-public class SerializationTypeInfo: ITypeNameInfo, INamedElement
+public class SerializationTypeInfo : ITypeNameInfo, INamedElement
 {
-
   public SerializationTypeInfo(Type aType)
   {
     var aName = aType.Name;
@@ -13,37 +10,13 @@ public class SerializationTypeInfo: ITypeNameInfo, INamedElement
       aName = rootAttribute.ElementName;
     Type = aType;
     XmlName = aName;
-    if (rootAttribute!=null)
+    if (rootAttribute != null)
       XmlNamespace = rootAttribute.Namespace;
     ClrNamespace = aType.Namespace;
   }
 
   /// <summary>
-  /// Name of the Xml element
-  /// </summary>
-  [XmlAttribute]
-  public string XmlName {get; set;}
-
-  /// <summary>
-  /// XmlNamespace of the element
-  /// </summary>
-  [XmlAttribute]
-  public string? XmlNamespace {get; set;}
-
-  /// <summary>
-  /// ClrNamespace of the element
-  /// </summary>
-  [XmlAttribute]
-  public string? ClrNamespace { get; set;}
-  /// <summary>
-  ///   Mapped type
-  /// </summary>
-  public Type Type { get; set; }
-
-  public bool ShouldSerializeType() => String.IsNullOrEmpty(XmlName);
-
-  /// <summary>
-  /// A public constructor to invoke while deserialization
+  ///   A public constructor to invoke while deserialization
   /// </summary>
   [XmlIgnore]
   public ConstructorInfo? KnownConstructor { get; set; }
@@ -53,64 +26,98 @@ public class SerializationTypeInfo: ITypeNameInfo, INamedElement
   public bool HasKnownConstructor => KnownConstructor != null;
 
   /// <summary>
-  /// Converter to/from string value.
+  ///   Converter to/from string value.
   /// </summary>
   public TypeConverter? TypeConverter { get; set; }
 
   /// <summary>
-  /// Converter to read/write XML.
+  ///   Converter to read/write XML.
   /// </summary>
   public XmlConverter? XmlConverter { get; set; }
 
   /// <summary>
-  /// Known properties to serialize as XML attributes.
+  ///   Known properties to serialize as XML attributes.
   /// </summary>
-  public KnownMembersCollection MembersAsAttributes { get; set; } = new ();
-
-  public bool ShouldSerializePropertiesAsAttributes() => MembersAsAttributes.Any();
+  public KnownMembersCollection MembersAsAttributes { get; set; } = new();
 
   /// <summary>
-  /// Known properties to serialize as XML elements.
+  ///   Known properties to serialize as XML elements.
   /// </summary>
-  public KnownMembersCollection MembersAsElements { get; set; } = new ();
-
-  public bool ShouldSerializePropertiesAsElements() => MembersAsElements.Any();
+  public KnownMembersCollection MembersAsElements { get; set; } = new();
 
   /// <summary>
-  /// Known property to accept content of XmlElement.
+  ///   Known property to accept content of XmlElement.
   /// </summary>
   public SerializationMemberInfo? ContentProperty { get; set; }
 
   /// <summary>
-  /// Known property to accept text content of XmlElement.
+  ///   Known property to accept text content of XmlElement.
   /// </summary>
   public SerializationMemberInfo? TextProperty { get; set; }
 
   /// <summary>
-  /// If a class can be substituted by subclasses then these classes are listed here.
+  ///   If a class can be substituted by subclasses then these classes are listed here.
   /// </summary>
   [XmlElement]
   public KnownTypesCollection? KnownSubtypes { get; set; }
 
   /// <summary>
-  /// Specifies if a type is serialized as a collection but not as a dictionary.
+  ///   Specifies if a type is serialized as a collection but not as a dictionary.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => ContentProperty!=null && ContentInfo != null && !IsDictionary;
+  public bool IsCollection => ContentProperty != null && ContentInfo != null && !IsDictionary;
 
   /// <summary>
-  /// Specifies If a type is serialized as a dictionary but not as a collection.
+  ///   Specifies If a type is serialized as a dictionary but not as a collection.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsDictionary => ContentInfo is DictionaryInfo;
 
   /// <summary>
-  /// Optional collection info filled if a property is an array, collection or dictionary
+  ///   Optional collection info filled if a property is an array, collection or dictionary
   /// </summary>
   [XmlElement]
   public ContentItemInfo? ContentInfo { get; set; }
+
+  /// <summary>
+  ///   Name of the Xml element
+  /// </summary>
+  [XmlAttribute]
+  public string XmlName { get; set; }
+
+  /// <summary>
+  ///   XmlNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? XmlNamespace { get; set; }
+
+  /// <summary>
+  ///   ClrNamespace of the element
+  /// </summary>
+  [XmlAttribute]
+  public string? ClrNamespace { get; set; }
+
+  /// <summary>
+  ///   Mapped type
+  /// </summary>
+  public Type Type { get; set; }
+
+  public bool ShouldSerializeType()
+  {
+    return String.IsNullOrEmpty(XmlName);
+  }
+
+  public bool ShouldSerializePropertiesAsAttributes()
+  {
+    return MembersAsAttributes.Any();
+  }
+
+  public bool ShouldSerializePropertiesAsElements()
+  {
+    return MembersAsElements.Any();
+  }
 
   public override string ToString()
   {

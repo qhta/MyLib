@@ -1,41 +1,38 @@
-﻿using System.Buffers.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.Serialization;
 
 namespace Qhta.Conversion;
 
 public class DateTimeTypeConverter : TypeConverter, ITypeConverter
 {
+  /// <summary>
+  ///   The character to insert between the date and time when serializing a DateTime value.
+  /// </summary>
+  public char DateTimeSeparator { get; set; } = ' ';
+
+  /// <summary>
+  ///   Specifies whether to add the fractional part of seconds to time format.
+  /// </summary>
+  public bool ShowFullTime { get; set; }
+
+  /// <summary>
+  ///   Specifies whether to add the time zone to time format.
+  /// </summary>
+  public bool ShowTimeZone { get; set; }
+
+  public DateTimeFormatInfo? FormatInfo { get; set; }
+
+  public DateTimeStyles DateTimeStyle { get; set; }
   public Type? ExpectedType { get; set; } = typeof(DateTime);
 
   public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.DateTime;
 
   /// <summary>
-  /// The character to insert between the date and time when serializing a DateTime value.
-  /// </summary>
-  public char DateTimeSeparator { get; set; } = ' ';
-
-  /// <summary>
-  /// Specifies whether to add the fractional part of seconds to time format.
-  /// </summary>
-  public bool ShowFullTime { get; set; }
-
-  /// <summary>
-  /// Specifies whether to add the time zone to time format.
-  /// </summary>
-  public bool ShowTimeZone { get; set; }
-
-  /// <summary>
-  /// Specifies format for ConvertTo method.
+  ///   Specifies format for ConvertTo method.
   /// </summary>
   public string? Format { get; set; }
 
   public CultureInfo? Culture { get; set; }
-
-  public DateTimeFormatInfo? FormatInfo  {get; set;}
-
-  public DateTimeStyles DateTimeStyle { get; set;}
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
@@ -53,23 +50,20 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
       value = new DateTimeOffset(dateOnly.ToDateTime(new TimeOnly()));
       mode = XsdSimpleType.Date;
     }
-    else
-    if (value is TimeOnly timeOnly)
+    else if (value is TimeOnly timeOnly)
     {
       value = new DateTimeOffset(new DateOnly(1, 1, 1).ToDateTime(timeOnly));
       mode = XsdSimpleType.Time;
     }
-    else
-    if (value is DateTime dateTime)
+    else if (value is DateTime dateTime)
     {
       value = new DateTimeOffset(dateTime);
     }
 
     if (value is DateTimeOffset dt)
-    {
       if (destinationType == typeof(string))
       {
-        string? format = Format;
+        var format = Format;
         if (format == null)
         {
           var showFullTime = ShowFullTime || dt.TimeOfDay.Milliseconds != 0;
@@ -94,7 +88,6 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
         }
         return dt.ToString(format);
       }
-    }
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
@@ -118,9 +111,14 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
   private string GetTimeFormat(CultureInfo? culture, bool showFullTime, bool showTimeZone)
   {
     string format;
-    if (culture != null && culture!=CultureInfo.InvariantCulture)
+    if (culture != null && culture != CultureInfo.InvariantCulture)
+    {
       format = culture.DateTimeFormat.LongTimePattern;
-    else if (FormatInfo != null) format = FormatInfo.LongTimePattern;
+    }
+    else if (FormatInfo != null)
+    {
+      format = FormatInfo.LongTimePattern;
+    }
     else
     {
       format = "HH:mm:ss";
@@ -137,7 +135,10 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
     return sourceType == typeof(string);
   }
 
-  public new object? ConvertFrom(object value) => ConvertFrom(null, null, value);
+  public new object? ConvertFrom(object value)
+  {
+    return ConvertFrom(null, null, value);
+  }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
@@ -151,7 +152,7 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
       var style = DateTimeStyle;
       var format = Format;
       DateTimeOffset result;
-      if (format!=null) result = DateTimeOffset.ParseExact(str, format, culture, style);
+      if (format != null) result = DateTimeOffset.ParseExact(str, format, culture, style);
       else if (culture != null) result = DateTimeOffset.Parse(str, culture, style);
       else if (FormatInfo != null) result = DateTimeOffset.Parse(str, FormatInfo, style);
       else result = DateTimeOffset.Parse(str, null, style);

@@ -1,148 +1,112 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Reflection;
-using System.Xml.Serialization;
+namespace Qhta.Xml.Serialization;
 
-namespace Qhta.Xml.Serialization
+[Flags]
+public enum XmlMappingAccess
 {
-    [Flags]
-    public enum XmlMappingAccess
-    {
-        None = 0x00,
-        Read = 0x01,
-        Write = 0x02,
-    }
+  None = 0x00,
+  Read = 0x01,
+  Write = 0x02
+}
 
-    ///<publiconly/>
-    /// <devdoc>
-    ///    <para>[To be supplied.]</para>
-    /// </devdoc>
-    public abstract class XmlMapping
-    {
-        //private readonly TypeScope? _scope;
-        private bool _generateSerializer;
-        private bool _isSoap;
-        //private readonly ElementAccessor _accessor;
-        private string? _key;
-        //private bool _shallow;
-        //private XmlMappingAccess _access;
+/// <publiconly />
+/// <devdoc>
+///   <para>[To be supplied.]</para>
+/// </devdoc>
+public abstract class XmlMapping
+{
+  //private readonly TypeScope? _scope;
 
-        //public XmlMapping(TypeScope? scope, ElementAccessor accessor) : this(scope, accessor, XmlMappingAccess.Read | XmlMappingAccess.Write)
-        //{
-        //}
+  //private readonly ElementAccessor _accessor;
+  //private bool _shallow;
+  //private XmlMappingAccess _access;
 
-        //public XmlMapping(TypeScope? scope, ElementAccessor accessor, XmlMappingAccess access)
-        //{
-        //    _scope = scope;
-        //    _accessor = accessor;
-        //    _access = access;
-        //    _shallow = scope == null;
-        //}
+  //public XmlMapping(TypeScope? scope, ElementAccessor accessor) : this(scope, accessor, XmlMappingAccess.Read | XmlMappingAccess.Write)
+  //{
+  //}
 
-        //public ElementAccessor Accessor
-        //{
-        //    get { return _accessor; }
-        //}
+  //public XmlMapping(TypeScope? scope, ElementAccessor accessor, XmlMappingAccess access)
+  //{
+  //    _scope = scope;
+  //    _accessor = accessor;
+  //    _access = access;
+  //    _shallow = scope == null;
+  //}
 
-        //public TypeScope? Scope
-        //{
-        //    get { return _scope; }
-        //}
+  //public ElementAccessor Accessor
+  //{
+  //    get { return _accessor; }
+  //}
 
-        /// <devdoc>
-        ///    <para>[To be supplied.]</para>
-        /// </devdoc>
-        public string? ElementName
-        {
-            get { return null;/* System.Xml.Serialization.Accessor.UnescapeName(Accessor.Name);*/ }
-        }
+  //public TypeScope? Scope
+  //{
+  //    get { return _scope; }
+  //}
 
-        /// <devdoc>
-        ///    <para>[To be supplied.]</para>
-        /// </devdoc>
-        public string? XsdElementName
-        {
-            get
-            {
-              return null; /*Accessor.Name;*/ }
-        }
+  /// <devdoc>
+  ///   <para>[To be supplied.]</para>
+  /// </devdoc>
+  public string? ElementName => null /* System.Xml.Serialization.Accessor.UnescapeName(Accessor.Name);*/;
 
-        /// <devdoc>
-        ///    <para>[To be supplied.]</para>
-        /// </devdoc>
-        public string? Namespace
-        {
-            get
-            {
-              return null;/*_accessor.Namespace;*/ }
-        }
+  /// <devdoc>
+  ///   <para>[To be supplied.]</para>
+  /// </devdoc>
+  public string? XsdElementName => null /*Accessor.Name;*/;
 
-        public bool GenerateSerializer
-        {
-            get { return _generateSerializer; }
-            set { _generateSerializer = value; }
-        }
+  /// <devdoc>
+  ///   <para>[To be supplied.]</para>
+  /// </devdoc>
+  public string? Namespace => null /*_accessor.Namespace;*/;
 
-        public bool IsReadable
-        {
-            get { return ((/*_access & */XmlMappingAccess.Read) != 0); }
-        }
+  public bool GenerateSerializer { get; set; }
 
-        public bool IsWriteable
-        {
-            get { return ((/*_access & */XmlMappingAccess.Write) != 0); }
-        }
+  public bool IsReadable => XmlMappingAccess.Read != 0;
 
-        public bool IsSoap
-        {
-            get { return _isSoap; }
-            set { _isSoap = value; }
-        }
+  public bool IsWriteable => XmlMappingAccess.Write != 0;
 
-        ///<publiconly/>
-        public void SetKey(string? key)
-        {
-            SetKeypublic(key);
-        }
+  public bool IsSoap { get; set; }
 
-        ///<publiconly/>
-        public void SetKeypublic(string? key)
-        {
-            _key = key;
-        }
+  public string? Key { get; private set; }
 
-        public static string GenerateKey(Type type, XmlRootAttribute? root, string? ns)
-        {
-          throw new NotImplementedException(nameof(GenerateKey));
-          //if (root == null)
-          //{
-          //    root = (XmlRootAttribute?)XmlAttributes.GetAttr(type, typeof(XmlRootAttribute));
-          //}
-          //return type.FullName + ":" + (root == null ? string.Empty : root.GetKey()) + ":" + (ns == null ? string.Empty : ns);
-        }
+  /// <publiconly />
+  public void SetKey(string? key)
+  {
+    SetKeypublic(key);
+  }
 
-        public string? Key { get { return _key; } }
+  /// <publiconly />
+  public void SetKeypublic(string? key)
+  {
+    Key = key;
+  }
 
-        //public void CheckShallow()
-        //{
-        //    if (_shallow)
-        //    {
-        //        throw new InvalidOperationException("XmlMelformMapping");
-        //    }
-        //}
+  public static string GenerateKey(Type type, XmlRootAttribute? root, string? ns)
+  {
+    throw new NotImplementedException(nameof(GenerateKey));
+    //if (root == null)
+    //{
+    //    root = (XmlRootAttribute?)XmlAttributes.GetAttr(type, typeof(XmlRootAttribute));
+    //}
+    //return type.FullName + ":" + (root == null ? string.Empty : root.GetKey()) + ":" + (ns == null ? string.Empty : ns);
+  }
 
-        //public static bool IsShallow(XmlMapping[] mappings)
-        //{
-        //    for (int i = 0; i < mappings.Length; i++)
-        //    {
-        //        if (mappings[i] == null || mappings[i]._shallow)
-        //            return true;
-        //    }
-        //    return false;
-        //}
-    }
+  //public void CheckShallow()
+  //{
+  //    if (_shallow)
+  //    {
+  //        throw new InvalidOperationException("XmlMelformMapping");
+  //    }
+  //}
+
+  //public static bool IsShallow(XmlMapping[] mappings)
+  //{
+  //    for (int i = 0; i < mappings.Length; i++)
+  //    {
+  //        if (mappings[i] == null || mappings[i]._shallow)
+  //            return true;
+  //    }
+  //    return false;
+  //}
 }

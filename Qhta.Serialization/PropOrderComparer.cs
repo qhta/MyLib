@@ -4,7 +4,7 @@ public class PropOrderComparer : IComparer<SerializationMemberInfo>
 {
   public int Compare(SerializationMemberInfo? x, SerializationMemberInfo? y)
   {
-    if (x== null && y == null)
+    if (x == null && y == null)
       return 1;
     if (x == null || y == null)
       return 0;

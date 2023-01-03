@@ -1,10 +1,7 @@
-﻿using System.Reflection;
+﻿namespace Qhta.Xml.Serialization;
 
-namespace Qhta.Xml.Serialization;
-
-public class DictionaryInfo: ContentItemInfo
+public class DictionaryInfo : ContentItemInfo
 {
-
   [XmlAttribute]
   [XmlReference]
   public SerializationTypeInfo? KeyTypeInfo { get; set; }
@@ -13,9 +10,7 @@ public class DictionaryInfo: ContentItemInfo
   [XmlReference]
   public SerializationTypeInfo? ValueTypeInfo { get; set; }
 
-  [XmlAttribute]
-  public string? KeyName { get; set; }
+  [XmlAttribute] public string? KeyName { get; set; }
 
-  [XmlIgnore]
-  public PropertyInfo? KeyProperty { get; set; }
+  [XmlIgnore] public PropertyInfo? KeyProperty { get; set; }
 }

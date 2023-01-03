@@ -3,23 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 
 namespace Qhta.TypeUtils;
 
 /// <summary>
-/// Helper functions that operate on types and supplement <c>System.Reflection</c> library
+///   Helper functions that operate on types and supplement <c>System.Reflection</c> library
 /// </summary>
 public static class TypeUtils
 {
   /// <summary>
-  /// When a class defines a new method with the same name as an inherited method,
-  /// a "GetMethod" function return an error. 
-  /// This "GetTopmostMethod" method searches the original class first 
-  /// and if it will not find a method, then searches the base class recursively.
+  ///   A delegate method for property copying
+  /// </summary>
+  /// <param name="source"></param>
+  /// <param name="sourceValue"></param>
+  /// <param name="target"></param>
+  /// <param name="targetValue"></param>
+  /// <returns></returns>
+  public delegate object? CopyPropertyMethod(object source, object sourceValue, object target, object targetValue);
+
+  /// <summary>
+  ///   A list of known type converters for <c>TryGetConverter</c> method.
+  ///   Is filled after successful invoke of <c>TryGetConverter</c>.
+  ///   Can be preset by a developer.
+  /// </summary>
+  public static Dictionary<string, TypeConverter> KnownTypeConverters = new();
+
+  /// <summary>
+  ///   When a class defines a new method with the same name as an inherited method,
+  ///   a "GetMethod" function return an error.
+  ///   This "GetTopmostMethod" method searches the original class first
+  ///   and if it will not find a method, then searches the base class recursively.
   /// </summary>
   /// <param name="aType"></param>
   /// <param name="methodName"></param>
@@ -34,7 +49,7 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Checks if the given value is the default value of the given type
+  ///   Checks if the given value is the default value of the given type
   /// </summary>
   /// <param name="valueType"></param>
   /// <param name="value"></param>
@@ -49,42 +64,42 @@ public static class TypeUtils
     }
     var isDefault = false;
     if (valueType == typeof(bool))
+    {
       isDefault = (bool)value == false;
+    }
     else if (valueType.IsEnum)
     {
       var underlyingType = valueType.GetEnumUnderlyingType();
       if (underlyingType == typeof(byte))
         isDefault = (byte)value == 0;
-      else
-      if (underlyingType == typeof(SByte))
+      else if (underlyingType == typeof(SByte))
         isDefault = (SByte)value == 0;
-      else
-      if (underlyingType == typeof(Int16))
+      else if (underlyingType == typeof(Int16))
         isDefault = (Int16)value == 0;
-      else
-      if (underlyingType == typeof(UInt16))
+      else if (underlyingType == typeof(UInt16))
         isDefault = (UInt16)value == 0;
-      else
-      if (underlyingType == typeof(UInt32))
+      else if (underlyingType == typeof(UInt32))
         isDefault = (UInt32)value == 0;
-      else
-      if (underlyingType == typeof(Int64))
+      else if (underlyingType == typeof(Int64))
         isDefault = (Int64)value == 0;
-      else
-      if (underlyingType == typeof(UInt64))
+      else if (underlyingType == typeof(UInt64))
         isDefault = (UInt64)value == 0;
       else
         isDefault = (int)value == 0;
     }
     else if (valueType == typeof(Double))
+    {
       isDefault = Double.IsNaN((double)value);
+    }
     else if (valueType == typeof(Single))
+    {
       isDefault = Double.IsNaN((Single)value);
+    }
     return isDefault;
   }
 
   /// <summary>
-  /// Converts string to enum value for an enum type. Returns false if no enum value recognized
+  ///   Converts string to enum value for an enum type. Returns false if no enum value recognized
   /// </summary>
   /// <param name="valueType">enum value type</param>
   /// <param name="text">enum name to convert</param>
@@ -92,26 +107,24 @@ public static class TypeUtils
   /// <returns></returns>
   public static bool TryGetEnumValue(this Type valueType, string text, out object? value)
   {
-    bool ok = false;
+    var ok = false;
     value = null;
     if (String.IsNullOrEmpty(text))
       return ok;
     string[] enumNames = valueType.GetEnumNames();
-    Array enumValues = valueType.GetEnumValues();
-    for (int i = 0; i < enumNames.Length; i++)
-    {
+    var enumValues = valueType.GetEnumValues();
+    for (var i = 0; i < enumNames.Length; i++)
       if (text.Equals(enumNames[i], StringComparison.CurrentCultureIgnoreCase))
       {
         value = enumValues.GetValue(i);
         ok = true;
         break;
       }
-    }
     return ok;
   }
 
   /// <summary>
-  /// Safely sets a property of the target object to some value. Invokes <c>TryGetConverter</c> method.
+  ///   Safely sets a property of the target object to some value. Invokes <c>TryGetConverter</c> method.
   /// </summary>
   /// <param name="property">property info as get from type reflection</param>
   /// <param name="targetObject">target object to set value</param>
@@ -120,28 +133,21 @@ public static class TypeUtils
   public static bool TrySetValue(this PropertyInfo property, object targetObject, object? value)
   {
     if (value != null && value.GetType() != property.PropertyType)
-    {
       if (property.PropertyType.TryConvertValue(value, out var conValue))
         value = conValue;
-    }
     try
     {
       property.SetValue(targetObject, value);
       return true;
     }
-    catch { }
+    catch
+    {
+    }
     return false;
   }
 
   /// <summary>
-  /// A list of known type converters for <c>TryGetConverter</c> method. 
-  /// Is filled after successful invoke of <c>TryGetConverter</c>.
-  /// Can be preset by a developer.
-  /// </summary>
-  public static Dictionary<string, TypeConverter> KnownTypeConverters = new Dictionary<string, TypeConverter>();
-
-  /// <summary>
-  /// Tries to get an instance of a value converter for a type using a <c>TypeConverterAttribute</c> of the given type.
+  ///   Tries to get an instance of a value converter for a type using a <c>TypeConverterAttribute</c> of the given type.
   /// </summary>
   /// <param name="valueType"></param>
   /// <param name="typeConverter"></param>
@@ -152,25 +158,24 @@ public static class TypeUtils
     var typeConverterAttribute = valueType.GetCustomAttribute<TypeConverterAttribute>();
     if (typeConverterAttribute != null)
     {
-      string typeConverterName = typeConverterAttribute.ConverterTypeName;
+      var typeConverterName = typeConverterAttribute.ConverterTypeName;
       if (!KnownTypeConverters.TryGetValue(typeConverterName, out typeConverter))
       {
-        string[] typeNameStrings = typeConverterName.Split(',');
+        var typeNameStrings = typeConverterName.Split(',');
         if (typeNameStrings.Length > 1)
         {
-          Assembly typeConverterAssembly = Assembly.Load(typeNameStrings[1]);
+          var typeConverterAssembly = Assembly.Load(typeNameStrings[1]);
           var converterType = typeConverterAssembly.GetType(typeNameStrings[0]);
           if (converterType != null)
           {
             ConstructorInfo? constructor = null;
             if (valueType.IsGenericType)
             {
-              constructor = converterType.GetConstructor(new Type[] { typeof(Type) });
+              constructor = converterType.GetConstructor(new[] { typeof(Type) });
               if (constructor != null)
-              {
                 try
                 {
-                  object obj = constructor.Invoke(new object[] { valueType.GenericTypeArguments[0] });
+                  var obj = constructor.Invoke(new object[] { valueType.GenericTypeArguments[0] });
                   typeConverter = obj as TypeConverter;
                 }
                 catch (Exception ex)
@@ -178,16 +183,14 @@ public static class TypeUtils
                   Debug.WriteLine($"Error while {converterType.Name} creation");
                   Debug.WriteLine(ex.Message);
                 }
-              }
             }
             else
             {
               constructor = converterType.GetConstructor(new Type[] { });
               if (constructor != null)
-              {
                 try
                 {
-                  object obj = constructor.Invoke(new object[] { });
+                  var obj = constructor.Invoke(new object[] { });
                   typeConverter = obj as TypeConverter;
                 }
                 catch (Exception ex)
@@ -195,7 +198,6 @@ public static class TypeUtils
                   Debug.WriteLine($"Error while {converterType.Name} creation");
                   Debug.WriteLine(ex.Message);
                 }
-              }
             }
           }
         }
@@ -207,7 +209,7 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Tries to convert a value of the given type using its converter <c>ConvertFrom</c> method
+  ///   Tries to convert a value of the given type using its converter <c>ConvertFrom</c> method
   /// </summary>
   /// <param name="valueType">given type</param>
   /// <param name="value">value to convert from</param>
@@ -215,9 +217,9 @@ public static class TypeUtils
   /// <returns></returns>
   public static bool TryConvertValue(this Type valueType, object value, out object? result)
   {
-    bool ok = false;
+    var ok = false;
     result = null;
-    if (TryGetConverter(valueType, out var typeConverter) && typeConverter!=null)
+    if (TryGetConverter(valueType, out var typeConverter) && typeConverter != null)
     {
       result = typeConverter.ConvertFrom(value);
       ok = true;
@@ -227,7 +229,7 @@ public static class TypeUtils
 
 
   /// <summary>
-  /// Tries to convert enum string to enum value
+  ///   Tries to convert enum string to enum value
   /// </summary>
   /// <param name="enumType">given enum type</param>
   /// <param name="str">string to convert from</param>
@@ -235,16 +237,16 @@ public static class TypeUtils
   /// <returns></returns>
   public static bool TryParseEnum(this Type enumType, string str, out object? value)
   {
-    bool ok = false;
+    var ok = false;
     value = null;
     if (!enumType.IsEnum)
       return ok;
     List<string> enumNames = enumType.GetEnumNames().ToList();
-    string? enumName = enumNames.FirstOrDefault(item => item.Equals(str,
+    var enumName = enumNames.FirstOrDefault(item => item.Equals(str,
       StringComparison.InvariantCultureIgnoreCase));
     if (enumName != null)
     {
-      Array enumValues = enumType.GetEnumValues();
+      var enumValues = enumType.GetEnumValues();
       value = enumValues.GetValue(enumNames.IndexOf(enumName));
       ok = true;
     }
@@ -252,34 +254,29 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Expanded <see cref="Type.GetElementType"/> method
-  /// with <see cref="Type.GetInterfaces"/>
+  ///   Expanded <see cref="Type.GetElementType" /> method
+  ///   with <see cref="Type.GetInterfaces" />
   /// </summary>
   public static Type? GetElementType(this Type aType)
   {
     if (aType.HasElementType)
-      return aType.GetElementType();
-    else
     {
-      Type? result = null;
-      Type[] interfaces = aType.GetInterfaces();
-      foreach (Type aInterface in interfaces)
-      {
-        if (aInterface.Name.StartsWith("IEnumerable"))
+      return aType.GetElementType();
+    }
+    Type? result = null;
+    var interfaces = aType.GetInterfaces();
+    foreach (var aInterface in interfaces)
+      if (aInterface.Name.StartsWith("IEnumerable"))
+        if (aInterface.IsGenericType)
         {
-          if (aInterface.IsGenericType)
+          var arguments = aInterface.GetGenericArguments();
+          if (arguments.Length > 0)
           {
-            Type[] arguments = aInterface.GetGenericArguments();
-            if (arguments.Length > 0)
-            {
-              result = arguments[0];
-              break;
-            }
+            result = arguments[0];
+            break;
           }
         }
-      }
-      return result;
-    }
+    return result;
   }
 
   /// <summary>
@@ -308,9 +305,9 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// If memberInfo is PropertyInfo it returns PropertyType.
-  /// Either if memberInfo is FieldInfo it returns FieldType.
-  /// Otherwise it returns null.
+  ///   If memberInfo is PropertyInfo it returns PropertyType.
+  ///   Either if memberInfo is FieldInfo it returns FieldType.
+  ///   Otherwise it returns null.
   /// </summary>
   /// <param name="memberInfo"></param>
   /// <returns></returns>
@@ -324,9 +321,9 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// If memberInfo is PropertyInfo it returns PropertyInfo.CanWrite.
-  /// Either if memberInfo is FieldInfo it returns negated FieldInfo.IsInitOnly.
-  /// Otherwise it returns null.
+  ///   If memberInfo is PropertyInfo it returns PropertyInfo.CanWrite.
+  ///   Either if memberInfo is FieldInfo it returns negated FieldInfo.IsInitOnly.
+  ///   Otherwise it returns null.
   /// </summary>
   /// <param name="memberInfo"></param>
   /// <returns></returns>
@@ -340,22 +337,19 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// If memberInfo is PropertyInfo it checks if it is indeksed property
-  /// Otherwise it returns false.
+  ///   If memberInfo is PropertyInfo it checks if it is indeksed property
+  ///   Otherwise it returns false.
   /// </summary>
   /// <param name="memberInfo"></param>
   /// <returns></returns>
   public static bool IsIndexer(this MemberInfo memberInfo)
   {
-    if (memberInfo is PropertyInfo propInfo)
-    {
-      return propInfo.GetIndexParameters().Length > 0;
-    }
+    if (memberInfo is PropertyInfo propInfo) return propInfo.GetIndexParameters().Length > 0;
     return false;
   }
 
   /// <summary>
-  /// Checking in a <paramref name="aInfo"/> member redefinines a <paramref name="bInfo"/> member.
+  ///   Checking in a <paramref name="aInfo" /> member redefinines a <paramref name="bInfo" /> member.
   /// </summary>
   /// <param name="aInfo">info of a member that redefines</param>
   /// <param name="bInfo">info of a member that is redefined</param>
@@ -374,7 +368,7 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Checking in a <paramref name="aInfo"/> field redefinines a <paramref name="bInfo"/> field.
+  ///   Checking in a <paramref name="aInfo" /> field redefinines a <paramref name="bInfo" /> field.
   /// </summary>
   /// <param name="aInfo">info of a field that redefines</param>
   /// <param name="bInfo">info of a field that is redefined</param>
@@ -384,31 +378,29 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Checking in a <paramref name="aInfo"/> property redefinines a <paramref name="bInfo"/> property.
+  ///   Checking in a <paramref name="aInfo" /> property redefinines a <paramref name="bInfo" /> property.
   /// </summary>
   /// <param name="aInfo">info of a property that redefines</param>
   /// <param name="bInfo">info of a property that is redefined</param>
-
   public static bool Redefines(this PropertyInfo aInfo, PropertyInfo bInfo)
   {
     return aInfo.Name == bInfo.Name;
   }
 
   /// <summary>
-  /// Checking in a <paramref name="aInfo"/> method redefinines a <paramref name="bInfo"/> method.
+  ///   Checking in a <paramref name="aInfo" /> method redefinines a <paramref name="bInfo" /> method.
   /// </summary>
   /// <param name="aInfo">info of a method that redefines</param>
   /// <param name="bInfo">info of a method that is redefined</param>
-
   public static bool Redefines(this MethodInfo aInfo, MethodInfo bInfo)
   {
     if (aInfo.Name != bInfo.Name)
       return false;
-    ParameterInfo[] aParameters = aInfo.GetParameters();
-    ParameterInfo[] bParameters = bInfo.GetParameters();
+    var aParameters = aInfo.GetParameters();
+    var bParameters = bInfo.GetParameters();
     if (aParameters.Length != bParameters.Length)
       return false;
-    for (int i = 0; i < aParameters.Length - 1; i++)
+    for (var i = 0; i < aParameters.Length - 1; i++)
       if (aParameters[i].ParameterType != bParameters[i].ParameterType)
         return false;
     return true;
@@ -416,10 +408,10 @@ public static class TypeUtils
 
 
   /// <summary>
-  /// Copying public properties from a <paramref name="source"/> object to a <paramref name="target"/> object.
-  /// Object can be of different types. Properties are paired through names.
-  /// Indexers and special properties are not copied.
-  /// Returns names of copied properties.
+  ///   Copying public properties from a <paramref name="source" /> object to a <paramref name="target" /> object.
+  ///   Object can be of different types. Properties are paired through names.
+  ///   Indexers and special properties are not copied.
+  ///   Returns names of copied properties.
   /// </summary>
   /// <param name="source">Source object</param>
   /// <param name="target">Target object</param>
@@ -436,26 +428,26 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Gets declared delegates for copy of properties. Result - one method for each property name.
+  ///   Gets declared delegates for copy of properties. Result - one method for each property name.
   /// </summary>
   /// <param name="sourceType"></param>
   /// <param name="targetType"></param>
   /// <returns></returns>
   public static Dictionary<string, CopyPropertyMethod> GetDeclaredCopyDelegates(Type sourceType, Type targetType)
   {
-    Dictionary<string, CopyPropertyMethod> delegates = new Dictionary<string, CopyPropertyMethod>();
+    var delegates = new Dictionary<string, CopyPropertyMethod>();
     object? lastKey = null;
     try
     {
-      foreach (CopyPropertyConversionAttribute attrib in targetType.GetCustomAttributes(typeof(CopyPropertyConversionAttribute), true).Cast<CopyPropertyConversionAttribute>())
+      foreach (var attrib in targetType.GetCustomAttributes(typeof(CopyPropertyConversionAttribute), true).Cast<CopyPropertyConversionAttribute>())
       {
-        CopyPropertyDelegate delegator = new CopyPropertyDelegate(targetType, attrib.MethodName);
+        var delegator = new CopyPropertyDelegate(targetType, attrib.MethodName);
         lastKey = attrib.PropertyName;
         delegates.Add(attrib.PropertyName, delegator.CopyProperty);
       }
-      Dictionary<string, CopyItemsDelegate> delegators = new Dictionary<string, CopyItemsDelegate>();
-      foreach (CopyPropertyItemConversionAttribute attrib in targetType.GetCustomAttributes(typeof(CopyPropertyItemConversionAttribute), true).Cast<CopyPropertyItemConversionAttribute>())
-      {
+      var delegators = new Dictionary<string, CopyItemsDelegate>();
+      foreach (var attrib in targetType.GetCustomAttributes(typeof(CopyPropertyItemConversionAttribute), true)
+                 .Cast<CopyPropertyItemConversionAttribute>())
         if (!delegators.TryGetValue(attrib.PropertyName, out var delegator))
         {
           var targetProperty = targetType.GetProperty(attrib.PropertyName);
@@ -470,7 +462,6 @@ public static class TypeUtils
             delegator.Add(attrib.SourceItemType, attrib.TargetItemType);
           }
         }
-      }
     }
     catch (Exception ex)
     {
@@ -480,16 +471,16 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Gets declared delegates for reverse copy of properties. Result - one method for each property name.
+  ///   Gets declared delegates for reverse copy of properties. Result - one method for each property name.
   /// </summary>
   /// <param name="sourceType"></param>
   /// <param name="targetType"></param>
   public static Dictionary<string, CopyPropertyMethod> GetDeclaredCopyDelegatesReverse(Type sourceType, Type targetType)
   {
-    Dictionary<string, CopyPropertyMethod> delegates = new Dictionary<string, CopyPropertyMethod>();
-    Dictionary<string, CopyItemsDelegate> delegators = new Dictionary<string, CopyItemsDelegate>();
-    foreach (CopyPropertyItemConversionAttribute attrib in sourceType.GetCustomAttributes(typeof(CopyPropertyItemConversionAttribute), true).Cast<CopyPropertyItemConversionAttribute>())
-    {
+    var delegates = new Dictionary<string, CopyPropertyMethod>();
+    var delegators = new Dictionary<string, CopyItemsDelegate>();
+    foreach (var attrib in sourceType.GetCustomAttributes(typeof(CopyPropertyItemConversionAttribute), true)
+               .Cast<CopyPropertyItemConversionAttribute>())
       if (!delegators.TryGetValue(attrib.PropertyName, out var delegator))
       {
         var targetProperty = targetType.GetProperty(attrib.PropertyName);
@@ -501,12 +492,11 @@ public static class TypeUtils
           delegator.Add(attrib.TargetItemType, attrib.SourceItemType);
         }
       }
-    }
     return delegates;
   }
 
   /// <summary>
-  /// Simple copy of properties from source object to target object using methods delegated by property names.
+  ///   Simple copy of properties from source object to target object using methods delegated by property names.
   /// </summary>
   /// <param name="source"></param>
   /// <param name="target"></param>
@@ -514,32 +504,30 @@ public static class TypeUtils
   /// <returns></returns>
   public static string[] CopyProperties(object source, object target, Dictionary<string, CopyPropertyMethod> delegates)
   {
-    Type sourceType = source.GetType();
-    Type targetType = target.GetType();
-    List<string> copiedProperties = new List<string>();
-    PropertyInfo[] sourceProperties = sourceType.GetProperties()
+    var sourceType = source.GetType();
+    var targetType = target.GetType();
+    var copiedProperties = new List<string>();
+    var sourceProperties = sourceType.GetProperties()
       .Where(sourceProp => sourceProp.Name != "this").ToArray();
-    PropertyInfo[] targetProperties = targetType.GetProperties()
+    var targetProperties = targetType.GetProperties()
       .Where(targetProp => targetProp.Name != "this").ToArray();
-    PropertyComparer propertyComparer = new PropertyComparer();
-    PropertyInfo[] sameProperties = sourceProperties.Where(sourceProp => targetProperties.Contains(sourceProp, propertyComparer)).ToArray();
+    var propertyComparer = new PropertyComparer();
+    var sameProperties = sourceProperties.Where(sourceProp => targetProperties.Contains(sourceProp, propertyComparer)).ToArray();
 
-    foreach (PropertyInfo sourceProperty in sameProperties)
+    foreach (var sourceProperty in sameProperties)
     {
-      MethodInfo? getMethod = sourceProperty.GetGetMethod();
+      var getMethod = sourceProperty.GetGetMethod();
       if (getMethod != null)
       {
-        PropertyInfo targetProperty = targetProperties.First(targetProp => targetProp.Name == sourceProperty.Name);
-        MethodInfo? setMethod = targetProperty.GetSetMethod();
+        var targetProperty = targetProperties.First(targetProp => targetProp.Name == sourceProperty.Name);
+        var setMethod = targetProperty.GetSetMethod();
         if (setMethod != null)
         {
-          object? sourceValue = sourceProperty.GetValue(source, new object[0]);
-          object? targetValue = sourceValue;
+          var sourceValue = sourceProperty.GetValue(source, new object[0]);
+          var targetValue = sourceValue;
 
           if (delegates != null)
-          {
             if (delegates.TryGetValue(sourceProperty.Name, out var duplicator))
-            {
               try
               {
                 getMethod = targetProperty.GetGetMethod();
@@ -552,8 +540,6 @@ public static class TypeUtils
               {
                 Debug.WriteLine(ex1.Message);
               }
-            }
-          }
           //Type? targetValueType;
           //if (targetValue != null)
           //  targetValueType = targetValue.GetType();
@@ -579,13 +565,12 @@ public static class TypeUtils
   }
 
   /// <summary>
-  /// Helper class for property comparison
+  ///   Helper class for property comparison
   /// </summary>
   public class PropertyComparer : IEqualityComparer<PropertyInfo>
   {
-
     /// <summary>
-    /// Check if one property equals other property.
+    ///   Check if one property equals other property.
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -598,7 +583,7 @@ public static class TypeUtils
     }
 
     /// <summary>
-    /// A method needed to supply <c>Equals</c> method.
+    ///   A method needed to supply <c>Equals</c> method.
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
@@ -607,30 +592,19 @@ public static class TypeUtils
       return obj.Name.GetHashCode();
     }
   }
-
-  /// <summary>
-  /// A delegate method for property copying
-  /// </summary>
-  /// <param name="source"></param>
-  /// <param name="sourceValue"></param>
-  /// <param name="target"></param>
-  /// <param name="targetValue"></param>
-  /// <returns></returns>
-  public delegate object? CopyPropertyMethod(object source, object sourceValue, object target, object targetValue);
-
 }
 
 /// <summary>
-/// A delegate class to property copying.
-/// Holds a target type and a target method name
+///   A delegate class to property copying.
+///   Holds a target type and a target method name
 /// </summary>
 public class CopyPropertyDelegate
 {
-  private readonly Type TargetType;
   private readonly string TargetMethod;
+  private readonly Type TargetType;
 
   /// <summary>
-  /// Constructor to init delegate
+  ///   Constructor to init delegate
   /// </summary>
   /// <param name="targetType"></param>
   /// <param name="targetMethod"></param>
@@ -641,7 +615,7 @@ public class CopyPropertyDelegate
   }
 
   /// <summary>
-  /// Copies a property using a target method
+  ///   Copies a property using a target method
   /// </summary>
   /// <param name="source"></param>
   /// <param name="sourceValue"></param>
@@ -650,32 +624,35 @@ public class CopyPropertyDelegate
   /// <returns></returns>
   public object? CopyProperty(object source, object sourceValue, object target, object targetValue)
   {
-    MethodInfo? targetMethod = TargetType.GetMethod(TargetMethod, BindingFlags.Public | BindingFlags.Static);
+    var targetMethod = TargetType.GetMethod(TargetMethod, BindingFlags.Public | BindingFlags.Static);
     if (targetMethod == null)
       throw new InvalidOperationException(String.Format("Public static method {1} not found in type {0}", TargetType.Name, TargetMethod));
-    Delegate delegator = Delegate.CreateDelegate(typeof(TypeUtils.CopyPropertyMethod), null, targetMethod);
-    return delegator.DynamicInvoke(new object[] { source, sourceValue, target, targetValue });
+    var delegator = Delegate.CreateDelegate(typeof(TypeUtils.CopyPropertyMethod), null, targetMethod);
+    return delegator.DynamicInvoke(source, sourceValue, target, targetValue);
   }
 }
 
 /// <summary>
-/// An interface to check if a type instance is empty.
+///   An interface to check if a type instance is empty.
 /// </summary>
 public interface IEmpty
 {
   /// <summary>
-  /// Simple property to check empty instance
+  ///   Simple property to check empty instance
   /// </summary>
   bool IsEmpty { get; }
 }
 
 /// <summary>
-/// A delegate class to class items copying.
+///   A delegate class to class items copying.
 /// </summary>
 public class CopyItemsDelegate
 {
+  private readonly Type TargetPropertyType;
+  private readonly Dictionary<Type, Type> typePairs = new();
+
   /// <summary>
-  /// Initializing constructor
+  ///   Initializing constructor
   /// </summary>
   /// <param name="targetPropertyType"></param>
   public CopyItemsDelegate(Type targetPropertyType)
@@ -684,7 +661,7 @@ public class CopyItemsDelegate
   }
 
   /// <summary>
-  /// A method to add type pairs used to copy items
+  ///   A method to add type pairs used to copy items
   /// </summary>
   /// <param name="sourceItemType"></param>
   /// <param name="targetItemType"></param>
@@ -693,11 +670,8 @@ public class CopyItemsDelegate
     typePairs.Add(sourceItemType, targetItemType);
   }
 
-  readonly Type TargetPropertyType;
-  readonly Dictionary<Type, Type> typePairs = new Dictionary<Type, Type>();
-
   /// <summary>
-  /// A method to copy items from source to target
+  ///   A method to copy items from source to target
   /// </summary>
   /// <param name="source">source object</param>
   /// <param name="sourceValue">source value - must be <c>IEnumerable</c></param>
@@ -718,7 +692,7 @@ public class CopyItemsDelegate
     object? targetItemsTemp = null;
     if (targetItems == null)
     {
-      ConstructorInfo? constructor = TargetPropertyType.GetConstructor(new Type[] { });
+      var constructor = TargetPropertyType.GetConstructor(new Type[] { });
       if (constructor != null)
       {
         targetItemsTemp = constructor.Invoke(new object[] { });
@@ -728,28 +702,36 @@ public class CopyItemsDelegate
         targetItems = new List<object>();
     }
     else
+    {
       targetItems.Clear();
+    }
     if (sourceItems != null)
       foreach (var sourceItem in sourceItems.Where(item => item != null))
       {
-        Type sourceItemType = sourceItem.GetType();
-        Type targetType = target.GetType();
+        var sourceItemType = sourceItem.GetType();
+        var targetType = target.GetType();
         if (typePairs.TryGetValue(sourceItem.GetType(), out var targetItemType))
         {
           object? targetItem = null;
-          ConstructorInfo? constructor = targetItemType.GetConstructor(new Type[] { targetType, sourceItemType });
+          var constructor = targetItemType.GetConstructor(new[] { targetType, sourceItemType });
           if (constructor != null)
-            targetItem = constructor.Invoke(new object[] { target, sourceItem });
+          {
+            targetItem = constructor.Invoke(new[] { target, sourceItem });
+          }
           else
           {
-            constructor = targetItemType.GetConstructor(new Type[] { sourceItemType });
+            constructor = targetItemType.GetConstructor(new[] { sourceItemType });
             if (constructor != null)
-              targetItem = constructor.Invoke(new object[] { sourceItem });
+            {
+              targetItem = constructor.Invoke(new[] { sourceItem });
+            }
             else
             {
-              constructor = targetItemType.GetConstructor(new Type[] { targetType });
+              constructor = targetItemType.GetConstructor(new[] { targetType });
               if (constructor != null)
-                targetItem = constructor.Invoke(new object[] { target });
+              {
+                targetItem = constructor.Invoke(new[] { target });
+              }
               else
               {
                 constructor = targetItemType.GetConstructor(new Type[] { });
@@ -765,10 +747,10 @@ public class CopyItemsDelegate
       }
     if (TargetPropertyType.IsArray)
     {
-      Type? elementType = TargetPropertyType.GetElementType();
+      var elementType = TargetPropertyType.GetElementType();
       if (elementType != null)
       {
-        Array targetArray = Array.CreateInstance(elementType, new int[] { targetItems.Count });
+        var targetArray = Array.CreateInstance(elementType, new[] { targetItems.Count });
         targetItems.CopyTo(targetArray, 0);
         return targetArray;
       }
@@ -778,13 +760,13 @@ public class CopyItemsDelegate
 }
 
 /// <summary>
-/// An attribute to define conversion of properties for a type while copying
+///   An attribute to define conversion of properties for a type while copying
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class CopyPropertyConversionAttribute : Attribute
 {
   /// <summary>
-  /// Initializing constructir
+  ///   Initializing constructir
   /// </summary>
   /// <param name="propertyName"></param>
   /// <param name="methodName"></param>
@@ -795,24 +777,24 @@ public class CopyPropertyConversionAttribute : Attribute
   }
 
   /// <summary>
-  /// Name of a property to copy
+  ///   Name of a property to copy
   /// </summary>
   public string PropertyName { get; set; }
 
   /// <summary>
-  /// Name of a method used to convert while property copying
+  ///   Name of a method used to convert while property copying
   /// </summary>
   public string MethodName { get; set; }
 }
 
 /// <summary>
-/// An attribute to define conversion of compound property items for a type while copying
+///   An attribute to define conversion of compound property items for a type while copying
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public class CopyPropertyItemConversionAttribute : Attribute
 {
   /// <summary>
-  /// Initializing constructor
+  ///   Initializing constructor
   /// </summary>
   /// <param name="propertyName"></param>
   /// <param name="sourceItemType"></param>
@@ -825,19 +807,18 @@ public class CopyPropertyItemConversionAttribute : Attribute
   }
 
   /// <summary>
-  /// Name of a property to copy
+  ///   Name of a property to copy
   /// </summary>
 
   public string PropertyName { get; set; }
 
   /// <summary>
-  /// A type of source items
+  ///   A type of source items
   /// </summary>
   public Type SourceItemType { get; set; }
 
   /// <summary>
-  /// A type of target items
+  ///   A type of target items
   /// </summary>
   public Type TargetItemType { get; set; }
-
 }

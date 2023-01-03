@@ -1,11 +1,16 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-public class SerializationOrderAttribute: System.Attribute
+[AttributeUsage(AttributeTargets.Property)]
+public class SerializationOrderAttribute : Attribute
 {
-  public SerializationOrderAttribute() : base() { }
+  public SerializationOrderAttribute()
+  {
+  }
 
-  public SerializationOrderAttribute(int order) : base() { Order = order; }
+  public SerializationOrderAttribute(int order)
+  {
+    Order = order;
+  }
 
   public int Order { get; set; }
 }

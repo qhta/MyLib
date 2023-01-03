@@ -4,5 +4,5 @@ public enum SerializationCase
 {
   Unchanged,
   LowercaseFirstLetter,
-  UppercaseFirstLetter,
+  UppercaseFirstLetter
 }

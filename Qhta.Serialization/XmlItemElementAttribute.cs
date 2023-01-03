@@ -1,13 +1,19 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public class XmlItemElementAttribute : System.Xml.Serialization.XmlArrayItemAttribute
+public class XmlItemElementAttribute : XmlArrayItemAttribute
 {
-  public XmlItemElementAttribute() : base() { }
+  public XmlItemElementAttribute()
+  {
+  }
 
-  public XmlItemElementAttribute(string? elementName) : base(elementName) { }
+  public XmlItemElementAttribute(string? elementName) : base(elementName)
+  {
+  }
 
-  public XmlItemElementAttribute(string? elementName, Type? type) : base(elementName, type) { }
+  public XmlItemElementAttribute(string? elementName, Type? type) : base(elementName, type)
+  {
+  }
 
   public XmlItemElementAttribute(Type? type) : base(type)
   {
