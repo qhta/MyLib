@@ -1315,7 +1315,7 @@ public class QXmlSerializationReader : IXmlConverterReader
     {
       var expectedType = memberInfo.MemberType;
       var valueType = value.GetType();
-      if (valueType != expectedType)
+      if (valueType != expectedType && expectedType!=null)
       {
         var typeConverter = memberInfo.TypeConverter;
         if (typeConverter == null && expectedType.IsSimple())
