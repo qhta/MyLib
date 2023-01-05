@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
+using System.Security.AccessControl;
 using System.Xml;
 using Qhta.TypeUtils;
 
@@ -149,7 +150,7 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
   {
   }
 
-  public ValueTypeConverter(Type? expectedType, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null,
+  public ValueTypeConverter(Type? expectedType, XsdSimpleType? xsdType = null, string? format =null, CultureInfo? culture = null,
     ConversionOptions? options = null)
   {
     Init(expectedType, xsdType, format, culture, options);
@@ -303,6 +304,20 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
     if (options?.BooleanStrings != null)
       result.BooleanStrings = options.BooleanStrings;
     return result;
+  }
+
+  public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+  {
+    if (InternalTypeConverter != null)
+      return InternalTypeConverter.CanConvertFrom(context, sourceType);
+    return base.CanConvertFrom(context, sourceType);
+  }
+
+  public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+  {
+    if (InternalTypeConverter != null)
+      return InternalTypeConverter.CanConvertTo(context, destinationType);
+    return base.CanConvertTo(context, destinationType);
   }
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)

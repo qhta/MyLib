@@ -15,8 +15,6 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <param name="order">Needed to sort the order for serialization</param>
   public SerializationMemberInfo(string name, MemberInfo memberInfo, int order = int.MaxValue)
   {
-    if (name == "VariantType")
-      Debug.Assert(true);
     XmlName = name;
     Member = memberInfo;
     Order = order;
@@ -201,6 +199,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
 
   public void SetValue(object? obj, object? value)
   {
+    
     if (IsField)
       Field?.SetValue(obj, value);
     else

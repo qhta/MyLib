@@ -158,7 +158,6 @@ public class XmlSerializationInfoMapper
   protected void FillTypeInfo(SerializationTypeInfo typeInfo)
   {
     var aType = typeInfo.Type;
-
     if (aType.IsDictionary())
       typeInfo.ContentInfo = CreateDictionaryInfo(aType);
     else if (aType.IsList())
@@ -784,9 +783,17 @@ public class XmlSerializationInfoMapper
     else if (aType.IsCollection(out var itemType) && itemType != null)
     {
       var itemTypeInfo = RegisterType(itemType);
-      var elemName = itemType.Name;
-      var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
+      //var elemName = itemType.Name;
+      var serializationItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
       collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
+      if (itemTypeInfo.KnownSubtypes!=null)
+        foreach (var subType in itemTypeInfo.KnownSubtypes)
+        {
+          itemTypeInfo = subType;
+          //elemName = subType.Name;
+          serializationItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
+          collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
+        }
     }
     return collectionTypeInfo;
   }

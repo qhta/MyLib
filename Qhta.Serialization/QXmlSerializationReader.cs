@@ -260,12 +260,11 @@ public class QXmlSerializationReader : IXmlConverterReader
             }
           }
           else
-
             propValue = ReadElementAsMember(context, propertyToRead);
         }
         if (propValue != null)
         {
-          propertyToRead.SetValue(context, propValue);
+          SetValue(context, propertyToRead, propValue);
           propsRead++;
         }
       }
@@ -276,7 +275,7 @@ public class QXmlSerializationReader : IXmlConverterReader
           var content = ReadElementAsContent(context, typeInfo.ContentProperty, typeInfo);
           if (content != null)
           {
-            typeInfo.ContentProperty.SetValue(context, content);
+            SetValue(context, typeInfo.ContentProperty, content);
             propsRead++;
             break;
           }
@@ -1307,4 +1306,26 @@ public class QXmlSerializationReader : IXmlConverterReader
   }
 
   #endregion
+
+  public void SetValue(object context, SerializationMemberInfo memberInfo, object? value)
+  {
+    //if (memberInfo.XmlName == "PropertyId")
+    //  TestTools.Stop();
+    if (value!=null)
+    {
+      var expectedType = memberInfo.MemberType;
+      var valueType = value.GetType();
+      if (valueType != expectedType)
+      {
+        var typeConverter = memberInfo.TypeConverter;
+        if (typeConverter == null && expectedType.IsSimple())
+          typeConverter = new ValueTypeConverter(expectedType);
+        var typeDescriptor = new TypeDescriptorContext(context);
+        if (typeConverter?.CanConvertFrom(typeDescriptor, valueType) == true)
+          value = typeConverter.ConvertFrom(typeDescriptor, null, value);
+      }
+    }
+    memberInfo.SetValue(context, value);
+  }
+
 }
