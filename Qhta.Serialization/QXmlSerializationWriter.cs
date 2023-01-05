@@ -134,6 +134,8 @@ public class QXmlSerializationWriter
       if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
       var propValue = memberInfo.GetValue(obj);
+      //if (propValue?.GetType().Name == "VectorVariant")
+      //  TestTools.Stop();
       propValue = memberInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ?? propValue;
       if (propValue == null)
       {
@@ -163,8 +165,6 @@ public class QXmlSerializationWriter
         //  serializableValue.Serialize(this, writer);
         //else
         {
-          //if (typeInfo?.XmlName == "HeadingPairs")
-          //  Debug.Assert(true);
           var pType = propValue.GetType();
           KnownTypes.TryGetValue(pType, out var serializedTypeInfo);
           if (memberInfo.ContentInfo != null)
@@ -179,10 +179,8 @@ public class QXmlSerializationWriter
           {
             if (memberInfo.TypeConverter != null)
               WriteValue(ConvertMemberValueToString(memberInfo, propValue));
-            else if (propValue is String str)
-              WriteValue(str);
             else
-              WriteValue(propValue.ToString());
+              WriteValue(propValue);
           }
           else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
           {
@@ -194,9 +192,8 @@ public class QXmlSerializationWriter
           }
           else
           {
-            WriteObjectInterior(propValue, null, serializedTypeInfo);
+            WriteObject(propValue);
           }
-
           //else if (propValue is ICollection collection)
           //{
           //  var arrayInfo = prop.CollectionInfo;
@@ -481,19 +478,12 @@ public class QXmlSerializationWriter
         var valStr = typeConverter.ConvertToInvariantString(value);
         if (valStr != null)
         {
-          valStr = valStr.EncodeStringValue();
+          //valStr = valStr.EncodeStringValue();
           Writer.WriteValue(valStr);
         }
       }
     }
   }
-
-  //public void WriteValue(string str)
-  //{
-  //  if (str.StartsWith(' ') || str.EndsWith(' '))
-  //    writer.WriteSignificantSpaces(true);
-  //  writer.WriteValue(str);
-  //}
 
   public void WriteValue(string propTag, object value)
   {
@@ -511,22 +501,16 @@ public class QXmlSerializationWriter
     var typeConverter = memberInfo.GetTypeConverter();
     if (typeConverter != null)
     {
-      //typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, memberInfo.DataType,
-      //  memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
       var str = typeConverter.ConvertToInvariantString(propValue);
       return str;
     }
     else
     {
-      var str = Convert.ToString(propValue);
+      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, memberInfo.DataType,
+        memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
+      var str = typeConverter.ConvertToInvariantString(propValue);
       return str;
     }
-    //if (propValue is string str)
-    //  return EncodeStringValue(str);
-    //if (propValue is bool || propValue is bool?)
-    //  return ((bool)propValue) ? Options.TrueString : Options.FalseString;
-    //if (propValue is DateTime || propValue is DateTime?)
-    //  return ((DateTime)propValue).ToString(Options.DateTimeFormat, CultureInfo.InvariantCulture);
   }
 
   #endregion

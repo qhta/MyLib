@@ -1,7 +1,7 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 //[TypeConverter(typeof(QualifiedNameTypeConverter))]
-public struct XmlQualifiedTagName //: IComparable<QualifiedName>, IEquatable<QualifiedName>
+public record XmlQualifiedTagName //: IComparable<QualifiedName>, IEquatable<QualifiedName>
 {
   [XmlAttribute] public string Name { get; set; }
 
@@ -68,10 +68,10 @@ public struct XmlQualifiedTagName //: IComparable<QualifiedName>, IEquatable<Qua
     return Name == other.Name && XmlNamespace == other.Namespace;
   }
 
-  public override bool Equals(object? obj)
-  {
-    return obj is QualifiedName other && Equals(other);
-  }
+  //public override bool Equals(object? obj)
+  //{
+  //  return obj is QualifiedName other && Equals(other);
+  //}
 
   public override int GetHashCode()
   {

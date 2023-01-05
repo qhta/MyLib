@@ -50,7 +50,7 @@ public class XmlAnyElement2Dictionary : XmlConverter
 
     var valueTypeInfo = (propertyInfo?.ContentInfo as DictionaryInfo)?.ValueTypeInfo;
     if (valueTypeInfo == null && ItemType != null)
-      iReader.KnownTypes.TryGetValue(ItemType, out valueTypeInfo);
+      iReader.TryGetTypeInfo(ItemType, out valueTypeInfo);
     if (valueTypeInfo == null)
       throw new IOException($"Unknown value type info for property {GetType()}");
 

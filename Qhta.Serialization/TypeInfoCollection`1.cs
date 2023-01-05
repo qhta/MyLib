@@ -5,9 +5,9 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
 {
   [XmlAttribute] public string? DefaultNamespace { get; set; }
 
-  private Dictionary<Type, TypeNameInfo> TypeIndexedItems { get; } = new();
+  public Dictionary<Type, TypeNameInfo> TypeIndexedItems { get; } = new();
 
-  private SortedDictionary<QualifiedName, TypeNameInfo> NameIndexedItems { get; } = new();
+  public SortedDictionary<QualifiedName, TypeNameInfo> NameIndexedItems { get; } = new();
 
   public void Add(TypeNameInfo item)
   {

@@ -240,6 +240,12 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
       }
     }
     if (expectedType != null)
+    {
+      if (expectedType.IsEnum)
+      {
+        InternalTypeConverter = new EnumConverter(expectedType);
+      }
+      else
       if (KnownTypeConverters.TryGetValue(expectedType, out var converter))
       {
         var converterType = converter.GetType();
@@ -253,6 +259,7 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
           iTypeConverter.Format = format;
         }
       }
+    }
 
     if (InternalTypeConverter == null)
     {
