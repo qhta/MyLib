@@ -768,11 +768,11 @@ public class XmlSerializationInfoMapper
         if (itemType == null)
           itemType = typeof(object);
         var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
-        if (arrayItemAttribute is QXmlElementTypeAttribute qXmlElementTypeAttribute)
+        if (arrayItemAttribute is XmlItemElementAttribute xmlElementAttribute)
         {
-          serializationItemTypeInfo.Value = qXmlElementTypeAttribute.Value;
-          if (qXmlElementTypeAttribute.ConverterType != null)
-            serializationItemTypeInfo.TypeInfo.TypeConverter = CreateTypeConverter(qXmlElementTypeAttribute.ConverterType);
+          serializationItemTypeInfo.Value = xmlElementAttribute.Value;
+          if (xmlElementAttribute.ConverterType != null)
+            serializationItemTypeInfo.TypeInfo.TypeConverter = CreateTypeConverter(xmlElementAttribute.ConverterType);
         }
         if (elemName != null)
           collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);

@@ -36,6 +36,7 @@
     <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
     <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
     <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
+    <ProjectReference Include="..\Qhta.Xml.Serialization.Attributes\Qhta.Xml.Serialization.Attributes.csproj" />
   </ItemGroup>
 
   <ItemGroup>

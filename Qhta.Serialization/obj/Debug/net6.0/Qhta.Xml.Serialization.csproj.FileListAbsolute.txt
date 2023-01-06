@@ -20,3 +20,5 @@ D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Conversion.pdb
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Collections.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.Serialization.Attributes.dll
+D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.Serialization.Attributes.pdb

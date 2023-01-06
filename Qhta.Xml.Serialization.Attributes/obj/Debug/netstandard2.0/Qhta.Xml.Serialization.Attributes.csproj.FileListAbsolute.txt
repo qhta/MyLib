@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.deps.json
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.dll
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.pdb
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.dll
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization.Attributes\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.Attributes.pdb

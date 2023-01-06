@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct, AllowMultiple = true)]
 public class XmlItemElementAttribute : XmlArrayItemAttribute
 {
   public XmlItemElementAttribute()
@@ -20,4 +20,8 @@ public class XmlItemElementAttribute : XmlArrayItemAttribute
   }
 
   public string? AddMethod { get; set; }
+
+  public object? Value { get; set; }
+
+  public Type? ConverterType { get; set; }
 }
