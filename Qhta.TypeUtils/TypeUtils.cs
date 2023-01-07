@@ -288,7 +288,8 @@ public static class TypeUtils
   /// <returns></returns>
   public static bool HasProperty(this Type type, string name)
   {
-    return type.GetProperty(name) != null;
+    var result = type.GetProperty(name);
+    return result != null;
   }
 
   /// <summary>
