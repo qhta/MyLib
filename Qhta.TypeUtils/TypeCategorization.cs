@@ -93,8 +93,10 @@ public static class TypeCategorization
     { typeof(double), TypeCategory.Simple | TypeCategory.Numeral | TypeCategory.Signed | TypeCategory.Float },
     { typeof(DateTime), TypeCategory.Simple | TypeCategory.Temporal },
     { typeof(TimeSpan), TypeCategory.Simple | TypeCategory.Temporal },
-    //{ typeof(DateOnly),  TypeCategory.Simple | TypeCategory.Temporal },
-    //{ typeof(TimeOnly),  TypeCategory.Simple | TypeCategory.Temporal },
+#if NET6_0_OR_GREATER
+    { typeof(DateOnly),  TypeCategory.Simple | TypeCategory.Temporal },
+    { typeof(TimeOnly),  TypeCategory.Simple | TypeCategory.Temporal },
+#endif
     { typeof(Guid), TypeCategory.Simple }
   };
 

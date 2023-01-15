@@ -679,7 +679,8 @@ public class QXmlSerializationReader : IXmlConverterReader
       return typeInfo.XmlConverter.ReadXml(context, this, typeInfo, null, itemTypeInfo);
     if (typeInfo.KnownConstructor == null)
     {
-      if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte))
+      if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte) 
+          || typeInfo.Type.GetInterface("IConvertible")!=null)
       {
         if (Reader.IsEmptyElement)
         {

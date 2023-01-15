@@ -48,11 +48,14 @@ public class JointProperties
     foreach (var pair in jointProperties)
     {
       var value = pair.SourceProp.GetValue(sourceDataObject);
-      if (TryGetTypeConverter(pair.TargetProp, out var targetTypeConverter) && targetTypeConverter != null &&
-          targetTypeConverter.CanConvertFrom(pair.SourceProp.PropertyType))
-        pair.TargetProp.SetValue(targetDataObject, targetTypeConverter.ConvertFrom(value));
-      else
-        pair.TargetProp.SetValue(targetDataObject, value);
+      if (value != null)
+      {
+        if (TryGetTypeConverter(pair.TargetProp, out var targetTypeConverter) && targetTypeConverter != null &&
+            targetTypeConverter.CanConvertFrom(pair.SourceProp.PropertyType))
+          pair.TargetProp.SetValue(targetDataObject, targetTypeConverter.ConvertFrom(value));
+        else
+          pair.TargetProp.SetValue(targetDataObject, value);
+      }
     }
   }
 

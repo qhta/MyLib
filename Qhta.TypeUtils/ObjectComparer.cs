@@ -189,8 +189,9 @@ public static class ObjectComparer
 
       var props = @this?.GetType().GetProperties();
       var compared = false;
-      var propCompTasksList = new List<Task<CompareResult>>(props.Count());
       if (props != null)
+      {
+        var propCompTasksList = new List<Task<CompareResult>>(props.Count());
         foreach (var propInfo in props)
         {
           var getMethod = propInfo.GetMethod;
@@ -268,6 +269,7 @@ public static class ObjectComparer
             }
           }
         }
+      }
       if (!compared)
       {
         var isEqual = @this?.Equals(other);

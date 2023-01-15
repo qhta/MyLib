@@ -168,16 +168,6 @@
         "runtime": {
           "bin/placeholder/Qhta.Collections.dll": {}
         }
-      },
-      "Qhta.TypeUtils/1.3.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/Qhta.TypeUtils.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.TypeUtils.dll": {}
-        }
       }
     }
   },
@@ -395,17 +385,11 @@
       "type": "project",
       "path": "../Qhta.Collections/Qhta.Collections.csproj",
       "msbuildProject": "../Qhta.Collections/Qhta.Collections.csproj"
-    },
-    "Qhta.TypeUtils/1.3.0": {
-      "type": "project",
-      "path": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj",
-      "msbuildProject": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Qhta.Collections >= 1.0.0",
-      "Qhta.TypeUtils >= 1.3.0",
       "System.Configuration.ConfigurationManager >= 6.0.1"
     ]
   },
@@ -443,9 +427,6 @@
           "projectReferences": {
             "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj"
-            },
-            "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
             }
           }
         }

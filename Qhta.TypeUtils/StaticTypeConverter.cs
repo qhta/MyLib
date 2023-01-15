@@ -15,9 +15,9 @@ public class StaticTypeConverter
   /// <param name="typeConverter"></param>
   /// <param name="targetType"></param>
   /// <returns></returns>
-  public static object ConvertToString(object value, TypeConverter typeConverter, Type targetType)
+  public static object? ConvertToString(object value, TypeConverter typeConverter, Type targetType)
   {
-    object result = (string)typeConverter.ConvertTo(value, targetType);
+    var result = typeConverter.ConvertTo(value, targetType);
     return result;
   }
 }

@@ -26,7 +26,7 @@ public static class ObjectCopier
     if (ReferenceEquals(source, null)) return default;
 
     if (!typeof(T).IsSerializable) throw new ArgumentException($"The type {typeof(T).Name} must be serializable.", "source");
-
+#pragma warning disable SYSLIB0011
     IFormatter formatter = new BinaryFormatter();
     Stream stream = new MemoryStream();
     using (stream)

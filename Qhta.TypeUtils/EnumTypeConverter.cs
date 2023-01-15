@@ -50,7 +50,7 @@ public static class EnumTypeConverter
             else
               value = (UInt64)(int)obj;
             var enumMemberAttribute = enumMember.GetCustomAttributes(typeof(EnumMemberAttribute), false).FirstOrDefault() as EnumMemberAttribute;
-            if (enumMemberAttribute != null)
+            if (enumMemberAttribute != null && enumMemberAttribute.Value != null)
             {
               dicts.ValueToString.TryAdd(value, enumMemberAttribute.Value);
               var s = enumMemberAttribute.Value.ToLower();

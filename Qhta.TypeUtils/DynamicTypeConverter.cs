@@ -27,8 +27,10 @@ public class DynamicTypeConverter
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
-  public object Convert(object value)
+  public object? Convert(object? value)
   {
-    return TypeConverter.ConvertFrom(value);
+    if (value != null)
+      return TypeConverter.ConvertFrom(value);
+    return null;
   }
 }

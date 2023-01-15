@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qhta.Collections\Qhta.Collections.csproj" />
-    <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,5 +23,12 @@
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Qhta.TypeUtils">
+      <HintPath>..\..\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>
