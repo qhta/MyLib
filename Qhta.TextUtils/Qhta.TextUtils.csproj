@@ -13,8 +13,4 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   
-  <ItemGroup>
-    <Compile Remove="Definition.cs" />
-  </ItemGroup>
-
 </Project>

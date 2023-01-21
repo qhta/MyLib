@@ -5,682 +5,705 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Qhta.TextUtils
+namespace Qhta.TextUtils;
+
+public static class StringUtils
 {
-  public static class StringUtils
+  private static readonly (char open, char close)[] DefaultBraces =
   {
+    ('(', ')'),
+    ('[', ']'),
+    ('{', '}')
+  };
 
-    public static string TitleCase(this string str)
+  public static string TitleCase(this string str)
+  {
+    var chars = str.ToCharArray();
+    for (var i = 0; i < chars.Length; i++)
+      if (i == 0)
+        chars[i] = Char.ToUpper(chars[i]);
+      else
+        chars[i] = Char.ToLower(chars[i]);
+    return new string(chars);
+  }
+
+  public static string CamelCase(this string str)
+  {
+    var ss = str.Split(' ');
+    for (var i = 0; i < ss.Length; i++)
+      ss[i] = ss[i].TitleCase();
+    return string.Join("", ss);
+  }
+
+  public static string[] SplitCamelCase(this string str)
+  {
+    var ss = new List<string>();
+    var chars = new List<char>();
+    for (var i = 0; i < str.Length; i++)
     {
-      var chars = str.ToCharArray();
-      for (int i = 0; i < chars.Length; i++)
+      if (Char.IsUpper(str[i]))
+        if (chars.Count > 0 && (!Char.IsUpper(chars.Last()) || (i < str.Length - 1 && Char.IsLower(str[i + 1]))))
+        {
+          var s = new String(chars.ToArray());
+          ss.Add(s);
+          chars.Clear();
+        }
+      chars.Add(str[i]);
+    }
+    if (chars.Count > 0)
+    {
+      var s = new String(chars.ToArray());
+      ss.Add(s);
+      chars.Clear();
+    }
+    return ss.ToArray();
+  }
+
+  public static string DeCamelCase(this string str)
+  {
+    var ss = str.SplitCamelCase();
+    for (var i = 0; i < ss.Length; i++)
+      if (ss[i] != ss[i].ToUpper())
+      {
         if (i == 0)
-          chars[i] = Char.ToUpper(chars[i]);
+          ss[i] = ss[i].TitleCase();
         else
-          chars[i] = Char.ToLower(chars[i]);
-      return new string(chars);
+          ss[i] = ss[i].ToLower();
+      }
+    return string.Join(" ", ss);
+  }
+
+  public static string NumberToText(this double number)
+  {
+    var intPart = (Int64)number;
+    var frac = number - intPart;
+
+    var result = NumberToText(intPart);
+    if (frac != 0)
+    {
+      var cents = (int)frac * 100;
+      result += " " + cents + "/100";
+    }
+    return result;
+  }
+
+  public static string NumberToText(this int number)
+  {
+    return NumberToText((Int64)number);
+  }
+
+  public static string NumberToText(this Int64 number)
+  {
+    if (number == 0)
+      return "zero";
+
+    if (number < 0)
+      return "minus " + NumberToText(Math.Abs(number));
+
+    var words = "";
+    // 9223372036854775808
+    if (number / 1000000000000000000 > 0)
+    {
+      words += NumberToText(number / 1000000000000000000) + " quintillion ";
+      number %= 1000000000000000000;
     }
 
-    public static string CamelCase(this string str)
+    if (number / 1000000000000000 > 0)
     {
-      var ss = str.Split(' ');
-      for (int i = 0; i < ss.Length; i++)
-        ss[i] = ss[i].TitleCase();
-      return string.Join("", ss);
+      words += NumberToText(number / 1000000000000000) + " quadrillion ";
+      number %= 1000000000000000;
     }
 
-    public static string[] SplitCamelCase(this string str)
+    if (number / 1000000000000 > 0)
     {
-      var ss = new List<string>();
-      var chars = new List<char>();
-      for (int i = 0; i < str.Length; i++)
-      {
-        if (Char.IsUpper(str[i]))
-        {
-          if (chars.Count > 0 && (!Char.IsUpper(chars.Last()) || (i < str.Length - 1 && Char.IsLower(str[i + 1]))))
-          {
-            var s = new String(chars.ToArray());
-            ss.Add(s);
-            chars.Clear();
-          }
-        }
-        chars.Add(str[i]);
-      }
-      if (chars.Count > 0)
-      {
-        var s = new String(chars.ToArray());
-        ss.Add(s);
-        chars.Clear();
-      }
-      return ss.ToArray();
+      words += NumberToText(number / 1000000000000) + " trillion ";
+      number %= 1000000000000;
     }
 
-    public static string DeCamelCase(this string str)
+    if (number / 1000000000 > 0)
     {
-      var ss = str.SplitCamelCase();
-      for (int i = 0; i < ss.Length; i++)
-      {
-        if (ss[i] != ss[i].ToUpper())
-        {
-          if (i == 0)
-            ss[i] = ss[i].TitleCase();
-          else
-            ss[i] = ss[i].ToLower();
-        }
-      }
-      return string.Join(" ", ss);
+      words += NumberToText(number / 1000000000) + " billion ";
+      number %= 1000000000;
     }
 
-    public static string NumberToText(this double number)
+    if (number / 1000000 > 0)
     {
-      Int64 intPart = (Int64)number;
-      double frac = number - intPart;
-
-      string result = NumberToText(intPart);
-      if (frac != 0)
-      {
-        int cents = (int)frac * 100;
-        result += " " + cents.ToString() + "/100";
-      }
-      return result;
+      words += NumberToText(number / 1000000) + " million ";
+      number %= 1000000;
     }
 
-    public static string NumberToText(this int number)
+    if (number / 1000 > 0)
     {
-      return NumberToText((Int64)number);
+      words += NumberToText(number / 1000) + " thousand ";
+      number %= 1000;
     }
 
-    public static string NumberToText(this Int64 number)
+    if (number / 100 > 0)
     {
-      if (number == 0)
-        return "zero";
-
-      if (number < 0)
-        return "minus " + NumberToText(Math.Abs(number));
-
-      string words = "";
-      // 9223372036854775808
-      if ((number / 1000000000000000000) > 0)
-      {
-        words += NumberToText(number / 1000000000000000000) + " quintillion ";
-        number %= 1000000000000000000;
-      }
-
-      if ((number / 1000000000000000) > 0)
-      {
-        words += NumberToText(number / 1000000000000000) + " quadrillion ";
-        number %= 1000000000000000;
-      }
-
-      if ((number / 1000000000000) > 0)
-      {
-        words += NumberToText(number / 1000000000000) + " trillion ";
-        number %= 1000000000000;
-      }
-
-      if ((number / 1000000000) > 0)
-      {
-        words += NumberToText(number / 1000000000) + " billion ";
-        number %= 1000000000;
-      }
-
-      if ((number / 1000000) > 0)
-      {
-        words += NumberToText(number / 1000000) + " million ";
-        number %= 1000000;
-      }
-
-      if ((number / 1000) > 0)
-      {
-        words += NumberToText(number / 1000) + " thousand ";
-        number %= 1000;
-      }
-
-      if ((number / 100) > 0)
-      {
-        words += NumberToText(number / 100) + " hundred ";
-        number %= 100;
-      }
-
-      if (number > 0)
-      {
-        if (words != "")
-          words += "and ";
-
-        var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-        var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-
-        if (number < 20)
-          words += unitsMap[number];
-        else
-        {
-          words += tensMap[number / 10];
-          if ((number % 10) > 0)
-            words += "-" + unitsMap[number % 10];
-        }
-      }
-
-      return words;
+      words += NumberToText(number / 100) + " hundred ";
+      number %= 100;
     }
 
-    public static string? Precede(this string str, string prefix) => str != null ? prefix + str : null;
-
-    public static string? Attach(this string str, string suffix) => str != null ? str + suffix : null;
-
-    public static bool ContainsAt(this string str, string substring, int atIndex)
+    if (number > 0)
     {
-      if (atIndex + substring.Length > str.Length)
+      if (words != "")
+        words += "and ";
+
+      var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+      var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+      if (number < 20)
+      {
+        words += unitsMap[number];
+      }
+      else
+      {
+        words += tensMap[number / 10];
+        if (number % 10 > 0)
+          words += "-" + unitsMap[number % 10];
+      }
+    }
+
+    return words;
+  }
+
+  public static string? Precede(this string str, string prefix)
+  {
+    return str != null ? prefix + str : null;
+  }
+
+  public static string? Attach(this string str, string suffix)
+  {
+    return str != null ? str + suffix : null;
+  }
+
+  public static bool ContainsAt(this string str, string substring, int atIndex)
+  {
+    if (atIndex + substring.Length > str.Length)
+      return false;
+    return str.Substring(atIndex, substring.Length).Equals(substring);
+  }
+
+  public static bool ContainsAt(this string str, string substring, int atIndex, StringComparison comparison)
+  {
+    if (atIndex + substring.Length > str.Length)
+      return false;
+    return str.Substring(atIndex, substring.Length).Equals(substring, comparison);
+  }
+
+  public static bool ContainsBefore(this string str, string substring, int atIndex)
+  {
+    if (atIndex - substring.Length < 0)
+      return false;
+    return str.Substring(atIndex - substring.Length, substring.Length).Equals(substring);
+  }
+
+  public static bool ContainsBefore(this string str, string substring, int atIndex, StringComparison comparison)
+  {
+    if (atIndex - substring.Length < 0)
+      return false;
+    return str.Substring(atIndex - substring.Length, substring.Length).Equals(substring, comparison);
+  }
+
+  [DebuggerStepThrough]
+  public static bool IsUpper(this string str)
+  {
+    if (string.IsNullOrEmpty(str))
+      return false;
+    foreach (var ch in str)
+      if (!Char.IsUpper(ch))
         return false;
-      return str.Substring(atIndex, substring.Length).Equals(substring);
-    }
+    return true;
+  }
 
-    public static bool ContainsAt(this string str, string substring, int atIndex, StringComparison comparison)
+  /// <summary>
+  ///   Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+  ///   characters.
+  /// </summary>
+  /// <param name="key"></param>
+  /// <param name="pattern"></param>
+  /// <param name="stringComparison"></param>
+  /// <returns></returns>
+  public static bool IsLike(this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  {
+    var wildcardCount = pattern.Where(c => c == '*').Count();
+    if (wildcardCount == 1 && pattern.EndsWith("*"))
     {
-      if (atIndex + substring.Length > str.Length)
-        return false;
-      return str.Substring(atIndex, substring.Length).Equals(substring, comparison);
+      pattern = pattern.Substring(0, pattern.Length - 1);
+      return key.StartsWith(pattern, stringComparison);
     }
-
-    public static bool ContainsBefore(this string str, string substring, int atIndex)
+    if (wildcardCount == 1 && pattern.StartsWith("*"))
     {
-      if (atIndex - substring.Length < 0)
-        return false;
-      return str.Substring(atIndex - substring.Length, substring.Length).Equals(substring);
+      pattern = pattern.Substring(1, pattern.Length - 1);
+      return key.EndsWith(pattern, stringComparison);
     }
-
-    public static bool ContainsBefore(this string str, string substring, int atIndex, StringComparison comparison)
+    if (wildcardCount == 2 && pattern.EndsWith("*") && pattern.StartsWith("*"))
     {
-      if (atIndex - substring.Length < 0)
-        return false;
-      return str.Substring(atIndex - substring.Length, substring.Length).Equals(substring, comparison);
+      pattern = pattern.Substring(1, pattern.Length - 2);
+      return key.IndexOf(pattern, stringComparison) >= 0;
     }
-
-    [DebuggerStepThrough]
-    public static bool IsUpper(this string str)
+    if (wildcardCount > 0)
     {
-      if (string.IsNullOrEmpty(str))
-        return false;
-      foreach (var ch in str)
-        if (!(Char.IsUpper(ch)))
-          return false;
-      return true;
-    }
-
-    /// <summary>
-    /// Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining characters.
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="pattern"></param>
-    /// <param name="stringComparison"></param>
-    /// <returns></returns>
-    public static bool IsLike(this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
-    {
-      var wildcardCount = pattern.Where(c => c == '*').Count();
-      if (wildcardCount == 1 && pattern.EndsWith("*"))
-      {
-        pattern = pattern.Substring(0, pattern.Length - 1);
-        return key.StartsWith(pattern, stringComparison);
-      }
-      if (wildcardCount == 1 && pattern.StartsWith("*"))
-      {
-        pattern = pattern.Substring(1, pattern.Length - 1);
-        return key.EndsWith(pattern, stringComparison);
-      }
-      if (wildcardCount == 2 && pattern.EndsWith("*") && pattern.StartsWith("*"))
-      {
-        pattern = pattern.Substring(1, pattern.Length - 2);
-        return key.IndexOf(pattern,stringComparison)>=0;
-      }
-      if (wildcardCount > 0)
-      {
-        var patternParts = pattern.Split('*').ToList();
-        return MatchPatternParts(key, patternParts, stringComparison);
-      }
-      return key.Equals(pattern, stringComparison);
-    }
-
-    private static bool MatchPatternParts(string key, List<string> patternParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
-    {
-      if (patternParts.Count == 0)
-        return true;
-      if (!key.StartsWith(patternParts.First(), stringComparison))
-        return false;
-      if (patternParts.Count == 1)
-        return true;
-      key = key.Substring(patternParts.First().Length);
-      patternParts.RemoveAt(0);
-      if (!key.EndsWith(patternParts.Last(), stringComparison))
-        return false;
-      if (patternParts.Count == 1)
-        return true;
-      key = key.Substring(key.Length - patternParts.Last().Length);
-      patternParts.RemoveAt(patternParts.Count - 1);
+      var patternParts = pattern.Split('*').ToList();
       return MatchPatternParts(key, patternParts, stringComparison);
     }
+    return key.Equals(pattern, stringComparison);
+  }
 
-    /// <summary>
-    /// Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining characters.
-    /// Output <paramref name="wildKey"/> is set to found wildchar replacement in the key.
-    /// If there are multiple wildchars in the pattern then returned <paramref name="wildKey"/> contains multiple replacements joined with '*' separator.
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="pattern"></param>
-    /// <param name="wildKey"></param>
-    /// <param name="stringComparison"></param>
-    /// <returns></returns>
-    public static bool IsLike(this string key, string pattern, out string? wildKey, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
-    {
-      wildKey = null;
-      var wildcardCount = pattern.Where(c => c == '*').Count();
-      if (wildcardCount == 1 && pattern.EndsWith("*"))
-      {
-        pattern = pattern.Substring(0, pattern.Length - 1);
-        if (key.StartsWith(pattern, stringComparison))
-        {
-          wildKey = key.Substring(pattern.Length);
-          return true;
-        }
-        return false;
-      }
-      if (wildcardCount == 1 && pattern.StartsWith("*"))
-      {
-        pattern = pattern.Substring(1, pattern.Length - 1);
-        if (key.EndsWith(pattern, stringComparison))
-        {
-          wildKey = key.Substring(0, pattern.Length);
-          return true;
-        }
-        return false;
-      }
-      if (wildcardCount == 2 && pattern.EndsWith("*") && pattern.StartsWith("*"))
-      {
-        pattern = pattern.Substring(1, pattern.Length - 2);
-        int patternPos = key.IndexOf(pattern, stringComparison);
-        if (patternPos >= 0)
-        {
-          var wKeys = new string[2];
-          wKeys[0] = key.Substring(0, patternPos);
-          wKeys[1] = key.Substring(patternPos + pattern.Length);
-          wildKey = String.Join("*", wKeys);
-          return true;
-        }
-      }
-      if (wildcardCount > 0)
-      {
-        var patternParts = pattern.Split('*').ToList();
-        if (MatchPatternParts(key, patternParts, out var wildKeyParts, stringComparison))
-        {
-          wildKey = String.Join("*", wildKeyParts);
-          return true;
-        }
-        return false;
-      }
-      return key.Equals(pattern, stringComparison);
-    }
+  private static bool MatchPatternParts(string key, List<string> patternParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  {
+    if (patternParts.Count == 0)
+      return true;
+    if (!key.StartsWith(patternParts.First(), stringComparison))
+      return false;
+    if (patternParts.Count == 1)
+      return true;
+    key = key.Substring(patternParts.First().Length);
+    patternParts.RemoveAt(0);
+    if (!key.EndsWith(patternParts.Last(), stringComparison))
+      return false;
+    if (patternParts.Count == 1)
+      return true;
+    key = key.Substring(key.Length - patternParts.Last().Length);
+    patternParts.RemoveAt(patternParts.Count - 1);
+    return MatchPatternParts(key, patternParts, stringComparison);
+  }
 
-    private static bool MatchPatternParts(string key, List<string> patternParts, out List<string> wildKeyParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  /// <summary>
+  ///   Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+  ///   characters.
+  ///   Output <paramref name="wildKey" /> is set to found wildchar replacement in the key.
+  ///   If there are multiple wildchars in the pattern then returned <paramref name="wildKey" /> contains multiple
+  ///   replacements joined with '*' separator.
+  /// </summary>
+  /// <param name="key"></param>
+  /// <param name="pattern"></param>
+  /// <param name="wildKey"></param>
+  /// <param name="stringComparison"></param>
+  /// <returns></returns>
+  public static bool IsLike(this string key, string pattern, out string? wildKey, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  {
+    wildKey = null;
+    var wildcardCount = pattern.Where(c => c == '*').Count();
+    if (wildcardCount == 1 && pattern.EndsWith("*"))
     {
-      wildKeyParts = new List<string>();
-      if (patternParts.Count == 0)
-        return true;
-      if (!key.StartsWith(patternParts.First(), stringComparison))
-        return false;
-      wildKeyParts.Add(key.Substring(patternParts.First().Length));
-      if (patternParts.Count == 1)
-        return true;
-      key = key.Substring(patternParts.First().Length);
-      patternParts.RemoveAt(0);
-      if (!key.EndsWith(patternParts.Last(), stringComparison))
-        return false;
-      wildKeyParts.Add(key.Substring(key.Length - patternParts.Last().Length));
-      if (patternParts.Count == 1)
-        return true;
-      key = key.Substring(key.Length - patternParts.Last().Length);
-      patternParts.RemoveAt(patternParts.Count - 1);
-      if (MatchPatternParts(key, patternParts, out var internWildParts, stringComparison))
+      pattern = pattern.Substring(0, pattern.Length - 1);
+      if (key.StartsWith(pattern, stringComparison))
       {
-        if (internWildParts.Count > 0)
-          wildKeyParts.InsertRange(1, internWildParts);
+        wildKey = key.Substring(pattern.Length);
         return true;
       }
       return false;
     }
-
-    public static bool IsLikeNumber(this string key, string pattern, out string? wildKey, out int wildNum)
+    if (wildcardCount == 1 && pattern.StartsWith("*"))
     {
-      if (pattern.EndsWith("#") && pattern.StartsWith("#"))
+      pattern = pattern.Substring(1, pattern.Length - 1);
+      if (key.EndsWith(pattern, stringComparison))
       {
-        pattern = pattern.Substring(1, pattern.Length - 2);
-        int patternPos = key.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase);
-        if (patternPos >= 0)
-        {
-          wildKey = key.Remove(patternPos, pattern.Length);
-          if (int.TryParse(wildKey, out wildNum))
-            return true;
-        }
+        wildKey = key.Substring(0, pattern.Length);
+        return true;
       }
-      else if (pattern.EndsWith("#"))
-      {
-        pattern = pattern.Substring(0, pattern.Length - 1);
-        if (key.StartsWith(pattern, StringComparison.CurrentCultureIgnoreCase))
-        {
-          wildKey = key.Substring(pattern.Length);
-          if (int.TryParse(wildKey, out wildNum))
-            return true;
-        }
-      }
-      if (pattern.StartsWith("#"))
-      {
-        pattern = pattern.Substring(1, pattern.Length - 1);
-        if (key.EndsWith(pattern, StringComparison.CurrentCultureIgnoreCase))
-        {
-          wildKey = key.Substring(0, pattern.Length);
-          if (int.TryParse(wildKey, out wildNum))
-            return true;
-        }
-      }
-      wildKey = null;
-      wildNum = 0;
       return false;
     }
-
-    public static bool IsValidUrl(this string text)
+    if (wildcardCount == 2 && pattern.EndsWith("*") && pattern.StartsWith("*"))
     {
-      if (text == null)
-        return false;
-
-      Regex rx = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?");
-      return rx.IsMatch(text);
-    }
-
-    [DebuggerStepThrough]
-    public static string ToUpperFirst(this string text)
-    {
-      if (string.IsNullOrEmpty(text))
-        return text;
-      char[] ss = text.ToCharArray();
-      ss[0] = char.ToUpper(ss[0]);
-      return new string(ss);
-    }
-
-    [DebuggerStepThrough]
-    public static string ToLowerFirst(this string text)
-    {
-      if (string.IsNullOrEmpty(text))
-        return text;
-      char[] ss = text.ToCharArray();
-      ss[0] = char.ToLower(ss[0]);
-      return new string(ss);
-    }
-
-    public static string TrimParens(this string text, (char open, char close)[]? enclosings = null)
-      => TrimEnclosings(text, '(', ')', enclosings);
-
-    public static string TrimEnclosings(this string text, char openParen, char closeParen, (char open, char close)[]? enclosings = null)
-    {
-      if (text.StartsWith(new String(openParen,1)) && text.EndsWith(new String(closeParen,1)))
+      pattern = pattern.Substring(1, pattern.Length - 2);
+      var patternPos = key.IndexOf(pattern, stringComparison);
+      if (patternPos >= 0)
       {
-        if (enclosings == null)
-          return text.Substring(1, text.Length - 2).Trim();
-
-        int i;
-        string? openParens = null;
-        for (i = 0; i < text.Length; i++)
-        {
-          char ch = text[i];
-          (char ch1, char ch2) = enclosings.FirstOrDefault(item => item.open == ch);
-          if (ch1 != '\0')
-          {
-            if (ch1 == openParen)
-              openParens += ch1;
-            i = FindMatch(text, i, ch1, enclosings);
-            if (openParens == new string(openParen, 1) && i == text.Length - 1)
-            {
-              return text.Substring(1, text.Length - 2).Trim();
-            }
-          }
-          else
-          if (ch == closeParen && i == text.Length - 1)
-          {
-            return text.Substring(1, text.Length - 2).Trim();
-          }
-        }
+        var wKeys = new string[2];
+        wKeys[0] = key.Substring(0, patternPos);
+        wKeys[1] = key.Substring(patternPos + pattern.Length);
+        wildKey = String.Join("*", wKeys);
+        return true;
       }
-      return text.Trim();
     }
-
-    [DebuggerStepThrough]
-    public static string TrimDblQuotes(this string text)
+    if (wildcardCount > 0)
     {
-      if (text.Length >= 2 && text.StartsWith("\"") && text.EndsWith("\""))
-        return text.Substring(1, text.Length - 2);
+      var patternParts = pattern.Split('*').ToList();
+      if (MatchPatternParts(key, patternParts, out var wildKeyParts, stringComparison))
+      {
+        wildKey = String.Join("*", wildKeyParts);
+        return true;
+      }
+      return false;
+    }
+    return key.Equals(pattern, stringComparison);
+  }
+
+  private static bool MatchPatternParts(string key, List<string> patternParts, out List<string> wildKeyParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  {
+    wildKeyParts = new List<string>();
+    if (patternParts.Count == 0)
+      return true;
+    if (!key.StartsWith(patternParts.First(), stringComparison))
+      return false;
+    wildKeyParts.Add(key.Substring(patternParts.First().Length));
+    if (patternParts.Count == 1)
+      return true;
+    key = key.Substring(patternParts.First().Length);
+    patternParts.RemoveAt(0);
+    if (!key.EndsWith(patternParts.Last(), stringComparison))
+      return false;
+    wildKeyParts.Add(key.Substring(key.Length - patternParts.Last().Length));
+    if (patternParts.Count == 1)
+      return true;
+    key = key.Substring(key.Length - patternParts.Last().Length);
+    patternParts.RemoveAt(patternParts.Count - 1);
+    if (MatchPatternParts(key, patternParts, out var internWildParts, stringComparison))
+    {
+      if (internWildParts.Count > 0)
+        wildKeyParts.InsertRange(1, internWildParts);
+      return true;
+    }
+    return false;
+  }
+
+  public static bool IsLikeNumber(this string key, string pattern, out string? wildKey, out int wildNum)
+  {
+    if (pattern.EndsWith("#") && pattern.StartsWith("#"))
+    {
+      pattern = pattern.Substring(1, pattern.Length - 2);
+      var patternPos = key.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase);
+      if (patternPos >= 0)
+      {
+        wildKey = key.Remove(patternPos, pattern.Length);
+        if (int.TryParse(wildKey, out wildNum))
+          return true;
+      }
+    }
+    else if (pattern.EndsWith("#"))
+    {
+      pattern = pattern.Substring(0, pattern.Length - 1);
+      if (key.StartsWith(pattern, StringComparison.CurrentCultureIgnoreCase))
+      {
+        wildKey = key.Substring(pattern.Length);
+        if (int.TryParse(wildKey, out wildNum))
+          return true;
+      }
+    }
+    if (pattern.StartsWith("#"))
+    {
+      pattern = pattern.Substring(1, pattern.Length - 1);
+      if (key.EndsWith(pattern, StringComparison.CurrentCultureIgnoreCase))
+      {
+        wildKey = key.Substring(0, pattern.Length);
+        if (int.TryParse(wildKey, out wildNum))
+          return true;
+      }
+    }
+    wildKey = null;
+    wildNum = 0;
+    return false;
+  }
+
+  public static bool IsValidUrl(this string text)
+  {
+    if (text == null)
+      return false;
+
+    var rx = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?");
+    return rx.IsMatch(text);
+  }
+
+  [DebuggerStepThrough]
+  public static string ToUpperFirst(this string text)
+  {
+    if (string.IsNullOrEmpty(text))
       return text;
-    }
+    var ss = text.ToCharArray();
+    ss[0] = char.ToUpper(ss[0]);
+    return new string(ss);
+  }
 
-    /// <summary>
-    /// Splits a text by <paramref name="sep"/> character.
-    /// Fragments enclosed by <paramref name="enclosings"/> are not splitted.
-    /// </summary>
-    /// <param name="text"></param>
-    /// <param name="sep"></param>
-    /// <param name="enclosings"></param>
-    /// <returns></returns>
-    //[DebuggerStepThrough]
-    public static string[] SplitBy(this string text, char sep, (char open, char close)[] enclosings)
+  [DebuggerStepThrough]
+  public static string ToLowerFirst(this string text)
+  {
+    if (string.IsNullOrEmpty(text))
+      return text;
+    var ss = text.ToCharArray();
+    ss[0] = char.ToLower(ss[0]);
+    return new string(ss);
+  }
+
+  public static string TrimParens(this string text, (char open, char close)[]? enclosings = null)
+  {
+    return TrimEnclosings(text, '(', ')', enclosings);
+  }
+
+  public static string TrimEnclosings(this string text, char openParen, char closeParen, (char open, char close)[]? enclosings = null)
+  {
+    if (text.StartsWith(new String(openParen, 1)) && text.EndsWith(new String(closeParen, 1)))
     {
-      List<string> result = new List<string>();
-      int priorStart = 0;
+      if (enclosings == null)
+        return text.Substring(1, text.Length - 2).Trim();
+
       int i;
+      string? openParens = null;
       for (i = 0; i < text.Length; i++)
       {
-        char ch = text[i];
-        (char ch1, char ch2) = enclosings.FirstOrDefault(item => item.open == ch);
+        var ch = text[i];
+        (var ch1, var ch2) = enclosings.FirstOrDefault(item => item.open == ch);
         if (ch1 != '\0')
         {
+          if (ch1 == openParen)
+            openParens += ch1;
           i = FindMatch(text, i, ch1, enclosings);
-          if (i == text.Length)
-            break;
+          if (openParens == new string(openParen, 1) && i == text.Length - 1) return text.Substring(1, text.Length - 2).Trim();
         }
-        else if (ch == sep)
+        else if (ch == closeParen && i == text.Length - 1)
         {
-          result.Add(text.Substring(priorStart, i - priorStart));
-          priorStart = i + 1;
+          return text.Substring(1, text.Length - 2).Trim();
         }
       }
-      if (i > priorStart)
+    }
+    return text.Trim();
+  }
+
+  [DebuggerStepThrough]
+  public static string TrimDblQuotes(this string text)
+  {
+    if (text.Length >= 2 && text.StartsWith("\"") && text.EndsWith("\""))
+      return text.Substring(1, text.Length - 2);
+    return text;
+  }
+
+  /// <summary>
+  ///   Splits a text by <paramref name="sep" /> character.
+  ///   Fragments enclosed by <paramref name="enclosings" /> are not splitted.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="sep"></param>
+  /// <param name="enclosings"></param>
+  /// <returns></returns>
+  //[DebuggerStepThrough]
+  public static string[] SplitBy(this string text, char sep, (char open, char close)[] enclosings)
+  {
+    var result = new List<string>();
+    var priorStart = 0;
+    int i;
+    for (i = 0; i < text.Length; i++)
+    {
+      var ch = text[i];
+      (var ch1, var ch2) = enclosings.FirstOrDefault(item => item.open == ch);
+      if (ch1 != '\0')
+      {
+        i = FindMatch(text, i, ch1, enclosings);
+        if (i == text.Length)
+          break;
+      }
+      else if (ch == sep)
       {
         result.Add(text.Substring(priorStart, i - priorStart));
+        priorStart = i + 1;
       }
-      return result.ToArray();
     }
+    if (i > priorStart) result.Add(text.Substring(priorStart, i - priorStart));
+    return result.ToArray();
+  }
 
-    /// <summary>
-    /// Searches a text from <paramref name="startNdx"/> position for a <paramref name="sep"/> character.
-    /// If not found then length of text is returned;
-    /// </summary>
-    /// <param name="text"></param>
-    /// <param name="startNdx"></param>
-    /// <param name="sep"></param>
-    /// <param name="enclosings"></param>
-    /// <returns></returns>
-    //[DebuggerStepThrough]
-    public static int Find(this string text, int startNdx, char sep, (char open, char close)[] enclosings)
+  /// <summary>
+  ///   Searches a text from <paramref name="startNdx" /> position for a <paramref name="sep" /> character.
+  ///   If not found then length of text is returned;
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="startNdx"></param>
+  /// <param name="sep"></param>
+  /// <param name="enclosings"></param>
+  /// <returns></returns>
+  //[DebuggerStepThrough]
+  public static int Find(this string text, int startNdx, char sep, (char open, char close)[] enclosings)
+  {
+    for (var i = startNdx + 1; i < text.Length; i++)
     {
-      for (int i = startNdx + 1; i < text.Length; i++)
+      var ch = text[i];
+      if (ch == sep)
+        return i;
+      (var ch1, var ch2) = enclosings.FirstOrDefault(item => item.open == ch);
+      if (ch1 != '\0') i = FindMatch(text, i, ch1, enclosings);
+    }
+    return text.Length;
+  }
+
+  /// <summary>
+  ///   Searches a text from <paramref name="startNdx" /> position for a pair of <paramref name="openingSep" /> character.
+  ///   If not found then length of text is returned;
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="startNdx"></param>
+  /// <param name="openingSep"></param>
+  /// <param name="enclosings"></param>
+  /// <returns></returns>
+  //[DebuggerStepThrough]
+  public static int FindMatch(this string text, int startNdx, char openingSep, (char open, char close)[] enclosings)
+  {
+    (var c1, var c2) = enclosings.FirstOrDefault(item => item.open == openingSep);
+    var closingSep = c2;
+
+    for (var i = startNdx + 1; i < text.Length; i++)
+    {
+      var ch = text[i];
+      if (ch == closingSep)
+        return i;
+      (var ch1, var ch2) = enclosings.FirstOrDefault(item => item.open == ch);
+      if (ch1 != '\0') i = FindMatch(text, i, ch1, enclosings);
+    }
+    return text.Length;
+  }
+
+  [DebuggerStepThrough]
+  public static string SubstringUntil(this string text, char ch, int index)
+  {
+    var result = text.Substring(index);
+    index = result.IndexOf(ch);
+    if (index > 0)
+      result = result.Substring(0, index);
+    return result;
+  }
+
+  /// <summary>
+  ///   Split text with delimiter omitting quotes
+  /// </summary>
+  [DebuggerStepThrough]
+  public static string[] SplitSpecial(this string text, char delimiter, (char Open, char Close)[] bracesTuples = null!)
+  {
+    var result = new List<string>();
+    var sb = new StringBuilder();
+    var inQuotes = false;
+    if (bracesTuples == null)
+      bracesTuples = DefaultBraces;
+    for (var i = 0; i < text.Length; i++)
+    {
+      var ch = text[i];
+      if (ch == '"')
+        inQuotes = !inQuotes;
+      if (inQuotes)
       {
-        char ch = text[i];
-        if (ch == sep)
-          return i;
-        (char ch1, char ch2) = enclosings.FirstOrDefault(item => item.open == ch);
-        if (ch1 != '\0')
+        sb.Append(ch);
+      }
+      else
+      {
+        var foundTuple = bracesTuples.FirstOrDefault(tuple => tuple.Open == ch);
+        if (foundTuple != default)
         {
-          i = FindMatch(text, i, ch1, enclosings);
-        }
-      }
-      return text.Length;
-    }
-
-    /// <summary>
-    /// Searches a text from <paramref name="startNdx"/> position for a pair of <paramref name="openingSep"/> character.
-    /// If not found then length of text is returned;
-    /// </summary>
-    /// <param name="text"></param>
-    /// <param name="startNdx"></param>
-    /// <param name="openingSep"></param>
-    /// <param name="enclosings"></param>
-    /// <returns></returns>
-    //[DebuggerStepThrough]
-    public static int FindMatch(this string text, int startNdx, char openingSep, (char open, char close)[] enclosings)
-    {
-      (char c1, char c2) = enclosings.FirstOrDefault(item => item.open == openingSep);
-      var closingSep = c2;
-
-      for (int i = startNdx + 1; i < text.Length; i++)
-      {
-        char ch = text[i];
-        if (ch == closingSep)
-          return i;
-        (char ch1, char ch2) = enclosings.FirstOrDefault(item => item.open == ch);
-        if (ch1 != '\0')
-        {
-          i = FindMatch(text, i, ch1, enclosings);
-        }
-      }
-      return text.Length;
-    }
-
-    [DebuggerStepThrough]
-    public static string SubstringUntil(this string text, char ch, int index)
-    {
-      var result = text.Substring(index);
-      index = result.IndexOf(ch);
-      if (index > 0)
-        result = result.Substring(0, index);
-      return result;
-    }
-
-    private static (char open, char close)[] DefaultBraces = new (char open, char close)[]
-    {
-      ( '(', ')' ),
-      ( '[', ']' ),
-      ( '{', '}' ),
-    };
-
-    /// <summary>
-    /// Split text with delimiter omitting quotes
-    /// </summary>
-    [DebuggerStepThrough]
-    public static string[] SplitSpecial(this string text, char delimiter, (char Open,char Close)[] bracesTuples = null!)
-    {
-      var result = new List<string>();
-      StringBuilder sb = new StringBuilder();
-      bool inQuotes = false;
-      if (bracesTuples==null)
-        bracesTuples = DefaultBraces;
-      for (int i = 0; i < text.Length; i++)
-      {
-        char ch = text[i];
-        if (ch == '"')
-          inQuotes = !inQuotes;
-        if (inQuotes)
+          var endbrace = foundTuple.Close;
           sb.Append(ch);
+          i++;
+          var embedStr = text.SubstringUntil(endbrace, i, out var endPos);
+          sb.Append(embedStr);
+          if (endPos < text.Length)
+            sb.Append(endbrace);
+          i = endPos;
+        }
         else
         {
-          (char Open, char Close) foundTuple = bracesTuples.FirstOrDefault(tuple => tuple.Open == ch);
-          if (foundTuple != default)
+          if (ch == delimiter)
           {
-            var endbrace = foundTuple.Close;
-            sb.Append(ch);
-            i++;
-            var embedStr = text.SubstringUntil(endbrace, i, out var endPos);
-            sb.Append(embedStr);
-            if (endPos < text.Length)
-              sb.Append(endbrace);
-            i = endPos;
+            result.Add(sb.ToString());
+            sb.Clear();
           }
           else
           {
-            if (ch == delimiter)
-            {
-              result.Add(sb.ToString());
-              sb.Clear();
-            }
-            else
-              sb.Append(ch);
+            sb.Append(ch);
           }
         }
       }
-      if (sb.Length > 0)
-        result.Add(sb.ToString());
-      return result.ToArray();
     }
+    if (sb.Length > 0)
+      result.Add(sb.ToString());
+    return result.ToArray();
+  }
 
-    [DebuggerStepThrough]
-    public static string SubstringUntil(this string text, char delimiter, int startPos, out int endPos)
+  [DebuggerStepThrough]
+  public static string SubstringUntil(this string text, char delimiter, int startPos, out int endPos)
+  {
+    for (var i = startPos; i < text.Length; i++)
     {
-      for (int i = startPos; i < text.Length; i++)
+      var ch = text[i];
+      if (ch == delimiter)
       {
-        char ch = text[i];
-        if (ch == delimiter)
-        {
-          endPos = i;
-          return text.Substring(startPos, i - startPos);
-        }
+        endPos = i;
+        return text.Substring(startPos, i - startPos);
       }
-      endPos = text.Length;
-      return text.Substring(startPos);
     }
+    endPos = text.Length;
+    return text.Substring(startPos);
+  }
 
-    public static int FindEndOfSentence(this string text, int startPos, string[] abbreviations)
+  public static int FindEndOfSentence(this string text, int startPos, string[] abbreviations)
+  {
+    var ndx = text.IndexOf('.', startPos);
+    while (ndx >= 0)
     {
-      int ndx = text.IndexOf('.', startPos);
-      while (ndx >= 0)
+      var foundAbbr = false;
+      var ndx2 = -1;
+      foreach (var abbr in abbreviations)
       {
-        bool foundAbbr = false;
-        var ndx2 = -1;
-        foreach (var abbr in abbreviations)
+        var dotPos = abbr.IndexOf('.');
+        if (dotPos < 0)
+          return ndx;
+        var abbrPart = " " + abbr.Substring(0, dotPos);
+        if (text.ContainsBefore(abbrPart, ndx))
         {
-          var dotPos = abbr.IndexOf('.');
-          if (dotPos<0)
-            return ndx;
-          var abbrPart = " " + abbr.Substring(0, dotPos);
-          if (text.ContainsBefore(abbrPart, ndx))
+          if (dotPos == abbr.Length - 1)
           {
-            if (dotPos == abbr.Length-1)
+            foundAbbr = true;
+            ndx2 = text.IndexOf('.', ndx + 1);
+            if (ndx2 >= 0)
+              break;
+          }
+          else
+          {
+            abbrPart = abbr.Substring(dotPos);
+            if (text.ContainsAt(abbrPart, ndx))
             {
               foundAbbr = true;
-              ndx2 = text.IndexOf('.', ndx+1);
+              ndx2 = text.IndexOf('.', ndx + abbrPart.Length);
               if (ndx2 >= 0)
                 break;
             }
-            else
-            {
-              abbrPart = abbr.Substring(dotPos);
-              if (text.ContainsAt(abbrPart, ndx))
-              {
-                foundAbbr = true;
-                ndx2 = text.IndexOf('.', ndx+abbrPart.Length);
-                if (ndx2 >= 0)
-                  break;
-              }
-            }
           }
-          if (foundAbbr)
-            break;
-          if (ndx2 > ndx)
-            ndx = ndx2;
         }
-        if (!foundAbbr)
-          return ndx;
-        else
-        if (ndx2>ndx)
+        if (foundAbbr)
+          break;
+        if (ndx2 > ndx)
           ndx = ndx2;
-        else
-          return ndx;
-          
       }
-      return -1;
+      if (!foundAbbr)
+        return ndx;
+      if (ndx2 > ndx)
+        ndx = ndx2;
+      else
+        return ndx;
     }
+    return -1;
+  }
 
+  public static string ReplaceStart(this string text, string startText, string replaceText)
+  {
+    if (text.StartsWith(startText))
+      return replaceText + text.Substring(startText.Length);
+    return text;
+  }
+
+  public static string ReplaceStart(this string text, string startText, string replaceText, StringComparison comparisonType)
+  {
+    if (text.StartsWith(startText, comparisonType))
+      return replaceText + text.Substring(startText.Length);
+    return text;
+  }
+
+  public static string ReplaceEnd(this string text, string endText, string replaceText)
+  {
+    if (text.EndsWith(endText))
+      return text.Substring(0, text.Length - endText.Length) + replaceText;
+    return text;
+  }
+
+  public static string ReplaceEnd(this string text, string endText, string replaceText, StringComparison comparisonType)
+  {
+    if (text.EndsWith(endText, comparisonType))
+      return text.Substring(0, text.Length - endText.Length) + replaceText;
+    return text;
   }
 }
