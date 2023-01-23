@@ -4,14 +4,26 @@ using System.Linq;
 
 namespace Qhta.TextUtils
 {
+  /// <summary>
+  /// Comparer for inverted strings.
+  /// </summary>
   public class StringATergoComparer : IComparer<String>, IEqualityComparer<String>
   {
     HashSet<int> hashes = new HashSet<int>();
 
-    public int Compare(String x, String y)
+    /// <summary>
+    /// Main compare method
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public int Compare(String? x, String? y)
     {
-      x = x.Reverse().ToString();
-      y = y.Reverse().ToString();
+      if (x == null)
+        return (y == null) ? 0 : -1;
+      if (y == null) return 1;
+      x = x.Reverse().ToString()??"";
+      y = y.Reverse().ToString()??"";
       int result = x.CompareTo(y);
       if (result == 0)
         return 1;
@@ -19,12 +31,25 @@ namespace Qhta.TextUtils
         return result;
     }
 
-    public bool Equals(string x, string y)
+    /// <summary>
+    /// Equality comparer never shows true.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public bool Equals(string? x, string? y)
     {
       throw new NotImplementedException();
     }
 
-    public int GetHashCode(string obj)
+    /// <summary>
+    /// GetHashCode metod. Required when Equals defined.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public int GetHashCode(string? obj)
     {
       if (obj is string)
       {

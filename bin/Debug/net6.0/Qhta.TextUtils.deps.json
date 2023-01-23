@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Qhta.TextUtils/3.0": {
+        "runtime": {
+          "Qhta.TextUtils.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.TextUtils/3.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

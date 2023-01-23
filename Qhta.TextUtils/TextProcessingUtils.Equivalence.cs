@@ -2,8 +2,14 @@
 
 namespace Qhta.TextUtils
 {
+  /// <summary>
+  /// Equivalence of Unicode chars.
+  /// </summary>
   public static partial class CharEquivalence
   {
+    /// <summary>
+    /// Replacement of Unicode characters to Latin text.
+    /// </summary>
     public static Dictionary<char, string> Equivalence = new Dictionary<char, string>
     {
       { ' ', " " },

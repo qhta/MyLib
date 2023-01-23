@@ -7,6 +7,9 @@
   {
     static DuplicateAllowingCompararer<string> instance = new DuplicateAllowingCompararer<string>();
 
+    /// <summary>
+    /// Singular instance.
+    /// </summary>
     public static DuplicateAllowingCompararer<string> Instance
     {
       get

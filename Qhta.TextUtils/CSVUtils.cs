@@ -2,8 +2,17 @@
 
 namespace Qhta.TextUtils
 {
+  /// <summary>
+  /// Utilities to process CSV files
+  /// </summary>
   public static class CSVUtils
   {
+    /// <summary>
+    /// Split a line of CSV file into parts.
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="sep"></param>
+    /// <returns></returns>
     public static string[] SplitCSV(this string str, char sep)
     {
       List<string> result = new List<string>();

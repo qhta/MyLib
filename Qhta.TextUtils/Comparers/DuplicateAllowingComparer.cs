@@ -11,8 +11,16 @@ namespace Qhta.TextUtils
   {
     HashSet<int> hashes = new HashSet<int>();
 
-    public int Compare(T x, T y)
+    /// <summary>
+    /// Main comparison method
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public int Compare(T? x, T? y)
     {
+      if (x is null)
+        return (y is null) ? 1 : -1;
       int result = x.CompareTo(y);
       if (result == 0)
         return 1;
@@ -20,11 +28,23 @@ namespace Qhta.TextUtils
         return result;
     }
 
-    public bool Equals(T x, T y)
+    /// <summary>
+    /// Equality comparer newer shows true.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(T? x, T? y)
     {
       return false;
     }
 
+    /// <summary>
+    /// GetHashCode metod. Required when Equals defined.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
     public int GetHashCode(T obj)
     {
       if (obj is string str)

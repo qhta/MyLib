@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Qhta.TextUtils;
 
+/// <summary>
+/// A bunch of string utility methods
+/// </summary>
 public static class StringUtils
 {
   private static readonly (char open, char close)[] DefaultBraces =
@@ -16,6 +19,11 @@ public static class StringUtils
     ('{', '}')
   };
 
+  /// <summary>
+  /// Change string to title case. First letter tu upper, rest to lower case.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public static string TitleCase(this string str)
   {
     var chars = str.ToCharArray();
@@ -27,6 +35,11 @@ public static class StringUtils
     return new string(chars);
   }
 
+  /// <summary>
+  /// Change first letter of each word to upper, rest to lower case.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public static string CamelCase(this string str)
   {
     var ss = str.Split(' ');
@@ -35,6 +48,11 @@ public static class StringUtils
     return string.Join("", ss);
   }
 
+  /// <summary>
+  /// Split camel-case string to array of words.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public static string[] SplitCamelCase(this string str)
   {
     var ss = new List<string>();
@@ -59,6 +77,11 @@ public static class StringUtils
     return ss.ToArray();
   }
 
+  /// <summary>
+  /// Split camel-case string to words.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public static string DeCamelCase(this string str)
   {
     var ss = str.SplitCamelCase();
@@ -73,6 +96,11 @@ public static class StringUtils
     return string.Join(" ", ss);
   }
 
+  /// <summary>
+  /// Changes a number to literal text using whole part and a rational fraction part.
+  /// </summary>
+  /// <param name="number"></param>
+  /// <returns></returns>
   public static string NumberToText(this double number)
   {
     var intPart = (Int64)number;
@@ -87,11 +115,21 @@ public static class StringUtils
     return result;
   }
 
+  /// <summary>
+  /// Changes a number to literal text.
+  /// </summary>
+  /// <param name="number"></param>
+  /// <returns></returns>
   public static string NumberToText(this int number)
   {
     return NumberToText((Int64)number);
   }
 
+  /// <summary>
+  /// Changes a number to literal text.
+  /// </summary>
+  /// <param name="number"></param>
+  /// <returns></returns>
   public static string NumberToText(this Int64 number)
   {
     if (number == 0)
@@ -167,16 +205,35 @@ public static class StringUtils
     return words;
   }
 
+  /// <summary>
+  /// Precedes a string with a prefix when string is not null.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="prefix"></param>
+  /// <returns></returns>
   public static string? Precede(this string str, string prefix)
   {
     return str != null ? prefix + str : null;
   }
 
+  /// <summary>
+  /// Attach a suffix to a string if string is not null.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="suffix"></param>
+  /// <returns></returns>
   public static string? Attach(this string str, string suffix)
   {
     return str != null ? str + suffix : null;
   }
 
+  /// <summary>
+  /// Checks if a string contains a substring at a specified position.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="substring"></param>
+  /// <param name="atIndex"></param>
+  /// <returns></returns>
   public static bool ContainsAt(this string str, string substring, int atIndex)
   {
     if (atIndex + substring.Length > str.Length)
@@ -184,6 +241,14 @@ public static class StringUtils
     return str.Substring(atIndex, substring.Length).Equals(substring);
   }
 
+  /// <summary>
+  /// Checks if a string contains a substring at a specified position using a specified comparison.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="substring"></param>
+  /// <param name="atIndex"></param>
+  /// <param name="comparison"></param>
+  /// <returns></returns>
   public static bool ContainsAt(this string str, string substring, int atIndex, StringComparison comparison)
   {
     if (atIndex + substring.Length > str.Length)
@@ -191,6 +256,13 @@ public static class StringUtils
     return str.Substring(atIndex, substring.Length).Equals(substring, comparison);
   }
 
+  /// <summary>
+  /// Checks if a string ends with a substring at a specified position
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="substring"></param>
+  /// <param name="atIndex"></param>
+  /// <returns></returns>
   public static bool ContainsBefore(this string str, string substring, int atIndex)
   {
     if (atIndex - substring.Length < 0)
@@ -198,6 +270,14 @@ public static class StringUtils
     return str.Substring(atIndex - substring.Length, substring.Length).Equals(substring);
   }
 
+  /// <summary>
+  /// Checks if a string contains a substring at a specified position using explicit comparison using a specified comparison.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="substring"></param>
+  /// <param name="atIndex"></param>
+  /// <param name="comparison"></param>
+  /// <returns></returns>
   public static bool ContainsBefore(this string str, string substring, int atIndex, StringComparison comparison)
   {
     if (atIndex - substring.Length < 0)
@@ -205,6 +285,11 @@ public static class StringUtils
     return str.Substring(atIndex - substring.Length, substring.Length).Equals(substring, comparison);
   }
 
+  /// <summary>
+  /// Checks if a string contains only upper-case letters.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   [DebuggerStepThrough]
   public static bool IsUpper(this string str)
   {
@@ -359,6 +444,14 @@ public static class StringUtils
     return false;
   }
 
+  /// <summary>
+  /// Checks if a key text starts or ends with a number..
+  /// </summary>
+  /// <param name="key">Checked text</param>
+  /// <param name="pattern">Pattern text containing '#' ad the beginning or end. The rest is a literal pattern</param>
+  /// <param name="wildKey">Literal text detected by pattern</param>
+  /// <param name="wildNum">Number parsed from the wildKey</param>
+  /// <returns></returns>
   public static bool IsLikeNumber(this string key, string pattern, out string? wildKey, out int wildNum)
   {
     if (pattern.EndsWith("#") && pattern.StartsWith("#"))
@@ -397,6 +490,11 @@ public static class StringUtils
     return false;
   }
 
+  /// <summary>
+  /// Check if URL is valid. Uses Regex.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
   public static bool IsValidUrl(this string text)
   {
     if (text == null)
@@ -406,6 +504,11 @@ public static class StringUtils
     return rx.IsMatch(text);
   }
 
+  /// <summary>
+  /// Changes the first letter to uppercase. All others unchanged.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
   [DebuggerStepThrough]
   public static string ToUpperFirst(this string text)
   {
@@ -416,6 +519,11 @@ public static class StringUtils
     return new string(ss);
   }
 
+  /// <summary>
+  /// Changes the first letter to lowercase. All others unchanged.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
   [DebuggerStepThrough]
   public static string ToLowerFirst(this string text)
   {
@@ -426,11 +534,25 @@ public static class StringUtils
     return new string(ss);
   }
 
+  /// <summary>
+  /// Trims parentheses enclosing the text.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="enclosings"></param>
+  /// <returns></returns>
   public static string TrimParens(this string text, (char open, char close)[]? enclosings = null)
   {
     return TrimEnclosings(text, '(', ')', enclosings);
   }
 
+  /// <summary>
+  /// Changes enclosing parens. Omits included enclosings.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="openParen"></param>
+  /// <param name="closeParen"></param>
+  /// <param name="enclosings"></param>
+  /// <returns></returns>
   public static string TrimEnclosings(this string text, char openParen, char closeParen, (char open, char close)[]? enclosings = null)
   {
     if (text.StartsWith(new String(openParen, 1)) && text.EndsWith(new String(closeParen, 1)))
@@ -460,6 +582,11 @@ public static class StringUtils
     return text.Trim();
   }
 
+  /// <summary>
+  /// Trim double quote characters enclosing the text.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
   [DebuggerStepThrough]
   public static string TrimDblQuotes(this string text)
   {
@@ -551,6 +678,13 @@ public static class StringUtils
     return text.Length;
   }
 
+  /// <summary>
+  /// Gets a substring at a specified position until a specified delimiter is found.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="ch"></param>
+  /// <param name="index"></param>
+  /// <returns></returns>
   [DebuggerStepThrough]
   public static string SubstringUntil(this string text, char ch, int index)
   {
@@ -614,6 +748,14 @@ public static class StringUtils
     return result.ToArray();
   }
 
+  /// <summary>
+  /// Gets a substring between start and end positions, but untils a specified delimiter is found.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="delimiter"></param>
+  /// <param name="startPos"></param>
+  /// <param name="endPos"></param>
+  /// <returns></returns>
   [DebuggerStepThrough]
   public static string SubstringUntil(this string text, char delimiter, int startPos, out int endPos)
   {
@@ -630,6 +772,13 @@ public static class StringUtils
     return text.Substring(startPos);
   }
 
+  /// <summary>
+  /// Find a position of the end of the sentence using dot position which does not ends amy known abbreviation.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="startPos"></param>
+  /// <param name="abbreviations"></param>
+  /// <returns></returns>
   public static int FindEndOfSentence(this string text, int startPos, string[] abbreviations)
   {
     var ndx = text.IndexOf('.', startPos);
@@ -679,6 +828,13 @@ public static class StringUtils
     return -1;
   }
 
+  /// <summary>
+  /// Replaces the beginning of the string when it starts with a specified text.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="startText"></param>
+  /// <param name="replaceText"></param>
+  /// <returns></returns>
   public static string ReplaceStart(this string text, string startText, string replaceText)
   {
     if (text.StartsWith(startText))
@@ -686,6 +842,14 @@ public static class StringUtils
     return text;
   }
 
+  /// <summary>
+  /// Replaces the beginning of the string when it starts with a specified text. Uses a specific string comparison.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="startText"></param>
+  /// <param name="replaceText"></param>
+  /// <param name="comparisonType"></param>
+  /// <returns></returns>
   public static string ReplaceStart(this string text, string startText, string replaceText, StringComparison comparisonType)
   {
     if (text.StartsWith(startText, comparisonType))
@@ -693,6 +857,13 @@ public static class StringUtils
     return text;
   }
 
+  /// <summary>
+  /// Replaces the end of the string when it ends with a specified text.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="endText"></param>
+  /// <param name="replaceText"></param>
+  /// <returns></returns>
   public static string ReplaceEnd(this string text, string endText, string replaceText)
   {
     if (text.EndsWith(endText))
@@ -700,10 +871,35 @@ public static class StringUtils
     return text;
   }
 
+  /// <summary>
+  /// eplaces the end of the string when it ends with a specified text. Uses a specified string comparison.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <param name="endText"></param>
+  /// <param name="replaceText"></param>
+  /// <param name="comparisonType"></param>
+  /// <returns></returns>
   public static string ReplaceEnd(this string text, string endText, string replaceText, StringComparison comparisonType)
   {
     if (text.EndsWith(endText, comparisonType))
       return text.Substring(0, text.Length - endText.Length) + replaceText;
     return text;
+  }
+
+  /// <summary>
+  /// Concatenates two strings with a separator between them.
+  /// If any of both is empty of null - the other is returned.
+  /// </summary>
+  /// <param name="text1"></param>
+  /// <param name="separator"></param>
+  /// <param name="text2"></param>
+  /// <returns></returns>
+  public static string? Concat2(this string? text1, string separator, string? text2)
+  {
+    if (String.IsNullOrEmpty(text1))
+      return text2;
+    if (String.IsNullOrEmpty(text2))
+      return text1;
+    return text1 + separator + text2;
   }
 }

@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace Qhta.TextUtils
 {
+  /// <summary>
+  /// A list of methods operating on list of strings.
+  /// </summary>
   public static class StringListUtils
   {
 
+    /// <summary>
+    /// Finds a string in a list.
+    /// </summary>
+    /// <param name="aList"></param>
+    /// <param name="s"></param>
+    /// <param name="comparison"></param>
+    /// <returns></returns>
     public static int IndexOf(this List<string> aList, string s, StringComparison comparison = StringComparison.CurrentCulture)
     {
       for (int i = 0; i < aList.Count; i++)
@@ -18,7 +28,7 @@ namespace Qhta.TextUtils
     }
 
     /// <summary>
-    /// Sprawdza czy obie listy są sobie równe albo czy obie zawierają te same elementy w różnej kolejności
+    /// Checks whether both lists are equal or both contain the same elements in different order.
     /// </summary>
     public static bool IsEqualOrMixed(this List<string> aList, List<string> bList, StringComparison comparison = StringComparison.CurrentCulture)
     {
@@ -36,7 +46,7 @@ namespace Qhta.TextUtils
     }
 
     /// <summary>
-    /// Sprawdza, na których pozycjach lista pierwsza zawiera elementy nie występujące na liście drugiej
+    /// Checks in which positions the first list contains elements not found in the second list.
     /// </summary>
     public static int[] FindInclusions(this List<string> aList, List<string> bList, StringComparison comparison = StringComparison.CurrentCulture)
     {

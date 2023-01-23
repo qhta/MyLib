@@ -5,8 +5,12 @@ using System.Text;
 
 namespace Qhta.TextUtils
 {
+  /// <summary>
+  /// Definitions of Unicode characters blocks (not categories).
+  /// </summary>
   public enum UnicodeBlock
   {
+#pragma warning disable CS1591
     Unknown,
     BasicLatin,
     Latin1Supplement,
@@ -316,24 +320,53 @@ namespace Qhta.TextUtils
     VariationSelectorsSupplement,
     SupplementaryPrivateUseAreaA,
     SupplementaryPrivateUseAreaB,
+#pragma warning restore
   }
 
+  /// <summary>
+  /// A definition of Unicode characters block.
+  /// </summary>
   public class UnicodeBlockDef
   {
+    /// <summary>
+    /// Lowest character code.
+    /// </summary>
     public uint From;
+    /// <summary>
+    /// Highest character code.
+    /// </summary>
     public uint To;
+    /// <summary>
+    /// Name of the character block.
+    /// </summary>
     public string Name = string.Empty;
   }
 
+  /// <summary>
+  /// Text span with recognized Unicode characters block.
+  /// </summary>
   public class UnicodeBlockSpan
   {
+    /// <summary>
+    /// Recognized Unicode character block
+    /// </summary>
     public UnicodeBlock Block;
+    /// <summary>
+    /// Text within a block.
+    /// </summary>
     public string Text = string.Empty;
   }
 
+  /// <summary>
+  /// A list of Unicode-based handy methods.
+  /// </summary>
   public static class UnicodeUtils
   {
-
+    /// <summary>
+    /// Splits text to blocks of same script substrings.
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static UnicodeBlockSpan[] SplitToScripts(this string str)
     {
       var spans = new List<UnicodeBlockSpan>();
@@ -366,20 +399,30 @@ namespace Qhta.TextUtils
       return spans.ToArray();
     }
 
+    /// <summary>
+    /// Gets a UnicodeBlock of a specified character.
+    /// </summary>
+    /// <param name="ch"></param>
+    /// <returns></returns>
     public static UnicodeBlock GetUnicodeBlock(char ch)
     {
       int code = (int)ch;
       return GetUnicodeBlock(code);
     }
 
+    /// <summary>
+    /// Gets a UnicodeBlock from UnicodeBlockDefinitions for a specific character code.
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
     public static UnicodeBlock GetUnicodeBlock(int code)
     {
       return UnicodeBlockDefinitions.FirstOrDefault(item => item.Value.From <= code && item.Value.To >= code).Key;
     }
 
-
-
-
+    /// <summary>
+    /// Definitions of UnicodeBLocks with ranges of character codes.
+    /// </summary>
     public static Dictionary<UnicodeBlock, UnicodeBlockDef> UnicodeBlockDefinitions = new Dictionary<UnicodeBlock, UnicodeBlockDef>
     {
       { UnicodeBlock.BasicLatin, new UnicodeBlockDef{ From=0x0000, To=0x007F, Name="Basic Latin"} },
