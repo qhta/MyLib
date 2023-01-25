@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "GtyDuB2Kl4Xz0MX2XFq5+o9VidIGQNwYs0ml50oxuhIBM0bIfPlTFS4CN7oA+RLHYMRKogHZxnBJunSDqNO/ZA==",
+  "dgSpecHash": "b/r/jRJ1IASRjFuRWWvm3xur8QV5g38ryz3Id+mAB6DWsXhOPPeU+MSCnVke374Jyg8BYBsXOdFk9XY7x1ZHnQ==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.configuration.configurationmanager\\7.0.0\\system.configuration.configurationmanager.7.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\1.0.0\\qhta.collections.1.0.0.nupkg.sha512"
   ],
   "logs": []

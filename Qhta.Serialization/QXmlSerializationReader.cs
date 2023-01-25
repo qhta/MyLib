@@ -235,7 +235,7 @@ public class QXmlSerializationReader : IXmlConverterReader
     int propsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
     {
-      if (Reader.Name == "Char")
+      if (Reader.Name == "HeadingPairs")
         TestTools.Stop();
       var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
       bool isEmptyElement = Reader.IsEmptyElement;

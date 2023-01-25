@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
 using System.Security.AccessControl;
 using System.Xml;
 using Qhta.TypeUtils;
@@ -265,13 +266,46 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
     if (InternalTypeConverter == null)
     {
       if (expectedType != null && expectedType != typeof(object))
+      {
+        if (TryGetTypeConverter(expectedType, out var converter))
+        {
+          InternalTypeConverter = converter;
+          return;
+        }
         throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
+      }
       if (xsdType != null)
         throw new InvalidOperationException($"TypeConverter for xsdType={xsdType} not found");
       InternalTypeConverter = new StringTypeConverter();
     }
   }
 
+  private bool TryGetTypeConverter(Type expectedType, out TypeConverter? converter)
+  {
+    if (registeredTypeConverters.TryGetValue(expectedType, out converter))
+      return true;
+    var typeConverterAttrib = expectedType.GetCustomAttribute<System.ComponentModel.TypeConverterAttribute>();
+    if (typeConverterAttrib != null)
+    {
+      var converterTypeName = typeConverterAttrib.ConverterTypeName;
+      if (converterTypeName != null)
+      {
+        var converterType = Type.GetType(converterTypeName);
+        if (converterType != null)
+        {
+          converter = (TypeConverter?)converterType.GetConstructor(new Type[0])?.Invoke(null);
+          if (converter != null)
+          {
+            registeredTypeConverters.Add(expectedType, converter);
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private static Dictionary<Type, TypeConverter> registeredTypeConverters = new();
   private StringTypeConverter CreateStringTypeConverter(XsdSimpleType? xsdType, string? format, CultureInfo? culture,
     ConversionOptions? options)
   {
