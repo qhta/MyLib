@@ -675,7 +675,7 @@ public class XmlSerializationInfoMapper
         if (converter == null)
           throw new InternalException($"Type converter \"{converterTypeName}\" not found");
         if (!(converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string))))
-          throw new InternalException($"Type converter \"{converterTypeName}\" not found");
+          throw new InternalException($"Type converter \"{converterTypeName}\" can not convert to or from string");
         TypeConverters.Add(converterTypeName, converter);
       }
       return converter;
@@ -877,13 +877,7 @@ public class XmlSerializationInfoMapper
 
   protected TypeConverter? FindTypeConverter(string typeName)
   {
-    //var type = Assembly.GetExecutingAssembly().GetType(typeName);
-    //if (type == null)
-    //  type = Assembly.GetCallingAssembly().GetType(typeName);
-    //if (type == null)
-    //  type = Assembly.GetEntryAssembly()?.GetType(typeName);
     var type = Type.GetType(typeName);
-    //      FindType(typeName);
     if (type != null)
       return CreateTypeConverter(type);
     return null;

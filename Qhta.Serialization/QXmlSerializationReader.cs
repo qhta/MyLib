@@ -1,5 +1,7 @@
 ﻿//#define TraceReader
 
+using System.Reflection;
+
 using Qhta.Conversion;
 
 namespace Qhta.Xml.Serialization;
@@ -128,7 +130,7 @@ public class QXmlSerializationReader : IXmlConverterReader
       {
         var n = ReadElementsBase(context, typeInfo);
         if (n == 0)
-          ReadTextMemberValue(context, typeInfo.TextProperty);
+          ReadTextMemberValue(context, typeInfo.TextProperty ?? typeInfo.ContentProperty);
       }
     }
     result = context;
@@ -235,36 +237,39 @@ public class QXmlSerializationReader : IXmlConverterReader
     int propsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
     {
-      if (Reader.Name == "HeadingPairs")
-        TestTools.Stop();
+      //if (Reader.Name == "HeadingPairs")
+      //  TestTools.Stop();
       var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
       bool isEmptyElement = Reader.IsEmptyElement;
-      var propertyToRead = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
-      if (propertyToRead != null)
+      var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
+      if (memberInfo != null)
       {
         object? propValue = null;
-        Type propType = propertyToRead.MemberType ?? typeof(Object);
-        if (propertyToRead.XmlConverter?.CanRead == true)
+        Type propType = memberInfo.MemberType ?? typeof(Object);
+        if (memberInfo.XmlConverter?.CanRead == true)
         {
-          propValue = propertyToRead.XmlConverter.ReadXml(context, this, typeInfo, propertyToRead, null);
+          propValue = memberInfo.XmlConverter.ReadXml(context, this, typeInfo, memberInfo, null);
         }
         else
         {
+          var contentInfo = memberInfo.ContentInfo ?? memberInfo.ValueType?.ContentInfo ?? typeInfo.ContentInfo;
+          if (contentInfo != null)
+            Debug.Assert (true);
           if (propType.IsClass && propType != typeof(string))
           {
-            if (propertyToRead.ContentInfo != null)
-              ReadAndAddElementAsCollectionMember(context, propertyToRead, propertyToRead.ContentInfo);
+            if (contentInfo != null)
+              ReadAndAddElementAsCollectionMember(context, memberInfo, contentInfo);
             else
             {
-              propValue = ReadElementAsMember(context, propertyToRead);
+              propValue = ReadElementAsMember(context, memberInfo);
             }
           }
           else
-            propValue = ReadElementAsMember(context, propertyToRead);
+            propValue = ReadElementAsMember(context, memberInfo);
         }
         if (propValue != null)
         {
-          SetValue(context, propertyToRead, propValue);
+          SetValue(context, memberInfo, propValue);
           propsRead++;
         }
       }
@@ -373,6 +378,11 @@ public class QXmlSerializationReader : IXmlConverterReader
     }
     return propsRead;
   }
+
+  //public object? ReadElementAsContentProperty(object context, SerializationMemberInfo memberInfo, SerializationTypeInfo objectTypeInfo)
+  //{
+
+  //}
 
   public object? ReadElementAsContent(object context, SerializationMemberInfo memberInfo, SerializationTypeInfo objectTypeInfo)
   {

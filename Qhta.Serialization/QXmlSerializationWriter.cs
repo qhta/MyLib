@@ -1,4 +1,6 @@
-﻿using Qhta.Conversion;
+﻿using System.ComponentModel;
+
+using Qhta.Conversion;
 
 namespace Qhta.Xml.Serialization;
 
@@ -158,87 +160,76 @@ public class QXmlSerializationWriter
           if (defaultValue is int iv && iv == 0 && (int)propValue == 0)
             continue;
         }
-
-        if (!String.IsNullOrEmpty(propTag))
-          WriteStartElement(propTag);
-        //if (propValue is IXSerializable serializableValue)
-        //  serializableValue.Serialize(this, writer);
-        //else
+        else
         {
-          var pType = propValue.GetType();
-          KnownTypes.TryGetValue(pType, out var serializedTypeInfo);
-          if (memberInfo.ContentInfo != null)
-          {
-            WriteCollectionBase(null, null, propValue as IEnumerable, memberInfo.ValueType);
-          }
-          else if (memberInfo.ValueType?.ContentInfo != null)
-          {
-            WriteCollectionBase(null, null, propValue as IEnumerable, memberInfo.ValueType);
-          }
-          else if (pType.IsSimple())
-          {
-            if (memberInfo.TypeConverter != null)
+          if (!String.IsNullOrEmpty(propTag))
+            WriteStartElement(propTag);
+            var pType = propValue.GetType();
+            KnownTypes.TryGetValue(pType, out var serializedTypeInfo);
+            if (pType.IsSimple())
+            {
+              if (memberInfo.TypeConverter != null)
+                WriteValue(ConvertMemberValueToString(memberInfo, propValue));
+              else
+                WriteValue(propValue);
+            }
+            else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
+            {
               WriteValue(ConvertMemberValueToString(memberInfo, propValue));
+            }
+            else if (memberInfo.IsReference)
+            {
+              WriteValue(ConvertMemberValueToString(memberInfo, propValue));
+            }
             else
-              WriteValue(propValue);
-          }
-          else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
-          {
-            WriteValue(ConvertMemberValueToString(memberInfo, propValue));
-          }
-          else if (memberInfo.IsReference)
-          {
-            WriteValue(ConvertMemberValueToString(memberInfo, propValue));
-          }
-          else
-          {
-            WriteObject(propValue);
-          }
-          //else if (propValue is ICollection collection)
-          //{
-          //  var arrayInfo = prop.CollectionInfo;
-          //  foreach (var arrayItem in collection)
-          //  {
-          //    if (arrayItem != null)
-          //    {
-          //      var itemType = arrayItem.GetType();
-          //      //SerializationTypeInfo? itemTypeInfo;
-          //      string? itemName = null;
-          //      if (arrayInfo != null)
-          //      {
+            {
+              WriteObject(propValue);
+            }
+            //else if (propValue is ICollection collection)
+            //{
+            //  var arrayInfo = prop.CollectionInfo;
+            //  foreach (var arrayItem in collection)
+            //  {
+            //    if (arrayItem != null)
+            //    {
+            //      var itemType = arrayItem.GetType();
+            //      //SerializationTypeInfo? itemTypeInfo;
+            //      string? itemName = null;
+            //      if (arrayInfo != null)
+            //      {
 
-          //        var itemTypeInfoPair = arrayInfo.KnownItemTypes.FindTypeInfo(itemType);
-          //        if (itemTypeInfoPair != null)
-          //        {
-          //          //itemTypeInfo = itemTypeInfoPair.TypeInfo;
-          //          itemName = itemTypeInfoPair.ElementName;
-          //        }
-          //      }
+            //        var itemTypeInfoPair = arrayInfo.KnownItemTypes.FindTypeInfo(itemType);
+            //        if (itemTypeInfoPair != null)
+            //        {
+            //          //itemTypeInfo = itemTypeInfoPair.TypeInfo;
+            //          itemName = itemTypeInfoPair.ElementName;
+            //        }
+            //      }
 
-          //      if (itemName == null)
-          //        itemName = arrayItem.GetType().Name;
-          //      WriteStartElement(itemName);
-          //      if (arrayItem.GetType().Name == "SwitchCase")
-          //        TestUtils.Stop();
-          //      WriteObjectInterior(itemName, arrayItem);
-          //      WriteEndElement(itemName);
-          //    }
-          //  }
-          //}
-          //else
-          //{
-          //  WriteValue(ConvertMemberValueToString(memberInfo, propValue));
-          //}
+            //      if (itemName == null)
+            //        itemName = arrayItem.GetType().Name;
+            //      WriteStartElement(itemName);
+            //      if (arrayItem.GetType().Name == "SwitchCase")
+            //        TestUtils.Stop();
+            //      WriteObjectInterior(itemName, arrayItem);
+            //      WriteEndElement(itemName);
+            //    }
+            //  }
+            //}
+            //else
+            //{
+            //  WriteValue(ConvertMemberValueToString(memberInfo, propValue));
+            //}         
+          if (!String.IsNullOrEmpty(propTag))
+            WriteEndElement(propTag);
         }
-        if (!String.IsNullOrEmpty(propTag))
-          WriteEndElement(propTag);
         propsWritten++;
       }
     }
     return propsWritten;
   }
 
-  public int WriteContentProperty(object Context, string? elementTag, string? propTag, SerializationMemberInfo contentMemberInfo,
+  public int WriteContentProperty(object? Context, string? elementTag, string? propTag, SerializationMemberInfo contentMemberInfo,
     SerializationTypeInfo typeInfo)
   {
     if (contentMemberInfo.CanWrite && typeInfo.ContentInfo != null)
