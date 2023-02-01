@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>Enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="INamedInfo.cs" />
+    <Compile Remove="ITypeNameInfo.cs" />
+    <Compile Remove="IXmlConverterReader.cs" />
+    <Compile Remove="IXmlConverterWriter.cs" />
+    <Compile Remove="IXSerializable.cs" />
+    <Compile Remove="IXSerializer.cs" />
+    <Compile Remove="IXWriter.cs" />
+    <Compile Remove="QualifiedName.cs" />
+    <Compile Remove="QualifiedNameTypeConverter.cs" />
+    <Compile Remove="XmlTypeConverterAttribute.cs" />
+  </ItemGroup>
+
+</Project>

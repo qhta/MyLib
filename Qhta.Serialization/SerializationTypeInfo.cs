@@ -33,7 +33,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// <summary>
   ///   Converter to read/write XML.
   /// </summary>
-  public XmlConverter? XmlConverter { get; set; }
+  public IXmlConverter? XmlConverter { get; set; }
 
   /// <summary>
   ///   Known properties to serialize as XML attributes.

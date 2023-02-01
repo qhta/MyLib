@@ -3,32 +3,20 @@
 using System.Reflection;
 
 using Qhta.Conversion;
+using Qhta.TypeUtils;
 
 namespace Qhta.Xml.Serialization;
 
 public delegate void OnUnknownMember(object readObject, string elementName);
 
-public class QXmlSerializationReader : IXmlConverterReader
+public partial class QXmlSerializer : IXmlConverterReader
 {
-  public QXmlSerializationReader(XmlReader xmlReader, QXmlSerializerSettings settings)
-  {
-    this.Reader = xmlReader;
-    Mapper = settings.Mapper;
-    Options = settings.Options;
-    XmlWriterSettings = settings.XmlWriterSettings;
-  }
-
-  public XmlSerializationInfoMapper Mapper { get; private set; }
-
-  public string? DefaultNamespace => Mapper.DefaultNamespace;
-
-  public SerializationOptions Options { get; private set; }
-
-  public XmlWriterSettings XmlWriterSettings { get; private set; }
+  public XmlReaderSettings XmlReaderSettings { get; } = new() { IgnoreWhitespace = true };
 
   public XmlSerializerNamespaces Namespaces { get; private set; } = new();
 
-  public XmlReader Reader { get; private set; }
+  XmlReader IXmlConverterReader.Reader => Reader;
+  public QXmlReader Reader { get; private set; } = null!;
 
   #region Mapping methods
   public bool TryGetTypeInfo(Type type, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
@@ -63,7 +51,7 @@ public class QXmlSerializationReader : IXmlConverterReader
 
   #region Deserialize methods
 
-  public object? ReadObject()
+  public object? ReadObject(object? context = null)
   {
     SkipToElement();
     if (Reader.EOF)
@@ -73,7 +61,8 @@ public class QXmlSerializationReader : IXmlConverterReader
     var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
     if (!TryGetTypeInfo(qualifiedName, out typeInfo))
       throw new XmlInternalException($"Element {qualifiedName} not recognized while deserialization.", Reader);
-
+    if (typeInfo.Type.IsSimple())
+      return ReadElementWithKnownTypeInfo(context, typeInfo);
     var constructor = typeInfo.KnownConstructor;
     if (constructor == null)
       throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", Reader);
@@ -130,7 +119,11 @@ public class QXmlSerializationReader : IXmlConverterReader
       {
         var n = ReadElementsBase(context, typeInfo);
         if (n == 0)
-          ReadTextMemberValue(context, typeInfo.TextProperty ?? typeInfo.ContentProperty);
+        {
+          var textMemberInfo = typeInfo.TextProperty ?? typeInfo.ContentProperty;
+          if (textMemberInfo != null)
+            ReadTextMember(context, textMemberInfo);
+        }
       }
     }
     result = context;
@@ -172,13 +165,10 @@ public class QXmlSerializationReader : IXmlConverterReader
             {
               Reader.ReadAttributeValue();
               var str = Reader.ReadContentAsString();
-              if (Reader is XmlTextReader xmlTextReader)
-              {
-                if (str == "preserve")
-                  xmlTextReader.WhitespaceHandling = WhitespaceHandling.Significant;
-                else
-                  xmlTextReader.WhitespaceHandling = WhitespaceHandling.None;
-              }
+              if (str == "preserve")
+                Reader.WhitespaceHandling = WhitespaceHandling.Significant;
+              else
+                Reader.WhitespaceHandling = WhitespaceHandling.None;
             }
             Reader.MoveToNextAttribute();
             continue;
@@ -209,8 +199,8 @@ public class QXmlSerializationReader : IXmlConverterReader
         {
           try
           {
-            if (propValue.GetType().Name == "VariantType")
-              TestTools.Stop();
+            //if (propValue.GetType().Name == "VariantType")
+            //  TestTools.Stop();
             propertyToRead.SetValue(context, propValue);
           }
           catch (Exception ex)
@@ -253,8 +243,6 @@ public class QXmlSerializationReader : IXmlConverterReader
         else
         {
           var contentInfo = memberInfo.ContentInfo ?? memberInfo.ValueType?.ContentInfo ?? typeInfo.ContentInfo;
-          if (contentInfo != null)
-            Debug.Assert (true);
           if (propType.IsClass && propType != typeof(string))
           {
             if (contentInfo != null)
@@ -471,7 +459,7 @@ public class QXmlSerializationReader : IXmlConverterReader
 #endif
     object? result = null;
     if (typeInfo.XmlConverter?.CanRead == true)
-      result = typeInfo.XmlConverter.ReadXml(context, this, typeInfo, null, null);
+      result = typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, null);
     else
     {
       if (typeInfo.Type == typeof(object))
@@ -540,8 +528,6 @@ public class QXmlSerializationReader : IXmlConverterReader
       else
       {
         var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
-        if (qualifiedName.Name == "Vector")
-          TestTools.Stop();
         if (TryGetTypeInfo(qualifiedName, out var foundTypeInfo) && foundTypeInfo != null)
           typeInfo = foundTypeInfo;
         result = ReadObject();
@@ -580,7 +566,7 @@ public class QXmlSerializationReader : IXmlConverterReader
     {
       var n = ReadElementsBase(context, typeInfo);
       if (n == 0)
-        ReadTextMemberValue(context, memberInfo);
+        ReadTextMember(context, memberInfo);
       if (Reader.NodeType == XmlNodeType.EndElement)
         Reader.Read();
     }
@@ -636,7 +622,7 @@ public class QXmlSerializationReader : IXmlConverterReader
     return result;
   }
 
-  public object? ReadElementWithKnownTypeInfo(object context, SerializationTypeInfo typeInfo)
+  public object? ReadElementWithKnownTypeInfo(object? context, SerializationTypeInfo typeInfo)
   {
 #if TraceReader
     Debug.WriteLine($"begin ReadElementWithKnownTypeInfo({context}) at <{Reader.Name}>");
@@ -644,7 +630,7 @@ public class QXmlSerializationReader : IXmlConverterReader
 #endif
     object? result = null;
     if (typeInfo.XmlConverter?.CanRead == true)
-      return typeInfo.XmlConverter.ReadXml(context, this, typeInfo, null, null);
+      return typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, null);
     if (typeInfo.KnownConstructor == null)
     {
       if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte))
@@ -686,11 +672,11 @@ public class QXmlSerializationReader : IXmlConverterReader
     //  TestTools.Stop();
     var typeInfo = itemTypeInfo.TypeInfo;
     if (typeInfo.XmlConverter?.CanRead == true)
-      return typeInfo.XmlConverter.ReadXml(context, this, typeInfo, null, itemTypeInfo);
+      return typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, null);
     if (typeInfo.KnownConstructor == null)
     {
-      if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte) 
-          || typeInfo.Type.GetInterface("IConvertible")!=null)
+      if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte)
+          || typeInfo.Type.GetInterface("IConvertible") != null)
       {
         if (Reader.IsEmptyElement)
         {
@@ -1113,56 +1099,49 @@ public class QXmlSerializationReader : IXmlConverterReader
     return itemsRead;
   }
 
-  public object? ReadTextMemberValue(object context, SerializationMemberInfo? memberInfo)
+  public void ReadTextMember(object context, SerializationMemberInfo memberInfo)
   {
-    if (Reader.NodeType == XmlNodeType.Text)
+    object? propValue = ReadValue(context, memberInfo);
+    if (propValue != null)
     {
-      //var aType = obj.GetType();
-      //if (!KnownTypes.TryGetValue(aType, out var typeInfo))
-      //  throw new XmlInternalException($"Unknown type {aType.Name} on deserialize", reader);
-      //memberInfo = typeInfo.TextProperty;
-      if (memberInfo != null)
-      {
-        var value = ReadValue(context, memberInfo);
-        return value;
-      }
-      else
-      {
-        var str = Reader.ReadString();
-        if (str != null)
-          str = str.DecodeStringValue();
-        return str;
-      }
+      SetValue(context, memberInfo, propValue);
     }
-    return null;
-    //throw new XmlInternalException($"Text node expected on deserialize", reader);
   }
 
 
-  public object? ReadValue(object context, SerializationMemberInfo serializationMemberInfo)
+  public object? ReadValue(object? context, SerializationMemberInfo serializationMemberInfo)
   {
     var propType = serializationMemberInfo.MemberType;
     if (propType == null)
       return null;
     var typeConverter = serializationMemberInfo.GetTypeConverter();
-    return ReadValue(context, propType, typeConverter, serializationMemberInfo);
+    var propValue = ReadValue(context, propType, typeConverter, serializationMemberInfo);
+    return propValue;
   }
 
-  public object? ReadValue(object context, Type expectedType, TypeConverter? typeConverter, SerializationMemberInfo? memberInfo)
+  public object? ReadValue(object? context, Type expectedType, TypeConverter? typeConverter, SerializationMemberInfo? memberInfo)
   {
     if (Reader.NodeType == XmlNodeType.None)
       return null;
-    var str = Reader.ReadContentAsString();
-    str = str.DecodeStringValue();
     object? propValue = null;
     if (expectedType.Name.StartsWith("Nullable`1"))
       expectedType = expectedType.GetGenericArguments()[0];
-    // insert typeconverter invocation
+    if (typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(expectedType))
+    {
+      propValue = xmlConverter.ReadXml(context, Reader, expectedType, null, this);
+      return propValue;
+    }
+    var str = Reader.ReadContentAsString();
+    str = str.DecodeStringValue();
+
     if (expectedType == typeof(string))
       propValue = str;
     else if (typeConverter != null)
     {
-      propValue = typeConverter.ConvertFromInvariantString(new TypeDescriptorContext(context, memberInfo?.Property), str);
+      if (context != null)
+        propValue = typeConverter.ConvertFromInvariantString(new TypeDescriptorContext(context, memberInfo?.Property), str);
+      else
+        propValue = typeConverter.ConvertFromInvariantString(null, str);
       return propValue;
     }
     else if (expectedType == typeof(char))
@@ -1193,7 +1172,10 @@ public class QXmlSerializationReader : IXmlConverterReader
         default:
           if (typeConverter != null)
           {
-            propValue = typeConverter.ConvertFromInvariantString(new TypeDescriptorContext(context, memberInfo?.Property), str);
+            if (context != null)
+              propValue = typeConverter.ConvertFromInvariantString(new TypeDescriptorContext(context, memberInfo?.Property), str);
+            else
+              propValue = typeConverter.ConvertFromInvariantString(null, str);
             break;
           }
           throw new XmlInternalException($"Cannot convert \"{str}\" to boolean value", Reader);
@@ -1322,11 +1304,11 @@ public class QXmlSerializationReader : IXmlConverterReader
   {
     //if (memberInfo.XmlName == "PropertyId")
     //  TestTools.Stop();
-    if (value!=null)
+    if (value != null)
     {
       var expectedType = memberInfo.MemberType;
       var valueType = value.GetType();
-      if (valueType != expectedType && expectedType!=null)
+      if (valueType != expectedType && expectedType != null)
       {
         var typeConverter = memberInfo.TypeConverter;
         if (typeConverter == null && expectedType.IsSimple())

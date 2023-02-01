@@ -14,7 +14,10 @@
 
   <ItemGroup>
     <Compile Remove="BaseSerializer.cs" />
+    <Compile Remove="IXmlConverter.cs" />
     <Compile Remove="IXmlSerializer.cs" />
+    <Compile Remove="IXSerializable.cs" />
+    <Compile Remove="IXSerializer.cs" />
     <Compile Remove="QXmlSerializer.Deserialization.cs" />
     <Compile Remove="QXmlSerializer.Serialization.cs" />
     <Compile Remove="XmlSerializer - Copy.base.cs" />
@@ -35,7 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
     <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
-    <ProjectReference Include="..\Qhta.Xml.Serialization.Attributes\Qhta.Xml.Serialization.Attributes.csproj" />
+    <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 
   <ItemGroup>

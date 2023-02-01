@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Reflection;
+using System.Runtime.Serialization;
 using Qhta.Conversion;
 
 namespace Qhta.Xml.Serialization;
@@ -182,8 +183,10 @@ public class XmlSerializationInfoMapper
     SearchShouldSerializeMethods(aType, typeInfo);
 
     //typeInfo.KnownItemTypes = GetKnownItems(aType);
-    typeInfo.XmlConverter = GetXmlConverter(aType);
     typeInfo.TypeConverter = GetTypeConverter(aType);
+    if (typeInfo.TypeConverter is IXmlConverter xmlConverter)
+      typeInfo.XmlConverter = xmlConverter;
+    else typeInfo.XmlConverter = GetXmlConverter(aType);
     typeInfo.KnownSubtypes = GetKnownTypes(aType);
   }
 
@@ -197,9 +200,7 @@ public class XmlSerializationInfoMapper
     if (!members.Any())
       return;
     typeInfo.ContentProperty = GetContentProperty(aType);
-    if (typeInfo.ContentProperty != null)
-      typeInfo.ContentInfo = CreateCollectionInfo(aType);
-    else
+    if (typeInfo.ContentProperty == null)
       typeInfo.TextProperty = GetTextProperty(aType);
 
     var attrCount = 0;
@@ -422,9 +423,6 @@ public class XmlSerializationInfoMapper
     var converterTypeName = memberInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
     if (converterTypeName != null)
       serializationMemberInfo.TypeConverter = FindTypeConverter(converterTypeName);
-    var converterType = memberInfo.GetCustomAttribute<XmlTypeConverterAttribute>()?.ConverterType;
-    if (converterType != null)
-      serializationMemberInfo.TypeConverter = CreateTypeConverter(converterType);
     var xmlDataFormat = memberInfo.GetCustomAttribute<XmlDataFormatAttribute>();
     if (xmlDataFormat != null)
     {
@@ -480,11 +478,14 @@ public class XmlSerializationInfoMapper
     if (contentPropertyAttrib != null)
     {
       var contentPropertyName = contentPropertyAttrib.Name;
-      var contentProperty = aType.GetProperty(contentPropertyName);
-      if (contentProperty == null)
+      var memberInfo = aType.GetProperty(contentPropertyName);
+      if (memberInfo == null)
         throw new InternalException($"Content property \"{contentPropertyName}\" in {aType.Name} not found");
-      var contentPropertyInfo = new SerializationMemberInfo(contentPropertyName, contentProperty);
-      contentPropertyInfo.ValueType = RegisterType(contentProperty.PropertyType);
+      var contentPropertyInfo = new SerializationMemberInfo(contentPropertyName, memberInfo);
+      contentPropertyInfo.ValueType = RegisterType(memberInfo.PropertyType);
+      var converterTypeName = memberInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
+      if (converterTypeName != null)
+        contentPropertyInfo.TypeConverter = FindTypeConverter(converterTypeName);
       return contentPropertyInfo;
     }
     return null;
@@ -663,6 +664,8 @@ public class XmlSerializationInfoMapper
   /// </exception>
   public TypeConverter? GetTypeConverter(Type aType)
   {
+    if (aType.Name == "VectorVariant")
+      Debug.Assert(true);
     var typeConverterAttribute = aType.GetCustomAttribute<TypeConverterAttribute>();
     if (typeConverterAttribute != null)
     {
@@ -892,13 +895,13 @@ public class XmlSerializationInfoMapper
         .FirstOrDefault(t => t.FullName?.Equals(fullName) == true);
   }
 
-  protected TypeConverter? CreateTypeConverter(Type type)
+  protected TypeConverter? CreateTypeConverter(Type converterType)
   {
-    if (!type.IsSubclassOf(typeof(TypeConverter)))
-      throw new InternalException($"Declared type converter \"{type.Name}\" must be a subclass of {typeof(TypeConverter).FullName}");
-    var constructor = type.GetConstructor(new Type[0]);
+    if (!converterType.IsSubclassOf(typeof(TypeConverter)))
+      throw new InternalException($"Declared type converter \"{converterType.Name}\" must be a subclass of {typeof(TypeConverter).FullName}");
+    var constructor = converterType.GetConstructor(new Type[0]);
     if (constructor == null)
-      throw new InternalException($"Declared type converter \"{type.Name}\" must have a public parameterless constructor");
+      throw new InternalException($"Declared type converter \"{converterType.Name}\" must have a public parameterless constructor");
     return constructor.Invoke(null) as TypeConverter;
   }
 

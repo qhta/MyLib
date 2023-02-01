@@ -445,14 +445,14 @@
           "bin/placeholder/Qhta.TestHelper.dll": {}
         }
       },
-      "Qhta.Xml.Serialization.Attributes/1.0.0": {
+      "Qhta.Xml/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "compile": {
-          "bin/placeholder/Qhta.Xml.Serialization.Attributes.dll": {}
+          "bin/placeholder/Qhta.Xml.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Qhta.Xml.Serialization.Attributes.dll": {}
+          "bin/placeholder/Qhta.Xml.dll": {}
         }
       }
     }
@@ -1754,17 +1754,17 @@
       "path": "../Qhta.TestHelper/Qhta.TestHelper.csproj",
       "msbuildProject": "../Qhta.TestHelper/Qhta.TestHelper.csproj"
     },
-    "Qhta.Xml.Serialization.Attributes/1.0.0": {
+    "Qhta.Xml/1.0.0": {
       "type": "project",
-      "path": "../Qhta.Xml.Serialization.Attributes/Qhta.Xml.Serialization.Attributes.csproj",
-      "msbuildProject": "../Qhta.Xml.Serialization.Attributes/Qhta.Xml.Serialization.Attributes.csproj"
+      "path": "../Qhta.Xml/Qhta.Xml.csproj",
+      "msbuildProject": "../Qhta.Xml/Qhta.Xml.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Qhta.Conversion >= 1.0.0",
       "Qhta.TestHelper >= 1.0.0",
-      "Qhta.Xml.Serialization.Attributes >= 1.0.0",
+      "Qhta.Xml >= 1.0.0",
       "System.CodeDom >= 7.0.0",
       "System.Collections.Specialized >= 4.3.0",
       "System.Security.Permissions >= 7.0.0"
@@ -1808,8 +1808,8 @@
             "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
             },
-            "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization.Attributes\\Qhta.Xml.Serialization.Attributes.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization.Attributes\\Qhta.Xml.Serialization.Attributes.csproj"
+            "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
             }
           }
         }

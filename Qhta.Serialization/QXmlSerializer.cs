@@ -1,6 +1,8 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿using System.Xml;
 
-public class QXmlSerializer
+namespace Qhta.Xml.Serialization;
+
+public partial class QXmlSerializer: IXmlSerializer
 {
   private static volatile XmlSerializerNamespaces? s_defaultNamespaces;
 
@@ -114,11 +116,6 @@ public class QXmlSerializer
 
   public static XmlSerializationInfoMapper Mapper { get; protected set; } = null!;
 
-
-  public XmlWriterSettings XmlWriterSettings { get; } = new() { Indent = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
-
-  public XmlReaderSettings XmlReaderSettings { get; } = new() { IgnoreWhitespace = true };
-
   protected static XmlSerializerNamespaces DefaultNamespaces
   {
     get
@@ -180,15 +177,6 @@ public class QXmlSerializer
     return Mapper.RegisterType(aType);
   }
 
-  //protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
-  //  string? location)
-  //{
-  //}
-
-  //protected void Init(XmlTypeMapping xmlTypeMapping)
-  //{
-  //}
-
   public void Serialize(TextWriter textWriter, object? o)
   {
     var xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings);
@@ -209,13 +197,12 @@ public class QXmlSerializer
   /// <summary>
   ///   Main serialization entry
   /// </summary>
-  protected void SerializeObject(XmlWriter xmlWriter, object? obj)
+  public void SerializeObject(XmlWriter xmlWriter, object? obj)
   {
     if (obj == null)
       return;
-    var qxmlSerializerSettings = new QXmlSerializerSettings(Mapper, Options, XmlWriterSettings, XmlReaderSettings);
-    var writer = new QXmlSerializationWriter(xmlWriter, qxmlSerializerSettings);
-    writer.WriteObject(obj);
+    Writer = new QXmlWriter(xmlWriter);
+    WriteObject(obj);
     xmlWriter.Flush();
   }
 
@@ -243,38 +230,37 @@ public class QXmlSerializer
   /// <summary>
   ///   Main deserialization entry
   /// </summary>
-  protected object? DeserializeObject(XmlReader xmlReader)
+  public object? DeserializeObject(XmlReader xmlReader)
   {
-    var qxmlSerializerSettings = new QXmlSerializerSettings(Mapper, Options, XmlWriterSettings, XmlReaderSettings);
-    var reader = new QXmlSerializationReader(xmlReader, qxmlSerializerSettings);
-    return reader.ReadObject();
+    Reader = new QXmlReader(xmlReader);
+    return ReadObject();
   }
 
 
   //public partial bool CanDeserialize(XmlReader xmlReader);
 
 
-  public event XmlNodeEventHandler UnknownNode
-  {
-    add => _events.OnUnknownNode += value;
-    remove => _events.OnUnknownNode -= value;
-  }
+  //public event XmlNodeEventHandler UnknownNode
+  //{
+  //  add => _events.OnUnknownNode += value;
+  //  remove => _events.OnUnknownNode -= value;
+  //}
 
-  public event XmlAttributeEventHandler UnknownAttribute
-  {
-    add => _events.OnUnknownAttribute += value;
-    remove => _events.OnUnknownAttribute -= value;
-  }
+  //public event XmlAttributeEventHandler UnknownAttribute
+  //{
+  //  add => _events.OnUnknownAttribute += value;
+  //  remove => _events.OnUnknownAttribute -= value;
+  //}
 
-  public event XmlElementEventHandler UnknownElement
-  {
-    add => _events.OnUnknownElement += value;
-    remove => _events.OnUnknownElement -= value;
-  }
+  //public event XmlElementEventHandler UnknownElement
+  //{
+  //  add => _events.OnUnknownElement += value;
+  //  remove => _events.OnUnknownElement -= value;
+  //}
 
-  public event UnreferencedObjectEventHandler UnreferencedObject
-  {
-    add => _events.OnUnreferencedObject += value;
-    remove => _events.OnUnreferencedObject -= value;
-  }
+  //public event UnreferencedObjectEventHandler UnreferencedObject
+  //{
+  //  add => _events.OnUnreferencedObject += value;
+  //  remove => _events.OnUnreferencedObject -= value;
+  //}
 }

@@ -38,7 +38,7 @@ public class XmlAnyAttribute2Dictionary : XmlConverter
     return dict;
   }
 
-  public override void WriteXml(IXmlConverterWriter iWriter, object? value)
+  public override void WriteXml(object? context, IXmlWriter writer, object? value, IXmlSerializer? serializer)
   {
     throw new NotImplementedException();
   }
