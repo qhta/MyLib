@@ -131,9 +131,8 @@ public partial class QXmlSerializer
   public int WritePropertiesBase(string? elementTag, object obj, SerializationTypeInfo typeInfo)
   {
     var props = typeInfo.MembersAsElements;
-
     var propsWritten = 0;
-
+    ITypeDescriptorContext? typeDescriptorContext = new TypeDescriptorContext(obj);
     foreach (var memberInfo in props)
     {
       if (memberInfo.CheckMethod != null)
@@ -145,11 +144,10 @@ public partial class QXmlSerializer
       }
 
       var propTag = memberInfo.XmlName;
-
       if (Options?.PrecedePropertyNameWithClassName == true)
         propTag = elementTag + "." + propTag;
       var propValue = memberInfo.GetValue(obj);
-      propValue = memberInfo.GetTypeConverter()?.ConvertToInvariantString(propValue) ?? propValue;
+      propValue = memberInfo.GetTypeConverter()?.ConvertToInvariantString(typeDescriptorContext, propValue) ?? propValue;
       if (propValue == null)
       {
         if (Options?.UseNilValue == true && memberInfo.IsNullable)
@@ -240,24 +238,24 @@ public partial class QXmlSerializer
     return propsWritten;
   }
 
-  public int WriteContentProperty(object? Context, string? elementTag, string? propTag, SerializationMemberInfo contentMemberInfo,
+  public int WriteContentProperty(object? context, string? elementTag, string? propTag, SerializationMemberInfo contentMemberInfo,
     SerializationTypeInfo typeInfo)
   {
     if (typeInfo.ContentInfo != null)
-      return WriteCollectionContentProperty(Context, elementTag, propTag, contentMemberInfo, typeInfo.ContentInfo);
+      return WriteCollectionContentProperty(context, elementTag, propTag, contentMemberInfo, typeInfo.ContentInfo);
     if (contentMemberInfo.CanWrite)
     {
       var propInfo = contentMemberInfo.Property;
       if (propInfo != null)
       {
 
-        var value = propInfo.GetValue(Context, null);
+        var value = propInfo.GetValue(context, null);
         if (value != null)
         {
           var typeConverter = contentMemberInfo.GetTypeConverter();
           if (typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(value.GetType()))
           {
-            xmlConverter.WriteXml(Context, Writer, value, this);
+            xmlConverter.WriteXml(context, Writer, value, this);
           }
           else
           {
@@ -276,11 +274,13 @@ public partial class QXmlSerializer
             }
             else
             {
-              if (typeConverter != null)
+              ITypeDescriptorContext? typeDescriptorContext = (context != null) ? new TypeDescriptorContext(context) : null;
+              if (typeConverter != null && typeConverter.CanConvertTo(typeDescriptorContext, typeof(string)))
               {
                 if (!string.IsNullOrEmpty(propTag))
                   WriteStartElement(propTag);
-                //WriteValue(typeConverter.ConvertToString(value) ?? "");
+                var str = typeConverter.ConvertToInvariantString(typeDescriptorContext, value);
+                WriteValue(str);
                 if (!string.IsNullOrEmpty(propTag))
                   WriteEndElement(propTag);
               }

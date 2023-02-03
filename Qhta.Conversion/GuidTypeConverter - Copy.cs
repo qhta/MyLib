@@ -3,12 +3,12 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class GuidTypeConverter : GuidConverter, ITypeConverter
+public class DbNullTypeConverter : TypeConverter, ITypeConverter
 {
   /// <summary>
   ///   Do not change
   /// </summary>
-  public Type? ExpectedType { get; set; } = typeof(Guid);
+  public Type? ExpectedType { get; set; } = typeof(DBNull);
 
   /// <summary>
   ///   Do not change
@@ -29,20 +29,13 @@ public class GuidTypeConverter : GuidConverter, ITypeConverter
   {
     if (value == null)
       return null!;
-    if (value is Guid guid)
-      if (Format != null)
-        return guid.ToString(Format);
+    if (value is DBNull)
+      return null!;
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
-    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-    if (value == null)
-      return null;
-    if (value is String str)
-      if (str == string.Empty)
-        return null;
-    return base.ConvertFrom(context, culture, value);
+    return DBNull.Value;
   }
 }

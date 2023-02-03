@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Security.AccessControl;
@@ -272,6 +273,8 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
           InternalTypeConverter = converter;
           return;
         }
+        if (expectedType.IsConstructedGenericType)
+          return;
         throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
       }
       if (xsdType != null)
@@ -305,7 +308,11 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
     return false;
   }
 
-  private static Dictionary<Type, TypeConverter> registeredTypeConverters = new();
+  private static Dictionary<Type, TypeConverter> registeredTypeConverters = new()
+  {
+    { typeof(DBNull), new DbNullTypeConverter() },
+  };
+
   private StringTypeConverter CreateStringTypeConverter(XsdSimpleType? xsdType, string? format, CultureInfo? culture,
     ConversionOptions? options)
   {
