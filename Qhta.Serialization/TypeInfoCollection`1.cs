@@ -110,4 +110,7 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
   //{
   //  return Combine(BaseNamespace, TypeIndexedItems, NameIndexedItems);
   //}
+
+  public IEnumerable<Type> Keys => TypeIndexedItems.Keys;
+
 }

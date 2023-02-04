@@ -3,27 +3,15 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class GuidTypeConverter : GuidConverter, ITypeConverter
+public class GuidTypeConverter : BaseTypeConverter
 {
-  /// <summary>
-  ///   Do not change
-  /// </summary>
-  public Type? ExpectedType { get; set; } = typeof(Guid);
+  private GuidConverter Base = new GuidConverter();
 
-  /// <summary>
-  ///   Do not change
-  /// </summary>
-  public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.String;
-
-  /// <summary>
-  ///   Not used
-  /// </summary>
-  public string? Format { get; set; }
-
-  /// <summary>
-  ///   Not used
-  /// </summary>
-  public CultureInfo? Culture { get; set; }
+  public GuidTypeConverter()
+  {
+    ExpectedType = typeof(Guid);
+    XsdType = XsdSimpleType.String;
+  }
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
@@ -32,7 +20,7 @@ public class GuidTypeConverter : GuidConverter, ITypeConverter
     if (value is Guid guid)
       if (Format != null)
         return guid.ToString(Format);
-    return base.ConvertTo(context, culture, value, destinationType);
+    return Base.ConvertTo(context, culture, value, destinationType);
   }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
@@ -43,6 +31,6 @@ public class GuidTypeConverter : GuidConverter, ITypeConverter
     if (value is String str)
       if (str == string.Empty)
         return null;
-    return base.ConvertFrom(context, culture, value);
+    return Base.ConvertFrom(context, culture, value);
   }
 }

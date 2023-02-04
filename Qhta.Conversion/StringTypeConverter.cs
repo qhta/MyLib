@@ -6,8 +6,15 @@ using Qhta.Collections;
 
 namespace Qhta.Conversion;
 
-public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
+public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
 {
+  public StringConverter Base = new StringConverter();
+
+  public StringTypeConverter()
+  {
+    ExpectedType = typeof(string);
+  }
+
   protected WhitespaceBehavior _Whitespaces;
 
   protected XsdSimpleType? _XsdType;
@@ -47,12 +54,8 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
   public string[]? Patterns { get; set; }
   public string[]? Enumerations { get; set; }
   public bool CaseInsensitive { get; set; }
-  public string? Format { get; set; }
-  public CultureInfo? Culture { get; set; }
 
-  public Type? ExpectedType { get; set; } = typeof(string);
-
-  public XsdSimpleType? XsdType
+  public override XsdSimpleType? XsdType
   {
     get => _XsdType;
     set
@@ -142,7 +145,7 @@ public class StringTypeConverter : StringConverter, ITypeConverter, ILengthRestr
         return EncodeHtmlEntities(str);
       return str;
     }
-    return base.ConvertTo(context, culture, value, destinationType);
+    return Base.ConvertTo(context, culture, value, destinationType);
   }
 
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)

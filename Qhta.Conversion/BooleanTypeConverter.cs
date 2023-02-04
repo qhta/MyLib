@@ -3,8 +3,13 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrictions
+public class BooleanTypeConverter : BaseTypeConverter, ITextRestrictions
 {
+  public BooleanTypeConverter()
+  {
+    ExpectedType = typeof(Boolean);
+  }
+
   public (string, string)[] BooleanStrings { get; set; }
     = { ("True", "False"), ("1", "0"), ("on", "off") };
 
@@ -37,24 +42,6 @@ public class BooleanTypeConverter : TypeConverter, ITypeConverter, ITextRestrict
   }
 
   public bool CaseInsensitive { get; set; } = true;
-
-  /// <summary>
-  ///   Unused for this converter
-  /// </summary>
-  public string? Format { get; set; }
-
-  public CultureInfo? Culture { get; set; }
-
-  /// <summary>
-  ///   Always Boolean.
-  /// </summary>
-  public Type? ExpectedType
-  {
-    get => typeof(Boolean);
-    set { }
-  }
-
-  public XsdSimpleType? XsdType { get; set; }
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {

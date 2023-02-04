@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -8,7 +9,7 @@ using Qhta.TypeUtils;
 
 namespace Qhta.Conversion;
 
-public class ValueTypeConverter : TypeConverter, ITypeConverter
+public class ValueTypeConverter : BaseTypeConverter
 {
   public static readonly Dictionary<XsdSimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
   {
@@ -152,30 +153,24 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
   {
   }
 
-  public ValueTypeConverter(Type? expectedType, XsdSimpleType? xsdType = null, string? format =null, CultureInfo? culture = null,
+  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, XsdSimpleType? xsdType = null, string? format =null, CultureInfo? culture = null,
     ConversionOptions? options = null)
   {
-    Init(expectedType, xsdType, format, culture, options);
+    if (knownTypes != null)
+      KnownTypes = knownTypes.ToDictionary(type => type.FullName ?? "");
+    Init(expectedType, KnownTypes, xsdType, format, culture, options);
   }
 
   public TypeConverter? InternalTypeConverter { get; set; }
 
   public ConversionOptions? Options { get; set; }
 
-  public string? Format { get; set; }
-
-  public Type? ExpectedType { get; set; }
-
-  public XsdSimpleType? XsdType { get; set; }
-
-  public CultureInfo? Culture { get; set; }
-
   public void Init()
   {
-    Init(ExpectedType, XsdType, Format, Culture, Options);
+    Init(ExpectedType, KnownTypes, XsdType, Format, Culture, Options);
   }
 
-  public void Init(Type? expectedType, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
+  public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
   {
     if (expectedType?.IsNullable(out var baseType) == true)
       expectedType = baseType;
@@ -275,6 +270,12 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
         }
         if (expectedType.IsConstructedGenericType)
           return;
+        if (expectedType == typeof(Type))
+        {
+          if (knownTypes != null)
+            InternalTypeConverter = new TypeNameConverter(knownTypes);
+          return;
+        }
         throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
       }
       if (xsdType != null)
@@ -364,7 +365,7 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)
   {
     if (InternalTypeConverter == null)
-      Init(ExpectedType, XsdType, Format, Culture);
+      Init(ExpectedType, KnownTypes, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertTo(context, Culture, value, destinationType);
     return base.ConvertTo(context, Culture, value, destinationType);
@@ -373,7 +374,7 @@ public class ValueTypeConverter : TypeConverter, ITypeConverter
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (InternalTypeConverter == null)
-      Init(ExpectedType, XsdType, Format, Culture);
+      Init(ExpectedType, KnownTypes, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertFrom(context, Culture, value);
     return base.ConvertFrom(context, Culture, value);

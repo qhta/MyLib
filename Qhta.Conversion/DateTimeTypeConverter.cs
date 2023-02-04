@@ -3,8 +3,15 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class DateTimeTypeConverter : TypeConverter, ITypeConverter
+public class DateTimeTypeConverter : BaseTypeConverter
 {
+  public DateTimeTypeConverter()
+  {
+    ExpectedType = typeof(DateTime);
+    XsdType = XsdSimpleType.DateTime;
+
+  }
+
   /// <summary>
   ///   The character to insert between the date and time when serializing a DateTime value.
   /// </summary>
@@ -23,16 +30,6 @@ public class DateTimeTypeConverter : TypeConverter, ITypeConverter
   public DateTimeFormatInfo? FormatInfo { get; set; }
 
   public DateTimeStyles DateTimeStyle { get; set; }
-  public Type? ExpectedType { get; set; } = typeof(DateTime);
-
-  public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.DateTime;
-
-  /// <summary>
-  ///   Specifies format for ConvertTo method.
-  /// </summary>
-  public string? Format { get; set; }
-
-  public CultureInfo? Culture { get; set; }
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {

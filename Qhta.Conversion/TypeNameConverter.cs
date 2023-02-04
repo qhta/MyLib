@@ -4,13 +4,26 @@ using System.Xml;
 
 namespace Qhta.Conversion;
 
-public class XmlQualifiedNameTypeConverter : BaseTypeConverter
+public class TypeNameConverter: BaseTypeConverter
 {
-  public XmlQualifiedNameTypeConverter()
+  public TypeNameConverter()
   {
+  }
 
-    ExpectedType = typeof(XmlQualifiedName);
-    XsdType = XsdSimpleType.QName;
+  public TypeNameConverter(IEnumerable<Type> types)
+  {
+    if (KnownTypes == null)
+      KnownTypes = new();
+    foreach (var type in types)
+    {
+      if (type.FullName != null)
+        KnownTypes.Add(type.FullName, type);
+    }
+  }
+
+  public TypeNameConverter(Dictionary<string, Type> types)
+  {
+    KnownTypes = types;
   }
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
@@ -22,9 +35,8 @@ public class XmlQualifiedNameTypeConverter : BaseTypeConverter
   {
     if (value == null)
       return null;
-    if (value is XmlQualifiedName xmlQualifiedName)
-      if (destinationType == typeof(string))
-        return xmlQualifiedName.ToString();
+    if (value is Type type)
+      return type.FullName;
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
@@ -33,28 +45,18 @@ public class XmlQualifiedNameTypeConverter : BaseTypeConverter
     return sourceType == typeof(string);
   }
 
-  public new object? ConvertFrom(object value)
-  {
-    return ConvertFrom(null, null, value);
-  }
-
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
-    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
     if (value == null)
       return null;
     if (value is string str)
     {
-      if (str == String.Empty)
-        return null;
-
-      if (ExpectedType == typeof(XmlQualifiedName))
-      {
-        var ss = str.Split(':');
-        if (ss.Length == 2)
-          return new XmlQualifiedName(ss[1], ss[0]);
-        return new XmlQualifiedName(str);
-      }
+       if (str == String.Empty)
+         return null;
+       if (KnownTypes != null && KnownTypes.TryGetValue(str, out var type))
+         return type;
+       type = Type.GetType(str);
+       return type;
     }
     return base.ConvertFrom(context, culture, value);
   }

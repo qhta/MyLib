@@ -3,33 +3,15 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class AnyUriTypeConverter : UriTypeConverter, ITypeConverter
+public class AnyUriTypeConverter : BaseTypeConverter
 {
-  /// <summary>
-  ///   Do not change
-  /// </summary>
-  public Type? ExpectedType { get; set; } = typeof(Uri);
-
-  /// <summary>
-  ///   Do not change
-  /// </summary>
-  public XsdSimpleType? XsdType { get; set; } = XsdSimpleType.AnyUri;
-
-  /// <summary>
-  ///   Not used
-  /// </summary>
-  public string? Format { get; set; }
-
-  /// <summary>
-  ///   Not used
-  /// </summary>
-  public CultureInfo? Culture { get; set; }
+  private static UriTypeConverter Base = new UriTypeConverter();
 
   public override object ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
       return null!;
-    return base.ConvertTo(context, culture, value, destinationType);
+    return Base.ConvertTo(context, culture, value, destinationType);
   }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
@@ -37,6 +19,6 @@ public class AnyUriTypeConverter : UriTypeConverter, ITypeConverter
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
     if (value == null)
       return null;
-    return base.ConvertFrom(context, culture, value);
+    return Base.ConvertFrom(context, culture, value);
   }
 }

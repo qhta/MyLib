@@ -4,17 +4,12 @@ using Qhta.TypeUtils;
 
 namespace Qhta.Conversion;
 
-public class ArrayTypeConverter : TypeConverter, ITypeConverter, ILengthRestrictions
+public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
 {
   private ValueTypeConverter ItemConverter { get; } = new();
 
   public int? MinLength { get; set; }
   public int? MaxLength { get; set; }
-
-  public Type? ExpectedType { get; set; }
-  public XsdSimpleType? XsdType { get; set; }
-  public string? Format { get; set; }
-  public CultureInfo? Culture { get; set; }
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
@@ -36,7 +31,7 @@ public class ArrayTypeConverter : TypeConverter, ITypeConverter, ILengthRestrict
     if (xsdType == XsdSimpleType.Entities)
       xsdType = XsdSimpleType.Entity;
 
-    ItemConverter.Init(null, xsdType, Format, culture);
+    ItemConverter.Init(null, KnownTypes, xsdType, Format, culture);
 
     var list = new List<string?>();
     if (value is Array array)
@@ -70,7 +65,7 @@ public class ArrayTypeConverter : TypeConverter, ITypeConverter, ILengthRestrict
       if (ExpectedType != null && ExpectedType.IsArray(out var itemType))
         expectedType = itemType;
 
-      ItemConverter.Init(expectedType, xsdType, Format, culture);
+      ItemConverter.Init(expectedType, KnownTypes, xsdType, Format, culture);
 
       if (expectedType == null)
         expectedType = ItemConverter.ExpectedType;

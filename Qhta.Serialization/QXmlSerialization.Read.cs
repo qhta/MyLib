@@ -16,6 +16,7 @@ public partial class QXmlSerializer : IXmlConverterReader
   public XmlSerializerNamespaces Namespaces { get; private set; } = new();
 
   XmlReader IXmlConverterReader.Reader => Reader;
+
   public QXmlReader Reader { get; private set; } = null!;
 
   #region Mapping methods
@@ -1293,6 +1294,10 @@ public partial class QXmlSerializer : IXmlConverterReader
       else
         throw new XmlInternalException($"Array type converter not supported", Reader);
     }
+    else if (expectedType == typeof(Type))
+    {
+      propValue = new TypeNameConverter(KnownTypes.Keys).ConvertFrom(null, null, str);
+    }
     //else
     //  throw new XmlInternalException($"Value type \"{expectedType}\" not supported for deserialization", reader);
     return propValue;
@@ -1312,7 +1317,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       {
         var typeConverter = memberInfo.TypeConverter;
         if (typeConverter == null && expectedType.IsSimple())
-          typeConverter = new ValueTypeConverter(expectedType);
+          typeConverter = new ValueTypeConverter(expectedType, KnownTypes.Keys);
         var typeDescriptor = new TypeDescriptorContext(context);
         if (typeConverter?.CanConvertFrom(typeDescriptor, valueType) == true)
           value = typeConverter.ConvertFrom(typeDescriptor, null, value);

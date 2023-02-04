@@ -4,23 +4,17 @@ using System.Text;
 
 namespace Qhta.Conversion;
 
-public class GDateTypeConverter : TypeConverter, ITypeConverter
+public class GDateTypeConverter : BaseTypeConverter
 {
+  public GDateTypeConverter()
+  {
+    ExpectedType = typeof(GDate);
+  }
+
   /// <summary>
   ///   Specifies whether to add the time zone to day.
   /// </summary>
   public bool ShowTimeZone { get; set; }
-
-  public Type? ExpectedType { get; set; } = typeof(GDate);
-
-  public XsdSimpleType? XsdType { get; set; }
-
-  /// <summary>
-  ///   Not used
-  /// </summary>
-  public string? Format { get; set; }
-
-  public CultureInfo? Culture { get; set; }
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {

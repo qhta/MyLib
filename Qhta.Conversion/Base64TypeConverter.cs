@@ -3,13 +3,8 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class Base64TypeConverter : TypeConverter, ITypeConverter
+public class Base64TypeConverter : BaseTypeConverter
 {
-  public Type? ExpectedType { get; set; }
-  public XsdSimpleType? XsdType { get; set; }
-  public string? Format { get; set; }
-  public CultureInfo? Culture { get; set; }
-
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)

@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Qhta.Conversion;
 
-public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestrictions
+public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
 {
   private string? _Format;
   protected XsdSimpleType? _XsdType;
@@ -16,9 +16,8 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
   public double? MaxExclusive { get; set; }
   public double? MinInclusive { get; set; }
   public double? MaxInclusive { get; set; }
-  public Type? ExpectedType { get; set; }
 
-  public XsdSimpleType? XsdType
+  public override XsdSimpleType? XsdType
   {
     get => _XsdType;
     set
@@ -75,7 +74,7 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
     }
   }
 
-  public string? Format
+  public override string? Format
   {
     get => _Format;
     set
@@ -88,8 +87,6 @@ public class NumericTypeConverter : TypeConverter, ITypeConverter, INumberRestri
       }
     }
   }
-
-  public CultureInfo? Culture { get; set; }
 
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
