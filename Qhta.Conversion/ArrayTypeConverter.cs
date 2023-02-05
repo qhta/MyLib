@@ -6,6 +6,11 @@ namespace Qhta.Conversion;
 
 public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
 {
+  public ArrayTypeConverter()
+  {
+    XsdType = XsdSimpleType.Base64Binary;
+  }
+
   private ValueTypeConverter ItemConverter { get; } = new();
 
   public int? MinLength { get; set; }

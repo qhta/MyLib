@@ -9,7 +9,9 @@ public static class QXmlSerializationHelper
 
   public static string GetTypeTag(this Type aType)
   {
-    var result = aType.Name /*.ToLowerInvariant()*/;
+    var result = aType.FullName ?? "";
+    if (result.StartsWith("System."))
+      result = aType.Name;
     if (result.EndsWith("[]")) result = result.Substring(0, result.Length - 2) + "s";
     return result;
   }

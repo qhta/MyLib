@@ -703,7 +703,14 @@ public class XmlSerializationInfoMapper
   public QualifiedName ToQualifiedName(XmlQualifiedTagName xmlQualifiedName)
   {
     if (String.IsNullOrEmpty(xmlQualifiedName.XmlNamespace))
+    {
+      var name = xmlQualifiedName.Name;
+      name = name.ReplaceLast(".", ":");
+      var ss = name.Split(':');
+      if (ss.Length == 2)
+        return new QualifiedName(ss[1], ss[0]);
       return new QualifiedName(xmlQualifiedName.Name, DefaultNamespace);
+    }
     if (KnownNamespaces.PrefixToXmlNamespace.TryGetValue(xmlQualifiedName.XmlNamespace, out var nspace))
       return new QualifiedName(xmlQualifiedName.Name, nspace);
     return new QualifiedName(xmlQualifiedName.Name);

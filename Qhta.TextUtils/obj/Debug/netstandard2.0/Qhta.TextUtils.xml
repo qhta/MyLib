@@ -486,39 +486,87 @@
             <summary>
             Replaces the beginning of the string when it starts with a specified text.
             </summary>
-            <param name="text"></param>
-            <param name="startText"></param>
-            <param name="replaceText"></param>
-            <returns></returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.ReplaceStart(System.String,System.String,System.String,System.StringComparison)">
             <summary>
             Replaces the beginning of the string when it starts with a specified text. Uses a specific string comparison.
             </summary>
-            <param name="text"></param>
-            <param name="startText"></param>
-            <param name="replaceText"></param>
-            <param name="comparisonType"></param>
-            <returns></returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.ReplaceEnd(System.String,System.String,System.String)">
             <summary>
             Replaces the end of the string when it ends with a specified text.
             </summary>
-            <param name="text"></param>
-            <param name="endText"></param>
-            <param name="replaceText"></param>
-            <returns></returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.ReplaceEnd(System.String,System.String,System.String,System.StringComparison)">
             <summary>
-            eplaces the end of the string when it ends with a specified text. Uses a specified string comparison.
+            Replaces the end of the string when it ends with a specified text. Uses a specified string comparison.
             </summary>
-            <param name="text"></param>
-            <param name="endText"></param>
-            <param name="replaceText"></param>
-            <param name="comparisonType"></param>
-            <returns></returns>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceFirst(System.String,System.String,System.String)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceFirst(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceFirst(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string in a specified text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
+            Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceLast(System.String,System.String,System.String)">
+            <summary>
+            Replaces the last occurence of the string searching in a specified text.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceLast(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Replaces the last occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceLast(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Replaces the last occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text for the specified characters count.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceLast(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replaces the last occurence of the string in a specified text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceLast(System.String,System.String,System.String,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.ReplaceLast(System.String,System.String,System.String,System.Int32,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text for the specified characters count.
+            Uses a specific string comparison.
+            </summary>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.Concat2(System.String,System.String,System.String)">
             <summary>

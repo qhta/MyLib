@@ -831,58 +831,178 @@ public static class StringUtils
   /// <summary>
   /// Replaces the beginning of the string when it starts with a specified text.
   /// </summary>
-  /// <param name="text"></param>
-  /// <param name="startText"></param>
-  /// <param name="replaceText"></param>
-  /// <returns></returns>
-  public static string ReplaceStart(this string text, string startText, string replaceText)
+  public static string ReplaceStart(this string text, string startString, string replaceString)
   {
-    if (text.StartsWith(startText))
-      return replaceText + text.Substring(startText.Length);
+    if (text.StartsWith(startString))
+      return replaceString + text.Substring(startString.Length);
     return text;
   }
 
   /// <summary>
   /// Replaces the beginning of the string when it starts with a specified text. Uses a specific string comparison.
   /// </summary>
-  /// <param name="text"></param>
-  /// <param name="startText"></param>
-  /// <param name="replaceText"></param>
-  /// <param name="comparisonType"></param>
-  /// <returns></returns>
-  public static string ReplaceStart(this string text, string startText, string replaceText, StringComparison comparisonType)
+  public static string ReplaceStart(this string text, string startString, string replaceString, StringComparison comparisonType)
   {
-    if (text.StartsWith(startText, comparisonType))
-      return replaceText + text.Substring(startText.Length);
+    if (text.StartsWith(startString, comparisonType))
+      return replaceString + text.Substring(startString.Length);
     return text;
   }
 
   /// <summary>
   /// Replaces the end of the string when it ends with a specified text.
   /// </summary>
-  /// <param name="text"></param>
-  /// <param name="endText"></param>
-  /// <param name="replaceText"></param>
-  /// <returns></returns>
-  public static string ReplaceEnd(this string text, string endText, string replaceText)
+  public static string ReplaceEnd(this string text, string endString, string replaceString)
   {
-    if (text.EndsWith(endText))
-      return text.Substring(0, text.Length - endText.Length) + replaceText;
+    if (text.EndsWith(endString))
+      return text.Substring(0, text.Length - endString.Length) + replaceString;
     return text;
   }
 
   /// <summary>
-  /// eplaces the end of the string when it ends with a specified text. Uses a specified string comparison.
+  /// Replaces the end of the string when it ends with a specified text. Uses a specified string comparison.
   /// </summary>
-  /// <param name="text"></param>
-  /// <param name="endText"></param>
-  /// <param name="replaceText"></param>
-  /// <param name="comparisonType"></param>
-  /// <returns></returns>
-  public static string ReplaceEnd(this string text, string endText, string replaceText, StringComparison comparisonType)
+  public static string ReplaceEnd(this string text, string endString, string replaceString, StringComparison comparisonType)
   {
-    if (text.EndsWith(endText, comparisonType))
-      return text.Substring(0, text.Length - endText.Length) + replaceText;
+    if (text.EndsWith(endString, comparisonType))
+      return text.Substring(0, text.Length - endString.Length) + replaceString;
+    return text;
+  }
+  
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text.
+  /// </summary>
+  public static string ReplaceFirst(this string text, string searchString, string replaceString)
+  {
+    var k = text.IndexOf(searchString);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text starting from the specified index.
+  /// </summary>
+  public static string ReplaceFirst(this string text, string searchString, string replaceString, int index)
+  {
+    var k = text.IndexOf(searchString, index);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
+  /// </summary>
+  public static string ReplaceFirst(this string text, string searchString, string replaceString, int index, int count)
+  {
+    var k = text.IndexOf(searchString, index, count);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string in a specified text. Uses a specific string comparison.
+  /// </summary>
+  public static string ReplaceFirst(this string text, string searchString, string replaceString, StringComparison comparisonType)
+  {
+    var k = text.IndexOf(searchString, comparisonType);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text starting from the specified index. Uses a specific string comparison.
+  /// </summary>
+  public static string ReplaceFirst(this string text, string searchString, string replaceString, int index, StringComparison comparisonType)
+  {
+    var k = text.IndexOf(searchString, index, comparisonType);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
+  /// Uses a specific string comparison.
+  /// </summary>
+  public static string ReplaceFirst(this string text, string searchString, string replaceString, int index, int count, StringComparison comparisonType)
+  {
+    var k = text.IndexOf(searchString, index, count, comparisonType);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the last occurence of the string searching in a specified text.
+  /// </summary>
+  public static string ReplaceLast(this string text, string searchString, string replaceString)
+  {
+    var k = text.LastIndexOf(searchString);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the last occurence of the string searching in a specified text starting from the specified index
+  /// and continuing towards the begining of the text.
+  /// </summary>
+  public static string ReplaceLast(this string text, string searchString, string replaceString, int index)
+  {
+    var k = text.LastIndexOf(searchString, index);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the last occurence of the string searching in a specified text starting from the specified index
+  /// and continuing towards the begining of the text for the specified characters count.
+  /// </summary>
+  public static string ReplaceLast(this string text, string searchString, string replaceString, int index, int count)
+  {
+    var k = text.LastIndexOf(searchString, index, count);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the last occurence of the string in a specified text. Uses a specific string comparison.
+  /// </summary>
+  public static string ReplaceLast(this string text, string searchString, string replaceString, StringComparison comparisonType)
+  {
+    var k = text.LastIndexOf(searchString, comparisonType);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text starting from the specified index
+  /// and continuing towards the begining of the text. Uses a specific string comparison.
+  /// </summary>
+  public static string ReplaceLast(this string text, string searchString, string replaceString, int index, StringComparison comparisonType)
+  {
+    var k = text.LastIndexOf(searchString, index, comparisonType);
+    if (k>=0)
+      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    return text;
+  }
+
+  /// <summary>
+  /// Replaces the first occurence of the string searching in a specified text starting from the specified index
+  /// and continuing towards the begining of the text for the specified characters count.
+  /// Uses a specific string comparison.
+  /// </summary>
+  public static string ReplaceLast(this string text, string searchString, string replaceString, int index, int count, StringComparison comparisonType)
+  {
+    var k = text.LastIndexOf(searchString, index, count, comparisonType);
+    if (k>=0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 

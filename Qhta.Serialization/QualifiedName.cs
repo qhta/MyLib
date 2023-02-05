@@ -15,6 +15,8 @@ public struct QualifiedName : IComparable<QualifiedName>, IEquatable<QualifiedNa
 
   public QualifiedName(string str)
   {
+    if (!str.Contains(':') && str.Contains("."))
+      str = str.ReplaceLast(".", ":");
     var ss = str.Split(':');
     if (ss.Length == 2)
     {

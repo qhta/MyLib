@@ -228,8 +228,6 @@ public partial class QXmlSerializer : IXmlConverterReader
     int propsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
     {
-      //if (Reader.Name == "HeadingPairs")
-      //  TestTools.Stop();
       var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
       bool isEmptyElement = Reader.IsEmptyElement;
       var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
@@ -278,16 +276,12 @@ public partial class QXmlSerializer : IXmlConverterReader
         {
           if (!typeInfo.ContentInfo.KnownItemTypes.TryGetValue(qualifiedName.Name, out var knownItemTypeInfo))
           {
-            knownItemTypeInfo = (typeInfo.ContentInfo.KnownItemTypes as IEnumerable<SerializationItemInfo>).FirstOrDefault();
-            if (knownItemTypeInfo == null)
-              if (TryGetTypeInfo(qualifiedName, out var itemTypeInfo))
-                knownItemTypeInfo = new SerializationItemInfo(qualifiedName.Name, itemTypeInfo);
+            if (TryGetTypeInfo(qualifiedName, out var itemTypeInfo))
+              knownItemTypeInfo = new SerializationItemInfo(qualifiedName.Name, itemTypeInfo);
           }
           if (knownItemTypeInfo != null)
           {
             object? key = qualifiedName.Name;
-            //if (elementName == "null")
-            //  TestTools.Stop();
             object? item;
             if (knownItemTypeInfo.DictionaryInfo != null)
             {
@@ -359,7 +353,7 @@ public partial class QXmlSerializer : IXmlConverterReader
             continue;
           }
           throw new XmlInternalException(
-            $"No property to read and no content property found for element \"{qualifiedName}\" in type {aType.FullName}", Reader);
+            $"No property to read and no type found for element \"{qualifiedName}\" in type {aType.FullName}", Reader);
         }
       }
 
@@ -1179,7 +1173,7 @@ public partial class QXmlSerializer : IXmlConverterReader
               propValue = typeConverter.ConvertFromInvariantString(null, str);
             break;
           }
-          throw new XmlInternalException($"Cannot convert \"{str}\" to boolean value", Reader);
+          throw new XmlInternalException($"Cannot convert \"{str}\" to {expectedType} value", Reader);
       }
     }
     else if (expectedType.IsEnum)

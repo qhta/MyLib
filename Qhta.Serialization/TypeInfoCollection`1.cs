@@ -1,7 +1,7 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEquatable<TypesInfoCollection<TypeNameInfo>>
-  where TypeNameInfo : ITypeNameInfo
+  where TypeNameInfo : class, ITypeNameInfo
 {
   [XmlAttribute] public string? DefaultNamespace { get; set; }
 
@@ -95,6 +95,8 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
     var result = this.FirstOrDefault(item => itemType == item.Type);
     if (result == null)
       result = this.FirstOrDefault(item => itemType.IsSubclassOf(item.Type));
+    if (result == null || result.Type == typeof(Object))
+      return null;
     return result;
   }
 
