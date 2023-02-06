@@ -202,6 +202,8 @@ public static class TypeUtils
           }
         }
       }
+      if (KnownTypeConverters.TryGetValue(typeConverterName, out typeConverter))
+        return true;
       if (typeConverter != null)
         KnownTypeConverters.Add(typeConverterName, typeConverter);
     }

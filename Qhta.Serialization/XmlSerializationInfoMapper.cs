@@ -677,9 +677,10 @@ public class XmlSerializationInfoMapper
         converter = FindTypeConverter(converterTypeName);
         if (converter == null)
           throw new InternalException($"Type converter \"{converterTypeName}\" not found");
-        if (!(converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string))))
+        if (converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string)))
+          TypeConverters.Add(converterTypeName, converter);
+        else
           throw new InternalException($"Type converter \"{converterTypeName}\" can not convert to or from string");
-        TypeConverters.Add(converterTypeName, converter);
       }
       return converter;
     }
