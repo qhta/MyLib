@@ -8,9 +8,13 @@ namespace Qhta.Xml.Serialization;
 /// </summary>
 public interface IXmlSerializer
 {
+  public bool TryGetKnownType(string typeName, out Type type);
+
   public void Serialize(XmlWriter xmlWriter, object? obj);
+
   public object? Deserialize(XmlReader xmlReader);
 
-  public void WriteObject(object obj, bool emitNamespaces = false);
+  public void WriteObject(object obj, object? context = null);
+
   public object? ReadObject(object? context = null);
 }

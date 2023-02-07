@@ -33,7 +33,17 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public XmlNodeType NodeType => _reader.NodeType;
 
-  public string Name => _reader.Name;
+  public XmlQualifiedTagName Name
+  {
+    get
+    {
+      var localName = _reader.LocalName;
+      var uri = _reader.NamespaceURI;
+      if (!String.IsNullOrEmpty(uri))
+        return new XmlQualifiedTagName(localName, uri);
+      return new XmlQualifiedTagName(localName);
+    }
+  }
 
   public string LocalName => _reader.LocalName;
 
@@ -85,140 +95,140 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public bool HasAttributes => _reader.HasAttributes;
 
-  public object ReadContentAsObject()
-  {
-    return _reader.ReadContentAsObject();
-  }
+  //public object ReadContentAsObject()
+  //{
+  //  return _reader.ReadContentAsObject();
+  //}
 
-  public bool ReadContentAsBoolean()
-  {
-    return _reader.ReadContentAsBoolean();
-  }
+  //public bool ReadContentAsBoolean()
+  //{
+  //  return _reader.ReadContentAsBoolean();
+  //}
 
-  public DateTime ReadContentAsDateTime()
-  {
-    return _reader.ReadContentAsDateTime();
-  }
+  //public DateTime ReadContentAsDateTime()
+  //{
+  //  return _reader.ReadContentAsDateTime();
+  //}
 
-  public DateTimeOffset ReadContentAsDateTimeOffset()
-  {
-    return _reader.ReadContentAsDateTimeOffset();
-  }
+  //public DateTimeOffset ReadContentAsDateTimeOffset()
+  //{
+  //  return _reader.ReadContentAsDateTimeOffset();
+  //}
 
-  public double ReadContentAsDouble()
-  {
-    return _reader.ReadContentAsDouble();
-  }
+  //public double ReadContentAsDouble()
+  //{
+  //  return _reader.ReadContentAsDouble();
+  //}
 
-  public float ReadContentAsFloat()
-  {
-    return _reader.ReadContentAsFloat();
-  }
+  //public float ReadContentAsFloat()
+  //{
+  //  return _reader.ReadContentAsFloat();
+  //}
 
-  public decimal ReadContentAsDecimal()
-  {
-    return _reader.ReadContentAsDecimal();
-  }
+  //public decimal ReadContentAsDecimal()
+  //{
+  //  return _reader.ReadContentAsDecimal();
+  //}
 
-  public int ReadContentAsInt()
-  {
-    return _reader.ReadContentAsInt();
-  }
+  //public int ReadContentAsInt()
+  //{
+  //  return _reader.ReadContentAsInt();
+  //}
 
-  public long ReadContentAsLong()
-  {
-    return _reader.ReadContentAsLong();
-  }
+  //public long ReadContentAsLong()
+  //{
+  //  return _reader.ReadContentAsLong();
+  //}
 
   public string ReadContentAsString()
   {
     return _reader.ReadContentAsString();
   }
 
-  public object ReadContentAs(Type returnType, IXmlNamespaceResolver? namespaceResolver)
+  public object ReadContentAs(Type returnType/*, IXmlNamespaceResolver? namespaceResolver*/)
   {
-    return _reader.ReadContentAs(returnType, namespaceResolver);
+    return _reader.ReadContentAs(returnType, null);
   }
 
-  public object ReadElementContentAsObject()
-  {
-    return _reader.ReadElementContentAsObject();
-  }
+  //public object ReadElementContentAsObject()
+  //{
+  //  return _reader.ReadElementContentAsObject();
+  //}
 
-  public object ReadElementContentAsObject(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsObject(localName, namespaceURI);
-  }
+  //public object ReadElementContentAsObject(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsObject(localName, namespaceURI);
+  //}
 
-  public bool ReadElementContentAsBoolean()
-  {
-    return _reader.ReadElementContentAsBoolean();
-  }
+  //public bool ReadElementContentAsBoolean()
+  //{
+  //  return _reader.ReadElementContentAsBoolean();
+  //}
 
-  public bool ReadElementContentAsBoolean(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsBoolean(localName, namespaceURI);
-  }
+  //public bool ReadElementContentAsBoolean(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsBoolean(localName, namespaceURI);
+  //}
 
-  public DateTime ReadElementContentAsDateTime()
-  {
-    return _reader.ReadElementContentAsDateTime();
-  }
+  //public DateTime ReadElementContentAsDateTime()
+  //{
+  //  return _reader.ReadElementContentAsDateTime();
+  //}
 
-  public DateTime ReadElementContentAsDateTime(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsDateTime(localName, namespaceURI);
-  }
+  //public DateTime ReadElementContentAsDateTime(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsDateTime(localName, namespaceURI);
+  //}
 
-  public double ReadElementContentAsDouble()
-  {
-    return _reader.ReadElementContentAsDouble();
-  }
+  //public double ReadElementContentAsDouble()
+  //{
+  //  return _reader.ReadElementContentAsDouble();
+  //}
 
-  public double ReadElementContentAsDouble(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsDouble(localName, namespaceURI);
-  }
+  //public double ReadElementContentAsDouble(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsDouble(localName, namespaceURI);
+  //}
 
-  public float ReadElementContentAsFloat()
-  {
-    return _reader.ReadElementContentAsFloat();
-  }
+  //public float ReadElementContentAsFloat()
+  //{
+  //  return _reader.ReadElementContentAsFloat();
+  //}
 
-  public float ReadElementContentAsFloat(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsFloat(localName, namespaceURI);
-  }
+  //public float ReadElementContentAsFloat(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsFloat(localName, namespaceURI);
+  //}
 
-  public decimal ReadElementContentAsDecimal()
-  {
-    return _reader.ReadElementContentAsDecimal();
-  }
+  //public decimal ReadElementContentAsDecimal()
+  //{
+  //  return _reader.ReadElementContentAsDecimal();
+  //}
 
-  public decimal ReadElementContentAsDecimal(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsDecimal(localName, namespaceURI);
-  }
+  //public decimal ReadElementContentAsDecimal(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsDecimal(localName, namespaceURI);
+  //}
 
-  public int ReadElementContentAsInt()
-  {
-    return _reader.ReadElementContentAsInt();
-  }
+  //public int ReadElementContentAsInt()
+  //{
+  //  return _reader.ReadElementContentAsInt();
+  //}
 
-  public int ReadElementContentAsInt(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsInt(localName, namespaceURI);
-  }
+  //public int ReadElementContentAsInt(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsInt(localName, namespaceURI);
+  //}
 
-  public long ReadElementContentAsLong()
-  {
-    return _reader.ReadElementContentAsLong();
-  }
+  //public long ReadElementContentAsLong()
+  //{
+  //  return _reader.ReadElementContentAsLong();
+  //}
 
-  public long ReadElementContentAsLong(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsLong(localName, namespaceURI);
-  }
+  //public long ReadElementContentAsLong(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAsLong(localName, namespaceURI);
+  //}
 
   public string ReadElementContentAsString()
   {
@@ -230,15 +240,15 @@ public partial class QXmlReader : IXmlReader, IDisposable
     return _reader.ReadElementContentAsString(localName, namespaceURI);
   }
 
-  public object ReadElementContentAs(Type returnType, IXmlNamespaceResolver namespaceResolver)
-  {
-    return _reader.ReadElementContentAs(returnType, namespaceResolver);
-  }
+  //public object ReadElementContentAs(Type returnType, IXmlNamespaceResolver namespaceResolver)
+  //{
+  //  return _reader.ReadElementContentAs(returnType, namespaceResolver);
+  //}
 
-  public object ReadElementContentAs(Type returnType, IXmlNamespaceResolver namespaceResolver, string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAs(returnType, namespaceResolver, localName, namespaceURI);
-  }
+  //public object ReadElementContentAs(Type returnType, IXmlNamespaceResolver namespaceResolver, string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadElementContentAs(returnType, namespaceResolver, localName, namespaceURI);
+  //}
 
   public string? GetAttribute(string name)
   {
@@ -305,40 +315,40 @@ public partial class QXmlReader : IXmlReader, IDisposable
     _reader.Skip();
   }
 
-  public string? LookupNamespace(string prefix)
-  {
-    return _reader.LookupNamespace(prefix);
-  }
+  //public string? LookupNamespace(string prefix)
+  //{
+  //  return _reader.LookupNamespace(prefix);
+  //}
 
-  public void ResolveEntity()
-  {
-    _reader.ResolveEntity();
-  }
+  //public void ResolveEntity()
+  //{
+  //  _reader.ResolveEntity();
+  //}
 
-  public int ReadContentAsBase64(byte[] buffer, int index, int count)
-  {
-    return _reader.ReadContentAsBase64(buffer, index, count);
-  }
+  //public int ReadContentAsBase64(byte[] buffer, int index, int count)
+  //{
+  //  return _reader.ReadContentAsBase64(buffer, index, count);
+  //}
 
-  public int ReadElementContentAsBase64(byte[] buffer, int index, int count)
-  {
-    return _reader.ReadElementContentAsBase64(buffer, index, count);
-  }
+  //public int ReadElementContentAsBase64(byte[] buffer, int index, int count)
+  //{
+  //  return _reader.ReadElementContentAsBase64(buffer, index, count);
+  //}
 
-  public int ReadContentAsBinHex(byte[] buffer, int index, int count)
-  {
-    return _reader.ReadContentAsBinHex(buffer, index, count);
-  }
+  //public int ReadContentAsBinHex(byte[] buffer, int index, int count)
+  //{
+  //  return _reader.ReadContentAsBinHex(buffer, index, count);
+  //}
 
-  public int ReadElementContentAsBinHex(byte[] buffer, int index, int count)
-  {
-    return _reader.ReadElementContentAsBinHex(buffer, index, count);
-  }
+  //public int ReadElementContentAsBinHex(byte[] buffer, int index, int count)
+  //{
+  //  return _reader.ReadElementContentAsBinHex(buffer, index, count);
+  //}
 
-  public int ReadValueChunk(char[] buffer, int index, int count)
-  {
-    return _reader.ReadValueChunk(buffer, index, count);
-  }
+  //public int ReadValueChunk(char[] buffer, int index, int count)
+  //{
+  //  return _reader.ReadValueChunk(buffer, index, count);
+  //}
 
   public string ReadString()
   {
@@ -400,48 +410,49 @@ public partial class QXmlReader : IXmlReader, IDisposable
     return _reader.IsStartElement(localname, ns);
   }
 
-  public bool ReadToFollowing(string name)
-  {
-    return _reader.ReadToFollowing(name);
-  }
+  //public bool ReadToFollowing(string name)
+  //{
+  //  return _reader.ReadToFollowing(name);
+  //}
 
-  public bool ReadToFollowing(string localName, string namespaceURI)
-  {
-    return _reader.ReadToFollowing(localName, namespaceURI);
-  }
+  //public bool ReadToFollowing(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadToFollowing(localName, namespaceURI);
+  //}
 
-  public bool ReadToDescendant(string name)
-  {
-    return _reader.ReadToDescendant(name);
-  }
+  //public bool ReadToDescendant(string name)
+  //{
+  //  return _reader.ReadToDescendant(name);
+  //}
 
-  public bool ReadToDescendant(string localName, string namespaceURI)
-  {
-    return _reader.ReadToDescendant(localName, namespaceURI);
-  }
+  //public bool ReadToDescendant(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadToDescendant(localName, namespaceURI);
+  //}
 
-  public bool ReadToNextSibling(string name)
-  {
-    return _reader.ReadToNextSibling(name);
-  }
+  //public bool ReadToNextSibling(string name)
+  //{
+  //  return _reader.ReadToNextSibling(name);
+  //}
 
-  public bool ReadToNextSibling(string localName, string namespaceURI)
-  {
-    return _reader.ReadToNextSibling(localName, namespaceURI);
-  }
+  //public bool ReadToNextSibling(string localName, string namespaceURI)
+  //{
+  //  return _reader.ReadToNextSibling(localName, namespaceURI);
+  //}
 
-  public string ReadInnerXml()
-  {
-    return _reader.ReadInnerXml();
-  }
+  //public string ReadInnerXml()
+  //{
+  //  return _reader.ReadInnerXml();
+  //}
 
-  public string ReadOuterXml()
-  {
-    return _reader.ReadOuterXml();
-  }
+  //public string ReadOuterXml()
+  //{
+  //  return _reader.ReadOuterXml();
+  //}
 
-  public XmlReader ReadSubtree()
-  {
-    return _reader.ReadSubtree();
-  }
+  //public XmlReader ReadSubtree()
+  //{
+  //  return _reader.ReadSubtree();
+  //}
+
 }

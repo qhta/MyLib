@@ -116,6 +116,18 @@ public partial class QXmlSerializer: IXmlSerializer
 
   public static XmlSerializationInfoMapper Mapper { get; protected set; } = null!;
 
+  public bool TryGetKnownType(string typeName, [NotNullWhen(true)] out Type type)
+  {
+    var qualifiedTypeName = Mapper.ToQualifiedName(typeName);
+    if (Mapper.KnownTypes.TryGetValue(qualifiedTypeName, out var serializationTypeInfo))
+    {
+      type = serializationTypeInfo.Type;
+      return true;
+    }
+    type = null!;
+    return false;
+  }
+
   protected static XmlSerializerNamespaces DefaultNamespaces
   {
     get
@@ -168,7 +180,7 @@ public partial class QXmlSerializer: IXmlSerializer
 
   protected void Init(XmlTypeMapping xmlTypeMapping, SerializationOptions options)
   {
-    throw new NotImplementedException("Init(XmlTypeMapping");
+    throw new NotImplementedException("Init(XmlTypeMapping)");
   }
 
 
@@ -220,7 +232,6 @@ public partial class QXmlSerializer: IXmlSerializer
     xmlReader.XmlResolver = null;
     return Deserialize(xmlReader);
   }
-
 
   public object? Deserialize(XmlReader xmlReader)
   {

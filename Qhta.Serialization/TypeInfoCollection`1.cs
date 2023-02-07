@@ -77,6 +77,11 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
   {
     return NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
   }
+  public bool TryGetValue(XmlQualifiedTagName xmlQualifiedTagName, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
+  {
+    var qualifiedName = new QualifiedName(xmlQualifiedTagName.Name, xmlQualifiedTagName.Namespace);
+    return NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
+  }
 
   public bool TryGetValue(string name, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {

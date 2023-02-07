@@ -21,7 +21,7 @@ public partial class QXmlSerializer
   };
 
 
-  public QXmlWriter Writer { get; protected set;} = null!;
+  public QXmlWriter Writer { get; protected set; } = null!;
 
   //public XmlSerializationInfoMapper Mapper { get; }
 
@@ -37,7 +37,7 @@ public partial class QXmlSerializer
 
   #region Write methods
 
-  public void WriteObject(object obj, bool emitNamespaces = false)
+  public void WriteObject(object obj, object? context = null)
   {
     if (obj is IXmlSerializable xmlSerializable)
     {
@@ -46,34 +46,39 @@ public partial class QXmlSerializer
     else
     {
       var aType = obj.GetType();
-      if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-        throw new InternalException($"Type \"{aType}\" not registered");
-      var tag = Mapper.GetXmlTag(serializedTypeInfo);
-      //if (emitNamespaces && writer is XmlTextWriter xmlTextWriter)
-      //{
-      //  xmlTextWriter.Namespaces = true;
-      //}
-      if (DefaultNamespace != null)
-        Writer.WriteStartElement(tag.Name, DefaultNamespace);
-      else
-        Writer.WriteStartElement(tag.Name, tag.XmlNamespace);
-      if (emitNamespaces)
+      if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter)
       {
-        if (Options.UseNilValue)
-          //Namespaces.Add("xsi", xsiNamespace);
-          Writer.WriteAttributeString("xmlns", "xsi", null, QXmlSerializationHelper.xsiNamespace);
-
-        if (Options.UseXsdScheme)
-          //Namespaces.Add("xsd", xsdNamespace);
-          Writer.WriteAttributeString("xmlns", "xsd", null, QXmlSerializationHelper.xsdNamespace);
-        emitNamespaces = false;
+        xmlConverter.WriteXml(null, Writer, obj, this);
       }
-
-      WriteObjectInterior(obj, null, serializedTypeInfo);
-      if (DefaultNamespace != null)
-        Writer.WriteEndElement(tag.Name, DefaultNamespace);
       else
-        Writer.WriteEndElement(tag.Name, tag.XmlNamespace);
+      {
+        if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
+          throw new InternalException($"Type \"{aType}\" not registered");
+        var tag = Mapper.GetXmlTag(serializedTypeInfo);
+        var emitNamespaces = Options.EmitNamespaces;
+        Writer.EmitNamespaces = emitNamespaces;
+        //if (DefaultNamespace != null)
+        //  Writer.WriteStartElement(tag.Name, DefaultNamespace);
+        //else
+        Writer.WriteStartElement(tag);
+        if (emitNamespaces)
+        {
+          if (Options.UseNilValue)
+            //Namespaces.Add("xsi", xsiNamespace);
+            Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
+
+          if (Options.UseXsdScheme)
+            //Namespaces.Add("xsd", xsdNamespace);
+            Writer.WriteNamespaceDef("xsd", QXmlSerializationHelper.xsdNamespace);
+          emitNamespaces = false;
+        }
+
+        WriteObjectInterior(obj, null, serializedTypeInfo);
+        //if (DefaultNamespace != null)
+        //  Writer.WriteEndElement(tag.Name, DefaultNamespace);
+        //else
+        Writer.WriteEndElement(tag);
+      }
     }
   }
 
@@ -88,6 +93,19 @@ public partial class QXmlSerializer
 
     WriteAttributesBase(obj, typeInfo);
     WritePropertiesBase(tag, obj, typeInfo);
+    if (typeInfo.TypeConverter != null)
+    {
+      var str = typeInfo.TypeConverter.ConvertToInvariantString(obj);
+      Writer.WriteValue(str);
+    }
+    else
+    if (typeInfo.Type.IsSimple())
+    {
+      var typeConverter = new ValueTypeConverter(typeInfo.Type);
+      var str = typeConverter.ConvertToInvariantString(obj);
+      Writer.WriteValue(str);
+    }
+    else
     if (typeInfo.ContentProperty != null)
       WriteContentProperty(obj, tag, null, typeInfo.ContentProperty, typeInfo);
     else
@@ -109,7 +127,6 @@ public partial class QXmlSerializer
             continue;
       }
 
-      var attrName = memberInfo.XmlName;
       var attrTag = Mapper.GetXmlTag(memberInfo);
       var propValue = memberInfo.GetValue(obj);
       if (propValue != null)
@@ -120,7 +137,7 @@ public partial class QXmlSerializer
         var str = ConvertMemberValueToString(memberInfo, propValue);
         if (str != null)
         {
-          Writer.WriteAttributeString(attrTag.Prefix, attrTag.Name, attrTag.XmlNamespace, str);
+          Writer.WriteAttributeString(attrTag, str);
           attrsWritten++;
         }
       }
@@ -153,10 +170,10 @@ public partial class QXmlSerializer
         if (Options?.UseNilValue == true && memberInfo.IsNullable)
         {
           if (!String.IsNullOrEmpty(propTag))
-            WriteStartElement(propTag);
-          Writer.WriteAttributeString(null, "nil", QXmlSerializationHelper.xsiNamespace, "true");
+            Writer.WriteStartElement(propTag);
+          Writer.WriteNilAttribute(QXmlSerializationHelper.xsiNamespace);
           if (!String.IsNullOrEmpty(propTag))
-            WriteEndElement(propTag);
+            Writer.WriteEndElement(propTag);
         }
       }
       else
@@ -172,7 +189,7 @@ public partial class QXmlSerializer
         else
         {
           if (!String.IsNullOrEmpty(propTag))
-            WriteStartElement(propTag);
+            Writer.WriteStartElement(propTag);
           var pType = propValue.GetType();
           KnownTypes.TryGetValue(pType, out var serializedTypeInfo);
           if (pType.IsSimple())
@@ -217,11 +234,11 @@ public partial class QXmlSerializer
 
           //      if (itemName == null)
           //        itemName = arrayItem.GetType().Name;
-          //      WriteStartElement(itemName);
+          //      Writer.WriteStartElement(itemName);
           //      if (arrayItem.GetType().Name == "SwitchCase")
           //        TestUtils.Stop();
           //      WriteObjectInterior(itemName, arrayItem);
-          //      WriteEndElement(itemName);
+          //      Writer.WriteEndElement(itemName);
           //    }
           //  }
           //}
@@ -230,7 +247,7 @@ public partial class QXmlSerializer
           //  WriteValue(ConvertMemberValueToString(memberInfo, propValue));
           //}         
           if (!String.IsNullOrEmpty(propTag))
-            WriteEndElement(propTag);
+            Writer.WriteEndElement(propTag);
         }
         propsWritten++;
       }
@@ -267,10 +284,10 @@ public partial class QXmlSerializer
             if (value.GetType().IsSimple())
             {
               if (!string.IsNullOrEmpty(propTag))
-                WriteStartElement(propTag);
+                Writer.WriteStartElement(propTag);
               WriteValue(value);
               if (!string.IsNullOrEmpty(propTag))
-                WriteEndElement(propTag);
+                Writer.WriteEndElement(propTag);
             }
             else
             {
@@ -278,19 +295,19 @@ public partial class QXmlSerializer
               if (typeConverter != null && typeConverter.CanConvertTo(typeDescriptorContext, typeof(string)))
               {
                 if (!string.IsNullOrEmpty(propTag))
-                  WriteStartElement(propTag);
+                  Writer.WriteStartElement(propTag);
                 var str = typeConverter.ConvertToInvariantString(typeDescriptorContext, value);
                 WriteValue(str);
                 if (!string.IsNullOrEmpty(propTag))
-                  WriteEndElement(propTag);
+                  Writer.WriteEndElement(propTag);
               }
               else
               {
                 if (!string.IsNullOrEmpty(propTag))
-                  WriteStartElement(propTag);
+                  Writer.WriteStartElement(propTag);
                 WriteObjectInterior(value, propTag);
                 if (!string.IsNullOrEmpty(propTag))
-                  WriteEndElement(propTag);
+                  Writer.WriteEndElement(propTag);
               }
             }
           }
@@ -318,8 +335,8 @@ public partial class QXmlSerializer
         {
           if (item == null)
           {
-            WriteStartElement("null");
-            WriteEndElement("null");
+            Writer.WriteStartElement("null");
+            Writer.WriteEndElement("null");
           }
           else
           {
@@ -341,19 +358,19 @@ public partial class QXmlSerializer
             if (item.GetType().IsSimple())
             {
               //itemTag = GetItemTag(item.GetType());
-              WriteStartElement(itemTag);
+              Writer.WriteStartElement(itemTag);
               WriteValue(item);
-              WriteEndElement(itemTag);
+              Writer.WriteEndElement(itemTag);
             }
             else
             {
               if (typeConverter != null)
               {
                 if (!string.IsNullOrEmpty(itemTag))
-                  WriteStartElement(itemTag);
+                  Writer.WriteStartElement(itemTag);
                 WriteValue(typeConverter.ConvertToString(item) ?? "");
                 if (!string.IsNullOrEmpty(itemTag))
-                  WriteEndElement(itemTag);
+                  Writer.WriteEndElement(itemTag);
               }
               else
               {
@@ -363,9 +380,9 @@ public partial class QXmlSerializer
                 //    WriteValue(item.ToString());
                 //  else
                 //  {
-                //    WriteStartElement(itemTag);
+                //    Writer.WriteStartElement(itemTag);
                 //    WriteValue(item.ToString());
-                //    WriteEndElement(itemTag);
+                //    Writer.WriteEndElement(itemTag);
                 //  }
                 //}
                 //if (itemTag != null
@@ -373,9 +390,9 @@ public partial class QXmlSerializer
                 //  WriteObject(item);
                 //else
                 {
-                  WriteStartElement(itemTag);
+                  Writer.WriteStartElement(itemTag);
                   WriteObjectInterior(item, itemTag);
-                  WriteEndElement(itemTag);
+                  Writer.WriteEndElement(itemTag);
                 }
               }
             }
@@ -412,8 +429,8 @@ public partial class QXmlSerializer
     {
       if (item == null)
       {
-        WriteStartElement("null");
-        WriteEndElement("null");
+        Writer.WriteStartElement("null");
+        Writer.WriteEndElement("null");
       }
       else
       {
@@ -435,9 +452,9 @@ public partial class QXmlSerializer
         if (item.GetType().IsSimple())
         {
           //itemTag = GetItemTag(item.GetType());
-          WriteStartElement(itemTag);
+          Writer.WriteStartElement(itemTag);
           WriteValue(item);
-          WriteEndElement(itemTag);
+          Writer.WriteEndElement(itemTag);
         }
         //else if (item is IXSerializable serializableItem)
         //  serializableItem.Serialize(this);
@@ -458,11 +475,11 @@ public partial class QXmlSerializer
               }
               else
               {
-                WriteStartElement(itemTag);
-                WriteAttributeString("key", key.ToString() ?? "");
+                Writer.WriteStartElement(itemTag);
+                Writer.WriteAttributeString("key", key.ToString() ?? "");
                 if (val != null)
                   WriteObjectInterior(val);
-                WriteEndElement(itemTag);
+                Writer.WriteEndElement(itemTag);
               }
             }
           }
@@ -472,10 +489,10 @@ public partial class QXmlSerializer
           if (typeConverter != null)
           {
             if (!string.IsNullOrEmpty(itemTag))
-              WriteStartElement(itemTag);
+              Writer.WriteStartElement(itemTag);
             WriteValue(typeConverter.ConvertToString(item) ?? "");
             if (!string.IsNullOrEmpty(itemTag))
-              WriteEndElement(itemTag);
+              Writer.WriteEndElement(itemTag);
           }
           else
           {
@@ -487,18 +504,18 @@ public partial class QXmlSerializer
               }
               else
               {
-                WriteStartElement(itemTag);
+                Writer.WriteStartElement(itemTag);
                 WriteValue(item.ToString());
-                WriteEndElement(itemTag);
+                Writer.WriteEndElement(itemTag);
               }
             }
             //if (KnownTypes.TryGetValue(item.GetType(), out var serializationTypeInfo))
             //  WriteObject(item);
             //else
             {
-              WriteStartElement(itemTag);
+              Writer.WriteStartElement(itemTag);
               WriteObjectInterior(item, itemTag);
-              WriteEndElement(itemTag);
+              Writer.WriteEndElement(itemTag);
             }
           }
         }
@@ -510,21 +527,6 @@ public partial class QXmlSerializer
 
     Writer.Flush();
     return itemsWritten;
-  }
-
-  public void WriteStartElement(string propTag)
-  {
-    Writer.WriteStartElement(propTag);
-  }
-
-  public void WriteEndElement(string propTag)
-  {
-    Writer.WriteEndElement(propTag);
-  }
-
-  public void WriteAttributeString(string attrName, string valStr)
-  {
-    Writer.WriteAttributeString(attrName, valStr);
   }
 
   public void WriteValue(object? value)
@@ -548,12 +550,12 @@ public partial class QXmlSerializer
     }
   }
 
-  public void WriteValue(string propTag, object value)
-  {
-    WriteStartElement(propTag);
-    WriteValue(value);
-    WriteEndElement(propTag);
-  }
+  //public void WriteValue(string propTag, object value)
+  //{
+  //  Writer.WriteStartElement(propTag);
+  //  WriteValue(value);
+  //  Writer.WriteEndElement(propTag);
+  //}
 
   protected string? ConvertMemberValueToString(SerializationMemberInfo memberInfo, object? propValue)
   {

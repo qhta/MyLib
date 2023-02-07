@@ -1010,10 +1010,6 @@ public static class StringUtils
   /// Concatenates two strings with a separator between them.
   /// If any of both is empty of null - the other is returned.
   /// </summary>
-  /// <param name="text1"></param>
-  /// <param name="separator"></param>
-  /// <param name="text2"></param>
-  /// <returns></returns>
   public static string? Concat2(this string? text1, string separator, string? text2)
   {
     if (String.IsNullOrEmpty(text1))
@@ -1021,5 +1017,43 @@ public static class StringUtils
     if (String.IsNullOrEmpty(text2))
       return text1;
     return text1 + separator + text2;
+  }
+
+  /// <summary>
+  /// Returns a string shortended by a specified character count.
+  /// </summary>
+  public static string Shorten(this string text, int charCount)
+  {
+    return text.Substring(0, text.Length - charCount);
+  }
+
+  /// <summary>
+  /// Makes Englush plural form of the noun.
+  /// </summary>
+  public static string Pluralize(this string text)
+  {
+    if (text.EndsWith("y"))
+      return text.Shorten(1) + "ies";
+    if (text.EndsWith("s"))
+      return text + "es";
+    if (text.EndsWith("ss"))
+      return text;
+    return text + "s";
+  }
+
+  /// <summary>
+  /// Makes Englush singular form of the noun.
+  /// </summary>
+  public static string Singularize(this string text)
+  {
+    if (text.EndsWith("ies"))
+      return text.Shorten(3) + "y";
+    if (text.EndsWith("ses"))
+      return text.Shorten(2);
+    if (text.EndsWith("ss"))
+      return text;
+    if (text.EndsWith("s"))
+      return text.Shorten(1);
+    return text;
   }
 }

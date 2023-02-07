@@ -573,10 +573,21 @@
             Concatenates two strings with a separator between them.
             If any of both is empty of null - the other is returned.
             </summary>
-            <param name="text1"></param>
-            <param name="separator"></param>
-            <param name="text2"></param>
-            <returns></returns>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.Shorten(System.String,System.Int32)">
+            <summary>
+            Returns a string shortended by a specified character count.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.Pluralize(System.String)">
+            <summary>
+            Makes Englush plural form of the noun.
+            </summary>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.Singularize(System.String)">
+            <summary>
+            Makes Englush singular form of the noun.
+            </summary>
         </member>
         <member name="T:Qhta.TextUtils.CharEquivalence">
             <summary>

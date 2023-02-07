@@ -5,6 +5,11 @@ namespace Qhta.Xml.Serialization;
 public class SerializationOptions : IEquatable<SerializationOptions>
 {
   /// <summary>
+  /// Gets or sets a value indicating whether tag namespaces should be written
+  /// </summary>
+  public bool EmitNamespaces { get; set; }
+
+  /// <summary>
   ///   Types to be deserialized must have parameterless constructor.
   ///   If a type found during scanning available types hase no public parameterless constructor,
   ///   the exception is thrown unless this option is set.

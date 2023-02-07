@@ -202,10 +202,11 @@ public static class TypeUtils
           }
         }
       }
-      if (KnownTypeConverters.TryGetValue(typeConverterName, out typeConverter))
-        return true;
-      if (typeConverter != null)
-        KnownTypeConverters.Add(typeConverterName, typeConverter);
+      if (KnownTypeConverters.TryGetValue(typeConverterName, out var knownTypeConverter))
+        typeConverter = knownTypeConverter;
+      else
+        if (typeConverter != null)
+          KnownTypeConverters.Add(typeConverterName, typeConverter);
     }
     return typeConverter != null;
   }

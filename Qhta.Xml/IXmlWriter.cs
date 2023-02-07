@@ -5,6 +5,21 @@ namespace Qhta.Xml.Serialization;
 public interface IXmlWriter
 {
   /// <summary>
+  /// Closes the XmlWriter and the underlying stream/TextReader (if Settings.CloseOutput is true).
+  /// </summary>
+  public void Close();
+
+  /// <summary>
+  /// Flushes data that is in the internal buffers into the underlying streams/TextReader and flushes the stream/TextReader.
+  /// </summary>
+  public void Flush();
+
+  /// <summary>
+  /// Gets or sets a value indicating whether namespaces will be written.
+  /// </summary>
+  public bool EmitNamespaces { get; set; }
+
+  /// <summary>
   /// Returns the settings describing the features of the writer. Returns null for V1 XmlWriters (XmlTextWriter).
   /// </summary>
   public XmlWriterSettings? Settings { get; }
@@ -21,94 +36,88 @@ public interface IXmlWriter
   /// </summary>
   public void WriteStartDocument(bool standalone);
 
-  //Closes any open elements or attributes and puts the writer back in the Start state.
+  /// <summary>
+  /// Closes any open elements or attributes and puts the writer back in the Start state.
+  /// </summary>
   public void WriteEndDocument();
 
   /// <summary>
-  /// Writes out the DOCTYPE declaration with the specified name and optional attributes.
+  /// Writes the nil attribute.
   /// </summary>
-  public void WriteDocType(string name, string? pubid = null, string? sysid = null, string? subset = null);
+  /// <param name="xsiNamespace">The xsi namespace.</param>
+  public void WriteNilAttribute(string xsiNamespace);
+
+  ///// <summary>
+  ///// Writes out the DOCTYPE declaration with the specified name and optional attributes.
+  ///// </summary>
+  //public void WriteDocType(string name, string? pubid = null, string? sysid = null, string? subset = null);
+
 
   /// <summary>
-  /// Writes out the specified start tag and associates it with the given namespace.
+  /// Writes out the specified start tag with a specified tag name.
   /// </summary>
-  public void WriteStartElement(string localName, string? ns = null);
+  public void WriteStartElement(XmlQualifiedTagName name);
 
   /// <summary>
-  /// Writes out the specified start tag and associates it with the given namespace and prefix.
+  /// Writes out the specified start tag with a specified local name.
   /// </summary>
-  public void WriteStartElement(string? prefix, string localName, string? ns = null);
-
+  public void WriteStartElement(string localName);
 
   /// <summary>
   /// Closes one element and pops the corresponding namespace scope.
   /// </summary>
-  public void WriteEndElement(string localName, string? ns = null);
+  public void WriteEndElement(XmlQualifiedTagName name);
 
   /// <summary>
-  /// Closes one element and pops the corresponding namespace scope. Writes out a full end element tag, e.g. </element>.
+  /// Closes one element and pops the corresponding namespace scope.
   /// </summary>
-  public void WriteFullEndElement(string localName, string? ns = null);
+  public void WriteEndElement(string localName);
 
   /// <summary>
-  /// Writes out the attribute with the specified LocalName, value, and NamespaceURI.
+  /// Closes one element and pops the corresponding namespace scope. Writes out a full end element tag, e.g.
   /// </summary>
-  public void WriteAttributeString(string localName, string? ns, string? value);
+  public void WriteFullEndElement(XmlQualifiedTagName fullName);
 
   /// <summary>
-  /// Writes out the attribute with the specified LocalName and value.
+  /// Closes one element and pops the corresponding namespace scope. Writes out a full end element tag, e.g.
+  /// </summary>
+  public void WriteFullEndElement(string localName);
+
+  /// <summary>
+  /// Writes the namespace definition.
+  /// </summary>
+  public void WriteNamespaceDef(string prefix, string ns);
+
+  /// <summary>
+  /// Writes out the attribute with the specified tag name.
+  /// </summary>
+  public void WriteAttributeString(XmlQualifiedTagName fullName, string? value);
+
+  /// <summary>
+  /// Writes out the attribute with the specified local name.
   /// </summary>
   public void WriteAttributeString(string localName, string? value);
 
-  /// <summary>
-  /// Writes out the attribute with the specified prefix, LocalName, NamespaceURI and value.
-  /// </summary>
-  public void WriteAttributeString(string? prefix, string localName, string? ns, string? value);
 
   /// <summary>
-  /// Writes the start of an attribute.
+  /// Writes the start of an attribute with a specified tag name.
   /// </summary>
-  public void WriteStartAttribute(string localName, string? ns);
+  public void WriteStartAttribute(XmlQualifiedTagName fullName);
 
   /// <summary>
-  /// Writes the start of an attribute.
-  /// </summary>
-  public void WriteStartAttribute(string? prefix, string localName, string? ns);
-
-  /// <summary>
-  /// Writes the start of an attribute.
+  /// Writes the start of an attribute with a specified local name.
   /// </summary>
   public void WriteStartAttribute(string localName);
 
   /// <summary>
   /// Closes the attribute opened by WriteStartAttribute call.
   /// </summary>
-  public void WriteEndAttribute();
+  public void WriteEndAttribute(XmlQualifiedTagName fullName);
 
   /// <summary>
-  /// Writes out a <![CDATA[...]]>; block containing the specified text.
+  /// Closes the attribute opened by WriteStartAttribute call.
   /// </summary>
-  public void WriteCData(string? text);
-
-  /// <summary>
-  /// Writes out a comment <!--...-->; containing the specified text.
-  /// </summary>
-  public void WriteComment(string? text);
-
-  /// <summary>
-  /// Writes out a processing instruction with a space between the name and text as follows: <?name text?>
-  /// </summary>
-  public void WriteProcessingInstruction(string name, string? text);
-
-  /// <summary>
-  /// Writes out an entity reference as follows: "&"+name+";".
-  /// </summary>
-  public void WriteEntityRef(string name);
-
-  /// <summary>
-  /// Forces the generation of a character entity for the specified Unicode character value.
-  /// </summary>
-  public void WriteCharEntity(char ch);
+  public void WriteEndAttribute(string localName);
 
   /// <summary>
   /// Writes out the given whitespace.
@@ -120,55 +129,37 @@ public interface IXmlWriter
   /// </summary>
   public void WriteString(string? text);
 
-  /// <summary>
-  /// Write out the given surrogate pair as an entity reference.
-  /// </summary>
-  public void WriteSurrogateCharEntity(char lowChar, char highChar);
+  ///// <summary>
+  ///// Writes out the specified text content.
+  ///// </summary>
+  //public void WriteChars(char[] buffer, int index, int count);
 
-  /// <summary>
-  /// Writes out the specified text content.
-  /// </summary>
-  public void WriteChars(char[] buffer, int index, int count);
+  ///// <summary>
+  ///// Writes raw markup from the given character buffer.
+  ///// </summary>
+  //public void WriteRaw(char[] buffer, int index, int count);
 
-  /// <summary>
-  /// Writes raw markup from the given character buffer.
-  /// </summary>
-  public void WriteRaw(char[] buffer, int index, int count);
+  ///// <summary>
+  ///// Writes raw markup from the given string.
+  ///// </summary>
+  //public void WriteRaw(string data);
 
-  /// <summary>
-  /// Writes raw markup from the given string.
-  /// </summary>
-  public void WriteRaw(string data);
+  ///// <summary>
+  ///// Encodes the specified binary bytes as base64 and writes out the resulting text.
+  ///// </summary>
+  //public void WriteBase64(byte[] buffer, int index, int count);
 
-  /// <summary>
-  /// Encodes the specified binary bytes as base64 and writes out the resulting text.
-  /// </summary>
-  public void WriteBase64(byte[] buffer, int index, int count);
+  ///// <summary>
+  ///// Encodes the specified binary bytes as binhex and writes out the resulting text.
+  ///// </summary>
+  //public void WriteBinHex(byte[] buffer, int index, int count);
+  //#endregion
 
-  /// <summary>
-  /// Encodes the specified binary bytes as binhex and writes out the resulting text.
-  /// </summary>
-  public void WriteBinHex(byte[] buffer, int index, int count);
-
+  #region status
   /// <summary>
   /// Returns the state of the XmlWriter.
   /// </summary>
   public WriteState WriteState { get; }
-
-  /// <summary>
-  /// Closes the XmlWriter and the underlying stream/TextReader (if Settings.CloseOutput is true).
-  /// </summary>
-  public void Close();
-
-  /// <summary>
-  /// Flushes data that is in the internal buffers into the underlying streams/TextReader and flushes the stream/TextReader.
-  /// </summary>
-  public void Flush();
-
-  /// <summary>
-  /// Returns the closest prefix defined in the current namespace scope for the specified namespace URI.
-  /// </summary>
-  public string? LookupPrefix(string ns);
 
   /// <summary>
   /// Gets an XmlSpace representing the current xml:space scope.
@@ -181,111 +172,116 @@ public interface IXmlWriter
   public string? XmlLang { get; }
   #endregion
 
-  #region Scalar Value Methods
+  ///// <summary>
+  ///// Returns the closest prefix defined in the current namespace scope for the specified namespace URI.
+  ///// </summary>
+  //public string? LookupPrefix(string ns);
 
-  /// <summary>
-  /// Writes out the specified name, ensuring it is a valid NmToken according to the XML specification
-  /// </summary>
-  public void WriteNmToken(string name);
+  //#region Scalar Value Methods
 
-  /// <summary>
-  /// Writes out the specified name, ensuring it is a valid Name according to the XML specification
-  /// </summary>
-  public void WriteName(string name);
+  ///// <summary>
+  ///// Writes out the specified name, ensuring it is a valid NmToken according to the XML specification
+  ///// </summary>
+  //public void WriteNmToken(string name);
 
-  /// <summary>
-  /// Writes out the specified namespace-qualified name by looking up the prefix that is in scope for the given namespace.
-  /// </summary>
-  public void WriteQualifiedName(string localName, string? ns = null);
+  ///// <summary>
+  ///// Writes out the specified name, ensuring it is a valid Name according to the XML specification
+  ///// </summary>
+  //public void WriteName(string name);
+
+  ///// <summary>
+  ///// Writes out the specified namespace-qualified name by looking up the prefix that is in scope for the given namespace.
+  ///// </summary>
+  //public void WriteQualifiedName(string localName, string? ns = null);
 
   /// <summary>
   /// Writes out the specified value.
   /// </summary>
   public void WriteValue(object value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(string? value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(string? value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(bool value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(bool value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(DateTime value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(DateTime value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(DateTimeOffset value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(DateTimeOffset value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(double value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(double value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(float value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(float value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(decimal value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(decimal value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(int value);
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(int value);
 
-  /// <summary>
-  /// Writes out the specified value.
-  /// </summary>
-  public void WriteValue(long value);
-  #endregion
+  ///// <summary>
+  ///// Writes out the specified value.
+  ///// </summary>
+  //public void WriteValue(long value);
+  //#endregion
 
-  #region XmlReader Helper Methods
+  //#region XmlReader Helper Methods
 
-  /// <summary>
-  /// Writes out all the attributes found at the current position in the specified XmlReader.
-  /// </summary>
-  public void WriteAttributes(XmlReader reader, bool defattr);
+  ///// <summary>
+  ///// Writes out all the attributes found at the current position in the specified XmlReader.
+  ///// </summary>
+  //public void WriteAttributes(XmlReader reader, bool defattr);
 
-  /// <summary>
-  /// Copies the current node from the given reader to the writer (including child nodes), and if called on an element moves the XmlReader
-  /// </summary>
-  /// <summary>
-  /// to the corresponding end element.
-  /// </summary>
-  public void WriteNode(XmlReader reader, bool defattr);
+  ///// <summary>
+  ///// Copies the current node from the given reader to the writer (including child nodes), and if called on an element moves the XmlReader
+  ///// </summary>
+  ///// <summary>
+  ///// to the corresponding end element.
+  ///// </summary>
+  //public void WriteNode(XmlReader reader, bool defattr);
 
-  /// <summary>
-  /// Copies the current node from the given XPathNavigator to the writer (including child nodes).
-  /// </summary>
-  public void WriteNode(XPathNavigator navigator, bool defattr);
-  #endregion
+  ///// <summary>
+  ///// Copies the current node from the given XPathNavigator to the writer (including child nodes).
+  ///// </summary>
+  //public void WriteNode(XPathNavigator navigator, bool defattr);
+  //#endregion
 
-  #region Element Helper Methods
+  //#region Element Helper Methods
 
-  /// <summary>
-  /// Writes out an element with the specified name containing the specified string value.
-  /// </summary>
-  public void WriteElementString(string localName, string? value);
+  ///// <summary>
+  ///// Writes out an element with the specified name containing the specified string value.
+  ///// </summary>
+  //public void WriteElementString(string localName, string? value);
 
-  /// <summary>
-  /// Writes out an attribute with the specified name, namespace URI and string value.
-  /// </summary>
-  public void WriteElementString(string localName, string? ns, string? value);
+  ///// <summary>
+  ///// Writes out an attribute with the specified name, namespace URI and string value.
+  ///// </summary>
+  //public void WriteElementString(string localName, string? ns, string? value);
 
-  /// <summary>
-  /// Writes out an attribute with the specified name, namespace URI, and string value.
-  /// </summary>
-  public void WriteElementString(string? prefix, string localName, string? ns, string? value);
+  ///// <summary>
+  ///// Writes out an attribute with the specified name, namespace URI, and string value.
+  ///// </summary>
+  //public void WriteElementString(string? prefix, string localName, string? ns, string? value);
   #endregion
 
   #region extra Methods

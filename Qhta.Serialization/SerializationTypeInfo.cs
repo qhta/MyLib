@@ -8,6 +8,8 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
     var rootAttribute = aType.GetCustomAttribute<XmlRootAttribute>();
     if (rootAttribute != null)
       aName = rootAttribute.ElementName;
+    else if (aName.EndsWith("[]"))
+      aName = aName.Shorten(2).Pluralize();
     Type = aType;
     XmlName = aName;
     if (rootAttribute != null)

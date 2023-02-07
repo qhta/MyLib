@@ -103,8 +103,6 @@ public class XmlSerializationInfoMapper
   /// <returns></returns>
   protected SerializationTypeInfo CreateTypeInfo(Type aType)
   {
-    if (aType.Name == "HexWord")
-      TestTools.Stop();
     if (aType.IsNullable(out var baseType) && baseType != null)
       aType = baseType;
     var typeInfo = new SerializationTypeInfo(aType);
@@ -134,6 +132,8 @@ public class XmlSerializationInfoMapper
       foreach (var argType in aType.GenericTypeArguments)
         elementName += "_" + GetElementName(argType);
     }
+    if (elementName.EndsWith("[]"))
+      elementName = elementName.Shorten(2).Pluralize();
     return elementName;
   }
 
@@ -701,20 +701,39 @@ public class XmlSerializationInfoMapper
     return new XmlQualifiedTagName(xmlName, xmlNamespace);
   }
 
+  //public XmlQualifiedName GetXmlQualifiedName(INamedElement element)
+  //{
+  //  var xmlName = element.XmlName;
+  //  var xmlNamespace = element.XmlNamespace;
+  //  var clrNamespace = element.ClrNamespace;
+  //  if (xmlNamespace == null && clrNamespace != null)
+  //    KnownNamespaces.ClrToXmlNamespace.TryGetValue(clrNamespace, out xmlNamespace);
+  //  if (xmlNamespace == null)
+  //    return new XmlQualifiedName(xmlName);
+  //  if (xmlNamespace == DefaultNamespace)
+  //    return new XmlQualifiedName(xmlName);
+  //  return new XmlQualifiedName(xmlName, xmlNamespace);
+  //}
+
+  public QualifiedName ToQualifiedName(string fullTypeName)
+  {
+    var name = fullTypeName;
+    name = name.ReplaceLast(".", ":");
+    var ss = name.Split(':');
+    if (ss.Length == 2)
+      return new QualifiedName(ss[1], ss[0]);
+    return new QualifiedName(fullTypeName, DefaultNamespace);
+  }
+
   public QualifiedName ToQualifiedName(XmlQualifiedTagName xmlQualifiedName)
   {
+
+    if (xmlQualifiedName.Prefix!=null)
+      if (KnownNamespaces.PrefixToXmlNamespace.TryGetValue(xmlQualifiedName.Prefix, out var nspace))
+        return new QualifiedName(xmlQualifiedName.Name, nspace);
     if (String.IsNullOrEmpty(xmlQualifiedName.XmlNamespace))
-    {
-      var name = xmlQualifiedName.Name;
-      name = name.ReplaceLast(".", ":");
-      var ss = name.Split(':');
-      if (ss.Length == 2)
-        return new QualifiedName(ss[1], ss[0]);
-      return new QualifiedName(xmlQualifiedName.Name, DefaultNamespace);
-    }
-    if (KnownNamespaces.PrefixToXmlNamespace.TryGetValue(xmlQualifiedName.XmlNamespace, out var nspace))
-      return new QualifiedName(xmlQualifiedName.Name, nspace);
-    return new QualifiedName(xmlQualifiedName.Name);
+      return ToQualifiedName(xmlQualifiedName.Name);
+    return new QualifiedName(xmlQualifiedName.Name, xmlQualifiedName.XmlNamespace);
   }
 
   #region Collection Handling

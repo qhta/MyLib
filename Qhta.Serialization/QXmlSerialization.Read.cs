@@ -24,6 +24,29 @@ public partial class QXmlSerializer : IXmlConverterReader
   {
     return Mapper.KnownTypes.TryGetValue(type, out typeInfo);
   }
+  //public bool TryGetTypeInfo(XmlQualifiedName name, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
+  //{
+  //  var clrName = Mapper.ToQualifiedName(name);
+  //  var ns = clrName.Namespace;
+  //  if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
+  //    return true;
+  //  while (String.IsNullOrEmpty(name.Prefix) && !String.IsNullOrEmpty(ns))
+  //  {
+  //    var k = ns.LastIndexOf('.');
+  //    if (k <= 0) break;
+  //    ns = ns.Substring(0, k);
+  //    clrName.Namespace = ns;
+  //    if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
+  //      return true;
+  //  }
+  //  if (String.IsNullOrEmpty(name.Prefix))
+  //  {
+  //    clrName.Namespace = "System";
+  //    if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
+  //      return true;
+  //  }
+  //  return false;
+  //}
 
   public bool TryGetTypeInfo(XmlQualifiedTagName name, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
   {
@@ -59,9 +82,11 @@ public partial class QXmlSerializer : IXmlConverterReader
       return null;
     SerializationTypeInfo? typeInfo;
 
-    var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
+    var qualifiedName = Reader.Name;
     if (!TryGetTypeInfo(qualifiedName, out typeInfo))
       throw new XmlInternalException($"Element {qualifiedName} not recognized while deserialization.", Reader);
+    if (typeInfo.XmlConverter != null)
+      return typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, this);
     if (typeInfo.Type.IsSimple())
       return ReadElementWithKnownTypeInfo(context, typeInfo);
     var constructor = typeInfo.KnownConstructor;
@@ -228,7 +253,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     int propsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
     {
-      var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
+      var qualifiedName = Reader.Name;
       bool isEmptyElement = Reader.IsEmptyElement;
       var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
       if (memberInfo != null)
@@ -282,6 +307,8 @@ public partial class QXmlSerializer : IXmlConverterReader
           if (knownItemTypeInfo != null)
           {
             object? key = qualifiedName.Name;
+            if ("SByte" == (string)key)
+              Debug.Assert(true);
             object? item;
             if (knownItemTypeInfo.DictionaryInfo != null)
             {
@@ -347,7 +374,7 @@ public partial class QXmlSerializer : IXmlConverterReader
               do
               {
                 Reader.Read();
-              } while (!(qualifiedName == new XmlQualifiedTagName(Reader.Name, Reader.Prefix) && !Reader.IsStartElement()));
+              } while (!(qualifiedName == new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix) && !Reader.IsStartElement()));
               Reader.Read();
             }
             continue;
@@ -417,7 +444,7 @@ public partial class QXmlSerializer : IXmlConverterReader
 #endif
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
-    var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
+    var qualifiedName = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
     if (!TryGetTypeInfo(qualifiedName, out var typeInfo))
     {
       typeInfo = memberInfo.ValueType;
@@ -522,7 +549,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       }
       else
       {
-        var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
+        var qualifiedName = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
         if (TryGetTypeInfo(qualifiedName, out var foundTypeInfo) && foundTypeInfo != null)
           typeInfo = foundTypeInfo;
         result = ReadObject();
@@ -594,7 +621,7 @@ public partial class QXmlSerializer : IXmlConverterReader
 #endif
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
-    var qualifiedName = new XmlQualifiedTagName(Reader.Name, Reader.Prefix);
+    var qualifiedName = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
     SerializationTypeInfo? typeInfo = null;
     if (collectionInfo.KnownItemTypes.Any())
     {
@@ -713,7 +740,7 @@ public partial class QXmlSerializer : IXmlConverterReader
   {
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
-    var keyName = Reader.Name;
+    var keyName = Reader.LocalName;
     SerializationTypeInfo? typeInfo = null;
     if (dictionaryInfo.KnownItemTypes.Count > 0)
     {
@@ -813,7 +840,7 @@ public partial class QXmlSerializer : IXmlConverterReader
 
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
-    var elementName = Reader.Name;
+    var elementName = Reader.LocalName;
     if (elementName == "decimal")
       TestTools.Stop();
     // all items will be read to this temporary list;
