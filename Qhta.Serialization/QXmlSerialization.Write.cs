@@ -46,7 +46,7 @@ public partial class QXmlSerializer
     else
     {
       var aType = obj.GetType();
-      if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter)
+      if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanWrite)
       {
         xmlConverter.WriteXml(null, Writer, obj, this);
       }

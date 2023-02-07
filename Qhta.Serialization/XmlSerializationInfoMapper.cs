@@ -664,8 +664,7 @@ public class XmlSerializationInfoMapper
   /// </exception>
   public TypeConverter? GetTypeConverter(Type aType)
   {
-    if (aType.Name == "VectorVariant")
-      Debug.Assert(true);
+
     var typeConverterAttribute = aType.GetCustomAttribute<TypeConverterAttribute>();
     if (typeConverterAttribute != null)
     {
@@ -684,7 +683,10 @@ public class XmlSerializationInfoMapper
       }
       return converter;
     }
-    return null;
+    if (aType.Name == "DBNull")
+      Debug.Assert(true);
+    var result = new ValueTypeConverter(aType);
+    return result?.InternalTypeConverter;
   }
 
   public XmlQualifiedTagName GetXmlTag(INamedElement element)

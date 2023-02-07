@@ -87,22 +87,22 @@ public partial class QXmlSerializer : IXmlConverterReader
       throw new XmlInternalException($"Element {qualifiedName} not recognized while deserialization.", Reader);
     if (typeInfo.XmlConverter != null)
       return typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, this);
-    if (typeInfo.Type.IsSimple())
+    //if (typeInfo.Type.IsSimple())
       return ReadElementWithKnownTypeInfo(context, typeInfo);
-    var constructor = typeInfo.KnownConstructor;
-    if (constructor == null)
-      throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", Reader);
-    var obj = constructor.Invoke(new object[0]);
+    //var constructor = typeInfo.KnownConstructor;
+    //if (constructor == null)
+    //  throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", Reader);
+    //var obj = constructor.Invoke(new object[0]);
 
-    if (obj is IXmlSerializable xmlSerializable)
-    {
-      xmlSerializable.ReadXml(Reader);
-    }
-    else
-    {
-      ReadObject(obj, typeInfo);
-    }
-    return obj;
+    //if (obj is IXmlSerializable xmlSerializable)
+    //{
+    //  xmlSerializable.ReadXml(Reader);
+    //}
+    //else
+    //{
+    //  ReadObject(obj, typeInfo);
+    //}
+    //return obj;
   }
 
   #endregion
@@ -661,7 +661,8 @@ public partial class QXmlSerializer : IXmlConverterReader
         result = ReadValue(context, typeInfo.Type, null, null);
         Reader.Read();
       }
-      else if (typeInfo.Type.IsArray)
+      else
+      if (typeInfo.Type.IsArray)
       {
         Reader.Read();
       }
@@ -1303,6 +1304,10 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (!Guid.TryParse(str, out var val))
         throw new XmlInternalException($"Cannot convert \"{str}\" to guid value", Reader);
       propValue = val;
+    }
+    else if (expectedType == typeof(Byte[]))
+    {
+      propValue = Convert.FromBase64String(str);
     }
     else if (expectedType == typeof(object))
     {

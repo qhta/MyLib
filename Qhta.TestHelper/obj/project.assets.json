@@ -147,6 +147,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Qhta.Collections": "1.0.0",
+          "Qhta.Xml": "1.0.0",
           "System.Configuration.ConfigurationManager": "7.0.0"
         },
         "compile": {
@@ -154,6 +155,16 @@
         },
         "runtime": {
           "bin/placeholder/Qhta.Conversion.dll": {}
+        }
+      },
+      "Qhta.Xml/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Qhta.Xml.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Xml.dll": {}
         }
       }
     }
@@ -350,6 +361,11 @@
       "type": "project",
       "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
       "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
+    },
+    "Qhta.Xml/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.Xml/Qhta.Xml.csproj",
+      "msbuildProject": "../Qhta.Xml/Qhta.Xml.csproj"
     }
   },
   "projectFileDependencyGroups": {

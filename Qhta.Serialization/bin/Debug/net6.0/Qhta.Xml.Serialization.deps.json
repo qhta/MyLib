@@ -261,6 +261,7 @@
       "Qhta.Conversion/1.0.0": {
         "dependencies": {
           "Qhta.Collections": "1.0.0",
+          "Qhta.Xml": "1.0.0",
           "System.Configuration.ConfigurationManager": "7.0.0"
         },
         "runtime": {

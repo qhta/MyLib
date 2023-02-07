@@ -96,6 +96,9 @@
             "projectReferences": {
               "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
                 "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj"
+              },
+              "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
+                "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
               }
             }
           }

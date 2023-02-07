@@ -124,7 +124,7 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(Array), new ArrayTypeConverter() },
     { typeof(bool), new BooleanTypeConverter() },
     { typeof(byte), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedByte } },
-    { typeof(byte[]), new ArrayTypeConverter { XsdType = XsdSimpleType.Base64Binary } },
+    { typeof(byte[]), new Base64TypeConverter() },
     { typeof(DateOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Date } },
     { typeof(DateTime), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime } },
     { typeof(DateTimeOffset), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime } },
@@ -146,7 +146,8 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(ulong), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedLong } },
     { typeof(Uri), new UriTypeConverter() },
     { typeof(ushort), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedShort } },
-    { typeof(XmlQualifiedName), new XmlQualifiedNameTypeConverter() }
+    { typeof(XmlQualifiedName), new XmlQualifiedNameTypeConverter() },
+    { typeof(DBNull), new DbNullTypeXmlConverter() },
   };
 
   public ValueTypeConverter()
@@ -276,11 +277,11 @@ public class ValueTypeConverter : BaseTypeConverter
             InternalTypeConverter = new TypeNameConverter(knownTypes);
           return;
         }
-        throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
+        //throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
       }
       if (xsdType != null)
         throw new InvalidOperationException($"TypeConverter for xsdType={xsdType} not found");
-      InternalTypeConverter = new StringTypeConverter();
+      //InternalTypeConverter = new StringTypeConverter();
     }
   }
 
@@ -311,7 +312,7 @@ public class ValueTypeConverter : BaseTypeConverter
 
   private static Dictionary<Type, TypeConverter> registeredTypeConverters = new()
   {
-    { typeof(DBNull), new DbNullTypeConverter() },
+    { typeof(DBNull), new DbNullTypeXmlConverter() },
   };
 
   private StringTypeConverter CreateStringTypeConverter(XsdSimpleType? xsdType, string? format, CultureInfo? culture,
