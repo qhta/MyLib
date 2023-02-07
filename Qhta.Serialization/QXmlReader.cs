@@ -19,8 +19,14 @@ public partial class QXmlReader : IXmlReader, IDisposable
     _reader.Dispose();
   }
 
-  public XmlReaderSettings? Settings => _reader.Settings;
+  public void Close()
+  {
+    _reader.Close();
+  }
 
+  #region Settings
+  public XmlReaderSettings? Settings => _reader.Settings;
+  
   public WhitespaceHandling? WhitespaceHandling
   {
     get { return (_reader as XmlTextReader)?.WhitespaceHandling; }
@@ -30,6 +36,13 @@ public partial class QXmlReader : IXmlReader, IDisposable
         xmlTextReader.WhitespaceHandling = (WhitespaceHandling)value;
     }
   }
+  #endregion
+
+  #region Reader state
+
+  public bool EOF => _reader.EOF;
+
+  public ReadState ReadState => _reader.ReadState;
 
   public XmlNodeType NodeType => _reader.NodeType;
 
@@ -53,6 +66,8 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public bool HasValue => _reader.HasValue;
 
+  public Type ValueType => _reader.ValueType;
+
   public string Value => _reader.Value;
 
   public int Depth => _reader.Depth;
@@ -69,195 +84,30 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public string XmlLang => _reader.XmlLang;
 
-  public IXmlSchemaInfo? SchemaInfo => _reader.SchemaInfo;
+  #endregion
 
-  public Type ValueType => _reader.ValueType;
+  #region Attribute accessors
 
+  public bool HasAttributes => _reader.HasAttributes;
+  
   public int AttributeCount => _reader.AttributeCount;
 
   public string this[int i] => _reader[i];
 
   public string? this[string name] => _reader[name];
 
-  public string? this[string name, string? namespaceURI] => _reader[name, namespaceURI];
+  public string? this[XmlQualifiedTagName fullName] 
+    => _reader[fullName.Name, fullName.XmlNamespace];
 
-  public bool EOF => _reader.EOF;
-
-  public ReadState ReadState => _reader.ReadState;
-
-  public XmlNameTable NameTable => _reader.NameTable;
-
-  public bool CanResolveEntity => _reader.CanResolveEntity;
-
-  public bool CanReadBinaryContent => _reader.CanReadBinaryContent;
-
-  public bool CanReadValueChunk => _reader.CanReadValueChunk;
-
-  public bool HasAttributes => _reader.HasAttributes;
-
-  //public object ReadContentAsObject()
-  //{
-  //  return _reader.ReadContentAsObject();
-  //}
-
-  //public bool ReadContentAsBoolean()
-  //{
-  //  return _reader.ReadContentAsBoolean();
-  //}
-
-  //public DateTime ReadContentAsDateTime()
-  //{
-  //  return _reader.ReadContentAsDateTime();
-  //}
-
-  //public DateTimeOffset ReadContentAsDateTimeOffset()
-  //{
-  //  return _reader.ReadContentAsDateTimeOffset();
-  //}
-
-  //public double ReadContentAsDouble()
-  //{
-  //  return _reader.ReadContentAsDouble();
-  //}
-
-  //public float ReadContentAsFloat()
-  //{
-  //  return _reader.ReadContentAsFloat();
-  //}
-
-  //public decimal ReadContentAsDecimal()
-  //{
-  //  return _reader.ReadContentAsDecimal();
-  //}
-
-  //public int ReadContentAsInt()
-  //{
-  //  return _reader.ReadContentAsInt();
-  //}
-
-  //public long ReadContentAsLong()
-  //{
-  //  return _reader.ReadContentAsLong();
-  //}
-
-  public string ReadContentAsString()
-  {
-    return _reader.ReadContentAsString();
-  }
-
-  public object ReadContentAs(Type returnType/*, IXmlNamespaceResolver? namespaceResolver*/)
-  {
-    return _reader.ReadContentAs(returnType, null);
-  }
-
-  //public object ReadElementContentAsObject()
-  //{
-  //  return _reader.ReadElementContentAsObject();
-  //}
-
-  //public object ReadElementContentAsObject(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsObject(localName, namespaceURI);
-  //}
-
-  //public bool ReadElementContentAsBoolean()
-  //{
-  //  return _reader.ReadElementContentAsBoolean();
-  //}
-
-  //public bool ReadElementContentAsBoolean(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsBoolean(localName, namespaceURI);
-  //}
-
-  //public DateTime ReadElementContentAsDateTime()
-  //{
-  //  return _reader.ReadElementContentAsDateTime();
-  //}
-
-  //public DateTime ReadElementContentAsDateTime(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsDateTime(localName, namespaceURI);
-  //}
-
-  //public double ReadElementContentAsDouble()
-  //{
-  //  return _reader.ReadElementContentAsDouble();
-  //}
-
-  //public double ReadElementContentAsDouble(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsDouble(localName, namespaceURI);
-  //}
-
-  //public float ReadElementContentAsFloat()
-  //{
-  //  return _reader.ReadElementContentAsFloat();
-  //}
-
-  //public float ReadElementContentAsFloat(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsFloat(localName, namespaceURI);
-  //}
-
-  //public decimal ReadElementContentAsDecimal()
-  //{
-  //  return _reader.ReadElementContentAsDecimal();
-  //}
-
-  //public decimal ReadElementContentAsDecimal(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsDecimal(localName, namespaceURI);
-  //}
-
-  //public int ReadElementContentAsInt()
-  //{
-  //  return _reader.ReadElementContentAsInt();
-  //}
-
-  //public int ReadElementContentAsInt(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsInt(localName, namespaceURI);
-  //}
-
-  //public long ReadElementContentAsLong()
-  //{
-  //  return _reader.ReadElementContentAsLong();
-  //}
-
-  //public long ReadElementContentAsLong(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAsLong(localName, namespaceURI);
-  //}
-
-  public string ReadElementContentAsString()
-  {
-    return _reader.ReadElementContentAsString();
-  }
-
-  public string ReadElementContentAsString(string localName, string namespaceURI)
-  {
-    return _reader.ReadElementContentAsString(localName, namespaceURI);
-  }
-
-  //public object ReadElementContentAs(Type returnType, IXmlNamespaceResolver namespaceResolver)
-  //{
-  //  return _reader.ReadElementContentAs(returnType, namespaceResolver);
-  //}
-
-  //public object ReadElementContentAs(Type returnType, IXmlNamespaceResolver namespaceResolver, string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadElementContentAs(returnType, namespaceResolver, localName, namespaceURI);
-  //}
-
+  
   public string? GetAttribute(string name)
   {
     return _reader.GetAttribute(name);
   }
 
-  public string? GetAttribute(string name, string? namespaceURI)
+  public string? GetAttribute(XmlQualifiedTagName fullName)
   {
-    return _reader.GetAttribute(name, namespaceURI);
+    return _reader.GetAttribute(fullName.Name, fullName.XmlNamespace);
   }
 
   public string GetAttribute(int i)
@@ -265,6 +115,49 @@ public partial class QXmlReader : IXmlReader, IDisposable
     return _reader.GetAttribute(i);
   }
 
+  #endregion
+
+  #region Content accessors
+
+  public string ReadContentAsString()
+  {
+    return _reader.ReadContentAsString();
+  }
+
+  public object ReadContentAs(Type returnType)
+  {
+    return _reader.ReadContentAs(returnType, null);
+  }
+
+  public string ReadElementContentAsString()
+  {
+    return _reader.ReadElementContentAsString();
+  }
+
+  public string ReadElementContentAsString(XmlQualifiedTagName fullName)
+  {
+    return _reader.ReadElementContentAsString(fullName.Name, fullName.XmlNamespace);
+  }
+  #endregion
+
+  #region Element accessors
+  public string ReadElementString()
+  {
+    return _reader.ReadElementString();
+  }
+
+  public string ReadElementString(string name)
+  {
+    return _reader.ReadElementString(name);
+  }
+
+  public string ReadElementString(XmlQualifiedTagName fullName)
+  {
+    return _reader.ReadElementString(fullName.Name, fullName.XmlNamespace);
+  }
+  #endregion
+
+  #region Movement
   public bool MoveToAttribute(string name)
   {
     return _reader.MoveToAttribute(name);
@@ -294,70 +187,47 @@ public partial class QXmlReader : IXmlReader, IDisposable
   {
     return _reader.MoveToElement();
   }
-
-  public bool ReadAttributeValue()
+  
+  public XmlNodeType MoveToContent()
   {
-    return _reader.ReadAttributeValue();
-  }
-
-  public bool Read()
-  {
-    return _reader.Read();
-  }
-
-  public void Close()
-  {
-    _reader.Close();
+    return _reader.MoveToContent();
   }
 
   public void Skip()
   {
     _reader.Skip();
   }
+  #endregion
 
-  //public string? LookupNamespace(string prefix)
-  //{
-  //  return _reader.LookupNamespace(prefix);
-  //}
 
-  //public void ResolveEntity()
-  //{
-  //  _reader.ResolveEntity();
-  //}
+  #region Read but return no significant value.
 
-  //public int ReadContentAsBase64(byte[] buffer, int index, int count)
-  //{
-  //  return _reader.ReadContentAsBase64(buffer, index, count);
-  //}
-
-  //public int ReadElementContentAsBase64(byte[] buffer, int index, int count)
-  //{
-  //  return _reader.ReadElementContentAsBase64(buffer, index, count);
-  //}
-
-  //public int ReadContentAsBinHex(byte[] buffer, int index, int count)
-  //{
-  //  return _reader.ReadContentAsBinHex(buffer, index, count);
-  //}
-
-  //public int ReadElementContentAsBinHex(byte[] buffer, int index, int count)
-  //{
-  //  return _reader.ReadElementContentAsBinHex(buffer, index, count);
-  //}
-
-  //public int ReadValueChunk(char[] buffer, int index, int count)
-  //{
-  //  return _reader.ReadValueChunk(buffer, index, count);
-  //}
-
-  public string ReadString()
+  public void Read()
   {
-    return _reader.ReadString();
+    _reader.Read();
   }
 
-  public XmlNodeType MoveToContent()
+  public void ReadAttributeValue()
   {
-    return _reader.MoveToContent();
+    _reader.ReadAttributeValue();
+  }
+  #endregion
+
+  #region Start/EndElement checking
+
+  public bool IsStartElement()
+  {
+    return _reader.IsStartElement();
+  }
+
+  public bool IsStartElement(string name)
+  {
+    return _reader.IsStartElement(name);
+  }
+
+  public bool IsStartElement(XmlQualifiedTagName fullName)
+  {
+    return _reader.IsStartElement(fullName.Name, fullName.XmlNamespace);
   }
 
   public void ReadStartElement()
@@ -370,89 +240,14 @@ public partial class QXmlReader : IXmlReader, IDisposable
     _reader.ReadStartElement(name);
   }
 
-  public void ReadStartElement(string localname, string ns)
+  public void ReadStartElement(XmlQualifiedTagName fullName)
   {
-    _reader.ReadStartElement(localname, ns);
+    _reader.ReadStartElement(fullName.Name, fullName.XmlNamespace);
   }
-
-  public string ReadElementString()
-  {
-    return _reader.ReadElementString();
-  }
-
-  public string ReadElementString(string name)
-  {
-    return _reader.ReadElementString(name);
-  }
-
-  public string ReadElementString(string localname, string ns)
-  {
-    return _reader.ReadElementString(localname, ns);
-  }
-
   public void ReadEndElement()
   {
     _reader.ReadEndElement();
   }
-
-  public bool IsStartElement()
-  {
-    return _reader.IsStartElement();
-  }
-
-  public bool IsStartElement(string name)
-  {
-    return _reader.IsStartElement(name);
-  }
-
-  public bool IsStartElement(string localname, string ns)
-  {
-    return _reader.IsStartElement(localname, ns);
-  }
-
-  //public bool ReadToFollowing(string name)
-  //{
-  //  return _reader.ReadToFollowing(name);
-  //}
-
-  //public bool ReadToFollowing(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadToFollowing(localName, namespaceURI);
-  //}
-
-  //public bool ReadToDescendant(string name)
-  //{
-  //  return _reader.ReadToDescendant(name);
-  //}
-
-  //public bool ReadToDescendant(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadToDescendant(localName, namespaceURI);
-  //}
-
-  //public bool ReadToNextSibling(string name)
-  //{
-  //  return _reader.ReadToNextSibling(name);
-  //}
-
-  //public bool ReadToNextSibling(string localName, string namespaceURI)
-  //{
-  //  return _reader.ReadToNextSibling(localName, namespaceURI);
-  //}
-
-  //public string ReadInnerXml()
-  //{
-  //  return _reader.ReadInnerXml();
-  //}
-
-  //public string ReadOuterXml()
-  //{
-  //  return _reader.ReadOuterXml();
-  //}
-
-  //public XmlReader ReadSubtree()
-  //{
-  //  return _reader.ReadSubtree();
-  //}
+  #endregion
 
 }
