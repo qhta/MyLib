@@ -125,9 +125,9 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(bool), new BooleanTypeConverter() },
     { typeof(byte), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedByte } },
     { typeof(byte[]), new Base64TypeConverter() },
-    { typeof(DateOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Date } },
+    { typeof(DateOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Date, ExpectedType = typeof(DateOnly)} },
     { typeof(DateTime), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime } },
-    { typeof(DateTimeOffset), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime } },
+    { typeof(DateTimeOffset), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime, ExpectedType = typeof(DateTimeOffset) } },
     { typeof(decimal), new NumericTypeConverter { XsdType = XsdSimpleType.Decimal } },
     { typeof(double), new NumericTypeConverter { XsdType = XsdSimpleType.Double } },
     { typeof(float), new NumericTypeConverter { XsdType = XsdSimpleType.Float } },
@@ -137,10 +137,10 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(long), new NumericTypeConverter { XsdType = XsdSimpleType.Long } },
     { typeof(sbyte), new NumericTypeConverter { XsdType = XsdSimpleType.Byte } },
     { typeof(short), new NumericTypeConverter { XsdType = XsdSimpleType.Short } },
-    { typeof(char), new StringTypeConverter() },
+    { typeof(char), new StringTypeConverter{ ExpectedType = typeof(char) } },
     { typeof(string), new StringTypeConverter() },
     { typeof(string[]), new ArrayTypeConverter() },
-    { typeof(TimeOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Time } },
+    { typeof(TimeOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Time, ExpectedType = typeof(DateOnly) } },
     { typeof(TimeSpan), new TimeSpanTypeConverter() },
     { typeof(uint), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedInt } },
     { typeof(ulong), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedLong } },
@@ -247,10 +247,13 @@ public class ValueTypeConverter : BaseTypeConverter
       else
       if (KnownTypeConverters.TryGetValue(expectedType, out var converter))
       {
-        var converterType = converter.GetType();
-        InternalTypeConverter = (TypeConverter?)converterType.GetConstructor(new Type[0])?.Invoke(new object[0]);
-        if (converter is ITypeConverter iTypeConverter0 && iTypeConverter0.XsdType != null && xsdType == null)
-          xsdType = iTypeConverter0.XsdType;
+        InternalTypeConverter = converter;
+
+        //var converterType = converter.GetType();
+        //InternalTypeConverter = (TypeConverter?)converterType.GetConstructor(new Type[0])?.Invoke(new object[0]);
+        //if (converter is ITypeConverter iTypeConverter0 && iTypeConverter0.XsdType != null && xsdType == null)
+        //  xsdType = iTypeConverter0.XsdType;
+
         if (InternalTypeConverter is ITypeConverter iTypeConverter)
         {
           iTypeConverter.ExpectedType = expectedType;

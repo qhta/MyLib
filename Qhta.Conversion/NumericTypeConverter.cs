@@ -198,6 +198,15 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     if (str.Contains("E+", StringComparison.Ordinal) || str.Contains("E-", StringComparison.Ordinal))
     {
       numberStyle |= NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
+      if (XsdType == XsdSimpleType.Float)
+      {
+        if (float.TryParse(str, numberStyle, culture, out var flt))
+        {
+          value = flt;
+          return true;
+        }
+      }
+      else
       if (double.TryParse(str, numberStyle, culture, out var dbl))
       {
         value = dbl;

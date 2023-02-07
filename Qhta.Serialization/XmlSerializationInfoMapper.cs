@@ -55,7 +55,8 @@ public class XmlSerializationInfoMapper
   {
     if (aType.IsNullable(out var baseType) && baseType != null)
       aType = baseType;
-
+    //if (aType == typeof(Single))
+    //  Debug.Assert(true);
     #region Checking if a type was already registered
 
     if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null) return knownTypeInfo;

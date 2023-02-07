@@ -17,8 +17,6 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
 
   protected WhitespaceBehavior _Whitespaces;
 
-  protected XsdSimpleType? _XsdType;
-
   public bool UseEscapeSequences { get; set; }
   public bool UseHtmlEntities { get; set; }
   public bool HexEntities { get; set; }
@@ -105,6 +103,7 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
       _XsdType = value;
     }
   }
+  protected XsdSimpleType? _XsdType;
 
   public WhitespaceBehavior Whitespaces
   {

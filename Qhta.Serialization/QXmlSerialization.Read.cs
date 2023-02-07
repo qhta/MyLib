@@ -658,7 +658,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte))
       {
         Reader.Read();
-        result = ReadValue(context, typeInfo.Type, null, null);
+        result = ReadValue(context, typeInfo.Type, typeInfo.TypeConverter, null);
         Reader.Read();
       }
       else

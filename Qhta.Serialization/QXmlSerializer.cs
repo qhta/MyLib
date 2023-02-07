@@ -128,6 +128,18 @@ public partial class QXmlSerializer: IXmlSerializer
     return false;
   }
 
+  public bool TryGetTypeConverter(Type type, [NotNullWhen(true)] out TypeConverter typeConverter)
+  {
+    var qualifiedTypeName = Mapper.ToQualifiedName(type.FullName ?? "");
+    if (Mapper.KnownTypes.TryGetValue(qualifiedTypeName, out var serializationTypeInfo))
+    {
+      typeConverter = serializationTypeInfo?.TypeConverter!;
+      return typeConverter != null;
+    }
+    typeConverter = null!;
+    return false;
+  }
+
   protected static XmlSerializerNamespaces DefaultNamespaces
   {
     get

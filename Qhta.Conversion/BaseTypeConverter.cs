@@ -6,6 +6,16 @@ namespace Qhta.Conversion;
 
 public class BaseTypeConverter: TypeConverter
 {
+  public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+  {
+    return destinationType == typeof(string);
+  }
+
+  public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+  {
+    return sourceType == typeof(string);
+  }
+
   /// <summary>
   ///   Type expected in ConvertFrom method
   /// </summary>

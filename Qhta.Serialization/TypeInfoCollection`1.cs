@@ -68,22 +68,22 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
     NameIndexedItems.Add(name, item);
   }
 
-  public bool TryGetValue(Type type, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
+  public bool TryGetValue(Type type, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     return TypeIndexedItems.TryGetValue(type, out typeInfo);
   }
 
-  public bool TryGetValue(QualifiedName qualifiedName, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
+  public bool TryGetValue(QualifiedName qualifiedName, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     return NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
   }
-  public bool TryGetValue(XmlQualifiedTagName xmlQualifiedTagName, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
+  public bool TryGetValue(XmlQualifiedTagName xmlQualifiedTagName, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     var qualifiedName = new QualifiedName(xmlQualifiedTagName.Name, xmlQualifiedTagName.Namespace);
     return NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
   }
 
-  public bool TryGetValue(string name, [MaybeNullWhen(false)] out TypeNameInfo typeInfo)
+  public bool TryGetValue(string name, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     if (name == "sbyte")
       TestTools.Stop();

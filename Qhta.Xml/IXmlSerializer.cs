@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.ComponentModel;
+using System.Xml;
 
 namespace Qhta.Xml.Serialization;
 
@@ -9,6 +10,8 @@ namespace Qhta.Xml.Serialization;
 public interface IXmlSerializer
 {
   public bool TryGetKnownType(string typeName, out Type type);
+
+  public bool TryGetTypeConverter(Type type, out TypeConverter converter);
 
   public void Serialize(XmlWriter xmlWriter, object? obj);
 
