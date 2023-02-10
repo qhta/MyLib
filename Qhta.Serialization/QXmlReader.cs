@@ -119,8 +119,10 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   #region Content accessors
 
-  public string ReadContentAsString()
+  public string ReadString()
   {
+    if (_reader.NodeType == XmlNodeType.Element)
+      return _reader.ReadElementContentAsString();
     return _reader.ReadContentAsString();
   }
 

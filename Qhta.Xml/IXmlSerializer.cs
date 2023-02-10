@@ -17,7 +17,8 @@ public interface IXmlSerializer
 
   public object? Deserialize(XmlReader xmlReader);
 
-  public void WriteObject(object obj, object? context = null);
+  public void WriteObject(object obj);
+  public void WriteObject(object? context, object obj);
 
   public object? ReadObject(object? context = null);
 }

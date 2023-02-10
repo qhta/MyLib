@@ -18,7 +18,7 @@ public class XmlContentPropertyAttribute : Attribute
   }
 
   /// <summary>
-  ///   name of the public property of any type
+  ///   Name of the public property of any type
   /// </summary>
   public string Name { get; }
 }

@@ -199,7 +199,6 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
 
   public void SetValue(object? obj, object? value)
   {
-    
     if (IsField)
       Field?.SetValue(obj, value);
     else

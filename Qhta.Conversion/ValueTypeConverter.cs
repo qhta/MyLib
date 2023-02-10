@@ -242,7 +242,7 @@ public class ValueTypeConverter : BaseTypeConverter
     {
       if (expectedType.IsEnum)
       {
-        InternalTypeConverter = new EnumConverter(expectedType);
+        InternalTypeConverter = new EnumTypeConverter(expectedType);
       }
       else
       if (KnownTypeConverters.TryGetValue(expectedType, out var converter))
@@ -372,7 +372,7 @@ public class ValueTypeConverter : BaseTypeConverter
       Init(ExpectedType, KnownTypes, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertTo(context, Culture, value, destinationType);
-    return base.ConvertTo(context, Culture, value, destinationType);
+    return null;
   }
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)

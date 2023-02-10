@@ -63,7 +63,7 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
   }
 
   //public static implicit operator string(QualifiedName value) => value.ToString();
-  //public static implicit operator QualifiedName(string value) => new QualifiedName(value);
+  public static implicit operator XmlQualifiedTagName(string value) => new XmlQualifiedTagName(value);
 
   #region Equality members
 
@@ -87,4 +87,9 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
   //public static bool operator !=(QualifiedName @this, QualifiedName other) => !@this.Equals(other);
 
   #endregion
+
+  public static XmlQualifiedTagName operator +(XmlQualifiedTagName value, string str)
+  {
+    return new XmlQualifiedTagName{ Name = value.Name + str, XmlNamespace = value.XmlNamespace, Prefix = value.Prefix };
+  }
 }

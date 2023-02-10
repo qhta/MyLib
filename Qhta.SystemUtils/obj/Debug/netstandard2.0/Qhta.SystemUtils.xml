@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.SystemUtils</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.SystemUtils.DateTimeUtils">
+            <summary>
+            A bunch of string utility methods
+            </summary>
+        </member>
+        <member name="M:Qhta.SystemUtils.DateTimeUtils.Truncate(System.DateTime)">
+            <summary>
+            Truncates the specified date time to whole seconds.
+            </summary>
+            <param name="dateTime">Truncated date time</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SystemUtils.DateTimeUtils.Truncate(System.DateTime,System.TimeSpan)">
+            <summary>
+            Truncates the specified date time to the specified time span.
+            Usage:
+            <list type="button">
+            <item>
+              dateTime = dateTime.Truncate(TimeSpan.FromMilliseconds(1)); // Truncate to whole ms
+            </item>
+            <item>
+              dateTime = dateTime.Truncate(TimeSpan.FromSeconds(1)); // Truncate to whole second
+            </item>
+            <item>
+              dateTime = dateTime.Truncate(TimeSpan.FromMinutes(1)); // Truncate to whole minute
+            </item>
+            </list>
+            </summary>
+            <param name="dateTime">Truncated date time</param>
+            <param name="timeSpan">Specifies unit of truncation</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

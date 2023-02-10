@@ -68,7 +68,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => ContentProperty != null && ContentInfo != null && !IsDictionary;
+  public bool IsCollection => ContentProperty == null && ContentInfo != null && !IsDictionary;
 
   /// <summary>
   ///   Specifies If a type is serialized as a dictionary but not as a collection.

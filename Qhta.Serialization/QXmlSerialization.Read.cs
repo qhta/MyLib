@@ -138,12 +138,12 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (Reader.NodeType != XmlNodeType.Element)
         throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
       bool isEmptyElement = Reader.IsEmptyElement;
-      ReadAttributesBase(context, typeInfo, onUnknownMember);
+      ReadPropertiesAsAttributes(context, typeInfo, onUnknownMember);
       Reader.Read(); // read end of start element and go to its content;
       SkipWhitespaces();
       if (!isEmptyElement)
       {
-        var n = ReadElementsBase(context, typeInfo);
+        var n = ReadPropertiesAsElements(context, typeInfo);
         if (n == 0)
         {
           var textMemberInfo = typeInfo.TextProperty ?? typeInfo.ContentProperty;
@@ -162,7 +162,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     return result;
   }
 
-  public int ReadAttributesBase(object context, SerializationTypeInfo typeInfo, OnUnknownMember? onUnknownMember = null)
+  public int ReadPropertiesAsAttributes(object context, SerializationTypeInfo typeInfo, OnUnknownMember? onUnknownMember = null)
   {
     var aType = context.GetType();
     var attribs = typeInfo.MembersAsAttributes;
@@ -190,7 +190,7 @@ public partial class QXmlSerializer : IXmlConverterReader
             if (attrName == "space")
             {
               Reader.ReadAttributeValue();
-              var str = Reader.ReadContentAsString();
+              var str = Reader.ReadString();
               if (str == "preserve")
                 Reader.WhitespaceHandling = WhitespaceHandling.Significant;
               else
@@ -200,7 +200,7 @@ public partial class QXmlSerializer : IXmlConverterReader
             continue;
           case "xmlns":
             Reader.ReadAttributeValue();
-            var ns = Reader.ReadContentAsString();
+            var ns = Reader.ReadString();
             Namespaces.Add(attrName, ns);
             Reader.MoveToNextAttribute();
             continue;
@@ -243,7 +243,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     return attrsRead;
   }
 
-  public int ReadElementsBase(object context, SerializationTypeInfo typeInfo, OnUnknownMember? onUnknownMember = null)
+  public int ReadPropertiesAsElements(object context, SerializationTypeInfo typeInfo, OnUnknownMember? onUnknownMember = null)
   {
     var aType = context.GetType();
     var attribs = typeInfo.MembersAsAttributes;
@@ -445,12 +445,15 @@ public partial class QXmlSerializer : IXmlConverterReader
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
     var qualifiedName = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
-    if (!TryGetTypeInfo(qualifiedName, out var typeInfo))
-    {
+    SerializationTypeInfo? typeInfo = null;
+    if (memberInfo.ValueType?.Type != typeof(object))
+       typeInfo = memberInfo.ValueType;
+    else
+    if (!TryGetTypeInfo(qualifiedName, out typeInfo))
       typeInfo = memberInfo.ValueType;
-      if (typeInfo == null)
-        throw new XmlInternalException($"Unknown type for element \"{qualifiedName}\" on deserialize", Reader);
-    }
+    if (typeInfo == null)
+      throw new XmlInternalException($"Unknown type for element \"{qualifiedName}\" on deserialize", Reader);
+
     var expectedType = memberInfo.MemberType ?? typeof(object);
 
     if (expectedType != null)
@@ -493,7 +496,7 @@ public partial class QXmlSerializer : IXmlConverterReader
         if (typeInfo.Type.IsSimple() || typeInfo.Type.IsArray(out var itemType) && itemType == typeof(byte))
         {
           Reader.Read();
-          var str = Reader.ReadContentAsString();
+          var str = Reader.ReadString();
           result = ConvertMemberValueFromString(context, memberInfo, str);
           Reader.Read();
         }
@@ -512,7 +515,11 @@ public partial class QXmlSerializer : IXmlConverterReader
         if (result is IXmlSerializable xmlSerializable)
           xmlSerializable.ReadXml(Reader);
         else
+        {
+          Reader.Read();
           ReadMemberObjectInterior(result, typeInfo, memberInfo);
+          Reader.Read();
+        }
       }
     }
 #if TraceReader
@@ -543,7 +550,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       }
       else if (Reader.NodeType == XmlNodeType.Text)
       {
-        var str = Reader.ReadContentAsString();
+        var str = Reader.ReadString();
         result = ConvertMemberValueFromString(context, memberInfo, str);
         Reader.Read();
       }
@@ -581,13 +588,15 @@ public partial class QXmlSerializer : IXmlConverterReader
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
     bool isEmptyElement = Reader.IsEmptyElement;
-    ReadAttributesBase(context, typeInfo, onUnknownMember);
+    if (typeInfo.XmlNamespace == "DocumentModel.Vml" && typeInfo.XmlName == "ShapeDefaults")
+      TestTools.Stop();
+    ReadPropertiesAsAttributes(context, typeInfo, onUnknownMember);
     Reader.Read(); // read end of start element and go to its content;
     SkipWhitespaces();
     if (!isEmptyElement)
     {
-      var n = ReadElementsBase(context, typeInfo);
-      if (n == 0)
+      var n = ReadPropertiesAsElements(context, typeInfo);
+      if (n == 0 && Reader.NodeType == XmlNodeType.Text)
         ReadTextMember(context, memberInfo);
       if (Reader.NodeType == XmlNodeType.EndElement)
         Reader.Read();
@@ -878,7 +887,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       collectionTypeKind = CollectionTypeKind.Dictionary;
       itemType = valueType;
     }
-    else if (collectionType.IsList(out itemType))
+    else if (collectionType.Name.StartsWith("List`") && collectionType.IsList(out itemType))
     {
       if (itemType == null)
         throw new XmlInternalException($"Unknown item type of {collectionType} collection", Reader);
@@ -1154,7 +1163,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       propValue = xmlConverter.ReadXml(context, Reader, expectedType, null, this);
       return propValue;
     }
-    var str = Reader.ReadContentAsString();
+    var str = Reader.ReadString();
     str = str.DecodeStringValue();
 
     if (expectedType == typeof(string))

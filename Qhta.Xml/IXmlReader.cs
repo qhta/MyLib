@@ -67,7 +67,7 @@ public interface IXmlReader
   public string Prefix { get; }
 
   ///<summary>
-  /// Gets a value indicating whether
+  /// Gets a value indicating whether the current node can have a Value.
   ///</summary>
   public bool HasValue { get; }
 
@@ -166,7 +166,7 @@ public interface IXmlReader
   ///<summary>
   /// Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references, and returns the content as a string. Stops at start tags and end tags.
   ///</summary>
-  public string ReadContentAsString();
+  public string ReadString();
 
   ///<summary>
   /// Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,

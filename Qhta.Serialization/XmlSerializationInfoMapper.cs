@@ -53,6 +53,8 @@ public class XmlSerializationInfoMapper
 
   public SerializationTypeInfo RegisterType(Type aType)
   {
+    if (aType.Name=="DocumentProperties")
+      Debug.Assert(true);
     if (aType.IsNullable(out var baseType) && baseType != null)
       aType = baseType;
     //if (aType == typeof(Single))
@@ -406,7 +408,7 @@ public class XmlSerializationInfoMapper
     typeInfo.MembersAsElements.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
     if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
-      serializationMemberInfo.TypeConverter = new ArrayConverter();
+      serializationMemberInfo.TypeConverter = new Qhta.Conversion.ArrayTypeConverter();
     return true;
   }
 

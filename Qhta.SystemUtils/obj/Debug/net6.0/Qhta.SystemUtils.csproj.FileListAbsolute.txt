@@ -1,0 +1,14 @@
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.SystemUtils.deps.json
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.SystemUtils.dll
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.SystemUtils.pdb
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.SystemUtils.xml
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.dll
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\refint\Qhta.SystemUtils.dll
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.xml
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\Qhta.SystemUtils.pdb
+D:\VS\Projects\MyLib\Qhta.SystemUtils\obj\Debug\net6.0\ref\Qhta.SystemUtils.dll

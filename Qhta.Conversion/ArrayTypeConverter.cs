@@ -8,13 +8,22 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
 {
   public ArrayTypeConverter()
   {
-    XsdType = XsdSimpleType.Base64Binary;
   }
 
   private ValueTypeConverter ItemConverter { get; } = new();
 
   public int? MinLength { get; set; }
   public int? MaxLength { get; set; }
+
+  public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+  {
+    return destinationType == typeof(string);
+  }
+
+  public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+  {
+    return sourceType == typeof(string);
+  }
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
@@ -37,7 +46,8 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
       xsdType = XsdSimpleType.Entity;
 
     ItemConverter.Init(null, KnownTypes, xsdType, Format, culture);
-
+    if (ItemConverter.InternalTypeConverter== null)
+      return null;
     var list = new List<string?>();
     if (value is Array array)
       foreach (var item in array)
