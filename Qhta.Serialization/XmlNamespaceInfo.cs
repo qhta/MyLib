@@ -17,4 +17,7 @@ public class XmlNamespaceInfo
   public string? ClrNamespace { get; set; }
 
   public string? Prefix { get; set; }
+
+  public bool IsUsed { get; set; }
+
 }

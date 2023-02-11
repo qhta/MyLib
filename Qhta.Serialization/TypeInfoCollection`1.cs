@@ -1,4 +1,6 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿using System.Linq;
+
+namespace Qhta.Xml.Serialization;
 
 public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEquatable<TypesInfoCollection<TypeNameInfo>>
   where TypeNameInfo : class, ITypeNameInfo
@@ -7,18 +9,27 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
 
   public Dictionary<Type, TypeNameInfo> TypeIndexedItems { get; } = new();
 
-  public SortedDictionary<QualifiedName, TypeNameInfo> NameIndexedItems { get; } = new();
+  public SortedDictionary<QualifiedName, TypeNameInfo> FullNameIndexedItems { get; } = new();
+
+  public SortedDictionary<string, TypeNameInfo> ShortNameIndexedItems { get; } = new();
+
+  public List<string> DuplicatedShortNames { get; } = new();
 
   public void Add(TypeNameInfo item)
   {
     TypeIndexedItems.Add(item.Type, item);
-    NameIndexedItems.Add(new QualifiedName(item.XmlName, item.XmlNamespace), item);
+    FullNameIndexedItems.Add(new QualifiedName(item.XmlName, item.XmlNamespace), item);
+    if (!ShortNameIndexedItems.ContainsKey(item.XmlName))
+      ShortNameIndexedItems.Add(item.XmlName, item);
+    else
+      DuplicatedShortNames.Add(item.XmlName);
+
   }
 
   public void Clear()
   {
     TypeIndexedItems.Clear();
-    NameIndexedItems.Clear();
+    FullNameIndexedItems.Clear();
   }
 
   public bool Contains(TypeNameInfo item)
@@ -34,7 +45,7 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
   public bool Remove(TypeNameInfo item)
   {
     var ok1 = TypeIndexedItems.Remove(item.Type);
-    var ok2 = NameIndexedItems.Remove(new QualifiedName(item.XmlName, item.ClrNamespace));
+    var ok2 = FullNameIndexedItems.Remove(new QualifiedName(item.XmlName, item.ClrNamespace));
     return ok1 || ok2;
   }
 
@@ -44,7 +55,7 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
 
   public IEnumerator<TypeNameInfo> GetEnumerator()
   {
-    foreach (var item in NameIndexedItems.Values)
+    foreach (var item in FullNameIndexedItems.Values)
       yield return item;
   }
 
@@ -59,13 +70,13 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
     if (ReferenceEquals(this, other)) return true;
     return DefaultNamespace == other.DefaultNamespace
            && TypeIndexedItems.Equals(other.TypeIndexedItems)
-           && NameIndexedItems.Equals(other.NameIndexedItems);
+           && FullNameIndexedItems.Equals(other.FullNameIndexedItems);
   }
 
   public void Add(string name, TypeNameInfo item)
   {
     TypeIndexedItems.Add(item.Type, item);
-    NameIndexedItems.Add(name, item);
+    FullNameIndexedItems.Add(name, item);
   }
 
   public bool TryGetValue(Type type, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
@@ -75,23 +86,22 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
 
   public bool TryGetValue(QualifiedName qualifiedName, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
-    return NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
+    return FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
   }
   public bool TryGetValue(XmlQualifiedTagName xmlQualifiedTagName, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     var qualifiedName = new QualifiedName(xmlQualifiedTagName.Name, xmlQualifiedTagName.Namespace);
-    return NameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
+    return FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
   }
 
   public bool TryGetValue(string name, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     if (name == "sbyte")
       TestTools.Stop();
-    if (NameIndexedItems.TryGetValue(new QualifiedName(name), out typeInfo))
+    if (FullNameIndexedItems.TryGetValue(new QualifiedName(name), out typeInfo))
       return true;
-    if (DefaultNamespace != null)
-      if (NameIndexedItems.TryGetValue(new QualifiedName(name, DefaultNamespace), out typeInfo))
-        return true;
+    if (ShortNameIndexedItems.TryGetValue(name, out typeInfo))
+      return true;
     return false;
   }
 

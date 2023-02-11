@@ -53,12 +53,9 @@ public class XmlSerializationInfoMapper
 
   public SerializationTypeInfo RegisterType(Type aType)
   {
-    if (aType.Name=="DocumentProperties")
-      Debug.Assert(true);
     if (aType.IsNullable(out var baseType) && baseType != null)
       aType = baseType;
-    //if (aType == typeof(Single))
-    //  Debug.Assert(true);
+
     #region Checking if a type was already registered
 
     if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null) return knownTypeInfo;
@@ -650,7 +647,7 @@ public class XmlSerializationInfoMapper
   }
 
   /// <summary>
-  ///   Gets a type converted for a type. It can be pointed out with a
+  ///   Gets a type converter for a type. It can be pointed out with a
   ///   <see cref="System.ComponentModel.TypeConverterAttribute" />
   ///   in a header of the type. This attribute holds the converter type name.
   ///   To use the converter, it must be defined in the same assembly as the type
@@ -701,24 +698,8 @@ public class XmlSerializationInfoMapper
       KnownNamespaces.ClrToXmlNamespace.TryGetValue(clrNamespace, out xmlNamespace);
     if (xmlNamespace == null)
       return new XmlQualifiedTagName(xmlName);
-    if (xmlNamespace == DefaultNamespace)
-      return new XmlQualifiedTagName(xmlName);
     return new XmlQualifiedTagName(xmlName, xmlNamespace);
   }
-
-  //public XmlQualifiedName GetXmlQualifiedName(INamedElement element)
-  //{
-  //  var xmlName = element.XmlName;
-  //  var xmlNamespace = element.XmlNamespace;
-  //  var clrNamespace = element.ClrNamespace;
-  //  if (xmlNamespace == null && clrNamespace != null)
-  //    KnownNamespaces.ClrToXmlNamespace.TryGetValue(clrNamespace, out xmlNamespace);
-  //  if (xmlNamespace == null)
-  //    return new XmlQualifiedName(xmlName);
-  //  if (xmlNamespace == DefaultNamespace)
-  //    return new XmlQualifiedName(xmlName);
-  //  return new XmlQualifiedName(xmlName, xmlNamespace);
-  //}
 
   public QualifiedName ToQualifiedName(string fullTypeName)
   {
@@ -900,6 +881,11 @@ public class XmlSerializationInfoMapper
   #endregion
 
   #region Helper methods
+
+  public void AutoSetPrefixes()
+  {
+    KnownNamespaces.AutoSetPrefixes(DefaultNamespace);
+  }
 
   public static int PropOrderComparison(SerializationMemberInfo a, SerializationMemberInfo b)
   {

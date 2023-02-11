@@ -2,9 +2,9 @@
 
 namespace Qhta.Xml.Serialization;
 
-public partial class QXmlSerializer: IXmlSerializer
+public partial class QXmlSerializer : IXmlSerializer
 {
-  private static volatile XmlSerializerNamespaces? s_defaultNamespaces;
+  //private static volatile XmlSerializerNamespaces? s_defaultNamespaces;
 
   protected XmlDeserializationEvents _events;
 
@@ -52,6 +52,7 @@ public partial class QXmlSerializer: IXmlSerializer
 
   public QXmlSerializer(XmlTypeMapping xmlTypeMapping, SerializationOptions options)
   {
+    Options = options;
     Init(xmlTypeMapping);
   }
 
@@ -140,20 +141,20 @@ public partial class QXmlSerializer: IXmlSerializer
     return false;
   }
 
-  protected static XmlSerializerNamespaces DefaultNamespaces
-  {
-    get
-    {
-      if (s_defaultNamespaces == null)
-      {
-        var nss = new XmlSerializerNamespaces();
-        nss.Add("xsi", XmlSchema.InstanceNamespace);
-        nss.Add("xsd", XmlSchema.Namespace);
-        if (s_defaultNamespaces == null) s_defaultNamespaces = nss;
-      }
-      return s_defaultNamespaces;
-    }
-  }
+  //protected static XmlSerializerNamespaces DefaultNamespaces
+  //{
+  //  get
+  //  {
+  //    if (s_defaultNamespaces == null)
+  //    {
+  //      var nss = new XmlSerializerNamespaces();
+  //      nss.Add("xsi", XmlSchema.InstanceNamespace);
+  //      nss.Add("xsd", XmlSchema.Namespace);
+  //      if (s_defaultNamespaces == null) s_defaultNamespaces = nss;
+  //    }
+  //    return s_defaultNamespaces;
+  //  }
+  //}
 
   protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
     string? location)
@@ -180,7 +181,9 @@ public partial class QXmlSerializer: IXmlSerializer
       foreach (var t in extraTypes)
         RegisterType(t);
     RegisterType(typeof(object));
-    KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
+     if (Options.AutoSetPrefixes)
+      Mapper.AutoSetPrefixes();
+    //KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
 
     //KnownTypes.Dump();
   }
@@ -203,8 +206,33 @@ public partial class QXmlSerializer: IXmlSerializer
 
   public void Serialize(TextWriter textWriter, object? o)
   {
-    var xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings);
-    SerializeObject(xmlWriter, o);
+    if (Options.EmitNamespaces && Options.RemoveUnusedNamespaces)
+    {
+      var bufWriter = new StringWriter();
+      var xmlWriter = XmlTextWriter.Create(bufWriter, XmlWriterSettings);
+      SerializeObject(xmlWriter, o);
+      var str = bufWriter.ToString();
+      if (!Writer.XsiNamespaceUsed)
+        str = str.Replace ($" xmlns:xsi=\"{QXmlSerializationHelper.xsiNamespace}\"","");
+      if (!Writer.XsdNamespaceUsed)
+        str = str.Replace ($" xmlns:xsd=\"{QXmlSerializationHelper.xsdNamespace}\"","");
+      foreach (var item in KnownNamespaces)
+      {
+        var ns = item.XmlNamespace;
+        if (!Writer.NamespacesUsed.Contains(ns))
+        {
+          var prefix = KnownNamespaces.XmlNamespaceToPrefix[ns];
+          var searchStr = $" xmlns:{prefix}=\"{ns}\"";
+          str = str.Replace (searchStr,"");
+        }
+      }
+      textWriter.Write(str);
+    }
+    else
+    {
+      var xmlWriter = XmlTextWriter.Create(textWriter, XmlWriterSettings);
+      SerializeObject(xmlWriter, o);
+    }
   }
 
   public void Serialize(Stream stream, object? o)

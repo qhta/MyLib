@@ -24,29 +24,6 @@ public partial class QXmlSerializer : IXmlConverterReader
   {
     return Mapper.KnownTypes.TryGetValue(type, out typeInfo);
   }
-  //public bool TryGetTypeInfo(XmlQualifiedName name, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
-  //{
-  //  var clrName = Mapper.ToQualifiedName(name);
-  //  var ns = clrName.Namespace;
-  //  if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
-  //    return true;
-  //  while (String.IsNullOrEmpty(name.Prefix) && !String.IsNullOrEmpty(ns))
-  //  {
-  //    var k = ns.LastIndexOf('.');
-  //    if (k <= 0) break;
-  //    ns = ns.Substring(0, k);
-  //    clrName.Namespace = ns;
-  //    if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
-  //      return true;
-  //  }
-  //  if (String.IsNullOrEmpty(name.Prefix))
-  //  {
-  //    clrName.Namespace = "System";
-  //    if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
-  //      return true;
-  //  }
-  //  return false;
-  //}
 
   public bool TryGetTypeInfo(XmlQualifiedTagName name, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
   {
@@ -69,6 +46,8 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
         return true;
     }
+    if (Mapper.KnownTypes.TryGetValue(clrName.Name, out typeInfo))
+      return true;
     return false;
   }
   #endregion
@@ -254,6 +233,8 @@ public partial class QXmlSerializer : IXmlConverterReader
     while (Reader.NodeType == XmlNodeType.Element)
     {
       var qualifiedName = Reader.Name;
+      if (qualifiedName.Name == "ProofState")
+        TestTools.Stop();
       bool isEmptyElement = Reader.IsEmptyElement;
       var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
       if (memberInfo != null)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
 using Qhta.Conversion;
@@ -28,10 +29,10 @@ public partial class QXmlSerializer
     if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
       throw new InternalException($"Type \"{aType}\" not registered");
     var tag = Mapper.GetXmlTag(serializedTypeInfo);
-    WriteObject(context, obj, tag, Options.EmitNamespaces);
+    WriteObject(context, obj, tag);
   }
 
-  public void WriteObject(object? context, object obj, XmlQualifiedTagName? tag, bool emitNamespaces = false)
+  public void WriteObject(object? context, object obj, XmlQualifiedTagName? tag)
   {
     if (obj is IXmlSerializable xmlSerializable)
     {
@@ -48,16 +49,21 @@ public partial class QXmlSerializer
       {
         if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
           throw new InternalException($"Type \"{aType}\" not registered");
-        Writer.EmitNamespaces = emitNamespaces;
+        Writer.EmitNamespaces = Options.EmitNamespaces;
         if (tag != null)
           Writer.WriteStartElement(tag);
-        if (emitNamespaces && context == null)
+        if (Options.EmitNamespaces && context == null)
         {
           if (Options.UseNilValue)
             Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
 
           if (Options.UseXsdScheme)
             Writer.WriteNamespaceDef("xsd", QXmlSerializationHelper.xsdNamespace);
+
+          if (Options.AutoSetPrefixes)
+            foreach (var item in KnownNamespaces)
+              if (item.Prefix != null)
+                Writer.WriteNamespaceDef(item.Prefix, item.XmlNamespace);
         }
 
         WriteObjectInterior(context, obj, null, serializedTypeInfo);
@@ -156,7 +162,7 @@ public partial class QXmlSerializer
         {
           if (propTag != null)
             Writer.WriteStartElement(propTag);
-          Writer.WriteNilAttribute(QXmlSerializationHelper.xsiNamespace);
+          Writer.WriteNilAttribute();
           if (propTag != null)
             Writer.WriteEndElement(propTag);
         }
@@ -558,6 +564,15 @@ public partial class QXmlSerializer
   }
 
   #endregion
+
+  protected XmlQualifiedTagName? CreateElementTag(SerializationMemberInfo memberInfo)
+  {
+    if (memberInfo.XmlNamespace != null)
+    {
+      KnownNamespaces[memberInfo.XmlNamespace].IsUsed = true;
+    }
+    return new XmlQualifiedTagName(memberInfo.XmlName, memberInfo.XmlNamespace);
+  }
 
   protected XmlQualifiedTagName? CreatePropertyTag(XmlQualifiedTagName? elementTag, string? propName)
   {

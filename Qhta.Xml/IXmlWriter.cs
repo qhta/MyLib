@@ -42,10 +42,11 @@ public interface IXmlWriter
   public void WriteEndDocument();
 
   /// <summary>
-  /// Writes the nil attribute.
+  /// Writes the "xsi:nil=true" attribute that indicates whether an XML element has null value.
+  /// If an XML element represents a string value, its null value is represented by an empty Xml element (i.e. &lt;Title/&gt;)
+  /// and its zero-length value is represented by a pair of open-close Xml elements (i.e. &lt;Title &gt;&lt;/Title &gt;).
   /// </summary>
-  /// <param name="xsiNamespace">The xsi namespace.</param>
-  public void WriteNilAttribute(string xsiNamespace);
+  public void WriteNilAttribute();
 
   ///// <summary>
   ///// Writes out the DOCTYPE declaration with the specified name and optional attributes.

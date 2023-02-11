@@ -4,25 +4,18 @@ namespace Qhta.Xml.Serialization;
 
 public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
 {
-  private List<XmlNamespaceInfo> Items { get; } = new();
 
-  //public KnownNamespacesCollection(){}
-
-  //public KnownNamespacesCollection(XmlSerializerNamespaces namespaces)
-  //{
-  //  foreach (var ns in namespaces.ToArray())
-  //    Items.Add(new XmlNamespaceInfo(ns));
-  //}
-
+  internal Dictionary<string, XmlNamespaceInfo> Items = new();
 
   internal Dictionary<string, string> ClrToXmlNamespace { get; set; } = new();
 
   internal Dictionary<string, string> XmlNamespaceToPrefix { get; set; } = new();
+
   internal Dictionary<string, string> PrefixToXmlNamespace { get; set; } = new();
 
   public void Add(XmlNamespaceInfo item)
   {
-    Items.Add(item);
+    Items.Add(item.XmlNamespace, item);
     if (!string.IsNullOrEmpty(item.Prefix))
     {
       XmlNamespaceToPrefix.Add(item.XmlNamespace, item.Prefix);
@@ -39,18 +32,18 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
 
   public bool Contains(XmlNamespaceInfo item)
   {
-    return Items.Contains(item);
+    return Items.Values.Contains(item);
   }
 
 
   public void CopyTo(XmlNamespaceInfo[] array, int arrayIndex)
   {
-    Items.CopyTo(array, arrayIndex);
+    Items.Values.CopyTo(array, arrayIndex);
   }
 
   public bool Remove(XmlNamespaceInfo item)
   {
-    var ok0 = Items.Remove(item);
+    var ok0 = Items.Remove(item.XmlNamespace);
     var ok1 = XmlNamespaceToPrefix.Remove(item.XmlNamespace);
     var ok2 = PrefixToXmlNamespace.Remove(item.Prefix ?? "");
     return ok0 || ok1 || ok2;
@@ -60,21 +53,9 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
 
   public bool IsReadOnly => false;
 
-  //public bool TryGetValue(QualifiedName qualifiedName, [MaybeNullWhen(false)] out XmlNamespaceInfo typeInfo)
-  //  => PrefixToNamespace.TryGetValue(qualifiedName, out typeInfo);
-
-  //public bool TryGetValue(string name, [MaybeNullWhen(false)] out XmlNamespaceInfo typeInfo)
-  //{
-  //  if (PrefixToNamespace.TryGetValue(new QualifiedName(name), out typeInfo))
-  //    return true;
-  //  //if (BaseNamespace != null)
-  //  //  if (NameIndexedItems.TryGetValue(new QualifiedName(name, BaseNamespace), out typeInfo))
-  //  //    return true;
-  //  return false;
-  //}
   public IEnumerator<XmlNamespaceInfo> GetEnumerator()
   {
-    foreach (var item in Items)
+    foreach (var item in Items.Values)
       yield return item;
   }
 
@@ -94,8 +75,10 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
   {
     if (xmlNamespace == "")
       return false;
-    var hasXmlNamespace = Items.Any(item => item.XmlNamespace == xmlNamespace);
-    var hasClrNamespace = Items.Any(item => item.ClrNamespace == clrNamespace);
+    if (xmlNamespace.Contains('_'))
+      return false;
+    var hasXmlNamespace = Items.ContainsKey(xmlNamespace);
+    var hasClrNamespace = Items.Values.Any(item => item.ClrNamespace == clrNamespace);
     if (hasXmlNamespace && hasClrNamespace)
       return false;
     if (hasClrNamespace)
@@ -108,16 +91,55 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
 
   public void Add(XmlNamespaceInfo item, string prefix)
   {
-    Items.Add(item);
+    Items.Add(item.XmlNamespace, item);
     XmlNamespaceToPrefix.Add(item.XmlNamespace, prefix);
     PrefixToXmlNamespace.Add(prefix, item.XmlNamespace);
+  }
+
+  public bool ContainsXmlNamespace(string xmlNamespace)
+  {
+    return Items.ContainsKey(xmlNamespace);
+  }
+
+  public bool ContainsNamespace(string xmlNamespace)
+  {
+    return XmlNamespaceToPrefix.TryGetValue(xmlNamespace, out _);
+  }
+
+  public bool ContainsPrefix(string prefix)
+  {
+    return PrefixToXmlNamespace.TryGetValue(prefix, out _);
+  }
+
+  public XmlNamespaceInfo this[string xmlNamespace]
+  {
+    get => Items[xmlNamespace];
+  }
+
+  #region Prefixes setting methods
+  public void AutoSetPrefixes(string? defaultNamespace = null)
+  {
+    foreach (var item in Items.Values)
+    {
+      if (item.Prefix == null)
+      {
+        var pfx = item.XmlNamespace == defaultNamespace ? "" : NamespaceToPrefix(item.XmlNamespace);
+        var prefix = pfx;
+        int n = 1;
+        while (PrefixToXmlNamespace.ContainsKey(prefix))
+          prefix = pfx + (n++).ToString();
+        item.Prefix = prefix;
+        XmlNamespaceToPrefix.Add(item.XmlNamespace, item.Prefix);
+        PrefixToXmlNamespace.Add(item.Prefix, item.XmlNamespace);
+      }
+    }
   }
 
   public void AssignPrefixes(string? defaultNamespace, XmlSerializerNamespaces? namespaces = null)
   {
     XmlNamespaceToPrefix.Clear();
     PrefixToXmlNamespace.Clear();
-    foreach (var item in Items)
+    foreach (var item in Items.Values)
     {
       if (item.Prefix == null)
       {
@@ -159,24 +181,11 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
     foreach (var ch in nspace)
       if (Char.IsUpper(ch))
         sb.Append(Char.ToLower(ch));
+      else if (Char.IsDigit(ch))
+        sb.Append(ch);
     return sb.ToString();
   }
-
-  public bool ContainsXmlNamespace(string xmlNamespace)
-  {
-    return Items.Any(item => item.XmlNamespace == xmlNamespace);
-  }
-
-  public bool ContainsNamespace(string xmlNamespace)
-  {
-    return XmlNamespaceToPrefix.TryGetValue(xmlNamespace, out _);
-  }
-
-  public bool ContainsPrefix(string prefix)
-  {
-    return PrefixToXmlNamespace.TryGetValue(prefix, out _);
-  }
-
+  #endregion
   public void Dump()
   {
     Debug.WriteLine("KnownNamespaces:");

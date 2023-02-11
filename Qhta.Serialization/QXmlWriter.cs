@@ -12,34 +12,21 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   private XmlWriter _writer { get; }
 
-
   public static implicit operator XmlWriter(QXmlWriter writer) => writer._writer;
 
   private XmlSpace _spaceBehavior { get; } 
 
-  
+  public bool XsiNamespaceUsed { get; private set; }
+
+  public bool XsdNamespaceUsed { get; private set; }
+
+  public SortedSet<string> NamespacesUsed { get; } = new();
+
   public Stack<XmlQualifiedTagName> ElementStack { get; private set; } = new();
+
   public Stack<XmlQualifiedTagName> AttributeStack { get; private set; } = new();
 
-  public void Dispose()
-  {
-    ((IDisposable)_writer).Dispose();
-  }
-
-  public bool EmitNamespaces
-  {
-    get
-    {
-      if (_writer is XmlTextWriter xmlTextWriter)
-        return xmlTextWriter.Namespaces;
-      return false;
-    }
-    set
-    {
-      if (_writer is XmlTextWriter xmlTextWriter)
-        xmlTextWriter.Namespaces = value;
-    }
-  }
+  public bool EmitNamespaces { get; set; } = true;
 
   public XmlWriterSettings? Settings => _writer.Settings;
 
@@ -66,8 +53,12 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   public void WriteStartElement(XmlQualifiedTagName fullName)
   {
-    if (fullName.Namespace != "")
+    if (fullName.Namespace != "" && EmitNamespaces)
+    {
       _writer.WriteStartElement(fullName.Name, fullName.Namespace);
+      if (!NamespacesUsed.Contains(fullName.Namespace))
+        NamespacesUsed.Add(fullName.Namespace);
+    }
     else
       _writer.WriteStartElement(fullName.Name);
     ElementStack.Push(fullName);
@@ -124,7 +115,14 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   public void WriteStartAttribute(XmlQualifiedTagName fullName)
   {
-    _writer.WriteAttributeString(fullName.Name, fullName.Namespace);
+    if (fullName.Namespace != "" && EmitNamespaces)
+    {
+      _writer.WriteStartAttribute(fullName.Name, fullName.Namespace);
+      if (!NamespacesUsed.Contains(fullName.Namespace))
+        NamespacesUsed.Add(fullName.Namespace);
+    }
+    else
+      _writer.WriteStartAttribute(fullName.Name, fullName.Namespace);
     AttributeStack.Push(fullName);
   }
 
@@ -191,36 +189,6 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     _writer.WriteString(text);
   }
 
-  //public void WriteSurrogateCharEntity(char lowChar, char highChar)
-  //{
-  //  _writer.WriteSurrogateCharEntity(lowChar, highChar);
-  //}
-
-  //public void WriteChars(char[] buffer, int index, int count)
-  //{
-  //  _writer.WriteChars(buffer, index, count);
-  //}
-
-  //public void WriteRaw(char[] buffer, int index, int count)
-  //{
-  //  _writer.WriteRaw(buffer, index, count);
-  //}
-
-  //public void WriteRaw(string data)
-  //{
-  //  _writer.WriteRaw(data);
-  //}
-
-  //public void WriteBase64(byte[] buffer, int index, int count)
-  //{
-  //  _writer.WriteBase64(buffer, index, count);
-  //}
-
-  //public void WriteBinHex(byte[] buffer, int index, int count)
-  //{
-  //  _writer.WriteBinHex(buffer, index, count);
-  //}
-
   public WriteState WriteState => _writer.WriteState;
 
   public void Close()
@@ -237,101 +205,17 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   public string? XmlLang => _writer.XmlLang;
 
-  //public string? LookupPrefix(string ns)
-  //{
-  //  return _writer.LookupPrefix(ns);
-  //}
-
-
-
-  //public void WriteNmToken(string name)
-  //{
-  //  _writer.WriteNmToken(name);
-  //}
-
-  //public void WriteName(string name)
-  //{
-  //  _writer.WriteName(name);
-  //}
-
-  //public void WriteQualifiedName(string localName, string? ns)
-  //{
-  //  _writer.WriteQualifiedName(localName, ns);
-  //}
-
   public void WriteValue(object value)
   {
     _writer.WriteValue(value);
   }
 
-  //public void WriteValue(bool value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(DateTime value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(DateTimeOffset value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(double value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(float value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(decimal value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(int value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteValue(long value)
-  //{
-  //  _writer.WriteValue(value);
-  //}
-
-  //public void WriteAttributes(XmlReader reader, bool defattr)
-  //{
-  //  _writer.WriteAttributes(reader, defattr);
-  //}
-
-  //public void WriteNode(XmlReader reader, bool defattr)
-  //{
-  //  _writer.WriteNode(reader, defattr);
-  //}
-
-  //public void WriteNode(XPathNavigator navigator, bool defattr)
-  //{
-  //  _writer.WriteNode(navigator, defattr);
-  //}
-
-  //public void WriteElementString(string localName, string? ns, string? value)
-  //{
-  //  _writer.WriteElementString(localName, ns, value);
-  //}
-
-  //public void WriteElementString(string? prefix, string localName, string? ns, string? value)
-  //{
-  //  _writer.WriteElementString(prefix, localName, ns, value);
-  //}
-
   public void WriteAttributeString(XmlQualifiedTagName fullName, string? str)
   {
-    _writer.WriteAttributeString(fullName.Name, fullName.Namespace, str);
+    if (fullName.Namespace != "" && EmitNamespaces)
+      _writer.WriteAttributeString(fullName.Name, str);
+    else
+      _writer.WriteAttributeString(fullName.Name, fullName.Namespace, str);
   }
 
   public void WriteAttributeString(string attrName, string? str)
@@ -341,12 +225,13 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   public void WriteNamespaceDef(string prefix, string ns)
   {
-    _writer.WriteAttributeString("xmlns", "xsi", null, ns);
+    _writer.WriteAttributeString("xmlns", prefix, null, ns);
   }
 
-  public void WriteNilAttribute(string xsiNamespace)
+  public void WriteNilAttribute()
   {
-    _writer.WriteAttributeString(null, "nil", xsiNamespace, "true");
+    _writer.WriteAttributeString(null, "nil", QXmlSerializationHelper.xsiNamespace, "true");
+    XsiNamespaceUsed = true;
   }
 
   public void WriteValue(string? str)
@@ -369,5 +254,36 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   public void WriteSignificantSpaces(bool value)
   {
     _writer.WriteAttributeString("xml", "space", null, value ? "preserve" : "default");
+  }
+
+  private bool disposedValue;
+
+  protected virtual void Dispose(bool disposing)
+  {
+    if (!disposedValue)
+    {
+      if (disposing)
+      {
+        Close();
+      }
+
+      // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+      // TODO: set large fields to null
+      disposedValue = true;
+    }
+  }
+
+  // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+  // ~QXmlWriter()
+  // {
+  //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+  //     Dispose(disposing: false);
+  // }
+
+  public void Dispose()
+  {
+    // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    Dispose(disposing: true);
+    GC.SuppressFinalize(this);
   }
 }
