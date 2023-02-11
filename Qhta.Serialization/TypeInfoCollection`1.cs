@@ -2,7 +2,7 @@
 
 namespace Qhta.Xml.Serialization;
 
-public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEquatable<TypesInfoCollection<TypeNameInfo>>
+public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEquatable<TypeInfoCollection<TypeNameInfo>>
   where TypeNameInfo : class, ITypeNameInfo
 {
   [XmlAttribute] public string? DefaultNamespace { get; set; }
@@ -64,7 +64,7 @@ public class TypesInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqu
     return GetEnumerator();
   }
 
-  public bool Equals(TypesInfoCollection<TypeNameInfo>? other)
+  public bool Equals(TypeInfoCollection<TypeNameInfo>? other)
   {
     if (ReferenceEquals(null, other)) return false;
     if (ReferenceEquals(this, other)) return true;

@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.deps.json
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb

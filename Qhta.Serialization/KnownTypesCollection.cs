@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public class KnownTypesCollection : TypesInfoCollection<SerializationTypeInfo>
+public class KnownTypesCollection : TypeInfoCollection<SerializationTypeInfo>
 {
   private readonly KnownNamespacesCollection KnownNamespaces;
 

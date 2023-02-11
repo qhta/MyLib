@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml.Serialization;
 
-public class KnownItemTypesCollection : TypesInfoCollection<SerializationItemInfo>
+public class KnownItemTypesCollection : TypeInfoCollection<SerializationItemInfo>
 {
   public new void Add(SerializationItemInfo item)
   {
