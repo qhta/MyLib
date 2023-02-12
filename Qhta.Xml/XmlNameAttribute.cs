@@ -1,4 +1,4 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml;
 
 public enum XmlAttributeNameType
 {

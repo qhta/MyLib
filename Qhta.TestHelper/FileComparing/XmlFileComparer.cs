@@ -18,12 +18,14 @@ public class XmlFileComparer : AbstractFileComparer
   /// </summary>
   protected enum CompResult
   {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     AreEqual,
     NameDiff,
     AttrDiff,
     ElementDiff,
     ElementCountDiff,
     ValueDiff,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
   }
 
   private int diffCount;

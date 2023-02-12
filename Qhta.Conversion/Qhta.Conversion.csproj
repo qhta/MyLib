@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="XsdSimpleType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Qhta.Collections\Qhta.Collections.csproj" />
     <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>

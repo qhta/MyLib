@@ -47,7 +47,7 @@ public class MessageCountingMonitor : ITraceMonitor
   /// Check if a message was already registered.
   /// Enables omitting duplicate message processing.
   /// </summary>
-  /// <param name="message">Text message</param>
+  /// <param name="msg">Text message</param>
   /// <param name="callerName">Caller name (by default set as name of caller method)</param>
   /// <returns>true if the message was already registered</returns>
   public bool WasNotified(string msg, [CallerMemberName] string? callerName = null)
@@ -68,7 +68,7 @@ public class MessageCountingMonitor : ITraceMonitor
   /// <summary>
   /// Register a message send by a caller.
   /// </summary>
-  /// <param name="message">Text message</param>
+  /// <param name="msg">Text message</param>
   /// <param name="callerName">Caller name (by default set as name of caller method)</param>
   public void Notify(string msg, [CallerMemberName] string? callerName = null)
   {

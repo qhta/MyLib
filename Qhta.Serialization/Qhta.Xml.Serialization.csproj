@@ -14,12 +14,29 @@
 
   <ItemGroup>
     <Compile Remove="BaseSerializer.cs" />
+    <Compile Remove="ContentItemInfo.cs" />
+    <Compile Remove="DictionaryInfo.cs" />
+    <Compile Remove="INamedElement.cs" />
+    <Compile Remove="ITypeNameInfo.cs" />
     <Compile Remove="IXmlConverter.cs" />
     <Compile Remove="IXmlSerializer.cs" />
     <Compile Remove="IXSerializable.cs" />
     <Compile Remove="IXSerializer.cs" />
+    <Compile Remove="KnownItemTypesCollection.cs" />
+    <Compile Remove="KnownMembersCollection.cs" />
+    <Compile Remove="KnownNamespacesCollection.cs" />
+    <Compile Remove="KnownTypesCollection.cs" />
+    <Compile Remove="PropOrderComparer.cs" />
+    <Compile Remove="QualifiedName.cs" />
+    <Compile Remove="QualifiedNameTypeConverter.cs" />
     <Compile Remove="QXmlSerializer.Deserialization.cs" />
     <Compile Remove="QXmlSerializer.Serialization.cs" />
+    <Compile Remove="SerializationItemInfo.cs" />
+    <Compile Remove="SerializationMemberInfo.cs" />
+    <Compile Remove="SerializationTypeInfo.cs" />
+    <Compile Remove="TypeInfoCollection`1.cs" />
+    <Compile Remove="XmlMapping.cs" />
+    <Compile Remove="XmlNamespaceInfo.cs" />
     <Compile Remove="XmlQualifiedTagName.cs" />
     <Compile Remove="XmlSerializer - Copy.base.cs" />
     <Compile Remove="XmlSerializer.base.copy.cs" />
@@ -38,7 +55,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
-    <ProjectReference Include="..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
+    <ProjectReference Include="..\Qhta.Xml.Reflection\Qhta.Xml.Reflection.csproj" />
     <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 
@@ -47,6 +64,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Qhta.TestHelper">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TestHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Qhta.TextUtils">
       <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
     </Reference>

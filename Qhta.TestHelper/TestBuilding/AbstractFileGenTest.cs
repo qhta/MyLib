@@ -15,6 +15,8 @@ namespace Qhta.TestHelper;
 /// </summary>
 public abstract class AbstractFileGenTest : AbstractTest
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
   protected static string testDir { get; set; }
 
   protected static XmlSerializer? serializer { get; set; }

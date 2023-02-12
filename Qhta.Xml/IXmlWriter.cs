@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.XPath;
 
-namespace Qhta.Xml.Serialization;
+namespace Qhta.Xml;
 public interface IXmlWriter
 {
   /// <summary>

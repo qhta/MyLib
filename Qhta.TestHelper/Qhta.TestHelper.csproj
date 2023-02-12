@@ -2,7 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	  <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Nullable>Enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Authors>Yarreck Qhta</Authors>
+    <Version>2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

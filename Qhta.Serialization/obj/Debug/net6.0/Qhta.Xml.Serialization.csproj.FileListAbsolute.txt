@@ -25,3 +25,6 @@ D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.pdb
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.TextUtils.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.TextUtils.pdb
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.TextUtils.xml
+D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.Reflection.dll
+D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.Reflection.pdb
+D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.TestHelper.xml

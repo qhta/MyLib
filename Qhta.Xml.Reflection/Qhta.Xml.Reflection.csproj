@@ -1,11 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>Enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Qhta.TestHelper">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TestHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.TextUtils">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.TypeUtils">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
 

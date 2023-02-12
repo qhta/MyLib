@@ -23,7 +23,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   /// <summary>
   /// Flush invokes abstract <see cref="FlushBuffer"/>.
   /// This construction is needed to avoid premature cleaning
-  /// when subclasses will invoke base <see cref="WriterBuffer"/>
+  /// when subclasses will invoke base method.
   /// </summary>
   public virtual void Flush() 
   {
@@ -68,7 +68,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
 
   /// <summary>
   /// If set then new lines are written visually, as "\n" sequence;
-  /// To so, to write a "real" new line use <see cref="WriteLine"/> method.
+  /// To so, to write a "real" new line use <see cref="WriteLine()"/> method.
   /// </summary>
   public bool WriteVisualNewLine { get; set; }
 
@@ -175,6 +175,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   }
 
   private bool disposedValue;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
   protected virtual void Dispose(bool disposing)
   {

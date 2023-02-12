@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Qhta.TestHelper;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public static class TestTools
 {
   public static string? MethodName([CallerMemberName] string? callerName = null)

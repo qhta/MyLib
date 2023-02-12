@@ -34,6 +34,8 @@ public abstract class AbstractTest : IDisposable
   /// </summary>
   public bool ShowTestRunTime { get; set; }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
   public TraceTextWriter? TraceWriter { get; set; }
 
   public string TestCasesStr { get; set; } = "test cases";

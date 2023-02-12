@@ -524,7 +524,7 @@ public partial class QXmlSerializer
     {
       if (value != null)
       {
-        var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, null, null, null, Options.ConversionOptions);
+        var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, null, null, null, Options.ConversionOptions);
         var valStr = typeConverter.ConvertToInvariantString(value);
         if (valStr != null)
         {
@@ -556,8 +556,8 @@ public partial class QXmlSerializer
     }
     else
     {
-      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, KnownTypes.Keys, memberInfo.DataType,
-        memberInfo.Format, memberInfo.Culture, memberInfo.ConversionOptions ?? Options.ConversionOptions);
+      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, memberInfo.DataType,
+        memberInfo.Format, memberInfo.Culture, /*memberInfo.ConversionOptions ?? */Options.ConversionOptions);
       var str = typeConverter.ConvertToInvariantString(propValue);
       return str;
     }

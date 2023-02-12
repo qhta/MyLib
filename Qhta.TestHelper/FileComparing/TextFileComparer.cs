@@ -20,7 +20,7 @@ public class TextFileComparer : AbstractFileComparer
 
   /// <summary>
   /// Implemented method of file comparison.
-  /// Simply reads out whole files and invokes <see cref="CompareText"/>.
+  /// Simply reads out whole files and invokes <see cref="CompareTexts"/>.
   /// </summary>
   /// <param name="outFilename">Received output filename</param>
   /// <param name="expFilename">Expected content filename</param>
@@ -257,7 +257,7 @@ public class TextFileComparer : AbstractFileComparer
   /// <summary>
   /// Synchronization helper method.
   /// Searches in a <paramref name="lines"/> collection starting at <paramref name="startIndex"/>
-  /// for a line that is equal to <paramref name="expLint"/>.
+  /// for a line that is equal to <paramref name="expLine"/>.
   /// The search is limited to <paramref name="maxDist"/> distance.
   /// After search the fist equal line is pointed by <paramref name="foundIndex"/> parameter.
   /// If option <see cref="FileCompareOptions.IgnoreEmptyLines"/> is set 

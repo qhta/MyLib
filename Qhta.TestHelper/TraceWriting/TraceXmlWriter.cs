@@ -4,8 +4,15 @@ using System.Xml;
 
 namespace Qhta.TestHelper;
 
+/// <summary>
+/// Main implementation of <see cref="ITraceXmlWriter"/>
+/// </summary>
+/// <seealso cref="Qhta.TestHelper.TraceTextWriter" />
+/// <seealso cref="Qhta.TestHelper.ITraceXmlWriter" />
 public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
   protected new XmlWriter _writer { get; private set; }
 
   protected Stack<string> _stack { get; private set; } = new Stack<string>();

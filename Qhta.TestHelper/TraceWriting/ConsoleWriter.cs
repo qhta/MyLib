@@ -99,7 +99,6 @@ public class ConsoleWriter : AbstractWriter, IConsoleWriter
   /// You can control if console is used for output with
   /// <see cref="ConsoleOutputEnabled"/> property.
   /// </summary>
-  /// <param name="str">Flushed string</param>
   protected virtual void FlushNewLineTag()
   {
     if (ConsoleOutputEnabled)
@@ -112,7 +111,6 @@ public class ConsoleWriter : AbstractWriter, IConsoleWriter
   /// You can control the operation is done with
   /// <see cref="ColorEnabled"/> property.
   /// </summary>
-  /// <param name="str">Flushed string</param>
   protected virtual void FlushColorTag(ColorTag tag)
   {
     if (ConsoleOutputEnabled)

@@ -26,7 +26,7 @@ public interface ITextWriter: IDisposable
 
   /// <summary>
   /// If set then new lines are written visually, as "\n" sequence;
-  /// To so, to write a "real" new line use <see cref="WriteLine"/> method.
+  /// To so, to write a "real" new line use <see cref="WriteLine()"/> method.
   /// </summary>
   bool WriteVisualNewLine { get; set; }
 
@@ -63,7 +63,6 @@ public interface ITextWriter: IDisposable
   /// Writes an empty line to output.
   /// <see cref="IndentLevel"/> is written at the beginning of the line.
   /// </summary>
-  /// <param name="line">A line of text to write</param>
   void WriteLine();
 
   /// <summary>

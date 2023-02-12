@@ -433,19 +433,6 @@
           "bin/placeholder/Qhta.Conversion.dll": {}
         }
       },
-      "Qhta.TestHelper/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Qhta.Conversion": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.TestHelper.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.TestHelper.dll": {}
-        }
-      },
       "Qhta.Xml/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -454,6 +441,19 @@
         },
         "runtime": {
           "bin/placeholder/Qhta.Xml.dll": {}
+        }
+      },
+      "Qhta.Xml.Reflection/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Qhta.Xml": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.Xml.Reflection.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Xml.Reflection.dll": {}
         }
       }
     }
@@ -1750,22 +1750,22 @@
       "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
       "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
     },
-    "Qhta.TestHelper/1.0.0": {
-      "type": "project",
-      "path": "../Qhta.TestHelper/Qhta.TestHelper.csproj",
-      "msbuildProject": "../Qhta.TestHelper/Qhta.TestHelper.csproj"
-    },
     "Qhta.Xml/1.0.0": {
       "type": "project",
       "path": "../Qhta.Xml/Qhta.Xml.csproj",
       "msbuildProject": "../Qhta.Xml/Qhta.Xml.csproj"
+    },
+    "Qhta.Xml.Reflection/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.Xml.Reflection/Qhta.Xml.Reflection.csproj",
+      "msbuildProject": "../Qhta.Xml.Reflection/Qhta.Xml.Reflection.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Qhta.Conversion >= 1.0.0",
-      "Qhta.TestHelper >= 1.0.0",
       "Qhta.Xml >= 1.0.0",
+      "Qhta.Xml.Reflection >= 1.0.0",
       "System.CodeDom >= 7.0.0",
       "System.Collections.Specialized >= 4.3.0",
       "System.Security.Permissions >= 7.0.0"
@@ -1806,8 +1806,8 @@
             "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
             },
-            "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj"
+            "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj"
             },
             "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"

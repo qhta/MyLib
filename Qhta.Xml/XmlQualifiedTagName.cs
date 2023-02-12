@@ -1,4 +1,4 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml;
 
 //[TypeConverter(typeof(QualifiedNameTypeConverter))]
 public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<XmlQualifiedName>

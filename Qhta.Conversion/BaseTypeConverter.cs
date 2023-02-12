@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using System.Xml;
+using Qhta.Xml;
 
 namespace Qhta.Conversion;
 
@@ -15,6 +16,11 @@ public class BaseTypeConverter: TypeConverter
   ///   Types known in ConvertFrom method
   /// </summary>
   public virtual Dictionary<string, Type>? KnownTypes { get; set; }
+
+  /// <summary>
+  ///   Known namespace prefixes
+  /// </summary>
+  public virtual Dictionary<string, string>? KnownNamespaces { get; set; }
 
   /// <summary>
   ///   Type to use when converting to string in ConvertTo

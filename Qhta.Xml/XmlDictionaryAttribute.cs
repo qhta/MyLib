@@ -1,4 +1,4 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
 public class XmlDictionaryAttribute : XmlCollectionAttribute

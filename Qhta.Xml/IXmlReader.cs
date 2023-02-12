@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Schema;
 
-namespace Qhta.Xml.Serialization;
+namespace Qhta.Xml;
 
 public interface IXmlReader
 {

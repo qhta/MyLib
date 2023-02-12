@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Xml;
 
-namespace Qhta.Xml.Serialization;
+namespace Qhta.Xml;
 
 /// <summary>
 ///   Xml equivalent of JsonConverter.

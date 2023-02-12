@@ -1,4 +1,4 @@
-﻿namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Field)]
 public class XmlConverterAttribute : Attribute

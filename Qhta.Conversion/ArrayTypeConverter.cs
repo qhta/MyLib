@@ -45,7 +45,7 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
     if (xsdType == XsdSimpleType.Entities)
       xsdType = XsdSimpleType.Entity;
 
-    ItemConverter.Init(null, KnownTypes, xsdType, Format, culture);
+    ItemConverter.Init(null, KnownTypes, KnownNamespaces, xsdType, Format, culture);
     if (ItemConverter.InternalTypeConverter== null)
       return null;
     var list = new List<string?>();
@@ -80,7 +80,7 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
       if (ExpectedType != null && ExpectedType.IsArray(out var itemType))
         expectedType = itemType;
 
-      ItemConverter.Init(expectedType, KnownTypes, xsdType, Format, culture);
+      ItemConverter.Init(expectedType, KnownTypes, KnownNamespaces, xsdType, Format, culture);
 
       if (expectedType == null)
         expectedType = ItemConverter.ExpectedType;

@@ -6,8 +6,12 @@ using Microsoft.VisualBasic;
 
 namespace Qhta.TestHelper;
 
+/// <summary>
+/// A class to compare objects and write output to TraceTextWriter
+/// </summary>
 public class ObjectComparer
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public ObjectComparer(ITraceTextWriter? writer)
   {
     Writer = writer;
@@ -17,6 +21,7 @@ public class ObjectComparer
   /// Writer to receive detailed results of comparison. Set up on comparer constructor.
   /// </summary>
   public ITraceTextWriter? Writer { get; init; }
+
 
   public bool DeepCompare(object? obj1, object? obj2)
   {

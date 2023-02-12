@@ -2,8 +2,14 @@
 
 namespace Qhta.TestHelper;
 
+/// <summary>
+/// Expands <see cref="ITraceTextWriter"/> to handle XML writting.
+/// </summary>
+/// <seealso cref="Qhta.TestHelper.ITraceTextWriter" />
 public interface ITraceXmlWriter: ITraceTextWriter
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
   #region prefixes and namespaces
   void WriteNamespacePrefix(string prefix, string ns);
   #endregion
@@ -55,6 +61,7 @@ public interface ITraceXmlWriter: ITraceTextWriter
   void WriteValue(string? str) => WriteValue(null, str);
 
   /// <param name="prefix">needed only to enable suppression</param>
+  /// <param name="str">Written string</param>
   void WriteValue(string? prefix, string? str);
   #endregion
 
@@ -69,6 +76,7 @@ public interface ITraceXmlWriter: ITraceTextWriter
   void WriteComment(string? text) => WriteComment(null, text);
 
   /// <param name="prefix">needed only to enable suppression</param>
+  /// <param name="text">Written comment text</param>
   void WriteComment(string? prefix, string? text);
 
   void SuppressPrefix(string prefix, bool value = true);

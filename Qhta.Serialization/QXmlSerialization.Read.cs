@@ -243,7 +243,7 @@ public partial class QXmlSerializer : IXmlConverterReader
         Type propType = memberInfo.MemberType ?? typeof(Object);
         if (memberInfo.XmlConverter?.CanRead == true)
         {
-          propValue = memberInfo.XmlConverter.ReadXml(context, this, typeInfo, memberInfo, null);
+          propValue = memberInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, this);
         }
         else
         {
@@ -1312,7 +1312,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     }
     else if (expectedType == typeof(Type))
     {
-      propValue = new TypeNameConverter(KnownTypes.Keys).ConvertFrom(null, null, str);
+      propValue = new TypeNameConverter(KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix).ConvertFrom(null, null, str);
     }
     //else
     //  throw new XmlInternalException($"Value type \"{expectedType}\" not supported for deserialization", reader);

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Security.AccessControl;
 using System.Xml;
 using Qhta.TypeUtils;
+using Qhta.Xml;
 
 namespace Qhta.Conversion;
 
@@ -154,12 +155,13 @@ public class ValueTypeConverter : BaseTypeConverter
   {
   }
 
-  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, XsdSimpleType? xsdType = null, string? format =null, CultureInfo? culture = null,
+  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, Dictionary<string, string>? knownNamespaces = null, XsdSimpleType? xsdType = null, string? format =null, CultureInfo? culture = null,
     ConversionOptions? options = null)
   {
     if (knownTypes != null)
       KnownTypes = knownTypes.ToDictionary(type => type.FullName ?? "");
-    Init(expectedType, KnownTypes, xsdType, format, culture, options);
+    KnownNamespaces = knownNamespaces;
+    Init(expectedType, KnownTypes, KnownNamespaces, xsdType, format, culture, options);
   }
 
   public TypeConverter? InternalTypeConverter { get; set; }
@@ -168,10 +170,10 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public void Init()
   {
-    Init(ExpectedType, KnownTypes, XsdType, Format, Culture, Options);
+    Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture, Options);
   }
 
-  public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
+  public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, Dictionary<string, string>? knownNamespaces, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
   {
     if (expectedType?.IsNullable(out var baseType) == true)
       expectedType = baseType;
@@ -277,7 +279,7 @@ public class ValueTypeConverter : BaseTypeConverter
         if (expectedType == typeof(Type))
         {
           if (knownTypes != null)
-            InternalTypeConverter = new TypeNameConverter(knownTypes);
+            InternalTypeConverter = new TypeNameConverter(knownTypes, knownNamespaces);
           return;
         }
         //throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
@@ -369,7 +371,7 @@ public class ValueTypeConverter : BaseTypeConverter
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)
   {
     if (InternalTypeConverter == null)
-      Init(ExpectedType, KnownTypes, XsdType, Format, Culture);
+      Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertTo(context, Culture, value, destinationType);
     return null;
@@ -378,7 +380,7 @@ public class ValueTypeConverter : BaseTypeConverter
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (InternalTypeConverter == null)
-      Init(ExpectedType, KnownTypes, XsdType, Format, Culture);
+      Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertFrom(context, Culture, value);
     return base.ConvertFrom(context, Culture, value);

@@ -7,8 +7,43 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Qhta.Xml.Reflection/1.0.0": {
+        "dependencies": {
+          "Qhta.Xml": "1.0.0",
+          "Qhta.TestHelper": "2.0.0.0",
+          "Qhta.TextUtils": "3.0.0.0",
+          "Qhta.TypeUtils": "1.3.0.0"
+        },
         "runtime": {
           "Qhta.Xml.Reflection.dll": {}
+        }
+      },
+      "Qhta.Xml/1.0.0": {
+        "runtime": {
+          "Qhta.Xml.dll": {}
+        }
+      },
+      "Qhta.TestHelper/2.0.0.0": {
+        "runtime": {
+          "Qhta.TestHelper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.0.0.0": {
+        "runtime": {
+          "Qhta.TextUtils.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.0.0": {
+        "runtime": {
+          "Qhta.TypeUtils.dll": {
+            "assemblyVersion": "1.3.0.0",
+            "fileVersion": "1.3.0.0"
+          }
         }
       }
     }
@@ -16,6 +51,26 @@
   "libraries": {
     "Qhta.Xml.Reflection/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.Xml/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.TestHelper/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.TextUtils/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.TypeUtils/1.3.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

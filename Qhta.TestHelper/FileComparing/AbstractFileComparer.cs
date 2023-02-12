@@ -143,7 +143,7 @@ public abstract class AbstractFileComparer
   /// Colors in options are applied.
   /// </summary>
   /// <param name="line">line to write</param>
-  /// <param name="isExpected">
+  /// <param name="isExp">
   ///   true if lines belong to "expected" file, false if belong to "output" files, or null if none or both
   /// </param>
   protected void ShowLine(string line, bool? isExp = null)

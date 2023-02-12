@@ -3,8 +3,14 @@
 
 namespace Qhta.TestHelper;
 
+/// <summary>
+/// Main implementation of <see cref="ITraceTextWriter"/>
+/// </summary>
+/// <seealso cref="Qhta.TestHelper.TraceWriter" />
+/// <seealso cref="Qhta.TestHelper.ITraceTextWriter" />
 public class TraceTextWriter : TraceWriter, ITraceTextWriter
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
   public TraceTextWriter(bool consoleOutputEnabled, bool traceOutputEnabled)
   {
