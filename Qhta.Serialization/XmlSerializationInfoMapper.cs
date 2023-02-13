@@ -66,6 +66,7 @@ public class XmlSerializationInfoMapper
 
     // first create a new type info
     // and add it to avoid stack overflow with recurrency
+    DefaultNamespace= aType.Namespace;
     var newTypeInfo = CreateTypeInfo(aType);
     KnownTypes.Add(newTypeInfo);
     if (newTypeInfo.XmlNamespace != null && newTypeInfo.ClrNamespace != null)
@@ -113,8 +114,6 @@ public class XmlSerializationInfoMapper
     var elementNamespace = xmlRootAttrib?.Namespace;
     if (String.IsNullOrEmpty(elementNamespace))
       elementNamespace = GetElementNamespace(aType);
-    if (elementNamespace != null && DefaultNamespace == null)
-      DefaultNamespace = elementNamespace;
 
     typeInfo.XmlName = elementName;
     typeInfo.XmlNamespace = elementNamespace;

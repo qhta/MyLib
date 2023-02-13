@@ -576,7 +576,10 @@ public partial class QXmlSerializer
       if (!typeName.Contains('.'))
         return new XmlQualifiedTagName(typeName);
     }
-    return Mapper.GetXmlTag(typeInfo);
+    var result = Mapper.GetXmlTag(typeInfo);
+    if (typeInfo.XmlNamespace!=null)
+      result.Prefix = KnownNamespaces[typeInfo.XmlNamespace].Prefix;
+    return result;
   }
 
   protected XmlQualifiedTagName CreateElementTag(SerializationMemberInfo memberInfo)

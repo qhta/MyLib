@@ -195,37 +195,6 @@ public partial class QXmlSerializer : IXmlSerializer
       var xmlWriter = XmlDictionaryWriter.Create(bufWriter, XmlWriterSettings);
       SerializeObject(xmlWriter, o);
       var str = bufWriter.ToString();
-      if (Options.EmitDefaultNamespacePrefix)
-      {
-        var k = str.IndexOf(" xmlns=");
-        if (k > 0)
-        {
-          var n = str.IndexOf('\"', k)+1;
-          var m = str.IndexOf('\"', n);
-          var defaultNamespace = str.Substring(n, m - n);
-          if (KnownNamespaces.Items.TryGetValue(defaultNamespace, out var defaultNamespaceInfo))
-          {
-            defaultNamespaceInfo.IsUsed = true;
-            var defaultPrefix = defaultNamespaceInfo.Prefix;
-            var str1  = str.Remove(k, m - k+1);
-            k = str1.IndexOf('<');
-            while (k >= 0)
-            {
-              if (k < str1.Length - 1 && !char.IsLetter(str1[k + 1]))
-                k = str1.IndexOf('<', k + 1);
-              else
-                break;
-            }
-            if (k >= 0 && k < str1.Length - 1)
-            {
-              str1 = str1.Insert(k + 1, defaultPrefix + ":");
-              k = str1.LastIndexOf("</");
-              if (k>=0 && k < str1.Length - 2)
-                str = str1.Insert(k + 2, defaultPrefix + ":");
-            }
-          }
-        }
-      }
       if (Options.RemoveUnusedNamespaces)
       {
         if (!Writer.XsiNamespaceUsed)
@@ -304,31 +273,4 @@ public partial class QXmlSerializer : IXmlSerializer
     return ReadObject();
   }
 
-
-  //public partial bool CanDeserialize(XmlReader xmlReader);
-
-
-  //public event XmlNodeEventHandler UnknownNode
-  //{
-  //  add => _events.OnUnknownNode += value;
-  //  remove => _events.OnUnknownNode -= value;
-  //}
-
-  //public event XmlAttributeEventHandler UnknownAttribute
-  //{
-  //  add => _events.OnUnknownAttribute += value;
-  //  remove => _events.OnUnknownAttribute -= value;
-  //}
-
-  //public event XmlElementEventHandler UnknownElement
-  //{
-  //  add => _events.OnUnknownElement += value;
-  //  remove => _events.OnUnknownElement -= value;
-  //}
-
-  //public event UnreferencedObjectEventHandler UnreferencedObject
-  //{
-  //  add => _events.OnUnreferencedObject += value;
-  //  remove => _events.OnUnreferencedObject -= value;
-  //}
 }

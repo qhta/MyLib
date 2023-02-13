@@ -51,17 +51,20 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   }
 
 
-  public void WriteStartElement(XmlQualifiedTagName fullName)
+  public void WriteStartElement(XmlQualifiedTagName tag)
   {
-    if (fullName.Namespace != "" && EmitNamespaces)
+    if (tag.Namespace != "" && EmitNamespaces)
     {
-      _writer.WriteStartElement(fullName.Name, fullName.Namespace);
-      if (!NamespacesUsed.Contains(fullName.Namespace))
-        NamespacesUsed.Add(fullName.Namespace);
+      if (!String.IsNullOrEmpty(tag.Prefix))
+        _writer.WriteStartElement(tag.Prefix, tag.Name, tag.Namespace);
+      else
+        _writer.WriteStartElement(tag.Name, tag.Namespace);
+      if (!NamespacesUsed.Contains(tag.Namespace))
+        NamespacesUsed.Add(tag.Namespace);
     }
     else
-      _writer.WriteStartElement(fullName.Name);
-    ElementStack.Push(fullName);
+      _writer.WriteStartElement(tag.Name);
+    ElementStack.Push(tag);
   }
 
   public void WriteStartElement(string localName)

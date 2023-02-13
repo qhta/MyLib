@@ -9,7 +9,7 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
 
   [XmlAttribute] public string? Prefix { get; set; } = null;
 
-  [XmlIgnore] public string Namespace => Prefix ?? XmlNamespace;
+  [XmlIgnore] public string Namespace => XmlNamespace;
 
   public XmlQualifiedTagName()
   {
