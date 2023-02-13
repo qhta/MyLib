@@ -132,16 +132,6 @@
           }
         }
       },
-      "Qhta.Collections/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/Qhta.Collections.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Collections.dll": {}
-        }
-      },
       "Qhta.Xml/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -337,11 +327,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Qhta.Collections/1.0.0": {
-      "type": "project",
-      "path": "../Qhta.Collections/Qhta.Collections.csproj",
-      "msbuildProject": "../Qhta.Collections/Qhta.Collections.csproj"
-    },
     "Qhta.Xml/1.0.0": {
       "type": "project",
       "path": "../Qhta.Xml/Qhta.Xml.csproj",
@@ -350,7 +335,6 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Qhta.Collections >= 1.0.0",
       "Qhta.Xml >= 1.0.0",
       "System.Configuration.ConfigurationManager >= 7.0.0"
     ]
@@ -387,9 +371,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj"
-            },
             "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
               "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
             }

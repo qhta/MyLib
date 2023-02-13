@@ -15,3 +15,15 @@ D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collect
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.dll
 D:\Dane\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.xml
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.dll
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.xml
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.pdb

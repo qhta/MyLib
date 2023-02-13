@@ -22,3 +22,6 @@ D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\net6.0\Qhta.TextUtils.xml
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\net6.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\net6.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net6.0\Qhta.Xml.Reflection.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\net6.0\Qhta.Collections.dll
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\net6.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\bin\Debug\net6.0\Qhta.Collections.xml

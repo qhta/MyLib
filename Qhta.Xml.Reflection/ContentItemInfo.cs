@@ -16,7 +16,7 @@ public class ContentItemInfo : IEquatable<ContentItemInfo>
   ///   Known types for collection items.
   /// </summary>
   [XmlReferences]
-  public KnownItemTypesCollection KnownItemTypes { get; set; } = new();
+  public KnownItemTypesCollection KnownItemTypes { get;/* set;*/ } = new();
 
   public bool Equals(ContentItemInfo? other)
   {

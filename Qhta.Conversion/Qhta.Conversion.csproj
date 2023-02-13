@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Qhta.Collections\Qhta.Collections.csproj" />
     <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 
@@ -30,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Qhta.Collections">
+      <HintPath>..\bin\Debug\net6.0\Qhta.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.TestHelper">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TestHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Qhta.TypeUtils">
       <HintPath>..\..\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
     </Reference>

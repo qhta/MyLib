@@ -720,11 +720,23 @@
               More friendy type names
             </summary>
         </member>
+        <member name="F:Qhta.TypeUtils.TypeNaming.TypeNames">
+            <summary>
+            The simple type names
+            </summary>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeNaming.GetTypeName(System.Type)">
             <summary>
-              Getting specific name of the type
+              Getting specific name of the type.
             </summary>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeNaming.GetType(System.String)">
+            <summary>
+              Getting specific type from the name. NetStandard handles NullableTypes
+            </summary>
+            <param name="typeName"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.TypeUtils.TypeReflectionByInheritance">

@@ -73,11 +73,11 @@ public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqua
            && FullNameIndexedItems.Equals(other.FullNameIndexedItems);
   }
 
-  public void Add(string name, TypeNameInfo item)
-  {
-    TypeIndexedItems.Add(item.Type, item);
-    FullNameIndexedItems.Add(name, item);
-  }
+  //public void Add(string name, TypeNameInfo item)
+  //{
+  //  TypeIndexedItems.Add(item.Type, item);
+  //  FullNameIndexedItems.Add(name, item);
+  //}
 
   public bool TryGetValue(Type type, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
@@ -88,16 +88,23 @@ public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqua
   {
     return FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
   }
-  public bool TryGetValue(XmlQualifiedTagName xmlQualifiedTagName, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
+  public bool TryGetValue(XmlQualifiedTagName tag, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
-    var qualifiedName = new QualifiedName(xmlQualifiedTagName.Name, xmlQualifiedTagName.Namespace);
-    return FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
+    QualifiedName qualifiedName;
+    if (String.IsNullOrEmpty(tag.Namespace) && tag.Name.Contains('.'))
+      qualifiedName = new QualifiedName(tag.Name);
+    else
+      qualifiedName = new QualifiedName(tag.Name, tag.Namespace);
+    var result = FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
+    if (result == false)
+      result =  ShortNameIndexedItems.TryGetValue(qualifiedName.Name, out typeInfo);
+    if (result == false)
+      Debug.Assert(true);
+    return result;
   }
 
   public bool TryGetValue(string name, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
-    if (name == "sbyte")
-      TestTools.Stop();
     if (FullNameIndexedItems.TryGetValue(new QualifiedName(name), out typeInfo))
       return true;
     if (ShortNameIndexedItems.TryGetValue(name, out typeInfo))

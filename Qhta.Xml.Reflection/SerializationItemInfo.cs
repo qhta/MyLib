@@ -27,7 +27,7 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     XmlNamespace = itemTypeInfo.XmlNamespace;
   }
 
-  public SerializationItemInfo(string elementName, string xmlNamespace, SerializationTypeInfo itemTypeInfo)
+  public SerializationItemInfo(string elementName, string? xmlNamespace, SerializationTypeInfo itemTypeInfo)
   {
     TypeInfo = itemTypeInfo;
     XmlName = elementName;

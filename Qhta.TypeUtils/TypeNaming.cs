@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Qhta.Collections;
+
 namespace Qhta.TypeUtils;
 
 /// <summary>
@@ -8,43 +10,51 @@ namespace Qhta.TypeUtils;
 /// </summary>
 public static class TypeNaming
 {
-  private static readonly Dictionary<Type, string> typeNames = new()
+  /// <summary>
+  /// The simple type names
+  /// </summary>
+  public static BiDiDictionary<Type, string> TypeNames = new()
   {
     { typeof(string), "string" },
     { typeof(char), "char" },
     { typeof(bool), "bool" },
     { typeof(sbyte), "sbyte" },
-    { typeof(Int16), "int16" },
-    { typeof(Int32), "int" },
-    { typeof(Int64), "int64" },
+    { typeof(short), "short" },
+    { typeof(int), "int" },
+    { typeof(long), "long" },
     { typeof(byte), "byte" },
-    { typeof(UInt16), "uint16" },
-    { typeof(UInt32), "uint" },
-    { typeof(UInt64), "uint64" },
-    { typeof(Decimal), "decimal" },
+    { typeof(ushort), "ushort" },
+    { typeof(uint), "uint" },
+    { typeof(ulong), "ulong" },
+    { typeof(decimal), "decimal" },
     { typeof(float), "float" },
     { typeof(double), "double" },
-    { typeof(DateTime), "DateTime" },
-    { typeof(TimeSpan), "TimeSpan" }
+    { typeof(DateTime), "dateTime" },
+    { typeof(TimeSpan), "timeSpan" },
+#if NET6_0_OR_GREATER
+    { typeof(DateOnly), "date" },
+    { typeof(TimeOnly), "time" },
+#endif
+    { typeof(Guid), "guid" }
   };
 
   /// <summary>
-  ///   Getting specific name of the type
+  ///   Getting specific name of the type.
   /// </summary>
   /// <param name="type"></param>
   /// <returns></returns>
   public static string GetTypeName(this Type type)
   {
     string? name;
-    if (typeNames.TryGetValue(type, out name))
+    if (TypeNames.TryGetValue2(type, out name))
       return name;
-    name = type.Name;
-    if (name.StartsWith("Nullable`"))
+    if (type.Name.StartsWith("Nullable`"))
     {
       var baseType = type.GenericTypeArguments[0];
       name = GetTypeName(baseType);
       return name + "?";
     }
+    name = type.FullName;
     var k = name.IndexOf('`');
     if (k > 0)
     {
@@ -62,5 +72,28 @@ public static class TypeNaming
       }
     }
     return name;
+  }
+
+    /// <summary>
+  ///   Getting specific type from the name. NetStandard handles NullableTypes
+  /// </summary>
+  /// <param name="typeName"></param>
+  /// <returns></returns>
+  public static Type? GetType(string typeName)
+  {
+    var nullable = typeName.EndsWith("?");
+    Type? type = null;
+    if (!TypeNames.TryGetValue1(typeName, out type))
+    {
+      type = Type.GetType(typeName);
+      if (nullable && type!=null)
+      {
+#if NET6_0_OR_GREATER
+        return Type.MakeGenericSignatureType(typeof(Nullable<>), new Type[] { type });
+#endif
+      }
+      return type;
+    }
+    return type;
   }
 }

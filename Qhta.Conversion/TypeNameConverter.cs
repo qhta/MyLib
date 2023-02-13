@@ -1,6 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Xml;
+
+using Qhta.TestHelper;
+using Qhta.TypeUtils;
 
 namespace Qhta.Conversion;
 
@@ -48,6 +52,9 @@ public class TypeNameConverter : BaseTypeConverter
       return null;
     if (value is Type type)
     {
+      var typeName = TypeNaming.GetTypeName(type);
+      if (typeName != null && typeName != type.FullName)
+        return typeName;
       if (KnownNamespaces != null)
       {
         var ns = type.Namespace;
@@ -77,6 +84,11 @@ public class TypeNameConverter : BaseTypeConverter
     {
       if (str == String.Empty)
         return null;
+      if (str=="HeadingPairs")
+        TestTools.Stop();
+      var aType = TypeNaming.GetType(str);
+      if (aType != null)
+        return aType;
       if (KnownPrefixes != null)
       {
         var prefix = "";

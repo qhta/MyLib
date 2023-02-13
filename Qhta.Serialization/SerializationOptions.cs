@@ -41,7 +41,7 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   /// <summary>
   ///   Whether simple type properties not marked with any XmlAttribute are to be serialized as attributes.
   /// </summary>
-  public bool SimplePropertiesAsAttributes { get; set; }
+  public bool SimplePropertiesAsAttributes { get; set; } = true;
 
   /// <summary>
   ///   Whether XML attribute names should change case on serialization.

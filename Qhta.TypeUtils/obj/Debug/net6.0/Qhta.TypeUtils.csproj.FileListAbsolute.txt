@@ -12,3 +12,4 @@ D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\refint\Qhta.TypeUtils.dll
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\ref\Qhta.TypeUtils.dll
+D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.csproj.CopyComplete

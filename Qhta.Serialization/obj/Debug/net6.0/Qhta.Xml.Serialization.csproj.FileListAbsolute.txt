@@ -28,3 +28,4 @@ D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.TextUtils.xml
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.Reflection.dll
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Xml.Reflection.pdb
 D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.TestHelper.xml
+D:\VS\Projects\MyLib\Qhta.Serialization\bin\Debug\net6.0\Qhta.Collections.xml

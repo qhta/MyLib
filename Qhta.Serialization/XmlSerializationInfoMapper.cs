@@ -698,6 +698,7 @@ public class XmlSerializationInfoMapper
       KnownNamespaces.ClrToXmlNamespace.TryGetValue(clrNamespace, out xmlNamespace);
     if (xmlNamespace == null)
       return new XmlQualifiedTagName(xmlName);
+
     return new XmlQualifiedTagName(xmlName, xmlNamespace);
   }
 
@@ -748,8 +749,8 @@ public class XmlSerializationInfoMapper
   {
     var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
-    if (arrayAttribute == null && arrayItemsAttributes.Length == 0)
-      return null;
+    //if (arrayAttribute == null && arrayItemsAttributes.Length == 0)
+    //  return null;
     var valueType = memberInfo.GetValueType();
     if (valueType == null)
       return null;
@@ -767,32 +768,40 @@ public class XmlSerializationInfoMapper
     {
       foreach (var arrayItemAttribute in arrayItemAttribs)
       {
-        var elemName = arrayItemAttribute.ElementName;
+        var xmlName = arrayItemAttribute.ElementName;
+        var xmlNamespace = arrayItemAttribute.Namespace;
         var itemType = arrayItemAttribute.Type;
-        if (string.IsNullOrEmpty(elemName))
+        if (string.IsNullOrEmpty(xmlName))
         {
           if (itemType == null)
             throw new InternalException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
-          elemName = itemType.GetTypeTag();
+          xmlName = itemType.GetTypeTag();
         }
         else if (Options.ElementNameCase != 0)
         {
-          elemName = elemName.ChangeCase(Options.ElementNameCase);
+          xmlName = xmlName.ChangeCase(Options.ElementNameCase);
+        }
+        if (string.IsNullOrEmpty(xmlName))
+        {
+          if (itemType == null)
+            throw new InternalException(
+              $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
+          xmlNamespace = itemType.Namespace;
         }
 
         if (itemType == null)
           itemType = typeof(object);
-        var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(itemType));
+        var serializationItemTypeInfo = new SerializationItemInfo(xmlName, xmlNamespace, RegisterType(itemType));
         if (arrayItemAttribute is XmlItemElementAttribute xmlElementAttribute)
         {
           serializationItemTypeInfo.Value = xmlElementAttribute.Value;
           if (xmlElementAttribute.ConverterType != null)
             serializationItemTypeInfo.TypeInfo.TypeConverter = CreateTypeConverter(xmlElementAttribute.ConverterType);
         }
-        if (elemName != null)
-          collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
-        else
+        //if (elemName != null)
+        //  collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
+        //else
           collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
       }
     }

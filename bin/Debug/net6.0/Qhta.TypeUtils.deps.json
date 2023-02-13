@@ -7,8 +7,19 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Qhta.TypeUtils/1.3": {
+        "dependencies": {
+          "Qhta.Collections": "2.0.0.0"
+        },
         "runtime": {
           "Qhta.TypeUtils.dll": {}
+        }
+      },
+      "Qhta.Collections/2.0.0.0": {
+        "runtime": {
+          "Qhta.Collections.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
         }
       }
     }
@@ -16,6 +27,11 @@
   "libraries": {
     "Qhta.TypeUtils/1.3": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.Collections/2.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
