@@ -17,6 +17,11 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   public bool AutoSetPrefixes { get; set; } = true;
 
   /// <summary>
+  /// Whether auto-set prefix for default namespace should be written.
+  /// </summary>
+  public bool EmitDefaultNamespacePrefix { get; set; } = true;
+
+  /// <summary>
   /// Whether unused tag namespaces should be removed on serialization.
   /// </summary>
   public bool RemoveUnusedNamespaces { get; set; } = true;

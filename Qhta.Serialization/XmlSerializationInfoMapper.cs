@@ -891,9 +891,10 @@ public class XmlSerializationInfoMapper
 
   #region Helper methods
 
-  public void AutoSetPrefixes()
+  public void AutoSetPrefixes(string? defaultNamespace)
   {
-    KnownNamespaces.AutoSetPrefixes(DefaultNamespace);
+    DefaultNamespace = defaultNamespace;
+    KnownNamespaces.AutoSetPrefixes(defaultNamespace);
   }
 
   public static int PropOrderComparison(SerializationMemberInfo a, SerializationMemberInfo b)

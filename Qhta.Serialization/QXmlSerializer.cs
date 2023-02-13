@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System.Xml.Linq;
 
 namespace Qhta.Xml.Serialization;
 
@@ -141,21 +142,6 @@ public partial class QXmlSerializer : IXmlSerializer
     return false;
   }
 
-  //protected static XmlSerializerNamespaces DefaultNamespaces
-  //{
-  //  get
-  //  {
-  //    if (s_defaultNamespaces == null)
-  //    {
-  //      var nss = new XmlSerializerNamespaces();
-  //      nss.Add("xsi", XmlSchema.InstanceNamespace);
-  //      nss.Add("xsd", XmlSchema.Namespace);
-  //      if (s_defaultNamespaces == null) s_defaultNamespaces = nss;
-  //    }
-  //    return s_defaultNamespaces;
-  //  }
-  //}
-
   protected void Init(Type type, XmlAttributeOverrides? overrides, Type[]? extraTypes, XmlRootAttribute? root, string? defaultNamespace,
     string? location)
   {
@@ -181,11 +167,8 @@ public partial class QXmlSerializer : IXmlSerializer
       foreach (var t in extraTypes)
         RegisterType(t);
     RegisterType(typeof(object));
-     if (Options.AutoSetPrefixes)
-      Mapper.AutoSetPrefixes();
-    //KnownNamespaces.AssignPrefixes(Mapper.DefaultNamespace ?? "");
-
-    //KnownTypes.Dump();
+    if (Options.AutoSetPrefixes)
+      Mapper.AutoSetPrefixes(Options.EmitDefaultNamespacePrefix ? null : DefaultNamespace);
   }
 
   protected void Init(XmlTypeMapping xmlTypeMapping)
@@ -206,24 +189,58 @@ public partial class QXmlSerializer : IXmlSerializer
 
   public void Serialize(TextWriter textWriter, object? o)
   {
-    if (Options.EmitNamespaces && Options.RemoveUnusedNamespaces)
+    if (Options.EmitNamespaces && Options.AutoSetPrefixes)
     {
       var bufWriter = new StringWriter();
-      var xmlWriter = XmlTextWriter.Create(bufWriter, XmlWriterSettings);
+      var xmlWriter = XmlDictionaryWriter.Create(bufWriter, XmlWriterSettings);
       SerializeObject(xmlWriter, o);
       var str = bufWriter.ToString();
-      if (!Writer.XsiNamespaceUsed)
-        str = str.Replace ($" xmlns:xsi=\"{QXmlSerializationHelper.xsiNamespace}\"","");
-      if (!Writer.XsdNamespaceUsed)
-        str = str.Replace ($" xmlns:xsd=\"{QXmlSerializationHelper.xsdNamespace}\"","");
-      foreach (var item in KnownNamespaces)
+      if (Options.EmitDefaultNamespacePrefix)
       {
-        var ns = item.XmlNamespace;
-        if (!Writer.NamespacesUsed.Contains(ns))
+        var k = str.IndexOf(" xmlns=");
+        if (k > 0)
         {
-          var prefix = KnownNamespaces.XmlNamespaceToPrefix[ns];
-          var searchStr = $" xmlns:{prefix}=\"{ns}\"";
-          str = str.Replace (searchStr,"");
+          var n = str.IndexOf('\"', k)+1;
+          var m = str.IndexOf('\"', n);
+          var defaultNamespace = str.Substring(n, m - n);
+          if (KnownNamespaces.Items.TryGetValue(defaultNamespace, out var defaultNamespaceInfo))
+          {
+            defaultNamespaceInfo.IsUsed = true;
+            var defaultPrefix = defaultNamespaceInfo.Prefix;
+            var str1  = str.Remove(k, m - k+1);
+            k = str1.IndexOf('<');
+            while (k >= 0)
+            {
+              if (k < str1.Length - 1 && !char.IsLetter(str1[k + 1]))
+                k = str1.IndexOf('<', k + 1);
+              else
+                break;
+            }
+            if (k >= 0 && k < str1.Length - 1)
+            {
+              str1 = str1.Insert(k + 1, defaultPrefix + ":");
+              k = str1.LastIndexOf("</");
+              if (k>=0 && k < str1.Length - 2)
+                str = str1.Insert(k + 2, defaultPrefix + ":");
+            }
+          }
+        }
+      }
+      if (Options.RemoveUnusedNamespaces)
+      {
+        if (!Writer.XsiNamespaceUsed)
+          str = str.ReplaceFirst($" xmlns:xsi=\"{QXmlSerializationHelper.xsiNamespace}\"", "");
+        if (!Writer.XsdNamespaceUsed)
+          str = str.ReplaceFirst($" xmlns:xsd=\"{QXmlSerializationHelper.xsdNamespace}\"", "");
+        foreach (var item in KnownNamespaces)
+        {
+          var ns = item.XmlNamespace;
+          if (!Writer.NamespacesUsed.Contains(ns))
+          {
+            var prefix = KnownNamespaces.XmlNamespaceToPrefix[ns];
+            var searchStr = $" xmlns:{prefix}=\"{ns}\"";
+            str = str.ReplaceFirst(searchStr, "");
+          }
         }
       }
       textWriter.Write(str);
