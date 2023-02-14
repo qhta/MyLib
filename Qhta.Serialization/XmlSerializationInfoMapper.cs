@@ -688,6 +688,13 @@ public class XmlSerializationInfoMapper
     return result?.InternalTypeConverter;
   }
 
+  public XmlQualifiedTagName GetXmlTag(Type type)
+  {
+    if (KnownTypes.TryGetValue(type, out var typeInfo))
+      return GetXmlTag(typeInfo);
+    return new XmlQualifiedTagName(type.Name, type.Namespace);
+  }
+
   public XmlQualifiedTagName GetXmlTag(INamedElement element)
   {
     var xmlName = element.XmlName;
@@ -879,8 +886,8 @@ public class XmlSerializationInfoMapper
     else if (aType.IsDictionary(out var keyType, out var valType) && keyType != null && valType != null)
     {
       dictionaryTypeInfo.KeyTypeInfo = RegisterType(keyType);
-      var elemName = "Item";
-      var serializationItemTypeInfo = new SerializationItemInfo(elemName, RegisterType(valType));
+      //var elemName = "Item";
+      var serializationItemTypeInfo = new SerializationItemInfo(RegisterType(valType));
       dictionaryTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
     }
     return dictionaryTypeInfo;

@@ -212,6 +212,7 @@ public partial class QXmlSerializer : IXmlSerializer
           }
         }
       }
+      str = str.ReplaceFirst("encoding=\"utf-16\"", "encoding=\"utf-8\"");
       textWriter.Write(str);
     }
     else

@@ -153,7 +153,7 @@ public partial class QXmlSerializer
             continue;
       }
       var propTag = CreateElementTag(memberInfo);
-      if (propTag?.Name == "RsIdItems")
+      if (propTag?.Name == "DefinedStyles")
         Debug.Assert(true);
       var propValue = memberInfo.GetValue(obj);
       if (propValue == null)
@@ -205,45 +205,13 @@ public partial class QXmlSerializer
                 WriteValue(context, propValue);
             }
             else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
-            {
               WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
-            }
             else if (memberInfo.IsReference)
-            {
               WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
-            }
             else if (propValue is ICollection collection)
-            {
               WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
-              //var arrayInfo = memberInfo.ContentInfo;
-              //foreach (var collectionItem in collection)
-              //{
-              //  if (collectionItem != null)
-              //  {
-              //    var collectionItemType = collectionItem.GetType();
-              //    //SerializationTypeInfo? itemTypeInfo;
-              //    XmlQualifiedTagName? collectionItemTag = null;
-              //    if (arrayInfo != null)
-              //    {
-              //      var itemTypeInfoPair = arrayInfo.KnownItemTypes.FindTypeInfo(collectionItemType);
-              //      if (itemTypeInfoPair != null)
-              //      {
-              //        collectionItemTag = new XmlQualifiedTagName(itemTypeInfoPair.XmlName, itemTypeInfoPair.XmlNamespace);
-              //      }
-              //    }
-
-              //    if (collectionItemTag == null)
-              //      collectionItemTag = new XmlQualifiedTagName(collectionItem.GetType().Name, collectionItem.GetType().Namespace);
-              //    Writer.WriteStartElement(collectionItemTag);
-              //    WriteObjectInterior(collection, collectionItem, collectionItemTag);
-              //    Writer.WriteEndElement(collectionItemTag);
-              //  }
-              //}
-            }
             else
-            {
               WriteObject(propValue);
-            }
             if (propTag != null)
               Writer.WriteEndElement(propTag);
           }
@@ -313,8 +281,9 @@ public partial class QXmlSerializer
   }
 
   public int WriteCollectionContentProperty(object? context, XmlQualifiedTagName? elementTag, string? propName, SerializationMemberInfo contentMemberInfo,
-    ContentItemInfo contentInfo/*, SerializationTypeInfo typeInfo*/)
+    ContentItemInfo contentInfo)
   {
+    var result = 0;
     if (contentInfo != null)
     {
       var itemTypes = contentInfo.KnownItemTypes;
@@ -322,89 +291,22 @@ public partial class QXmlSerializer
       if (propInfo != null)
       {
         var propTag = CreatePropertyTag(elementTag, propName);
-        var item = propInfo.GetValue(context, null);
-        if (item != null)
-        {
-          if (item == null)
-          {
-            Writer.WriteStartElement("null");
-            Writer.WriteEndElement("null");
-          }
-          else
-          {
-            var itemTag = item.GetType().GetTypeTag();
-            TypeConverter? typeConverter = null;
-            if (itemTypes != null)
-            {
-              var itemType = item.GetType();
-              if (!itemTypes.TryGetValue(itemType, out var itemTypeInfo))
-                itemTypeInfo = itemTypes.FindTypeInfo(itemType);
-
-              if (itemTypeInfo != null)
-              {
-                itemTag = itemTypeInfo.XmlName;
-                typeConverter = itemTypeInfo.TypeInfo.TypeConverter;
-              }
-            }
-
-            if (item.GetType().IsSimple())
-            {
-              //itemTag = GetItemTag(item.GetType());
-              Writer.WriteStartElement(itemTag);
-              WriteValue(context, item);
-              Writer.WriteEndElement(itemTag);
-            }
-            else
-            {
-              if (typeConverter != null)
-              {
-                if (!string.IsNullOrEmpty(itemTag))
-                  Writer.WriteStartElement(itemTag);
-                WriteValue(context, typeConverter.ConvertToString(item) ?? "");
-                if (!string.IsNullOrEmpty(itemTag))
-                  Writer.WriteEndElement(itemTag);
-              }
-              else
-              {
-                //if (contentMemberInfo.StoresReference)
-                //{
-                //  if (string.IsNullOrEmpty(itemTag))
-                //    WriteValue(item.ToString());
-                //  else
-                //  {
-                //    Writer.WriteStartElement(itemTag);
-                //    WriteValue(item.ToString());
-                //    Writer.WriteEndElement(itemTag);
-                //  }
-                //}
-                //if (itemTag != null
-                //if (KnownTypes.TryGetValue(item.GetType(), out var serializationTypeInfo))
-                //  WriteObject(item);
-                //else
-                {
-                  Writer.WriteStartElement(itemTag);
-                  WriteObjectInterior(context, item, itemTag);
-                  Writer.WriteEndElement(itemTag);
-                }
-              }
-            }
-          }
-        }
+        var collection = propInfo.GetValue(context, null) as IEnumerable;
+        if (collection != null)
+          result = WriteCollectionItems(context, collection, null, null, contentInfo);
         if (propTag != null)
           Writer.WriteEndElement(propTag);
       }
-      return 1;
     }
-    return 0;
+    return result;
   }
 
   public int WriteCollectionProperty(object? context, IEnumerable collection, XmlQualifiedTagName? elementTag, string? propName, ContentItemInfo collectionInfo)
   {
-    
     var propTag = CreatePropertyTag(elementTag, propName);
     if (propTag != null)
       Writer.WriteStartElement(propTag);
-    var itemsWritten = WriteCollectionItems(context, collection, propTag, null,collectionInfo);
+    var itemsWritten = WriteCollectionItems(context, collection, propTag, null, collectionInfo);
     if (propTag != null)
       Writer.WriteEndElement(propTag);
     return itemsWritten;
@@ -424,8 +326,6 @@ public partial class QXmlSerializer
       else
       {
         var itemType = item.GetType();
-        if (itemType.Name == "UInt32")
-          Debug.Assert(true);
         XmlQualifiedTagName itemTag = CreateElementTag(itemType);
         TypeConverter? typeConverter = null;
         if (itemTypes != null)
@@ -484,7 +384,7 @@ public partial class QXmlSerializer
           }
           else
           {
-            if (collectionInfo?.StoresReferences==true)
+            if (collectionInfo?.StoresReferences == true)
             {
               Writer.WriteStartElement(itemTag);
               WriteValue(context, item.ToString());
@@ -563,7 +463,9 @@ public partial class QXmlSerializer
     if (!typeName.Contains('.'))
       return new XmlQualifiedTagName(typeName);
 
-    var result = type.GetTypeTag();
+    var result = Mapper.GetXmlTag(type);
+    if (KnownNamespaces.XmlNamespaceToPrefix.TryGetValue(type.Namespace ?? "", out var prefix))
+      result.Prefix = prefix;
     return result;
   }
 
@@ -577,7 +479,7 @@ public partial class QXmlSerializer
         return new XmlQualifiedTagName(typeName);
     }
     var result = Mapper.GetXmlTag(typeInfo);
-    if (typeInfo.XmlNamespace!=null)
+    if (typeInfo.XmlNamespace != null)
       result.Prefix = KnownNamespaces[typeInfo.XmlNamespace].Prefix;
     return result;
   }
@@ -594,7 +496,10 @@ public partial class QXmlSerializer
           return new XmlQualifiedTagName(typeName);
       }
     }
-    return Mapper.GetXmlTag(memberInfo);
+    var result = Mapper.GetXmlTag(memberInfo);
+    if (memberInfo.XmlNamespace != null)
+      result.Prefix = KnownNamespaces[memberInfo.XmlNamespace].Prefix;
+    return result;
   }
 
   protected XmlQualifiedTagName CreateElementTag(SerializationItemInfo itemInfo)
@@ -609,7 +514,10 @@ public partial class QXmlSerializer
           return new XmlQualifiedTagName(typeName);
       }
     }
-    return Mapper.GetXmlTag(itemInfo);
+    var result = Mapper.GetXmlTag(itemInfo);
+    if (itemInfo.XmlNamespace != null)
+      result.Prefix = KnownNamespaces[itemInfo.XmlNamespace].Prefix;
+    return result;
   }
 
   protected XmlQualifiedTagName CreateAttributeTag(SerializationMemberInfo memberInfo)
@@ -624,7 +532,10 @@ public partial class QXmlSerializer
           return new XmlQualifiedTagName(typeName);
       }
     }
-    return Mapper.GetXmlTag(memberInfo);
+    var result = Mapper.GetXmlTag(memberInfo);
+    if (memberInfo.XmlNamespace != null)
+      result.Prefix = KnownNamespaces[memberInfo.XmlNamespace].Prefix;
+    return result;
   }
 
   protected XmlQualifiedTagName? CreatePropertyTag(XmlQualifiedTagName? elementTag, string? propName)

@@ -75,11 +75,11 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   /// </summary>
   public bool PrecedePropertyNameWithClassName { get; set; }
 
-  /// <summary>
-  ///   A string to markup items in collections.
-  ///   If not specified, items are serialized with their type tags.
-  /// </summary>
-  public string? ItemTag { get; set; }
+  ///// <summary>
+  /////   A string to markup items in collections.
+  /////   If not specified, items are serialized with their type tags.
+  ///// </summary>
+  //public string? ItemTag { get; set; }
 
   /// <summary>
   ///   Culture used in numbers during serialization/deserialization.
@@ -150,7 +150,7 @@ public class SerializationOptions : IEquatable<SerializationOptions>
       && EnumNameCase == other.EnumNameCase
       && IgnoreCaseOnEnum == other.IgnoreCaseOnEnum
       && PrecedePropertyNameWithClassName == other.PrecedePropertyNameWithClassName
-      && ItemTag == other.ItemTag
+      //&& ItemTag == other.ItemTag
       && Culture.Equals(other.Culture)
       && IgnoreUnknownElements == other.IgnoreUnknownElements
       && UseNilValue == other.UseNilValue
