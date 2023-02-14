@@ -496,7 +496,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="aType">Type to reflect</param>
   /// <returns>An instance of <see cref="XmlConverter" /></returns>
-  public virtual XmlConverter? GetXmlConverter(Type aType)
+  public virtual IXmlConverter? GetXmlConverter(Type aType)
   {
     var xmlTypeConverterAttrib = aType.GetCustomAttribute<XmlConverterAttribute>(true);
     if (xmlTypeConverterAttrib != null)
@@ -510,7 +510,7 @@ public class XmlSerializationInfoMapper
       var constructor = converterType.GetConstructor(argTypes);
       if (constructor == null)
         throw new InternalException($"Converter type {converterType.Name} has no appropriate constructor");
-      var converter = constructor.Invoke(xmlTypeConverterAttrib.Args) as XmlConverter;
+      var converter = constructor.Invoke(xmlTypeConverterAttrib.Args) as IXmlConverter;
       if (converter == null)
         throw new InternalException($"Converter type {converterType.Name} is not a subclass of XmlConverter");
       return converter;
