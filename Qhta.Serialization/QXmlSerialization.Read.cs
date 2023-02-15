@@ -25,15 +25,24 @@ public partial class QXmlSerializer : IXmlConverterReader
     return Mapper.KnownTypes.TryGetValue(type, out typeInfo);
   }
 
-  public bool TryGetTypeInfo(XmlQualifiedTagName name, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
+  public bool TryGetTypeInfo(XmlQualifiedTagName tag, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
   {
-    if (name.Name.Contains('.'))
-      Debug.Assert(true);
-    var clrName = Mapper.ToQualifiedName(name);
+    //if (tag.Name=="sbyte")
+    //  TestTools.Stop();
+    if (String.IsNullOrEmpty(tag.Namespace))
+    {
+      var aType = TypeNaming.GetType(tag.Name);
+      if (aType!=null)
+      {
+        if (Mapper.KnownTypes.TryGetValue(aType, out typeInfo))
+          return true;
+      }
+    }
+    var clrName = Mapper.ToQualifiedName(tag);
     var ns = clrName.Namespace;
     if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
       return true;
-    while (String.IsNullOrEmpty(name.Prefix) && !String.IsNullOrEmpty(ns))
+    while (String.IsNullOrEmpty(tag.Prefix) && !String.IsNullOrEmpty(ns))
     {
       var k = ns.LastIndexOf('.');
       if (k <= 0) break;
@@ -42,7 +51,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
         return true;
     }
-    if (String.IsNullOrEmpty(name.Prefix))
+    if (String.IsNullOrEmpty(tag.Prefix))
     {
       clrName.Namespace = "System";
       if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
@@ -68,22 +77,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       throw new XmlInternalException($"Element {qualifiedName} not recognized while deserialization.", Reader);
     if (typeInfo.XmlConverter != null)
       return typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, this);
-    //if (typeInfo.Type.IsSimple())
-      return ReadElementWithKnownTypeInfo(context, typeInfo);
-    //var constructor = typeInfo.KnownConstructor;
-    //if (constructor == null)
-    //  throw new XmlInternalException($"Type {typeInfo.Type.Name} must have a public, parameterless constructor.", Reader);
-    //var obj = constructor.Invoke(new object[0]);
-
-    //if (obj is IXmlSerializable xmlSerializable)
-    //{
-    //  xmlSerializable.ReadXml(Reader);
-    //}
-    //else
-    //{
-    //  ReadObject(obj, typeInfo);
-    //}
-    //return obj;
+    return ReadElementWithKnownTypeInfo(context, typeInfo);
   }
 
   #endregion
@@ -114,6 +108,8 @@ public partial class QXmlSerializer : IXmlConverterReader
     Debug.IndentLevel++;
 #endif
     object? result = null;
+    //if (Reader.LocalName == "formsDesign")
+    //  TestTools.Stop();
     if (Reader.NodeType != XmlNodeType.EndElement)
     {
       if (Reader.NodeType != XmlNodeType.Element)
@@ -235,8 +231,8 @@ public partial class QXmlSerializer : IXmlConverterReader
     while (Reader.NodeType == XmlNodeType.Element)
     {
       var qualifiedName = Reader.Name;
-      if (qualifiedName.Name == "ProofState")
-        TestTools.Stop();
+      //if (qualifiedName.Name == "formsDesign")
+      //  TestTools.Stop();
       bool isEmptyElement = Reader.IsEmptyElement;
       var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
       if (memberInfo != null)
@@ -1143,7 +1139,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     object? propValue = null;
     if (expectedType.Name.StartsWith("Nullable`1"))
       expectedType = expectedType.GetGenericArguments()[0];
-    if (typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(expectedType))
+    if (Reader.NodeType!=XmlNodeType.Text && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(expectedType))
     {
       propValue = xmlConverter.ReadXml(context, Reader, expectedType, null, this);
       return propValue;
@@ -1326,7 +1322,7 @@ public partial class QXmlSerializer : IXmlConverterReader
   public XmlQualifiedTagName ReadElementTag()
   {
      var result = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
-    if (string.IsNullOrEmpty(result.XmlNamespace))
+    if (string.IsNullOrEmpty(result.Namespace))
     {
       var type = TypeNaming.GetType(result.Name);
       if (type!=null)

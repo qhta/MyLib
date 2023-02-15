@@ -206,7 +206,7 @@ public class XmlSerializationInfoMapper
     var elemCount = 0;
     foreach (var memberInfo in members)
     {
-      //if (memberInfo.Name == "GroupNumber")
+      //if (memberInfo.Name == "UnicodeSignature0")
       //  TestTools.Stop();
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
@@ -675,7 +675,7 @@ public class XmlSerializationInfoMapper
         converter = FindTypeConverter(converterTypeName);
         if (converter == null)
           throw new InternalException($"Type converter \"{converterTypeName}\" not found");
-        if (converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string)))
+        if (converter.CanConvertTo(null, typeof(string)) && converter.CanConvertFrom(null, typeof(string)))
           TypeConverters.Add(converterTypeName, converter);
         else
           throw new InternalException($"Type converter \"{converterTypeName}\" can not convert to or from string");
@@ -724,9 +724,9 @@ public class XmlSerializationInfoMapper
     if (xmlQualifiedName.Prefix!=null)
       if (KnownNamespaces.PrefixToXmlNamespace.TryGetValue(xmlQualifiedName.Prefix, out var nspace))
         return new QualifiedName(xmlQualifiedName.Name, nspace);
-    if (String.IsNullOrEmpty(xmlQualifiedName.XmlNamespace))
+    if (String.IsNullOrEmpty(xmlQualifiedName.Namespace))
       return ToQualifiedName(xmlQualifiedName.Name);
-    return new QualifiedName(xmlQualifiedName.Name, xmlQualifiedName.XmlNamespace);
+    return new QualifiedName(xmlQualifiedName.Name, xmlQualifiedName.Namespace);
   }
 
   #region Collection Handling

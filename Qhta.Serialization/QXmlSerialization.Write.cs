@@ -522,6 +522,8 @@ public partial class QXmlSerializer
 
   protected XmlQualifiedTagName CreateAttributeTag(SerializationMemberInfo memberInfo)
   {
+    //if (memberInfo.XmlName=="usb0")
+    //  TestTools.Stop();
     if (memberInfo.XmlNamespace != null)
     {
       KnownNamespaces[memberInfo.XmlNamespace].IsUsed = true;

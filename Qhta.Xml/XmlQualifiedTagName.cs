@@ -5,16 +5,14 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
 {
   [XmlAttribute] public string Name { get; set; }
 
-  [XmlAttribute] public string XmlNamespace { get; set; }
+  [XmlAttribute] public string Namespace { get; set; }
 
   [XmlAttribute] public string? Prefix { get; set; } = null;
-
-  [XmlIgnore] public string Namespace => XmlNamespace;
 
   public XmlQualifiedTagName()
   {
     Name = "";
-    XmlNamespace = "";
+    Namespace = "";
   }
 
   public XmlQualifiedTagName(string str)
@@ -22,19 +20,19 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
     var ss = str.Split(':');
     if (ss.Length == 2)
     {
-      XmlNamespace = ss[0];
+      Namespace = ss[0];
       Name = ss[1];
     }
     else
     {
-      XmlNamespace = "";
+      Namespace = "";
       Name = str;
     }
   }
 
   public XmlQualifiedTagName(string name, string? nspace)
   {
-    XmlNamespace = nspace ?? "";
+    Namespace = nspace ?? "";
     Name = name;
   }
 
@@ -55,8 +53,8 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
 
   public override string ToString()
   {
-    if (!String.IsNullOrEmpty(XmlNamespace))
-      return XmlNamespace + ":" + Name;
+    if (!String.IsNullOrEmpty(Namespace))
+      return Namespace + ":" + Name;
     if (!String.IsNullOrEmpty(Prefix))
       return Prefix + ":" + Name;
     return Name;
@@ -69,7 +67,7 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
 
   public bool Equals(XmlQualifiedName? other)
   {
-    return Name == other?.Name && XmlNamespace == other?.Namespace;
+    return Name == other?.Name && Namespace == other?.Namespace;
   }
 
   //public override bool Equals(object? obj)
@@ -79,7 +77,7 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
 
   public override int GetHashCode()
   {
-    return new { Name, XmlNamespace }.GetHashCode();
+    return new { Name, Namespace }.GetHashCode();
   }
 
   //public static bool operator ==(QualifiedName @this, QualifiedName other) => @this.Equals(other);
@@ -90,6 +88,6 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
 
   public static XmlQualifiedTagName operator +(XmlQualifiedTagName value, string str)
   {
-    return new XmlQualifiedTagName{ Name = value.Name + str, XmlNamespace = value.XmlNamespace, Prefix = value.Prefix };
+    return new XmlQualifiedTagName{ Name = value.Name + str, Namespace = value.Namespace, Prefix = value.Prefix };
   }
 }

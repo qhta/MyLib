@@ -97,7 +97,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   public string? this[string name] => _reader[name];
 
   public string? this[XmlQualifiedTagName fullName] 
-    => _reader[fullName.Name, fullName.XmlNamespace];
+    => _reader[fullName.Name, fullName.Namespace];
 
   
   public string? GetAttribute(string name)
@@ -107,7 +107,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public string? GetAttribute(XmlQualifiedTagName fullName)
   {
-    return _reader.GetAttribute(fullName.Name, fullName.XmlNamespace);
+    return _reader.GetAttribute(fullName.Name, fullName.Namespace);
   }
 
   public string GetAttribute(int i)
@@ -138,7 +138,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public string ReadElementContentAsString(XmlQualifiedTagName fullName)
   {
-    return _reader.ReadElementContentAsString(fullName.Name, fullName.XmlNamespace);
+    return _reader.ReadElementContentAsString(fullName.Name, fullName.Namespace);
   }
   #endregion
 
@@ -155,7 +155,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public string ReadElementString(XmlQualifiedTagName fullName)
   {
-    return _reader.ReadElementString(fullName.Name, fullName.XmlNamespace);
+    return _reader.ReadElementString(fullName.Name, fullName.Namespace);
   }
   #endregion
 
@@ -229,7 +229,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public bool IsStartElement(XmlQualifiedTagName fullName)
   {
-    return _reader.IsStartElement(fullName.Name, fullName.XmlNamespace);
+    return _reader.IsStartElement(fullName.Name, fullName.Namespace);
   }
 
   public void ReadStartElement()
@@ -244,7 +244,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
 
   public void ReadStartElement(XmlQualifiedTagName fullName)
   {
-    _reader.ReadStartElement(fullName.Name, fullName.XmlNamespace);
+    _reader.ReadStartElement(fullName.Name, fullName.Namespace);
   }
   public void ReadEndElement()
   {
