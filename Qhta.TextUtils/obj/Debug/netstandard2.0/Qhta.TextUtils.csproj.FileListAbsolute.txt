@@ -13,3 +13,5 @@ D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.cspr
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.dll
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.xml
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\Qhta.TextUtils.pdb
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\refint\Qhta.TextUtils.dll
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\netstandard2.0\ref\Qhta.TextUtils.dll

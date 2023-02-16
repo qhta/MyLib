@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.Xml.Reflection</name>
+    </assembly>
+    <members>
+        <member name="P:Qhta.Xml.Reflection.ContentItemInfo.StoresReferences">
+            <summary>
+              If a collection of objects stores references only.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.ContentItemInfo.KnownItemTypes">
+            <summary>
+              Known types for collection items.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.SerializationItemInfo">
+            <summary>
+              Info of an array property item
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.TypeInfo">
+            <summary>
+              Refers to the existing TypeInfo
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.DictionaryInfo">
+            <summary>
+              Used when this info is a dictionary item info
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.KeyName">
+            <summary>
+              Used when this info is a dictionary item info
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.KeyTypeInfo">
+            <summary>
+              Used when this info is a dictionary item info
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.ValueTypeInfo">
+            <summary>
+              Used when this info is a dictionary item info
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.Value">
+            <summary>
+              Preset value of the item
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.AddMethod">
+            <summary>
+              Used to add item to collection or dictionary
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.XmlName">
+            <summary>
+              Name of the Xml element
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.XmlNamespace">
+            <summary>
+              XmlNamespace of the element
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.ClrNamespace">
+            <summary>
+              ClrNamespace of the element
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.SerializationMemberInfo">
+            <summary>
+              Represents the information about property or field needed for serialization/deserialization.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(System.String,System.Reflection.MemberInfo,System.Int32)">
+            <summary>
+              Constructor with parameters.
+            </summary>
+            <param name="name">Attribute or element name used for serialization></param>
+            <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
+            <param name="order">Needed to sort the order for serialization</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(Qhta.Xml.Reflection.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
+            <summary>
+              Constructor with parameters.
+            </summary>
+            <param name="name">Attribute or element name used for serialization></param>
+            <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
+            <param name="order">Needed to sort the order for serialization</param>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Order">
+            <summary>
+              Needed to sort the order of properties for serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Member">
+            <summary>
+              Applied member info.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.DataType">
+            <summary>
+              XSD standard data type for simple value text conversion.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Format">
+            <summary>
+              Specific format for text conversion.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Culture">
+            <summary>
+              Specific culture info for text conversion.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsNullable">
+            <summary>
+              Specifies if a member is nullable.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsReference">
+            <summary>
+              Specifies if  member is serialized as a reference to an object.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.DefaultValue">
+            <summary>
+              Specifies a default value (for simple types only) which is not serialized.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.ValueType">
+            <summary>
+              Applied type info of the member value.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.TypeConverter">
+            <summary>
+              Used for conversion value from/to string.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.XmlConverter">
+            <summary>
+              Used for conversion value from/to xml.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.CheckMethod">
+            <summary>
+              A method used to specify if a member should be serialized at run-time.
+              The method should be a parameterless function of type boolean.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.KnownSubtypes">
+            <summary>
+              If a valueType can be substituted by subclasses then these classes are listed here.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsCollection">
+            <summary>
+              If a type is serialized as a collection but not as a dictionary
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsDictionary">
+            <summary>
+              If a type is serialized as a dictionary but not as a collection
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.ContentInfo">
+            <summary>
+              Optional collection info filled if a member is an array, collection or dictionary.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.XmlName">
+            <summary>
+              Attribute or element name used for serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.XmlNamespace">
+            <summary>
+              Attribute or element XML namespace used for serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.ClrNamespace">
+            <summary>
+              ClrNamespace of the property or field.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetKnownSubtypes">
+            <summary>
+              Get KnownSubtypes as saved or from ValueType.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetCollectionInfo">
+            <summary>
+              Get CollectionInfo as saved or from ValueType.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.KnownConstructor">
+            <summary>
+              A public constructor to invoke while deserialization
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.TypeConverter">
+            <summary>
+              Converter to/from string value.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.XmlConverter">
+            <summary>
+              Converter to read/write XML.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsAttributes">
+            <summary>
+              Known properties to serialize as XML attributes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements">
+            <summary>
+              Known properties to serialize as XML elements.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentProperty">
+            <summary>
+              Known property to accept content of XmlElement.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.TextProperty">
+            <summary>
+              Known property to accept text content of XmlElement.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.KnownSubtypes">
+            <summary>
+              If a class can be substituted by subclasses then these classes are listed here.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsCollection">
+            <summary>
+              Specifies if a type is serialized as a collection but not as a dictionary.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsDictionary">
+            <summary>
+              Specifies If a type is serialized as a dictionary but not as a collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentInfo">
+            <summary>
+              Optional collection info filled if a property is an array, collection or dictionary
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.XmlName">
+            <summary>
+              Name of the Xml element
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.XmlNamespace">
+            <summary>
+              XmlNamespace of the element
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ClrNamespace">
+            <summary>
+              ClrNamespace of the element
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.Type">
+            <summary>
+              Mapped type
+            </summary>
+        </member>
+    </members>
+</doc>
