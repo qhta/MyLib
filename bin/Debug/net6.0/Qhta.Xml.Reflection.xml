@@ -273,5 +273,165 @@
               Mapped type
             </summary>
         </member>
+        <member name="T:Qhta.Xml.Reflection.TypeInfoCollection`1">
+            <summary>
+            Collection of type name info, which is indexed by type, long name and by short name.
+            </summary>
+            <typeparam name="TypeNameInfo">The type of the ype name information.</typeparam>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.TypeIndexedItems">
+            <summary>
+            Dictionary of items indexed by type.
+            </summary>
+            <value>
+            The type indexed items.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.FullNameIndexedItems">
+            <summary>
+            Dictionary of items indexed by full name.
+            </summary>
+            <value>
+            The full name indexed items.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.ShortNameIndexedItems">
+            <summary>
+            Dictionary of items indexed by short name. 
+            If some types have same names (and different namespaces), 
+            they are registered in <see cref="P:Qhta.Xml.Reflection.TypeInfoCollection`1.DuplicatedShortNames"/>
+            </summary>
+            <value>
+            The short name indexed items.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.DuplicatedShortNames">
+            <summary>
+            Gets the duplicated short type names.
+            The concrete classes can be found in <see cref="P:Qhta.Xml.Reflection.TypeInfoCollection`1.FullNameIndexedItems"/>
+            </summary>
+            <value>
+            The duplicated short names.
+            </value>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Add(`0)">
+            <summary>
+            Adds an item to collection.
+            </summary>
+            <param name="item">The object to add. />.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Contains(`0)">
+            <summary>
+            Determines whether the collection contains the object.
+            </summary>
+            <param name="item">The object to locate.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the elements of the collection to an array.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from collection. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Remove(`0)">
+            <summary>
+            Removes the  occurrence of a specific object from the collection />.
+            </summary>
+            <param name="item">The object to remove from the collection.</param>
+            <returns>
+              <see langword="true" /> if <paramref name="item" /> was successfully removed from the collection; otherwise, <see langword="false" />. 
+              This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original collection.
+            </returns>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.Count">
+            <summary>
+            Gets the number of elements contained in the collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the collection is read-only.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            An enumerator that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Equals(Qhta.Xml.Reflection.TypeInfoCollection{`0})">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+              <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; 
+              otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(System.Type,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by type.
+            </summary>
+            <param name="type">The type of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(Qhta.Xml.Reflection.QualifiedName,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by full name.
+            </summary>
+            <param name="qualifiedName">The qualified name of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(Qhta.Xml.XmlQualifiedTagName,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by full or short name.
+            First the full name index is searched, and if not found then the short name index.
+            </summary>
+            <param name="tag">The xml qualified tag name of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(System.String,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by full or short name.
+            First the full name index is searched, and if not found then the short name index.
+            </summary>
+            <param name="name">Full or short name of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.FindTypeInfo(System.Type)">
+            <summary>
+            Finds the type information by querying the collection.
+            </summary>
+            <param name="itemType">Type of the item.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.Keys">
+            <summary>
+             Type keys stored in collection
+            </summary>
+            <value>
+            The keys.
+            </value>
+        </member>
     </members>
 </doc>

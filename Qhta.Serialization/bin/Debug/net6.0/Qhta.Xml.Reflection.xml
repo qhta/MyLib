@@ -273,5 +273,27 @@
               Mapped type
             </summary>
         </member>
+        <member name="T:Qhta.Xml.Reflection.TypeInfoCollection`1">
+            <summary>
+            Collection of type name info, which is indexed by type, long name and by short name.
+            </summary>
+            <typeparam name="TypeNameInfo">The type of the ype name information.</typeparam>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.TypeIndexedItems">
+            <summary>
+            Dictionary of items indexed by type.
+            </summary>
+            <value>
+            The type indexed items.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.FullNameIndexedItems">
+            <summary>
+            Dictionary of items indexed by full name.
+            </summary>
+            <value>
+            The full name indexed items.
+            </value>
+        </member>
     </members>
 </doc>
