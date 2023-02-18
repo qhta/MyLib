@@ -4,6 +4,11 @@
         <name>Qhta.Xml.Reflection</name>
     </assembly>
     <members>
+        <member name="T:Qhta.Xml.Reflection.ContentItemInfo">
+            <summary>
+            Information on class item that represents object content
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.ContentItemInfo.StoresReferences">
             <summary>
               If a collection of objects stores references only.
@@ -12,6 +17,78 @@
         <member name="P:Qhta.Xml.Reflection.ContentItemInfo.KnownItemTypes">
             <summary>
               Known types for collection items.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.ContentItemInfo.Equals(Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+              <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.DictionaryInfo">
+            <summary>
+            Represents information on content item that is a dictionary
+            </summary>
+            <seealso cref="T:Qhta.Xml.Reflection.ContentItemInfo" />
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyTypeInfo">
+            <summary>
+            Gets or sets the key type information.
+            </summary>
+            <value>
+            The key type information.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.ValueTypeInfo">
+            <summary>
+            Gets or sets the value type information.
+            </summary>
+            <value>
+            The value type information.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyName">
+            <summary>
+            Gets or sets the name of the key.
+            </summary>
+            <value>
+            The name of the key.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyProperty">
+            <summary>
+            Gets or sets the key property.
+            </summary>
+            <value>
+            The key property.
+            </value>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.INamedElement">
+            <summary>
+            Interface for an element that provides XML name, XML namespace, and ClrNamespace
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.XmlName">
+            <summary>
+            Gets the name of the XML element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.XmlNamespace">
+            <summary>
+            Gets the namespace of the XML element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.ClrNamespace">
+            <summary>
+            Gets the programming language namespace of the element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.QualifiedName">
+            <summary>
+            Gets the the qualified name (XmlName, XmlNamespace) of the element
             </summary>
         </member>
         <member name="T:Qhta.Xml.Reflection.SerializationItemInfo">
