@@ -81,7 +81,8 @@ public partial class QXmlSerializer
       if (!KnownTypes.TryGetValue(aType, out typeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
     }
-
+    if (typeInfo.XmlName == "LatentStyles")
+      TestTools.Stop();
     WritePropertiesAsAttributes(context, obj, typeInfo);
     if (typeInfo.TypeConverter != null)
     {
@@ -209,7 +210,12 @@ public partial class QXmlSerializer
             else if (memberInfo.IsReference)
               WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
             else if (propValue is ICollection collection)
-              WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
+            {
+              if (memberInfo.ValueType?.MembersAsAttributes.Count>0 && memberInfo.ContentInfo!=null)
+                WriteObject(context, propValue);
+              else
+                WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
+            }
             else
               WriteObject(propValue);
             if (propTag != null)

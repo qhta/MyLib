@@ -4,6 +4,11 @@
         <name>Qhta.Xml.Reflection</name>
     </assembly>
     <members>
+        <member name="T:Qhta.Xml.Reflection.ContentItemInfo">
+            <summary>
+            Information on class item that represents object content
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.ContentItemInfo.StoresReferences">
             <summary>
               If a collection of objects stores references only.
@@ -12,6 +17,78 @@
         <member name="P:Qhta.Xml.Reflection.ContentItemInfo.KnownItemTypes">
             <summary>
               Known types for collection items.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.ContentItemInfo.Equals(Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+              <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.DictionaryInfo">
+            <summary>
+            Represents information on content item that is a dictionary
+            </summary>
+            <seealso cref="T:Qhta.Xml.Reflection.ContentItemInfo" />
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyTypeInfo">
+            <summary>
+            Gets or sets the key type information.
+            </summary>
+            <value>
+            The key type information.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.ValueTypeInfo">
+            <summary>
+            Gets or sets the value type information.
+            </summary>
+            <value>
+            The value type information.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyName">
+            <summary>
+            Gets or sets the name of the key.
+            </summary>
+            <value>
+            The name of the key.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyProperty">
+            <summary>
+            Gets or sets the key property.
+            </summary>
+            <value>
+            The key property.
+            </value>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.INamedElement">
+            <summary>
+            Interface for an element that provides XML name, XML namespace, and ClrNamespace
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.XmlName">
+            <summary>
+            Gets the name of the XML element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.XmlNamespace">
+            <summary>
+            Gets the namespace of the XML element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.ClrNamespace">
+            <summary>
+            Gets the programming language namespace of the element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.INamedElement.QualifiedName">
+            <summary>
+            Gets the the qualified name (XmlName, XmlNamespace) of the element
             </summary>
         </member>
         <member name="T:Qhta.Xml.Reflection.SerializationItemInfo">
@@ -293,6 +370,144 @@
             </summary>
             <value>
             The full name indexed items.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.ShortNameIndexedItems">
+            <summary>
+            Dictionary of items indexed by short name. 
+            If some types have same names (and different namespaces), 
+            they are registered in <see cref="P:Qhta.Xml.Reflection.TypeInfoCollection`1.DuplicatedShortNames"/>
+            </summary>
+            <value>
+            The short name indexed items.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.DuplicatedShortNames">
+            <summary>
+            Gets the duplicated short type names.
+            The concrete classes can be found in <see cref="P:Qhta.Xml.Reflection.TypeInfoCollection`1.FullNameIndexedItems"/>
+            </summary>
+            <value>
+            The duplicated short names.
+            </value>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Add(`0)">
+            <summary>
+            Adds an item to collection.
+            </summary>
+            <param name="item">The object to add. />.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Contains(`0)">
+            <summary>
+            Determines whether the collection contains the object.
+            </summary>
+            <param name="item">The object to locate.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the elements of the collection to an array.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from collection. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Remove(`0)">
+            <summary>
+            Removes the  occurrence of a specific object from the collection />.
+            </summary>
+            <param name="item">The object to remove from the collection.</param>
+            <returns>
+              <see langword="true" /> if <paramref name="item" /> was successfully removed from the collection; otherwise, <see langword="false" />. 
+              This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original collection.
+            </returns>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.Count">
+            <summary>
+            Gets the number of elements contained in the collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the collection is read-only.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            An enumerator that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Equals(Qhta.Xml.Reflection.TypeInfoCollection{`0})">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+              <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; 
+              otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(System.Type,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by type.
+            </summary>
+            <param name="type">The type of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(Qhta.Xml.Reflection.QualifiedName,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by full name.
+            </summary>
+            <param name="qualifiedName">The qualified name of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(Qhta.Xml.XmlQualifiedTagName,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by full or short name.
+            First the full name index is searched, and if not found then the short name index.
+            </summary>
+            <param name="tag">The xml qualified tag name of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(System.String,`0@)">
+            <summary>
+            Tries to get the element from the collection indexed by full or short name.
+            First the full name index is searched, and if not found then the short name index.
+            </summary>
+            <param name="name">Full or short name of the searched element.</param>
+            <param name="typeInfo">variable to hold the element id found.</param>
+            <returns>
+              <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.FindTypeInfo(System.Type)">
+            <summary>
+            Finds the type information by querying the collection.
+            </summary>
+            <param name="itemType">Type of the item.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.Keys">
+            <summary>
+             Type keys stored in collection
+            </summary>
+            <value>
+            The keys.
             </value>
         </member>
     </members>

@@ -1,9 +1,13 @@
 ﻿//#define TraceReader
 
+using System;
+using System.Linq;
 using System.Reflection;
 
 using Qhta.Conversion;
 using Qhta.TypeUtils;
+
+using static Qhta.Xml.Serialization.QXmlSerializer;
 
 namespace Qhta.Xml.Serialization;
 
@@ -32,7 +36,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     if (String.IsNullOrEmpty(tag.Namespace))
     {
       var aType = TypeNaming.GetType(tag.Name);
-      if (aType!=null)
+      if (aType != null)
       {
         if (Mapper.KnownTypes.TryGetValue(aType, out typeInfo))
           return true;
@@ -130,7 +134,8 @@ public partial class QXmlSerializer : IXmlConverterReader
       }
     }
     result = context;
-    if (Reader.NodeType == XmlNodeType.EndElement)
+    //if (Reader.NodeType == XmlNodeType.EndElement)
+    if (Reader.IsEndElement(new XmlQualifiedTagName(typeInfo.XmlName, typeInfo.XmlNamespace)))
       Reader.Read();
 #if TraceReader
     Debug.IndentLevel--;
@@ -249,11 +254,12 @@ public partial class QXmlSerializer : IXmlConverterReader
           if (propType.IsClass && propType != typeof(string))
           {
             if (contentInfo != null)
-              ReadAndAddElementAsCollectionMember(context, memberInfo, contentInfo);
-            else
             {
-              propValue = ReadElementAsMember(context, memberInfo);
+              propValue = ReadMemberCollection(context, memberInfo, contentInfo);
+              //ReadAndAddElementAsCollectionMember(context, memberInfo, contentInfo);
             }
+            else
+              propValue = ReadElementAsMember(context, memberInfo);
           }
           else
             propValue = ReadElementAsMember(context, memberInfo);
@@ -426,7 +432,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     var qualifiedName = ReadElementTag();
     SerializationTypeInfo? typeInfo = null;
     if (memberInfo.ValueType?.Type != typeof(object))
-       typeInfo = memberInfo.ValueType;
+      typeInfo = memberInfo.ValueType;
     else
     if (!TryGetTypeInfo(qualifiedName, out typeInfo))
       typeInfo = memberInfo.ValueType;
@@ -468,7 +474,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     {
       if (typeInfo.Type == typeof(object))
       {
-        result = ReadMemberObjectAnyType(context, typeInfo, memberInfo);
+        result = ReadMemberObjectOfAnyType(context, typeInfo, memberInfo);
       }
       else if (typeInfo.KnownConstructor == null)
       {
@@ -485,7 +491,7 @@ public partial class QXmlSerializer : IXmlConverterReader
         }
         else
         {
-          result = ReadMemberObjectAnyType(context, typeInfo, memberInfo);
+          result = ReadMemberObjectOfAnyType(context, typeInfo, memberInfo);
         }
       }
       else
@@ -507,7 +513,8 @@ public partial class QXmlSerializer : IXmlConverterReader
 #endif
     return result;
   }
-  public object? ReadMemberObjectAnyType(object context, SerializationTypeInfo typeInfo, SerializationMemberInfo memberInfo,
+
+  public object? ReadMemberObjectOfAnyType(object context, SerializationTypeInfo typeInfo, SerializationMemberInfo memberInfo,
     OnUnknownMember? onUnknownMember = null)
   {
 #if TraceReader
@@ -618,7 +625,7 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (collectionInfo.KnownItemTypes.TryGetValue(elementTag, out var typeItemInfo))
         typeInfo = typeItemInfo.TypeInfo;
     }
-    else
+    if (typeInfo == null)
       TryGetTypeInfo(elementTag, out typeInfo);
     if (typeInfo == null)
       throw new XmlInternalException($"Unknown type for element \"{elementTag}\" on deserialize", Reader);
@@ -820,8 +827,12 @@ public partial class QXmlSerializer : IXmlConverterReader
     }
   }
 
-  public void ReadAndAddElementAsCollectionMember(object context, SerializationMemberInfo propertyInfo, ContentItemInfo collectionInfo)
+  public object? ReadMemberCollection(object context, SerializationMemberInfo propertyInfo, ContentItemInfo collectionInfo)
   {
+#if TraceReader
+    Debug.WriteLine($"begin ReadMemberCollection({context}) at <{Reader.Name}>");
+    Debug.IndentLevel++;
+#endif
     if (propertyInfo.ValueType == null)
       throw new XmlInternalException($"Collection type at property {propertyInfo.Member.Name}" +
                                      $" of type {context.GetType().Name} unknown", Reader);
@@ -831,10 +842,9 @@ public partial class QXmlSerializer : IXmlConverterReader
 
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
-    var elementName = Reader.LocalName;
-    if (elementName == "decimal")
-      TestTools.Stop();
-    // all items will be read to this temporary list;
+
+
+
     List<object> tempList = new List<object>();
 
     var collection = propertyInfo.GetValue(context);
@@ -909,10 +919,13 @@ public partial class QXmlSerializer : IXmlConverterReader
       if (collectionInfo == null)
         throw new XmlInternalException($"Collection of type {collectionType} must be marked with {nameof(XmlCollectionAttribute)} attribute", Reader);
 
-      if (Reader.IsStartElement(propertyInfo.XmlName) && !Reader.IsEmptyElement)
+      if (Reader.IsStartElement(new XmlQualifiedTagName(propertyInfo.XmlName, propertyInfo.XmlNamespace)) && !Reader.IsEmptyElement)
       {
         Reader.Read();
-        ReadCollectionItems(context, tempList, itemType, collectionInfo);
+        if (propertyInfo.MemberType != null && Reader.IsStartElement(new XmlQualifiedTagName(propertyInfo.MemberType.Name, propertyInfo.MemberType.Namespace)))
+          collection = ReadMemberElementAsCollection(context, propertyInfo, collectionInfo);
+        else
+          ReadCollectionItems(context, tempList, itemType, collectionInfo);
       }
     }
 
@@ -949,7 +962,7 @@ public partial class QXmlSerializer : IXmlConverterReader
             throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
 
           // ICollection has no Add method so we must localize this method using reflection.
-          var addMethod = newCollectionObject.GetType().GetMethod("Add");
+          var addMethod = newCollectionObject.GetType().GetMethod("Add", new Type[]{itemType});
           if (addMethod == null)
             throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
           for (int i = 0; i < tempList.Count; i++)
@@ -1040,7 +1053,7 @@ public partial class QXmlSerializer : IXmlConverterReader
           // does implicate implementation of ICollection.
           object? collectionObject = collection;
           // ICollection has no Add method so we must localize this method using reflection.
-          var addMethod = collectionObject.GetType().GetMethod("Add");
+          var addMethod = collectionObject.GetType().GetMethod("Add", new Type[]{ itemType});
           if (addMethod == null)
             throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
           // We must do the same with Clear method.
@@ -1080,18 +1093,200 @@ public partial class QXmlSerializer : IXmlConverterReader
       }
     }
     Reader.Read();
+#if TraceReader
+    Debug.IndentLevel--;
+    Debug.WriteLine($"end ReadMemberCollection({collection}) at <{Reader.Name}>");
+#endif
+    return collection;
   }
 
-  public int ReadCollectionItems(object context, ICollection<object> collection, Type collectionItemType, ContentItemInfo collectionInfo)
+  //public ICollection? CreateCollection(object context, CollectionTypeKind collectionTypeKind, Type itemType, int itemCount)
+  //{
+  //  switch (collectionTypeKind)
+  //  {
+  //    case CollectionTypeKind.Array:
+  //      var arrayObject = Array.CreateInstance(itemType, itemCount);
+  //      return arrayObject;
+
+  //    case CollectionTypeKind.Collection:
+  //      // We can't use non-generic ICollection interface because implementation of ICollection<T>
+  //      // does implicate implementation of ICollection.
+  //      object? newCollectionObject;
+  //      if (collectionType.IsConstructedGenericType)
+  //      {
+  //        Type d1 = typeof(Collection<>);
+  //        Type[] typeArgs = { itemType };
+  //        Type newListType = d1.MakeGenericType(typeArgs);
+  //        newCollectionObject = Activator.CreateInstance(newListType);
+  //      }
+  //      else
+  //      {
+  //        var constructor = collectionType.GetConstructor(new Type[0]);
+  //        if (constructor == null)
+  //          throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
+  //        newCollectionObject = constructor.Invoke(new object[0]);
+  //      }
+  //      if (newCollectionObject == null)
+  //        throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
+
+  //      // ICollection has no Add method so we must localize this method using reflection.
+  //      var addMethod = newCollectionObject.GetType().GetMethod("Add");
+  //      if (addMethod == null)
+  //        throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
+  //      for (int i = 0; i < tempList.Count; i++)
+  //        addMethod.Invoke(newCollectionObject, new object[] { tempList[i] });
+  //      propertyInfo.SetValue(context, newCollectionObject);
+  //      break;
+
+  //    case CollectionTypeKind.List:
+  //      IList? newListObject;
+  //      if (collectionType.IsConstructedGenericType)
+  //      {
+  //        Type d1 = typeof(List<>);
+  //        Type[] typeArgs = { itemType };
+  //        Type newListType = d1.MakeGenericType(typeArgs);
+  //        newListObject = Activator.CreateInstance(newListType) as IList;
+  //      }
+  //      else
+  //      {
+  //        var constructor = collectionType.GetConstructor(new Type[0]);
+  //        if (constructor == null)
+  //          throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
+  //        newListObject = constructor.Invoke(new object[0]) as IList;
+  //      }
+  //      if (newListObject == null)
+  //        throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
+  //      for (int i = 0; i < tempList.Count; i++)
+  //        newListObject.Add(tempList[i]);
+  //      propertyInfo.SetValue(context, newListObject);
+  //      break;
+
+  //    case CollectionTypeKind.Dictionary:
+  //      IDictionary? newDictionaryObject;
+  //      if (collectionType.IsConstructedGenericType)
+  //      {
+  //        Type d1 = typeof(Dictionary<,>);
+  //        if (keyType == null)
+  //          throw new XmlInternalException($"Unknown key type of {collectionType} collection", Reader);
+  //        if (valueType == null)
+  //          throw new XmlInternalException($"Unknown item type of {collectionType} collection", Reader);
+  //        Type[] typeArgs = { keyType, valueType };
+  //        Type newListType = d1.MakeGenericType(typeArgs);
+  //        newDictionaryObject = Activator.CreateInstance(newListType) as IDictionary;
+  //      }
+  //      else
+  //      {
+  //        var constructor = collectionType.GetConstructor(new Type[0]);
+  //        if (constructor == null)
+  //          throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
+  //        newDictionaryObject = constructor.Invoke(new object[0]) as IDictionary;
+  //      }
+  //      if (newDictionaryObject == null)
+  //        throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
+  //      foreach (var item in tempList)
+  //      {
+  //        var kvPair = (KeyValuePair<object, object?>)item;
+  //        newDictionaryObject.Add(kvPair.Key, kvPair.Value);
+  //      }
+  //      propertyInfo.SetValue(context, newDictionaryObject);
+  //      break;
+
+  //    default:
+  //      throw new XmlInternalException($"Collection type {collectionType} is not implemented for creation", Reader);
+  //  }
+  //}
+
+
+  public object? ReadMemberElementAsCollection(object context, SerializationMemberInfo memberInfo, ContentItemInfo collectionInfo)
+  {
+#if TraceReader
+    Debug.WriteLine($"begin ReadMemberElementAsCollection({context}) at <{Reader.Name}>");
+    Debug.IndentLevel++;
+#endif
+    if (Reader.NodeType != XmlNodeType.Element)
+      throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
+    var qualifiedName = ReadElementTag();
+    SerializationTypeInfo? typeInfo = null;
+    if (memberInfo.ValueType?.Type != typeof(object))
+      typeInfo = memberInfo.ValueType;
+    else
+    if (!TryGetTypeInfo(qualifiedName, out typeInfo))
+      typeInfo = memberInfo.ValueType;
+    if (typeInfo == null)
+      throw new XmlInternalException($"Unknown type for element \"{qualifiedName}\" on deserialize", Reader);
+
+    var expectedType = memberInfo.MemberType ?? typeof(object);
+
+    if (expectedType != null)
+    {
+      if (expectedType.IsNullable(out var baseType))
+        expectedType = baseType;
+      if (expectedType == null)
+        throw new XmlInternalException($"Element \"{qualifiedName}\" is mapped to {typeInfo.Type.Name}" +
+                                       $" but expected type is null", Reader);
+      if (!typeInfo.Type.IsEqualOrSubclassOf(expectedType))
+        throw new XmlInternalException($"Element \"{qualifiedName}\" is mapped to {typeInfo.Type.Name}" +
+                                       $" but {expectedType.Name} or its subclass expected", Reader);
+    }
+
+    var result = ReadMemberCollectionWithKnownTypeAndMemberInfo(context, typeInfo, memberInfo, collectionInfo);
+#if TraceReader
+    Debug.IndentLevel--;
+    Debug.WriteLine($"end ReadMemberElementAsCollection({result}) at <{Reader.Name}>");
+#endif
+    return result;
+  }
+
+  public object? ReadMemberCollectionWithKnownTypeAndMemberInfo(object context, SerializationTypeInfo typeInfo, SerializationMemberInfo memberInfo, ContentItemInfo collectionInfo)
+  {
+#if TraceReader
+    Debug.WriteLine($"begin ReadMemberCollectionWithKnownTypeAndMemberInfo({context}) at <{Reader.Name}>");
+    Debug.IndentLevel++;
+#endif
+    object? result = null;
+    if (typeInfo.XmlConverter?.CanRead == true)
+      result = typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, null);
+    else
+    {
+      if (typeInfo.KnownConstructor == null)
+      {
+        throw new XmlInternalException($"Collection of type {typeInfo.Type.Name} must have a parameterless constructor", Reader);
+      }
+      else
+      {
+        result = typeInfo.KnownConstructor.Invoke(new object[0]);
+        if (result is IXmlSerializable xmlSerializable)
+          xmlSerializable.ReadXml(Reader);
+        else
+        {
+          ReadPropertiesAsAttributes(result, typeInfo);
+          Reader.Read();
+          ReadCollectionItems(result, (ICollection)result, collectionInfo.KnownItemTypes.First().TypeInfo.Type, collectionInfo);
+          Reader.Read();
+        }
+      }
+    }
+#if TraceReader
+    Debug.IndentLevel--;
+    Debug.WriteLine($"end ReadMemberCollectionWithKnownTypeAndMemberInfo({result}) at <{Reader.Name}>");
+#endif
+    return result;
+  }
+
+  public int ReadCollectionItems(object context, ICollection collection, Type collectionItemType, ContentItemInfo collectionInfo)
   {
     int itemsRead = 0;
     while (Reader.NodeType == XmlNodeType.Whitespace)
       Reader.Read();
+    var collectionType = collection.GetType();
+    var addMethod = collectionType.GetMethod("Add", new Type[] { collectionItemType });
+    if (addMethod == null)
+      throw new InvalidOperationException($"Add method({collectionItemType}) not found in {collectionType}");
     while (Reader.NodeType == XmlNodeType.Element)
     {
-      var item = ReadElementAsItem(context, collectionItemType, collectionInfo);
+      var item = ReadElementAsItem(collection, collectionItemType, collectionInfo);
       if (item != null)
-        collection.Add(item);
+        addMethod.Invoke(collection, new object[] { item });
       SkipWhitespaces();
     }
     return itemsRead;
@@ -1139,7 +1334,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     object? propValue = null;
     if (expectedType.Name.StartsWith("Nullable`1"))
       expectedType = expectedType.GetGenericArguments()[0];
-    if (Reader.NodeType!=XmlNodeType.Text && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(expectedType))
+    if (Reader.NodeType != XmlNodeType.Text && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(expectedType))
     {
       propValue = xmlConverter.ReadXml(context, Reader, expectedType, null, this);
       return propValue;
@@ -1321,12 +1516,12 @@ public partial class QXmlSerializer : IXmlConverterReader
 
   public XmlQualifiedTagName ReadElementTag()
   {
-     var result = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
+    var result = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
     if (string.IsNullOrEmpty(result.Namespace))
     {
       var type = TypeNaming.GetType(result.Name);
-      if (type!=null)
-        result = new XmlQualifiedTagName(type.FullName ??"");
+      if (type != null)
+        result = new XmlQualifiedTagName(type.FullName ?? "");
     }
     return result;
   }

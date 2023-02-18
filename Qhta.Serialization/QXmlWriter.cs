@@ -1,4 +1,5 @@
-﻿using System.Xml.XPath;
+﻿using System.Reflection;
+using System.Xml.XPath;
 
 namespace Qhta.Xml.Serialization;
 
@@ -50,9 +51,10 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     _writer.WriteDocType(name, pubid, sysid, subset);
   }
 
-
   public void WriteStartElement(XmlQualifiedTagName tag)
   {
+     if (tag.Name == "LatentStyles")
+      TestTools.Stop();
     if (tag.Namespace != "" && EmitNamespaces)
     {
       if (!String.IsNullOrEmpty(tag.Prefix))

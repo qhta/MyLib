@@ -1,4 +1,5 @@
-﻿using System.Xml.XPath;
+﻿using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Qhta.Xml.Serialization;
 
@@ -215,7 +216,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   }
   #endregion
 
-  #region Start/EndElement checking
+  #region start element checking and read
 
   public bool IsStartElement()
   {
@@ -227,9 +228,9 @@ public partial class QXmlReader : IXmlReader, IDisposable
     return _reader.IsStartElement(name);
   }
 
-  public bool IsStartElement(XmlQualifiedTagName fullName)
+  public bool IsStartElement(XmlQualifiedTagName tag)
   {
-    return _reader.IsStartElement(fullName.Name, fullName.Namespace);
+    return _reader.IsStartElement(tag.Name, tag.Namespace);
   }
 
   public void ReadStartElement()
@@ -242,12 +243,46 @@ public partial class QXmlReader : IXmlReader, IDisposable
     _reader.ReadStartElement(name);
   }
 
-  public void ReadStartElement(XmlQualifiedTagName fullName)
+  public void ReadStartElement(XmlQualifiedTagName tag)
   {
-    _reader.ReadStartElement(fullName.Name, fullName.Namespace);
+    _reader.ReadStartElement(tag.Name, tag.Namespace);
   }
+  #endregion
+
+  #region end element checking and read
+  public bool IsEndElement()
+  {
+    return _reader.NodeType == XmlNodeType.EndElement;
+  }
+
+  public bool IsEndElement(string name)
+  {
+    return _reader.NodeType == XmlNodeType.EndElement && _reader.Name == name;
+  }
+
+  public bool IsEndElement(XmlQualifiedTagName tag)
+  {
+    return _reader.NodeType == XmlNodeType.EndElement && _reader.LocalName == tag.Name && _reader.NamespaceURI == tag.Namespace;
+  }
+
   public void ReadEndElement()
   {
+    _reader.ReadEndElement();
+  }
+
+    public void ReadEndElement(string name)
+  {
+    var ok = _reader.NodeType == XmlNodeType.EndElement && _reader.Name == name;
+    if (!ok)
+      throw new InvalidOperationException($"End element \"{name}\" expected but {_reader.NodeType} \"{_reader.Name}\" found");
+    _reader.ReadEndElement();
+  }
+
+  public void ReadEndElement(XmlQualifiedTagName tag)
+  {
+    var ok = _reader.NodeType == XmlNodeType.EndElement && _reader.LocalName == tag.Name && _reader.NamespaceURI == tag.Namespace;
+    if (!ok)
+      throw new InvalidOperationException($"End element \"{tag}\" expected but {_reader.NodeType} \"{_reader.Name}\" found");
     _reader.ReadEndElement();
   }
   #endregion
