@@ -91,10 +91,273 @@
             Gets the the qualified name (XmlName, XmlNamespace) of the element
             </summary>
         </member>
+        <member name="T:Qhta.Xml.Reflection.ITypeNameInfo">
+            <summary>
+            Extension for INamedElement that provides a Type
+            </summary>
+            <seealso cref="T:Qhta.Xml.Reflection.INamedElement" />
+        </member>
+        <member name="P:Qhta.Xml.Reflection.ITypeNameInfo.Type">
+            <summary>
+            Gets the original type.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.KnownItemTypesCollection">
+            <summary>
+            Named collection of serialization item info. Needed for serialization.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.KnownMembersCollection">
+            <summary>
+            Named collection of serialization member info.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.KnownMembersCollection.Dump(System.String,Qhta.Xml.Reflection.KnownNamespacesCollection)">
+            <summary>
+            Dumps collection to debug output window
+            </summary>
+            <param name="header">The header.</param>
+            <param name="KnownNamespaces">The known namespaces.</param>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.KnownNamespacesCollection">
+            <summary>
+            Named collection of xml namespace info
+            </summary>
+        </member>
+        <member name="F:Qhta.Xml.Reflection.KnownNamespacesCollection.Items">
+            <summary>
+            String indexed items
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.KnownNamespacesCollection.ClrToXmlNamespace">
+            <summary>
+            Conversion dictionary from C# language namespace to xml namespace
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.KnownNamespacesCollection.XmlNamespaceToPrefix">
+            <summary>
+            Conversion dictionary from xml namespace to xml prefix
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.KnownNamespacesCollection.PrefixToXmlNamespace">
+            <summary>
+            Conversion dictionary from xml prefix to xml namespace
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.KnownTypesCollection">
+            <summary>
+            Named collection of serialization type info
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.KnownTypesCollection.#ctor(Qhta.Xml.Reflection.KnownNamespacesCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.KnownTypesCollection"/> class.
+            </summary>
+            <param name="knownNamespaces">Known namespaces collection.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.KnownTypesCollection.Dump">
+            <summary>
+            Dumps this instance to debug output window
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.KnownTypesCollection.Dump(Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Dumps the specified type information to debug output window
+            </summary>
+            <param name="typeInfo">The type information.</param>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.PropOrderComparer">
+            <summary>
+            Class to compare order of properties for serialization.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.PropOrderComparer.Compare(Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Compares two serialization member info objecst.
+            </summary>
+            <param name="x">The first object to compare.</param>
+            <param name="y">The second object to compare.</param>
+            <returns>
+            A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />, as shown in the following table.
+            <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description><paramref name="x" /> is less than <paramref name="y" />.</description></item><item><term> Zero</term><description><paramref name="x" /> equals <paramref name="y" />.</description></item><item><term> Greater than zero</term><description><paramref name="x" /> is greater than <paramref name="y" />.</description></item></list>
+            </returns>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.QualifiedName">
+            <summary>
+            Qualified name that contains a name and namespace
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.QualifiedName.Namespace">
+            <summary>
+            Gets or sets the namespace.
+            </summary>
+            <value>
+            The namespace.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.QualifiedName.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> struct.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> struct
+            using compound name.
+            </summary>
+            <param name="compoundName">The string thas consists of namespace, colon and name.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> struct.
+            </summary>
+            <param name="name">The name to init</param>
+            <param name="nspace">The namespace to init</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.IsEmpty">
+            <summary>
+            Determines whether the name is an empty string.
+            </summary>
+            <returns>
+              <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.QualifiedName.Empty">
+            <summary>
+            Gets the empty instance (with empty name).
+            </summary>
+            <value>
+            The empty.
+            </value>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.CompareTo(Qhta.Xml.Reflection.QualifiedName)">
+            <summary>
+            Compares namespace first, then name.
+            </summary>
+            <param name="other">An object to compare with this instance.</param>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has these meanings:
+            <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list>
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.ToString">
+            <summary>
+            Converts to string that consists of namespace, colon and name.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.op_Implicit(Qhta.Xml.Reflection.QualifiedName)~System.String">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> to <see cref="T:System.String"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedName.op_Implicit(System.String)~Qhta.Xml.Reflection.QualifiedName">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:Qhta.Xml.Reflection.QualifiedName"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.QualifiedNameTypeConverter">
+            <summary>
+            Converter needed for qualified name serialization
+            </summary>
+            <seealso cref="T:System.ComponentModel.TypeConverter" />
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Returns whether this converter can convert an object of the given type to the type of this converter, using the specified context.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="sourceType">A <see cref="T:System.Type" /> that represents the type you want to convert from.</param>
+            <returns>
+              <see langword="true" /> if this converter can perform the conversion; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Converts the given object to the type of this converter, using the specified context and culture information.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="culture">The <see cref="T:System.Globalization.CultureInfo" /> to use as the current culture.</param>
+            <param name="value">The <see cref="T:System.Object" /> to convert.</param>
+            <returns>
+            An <see cref="T:System.Object" /> that represents the converted value.
+            </returns>
+            <exception cref="T:System.NotSupportedException">Cannot convert {nameof(XmlQualifiedTagName)} from {value.GetType().Name}</exception>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Returns whether this converter can convert the object to the specified type, using the specified context.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="destinationType">A <see cref="T:System.Type" /> that represents the type you want to convert to.</param>
+            <returns>
+              <see langword="true" /> if this converter can perform the conversion; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            Converts the given value object to the specified type, using the specified context and culture information.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="culture">A <see cref="T:System.Globalization.CultureInfo" />. If <see langword="null" /> is passed, the current culture is assumed.</param>
+            <param name="value">The <see cref="T:System.Object" /> to convert.</param>
+            <param name="destinationType">The <see cref="T:System.Type" /> to convert the <paramref name="value" /> parameter to.</param>
+            <returns>
+            An <see cref="T:System.Object" /> that represents the converted value.
+            </returns>
+            <exception cref="T:System.NotSupportedException">Cannot convert {nameof(XmlQualifiedTagName)} to {destinationType.Name}</exception>
+        </member>
         <member name="T:Qhta.Xml.Reflection.SerializationItemInfo">
             <summary>
               Info of an array property item
             </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationItemInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.SerializationItemInfo"/> class.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationItemInfo.#ctor(Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.SerializationItemInfo"/> class
+            using serialization type info.
+            </summary>
+            <param name="itemTypeInfo">The type info.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationItemInfo.#ctor(System.String,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.SerializationItemInfo"/> class
+            using serialization type info with element name.
+            </summary>
+            <param name="elementName">Name of the element.</param>
+            <param name="itemTypeInfo">The type info.</param>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationItemInfo.#ctor(System.String,System.String,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.SerializationItemInfo"/> class
+            using serialization type info with element name and namespace.
+            </summary>
+            <param name="elementName">Name of the element.</param>
+            <param name="xmlNamespace">Xml Uri namespace</param>
+            <param name="itemTypeInfo">The type info.</param>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.TypeInfo">
             <summary>
@@ -146,6 +409,19 @@
               ClrNamespace of the element
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.Type">
+            <summary>
+            Gets the original type.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationItemInfo.ToString">
+            <summary>
+            Converts to string in format "name(typename)".
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
         <member name="T:Qhta.Xml.Reflection.SerializationMemberInfo">
             <summary>
               Represents the information about property or field needed for serialization/deserialization.
@@ -166,6 +442,34 @@
             <param name="name">Attribute or element name used for serialization></param>
             <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
             <param name="order">Needed to sort the order for serialization</param>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsField">
+            <summary>
+            Gets a value indicating whether the member is a field of some class
+            </summary>
+            <value>
+              <c>true</c> if this instance is field; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Field">
+            <summary>
+            Converts the member to field reflection info
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Property">
+            <summary>
+            Converts the member to property reflection info
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.MemberType">
+            <summary>
+            Gets the member type (field type or property type).
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.CanWrite">
+            <summary>
+            Gets a value indicating whether the member can be written in a class instance.
+            </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Order">
             <summary>
@@ -228,6 +532,22 @@
               The method should be a parameterless function of type boolean.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.HasCheckMethod">
+            <summary>
+            Gets a value indicating whether this instance has check method.
+            </summary>
+            <value>
+              <c>true</c> if this instance has check method; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsPolymorfic">
+            <summary>
+            Gets a value indicating whether this instance has known subtypes.
+            </summary>
+            <value>
+              <c>true</c> if this instance is polymorfic; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.KnownSubtypes">
             <summary>
               If a valueType can be substituted by subclasses then these classes are listed here.
@@ -248,6 +568,16 @@
               Optional collection info filled if a member is an array, collection or dictionary.
             </summary>
         </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.CompareTo(Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Compares the order of two instances. Allows two items of the same order to occur in dictionary.
+            </summary>
+            <param name="other">An object to compare with this instance.</param>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has these meanings:
+            <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list>
+            </returns>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.XmlName">
             <summary>
               Attribute or element name used for serialization.
@@ -263,21 +593,75 @@
               ClrNamespace of the property or field.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.QualifiedName">
+            <summary>
+            Gets the the qualified name (XmlName, XmlNamespace) of the element.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetValue(System.Object)">
+            <summary>
+            Gets the value of the member (field value or property value).
+            </summary>
+            <param name="obj">The object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the value of the member (field value or property value).
+            </summary>
+            <param name="obj">The object.</param>
+            <param name="value">The value.</param>
+        </member>
         <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetKnownSubtypes">
             <summary>
-              Get KnownSubtypes as saved or from ValueType.
+              Gets known subtypes as saved or from ValueType.
             </summary>
             <returns></returns>
         </member>
         <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetCollectionInfo">
             <summary>
-              Get CollectionInfo as saved or from ValueType.
+              Gets CollectionInfo as saved or from ValueType.
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.ToString">
+            <summary>
+            Converts to string in format "name(membername)"
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetTypeConverter">
+            <summary>
+            Gets the type converter to serialize/deserialize as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.SerializationTypeInfo">
+            <summary>
+            Information needed for type serialization
+            </summary>
+            <seealso cref="T:Qhta.Xml.Reflection.ITypeNameInfo" />
+            <seealso cref="T:Qhta.Xml.Reflection.INamedElement" />
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationTypeInfo.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.SerializationTypeInfo"/> class.
+            </summary>
+            <param name="aType">a type.</param>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.HasKnownConstructor">
+            <summary>
+            Gets a value indicating whether this instance has known constructor.
+            </summary>
+            <value>
+              <c>true</c> if this instance has known constructor; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.KnownConstructor">
             <summary>
-              A public constructor to invoke while deserialization
+            A public constructor info to invoke while deserialization
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.TypeConverter">
@@ -349,6 +733,32 @@
             <summary>
               Mapped type
             </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationTypeInfo.ShouldSerializeType">
+            <summary>
+            Gets the value that indicates whether the type should be serialized.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationTypeInfo.ShouldSerializePropertiesAsAttributes">
+            <summary>
+            Gets the value that indicates whether there are properties to be serialized as xml attributes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationTypeInfo.ShouldSerializePropertiesAsElements">
+            <summary>
+            Gets the value that indicates whether there are properties to be serialized as xml properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.SerializationTypeInfo.ToString">
+            <summary>
+            Converts to string in format "namespace:name"
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
         </member>
         <member name="T:Qhta.Xml.Reflection.TypeInfoCollection`1">
             <summary>
@@ -508,6 +918,56 @@
             </summary>
             <value>
             The keys.
+            </value>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.XmlNamespaceInfo">
+            <summary>
+            Compounf information for xml namespace. 
+            Contains the xml namespace (uri), C# namespace, xml prefix.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.XmlNamespaceInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.XmlNamespaceInfo"/> class.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.XmlNamespaceInfo.#ctor(System.Xml.XmlQualifiedName)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.XmlNamespaceInfo"/> class
+            using xml qualified name
+            </summary>
+            <param name="qname">Xml qualified name.</param>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.XmlNamespaceInfo.XmlNamespace">
+            <summary>
+            Gets or sets the XML namespace (uri)
+            </summary>
+            <value>
+            The XML namespace.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.XmlNamespaceInfo.ClrNamespace">
+            <summary>
+            Gets or sets the C# namespace.
+            </summary>
+            <value>
+            The C# namespace.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.XmlNamespaceInfo.Prefix">
+            <summary>
+            Gets or sets the XML prefix.
+            </summary>
+            <value>
+            The prefix.
+            </value>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.XmlNamespaceInfo.IsUsed">
+            <summary>
+            Gets or sets a flag indicating whether this instance is used.
+            </summary>
+            <value>
+              <c>true</c> if this instance is used; otherwise, <c>false</c>.
             </value>
         </member>
     </members>

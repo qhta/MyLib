@@ -9,10 +9,18 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
   private string? _XmlName;
   private string? _XmlNameNamespace;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SerializationItemInfo"/> class.
+  /// </summary>
   public SerializationItemInfo()
   {
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SerializationItemInfo"/> class
+  /// using serialization type info.
+  /// </summary>
+  /// <param name="itemTypeInfo">The type info.</param>
   public SerializationItemInfo(SerializationTypeInfo itemTypeInfo)
   {
     TypeInfo = itemTypeInfo;
@@ -20,6 +28,12 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     XmlNamespace = itemTypeInfo.XmlNamespace;
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SerializationItemInfo"/> class
+  /// using serialization type info with element name.
+  /// </summary>
+  /// <param name="elementName">Name of the element.</param>
+  /// <param name="itemTypeInfo">The type info.</param>
   public SerializationItemInfo(string elementName, SerializationTypeInfo itemTypeInfo)
   {
     TypeInfo = itemTypeInfo;
@@ -27,6 +41,13 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     XmlNamespace = itemTypeInfo.XmlNamespace;
   }
 
+    /// <summary>
+  /// Initializes a new instance of the <see cref="SerializationItemInfo"/> class
+  /// using serialization type info with element name and namespace.
+  /// </summary>
+  /// <param name="elementName">Name of the element.</param>
+  /// <param name="xmlNamespace">Xml Uri namespace</param>
+  /// <param name="itemTypeInfo">The type info.</param>
   public SerializationItemInfo(string elementName, string? xmlNamespace, SerializationTypeInfo itemTypeInfo)
   {
     TypeInfo = itemTypeInfo;
@@ -130,8 +151,17 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     set => _ClrNameNamespace = value;
   }
 
+  /// <summary>
+  /// Gets the original type.
+  /// </summary>
   public Type Type => TypeInfo.Type;
 
+  /// <summary>
+  /// Converts to string in format "name(typename)".
+  /// </summary>
+  /// <returns>
+  /// A <see cref="System.String" /> that represents this instance.
+  /// </returns>
   public override string ToString()
   {
     return $"{GetType().Name}({Type?.Name})";

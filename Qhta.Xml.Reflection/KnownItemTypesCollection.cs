@@ -1,14 +1,8 @@
 ﻿namespace Qhta.Xml.Reflection;
 
+/// <summary>
+/// Named collection of serialization item info. Needed for serialization.
+/// </summary>
 public class KnownItemTypesCollection : TypeInfoCollection<SerializationItemInfo>
 {
-  //public new void Add(SerializationItemInfo item)
-  //{
-  //  base.Add(new XmlQualifiedTagName(item.XmlName, item.XmlNamespace), item);
-  //}
-
-  //public new void Add(string xmlName, SerializationItemInfo item)
-  //{
-  //  base.Add(xmlName, item);
-  //}
 }

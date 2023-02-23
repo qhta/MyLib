@@ -1,7 +1,16 @@
 ﻿namespace Qhta.Xml.Reflection;
 
+/// <summary>
+/// Information needed for type serialization
+/// </summary>
+/// <seealso cref="Qhta.Xml.Reflection.ITypeNameInfo" />
+/// <seealso cref="Qhta.Xml.Reflection.INamedElement" />
 public class SerializationTypeInfo : ITypeNameInfo, INamedElement
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SerializationTypeInfo"/> class.
+  /// </summary>
+  /// <param name="aType">a type.</param>
   public SerializationTypeInfo(Type aType)
   {
     var aName = aType.Name;
@@ -18,16 +27,22 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  ///   A public constructor to invoke while deserialization
+  /// Gets a value indicating whether this instance has known constructor.
   /// </summary>
-  [XmlIgnore]
-  public ConstructorInfo? KnownConstructor { get; set; }
-
+  /// <value>
+  ///   <c>true</c> if this instance has known constructor; otherwise, <c>false</c>.
+  /// </value>
   [XmlAttribute]
   [DefaultValue(true)]
   public bool HasKnownConstructor => KnownConstructor != null;
 
   /// <summary>
+  /// A public constructor info to invoke while deserialization
+  /// </summary>
+  [XmlIgnore]
+  public ConstructorInfo? KnownConstructor { get; set; }
+
+    /// <summary>
   ///   Converter to/from string value.
   /// </summary>
   public TypeConverter? TypeConverter { get; set; }
@@ -106,21 +121,39 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// </summary>
   public Type Type { get; set; }
 
+  /// <summary>
+  /// Gets the value that indicates whether the type should be serialized.
+  /// </summary>
+  /// <returns></returns>
   public bool ShouldSerializeType()
   {
     return String.IsNullOrEmpty(XmlName);
   }
 
+  /// <summary>
+  /// Gets the value that indicates whether there are properties to be serialized as xml attributes.
+  /// </summary>
+  /// <returns></returns>
   public bool ShouldSerializePropertiesAsAttributes()
   {
     return MembersAsAttributes.Any();
   }
 
+  /// <summary>
+  /// Gets the value that indicates whether there are properties to be serialized as xml properties.
+  /// </summary>
+  /// <returns></returns>
   public bool ShouldSerializePropertiesAsElements()
   {
     return MembersAsElements.Any();
   }
 
+  /// <summary>
+  /// Converts to string in format "namespace:name"
+  /// </summary>
+  /// <returns>
+  /// A <see cref="System.String" /> that represents this instance.
+  /// </returns>
   public override string ToString()
   {
     if (XmlNamespace != null)

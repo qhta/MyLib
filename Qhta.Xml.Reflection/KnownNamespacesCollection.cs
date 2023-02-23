@@ -2,17 +2,33 @@
 
 namespace Qhta.Xml.Reflection;
 
+/// <summary>
+/// Named collection of xml namespace info
+/// </summary>
 public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
 {
 
+  /// <summary>
+  /// String indexed items
+  /// </summary>
   public Dictionary<string, XmlNamespaceInfo> Items = new();
 
+  /// <summary>
+  /// Conversion dictionary from C# language namespace to xml namespace
+  /// </summary>
   public Dictionary<string, string> ClrToXmlNamespace { get; set; } = new();
 
+  /// <summary>
+  /// Conversion dictionary from xml namespace to xml prefix
+  /// </summary>
   public Dictionary<string, string> XmlNamespaceToPrefix { get; set; } = new();
 
+  /// <summary>
+  /// Conversion dictionary from xml prefix to xml namespace
+  /// </summary>
   public Dictionary<string, string> PrefixToXmlNamespace { get; set; } = new();
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public void Add(XmlNamespaceInfo item)
   {
     Items.Add(item.XmlNamespace, item);

@@ -1,5 +1,8 @@
 ﻿namespace Qhta.Xml.Reflection;
 
+/// <summary>
+/// Named collection of serialization member info.
+/// </summary>
 public class KnownMembersCollection : ICollection<SerializationMemberInfo>
 {
   private static readonly PropOrderComparer propertyInfoOrderComparer = new();
@@ -8,15 +11,7 @@ public class KnownMembersCollection : ICollection<SerializationMemberInfo>
   private SortedSet<SerializationMemberInfo> OrderedItems { get; } = new();
   private SortedDictionary<QualifiedName, SerializationMemberInfo> NameIndexedItems { get; } = new();
 
-  //private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
-  //{
-  //  if (args.Action == NotifyCollectionChangedAction.Add)
-  //    if (args.NewItems!=null)
-  //      foreach (var item in args.NewItems.Cast<SerializationMemberInfo>())
-  //        if (item.XmlName == "Value")
-  //          Debug.Assert(true);
-  //}
-
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public void Add(SerializationMemberInfo item)
   {
     Items.Add(item);
@@ -103,6 +98,11 @@ public class KnownMembersCollection : ICollection<SerializationMemberInfo>
     return false;
   }
 
+  /// <summary>
+  /// Dumps collection to debug output window
+  /// </summary>
+  /// <param name="header">The header.</param>
+  /// <param name="KnownNamespaces">The known namespaces.</param>
   public void Dump(string header, KnownNamespacesCollection KnownNamespaces)
   {
     if (Count == 0) return;

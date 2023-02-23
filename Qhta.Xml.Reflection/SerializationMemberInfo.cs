@@ -35,18 +35,32 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
     Order = order;
   }
 
-  [XmlAttribute]
-  [DefaultValue(false)]
-  public bool IsAttribute { get; set; }
-
+  /// <summary>
+  /// Gets a value indicating whether the member is a field of some class
+  /// </summary>
+  /// <value>
+  ///   <c>true</c> if this instance is field; otherwise, <c>false</c>.
+  /// </value>
   [XmlIgnore] public bool IsField => Member is FieldInfo;
 
+  /// <summary>
+  /// Converts the member to field reflection info
+  /// </summary>
   [XmlIgnore] public FieldInfo? Field => Member as FieldInfo;
 
+  /// <summary>
+  /// Converts the member to property reflection info
+  /// </summary>
   [XmlIgnore] public PropertyInfo? Property => Member as PropertyInfo;
 
+  /// <summary>
+  /// Gets the member type (field type or property type).
+  /// </summary>
   public Type? MemberType => Property?.PropertyType ?? Field?.FieldType;
 
+  /// <summary>
+  /// Gets a value indicating whether the member can be written in a class instance.
+  /// </summary>
   public bool CanWrite => Property?.CanWrite ?? !Field?.IsInitOnly ?? false;
 
   /// <summary>
@@ -129,10 +143,22 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   [XmlIgnore]
   public MethodInfo? CheckMethod { get; set; }
 
+  /// <summary>
+  /// Gets a value indicating whether this instance has check method.
+  /// </summary>
+  /// <value>
+  ///   <c>true</c> if this instance has check method; otherwise, <c>false</c>.
+  /// </value>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool HasCheckMethod => CheckMethod != null;
 
+  /// <summary>
+  /// Gets a value indicating whether this instance has known subtypes.
+  /// </summary>
+  /// <value>
+  ///   <c>true</c> if this instance is polymorfic; otherwise, <c>false</c>.
+  /// </value>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsPolymorfic => GetKnownSubtypes() != null;
@@ -163,6 +189,14 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   [XmlElement]
   public ContentItemInfo? ContentInfo { get; set; }
 
+  /// <summary>
+  /// Compares the order of two instances. Allows two items of the same order to occur in dictionary.
+  /// </summary>
+  /// <param name="other">An object to compare with this instance.</param>
+  /// <returns>
+  /// A value that indicates the relative order of the objects being compared. The return value has these meanings:
+  /// <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list>
+  /// </returns>
   public int CompareTo(SerializationMemberInfo? other)
   {
     if (Order >= other?.Order)
@@ -188,13 +222,26 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   [XmlAttribute]
   public string? ClrNamespace { get; init; }
 
+  /// <summary>
+  /// Gets the the qualified name (XmlName, XmlNamespace) of the element.
+  /// </summary>
   [XmlIgnore] public QualifiedName QualifiedName => new(XmlName, ClrNamespace);
 
+  /// <summary>
+  /// Gets the value of the member (field value or property value).
+  /// </summary>
+  /// <param name="obj">The object.</param>
+  /// <returns></returns>
   public object? GetValue(object? obj)
   {
     return Property?.GetValue(obj) ?? Field?.GetValue(obj);
   }
 
+  /// <summary>
+  /// Sets the value of the member (field value or property value).
+  /// </summary>
+  /// <param name="obj">The object.</param>
+  /// <param name="value">The value.</param>
   public void SetValue(object? obj, object? value)
   {
     if (IsField)
@@ -204,7 +251,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   }
 
   /// <summary>
-  ///   Get KnownSubtypes as saved or from ValueType.
+  ///   Gets known subtypes as saved or from ValueType.
   /// </summary>
   /// <returns></returns>
   public KnownTypesCollection? GetKnownSubtypes()
@@ -213,7 +260,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   }
 
   /// <summary>
-  ///   Get CollectionInfo as saved or from ValueType.
+  ///   Gets CollectionInfo as saved or from ValueType.
   /// </summary>
   /// <returns></returns>
   public ContentItemInfo? GetCollectionInfo()
@@ -221,11 +268,21 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
     return ContentInfo ?? ValueType?.ContentInfo;
   }
 
+  /// <summary>
+  /// Converts to string in format "name(membername)"
+  /// </summary>
+  /// <returns>
+  /// A <see cref="System.String" /> that represents this instance.
+  /// </returns>
   public override string ToString()
   {
     return $"{GetType().Name}({Member.Name})";
   }
 
+  /// <summary>
+  /// Gets the type converter to serialize/deserialize as a string.
+  /// </summary>
+  /// <returns></returns>
   public TypeConverter? GetTypeConverter()
   {
     return TypeConverter ?? ValueType?.TypeConverter;
