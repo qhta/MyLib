@@ -167,8 +167,18 @@ public static class TypeCategorization
     return thisType == otherType || thisType.IsSubclassOf(otherType);
   }
 
-  #region IsNullable
+  /// <summary>
+  ///   Checks if a type implements an interface
+  /// </summary>
+  /// <param name="thisType"></param>
+  /// <param name="intf"></param>
+  /// <returns></returns>
+  public static bool Implements(this Type thisType, Type intf)
+  {
+    return thisType.GetInterfaces().Contains(intf);
+  }
 
+  #region IsNullable
   /// <summary>
   ///   Is a type a nullable type, i.e. it's name starts with "Nullable`1".
   /// </summary>
@@ -196,9 +206,7 @@ public static class TypeCategorization
     baseType = null;
     return false;
   }
-
   #endregion
-
 
   #region IsArray
 

@@ -54,7 +54,7 @@ public static class TypeNaming
       name = GetTypeName(baseType);
       return name + "?";
     }
-    name = type.FullName;
+    name = type.FullName??"";
     var k = name.IndexOf('`');
     if (k > 0)
     {
