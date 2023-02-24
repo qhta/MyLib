@@ -962,7 +962,7 @@ public partial class QXmlSerializer : IXmlConverterReader
             throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
 
           // ICollection has no Add method so we must localize this method using reflection.
-          var addMethod = newCollectionObject.GetType().GetMethod("Add", new Type[]{itemType});
+          var addMethod = newCollectionObject.GetType().GetMethod("Add", new Type[] { itemType });
           if (addMethod == null)
             throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
           for (int i = 0; i < tempList.Count; i++)
@@ -1053,7 +1053,7 @@ public partial class QXmlSerializer : IXmlConverterReader
           // does implicate implementation of ICollection.
           object? collectionObject = collection;
           // ICollection has no Add method so we must localize this method using reflection.
-          var addMethod = collectionObject.GetType().GetMethod("Add", new Type[]{ itemType});
+          var addMethod = collectionObject.GetType().GetMethod("Add", new Type[] { itemType });
           if (addMethod == null)
             throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
           // We must do the same with Clear method.
@@ -1061,9 +1061,12 @@ public partial class QXmlSerializer : IXmlConverterReader
           if (clearMethod == null)
             throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
 
-          clearMethod.Invoke(collectionObject, new object[0]);
-          for (int i = 0; i < tempList.Count; i++)
-            addMethod.Invoke(collectionObject, new object[] { tempList[i] });
+          if (tempList.Count > 0)
+          {
+            clearMethod.Invoke(collectionObject, new object[0]);
+            for (int i = 0; i < tempList.Count; i++)
+              addMethod.Invoke(collectionObject, new object[] { tempList[i] });
+          }
           break;
 
         case CollectionTypeKind.List:
