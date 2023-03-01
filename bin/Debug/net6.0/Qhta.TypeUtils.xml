@@ -521,14 +521,6 @@
             <param name="otherType"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeCategorization.Implements(System.Type,System.Type)">
-            <summary>
-              Checks if a type implements an interface
-            </summary>
-            <param name="thisType"></param>
-            <param name="intf"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type)">
             <summary>
               Is a type a nullable type, i.e. it's name starts with "Nullable`1".

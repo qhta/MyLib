@@ -75,7 +75,7 @@ public partial class QXmlSerializer
       if (!KnownTypes.TryGetValue(aType, out typeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
     }
-    if (typeInfo.XmlName == "SectionProperties")
+    if (typeInfo.XmlName == "Text")
       TestTools.Stop();
     WritePropertiesAsAttributes(context, obj, typeInfo);
     if (typeInfo.TypeConverter != null)
@@ -95,6 +95,12 @@ public partial class QXmlSerializer
     {
       WritePropertiesAsElements(context, obj, null, typeInfo);
       WriteContentProperty(obj, null, null, typeInfo.ContentProperty, typeInfo);
+    }
+    else
+    if (typeInfo.TextProperty != null)
+    {
+      WritePropertiesAsElements(context, obj, null, typeInfo);
+      WriteContentProperty(obj, null, null, typeInfo.TextProperty, typeInfo);
     }
     else
     if (typeInfo.IsCollection && typeInfo.ContentInfo != null && obj is IEnumerable collection)
@@ -211,7 +217,7 @@ public partial class QXmlSerializer
               WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
             else if (propValue is ICollection collection)
             {
-              if (memberInfo.ValueType?.MembersAsAttributes.Count>0 && memberInfo.ContentInfo!=null)
+              if (memberInfo.ValueType?.MembersAsAttributes.Count > 0 && memberInfo.ContentInfo != null)
                 WriteObject(context, propValue);
               else
                 WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
@@ -466,7 +472,7 @@ public partial class QXmlSerializer
   protected XmlQualifiedTagName CreateElementTag(Type type)
   {
     var typeName = TypeNaming.GetTypeName(type);
-    var nspace =  type.Namespace ?? "";
+    var nspace = type.Namespace ?? "";
     if (!typeName.Contains('.'))
       return new XmlQualifiedTagName(typeName);
 
@@ -481,7 +487,7 @@ public partial class QXmlSerializer
 
   protected XmlQualifiedTagName CreateElementTag(SerializationTypeInfo typeInfo, Type? type)
   {
-    if (type!=null)
+    if (type != null)
       return CreateElementTag(type);
     if (typeInfo.XmlNamespace != null)
     {
@@ -519,7 +525,7 @@ public partial class QXmlSerializer
 
   protected XmlQualifiedTagName CreateElementTag(SerializationItemInfo itemInfo, Type? type)
   {
-    if (type!=null)
+    if (type != null)
       return CreateElementTag(type);
     if (itemInfo.XmlNamespace != null)
     {
@@ -539,8 +545,8 @@ public partial class QXmlSerializer
 
   protected XmlQualifiedTagName CreateAttributeTag(SerializationMemberInfo memberInfo/*, Type? type*/)
   {
-     //if (type!=null)
-     // return CreateElementTag(type);
+    //if (type!=null)
+    // return CreateElementTag(type);
     if (memberInfo.XmlNamespace != null)
     {
       KnownNamespaces[memberInfo.XmlNamespace].IsUsed = true;

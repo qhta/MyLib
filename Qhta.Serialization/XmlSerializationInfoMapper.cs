@@ -191,6 +191,8 @@ public class XmlSerializationInfoMapper
 
   public virtual void MapPropertiesAndFields(Type aType, SerializationTypeInfo typeInfo)
   {
+    if (aType.FullName == "DocumentModel.Wordprocessing.Text")
+      TestTools.Stop();
     List<MemberInfo> members;
     if (Options.AcceptFields)
       members = aType.GetMembersByInheritance().Where(item => item is FieldInfo || item is PropertyInfo).ToList();
@@ -210,9 +212,9 @@ public class XmlSerializationInfoMapper
       //  TestTools.Stop();
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
-      if (memberInfo == typeInfo.ContentProperty?.Member)
+      if (memberInfo.Name == typeInfo.ContentProperty?.Member.Name)
         continue;
-      if (memberInfo == typeInfo.TextProperty?.Member)
+      if (memberInfo.Name == typeInfo.TextProperty?.Member.Name)
         continue;
       var xmlAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().FirstOrDefault();
       if (xmlAttribute != null)
@@ -273,12 +275,6 @@ public class XmlSerializationInfoMapper
                       }
                     }
                     else
-                      //if (propInfo.PropertyType.IsDictionary())
-                      //  TryAddPropertyAsDictionary(typeInfo, propInfo, null, ++elemCount);
-                      //else
-                      //if (propInfo.PropertyType.IsCollection())
-                      //  TryAddPropertyAsCollection(typeInfo, propInfo, null, ++elemCount);
-                      //else
                     if (memberInfo.CanWrite() == true)
                     {
                       TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
