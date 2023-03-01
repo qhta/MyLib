@@ -13,6 +13,7 @@ global using System.Linq;
 global using System.Reflection;
 global using System.Xml;
 global using System.Xml.Serialization;
+global using Qhta.Conversion;
 global using Qhta.TestHelper;
 global using Qhta.TextUtils;
 global using Qhta.TypeUtils;

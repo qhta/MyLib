@@ -331,7 +331,10 @@ public partial class QXmlSerializer : IXmlConverterReader
                 dictionaryObj.Add(key, item);
               else
               {
-                var adddMethod = context.GetType().GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
+                var collectionType = context.GetType();
+                var adddMethod = collectionType.GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
+                if (adddMethod == null)
+                  adddMethod = collectionType.GetMethod("Add");
                 if (adddMethod != null)
                   adddMethod.Invoke(context, new object?[] { item });
                 else if (context is ICollection collectionObj)
