@@ -949,10 +949,10 @@ public partial class QXmlSerializer : IXmlConverterReader
           object? newCollectionObject;
           if (collectionType.IsConstructedGenericType)
           {
-            Type d1 = typeof(Collection<>);
-            Type[] typeArgs = { itemType };
-            Type newListType = d1.MakeGenericType(typeArgs);
-            newCollectionObject = Activator.CreateInstance(newListType);
+            //Type d1 = typeof(Collection<>);
+            //Type[] typeArgs = { itemType };
+            //Type newListType = d1.MakeGenericType(typeArgs);
+            newCollectionObject = Activator.CreateInstance(collectionType);
           }
           else
           {
