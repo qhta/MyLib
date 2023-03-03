@@ -496,14 +496,19 @@
               Specific culture info for text conversion.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsTagSuppressed">
+            <summary>
+              Specifies whether a member tag is suppressed on serialization.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsNullable">
             <summary>
-              Specifies if a member is nullable.
+              Specifies whether a member is nullable.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsReference">
             <summary>
-              Specifies if  member is serialized as a reference to an object.
+              Specifies whether a member is serialized as a reference to an object.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.DefaultValue">

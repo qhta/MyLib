@@ -100,14 +100,21 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   //public ConversionOptions? ConversionOptions { get; set; }
 
   /// <summary>
-  ///   Specifies if a member is nullable.
+  ///   Specifies whether a member tag is suppressed on serialization.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsTagSuppressed { get; set; }
+
+  /// <summary>
+  ///   Specifies whether a member is nullable.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsNullable { get; set; }
 
   /// <summary>
-  ///   Specifies if  member is serialized as a reference to an object.
+  ///   Specifies whether a member is serialized as a reference to an object.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]

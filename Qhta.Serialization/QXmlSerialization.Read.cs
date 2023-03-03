@@ -112,7 +112,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     Debug.IndentLevel++;
 #endif
     object? result = null;
-    //if (Reader.LocalName == "formsDesign")
+    //if (Reader.LocalName == "SectionProperties")
     //  TestTools.Stop();
     if (Reader.NodeType != XmlNodeType.EndElement)
     {
@@ -236,7 +236,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     while (Reader.NodeType == XmlNodeType.Element)
     {
       var qualifiedName = Reader.Name;
-      //if (qualifiedName.Name == "formsDesign")
+      //if (qualifiedName.Name == "PageMargin")
       //  TestTools.Stop();
       bool isEmptyElement = Reader.IsEmptyElement;
       var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);
@@ -504,9 +504,11 @@ public partial class QXmlSerializer : IXmlConverterReader
           xmlSerializable.ReadXml(Reader);
         else
         {
-          Reader.Read();
+          if (!memberInfo.IsTagSuppressed)
+            Reader.Read();
           ReadMemberObjectInterior(result, typeInfo, memberInfo);
-          Reader.Read();
+          if (!memberInfo.IsTagSuppressed)
+            Reader.Read();
         }
       }
     }
@@ -577,8 +579,8 @@ public partial class QXmlSerializer : IXmlConverterReader
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
     bool isEmptyElement = Reader.IsEmptyElement;
-    if (typeInfo.XmlNamespace == "DocumentModel.Vml" && typeInfo.XmlName == "ShapeDefaults")
-      TestTools.Stop();
+    //if (typeInfo.XmlNamespace == "DocumentModel.Vml" && typeInfo.XmlName == "ShapeDefaults")
+    //  TestTools.Stop();
     ReadPropertiesAsAttributes(context, typeInfo, onUnknownMember);
     Reader.Read(); // read end of start element and go to its content;
     SkipWhitespaces();

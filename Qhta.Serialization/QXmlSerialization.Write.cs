@@ -75,8 +75,8 @@ public partial class QXmlSerializer
       if (!KnownTypes.TryGetValue(aType, out typeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
     }
-    if (typeInfo.XmlName == "Text")
-      TestTools.Stop();
+    //if (typeInfo.XmlName == "Text")
+    //  TestTools.Stop();
     WritePropertiesAsAttributes(context, obj, typeInfo);
     if (typeInfo.TypeConverter != null)
     {
@@ -502,23 +502,11 @@ public partial class QXmlSerializer
     return result;
   }
 
-  protected XmlQualifiedTagName CreateElementTag(SerializationMemberInfo memberInfo, Type? type)
+  protected XmlQualifiedTagName? CreateElementTag(SerializationMemberInfo memberInfo, Type? type)
   {
-    //if (type!=null)
-    //  return CreateElementTag(type);
-    //if (memberInfo.XmlNamespace != null)
-    //{
-    //  KnownNamespaces[memberInfo.XmlNamespace].IsUsed = true;
-    //  if (memberInfo.MemberType != null)
-    //  {
-    //    var typeName = TypeNaming.GetTypeName(memberInfo.MemberType);
-    //    if (!typeName.Contains('.'))
-    //      return new XmlQualifiedTagName(typeName);
-    //  }
-    //}
+    if (memberInfo.IsTagSuppressed)
+      return null;
     var result = Mapper.GetXmlTag(memberInfo);
-    //if (memberInfo.XmlNamespace != null)
-    //  result.Prefix = KnownNamespaces[memberInfo.XmlNamespace].Prefix;
     result.Namespace = "";
     return result;
   }

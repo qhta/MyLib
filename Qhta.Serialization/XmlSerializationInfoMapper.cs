@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.Serialization;
+
 using Qhta.Conversion;
 
 namespace Qhta.Xml.Serialization;
@@ -66,7 +67,7 @@ public class XmlSerializationInfoMapper
 
     // first create a new type info
     // and add it to avoid stack overflow with recurrency
-    DefaultNamespace= aType.Namespace;
+    DefaultNamespace = aType.Namespace;
     var newTypeInfo = CreateTypeInfo(aType);
     KnownTypes.Add(newTypeInfo);
     if (newTypeInfo.XmlNamespace != null && newTypeInfo.ClrNamespace != null)
@@ -191,8 +192,8 @@ public class XmlSerializationInfoMapper
 
   public virtual void MapPropertiesAndFields(Type aType, SerializationTypeInfo typeInfo)
   {
-    if (aType.FullName == "DocumentModel.Wordprocessing.Text")
-      TestTools.Stop();
+    //if (aType.FullName == "DocumentModel.Wordprocessing.Text")
+    //  TestTools.Stop();
     List<MemberInfo> members;
     if (Options.AcceptFields)
       members = aType.GetMembersByInheritance().Where(item => item is FieldInfo || item is PropertyInfo).ToList();
@@ -208,8 +209,8 @@ public class XmlSerializationInfoMapper
     var elemCount = 0;
     foreach (var memberInfo in members)
     {
-      //if (memberInfo.Name == "UnicodeSignature0")
-      //  TestTools.Stop();
+      ////if (memberInfo.Name == "FooterReference")
+      ////  TestTools.Stop();
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
       if (memberInfo.Name == typeInfo.ContentProperty?.Member.Name)
@@ -223,61 +224,69 @@ public class XmlSerializationInfoMapper
       }
       else
       {
-        var elementAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlElementAttribute>().FirstOrDefault();
-        if (elementAttribute != null)
+        var anyElementAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlAnyElementAttribute>().FirstOrDefault();
+        if (anyElementAttribute != null)
         {
-          TryAddMemberAsElement(typeInfo, memberInfo, elementAttribute, ++elemCount);
+          TryAddMemberAsAnyElement(typeInfo, memberInfo, ++elemCount);
         }
         else
         {
-          var dictionaryAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlDictionaryAttribute>().FirstOrDefault();
-          if (dictionaryAttribute != null)
+          var elementAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlElementAttribute>().FirstOrDefault();
+          if (elementAttribute != null)
           {
-            TryAddMemberAsDictionary(typeInfo, memberInfo, dictionaryAttribute, ++elemCount);
+            TryAddMemberAsElement(typeInfo, memberInfo, elementAttribute, ++elemCount);
           }
           else
           {
-            var collectionAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlCollectionAttribute>().FirstOrDefault();
-            if (collectionAttribute != null)
+            var dictionaryAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlDictionaryAttribute>().FirstOrDefault();
+            if (dictionaryAttribute != null)
             {
-              TryAddMemberAsCollection(typeInfo, memberInfo, collectionAttribute, ++elemCount);
+              TryAddMemberAsDictionary(typeInfo, memberInfo, dictionaryAttribute, ++elemCount);
             }
             else
             {
-              var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
-              if (arrayAttribute != null)
+              var collectionAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlCollectionAttribute>().FirstOrDefault();
+              if (collectionAttribute != null)
               {
-                TryAddMemberAsCollection(typeInfo, memberInfo, arrayAttribute, ++elemCount);
+                TryAddMemberAsCollection(typeInfo, memberInfo, collectionAttribute, ++elemCount);
               }
               else
               {
-                if (memberInfo.GetValueType()?.IsDictionary() == true)
+                var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
+                if (arrayAttribute != null)
                 {
-                  TryAddMemberAsDictionary(typeInfo, memberInfo, null, ++elemCount);
+                  TryAddMemberAsCollection(typeInfo, memberInfo, arrayAttribute, ++elemCount);
                 }
-                else if (memberInfo.GetValueType()?.IsCollection() == true)
+                else
                 {
-                  if (!aType.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
-                    TryAddMemberAsCollection(typeInfo, memberInfo, null, ++elemCount);
-                }
-                else if (Options.AcceptAllProperties)
-                {
-                  if (!memberInfo.IsIndexer())
+                  if (memberInfo.GetValueType()?.IsDictionary() == true)
                   {
-                    if (memberInfo.GetValueType()?.IsSimple() == true)
+                    TryAddMemberAsDictionary(typeInfo, memberInfo, null, ++elemCount);
+                  }
+                  else if (memberInfo.GetValueType()?.IsCollection() == true)
+                  {
+                    if (!aType.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
+                      TryAddMemberAsCollection(typeInfo, memberInfo, null, ++elemCount);
+                  }
+                  else if (Options.AcceptAllProperties)
+                  {
+                    if (!memberInfo.IsIndexer())
                     {
+                      if (memberInfo.GetValueType()?.IsSimple() == true)
+                      {
+                        if (memberInfo.CanWrite() == true)
+                        {
+                          if (Options.SimplePropertiesAsAttributes)
+                            TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++attrCount);
+                          else
+                            TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
+                        }
+                      }
+                      else
                       if (memberInfo.CanWrite() == true)
                       {
-                        if (Options.SimplePropertiesAsAttributes)
-                          TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++attrCount);
-                        else
-                          TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
+                        TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
                       }
-                    }
-                    else
-                    if (memberInfo.CanWrite() == true)
-                    {
-                      TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
                     }
                   }
                 }
@@ -344,6 +353,36 @@ public class XmlSerializationInfoMapper
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
+    typeInfo.MembersAsElements.Add(serializationMemberInfo);
+    KnownNamespaces.TryAdd(qElemName.Namespace);
+    return true;
+  }
+
+  /// <summary>
+  ///   Adds property/field to <see cref="SerializationTypeInfo.MembersAsElements" /> 
+  ///   with no member tag serialization. Only class tag is serialized.
+  /// </summary>
+  /// <param name="typeInfo">Object to add to</param>
+  /// <param name="memberInfo">Selected property/field</param>
+  /// <param name="defaultOrder">default order</param>
+  protected virtual bool TryAddMemberAsAnyElement(SerializationTypeInfo typeInfo, MemberInfo memberInfo,
+    int defaultOrder)
+  {
+    var valueType = memberInfo.GetValueType();
+    if (valueType == null) return false;
+    if (valueType.IsNullable(out var baseType))
+      valueType = baseType;
+    if (valueType == null) return false;
+    var elementName = valueType.Name;
+    if (Options.ElementNameCase != 0)
+      elementName = elementName.ChangeCase(Options.ElementNameCase);
+    var elementNamespace = valueType.Namespace ?? "";
+    var qElemName = new QualifiedName(elementName, elementNamespace);
+    if (typeInfo.MembersAsElements.ContainsKey(qElemName))
+      return false;
+    var order = defaultOrder;
+    var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
+    serializationMemberInfo.IsTagSuppressed = true;
     typeInfo.MembersAsElements.Add(serializationMemberInfo);
     KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;
@@ -717,7 +756,7 @@ public class XmlSerializationInfoMapper
   public QualifiedName ToQualifiedName(XmlQualifiedTagName xmlQualifiedName)
   {
 
-    if (xmlQualifiedName.Prefix!=null)
+    if (xmlQualifiedName.Prefix != null)
       if (KnownNamespaces.PrefixToXmlNamespace.TryGetValue(xmlQualifiedName.Prefix, out var nspace))
         return new QualifiedName(xmlQualifiedName.Name, nspace);
     if (String.IsNullOrEmpty(xmlQualifiedName.Namespace))
@@ -804,7 +843,7 @@ public class XmlSerializationInfoMapper
         //if (elemName != null)
         //  collectionTypeInfo.KnownItemTypes.Add(elemName, serializationItemTypeInfo);
         //else
-          collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
+        collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
       }
     }
     else if (aType.IsCollection(out var itemType) && itemType != null)
@@ -813,7 +852,7 @@ public class XmlSerializationInfoMapper
       //var elemName = itemType.Name;
       var serializationItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
       collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
-      if (itemTypeInfo.KnownSubtypes!=null)
+      if (itemTypeInfo.KnownSubtypes != null)
         foreach (var subType in itemTypeInfo.KnownSubtypes)
         {
           itemTypeInfo = subType;
@@ -831,8 +870,8 @@ public class XmlSerializationInfoMapper
 
   protected DictionaryInfo CreateDictionaryInfo(Type aType)
   {
-    if (aType.Name == "KnownTypesDictionary")
-      TestTools.Stop();
+    //if (aType.Name == "KnownTypesDictionary")
+    //  TestTools.Stop();
     return CreateDictionaryInfo(aType, aType.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToArray());
   }
 
@@ -852,8 +891,8 @@ public class XmlSerializationInfoMapper
 
   protected DictionaryInfo CreateDictionaryInfo(Type aType, IEnumerable<XmlDictionaryItemAttribute> dictItemAttribs)
   {
-    if (aType.Name == "KnownTypesDictionary")
-      TestTools.Stop();
+    //if (aType.Name == "KnownTypesDictionary")
+    //  TestTools.Stop();
     var dictionaryTypeInfo = new DictionaryInfo();
     if (dictItemAttribs.Count() != 0)
     {

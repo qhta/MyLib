@@ -53,8 +53,8 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   public void WriteStartElement(XmlQualifiedTagName tag)
   {
-     if (tag.Name == "LatentStyles")
-      TestTools.Stop();
+     //if (tag.Name == "LatentStyles")
+     // TestTools.Stop();
     if (tag.Namespace != "" && EmitNamespaces)
     {
       if (!String.IsNullOrEmpty(tag.Prefix))

@@ -84,8 +84,8 @@ public class TypeNameConverter : BaseTypeConverter
     {
       if (str == String.Empty)
         return null;
-      if (str=="HeadingPairs")
-        TestTools.Stop();
+      //if (str=="HeadingPairs")
+      //  TestTools.Stop();
       var aType = TypeNaming.GetType(str);
       if (aType != null)
         return aType;
