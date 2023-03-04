@@ -218,9 +218,9 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   public void WriteAttributeString(XmlQualifiedTagName fullName, string? str)
   {
     if (fullName.Namespace != "" && EmitNamespaces)
-      _writer.WriteAttributeString(fullName.Name, str);
-    else
       _writer.WriteAttributeString(fullName.Name, fullName.Namespace, str);
+    else
+      _writer.WriteAttributeString(fullName.Name, str);
   }
 
   public void WriteAttributeString(string attrName, string? str)
@@ -230,6 +230,8 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
 
   public void WriteNamespaceDef(string prefix, string ns)
   {
+    //if (prefix=="dm")
+    //  TestTools.Stop();
     _writer.WriteAttributeString("xmlns", prefix, null, ns);
   }
 

@@ -256,7 +256,8 @@ public partial class QXmlSerializer : IXmlConverterReader
             if (contentInfo != null)
             {
               propValue = ReadMemberCollection(context, memberInfo, contentInfo);
-              //ReadAndAddElementAsCollectionMember(context, memberInfo, contentInfo);
+              if (propValue == null)
+                propValue = ReadElementAsMember(context, memberInfo);
             }
             else
               propValue = ReadElementAsMember(context, memberInfo);
@@ -431,7 +432,8 @@ public partial class QXmlSerializer : IXmlConverterReader
     Debug.IndentLevel++;
 #endif
     if (Reader.NodeType != XmlNodeType.Element)
-      throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
+      return null;
+      //throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
     var qualifiedName = ReadElementTag();
     SerializationTypeInfo? typeInfo = null;
     if (memberInfo.ValueType?.Type != typeof(object))
@@ -898,7 +900,8 @@ public partial class QXmlSerializer : IXmlConverterReader
 
     if (collectionTypeKind == null)
     {
-      throw new XmlInternalException($"Invalid type kind of {collectionType} collection", Reader);
+      return null;
+      //throw new XmlInternalException($"Invalid type kind of {collectionType} collection", Reader);
     }
 
     if (itemType == null)

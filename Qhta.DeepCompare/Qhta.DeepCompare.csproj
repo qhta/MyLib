@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Qhta.DeepCompare</RootNamespace>
+    <Description>Library to compare two objects property by property</Description>
+    <Authors>Yarreck Qhta</Authors>
+    <Version>1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Qhta.TextUtils">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.TypeUtils">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -56,4 +56,11 @@ public class XmlNamespaceInfo
   /// </value>
   public bool IsUsed { get; set; }
 
+  /// <summary>
+  /// Converts to string for debugging.
+  /// </summary>
+  public override string ToString()
+  {
+    return $"{Prefix}: {XmlNamespace} ({ClrNamespace})";
+  }
 }

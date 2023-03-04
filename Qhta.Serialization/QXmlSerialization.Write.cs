@@ -223,7 +223,7 @@ public partial class QXmlSerializer
                 WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
             }
             else
-              WriteObject(propValue);
+              WriteObject(context, propValue);
             if (propTag != null)
               Writer.WriteEndElement(propTag);
           }

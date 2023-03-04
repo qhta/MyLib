@@ -773,6 +773,8 @@ public class XmlSerializationInfoMapper
 
   protected ContentItemInfo? CreateContentInfo(MemberInfo memberInfo)
   {
+    if (memberInfo.Name == "RunProperties")
+      TestTools.Stop();
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
     if (arrayItemsAttributes.Length == 0)
       return null;
@@ -788,7 +790,9 @@ public class XmlSerializationInfoMapper
 
   protected ContentItemInfo? CreateCollectionInfo(MemberInfo memberInfo)
   {
-    var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
+    if (memberInfo.Name == "RunProperties")
+      TestTools.Stop();
+    //var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
     //if (arrayAttribute == null && arrayItemsAttributes.Length == 0)
     //  return null;
@@ -804,6 +808,8 @@ public class XmlSerializationInfoMapper
 
   protected ContentItemInfo CreateCollectionInfo(Type aType, IEnumerable<XmlArrayItemAttribute> arrayItemAttribs)
   {
+    if (aType.Name == "RunProperties")
+      TestTools.Stop();
     var collectionTypeInfo = new ContentItemInfo();
     if (arrayItemAttribs.Count() != 0)
     {

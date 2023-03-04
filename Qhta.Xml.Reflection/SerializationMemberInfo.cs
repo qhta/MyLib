@@ -26,8 +26,8 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <param name="order">Needed to sort the order for serialization</param>
   public SerializationMemberInfo(QualifiedName name, MemberInfo memberInfo, int order = int.MaxValue)
   {
-    if (name.Name == "VariantType")
-      Debug.Assert(true);
+    //if (name.Name == "RunProperties")
+    //  TestTools.Stop();
     XmlName = name.Name;
     ClrNamespace = name.Namespace;
     Member = memberInfo;

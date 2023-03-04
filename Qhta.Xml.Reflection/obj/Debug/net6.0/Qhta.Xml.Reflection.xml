@@ -975,5 +975,10 @@
               <c>true</c> if this instance is used; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="M:Qhta.Xml.Reflection.XmlNamespaceInfo.ToString">
+            <summary>
+            Converts to string for debugging.
+            </summary>
+        </member>
     </members>
 </doc>
