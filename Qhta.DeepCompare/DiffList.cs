@@ -16,4 +16,20 @@ public class DiffList: List<Diff>
   {
     Add(new Diff(objectName, propertyName, expValue, recValue));
   }
+
+  /// <summary>
+  ///   Message build for assertions.
+  ///   First difference is shown as full message.
+  ///   If there are more, their count is shown.
+  /// </summary>
+  public string? AssertMessage
+  {
+    get
+    {
+      var result = this.FirstOrDefault()?.ToString();
+      if (this.Count()>1)
+        result += $" and {this.Count()-1} more differences";
+      return result;
+    }
+  }
 }

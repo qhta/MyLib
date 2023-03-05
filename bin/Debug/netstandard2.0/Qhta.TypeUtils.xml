@@ -544,6 +544,11 @@
             <param name="baseType">based type of the nullable type</param>
             <returns>true if a type is a nullable type</returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.GetNotNullableType(System.Object)">
+            <summary>
+            Gets the type of the object and if the type is Nullable, returns its baseType
+            </summary>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type)">
             <summary>
               Is a type an array type.
@@ -559,6 +564,7 @@
             <param name="aType">checked type</param>
             <param name="itemType">returned item type if a type is an array</param>
             <returns>true if a type is an array type</returns>
+            
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type,System.Type)">
             <summary>

@@ -45,7 +45,7 @@ public class Diff
   /// </summary>
   public override string ToString()
   {
-    var result = $"{StringUtils.Concat2(ObjectName, ".", PropertyName)}";
+    var result = Concat(ObjectName, PropertyName);
     if (ReceivedValue != null && ExpectedValue == null)
       result += $" is {ReceivedValue} but should be null";
     else if (ReceivedValue == null && ExpectedValue != null)
@@ -57,4 +57,18 @@ public class Diff
     return result;
   }
 
+  /// <summary>
+  /// Concats the specified object name with property name with separating dot. 
+  /// If property name is indexing clause in bracket, dot is ommited.
+  /// </summary>
+  /// <param name="objectName">Name of the object.</param>
+  /// <param name="propertyName">Name of the property.</param>
+  /// <returns></returns>
+  public static string Concat(string? objectName, string? propertyName)
+  {
+     var result = propertyName?.StartsWith("[")==true 
+      ? $"{String.Concat(objectName, propertyName)}" 
+      : $"{StringUtils.Concat2(objectName, ".", propertyName)}";
+    return result;
+  }
 }

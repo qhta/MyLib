@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Qhta.TypeUtils;
@@ -196,7 +197,11 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="baseType">based type of the nullable type</param>
   /// <returns>true if a type is a nullable type</returns>
+#if NET6_0_OR_GREATER
+  public static bool IsNullable(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? baseType)
+#else
   public static bool IsNullable(this Type aType, out Type? baseType)
+#endif
   {
     if (aType.Name.StartsWith("Nullable`1"))
     {
@@ -206,6 +211,19 @@ public static class TypeCategorization
     baseType = null;
     return false;
   }
+
+
+  /// <summary>
+  /// Gets the type of the object and if the type is Nullable, returns its baseType
+  /// </summary>
+  public static Type GetNotNullableType(this object obj)
+  {
+    var type = obj.GetType() ?? typeof(object);
+    if (type.IsNullable(out var baseType))
+      type = baseType;
+    return type;
+  }
+
   #endregion
 
   #region IsArray
@@ -227,11 +245,16 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is an array</param>
   /// <returns>true if a type is an array type</returns>
+  /// 
+#if NET6_0_OR_GREATER
+  public static bool IsArray(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? itemType)
+#else
   public static bool IsArray(this Type aType, out Type? itemType)
+#endif
   {
     if (aType.IsArray)
     {
-      itemType = aType.GetElementType();
+      itemType = aType.GetElementType() ?? typeof(object);
       return true;
     }
     itemType = null;
@@ -274,7 +297,11 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is a list</param>
   /// <returns>true if a type is a list type</returns>
+#if NET6_0_OR_GREATER
+  public static bool IsList(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? itemType)
+#else
   public static bool IsList(this Type aType, out Type? itemType)
+#endif
   {
     if (aType.Name.StartsWith("List`1"))
     {
@@ -328,7 +355,11 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is a collection</param>
   /// <returns>true if a type is a collection type</returns>
+#if NET6_0_OR_GREATER
+  public static bool IsCollection(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? itemType)
+#else
   public static bool IsCollection(this Type aType, out Type? itemType)
+#endif
   {
     if (aType.Name.StartsWith("Collection`1"))
     {
@@ -382,7 +413,11 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="itemType">returned item type if a type is an enumerable</param>
   /// <returns>true if a type is an enumerable type</returns>
+#if NET6_0_OR_GREATER
+  public static bool IsEnumerable(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? itemType)
+#else
   public static bool IsEnumerable(this Type aType, out Type? itemType)
+#endif
   {
     if (aType.Name.StartsWith("Enumerable`1"))
     {
@@ -437,7 +472,12 @@ public static class TypeCategorization
   /// <param name="keyType">returned key type if a type is a dictionary</param>
   /// <param name="valueType">returned value type if a type is a dictionary</param>
   /// <returns>true if a type is a dictionary type</returns>
+#if NET6_0_OR_GREATER
+  public static bool IsDictionary(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType, 
+    [NotNullWhen(true)][MaybeNullWhen(false)] out Type? valueType)
+#else
   public static bool IsDictionary(this Type aType, out Type? keyType, out Type? valueType)
+#endif
   {
     if (aType.Name.StartsWith("Dictionary`2"))
     {
@@ -497,7 +537,12 @@ public static class TypeCategorization
   /// <param name="keyType">returned key type if a type is a key value pair</param>
   /// <param name="valueType">returned value type if a type is a key value pair</param>
   /// <returns>true if a type is a key value pair type</returns>
+#if NET6_0_OR_GREATER
+  public static bool IsKeyValuePair(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType, 
+    [NotNullWhen(true)][MaybeNullWhen(false)] out Type? valueType)
+#else
   public static bool IsKeyValuePair(this Type aType, out Type? keyType, out Type? valueType)
+#endif
   {
     if (aType.Name.StartsWith("KeyValuePair`2"))
     {

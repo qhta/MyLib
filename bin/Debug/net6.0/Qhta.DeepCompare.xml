@@ -58,6 +58,15 @@
             Converts to string (for debugging purpose).
             </summary>
         </member>
+        <member name="M:Qhta.DeepCompare.Diff.Concat(System.String,System.String)">
+            <summary>
+            Concats the specified object name with property name with separating dot. 
+            If property name is indexing clause in bracket, dot is ommited.
+            </summary>
+            <param name="objectName">Name of the object.</param>
+            <param name="propertyName">Name of the property.</param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.DeepCompare.DiffList">
             <summary>
             List of compare differences.
@@ -71,6 +80,13 @@
             <param name="propertyName">Name of the property.</param>
             <param name="expValue">Expected value.</param>
             <param name="recValue">Received value.</param>
+        </member>
+        <member name="P:Qhta.DeepCompare.DiffList.AssertMessage">
+            <summary>
+              Message build for assertions.
+              First difference is shown as full message.
+              If there are more, their count is shown.
+            </summary>
         </member>
     </members>
 </doc>

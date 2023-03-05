@@ -293,8 +293,8 @@ public partial class QXmlSerializer : IXmlConverterReader
           if (knownItemTypeInfo != null)
           {
             object? key = qualifiedName.Name;
-            if ("SByte" == (string)key)
-              Debug.Assert(true);
+            //if ("SByte" == (string)key)
+            //  TestTools.Stop();
             object? item;
             if (knownItemTypeInfo.DictionaryInfo != null)
             {
@@ -333,6 +333,8 @@ public partial class QXmlSerializer : IXmlConverterReader
               else
               {
                 var collectionType = context.GetType();
+                if (item?.GetType().Name=="SdtContentRow")
+                  TestTools.Stop();
                 var adddMethod = collectionType.GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
                 if (adddMethod == null)
                   adddMethod = collectionType.GetMethod("Add");
@@ -1110,103 +1112,6 @@ public partial class QXmlSerializer : IXmlConverterReader
 #endif
     return collection;
   }
-
-  //public ICollection? CreateCollection(object context, CollectionTypeKind collectionTypeKind, Type itemType, int itemCount)
-  //{
-  //  switch (collectionTypeKind)
-  //  {
-  //    case CollectionTypeKind.Array:
-  //      var arrayObject = Array.CreateInstance(itemType, itemCount);
-  //      return arrayObject;
-
-  //    case CollectionTypeKind.Collection:
-  //      // We can't use non-generic ICollection interface because implementation of ICollection<T>
-  //      // does implicate implementation of ICollection.
-  //      object? newCollectionObject;
-  //      if (collectionType.IsConstructedGenericType)
-  //      {
-  //        Type d1 = typeof(Collection<>);
-  //        Type[] typeArgs = { itemType };
-  //        Type newListType = d1.MakeGenericType(typeArgs);
-  //        newCollectionObject = Activator.CreateInstance(newListType);
-  //      }
-  //      else
-  //      {
-  //        var constructor = collectionType.GetConstructor(new Type[0]);
-  //        if (constructor == null)
-  //          throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
-  //        newCollectionObject = constructor.Invoke(new object[0]);
-  //      }
-  //      if (newCollectionObject == null)
-  //        throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
-
-  //      // ICollection has no Add method so we must localize this method using reflection.
-  //      var addMethod = newCollectionObject.GetType().GetMethod("Add");
-  //      if (addMethod == null)
-  //        throw new XmlInternalException($"Could not get \"Add\" method of {collectionType} collection", Reader);
-  //      for (int i = 0; i < tempList.Count; i++)
-  //        addMethod.Invoke(newCollectionObject, new object[] { tempList[i] });
-  //      propertyInfo.SetValue(context, newCollectionObject);
-  //      break;
-
-  //    case CollectionTypeKind.List:
-  //      IList? newListObject;
-  //      if (collectionType.IsConstructedGenericType)
-  //      {
-  //        Type d1 = typeof(List<>);
-  //        Type[] typeArgs = { itemType };
-  //        Type newListType = d1.MakeGenericType(typeArgs);
-  //        newListObject = Activator.CreateInstance(newListType) as IList;
-  //      }
-  //      else
-  //      {
-  //        var constructor = collectionType.GetConstructor(new Type[0]);
-  //        if (constructor == null)
-  //          throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
-  //        newListObject = constructor.Invoke(new object[0]) as IList;
-  //      }
-  //      if (newListObject == null)
-  //        throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
-  //      for (int i = 0; i < tempList.Count; i++)
-  //        newListObject.Add(tempList[i]);
-  //      propertyInfo.SetValue(context, newListObject);
-  //      break;
-
-  //    case CollectionTypeKind.Dictionary:
-  //      IDictionary? newDictionaryObject;
-  //      if (collectionType.IsConstructedGenericType)
-  //      {
-  //        Type d1 = typeof(Dictionary<,>);
-  //        if (keyType == null)
-  //          throw new XmlInternalException($"Unknown key type of {collectionType} collection", Reader);
-  //        if (valueType == null)
-  //          throw new XmlInternalException($"Unknown item type of {collectionType} collection", Reader);
-  //        Type[] typeArgs = { keyType, valueType };
-  //        Type newListType = d1.MakeGenericType(typeArgs);
-  //        newDictionaryObject = Activator.CreateInstance(newListType) as IDictionary;
-  //      }
-  //      else
-  //      {
-  //        var constructor = collectionType.GetConstructor(new Type[0]);
-  //        if (constructor == null)
-  //          throw new XmlInternalException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
-  //        newDictionaryObject = constructor.Invoke(new object[0]) as IDictionary;
-  //      }
-  //      if (newDictionaryObject == null)
-  //        throw new XmlInternalException($"Could not create a new instance of {collectionType} collection", Reader);
-  //      foreach (var item in tempList)
-  //      {
-  //        var kvPair = (KeyValuePair<object, object?>)item;
-  //        newDictionaryObject.Add(kvPair.Key, kvPair.Value);
-  //      }
-  //      propertyInfo.SetValue(context, newDictionaryObject);
-  //      break;
-
-  //    default:
-  //      throw new XmlInternalException($"Collection type {collectionType} is not implemented for creation", Reader);
-  //  }
-  //}
-
 
   public object? ReadMemberElementAsCollection(object context, SerializationMemberInfo memberInfo, ContentItemInfo collectionInfo)
   {
