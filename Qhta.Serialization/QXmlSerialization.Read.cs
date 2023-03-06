@@ -236,7 +236,7 @@ public partial class QXmlSerializer : IXmlConverterReader
     while (Reader.NodeType == XmlNodeType.Element)
     {
       var qualifiedName = Reader.Name;
-      //if (qualifiedName.Name == "PageMargin")
+      //if (qualifiedName.Name == "DocumentProperty")
       //  TestTools.Stop();
       bool isEmptyElement = Reader.IsEmptyElement;
       var memberInfo = propList.FirstOrDefault(item => item.XmlName == qualifiedName.Name);

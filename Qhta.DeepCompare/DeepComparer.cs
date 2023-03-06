@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 using Qhta.TypeUtils;
@@ -23,20 +24,29 @@ public static class DeepComparer
   /// <param name="propName">Optional tested property name</param>
   public static bool IsEqual(object? testObject, object? refObject, DiffList? diffs = null, string? objName = null, string? propName = null)
   {
-    try
+    if (testObject != null && refObject != null)
     {
-      if (testObject != null && refObject != null)
+      var testType = testObject.GetNotNullableType();
+      var refType = refObject.GetNotNullableType();
+      if (objName == null)
+        objName = testType.Name;
+      if (testType != refType)
       {
-        var testType = testObject.GetNotNullableType();
-        var refType = refObject.GetNotNullableType();
-        if (objName == null)
-          objName = testType.Name;
-        if (testType != refType)
+        diffs?.Add(objName, "Type", refType, testType);
+        return false;
+      }
+      var ok = true;
+      if (testType.FullName == "System.RuntimeType")
+      {
+        var cmp = refObject == testObject;
+        if (!cmp == true)
         {
-          diffs?.Add(objName, "Type", refType, testType);
-          return false;
+          diffs?.Add(objName ?? refType.Name, propName, refObject, testObject);
+          ok = false;
         }
-        var ok = true;
+      }
+      else
+      {
         var properties = refType.GetProperties().Where(item => item.GetIndexParameters().Count() == 0).ToArray();
         if (properties.Count() == 0 || testType.IsSimple())
         {
@@ -54,11 +64,18 @@ public static class DeepComparer
                          .GetMethod("Equals", BindingFlags.Public | BindingFlags.Instance);
             if (compareFunc == null)
               throw new InvalidOperationException($"Equals func not found for {refType} type");
-            var cmp = (bool?)compareFunc.Invoke(refObject, new[] { testObject });
-            if (!cmp == true)
+            try
             {
-              diffs?.Add(objName ?? refType.Name, propName, refObject, testObject);
-              ok = false;
+              var cmp = (bool?)compareFunc.Invoke(refObject, new[] { testObject });
+              if (!cmp == true)
+              {
+                diffs?.Add(objName ?? refType.Name, propName, refObject, testObject);
+                ok = false;
+              }
+            }
+            catch
+            {
+              Debug.WriteLine($"Error comparing two {testType} type values");
             }
           }
           else if (refObject is IStructuralEquatable iStructuralEquatable)
@@ -80,11 +97,18 @@ public static class DeepComparer
               propType = baseType;
             if (propType == typeof(DateTime))
               TestTools.Stop();
-            var testValue = prop.GetValue(testObject);
-            var refValue = prop.GetValue(refObject);
-            if (refValue != refObject && testValue != testObject)
-              if (!IsEqual(refValue, testValue, diffs, Diff.Concat(objName, propName), prop.Name))
-                ok = false;
+            try
+            {
+              var testValue = prop.GetValue(testObject);
+              var refValue = prop.GetValue(refObject);
+              if (refValue != refObject && testValue != testObject)
+                if (!IsEqual(refValue, testValue, diffs, Diff.Concat(objName, propName), prop.Name))
+                  ok = false;
+            }
+            catch
+            {
+              Debug.WriteLine($"Error comparing two {testType}.{prop.Name} properties");
+            }
           }
         if (testType.IsEnumerable())
         {
@@ -107,23 +131,20 @@ public static class DeepComparer
             }
           }
         }
-        return ok;
       }
-      if (testObject == null && refObject != null)
-      {
-        diffs?.Add(refObject.GetType().Name, null, refObject, testObject);
-        return false;
-      }
-      if (testObject != null && refObject == null)
-      {
-        diffs?.Add(testObject.GetType().Name, null, refObject, testObject);
-        return false;
-      }
-      return true;
+      return ok;
     }
-    catch (Exception ex)
+    if (testObject == null && refObject != null)
     {
+      diffs?.Add(refObject.GetType().Name, null, refObject, testObject);
       return false;
     }
+    if (testObject != null && refObject == null)
+    {
+      diffs?.Add(testObject.GetType().Name, null, refObject, testObject);
+      return false;
+    }
+    return true;
+
   }
 }

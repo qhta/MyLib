@@ -1,17 +1,26 @@
-﻿using System.ComponentModel;
-using System.Configuration;
-using System.Diagnostics;
-using System.Globalization;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Xml;
-using Qhta.TypeUtils;
-using Qhta.Xml;
-
-namespace Qhta.Conversion;
+﻿namespace Qhta.Conversion;
 
 public class ValueTypeConverter : BaseTypeConverter
 {
+
+  /// <summary>
+  /// Type expected in ConvertFrom method.
+  /// Overriden as its change must force internal converter reinitialization;
+  /// </summary>
+  public override Type? ExpectedType
+  {
+    get => _ExpectedType;
+    set
+    {
+      if (_ExpectedType != value)
+      {
+        _ExpectedType = value;
+        InternalTypeConverter = null;
+      }
+    }
+  }
+  private Type? _ExpectedType;
+
   public static readonly Dictionary<XsdSimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
   {
     { XsdSimpleType.AnyUri, new[] { typeof(Uri), typeof(string) } },
@@ -155,7 +164,7 @@ public class ValueTypeConverter : BaseTypeConverter
   {
   }
 
-  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, Dictionary<string, string>? knownNamespaces = null, XsdSimpleType? xsdType = null, string? format =null, CultureInfo? culture = null,
+  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, Dictionary<string, string>? knownNamespaces = null, XsdSimpleType? xsdType = null, string? format = null, CultureInfo? culture = null,
     ConversionOptions? options = null)
   {
     if (knownTypes != null)

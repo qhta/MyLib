@@ -10,7 +10,7 @@ public class BaseTypeConverter: TypeConverter
   /// <summary>
   ///   Type expected in ConvertFrom method
   /// </summary>
-  public virtual Type? ExpectedType { get; set; }
+  public virtual Type? ExpectedType { get; set;}
 
   /// <summary>
   ///   Types known in ConvertFrom method
