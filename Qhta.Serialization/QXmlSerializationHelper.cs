@@ -74,6 +74,9 @@ public static class QXmlSerializationHelper
   {
     var sb = new StringBuilder();
     foreach (var ch in str)
+      if (ch == '\\')
+        sb.Append("\\\\");
+      else
       if (ch >= ' ' && ch < '\x7f')
       {
         sb.Append(ch);
@@ -135,7 +138,6 @@ public static class QXmlSerializationHelper
       var ch = str[i];
       if (ch == '\\' && i < str.Length - 1)
       {
-        i++;
         sb.Append(DecodeEscapeSeq(str, ref i));
       }
       else
@@ -148,7 +150,7 @@ public static class QXmlSerializationHelper
 
   public static string DecodeEscapeSeq(this string str, ref int index)
   {
-    var ch = str[index];
+    var ch = str[index+1];
     switch (ch)
     {
       case '\\':

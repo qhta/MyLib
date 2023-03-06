@@ -426,12 +426,21 @@ public partial class QXmlSerializer
     {
       if (value != null)
       {
-        var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, null, null, null, Options.ConversionOptions);
-        var valStr = typeConverter.ConvertToInvariantString(value);
-        if (valStr != null)
+        if (value is string str)
         {
-          //valStr = valStr.EncodeStringValue();
+          //if (str.Contains("\\"))
+          //  TestTools.Stop();
+          var valStr = str.EncodeStringValue();
           Writer.WriteValue(valStr);
+        }
+        else
+        {
+          var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, null, null, null, Options.ConversionOptions);
+          var valStr = typeConverter.ConvertToInvariantString(value);
+          if (valStr != null)
+          {
+            Writer.WriteValue(valStr);
+          }
         }
       }
     }
@@ -450,6 +459,11 @@ public partial class QXmlSerializer
       return null;
     if (memberInfo.Property == null)
       return null;
+    if (memberInfo.ValueType?.Type == typeof(string) && propValue is string valStr)
+    {
+      var str = valStr.EncodeStringValue();
+      return str;
+    }
     var typeConverter = memberInfo.GetTypeConverter();
     if (typeConverter != null)
     {
