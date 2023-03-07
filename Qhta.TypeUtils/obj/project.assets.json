@@ -186,7 +186,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "1.3.2",
+    "version": "1.3.3",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj",
       "projectName": "Qhta.TypeUtils",

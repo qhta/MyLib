@@ -169,6 +169,16 @@ public static class TypeCategorization
   }
 
   /// <summary>
+  ///   Shortcut of type equality comparison or IsSubclassOf or Implements function
+  /// </summary>
+  /// <param name="thisType"></param>
+  /// <param name="otherType"></param>
+  /// <returns></returns>
+  public static bool IsEqualOrSubclassOfOrImplements(this Type thisType, Type otherType)
+  {
+    return thisType == otherType || thisType.IsSubclassOf(otherType) || thisType.Implements(otherType);
+  }
+  /// <summary>
   ///   Checks if a type implements an interface
   /// </summary>
   /// <param name="thisType"></param>
@@ -218,8 +228,8 @@ public static class TypeCategorization
   /// </summary>
   public static Type GetNotNullableType(this object obj)
   {
-    var type = obj.GetType() ?? typeof(object);
-    if (type.IsNullable(out var baseType))
+    Type type = obj.GetType() ?? typeof(object);
+    if (type.IsNullable(out var baseType) && baseType!=null)
       type = baseType;
     return type;
   }

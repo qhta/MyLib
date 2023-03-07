@@ -13,7 +13,7 @@
     <RootNamespace>Qhta.TypeUtils</RootNamespace>
     <Description>A package of functions to supplement System.Reflections.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>1.3.2</Version>
+    <Version>1.3.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

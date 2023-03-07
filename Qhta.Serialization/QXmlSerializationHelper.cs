@@ -171,7 +171,7 @@ public static class QXmlSerializationHelper
       case 'u':
         index++;
         UInt16 code = 0;
-        for (var i = 0; i < 4; i++)
+        for (var i = 1; i <= 4; i++)
         {
           var ch1 = str[index + i];
           if (ch1 >= '0' && ch1 <= '9')

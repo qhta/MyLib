@@ -521,6 +521,14 @@
             <param name="otherType"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsEqualOrSubclassOfOrImplements(System.Type,System.Type)">
+            <summary>
+              Shortcut of type equality comparison or IsSubclassOf or Implements function
+            </summary>
+            <param name="thisType"></param>
+            <param name="otherType"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.Implements(System.Type,System.Type)">
             <summary>
               Checks if a type implements an interface
