@@ -253,6 +253,9 @@ public partial class QXmlSerializer : IXmlConverterReader
           var contentInfo = memberInfo.ContentInfo ?? memberInfo.ValueType?.ContentInfo ?? typeInfo.ContentInfo;
           if (propType.IsClass && propType != typeof(string))
           {
+            if (memberInfo.IsObject)
+              propValue = ReadElementAsMember(context, memberInfo);
+            else
             if (contentInfo != null)
             {
               propValue = ReadMemberCollection(context, memberInfo, contentInfo);

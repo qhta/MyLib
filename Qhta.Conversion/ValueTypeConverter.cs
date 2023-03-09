@@ -392,8 +392,6 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
-    if (value is string str && str.Contains("\\"))
-      TestTools.Stop();
     if (InternalTypeConverter == null)
       Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)

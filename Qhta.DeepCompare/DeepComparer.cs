@@ -32,7 +32,7 @@ public static class DeepComparer
         objName = testType.Name;
       if (testType != refType)
       {
-        diffs?.Add(objName, "Type", refType, testType);
+        diffs?.Add(objName, propName ?? "Type", refType, testType);
         return false;
       }
       var ok = true;

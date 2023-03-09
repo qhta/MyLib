@@ -151,11 +151,8 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public MethodInfo? CheckMethod { get; set; }
 
   /// <summary>
-  /// Gets a value indicating whether this instance has check method.
+  /// Specifies whether this instance has check method.
   /// </summary>
-  /// <value>
-  ///   <c>true</c> if this instance has check method; otherwise, <c>false</c>.
-  /// </value>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool HasCheckMethod => CheckMethod != null;
@@ -177,18 +174,30 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public KnownTypesCollection? KnownSubtypes { get; set; }
 
   /// <summary>
-  ///   If a type is serialized as a collection but not as a dictionary
+  ///   Specifies whether the type is serialized as a collection but not as a dictionary
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsCollection => GetCollectionInfo() != null && !IsDictionary;
 
   /// <summary>
-  ///   If a type is serialized as a dictionary but not as a collection
+  ///   Specifies whether the type is serialized as a dictionary but not as a collection
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsDictionary => GetCollectionInfo() is DictionaryInfo;
+
+  /// <summary>
+  ///   Specifies whether the type instance must be serialized as an object, not a simple collection.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsObject
+  {
+    get => _IsObject || ValueType?.IsObject == true;
+    set => _IsObject = value;
+  }
+  private bool _IsObject;
 
   /// <summary>
   ///   Optional collection info filled if a member is an array, collection or dictionary.

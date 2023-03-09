@@ -10,7 +10,7 @@
         "dependencies": {
           "Qhta.TestHelper": "2.0.0.0",
           "Qhta.TextUtils": "3.0.0.0",
-          "Qhta.TypeUtils": "1.3.0.0"
+          "Qhta.TypeUtils": "1.3.3.0"
         },
         "runtime": {
           "Qhta.DeepCompare.dll": {}
@@ -32,11 +32,11 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.3.0.0": {
+      "Qhta.TypeUtils/1.3.3.0": {
         "runtime": {
           "Qhta.TypeUtils.dll": {
-            "assemblyVersion": "1.3.0.0",
-            "fileVersion": "1.3.0.0"
+            "assemblyVersion": "1.3.3.0",
+            "fileVersion": "1.3.3.0"
           }
         }
       },
@@ -66,7 +66,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Qhta.TypeUtils/1.3.0.0": {
+    "Qhta.TypeUtils/1.3.3.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

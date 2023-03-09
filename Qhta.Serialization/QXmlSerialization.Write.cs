@@ -75,8 +75,6 @@ public partial class QXmlSerializer
       if (!KnownTypes.TryGetValue(aType, out typeInfo))
         throw new InternalException($"Type \"{aType}\" not registered");
     }
-    //if (typeInfo.XmlName == "Text")
-    //  TestTools.Stop();
     WritePropertiesAsAttributes(context, obj, typeInfo);
     if (typeInfo.TypeConverter != null)
     {
@@ -160,8 +158,6 @@ public partial class QXmlSerializer
             continue;
       }
       var propValue = memberInfo.GetValue(obj);
-      if (memberInfo.Property?.Name == "PageSize")
-        Debug.Assert(true);
       var propTag = CreateElementTag(memberInfo, propValue?.GetType());
       if (propValue == null)
       {
@@ -217,7 +213,7 @@ public partial class QXmlSerializer
               WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
             else if (propValue is ICollection collection)
             {
-              if (memberInfo.ValueType?.MembersAsAttributes.Count > 0 && memberInfo.ContentInfo != null)
+              if (memberInfo.ValueType?.MembersAsAttributes.Count > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
                 WriteObject(context, propValue);
               else
                 WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);

@@ -1,6 +1,6 @@
 ﻿namespace Qhta.Xml;
 
-[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field |AttributeTargets.Class)]
 public class XmlCollectionAttribute : XmlArrayAttribute
 {
   public XmlCollectionAttribute()
@@ -14,8 +14,6 @@ public class XmlCollectionAttribute : XmlArrayAttribute
   }
 
   public Type? CollectionType { get; }
-
-  //public Type? ItemType { get;}
 
   public string? AddMethod { get; set; }
 

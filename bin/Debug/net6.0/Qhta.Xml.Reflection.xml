@@ -539,11 +539,8 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.HasCheckMethod">
             <summary>
-            Gets a value indicating whether this instance has check method.
+            Specifies whether this instance has check method.
             </summary>
-            <value>
-              <c>true</c> if this instance has check method; otherwise, <c>false</c>.
-            </value>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsPolymorfic">
             <summary>
@@ -560,12 +557,17 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsCollection">
             <summary>
-              If a type is serialized as a collection but not as a dictionary
+              Specifies whether the type is serialized as a collection but not as a dictionary
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsDictionary">
             <summary>
-              If a type is serialized as a dictionary but not as a collection
+              Specifies whether the type is serialized as a dictionary but not as a collection
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsObject">
+            <summary>
+              Specifies whether the type instance must be serialized as an object, not a simple collection.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.ContentInfo">
@@ -706,12 +708,17 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsCollection">
             <summary>
-              Specifies if a type is serialized as a collection but not as a dictionary.
+              Specifies whether the type is serialized as a collection but not as a dictionary.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsDictionary">
             <summary>
-              Specifies If a type is serialized as a dictionary but not as a collection.
+              Specifies whether the type is serialized as a dictionary but not as a collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsObject">
+            <summary>
+              Specifies whether the type instance must be serialized as an object, not a simple collection.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentInfo">

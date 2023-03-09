@@ -79,18 +79,25 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   public KnownTypesCollection? KnownSubtypes { get; set; }
 
   /// <summary>
-  ///   Specifies if a type is serialized as a collection but not as a dictionary.
+  ///   Specifies whether the type is serialized as a collection but not as a dictionary.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsCollection => ContentProperty == null && ContentInfo != null && !IsDictionary;
 
   /// <summary>
-  ///   Specifies If a type is serialized as a dictionary but not as a collection.
+  ///   Specifies whether the type is serialized as a dictionary but not as a collection.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsDictionary => ContentInfo is DictionaryInfo;
+
+  /// <summary>
+  ///   Specifies whether the type instance must be serialized as an object, not a simple collection.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsObject { get; set; }
 
   /// <summary>
   ///   Optional collection info filled if a property is an array, collection or dictionary

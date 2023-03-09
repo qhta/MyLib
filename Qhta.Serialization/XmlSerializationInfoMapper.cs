@@ -119,6 +119,8 @@ public class XmlSerializationInfoMapper
     typeInfo.XmlName = elementName;
     typeInfo.XmlNamespace = elementNamespace;
     typeInfo.ClrNamespace = aType.Namespace;
+    if (aType.GetCustomAttribute<XmlObjectAttribute>(false)!=null)
+      typeInfo.IsObject = true;
     return typeInfo;
   }
 
@@ -224,6 +226,8 @@ public class XmlSerializationInfoMapper
       }
       else
       {
+        if (memberInfo.GetCustomAttributes(true).OfType<XmlObjectAttribute>().FirstOrDefault()!=null)
+          typeInfo.IsObject = true;
         var anyElementAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlAnyElementAttribute>().FirstOrDefault();
         if (anyElementAttribute != null)
         {
@@ -773,8 +777,6 @@ public class XmlSerializationInfoMapper
 
   protected ContentItemInfo? CreateContentInfo(MemberInfo memberInfo)
   {
-    if (memberInfo.Name == "RunProperties")
-      TestTools.Stop();
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
     if (arrayItemsAttributes.Length == 0)
       return null;
@@ -790,8 +792,6 @@ public class XmlSerializationInfoMapper
 
   protected ContentItemInfo? CreateCollectionInfo(MemberInfo memberInfo)
   {
-    if (memberInfo.Name == "RunProperties")
-      TestTools.Stop();
     //var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
     //if (arrayAttribute == null && arrayItemsAttributes.Length == 0)
@@ -808,8 +808,6 @@ public class XmlSerializationInfoMapper
 
   protected ContentItemInfo CreateCollectionInfo(Type aType, IEnumerable<XmlArrayItemAttribute> arrayItemAttribs)
   {
-    if (aType.Name == "RunProperties")
-      TestTools.Stop();
     var collectionTypeInfo = new ContentItemInfo();
     if (arrayItemAttribs.Count() != 0)
     {
