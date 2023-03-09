@@ -8,20 +8,11 @@
     ".NETCoreApp,Version=v6.0": {
       "Qhta.DeepCompare/1.0": {
         "dependencies": {
-          "Qhta.TestHelper": "2.0.0.0",
           "Qhta.TextUtils": "3.0.0.0",
           "Qhta.TypeUtils": "1.3.3.0"
         },
         "runtime": {
           "Qhta.DeepCompare.dll": {}
-        }
-      },
-      "Qhta.TestHelper/2.0.0.0": {
-        "runtime": {
-          "Qhta.TestHelper.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
-          }
         }
       },
       "Qhta.TextUtils/3.0.0.0": {
@@ -53,11 +44,6 @@
   "libraries": {
     "Qhta.DeepCompare/1.0": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Qhta.TestHelper/2.0.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

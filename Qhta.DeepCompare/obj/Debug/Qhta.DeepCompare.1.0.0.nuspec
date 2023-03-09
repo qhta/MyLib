@@ -9,10 +9,13 @@
     <description>Library to compare two objects property by property</description>
     <dependencies>
       <group targetFramework="net6.0" />
+      <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>
   <files>
     <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.DeepCompare.dll" target="lib\net6.0\Qhta.DeepCompare.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.DeepCompare.xml" target="lib\net6.0\Qhta.DeepCompare.xml" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.dll" target="lib\netstandard2.0\Qhta.DeepCompare.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.xml" target="lib\netstandard2.0\Qhta.DeepCompare.xml" />
   </files>
 </package>

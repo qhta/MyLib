@@ -95,8 +95,6 @@ public static class DeepComparer
             var propType = prop.PropertyType;
             if (propType.IsNullable(out var baseType))
               propType = baseType;
-            if (propType == typeof(DateTime))
-              TestTools.Stop();
             try
             {
               var testValue = prop.GetValue(testObject);

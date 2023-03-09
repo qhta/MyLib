@@ -1,5 +1,4 @@
 D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.deps.json
-D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.dll
 D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.csproj.AssemblyReference.cache
@@ -13,3 +12,4 @@ D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\ref\Qhta.TypeUtils.dll
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net6.0\Qhta.TypeUtils.csproj.CopyComplete
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TypeUtils.dll

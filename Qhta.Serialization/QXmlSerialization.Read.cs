@@ -511,10 +511,10 @@ public partial class QXmlSerializer : IXmlConverterReader
           xmlSerializable.ReadXml(Reader);
         else
         {
-          if (!memberInfo.IsTagSuppressed)
+          if (!memberInfo.IsContentElement)
             Reader.Read();
           ReadMemberObjectInterior(result, typeInfo, memberInfo);
-          if (!memberInfo.IsTagSuppressed)
+          if (!memberInfo.IsContentElement)
             Reader.Read();
         }
       }

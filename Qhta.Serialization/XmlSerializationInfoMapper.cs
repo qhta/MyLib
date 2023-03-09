@@ -228,10 +228,10 @@ public class XmlSerializationInfoMapper
       {
         if (memberInfo.GetCustomAttributes(true).OfType<XmlObjectAttribute>().FirstOrDefault()!=null)
           typeInfo.IsObject = true;
-        var anyElementAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlAnyElementAttribute>().FirstOrDefault();
-        if (anyElementAttribute != null)
+        var xmlContentAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlContentElementAttribute>().FirstOrDefault();
+        if (xmlContentAttribute != null)
         {
-          TryAddMemberAsAnyElement(typeInfo, memberInfo, ++elemCount);
+          TryAddMemberAsContentElement(typeInfo, memberInfo, ++elemCount);
         }
         else
         {
@@ -369,7 +369,7 @@ public class XmlSerializationInfoMapper
   /// <param name="typeInfo">Object to add to</param>
   /// <param name="memberInfo">Selected property/field</param>
   /// <param name="defaultOrder">default order</param>
-  protected virtual bool TryAddMemberAsAnyElement(SerializationTypeInfo typeInfo, MemberInfo memberInfo,
+  protected virtual bool TryAddMemberAsContentElement(SerializationTypeInfo typeInfo, MemberInfo memberInfo,
     int defaultOrder)
   {
     var valueType = memberInfo.GetValueType();
@@ -386,7 +386,7 @@ public class XmlSerializationInfoMapper
       return false;
     var order = defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
-    serializationMemberInfo.IsTagSuppressed = true;
+    serializationMemberInfo.IsContentElement = true;
     typeInfo.MembersAsElements.Add(serializationMemberInfo);
     KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;

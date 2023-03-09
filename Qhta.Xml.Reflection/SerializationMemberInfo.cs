@@ -100,11 +100,12 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   //public ConversionOptions? ConversionOptions { get; set; }
 
   /// <summary>
-  ///   Specifies whether a member tag is suppressed on serialization.
+  ///   Specifies whether a member is serialized as parent element content
+  ///   (without xml property tag).
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsTagSuppressed { get; set; }
+  public bool IsContentElement { get; set; }
 
   /// <summary>
   ///   Specifies whether a member is nullable.

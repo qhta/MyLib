@@ -496,9 +496,10 @@
               Specific culture info for text conversion.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsTagSuppressed">
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsContentElement">
             <summary>
-              Specifies whether a member tag is suppressed on serialization.
+              Specifies whether a member is serialized as parent element content
+              (without xml property tag).
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsNullable">

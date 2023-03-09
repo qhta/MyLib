@@ -514,7 +514,7 @@ public partial class QXmlSerializer
 
   protected XmlQualifiedTagName? CreateElementTag(SerializationMemberInfo memberInfo, Type? type)
   {
-    if (memberInfo.IsTagSuppressed)
+    if (memberInfo.IsContentElement)
       return null;
     var result = Mapper.GetXmlTag(memberInfo);
     result.Namespace = "";
