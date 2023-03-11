@@ -72,27 +72,28 @@ public class XmlSerializationInfoMapper
     KnownTypes.Add(newTypeInfo);
     if (newTypeInfo.XmlNamespace != null && newTypeInfo.ClrNamespace != null)
       KnownNamespaces.TryAdd(newTypeInfo.XmlNamespace, newTypeInfo.ClrNamespace);
-
-    // Then fill the type info
-    FillTypeInfo(newTypeInfo);
-
     #endregion
 
-    #region Registering TypeConverter as ValueTypeConverter
+    if (!aType.IsInterface)
+    {
+      //Then fill the type info
+      FillTypeInfo(newTypeInfo);
 
-    if (newTypeInfo.TypeConverter != null && !ValueTypeConverter.KnownTypeConverters.ContainsKey(aType))
-      ValueTypeConverter.KnownTypeConverters.Add(aType, newTypeInfo.TypeConverter);
+      #region Registering TypeConverter as ValueTypeConverter
 
-    #endregion
+      if (newTypeInfo.TypeConverter != null && !ValueTypeConverter.KnownTypeConverters.ContainsKey(aType))
+        ValueTypeConverter.KnownTypeConverters.Add(aType, newTypeInfo.TypeConverter);
 
-    #region Registering included types
+      #endregion
 
-    foreach (var attrib in aType.GetCustomAttributes<XmlIncludeAttribute>())
-      if (attrib.Type != null)
-        RegisterType(attrib.Type);
+      #region Registering included types
 
-    #endregion
+      foreach (var attrib in aType.GetCustomAttributes<XmlIncludeAttribute>())
+        if (attrib.Type != null)
+          RegisterType(attrib.Type);
 
+        #endregion
+      }
     return newTypeInfo;
   }
 
