@@ -92,6 +92,8 @@ public static class DeepComparer
         else
           foreach (var prop in properties)
           {
+            if (prop.GetCustomAttribute<NonComparableAttribute>()!=null)
+              continue;
             var propType = prop.PropertyType;
             if (propType.IsNullable(out var baseType))
               propType = baseType;
