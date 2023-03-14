@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <AutoRedirectBindings>true</AutoRedirectBindings>
+    <AutoRedirectBindings>false</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
@@ -16,22 +16,23 @@
     <Description>A package of functions to supplement System.Reflections.</Description>
     <Authors>Yarreck Qhta</Authors>
     <Version>1.3.3</Version>
+    <UserSecretsId>558079df-d598-477b-bc2c-aeb3fda405dc</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <NoWarn>1701;1702</NoWarn>
+    <NoWarn>1701;1702;MSB3277</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <NoWarn>1701;1702</NoWarn>
+    <NoWarn>1701;1702;MSB3277</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
-    <NoWarn>1701;1702</NoWarn>
+    <NoWarn>1701;1702MSB3277</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-    <NoWarn>1701;1702</NoWarn>
+    <NoWarn>1701;1702;MSB3277</NoWarn>
   </PropertyGroup>
 
   
