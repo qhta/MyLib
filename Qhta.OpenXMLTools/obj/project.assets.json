@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "DocumentFormat.OpenXml/2.18.0": {
+      "DocumentFormat.OpenXml/2.19.0": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "4.7.0"
@@ -67,14 +67,14 @@
     }
   },
   "libraries": {
-    "DocumentFormat.OpenXml/2.18.0": {
-      "sha512": "5fmehgA7WmJD551QwBhvjSsEmMbCQ/yfW83ZLfbPx1TeQGm0ikGIwAvz/XfO4veCjYWpBQfFH9elVhC2Y+HatQ==",
+    "DocumentFormat.OpenXml/2.19.0": {
+      "sha512": "BLFqodowHZHR/A/sKU/6e+63J5ONWDdv8hEuSZOUiBfGFuVmsG9P3o+LMSq+dajNWE1q+lqVSa1H5FuhLX8/fA==",
       "type": "package",
-      "path": "documentformat.openxml/2.18.0",
+      "path": "documentformat.openxml/2.19.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "documentformat.openxml.2.18.0.nupkg.sha512",
+        "documentformat.openxml.2.19.0.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "icon.png",
         "lib/net35/DocumentFormat.OpenXml.dll",
@@ -83,6 +83,8 @@
         "lib/net40/DocumentFormat.OpenXml.xml",
         "lib/net46/DocumentFormat.OpenXml.dll",
         "lib/net46/DocumentFormat.OpenXml.xml",
+        "lib/net6.0/DocumentFormat.OpenXml.dll",
+        "lib/net6.0/DocumentFormat.OpenXml.xml",
         "lib/netstandard1.3/DocumentFormat.OpenXml.dll",
         "lib/netstandard1.3/DocumentFormat.OpenXml.xml",
         "lib/netstandard2.0/DocumentFormat.OpenXml.dll",
@@ -275,7 +277,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "DocumentFormat.OpenXml >= 2.18.0",
+      "DocumentFormat.OpenXml >= 2.19.0",
       "NETStandard.Library >= 2.0.3",
       "Qhta.OrdNumbers >= 2.2.1"
     ]
@@ -326,7 +328,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[2.18.0, )"
+            "version": "[2.19.0, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
@@ -350,7 +352,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

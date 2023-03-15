@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "zAyHH9adXEqBWwIft8fJEDBiVuvM+Is3tsTpfjRDY3qk9l8kIJo7ozOfgh2vJRmQKeGrQ1KMV0aZnDGf1RMv6A==",
+  "dgSpecHash": "QckPxZCCxyRhVmv8UedLbuDNXOBs7B38U/umcv2UPxOFmaOJU50retEKPuSYzkBx/SihdLAJDm+LCHoKmmi+hQ==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml\\2.18.0\\documentformat.openxml.2.18.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml\\2.19.0\\documentformat.openxml.2.19.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.2.1\\qhta.ordnumbers.2.2.1.nupkg.sha512",
