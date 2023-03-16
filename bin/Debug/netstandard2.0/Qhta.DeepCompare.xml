@@ -9,6 +9,11 @@
             Comparer class
             </summary>
         </member>
+        <member name="M:Qhta.DeepCompare.DeepComparer.GetNotNullableType(System.Object)">
+            <summary>
+            Gets the type of the object and if the type is Nullable, returns its baseType
+            </summary>
+        </member>
         <member name="M:Qhta.DeepCompare.DeepComparer.IsEqual(System.Object,System.Object,Qhta.DeepCompare.DiffList,System.String,System.String)">
             <summary>
             Determines whether the specified object is equal to other one.

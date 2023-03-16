@@ -14,6 +14,18 @@ namespace Qhta.DeepCompare;
 /// </summary>
 public static class DeepComparer
 {
+
+  /// <summary>
+  /// Gets the type of the object and if the type is Nullable, returns its baseType
+  /// </summary>
+  public static Type GetNotNullableType(this object obj)
+  {
+    Type type = obj.GetType() ?? typeof(object);
+    if (type.IsNullable(out var baseType) && baseType!=null && baseType!=type)
+      type = baseType;
+    return type;
+  }
+
   /// <summary>
   /// Determines whether the specified object is equal to other one.
   /// </summary>
@@ -90,9 +102,13 @@ public static class DeepComparer
 
         }
         else
+        if (testType.BaseType?.Name.StartsWith("LinkedList")!=true)
+        {
           foreach (var prop in properties)
           {
             if (prop.GetCustomAttribute<NonComparableAttribute>()!=null)
+              continue;
+            if (prop.Name=="FirstNode" || prop.Name=="LastNode")
               continue;
             var propType = prop.PropertyType;
             if (propType.IsNullable(out var baseType))
@@ -110,6 +126,7 @@ public static class DeepComparer
               Debug.WriteLine($"Error comparing two {testType}.{prop.Name} properties");
             }
           }
+        }
         if (testType.IsEnumerable())
         {
           var testEnumerator = (testObject as IEnumerable)?.GetEnumerator();

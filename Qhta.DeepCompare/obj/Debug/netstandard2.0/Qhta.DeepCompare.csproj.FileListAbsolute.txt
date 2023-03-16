@@ -1,12 +1,12 @@
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.xml
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.GeneratedMSBuildEditorConfig.editorconfig
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.csproj.CoreCompileInputs.cache
-D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.deps.json
-D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.dll
-D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.pdb
-D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.xml
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.dll
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\netstandard2.0\Qhta.DeepCompare.xml

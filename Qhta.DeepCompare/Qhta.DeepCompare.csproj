@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <AutoRedirectBindings>true</AutoRedirectBindings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
@@ -16,7 +17,7 @@
     <Version>1.0</Version>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net6'))" >
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net6'))">
     <Reference Include="Qhta.TextUtils">
       <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
     </Reference>
@@ -24,13 +25,14 @@
       <HintPath>..\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
     </Reference>
   </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))" >
+  
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
     <Reference Include="Qhta.TextUtils">
       <HintPath>..\bin\Debug\netstandard2.0\Qhta.TextUtils.dll</HintPath>
     </Reference>
-    <Reference Include="Qhta.TypeUtils">
+      <Reference Include="Qhta.TypeUtils">
       <HintPath>..\bin\Debug\netstandard2.0\Qhta.TypeUtils.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 </Project>
