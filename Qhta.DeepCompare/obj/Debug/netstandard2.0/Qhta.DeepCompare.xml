@@ -4,6 +4,27 @@
         <name>Qhta.DeepCompare</name>
     </assembly>
     <members>
+        <member name="T:Qhta.DeepCompare.PropertyInfoCount">
+            <summary>
+            Data structure to count how many times was each property compared
+            </summary>
+        </member>
+        <member name="P:Qhta.DeepCompare.PropertyInfoCount.Property">
+            <summary>
+            Reflected property info
+            </summary>
+        </member>
+        <member name="P:Qhta.DeepCompare.PropertyInfoCount.Count">
+            <summary>
+            Count of compare
+            </summary>
+        </member>
+        <member name="M:Qhta.DeepCompare.PropertyInfoCount.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Simplifies instance creation
+            </summary>
+            <param name="property"></param>
+        </member>
         <member name="T:Qhta.DeepCompare.DeepComparer">
             <summary>
             Comparer class

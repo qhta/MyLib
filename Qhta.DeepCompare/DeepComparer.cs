@@ -1,15 +1,29 @@
-﻿//#define TRACE_PROPS
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿namespace Qhta.DeepCompare;
 
-using Qhta.TypeUtils;
+/// <summary>
+/// Data structure to count how many times was each property compared
+/// </summary>
+public class PropertyInfoCount
+{
+  /// <summary>
+  /// Reflected property info
+  /// </summary>
+  public PropertyInfo Property { get; set; } = null!;
+  
+  /// <summary>
+  /// Count of compare
+  /// </summary>
+  public int Count { get; set; }
 
-namespace Qhta.DeepCompare;
-
+  /// <summary>
+  /// Simplifies instance creation
+  /// </summary>
+  /// <param name="property"></param>
+  public PropertyInfoCount(PropertyInfo property)
+  {
+    Property = property;
+  }
+}
 
 /// <summary>
 /// Comparer class
@@ -23,14 +37,7 @@ public static class DeepComparer
   /// <summary>
   /// Used to speed up selection of properties to compare
   /// </summary>
-  public static Dictionary<Type, PropertyInfo[]> KnownProperties = new();
-#if TRACE_PROPS
-  /// <summary>
-  /// Used to measure how many times was each property compared
-  /// </summary>
-  public static Dictionary<PropertyInfo, int> ComparedProperties = new();
-#endif
-
+  public static Dictionary<Type, PropertyInfoCount[]> KnownProperties = new();
 
   /// <summary>
   /// Gets the type of the object and if the type is Nullable, returns its baseType
@@ -65,7 +72,10 @@ public static class DeepComparer
         diffs?.Add(objName, propName, index, refType, refType);
         return false;
       }
-      var ok = true;
+      var ok = testObject.GetHashCode()==refObject.GetHashCode();
+      if (ok)
+        return true;
+      ok = true;
       if (refType.FullName == "System.RuntimeType")
       {
         var cmp = refObject == testObject;
@@ -122,7 +132,8 @@ public static class DeepComparer
           .Where(item =>
             item.DeclaringType?.Name.StartsWith("LinkedList") != true
             && item.GetIndexParameters().Count() == 0
-            && item.GetCustomAttribute<NonComparableAttribute>() == null).ToArray();
+            && item.GetCustomAttribute<NonComparableAttribute>() == null)
+          .Select(item => new PropertyInfoCount(item)).ToArray();
           KnownProperties.Add(refType, properties);
         }
         if (properties.Count() == 0 || refType.IsSimple())
@@ -172,8 +183,10 @@ public static class DeepComparer
         }
         else
         {
-          foreach (var prop in properties)
+          foreach (var propInfoCount in properties)
           {
+            var prop = propInfoCount.Property;
+            propInfoCount.Count += 1;
             var propType = prop.PropertyType;
             if (propType.IsNullable(out var baseType))
               propType = baseType;
@@ -181,14 +194,9 @@ public static class DeepComparer
             {
               var testValue = prop.GetValue(testObject);
               var refValue = prop.GetValue(refObject);
-              if (refValue != refObject && testValue != testObject)
+              if (refValue != refObject && testValue != testObject 
+                && (refValue != null || testValue != null))
               {
-#if TRACE_PROPS
-                if (ComparedProperties.TryGetValue(prop, out var counter))
-                  ComparedProperties[prop] = counter + 1;
-                else
-                  ComparedProperties[prop] = 1;
-#endif
                 if (!IsEqual(testValue, refValue, diffs, objName, prop.Name))
                   ok = false;
               }
@@ -223,6 +231,8 @@ public static class DeepComparer
           }
         }
       }
+      if (!ok)
+        Debugger.Break();
       return ok;
     }
     if (testObject == null && refObject != null)
