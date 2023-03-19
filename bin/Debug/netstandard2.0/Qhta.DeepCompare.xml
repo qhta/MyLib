@@ -9,6 +9,21 @@
             Comparer class
             </summary>
         </member>
+        <member name="F:Qhta.DeepCompare.DeepComparer.KnownCompareFunctions">
+            <summary>
+            Used to speed up finding of compare functions
+            </summary>
+        </member>
+        <member name="F:Qhta.DeepCompare.DeepComparer.KnownProperties">
+            <summary>
+            Used to speed up selection of properties to compare
+            </summary>
+        </member>
+        <member name="F:Qhta.DeepCompare.DeepComparer.ComparedProperties">
+            <summary>
+            Used to measure how many times was each property compared
+            </summary>
+        </member>
         <member name="M:Qhta.DeepCompare.DeepComparer.GetNotNullableType(System.Object)">
             <summary>
             Gets the type of the object and if the type is Nullable, returns its baseType

@@ -9,11 +9,26 @@ using Qhta.TypeUtils;
 
 namespace Qhta.DeepCompare;
 
+
 /// <summary>
 /// Comparer class
 /// </summary>
 public static class DeepComparer
 {
+  /// <summary>
+  /// Used to speed up finding of compare functions
+  /// </summary>
+  public static Dictionary<Type, MethodInfo> KnownCompareFunctions = new();
+  /// <summary>
+  /// Used to speed up selection of properties to compare
+  /// </summary>
+  public static Dictionary<Type, PropertyInfo[]> KnownProperties = new();
+  /// <summary>
+  /// Used to measure how many times was each property compared
+  /// </summary>
+  public static Dictionary<PropertyInfo, int> ComparedProperties = new();
+
+
 
   /// <summary>
   /// Gets the type of the object and if the type is Nullable, returns its baseType
@@ -58,9 +73,38 @@ public static class DeepComparer
         }
       }
       else
-      if (refType == typeof(string))
+      if (refType == typeof(String))
       {
-        var cmp = refObject.Equals(testObject);
+        var cmp = String.Equals((string)refObject, (string)testObject);
+        if (!cmp == true)
+        {
+          diffs?.Add(objName, propName, testObject, refObject);
+          ok = false;
+        }
+      }
+      if (refType == typeof(Boolean))
+      {
+        var cmp = Boolean.Equals((Boolean)refObject, (Boolean)testObject);
+        if (!cmp == true)
+        {
+          diffs?.Add(objName, propName, testObject, refObject);
+          ok = false;
+        }
+      }
+      else
+      if (refType == typeof(Int32))
+      {
+        var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
+        if (!cmp == true)
+        {
+          diffs?.Add(objName, propName, testObject, refObject);
+          ok = false;
+        }
+      }
+      else
+      if (refType.IsEnum)
+      {
+        var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
         if (!cmp == true)
         {
           diffs?.Add(objName, propName, testObject, refObject);
@@ -69,23 +113,35 @@ public static class DeepComparer
       }
       else
       {
-        var properties = refType.GetProperties().Where(item => item.GetIndexParameters().Count() == 0).ToArray();
+        if (!KnownProperties.TryGetValue(refType, out var properties))
+        {
+          properties = refType.GetProperties()
+          .Where(item =>
+            item.DeclaringType?.Name.StartsWith("LinkedList") != true
+            && item.GetIndexParameters().Count() == 0
+            && item.GetCustomAttribute<NonComparableAttribute>() == null).ToArray();
+          KnownProperties.Add(refType, properties);
+        }
         if (properties.Count() == 0 || refType.IsSimple())
         {
-          if (refType == typeof(string) || !refType.IsClass)
+          if (!refType.IsClass)
           {
-            var comparerType = typeof(Comparer<>).MakeGenericType(refType);
-            if (comparerType == null)
-              throw new InvalidOperationException($"Comparer type not found for {refType} type");
-            var comparer = comparerType
-                             .GetProperty("Default", BindingFlags.Public | BindingFlags.Static)?
-                             .GetValue(null);
-            if (comparer == null)
-              throw new InvalidOperationException($"Default comparer not found for {refType} type");
-            var compareFunc = comparerType
-                         .GetMethod("Equals", BindingFlags.Public | BindingFlags.Instance);
-            if (compareFunc == null)
-              throw new InvalidOperationException($"Equals func not found for {refType} type");
+            if (!KnownCompareFunctions.TryGetValue(refType, out var compareFunc))
+            {
+              var comparerType = typeof(Comparer<>).MakeGenericType(refType);
+              if (comparerType == null)
+                throw new InvalidOperationException($"Comparer type not found for {refType} type");
+              var comparer = comparerType
+                               .GetProperty("Default", BindingFlags.Public | BindingFlags.Static)?
+                               .GetValue(null);
+              if (comparer == null)
+                throw new InvalidOperationException($"Default comparer not found for {refType} type");
+              compareFunc = comparerType
+                           .GetMethod("Equals", BindingFlags.Public | BindingFlags.Instance);
+              if (compareFunc == null)
+                throw new InvalidOperationException($"Equals func not found for {refType} type");
+              KnownCompareFunctions.Add(refType, compareFunc);
+            }
             try
             {
               var cmp = (bool?)compareFunc.Invoke(refObject, new[] { testObject });
@@ -112,14 +168,9 @@ public static class DeepComparer
 
         }
         else
-        if (refType.BaseType?.Name.StartsWith("LinkedList") != true)
         {
           foreach (var prop in properties)
           {
-            if (prop.GetCustomAttribute<NonComparableAttribute>() != null)
-              continue;
-            if (prop.Name == "FirstNode" || prop.Name == "LastNode")
-              continue;
             var propType = prop.PropertyType;
             if (propType.IsNullable(out var baseType))
               propType = baseType;
@@ -128,8 +179,14 @@ public static class DeepComparer
               var testValue = prop.GetValue(testObject);
               var refValue = prop.GetValue(refObject);
               if (refValue != refObject && testValue != testObject)
+              {
+                if (ComparedProperties.TryGetValue(prop, out var counter))
+                  ComparedProperties[prop] = counter + 1;
+                else
+                  ComparedProperties[prop] = 1;
                 if (!IsEqual(testValue, refValue, diffs, Diff.Concat(objName, propName), prop.Name))
                   ok = false;
+              }
             }
             catch
             {
@@ -137,7 +194,7 @@ public static class DeepComparer
             }
           }
         }
-        if (refType.IsEnumerable() && refType!=typeof(string))
+        if (refType.IsEnumerable())
         {
           var testEnumerator = (testObject as IEnumerable)?.GetEnumerator();
           var refEnumerator = (refObject as IEnumerable)?.GetEnumerator();
