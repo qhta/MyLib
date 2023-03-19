@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define TRACE_PROPS
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,12 @@ public static class DeepComparer
   /// Used to speed up selection of properties to compare
   /// </summary>
   public static Dictionary<Type, PropertyInfo[]> KnownProperties = new();
+#if TRACE_PROPS
   /// <summary>
   /// Used to measure how many times was each property compared
   /// </summary>
   public static Dictionary<PropertyInfo, int> ComparedProperties = new();
-
+#endif
 
 
   /// <summary>
@@ -49,7 +51,8 @@ public static class DeepComparer
   /// <param name="diffs">Optional differences list (to fill)</param>
   /// <param name="objName">Optional tested object name</param>
   /// <param name="propName">Optional tested property name</param>
-  public static bool IsEqual(object? testObject, object? refObject, DiffList? diffs = null, string? objName = null, string? propName = null)
+  /// <param name="index">Optional index of checked objects</param>
+  public static bool IsEqual(object? testObject, object? refObject, DiffList? diffs = null, string? objName = null, string? propName = null, int? index = null)
   {
     if (testObject != null && refObject != null)
     {
@@ -59,7 +62,7 @@ public static class DeepComparer
         objName = refType.Name ?? testType.Name;
       if (refType != testType)
       {
-        diffs?.Add(objName, propName ?? "Type", refType, refType);
+        diffs?.Add(objName, propName, index, refType, refType);
         return false;
       }
       var ok = true;
@@ -68,7 +71,7 @@ public static class DeepComparer
         var cmp = refObject == testObject;
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, testObject, refObject);
+          diffs?.Add(objName, propName, index, testObject, refObject);
           ok = false;
         }
       }
@@ -78,7 +81,7 @@ public static class DeepComparer
         var cmp = String.Equals((string)refObject, (string)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, testObject, refObject);
+          diffs?.Add(objName, propName, index, testObject, refObject);
           ok = false;
         }
       }
@@ -87,7 +90,7 @@ public static class DeepComparer
         var cmp = Boolean.Equals((Boolean)refObject, (Boolean)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, testObject, refObject);
+          diffs?.Add(objName, propName, index, testObject, refObject);
           ok = false;
         }
       }
@@ -97,7 +100,7 @@ public static class DeepComparer
         var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, testObject, refObject);
+          diffs?.Add(objName, propName, index, testObject, refObject);
           ok = false;
         }
       }
@@ -107,7 +110,7 @@ public static class DeepComparer
         var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, testObject, refObject);
+          diffs?.Add(objName, propName, index, testObject, refObject);
           ok = false;
         }
       }
@@ -161,7 +164,7 @@ public static class DeepComparer
             var cmp = iStructuralEquatable.Equals(refObject);
             if (!cmp == true)
             {
-              diffs?.Add(objName, propName, testObject, refObject);
+              diffs?.Add(objName, propName, index, testObject, refObject);
               ok = false;
             }
           }
@@ -180,11 +183,13 @@ public static class DeepComparer
               var refValue = prop.GetValue(refObject);
               if (refValue != refObject && testValue != testObject)
               {
+#if TRACE_PROPS
                 if (ComparedProperties.TryGetValue(prop, out var counter))
                   ComparedProperties[prop] = counter + 1;
                 else
                   ComparedProperties[prop] = 1;
-                if (!IsEqual(testValue, refValue, diffs, Diff.Concat(objName, propName), prop.Name))
+#endif
+                if (!IsEqual(testValue, refValue, diffs, objName, prop.Name))
                   ok = false;
               }
             }
@@ -208,7 +213,7 @@ public static class DeepComparer
                 var refItem = refEnumerator.Current;
                 if (refItem != refObject && testItem != testObject)
                 {
-                  if (!IsEqual(testItem, refItem, diffs, Diff.Concat(objName, propName), $"[{i}]"))
+                  if (!IsEqual(testItem, refItem, diffs, objName, propName, i))
                     ok = false;
                 }
               }
@@ -222,12 +227,12 @@ public static class DeepComparer
     }
     if (testObject == null && refObject != null)
     {
-      diffs?.Add(refObject.GetType().Name, null, testObject, refObject);
+      diffs?.Add(refObject.GetType().Name, propName, index, testObject, refObject);
       return false;
     }
     if (testObject != null && refObject == null)
     {
-      diffs?.Add(testObject.GetType().Name, null, testObject, refObject);
+      diffs?.Add(testObject.GetType().Name, propName, index, testObject, refObject);
       return false;
     }
     return true;

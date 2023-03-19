@@ -19,17 +19,12 @@
             Used to speed up selection of properties to compare
             </summary>
         </member>
-        <member name="F:Qhta.DeepCompare.DeepComparer.ComparedProperties">
-            <summary>
-            Used to measure how many times was each property compared
-            </summary>
-        </member>
         <member name="M:Qhta.DeepCompare.DeepComparer.GetNotNullableType(System.Object)">
             <summary>
             Gets the type of the object and if the type is Nullable, returns its baseType
             </summary>
         </member>
-        <member name="M:Qhta.DeepCompare.DeepComparer.IsEqual(System.Object,System.Object,Qhta.DeepCompare.DiffList,System.String,System.String)">
+        <member name="M:Qhta.DeepCompare.DeepComparer.IsEqual(System.Object,System.Object,Qhta.DeepCompare.DiffList,System.String,System.String,System.Nullable{System.Int32})">
             <summary>
             Determines whether the specified object is equal to other one.
             </summary>
@@ -38,6 +33,7 @@
             <param name="diffs">Optional differences list (to fill)</param>
             <param name="objName">Optional tested object name</param>
             <param name="propName">Optional tested property name</param>
+            <param name="index">Optional index of checked objects</param>
         </member>
         <member name="T:Qhta.DeepCompare.Diff">
             <summary>
@@ -52,6 +48,11 @@
         <member name="P:Qhta.DeepCompare.Diff.PropertyName">
             <summary>
             Property name.
+            </summary>
+        </member>
+        <member name="P:Qhta.DeepCompare.Diff.Index">
+            <summary>
+            index of the checked item
             </summary>
         </member>
         <member name="P:Qhta.DeepCompare.Diff.ExpectedValue">
@@ -73,6 +74,16 @@
             <param name="expValue">Expected value.</param>
             <param name="recValue">Received value.</param>
         </member>
+        <member name="M:Qhta.DeepCompare.Diff.#ctor(System.String,System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.DeepCompare.Diff"/> class.
+            </summary>
+            <param name="objectName">Name of the checked object.</param>
+            <param name="propertyName">Name of the different property.</param>
+            <param name="index">Name of the different property.</param>
+            <param name="expValue">Expected value.</param>
+            <param name="recValue">Received value.</param>
+        </member>
         <member name="M:Qhta.DeepCompare.Diff.ToString">
             <summary>
             Converts to string (for debugging purpose).
@@ -87,6 +98,16 @@
             <param name="propertyName">Name of the property.</param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.DeepCompare.Diff.Concat(System.String,System.String,System.String)">
+            <summary>
+            Concats the specified object name with property name with separating dot. 
+            If property name is indexing clause in bracket, dot is ommited.
+            </summary>
+            <param name="objectName">Name of the object.</param>
+            <param name="propertyName">Name of the property.</param>
+            <param name="indexStr">String of the index.</param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.DeepCompare.DiffList">
             <summary>
             List of compare differences.
@@ -98,6 +119,16 @@
             </summary>
             <param name="objectName">Name of the object.</param>
             <param name="propertyName">Name of the property.</param>
+            <param name="expValue">Expected value.</param>
+            <param name="recValue">Received value.</param>
+        </member>
+        <member name="M:Qhta.DeepCompare.DiffList.Add(System.String,System.String,System.Object,System.Object,System.Object)">
+            <summary>
+              Helper method to add a difference.
+            </summary>
+            <param name="objectName">Name of the object.</param>
+            <param name="propertyName">Name of the property.</param>
+            <param name="index">Index of the compared values.</param>
             <param name="expValue">Expected value.</param>
             <param name="recValue">Received value.</param>
         </member>
