@@ -45,15 +45,21 @@ public class Diff
   /// </summary>
   public override string ToString()
   {
+    var receivedValue = ReceivedValue;
+    if (receivedValue is string str1)
+      receivedValue = "\""+str1+"\"";
+    var expectedValue = ExpectedValue;
+    if (expectedValue is string str2)
+      expectedValue = "\""+str2+"\"";
     var result = Concat(ObjectName, PropertyName);
     if (ReceivedValue != null && ExpectedValue == null)
-      result += $" is {ReceivedValue} but should be null";
+      result += $" is {receivedValue} but should be null";
     else if (ReceivedValue == null && ExpectedValue != null)
-      result += $" is null but should be {ExpectedValue}";
+      result += $" is null but should be {expectedValue}";
     else if (ReceivedValue == null && ExpectedValue == null)
       result += $" is null and should be null";
     else
-      result += $" is {ReceivedValue} but should be {ExpectedValue}";
+      result += $" is {receivedValue} but should be {expectedValue}";
     return result;
   }
 

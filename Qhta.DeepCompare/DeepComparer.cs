@@ -21,7 +21,7 @@ public static class DeepComparer
   public static Type GetNotNullableType(this object obj)
   {
     Type type = obj.GetType() ?? typeof(object);
-    if (type.IsNullable(out var baseType) && baseType!=null && baseType!=type)
+    if (type.IsNullable(out var baseType) && baseType != null && baseType != type)
       type = baseType;
     return type;
   }
@@ -38,31 +38,41 @@ public static class DeepComparer
   {
     if (testObject != null && refObject != null)
     {
-      var testType = testObject.GetNotNullableType();
       var refType = refObject.GetNotNullableType();
+      var testType = refObject.GetNotNullableType();
       if (objName == null)
-        objName = testType.Name;
-      if (testType != refType)
+        objName = refType.Name ?? testType.Name;
+      if (refType != testType)
       {
-        diffs?.Add(objName, propName ?? "Type", refType, testType);
+        diffs?.Add(objName, propName ?? "Type", refType, refType);
         return false;
       }
       var ok = true;
-      if (testType.FullName == "System.RuntimeType")
+      if (refType.FullName == "System.RuntimeType")
       {
         var cmp = refObject == testObject;
         if (!cmp == true)
         {
-          diffs?.Add(objName ?? refType.Name, propName, refObject, testObject);
+          diffs?.Add(objName, propName, testObject, refObject);
+          ok = false;
+        }
+      }
+      else
+      if (refType == typeof(string))
+      {
+        var cmp = refObject.Equals(testObject);
+        if (!cmp == true)
+        {
+          diffs?.Add(objName, propName, testObject, refObject);
           ok = false;
         }
       }
       else
       {
         var properties = refType.GetProperties().Where(item => item.GetIndexParameters().Count() == 0).ToArray();
-        if (properties.Count() == 0 || testType.IsSimple())
+        if (properties.Count() == 0 || refType.IsSimple())
         {
-          if (testType == typeof(string) || !testType.IsClass)
+          if (refType == typeof(string) || !refType.IsClass)
           {
             var comparerType = typeof(Comparer<>).MakeGenericType(refType);
             if (comparerType == null)
@@ -81,34 +91,34 @@ public static class DeepComparer
               var cmp = (bool?)compareFunc.Invoke(refObject, new[] { testObject });
               if (!cmp == true)
               {
-                diffs?.Add(objName ?? refType.Name, propName, refObject, testObject);
+                diffs?.Add(objName ?? refType.Name, propName, testObject, refObject);
                 ok = false;
               }
             }
             catch
             {
-              Debug.WriteLine($"Error comparing two {testType} type values");
+              Debug.WriteLine($"Error comparing two {refType} type values");
             }
           }
-          else if (refObject is IStructuralEquatable iStructuralEquatable)
+          else if (testObject is IStructuralEquatable iStructuralEquatable)
           {
-            var cmp = iStructuralEquatable.Equals(testObject);
+            var cmp = iStructuralEquatable.Equals(refObject);
             if (!cmp == true)
             {
-              diffs?.Add(objName ?? refType.Name, propName, refObject, testObject);
+              diffs?.Add(objName, propName, testObject, refObject);
               ok = false;
             }
           }
 
         }
         else
-        if (testType.BaseType?.Name.StartsWith("LinkedList")!=true)
+        if (refType.BaseType?.Name.StartsWith("LinkedList") != true)
         {
           foreach (var prop in properties)
           {
-            if (prop.GetCustomAttribute<NonComparableAttribute>()!=null)
+            if (prop.GetCustomAttribute<NonComparableAttribute>() != null)
               continue;
-            if (prop.Name=="FirstNode" || prop.Name=="LastNode")
+            if (prop.Name == "FirstNode" || prop.Name == "LastNode")
               continue;
             var propType = prop.PropertyType;
             if (propType.IsNullable(out var baseType))
@@ -118,16 +128,16 @@ public static class DeepComparer
               var testValue = prop.GetValue(testObject);
               var refValue = prop.GetValue(refObject);
               if (refValue != refObject && testValue != testObject)
-                if (!IsEqual(refValue, testValue, diffs, Diff.Concat(objName, propName), prop.Name))
+                if (!IsEqual(testValue, refValue, diffs, Diff.Concat(objName, propName), prop.Name))
                   ok = false;
             }
             catch
             {
-              Debug.WriteLine($"Error comparing two {testType}.{prop.Name} properties");
+              Debug.WriteLine($"Error comparing two {refType}.{prop.Name} properties");
             }
           }
         }
-        if (testType.IsEnumerable())
+        if (refType.IsEnumerable() && refType!=typeof(string))
         {
           var testEnumerator = (testObject as IEnumerable)?.GetEnumerator();
           var refEnumerator = (refObject as IEnumerable)?.GetEnumerator();
@@ -140,8 +150,10 @@ public static class DeepComparer
                 var testItem = testEnumerator.Current;
                 var refItem = refEnumerator.Current;
                 if (refItem != refObject && testItem != testObject)
-                  if (!IsEqual(refItem, testItem, diffs, Diff.Concat(objName, propName), $"[{i}]"))
+                {
+                  if (!IsEqual(testItem, refItem, diffs, Diff.Concat(objName, propName), $"[{i}]"))
                     ok = false;
+                }
               }
               else
                 break;
@@ -153,12 +165,12 @@ public static class DeepComparer
     }
     if (testObject == null && refObject != null)
     {
-      diffs?.Add(refObject.GetType().Name, null, refObject, testObject);
+      diffs?.Add(refObject.GetType().Name, null, testObject, refObject);
       return false;
     }
     if (testObject != null && refObject == null)
     {
-      diffs?.Add(testObject.GetType().Name, null, refObject, testObject);
+      diffs?.Add(testObject.GetType().Name, null, testObject, refObject);
       return false;
     }
     return true;
