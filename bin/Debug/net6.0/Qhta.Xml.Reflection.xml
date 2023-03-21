@@ -66,6 +66,41 @@
             The key property.
             </value>
         </member>
+        <member name="T:Qhta.Xml.Reflection.IMembersDictionary">
+            <summary>
+            Interface for KnownMembersCollection to be used as a dictionary
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.ContainsKey(Qhta.Xml.Reflection.QualifiedName)">
+            <summary>
+            Checkes if it contains a qualified name (name with namespace) as an item key.
+            </summary>
+            <param name="qualifiedName">QualifiedName to search</param>
+            <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.ContainsKey(System.String)">
+            <summary>
+            Checkes if it contains a simple name (without namespace) as an item key.
+            </summary>
+            <param name="name">Simple name to search</param>
+            <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.TryGetValue(Qhta.Xml.Reflection.QualifiedName,Qhta.Xml.Reflection.SerializationMemberInfo@)">
+            <summary>
+            Tries to get an item searching its qualified name (name with namespace).
+            </summary>
+            <param name="qualifiedName">QualifiedName to search</param>
+            <param name="typeInfo">FoundSerializationMemberInfo (or null when not found).</param>
+            <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.TryGetValue(System.String,Qhta.Xml.Reflection.SerializationMemberInfo@)">
+            <summary>
+            Tries to get an item searching its simple name (without namespace).
+            </summary>
+            <param name="name">Simple name to search</param>
+            <param name="typeInfo">FoundSerializationMemberInfo (or null when not found).</param>
+            <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
+        </member>
         <member name="T:Qhta.Xml.Reflection.INamedElement">
             <summary>
             Interface for an element that provides XML name, XML namespace, and ClrNamespace
@@ -471,6 +506,11 @@
             Gets a value indicating whether the member can be written in a class instance.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsAttribute">
+            <summary>
+            Specifies whether serialization as XML attribute is preferred over XML element.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.Order">
             <summary>
               Needed to sort the order of properties for serialization.
@@ -682,6 +722,11 @@
               Converter to read/write XML.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.KnownMembers">
+            <summary>
+              Known properties to serialize as XML attributes.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsAttributes">
             <summary>
               Known properties to serialize as XML attributes.
@@ -690,11 +735,6 @@
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements">
             <summary>
               Known properties to serialize as XML elements.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentProperty">
-            <summary>
-              Known property to accept content of XmlElement.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.TextProperty">
@@ -715,6 +755,11 @@
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsDictionary">
             <summary>
               Specifies whether the type is serialized as a dictionary but not as a collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentProperty">
+            <summary>
+              Known property to accept content of XmlElement.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsObject">

@@ -89,7 +89,7 @@ public partial class QXmlSerializer
       Writer.WriteValue(str);
     }
     else
-    if (typeInfo.ContentProperty != null)
+    if (typeInfo.ContentProperty !=null)
     {
       WritePropertiesAsElements(context, obj, null, typeInfo);
       WriteContentProperty(obj, null, null, typeInfo.ContentProperty, typeInfo);
@@ -101,10 +101,10 @@ public partial class QXmlSerializer
       WriteContentProperty(obj, null, null, typeInfo.TextProperty, typeInfo);
     }
     else
-    if (typeInfo.IsCollection && typeInfo.ContentInfo != null && obj is IEnumerable collection)
+    if (typeInfo.IsCollection && typeInfo.ContentInfo is ContentItemInfo contentItemInfo && obj is IEnumerable collection)
     {
       WritePropertiesAsElements(context, obj, null, typeInfo);
-      WriteCollectionProperty(context, collection, null, null, typeInfo.ContentInfo);
+      WriteCollectionProperty(context, collection, null, null, contentItemInfo);
     }
     else
       WritePropertiesAsElements(context, obj, null, typeInfo);
@@ -213,7 +213,7 @@ public partial class QXmlSerializer
               WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
             else if (propValue is ICollection collection)
             {
-              if (memberInfo.ValueType?.MembersAsAttributes.Count > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
+              if (memberInfo.ValueType?.MembersAsAttributes.Count() > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
                 WriteObject(context, propValue);
               else
                 WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
@@ -233,8 +233,8 @@ public partial class QXmlSerializer
   public int WriteContentProperty(object? context, XmlQualifiedTagName? elementTag, string? propName, SerializationMemberInfo contentMemberInfo,
     SerializationTypeInfo typeInfo)
   {
-    if (typeInfo.ContentInfo != null)
-      return WriteCollectionContentProperty(context, elementTag, propName, contentMemberInfo, typeInfo.ContentInfo);
+    if (typeInfo.ContentInfo is ContentItemInfo contentItemInfo)
+      return WriteCollectionContentProperty(context, elementTag, propName, contentMemberInfo, contentItemInfo);
     if (contentMemberInfo.CanWrite)
     {
       var propInfo = contentMemberInfo.Property;

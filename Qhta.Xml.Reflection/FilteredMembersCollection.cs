@@ -3,57 +3,29 @@
 /// <summary>
 /// Named collection of serialization member info.
 /// </summary>
-public class KnownMembersCollection : ICollection<SerializationMemberInfo>, IMembersDictionary
+public class FilteredMembersCollection : IEnumerable<SerializationMemberInfo>, IMembersDictionary
 {
-  private static readonly PropOrderComparer propertyInfoOrderComparer = new();
+  private KnownMembersCollection OriginalMembersCollection;
 
-  private ObservableCollection<SerializationMemberInfo> Items { get; } = new();
-  private SortedSet<SerializationMemberInfo> OrderedItems { get; } = new();
-  private SortedDictionary<QualifiedName, SerializationMemberInfo> NameIndexedItems { get; } = new();
+  private Func<SerializationMemberInfo, bool> Predicate;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-  public void Add(SerializationMemberInfo item)
+  /// <summary>
+  /// Constructor that forces internal fields initialization
+  /// </summary>
+  /// <param name="originalMembersCollection">Original members collection which is filtered</param>
+  /// <param name="predicate">A predicate on each original members collection item</param>
+  public FilteredMembersCollection(KnownMembersCollection originalMembersCollection, Func<SerializationMemberInfo, bool> predicate)
   {
-    //if (item.Property?.Name=="Text")
-    //  TestTools.Stop();
-    Items.Add(item);
-    OrderedItems.Add(item);
-    NameIndexedItems.Add(new QualifiedName(item.XmlName), item);
+    OriginalMembersCollection = originalMembersCollection;
+    Predicate = predicate;
   }
 
-  public void Clear()
-  {
-    Items.Clear();
-    OrderedItems.Clear();
-    NameIndexedItems.Clear();
-  }
-
-  public bool Contains(SerializationMemberInfo item)
-  {
-    return Items.Contains(item);
-  }
-
-  public void CopyTo(SerializationMemberInfo[] array, int arrayIndex)
-  {
-    Items.CopyTo(array, arrayIndex);
-  }
-
-  public bool Remove(SerializationMemberInfo item)
-  {
-    var ok0 = Items.Remove(item);
-    var ok1 = OrderedItems.Remove(item);
-    var ok2 = NameIndexedItems.Remove(item.QualifiedName);
-    return ok0 || ok1 || ok2;
-  }
-
-  public int Count => Items.Count;
-
-  public bool IsReadOnly => false;
-
+  /// <summary>
+  /// Returns an enumerator based on original members collection filtered by predicate.
+  /// </summary>
   public IEnumerator<SerializationMemberInfo> GetEnumerator()
   {
-    foreach (var item in Items)
-      yield return item;
+    return OriginalMembersCollection.Where(Predicate).GetEnumerator();
   }
 
   IEnumerator IEnumerable.GetEnumerator()
@@ -61,23 +33,10 @@ public class KnownMembersCollection : ICollection<SerializationMemberInfo>, IMem
     return GetEnumerator();
   }
 
-  public void Add(QualifiedName name, SerializationMemberInfo item)
-  {
-    Items.Add(item);
-    OrderedItems.Add(item);
-    NameIndexedItems.Add(name, item);
-  }
-
-  public void Add(string name, SerializationMemberInfo item)
-  {
-    Items.Add(item);
-    OrderedItems.Add(item);
-    NameIndexedItems.Add(new QualifiedName(name), item);
-  }
 
   public bool ContainsKey(QualifiedName name)
   {
-    return NameIndexedItems.ContainsKey(name);
+    Original
   }
 
   public bool ContainsKey(string name)

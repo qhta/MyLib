@@ -55,17 +55,17 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// <summary>
   ///   Known properties to serialize as XML attributes.
   /// </summary>
-  public KnownMembersCollection MembersAsAttributes { get; set; } = new();
+  public KnownMembersCollection KnownMembers { get; set; } = new();
+
+  /// <summary>
+  ///   Known properties to serialize as XML attributes.
+  /// </summary>
+  public IEnumerable<SerializationMemberInfo> MembersAsAttributes => KnownMembers.Where(item => item.IsAttribute);
 
   /// <summary>
   ///   Known properties to serialize as XML elements.
   /// </summary>
-  public KnownMembersCollection MembersAsElements { get; set; } = new();
-
-  /// <summary>
-  ///   Known property to accept content of XmlElement.
-  /// </summary>
-  public SerializationMemberInfo? ContentProperty { get; set; }
+  public IEnumerable<SerializationMemberInfo> MembersAsElements => KnownMembers.Where(item => !item.IsAttribute);
 
   /// <summary>
   ///   Known property to accept text content of XmlElement.
@@ -83,7 +83,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => ContentProperty == null && ContentInfo != null && !IsDictionary;
+  public bool IsCollection => ContentInfo is ContentItemInfo && !IsDictionary;
 
   /// <summary>
   ///   Specifies whether the type is serialized as a dictionary but not as a collection.
@@ -91,6 +91,11 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   [XmlAttribute]
   [DefaultValue(false)]
   public bool IsDictionary => ContentInfo is DictionaryInfo;
+
+  /// <summary>
+  ///   Known property to accept content of XmlElement.
+  /// </summary>
+  public SerializationMemberInfo? ContentProperty { get; set; }
 
   /// <summary>
   ///   Specifies whether the type instance must be serialized as an object, not a simple collection.

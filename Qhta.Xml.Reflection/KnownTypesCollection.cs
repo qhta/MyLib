@@ -35,7 +35,6 @@ public class KnownTypesCollection : TypeInfoCollection<SerializationTypeInfo>
   {
     KnownNamespaces.XmlNamespaceToPrefix.TryGetValue(typeInfo.XmlNamespace ?? "", out var prefix);
     Debug.WriteLine($"\"{prefix}:{typeInfo.XmlName}\" = type {typeInfo.Type}");
-    typeInfo.MembersAsAttributes.Dump("  Attributes:", KnownNamespaces);
-    typeInfo.MembersAsElements.Dump("  Elements:", KnownNamespaces);
+    typeInfo.KnownMembers.Dump("  Members:", KnownNamespaces);
   }
 }

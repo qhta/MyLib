@@ -231,8 +231,8 @@ public static class DeepComparer
           }
         }
       }
-      if (!ok)
-        Debugger.Break();
+      //if (!ok)
+      //  Debugger.Break();
       return ok;
     }
     if (testObject == null && refObject != null)

@@ -64,6 +64,11 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public bool CanWrite => Property?.CanWrite ?? !Field?.IsInitOnly ?? false;
 
   /// <summary>
+  /// Specifies whether serialization as XML attribute is preferred over XML element.
+  /// </summary>
+  public bool IsAttribute { get; set; }
+
+  /// <summary>
   ///   Needed to sort the order of properties for serialization.
   /// </summary>
   [XmlAttribute]
@@ -282,7 +287,9 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <returns></returns>
   public ContentItemInfo? GetCollectionInfo()
   {
-    return ContentInfo ?? ValueType?.ContentInfo;
+    if (ContentInfo is ContentItemInfo collectionInfo)
+      return collectionInfo;
+    return ValueType?.ContentInfo as ContentItemInfo;
   }
 
   /// <summary>

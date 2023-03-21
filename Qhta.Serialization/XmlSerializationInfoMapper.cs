@@ -92,8 +92,8 @@ public class XmlSerializationInfoMapper
         if (attrib.Type != null)
           RegisterType(attrib.Type);
 
-        #endregion
-      }
+      #endregion
+    }
     return newTypeInfo;
   }
 
@@ -120,7 +120,7 @@ public class XmlSerializationInfoMapper
     typeInfo.XmlName = elementName;
     typeInfo.XmlNamespace = elementNamespace;
     typeInfo.ClrNamespace = aType.Namespace;
-    if (aType.GetCustomAttribute<XmlObjectAttribute>(false)!=null)
+    if (aType.GetCustomAttribute<XmlObjectAttribute>(false) != null)
       typeInfo.IsObject = true;
     return typeInfo;
   }
@@ -227,7 +227,7 @@ public class XmlSerializationInfoMapper
       }
       else
       {
-        if (memberInfo.GetCustomAttributes(true).OfType<XmlObjectAttribute>().FirstOrDefault()!=null)
+        if (memberInfo.GetCustomAttributes(true).OfType<XmlObjectAttribute>().FirstOrDefault() != null)
           typeInfo.IsObject = true;
         var xmlContentAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlContentElementAttribute>().FirstOrDefault();
         if (xmlContentAttribute != null)
@@ -301,6 +301,17 @@ public class XmlSerializationInfoMapper
         }
       }
     }
+    if (Options.UniqueMemberTypesAsContentElements)
+    {
+      var elementGroupedByValueType = typeInfo.MembersAsElements.GroupBy(item => item.ValueType)
+        .Select(group => new { ValueType = group.Key, Count = group.Count() });
+      var uniqueTypes = elementGroupedByValueType.Where(item => item.Count == 1).Select(item => item.ValueType);
+      var memberWithUniqueTypes = typeInfo.MembersAsElements.Join(uniqueTypes,
+        membersItem => membersItem.ValueType, uniqueTypesItem => uniqueTypesItem,
+        (membersItem, uniqueTypesItem) => membersItem);
+      foreach (var memberInfo in memberWithUniqueTypes.ToList())
+        memberInfo.IsContentElement = true;
+    }
   }
 
 
@@ -321,14 +332,15 @@ public class XmlSerializationInfoMapper
     if (Options.AttributeNameCase != 0)
       attrName = attrName.ChangeCase(Options.AttributeNameCase);
     var qAttrName = new QualifiedName(attrName, attrNamespace);
-    if (typeInfo.MembersAsAttributes.ContainsKey(qAttrName))
+    if (typeInfo.KnownMembers.ContainsKey(qAttrName))
       return false;
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qAttrName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
-    typeInfo.MembersAsAttributes.Add(serializationMemberInfo);
+    serializationMemberInfo.IsAttribute = true;
+    typeInfo.KnownMembers.Add(serializationMemberInfo);
     return true;
   }
 
@@ -351,14 +363,14 @@ public class XmlSerializationInfoMapper
     if (string.IsNullOrEmpty(elementNamespace))
       elementNamespace = memberInfo.DeclaringType?.Namespace ?? "";
     var qElemName = new QualifiedName(elementName, elementNamespace);
-    if (typeInfo.MembersAsElements.ContainsKey(qElemName))
+    if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
-    typeInfo.MembersAsElements.Add(serializationMemberInfo);
+    typeInfo.KnownMembers.Add(serializationMemberInfo);
     KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;
   }
@@ -383,12 +395,12 @@ public class XmlSerializationInfoMapper
       elementName = elementName.ChangeCase(Options.ElementNameCase);
     var elementNamespace = valueType.Namespace ?? "";
     var qElemName = new QualifiedName(elementName, elementNamespace);
-    if (typeInfo.MembersAsElements.ContainsKey(qElemName))
+    if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
     serializationMemberInfo.IsContentElement = true;
-    typeInfo.MembersAsElements.Add(serializationMemberInfo);
+    typeInfo.KnownMembers.Add(serializationMemberInfo);
     KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;
   }
@@ -410,11 +422,11 @@ public class XmlSerializationInfoMapper
     if (Options.ElementNameCase != 0)
       elemName = elemName.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName, elemNamespace);
-    if (typeInfo.MembersAsElements.ContainsKey(qElemName))
+    if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
-    typeInfo.MembersAsElements.Add(elemName, serializationMemberInfo);
+    typeInfo.KnownMembers.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(qElemName.XmlNamespace);
     return true;
   }
@@ -436,12 +448,12 @@ public class XmlSerializationInfoMapper
     if (Options.ElementNameCase != 0)
       elemName = elemName.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName, elemNamespace);
-    if (typeInfo.MembersAsElements.ContainsKey(qElemName))
+    if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
     serializationMemberInfo.ContentInfo = CreateCollectionInfo(memberInfo);
-    typeInfo.MembersAsElements.Add(elemName, serializationMemberInfo);
+    typeInfo.KnownMembers.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
     if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
       serializationMemberInfo.TypeConverter = new Qhta.Conversion.ArrayTypeConverter();

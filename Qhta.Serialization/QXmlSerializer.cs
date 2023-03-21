@@ -265,13 +265,4 @@ public partial class QXmlSerializer : IXmlSerializer
     return DeserializeObject(xmlReader);
   }
 
-  /// <summary>
-  ///   Main deserialization entry
-  /// </summary>
-  public object? DeserializeObject(XmlReader xmlReader)
-  {
-    Reader = new QXmlReader(xmlReader);
-    return ReadObject();
-  }
-
 }
