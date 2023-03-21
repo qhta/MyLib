@@ -1,7 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Schema;
-
-namespace Qhta.Xml;
+﻿namespace Qhta.Xml;
 
 public interface IXmlReader
 {
@@ -212,7 +209,7 @@ public interface IXmlReader
   ///<summary>
   /// Moves to the attribute with the specified LocalName and NamespaceURI.
   ///</summary>
-  public bool MoveToAttribute(string name, string? ns);
+  public bool MoveToAttribute(XmlQualifiedTagName fullName);
 
   ///<summary>
   /// Moves to the attribute with the specified index.
@@ -248,7 +245,6 @@ public interface IXmlReader
 
   #endregion
 
-
   #region Read but return no significant value.
 
   ///<summary>
@@ -259,7 +255,8 @@ public interface IXmlReader
   ///<summary>
   /// Parses the attribute value into one or more Text and/or EntityReference node types.
   ///</summary>
-  public void ReadAttributeValue();
+  /// <returns>True if there are nodes to return. False otherwise.</returns>
+  public bool ReadAttributeValue();
 
   #endregion
 

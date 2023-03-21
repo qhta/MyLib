@@ -1,0 +1,1339 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.Xml.Serialization</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.Xml.Serialization.QXmlReader">
+            <summary>
+            Wrapper for system XmlReader used by QXmlSerializer
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.#ctor(System.Xml.XmlReader)">
+            <summary>
+            Initializing constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.op_Implicit(Qhta.Xml.Serialization.QXmlReader)~System.Xml.XmlReader">
+            <summary>
+            Get wrapped XML reader.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.EOF">
+            <summary>
+            Wrapped EOF property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.ReadState">
+            <summary>
+            Wrapped ReadState property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.NodeType">
+            <summary>
+            Wrapped NodeType property
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Name">
+            <summary>
+            Qualified name (local name and namespace URI)
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.LocalName">
+            <summary>
+            Wrapper for LocalName property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.NamespaceURI">
+            <summary>
+            Wrapper for NamespaceURI property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Prefix">
+            <summary>
+            Wrapper for Prefix property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.HasValue">
+            <summary>
+            Wrapper for HasValue property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.ValueType">
+            <summary>
+            Wrapper for ValueType property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Value">
+            <summary>
+            Wrapper for Value property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Depth">
+            <summary>
+            Wrapper for Depth property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.BaseURI">
+            <summary>
+            Wrapper for BaseURI property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.IsEmptyElement">
+            <summary>
+            Wrapper for IsEmptyElement property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.IsDefault">
+            <summary>
+            Wrapper for IsDefault property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.QuoteChar">
+            <summary>
+            Wrapper for QuoteChar property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.XmlSpace">
+            <summary>
+            Wrapper for XmlSpace property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.XmlLang">
+            <summary>
+            Wrapper for XmlLang property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Settings">
+            <summary>
+            Wrapper for Settings property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.WhitespaceHandling">
+            <summary>
+            Additional setting that specifies how whitespaces are handled.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.HasAttributes">
+            <summary>
+            Wrapper for HasAttributes property.
+            Gets a value indicating whether the current node has any attributes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.AttributeCount">
+            <summary>
+            Wrapper for AttributeCount property.
+            Gets the number of attributes on the current node.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Item(System.Int32)">
+            <summary>
+            Wrapper for int indexed item accessors.
+            Gets the value of the attribute with the specified index.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Item(System.String)">
+            <summary>
+            Wrapper for local name indexed item accessors.
+            Gets the value of the attribute with the specified Name.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.Item(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for tag name indexed item accessors.
+            Gets the value of the attribute with the specified LocalName and NamespaceURI.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.GetAttribute(System.String)">
+            <summary>
+            Wrapper for GetAttribute operation.
+            Gets the value of the attribute with the specified Name.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.GetAttribute(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for GetAttribute operation.
+            Gets the value of the attribute with the specified LocalName and NamespaceURI.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.GetAttribute(System.Int32)">
+            <summary>
+            Wrapper for GetAttribute operation.
+            Gets the value of the attribute with the specified index.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadString">
+            <summary>
+            Gets a string from element content or gets content as string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadContentAs(System.Type)">
+            <summary>
+            Wrapper for ReadContentAs operation.
+            Reads the content as an object of the type specified.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadElementContentAsString">
+            <summary>
+            Wrapper for ReadElementContentAsString operation.
+            Reads the current element and returns the contents as a String object.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadElementContentAsString(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for ReadElementContentAsString operation.
+            Checks that the specified local name and namespace URI matches that of the current element, 
+            then reads the current element and returns the contents as a String object.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadElementString">
+            <summary>
+            Wrapper for ReadElementString operation.
+            Reads a text-only element.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadElementString(System.String)">
+            <summary>
+            Wrapper for ReadElementString operation. 
+            However, we recommend that you use the ReadElementContentAsString() method instead, 
+            because it provides a more straightforward way to handle this operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadElementString(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for ReadElementString operation.
+            Checks that the Name property of the element found matches the given string before reading a text-only element. 
+            However, we recommend that you use the ReadElementContentAsString() method instead, because it provides a more straightforward way to handle this operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToAttribute(System.String)">
+            <summary>
+            Wrapper for MoveToAttribute operation.
+            Moves to the attribute with the specified Name.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToAttribute(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for MoveToAttribute operation.
+            Moves to the attribute with the specified LocalName and NamespaceURI.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToAttribute(System.Int32)">
+            <summary>
+            Wrapper for MoveToAttribute operation.
+            Moves to the attribute with the specified index.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToFirstAttribute">
+            <summary>
+            Wrapper for MoveToFirstAttribute operation.
+            Moves to the first attribute.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToNextAttribute">
+            <summary>
+            Wrapper for MoveToNextAttribute operation.
+            Moves to the next attribute.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToElement">
+            <summary>
+            Wrapper for MoveToElement operation.
+            Moves to the element that contains the current attribute node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.MoveToContent">
+            <summary>
+            Wrapper for MoveToContent operation.
+            Checks whether the current node is a content (non-white space text, CDATA, Element, EndElement, EntityReference, or EndEntity) node. 
+            If the node is not a content node, the reader skips ahead to the next content node or end of file. 
+            It skips over nodes of the following type: ProcessingInstruction, DocumentType, Comment, Whitespace, or SignificantWhitespace.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.Skip">
+            <summary>
+            Wrapper for Skip operation.
+            Skips the children of the current node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.Read">
+            <summary>
+            Wrapper for Read operation.
+            Reads the next node from the stream.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadAttributeValue">
+            <summary>
+            Wrapper for ReadAttributeValue operation.
+            Parses the attribute value into one or more Text, EntityReference, or EndEntity nodes.
+            </summary>
+            <returns>True if there are nodes to return. False otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.IsStartElement">
+            <summary>
+            Wrapper for IsStartElement operation.
+            Calls MoveToContent() and tests if the current content node is a start tag or empty element tag.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.IsStartElement(System.String)">
+            <summary>
+            Wrapper for IsStartElement operation.
+            Calls MoveToContent() and tests if the current content node is a start tag or empty element tag 
+            and if the Name property of the element found matches the given argument.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.IsStartElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for IsStartElement operation.
+            Calls MoveToContent() and tests if the current content node is a start tag or empty element tag 
+            and if the LocalName and NamespaceURI properties of the element found match the given strings.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadStartElement">
+            <summary>
+            Wrapper for ReadStartElement operation.
+            Checks that the current node is an element and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadStartElement(System.String)">
+            <summary>
+            Wrapper for ReadStartElement operation.
+            Checks that the current content node is an element with the given Name and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadStartElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for ReadStartElement operation.
+            Checks that the current content node is an element with the given LocalName 
+            and NamespaceURI and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.IsEndElement">
+            <summary>
+            Checks if reader node type is EndElement.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.IsEndElement(System.String)">
+            <summary>
+            Checks if reader node type is EndElement and reade name is a specified string
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.IsEndElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Checks if reader node type is EndElement and reade name is a specified local name and namespaceURI is a specified namespace.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadEndElement">
+            <summary>
+            Wrapper for ReadEndElement operation.
+            Checks that the current content node is an end tag and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadEndElement(System.String)">
+            <summary>
+            Wrapper for ReadEndElement operation.
+            Checks that the current content node is an end tag with a specified name and advances the reader to the next node.
+            </summary>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown if node is not end element or name does not match</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadEndElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for ReadEndElement operation.
+            Checks that the current content node is an end tag with a specified name and namespaceURI and advances the reader to the next node.
+            </summary>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown if node is not end element or name and namespaceURI does not match</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.Close">
+            <summary>
+            Wrapper for Close operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.Dispose">
+            <summary>
+            Wrapper for Dispose operation.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.OnUnknownMember">
+            <summary>
+            Delegate invoked if a reader meets an element or attribute which can't be recognized.
+            </summary>
+            <param name="readObject"></param>
+            <param name="elementName"></param>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.QXmlSerializer">
+            <summary>
+            Reading methods.
+            </summary>
+            <summary>
+            Flexible Xml serializer.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(System.Xml.XmlReader)">
+            <summary>
+              Main deserialization entry
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Reader">
+            <summary>
+            Internal XML reader
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object)">
+            <summary>
+            Reads an object in a specific context. 
+            On entry, the Reader must be located at the XML start element (or empty element) tag.
+            This tag represents the object type. Its name is a type name (with namespace) or a type root element name.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
+            <returns>Read object</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown in a tag does not represent a registered type.</exception>
+            <remarks>
+            A typeInfo is get from the <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object. 
+            If a typeInfo has <see cref="T:Qhta.Xml.Serialization.XmlConverter"/> defined, then this converter is used.
+            Otherwise <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectInstance(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)">
+            <summary>
+            Reads an object instance with a specifiedTypeInfo. An instance must exists and it is filled here.
+            On entry, the Reader must be located at the XML start element (or empty element) tag.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="instance">Existing object instance.</param>
+            <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
+            <param name="onUnknownMember">Optional Delegate to the method invoked when the type member is not recognized.</param>
+            <returns>The same object instance</returns>
+            <remarks>
+            First XML attributes are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)"/>. 
+            If the Xml element is not empty then element content is read by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)"/>
+            and if no content elements are read then by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/>
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)">
+            <summary>
+            Reads all XML attributes contained in an XML opening tag, converts attribute texts to values and assigns them to the instance.
+            On entry, the Reader should be located at the XML start element (or empty element) tag.
+            On exit, the Reader is located after the last XML attribute (inside the entry element).
+            </summary>
+            <param name="instance">Existing object instance.</param>
+            <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
+            <param name="onUnknownMember">Optional delegate to the method invoked when the type member is not recognized.</param>
+            <returns>The number of read attributes</returns>
+            <remarks>
+             xmlns prefixes are recognized as xml namespace declarations. The xml:space attribute is recognized correctly.
+             The Xsd prefix causes the attribute to be omitted. To read each attribue value a ReadValue method is invoked
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)">
+            <summary>
+            Reads all XML elements contained in the instance XML open-end tags.
+            On entry, the Reader is located just after the XML start element that represents the instance.
+            On exit, the Reader is located just before the corresponding XML ending element.
+            </summary>
+            <param name="instance">Existing object instance.</param>
+            <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
+            <param name="onUnknownMember">Optional delegate to the method invoked when the type member is not recognized.</param>
+            <returns>The number of elements read</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown when the XML element is unrecognized.</exception>
+            <remarks>
+            The method iterates for all XML elements and exits when no Xml element is met.
+            A member info is searched in serialization type info known instance members.
+            If a member is found, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
+            Otherwise, the Xml element should represent direct instance content.
+            There are two cases for a direct instance content. 
+            One is when the instance has known ContentProperty. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
+            The second case is when the instance is a collection. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/> is called.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads an Xml element as known member of the instance.
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="instance">Instance which member is to be read</param>
+            <param name="instanceTypeInfo">TypeInfo of the instance</param>
+            <param name="memberInfo">Member info of the member</param>
+            <returns>Read member value (may be null)</returns>
+            <remarks>
+            If a member has an XmlConverter assigner, then it is used to read the value.
+            Otherwise a member may be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>,
+            however a collection may have its own properties, and then should read as a "normal" object.
+            Other, "normal" object are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/>.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads an XML element as an object which will be assigned to the instance content property.
+            On entry, the Reader is located at the XML start element (or empty element) that represents the object.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="instance">Instance which content property is to be read</param>
+            <param name="instanceTypeInfo">TypeInfo of the instance</param>
+            <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
+            <returns>Read value (may be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on invalid type mapping.</exception>
+            <remarks>
+            After validation of types, simply <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/>
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Reads an XML element as an object which is added to the instance as a collection (or dictionary).
+            On entry, the Reader is located at the XML start element (or empty element) that represents the collection item.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="instance">Instance which must be a collection (or dictionary) to add a value</param>
+            <param name="instanceTypeInfo">TypeInfo of the instance</param>
+            <param name="contentInfo">Info of the known item types.</param>
+            <returns>Read item object (or null if item type could not be recognized)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on collection (or dictionary) error.</exception>
+            <remarks>
+            First, serialization item info is searched for the Xml element name. 
+            If it is not found, then it can be created temporarily basing on start tag name.
+            Next an item element is read. 
+            If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method.
+            Otherwise an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
+            At the end the item (or key-item pair) is added to the instance with an Add method.
+            The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads an XML element which is recognized as a member object of the instance.
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="instance"></param>
+            <param name="memberInfo"></param>
+            <returns></returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException"></exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Reads an XML element, which represents a member of the instance and is recognized as a collection (or dictionary)
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </summary>
+            <param name="instance">Instance which content property is to be read</param>
+            <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
+            <returns>Read value (may be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on invalid type mapping.</exception>
+            <param name="instance">Instance, which member is to be set.</param>
+            <param name="instanceTypeInfo">Serialization type info of the instance.</param>
+            <param name="memberInfo">Serialization info of the member, which is to be read.</param>
+            <param name="contentInfo">Info of the known item types.</param>
+            <returns>Read collection (or null).</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads Xml text element and assignes it to the instance.
+            To assign the value, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.SetValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object)"/> method is invoked, 
+            which allows to translate value to the valid type.
+            </summary>
+            <param name="instance">The object instance to which the value is to be assigned.</param>
+            <param name="memberInfo">Serialization member info of the value.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads a value from XML text according to member info. Expected type and type converter is extracted from the member info.
+            </summary>
+            <param name="context">Context of read (instance or collection) passed to <see cref="T:Qhta.Xml.Serialization.XmlConverter"/></param>
+            <param name="memberInfo">Serialization member info of the read member</param>
+            <returns>Read value (may be null)</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValue(System.Object,System.Type,System.ComponentModel.TypeConverter,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads a text value according to member info and using expected type and type converter.
+            </summary>
+            <param name="context">Context of read (instance or collection) passed to <see cref="T:Qhta.Xml.Serialization.XmlConverter"/></param>
+            <param name="expectedType">Expected type of the value to read. Used to convert read string to the object value.</param>
+            <param name="typeConverter">
+            If it is <see cref="T:Qhta.Xml.Serialization.XmlConverter"/>, it is used to read the XML. 
+            Otherwise is can be used to convert string value to the object value.
+            </param>
+            <param name="memberInfo">Serialization member info of the read member</param>
+            <returns>Read value (may be null)</returns>
+            <remarks>This method has its own algorithm to convert simple type values from string.</remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetTypeInfo(System.Type,Qhta.Xml.Reflection.SerializationTypeInfo@)">
+            <summary>
+            Tries to get a registered typeinfo for a specified type. 
+            A type should be registered in <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object.
+            </summary>
+            <param name="type">Searched type.</param>
+            <param name="typeInfo">Found typeInfo (or null when not found).</param>
+            <returns>True when typeInfo found, false otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetTypeInfo(Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.SerializationTypeInfo@)">
+            <summary>
+            Tries to get a registered typeinfo for a specified tag name. 
+            A type should be registered in <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object.
+            </summary>
+            <param name="tag">Searched XML tag.</param>
+            <param name="typeInfo">Found typeInfo (or null when not found).</param>
+            <returns>True when typeInfo found, false otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SkipToElement">
+            <summary>
+            Skip everything to the next XML element.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SkipWhitespaces">
+            <summary>
+            Skip whitespaces
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementTag">
+            <summary>
+            Helper method to read element tag. 
+            If a tag has no namespace, then a local name is translated to registered type name.
+            </summary>
+            <returns>Read or translated tag name.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SetValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object)">
+            <summary>
+            Helper method to set a value to the object instance using member info.
+            If a member has type converter, the value is translated (when it is possible).
+            </summary>
+            <param name="instance">The object instance to which the value is to be assigned.</param>
+            <param name="memberInfo">Serialization member info of the value.</param>
+            <param name="value">The value to set (may be null).</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.Type[],System.String,Qhta.Xml.Serialization.SerializationOptions)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type">The type of the object that this XmlSerializer can serialize.</param>
+            <param name="extraTypes"></param>
+            <param name="defaultNamespace"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,Qhta.Xml.Serialization.SerializationOptions)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type">The type of the object that this XmlSerializer can serialize.</param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.Type[],Qhta.Xml.Serialization.SerializationOptions)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type">The type of the object that this XmlSerializer can serialize.</param>
+            <param name="extraTypes"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.String,Qhta.Xml.Serialization.SerializationOptions)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type"></param>
+            <param name="defaultNamespace"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.Type[],System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type"></param>
+            <param name="extraTypes"></param>
+            <param name="defaultNamespace"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.Type[])">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type"></param>
+            <param name="extraTypes"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="type"></param>
+            <param name="defaultNamespace"></param>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.DefaultNamespace">
+            <summary>
+            Gets the Mapper.DefaultNamespace.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.KnownTypes">
+            <summary>
+            Gets the Mapper.KnownTypes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.KnownNamespaces">
+            <summary>
+            Gets the Mapper.KnownNamespaces.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.ExtraTypes">
+            <summary>
+            Gets the defined ExtraTypes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Options">
+            <summary>
+            Gets the defined SerializationOptions.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper">
+            <summary>
+            Gets the XmlSerializationInfoMapper.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetKnownType(System.String,System.Type@)">
+            <summary>
+            Try get known type searched by the type name.
+            </summary>
+            <param name="typeName">Name of type to find.</param>
+            <param name="type">Found type (or null if not found).</param>
+            <returns>True if type found, false otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetTypeConverter(System.Type,System.ComponentModel.TypeConverter@)">
+            <summary>
+            Gets the type converter searching by the type.
+            </summary>
+            <param name="type">Type to search.</param>
+            <param name="typeConverter">Found type converter (or null if not found).</param>
+            <returns>True if type found, false otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Init(System.Type,System.Type[],System.String)">
+            <summary>
+            Initializes the serializator.
+            </summary>
+            <param name="type"></param>
+            <param name="extraTypes"></param>
+            <param name="defaultNamespace"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Init(System.Type,System.Type[],System.String,Qhta.Xml.Serialization.SerializationOptions)">
+            <summary>
+            Initializes the serializator.
+            </summary>
+            <param name="type"></param>
+            <param name="extraTypes"></param>
+            <param name="defaultNamespace"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.RegisterType(System.Type)">
+            <summary>
+            Registers a type using XmlSerializationInfoMapper
+            </summary>
+            <param name="type">Type to register.</param>
+            <returns>Created or previously registered SerializationTypeInfo.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Serialize(System.IO.TextWriter,System.Object)">
+            <summary>
+            Serializes an object to the TextWriter.
+            </summary>
+            <param name="textWriter">The target of serialization.</param>
+            <param name="obj">Serialized object.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Serialize(System.IO.Stream,System.Object)">
+            <summary>
+            Serializes an object to the Stream.
+            </summary>
+            <param name="stream">The target of serialization.</param>
+            <param name="obj">Serialized object.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Serialize(System.Xml.XmlWriter,System.Object)">
+            <summary>
+            Serializes an object to the XmlWriter.
+            </summary>
+            <param name="xmlWriter">The target of serialization.</param>
+            <param name="obj">Serialized object.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.Xml.XmlWriter,System.Object)">
+            <summary>
+              Main serialization entry.
+            </summary>
+            <param name="xmlWriter">The target of serialization.</param>
+            <param name="obj">Serialized object.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.IO.Stream)">
+            <summary>
+            Deserialized and object from the stream.
+            </summary>
+            <param name="stream">Source of serialized data.</param>
+            <returns>Deserialized object.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.IO.TextReader)">
+            <summary>
+            Deserialized and object from the TextReader.
+            </summary>
+            <param name="textReader">Source of serialized data.</param>
+            <returns>Deserialized object.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.Xml.XmlReader)">
+            <summary>
+            Deserialized and object from the XmlReader.
+            </summary>
+            <param name="xmlReader">Source of serialized data.</param>
+            <returns>Deserialized object.</returns>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.QXmlWriter">
+            <summary>
+            Wrapper for system XmlWriter used by QXmlSerializer
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.#ctor(System.Xml.XmlWriter)">
+            <summary>
+            Initializing constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.op_Implicit(Qhta.Xml.Serialization.QXmlWriter)~System.Xml.XmlWriter">
+            <summary>
+            Get wrapped Xml writer.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.WriteState">
+            <summary>
+            Wrapper for WriteState property.
+            It gets the writer state.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter._spaceBehavior">
+            <summary>
+            Specifies whether starting and ending spaces should be preserved.
+            It is needed as XmlSpace property is read-only.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.XmlSpace">
+            <summary>
+            Wrapper for XmlSpace property.
+            It gets the writer space behavior.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.XmlLang">
+            <summary>
+            Wrapper for XmlLang property.
+            The language information is communicated by writing an xml:lang attribute.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.XsiNamespaceUsed">
+            <summary>
+            Option that specifies whether the reader used xsi namespace.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.XsdNamespaceUsed">
+            <summary>
+            Option that specifies whether the reader used xsd namespace.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.NamespacesUsed">
+            <summary>
+            Sorted list of used namespaces.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.ElementStack">
+            <summary>
+            Element stack to help to pair write start element - write end element operations.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.AttributeStack">
+            <summary>
+            Attribute stack to help to pair write start attribute - write end attribute operations.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.Settings">
+            <summary>
+            System-defined XmlWriterSettings
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.EmitNamespaces">
+            <summary>
+            Additional setting that specifies whether the writer should emit namespaces.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteStartDocument">
+            <summary>
+            Wrapper for WriteStartDocument operation. 
+            It writes the XML declaration with the version "1.0".
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteStartDocument(System.Boolean)">
+            <summary>
+            Wrapper for WriteStartDocument(standalone) operation. 
+            It writes the XML declaration with the version "1.0" and the standalone attribute.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteEndDocument">
+            <summary>
+            Wrapper for WriteEndDocument operation. 
+            It closes any open elements or attributes and puts the writer back in the Start state.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteDocType(System.String,System.String,System.String,System.String)">
+            <summary>
+            Wrapper for WriteDocType operation. 
+            It writes the DOCTYPE declaration with the specified name and optional attributes.
+            </summary>
+            <param name="name">The name of the DOCTYPE. This must be non-empty.</param>
+            <param name="pubid">If non-null it also writes PUBLIC "pubid" "sysid" 
+            where pubid and sysid are replaced with the value of the given arguments.</param>
+            <param name="sysid">If pubid is null and sysid is non-null it writes SYSTEM "sysid" 
+            where sysid is replaced with the value of this argument.</param>
+            <param name="subset">If non-null it writes [subset] 
+            where subset is replaced with the value of this argument.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteStartElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for WriteStartElement operation. 
+            It writes the specified start tag using tag namespace according to <see cref="P:Qhta.Xml.Serialization.QXmlWriter.EmitNamespaces"/> setting.
+            Adds the tag namespace to <see cref="P:Qhta.Xml.Serialization.QXmlWriter.NamespacesUsed"/> list.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteStartElement(System.String)">
+            <summary>
+            Wrapper for WriteStartElement operation. 
+            Only local name (without namespace) is used as a parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteEndElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for WriteEndElement operation.
+            Must be paired with WriteStartElement operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteEndElement(System.String)">
+            <summary>
+            Wrapper for WriteEndElement operation.
+            Must be paired with WriteStartElement operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteFullEndElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for WriteFullEndElement operation.
+            It always writes XML end element event the start element has no content.
+            It must be paired with WriteStartElement operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteFullEndElement(System.String)">
+            <summary>
+            Wrapper for WriteFullEndElement operation.
+            It always writes XML end element event the start element has no content.
+            It must be paired with WriteStartElement operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteStartAttribute(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for WriteStartAttribute operation. 
+            It writes the specified start tag using tag namespace according to <see cref="P:Qhta.Xml.Serialization.QXmlWriter.EmitNamespaces"/> setting.
+            Adds the tag namespace to <see cref="P:Qhta.Xml.Serialization.QXmlWriter.NamespacesUsed"/> list.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteStartAttribute(System.String)">
+            <summary>
+            Wrapper for WriteStartAttribute operation. 
+            Only local name (without namespace) is used as a parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteEndAttribute(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for WriteEndAttribute operation.
+            Must be paired with WriteStartAttribute operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteEndAttribute(System.String)">
+            <summary>
+            Wrapper for WriteEndAttribute operation.
+            Must be paired with WriteStartAttribute operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteWhitespace(System.String)">
+            <summary>
+            Wrapper for WriteWhitespace operation.
+            </summary>
+            <param name="ws">The string of white space characters.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteString(System.String)">
+            <summary>
+            Wrapper for WriteString operation.
+            </summary>
+            <param name="text">The text to write.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteValue(System.Object)">
+            <summary>
+            Wrapper for WriteValue operation.
+            It writes a single simple-typed value.
+            </summary>
+            <param name="value">Single simple-typed value to write.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteAttributeString(Qhta.Xml.XmlQualifiedTagName,System.String)">
+            <summary>
+            Wrapper for WriteAttributeString operation.
+            Writes out the attribute with the specified prefix, local name, namespace URI, and value.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteAttributeString(System.String,System.String)">
+            <summary>
+            Wrapper for WriteAttributeString operation.
+            Writes out the attribute with the specified local name and value.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteNamespaceDef(System.String,System.String)">
+            <summary>
+            Writes the specified namespace definition usint xmlns prefix.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteNilAttribute">
+            <summary>
+            Writes a "xsi:nil='true'" attribute
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteValue(System.String)">
+            <summary>
+            Writes out a string with starting or ending whitespaces.
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteSignificantSpaces(System.Boolean)">
+            <summary>
+            Writes out a "xml:space=..." attribute.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.Close">
+            <summary>
+            Wrapper for Close operation
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.Flush">
+            <summary>
+            Wrapper for Flush operation
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.Dispose">
+            <summary>
+            Wrapper for Dispose operation
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.EmitNamespaces">
+            <summary>
+            Whether tag namespaces should be written.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.AutoSetPrefixes">
+            <summary>
+            Whether tag namespace prefixes should be defined in the root start Xml element and used in document content. 
+            If this option is false and <see cref="P:Qhta.Xml.Serialization.SerializationOptions.EmitNamespaces"/> is true, then namespaces are written as full strings
+            in "xmlns=" attributes in the whole document.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.EmitDefaultNamespacePrefix">
+            <summary>
+            Whether auto-set prefix for default namespace should be written.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.RemoveUnusedNamespaces">
+            <summary>
+            Whether unused tag namespaces should be removed on serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreMissingConstructor">
+            <summary>
+              Types to be deserialized must have parameterless constructor.
+              Whether a type found during scanning available types hase no public parameterless constructor,
+              the exception is thrown unless this option is set.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptAllProperties">
+            <summary>
+              Whether properties not marked with any XmlAttribute are to be serialized.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptFields">
+            <summary>
+              Whether fields are to be serialized along with properties.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.SimplePropertiesAsAttributes">
+            <summary>
+              Whether simple type properties not marked with any XmlAttribute are to be serialized as attributes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.UniqueMemberTypesAsContentElements">
+            <summary>
+              Whether members with unique types that are serialized as element are to be serialized as contentElements (without element tag).
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.AttributeNameCase">
+            <summary>
+              Whether XML attribute names should change case on serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.ElementNameCase">
+            <summary>
+              Whether XML element names should change case on serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.EnumNameCase">
+            <summary>
+              Whether enumeration value names should change case on serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreCaseOnEnum">
+            <summary>
+              Whether enum values letter case should be ignored on deserialization.
+              Boolean case is always ignored.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.PrecedePropertyNameWithClassName">
+            <summary>
+              Whether property names serialized as Xml element should be preceded with its class name.
+              A dot character ('.') is used as a separator (like in XAML).
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.Culture">
+            <summary>
+              Culture used in numbers during serialization/deserialization.
+              Default is invariant culture.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreUnknownElements">
+            <summary>
+              Specifies that when the deserializer finds an unknown XML element,
+              it skips to the closing element (or ignores if it is an empty element).
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.UseNilValue">
+            <summary>
+              Writes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" in the first element.
+              Writes xsi:nil="true" attribute when value is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.UseXsdScheme">
+            <summary>
+              Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.FalseString">
+            <summary>
+              String to write as false value;
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.TrueString">
+            <summary>
+              String to write as false value;
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.ConversionOptions">
+            <summary>
+              Conversion options for default TypeConverter
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.DateTimeFormat">
+            <summary>
+              Format to use for DateTime value;
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.CheckMethod">
+            <summary>
+              Generic name of the method used to specify if a property should be serialized.
+              Asterisk represents a property name.
+              The method should be a parameterless function of type boolean.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.XmlConverter">
+            <summary>
+              Xml equivalent of JsonConverter.
+              Reads and writes object from/to XML.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.XmlInternalException">
+            <summary>
+              Class extending <see cref="T:System.Exception" /> to hold
+              <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LineNumber" /> and <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LinePosition" />.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlInternalException.#ctor(System.String,System.Xml.XmlReader,System.Exception,System.String)">
+            <summary>
+              Extending constructor.
+              If <paramref name="xmlReader" /> is <see cref="T:System.Xml.XmlTextReader" />
+              then <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LineNumber" /> and <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LinePosition" /> are set appriopriately.
+            </summary>
+            <param name="message"></param>
+            <param name="xmlReader"></param>
+            <param name="innerException"></param>
+            <param name="methodName"></param>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.XmlSerializationInfoMapper">
+            <summary>
+              The purpose of this class is to build serialization info on types and properties
+              and map xml element or attribute names to this info.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.#ctor(Qhta.Xml.Serialization.SerializationOptions,System.String)">
+            <summary>
+              To create a mapper you need serialization options.
+            </summary>
+            <param name="options">Instance of the serialization options - set only once</param>
+            <param name="defaultNamespace">default namespace for elements</param>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.XmlSerializationInfoMapper.DefaultNamespace">
+            <summary>
+              A XML namespace of the main type.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.XmlSerializationInfoMapper.Options">
+            <summary>
+              Only some of the options are used:
+              <list type="bullet">
+                <item>
+                  <see cref="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreMissingConstructor" />
+                  <see cref="P:Qhta.Xml.Serialization.SerializationOptions.AttributeNameCase" />
+                  <see cref="P:Qhta.Xml.Serialization.SerializationOptions.ElementNameCase" />
+                </item>
+              </list>
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.XmlSerializationInfoMapper.KnownTypes">
+            <summary>
+              The dictionary of the types known to the serializer.
+              Types are registered by the name of the type or by <see cref="T:System.Xml.Serialization.XmlRootAttribute" />,
+              <see cref="T:Qhta.Xml.XmlCollectionAttribute" />, or <see cref="T:Qhta.Xml.XmlDictionaryAttribute" />.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateTypeInfo(System.Type)">
+            <summary>
+              A method to create type info from a type.
+              If it is a nullable type, then type info is created from it's base type.
+            </summary>
+            <param name="aType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.FillTypeInfo(Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+              This method fills the <see cref="T:Qhta.Xml.Reflection.SerializationTypeInfo" /> parameter
+              with data taken from a type.
+            </summary>
+            <param name="typeInfo"></param>
+            <exception cref="T:Qhta.TestHelper.InternalException">
+              Thrown if a type has no parameterless public constructor
+              and an option <see cref="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreMissingConstructor" /> is not set.
+            </exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsAttribute(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,System.Xml.Serialization.XmlAttributeAttribute,System.Int32)">
+            <summary>
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsAttributes" />
+            </summary>
+            <param name="typeInfo">Object to add to</param>
+            <param name="memberInfo">Selected property/field</param>
+            <param name="xmlAttribute">Found XmlAttributeAttribute</param>
+            <param name="defaultOrder">Default order of serialized attribute</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsElement(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,System.Xml.Serialization.XmlElementAttribute,System.Int32)">
+            <summary>
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" />
+            </summary>
+            <param name="typeInfo">Object to add to</param>
+            <param name="memberInfo">Selected property/field</param>
+            <param name="xmlAttribute">Found XmlElementAttribute</param>
+            <param name="defaultOrder">default order</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsContentElement(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,System.Int32)">
+            <summary>
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> 
+              with no member tag serialization. Only class tag is serialized.
+            </summary>
+            <param name="typeInfo">Object to add to</param>
+            <param name="memberInfo">Selected property/field</param>
+            <param name="defaultOrder">default order</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsDictionary(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,Qhta.Xml.XmlDictionaryAttribute,System.Int32)">
+            <summary>
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> with <see cref="T:Qhta.Xml.Reflection.DictionaryInfo" />
+            </summary>
+            <param name="typeInfo">Object to add to</param>
+            <param name="memberInfo">Selected property/field</param>
+            <param name="attribute">Found XmlDictionaryAttribute</param>
+            <param name="defaultOrder">default order</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsCollection(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,System.Xml.Serialization.XmlArrayAttribute,System.Int32)">
+            <summary>
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> with <see cref="T:Qhta.Xml.Reflection.ContentItemInfo" />
+            </summary>
+            <param name="typeInfo">Object to add to</param>
+            <param name="memberInfo">Selected property/field</param>
+            <param name="attribute">Found XmlCollectionAttribute</param>
+            <param name="defaultOrder">default order</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTextProperty(System.Type)">
+            <summary>
+              Registers a property which is indended to be serialized as a text content of the Xml element.
+              This is the first property which is marked with <see cref="T:System.Xml.Serialization.XmlTextAttribute" />.
+              Note that only the first found property is used. If others are found, an exception is thrown.
+            </summary>
+            <param name="aType">Type to reflect</param>
+            <returns>A serialization property info or null if not found</returns>
+            <exception cref="T:Qhta.TestHelper.InternalException">
+              If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
+            </exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetContentProperty(System.Type)">
+            <summary>
+              Registers a property which is indended to get/set Xml content of the Xml element.
+              This property are marked in the type header with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" />.
+              Note that <see cref="!:System.Windows.Markup.ContentPropertyAttribute" /> is not used to avoid the need of System.Xaml
+              package.
+            </summary>
+            <param name="aType">Type to reflect</param>
+            <returns>A serialization property info or null if not found</returns>
+            <exception cref="T:Qhta.TestHelper.InternalException">
+              If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
+            </exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetXmlConverter(System.Type)">
+            <summary>
+              Registers a converter to read/write using XmlReader/XmlWriter.
+              This converter is declared in the type header with <see cref="T:Qhta.Xml.XmlConverterAttribute" />.
+            </summary>
+            <param name="aType">Type to reflect</param>
+            <returns>An instance of <see cref="T:Qhta.Xml.Serialization.XmlConverter" /></returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetKnownTypes(System.Type)">
+            <summary>
+              Get types which are assigned to the class with KnownType attribute.
+            </summary>
+            <param name="aType">Type to reflect</param>
+            <returns>A dictionary of known item types (or null) if no KnownType attributes found)</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetKnownItemTypes(System.Type)">
+            <summary>
+              Registers types, which are indended to be serialized as Xml children elements.
+              These types are marked for the type with <see cref="!:Qhta.Xml.Serialization.XmlItemElementAttribute" />
+            </summary>
+            <param name="aType">Type to reflect</param>
+            <returns>A dictionary of known item types</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTypeConverter(System.Type)">
+            <summary>
+              Gets a type converter for a type. It can be pointed out with a
+              <see cref="T:System.ComponentModel.TypeConverterAttribute" />
+              in a header of the type. This attribute holds the converter type name.
+              To use the converter, it must be defined in the same assembly as the type
+              and must have a parameterless public constructor.
+            </summary>
+            <param name="aType">A type fo reflect</param>
+            <returns>Type converter instance</returns>
+            <exception cref="T:Qhta.TestHelper.InternalException">
+              Thrown in two cases:
+              <list type="number">
+                <item>Type converter of the specified name could not be found</item>
+                <item>Type converter can not convert to/from string type</item>
+              </list>
+            </exception>
+        </member>
+    </members>
+</doc>

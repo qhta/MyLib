@@ -3,7 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-	  <Nullable>Enable</Nullable>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Qhta.Xml.Serialization</RootNamespace>
+    <Description>Flexible implementation of XmlSerializer</Description>
+    <Authors>Yarreck Qhta</Authors>
+    <Version>1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,39 +22,6 @@
     <None Remove="SerializationTest\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="BaseSerializer.cs" />
-    <Compile Remove="ContentItemInfo.cs" />
-    <Compile Remove="DictionaryInfo.cs" />
-    <Compile Remove="INamedElement.cs" />
-    <Compile Remove="ITypeNameInfo.cs" />
-    <Compile Remove="IXmlConverter.cs" />
-    <Compile Remove="IXmlSerializer.cs" />
-    <Compile Remove="IXSerializable.cs" />
-    <Compile Remove="IXSerializer.cs" />
-    <Compile Remove="KnownItemTypesCollection.cs" />
-    <Compile Remove="KnownMembersCollection.cs" />
-    <Compile Remove="KnownNamespacesCollection.cs" />
-    <Compile Remove="KnownTypesCollection.cs" />
-    <Compile Remove="PropOrderComparer.cs" />
-    <Compile Remove="QualifiedName.cs" />
-    <Compile Remove="QualifiedNameTypeConverter.cs" />
-    <Compile Remove="QXmlSerializer.Deserialization.cs" />
-    <Compile Remove="QXmlSerializer.Serialization.cs" />
-    <Compile Remove="SerializationItemInfo.cs" />
-    <Compile Remove="SerializationMemberInfo.cs" />
-    <Compile Remove="SerializationTypeInfo.cs" />
-    <Compile Remove="TypeInfoCollection`1.cs" />
-    <Compile Remove="XmlMapping.cs" />
-    <Compile Remove="XmlNamespaceInfo.cs" />
-    <Compile Remove="XmlQualifiedTagName.cs" />
-    <Compile Remove="XmlSerializer - Copy.base.cs" />
-    <Compile Remove="XmlSerializer.base.copy.cs" />
-    <Compile Remove="_Compilation.cs" />
-    <Compile Remove="_DateTimeSerializationSection.cs" />
-    <Compile Remove="_XmlCustomFormatter.cs" />
-    <Compile Remove="_XmlSerializationWriter.cs" />
-  </ItemGroup>
 
 
   <ItemGroup>

@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.Xml.Serialization")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Yarreck Qhta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Flexible implementation of XmlSerializer")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.Xml.Serialization")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.Xml.Serialization")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
