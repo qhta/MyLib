@@ -182,7 +182,7 @@ public class XmlSerializationInfoMapper
 
     #endregion
 
-    MapPropertiesAndFields(aType, typeInfo);
+    MapPropertiesAndFields(typeInfo);
     SearchShouldSerializeMethods(aType, typeInfo);
 
     //typeInfo.KnownItemTypes = GetKnownItems(aType);
@@ -193,20 +193,19 @@ public class XmlSerializationInfoMapper
     typeInfo.KnownSubtypes = GetKnownTypes(aType);
   }
 
-  public virtual void MapPropertiesAndFields(Type aType, SerializationTypeInfo typeInfo)
+  public virtual void MapPropertiesAndFields(SerializationTypeInfo typeInfo)
   {
-    //if (aType.FullName == "DocumentModel.Wordprocessing.Text")
-    //  TestTools.Stop();
+    var type = typeInfo.Type;
     List<MemberInfo> members;
     if (Options.AcceptFields)
-      members = aType.GetMembersByInheritance().Where(item => item is FieldInfo || item is PropertyInfo).ToList();
+      members = type.GetMembersByInheritance().Where(item => item is FieldInfo || item is PropertyInfo).ToList();
     else
-      members = aType.GetMembersByInheritance().Where(item => item is PropertyInfo).ToList();
+      members = type.GetMembersByInheritance().Where(item => item is PropertyInfo).ToList();
     if (!members.Any())
       return;
-    typeInfo.ContentProperty = GetContentProperty(aType);
+    typeInfo.ContentProperty = GetContentProperty(typeInfo);
     if (typeInfo.ContentProperty == null)
-      typeInfo.TextProperty = GetTextProperty(aType);
+      typeInfo.TextProperty = GetTextProperty(typeInfo);
 
     var attrCount = 0;
     var elemCount = 0;
@@ -270,7 +269,7 @@ public class XmlSerializationInfoMapper
                   }
                   else if (memberInfo.GetValueType()?.IsCollection() == true)
                   {
-                    if (!aType.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
+                    if (!type.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
                       TryAddMemberAsCollection(typeInfo, memberInfo, null, ++elemCount);
                   }
                   else if (Options.AcceptAllProperties)
@@ -335,7 +334,7 @@ public class XmlSerializationInfoMapper
     if (typeInfo.KnownMembers.ContainsKey(qAttrName))
       return false;
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
-    var serializationMemberInfo = CreateSerializationMemberInfo(qAttrName, memberInfo, order);
+    var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qAttrName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
@@ -366,7 +365,7 @@ public class XmlSerializationInfoMapper
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
-    var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
+    var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
@@ -398,7 +397,7 @@ public class XmlSerializationInfoMapper
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = defaultOrder;
-    var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
+    var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
     serializationMemberInfo.IsContentElement = true;
     typeInfo.KnownMembers.Add(serializationMemberInfo);
     KnownNamespaces.TryAdd(qElemName.Namespace);
@@ -425,7 +424,7 @@ public class XmlSerializationInfoMapper
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
-    var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
+    var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
     typeInfo.KnownMembers.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(qElemName.XmlNamespace);
     return true;
@@ -451,7 +450,7 @@ public class XmlSerializationInfoMapper
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
-    var serializationMemberInfo = CreateSerializationMemberInfo(qElemName, memberInfo, order);
+    var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
     serializationMemberInfo.ContentInfo = CreateCollectionInfo(memberInfo);
     typeInfo.KnownMembers.Add(elemName, serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
@@ -460,9 +459,9 @@ public class XmlSerializationInfoMapper
     return true;
   }
 
-  protected SerializationMemberInfo CreateSerializationMemberInfo(QualifiedName name, MemberInfo memberInfo, int order)
+  protected SerializationMemberInfo CreateSerializationMemberInfo(SerializationTypeInfo typeInfo, QualifiedName name, MemberInfo memberInfo, int order)
   {
-    var serializationMemberInfo = new SerializationMemberInfo(name, memberInfo, order);
+    var serializationMemberInfo = new SerializationMemberInfo(typeInfo, name, memberInfo, order);
     if (memberInfo.GetCustomAttribute<XmlReferenceAttribute>() != null)
       serializationMemberInfo.IsReference = true;
     if (memberInfo is PropertyInfo propInfo)
@@ -490,24 +489,25 @@ public class XmlSerializationInfoMapper
   ///   This is the first property which is marked with <see cref="System.Xml.Serialization.XmlTextAttribute" />.
   ///   Note that only the first found property is used. If others are found, an exception is thrown.
   /// </summary>
-  /// <param name="aType">Type to reflect</param>
+  /// <param name="typeInfo">Serialization info for type to reflect</param>
   /// <returns>A serialization property info or null if not found</returns>
   /// <exception cref="InternalException">
   ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
   /// </exception>
-  public virtual SerializationMemberInfo? GetTextProperty(Type aType)
+  public virtual SerializationMemberInfo? GetTextProperty(SerializationTypeInfo typeInfo)
   {
-    var textProperties = aType.GetProperties().Where(item =>
+    var type = typeInfo.Type;
+    var textProperties = type.GetProperties().Where(item =>
       item.CanWrite && item.CanRead &&
       item.GetCustomAttributes(true).OfType<XmlTextAttribute>().Any());
     if (!textProperties.Any())
       return null;
 
     if (textProperties.Count() > 1)
-      throw new InternalException($"Type {aType.Name} has multiple properties marked as xml text, but only one is allowed");
+      throw new InternalException($"Type {type.Name} has multiple properties marked as xml text, but only one is allowed");
 
     var textProperty = textProperties.First();
-    var knownTextProperty = new SerializationMemberInfo("", textProperty);
+    var knownTextProperty = new SerializationMemberInfo(typeInfo, "", textProperty);
     knownTextProperty.ValueType = RegisterType(textProperty.PropertyType);
     return knownTextProperty;
   }
@@ -515,24 +515,25 @@ public class XmlSerializationInfoMapper
   /// <summary>
   ///   Registers a property which is indended to get/set Xml content of the Xml element.
   ///   This property are marked in the type header with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" />.
-  ///   Note that <see cref="System.Windows.Markup.ContentPropertyAttribute" /> is not used to avoid the need of System.Xaml
+  ///   Note that System.Windows.Markup.ContentPropertyAttribute is not used to avoid the need of System.Xaml
   ///   package.
   /// </summary>
-  /// <param name="aType">Type to reflect</param>
+  /// <param name="typeInfo">Serialization info for type to reflect</param>
   /// <returns>A serialization property info or null if not found</returns>
   /// <exception cref="InternalException">
   ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
   /// </exception>
-  public virtual SerializationMemberInfo? GetContentProperty(Type aType)
+  public virtual SerializationMemberInfo? GetContentProperty(SerializationTypeInfo typeInfo)
   {
-    var contentPropertyAttrib = aType.GetCustomAttribute<XmlContentPropertyAttribute>(true);
+    var type = typeInfo.Type;
+    var contentPropertyAttrib = type.GetCustomAttribute<XmlContentPropertyAttribute>(true);
     if (contentPropertyAttrib != null)
     {
       var contentPropertyName = contentPropertyAttrib.Name;
-      var memberInfo = aType.GetProperty(contentPropertyName);
+      var memberInfo = type.GetProperty(contentPropertyName);
       if (memberInfo == null)
-        throw new InternalException($"Content property \"{contentPropertyName}\" in {aType.Name} not found");
-      var contentPropertyInfo = new SerializationMemberInfo(contentPropertyName, memberInfo);
+        throw new InternalException($"Content property \"{contentPropertyName}\" in {type.Name} not found");
+      var contentPropertyInfo = new SerializationMemberInfo(typeInfo, contentPropertyName, memberInfo);
       contentPropertyInfo.ValueType = RegisterType(memberInfo.PropertyType);
       var converterTypeName = memberInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
       if (converterTypeName != null)

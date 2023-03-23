@@ -8,11 +8,13 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <summary>
   ///   Constructor with parameters.
   /// </summary>
+  /// <param name="parentType">A type to hold this member</param>
   /// <param name="name">Attribute or element name used for serialization></param>
   /// <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
   /// <param name="order">Needed to sort the order for serialization</param>
-  public SerializationMemberInfo(string name, MemberInfo memberInfo, int order = int.MaxValue)
+  public SerializationMemberInfo(SerializationTypeInfo parentType, string name, MemberInfo memberInfo, int order = int.MaxValue)
   {
+    ParentType = parentType;
     XmlName = name;
     Member = memberInfo;
     Order = order;
@@ -21,19 +23,24 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <summary>
   ///   Constructor with parameters.
   /// </summary>
+  /// <param name="parentType">A type to hold this member</param>
   /// <param name="name">Attribute or element name used for serialization></param>
   /// <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
   /// <param name="order">Needed to sort the order for serialization</param>
-  public SerializationMemberInfo(QualifiedName name, MemberInfo memberInfo, int order = int.MaxValue)
+  public SerializationMemberInfo(SerializationTypeInfo parentType, QualifiedName name, MemberInfo memberInfo, int order = int.MaxValue)
   {
-    //if (name.Name == "RunProperties")
-    //  TestTools.Stop();
+    this.ParentType = parentType;
     XmlName = name.Name;
     ClrNamespace = name.Namespace;
     Member = memberInfo;
     IsNullable = Member.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     Order = order;
   }
+
+  /// <summary>
+  /// A serialization info for the type where this member belongs.
+  /// </summary>
+  public SerializationTypeInfo ParentType { get; private set; }
 
   /// <summary>
   /// Gets a value indicating whether the member is a field of some class

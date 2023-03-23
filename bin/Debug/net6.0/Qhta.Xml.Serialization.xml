@@ -353,13 +353,6 @@
             Wrapper for Dispose operation.
             </summary>
         </member>
-        <member name="T:Qhta.Xml.Serialization.OnUnknownMember">
-            <summary>
-            Delegate invoked if a reader meets an element or attribute which can't be recognized.
-            </summary>
-            <param name="readObject"></param>
-            <param name="elementName"></param>
-        </member>
         <member name="T:Qhta.Xml.Serialization.QXmlSerializer">
             <summary>
             Reading methods.
@@ -368,127 +361,193 @@
             Flexible Xml serializer.
             </summary>
         </member>
+        <member name="T:Qhta.Xml.Serialization.QXmlSerializer.UnknownMemberDelegate">
+            <summary>
+            Delegate invoked if a reader meets an element or attribute which can't be recognized.
+            </summary>
+            <param name="readObject"></param>
+            <param name="elementName"></param>
+        </member>
+        <member name="E:Qhta.Xml.Serialization.QXmlSerializer.OnUnknownMember">
+            <summary>
+            Optional event raised when a reader meets an element or attribute which can't be recognized.
+            </summary>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(System.Xml.XmlReader)">
             <summary>
               Main deserialization entry
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.XmlReaderSettings">
+            <summary>
+            System settings for XmlReader.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Namespaces">
+            <summary>
+            Dystem Namespaces.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Reader">
             <summary>
-            Internal XML reader
+            System XML reader wrapper.
             </summary>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object)">
             <summary>
             Reads an object in a specific context. 
-            On entry, the Reader must be located at the XML start element (or empty element) tag.
-            This tag represents the object type. Its name is a type name (with namespace) or a type root element name.
-            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </summary>
             <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
             <returns>Read object</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown in a tag does not represent a registered type.</exception>
+            <entrystate>
+            On entry, the Reader must be located at the XML start element (or empty element) tag.
+            This tag represents the object type. Its name is a type name (with namespace) or a type root element name.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
             <remarks>
             A typeInfo is get from the <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object. 
             If a typeInfo has <see cref="T:Qhta.Xml.Serialization.XmlConverter"/> defined, then this converter is used.
-            Otherwise <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
+            Otherwise <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectInstance(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Reads element as object. If type info has XmlConverter defined, this converter is used.
+            Simple types and array of bytes are read by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> method.
+            Other types are read by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectInstance(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
+            </summary>
+            <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
+            <param name="typeInfo">A type info for expected object</param>
+            <returns>Read object</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException"></exception>
+            <entrystate>
+            On entry, the Reader must be located at the XML start element (or empty element) tag that represents the object.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+            <remarks>
+            Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object)"/>. 
+            Also used in <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/>.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectInstance(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
             Reads an object instance with a specifiedTypeInfo. An instance must exists and it is filled here.
-            On entry, the Reader must be located at the XML start element (or empty element) tag.
-            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </summary>
             <param name="instance">Existing object instance.</param>
             <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
-            <param name="onUnknownMember">Optional Delegate to the method invoked when the type member is not recognized.</param>
             <returns>The same object instance</returns>
+            <entrystate>
+            On entry, the Reader must be located at the XML start element (or empty element) tag that represents the instance.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
             <remarks>
-            First XML attributes are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)"/>. 
-            If the Xml element is not empty then element content is read by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)"/>
+            First XML attributes are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>. 
+            If the Xml element is not empty then element content is read by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>
             and if no content elements are read then by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/>
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
             Reads all XML attributes contained in an XML opening tag, converts attribute texts to values and assigns them to the instance.
-            On entry, the Reader should be located at the XML start element (or empty element) tag.
-            On exit, the Reader is located after the last XML attribute (inside the entry element).
             </summary>
             <param name="instance">Existing object instance.</param>
             <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
-            <param name="onUnknownMember">Optional delegate to the method invoked when the type member is not recognized.</param>
             <returns>The number of read attributes</returns>
+            <entrystate>
+            On entry, the Reader should be located at the XML start element (or empty element) tag that represents the instance.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the last XML attribute (inside the entry element).
+            </exitstate>
             <remarks>
              xmlns prefixes are recognized as xml namespace declarations. The xml:space attribute is recognized correctly.
              The Xsd prefix causes the attribute to be omitted. To read each attribue value a ReadValue method is invoked
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Serialization.OnUnknownMember)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
             Reads all XML elements contained in the instance XML open-end tags.
-            On entry, the Reader is located just after the XML start element that represents the instance.
-            On exit, the Reader is located just before the corresponding XML ending element.
             </summary>
             <param name="instance">Existing object instance.</param>
             <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
-            <param name="onUnknownMember">Optional delegate to the method invoked when the type member is not recognized.</param>
             <returns>The number of elements read</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown when the XML element is unrecognized.</exception>
+            <entrystate>
+            On entry, the Reader is located just after the XML start element that represents the instance.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located just before the corresponding XML ending element.
+            </exitstate>
             <remarks>
             The method iterates for all XML elements and exits when no Xml element is met.
             A member info is searched in serialization type info known instance members.
-            If a member is found, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
+            If a member is found, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
             Otherwise, the Xml element should represent direct instance content.
             There are two cases for a direct instance content. 
-            One is when the instance has known ContentProperty. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
+            One is when the instance has known ContentProperty. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
             The second case is when the instance is a collection. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/> is called.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
             Reads an Xml element as known member of the instance.
-            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
-            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </summary>
             <param name="instance">Instance which member is to be read</param>
-            <param name="instanceTypeInfo">TypeInfo of the instance</param>
             <param name="memberInfo">Member info of the member</param>
             <returns>Read member value (may be null)</returns>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
             <remarks>
             If a member has an XmlConverter assigner, then it is used to read the value.
-            Otherwise a member may be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>,
+            Otherwise a member may be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>,
             however a collection may have its own properties, and then should read as a "normal" object.
             Other, "normal" object are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/>.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
             Reads an XML element as an object which will be assigned to the instance content property.
-            On entry, the Reader is located at the XML start element (or empty element) that represents the object.
-            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </summary>
             <param name="instance">Instance which content property is to be read</param>
-            <param name="instanceTypeInfo">TypeInfo of the instance</param>
             <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
             <returns>Read value (may be null)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on invalid type mapping.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the object.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
             <remarks>
-            After validation of types, simply <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/>
+            After validation of types, simply <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)">
             <summary>
             Reads an XML element as an object which is added to the instance as a collection (or dictionary).
-            On entry, the Reader is located at the XML start element (or empty element) that represents the collection item.
-            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </summary>
             <param name="instance">Instance which must be a collection (or dictionary) to add a value</param>
             <param name="instanceTypeInfo">TypeInfo of the instance</param>
-            <param name="contentInfo">Info of the known item types.</param>
+            <param name="contentItemInfo">Info of the known item types.</param>
             <returns>Read item object (or null if item type could not be recognized)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on collection (or dictionary) error.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the collection item.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
             <remarks>
             First, serialization item info is searched for the Xml element name. 
             If it is not found, then it can be created temporarily basing on start tag name.
@@ -502,30 +561,224 @@
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
             Reads an XML element which is recognized as a member object of the instance.
-            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
-            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </summary>
             <param name="instance"></param>
             <param name="memberInfo"></param>
-            <returns></returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException"></exception>
-        </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)">
-            <summary>
-            Reads an XML element, which represents a member of the instance and is recognized as a collection (or dictionary)
+            <returns>Read object (nay be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            </entrystate>
+            <exitstate>
             On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Reads an object as a member of some instance with known type.
+            </summary>
+            <param name="instance">Instance which member should be read.</param>
+            <param name="memberInfo">Serialization member info.</param>
+            <param name="valueTypeInfo">Serialization type info for expected value.</param>
+            <returns>Read object (may be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+            <remarks>
+            If expected value type is Object, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectOfAnyType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
+            If it is a simple type or a byte array, then a value is read as a string and then converted 
+            by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ConvertMemberValueFromString(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.String)"/>.
+            If expected value type has parameterless constructor, then the value object is created
+            and its content is read by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectInterior(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
+            Arrays of other item type then byte are not read (exception is thrown).
+            Types which have no parameterless constructor are read by  using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectOfAnyType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/>.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectOfAnyType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads an object as a member of some instance with any type.
+            If the reader is located at empty XML element, it is passed.
+            Otherwise if XML end element directly follows the start element, the empty string is returned.
+            If it contains text XML element, this text is converted by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ConvertMemberValueFromString(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.String)"/>.
+            In other case, the starting tag is passed by, its content is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object)"/>,
+            and if afterwards the reader is located at the end element - it is passed to close the opening one.
+            </summary>
+            <param name="instance">Instance which member should be read.</param>
+            <param name="memberInfo">Serialization member info.</param>
+            <returns>Read object (may be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectInterior(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Reads an object as a member of some instance with known type.
+            </summary>
+            <param name="instance">Instance which member should be read.</param>
+            <param name="memberInfo">Serialization member info.</param>
+            <param name="valueTypeInfo">Serialization type info for expected value.</param>
+            <returns>Read object (may be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <remarks>Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.</remarks>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the object.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ConvertMemberValueFromString(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.String)">
+            <summary>
+            A helper method to convert from string to the object using TypeConverter.
+            Converter is taken from memberInfo.
+            </summary>
+            <param name="context">Context object, instance which member is to be read.</param>
+            <param name="memberInfo">Serialization info for member to be read</param>
+            <param name="str">Value string to be converted</param>
+            <returns>Converted object (or entry string if conversion is impossible)</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)">
+            <summary>
+            Reads an element of collection when a serialization item item is known.
+            Item info is used to get type info of the expected object.
+            If type info has XmlConverter defined, this converter is used.
+            Simple types and array of bytes are read by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> method.
+            Other types are read by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectInstance(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
+            </summary>
+            <param name="context">Context object, instance which member is to be read.</param>
+            <param name="itemInfo">Serialization item info that holds expected type info</param>
+            <returns>Read object (may be null)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors</exception>
+            <remarks>
+            Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>. 
+            </remarks>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the object.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)">
+            <summary>
+            Reads an element of a dictionary. Element is a key-value pair.
+            First a reader local name is checked if id 
+            </summary>
+            <param name="context">Context object, instance which member is to be read.</param>
+            <param name="expectedKeyType">Expected key type to validate. If null, then any key type is allowed.</param>
+            <param name="expectedValueType">Expected value type to validate. If null, then any value type is allowed.</param>
+            <param name="dictionaryInfo">Dictionary info to recognize an element that represents a key.</param>
+            <returns>Read pair of key-value, both of object type.</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the object.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.QXmlSerializer.CollectionTypeKind">
+            <summary>
+            Internal type kind of collection
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Reads an XML element, which represents a member of the instance and is recognized as a collection (or dictionary).
             </summary>
             <param name="instance">Instance which content property is to be read</param>
             <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
-            <returns>Read value (may be null)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on invalid type mapping.</exception>
-            <param name="instance">Instance, which member is to be set.</param>
-            <param name="instanceTypeInfo">Serialization type info of the instance.</param>
-            <param name="memberInfo">Serialization info of the member, which is to be read.</param>
             <param name="contentInfo">Info of the known item types.</param>
             <returns>Read collection (or null).</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            Member must be of array, collection, list or dictionary type.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+            <remarks>
+            First the kind of collection type is determined and collection attributes are validated.
+            In the next stage collection items are read to a temporary list. 
+            If the collection is a dictionary, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadDictionaryItems(System.Object,System.Collections.Generic.ICollection{System.Object},System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method is used.
+            Otherwise, 
+              if the XML element represents the instance of collection, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberCollectionObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/> is invoked,
+              else <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/> is used.
+            In the final stage, either a temporary list is assigned to the result, or items from the temporary list are added to the existing collection.
+            In both cases, the kind of collection type causes different set/add methods.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberCollectionObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Reads an XML element, which represents a member of the instance that is a collection serialized as the whole object
+            (with class element). 
+            </summary>
+            <param name="instance">Instance which content property is to be read</param>
+            <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
+            <param name="contentInfo">Info of the known item types.</param>
+            <returns>Read collection (or null).</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+            Member must be of array, collection, list or dictionary type.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+            <remarks>
+            After checking expected type, the collection object is read. It is realized by using <see cref="T:Qhta.Xml.Serialization.XmlConverter"/>
+            or by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> and <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/>.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Reads collection items.
+            </summary>
+            <param name="context">Collection instance.</param>
+            <param name="itemType">Type of collection items.</param>
+            <param name="contentInfo">Info of the known item types.</param>
+            <returns>Number of read items</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown on errors.</exception>
+            <remarks>
+            Add method is get from collection instance. Items are read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/>
+            and added with the reflected add method.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Reads a single collection item.
+            </summary>
+            <param name="context">Collection instance.</param>
+            <param name="itemType">Type of collection items.</param>
+            <param name="contentInfo">Info of the known item types.</param>
+            <returns>Read item object</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown on errors.</exception>
+            <remarks>
+            After item type validation, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> is called.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadDictionaryItems(System.Object,System.Collections.Generic.ICollection{System.Object},System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)">
+            <summary>
+            Reads collection of dictionary items.
+            </summary>
+            <param name="context">Original dictionary instance.</param>
+            <param name="collection">Collection to hold key-value pairs.</param>
+            <param name="expectedKeyType">Serialization info of expected key type.</param>
+            <param name="expectedValueType">Serialization info of expected value type.</param>
+            <param name="dictionaryInfo">Original dictionary info</param>
+            <returns>Number of read key-value pairs.</returns>
+            <remarks>
+            To read a single key-value pair, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> is used.
+            </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
@@ -544,7 +797,7 @@
             <param name="memberInfo">Serialization member info of the read member</param>
             <returns>Read value (may be null)</returns>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValue(System.Object,System.Type,System.ComponentModel.TypeConverter,Qhta.Xml.Reflection.SerializationMemberInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValueWithTypeConverter(System.Object,System.Type,System.ComponentModel.TypeConverter,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
             Reads a text value according to member info and using expected type and type converter.
             </summary>
@@ -1269,26 +1522,26 @@
             <param name="attribute">Found XmlCollectionAttribute</param>
             <param name="defaultOrder">default order</param>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTextProperty(System.Type)">
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTextProperty(Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
               Registers a property which is indended to be serialized as a text content of the Xml element.
               This is the first property which is marked with <see cref="T:System.Xml.Serialization.XmlTextAttribute" />.
               Note that only the first found property is used. If others are found, an exception is thrown.
             </summary>
-            <param name="aType">Type to reflect</param>
+            <param name="typeInfo">Serialization info for type to reflect</param>
             <returns>A serialization property info or null if not found</returns>
             <exception cref="T:Qhta.TestHelper.InternalException">
               If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
             </exception>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetContentProperty(System.Type)">
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetContentProperty(Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
               Registers a property which is indended to get/set Xml content of the Xml element.
               This property are marked in the type header with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" />.
-              Note that <see cref="!:System.Windows.Markup.ContentPropertyAttribute" /> is not used to avoid the need of System.Xaml
+              Note that System.Windows.Markup.ContentPropertyAttribute is not used to avoid the need of System.Xaml
               package.
             </summary>
-            <param name="aType">Type to reflect</param>
+            <param name="typeInfo">Serialization info for type to reflect</param>
             <returns>A serialization property info or null if not found</returns>
             <exception cref="T:Qhta.TestHelper.InternalException">
               If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.

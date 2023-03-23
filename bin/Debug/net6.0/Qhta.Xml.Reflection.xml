@@ -462,21 +462,28 @@
               Represents the information about property or field needed for serialization/deserialization.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(System.String,System.Reflection.MemberInfo,System.Int32)">
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(Qhta.Xml.Reflection.SerializationTypeInfo,System.String,System.Reflection.MemberInfo,System.Int32)">
             <summary>
               Constructor with parameters.
             </summary>
+            <param name="parentType">A type to hold this member</param>
             <param name="name">Attribute or element name used for serialization></param>
             <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
             <param name="order">Needed to sort the order for serialization</param>
         </member>
-        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(Qhta.Xml.Reflection.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
             <summary>
               Constructor with parameters.
             </summary>
+            <param name="parentType">A type to hold this member</param>
             <param name="name">Attribute or element name used for serialization></param>
             <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
             <param name="order">Needed to sort the order for serialization</param>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.ParentType">
+            <summary>
+            A serialization info for the type where this member belongs.
+            </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsField">
             <summary>
