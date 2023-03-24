@@ -204,7 +204,7 @@ public partial class QXmlSerializer
       }
       else
       {
-        Reader.Read(); // move the read cursor past the end of the empty element and navigate to next element
+        Reader.Skip(); // move the read cursor past the end of the empty element and navigate to next element
         SkipWhitespaces();
       }
     }
@@ -806,9 +806,9 @@ public partial class QXmlSerializer
       else
       {
         var qualifiedName = ReadElementTag();
+        if (qualifiedName.Name == "StringNum")
+          Debugger.Break();
         result = ReadObject();
-        if (Reader.NodeType == XmlNodeType.EndElement)
-          Reader.ReadEndElement(qualifiedName);
       }
     }
 #if TraceReader
