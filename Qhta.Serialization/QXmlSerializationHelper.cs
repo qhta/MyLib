@@ -2,11 +2,33 @@
 
 namespace Qhta.Xml.Serialization;
 
+/// <summary>
+/// Helper class with methods used in QXml serializer
+/// </summary>
 public static class QXmlSerializationHelper
 {
+  /// <summary>
+  /// URL to XML schema instance
+  /// </summary>
   public const string xsiNamespace = @"http://www.w3.org/2001/XMLSchema-instance";
+  /// <summary>
+  /// URL to XML schema
+  /// </summary>
   public const string xsdNamespace = @"http://www.w3.org/2001/XMLSchema";
 
+  /// <summary>
+  /// Creates a tag from a Type. Tag is a full name with two exceptions:
+  /// <list type="bullet">
+  /// <item>
+  /// When a namespace is "System", only type name is returned.
+  /// </item>
+  /// <item>
+  /// When a full name ends with [], then it is changed to "s" suffix.
+  /// </item>
+  /// </list>
+  /// </summary>
+  /// <param name="aType">Type to get name</param>
+  /// <returns>Type tag string</returns>
   public static string GetTypeTag(this Type aType)
   {
     var result = aType.FullName ?? "";
@@ -16,6 +38,12 @@ public static class QXmlSerializationHelper
     return result;
   }
 
+  /// <summary>
+  /// Changes string case according to the specified mode
+  /// </summary>
+  /// <param name="str">String to change case.</param>
+  /// <param name="nameCase">Mode as enumerated by <see cref="SerializationCase"/> type.</param>
+  /// <returns>String with changed case</returns>
   public static string ChangeCase(this string str, SerializationCase nameCase)
   {
     switch (nameCase)
@@ -28,6 +56,9 @@ public static class QXmlSerializationHelper
     return str;
   }
 
+  /// <summary>
+  /// Changes first letter of the text to lowercase.
+  /// </summary>
   public static string FirstLetterToLower(this string text)
   {
     if (string.IsNullOrEmpty(text))
@@ -39,6 +70,9 @@ public static class QXmlSerializationHelper
     return new string(ss);
   }
 
+  /// <summary>
+  /// Changes first letter of the text to uppercase.
+  /// </summary>
   public static string FirstLetterToUpper(this string text)
   {
     if (string.IsNullOrEmpty(text))
@@ -50,6 +84,9 @@ public static class QXmlSerializationHelper
     return new string(ss);
   }
 
+  /// <summary>
+  /// Checkes if the first letter of the text is lowercase.
+  /// </summary>
   public static bool IsFirstLetterLower(this string text)
   {
     if (string.IsNullOrEmpty(text))
@@ -60,6 +97,9 @@ public static class QXmlSerializationHelper
     return true;
   }
 
+  /// <summary>
+  /// Checkes if the first letter of the text is uppercase.
+  /// </summary>
   public static bool IsFirstLetterUpper(this string text)
   {
     if (string.IsNullOrEmpty(text))
@@ -70,6 +110,9 @@ public static class QXmlSerializationHelper
     return true;
   }
 
+  /// <summary>
+  /// Encodes string value to handle invisible chars according to unicode category
+  /// </summary>
   public static string EncodeStringValue(this string str)
   {
     var sb = new StringBuilder();
@@ -111,6 +154,10 @@ public static class QXmlSerializationHelper
     return sb.ToString();
   }
 
+
+  /// <summary>
+  /// Encodes string value to handle control chars
+  /// </summary>
   public static string EncodeCharValue(this Char ch)
   {
     switch (ch)
@@ -130,6 +177,9 @@ public static class QXmlSerializationHelper
     }
   }
 
+  /// <summary>
+  /// Decodes string value to handle encoded characters.
+  /// </summary>
   public static string DecodeStringValue(this string str)
   {
     var sb = new StringBuilder();
@@ -148,6 +198,9 @@ public static class QXmlSerializationHelper
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Decodes a single escape char sequence.
+  /// </summary>
   public static string DecodeEscapeSeq(this string str, ref int index)
   {
     var ch = str[index+1];

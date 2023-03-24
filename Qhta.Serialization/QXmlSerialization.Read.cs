@@ -17,7 +17,7 @@ public partial class QXmlSerializer
   /// <summary>
   /// Optional event raised when a reader meets an element or attribute which can't be recognized.
   /// </summary>
-  public event UnknownMemberDelegate OnUnknownMember;
+  public event UnknownMemberDelegate? OnUnknownMember;
 
   /// <summary>
   ///   Main deserialization entry

@@ -29,6 +29,9 @@ public class XmlSerializationInfoMapper
   /// </summary>
   public string? DefaultNamespace { get; set; }
 
+  /// <summary>
+  /// A collection of known namespaces for serialization and deserialization.
+  /// </summary>
   public KnownNamespacesCollection KnownNamespaces { get; }
 
   /// <summary>
@@ -50,8 +53,15 @@ public class XmlSerializationInfoMapper
   /// </summary>
   public KnownTypesCollection KnownTypes { get; }
 
+  /// <summary>
+  /// Registered type converters dictionary. The string key is the full type name.
+  /// </summary>
   public Dictionary<string, TypeConverter> TypeConverters { get; } = new();
 
+  /// <summary>
+  /// Frequently used method to register a type and create its serialization type info.
+  /// If a type is already registered, its previously created serialization type info is returned.
+  /// </summary>
   public SerializationTypeInfo RegisterType(Type aType)
   {
     if (aType.IsNullable(out var baseType) && baseType != null)
@@ -193,6 +203,10 @@ public class XmlSerializationInfoMapper
     typeInfo.KnownSubtypes = GetKnownTypes(aType);
   }
 
+  /// <summary>
+  /// Recognizes type properties and fields (according to Options) and map the, to member info collection.
+  /// </summary>
+  /// <param name="typeInfo"></param>
   public virtual void MapPropertiesAndFields(SerializationTypeInfo typeInfo)
   {
     var type = typeInfo.Type;
@@ -459,6 +473,14 @@ public class XmlSerializationInfoMapper
     return true;
   }
 
+  /// <summary>
+  /// Creates serialization member info for a member info.
+  /// </summary>
+  /// <param name="typeInfo">Type to which the member belongs.</param>
+  /// <param name="name">Qualified attribute or element name.</param>
+  /// <param name="memberInfo">Member info to create serialization member info</param>
+  /// <param name="order">Order of the attribute or element</param>
+  /// <returns>Created serialization member info</returns>
   protected SerializationMemberInfo CreateSerializationMemberInfo(SerializationTypeInfo typeInfo, QualifiedName name, MemberInfo memberInfo, int order)
   {
     var serializationMemberInfo = new SerializationMemberInfo(typeInfo, name, memberInfo, order);
@@ -629,7 +651,7 @@ public class XmlSerializationInfoMapper
 
   /// <summary>
   ///   Registers types, which are indended to be serialized as Xml children elements.
-  ///   These types are marked for the type with <see cref="Qhta.Xml.Serialization.XmlItemElementAttribute" />
+  ///   These types are marked for the type with XmlItemElementAttribute />
   /// </summary>
   /// <param name="aType">Type to reflect</param>
   /// <returns>A dictionary of known item types</returns>
@@ -741,6 +763,11 @@ public class XmlSerializationInfoMapper
     return result?.InternalTypeConverter;
   }
 
+  /// <summary>
+  /// Gets a qualified tag name for the type.
+  /// If a type is registered in <see cref="KnownTypes"/>, its tag name is returned.
+  /// Otherwise a new qualified tag name is created for the type.
+  /// </summary>
   public XmlQualifiedTagName GetXmlTag(Type type)
   {
     if (KnownTypes.TryGetValue(type, out var typeInfo))
@@ -748,6 +775,11 @@ public class XmlSerializationInfoMapper
     return new XmlQualifiedTagName(type.Name, type.Namespace);
   }
 
+  /// <summary>
+  /// Gets a qualified tag name for the named element.
+  /// If a type is registered in <see cref="KnownTypes"/>, its tag name is returned.
+  /// Otherwise a new qualified tag name is created for the type.
+  /// </summary>
   public XmlQualifiedTagName GetXmlTag(INamedElement element)
   {
     var xmlName = element.XmlName;
@@ -761,6 +793,9 @@ public class XmlSerializationInfoMapper
     return new XmlQualifiedTagName(xmlName, xmlNamespace);
   }
 
+  /// <summary>
+  /// Creates a qualified name for a full type name.
+  /// </summary>
   public QualifiedName ToQualifiedName(string fullTypeName)
   {
     var name = fullTypeName;
@@ -771,6 +806,9 @@ public class XmlSerializationInfoMapper
     return new QualifiedName(fullTypeName, DefaultNamespace);
   }
 
+  /// <summary>
+  /// Converts a qualified xml tag name to a qualified name.
+  /// </summary>
   public QualifiedName ToQualifiedName(XmlQualifiedTagName xmlQualifiedName)
   {
 
@@ -784,11 +822,17 @@ public class XmlSerializationInfoMapper
 
   #region Collection Handling
 
+  /// <summary>
+  /// Helper method that creates a content member info for a type.
+  /// </summary>
   protected ContentItemInfo CreateCollectionInfo(Type aType)
   {
     return CreateCollectionInfo(aType, aType.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray());
   }
 
+  /// <summary>
+  /// Helper method that creates a content member info for a member.
+  /// </summary>
   protected ContentItemInfo? CreateContentInfo(MemberInfo memberInfo)
   {
     var arrayItemsAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlArrayItemAttribute>().ToArray();
@@ -804,6 +848,9 @@ public class XmlSerializationInfoMapper
     return result;
   }
 
+  /// <summary>
+  /// Helper method that creates a collection info info for a member.
+  /// </summary>
   protected ContentItemInfo? CreateCollectionInfo(MemberInfo memberInfo)
   {
     //var arrayAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlArrayAttribute>().FirstOrDefault();
@@ -820,6 +867,9 @@ public class XmlSerializationInfoMapper
     return result;
   }
 
+  /// <summary>
+  /// Helper method that creates a collection info info for a type with specific array item attibutes.
+  /// </summary>
   protected ContentItemInfo CreateCollectionInfo(Type aType, IEnumerable<XmlArrayItemAttribute> arrayItemAttribs)
   {
     var collectionTypeInfo = new ContentItemInfo();
@@ -886,13 +936,17 @@ public class XmlSerializationInfoMapper
 
   #region DictionaryHandling
 
+  /// <summary>
+  /// Helper method that creates dictionary info for a type.
+  /// </summary>
   protected DictionaryInfo CreateDictionaryInfo(Type aType)
   {
-    //if (aType.Name == "KnownTypesDictionary")
-    //  TestTools.Stop();
     return CreateDictionaryInfo(aType, aType.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToArray());
   }
 
+  /// <summary>
+  /// Helper method that creates dictionary info for a member.
+  /// </summary>
   protected DictionaryInfo? CreateDictionaryInfo(MemberInfo memberInfo)
   {
     var dictionaryItemAttributes = memberInfo.GetCustomAttributes(true).OfType<XmlDictionaryItemAttribute>().ToArray();
@@ -907,10 +961,11 @@ public class XmlSerializationInfoMapper
     return result;
   }
 
+  /// <summary>
+  /// Helper method that creates a dictionary info info for a type with specific dictionary item attibutes.
+  /// </summary>
   protected DictionaryInfo CreateDictionaryInfo(Type aType, IEnumerable<XmlDictionaryItemAttribute> dictItemAttribs)
   {
-    //if (aType.Name == "KnownTypesDictionary")
-    //  TestTools.Stop();
     var dictionaryTypeInfo = new DictionaryInfo();
     if (dictItemAttribs.Count() != 0)
     {
@@ -950,12 +1005,22 @@ public class XmlSerializationInfoMapper
 
   #region Helper methods
 
+  /// <summary>
+  /// Helper method to set prefixes automatically.
+  /// </summary>
+  /// <param name="defaultNamespace"></param>
   public void AutoSetPrefixes(string? defaultNamespace)
   {
     DefaultNamespace = defaultNamespace;
     KnownNamespaces.AutoSetPrefixes(defaultNamespace);
   }
 
+  /// <summary>
+  /// Helper method to compare order of member infos.
+  /// </summary>
+  /// <param name="a"></param>
+  /// <param name="b"></param>
+  /// <returns></returns>
   public static int PropOrderComparison(SerializationMemberInfo a, SerializationMemberInfo b)
   {
     if (a.Order > b.Order)
@@ -965,6 +1030,11 @@ public class XmlSerializationInfoMapper
     return a.QualifiedName.CompareTo(b.QualifiedName);
   }
 
+  /// <summary>
+  /// Helper method to find and create a type converter with a specific type name.
+  /// </summary>
+  /// <param name="typeName">Name of the type converter class</param>
+  /// <returns></returns>
   protected TypeConverter? FindTypeConverter(string typeName)
   {
     var type = Type.GetType(typeName);
@@ -973,6 +1043,11 @@ public class XmlSerializationInfoMapper
     return null;
   }
 
+  /// <summary>
+  /// Helper method to find a type in current domain assemblies.
+  /// </summary>
+  /// <param name="fullName"></param>
+  /// <returns></returns>
   private static Type? FindType(string fullName)
   {
     return
@@ -982,6 +1057,12 @@ public class XmlSerializationInfoMapper
         .FirstOrDefault(t => t.FullName?.Equals(fullName) == true);
   }
 
+  /// <summary>
+  /// Helper method to create a type converter method.
+  /// </summary>
+  /// <param name="converterType"></param>
+  /// <returns></returns>
+  /// <exception cref="InternalException"></exception>
   protected TypeConverter? CreateTypeConverter(Type converterType)
   {
     if (!converterType.IsSubclassOf(typeof(TypeConverter)))
@@ -992,6 +1073,10 @@ public class XmlSerializationInfoMapper
     return constructor.Invoke(null) as TypeConverter;
   }
 
+  /// <summary>
+  /// Helper method to get a "ShouldSerialize..." method in a type definition according to Options.CheckMethod definition.
+  /// All member infos are searched.
+  /// </summary>
   protected void SearchShouldSerializeMethods(Type aType, SerializationTypeInfo typeInfo)
   {
     if (Options.CheckMethod.EndsWith('*'))
@@ -1010,6 +1095,10 @@ public class XmlSerializationInfoMapper
     }
   }
 
+  /// <summary>
+  /// Helper method to get a "ShouldSerialize..." method in a member info. 
+  /// Found method is added to type member info.
+  /// </summary>
   protected void SearchShouldSerializeMethod(MethodInfo[] methodInfos, SerializationMemberInfo propInfo)
   {
     var methodInfo = methodInfos.FirstOrDefault(item => item.Name.EndsWith(propInfo.Member.Name));
@@ -1017,58 +1106,6 @@ public class XmlSerializationInfoMapper
       if (methodInfo.ReturnType == typeof(bool))
         if (!methodInfo.GetParameters().Any())
           propInfo.CheckMethod = methodInfo;
-  }
-
-  public virtual bool IsSimple(Type aType)
-  {
-    if (aType.IsNullable(out var baseType) && baseType != null)
-      return IsSimple(baseType);
-    var isSimpleValue = false;
-    if (aType == typeof(string))
-      isSimpleValue = true;
-    else if (aType == typeof(bool))
-      isSimpleValue = true;
-    else if (aType == typeof(int))
-      isSimpleValue = true;
-    return isSimpleValue;
-  }
-
-  public virtual bool IsSimple(object propValue)
-  {
-    var isSimpleValue = false;
-    if (propValue is string)
-      isSimpleValue = true;
-    else if (propValue is bool)
-      isSimpleValue = true;
-    else if (propValue is int)
-      isSimpleValue = true;
-    return isSimpleValue;
-  }
-
-  public virtual string LowercaseName(string str)
-  {
-    if (IsUpper(str))
-      return str.ToLower();
-    return ToLowerFirst(str);
-  }
-
-  public static string ToLowerFirst(string text)
-  {
-    if (string.IsNullOrEmpty(text))
-      return text;
-    var ss = text.ToCharArray();
-    ss[0] = char.ToLower(ss[0]);
-    return new string(ss);
-  }
-
-  public static bool IsUpper(string text)
-  {
-    if (string.IsNullOrEmpty(text))
-      return false;
-    foreach (var ch in text)
-      if (char.IsLetter(ch) && !Char.IsUpper(ch))
-        return false;
-    return true;
   }
 
   #endregion

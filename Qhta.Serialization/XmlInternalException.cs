@@ -27,9 +27,19 @@ public class XmlInternalException : Exception
     }
   }
 
+  /// <summary>
+  /// Gets line number of XML text file where the exception occured.
+  /// </summary>
   public int? LineNumber { get; }
+
+  /// <summary>
+  /// Gets the position in line of XML text file where the exception occured.
+  /// </summary>
   public int? LinePosition { get; }
 
+  /// <summary>
+  /// Composes message adding "in line ... at position ...
+  /// </summary>
   protected static string ComposeMessage(string message, XmlReader xmlReader)
   {
     if (xmlReader is XmlTextReader xmlTextReader)

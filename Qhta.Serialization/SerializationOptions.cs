@@ -2,6 +2,9 @@
 
 namespace Qhta.Xml.Serialization;
 
+/// <summary>
+/// Class containing serialization options as separate boolean values.
+/// </summary>
 public class SerializationOptions : IEquatable<SerializationOptions>
 {
   /// <summary>
@@ -139,6 +142,9 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   /// </summary>
   public string CheckMethod { get; set; } = "ShouldSerialize*";
 
+  /// <summary>
+  /// Check equation of two instances
+  /// </summary>
   public bool Equals(SerializationOptions? other)
   {
     if (ReferenceEquals(null, other)) return false;
@@ -166,6 +172,9 @@ public class SerializationOptions : IEquatable<SerializationOptions>
       && CheckMethod == other.CheckMethod;
   }
 
+  /// <summary>
+  /// Compares two objects
+  /// </summary>
   public override bool Equals(object? obj)
   {
     if (ReferenceEquals(null, obj)) return false;
@@ -174,6 +183,9 @@ public class SerializationOptions : IEquatable<SerializationOptions>
     return Equals((SerializationOptions)obj);
   }
 
+  /// <summary>
+  /// Overriden as Equals is overriden
+  /// </summary>
   public override int GetHashCode()
   {
     return base.GetHashCode();
