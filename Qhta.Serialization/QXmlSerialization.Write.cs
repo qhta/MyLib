@@ -3,20 +3,52 @@
 public partial class QXmlSerializer
 {
 
+
+
+  /// <summary>
+  ///   Main serialization entry.
+  /// </summary>
+  /// <param name="xmlWriter">The target of serialization.</param>
+  /// <param name="obj">Serialized object.</param>
+  public void SerializeObject(XmlWriter xmlWriter, object? obj)
+  {
+    if (obj == null)
+      return;
+    Writer = new QXmlWriter(xmlWriter);
+    WriteObject(obj);
+    xmlWriter.Flush();
+  }
+
+  /// <summary>
+  /// System settings for XmlWriter.
+  /// </summary>
   public XmlWriterSettings XmlWriterSettings { get; } = new()
   {
     Indent = true,
     NamespaceHandling = NamespaceHandling.OmitDuplicates,
   };
 
+  /// <summary>
+  /// System XmlWriter wrapper.
+  /// </summary>
   public QXmlWriter Writer { get; protected set; } = null!;
 
   #region Write methods
 
+  /// <summary>
+  /// Contextless object write method.
+  /// </summary>
+  /// <param name="obj">Object to writer</param>
   public void WriteObject(object obj)
   {
     WriteObject(null, obj);
   }
+
+  /// <summary>
+  /// Contextless object write method.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="obj">Object to writer</param>
   public void WriteObject(object? context, object obj)
   {
     var aType = obj.GetType();
@@ -26,48 +58,59 @@ public partial class QXmlSerializer
     WriteObject(context, obj, tag);
   }
 
+  /// <summary>
+  /// Writes an object using specific tag name.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="obj">Object to writer</param>
+  /// <param name="tag">Tag name of the opening and closing element</param>
+  /// <exception cref="InternalException">Thrown when the object type is not registered.</exception>
+  /// <remarks>
+  /// If a type has XmlConverter, this converter is used. 
+  /// If not <see cref="WriteObjectInterior"/> is invoked.
+  /// </remarks>
   public void WriteObject(object? context, object obj, XmlQualifiedTagName? tag)
   {
-    if (obj is IXmlSerializable xmlSerializable)
+    var aType = obj.GetType();
+    if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanWrite)
     {
-      xmlSerializable.WriteXml(Writer);
+      xmlConverter.WriteXml(null, Writer, obj, this);
     }
     else
     {
-      var aType = obj.GetType();
-      if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanWrite)
+      if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
+        throw new InternalException($"Type \"{aType}\" not registered");
+      Writer.EmitNamespaces = Options.EmitNamespaces;
+      if (tag != null)
+        Writer.WriteStartElement(tag);
+      if (Options.EmitNamespaces && context == null)
       {
-        xmlConverter.WriteXml(null, Writer, obj, this);
+        if (Options.UseNilValue)
+          Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
+
+        if (Options.UseXsdScheme)
+          Writer.WriteNamespaceDef("xsd", QXmlSerializationHelper.xsdNamespace);
+
+        if (Options.AutoSetPrefixes)
+          foreach (var item in KnownNamespaces)
+            if (item.Prefix != null)
+              Writer.WriteNamespaceDef(item.Prefix, item.XmlNamespace);
       }
-      else
-      {
-        if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-          throw new InternalException($"Type \"{aType}\" not registered");
-        Writer.EmitNamespaces = Options.EmitNamespaces;
-        if (tag != null)
-          Writer.WriteStartElement(tag);
-        if (Options.EmitNamespaces && context == null)
-        {
-          if (Options.UseNilValue)
-            Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
 
-          if (Options.UseXsdScheme)
-            Writer.WriteNamespaceDef("xsd", QXmlSerializationHelper.xsdNamespace);
-
-          if (Options.AutoSetPrefixes)
-            foreach (var item in KnownNamespaces)
-              if (item.Prefix != null)
-                Writer.WriteNamespaceDef(item.Prefix, item.XmlNamespace);
-        }
-
-        WriteObjectInterior(context, obj, null, serializedTypeInfo);
-        if (tag != null)
-          Writer.WriteEndElement(tag);
-      }
+      WriteObjectInterior(context, obj, serializedTypeInfo);
+      if (tag != null)
+        Writer.WriteEndElement(tag);
     }
   }
 
-  public void WriteObjectInterior(object? context, object obj, XmlQualifiedTagName? tag, SerializationTypeInfo? typeInfo = null)
+  /// <summary>
+  /// Writes an object attributes, elements and content of the object.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="obj">Object to writer</param>
+  /// <param name="typeInfo">Serialization info for the object type.</param>
+  /// <exception cref="InternalException">Thrown when the object type is not registered.</exception>
+  public void WriteObjectInterior(object? context, object obj, SerializationTypeInfo? typeInfo = null)
   {
     if (typeInfo == null)
     {
@@ -89,30 +132,37 @@ public partial class QXmlSerializer
       Writer.WriteValue(str);
     }
     else
-    if (typeInfo.ContentProperty !=null)
+    if (typeInfo.ContentProperty != null)
     {
-      WritePropertiesAsElements(context, obj, null, typeInfo);
-      WriteContentProperty(obj, null, null, typeInfo.ContentProperty, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo);
+      WriteContentProperty(obj, typeInfo.ContentProperty);
     }
     else
     if (typeInfo.TextProperty != null)
     {
-      WritePropertiesAsElements(context, obj, null, typeInfo);
-      WriteContentProperty(obj, null, null, typeInfo.TextProperty, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo);
+      WriteContentProperty(obj, typeInfo.TextProperty);
     }
     else
     if (typeInfo.IsCollection && typeInfo.ContentInfo is ContentItemInfo contentItemInfo && obj is IEnumerable collection)
     {
-      WritePropertiesAsElements(context, obj, null, typeInfo);
-      WriteCollectionProperty(context, collection, null, null, contentItemInfo);
+      WritePropertiesAsElements(context, obj, typeInfo);
+      WriteCollectionElement(context, collection, null, contentItemInfo);
     }
     else
-      WritePropertiesAsElements(context, obj, null, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo);
   }
 
+  /// <summary>
+  /// Writes properties declared to serialize as attributes.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="obj">Object to writer</param>
+  /// <param name="typeInfo">Serialization info for the object type.</param>
+  /// <returns>Number of properties written</returns>
   public int WritePropertiesAsAttributes(object? context, object obj, SerializationTypeInfo typeInfo)
   {
-    var aType = obj.GetType();
+    var type = obj.GetType();
     var propList = typeInfo.MembersAsAttributes;
     var attrsWritten = 0;
     foreach (var memberInfo in propList)
@@ -125,14 +175,14 @@ public partial class QXmlSerializer
             continue;
       }
 
-      var attrTag = CreateAttributeTag(memberInfo);
+      var attrTag = CreateAttributeTag(memberInfo, type);
       var propValue = memberInfo.GetValue(obj);
       if (propValue != null)
       {
         var defaultValue = memberInfo.DefaultValue;
         if (defaultValue != null && propValue.Equals(defaultValue))
           continue;
-        var str = ConvertMemberValueToString(memberInfo, propValue);
+        var str = ConvertMemberValueToString(propValue, memberInfo);
         if (str != null)
         {
           Writer.WriteAttributeString(attrTag, str);
@@ -143,7 +193,14 @@ public partial class QXmlSerializer
     return attrsWritten;
   }
 
-  public int WritePropertiesAsElements(object? context, object obj, XmlQualifiedTagName? elementTag, SerializationTypeInfo typeInfo)
+  /// <summary>
+  /// Writes properties declared to serialize as properties.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="obj">Object to writer</param>
+  /// <param name="typeInfo">Serialization info for the object type.</param>
+  /// <returns>Number of properties written</returns>
+  public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo)
   {
     var props = typeInfo.MembersAsElements;
     var propsWritten = 0;
@@ -203,20 +260,20 @@ public partial class QXmlSerializer
             if (pType.IsSimple())
             {
               if (memberInfo.TypeConverter != null)
-                WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
+                WriteValue(ConvertMemberValueToString(propValue, memberInfo));
               else
-                WriteValue(context, propValue);
+                WriteValue(propValue);
             }
             else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
-              WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
+              WriteValue(ConvertMemberValueToString(propValue, memberInfo));
             else if (memberInfo.IsReference)
-              WriteValue(context, ConvertMemberValueToString(memberInfo, propValue));
+              WriteValue(ConvertMemberValueToString(propValue, memberInfo));
             else if (propValue is ICollection collection)
             {
               if (memberInfo.ValueType?.MembersAsAttributes.Count() > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
                 WriteObject(context, propValue);
               else
-                WriteCollectionItems(context, collection, elementTag, null, memberInfo.ContentInfo);
+                WriteCollectionItems(context, collection, memberInfo.ContentInfo);
             }
             else
               WriteObject(context, propValue);
@@ -230,11 +287,18 @@ public partial class QXmlSerializer
     return propsWritten;
   }
 
-  public int WriteContentProperty(object? context, XmlQualifiedTagName? elementTag, string? propName, SerializationMemberInfo contentMemberInfo,
-    SerializationTypeInfo typeInfo)
+  /// <summary>
+  /// Writes a property declared to serialize as content or text property.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="contentMemberInfo">Content property info</param>
+  /// <returns>Number of properties written</returns>
+  /// <remarks>
+  /// If a property has XmlConverter or TypeConverter, this converter is used.
+  /// Simple value is written by using <see cref="WriteValue"/>, not simple by <see cref="WriteObjectInterior"/>.
+  /// </remarks>
+  public int WriteContentProperty(object? context, SerializationMemberInfo contentMemberInfo)
   {
-    if (typeInfo.ContentInfo is ContentItemInfo contentItemInfo)
-      return WriteCollectionContentProperty(context, elementTag, propName, contentMemberInfo, contentItemInfo);
     if (contentMemberInfo.CanWrite)
     {
       var propInfo = contentMemberInfo.Property;
@@ -250,35 +314,18 @@ public partial class QXmlSerializer
           }
           else
           {
-            var propTag = CreatePropertyTag(elementTag, propName);
-            if (value.GetType().IsSimple())
+            ITypeDescriptorContext? typeDescriptorContext = (context != null) ? new TypeDescriptorContext(context) : null;
+            if (typeConverter != null && typeConverter.CanConvertTo(typeDescriptorContext, typeof(string)))
             {
-              if (propTag != null)
-                Writer.WriteStartElement(propTag);
-              WriteValue(context, value);
-              if (propTag != null)
-                Writer.WriteEndElement(propTag);
+              var str = typeConverter.ConvertToInvariantString(typeDescriptorContext, value);
+              WriteValue(str);
             }
             else
             {
-              ITypeDescriptorContext? typeDescriptorContext = (context != null) ? new TypeDescriptorContext(context) : null;
-              if (typeConverter != null && typeConverter.CanConvertTo(typeDescriptorContext, typeof(string)))
-              {
-                if (propTag != null)
-                  Writer.WriteStartElement(propTag);
-                var str = typeConverter.ConvertToInvariantString(typeDescriptorContext, value);
-                WriteValue(context, str);
-                if (propTag != null)
-                  Writer.WriteEndElement(propTag);
-              }
+              if (value.GetType().IsSimple())
+                WriteValue(value);
               else
-              {
-                if (propTag != null)
-                  Writer.WriteStartElement(propTag);
-                WriteObjectInterior(context, value, propTag);
-                if (propTag != null)
-                  Writer.WriteEndElement(propTag);
-              }
+                WriteObjectInterior(context, value, null);
             }
           }
         }
@@ -288,39 +335,33 @@ public partial class QXmlSerializer
     return 0;
   }
 
-  public int WriteCollectionContentProperty(object? context, XmlQualifiedTagName? elementTag, string? propName, SerializationMemberInfo contentMemberInfo,
-    ContentItemInfo contentInfo)
+  /// <summary>
+  /// Writes a collection property of the object.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="collection">Collection of the items to write</param>
+  /// <param name="elementTag">Name of the opening element that encapsulates items elements.</param>
+  /// <param name="collectionInfo">Serialization info of collection items.</param>
+  /// <returns>Number of items written</returns>
+  /// <remarks>Uses <see cref="WriteCollectionItems"/></remarks>
+  public int WriteCollectionElement(object? context, IEnumerable collection, XmlQualifiedTagName? elementTag, ContentItemInfo collectionInfo)
   {
-    var result = 0;
-    if (contentInfo != null)
-    {
-      var itemTypes = contentInfo.KnownItemTypes;
-      var propInfo = contentMemberInfo.Property;
-      if (propInfo != null)
-      {
-        var propTag = CreatePropertyTag(elementTag, propName);
-        var collection = propInfo.GetValue(context, null) as IEnumerable;
-        if (collection != null)
-          result = WriteCollectionItems(context, collection, null, null, contentInfo);
-        if (propTag != null)
-          Writer.WriteEndElement(propTag);
-      }
-    }
-    return result;
-  }
-
-  public int WriteCollectionProperty(object? context, IEnumerable collection, XmlQualifiedTagName? elementTag, string? propName, ContentItemInfo collectionInfo)
-  {
-    var propTag = CreatePropertyTag(elementTag, propName);
-    if (propTag != null)
-      Writer.WriteStartElement(propTag);
-    var itemsWritten = WriteCollectionItems(context, collection, propTag, null, collectionInfo);
-    if (propTag != null)
-      Writer.WriteEndElement(propTag);
+    if (elementTag != null)
+      Writer.WriteStartElement(elementTag);
+    var itemsWritten = WriteCollectionItems(context, collection, collectionInfo);
+    if (elementTag != null)
+      Writer.WriteEndElement(elementTag);
     return itemsWritten;
   }
 
-  public int WriteCollectionItems(object? context, IEnumerable collection, XmlQualifiedTagName? elementTag, string? propName, ContentItemInfo? collectionInfo)
+  /// <summary>
+  /// Writes collection items.
+  /// </summary>
+  /// <param name="context">Context object for write operation. Usually a container of the written object</param>
+  /// <param name="collection">Collection of the items to write</param>
+  /// <param name="collectionInfo">Serialization info of collection items.</param>
+  /// <returns>Number of items written</returns>
+  public int WriteCollectionItems(object? context, IEnumerable collection, ContentItemInfo? collectionInfo)
   {
     int itemsWritten = 0;
     var itemTypes = collectionInfo?.KnownItemTypes;
@@ -351,7 +392,7 @@ public partial class QXmlSerializer
         if (item.GetType().IsSimple())
         {
           Writer.WriteStartElement(itemTag);
-          WriteValue(context, item);
+          WriteValue(item);
           Writer.WriteEndElement(itemTag);
         }
         //else if (item is IXSerializable serializableItem)
@@ -387,7 +428,7 @@ public partial class QXmlSerializer
           if (typeConverter != null)
           {
             Writer.WriteStartElement(itemTag);
-            WriteValue(context, typeConverter.ConvertToString(item) ?? "");
+            WriteValue(typeConverter.ConvertToString(item) ?? "");
             Writer.WriteEndElement(itemTag);
           }
           else
@@ -395,13 +436,13 @@ public partial class QXmlSerializer
             if (collectionInfo?.StoresReferences == true)
             {
               Writer.WriteStartElement(itemTag);
-              WriteValue(context, item.ToString());
+              WriteValue(item.ToString());
               Writer.WriteEndElement(itemTag);
             }
             else
             {
               Writer.WriteStartElement(itemTag);
-              WriteObjectInterior(context, item, itemTag);
+              WriteObjectInterior(context, item);
               Writer.WriteEndElement(itemTag);
             }
           }
@@ -412,50 +453,49 @@ public partial class QXmlSerializer
     return itemsWritten;
   }
 
-  public void WriteValue(object? context, object? value)
+
+  /// <summary>
+  /// Writes a simple value of the object
+  /// </summary>
+  /// <param name="value">value to write</param>
+  /// <remarks>
+  /// If value is a string, it is encoded to handle html entities and control characters
+  /// Value of other types is converted by using its <see cref="ValueTypeConverter"/>
+  /// </remarks>
+  public void WriteValue(object? value)
   {
-    if (value is IXmlSerializable xmlSerializable)
+    if (value != null)
     {
-      xmlSerializable.WriteXml(Writer);
-    }
-    else
-    {
-      if (value != null)
+      if (value is string str)
       {
-        if (value is string str)
+        var valStr = str.EncodeStringValue();
+        Writer.WriteValue(valStr);
+      }
+      else
+      {
+        var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, null, null, null, Options.ConversionOptions);
+        var valStr = typeConverter.ConvertToInvariantString(value);
+        if (valStr != null)
         {
-          //if (str.Contains("\\"))
-          //  TestTools.Stop();
-          var valStr = str.EncodeStringValue();
           Writer.WriteValue(valStr);
-        }
-        else
-        {
-          var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, null, null, null, Options.ConversionOptions);
-          var valStr = typeConverter.ConvertToInvariantString(value);
-          if (valStr != null)
-          {
-            Writer.WriteValue(valStr);
-          }
         }
       }
     }
   }
 
-  //public void WriteValue(string propTag, object value)
-  //{
-  //  Writer.WriteStartElement(propTag);
-  //  WriteValue(value);
-  //  Writer.WriteEndElement(propTag);
-  //}
-
-  protected string? ConvertMemberValueToString(SerializationMemberInfo memberInfo, object? propValue)
+  /// <summary>
+  /// Helper method to convert value of some member to string.
+  /// </summary>
+  /// <param name="memberInfo"></param>
+  /// <param name="value"></param>
+  /// <returns>string version of the value</returns>
+  protected string? ConvertMemberValueToString(object? value, SerializationMemberInfo memberInfo)
   {
-    if (propValue == null)
+    if (value == null)
       return null;
     if (memberInfo.Property == null)
       return null;
-    if (memberInfo.ValueType?.Type == typeof(string) && propValue is string valStr)
+    if (memberInfo.ValueType?.Type == typeof(string) && value is string valStr)
     {
       var str = valStr.EncodeStringValue();
       return str;
@@ -463,14 +503,14 @@ public partial class QXmlSerializer
     var typeConverter = memberInfo.GetTypeConverter();
     if (typeConverter != null)
     {
-      var str = typeConverter.ConvertToInvariantString(propValue);
+      var str = typeConverter.ConvertToInvariantString(value);
       return str;
     }
     else
     {
       typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, memberInfo.DataType,
         memberInfo.Format, memberInfo.Culture, /*memberInfo.ConversionOptions ?? */Options.ConversionOptions);
-      var str = typeConverter.ConvertToInvariantString(propValue);
+      var str = typeConverter.ConvertToInvariantString(value);
       return str;
     }
   }
@@ -479,6 +519,15 @@ public partial class QXmlSerializer
 
   #region Create element tag methods
 
+  /// <summary>
+  /// Creates element tag for a specific type
+  /// </summary>
+  /// <param name="type">Type to create tag</param>
+  /// <returns>Tag string</returns>
+  /// <remarks>
+  /// Creates element tag using type name and namespace.
+  /// Uses <see cref="Mapper"/> to get XML tag.
+  /// </remarks>
   protected XmlQualifiedTagName CreateElementTag(Type type)
   {
     var typeName = TypeNaming.GetTypeName(type);
@@ -495,6 +544,16 @@ public partial class QXmlSerializer
     return result;
   }
 
+  /// <summary>
+  /// Creates element tag for a specific typeInfo and type.
+  /// </summary>
+  /// <param name="typeInfo">Serialization info of the type to create tag</param>
+  /// <param name="type">Type to create tag (can be different than specified by typeInfo)</param>
+  /// <returns>Tag string</returns>
+  /// <remarks>
+  /// If a type is not null, then <see cref="CreateElementTag(Type)"/> is used.
+  /// Otherwise uses <see cref="Mapper"/> to get XML tag.
+  /// </remarks>
   protected XmlQualifiedTagName CreateElementTag(SerializationTypeInfo typeInfo, Type? type)
   {
     if (type != null)
@@ -512,6 +571,17 @@ public partial class QXmlSerializer
     return result;
   }
 
+  /// <summary>
+  /// Creates element tag for a specific memberInfo and type.
+  /// </summary>
+  /// <param name="memberInfo">Serialization info of the member to create tag</param>
+  /// <param name="type">Type to create tag (can be different than specified by memberInfo)</param>
+  /// <returns>Tag string</returns>
+  /// <remarks>
+  /// If a member is a content element, then the method return null.
+  /// Otherwise uses <see cref="Mapper"/> to get XML tag.
+  /// Namespace of the result tag is set to an empty string.
+  /// </remarks>
   protected XmlQualifiedTagName? CreateElementTag(SerializationMemberInfo memberInfo, Type? type)
   {
     if (memberInfo.IsContentElement)
@@ -521,6 +591,16 @@ public partial class QXmlSerializer
     return result;
   }
 
+  /// <summary>
+  /// Creates element tag for a specific itemInfo and type.
+  /// </summary>
+  /// <param name="itemInfo">Serialization info of the item to create tag</param>
+  /// <param name="type">Type to create tag (can be different than specified by itemInfo)</param>
+  /// <returns>Tag string</returns>
+  /// <remarks>
+  /// If a type is not null, then <see cref="CreateElementTag(Type)"/> is used.
+  /// Otherwise uses <see cref="Mapper"/> to get XML tag.
+  /// </remarks>
   protected XmlQualifiedTagName CreateElementTag(SerializationItemInfo itemInfo, Type? type)
   {
     if (type != null)
@@ -541,10 +621,18 @@ public partial class QXmlSerializer
     return result;
   }
 
-  protected XmlQualifiedTagName CreateAttributeTag(SerializationMemberInfo memberInfo/*, Type? type*/)
+  /// <summary>
+  /// Creates attribute tag for a specific memberInfo and type.
+  /// </summary>
+  /// <param name="memberInfo">Serialization info of the member to create tag</param>
+  /// <param name="type">Type to create tag (can be different than specified by memberInfo)</param>
+  /// <returns>Tag string</returns>
+  /// <remarks>
+  /// Uses <see cref="Mapper"/> to get XML tag.
+  /// Namespace of the result tag is set to an empty string.
+  /// </remarks>
+  protected XmlQualifiedTagName CreateAttributeTag(SerializationMemberInfo memberInfo, Type? type)
   {
-    //if (type!=null)
-    // return CreateElementTag(type);
     if (memberInfo.XmlNamespace != null)
     {
       KnownNamespaces[memberInfo.XmlNamespace].IsUsed = true;
@@ -561,15 +649,5 @@ public partial class QXmlSerializer
     return result;
   }
 
-  protected XmlQualifiedTagName? CreatePropertyTag(XmlQualifiedTagName? elementTag, string? propName)
-  {
-    var propTag = elementTag;
-    if (propTag == null && propName != null)
-      propTag = new XmlQualifiedTagName(propName);
-    if (propTag != null && elementTag != null)
-      if (Options?.PrecedePropertyNameWithClassName == true)
-        propTag = elementTag + ("." + propName);
-    return propTag;
-  }
   #endregion
 }

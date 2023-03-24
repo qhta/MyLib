@@ -385,7 +385,7 @@
         </member>
         <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Namespaces">
             <summary>
-            Dystem Namespaces.
+            System Namespaces.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Reader">
@@ -855,6 +855,186 @@
             <param name="memberInfo">Serialization member info of the value.</param>
             <param name="value">The value to set (may be null).</param>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.Xml.XmlWriter,System.Object)">
+            <summary>
+              Main serialization entry.
+            </summary>
+            <param name="xmlWriter">The target of serialization.</param>
+            <param name="obj">Serialized object.</param>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.XmlWriterSettings">
+            <summary>
+            System settings for XmlWriter.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlSerializer.Writer">
+            <summary>
+            System XmlWriter wrapper.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObject(System.Object)">
+            <summary>
+            Contextless object write method.
+            </summary>
+            <param name="obj">Object to writer</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObject(System.Object,System.Object)">
+            <summary>
+            Contextless object write method.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="obj">Object to writer</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObject(System.Object,System.Object,Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Writes an object using specific tag name.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="obj">Object to writer</param>
+            <param name="tag">Tag name of the opening and closing element</param>
+            <exception cref="T:Qhta.TestHelper.InternalException">Thrown when the object type is not registered.</exception>
+            <remarks>
+            If a type has XmlConverter, this converter is used. 
+            If not <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObjectInterior(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> is invoked.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObjectInterior(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Writes an object attributes, elements and content of the object.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="obj">Object to writer</param>
+            <param name="typeInfo">Serialization info for the object type.</param>
+            <exception cref="T:Qhta.TestHelper.InternalException">Thrown when the object type is not registered.</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WritePropertiesAsAttributes(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Writes properties declared to serialize as attributes.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="obj">Object to writer</param>
+            <param name="typeInfo">Serialization info for the object type.</param>
+            <returns>Number of properties written</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WritePropertiesAsElements(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Writes properties declared to serialize as properties.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="obj">Object to writer</param>
+            <param name="typeInfo">Serialization info for the object type.</param>
+            <returns>Number of properties written</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteContentProperty(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Writes a property declared to serialize as content or text property.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="contentMemberInfo">Content property info</param>
+            <returns>Number of properties written</returns>
+            <remarks>
+            If a property has XmlConverter or TypeConverter, this converter is used.
+            Simple value is written by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteValue(System.Object)"/>, not simple by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObjectInterior(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionElement(System.Object,System.Collections.IEnumerable,Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Writes a collection property of the object.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="collection">Collection of the items to write</param>
+            <param name="elementTag">Name of the opening element that encapsulates items elements.</param>
+            <param name="collectionInfo">Serialization info of collection items.</param>
+            <returns>Number of items written</returns>
+            <remarks>Uses <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionItems(System.Object,System.Collections.IEnumerable,Qhta.Xml.Reflection.ContentItemInfo)"/></remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionItems(System.Object,System.Collections.IEnumerable,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Writes collection items.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="collection">Collection of the items to write</param>
+            <param name="collectionInfo">Serialization info of collection items.</param>
+            <returns>Number of items written</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteValue(System.Object)">
+            <summary>
+            Writes a simple value of the object
+            </summary>
+            <param name="value">value to write</param>
+            <remarks>
+            If value is a string, it is encoded to handle html entities and control characters
+            Value of other types is converted by using its <see cref="T:Qhta.Conversion.ValueTypeConverter"/>
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ConvertMemberValueToString(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Helper method to convert value of some member to string.
+            </summary>
+            <param name="memberInfo"></param>
+            <param name="value"></param>
+            <returns>string version of the value</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(System.Type)">
+            <summary>
+            Creates element tag for a specific type
+            </summary>
+            <param name="type">Type to create tag</param>
+            <returns>Tag string</returns>
+            <remarks>
+            Creates element tag using type name and namespace.
+            Uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(Qhta.Xml.Reflection.SerializationTypeInfo,System.Type)">
+            <summary>
+            Creates element tag for a specific typeInfo and type.
+            </summary>
+            <param name="typeInfo">Serialization info of the type to create tag</param>
+            <param name="type">Type to create tag (can be different than specified by typeInfo)</param>
+            <returns>Tag string</returns>
+            <remarks>
+            If a type is not null, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(System.Type)"/> is used.
+            Otherwise uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(Qhta.Xml.Reflection.SerializationMemberInfo,System.Type)">
+            <summary>
+            Creates element tag for a specific memberInfo and type.
+            </summary>
+            <param name="memberInfo">Serialization info of the member to create tag</param>
+            <param name="type">Type to create tag (can be different than specified by memberInfo)</param>
+            <returns>Tag string</returns>
+            <remarks>
+            If a member is a content element, then the method return null.
+            Otherwise uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            Namespace of the result tag is set to an empty string.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(Qhta.Xml.Reflection.SerializationItemInfo,System.Type)">
+            <summary>
+            Creates element tag for a specific itemInfo and type.
+            </summary>
+            <param name="itemInfo">Serialization info of the item to create tag</param>
+            <param name="type">Type to create tag (can be different than specified by itemInfo)</param>
+            <returns>Tag string</returns>
+            <remarks>
+            If a type is not null, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(System.Type)"/> is used.
+            Otherwise uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateAttributeTag(Qhta.Xml.Reflection.SerializationMemberInfo,System.Type)">
+            <summary>
+            Creates attribute tag for a specific memberInfo and type.
+            </summary>
+            <param name="memberInfo">Serialization info of the member to create tag</param>
+            <param name="type">Type to create tag (can be different than specified by memberInfo)</param>
+            <returns>Tag string</returns>
+            <remarks>
+            Uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            Namespace of the result tag is set to an empty string.
+            </remarks>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.#ctor(System.Type,System.Type[],System.String,Qhta.Xml.Serialization.SerializationOptions)">
             <summary>
             Initializing constructor.
@@ -1002,13 +1182,6 @@
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Serialize(System.Xml.XmlWriter,System.Object)">
             <summary>
             Serializes an object to the XmlWriter.
-            </summary>
-            <param name="xmlWriter">The target of serialization.</param>
-            <param name="obj">Serialized object.</param>
-        </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.Xml.XmlWriter,System.Object)">
-            <summary>
-              Main serialization entry.
             </summary>
             <param name="xmlWriter">The target of serialization.</param>
             <param name="obj">Serialized object.</param>

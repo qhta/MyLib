@@ -265,20 +265,6 @@ public partial class QXmlSerializer : IXmlSerializer
   }
 
   /// <summary>
-  ///   Main serialization entry.
-  /// </summary>
-  /// <param name="xmlWriter">The target of serialization.</param>
-  /// <param name="obj">Serialized object.</param>
-  public void SerializeObject(XmlWriter xmlWriter, object? obj)
-  {
-    if (obj == null)
-      return;
-    Writer = new QXmlWriter(xmlWriter);
-    WriteObject(obj);
-    xmlWriter.Flush();
-  }
-
-  /// <summary>
   /// Deserialized and object from the stream.
   /// </summary>
   /// <param name="stream">Source of serialized data.</param>

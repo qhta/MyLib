@@ -415,9 +415,6 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     _writer.Flush();
   }
 
-
-  private bool disposedValue;
-
   /// <summary>
   /// Wrapper for Dispose operation
   /// </summary>

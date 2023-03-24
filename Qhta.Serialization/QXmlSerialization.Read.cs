@@ -51,7 +51,7 @@ public partial class QXmlSerializer
   public XmlReaderSettings XmlReaderSettings { get; } = new() { IgnoreWhitespace = true };
 
   /// <summary>
-  /// Dystem Namespaces.
+  /// System Namespaces.
   /// </summary>
   public XmlSerializerNamespaces Namespaces { get; private set; } = new();
 
