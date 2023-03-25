@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Qhta.TypeUtils/1.3.3": {
+      "Qhta.TypeUtils/1.3.4": {
         "dependencies": {
           "Qhta.Collections": "2.0.0.0",
           "Qhta.TextUtils": "3.0.0.0"
@@ -34,7 +34,7 @@
     }
   },
   "libraries": {
-    "Qhta.TypeUtils/1.3.3": {
+    "Qhta.TypeUtils/1.3.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

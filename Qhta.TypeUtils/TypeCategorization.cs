@@ -222,6 +222,21 @@ public static class TypeCategorization
     return false;
   }
 
+  /// <summary>
+  ///   Checks if a type is a nullable type of the base type.
+  /// </summary>
+  /// <param name="aType">checked type</param>
+  /// <param name="baseType">based type of the nullable type</param>
+  /// <returns>true if a type is a nullable type</returns>
+  public static bool IsNullable(this Type aType, Type baseType)
+  {
+    if (aType.Name.StartsWith("Nullable`1"))
+    {
+      var aBaseType = aType.GenericTypeArguments[0];
+      return aBaseType == baseType;
+    }
+    return false;
+  }
 
   /// <summary>
   /// Gets the type of the object and if the type is Nullable, returns its baseType
