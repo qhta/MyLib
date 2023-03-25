@@ -748,6 +748,15 @@ public partial class QXmlSerializer
         if (result is IXmlSerializable xmlSerializable)
           xmlSerializable.ReadXml(Reader);
         else
+        if (Reader.NodeType == XmlNodeType.Text)
+        {
+          var str = Reader.ReadString();
+          if (valueTypeInfo.TypeConverter!=null)
+            result =  valueTypeInfo.TypeConverter.ConvertFromInvariantString(str);
+          else
+            result = str;
+        }
+        else
           ReadMemberObjectInterior(result, memberInfo, valueTypeInfo);
       }
     }

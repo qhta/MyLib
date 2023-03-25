@@ -303,7 +303,12 @@ public class XmlSerializationInfoMapper
                       else
                       if (memberInfo.CanWrite() == true)
                       {
-                        TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
+                        if (Options.SimplePropertiesAsAttributes 
+                          && (memberInfo.GetCustomAttribute<TypeConverterAttribute>() != null
+                           || memberInfo.GetValueType()?.GetCustomAttribute<TypeConverterAttribute>() != null)) 
+                          TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++elemCount);
+                        else
+                          TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
                       }
                     }
                   }
