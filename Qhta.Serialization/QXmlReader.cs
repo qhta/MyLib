@@ -202,10 +202,20 @@ public partial class QXmlReader : IXmlReader, IDisposable
     return _reader.GetAttribute(i);
   }
 
+  
+  /// <summary>
+  /// Wrapper for ReadAttributeValue operation.
+  /// Parses the attribute value into one or more Text, EntityReference, or EndEntity nodes.
+  /// </summary>
+  /// <returns>True if there are nodes to return. False otherwise.</returns>
+  public bool ReadAttributeValue()
+  {
+    return _reader.ReadAttributeValue();
+  }
+
   #endregion
 
   #region Content accessors
-
 
   /// <summary>
   /// Gets a string from element content or gets content as string.
@@ -354,7 +364,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   #endregion
 
 
-  #region Read but return no significant value.
+  #region Read operations
 
   /// <summary>
   /// Wrapper for Read operation.
@@ -366,13 +376,13 @@ public partial class QXmlReader : IXmlReader, IDisposable
   }
 
   /// <summary>
-  /// Wrapper for ReadAttributeValue operation.
-  /// Parses the attribute value into one or more Text, EntityReference, or EndEntity nodes.
+  /// Returns a new readed instance that can be used to read the current node, and all its descendants.
   /// </summary>
-  /// <returns>True if there are nodes to return. False otherwise.</returns>
-  public bool ReadAttributeValue()
+  /// <returns>new QXmlReader</returns>
+  /// 
+  public QXmlReader ReadSubtree ()
   {
-    return _reader.ReadAttributeValue();
+    return new QXmlReader(_reader.ReadSubtree());
   }
   #endregion
 

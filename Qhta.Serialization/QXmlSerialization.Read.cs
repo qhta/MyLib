@@ -702,13 +702,13 @@ public partial class QXmlSerializer
   /// On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
   /// </exitstate>
   /// <remarks>
-  /// If expected value type is Object, then <see cref="ReadMemberObjectOfAnyType"/> is invoked.
+  /// If expected value type is Object, then <see cref="ReadObject"/> is invoked.
   /// If it is a simple type or a byte array, then a value is read as a string and then converted 
   /// by using <see cref="ConvertMemberValueFromString(object, SerializationMemberInfo, string?)"/>.
   /// If expected value type has parameterless constructor, then the value object is created
   /// and its content is read by using <see cref="ReadMemberObjectInterior"/>.
   /// Arrays of other item type then byte are not read (exception is thrown).
-  /// Types which have no parameterless constructor are read by  using <see cref="ReadMemberObjectOfAnyType"/>.
+  /// Types which have no parameterless constructor are read by  using <see cref="ReadObject"/>.
   /// </remarks>
   public object? ReadMemberObjectWithKnownType(object instance, SerializationMemberInfo memberInfo, SerializationTypeInfo valueTypeInfo)
   {
@@ -723,7 +723,7 @@ public partial class QXmlSerializer
     {
       if (valueTypeInfo.Type == typeof(object))
       {
-        result = ReadMemberObjectOfAnyType(instance, memberInfo);
+        result = ReadObject(instance);
       }
       else if (valueTypeInfo.KnownConstructor == null)
       {
@@ -740,7 +740,7 @@ public partial class QXmlSerializer
           throw new XmlInternalException($"Reading array for type {valueTypeInfo.Type.Name} not implemented", Reader);
         }
         else
-          result = ReadMemberObjectOfAnyType(instance, memberInfo);
+          result = ReadObject(instance);
       }
       else
       {
@@ -759,65 +759,40 @@ public partial class QXmlSerializer
     return result;
   }
 
-  /// <summary>
-  /// Reads an object as a member of some instance with any type.
-  /// If the reader is located at empty XML element, it is passed.
-  /// Otherwise if XML end element directly follows the start element, the empty string is returned.
-  /// If it contains text XML element, this text is converted by using <see cref="ConvertMemberValueFromString"/>.
-  /// In other case, the starting tag is passed by, its content is read by invoking <see cref="ReadObject"/>,
-  /// and if afterwards the reader is located at the end element - it is passed to close the opening one.
-  /// </summary>
-  /// <param name="instance">Instance which member should be read.</param>
-  /// <param name="memberInfo">Serialization member info.</param>
-  /// <returns>Read object (may be null)</returns>
-  /// <exception cref="XmlInternalException">Thrown on errors.</exception>
-  /// <entrystate>
-  /// On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
-  /// </entrystate>
-  /// <exitstate>
-  /// On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
-  /// </exitstate>
-  public object? ReadMemberObjectOfAnyType(object instance, SerializationMemberInfo memberInfo)
-  {
-    // TODO: check if this method is called in any case.
-#if TraceReader
-    Trace.WriteLine($"<ReadMemberObjectUnknownType instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
-    Trace.IndentLevel++;
-#endif
-    object? result = null;
-    if (Reader.IsEmptyElement)
-    {
-      Reader.Read();
-    }
-    else
-    {
-      Reader.Read();
-      if (Reader.NodeType == XmlNodeType.EndElement)
-      {
-        result = string.Empty;
-        Reader.Read();
-      }
-      else if (Reader.NodeType == XmlNodeType.Text)
-      {
-        var str = Reader.ReadString();
-        result = ConvertMemberValueFromString(instance, memberInfo, str);
-        Reader.Read();
-      }
-      else
-      {
-        var qualifiedName = ReadElementTag();
-        if (qualifiedName.Name == "StringNum")
-          Debugger.Break();
-        result = ReadObject();
-      }
-    }
-#if TraceReader
-    Trace.WriteLine($"<Return item=\"{result}\" ReaderName=\"{(Reader.IsEndElement() ? "/" : null)}{Reader.Name}\"/>");
-    Trace.IndentLevel--;
-    Trace.WriteLine($"</ReadMemberObjectUnknownType>");
-#endif
-    return result;
-  }
+//  /// <summary>
+//  /// Reads an object as a member of some instance with any type.
+//  /// If the reader is located at empty XML element, it is passed.
+//  /// Otherwise if XML end element directly follows the start element, the empty string is returned.
+//  /// If it contains text XML element, this text is converted by using <see cref="ConvertMemberValueFromString"/>.
+//  /// In other case, the starting tag is passed by, its content is read by invoking <see cref="ReadObject"/>,
+//  /// and if afterwards the reader is located at the end element - it is passed to close the opening one.
+//  /// </summary>
+//  /// <param name="instance">Instance which member should be read.</param>
+//  /// <param name="memberInfo">Serialization member info.</param>
+//  /// <returns>Read object (may be null)</returns>
+//  /// <exception cref="XmlInternalException">Thrown on errors.</exception>
+//  /// <entrystate>
+//  /// On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
+//  /// </entrystate>
+//  /// <exitstate>
+//  /// On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+//  /// </exitstate>
+//  public object? ReadMemberObjectOfAnyType(object instance, SerializationMemberInfo memberInfo)
+//  {
+//    // TODO: check if this method is called in any case.
+//#if TraceReader
+//    Trace.WriteLine($"<ReadMemberObjectUnknownType instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
+//    Trace.IndentLevel++;
+//#endif
+//    object? result = null;
+//    result = ReadObject(instance);
+//#if TraceReader
+//    Trace.WriteLine($"<Return item=\"{result}\" ReaderName=\"{(Reader.IsEndElement() ? "/" : null)}{Reader.Name}\"/>");
+//    Trace.IndentLevel--;
+//    Trace.WriteLine($"</ReadMemberObjectUnknownType>");
+//#endif
+//    return result;
+//  }
 
   /// <summary>
   /// Reads an object as a member of some instance with known type.
