@@ -1,6 +1,4 @@
-﻿using Qhta.Conversion;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 /// Class containing serialization options as separate boolean values.

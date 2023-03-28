@@ -716,8 +716,8 @@ public partial class QXmlSerializer
     Trace.WriteLine($"<ReadMemberObjectWithKnownType instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
     Trace.IndentLevel++;
 #endif
-    if (memberInfo.XmlName == "AbstractNums")
-      Debugger.Break();
+    //if (memberInfo.XmlName == "AbstractNums")
+    //  Debugger.Break();
     object? result = null;
     if (valueTypeInfo.XmlConverter?.CanRead == true)
       result = valueTypeInfo.XmlConverter.ReadXml(instance, Reader, valueTypeInfo.Type, null, null);
