@@ -207,6 +207,8 @@ public partial class QXmlSerializer
     ITypeDescriptorContext? typeDescriptorContext = new TypeDescriptorContext(obj);
     foreach (var memberInfo in props)
     {
+      //if (memberInfo.XmlName == "AbstractNums")
+      //  Debugger.Break();
       if (memberInfo.CheckMethod != null)
       {
         var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(obj, new object[0]);
