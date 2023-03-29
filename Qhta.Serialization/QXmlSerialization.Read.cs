@@ -192,14 +192,15 @@ public partial class QXmlSerializer
         if (!isEmptyElement)
         {
           var n = ReadXmlElements(instance, instanceTypeInfo);
-          if (n == 0)
+          if (Reader.NodeType==XmlNodeType.Text)
           {
             var textMemberInfo = instanceTypeInfo.TextProperty ?? instanceTypeInfo.ContentProperty;
             if (textMemberInfo != null)
               ReadXmlTextElement(instance, textMemberInfo);
+            else
+              throw new XmlInternalException($"No text or content property found in type {instance.GetType().Name}", Reader);
           }
-          if (Reader.IsEndElement(startTagName))
-            Reader.Read();
+          Reader.ReadEndElement(startTagName);
         }
       }
       else

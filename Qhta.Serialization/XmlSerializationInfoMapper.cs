@@ -416,7 +416,10 @@ public class XmlSerializationInfoMapper
     var order = defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
     serializationMemberInfo.IsContentElement = true;
-    typeInfo.KnownMembers.Add(serializationMemberInfo);
+    if (typeInfo.ContentProperty==null)
+      typeInfo.ContentProperty = serializationMemberInfo;
+    else
+      typeInfo.KnownMembers.Add(serializationMemberInfo);
     KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;
   }
