@@ -383,6 +383,8 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)
   {
+    if (ExpectedType == typeof(byte[]))
+      Debugger.Break();
     if (InternalTypeConverter == null)
       Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)

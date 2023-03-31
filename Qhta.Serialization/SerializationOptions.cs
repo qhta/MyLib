@@ -111,6 +111,11 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   public bool UseXsdScheme { get; set; } = true;
 
   /// <summary>
+  /// Limit divides text to separate lines when Base64Binary converter was used.
+  /// </summary>
+  public int LineLengthLimit { get; set; } = 80;
+
+  /// <summary>
   ///   String to write as false value;
   /// </summary>
   public string FalseString { get; set; } = "false";

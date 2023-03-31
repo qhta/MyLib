@@ -19,6 +19,16 @@
             Get wrapped XML reader.
             </summary>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlReader.GetPosition">
+            <summary>
+            Getting LineNumber and LinePosition of the reader
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlReader.LineLengthLimit">
+            <summary>
+            Limit divides text to separate lines.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Serialization.QXmlReader.EOF">
             <summary>
             Wrapped EOF property.
@@ -565,6 +575,31 @@
             The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
             </remarks>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsDictionaryItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.DictionaryInfo)">
+            <summary>
+            Reads an XML element as an object which is added to the instance as a collection (or dictionary).
+            </summary>
+            <param name="instance">Instance which must be a collection (or dictionary) to add a value</param>
+            <param name="instanceTypeInfo">TypeInfo of the instance</param>
+            <param name="dictionaryInfo">Info of the known item types.</param>
+            <returns>Read item object (or null if item type could not be recognized)</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on collection (or dictionary) error.</exception>
+            <entrystate>
+            On entry, the Reader is located at the XML start element (or empty element) that represents the collection item.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+            <remarks>
+            First, serialization item info is searched for the Xml element name. 
+            If it is not found, then it can be created temporarily basing on start tag name.
+            Next an item element is read. 
+            If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method.
+            Otherwise an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
+            At the end the item (or key-item pair) is added to the instance with an Add method.
+            The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
+            </remarks>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
             Reads an XML element which is recognized as a member object of the instance.
@@ -908,7 +943,7 @@
             Writes properties declared to serialize as properties.
             </summary>
             <param name="context">Context object for write operation. Usually a container of the written object</param>
-            <param name="obj">Object to writer</param>
+            <param name="obj">Object to write</param>
             <param name="typeInfo">Serialization info for the object type.</param>
             <returns>Number of properties written</returns>
         </member>
@@ -944,9 +979,59 @@
             <param name="collectionInfo">Serialization info of collection items.</param>
             <returns>Number of items written</returns>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryElement(System.Object,System.Collections.IDictionary,Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.DictionaryInfo)">
+            <summary>
+            Writes a dictionary property of the object.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="dictionary">Collection of dictionary items to write</param>
+            <param name="elementTag">Name of the opening element that encapsulates items elements.</param>
+            <param name="dictionaryInfo">Serialization info of dictionary items.</param>
+            <returns>Number of items written</returns>
+            <remarks>Uses <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryItems(System.Object,System.Collections.IDictionary,Qhta.Xml.Reflection.DictionaryInfo)"/></remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryItems(System.Object,System.Collections.IDictionary,Qhta.Xml.Reflection.DictionaryInfo)">
+            <summary>
+            Writes dictionary items.
+            </summary>
+            <param name="context">Context object for write operation. Usually a container of the written object</param>
+            <param name="dictionary">Collection of dictionary items to write</param>
+            <param name="dictionaryInfo">Serialization info of dictionary items.</param>
+            <returns>Number of items written</returns>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteValue(System.Object)">
             <summary>
             Writes a simple value of the object
+            </summary>
+            <param name="value">value to write</param>
+            <remarks>
+            If value is a string, it is encoded to handle html entities and control characters
+            Value of other types is converted by using its <see cref="T:Qhta.Conversion.ValueTypeConverter"/>
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteConvertedString(System.ComponentModel.TypeConverter,System.Object)">
+            <summary>
+            Writes object converted to string.
+            </summary>
+            <param name="typeConverter">Type converter (must not be null)</param>
+            <param name="obj">Object to convert (may be null)</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteString(System.String)">
+            <summary>
+            Writes a string encoded to handle html entities and control characters.
+            </summary>
+            <param name="value">string to write</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteLongString(System.String,System.Int32)">
+            <summary>
+            Writes a string encoded with Base64Binary converter.
+            </summary>
+            <param name="value">String to write</param>
+            <param name="lineLengthLimit">Divides long string to lines</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteRawString(System.String)">
+            <summary>
+            Writes a raw string - without encodind
             </summary>
             <param name="value">value to write</param>
             <remarks>
@@ -1294,16 +1379,11 @@
             It gets the writer state.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.Serialization.QXmlWriter._spaceBehavior">
-            <summary>
-            Specifies whether starting and ending spaces should be preserved.
-            It is needed as XmlSpace property is read-only.
-            </summary>
-        </member>
         <member name="P:Qhta.Xml.Serialization.QXmlWriter.XmlSpace">
             <summary>
             Wrapper for XmlSpace property.
             It gets the writer space behavior.
+            When set, it writes the xml:space attribute.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.QXmlWriter.XmlLang">
@@ -1451,6 +1531,12 @@
         <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteString(System.String)">
             <summary>
             Wrapper for WriteString operation.
+            </summary>
+            <param name="text">The text to write.</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteRawString(System.String)">
+            <summary>
+            Wrapper for Write operation.
             </summary>
             <param name="text">The text to write.</param>
         </member>
@@ -1632,6 +1718,11 @@
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.UseXsdScheme">
             <summary>
               Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.LineLengthLimit">
+            <summary>
+            Limit divides text to separate lines when Base64Binary converter was used.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.FalseString">

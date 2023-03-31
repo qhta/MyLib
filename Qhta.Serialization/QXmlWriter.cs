@@ -1,8 +1,4 @@
-﻿using System.Reflection;
-using System.Reflection.PortableExecutable;
-using System.Xml.XPath;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 /// Wrapper for system XmlWriter used by QXmlSerializer
@@ -15,7 +11,6 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   public QXmlWriter(XmlWriter xmlWriter)
   {
     _writer = xmlWriter;
-    _spaceBehavior = XmlSpace.Preserve;
   }
 
   private XmlWriter _writer { get; }
@@ -34,16 +29,17 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   public WriteState WriteState => _writer.WriteState;
 
   /// <summary>
-  /// Specifies whether starting and ending spaces should be preserved.
-  /// It is needed as XmlSpace property is read-only.
-  /// </summary>
-  private XmlSpace _spaceBehavior { get; } 
-
-  /// <summary>
   /// Wrapper for XmlSpace property.
   /// It gets the writer space behavior.
+  /// When set, it writes the xml:space attribute.
   /// </summary>
-  public XmlSpace XmlSpace => _writer.XmlSpace;
+  public XmlSpace XmlSpace
+  {
+    get => _writer.XmlSpace;
+    set
+    {
+    }
+  }
 
   /// <summary>
   /// Wrapper for XmlLang property.
@@ -98,7 +94,7 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     _writer.WriteStartDocument();
   }
 
-    /// <summary>
+  /// <summary>
   /// Wrapper for WriteStartDocument(standalone) operation. 
   /// It writes the XML declaration with the version "1.0" and the standalone attribute.
   /// </summary>
@@ -328,6 +324,16 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   }
 
   /// <summary>
+  /// Wrapper for Write operation.
+  /// </summary>
+  /// <param name="text">The text to write.</param>
+  public void WriteRawString(string? text)
+  {
+    if (text != null)
+      _writer.WriteRaw(text);
+  }
+
+  /// <summary>
   /// Wrapper for WriteValue operation.
   /// It writes a single simple-typed value.
   /// </summary>
@@ -381,10 +387,10 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// <param name="str"></param>
   public void WriteValue(string? str)
   {
-    if (str==null) return;
-    if (_spaceBehavior == XmlSpace.Preserve)
-      if (str.StartsWith(" ") || str.EndsWith(" ") || str.Contains('\n') || str.Contains('\r') || str.Contains('\t'))
-        WriteSignificantSpaces(true);
+    if (str == null) return;
+    //if (_spaceBehavior == XmlSpace.Preserve)
+    //  if (str.StartsWith(" ") || str.EndsWith(" ") || str.Contains('\n') || str.Contains('\r') || str.Contains('\t'))
+    //    WriteSignificantSpaces(true);
     _writer.WriteValue(str);
   }
 

@@ -27,7 +27,17 @@ public class Base64TypeConverter : BaseTypeConverter
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (value is string str)
-      return Convert.FromBase64String(str);
+    {
+      try
+      {
+        return Convert.FromBase64String(str);
+      }
+      // Base64String is default encoder for bytes[] type, however sometimes it can be encoded with HexString.
+      catch 
+      {
+        return Convert.FromHexString(str);
+      }
+    }
     return null;
   }
 }

@@ -24,6 +24,26 @@ public partial class QXmlReader : IXmlReader, IDisposable
   #region Reader state
 
   /// <summary>
+  /// Getting LineNumber and LinePosition of the reader
+  /// </summary>
+  public (int line, int pos) GetPosition()
+  {
+    if (_reader is XmlTextReader xmlTextReader)
+    {
+      var lineNumber = xmlTextReader.LineNumber;
+      var linePosition = xmlTextReader.LinePosition;
+      return (lineNumber, linePosition);
+    }
+    return default; 
+  }
+
+
+  /// <summary>
+  /// Limit divides text to separate lines.
+  /// </summary>
+  public int LineLengthLimit { get; set; } = 0;
+
+  /// <summary>
   /// Wrapped EOF property.
   /// </summary>
   public bool EOF => _reader.EOF;
@@ -222,9 +242,14 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadString()
   {
+    string str;
     if (_reader.NodeType == XmlNodeType.Element)
-      return _reader.ReadElementContentAsString();
-    return _reader.ReadContentAsString();
+      str = _reader.ReadElementContentAsString();
+    else
+      str = _reader.ReadContentAsString();
+    //if (str == " ")
+    //  Debugger.Break();
+    return str;
   }
 
   /// <summary>
@@ -362,7 +387,6 @@ public partial class QXmlReader : IXmlReader, IDisposable
     _reader.Skip();
   }
   #endregion
-
 
   #region Read operations
 
@@ -507,6 +531,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   }
   #endregion
 
+  #region closing methods
   /// <summary>
   /// Wrapper for Close operation.
   /// </summary>
@@ -522,5 +547,5 @@ public partial class QXmlReader : IXmlReader, IDisposable
   {
     _reader.Dispose();
   }
-
+  #endregion
 }
