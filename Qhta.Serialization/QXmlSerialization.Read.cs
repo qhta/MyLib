@@ -371,7 +371,9 @@ public partial class QXmlSerializer
     {
       var startTagName = Reader.Name;
       bool isEmptyElement = Reader.IsEmptyElement;
-      var memberInfo = members.FirstOrDefault(item => item.XmlName == startTagName.Name);
+      var memberInfo = (String.IsNullOrEmpty(startTagName.Namespace))
+        ? members.FirstOrDefault(item => item.XmlName == startTagName.Name)
+        : members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name);
       if (memberInfo != null)
       {
         var value = ReadElementAsInstanceMember(instance, memberInfo);
