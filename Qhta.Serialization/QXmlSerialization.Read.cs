@@ -471,12 +471,12 @@ public partial class QXmlSerializer
     Type memberType = memberInfo.MemberType ?? typeof(Object);
     if (memberInfo.XmlConverter?.CanRead == true)
     {
-      result = memberInfo.XmlConverter.ReadXml(instance, Reader, memberInfo.ValueType?.Type ?? typeof(object), null, this);
+      result = memberInfo.XmlConverter.ReadXml(instance, Reader, memberInfo.ValueType.Type ?? typeof(object), null, this);
     }
     else
     {
       SerializationTypeInfo instanceTypeInfo = memberInfo.ParentType;
-      var contentInfo = (memberInfo.ContentInfo ?? memberInfo.ValueType?.ContentInfo ?? instanceTypeInfo.ContentInfo) as ContentItemInfo;
+      var contentInfo = (memberInfo.ContentInfo ?? memberInfo.ValueType.ContentInfo ?? instanceTypeInfo.ContentInfo) as ContentItemInfo;
       if (!memberInfo.IsObject && (memberInfo.IsCollection || memberInfo.IsDictionary) && contentInfo != null)
         result = ReadElementAsMemberCollection(instance, memberInfo, contentInfo);
       else
@@ -732,7 +732,7 @@ public partial class QXmlSerializer
     string? propertyElementName = null;
     if (String.IsNullOrEmpty(Reader.NamespaceURI))
     {
-      var propInfo = memberInfo.ValueType?.MembersAsElements.FirstOrDefault(memberItem => memberItem.XmlName == Reader.LocalName);
+      var propInfo = memberInfo.ValueType.MembersAsElements.FirstOrDefault(memberItem => memberItem.XmlName == Reader.LocalName);
       if (propInfo != null)
         memberInfo = propInfo;
       propertyElementName = Reader.LocalName;
@@ -740,7 +740,7 @@ public partial class QXmlSerializer
     }
     var qualifiedName = ReadElementTag();
     SerializationTypeInfo? valueTypeInfo = null;
-    if (memberInfo.ValueType?.Type != typeof(object))
+    if (memberInfo.ValueType.Type != typeof(object))
       valueTypeInfo = memberInfo.ValueType;
     else
     if (!TryGetTypeInfo(qualifiedName, out valueTypeInfo))
@@ -1454,7 +1454,7 @@ public partial class QXmlSerializer
       throw new XmlInternalException($"XmlReader must be at XmlElement on deserialize object", Reader);
     var qualifiedName = ReadElementTag();
     SerializationTypeInfo? typeInfo = null;
-    if (memberInfo.ValueType?.Type != typeof(object))
+    if (memberInfo.ValueType.Type != typeof(object))
       typeInfo = memberInfo.ValueType;
     else
     if (!TryGetTypeInfo(qualifiedName, out typeInfo))

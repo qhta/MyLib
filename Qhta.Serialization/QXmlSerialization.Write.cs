@@ -237,7 +237,7 @@ public partial class QXmlSerializer
           str = typeConverter.ConvertToInvariantString(typeDescriptorContext, propValue);
         if (str != null)
         {
-          if (memberInfo.IsContentElement && memberInfo.ValueType != null)
+          if (memberInfo.IsContentElement)
             propTag = Mapper.GetXmlTag(memberInfo.ValueType);
           if (propTag != null)
             Writer.WriteStartElement(propTag);
@@ -274,7 +274,7 @@ public partial class QXmlSerializer
               WriteValue(ConvertMemberValueToString(propValue, memberInfo));
             else if (propValue is ICollection collection)
             {
-              if (memberInfo.ValueType?.MembersAsAttributes.Count() > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
+              if (memberInfo.ValueType.MembersAsAttributes.Count() > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
                 WriteObject(context, propValue);
               else
                 WriteCollectionItems(context, collection, memberInfo.ContentInfo);
@@ -677,7 +677,7 @@ public partial class QXmlSerializer
       return null;
     if (memberInfo.Property == null)
       return null;
-    if (memberInfo.ValueType?.Type == typeof(string) && value is string valStr)
+    if (memberInfo.ValueType.Type == typeof(string) && value is string valStr)
     {
       var str = valStr.EncodeStringValue();
       return str;

@@ -52,7 +52,7 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   /// <summary>
   ///   Whether members with unique types that are serialized as element are to be serialized as contentElements (without element tag).
   /// </summary>
-  public bool UniqueMemberTypesAsContentElements { get; set; } = false;
+  public bool UniqueMemberTypesAsContentElements { get; set; } = true;
 
   /// <summary>
   ///   Whether XML attribute names should change case on serialization.

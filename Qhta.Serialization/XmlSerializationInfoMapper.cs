@@ -325,7 +325,10 @@ public class XmlSerializationInfoMapper
         membersItem => membersItem.ValueType, uniqueTypesItem => uniqueTypesItem,
         (membersItem, uniqueTypesItem) => membersItem);
       foreach (var memberInfo in memberWithUniqueTypes.ToList())
+      {
         memberInfo.IsContentElement = true;
+        memberInfo.ValueType.IsObject = true;
+      }
     }
   }
 
@@ -414,7 +417,7 @@ public class XmlSerializationInfoMapper
       return false;
     var order = defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
-    //if (serializationMemberInfo.TypeConverter != null || serializationMemberInfo.ValueType?.TypeConverter!=null)
+    //if (serializationMemberInfo.TypeConverter != null || serializationMemberInfo.ValueType.TypeConverter!=null)
     //  return false;
     serializationMemberInfo.IsContentElement = true;
     //if (typeInfo.ContentProperty==null)

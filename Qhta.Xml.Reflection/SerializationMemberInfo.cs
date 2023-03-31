@@ -144,7 +144,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// </summary>
   [XmlAttribute]
   [XmlReference]
-  public SerializationTypeInfo? ValueType { get; set; }
+  public SerializationTypeInfo ValueType { get; set; } = null!;
 
   /// <summary>
   ///   Used for conversion value from/to string.
