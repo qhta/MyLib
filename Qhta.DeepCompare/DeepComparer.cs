@@ -67,9 +67,13 @@ public static class DeepComparer
       var testType = refObject.GetNotNullableType();
       if (objName == null)
         objName = refType.Name ?? testType.Name;
+      if (propName!=null)
+        objName += "."+propName;
+      if (index != null)
+        objName += $"[{index}]";
       if (refType != testType)
       {
-        diffs?.Add(objName, propName, index, refType, refType);
+        diffs?.Add(objName, refType, refType);
         return false;
       }
       var ok = testObject.GetHashCode()==refObject.GetHashCode();
@@ -81,7 +85,7 @@ public static class DeepComparer
         var cmp = refObject == testObject;
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, index, testObject, refObject);
+          diffs?.Add(objName, testObject, refObject);
           ok = false;
         }
       }
@@ -91,7 +95,7 @@ public static class DeepComparer
         var cmp = String.Equals((string)refObject, (string)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, index, testObject, refObject);
+          diffs?.Add(objName, testObject, refObject);
           ok = false;
         }
       }
@@ -100,7 +104,7 @@ public static class DeepComparer
         var cmp = Boolean.Equals((Boolean)refObject, (Boolean)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, index, testObject, refObject);
+          diffs?.Add(objName, testObject, refObject);
           ok = false;
         }
       }
@@ -110,7 +114,7 @@ public static class DeepComparer
         var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, index, testObject, refObject);
+          diffs?.Add(objName, testObject, refObject);
           ok = false;
         }
       }
@@ -120,7 +124,7 @@ public static class DeepComparer
         var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
         if (!cmp == true)
         {
-          diffs?.Add(objName, propName, index, testObject, refObject);
+          diffs?.Add(objName, testObject, refObject);
           ok = false;
         }
       }
@@ -161,7 +165,7 @@ public static class DeepComparer
               var cmp = (bool?)compareFunc.Invoke(refObject, new[] { testObject });
               if (!cmp == true)
               {
-                diffs?.Add(objName ?? refType.Name, propName, testObject, refObject);
+                diffs?.Add(objName, testObject, refObject);
                 ok = false;
               }
             }
@@ -175,7 +179,7 @@ public static class DeepComparer
             var cmp = iStructuralEquatable.Equals(refObject);
             if (!cmp == true)
             {
-              diffs?.Add(objName, propName, index, testObject, refObject);
+              diffs?.Add(objName, testObject, refObject);
               ok = false;
             }
           }
@@ -221,7 +225,7 @@ public static class DeepComparer
                 var refItem = refEnumerator.Current;
                 if (refItem != refObject && testItem != testObject)
                 {
-                  if (!IsEqual(testItem, refItem, diffs, objName, propName, i))
+                  if (!IsEqual(testItem, refItem, diffs, objName, null, i))
                     ok = false;
                 }
               }
@@ -237,12 +241,12 @@ public static class DeepComparer
     }
     if (testObject == null && refObject != null)
     {
-      diffs?.Add(refObject.GetType().Name, propName, index, testObject, refObject);
+      diffs?.Add(objName, propName, index, testObject, refObject);
       return false;
     }
     if (testObject != null && refObject == null)
     {
-      diffs?.Add(testObject.GetType().Name, propName, index, testObject, refObject);
+      diffs?.Add(objName, propName, index, testObject, refObject);
       return false;
     }
     return true;

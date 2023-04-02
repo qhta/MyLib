@@ -86,6 +86,14 @@
             Received value.
             </summary>
         </member>
+        <member name="M:Qhta.DeepCompare.Diff.#ctor(System.String,System.Object,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.DeepCompare.Diff"/> class.
+            </summary>
+            <param name="objectName">Name of the checked object.</param>
+            <param name="expValue">Expected value.</param>
+            <param name="recValue">Received value.</param>
+        </member>
         <member name="M:Qhta.DeepCompare.Diff.#ctor(System.String,System.String,System.Object,System.Object)">
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.DeepCompare.Diff"/> class.
@@ -133,6 +141,14 @@
             <summary>
             List of compare differences.
             </summary>
+        </member>
+        <member name="M:Qhta.DeepCompare.DiffList.Add(System.String,System.Object,System.Object)">
+            <summary>
+              Helper method to add a difference.
+            </summary>
+            <param name="objectName">Name of the object.</param>
+            <param name="expValue">Expected value.</param>
+            <param name="recValue">Received value.</param>
         </member>
         <member name="M:Qhta.DeepCompare.DiffList.Add(System.String,System.String,System.Object,System.Object)">
             <summary>

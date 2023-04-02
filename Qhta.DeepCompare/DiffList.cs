@@ -5,6 +5,17 @@
 /// </summary>
 public class DiffList: List<Diff>
 {
+    /// <summary>
+  ///   Helper method to add a difference.
+  /// </summary>
+  /// <param name="objectName">Name of the object.</param>
+  /// <param name="expValue">Expected value.</param>
+  /// <param name="recValue">Received value.</param>
+  public void Add(string? objectName, object? expValue, object? recValue)
+  {
+    Add(objectName, null, null, expValue, recValue);
+  }
+
   /// <summary>
   ///   Helper method to add a difference.
   /// </summary>
@@ -14,7 +25,7 @@ public class DiffList: List<Diff>
   /// <param name="recValue">Received value.</param>
   public void Add(string? objectName, string? propertyName, object? expValue, object? recValue)
   {
-    Add(new Diff(objectName, propertyName, expValue, recValue));
+    Add(objectName, propertyName, null, expValue, recValue);
   }
 
   /// <summary>

@@ -30,6 +30,19 @@ public class Diff
   /// </summary>
   public object? ReceivedValue { get; set; }
 
+    /// <summary>
+  /// Initializes a new instance of the <see cref="Diff"/> class.
+  /// </summary>
+  /// <param name="objectName">Name of the checked object.</param>
+  /// <param name="expValue">Expected value.</param>
+  /// <param name="recValue">Received value.</param>
+  public Diff(string? objectName, object? expValue, object? recValue)
+  {
+    ObjectName = objectName;
+    ExpectedValue = expValue;
+    ReceivedValue = recValue;
+  }
+
   /// <summary>
   /// Initializes a new instance of the <see cref="Diff"/> class.
   /// </summary>
