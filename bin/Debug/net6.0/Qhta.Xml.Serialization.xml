@@ -1752,19 +1752,9 @@
               The method should be a parameterless function of type boolean.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.SerializationOptions.Equals(Qhta.Xml.Serialization.SerializationOptions)">
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.DefaultUnit">
             <summary>
-            Check equation of two instances
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.Serialization.SerializationOptions.Equals(System.Object)">
-            <summary>
-            Compares two objects
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.Serialization.SerializationOptions.GetHashCode">
-            <summary>
-            Overriden as Equals is overriden
+            Default unit for numbers.
             </summary>
         </member>
         <member name="T:Qhta.Xml.Serialization.XmlConverter">

@@ -3,7 +3,7 @@
 /// <summary>
 /// Class containing serialization options as separate boolean values.
 /// </summary>
-public class SerializationOptions : IEquatable<SerializationOptions>
+public class SerializationOptions
 {
   /// <summary>
   /// Whether tag namespaces should be written.
@@ -146,51 +146,8 @@ public class SerializationOptions : IEquatable<SerializationOptions>
   public string CheckMethod { get; set; } = "ShouldSerialize*";
 
   /// <summary>
-  /// Check equation of two instances
+  /// Default unit for numbers.
   /// </summary>
-  public bool Equals(SerializationOptions? other)
-  {
-    if (ReferenceEquals(null, other)) return false;
-    if (ReferenceEquals(this, other)) return true;
-    return 
-      EmitNamespaces == other.EmitNamespaces
-      && AutoSetPrefixes == other.AutoSetPrefixes
-      && RemoveUnusedNamespaces == other.RemoveUnusedNamespaces
-      && IgnoreMissingConstructor == other.IgnoreMissingConstructor
-      && AcceptAllProperties == other.AcceptAllProperties
-      && SimplePropertiesAsAttributes == other.SimplePropertiesAsAttributes
-      && AttributeNameCase == other.AttributeNameCase
-      && ElementNameCase == other.ElementNameCase
-      && EnumNameCase == other.EnumNameCase
-      && IgnoreCaseOnEnum == other.IgnoreCaseOnEnum
-      && PrecedePropertyNameWithClassName == other.PrecedePropertyNameWithClassName
-      //&& ItemTag == other.ItemTag
-      && Culture.Equals(other.Culture)
-      && IgnoreUnknownElements == other.IgnoreUnknownElements
-      && UseNilValue == other.UseNilValue
-      && UseXsdScheme == other.UseXsdScheme
-      && FalseString == other.FalseString
-      && TrueString == other.TrueString
-      && DateTimeFormat == other.DateTimeFormat
-      && CheckMethod == other.CheckMethod;
-  }
+  public string DefaultUnit { get; set; } = "pt";
 
-  /// <summary>
-  /// Compares two objects
-  /// </summary>
-  public override bool Equals(object? obj)
-  {
-    if (ReferenceEquals(null, obj)) return false;
-    if (ReferenceEquals(this, obj)) return true;
-    if (obj.GetType() != GetType()) return false;
-    return Equals((SerializationOptions)obj);
-  }
-
-  /// <summary>
-  /// Overriden as Equals is overriden
-  /// </summary>
-  public override int GetHashCode()
-  {
-    return base.GetHashCode();
-  }
 }
