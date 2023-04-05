@@ -35,6 +35,17 @@ public static class QXmlSerializationHelper
     if (result.StartsWith("System."))
       result = aType.Name;
     if (result.EndsWith("[]")) result = result.Substring(0, result.Length - 2) + "s";
+    var k = result.IndexOf('`');
+    if (k >= 0)
+    {
+      result = result.Substring(0,k);
+      if (aType.IsConstructedGenericType)
+      {
+        var args = aType.GetGenericArguments();
+        foreach (var arg in args )
+          result += "_"+arg.GetTypeTag();
+      }
+    }
     return result;
   }
 

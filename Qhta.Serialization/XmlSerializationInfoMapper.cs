@@ -320,7 +320,8 @@ public class XmlSerializationInfoMapper
     {
       var elementGroupedByValueType = typeInfo.MembersAsElements.GroupBy(item => item.ValueType)
         .Select(group => new { ValueType = group.Key, Count = group.Count() });
-      var uniqueTypes = elementGroupedByValueType.Where(item => item.Count == 1).Select(item => item.ValueType);
+      var uniqueTypes = elementGroupedByValueType.Where(item => item.Count == 1 && !item.ValueType.Type.IsConstructedGenericType)
+        .Select(item => item.ValueType);
       var memberWithUniqueTypes = typeInfo.MembersAsElements.Join(uniqueTypes,
         membersItem => membersItem.ValueType, uniqueTypesItem => uniqueTypesItem,
         (membersItem, uniqueTypesItem) => membersItem);

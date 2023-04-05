@@ -371,9 +371,18 @@ public partial class QXmlSerializer
     {
       var startTagName = Reader.Name;
       bool isEmptyElement = Reader.IsEmptyElement;
-      var memberInfo = (String.IsNullOrEmpty(startTagName.Namespace))
-        ? members.FirstOrDefault(item => item.XmlName == startTagName.Name)
-        : members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name);
+      SerializationMemberInfo? memberInfo;
+      //if (startTagName.Name=="Run")
+      //  Debug.Assert(true);
+      if (String.IsNullOrEmpty(startTagName.Namespace))
+      {
+        memberInfo = members.FirstOrDefault(item => item.XmlName == startTagName.Name);
+      }
+      else
+      {
+        memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name 
+        && item.ValueType.XmlNamespace == startTagName.Namespace);
+      }
       if (memberInfo != null)
       {
         var value = ReadElementAsInstanceMember(instance, memberInfo);
@@ -1028,7 +1037,7 @@ public partial class QXmlSerializer
       if (result is IXmlSerializable xmlSerializable)
         xmlSerializable.ReadXml(Reader);
       else
-        ReadObjectInstance(result, typeInfo);
+        result = ReadObjectInstance(result, typeInfo);
     }
 #if TraceReader
     Trace.WriteLine($"<Return item=\"{result}\" ReaderName=\"{(Reader.IsEndElement() ? "/" : null)}{Reader.Name}\"/>");
