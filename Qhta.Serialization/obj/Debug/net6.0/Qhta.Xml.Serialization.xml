@@ -1379,6 +1379,16 @@
             It gets the writer state.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.TraceElementStack">
+            <summary>
+            Specifies if WriteStartElement and WriteEndElement pairs are checked.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXmlWriter.TraceAttributeStack">
+            <summary>
+            Specifies if WriteStartAttribute and WriteEndAttribute pairs are checked.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Serialization.QXmlWriter.XmlSpace">
             <summary>
             Wrapper for XmlSpace property.
@@ -1755,6 +1765,16 @@
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.DefaultUnit">
             <summary>
             Default unit for numbers.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.TraceElementStack">
+            <summary>
+            Specifies if WriteStartElement and WriteEndElement pairs are checked.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.TraceAttributeStack">
+            <summary>
+            Specifies if WriteStartAttribute and WriteEndAttribute pairs are checked.
             </summary>
         </member>
         <member name="T:Qhta.Xml.Serialization.XmlConverter">

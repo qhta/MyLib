@@ -150,4 +150,13 @@ public class SerializationOptions
   /// </summary>
   public string DefaultUnit { get; set; } = "pt";
 
+  /// <summary>
+  /// Specifies if WriteStartElement and WriteEndElement pairs are checked.
+  /// </summary>
+  public bool TraceElementStack { get; set; } = false;
+
+  /// <summary>
+  /// Specifies if WriteStartAttribute and WriteEndAttribute pairs are checked.
+  /// </summary>
+  public bool TraceAttributeStack { get; set; } = false;
 }

@@ -3,6 +3,8 @@
 public partial class QXmlSerializer
 {
 
+  bool namespacesWritten = false;
+
   /// <summary>
   ///   Main serialization entry.
   /// </summary>
@@ -13,6 +15,9 @@ public partial class QXmlSerializer
     if (obj == null)
       return;
     Writer = new QXmlWriter(xmlWriter);
+    Writer.TraceElementStack = Options.TraceElementStack;
+    Writer.TraceAttributeStack = Options.TraceAttributeStack;
+    namespacesWritten = false;
     WriteObject(obj);
     xmlWriter.Flush();
   }
@@ -81,7 +86,7 @@ public partial class QXmlSerializer
       Writer.EmitNamespaces = Options.EmitNamespaces;
       if (tag != null)
         Writer.WriteStartElement(tag);
-      if (Options.EmitNamespaces && context == null)
+      if (!namespacesWritten && Options.EmitNamespaces && context == null)
       {
         if (Options.UseNilValue)
           Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
@@ -93,6 +98,7 @@ public partial class QXmlSerializer
           foreach (var item in KnownNamespaces)
             if (item.Prefix != null)
               Writer.WriteNamespaceDef(item.Prefix, item.XmlNamespace);
+        namespacesWritten = true;
       }
 
       WriteObjectInterior(context, obj, serializedTypeInfo);
@@ -743,9 +749,10 @@ public partial class QXmlSerializer
     if (typeInfo.XmlNamespace != null)
     {
       KnownNamespaces[typeInfo.XmlNamespace].IsUsed = true;
-      var typeTag = typeInfo.Type.GetTypeTag();
-      if (!typeTag.Contains('.'))
-        return new XmlQualifiedTagName(typeTag);
+      return new XmlQualifiedTagName(typeInfo.XmlNamespace, typeInfo.XmlNamespace);
+      //var typeTag = typeInfo.Type.GetTypeTag();
+      //if (!typeTag.Contains('.'))
+      //  return new XmlQualifiedTagName(typeTag);
     }
     var result = Mapper.GetXmlTag(typeInfo);
     if (typeInfo.XmlNamespace != null)

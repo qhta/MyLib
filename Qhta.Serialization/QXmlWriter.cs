@@ -29,6 +29,16 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   public WriteState WriteState => _writer.WriteState;
 
   /// <summary>
+  /// Specifies if WriteStartElement and WriteEndElement pairs are checked.
+  /// </summary>
+  public bool TraceElementStack { get; set; }
+
+  /// <summary>
+  /// Specifies if WriteStartAttribute and WriteEndAttribute pairs are checked.
+  /// </summary>
+  public bool TraceAttributeStack { get; set; }
+
+  /// <summary>
   /// Wrapper for XmlSpace property.
   /// It gets the writer space behavior.
   /// When set, it writes the xml:space attribute.
@@ -135,6 +145,8 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteStartElement(XmlQualifiedTagName tag)
   {
+    if (TraceElementStack)
+      ElementStack.Push(tag);
     if (tag.Namespace != "" && EmitNamespaces)
     {
       if (!String.IsNullOrEmpty(tag.Prefix))
@@ -146,7 +158,6 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     }
     else
       _writer.WriteStartElement(tag.Name);
-    ElementStack.Push(tag);
   }
 
   /// <summary>
@@ -155,9 +166,12 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteStartElement(string localName)
   {
-    var fullName = new XmlQualifiedTagName(localName, "");
+    if (TraceElementStack)
+    {
+      var fullName = new XmlQualifiedTagName(localName, "");
+      ElementStack.Push(fullName);
+    }
     _writer.WriteStartElement(localName);
-    ElementStack.Push(fullName);
   }
 
   /// <summary>
@@ -166,11 +180,14 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteEndElement(XmlQualifiedTagName fullName)
   {
-    if (ElementStack.Count == 0)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
-    var elementTag = ElementStack.Pop();
-    if (fullName != elementTag)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    if (TraceElementStack)
+    {
+      if (ElementStack.Count == 0)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
+      var elementTag = ElementStack.Pop();
+      if (fullName != elementTag)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    }
     _writer.WriteEndElement();
   }
 
@@ -180,12 +197,15 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteEndElement(string localName)
   {
-    var fullName = new XmlQualifiedTagName(localName, "");
-    if (ElementStack.Count == 0)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
-    var elementTag = ElementStack.Pop();
-    if (fullName != elementTag)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    if (TraceElementStack)
+    {
+      var fullName = new XmlQualifiedTagName(localName, "");
+      if (ElementStack.Count == 0)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
+      var elementTag = ElementStack.Pop();
+      if (fullName != elementTag)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    }
     _writer.WriteEndElement();
   }
 
@@ -196,11 +216,14 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteFullEndElement(XmlQualifiedTagName fullName)
   {
-    if (ElementStack.Count == 0)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
-    var elementTag = ElementStack.Pop();
-    if (fullName != elementTag)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    if (TraceElementStack)
+    {
+      if (ElementStack.Count == 0)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
+      var elementTag = ElementStack.Pop();
+      if (fullName != elementTag)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    }
     _writer.WriteFullEndElement();
   }
 
@@ -211,12 +234,15 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteFullEndElement(string localName)
   {
-    var fullName = new XmlQualifiedTagName(localName, "");
-    if (ElementStack.Count == 0)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
-    var elementTag = ElementStack.Pop();
-    if (fullName != elementTag)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    if (TraceElementStack)
+    {
+      var fullName = new XmlQualifiedTagName(localName, "");
+      if (ElementStack.Count == 0)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
+      var elementTag = ElementStack.Pop();
+      if (fullName != elementTag)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{elementTag}\"");
+    }
     _writer.WriteFullEndElement();
   }
 
@@ -227,6 +253,8 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteStartAttribute(XmlQualifiedTagName fullName)
   {
+    if (TraceAttributeStack)
+      AttributeStack.Push(fullName);
     if (fullName.Namespace != "" && EmitNamespaces)
     {
       _writer.WriteStartAttribute(fullName.Name, fullName.Namespace);
@@ -235,7 +263,6 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     }
     else
       _writer.WriteStartAttribute(fullName.Name, fullName.Namespace);
-    AttributeStack.Push(fullName);
   }
 
   /// <summary>
@@ -244,9 +271,12 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteStartAttribute(string localName)
   {
-    var fullName = new XmlQualifiedTagName(localName, "");
+    if (TraceAttributeStack)
+    {
+      var fullName = new XmlQualifiedTagName(localName, "");
+      AttributeStack.Push(fullName);
+    }
     _writer.WriteStartAttribute(localName);
-    AttributeStack.Push(fullName);
   }
 
   /// <summary>
@@ -255,11 +285,14 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteEndAttribute(XmlQualifiedTagName fullName)
   {
-    if (AttributeStack.Count == 0)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
-    var attributeTag = AttributeStack.Pop();
-    if (fullName != attributeTag)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{attributeTag}\"");
+    if (TraceAttributeStack)
+    {
+      if (AttributeStack.Count == 0)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
+      var attributeTag = AttributeStack.Pop();
+      if (fullName != attributeTag)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{attributeTag}\"");
+    }
     _writer.WriteEndAttribute();
   }
 
@@ -269,12 +302,15 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteEndAttribute(string localName)
   {
-    var fullName = new XmlQualifiedTagName(localName, "");
-    if (AttributeStack.Count == 0)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
-    var attributeTag = AttributeStack.Pop();
-    if (fullName != attributeTag)
-      throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{attributeTag}\"");
+    if (TraceAttributeStack)
+    {
+      var fullName = new XmlQualifiedTagName(localName, "");
+      if (AttributeStack.Count == 0)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as element stack is empty");
+      var attributeTag = AttributeStack.Pop();
+      if (fullName != attributeTag)
+        throw new InvalidOperationException($"Can't write end element \"{fullName}\" as current element tag is \"{attributeTag}\"");
+    }
     _writer.WriteEndAttribute();
   }
 
