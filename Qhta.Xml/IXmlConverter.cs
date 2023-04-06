@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace Qhta.Xml;
+﻿namespace Qhta.Xml;
 
 /// <summary>
 ///   Xml equivalent of JsonConverter.

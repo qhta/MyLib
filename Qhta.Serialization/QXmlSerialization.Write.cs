@@ -77,6 +77,8 @@ public partial class QXmlSerializer
     var aType = obj.GetType();
     if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanWrite)
     {
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
       xmlConverter.WriteXml(null, Writer, obj, this);
     }
     else
@@ -123,14 +125,19 @@ public partial class QXmlSerializer
         throw new InternalException($"Type \"{aType}\" not registered");
     }
     WritePropertiesAsAttributes(context, obj, typeInfo);
-    if (typeInfo.TypeConverter != null)
+    var typeConverter = typeInfo.TypeConverter;
+    if (typeConverter != null)
     {
-      WriteConvertedString(typeInfo.TypeConverter, obj);
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
+      WriteConvertedString(typeConverter, obj);
     }
     else
     if (typeInfo.Type.IsSimple())
     {
-      var typeConverter = new ValueTypeConverter(typeInfo.Type);
+      typeConverter = new ValueTypeConverter(typeInfo.Type);
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
       WriteConvertedString(typeConverter, obj);
     }
     else
@@ -226,7 +233,7 @@ public partial class QXmlSerializer
       var propTag = CreateElementTag(memberInfo, propValue?.GetType());
       if (propValue == null)
       {
-        if (Options?.UseNilValue == true && memberInfo.IsNullable)
+        if (Options.UseNilValue == true && memberInfo.IsNullable)
         {
           if (propTag != null)
             Writer.WriteStartElement(propTag);
@@ -240,7 +247,11 @@ public partial class QXmlSerializer
         string? str = null;
         var typeConverter = memberInfo.GetTypeConverter();
         if (typeConverter != null && typeConverter.CanConvertTo(typeof(string)))
+        {
+          if (typeConverter is IRealTypeConverter realTypeConverter)
+            realTypeConverter.Unit = Options.DefaultUnit;
           str = typeConverter.ConvertToInvariantString(typeDescriptorContext, propValue);
+        }
         if (str != null)
         {
           if (memberInfo.IsContentElement)
@@ -266,13 +277,9 @@ public partial class QXmlSerializer
             if (propTag != null)
               Writer.WriteStartElement(propTag);
             var pType = propValue.GetType();
-            KnownTypes.TryGetValue(pType, out var serializedTypeInfo);
             if (pType.IsSimple())
             {
-              if (memberInfo.TypeConverter != null)
-                WriteConvertedString(memberInfo.TypeConverter, obj);
-              else
-                WriteValue(propValue);
+              WriteValue(propValue);
             }
             else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
               WriteValue(ConvertMemberValueToString(propValue, memberInfo));
@@ -318,6 +325,9 @@ public partial class QXmlSerializer
         if (value != null)
         {
           var typeConverter = contentMemberInfo.GetTypeConverter();
+          if (typeConverter != null)
+            if (typeConverter is IRealTypeConverter realTypeConverter)
+              realTypeConverter.Unit = Options.DefaultUnit;
           if (typeConverter is IXmlConverter xmlConverter && xmlConverter.CanConvert(value.GetType()))
           {
             xmlConverter.WriteXml(context, Writer, value, this);
@@ -439,6 +449,8 @@ public partial class QXmlSerializer
         {
           if (typeConverter != null)
           {
+            if (typeConverter is IRealTypeConverter realTypeConverter)
+              realTypeConverter.Unit = Options.DefaultUnit;
             Writer.WriteStartElement(itemTag);
             var str = typeConverter.ConvertToString(item) ?? "";
             WriteString(str);
@@ -540,6 +552,8 @@ public partial class QXmlSerializer
         {
           if (typeConverter != null)
           {
+            if (typeConverter is IRealTypeConverter realTypeConverter)
+              realTypeConverter.Unit = Options.DefaultUnit;
             Writer.WriteStartElement(valueTag);
             WriteConvertedString(typeConverter, value);
             Writer.WriteEndElement(valueTag);
@@ -586,6 +600,8 @@ public partial class QXmlSerializer
       else
       {
         var typeConverter = new ValueTypeConverter(value.GetType(), KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, null, null, null, Options.ConversionOptions);
+        if (typeConverter is IRealTypeConverter realTypeConverter)
+          realTypeConverter.Unit = Options.DefaultUnit;
         var valStr = (string?)typeConverter.ConvertToInvariantString(value);
         if (valStr != null)
         {
@@ -603,7 +619,7 @@ public partial class QXmlSerializer
   public void WriteConvertedString(TypeConverter typeConverter, object? obj)
   {
     var str = (string?)typeConverter.ConvertToInvariantString(obj);
-    if (str!=null)
+    if (str != null)
     {
       if (typeConverter is Base64TypeConverter)
         WriteLongString(str, Options.LineLengthLimit);
@@ -634,16 +650,16 @@ public partial class QXmlSerializer
   {
     if (value is string str)
     {
-      if (str.Length>lineLengthLimit)
+      if (str.Length > lineLengthLimit)
       {
         var n = str.Length / lineLengthLimit;
         for (int i = 0; i <= n; i++)
         {
-          int k = i*lineLengthLimit;
-          int l = Math.Min(lineLengthLimit, str.Length-k);
-          var subString = str.Substring(k,l);
-          if (i==0)
-            subString = "\n"+subString;
+          int k = i * lineLengthLimit;
+          int l = Math.Min(lineLengthLimit, str.Length - k);
+          var subString = str.Substring(k, l);
+          if (i == 0)
+            subString = "\n" + subString;
           subString += "\n";
           Writer.WriteString(subString);
         }
@@ -691,6 +707,8 @@ public partial class QXmlSerializer
     var typeConverter = memberInfo.GetTypeConverter();
     if (typeConverter != null)
     {
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
       var str = typeConverter.ConvertToInvariantString(value);
       return str;
     }
@@ -698,6 +716,8 @@ public partial class QXmlSerializer
     {
       typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, memberInfo.DataType,
         memberInfo.Format, memberInfo.Culture, /*memberInfo.ConversionOptions ?? */Options.ConversionOptions);
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
       var str = typeConverter.ConvertToInvariantString(value);
       return str;
     }
