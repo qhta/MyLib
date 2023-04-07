@@ -29,7 +29,6 @@ public partial class QXmlSerializer : IXmlSerializer
     Init(type, null, null, options);
   }
 
-
   /// <summary>
   /// Initializing constructor.
   /// </summary>
