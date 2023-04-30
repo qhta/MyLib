@@ -3,6 +3,16 @@
 public class ConversionOptions
 {
   /// <summary>
+  ///   Specifies whether escape sequences should be used to convert strings.
+  /// </summary>
+  public bool UseEscapeSequences { get; set; }
+
+  /// <summary>
+  ///   Specifies whether Html entities should be used to convert strings.
+  /// </summary>
+  public bool UseHtmlEntities { get; set; }
+
+  /// <summary>
   ///   The character to insert between the date and time when serializing a DateTime value.
   /// </summary>
   public char DateTimeSeparator { get; set; }

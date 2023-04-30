@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.Design;
+using System.Diagnostics;
 
 using Qhta.TestHelper;
 
@@ -188,6 +189,7 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, Dictionary<string, string>? knownNamespaces, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
   {
+    Options = options;
     if (expectedType?.IsNullable(out var baseType) == true)
       expectedType = baseType;
     ExpectedType = expectedType;
@@ -212,6 +214,16 @@ public class ValueTypeConverter : BaseTypeConverter
           InternalTypeConverter = CreateBooleanTypeConverter(ExpectedType, XsdType, format, culture, options);
           if (expectedType != typeof(bool))
             InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
+          return;
+        case XsdSimpleType.String:
+          if (Options != null)
+            InternalTypeConverter = new StringTypeConverter
+            {
+              UseEscapeSequences = Options.UseEscapeSequences,
+              UseHtmlEntities = Options.UseHtmlEntities
+            };
+          else
+            InternalTypeConverter = new StringTypeConverter();
           return;
         case XsdSimpleType.Integer:
         case XsdSimpleType.NegativeInteger:
@@ -255,6 +267,18 @@ public class ValueTypeConverter : BaseTypeConverter
     }
     if (expectedType != null)
     {
+      if (expectedType == typeof(string) || expectedType == typeof(char))
+      {
+        if (Options != null)
+          InternalTypeConverter = new StringTypeConverter
+          {
+            UseEscapeSequences = Options.UseEscapeSequences,
+            UseHtmlEntities = Options.UseHtmlEntities
+          };
+        else
+          InternalTypeConverter = new StringTypeConverter();
+      }
+      else
       if (expectedType.IsEnum)
       {
         InternalTypeConverter = new EnumTypeConverter(expectedType);

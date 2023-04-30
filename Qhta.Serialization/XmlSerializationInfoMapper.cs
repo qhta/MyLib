@@ -768,7 +768,7 @@ public class XmlSerializationInfoMapper
       }
       return converter;
     }
-    var result = new ValueTypeConverter(aType);
+    var result = new ValueTypeConverter(aType, options : new ConversionOptions{ UseEscapeSequences = true, UseHtmlEntities = true });
     return result?.InternalTypeConverter;
   }
 
