@@ -126,7 +126,7 @@ public partial class QXmlSerializer
     var startTag = Reader.Name;
     if (typeInfo.KnownConstructor == null)
     {
-      if (typeInfo.Type.IsSimple() || typeInfo.Type==typeof(byte[]))
+      if (typeInfo.Type.IsSimple() || typeInfo.Type == typeof(byte[]))
       {
         if (!Reader.IsEmptyElement)
         {
@@ -137,7 +137,7 @@ public partial class QXmlSerializer
         else
         {
           Reader.Read();
-          if (typeInfo.Type==typeof(byte[]))
+          if (typeInfo.Type == typeof(byte[]))
             result = new byte[0];
           else
             result = System.Activator.CreateInstance(typeInfo.Type);
@@ -203,15 +203,21 @@ public partial class QXmlSerializer
         //SkipWhitespaces();
         if (!isEmptyElement)
         {
+          int elementsRead = 0;
           if (Reader.NodeType == XmlNodeType.Element)
-            ReadXmlElements(instance, instanceTypeInfo);
-          if (Reader.NodeType == XmlNodeType.Text || Reader.NodeType == XmlNodeType.SignificantWhitespace)
+            elementsRead = ReadXmlElements(instance, instanceTypeInfo);
+          if (elementsRead == 0)
           {
             var textMemberInfo = instanceTypeInfo.TextProperty ?? instanceTypeInfo.ContentProperty;
             if (textMemberInfo != null)
-              ReadXmlTextElement(instance, textMemberInfo);
+            {
+              if (Reader.NodeType == XmlNodeType.Text || Reader.NodeType == XmlNodeType.SignificantWhitespace)
+                ReadXmlTextElement(instance, textMemberInfo);
+              else
+                ReadXmlTextElement(instance, textMemberInfo);
+            }
             else
-              throw new XmlInternalException($"No text or content property found in type {instance.GetType().Name}", Reader);
+              ;//throw new XmlInternalException($"No text or content property found in type {instance.GetType().Name}", Reader);
           }
           Reader.ReadEndElement(startTagName);
         }
@@ -380,10 +386,10 @@ public partial class QXmlSerializer
       }
       else
       {
-        memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name 
+        memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name
         && item.ValueType.XmlNamespace == startTagName.Namespace);
       }
-      if (memberInfo != null)
+      if (memberInfo != null && !memberInfo.IsAttribute)
       {
         var value = ReadElementAsInstanceMember(instance, memberInfo);
         if (value != null)

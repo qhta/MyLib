@@ -369,6 +369,8 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
+    if (ExpectedType == typeof(string))
+      Debug.Assert(true);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.CanConvertFrom(context, sourceType);
     return base.CanConvertFrom(context, sourceType);
@@ -383,8 +385,7 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)
   {
-    if (ExpectedType == typeof(byte[]))
-      Debugger.Break();
+
     if (InternalTypeConverter == null)
       Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
@@ -394,10 +395,14 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
+    if (ExpectedType == typeof(string))
+      Debug.Assert(true);
+
     if (InternalTypeConverter == null)
       Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertFrom(context, Culture, value);
-    return base.ConvertFrom(context, Culture, value);
+    return value;
+    //return base.ConvertFrom(context, Culture, value);
   }
 }

@@ -1,12 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Xml;
-
-using Qhta.TestHelper;
-using Qhta.TypeUtils;
-
-namespace Qhta.Conversion;
+﻿namespace Qhta.Conversion;
 
 public class TypeNameConverter : BaseTypeConverter
 {
@@ -84,8 +76,6 @@ public class TypeNameConverter : BaseTypeConverter
     {
       if (str == String.Empty)
         return null;
-      //if (str=="HeadingPairs")
-      //  TestTools.Stop();
       var aType = TypeNaming.GetType(str);
       if (aType != null)
         return aType;
