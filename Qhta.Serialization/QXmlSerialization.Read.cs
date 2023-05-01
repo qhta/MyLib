@@ -216,8 +216,8 @@ public partial class QXmlSerializer
               else
                 ReadXmlTextElement(instance, textMemberInfo);
             }
-            else
-              ;//throw new XmlInternalException($"No text or content property found in type {instance.GetType().Name}", Reader);
+//            else
+//              ;//throw new XmlInternalException($"No text or content property found in type {instance.GetType().Name}", Reader);
           }
           Reader.ReadEndElement(startTagName);
         }
@@ -378,8 +378,6 @@ public partial class QXmlSerializer
       var startTagName = Reader.Name;
       bool isEmptyElement = Reader.IsEmptyElement;
       SerializationMemberInfo? memberInfo;
-      //if (startTagName.Name=="Run")
-      //  Debug.Assert(true);
       if (String.IsNullOrEmpty(startTagName.Namespace))
       {
         memberInfo = members.FirstOrDefault(item => item.XmlName == startTagName.Name);

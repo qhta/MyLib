@@ -419,14 +419,10 @@ public class ValueTypeConverter : BaseTypeConverter
 
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
-    if (ExpectedType == typeof(string))
-      Debug.Assert(true);
-
     if (InternalTypeConverter == null)
       Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertFrom(context, Culture, value);
     return value;
-    //return base.ConvertFrom(context, Culture, value);
   }
 }

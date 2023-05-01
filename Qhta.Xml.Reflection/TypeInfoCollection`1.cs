@@ -191,8 +191,6 @@ public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqua
     var result = FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
     if (result == false)
       result =  ShortNameIndexedItems.TryGetValue(qualifiedName.Name, out typeInfo);
-    if (result == false)
-      Debug.Assert(true);
     return result;
   }
 

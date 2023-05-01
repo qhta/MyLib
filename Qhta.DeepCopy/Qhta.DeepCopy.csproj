@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AutoRedirectBindings>true</AutoRedirectBindings>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Qhta.DeepCopy</RootNamespace>
+    <Description>Library to create a deep copy of the objects property by property</Description>
+    <Authors>Yarreck Qhta</Authors>
+    <Version>1.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <NoWarn>1701;1702;MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <NoWarn>1701;1702;MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+    <NoWarn>1701;1702;MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+    <NoWarn>1701;1702;MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net6'))">
+    <Reference Include="Qhta.TextUtils">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.TypeUtils">
+      <HintPath>..\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <Reference Include="Qhta.TextUtils">
+      <HintPath>..\bin\Debug\netstandard2.0\Qhta.TextUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Qhta.TypeUtils">
+      <HintPath>..\bin\Debug\netstandard2.0\Qhta.TypeUtils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

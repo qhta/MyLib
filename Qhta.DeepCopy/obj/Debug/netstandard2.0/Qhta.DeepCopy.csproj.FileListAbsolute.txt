@@ -1,0 +1,13 @@
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCopy.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCopy.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCopy.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCopy.xml
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.dll
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.xml
+D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.pdb

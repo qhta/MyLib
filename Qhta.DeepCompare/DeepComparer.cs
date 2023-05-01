@@ -64,7 +64,7 @@ public static class DeepComparer
     if (testObject != null && refObject != null)
     {
       var refType = refObject.GetNotNullableType();
-      var testType = refObject.GetNotNullableType();
+      var testType = testObject.GetNotNullableType();
       if (objName == null)
         objName = refType.Name ?? testType.Name;
       if (propName!=null)

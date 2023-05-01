@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kAcLqctgmA2v12+PKD3wEMmyx5+4DJ+DwaG15Me7TQPbhi6df26zjYx1MbOW5El/Onb4h/Fhq9chzbvKHDHByQ==",
+  "success": true,
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.DeepCopy\\Qhta.DeepCopy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

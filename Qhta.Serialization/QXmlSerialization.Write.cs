@@ -192,8 +192,6 @@ public partial class QXmlSerializer
 
       var attrTag = CreateAttributeTag(memberInfo, type);
       var propValue = memberInfo.GetValue(obj);
-      if (propValue as String == "HyperlinkBase")
-        Debug.Assert(true);
       if (propValue != null)
       {
         var defaultValue = memberInfo.DefaultValue;
@@ -324,8 +322,6 @@ public partial class QXmlSerializer
       if (propInfo != null)
       {
         var value = propInfo.GetValue(context, null);
-        if (value as string == @"d:\VS\Docs\")
-          Debug.Assert(true);
         if (value != null)
         {
           var typeConverter = contentMemberInfo.GetTypeConverter();

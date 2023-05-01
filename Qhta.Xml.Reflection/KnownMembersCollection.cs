@@ -14,8 +14,6 @@ public class KnownMembersCollection : ICollection<SerializationMemberInfo>, IMem
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public void Add(SerializationMemberInfo item)
   {
-    //if (item.Property?.Name=="Text")
-    //  TestTools.Stop();
     Items.Add(item);
     OrderedItems.Add(item);
     NameIndexedItems.Add(new QualifiedName(item.XmlName), item);
