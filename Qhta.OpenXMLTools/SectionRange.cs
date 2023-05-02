@@ -8,9 +8,9 @@ namespace Qhta.OpenXMLTools;
 
 public class SectionRange
 {
-  public OpenXmlElement Start { get; set; }
-  public OpenXmlElement End { get; set; }
-  public SectionProperties SectionProperties { get; set; }
+  public OpenXmlElement Start { get; internal set; } = null!;
+  public OpenXmlElement End { get; internal set; } = null!;
+  public SectionProperties SectionProperties { get; internal set; } = null!;
 
   public IEnumerable<OpenXmlElement> Elements
   {

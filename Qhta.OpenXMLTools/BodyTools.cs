@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DocumentFormat.OpenXml.Wordprocessing;
 
@@ -22,12 +23,17 @@ public static class BodyTools
         newSection.Start = body.Elements().FirstOrDefault();
       else
       {
-        newSection.Start = sections[i - 1].End.NextSibling();
+        var sectionStart=  sections[i - 1].End?.NextSibling();
+        if (sectionStart!=null)
+          newSection.Start = sectionStart;
       }
+      Debug.Assert(newSection.Start != null, "Section start is null");
       var endElement = sectionProps[i].Parent;
       if (endElement is ParagraphProperties)
         endElement = endElement.Parent;
-      newSection.End = endElement;
+      if (endElement != null)
+        newSection.End = endElement;
+      Debug.Assert(newSection.End != null, "Section end is null");
       sections.Add(newSection);
     }
     return sections;

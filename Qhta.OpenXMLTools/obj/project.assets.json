@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "DocumentFormat.OpenXml/2.19.0": {
+      "DocumentFormat.OpenXml/2.20.0": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "4.7.0"
@@ -67,14 +67,14 @@
     }
   },
   "libraries": {
-    "DocumentFormat.OpenXml/2.19.0": {
-      "sha512": "BLFqodowHZHR/A/sKU/6e+63J5ONWDdv8hEuSZOUiBfGFuVmsG9P3o+LMSq+dajNWE1q+lqVSa1H5FuhLX8/fA==",
+    "DocumentFormat.OpenXml/2.20.0": {
+      "sha512": "+oFMsEppo/W6KpGTRXaJl2jTFYn9zeon4FaZuDoCijQ1/0JaPENaCef7d4Y3f8v116eKhVBwd4Ya+/NDglxkjw==",
       "type": "package",
-      "path": "documentformat.openxml/2.19.0",
+      "path": "documentformat.openxml/2.20.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "documentformat.openxml.2.19.0.nupkg.sha512",
+        "documentformat.openxml.2.20.0.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "icon.png",
         "lib/net35/DocumentFormat.OpenXml.dll",
@@ -277,7 +277,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "DocumentFormat.OpenXml >= 2.19.0",
+      "DocumentFormat.OpenXml >= 2.20.0",
       "NETStandard.Library >= 2.0.3",
       "Qhta.OrdNumbers >= 2.2.1"
     ]
@@ -328,7 +328,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[2.19.0, )"
+            "version": "[2.20.0, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
@@ -352,7 +352,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
