@@ -508,12 +508,12 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// Wrapper for ReadEndElement operation.
   /// Checks that the current content node is an end tag with a specified name and advances the reader to the next node.
   /// </summary>
-  /// <exception cref="XmlInternalException">Thrown if node is not end element or name does not match</exception>
+  /// <exception cref="XmlInvalidOperationException">Thrown if node is not end element or name does not match</exception>
   public void ReadEndElement(string name)
   {
     var ok = _reader.NodeType == XmlNodeType.EndElement && _reader.Name == name;
     if (!ok)
-      throw new XmlInternalException($"End element \"{name}\" expected but {_reader.NodeType} \"{_reader.Name}\" found", _reader);
+      throw new XmlInvalidOperationException($"End element \"{name}\" expected but {_reader.NodeType} \"{_reader.Name}\" found", _reader);
     _reader.ReadEndElement();
   }
 
@@ -521,12 +521,12 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// Wrapper for ReadEndElement operation.
   /// Checks that the current content node is an end tag with a specified name and namespaceURI and advances the reader to the next node.
   /// </summary>
-  /// <exception cref="XmlInternalException">Thrown if node is not end element or name and namespaceURI does not match</exception>
+  /// <exception cref="XmlInvalidOperationException">Thrown if node is not end element or name and namespaceURI does not match</exception>
   public void ReadEndElement(XmlQualifiedTagName tag)
   {
     var ok = _reader.NodeType == XmlNodeType.EndElement && _reader.LocalName == tag.Name && _reader.NamespaceURI == tag.Namespace;
     if (!ok)
-      throw new XmlInternalException($"End element \"{tag}\" expected but {_reader.NodeType} \"{_reader.Name}\" found", _reader);
+      throw new XmlInvalidOperationException($"End element \"{tag}\" expected but {_reader.NodeType} \"{_reader.Name}\" found", _reader);
     _reader.ReadEndElement();
   }
   #endregion

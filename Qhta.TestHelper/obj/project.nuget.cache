@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dCTyCuWlenutaNmp/MCmSLS5aVxZ903uBTCrCFjwg9zLuU0S9lMQwpd4mk7qA2yNd7Cfgq/VGFLp00l4LuzZlg==",
+  "dgSpecHash": "c1l6FNm64QNfLL01mRI6yhzZNY/rqKAiOUs1jTbwTNUI3nulLkx5cELPwz/+IsP8KOH9oVOo3S5JowXeLeFLQw==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj",
   "expectedPackageFiles": [
@@ -9,8 +9,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\1.0.0\\qhta.collections.1.0.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -23,7 +23,7 @@ public class TestCase<DataType> : TestCase
   public override TestResult Execute()
   {
     if (ExecFunction == null)
-      throw new InternalException($"ExecFunction nust be specified to run these test case");
+      throw new InvalidOperationException($"ExecFunction nust be specified to run these test case");
     Result = ExecFunction(Data);
     return Result;
   }

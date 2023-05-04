@@ -27,7 +27,7 @@ public abstract class AbstractFileComparer
   /// <param name="options">Options (instance of class <see cref="FileCompareOptions"/>)</param>
   /// <param name="writer">Writer to receive detailed results of comparison</param>
   [DebuggerStepThrough]
-  public AbstractFileComparer(FileCompareOptions options, ITraceTextWriter? writer)
+  public AbstractFileComparer(FileCompareOptions options, ITraceTextWriter? writer = null)
   {
     Options = options;
     Writer = writer;

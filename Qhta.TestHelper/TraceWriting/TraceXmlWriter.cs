@@ -32,7 +32,7 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
     base(filename, consoleOutputEnabled, traceOutputEnabled)
   {
     if (OutputStream==null)
-      throw new InternalException($"Output stream not created for \"{filename}\"");
+      throw new InvalidOperationException($"Output stream not created for \"{filename}\"");
     _writer = XmlWriter.Create(OutputStream, new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true });
     _stack = new Stack<string>();
   }
@@ -92,7 +92,7 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
         Flush();
     }
     else
-      throw new InternalException($"TraceXmlWriter tried to write end of \"{xmlName}\" element but \"{_storedName}\" expected");
+      throw new InvalidOperationException($"TraceXmlWriter tried to write end of \"{xmlName}\" element but \"{_storedName}\" expected");
   }
 
   public void WriteAttributeString(string? prefix, string attrName, string? ns, string? str)

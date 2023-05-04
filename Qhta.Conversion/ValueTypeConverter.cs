@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.Design;
 using System.Diagnostics;
 
-using Qhta.TestHelper;
-
 namespace Qhta.Conversion;
 
 public class ValueTypeConverter : BaseTypeConverter

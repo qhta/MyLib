@@ -351,14 +351,14 @@
             Wrapper for ReadEndElement operation.
             Checks that the current content node is an end tag with a specified name and advances the reader to the next node.
             </summary>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown if node is not end element or name does not match</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown if node is not end element or name does not match</exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlReader.ReadEndElement(Qhta.Xml.XmlQualifiedTagName)">
             <summary>
             Wrapper for ReadEndElement operation.
             Checks that the current content node is an end tag with a specified name and namespaceURI and advances the reader to the next node.
             </summary>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown if node is not end element or name and namespaceURI does not match</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown if node is not end element or name and namespaceURI does not match</exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlReader.Close">
             <summary>
@@ -416,7 +416,7 @@
             </summary>
             <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
             <returns>Read object</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown in a tag does not represent a registered type.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown in a tag does not represent a registered type.</exception>
             <entrystate>
             On entry, the Reader must be located at the XML start element (or empty element) tag.
             This tag represents the object type. Its name is a type name (with namespace) or a type root element name.
@@ -439,7 +439,7 @@
             <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
             <param name="typeInfo">A type info for expected object</param>
             <returns>Read object</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException"></exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException"></exception>
             <entrystate>
             On entry, the Reader must be located at the XML start element (or empty element) tag that represents the object.
             </entrystate>
@@ -495,7 +495,7 @@
             <param name="instance">Existing object instance.</param>
             <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
             <returns>The number of elements read</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown when the XML element is unrecognized.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown when the XML element is unrecognized.</exception>
             <entrystate>
             On entry, the Reader is located just after the XML start element that represents the instance.
             </entrystate>
@@ -539,7 +539,7 @@
             <param name="instance">Instance which content property is to be read</param>
             <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
             <returns>Read value (may be null)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on invalid type mapping.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on invalid type mapping.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the object.
             </entrystate>
@@ -558,7 +558,7 @@
             <param name="instanceTypeInfo">TypeInfo of the instance</param>
             <param name="contentItemInfo">Info of the known item types.</param>
             <returns>Read item object (or null if item type could not be recognized)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on collection (or dictionary) error.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on collection (or dictionary) error.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the collection item.
             </entrystate>
@@ -583,7 +583,7 @@
             <param name="instanceTypeInfo">TypeInfo of the instance</param>
             <param name="dictionaryInfo">Info of the known item types.</param>
             <returns>Read item object (or null if item type could not be recognized)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on collection (or dictionary) error.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on collection (or dictionary) error.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the collection item.
             </entrystate>
@@ -607,7 +607,7 @@
             <param name="instance"></param>
             <param name="memberInfo"></param>
             <returns>Read object (nay be null)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
             </entrystate>
@@ -623,7 +623,7 @@
             <param name="memberInfo">Serialization member info.</param>
             <param name="valueTypeInfo">Serialization type info for expected value.</param>
             <returns>Read object (may be null)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
             </entrystate>
@@ -648,7 +648,7 @@
             <param name="memberInfo">Serialization member info.</param>
             <param name="valueTypeInfo">Serialization type info for expected value.</param>
             <returns>Read object (may be null)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <remarks>Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.</remarks>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the object.
@@ -678,7 +678,7 @@
             <param name="context">Context object, instance which member is to be read.</param>
             <param name="itemInfo">Serialization item info that holds expected type info</param>
             <returns>Read object (may be null)</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors</exception>
             <remarks>
             Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>. 
             </remarks>
@@ -699,7 +699,7 @@
             <param name="expectedValueType">Expected value type to validate. If null, then any value type is allowed.</param>
             <param name="dictionaryInfo">Dictionary info to recognize an element that represents a key.</param>
             <returns>Read pair of key-value, both of object type.</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the object.
             </entrystate>
@@ -720,7 +720,7 @@
             <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
             <param name="contentInfo">Info of the known item types.</param>
             <returns>Read collection (or null).</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
             Member must be of array, collection, list or dictionary type.
@@ -748,7 +748,7 @@
             <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
             <param name="contentInfo">Info of the known item types.</param>
             <returns>Read collection (or null).</returns>
-            <exception cref="T:Qhta.Xml.Serialization.XmlInternalException">Thrown on errors.</exception>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
             Member must be of array, collection, list or dictionary type.
@@ -914,7 +914,7 @@
             <param name="context">Context object for write operation. Usually a container of the written object</param>
             <param name="obj">Object to writer</param>
             <param name="tag">Tag name of the opening and closing element</param>
-            <exception cref="T:Qhta.TestHelper.InternalException">Thrown when the object type is not registered.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the object type is not registered.</exception>
             <remarks>
             If a type has XmlConverter, this converter is used. 
             If not <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObjectInterior(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> is invoked.
@@ -927,7 +927,7 @@
             <param name="context">Context object for write operation. Usually a container of the written object</param>
             <param name="obj">Object to writer</param>
             <param name="typeInfo">Serialization info for the object type.</param>
-            <exception cref="T:Qhta.TestHelper.InternalException">Thrown when the object type is not registered.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the object type is not registered.</exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WritePropertiesAsAttributes(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
@@ -1810,34 +1810,34 @@
             Unimplemented virtual method to read from XML reader
             </summary>
         </member>
-        <member name="T:Qhta.Xml.Serialization.XmlInternalException">
+        <member name="T:Qhta.Xml.Serialization.XmlInvalidOperationException">
             <summary>
               Class extending <see cref="T:System.Exception" /> to hold
-              <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LineNumber" /> and <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LinePosition" />.
+              <see cref="P:Qhta.Xml.Serialization.XmlInvalidOperationException.LineNumber" /> and <see cref="P:Qhta.Xml.Serialization.XmlInvalidOperationException.LinePosition" />.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlInternalException.#ctor(System.String,System.Xml.XmlReader,System.Exception,System.String)">
+        <member name="M:Qhta.Xml.Serialization.XmlInvalidOperationException.#ctor(System.String,System.Xml.XmlReader,System.Exception,System.String)">
             <summary>
               Extending constructor.
               If <paramref name="xmlReader" /> is <see cref="T:System.Xml.XmlTextReader" />
-              then <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LineNumber" /> and <see cref="P:Qhta.Xml.Serialization.XmlInternalException.LinePosition" /> are set appriopriately.
+              then <see cref="P:Qhta.Xml.Serialization.XmlInvalidOperationException.LineNumber" /> and <see cref="P:Qhta.Xml.Serialization.XmlInvalidOperationException.LinePosition" /> are set appriopriately.
             </summary>
             <param name="message"></param>
             <param name="xmlReader"></param>
             <param name="innerException"></param>
             <param name="methodName"></param>
         </member>
-        <member name="P:Qhta.Xml.Serialization.XmlInternalException.LineNumber">
+        <member name="P:Qhta.Xml.Serialization.XmlInvalidOperationException.LineNumber">
             <summary>
             Gets line number of XML text file where the exception occured.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.Serialization.XmlInternalException.LinePosition">
+        <member name="P:Qhta.Xml.Serialization.XmlInvalidOperationException.LinePosition">
             <summary>
             Gets the position in line of XML text file where the exception occured.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlInternalException.ComposeMessage(System.String,System.Xml.XmlReader)">
+        <member name="M:Qhta.Xml.Serialization.XmlInvalidOperationException.ComposeMessage(System.String,System.Xml.XmlReader)">
             <summary>
             Composes message adding "in line ... at position ...
             </summary>
@@ -1909,7 +1909,7 @@
               with data taken from a type.
             </summary>
             <param name="typeInfo"></param>
-            <exception cref="T:Qhta.TestHelper.InternalException">
+            <exception cref="T:System.InvalidOperationException">
               Thrown if a type has no parameterless public constructor
               and an option <see cref="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreMissingConstructor" /> is not set.
             </exception>
@@ -1983,7 +1983,7 @@
             </summary>
             <param name="typeInfo">Serialization info for type to reflect</param>
             <returns>A serialization property info or null if not found</returns>
-            <exception cref="T:Qhta.TestHelper.InternalException">
+            <exception cref="T:System.InvalidOperationException">
               If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
             </exception>
         </member>
@@ -1996,7 +1996,7 @@
             </summary>
             <param name="typeInfo">Serialization info for type to reflect</param>
             <returns>A serialization property info or null if not found</returns>
-            <exception cref="T:Qhta.TestHelper.InternalException">
+            <exception cref="T:System.InvalidOperationException">
               If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
             </exception>
         </member>
@@ -2033,7 +2033,7 @@
             </summary>
             <param name="aType">A type fo reflect</param>
             <returns>Type converter instance</returns>
-            <exception cref="T:Qhta.TestHelper.InternalException">
+            <exception cref="T:System.InvalidOperationException">
               Thrown in two cases:
               <list type="number">
                 <item>Type converter of the specified name could not be found</item>
@@ -2134,7 +2134,7 @@
             </summary>
             <param name="converterType"></param>
             <returns></returns>
-            <exception cref="T:Qhta.TestHelper.InternalException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.SearchShouldSerializeMethods(System.Type,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>

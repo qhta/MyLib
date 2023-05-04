@@ -41,9 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Qhta.TestHelper">
-      <HintPath>..\bin\Debug\net6.0\Qhta.TestHelper.dll</HintPath>
-    </Reference>
     <Reference Include="Qhta.TextUtils">
       <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
     </Reference>

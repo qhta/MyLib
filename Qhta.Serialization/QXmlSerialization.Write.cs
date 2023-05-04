@@ -56,7 +56,7 @@ public partial class QXmlSerializer
   {
     var aType = obj.GetType();
     if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-      throw new InternalException($"Type \"{aType}\" not registered");
+      throw new InvalidOperationException($"Type \"{aType}\" not registered");
     var tag = CreateElementTag(serializedTypeInfo, aType);
     WriteObject(context, obj, tag);
   }
@@ -67,7 +67,7 @@ public partial class QXmlSerializer
   /// <param name="context">Context object for write operation. Usually a container of the written object</param>
   /// <param name="obj">Object to writer</param>
   /// <param name="tag">Tag name of the opening and closing element</param>
-  /// <exception cref="InternalException">Thrown when the object type is not registered.</exception>
+  /// <exception cref="InvalidOperationException">Thrown when the object type is not registered.</exception>
   /// <remarks>
   /// If a type has XmlConverter, this converter is used. 
   /// If not <see cref="WriteObjectInterior"/> is invoked.
@@ -84,7 +84,7 @@ public partial class QXmlSerializer
     else
     {
       if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-        throw new InternalException($"Type \"{aType}\" not registered");
+        throw new InvalidOperationException($"Type \"{aType}\" not registered");
       Writer.EmitNamespaces = Options.EmitNamespaces;
       if (tag != null)
         Writer.WriteStartElement(tag);
@@ -115,14 +115,14 @@ public partial class QXmlSerializer
   /// <param name="context">Context object for write operation. Usually a container of the written object</param>
   /// <param name="obj">Object to writer</param>
   /// <param name="typeInfo">Serialization info for the object type.</param>
-  /// <exception cref="InternalException">Thrown when the object type is not registered.</exception>
+  /// <exception cref="InvalidOperationException">Thrown when the object type is not registered.</exception>
   public void WriteObjectInterior(object? context, object obj, SerializationTypeInfo? typeInfo = null)
   {
     if (typeInfo == null)
     {
       var aType = obj.GetType();
       if (!KnownTypes.TryGetValue(aType, out typeInfo))
-        throw new InternalException($"Type \"{aType}\" not registered");
+        throw new InvalidOperationException($"Type \"{aType}\" not registered");
     }
     WritePropertiesAsAttributes(context, obj, typeInfo);
     var typeConverter = typeInfo.TypeConverter;

@@ -162,7 +162,7 @@ public class XmlSerializationInfoMapper
   ///   with data taken from a type.
   /// </summary>
   /// <param name="typeInfo"></param>
-  /// <exception cref="InternalException">
+  /// <exception cref="InvalidOperationException">
   ///   Thrown if a type has no parameterless public constructor
   ///   and an option <see cref="SerializationOptions.IgnoreMissingConstructor" /> is not set.
   /// </exception>
@@ -524,7 +524,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="typeInfo">Serialization info for type to reflect</param>
   /// <returns>A serialization property info or null if not found</returns>
-  /// <exception cref="InternalException">
+  /// <exception cref="InvalidOperationException">
   ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
   /// </exception>
   public virtual SerializationMemberInfo? GetTextProperty(SerializationTypeInfo typeInfo)
@@ -537,7 +537,7 @@ public class XmlSerializationInfoMapper
       return null;
 
     if (textProperties.Count() > 1)
-      throw new InternalException($"Type {type.Name} has multiple properties marked as xml text, but only one is allowed");
+      throw new InvalidOperationException($"Type {type.Name} has multiple properties marked as xml text, but only one is allowed");
 
     var textProperty = textProperties.First();
     var knownTextProperty = new SerializationMemberInfo(typeInfo, "", textProperty);
@@ -553,7 +553,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="typeInfo">Serialization info for type to reflect</param>
   /// <returns>A serialization property info or null if not found</returns>
-  /// <exception cref="InternalException">
+  /// <exception cref="InvalidOperationException">
   ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
   /// </exception>
   public virtual SerializationMemberInfo? GetContentProperty(SerializationTypeInfo typeInfo)
@@ -565,7 +565,7 @@ public class XmlSerializationInfoMapper
       var contentPropertyName = contentPropertyAttrib.Name;
       var memberInfo = type.GetProperty(contentPropertyName);
       if (memberInfo == null)
-        throw new InternalException($"Content property \"{contentPropertyName}\" in {type.Name} not found");
+        throw new InvalidOperationException($"Content property \"{contentPropertyName}\" in {type.Name} not found");
       var contentPropertyInfo = new SerializationMemberInfo(typeInfo, contentPropertyName, memberInfo);
       contentPropertyInfo.ValueType = RegisterType(memberInfo.PropertyType);
       var converterTypeName = memberInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
@@ -589,16 +589,16 @@ public class XmlSerializationInfoMapper
     {
       var converterType = xmlTypeConverterAttrib.ConverterType;
       if (converterType == null)
-        throw new InternalException($"Converter type not declared in XmlConverterAttribute assigned to a type {aType.Name}");
+        throw new InvalidOperationException($"Converter type not declared in XmlConverterAttribute assigned to a type {aType.Name}");
       var argTypes = new Type[xmlTypeConverterAttrib.Args.Length];
       for (var i = 0; i < argTypes.Length; i++)
         argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
       var constructor = converterType.GetConstructor(argTypes);
       if (constructor == null)
-        throw new InternalException($"Converter type {converterType.Name} has no appropriate constructor");
+        throw new InvalidOperationException($"Converter type {converterType.Name} has no appropriate constructor");
       var converter = constructor.Invoke(xmlTypeConverterAttrib.Args) as IXmlConverter;
       if (converter == null)
-        throw new InternalException($"Converter type {converterType.Name} is not a subclass of XmlConverter");
+        throw new InvalidOperationException($"Converter type {converterType.Name} is not a subclass of XmlConverter");
       return converter;
     }
     return null;
@@ -680,7 +680,7 @@ public class XmlSerializationInfoMapper
           itemType = typeof(object);
         if (!KnownTypes.TryGetValue(itemType, out var itemTypeInfo)) itemTypeInfo = RegisterType(itemType);
         if (itemTypeInfo == null)
-          throw new InternalException($"Unknown type {itemType} for deserialization");
+          throw new InvalidOperationException($"Unknown type {itemType} for deserialization");
         SerializationItemInfo knownItemTypeInfo;
         if (!string.IsNullOrEmpty(xmlItemElementAttribute.ElementName))
           knownItemTypeInfo = new SerializationItemInfo(xmlItemElementAttribute.ElementName, itemTypeInfo);
@@ -698,7 +698,7 @@ public class XmlSerializationInfoMapper
           var addMethods = aType.GetMethods().Where(m => m.Name == addMethodName).ToList();
           if (!addMethods.Any())
           {
-            throw new InternalException($"Add method \"{xmlItemElementAttribute.AddMethod}\" in type {aType} not found for deserialization");
+            throw new InvalidOperationException($"Add method \"{xmlItemElementAttribute.AddMethod}\" in type {aType} not found for deserialization");
           }
           MethodInfo? addMethodInfo = null;
           foreach (var addMethod in addMethods)
@@ -724,7 +724,7 @@ public class XmlSerializationInfoMapper
           if (addMethodInfo != null)
             knownItemTypeInfo.AddMethod = addMethodInfo;
           else
-            throw new InternalException($"No compatible \"{xmlItemElementAttribute.AddMethod}\"method found in type {itemType}.");
+            throw new InvalidOperationException($"No compatible \"{xmlItemElementAttribute.AddMethod}\"method found in type {itemType}.");
         }
         knownItems.Add(knownItemTypeInfo);
       }
@@ -740,7 +740,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="aType">A type fo reflect</param>
   /// <returns>Type converter instance</returns>
-  /// <exception cref="InternalException">
+  /// <exception cref="InvalidOperationException">
   ///   Thrown in two cases:
   ///   <list type="number">
   ///     <item>Type converter of the specified name could not be found</item>
@@ -755,16 +755,16 @@ public class XmlSerializationInfoMapper
     {
       var converterTypeName = typeConverterAttribute.ConverterTypeName;
       if (converterTypeName == null)
-        throw new InternalException("Converter type name in a TypeConverter xmlAttribute must not be null");
+        throw new InvalidOperationException("Converter type name in a TypeConverter xmlAttribute must not be null");
       if (!TypeConverters.TryGetValue(converterTypeName, out var converter))
       {
         converter = FindTypeConverter(converterTypeName);
         if (converter == null)
-          throw new InternalException($"Type converter \"{converterTypeName}\" not found");
+          throw new InvalidOperationException($"Type converter \"{converterTypeName}\" not found");
         if (converter.CanConvertTo(null, typeof(string)) && converter.CanConvertFrom(null, typeof(string)))
           TypeConverters.Add(converterTypeName, converter);
         else
-          throw new InternalException($"Type converter \"{converterTypeName}\" can not convert to or from string");
+          throw new InvalidOperationException($"Type converter \"{converterTypeName}\" can not convert to or from string");
       }
       return converter;
     }
@@ -901,7 +901,7 @@ public class XmlSerializationInfoMapper
         if (string.IsNullOrEmpty(xmlName))
         {
           if (itemType == null)
-            throw new InternalException(
+            throw new InvalidOperationException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
           xmlName = itemType.GetTypeTag();
         }
@@ -912,7 +912,7 @@ public class XmlSerializationInfoMapper
         if (string.IsNullOrEmpty(xmlName))
         {
           if (itemType == null)
-            throw new InternalException(
+            throw new InvalidOperationException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
           xmlNamespace = itemType.Namespace;
         }
@@ -994,7 +994,7 @@ public class XmlSerializationInfoMapper
         if (string.IsNullOrEmpty(elemName))
         {
           if (itemType == null)
-            throw new InternalException(
+            throw new InvalidOperationException(
               $"Element name or type must be specified in ArrayItemAttribute in specification of {aType} type");
           elemName = itemType.Name;
         }
@@ -1080,14 +1080,14 @@ public class XmlSerializationInfoMapper
   /// </summary>
   /// <param name="converterType"></param>
   /// <returns></returns>
-  /// <exception cref="InternalException"></exception>
+  /// <exception cref="InvalidOperationException"></exception>
   protected TypeConverter? CreateTypeConverter(Type converterType)
   {
     if (!converterType.IsSubclassOf(typeof(TypeConverter)))
-      throw new InternalException($"Declared type converter \"{converterType.Name}\" must be a subclass of {typeof(TypeConverter).FullName}");
+      throw new InvalidOperationException($"Declared type converter \"{converterType.Name}\" must be a subclass of {typeof(TypeConverter).FullName}");
     var constructor = converterType.GetConstructor(new Type[0]);
     if (constructor == null)
-      throw new InternalException($"Declared type converter \"{converterType.Name}\" must have a public parameterless constructor");
+      throw new InvalidOperationException($"Declared type converter \"{converterType.Name}\" must have a public parameterless constructor");
     return constructor.Invoke(null) as TypeConverter;
   }
 

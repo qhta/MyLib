@@ -6,7 +6,7 @@ namespace Qhta.Xml.Serialization;
 ///   Class extending <see cref="Exception" /> to hold
 ///   <see cref="LineNumber" /> and <see cref="LinePosition" />.
 /// </summary>
-public class XmlInternalException : Exception
+public class XmlInvalidOperationException : Exception
 {
   /// <summary>
   ///   Extending constructor.
@@ -17,7 +17,7 @@ public class XmlInternalException : Exception
   /// <param name="xmlReader"></param>
   /// <param name="innerException"></param>
   /// <param name="methodName"></param>
-  public XmlInternalException(string message, XmlReader xmlReader, Exception? innerException = null,
+  public XmlInvalidOperationException(string message, XmlReader xmlReader, Exception? innerException = null,
     [CallerMemberName] string? methodName = null) : base(ComposeMessage(message, xmlReader), innerException)
   {
     if (xmlReader is XmlTextReader xmlTextReader)

@@ -11,7 +11,6 @@
           "Qhta.Xml": "1.0.0",
           "System.Configuration.ConfigurationManager": "7.0.0",
           "Qhta.Collections": "2.0.0.0",
-          "Qhta.TestHelper": "2.0.0.0",
           "Qhta.TypeUtils": "1.3.0.0"
         },
         "runtime": {
@@ -124,14 +123,6 @@
           }
         }
       },
-      "Qhta.TestHelper/2.0.0.0": {
-        "runtime": {
-          "Qhta.TestHelper.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
-          }
-        }
-      },
       "Qhta.TypeUtils/1.3.0.0": {
         "runtime": {
           "Qhta.TypeUtils.dll": {
@@ -196,11 +187,6 @@
       "sha512": ""
     },
     "Qhta.Collections/2.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Qhta.TestHelper/2.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

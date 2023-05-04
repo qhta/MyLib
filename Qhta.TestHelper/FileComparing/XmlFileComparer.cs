@@ -36,7 +36,7 @@ public class XmlFileComparer : AbstractFileComparer
   /// <param name="options">Options to compare</param>
   /// <param name="writer">Writer used to show different elements</param>
   [DebuggerStepThrough]
-  public XmlFileComparer(FileCompareOptions options, ITraceTextWriter? writer) : base(options, writer)
+  public XmlFileComparer(FileCompareOptions options, ITraceTextWriter? writer = null) : base(options, writer)
   {
   }
 
@@ -81,7 +81,7 @@ public class XmlFileComparer : AbstractFileComparer
     var areEqual = result == CompResult.AreEqual;
     if (!areEqual && !shown)
     {
-      throw new InternalException("XmlFileComparer have not shown unequal elements");
+      throw new InvalidOperationException("XmlFileComparer have not shown unequal elements");
     }
     if (areEqual)
     {
@@ -111,7 +111,7 @@ public class XmlFileComparer : AbstractFileComparer
   protected virtual CompResult CompareXmlElements(XElement outElement, XElement expElement, bool showUnequal, ref bool shown)
   {
     if (outElement.NodeType != expElement.NodeType
-        || !AreEqual(outElement.Name.NamespaceName, expElement.Name.NamespaceName)
+        || !AreEqual(outElement.Name.NamespaceName, expElement.Name.Namespace.NamespaceName)
         || !AreEqual(outElement.Name.LocalName, expElement.Name.LocalName))
     {
       if (showUnequal)
@@ -130,8 +130,10 @@ public class XmlFileComparer : AbstractFileComparer
       }
       return CompResult.AttrDiff;
     }
-    var outNodes = outElement.Elements().ToArray();
-    var expNodes = expElement.Elements().ToArray();
+    var outNodes = outElement.Elements().ToList();
+    var expNodes = expElement.Elements().ToList();
+    outNodes.Sort(CmpXElements);
+    expNodes.Sort(CmpXElements);
     int outNodesCount = outNodes.Count();
     int expNodesCount = expNodes.Count();
     bool areEqual = outNodesCount == expNodesCount;
@@ -163,7 +165,7 @@ public class XmlFileComparer : AbstractFileComparer
             }
             else 
             {
-              ShowUnequalElements(outNodes[i..^0], expNodes[i..^0]);
+              ShowUnequalElements(outNodes.ToArray()[i..^0], expNodes.ToArray()[i..^0]);
               shown = true;
             }
           }
@@ -190,6 +192,11 @@ public class XmlFileComparer : AbstractFileComparer
     return CompResult.AreEqual;
   }
 
+  private static int CmpXElements(XElement outElement, XElement expElement)
+  {
+    return outElement.Name.LocalName.CompareTo(expElement.Name.LocalName);
+  }
+
   /// <summary>
   /// Method to compare Xml attributes of two Xml elements.
   /// </summary>
@@ -198,8 +205,8 @@ public class XmlFileComparer : AbstractFileComparer
   /// <returns>true if attributes of both elements are equal</returns>
   protected virtual bool CompareXmlAttributes(XElement outElement, XElement expElement)
   {
-    var outAttributes = outElement.Attributes().ToList();
-    var expAttributes = expElement.Attributes().ToList();
+    var outAttributes = outElement.Attributes().Where(item=>!item.IsNamespaceDeclaration).ToList();
+    var expAttributes = expElement.Attributes().Where(item=>!item.IsNamespaceDeclaration).ToList();
     if (outAttributes.Count != expAttributes.Count)
     {
       return false;
