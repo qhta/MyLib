@@ -36,10 +36,10 @@ public abstract class AbstractFileComparer
   /// <summary>
   /// Abstract method of file compare
   /// </summary>
-  /// <param name="outFilename">File containing received output</param>
+  /// <param name="recFilename">File containing Received content</param>
   /// <param name="expFilename">File containing expected output</param>
   /// <returns></returns>
-  public abstract bool CompareFiles(string outFilename, string expFilename);
+  public abstract bool CompareFiles(string recFilename, string expFilename);
 
   /// <summary>
   /// Check if a line is empty
@@ -123,9 +123,9 @@ public abstract class AbstractFileComparer
     }
     if (isExpected == false)
     {
-      if (Options.OutLinesColor != null && Writer!=null)
+      if (Options.recLinesColor != null && Writer!=null)
       {
-        Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
+        Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
         colorChanged = true;
       }
     }
@@ -144,7 +144,7 @@ public abstract class AbstractFileComparer
   /// </summary>
   /// <param name="line">line to write</param>
   /// <param name="isExp">
-  ///   true if lines belong to "expected" file, false if belong to "output" files, or null if none or both
+  ///   true if lines belong to "expected" file, false if belong to "received" files, or null if none or both
   /// </param>
   protected void ShowLine(string line, bool? isExp = null)
   {

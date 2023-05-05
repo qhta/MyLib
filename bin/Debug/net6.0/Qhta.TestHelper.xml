@@ -31,7 +31,7 @@
             <summary>
             Abstract method of file compare
             </summary>
-            <param name="outFilename">File containing received output</param>
+            <param name="recFilename">File containing Received content</param>
             <param name="expFilename">File containing expected output</param>
             <returns></returns>
         </member>
@@ -74,7 +74,7 @@
             </summary>
             <param name="line">line to write</param>
             <param name="isExp">
-              true if lines belong to "expected" file, false if belong to "output" files, or null if none or both
+              true if lines belong to "expected" file, false if belong to "received" files, or null if none or both
             </param>
         </member>
         <member name="T:Qhta.TestHelper.FileCompareOptions">
@@ -137,9 +137,9 @@
             Message written if files are not equal
             </summary>
         </member>
-        <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfDiffOut">
+        <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfDiffRec">
             <summary>
-            Line written at start of output file different lines or elements
+            Line written at start of received file different lines or elements
             </summary>
         </member>
         <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfDiffExp">
@@ -147,14 +147,24 @@
             Line written at start of expected file different lines or elements
             </summary>
         </member>
+        <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfDiffMis">
+            <summary>
+            Line written at start of missing elements taken from expected file
+            </summary>
+        </member>
+        <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfDiffExc">
+            <summary>
+            Line written at start of exceeded elements taken from received file
+            </summary>
+        </member>
         <member name="P:Qhta.TestHelper.FileCompareOptions.EndOfDiffs">
             <summary>
             Line written at end of different lines or elements
             </summary>
         </member>
-        <member name="F:Qhta.TestHelper.FileCompareOptions.OutLinesColor">
+        <member name="F:Qhta.TestHelper.FileCompareOptions.recLinesColor">
             <summary>
-            Color of output lines if shown in console.
+            Color of received lines if shown in console.
             </summary>
         </member>
         <member name="F:Qhta.TestHelper.FileCompareOptions.ExpLinesColor">
@@ -179,7 +189,7 @@
             Implemented method of file comparison.
             Simply reads out whole files and invokes <see cref="M:Qhta.TestHelper.TextFileComparer.CompareTexts(System.String,System.String)"/>.
             </summary>
-            <param name="outFilename">Received output filename</param>
+            <param name="recFilename">Received content filename</param>
             <param name="expFilename">Expected content filename</param>
             <returns>true is both files are equal</returns>
         </member>
@@ -189,7 +199,7 @@
             Input texts are splitted to lines using '\n' character and "\r\n" character pairs.
             Then <see cref="M:Qhta.TestHelper.TextFileComparer.CompareLines(System.String[],System.String[])"/> is called.
             </summary>
-            <param name="outText">Received output text</param>
+            <param name="recText">Received content text</param>
             <param name="expText">Expected content text</param>
             <returns>true if both texts are equal</returns>
         </member>
@@ -200,25 +210,25 @@
             If they are not equal then comparer tries to synchronize both collections,
             i.e. to find next equal lines. Unequal lines are shown using writer
             </summary>
-            <param name="outLines">Received output text lines</param>
+            <param name="recLines">Received content text lines</param>
             <param name="expLines">Expected content text lines</param>
             <returns>true if both lines collections are equal</returns>
         </member>
         <member name="M:Qhta.TestHelper.TextFileComparer.TrySynchronize(System.String[],System.Int32,System.String[],System.Int32,System.Int32,System.Int32@,System.Int32@)">
             <summary>
             A method to synchronize output lines and expected lines if the difference is found.
-            First different line in <paramref name="outLines"/> is pointed by <paramref name="outIndex"/>
+            First different line in <paramref name="recLines"/> is pointed by <paramref name="outIndex"/>
             and first different line in <paramref name="expLines"/> is pointed by <paramref name="outIndex"/>
             Subsequent lines are compared in a maximum distance of <paramref name="maxDist"/>.
             New indexes <paramref name="newOutIndex"/> and <paramref name="newExpIndex"/> point the fist equal lines.
             If synchronization was successful then the different lines are shown.
             </summary>
-            <param name="outLines">Received output text lines</param>
-            <param name="outIndex">Index of first different line in <paramref name="outLines"/> collection</param>
+            <param name="recLines">Received content text lines</param>
+            <param name="outIndex">Index of first different line in <paramref name="recLines"/> collection</param>
             <param name="expLines">Expected content text lines</param>
             <param name="expIndex">Index of first different line in <paramref name="expLines"/> collection</param>
             <param name="maxDist">Maximum distance of search for the equal lines</param>
-            <param name="newOutIndex">Index of the first equal line in <paramref name="outLines"/> collection</param>
+            <param name="newOutIndex">Index of the first equal line in <paramref name="recLines"/> collection</param>
             <param name="newExpIndex">Index of the first equal line in <paramref name="expLines"/> collection</param>
             <returns>true if equal lines found</returns>
         </member>
@@ -297,17 +307,17 @@
             Implemented method of file comparison.
             Simply reads out whole xml documents and invokes <see cref="M:Qhta.TestHelper.XmlFileComparer.CompareXmlDocuments(System.Xml.Linq.XDocument,System.Xml.Linq.XDocument)"/>.
             </summary>
-            <param name="outFilename">Received output filename</param>
+            <param name="recFilename">Received content filename</param>
             <param name="expFilename">Expected content filename</param>
             <returns>true is both files are equal</returns>
         </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.CompareXmlDocuments(System.Xml.Linq.XDocument,System.Xml.Linq.XDocument)">
             <summary>
             Main method to compare Xml documents. 
-            Root elements are compared through <see cref="M:Qhta.TestHelper.XmlFileComparer.CompareXmlElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Boolean,System.Boolean@)"/>.
+            Root elements are compared through CompareXmlElements.
             </summary>
-            <param name="outDocument">Received output Xml document</param>
-            <param name="expDocument">Expected content Xml document</param>
+            <param name="recDocument">Received Xml document</param>
+            <param name="expDocument">Expected Xml document</param>
             <returns>true if both documents are equal</returns>
         </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.CompareXmlElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Boolean,System.Boolean@)">
@@ -316,8 +326,49 @@
             Parameters <paramref name="showUnequal"/> and <paramref name="shown"/> are important
             when the method is called recursive.
             </summary>
-            <param name="outElement">Received output Xml element</param>
-            <param name="expElement">Expected content Xml element</param>
+            <param name="recElement">Received Xml element</param>
+            <param name="expElement">Expected Xml element</param>
+            <param name="showUnequal">If unequal element should be shown</param>
+            <param name="shown">If unequal element were shown</param>
+            <returns>true if both elements are equal</returns>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.TryCreateDictionary(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement},System.Collections.Generic.Dictionary{System.String,System.Xml.Linq.XElement}@)">
+            <summary>
+            Creates dictionary of elements using element names as keys.
+            Returs true if, and only if, all elements have unique names.
+            </summary>
+            <param name="items">Input enumerations of XElements</param>
+            <param name="itemsDictionary">Output dictionary of XElements</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.CmpXElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement)">
+            <summary>
+            Compares local names of elements.
+            </summary>
+            <param name="recElement"></param>
+            <param name="expElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.CompareXmlElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.Xml.Linq.XElement},System.Collections.Generic.Dictionary{System.String,System.Xml.Linq.XElement},System.Boolean,System.Boolean@)">
+            <summary>
+            Compares dictionaries of items of recElement and expElement
+            </summary>
+            <param name="recElement">Received Xml element</param>
+            <param name="expElement">Expected Xml element</param>
+            <param name="outItemsDict">List of child elements of out element</param>
+            <param name="expItemsDict">List of child elements of exp element</param>
+            <param name="showUnequal">If unequal element should be shown</param>
+            <param name="shown">If unequal element were shown</param>
+            <returns>true if both elements are equal</returns>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.CompareXmlElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Collections.Generic.List{System.Xml.Linq.XElement},System.Collections.Generic.List{System.Xml.Linq.XElement},System.Boolean,System.Boolean@)">
+            <summary>
+            Compares items lists of recElement and expElement.
+            </summary>
+            <param name="recElement">Received Xml element</param>
+            <param name="expElement">Expected Xml element</param>
+            <param name="outItemsList">List of child elements of out element</param>
+            <param name="expItemsList">List of child elements of exp element</param>
             <param name="showUnequal">If unequal element should be shown</param>
             <param name="shown">If unequal element were shown</param>
             <returns>true if both elements are equal</returns>
@@ -326,8 +377,8 @@
             <summary>
             Method to compare Xml attributes of two Xml elements.
             </summary>
-            <param name="outElement">Received output Xml element</param>
-            <param name="expElement">Expected content Xml element</param>
+            <param name="recElement">Received Xml element</param>
+            <param name="expElement">Expected Xml element</param>
             <returns>true if attributes of both elements are equal</returns>
         </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.CompareAttrName(System.Xml.Linq.XAttribute,System.Xml.Linq.XAttribute)">
@@ -343,16 +394,28 @@
             <summary>
             Helper method to compare two attributes. Attribute namespaces, localnames and values are compared.
             </summary>
-            <param name="outAttribute">First attribute to compare</param>
+            <param name="recAttribute">First attribute to compare</param>
             <param name="expAttribute">Second attribute to compare</param>
             <returns>true if both attributes are euqal</returns>
         </member>
-        <member name="M:Qhta.TestHelper.XmlFileComparer.ShowUnequalElement(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Int32)">
+        <member name="M:Qhta.TestHelper.XmlFileComparer.ShowMissingElements(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
+            <summary>
+            Helper method to show collection of missing elements.
+            </summary>
+            <param name="expElements">Collection of missing Xml elements</param>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.ShowExcessiveElements(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
+            <summary>
+            Helper method to show collection of excessive elements.
+            </summary>
+            <param name="recElements">Collection of excessive Xml elements</param>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.ShowUnequalElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Int32)">
             <summary>
             Helper method to show unequal elements.
             </summary>
-            <param name="outElement">Received output Xml element</param>
-            <param name="expElement">Expected content Xml element</param>
+            <param name="recElement">Received Xml element</param>
+            <param name="expElement">Expected Xml element</param>
             <param name="linesLimit">Limit of content lines to show 
             (default 0 changed to <see cref="P:Qhta.TestHelper.FileCompareOptions.SyncLimit"/>)</param>
         </member>
@@ -361,17 +424,17 @@
             Helper method to show unequal elements. Two collections of elements are taken.
             Limits from <see cref="P:Qhta.TestHelper.FileCompareOptions.SyncLimit"/> is applied.
             </summary>
-            <param name="outElements">Collection of received output Xml elements</param>
-            <param name="expElements">Collection of expected content Xml elements</param>
+            <param name="recElements">Collection of Received Xml elements</param>
+            <param name="expElements">Collection of expected Xml elements</param>
             <param name="linesLimit">Limit of content lines to show 
             (default 0 changed to <see cref="P:Qhta.TestHelper.FileCompareOptions.SyncLimit"/>)</param>
         </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.ShowUnequalItemElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Int32,System.Int32)">
             <summary>
-            Helper method of unequal items of elements. Similar to previous but with several differeces.
+            Helper method to show unequal items of elements. Similar to previous but with several differeces.
             </summary>
-            <param name="outElement">Collection of received output Xml elements</param>
-            <param name="expElement">Collection of expected content Xml elements</param>
+            <param name="recElement">Collection of Received Xml elements</param>
+            <param name="expElement">Collection of expected Xml elements</param>
             <param name="fromIndex">Index of the first item</param>
             <param name="linesLimit">Limit of content lines to show 
             (default 0 changed to <see cref="P:Qhta.TestHelper.FileCompareOptions.SyncLimit"/>)</param>

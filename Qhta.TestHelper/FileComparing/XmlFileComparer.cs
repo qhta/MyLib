@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -44,15 +41,15 @@ public class XmlFileComparer : AbstractFileComparer
   /// Implemented method of file comparison.
   /// Simply reads out whole xml documents and invokes <see cref="CompareXmlDocuments"/>.
   /// </summary>
-  /// <param name="outFilename">Received output filename</param>
+  /// <param name="recFilename">Received content filename</param>
   /// <param name="expFilename">Expected content filename</param>
   /// <returns>true is both files are equal</returns>
-  public override bool CompareFiles(string outFilename, string expFilename)
+  public override bool CompareFiles(string recFilename, string expFilename)
   {
     XDocument outXml;
     XDocument expXml;
     diffCount = 0;
-    using (TextReader aReader = File.OpenText(outFilename))
+    using (TextReader aReader = File.OpenText(recFilename))
       outXml = XDocument.Load(aReader);
 
     using (TextReader aReader = File.OpenText(expFilename))
@@ -63,21 +60,21 @@ public class XmlFileComparer : AbstractFileComparer
 
   /// <summary>
   /// Main method to compare Xml documents. 
-  /// Root elements are compared through <see cref="CompareXmlElements"/>.
+  /// Root elements are compared through CompareXmlElements.
   /// </summary>
-  /// <param name="outDocument">Received output Xml document</param>
-  /// <param name="expDocument">Expected content Xml document</param>
+  /// <param name="recDocument">Received Xml document</param>
+  /// <param name="expDocument">Expected Xml document</param>
   /// <returns>true if both documents are equal</returns>
-  protected virtual bool CompareXmlDocuments(XDocument outDocument, XDocument expDocument)
+  protected virtual bool CompareXmlDocuments(XDocument recDocument, XDocument expDocument)
   {
     bool shown = false;
 
-    if (outDocument?.Root == null && expDocument?.Root == null)
+    if (recDocument?.Root == null && expDocument?.Root == null)
       return true;
-    if (outDocument?.Root == null || expDocument?.Root == null)
+    if (recDocument?.Root == null || expDocument?.Root == null)
       return false;
 
-    var result = CompareXmlElements(outDocument.Root, expDocument.Root, true, ref shown);
+    var result = CompareXmlElements(recDocument.Root, expDocument.Root, true, ref shown);
     var areEqual = result == CompResult.AreEqual;
     if (!areEqual && !shown)
     {
@@ -103,47 +100,159 @@ public class XmlFileComparer : AbstractFileComparer
   /// Parameters <paramref name="showUnequal"/> and <paramref name="shown"/> are important
   /// when the method is called recursive.
   /// </summary>
-  /// <param name="outElement">Received output Xml element</param>
-  /// <param name="expElement">Expected content Xml element</param>
+  /// <param name="recElement">Received Xml element</param>
+  /// <param name="expElement">Expected Xml element</param>
   /// <param name="showUnequal">If unequal element should be shown</param>
   /// <param name="shown">If unequal element were shown</param>
   /// <returns>true if both elements are equal</returns>
-  protected virtual CompResult CompareXmlElements(XElement outElement, XElement expElement, bool showUnequal, ref bool shown)
+  protected virtual CompResult CompareXmlElements(XElement recElement, XElement expElement, bool showUnequal, ref bool shown)
   {
-    if (outElement.NodeType != expElement.NodeType
-        || !AreEqual(outElement.Name.NamespaceName, expElement.Name.Namespace.NamespaceName)
-        || !AreEqual(outElement.Name.LocalName, expElement.Name.LocalName))
+    if (recElement.NodeType != expElement.NodeType
+        || !AreEqual(recElement.Name.NamespaceName, expElement.Name.Namespace.NamespaceName)
+        || !AreEqual(recElement.Name.LocalName, expElement.Name.LocalName))
     {
       if (showUnequal)
       {
-        ShowUnequalElement(outElement, expElement, 1);
+        ShowUnequalElements(recElement, expElement, 1);
         shown = true;
       }
       return CompResult.NameDiff;
     }
-    if (!CompareXmlAttributes(outElement, expElement))
+    if (!CompareXmlAttributes(recElement, expElement))
     {
       if (showUnequal)
       {
-        ShowUnequalElement(outElement, expElement, 1);
+        ShowUnequalElements(recElement, expElement, 1);
         shown = true;
       }
       return CompResult.AttrDiff;
     }
-    var outNodes = outElement.Elements().ToList();
-    var expNodes = expElement.Elements().ToList();
-    outNodes.Sort(CmpXElements);
-    expNodes.Sort(CmpXElements);
-    int outNodesCount = outNodes.Count();
-    int expNodesCount = expNodes.Count();
-    bool areEqual = outNodesCount == expNodesCount;
-    for (int i = 0; i < Math.Min(outNodesCount, expNodesCount); i++)
+    var recElementsList = recElement.Elements().ToList();
+    var expElementsList = expElement.Elements().ToList();
+    Dictionary<string, XElement> recElementsDir = null!;
+    Dictionary<string, XElement> expElementsDir = null!;
+    // Dictionaries of compared child element can be used only if the element names are unique.
+    var itemsAreUnique = TryCreateDictionary(recElementsList, out recElementsDir) && TryCreateDictionary(expElementsList, out expElementsDir);
+    if (itemsAreUnique)
+      return CompareXmlElements(recElement, expElement,
+        recElementsDir, expElementsDir, showUnequal, ref shown);
+    else
+      return CompareXmlElements(recElement, expElement,
+        recElementsList, expElementsList, showUnequal, ref shown);
+  }
+
+  /// <summary>
+  /// Creates dictionary of elements using element names as keys.
+  /// Returs true if, and only if, all elements have unique names.
+  /// </summary>
+  /// <param name="items">Input enumerations of XElements</param>
+  /// <param name="itemsDictionary">Output dictionary of XElements</param>
+  /// <returns></returns>
+  private static bool TryCreateDictionary(IEnumerable<XElement> items, out Dictionary<string, XElement> itemsDictionary)
+  {
+    bool result = true;
+    itemsDictionary = new Dictionary<string, XElement>();
+    foreach (XElement item in items)
     {
-      var result = CompareXmlElements(outNodes[i], expNodes[i], outNodesCount == expNodesCount, ref shown);
+      var itemName = item.Name.NamespaceName + ":" + item.Name.LocalName;
+      if (!itemsDictionary.ContainsKey(itemName))
+        itemsDictionary.Add(itemName, item);
+      else
+        result = false;
+    }
+    return result;
+  }
+
+  /// <summary>
+  /// Compares local names of elements.
+  /// </summary>
+  /// <param name="recElement"></param>
+  /// <param name="expElement"></param>
+  /// <returns></returns>
+  private static int CmpXElements(XElement recElement, XElement expElement)
+  {
+    return recElement.Name.LocalName.CompareTo(expElement.Name.LocalName);
+  }
+
+  /// <summary>
+  /// Compares dictionaries of items of recElement and expElement
+  /// </summary>
+  /// <param name="recElement">Received Xml element</param>
+  /// <param name="expElement">Expected Xml element</param>
+  /// <param name="outItemsDict">List of child elements of out element</param>
+  /// <param name="expItemsDict">List of child elements of exp element</param>
+  /// <param name="showUnequal">If unequal element should be shown</param>
+  /// <param name="shown">If unequal element were shown</param>
+  /// <returns>true if both elements are equal</returns>
+  protected virtual CompResult CompareXmlElements(XElement recElement, XElement expElement,
+    Dictionary<string, XElement> outItemsDict, Dictionary<string, XElement> expItemsDict, bool showUnequal, ref bool shown)
+  {
+    var result = CompResult.AreEqual;
+    int outItemsCount = outItemsDict.Count();
+    int expItemsCount = expItemsDict.Count();
+    bool areEqual = outItemsCount == expItemsCount;
+    List<XElement> missingElements = new();
+    List<XElement> checkedElements = new();
+    foreach (var item in expItemsDict)
+    {
+      var expItem = item.Value;
+      if (outItemsDict.TryGetValue(item.Key, out var outItem))
+      {
+        result = CompareXmlElements(outItem, expItem, true, ref shown);
+        checkedElements.Add(outItem);
+        return result;
+      }
+      else
+        missingElements.Add(expItem);
+    }
+
+    if (missingElements.Count > 0)
+    {
+      if (showUnequal)
+      {
+        ShowMissingElements(missingElements);
+        shown = true;
+      }
+      result = CompResult.ElementCountDiff;
+    }
+    if (outItemsCount > checkedElements.Count)
+    {
+      if (showUnequal)
+      {
+        List<XElement> excessiveElements = expItemsDict.Values.ToList();
+        foreach (var item in checkedElements)
+          excessiveElements.Remove(item);
+        ShowExcessiveElements(missingElements);
+        shown = true;
+      }
+      result = CompResult.ElementCountDiff;
+    }
+    return result;
+  }
+
+  /// <summary>
+  /// Compares items lists of recElement and expElement.
+  /// </summary>
+  /// <param name="recElement">Received Xml element</param>
+  /// <param name="expElement">Expected Xml element</param>
+  /// <param name="outItemsList">List of child elements of out element</param>
+  /// <param name="expItemsList">List of child elements of exp element</param>
+  /// <param name="showUnequal">If unequal element should be shown</param>
+  /// <param name="shown">If unequal element were shown</param>
+  /// <returns>true if both elements are equal</returns>
+  protected virtual CompResult CompareXmlElements(XElement recElement, XElement expElement,
+    List<XElement> outItemsList, List<XElement> expItemsList, bool showUnequal, ref bool shown)
+  {
+    int outItemsCount = outItemsList.Count();
+    int expItemsCount = expItemsList.Count();
+    bool areEqual = outItemsCount == expItemsCount;
+    for (int i = 0; i < Math.Min(outItemsCount, expItemsCount); i++)
+    {
+      var result = CompareXmlElements(outItemsList[i], expItemsList[i], outItemsCount == expItemsCount, ref shown);
       if (result != CompResult.AreEqual)
       {
         areEqual = false;
-        if (outNodesCount == expNodesCount)
+        if (outItemsCount == expItemsCount)
         {
           diffCount++;
           if (diffCount >= Options.DiffLimit)
@@ -160,12 +269,12 @@ public class XmlFileComparer : AbstractFileComparer
                 fromIndex--;
               if (fromIndex > 0)
                 fromIndex--;
-              ShowUnequalItemElements(outElement, expElement, fromIndex, 20);
+              ShowUnequalItemElements(recElement, expElement, fromIndex, 20);
               shown = true;
             }
-            else 
+            else
             {
-              ShowUnequalElements(outNodes.ToArray()[i..^0], expNodes.ToArray()[i..^0]);
+              ShowUnequalElements(outItemsList.ToArray()[i..^0], expItemsList.ToArray()[i..^0]);
               shown = true;
             }
           }
@@ -175,49 +284,44 @@ public class XmlFileComparer : AbstractFileComparer
     }
     if (!areEqual)
     {
-      if (outNodesCount != expNodesCount)
+      if (outItemsCount != expItemsCount)
       {
-        ShowUnequalElement(outElement, expElement);
+        ShowUnequalElements(recElement, expElement);
         shown = true;
         return CompResult.ElementCountDiff;
       }
       return CompResult.ElementDiff;
     }
-    if (outElement.Value != expElement.Value)
+    if (recElement.Value != expElement.Value)
     {
-      ShowUnequalElement(outElement, expElement);
+      ShowUnequalElements(recElement, expElement);
       shown = true;
       return CompResult.ValueDiff;
     }
     return CompResult.AreEqual;
   }
 
-  private static int CmpXElements(XElement outElement, XElement expElement)
-  {
-    return outElement.Name.LocalName.CompareTo(expElement.Name.LocalName);
-  }
-
   /// <summary>
   /// Method to compare Xml attributes of two Xml elements.
   /// </summary>
-  /// <param name="outElement">Received output Xml element</param>
-  /// <param name="expElement">Expected content Xml element</param>
+  /// <param name="recElement">Received Xml element</param>
+  /// <param name="expElement">Expected Xml element</param>
   /// <returns>true if attributes of both elements are equal</returns>
-  protected virtual bool CompareXmlAttributes(XElement outElement, XElement expElement)
+  protected virtual bool CompareXmlAttributes(XElement recElement, XElement expElement)
   {
-    var outAttributes = outElement.Attributes().Where(item=>!item.IsNamespaceDeclaration).ToList();
-    var expAttributes = expElement.Attributes().Where(item=>!item.IsNamespaceDeclaration).ToList();
-    if (outAttributes.Count != expAttributes.Count)
+    var recAttributes = recElement.Attributes().Where(item => !item.IsNamespaceDeclaration).ToList();
+    var expAttributes = expElement.Attributes().Where(item => !item.IsNamespaceDeclaration).ToList();
+    if (recAttributes.Count != expAttributes.Count)
     {
       return false;
     }
     if (Options.IgnoreAttributesOrder)
     {
-      outAttributes.Sort(CompareAttrName);
+      recAttributes.Sort(CompareAttrName);
       expAttributes.Sort(CompareAttrName);
     }
-    for (int i = 0; i < outAttributes.Count; i++)
-      if (!CompareXmlAttribute(outAttributes[i], expAttributes[i]))
+    for (int i = 0; i < recAttributes.Count; i++)
+      if (!CompareXmlAttribute(recAttributes[i], expAttributes[i]))
       {
         return false;
       }
@@ -235,7 +339,7 @@ public class XmlFileComparer : AbstractFileComparer
   {
     var name1 = attr1.Name;
     var name2 = attr2.Name;
-    var result = String.Compare((name1.Namespace??"").ToString(), (name2.Namespace??"").ToString(), StringComparison.Ordinal);
+    var result = String.Compare((name1.Namespace ?? "").ToString(), (name2.Namespace ?? "").ToString(), StringComparison.Ordinal);
     if (result != 0)
       return result;
     result = String.Compare(name1.LocalName.ToString(), name2.LocalName.ToString(), StringComparison.Ordinal);
@@ -245,16 +349,16 @@ public class XmlFileComparer : AbstractFileComparer
   /// <summary>
   /// Helper method to compare two attributes. Attribute namespaces, localnames and values are compared.
   /// </summary>
-  /// <param name="outAttribute">First attribute to compare</param>
+  /// <param name="recAttribute">First attribute to compare</param>
   /// <param name="expAttribute">Second attribute to compare</param>
   /// <returns>true if both attributes are euqal</returns>
-  protected virtual bool CompareXmlAttribute(XAttribute outAttribute, XAttribute expAttribute)
+  protected virtual bool CompareXmlAttribute(XAttribute recAttribute, XAttribute expAttribute)
   {
-    if (!AreEqual(outAttribute.Name.NamespaceName, expAttribute.Name.NamespaceName))
+    if (!AreEqual(recAttribute.Name.NamespaceName, expAttribute.Name.NamespaceName))
       return false;
-    if (!AreEqual(outAttribute.Name.LocalName, expAttribute.Name.LocalName))
+    if (!AreEqual(recAttribute.Name.LocalName, expAttribute.Name.LocalName))
       return false;
-    var outValue = outAttribute.Value ?? "";
+    var outValue = recAttribute.Value ?? "";
     var expValue = expAttribute.Value ?? "";
     if (!AreEqual(outValue, expValue))
       return false;
@@ -262,21 +366,75 @@ public class XmlFileComparer : AbstractFileComparer
   }
 
   /// <summary>
+  /// Helper method to show collection of missing elements.
+  /// </summary>
+  /// <param name="expElements">Collection of missing Xml elements</param>
+  protected virtual void ShowMissingElements(IEnumerable<XElement> expElements)
+  {
+    var linesLimit = Options.SyncLimit;
+    ShowLine(Options.StartOfDiffMis);
+    if (Options.ExpLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
+    var expLimit = expElements.Count();
+    foreach (var expElement in expElements)
+    {
+      var linesShown = ShowXmlElement(expElement, true, linesLimit);
+      expLimit -= linesShown;
+      if (expLimit < 0)
+      {
+        if (Writer != null)
+          Writer.WriteLine("...");
+        break;
+      }
+    }
+    if (Options.ExpLinesColor != null && Writer != null)
+      Writer.ResetColors();
+    ShowLine(Options.EndOfDiffs);
+  }
+
+  /// <summary>
+  /// Helper method to show collection of excessive elements.
+  /// </summary>
+  /// <param name="recElements">Collection of excessive Xml elements</param>
+  protected virtual void ShowExcessiveElements(IEnumerable<XElement> recElements)
+  {
+    var linesLimit = Options.SyncLimit;
+    ShowLine(Options.StartOfDiffExc);
+    if (Options.recLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    var expLimit = recElements.Count();
+    foreach (var recElement in recElements)
+    {
+      var linesShown = ShowXmlElement(recElement, true, linesLimit);
+      expLimit -= linesShown;
+      if (expLimit < 0)
+      {
+        if (Writer != null)
+          Writer.WriteLine("...");
+        break;
+      }
+    }
+    if (Options.recLinesColor != null && Writer != null)
+      Writer.ResetColors();
+    ShowLine(Options.EndOfDiffs);
+  }
+
+  /// <summary>
   /// Helper method to show unequal elements.
   /// </summary>
-  /// <param name="outElement">Received output Xml element</param>
-  /// <param name="expElement">Expected content Xml element</param>
+  /// <param name="recElement">Received Xml element</param>
+  /// <param name="expElement">Expected Xml element</param>
   /// <param name="linesLimit">Limit of content lines to show 
   /// (default 0 changed to <see cref="FileCompareOptions.SyncLimit"/>)</param>
-  protected virtual void ShowUnequalElement(XElement outElement, XElement expElement, int linesLimit=0)
+  protected virtual void ShowUnequalElements(XElement recElement, XElement expElement, int linesLimit = 0)
   {
     if (linesLimit == 0)
       linesLimit = Options.SyncLimit;
-    ShowLine(Options.StartOfDiffOut);
-    if (Options.OutLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
-    ShowXmlElement(outElement, false, linesLimit);
-    if (Options.OutLinesColor != null && Writer != null)
+    ShowLine(Options.StartOfDiffRec);
+    if (Options.recLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    ShowXmlElement(recElement, false, linesLimit);
+    if (Options.recLinesColor != null && Writer != null)
       Writer.ResetColors();
     ShowLine(Options.StartOfDiffExp);
     if (Options.ExpLinesColor != null && Writer != null)
@@ -291,41 +449,41 @@ public class XmlFileComparer : AbstractFileComparer
   /// Helper method to show unequal elements. Two collections of elements are taken.
   /// Limits from <see cref="FileCompareOptions.SyncLimit"/> is applied.
   /// </summary>
-  /// <param name="outElements">Collection of received output Xml elements</param>
-  /// <param name="expElements">Collection of expected content Xml elements</param>
+  /// <param name="recElements">Collection of Received Xml elements</param>
+  /// <param name="expElements">Collection of expected Xml elements</param>
   /// <param name="linesLimit">Limit of content lines to show 
   /// (default 0 changed to <see cref="FileCompareOptions.SyncLimit"/>)</param>
-  protected virtual void ShowUnequalElements(XElement[] outElements, XElement[] expElements, int linesLimit=0)
+  protected virtual void ShowUnequalElements(XElement[] recElements, XElement[] expElements, int linesLimit = 0)
   {
     if (linesLimit == 0)
       linesLimit = Options.SyncLimit;
     if (linesLimit == 0)
       linesLimit = int.MaxValue;
-    var outLinesLimit = linesLimit;
-    ShowLine(Options.StartOfDiffOut);
-    if (Options.OutLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
-    for (int i = 0; i < outLinesLimit; i++)
+    var recLinesLimit = linesLimit;
+    ShowLine(Options.StartOfDiffRec);
+    if (Options.recLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    for (int i = 0; i < recLinesLimit; i++)
     {
-      if (i >= outElements.Count())
+      if (i >= recElements.Count())
         break;
-      var linesShown = ShowXmlElement(outElements[i], false, outLinesLimit);
-      outLinesLimit -= linesShown;
-      if (outLinesLimit <= 0)
+      var linesShown = ShowXmlElement(recElements[i], false, recLinesLimit);
+      recLinesLimit -= linesShown;
+      if (recLinesLimit <= 0)
       {
-        if (outLinesLimit < -1)// -1 means that "..." line was shown
+        if (recLinesLimit < -1)// -1 means that "..." line was shown
           ShowLine("...");
         break;
       }
     }
-    if (Options.OutLinesColor != null && Writer != null)
+    if (Options.recLinesColor != null && Writer != null)
       Writer.ResetColors();
 
     ShowLine(Options.StartOfDiffExp);
     if (Options.ExpLinesColor != null && Writer != null)
       Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
     var expLinesLimit = linesLimit;
-    for (int i = 0; i < outLinesLimit; i++)
+    for (int i = 0; i < recLinesLimit; i++)
     {
       if (i >= expElements.Count())
         break;
@@ -345,30 +503,30 @@ public class XmlFileComparer : AbstractFileComparer
   }
 
   /// <summary>
-  /// Helper method of unequal items of elements. Similar to previous but with several differeces.
+  /// Helper method to show unequal items of elements. Similar to previous but with several differeces.
   /// </summary>
-  /// <param name="outElement">Collection of received output Xml elements</param>
-  /// <param name="expElement">Collection of expected content Xml elements</param>
+  /// <param name="recElement">Collection of Received Xml elements</param>
+  /// <param name="expElement">Collection of expected Xml elements</param>
   /// <param name="fromIndex">Index of the first item</param>
   /// <param name="linesLimit">Limit of content lines to show 
   /// (default 0 changed to <see cref="FileCompareOptions.SyncLimit"/>)</param>
-  protected virtual void ShowUnequalItemElements(XElement outElement, XElement expElement, int fromIndex, int linesLimit=0)
+  protected virtual void ShowUnequalItemElements(XElement recElement, XElement expElement, int fromIndex, int linesLimit = 0)
   {
     if (linesLimit == 0)
       linesLimit = Options.SyncLimit;
-    ShowLine(Options.StartOfDiffOut);
-    if (Options.OutLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.OutLinesColor;
-    var outElements = outElement.Elements().ToArray();
+    ShowLine(Options.StartOfDiffRec);
+    if (Options.recLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    var recElements = recElement.Elements().ToArray();
     int outLimit = linesLimit;
-    for (int i = fromIndex; i < outElements.Count(); i++)
+    for (int i = fromIndex; i < recElements.Count(); i++)
     {
       if (i - fromIndex > outLimit)
         break;
-      var linesShown = ShowXmlElement(outElements[i], false, outLimit);
+      var linesShown = ShowXmlElement(recElements[i], false, outLimit);
       outLimit -= linesShown;
     }
-    if (Options.OutLinesColor != null && Writer != null)
+    if (Options.recLinesColor != null && Writer != null)
       Writer.ResetColors();
 
     ShowLine(Options.StartOfDiffExp);
@@ -429,7 +587,7 @@ public class XmlFileComparer : AbstractFileComparer
       xmlWriter.Formatting = Formatting.Indented;
       (xmlElement as IXmlSerializable).WriteXml(xmlWriter);
       var str = stringWriter.ToString();
-      str = str.Replace("\r\n", "\n");;
+      str = str.Replace("\r\n", "\n"); ;
       var lines = str.Split("\n");
       return lines;
     }

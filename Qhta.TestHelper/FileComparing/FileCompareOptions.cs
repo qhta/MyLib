@@ -70,14 +70,24 @@ public class FileCompareOptions
   public string? InequalityMsg { get; set; }
 
   /// <summary>
-  /// Line written at start of output file different lines or elements
+  /// Line written at start of received file different lines or elements
   /// </summary>
-  public string StartOfDiffOut { get; set; } = "--- out " + new string('-', 20);
+  public string StartOfDiffRec { get; set; } = "--- received " + new string('-', 20);
 
   /// <summary>
   /// Line written at start of expected file different lines or elements
   /// </summary>
-  public string StartOfDiffExp { get; set; } = "--- exp " + new string('-', 20);
+  public string StartOfDiffExp { get; set; } = "--- expected " + new string('-', 20);
+
+  /// <summary>
+  /// Line written at start of missing elements taken from expected file
+  /// </summary>
+  public string StartOfDiffMis { get; set; } = "--- expected " + new string('-', 20);
+
+  /// <summary>
+  /// Line written at start of exceeded elements taken from received file
+  /// </summary>
+  public string StartOfDiffExc { get; set; } = "--- exceeded " + new string('-', 20);
 
   /// <summary>
   /// Line written at end of different lines or elements
@@ -85,9 +95,9 @@ public class FileCompareOptions
   public string EndOfDiffs { get; set; } = new string('=', 28);
 
   /// <summary>
-  /// Color of output lines if shown in console.
+  /// Color of received lines if shown in console.
   /// </summary>
-  public ConsoleColor? OutLinesColor = ConsoleColor.Red;
+  public ConsoleColor? recLinesColor = ConsoleColor.Red;
 
   /// <summary>
   /// Color of expected lines if shown in console.

@@ -22,21 +22,21 @@ public class TextFileComparer : AbstractFileComparer
   /// Implemented method of file comparison.
   /// Simply reads out whole files and invokes <see cref="CompareTexts"/>.
   /// </summary>
-  /// <param name="outFilename">Received output filename</param>
+  /// <param name="recFilename">Received content filename</param>
   /// <param name="expFilename">Expected content filename</param>
   /// <returns>true is both files are equal</returns>
-  public override bool CompareFiles(string outFilename, string expFilename)
+  public override bool CompareFiles(string recFilename, string expFilename)
   {
-    string outText;
+    string recText;
     string expText;
 
-    using (TextReader aReader = File.OpenText(outFilename))
-      outText = aReader.ReadToEnd();
+    using (TextReader aReader = File.OpenText(recFilename))
+      recText = aReader.ReadToEnd();
 
     using (TextReader aReader = File.OpenText(expFilename))
       expText = aReader.ReadToEnd();
 
-    return CompareTexts(outText, expText);
+    return CompareTexts(recText, expText);
   }
 
   /// <summary>
@@ -44,16 +44,16 @@ public class TextFileComparer : AbstractFileComparer
   /// Input texts are splitted to lines using '\n' character and "\r\n" character pairs.
   /// Then <see cref="CompareLines"/> is called.
   /// </summary>
-  /// <param name="outText">Received output text</param>
+  /// <param name="recText">Received content text</param>
   /// <param name="expText">Expected content text</param>
   /// <returns>true if both texts are equal</returns>
-  protected virtual bool CompareTexts(string outText, string expText)
+  protected virtual bool CompareTexts(string recText, string expText)
   {
-    outText = outText.Replace("\r\n", "\n");
+    recText = recText.Replace("\r\n", "\n");
     expText = expText.Replace("\r\n", "\n");
-    var outLines = outText.Split('\n');
+    var recLines = recText.Split('\n');
     var expLines = expText.Split('\n');
-    return CompareLines(outLines, expLines);
+    return CompareLines(recLines, expLines);
   }
 
   /// <summary>
@@ -62,19 +62,19 @@ public class TextFileComparer : AbstractFileComparer
   /// If they are not equal then comparer tries to synchronize both collections,
   /// i.e. to find next equal lines. Unequal lines are shown using writer
   /// </summary>
-  /// <param name="outLines">Received output text lines</param>
+  /// <param name="recLines">Received content text lines</param>
   /// <param name="expLines">Expected content text lines</param>
   /// <returns>true if both lines collections are equal</returns>
-  protected virtual bool CompareLines(string[] outLines, string[] expLines)
+  protected virtual bool CompareLines(string[] recLines, string[] expLines)
   {
     int outIndex, expIndex;
     bool areEqual = true;
     int diffCount = 0;
 
     bool stopped = false;
-    for (outIndex = 0, expIndex = 0; (outIndex >= 0 && outIndex < outLines.Count()) && (expIndex >= 0 && expIndex < expLines.Count()); outIndex++, expIndex++)
+    for (outIndex = 0, expIndex = 0; (outIndex >= 0 && outIndex < recLines.Count()) && (expIndex >= 0 && expIndex < expLines.Count()); outIndex++, expIndex++)
     {
-      var outLine = outLines[outIndex];
+      var outLine = recLines[outIndex];
       var expLine = expLines[expIndex];
       if (Options.IgnoreEmptyLines)
       {
@@ -112,7 +112,7 @@ public class TextFileComparer : AbstractFileComparer
         }
         else
         {
-          if (!TrySynchronize(outLines, outIndex, expLines, expIndex, Options.SyncLimit, out int newOutIndex, out int newExpIndex))
+          if (!TrySynchronize(recLines, outIndex, expLines, expIndex, Options.SyncLimit, out int newOutIndex, out int newExpIndex))
           {
             stopped = true;
             break;
@@ -143,30 +143,30 @@ public class TextFileComparer : AbstractFileComparer
 
   /// <summary>
   /// A method to synchronize output lines and expected lines if the difference is found.
-  /// First different line in <paramref name="outLines"/> is pointed by <paramref name="outIndex"/>
+  /// First different line in <paramref name="recLines"/> is pointed by <paramref name="outIndex"/>
   /// and first different line in <paramref name="expLines"/> is pointed by <paramref name="outIndex"/>
   /// Subsequent lines are compared in a maximum distance of <paramref name="maxDist"/>.
   /// New indexes <paramref name="newOutIndex"/> and <paramref name="newExpIndex"/> point the fist equal lines.
   /// If synchronization was successful then the different lines are shown.
   /// </summary>
-  /// <param name="outLines">Received output text lines</param>
-  /// <param name="outIndex">Index of first different line in <paramref name="outLines"/> collection</param>
+  /// <param name="recLines">Received content text lines</param>
+  /// <param name="outIndex">Index of first different line in <paramref name="recLines"/> collection</param>
   /// <param name="expLines">Expected content text lines</param>
   /// <param name="expIndex">Index of first different line in <paramref name="expLines"/> collection</param>
   /// <param name="maxDist">Maximum distance of search for the equal lines</param>
-  /// <param name="newOutIndex">Index of the first equal line in <paramref name="outLines"/> collection</param>
+  /// <param name="newOutIndex">Index of the first equal line in <paramref name="recLines"/> collection</param>
   /// <param name="newExpIndex">Index of the first equal line in <paramref name="expLines"/> collection</param>
   /// <returns>true if equal lines found</returns>
-  protected bool TrySynchronize(string[] outLines, int outIndex, string[] expLines, int expIndex, int maxDist, out int newOutIndex, out int newExpIndex)
+  protected bool TrySynchronize(string[] recLines, int outIndex, string[] expLines, int expIndex, int maxDist, out int newOutIndex, out int newExpIndex)
   {
-    var sync = TrySync(outLines, outIndex, expLines, expIndex, maxDist, out newOutIndex, out newExpIndex);
+    var sync = TrySync(recLines, outIndex, expLines, expIndex, maxDist, out newOutIndex, out newExpIndex);
     if (sync)
     {
       if (newOutIndex > outIndex)
       {
-        ShowLine(Options.StartOfDiffOut);
+        ShowLine(Options.StartOfDiffRec);
         int count = newOutIndex - outIndex;
-        ShowLines(outLines.AsSpan(outIndex, count).ToArray(), false);
+        ShowLines(recLines.AsSpan(outIndex, count).ToArray(), false);
       }
       if (newExpIndex > expIndex)
       {

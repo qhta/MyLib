@@ -77,16 +77,16 @@ public abstract class AbstractFileGenTest : AbstractTest
     return true;
   }
 
-  protected bool CompareResultFiles(string filename, string expFilename, string outFilename, bool acceptOnFail)
+  protected bool CompareResultFiles(string filename, string expFilename, string recFilename, bool acceptOnFail)
   {
     if (File.Exists(expFilename))
     {
-      if (!new XmlFileComparer(writeCompareOptions, TraceWriter).CompareFiles(outFilename, expFilename))
+      if (!new XmlFileComparer(writeCompareOptions, TraceWriter).CompareFiles(recFilename, expFilename))
       {
         TraceWriter?.WriteLine($"Parse result for \"{filename}\" compare FAILED");
         if (acceptOnFail)
         {
-          File.Copy(outFilename, expFilename, true);
+          File.Copy(recFilename, expFilename, true);
           TraceWriter?.WriteLine($"New result for \"{filename}\" ACCEPTED");
         }
         return false;
@@ -102,7 +102,7 @@ public abstract class AbstractFileGenTest : AbstractTest
       TraceWriter?.WriteLine($"Parse result for \"{filename}\" compare NOT FOUND");
       if (acceptOnFail)
       {
-        File.Copy(outFilename, expFilename);
+        File.Copy(recFilename, expFilename);
         TraceWriter?.WriteLine($"New result for \"{filename}\" ACCEPTED");
       }
       return true;
