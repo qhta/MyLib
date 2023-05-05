@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "Q3h7F1o0AvuT/CsEGtMP/y2kjOsziFM5yOYGD3UfFOUQoeMWDPZ4bvcIAyG93pufET3Iw6q8AT8GY1sgQqVUJg==",
+  "dgSpecHash": "N/csQU79+iH7YRBdBj5QQK7+HTwT1GlX6GOxI7zeS6xrkEPqf5xi/hLviJzbl65hTilCSfiBpNelkf/C8VCG3Q==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.DeepCompare\\Qhta.DeepCompare.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.0\\qhta.textutils.3.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.4\\qhta.typeutils.1.3.4.nupkg.sha512"
   ],
   "logs": []
 }

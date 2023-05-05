@@ -10,8 +10,8 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RootNamespace>Qhta.TypeUtils</RootNamespace>
-    <Description>A package of functions to supplement System.Text.</Description>
+    <RootNamespace>Qhta.SystemUtils</RootNamespace>
+    <Description>A package of functions to supplement System</Description>
     <Authors>Yarreck Qhta</Authors>
     <Version>1.0</Version>
   </PropertyGroup>

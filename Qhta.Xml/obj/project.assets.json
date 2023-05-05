@@ -25,9 +25,88 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "Qhta.Collections/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
       }
     },
-    "net6.0": {}
+    "net6.0": {
+      "Qhta.Collections/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.4": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -173,13 +252,62 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "Qhta.Collections/2.0.0": {
+      "sha512": "hSRcjgHW2Vfq2v7i+smLsa6wo2NMP82StXNYIiGYHPj6IcylOAupz1tOTa05PrWutnHVfaKUEO+XdA0+zgEtnA==",
+      "type": "package",
+      "path": "qhta.collections/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.Collections.dll",
+        "lib/net6.0/Qhta.Collections.xml",
+        "lib/netstandard2.0/Qhta.Collections.dll",
+        "lib/netstandard2.0/Qhta.Collections.xml",
+        "qhta.collections.2.0.0.nupkg.sha512",
+        "qhta.collections.nuspec"
+      ]
+    },
+    "Qhta.TextUtils/3.1.0": {
+      "sha512": "3alOb+J8eFkla4wVKqyyVYzOZYpGm/koVcBMCpjHtJZ/e0q2vXbnNXyXBSc/iTeYFhIT9vVmfJFWs0I6pPyFpg==",
+      "type": "package",
+      "path": "qhta.textutils/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.TextUtils.dll",
+        "lib/net6.0/Qhta.TextUtils.xml",
+        "lib/netstandard2.0/Qhta.TextUtils.dll",
+        "lib/netstandard2.0/Qhta.TextUtils.xml",
+        "qhta.textutils.3.1.0.nupkg.sha512",
+        "qhta.textutils.nuspec"
+      ]
+    },
+    "Qhta.TypeUtils/1.3.4": {
+      "sha512": "3azbhAotCATSNI3kenFAfoJig0k3XSIBHghXrQLGN7H5zR+foc02y2CQKzNdgG/CwTfgSRlpU2fMnopBiNgwQQ==",
+      "type": "package",
+      "path": "qhta.typeutils/1.3.4",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.TypeUtils.dll",
+        "lib/net6.0/Qhta.TypeUtils.xml",
+        "lib/netstandard2.0/Qhta.TypeUtils.dll",
+        "lib/netstandard2.0/Qhta.TypeUtils.xml",
+        "qhta.typeutils.1.3.4.nupkg.sha512",
+        "qhta.typeutils.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "NETStandard.Library >= 2.0.3"
+      "NETStandard.Library >= 2.0.3",
+      "Qhta.Collections >= 2.0.0",
+      "Qhta.TextUtils >= 3.1.0",
+      "Qhta.TypeUtils >= 1.3.4"
     ],
-    "net6.0": []
+    "net6.0": [
+      "Qhta.Collections >= 2.0.0",
+      "Qhta.TextUtils >= 3.1.0",
+      "Qhta.TypeUtils >= 1.3.4"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
@@ -199,6 +327,7 @@
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+        "D:\\VS\\Projects\\DocxDocument\\NuGet.Config",
         "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -208,7 +337,7 @@
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "d:\\VS\\Projects\\mylib\\bin": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -230,6 +359,20 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
+        "dependencies": {
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.1.0, )"
+          },
+          "Qhta.TypeUtils": {
+            "target": "Package",
+            "version": "[1.3.4, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -256,6 +399,18 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.1.0, )"
+          },
+          "Qhta.TypeUtils": {
+            "target": "Package",
+            "version": "[1.3.4, )"
           }
         },
         "imports": [

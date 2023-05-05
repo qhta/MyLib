@@ -337,6 +337,20 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TextUtils.StringUtils.IsAscii(System.String)">
+            <summary>
+            Checks if a string contains characters from space to ~.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.IsUnicode(System.String)">
+            <summary>
+            Checks if a string contains Unicode characters (i.e. with codes greater than 127)
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TextUtils.StringUtils.IsLike(System.String,System.String,System.StringComparison)">
             <summary>
               Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining

@@ -6,7 +6,7 @@
     <authors>Yarreck Qhta</authors>
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
-    <description>A package of functions to supplement System.Text.</description>
+    <description>A package of functions to supplement System</description>
     <dependencies>
       <group targetFramework="net6.0" />
       <group targetFramework=".NETStandard2.0" />

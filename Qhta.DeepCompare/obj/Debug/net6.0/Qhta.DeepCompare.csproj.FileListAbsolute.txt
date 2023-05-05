@@ -7,7 +7,6 @@ D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.Generate
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.csproj.CoreCompileInputs.cache
-D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.dll
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\refint\Qhta.DeepCompare.dll
 D:\VS\Projects\MyLib\Qhta.DeepCompare\obj\Debug\net6.0\Qhta.DeepCompare.xml

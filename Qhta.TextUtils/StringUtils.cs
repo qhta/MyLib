@@ -302,6 +302,38 @@ public static class StringUtils
   }
 
   /// <summary>
+  /// Checks if a string contains characters from space to ~.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  [DebuggerStepThrough]
+  public static bool IsAscii(this string str)
+  {
+    if (string.IsNullOrEmpty(str))
+      return false;
+    foreach (var ch in str)
+      if (ch<' ' || ch>'~')
+        return false;
+    return true;
+  }
+
+    /// <summary>
+  /// Checks if a string contains Unicode characters (i.e. with codes greater than 127)
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  [DebuggerStepThrough]
+  public static bool IsUnicode(this string str)
+  {
+    if (string.IsNullOrEmpty(str))
+      return false;
+    foreach (var ch in str)
+      if (ch>'\x7F')
+        return true;
+    return false;
+  }
+
+  /// <summary>
   ///   Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
   ///   characters.
   /// </summary>

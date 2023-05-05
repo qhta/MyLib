@@ -37,7 +37,7 @@ public class FileCompareOptions
   /// <summary>
   /// If attributes order in Xml compare is ignored
   /// </summary>
-  public bool IgnoreAttributesOrder { get; set; } = false;
+  public bool IgnoreAttributesOrder { get; set; } = true;
 
   /// <summary>
   /// if equal lines are written in text compare
