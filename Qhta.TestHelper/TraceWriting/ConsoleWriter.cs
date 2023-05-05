@@ -20,13 +20,13 @@ public class ConsoleWriter : AbstractWriter, IConsoleWriter
   public bool ConsoleOutputEnabled { get; set; } = true;
 
   /// <summary>
-  /// This static constructor assures than initial color would be the same
+  /// This constructor assures than initial colors would be the same
   /// for each instance;
   /// </summary>
-  static ConsoleWriter()
+  public ConsoleWriter()
   {
     Console.ResetColor();
-    initialForegroundColor = ConsoleColor.Gray; //Console.ForegroundColor;
+    initialForegroundColor = ConsoleColor.White; //Console.ForegroundColor;
     initialBackgroundColor = ConsoleColor.Black;//Console.BackgroundColor;
   }
 

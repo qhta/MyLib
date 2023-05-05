@@ -40,6 +40,11 @@ public class FileCompareOptions
   public bool IgnoreAttributesOrder { get; set; } = true;
 
   /// <summary>
+  /// If mc:Ignorable attribute is ignored.
+  /// </summary>
+  public bool IgnoreIgnorableAttribute { get; set; } = true;
+
+  /// <summary>
   /// if equal lines are written in text compare
   /// </summary>
   public bool WriteContentIfEquals { get; set; }
@@ -82,7 +87,7 @@ public class FileCompareOptions
   /// <summary>
   /// Line written at start of missing elements taken from expected file
   /// </summary>
-  public string StartOfDiffMis { get; set; } = "--- expected " + new string('-', 20);
+  public string StartOfDiffMis { get; set; } = "--- missing " + new string('-', 20);
 
   /// <summary>
   /// Line written at start of exceeded elements taken from received file
@@ -97,11 +102,21 @@ public class FileCompareOptions
   /// <summary>
   /// Color of received lines if shown in console.
   /// </summary>
-  public ConsoleColor? recLinesColor = ConsoleColor.Red;
+  public ConsoleColor? RecLinesColor = ConsoleColor.Red;
 
   /// <summary>
   /// Color of expected lines if shown in console.
   /// </summary>
   public ConsoleColor? ExpLinesColor = ConsoleColor.Green;
+
+  /// <summary>
+  /// Color of missing lines if shown in console.
+  /// </summary>
+  public ConsoleColor? MisLinesColor = ConsoleColor.Magenta;
+
+  /// <summary>
+  /// Color of exceeded lines if shown in console.
+  /// </summary>
+  public ConsoleColor? ExcLinesColor = ConsoleColor.Yellow;
 
 }

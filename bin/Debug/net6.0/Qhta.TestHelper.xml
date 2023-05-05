@@ -57,25 +57,21 @@
             <param name="line">Input line</param>
             <returns>Excessive spaces deleted</returns>
         </member>
-        <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLines(System.String[],System.Nullable{System.Boolean})">
+        <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLines(System.String[],System.Nullable{System.ConsoleColor})">
             <summary>
             Send a sequence of lines to the writer.
             Colors in options are applied.
             </summary>
             <param name="lines">lines to write</param>
-            <param name="isExpected">
-              true if lines belong to "expected" file, false if belong to "output" files, or null if none or both
-            </param>
+            <param name="color">Color of the text (if null then lef unchanged)</param>
         </member>
-        <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLine(System.String,System.Nullable{System.Boolean})">
+        <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLine(System.String,System.Nullable{System.ConsoleColor})">
             <summary>
             Send a single line to the writer.
             Colors in options are applied.
             </summary>
             <param name="line">line to write</param>
-            <param name="isExp">
-              true if lines belong to "expected" file, false if belong to "received" files, or null if none or both
-            </param>
+            <param name="color">Color of the text (if null then lef unchanged)</param>
         </member>
         <member name="T:Qhta.TestHelper.FileCompareOptions">
             <summary>
@@ -110,6 +106,11 @@
         <member name="P:Qhta.TestHelper.FileCompareOptions.IgnoreAttributesOrder">
             <summary>
             If attributes order in Xml compare is ignored
+            </summary>
+        </member>
+        <member name="P:Qhta.TestHelper.FileCompareOptions.IgnoreIgnorableAttribute">
+            <summary>
+            If mc:Ignorable attribute is ignored.
             </summary>
         </member>
         <member name="P:Qhta.TestHelper.FileCompareOptions.WriteContentIfEquals">
@@ -162,7 +163,7 @@
             Line written at end of different lines or elements
             </summary>
         </member>
-        <member name="F:Qhta.TestHelper.FileCompareOptions.recLinesColor">
+        <member name="F:Qhta.TestHelper.FileCompareOptions.RecLinesColor">
             <summary>
             Color of received lines if shown in console.
             </summary>
@@ -170,6 +171,16 @@
         <member name="F:Qhta.TestHelper.FileCompareOptions.ExpLinesColor">
             <summary>
             Color of expected lines if shown in console.
+            </summary>
+        </member>
+        <member name="F:Qhta.TestHelper.FileCompareOptions.MisLinesColor">
+            <summary>
+            Color of missing lines if shown in console.
+            </summary>
+        </member>
+        <member name="F:Qhta.TestHelper.FileCompareOptions.ExcLinesColor">
+            <summary>
+            Color of exceeded lines if shown in console.
             </summary>
         </member>
         <member name="T:Qhta.TestHelper.TextFileComparer">
@@ -355,7 +366,7 @@
             </summary>
             <param name="recElement">Received Xml element</param>
             <param name="expElement">Expected Xml element</param>
-            <param name="outItemsDict">List of child elements of out element</param>
+            <param name="recItemsDict">List of child elements of out element</param>
             <param name="expItemsDict">List of child elements of exp element</param>
             <param name="showUnequal">If unequal element should be shown</param>
             <param name="shown">If unequal element were shown</param>
@@ -380,6 +391,13 @@
             <param name="recElement">Received Xml element</param>
             <param name="expElement">Expected Xml element</param>
             <returns>true if attributes of both elements are equal</returns>
+        </member>
+        <member name="M:Qhta.TestHelper.XmlFileComparer.IgnoreAttribute(System.Xml.Linq.XAttribute)">
+            <summary>
+            Helper function to filter out NamespaceDeclarations and Ignorable attributes.
+            </summary>
+            <param name="attribute"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.CompareAttrName(System.Xml.Linq.XAttribute,System.Xml.Linq.XAttribute)">
             <summary>
@@ -439,15 +457,12 @@
             <param name="linesLimit">Limit of content lines to show 
             (default 0 changed to <see cref="P:Qhta.TestHelper.FileCompareOptions.SyncLimit"/>)</param>
         </member>
-        <member name="M:Qhta.TestHelper.XmlFileComparer.ShowXmlElement(System.Xml.Linq.XElement,System.Nullable{System.Boolean},System.Int32)">
+        <member name="M:Qhta.TestHelper.XmlFileComparer.ShowXmlElement(System.Xml.Linq.XElement,System.Nullable{System.ConsoleColor},System.Int32)">
             <summary>
             Helper method to show Xml element
             </summary>
             <param name="xmlElement">Element to show</param>
-            <param name="isExpected">
-              true if lines belong to "expected" file, false if belong to "output" files, or null if none or both
-            </param>
-            <param name="linesLimit">The actual limit of lines to shown</param>
+            <param name="color">Color of the text (if null then lef unchanged)</param>  /// <param name="linesLimit">The actual limit of lines to shown</param>
             <returns>the number of lines shown</returns>
         </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.ToStrings(System.Xml.Linq.XElement)">
@@ -683,9 +698,9 @@
             If output strings are sent to console
             </summary>
         </member>
-        <member name="M:Qhta.TestHelper.ConsoleWriter.#cctor">
+        <member name="M:Qhta.TestHelper.ConsoleWriter.#ctor">
             <summary>
-            This static constructor assures than initial color would be the same
+            This constructor assures than initial colors would be the same
             for each instance;
             </summary>
         </member>

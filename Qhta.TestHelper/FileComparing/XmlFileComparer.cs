@@ -179,24 +179,24 @@ public class XmlFileComparer : AbstractFileComparer
   /// </summary>
   /// <param name="recElement">Received Xml element</param>
   /// <param name="expElement">Expected Xml element</param>
-  /// <param name="outItemsDict">List of child elements of out element</param>
+  /// <param name="recItemsDict">List of child elements of out element</param>
   /// <param name="expItemsDict">List of child elements of exp element</param>
   /// <param name="showUnequal">If unequal element should be shown</param>
   /// <param name="shown">If unequal element were shown</param>
   /// <returns>true if both elements are equal</returns>
   protected virtual CompResult CompareXmlElements(XElement recElement, XElement expElement,
-    Dictionary<string, XElement> outItemsDict, Dictionary<string, XElement> expItemsDict, bool showUnequal, ref bool shown)
+    Dictionary<string, XElement> recItemsDict, Dictionary<string, XElement> expItemsDict, bool showUnequal, ref bool shown)
   {
     var result = CompResult.AreEqual;
-    int outItemsCount = outItemsDict.Count();
+    int recItemsCount = recItemsDict.Count();
     int expItemsCount = expItemsDict.Count();
-    bool areEqual = outItemsCount == expItemsCount;
+    bool areEqual = recItemsCount == expItemsCount;
     List<XElement> missingElements = new();
     List<XElement> checkedElements = new();
     foreach (var item in expItemsDict)
     {
       var expItem = item.Value;
-      if (outItemsDict.TryGetValue(item.Key, out var outItem))
+      if (recItemsDict.TryGetValue(item.Key, out var outItem))
       {
         result = CompareXmlElements(outItem, expItem, true, ref shown);
         checkedElements.Add(outItem);
@@ -205,28 +205,33 @@ public class XmlFileComparer : AbstractFileComparer
       else
         missingElements.Add(expItem);
     }
-
+    
+    bool showEndOfDiffs = false;
     if (missingElements.Count > 0)
     {
       if (showUnequal)
       {
         ShowMissingElements(missingElements);
         shown = true;
+        showEndOfDiffs |= true;
       }
       result = CompResult.ElementCountDiff;
     }
-    if (outItemsCount > checkedElements.Count)
+    if (recItemsCount > checkedElements.Count)
     {
       if (showUnequal)
       {
-        List<XElement> excessiveElements = expItemsDict.Values.ToList();
+        List<XElement> excessiveElements = recItemsDict.Values.ToList();
         foreach (var item in checkedElements)
           excessiveElements.Remove(item);
-        ShowExcessiveElements(missingElements);
+        ShowExcessiveElements(excessiveElements);
         shown = true;
+        showEndOfDiffs |= true;
       }
       result = CompResult.ElementCountDiff;
     }
+    if (showEndOfDiffs)
+      ShowLine(Options.EndOfDiffs);
     return result;
   }
 
@@ -309,8 +314,8 @@ public class XmlFileComparer : AbstractFileComparer
   /// <returns>true if attributes of both elements are equal</returns>
   protected virtual bool CompareXmlAttributes(XElement recElement, XElement expElement)
   {
-    var recAttributes = recElement.Attributes().Where(item => !item.IsNamespaceDeclaration).ToList();
-    var expAttributes = expElement.Attributes().Where(item => !item.IsNamespaceDeclaration).ToList();
+    var recAttributes = recElement.Attributes().Where(item => !IgnoreAttribute(item)).ToList();
+    var expAttributes = expElement.Attributes().Where(item => !IgnoreAttribute(item)).ToList();
     if (recAttributes.Count != expAttributes.Count)
     {
       return false;
@@ -326,6 +331,20 @@ public class XmlFileComparer : AbstractFileComparer
         return false;
       }
     return true;
+  }
+
+  /// <summary>
+  /// Helper function to filter out NamespaceDeclarations and Ignorable attributes.
+  /// </summary>
+  /// <param name="attribute"></param>
+  /// <returns></returns>
+  private bool IgnoreAttribute(XAttribute attribute)
+  {
+    if (attribute.IsNamespaceDeclaration)
+      return true;
+    if (Options.IgnoreIgnorableAttribute && attribute.Name.LocalName=="Ignorable")
+      return true;
+    return false;
   }
 
   /// <summary>
@@ -373,12 +392,12 @@ public class XmlFileComparer : AbstractFileComparer
   {
     var linesLimit = Options.SyncLimit;
     ShowLine(Options.StartOfDiffMis);
-    if (Options.ExpLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
+    if (Options.MisLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.MisLinesColor;
     var expLimit = expElements.Count();
     foreach (var expElement in expElements)
     {
-      var linesShown = ShowXmlElement(expElement, true, linesLimit);
+      var linesShown = ShowXmlElement(expElement, Options.MisLinesColor, linesLimit);
       expLimit -= linesShown;
       if (expLimit < 0)
       {
@@ -389,7 +408,6 @@ public class XmlFileComparer : AbstractFileComparer
     }
     if (Options.ExpLinesColor != null && Writer != null)
       Writer.ResetColors();
-    ShowLine(Options.EndOfDiffs);
   }
 
   /// <summary>
@@ -400,12 +418,12 @@ public class XmlFileComparer : AbstractFileComparer
   {
     var linesLimit = Options.SyncLimit;
     ShowLine(Options.StartOfDiffExc);
-    if (Options.recLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    if (Options.ExcLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.ExcLinesColor;
     var expLimit = recElements.Count();
     foreach (var recElement in recElements)
     {
-      var linesShown = ShowXmlElement(recElement, true, linesLimit);
+      var linesShown = ShowXmlElement(recElement, Options.ExcLinesColor, linesLimit);
       expLimit -= linesShown;
       if (expLimit < 0)
       {
@@ -414,9 +432,8 @@ public class XmlFileComparer : AbstractFileComparer
         break;
       }
     }
-    if (Options.recLinesColor != null && Writer != null)
+    if (Options.RecLinesColor != null && Writer != null)
       Writer.ResetColors();
-    ShowLine(Options.EndOfDiffs);
   }
 
   /// <summary>
@@ -431,15 +448,15 @@ public class XmlFileComparer : AbstractFileComparer
     if (linesLimit == 0)
       linesLimit = Options.SyncLimit;
     ShowLine(Options.StartOfDiffRec);
-    if (Options.recLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
-    ShowXmlElement(recElement, false, linesLimit);
-    if (Options.recLinesColor != null && Writer != null)
+    if (Options.RecLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.RecLinesColor;
+    ShowXmlElement(recElement, Options.RecLinesColor, linesLimit);
+    if (Options.RecLinesColor != null && Writer != null)
       Writer.ResetColors();
     ShowLine(Options.StartOfDiffExp);
     if (Options.ExpLinesColor != null && Writer != null)
       Writer.ForegroundColor = (ConsoleColor)Options.ExpLinesColor;
-    ShowXmlElement(expElement, true, linesLimit);
+    ShowXmlElement(expElement, Options.ExpLinesColor, linesLimit);
     if (Options.ExpLinesColor != null && Writer != null)
       Writer.ResetColors();
     ShowLine(Options.EndOfDiffs);
@@ -461,13 +478,13 @@ public class XmlFileComparer : AbstractFileComparer
       linesLimit = int.MaxValue;
     var recLinesLimit = linesLimit;
     ShowLine(Options.StartOfDiffRec);
-    if (Options.recLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    if (Options.RecLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.RecLinesColor;
     for (int i = 0; i < recLinesLimit; i++)
     {
       if (i >= recElements.Count())
         break;
-      var linesShown = ShowXmlElement(recElements[i], false, recLinesLimit);
+      var linesShown = ShowXmlElement(recElements[i], Options.RecLinesColor, recLinesLimit);
       recLinesLimit -= linesShown;
       if (recLinesLimit <= 0)
       {
@@ -476,7 +493,7 @@ public class XmlFileComparer : AbstractFileComparer
         break;
       }
     }
-    if (Options.recLinesColor != null && Writer != null)
+    if (Options.RecLinesColor != null && Writer != null)
       Writer.ResetColors();
 
     ShowLine(Options.StartOfDiffExp);
@@ -487,7 +504,7 @@ public class XmlFileComparer : AbstractFileComparer
     {
       if (i >= expElements.Count())
         break;
-      var linesShown = ShowXmlElement(expElements[i], true, expLinesLimit);
+      var linesShown = ShowXmlElement(expElements[i], Options.ExpLinesColor, expLinesLimit);
       expLinesLimit -= linesShown;
       if (expLinesLimit <= 0)
       {
@@ -515,18 +532,18 @@ public class XmlFileComparer : AbstractFileComparer
     if (linesLimit == 0)
       linesLimit = Options.SyncLimit;
     ShowLine(Options.StartOfDiffRec);
-    if (Options.recLinesColor != null && Writer != null)
-      Writer.ForegroundColor = (ConsoleColor)Options.recLinesColor;
+    if (Options.RecLinesColor != null && Writer != null)
+      Writer.ForegroundColor = (ConsoleColor)Options.RecLinesColor;
     var recElements = recElement.Elements().ToArray();
     int outLimit = linesLimit;
     for (int i = fromIndex; i < recElements.Count(); i++)
     {
       if (i - fromIndex > outLimit)
         break;
-      var linesShown = ShowXmlElement(recElements[i], false, outLimit);
+      var linesShown = ShowXmlElement(recElements[i], Options.RecLinesColor, outLimit);
       outLimit -= linesShown;
     }
-    if (Options.recLinesColor != null && Writer != null)
+    if (Options.RecLinesColor != null && Writer != null)
       Writer.ResetColors();
 
     ShowLine(Options.StartOfDiffExp);
@@ -538,7 +555,7 @@ public class XmlFileComparer : AbstractFileComparer
     {
       if (i - fromIndex > expLimit)
         break;
-      var linesShown = ShowXmlElement(expElements[i], true, expLimit);
+      var linesShown = ShowXmlElement(expElements[i], Options.ExpLinesColor, expLimit);
       expLimit -= linesShown;
     }
     if (Options.ExpLinesColor != null && Writer != null)
@@ -552,12 +569,9 @@ public class XmlFileComparer : AbstractFileComparer
   /// Helper method to show Xml element
   /// </summary>
   /// <param name="xmlElement">Element to show</param>
-  /// <param name="isExpected">
-  ///   true if lines belong to "expected" file, false if belong to "output" files, or null if none or both
-  /// </param>
-  /// <param name="linesLimit">The actual limit of lines to shown</param>
+  /// <param name="color">Color of the text (if null then lef unchanged)</param>  /// <param name="linesLimit">The actual limit of lines to shown</param>
   /// <returns>the number of lines shown</returns>
-  protected virtual int ShowXmlElement(XElement xmlElement, bool? isExpected = null, int linesLimit = 0)
+  protected virtual int ShowXmlElement(XElement xmlElement, ConsoleColor? color = null, int linesLimit = 0)
   {
     var lines = ToStrings(xmlElement);
     if (linesLimit > 0 && linesLimit < lines.Count())
@@ -570,7 +584,7 @@ public class XmlFileComparer : AbstractFileComparer
       else
         lines = lines.AsSpan(0, linesLimit).ToArray().Append("...").ToArray();
     }
-    ShowLines(lines, isExpected);
+    ShowLines(lines, color);
     return lines.Count();
   }
 

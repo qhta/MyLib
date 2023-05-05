@@ -107,8 +107,8 @@ public class TextFileComparer : AbstractFileComparer
         }
         if (Options.SyncLimit == 0)
         {
-          ShowLine(outLine, false);
-          ShowLine(expLine, true);
+          ShowLine(outLine, Options.RecLinesColor);
+          ShowLine(expLine, Options.ExpLinesColor);
         }
         else
         {
@@ -166,13 +166,13 @@ public class TextFileComparer : AbstractFileComparer
       {
         ShowLine(Options.StartOfDiffRec);
         int count = newOutIndex - outIndex;
-        ShowLines(recLines.AsSpan(outIndex, count).ToArray(), false);
+        ShowLines(recLines.AsSpan(outIndex, count).ToArray(), Options.RecLinesColor);
       }
       if (newExpIndex > expIndex)
       {
         ShowLine(Options.StartOfDiffExp);
         int count = newExpIndex - expIndex;
-        ShowLines(expLines.AsSpan(expIndex, count).ToArray(), true);
+        ShowLines(expLines.AsSpan(expIndex, count).ToArray(), Options.ExpLinesColor);
       }
       ShowLine(Options.EndOfDiffs);
     }
