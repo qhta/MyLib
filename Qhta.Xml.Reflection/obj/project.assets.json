@@ -28,7 +28,7 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.3.4": {
+      "Qhta.TypeUtils/1.3.5": {
         "type": "package",
         "compile": {
           "lib/net6.0/Qhta.TypeUtils.dll": {
@@ -47,7 +47,7 @@
         "dependencies": {
           "Qhta.Collections": "2.0.0",
           "Qhta.TextUtils": "3.1.0",
-          "Qhta.TypeUtils": "1.3.4"
+          "Qhta.TypeUtils": "1.3.5"
         },
         "compile": {
           "bin/placeholder/Qhta.Xml.dll": {}
@@ -87,17 +87,17 @@
         "qhta.textutils.nuspec"
       ]
     },
-    "Qhta.TypeUtils/1.3.4": {
-      "sha512": "3azbhAotCATSNI3kenFAfoJig0k3XSIBHghXrQLGN7H5zR+foc02y2CQKzNdgG/CwTfgSRlpU2fMnopBiNgwQQ==",
+    "Qhta.TypeUtils/1.3.5": {
+      "sha512": "KczhNgTOfZiLbFjIhrYaZfgWlkP3Z4LV64NLPHg8X63vr6PReH5gIUbmUGTwvTIe/CXibIqR1ORhb8NLoqr7rQ==",
       "type": "package",
-      "path": "qhta.typeutils/1.3.4",
+      "path": "qhta.typeutils/1.3.5",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0/Qhta.TypeUtils.dll",
         "lib/net6.0/Qhta.TypeUtils.xml",
         "lib/netstandard2.0/Qhta.TypeUtils.dll",
         "lib/netstandard2.0/Qhta.TypeUtils.xml",
-        "qhta.typeutils.1.3.4.nupkg.sha512",
+        "qhta.typeutils.1.3.5.nupkg.sha512",
         "qhta.typeutils.nuspec"
       ]
     },
@@ -111,7 +111,7 @@
     "net6.0": [
       "Qhta.Collections >= 2.0.0",
       "Qhta.TextUtils >= 3.1.0",
-      "Qhta.TypeUtils >= 1.3.4",
+      "Qhta.TypeUtils >= 1.3.5",
       "Qhta.Xml >= 1.0.0"
     ]
   },
@@ -174,7 +174,7 @@
           },
           "Qhta.TypeUtils": {
             "target": "Package",
-            "version": "[1.3.4, )"
+            "version": "[1.3.5, )"
           }
         },
         "imports": [

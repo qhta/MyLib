@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XM4uZ+EirTEiOAv90SIfOapZwbw6fQgKaVGVb5e/aEzY0otzml5TDaePew2xDErpzWVjqqaOhLBAsC1M5D0KkQ==",
+  "dgSpecHash": "dGps8BVyWMmZl/QWLxrvnWUSpmQ7jfwQxNYd2tZQyL3w5fk7K6d/Zh4Ut5YDj/4d/hJMaN3w9aJ8mNirI1ReTg==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Serialization\\Qhta.Xml.Serialization.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.0\\qhta.textutils.3.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.4\\qhta.typeutils.1.3.4.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.5\\qhta.typeutils.1.3.5.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",

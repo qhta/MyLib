@@ -42,7 +42,7 @@ public static class DeepComparer
   /// <summary>
   /// Gets the type of the object and if the type is Nullable, returns its baseType
   /// </summary>
-  public static Type GetNotNullableType(this object obj)
+  private static Type GetNotNullableType(this object obj)
   {
     Type type = obj.GetType() ?? typeof(object);
     if (type.IsNullable(out var baseType) && baseType != null && baseType != type)

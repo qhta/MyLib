@@ -249,6 +249,15 @@ public static class TypeCategorization
     return type;
   }
 
+  /// <summary>
+  /// Checks if the type is Nullable and returns its baseType.
+  /// </summary>
+  public static Type GetNotNullableType(this Type type)
+  {
+    if (type.IsNullable(out var baseType) && baseType!=null)
+      type = baseType;
+    return type;
+  }
   #endregion
 
   #region IsArray

@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.DeepCompare\\Qhta.DeepCompare.csproj": {
-      "version": "1.0.0",
+      "version": "1.1.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.DeepCompare\\Qhta.DeepCompare.csproj",
         "projectName": "Qhta.DeepCompare",
@@ -61,7 +61,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.3.5, )"
             }
           },
           "imports": [
@@ -101,7 +101,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.3.5, )"
             }
           },
           "imports": [

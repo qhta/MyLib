@@ -565,6 +565,11 @@
             Gets the type of the object and if the type is Nullable, returns its baseType
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.GetNotNullableType(System.Type)">
+            <summary>
+            Checks if the type is Nullable and returns its baseType.
+            </summary>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type)">
             <summary>
               Is a type an array type.

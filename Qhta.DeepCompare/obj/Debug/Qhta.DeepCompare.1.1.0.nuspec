@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.DeepCompare</id>
+    <version>1.1.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <description>Library to compare two objects property by property</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Qhta.Collections" version="2.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.1.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.3.5" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.Collections" version="2.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.1.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.3.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.DeepCompare.dll" target="lib\net6.0\Qhta.DeepCompare.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.DeepCompare.xml" target="lib\net6.0\Qhta.DeepCompare.xml" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.dll" target="lib\netstandard2.0\Qhta.DeepCompare.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DeepCompare.xml" target="lib\netstandard2.0\Qhta.DeepCompare.xml" />
+  </files>
+</package>

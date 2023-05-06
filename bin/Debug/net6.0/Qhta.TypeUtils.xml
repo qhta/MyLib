@@ -521,6 +521,22 @@
             <param name="otherType"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsEqualOrSubclassOfOrImplements(System.Type,System.Type)">
+            <summary>
+              Shortcut of type equality comparison or IsSubclassOf or Implements function
+            </summary>
+            <param name="thisType"></param>
+            <param name="otherType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.Implements(System.Type,System.Type)">
+            <summary>
+              Checks if a type implements an interface
+            </summary>
+            <param name="thisType"></param>
+            <param name="intf"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type)">
             <summary>
               Is a type a nullable type, i.e. it's name starts with "Nullable`1".
@@ -535,6 +551,24 @@
             <param name="aType">checked type</param>
             <param name="baseType">based type of the nullable type</param>
             <returns>true if a type is a nullable type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsNullable(System.Type,System.Type)">
+            <summary>
+              Checks if a type is a nullable type of the base type.
+            </summary>
+            <param name="aType">checked type</param>
+            <param name="baseType">based type of the nullable type</param>
+            <returns>true if a type is a nullable type</returns>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.GetNotNullableType(System.Object)">
+            <summary>
+            Gets the type of the object and if the type is Nullable, returns its baseType
+            </summary>
+        </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.GetNotNullableType(System.Type)">
+            <summary>
+            Checks if the type is Nullable and returns its baseType.
+            </summary>
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type)">
             <summary>
@@ -551,6 +585,7 @@
             <param name="aType">checked type</param>
             <param name="itemType">returned item type if a type is an array</param>
             <returns>true if a type is an array type</returns>
+            
         </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type,System.Type)">
             <summary>

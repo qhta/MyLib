@@ -59,7 +59,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.3.5, )"
             },
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
@@ -141,7 +141,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.3.5, )"
             }
           },
           "imports": [
@@ -221,7 +221,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.3.5, )"
             }
           },
           "imports": [
@@ -261,7 +261,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.3.5, )"
             }
           },
           "imports": [
