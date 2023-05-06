@@ -352,14 +352,6 @@
             <param name="itemsDictionary">Output dictionary of XElements</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TestHelper.XmlFileComparer.CmpXElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement)">
-            <summary>
-            Compares local names of elements.
-            </summary>
-            <param name="recElement"></param>
-            <param name="expElement"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.TestHelper.XmlFileComparer.CompareXmlElements(System.Xml.Linq.XElement,System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.Xml.Linq.XElement},System.Collections.Generic.Dictionary{System.String,System.Xml.Linq.XElement},System.Boolean,System.Boolean@)">
             <summary>
             Compares dictionaries of items of recElement and expElement

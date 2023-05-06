@@ -118,6 +118,13 @@ public class XmlFileComparer : AbstractFileComparer
       }
       return CompResult.NameDiff;
     }
+    if (recElement.NodeType == XmlNodeType.Text)
+    {
+      if (recElement.Value != expElement.Value) 
+        return CompResult.ValueDiff; 
+      else
+        return CompResult.AreEqual;
+    }
     if (!CompareXmlAttributes(recElement, expElement))
     {
       if (showUnequal)
@@ -164,17 +171,6 @@ public class XmlFileComparer : AbstractFileComparer
   }
 
   /// <summary>
-  /// Compares local names of elements.
-  /// </summary>
-  /// <param name="recElement"></param>
-  /// <param name="expElement"></param>
-  /// <returns></returns>
-  private static int CmpXElements(XElement recElement, XElement expElement)
-  {
-    return recElement.Name.LocalName.CompareTo(expElement.Name.LocalName);
-  }
-
-  /// <summary>
   /// Compares dictionaries of items of recElement and expElement
   /// </summary>
   /// <param name="recElement">Received Xml element</param>
@@ -200,7 +196,8 @@ public class XmlFileComparer : AbstractFileComparer
       {
         result = CompareXmlElements(outItem, expItem, true, ref shown);
         checkedElements.Add(outItem);
-        return result;
+        if (result!=CompResult.AreEqual)
+          return result;
       }
       else
         missingElements.Add(expItem);
@@ -297,12 +294,12 @@ public class XmlFileComparer : AbstractFileComparer
       }
       return CompResult.ElementDiff;
     }
-    if (recElement.Value != expElement.Value)
-    {
-      ShowUnequalElements(recElement, expElement);
-      shown = true;
-      return CompResult.ValueDiff;
-    }
+    //if (recElement.Value != expElement.Value)
+    //{
+    //  ShowUnequalElements(recElement, expElement);
+    //  shown = true;
+    //  return CompResult.ValueDiff;
+    //}
     return CompResult.AreEqual;
   }
 
@@ -380,7 +377,25 @@ public class XmlFileComparer : AbstractFileComparer
     var outValue = recAttribute.Value ?? "";
     var expValue = expAttribute.Value ?? "";
     if (!AreEqual(outValue, expValue))
+    {
+      if (Guid.TryParse(outValue, out var guid1) && Guid.TryParse(outValue, out var guid2))
+      {
+        return (guid1 == guid2);
+      }
+      if (Double.TryParse(outValue, out var dbl1) && Double.TryParse(outValue, out var dbl2))
+      {
+        return (dbl1 == dbl2);
+      }
+      if (Decimal.TryParse(outValue, out var dcm1) && Decimal.TryParse(outValue, out var dcm2))
+      {
+        return (dcm1 == dcm2);
+      }
+      if (DateTime.TryParse(outValue, out var dt1) && DateTime.TryParse(outValue, out var dt2))
+      {
+        return (dt1 == dt2);
+      }
       return false;
+    }
     return true;
   }
 
