@@ -22,25 +22,27 @@ public static class SubdocumentTools
 
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public static IEnumerable<ExternalRelationship> GetSubDocumentRelationships(WordprocessingDocument docx)
+  public static IEnumerable<ExternalRelationship> GetSubDocumentRelationships(MainDocumentPart mainDocumentPart)
   {
-    return docx.MainDocumentPart.ExternalRelationships.Where(rel =>
+    return mainDocumentPart.ExternalRelationships.Where(rel =>
       rel.IsExternal && (rel.RelationshipType?.EndsWith("/subDocument") ?? false));
   }
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public static IEnumerable<SubDocumentReference> GetSubDocumentReferences(WordprocessingDocument docx)
+  public static IEnumerable<SubDocumentReference> GetSubDocumentReferences(MainDocumentPart mainDocumentPart)
   {
-    return docx.MainDocumentPart.Document.Descendants<SubDocumentReference>();
+    return mainDocumentPart.Document.Descendants<SubDocumentReference>();
   }
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public static IEnumerable<SubdocRefRelPair> GetSubDocuments(WordprocessingDocument docx)
+  public static IEnumerable<SubdocRefRelPair> GetSubDocuments(MainDocumentPart mainDocumentPart)
   {
-    var rels = GetSubDocumentRelationships(docx);
-    var refs = GetSubDocumentReferences(docx);
+    var rels = GetSubDocumentRelationships(mainDocumentPart);
+    var refs = GetSubDocumentReferences(mainDocumentPart);
+#pragma warning disable CS8603 // Possible null reference return.
     return Enumerable.Join<SubDocumentReference, ExternalRelationship, string, SubdocRefRelPair>
       (refs, rels, @ref => @ref.Id, rel => rel.Id, (@ref, rel) => new SubdocRefRelPair(@ref, rel));
+#pragma warning restore CS8603 // Possible null reference return.
   }
 
 }

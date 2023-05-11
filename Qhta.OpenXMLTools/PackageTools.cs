@@ -54,7 +54,8 @@ public static class PackageTools
     }
     using (var docx = DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(filePath, true))
     {
-      PackageTools.RecreateSubdocumentRels(docx, relDirectoryRoot);
+      if (docx.MainDocumentPart?.Document is not null)
+        PackageTools.RecreateSubdocumentRels(docx.MainDocumentPart.Document, relDirectoryRoot);
     }
   }
 
@@ -70,9 +71,9 @@ public static class PackageTools
       Par = par;
     }
   }
-  public static void RecreateSubdocumentRels(this WordprocessingDocument docx, string docxPath)
+  public static void RecreateSubdocumentRels(this Document doc, string docxPath)
   {
-    var fieldCodes = docx.MainDocumentPart.Document.Descendants<FieldCode>().ToList();
+    var fieldCodes = doc.Descendants<FieldCode>().ToList();
     var addedRels = new List<RelPar>();
     foreach (var fieldCode in fieldCodes)
     {
@@ -108,8 +109,9 @@ public static class PackageTools
 
               //var hostElement = fieldParagraph.Parent;
               var targetUri = new Uri(targetFileName, UriKind.RelativeOrAbsolute);
-              var targetRel = docx.MainDocumentPart.AddExternalRelationship(subdocumentRelType, targetUri);
-              addedRels.Add(new RelPar(targetRel, fieldParagraph));
+              var targetRel = doc.MainDocumentPart?.AddExternalRelationship(subdocumentRelType, targetUri);
+              if (targetRel != null) 
+                addedRels.Add(new RelPar(targetRel, fieldParagraph));
               //var subDoc = fieldParagraph.InsertBeforeSelf<SubDocumentReference>(new SubDocumentReference { Id = targetRel.Id });
               //fieldParagraph.Remove();
             }
