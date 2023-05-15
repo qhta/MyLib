@@ -19,6 +19,11 @@ public interface ITraceTextWriter: IConsoleWriter
   bool TraceOutputEnabled { get; set; }
 
   /// <summary>
+  /// Controls if text is sent to debug output window
+  /// </summary>
+  bool DebugOutputEnabled { get; set; }
+
+  /// <summary>
   /// Controls if text is sent to stream
   /// </summary>
   bool StreamOutputEnabled { get; set; }

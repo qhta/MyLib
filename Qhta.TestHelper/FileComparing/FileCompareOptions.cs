@@ -75,6 +75,11 @@ public class FileCompareOptions
   public string? InequalityMsg { get; set; }
 
   /// <summary>
+  /// Line written at start of file compare.
+  /// </summary>
+  public string StartOfFile { get; set; } = null!;
+
+  /// <summary>
   /// Line written at start of received file different lines or elements
   /// </summary>
   public string StartOfDiffRec { get; set; } = "--- received " + new string('-', 20);

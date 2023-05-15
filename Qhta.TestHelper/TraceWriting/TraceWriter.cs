@@ -16,6 +16,11 @@ public class TraceWriter : ConsoleWriter, ITextWriter
   public bool TraceOutputEnabled { get; set; } = true;
 
   /// <summary>
+  /// Controls if output strings are sent to debug outout window.
+  /// </summary>
+  public bool DebugOutputEnabled { get; set; } = true;
+
+  /// <summary>
   /// This implementation uses <see cref="ConsoleWriter.FlushString"/> operation first
   /// and then a string is sent to trace (if <see cref="TraceOutputEnabled"/> is set).
   /// </summary>
@@ -25,6 +30,9 @@ public class TraceWriter : ConsoleWriter, ITextWriter
     base.FlushString(str);
     if (TraceOutputEnabled)
       Trace.Write(str);
+    else
+    if (DebugOutputEnabled)
+      Debug.Write(str);
   }
 
 
@@ -37,6 +45,8 @@ public class TraceWriter : ConsoleWriter, ITextWriter
     base.FlushNewLineTag();
     if (TraceOutputEnabled)
       Trace.WriteLine("");
+    else if (DebugOutputEnabled)
+      Debug.WriteLine("");
   }
 
   /// <summary>
@@ -46,8 +56,8 @@ public class TraceWriter : ConsoleWriter, ITextWriter
   {
     base.FlushBuffer();
     if (TraceOutputEnabled)
-    {
       Trace.Flush();
-    }
+    else if (DebugOutputEnabled)
+      Debug.Flush();
   }
 }

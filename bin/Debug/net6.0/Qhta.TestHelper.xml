@@ -57,20 +57,20 @@
             <param name="line">Input line</param>
             <returns>Excessive spaces deleted</returns>
         </member>
-        <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLines(System.String[],System.Nullable{System.ConsoleColor})">
-            <summary>
-            Send a sequence of lines to the writer.
-            Colors in options are applied.
-            </summary>
-            <param name="lines">lines to write</param>
-            <param name="color">Color of the text (if null then lef unchanged)</param>
-        </member>
         <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLine(System.String,System.Nullable{System.ConsoleColor})">
             <summary>
             Send a single line to the writer.
             Colors in options are applied.
             </summary>
             <param name="line">line to write</param>
+            <param name="color">Color of the text (if null then lef unchanged)</param>
+        </member>
+        <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLines(System.String[],System.Nullable{System.ConsoleColor})">
+            <summary>
+            Send a sequence of lines to the writer.
+            Colors in options are applied.
+            </summary>
+            <param name="lines">lines to write</param>
             <param name="color">Color of the text (if null then lef unchanged)</param>
         </member>
         <member name="T:Qhta.TestHelper.FileCompareOptions">
@@ -136,6 +136,11 @@
         <member name="P:Qhta.TestHelper.FileCompareOptions.InequalityMsg">
             <summary>
             Message written if files are not equal
+            </summary>
+        </member>
+        <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfFile">
+            <summary>
+            Line written at start of file compare.
             </summary>
         </member>
         <member name="P:Qhta.TestHelper.FileCompareOptions.StartOfDiffRec">
@@ -897,6 +902,11 @@
             Controls if text is sent to trace
             </summary>
         </member>
+        <member name="P:Qhta.TestHelper.ITraceTextWriter.DebugOutputEnabled">
+            <summary>
+            Controls if text is sent to debug output window
+            </summary>
+        </member>
         <member name="P:Qhta.TestHelper.ITraceTextWriter.StreamOutputEnabled">
             <summary>
             Controls if text is sent to stream
@@ -1052,6 +1062,11 @@
         <member name="P:Qhta.TestHelper.TraceWriter.TraceOutputEnabled">
             <summary>
             Controls if output strings are sent to traces
+            </summary>
+        </member>
+        <member name="P:Qhta.TestHelper.TraceWriter.DebugOutputEnabled">
+            <summary>
+            Controls if output strings are sent to debug outout window.
             </summary>
         </member>
         <member name="M:Qhta.TestHelper.TraceWriter.FlushString(System.String)">

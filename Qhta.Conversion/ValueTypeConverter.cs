@@ -271,10 +271,14 @@ public class ValueTypeConverter : BaseTypeConverter
           InternalTypeConverter = new StringTypeConverter
           {
             UseEscapeSequences = Options.UseEscapeSequences,
-            UseHtmlEntities = Options.UseHtmlEntities
+            UseHtmlEntities = Options.UseHtmlEntities,
+            ExpectedType = expectedType,
           };
         else
-          InternalTypeConverter = new StringTypeConverter();
+          InternalTypeConverter = new StringTypeConverter
+          {
+            ExpectedType = expectedType,
+          };
       }
       else
       if (expectedType.IsEnum)

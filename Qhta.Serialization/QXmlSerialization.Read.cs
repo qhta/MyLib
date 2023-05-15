@@ -126,7 +126,7 @@ public partial class QXmlSerializer
     var startTag = Reader.Name;
     if (typeInfo.KnownConstructor == null)
     {
-      if (typeInfo.Type.IsSimple() || typeInfo.Type == typeof(byte[]))
+      if (typeInfo.Type.IsSimple() || typeInfo.Type == typeof(byte[]) || typeInfo.Type == typeof(Uri))
       {
         if (!Reader.IsEmptyElement)
         {

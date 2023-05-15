@@ -22,7 +22,7 @@ public static class TestTools
   public static void WriteLine(string str)
   {
     if (TraceWriter == null)
-      TraceWriter = new TraceTextWriter(false, true);
+      TraceWriter = new TraceTextWriter(false, false, true);
     TraceWriter.WriteLine(str);
   }
 

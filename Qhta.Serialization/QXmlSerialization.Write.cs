@@ -334,20 +334,29 @@ public partial class QXmlSerializer
           }
           else
           {
-            ITypeDescriptorContext? typeDescriptorContext = (context != null) ? new TypeDescriptorContext(context) : null;
-            if (typeConverter != null && typeConverter.CanConvertTo(typeDescriptorContext, typeof(string)))
+            if (value is string strVal)
             {
-              var str = typeConverter.ConvertToInvariantString(typeDescriptorContext, value);
-              if (str != null && str.Length > 0 && (Char.IsWhiteSpace(str.First()) || Char.IsWhiteSpace(str.Last())))
+              if (strVal != null && strVal.Length > 0 && (Char.IsWhiteSpace(strVal.First()) || Char.IsWhiteSpace(strVal.Last())))
                 Writer.WriteSignificantSpaces(true);
-              WriteValue(str);
+              WriteValue(strVal);
             }
             else
             {
-              if (value.GetType().IsSimple())
-                WriteValue(value);
+              ITypeDescriptorContext? typeDescriptorContext = (context != null) ? new TypeDescriptorContext(context) : null;
+              if (typeConverter != null && typeConverter.CanConvertTo(typeDescriptorContext, typeof(string)))
+              {
+                var str = typeConverter.ConvertToInvariantString(typeDescriptorContext, value);
+                if (str != null && str.Length > 0 && (Char.IsWhiteSpace(str.First()) || Char.IsWhiteSpace(str.Last())))
+                  Writer.WriteSignificantSpaces(true);
+                WriteValue(str);
+              }
               else
-                WriteObjectInterior(context, value, null);
+              {
+                if (value.GetType().IsSimple())
+                  WriteValue(value);
+                else
+                  WriteObjectInterior(context, value, null);
+              }
             }
           }
         }

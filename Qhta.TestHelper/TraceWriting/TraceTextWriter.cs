@@ -12,14 +12,15 @@ public class TraceTextWriter : TraceWriter, ITraceTextWriter
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-  public TraceTextWriter(bool consoleOutputEnabled, bool traceOutputEnabled)
+  public TraceTextWriter(bool consoleOutputEnabled, bool traceOutputEnabled, bool debugOutputEnabled)
   {
     LockObject = this;
     ConsoleOutputEnabled = consoleOutputEnabled;
     TraceOutputEnabled = traceOutputEnabled;
+    DebugOutputEnabled = debugOutputEnabled;
   }
 
-  public TraceTextWriter(Stream stream, bool consoleOutputEnabled = false, bool traceOutputEnabled = false)
+  public TraceTextWriter(Stream stream, bool consoleOutputEnabled = false, bool traceOutputEnabled = false, bool debugOutputEnabled = false)
   {
     LockObject = this;
     OutputStream = stream;
@@ -27,9 +28,10 @@ public class TraceTextWriter : TraceWriter, ITraceTextWriter
     StreamOutputEnabled = true;
     ConsoleOutputEnabled = consoleOutputEnabled;
     TraceOutputEnabled = traceOutputEnabled;
+    DebugOutputEnabled = debugOutputEnabled;
   }
 
-  public TraceTextWriter(string? filename, bool consoleOutputEnabled, bool traceOutputEnabled = false)
+  public TraceTextWriter(string? filename, bool consoleOutputEnabled, bool traceOutputEnabled = false, bool debugOutputEnabled = false)
   {
     LockObject = this;
     if (filename != null)
@@ -40,6 +42,7 @@ public class TraceTextWriter : TraceWriter, ITraceTextWriter
     }
     ConsoleOutputEnabled = consoleOutputEnabled;
     TraceOutputEnabled = traceOutputEnabled;
+    DebugOutputEnabled = debugOutputEnabled;
   }
 
   public TraceTextWriter(ITraceTextWriter origin)
@@ -49,6 +52,7 @@ public class TraceTextWriter : TraceWriter, ITraceTextWriter
     StreamOutputEnabled = origin.StreamOutputEnabled;
     TraceOutputEnabled = origin.TraceOutputEnabled;
     ConsoleOutputEnabled = origin.ConsoleOutputEnabled;
+    DebugOutputEnabled = origin.DebugOutputEnabled;
   }
 
   /// <summary>

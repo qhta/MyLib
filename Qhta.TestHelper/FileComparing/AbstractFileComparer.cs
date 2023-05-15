@@ -101,30 +101,6 @@ public abstract class AbstractFileComparer
     return new string(chars.ToArray());
   }
 
-
-  /// <summary>
-  /// Send a sequence of lines to the writer.
-  /// Colors in options are applied.
-  /// </summary>
-  /// <param name="lines">lines to write</param>
-  /// <param name="color">Color of the text (if null then lef unchanged)</param>
-  protected virtual void ShowLines(string[] lines, ConsoleColor? color = null)
-  {
-    bool colorChanged = false;
-    if (color != null && Writer != null)
-    {
-      Writer.ForegroundColor = (ConsoleColor)color;
-      colorChanged = true;
-    }
-    foreach (var line in lines)
-    {
-      if (Writer != null)
-        Writer.WriteLine(line);
-    }
-    if (colorChanged)
-      Writer?.ResetColors();
-  }
-
   /// <summary>
   /// Send a single line to the writer.
   /// Colors in options are applied.
@@ -135,5 +111,33 @@ public abstract class AbstractFileComparer
   {
     ShowLines(new[] { line }, color);
   }
+
+  public bool firstLine = true;
+
+  /// <summary>
+  /// Send a sequence of lines to the writer.
+  /// Colors in options are applied.
+  /// </summary>
+  /// <param name="lines">lines to write</param>
+  /// <param name="color">Color of the text (if null then lef unchanged)</param>
+  protected virtual void ShowLines(string[] lines, ConsoleColor? color = null)
+  {
+    if (firstLine && Options.StartOfFile!=null)
+      Writer?.WriteLine(Options.StartOfFile);
+    firstLine = false;
+    bool colorChanged = false;
+    if (color != null && Writer != null)
+    {
+      Writer.ForegroundColor = (ConsoleColor)color;
+      colorChanged = true;
+    }
+    foreach (var line in lines)
+    {
+      Writer?.WriteLine(line);
+    }
+    if (colorChanged)
+      Writer?.ResetColors();
+  }
+
 
 }
