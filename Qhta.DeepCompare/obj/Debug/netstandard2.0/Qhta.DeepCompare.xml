@@ -137,9 +137,21 @@
             <param name="indexStr">String of the index.</param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.DeepCompare.OnAddDiff">
+            <summary>
+            Delegate to event hander invoked on adding a diff.
+            </summary>
+            <param name="sender"></param>
+            <param name="diff"></param>
+        </member>
         <member name="T:Qhta.DeepCompare.DiffList">
             <summary>
             List of compare differences.
+            </summary>
+        </member>
+        <member name="E:Qhta.DeepCompare.DiffList.AddDiff">
+            <summary>
+            Event invoked when a diff is added.
             </summary>
         </member>
         <member name="M:Qhta.DeepCompare.DiffList.Add(System.String,System.Object,System.Object)">

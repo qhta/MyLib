@@ -73,7 +73,7 @@ public static class DeepComparer
         objName += $"[{index}]";
       if (refType != testType)
       {
-        diffs?.Add(objName, refType, refType);
+        diffs?.Add(objName, testType, refType);
         return false;
       }
       var ok = testObject.GetHashCode()==refObject.GetHashCode();
@@ -92,7 +92,7 @@ public static class DeepComparer
       else
       if (refType == typeof(String))
       {
-        var cmp = String.Equals((string)refObject, (string)testObject);
+        var cmp = String.Equals((string)testObject, (string)refObject);
         if (!cmp == true)
         {
           diffs?.Add(objName, testObject, refObject);
@@ -101,7 +101,7 @@ public static class DeepComparer
       }
       if (refType == typeof(Boolean))
       {
-        var cmp = Boolean.Equals((Boolean)refObject, (Boolean)testObject);
+        var cmp = Boolean.Equals((Boolean)testObject, (Boolean)refObject);
         if (!cmp == true)
         {
           diffs?.Add(objName, testObject, refObject);
@@ -111,7 +111,7 @@ public static class DeepComparer
       else
       if (refType == typeof(Int32))
       {
-        var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
+        var cmp = Int32.Equals((Int32)testObject, (Int32)refObject);
         if (!cmp == true)
         {
           diffs?.Add(objName, testObject, refObject);
@@ -121,7 +121,7 @@ public static class DeepComparer
       else
       if (refType.IsEnum)
       {
-        var cmp = Int32.Equals((Int32)refObject, (Int32)testObject);
+        var cmp = Int32.Equals((Int32)testObject, (Int32)refObject);
         if (!cmp == true)
         {
           diffs?.Add(objName, testObject, refObject);

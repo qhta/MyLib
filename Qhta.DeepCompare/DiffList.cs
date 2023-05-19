@@ -1,11 +1,24 @@
 ﻿namespace Qhta.DeepCompare;
 
 /// <summary>
+/// Delegate to event hander invoked on adding a diff.
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="diff"></param>
+public delegate void OnAddDiff(DiffList sender, Diff diff);
+
+/// <summary>
 /// List of compare differences.
 /// </summary>
 public class DiffList: List<Diff>
 {
-    /// <summary>
+
+  /// <summary>
+  /// Event invoked when a diff is added.
+  /// </summary>
+  public event OnAddDiff? AddDiff;
+
+  /// <summary>
   ///   Helper method to add a difference.
   /// </summary>
   /// <param name="objectName">Name of the object.</param>
@@ -38,7 +51,9 @@ public class DiffList: List<Diff>
   /// <param name="recValue">Received value.</param>
   public void Add(string? objectName, string? propertyName, object? index, object? expValue, object? recValue)
   {
-    Add(new Diff(objectName, propertyName, index, expValue, recValue));
+    var diff = new Diff(objectName, propertyName, index, expValue, recValue);
+    AddDiff?.Invoke(this, diff);
+    Add(diff);
   }
 
   /// <summary>
