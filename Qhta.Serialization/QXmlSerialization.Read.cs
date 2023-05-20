@@ -1,5 +1,7 @@
 ﻿//#define TraceReader
 
+using Qhta.TypeUtils;
+
 namespace Qhta.Xml.Serialization;
 
 /// <summary>
@@ -216,8 +218,8 @@ public partial class QXmlSerializer
               else
                 ReadXmlTextElement(instance, textMemberInfo);
             }
-//            else
-//              ;//throw new XmlInvalidOperationException($"No text or content property found in type {instance.GetType().Name}", Reader);
+            //            else
+            //              ;//throw new XmlInvalidOperationException($"No text or content property found in type {instance.GetType().Name}", Reader);
           }
           Reader.ReadEndElement(startTagName);
         }
@@ -378,6 +380,7 @@ public partial class QXmlSerializer
       var startTagName = Reader.Name;
       bool isEmptyElement = Reader.IsEmptyElement;
       SerializationMemberInfo? memberInfo;
+      SerializationTypeInfo? currentMemberTypeInfo = null;
       if (String.IsNullOrEmpty(startTagName.Namespace))
       {
         memberInfo = members.FirstOrDefault(item => item.XmlName == startTagName.Name);
@@ -386,10 +389,21 @@ public partial class QXmlSerializer
       {
         memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name
         && item.ValueType.XmlNamespace == startTagName.Namespace);
+        if (memberInfo == null)
+        {
+          if (KnownTypes.TryGetValue(startTagName, out var memberTypeInfo))
+          {
+            memberInfo = members.FirstOrDefault(item => item.MemberType != null && memberTypeInfo.Type.IsEqualOrSubclassOf(item.MemberType));
+            if (memberInfo != null)
+            {
+              currentMemberTypeInfo = memberTypeInfo;
+            }
+          }
+        }
       }
-      if (memberInfo != null && !memberInfo.IsAttribute)
+      if (memberInfo != null /*&& !memberInfo.IsAttribute*/)
       {
-        var value = ReadElementAsInstanceMember(instance, memberInfo);
+        var value = ReadElementAsInstanceMember(instance, memberInfo, currentMemberTypeInfo);
         if (value != null)
         {
           SetValue(instance, memberInfo, value);
@@ -463,6 +477,7 @@ public partial class QXmlSerializer
   /// </summary>
   /// <param name="instance">Instance which member is to be read</param>
   /// <param name="memberInfo">Member info of the member</param>
+  /// <param name="currentMemberTypeInfo">Optional current TypeInfo of the member (if known).</param>
   /// <returns>Read member value (may be null)</returns>
   /// <entrystate>
   /// On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
@@ -476,14 +491,14 @@ public partial class QXmlSerializer
   /// however a collection may have its own properties, and then should read as a "normal" object.
   /// Other, "normal" object are read by invoking <see cref="ReadElementAsMemberObject"/>.
   /// </remarks>
-  public object? ReadElementAsInstanceMember(object instance, SerializationMemberInfo memberInfo)
+  public object? ReadElementAsInstanceMember(object instance, SerializationMemberInfo memberInfo, SerializationTypeInfo? currentMemberTypeInfo = null)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadElementAsInstanceMember instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
     Trace.IndentLevel++;
 #endif
     object? result;
-    Type memberType = memberInfo.MemberType ?? typeof(Object);
+    Type memberType = currentMemberTypeInfo?.Type ?? memberInfo.MemberType ?? typeof(Object);
     if (memberInfo.XmlConverter?.CanRead == true)
     {
       result = memberInfo.XmlConverter.ReadXml(instance, Reader, memberInfo.ValueType.Type ?? typeof(object), null, this);
@@ -495,7 +510,7 @@ public partial class QXmlSerializer
       if (!memberInfo.IsObject && (memberInfo.IsCollection || memberInfo.IsDictionary) && contentInfo != null)
         result = ReadElementAsMemberCollection(instance, memberInfo, contentInfo);
       else
-        result = ReadElementAsMemberObject(instance, memberInfo);
+        result = ReadElementAsMemberObject(instance, memberInfo, currentMemberTypeInfo);
     }
 #if TraceReader
     Trace.WriteLine($"<Return item=\"{result}\" ReaderName=\"{(Reader.IsEndElement() ? "/" : null)}{Reader.Name}\"/>");
@@ -725,8 +740,9 @@ public partial class QXmlSerializer
   /// <summary>
   /// Reads an XML element which is recognized as a member object of the instance.
   /// </summary>
-  /// <param name="instance"></param>
-  /// <param name="memberInfo"></param>
+  /// <param name="instance">Instance which member is to be read</param>
+  /// <param name="memberInfo">Member info of the member</param>
+  /// <param name="currentMemberTypeInfo">Optional current TypeInfo of the member (if known).</param>
   /// <returns>Read object (nay be null)</returns>
   /// <exception cref="XmlInvalidOperationException">Thrown on errors.</exception>
   /// <entrystate>
@@ -735,7 +751,7 @@ public partial class QXmlSerializer
   /// <exitstate>
   /// On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
   /// </exitstate>
-  public object? ReadElementAsMemberObject(object instance, SerializationMemberInfo memberInfo)
+  public object? ReadElementAsMemberObject(object instance, SerializationMemberInfo memberInfo, SerializationTypeInfo? currentMemberTypeInfo = null)
   {
     if (Reader.NodeType != XmlNodeType.Element)
       return null;
@@ -754,14 +770,17 @@ public partial class QXmlSerializer
       Reader.Read();
     }
     var qualifiedName = ReadElementTag();
-    SerializationTypeInfo? valueTypeInfo = null;
-    if (memberInfo.ValueType.Type != typeof(object))
-      valueTypeInfo = memberInfo.ValueType;
-    else
-    if (!TryGetTypeInfo(qualifiedName, out valueTypeInfo))
-      valueTypeInfo = memberInfo.ValueType;
+    SerializationTypeInfo? valueTypeInfo = currentMemberTypeInfo;
     if (valueTypeInfo == null)
-      throw new XmlInvalidOperationException($"Unknown type for element \"{qualifiedName}\" on deserialize", Reader);
+    {
+      if (memberInfo.ValueType.Type != typeof(object))
+        valueTypeInfo = memberInfo.ValueType;
+      else
+      if (!TryGetTypeInfo(qualifiedName, out valueTypeInfo))
+        valueTypeInfo = memberInfo.ValueType;
+      if (valueTypeInfo == null)
+        throw new XmlInvalidOperationException($"Unknown type for element \"{qualifiedName}\" on deserialize", Reader);
+    }
     var expectedType = memberInfo.MemberType ?? typeof(object);
 
     if (expectedType != null)
@@ -775,7 +794,6 @@ public partial class QXmlSerializer
         throw new XmlInvalidOperationException($"Element \"{qualifiedName}\" is mapped to {valueTypeInfo.Type.Name}" +
                                        $" but {expectedType.Name} or its subclass expected", Reader);
     }
-
     var result = ReadMemberObjectWithKnownType(instance, memberInfo, valueTypeInfo);
     if (propertyElementName != null)
       Reader.ReadEndElement(propertyElementName);
@@ -858,6 +876,10 @@ public partial class QXmlSerializer
           else
             result = str;
         }
+        else
+        if (Reader.NodeType == XmlNodeType.Element && KnownTypes.TryGetValue(Reader.Name, out var elementType) 
+          && elementType!=valueTypeInfo)
+          result = ReadElementAsMemberObject(result, memberInfo, elementType);
         else
           result = ReadMemberObjectInterior(result, memberInfo, valueTypeInfo);
       }

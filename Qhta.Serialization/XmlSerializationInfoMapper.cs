@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
+using Qhta.Conversion;
+
 namespace Qhta.Xml.Serialization;
 
 /// <summary>
@@ -760,7 +762,8 @@ public class XmlSerializationInfoMapper
         converter = FindTypeConverter(converterTypeName);
         if (converter == null)
           throw new InvalidOperationException($"Type converter \"{converterTypeName}\" not found");
-        if (converter.CanConvertTo(null, typeof(string)) && converter.CanConvertFrom(null, typeof(string)))
+        var typeDescriptor = new TypeDescriptorContext(aType);
+        if (converter.CanConvertTo(typeDescriptor, typeof(string)) && converter.CanConvertFrom(typeDescriptor, typeof(string)))
           TypeConverters.Add(converterTypeName, converter);
         else
           throw new InvalidOperationException($"Type converter \"{converterTypeName}\" can not convert to or from string");

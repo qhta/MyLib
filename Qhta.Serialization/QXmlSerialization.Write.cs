@@ -124,7 +124,8 @@ public partial class QXmlSerializer
       if (!KnownTypes.TryGetValue(aType, out typeInfo))
         throw new InvalidOperationException($"Type \"{aType}\" not registered");
     }
-    WritePropertiesAsAttributes(context, obj, typeInfo);
+
+    WritePropertiesAsAttributes(context, obj, typeInfo, out var rejectedList);
     var typeConverter = typeInfo.TypeConverter;
     if (typeConverter != null)
     {
@@ -143,29 +144,29 @@ public partial class QXmlSerializer
     else
     if (typeInfo.ContentProperty != null)
     {
-      WritePropertiesAsElements(context, obj, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
       WriteContentProperty(obj, typeInfo.ContentProperty);
     }
     else
     if (typeInfo.TextProperty != null)
     {
-      WritePropertiesAsElements(context, obj, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
       WriteContentProperty(obj, typeInfo.TextProperty);
     }
     else
     if (typeInfo.IsCollection && typeInfo.ContentInfo is ContentItemInfo contentItemInfo && obj is IEnumerable collection)
     {
-      WritePropertiesAsElements(context, obj, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
       WriteCollectionElement(context, collection, null, contentItemInfo);
     }
     else
     if (typeInfo.IsDictionary && typeInfo.ContentInfo is DictionaryInfo dictionaryInfo && obj is IDictionary dictionary)
     {
-      WritePropertiesAsElements(context, obj, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
       WriteDictionaryElement(context, dictionary, null, dictionaryInfo);
     }
     else
-      WritePropertiesAsElements(context, obj, typeInfo);
+      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
   }
 
   /// <summary>
@@ -174,12 +175,18 @@ public partial class QXmlSerializer
   /// <param name="context">Context object for write operation. Usually a container of the written object</param>
   /// <param name="obj">Object to writer</param>
   /// <param name="typeInfo">Serialization info for the object type.</param>
+  /// <param name="rejectedMembers">
+  ///   If a member is in MembersAsAttributes list but it can't be converter to string, 
+  ///   then on return it is inserted to this list.
+  /// </param>
   /// <returns>Number of properties written</returns>
-  public int WritePropertiesAsAttributes(object? context, object obj, SerializationTypeInfo typeInfo)
+  public int WritePropertiesAsAttributes(object? context, object obj, SerializationTypeInfo typeInfo, 
+    out List<SerializationMemberInfo>? rejectedMembers)
   {
     var type = obj.GetType();
     var propList = typeInfo.MembersAsAttributes;
     var attrsWritten = 0;
+    rejectedMembers = null;
     foreach (var memberInfo in propList)
     {
       if (memberInfo.CheckMethod != null)
@@ -190,19 +197,25 @@ public partial class QXmlSerializer
             continue;
       }
 
-      var attrTag = CreateAttributeTag(memberInfo, type);
       var propValue = memberInfo.GetValue(obj);
-      if (propValue != null)
+      if (propValue == null)
+        continue;
+      if (!CanConvertMemberValueToString(propValue, memberInfo))
       {
-        var defaultValue = memberInfo.DefaultValue;
-        if (defaultValue != null && propValue.Equals(defaultValue))
-          continue;
-        var str = ConvertMemberValueToString(propValue, memberInfo);
-        if (str != null)
-        {
-          Writer.WriteAttributeString(attrTag, str);
-          attrsWritten++;
-        }
+        if (rejectedMembers == null)
+          rejectedMembers = new List<SerializationMemberInfo>();
+        rejectedMembers.Add(memberInfo);
+        continue;
+      }
+      var attrTag = CreateAttributeTag(memberInfo, type);
+      var defaultValue = memberInfo.DefaultValue;
+      if (defaultValue != null && propValue.Equals(defaultValue))
+        continue;
+      var str = ConvertMemberValueToString(propValue, memberInfo);
+      if (str != null)
+      {
+        Writer.WriteAttributeString(attrTag, str);
+        attrsWritten++;
       }
     }
     return attrsWritten;
@@ -214,10 +227,14 @@ public partial class QXmlSerializer
   /// <param name="context">Context object for write operation. Usually a container of the written object</param>
   /// <param name="obj">Object to write</param>
   /// <param name="typeInfo">Serialization info for the object type.</param>
+  /// <param name="attrRejectedList">Optional list of members that were rejected from writing as attributes.</param>
   /// <returns>Number of properties written</returns>
-  public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo)
+  public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo, 
+    List<SerializationMemberInfo>? attrRejectedList)
   {
-    var props = typeInfo.MembersAsElements;
+    var props = typeInfo.MembersAsElements.ToList();
+    if (attrRejectedList!=null)
+      props.AddRange(attrRejectedList);
     var propsWritten = 0;
     ITypeDescriptorContext? typeDescriptorContext = new TypeDescriptorContext(obj);
     foreach (var memberInfo in props)
@@ -231,6 +248,8 @@ public partial class QXmlSerializer
       }
       var propValue = memberInfo.GetValue(obj);
       var propTag = CreateElementTag(memberInfo, propValue?.GetType());
+      if (propTag?.Name == "Color")
+        Debug.Assert(true);
       if (propValue == null)
       {
         if (Options.UseNilValue == true && memberInfo.IsNullable)
@@ -693,6 +712,43 @@ public partial class QXmlSerializer
       if (str.Contains('&'))
         Debugger.Break();
       Writer.WriteString(str);
+    }
+  }
+
+  /// <summary>
+  /// Helper method to check if the value of some member can be converted to string.
+  /// </summary>
+  /// <param name="memberInfo"></param>
+  /// <param name="value"></param>
+  /// <returns>true if conversion is possible</returns>
+  protected bool CanConvertMemberValueToString(object? value, SerializationMemberInfo memberInfo)
+  {
+    if (value == null)
+      return false;
+    if (memberInfo.Property == null)
+      return false;
+    if (memberInfo.ValueType.Type == typeof(string) && value is string valStr)
+    {
+      return true;
+    }
+    var typeConverter = memberInfo.GetTypeConverter();
+    if (typeConverter != null)
+    {
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
+      var typeDescriptor = new TypeDescriptorContext(value.GetType());
+      var ok = typeConverter.CanConvertTo(typeDescriptor, typeof(string));
+      return ok;
+    }
+    else
+    {
+      typeConverter = new ValueTypeConverter(memberInfo.Property.PropertyType, KnownTypes.Keys, KnownNamespaces.XmlNamespaceToPrefix, memberInfo.DataType,
+        memberInfo.Format, memberInfo.Culture, /*memberInfo.ConversionOptions ?? */Options.ConversionOptions);
+      if (typeConverter is IRealTypeConverter realTypeConverter)
+        realTypeConverter.Unit = Options.DefaultUnit;
+      var typeDescriptor = new TypeDescriptorContext(value.GetType());
+      var ok = typeConverter.CanConvertTo(typeDescriptor, typeof(string));
+      return ok;
     }
   }
 
