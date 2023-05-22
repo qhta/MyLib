@@ -170,6 +170,7 @@ public class XmlSerializationInfoMapper
   protected void FillTypeInfo(SerializationTypeInfo typeInfo)
   {
     var aType = typeInfo.Type;
+    typeInfo.IsSealed = aType.IsSealed || aType.IsValueType;
     if (aType.IsDictionary())
       typeInfo.ContentInfo = CreateDictionaryInfo(aType);
     else if (aType.IsList())
@@ -199,6 +200,7 @@ public class XmlSerializationInfoMapper
       typeInfo.XmlConverter = xmlConverter;
     else typeInfo.XmlConverter = GetXmlConverter(aType);
     typeInfo.KnownSubtypes = GetKnownTypes(aType);
+
   }
 
   /// <summary>

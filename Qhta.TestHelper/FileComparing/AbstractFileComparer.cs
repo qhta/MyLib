@@ -112,6 +112,9 @@ public abstract class AbstractFileComparer
     ShowLines(new[] { line }, color);
   }
 
+  /// <summary>
+  /// If we are at the beginning of trace output.
+  /// </summary>
   public bool firstLine = true;
 
   /// <summary>

@@ -65,6 +65,11 @@
             <param name="line">line to write</param>
             <param name="color">Color of the text (if null then lef unchanged)</param>
         </member>
+        <member name="F:Qhta.TestHelper.AbstractFileComparer.firstLine">
+            <summary>
+            If we are at the beginning of trace output.
+            </summary>
+        </member>
         <member name="M:Qhta.TestHelper.AbstractFileComparer.ShowLines(System.String[],System.Nullable{System.ConsoleColor})">
             <summary>
             Send a sequence of lines to the writer.

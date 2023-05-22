@@ -102,8 +102,19 @@ public class SerializationOptions
   /// <summary>
   ///   Writes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" in the first element.
   ///   Writes xsi:nil="true" attribute when value is null.
+  ///   If this flag is false, then a null value is simply omitted.
   /// </summary>
-  public bool UseNilValue { get; set; } = true;
+  public bool UseNilValue { get; set; } = false;
+
+  /// <summary>
+  ///   Writes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" in the first element.
+  ///   Writes xsi:type="typeName" attribute when serializing a property with multiple derived types.
+  ///   If this flag is true, then a property-named Xml element is itself a class instance element
+  ///   where class name is written as first xsi:type attribute.
+  ///   If this flag is false, then property name is serialized as a compound Xml element 
+  ///   with contains a whole class instance Xml element.
+  /// </summary>
+  public bool UseXsiType { get; set; } = true;
 
   /// <summary>
   ///   Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element.

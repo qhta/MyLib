@@ -749,6 +749,11 @@
               Known property to accept text content of XmlElement.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsSealed">
+            <summary>
+            Specifies that a derived types can't occur when serializing object values.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.KnownSubtypes">
             <summary>
               If a class can be substituted by subclasses then these classes are listed here.

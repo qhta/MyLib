@@ -73,6 +73,11 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   public SerializationMemberInfo? TextProperty { get; set; }
 
   /// <summary>
+  /// Specifies that a derived types can't occur when serializing object values.
+  /// </summary>
+  public bool IsSealed { get; set; }
+
+  /// <summary>
   ///   If a class can be substituted by subclasses then these classes are listed here.
   /// </summary>
   [XmlElement]
