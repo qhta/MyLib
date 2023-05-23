@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+
+using Qhta.TestHelper.TraceWriting;
 
 namespace Qhta.TestHelper;
 
@@ -173,6 +176,21 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
     Write(str);
     WriteLine();
   }
+
+  /// <summary>
+  /// TraceListener needed for VisualStudio TraceListeners collections
+  /// </summary>
+  public TraceListener TraceListener
+  {
+    get
+    {
+      if (_traceListener == null)
+        _traceListener = new WriterTraceListener(this);
+      return _traceListener;
+    }
+  }
+  private TraceListener? _traceListener;
+
 
   private bool disposedValue;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

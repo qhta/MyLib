@@ -27,7 +27,8 @@
         }
       }
     },
-    "net6.0": {}
+    "net6.0": {},
+    "net7.0": {}
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -178,7 +179,8 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3"
     ],
-    "net6.0": []
+    "net6.0": [],
+    "net7.0": []
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
@@ -204,6 +206,7 @@
       ],
       "originalTargetFrameworks": [
         "net6.0",
+        "net7.0",
         "netstandard2.0"
       ],
       "sources": {
@@ -213,6 +216,10 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "projectReferences": {}
+        },
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {}
         },
         "netstandard2.0": {
@@ -229,6 +236,26 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+      },
+      "net7.0": {
+        "targetAlias": "net7.0",
         "imports": [
           "net461",
           "net462",

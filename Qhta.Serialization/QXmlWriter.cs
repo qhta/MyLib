@@ -409,7 +409,16 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   }
 
   /// <summary>
-  /// Writes a "xsi:nil='true'" attribute
+  /// Writes a xsi:type="typename" attribute
+  /// </summary>
+  public void WriteTypeAttribute(XmlQualifiedTagName tag)
+  {
+    _writer.WriteAttributeString(null, "type", QXmlSerializationHelper.xsiNamespace, tag.ToPrefixedString());
+    XsiNamespaceUsed = true;
+  }
+
+  /// <summary>
+  /// Writes a xsi:nil="true" attribute
   /// </summary>
   public void WriteNilAttribute()
   {

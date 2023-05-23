@@ -60,6 +60,15 @@ public record XmlQualifiedTagName: /*IComparable<QualifiedName>, */IEquatable<Xm
     return Name;
   }
 
+  public string ToPrefixedString()
+  {
+    if (!String.IsNullOrEmpty(Prefix))
+      return Prefix + ":" + Name;
+    if (!String.IsNullOrEmpty(Namespace))
+      return Namespace + ":" + Name;
+    return Name;
+  }
+
   //public static implicit operator string(QualifiedName value) => value.ToString();
   public static implicit operator XmlQualifiedTagName(string value) => new XmlQualifiedTagName(value);
 

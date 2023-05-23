@@ -657,6 +657,11 @@
             </summary>
             <param name="str"></param>
         </member>
+        <member name="P:Qhta.TestHelper.AbstractWriter.TraceListener">
+            <summary>
+            TraceListener needed for VisualStudio TraceListeners collections
+            </summary>
+        </member>
         <member name="T:Qhta.TestHelper.ColorOp">
             <summary>
             Color operation encoded in <see cref="T:Qhta.TestHelper.ColorTag"/>
@@ -1106,6 +1111,29 @@
             <param name="filename">name of output file</param>
             <param name="consoleOutputEnabled">if should output to console</param>
             <param name="traceOutputEnabled">if should output to trace</param>
+        </member>
+        <member name="T:Qhta.TestHelper.TraceWriting.WriterTraceListener">
+            <summary>
+            Class used as a listener for <see cref="T:System.Diagnostics.Trace"/> output.
+            </summary>
+        </member>
+        <member name="M:Qhta.TestHelper.TraceWriting.WriterTraceListener.#ctor(Qhta.TestHelper.AbstractWriter)">
+            <summary>
+            Connects listener to <see cref="T:Qhta.TestHelper.AbstractWriter"/>
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Qhta.TestHelper.TraceWriting.WriterTraceListener.Write(System.String)">
+            <summary>
+            Implemented method to transfer message to base writer.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Qhta.TestHelper.TraceWriting.WriterTraceListener.WriteLine(System.String)">
+            <summary>
+            Implemented method to transfer message line to base writer.
+            </summary>
+            <param name="message"></param>
         </member>
     </members>
 </doc>

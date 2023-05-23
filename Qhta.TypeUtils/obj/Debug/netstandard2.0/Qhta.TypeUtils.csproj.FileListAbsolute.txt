@@ -18,7 +18,6 @@ D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.Gene
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.csproj.CoreCompileInputs.cache
-D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.dll
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\netstandard2.0\Qhta.TypeUtils.pdb

@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "QmiZrrCpQs71Bj09IvurzeNEkhyfP9ECaiAeIo5BcdW2T+equrMRyVctJJ11R/ix7alFWOaXOtRGpc5jDCOLhg==",
+  "dgSpecHash": "LomvE7nvvUTwBoVlCuoIqEGEsnXF5L1KKz5O2jwXT7E5zeDnOSErqW508KSMMAI928bfZtulxyLXeVL0+PtIdQ==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.0\\qhta.textutils.3.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.5\\qhta.typeutils.1.3.5.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.7\\qhta.typeutils.1.3.7.nupkg.sha512"
   ],
   "logs": []
 }

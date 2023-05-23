@@ -17,7 +17,7 @@
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\VS\\Projects\\DocxDocument\\NuGet.Config",
+          "D:\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -59,7 +59,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.5, )"
+              "version": "[1.3.7, )"
             },
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
@@ -99,7 +99,7 @@
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\VS\\Projects\\DocxDocument\\NuGet.Config",
+          "D:\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -141,13 +141,17 @@
               "target": "Package",
               "version": "[2.0.0, )"
             },
+            "Qhta.TestHelper": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Qhta.TextUtils": {
               "target": "Package",
               "version": "[3.1.0, )"
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.5, )"
+              "version": "[1.3.7, )"
             },
             "System.CodeDom": {
               "target": "Package",
@@ -195,7 +199,7 @@
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\VS\\Projects\\DocxDocument\\NuGet.Config",
+          "D:\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -237,7 +241,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.5, )"
+              "version": "[1.3.7, )"
             }
           },
           "imports": [
@@ -274,7 +278,7 @@
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\VS\\Projects\\DocxDocument\\NuGet.Config",
+          "D:\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -317,7 +321,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.5, )"
+              "version": "[1.3.7, )"
             }
           },
           "imports": [
@@ -357,7 +361,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.5, )"
+              "version": "[1.3.7, )"
             }
           },
           "imports": [

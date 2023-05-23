@@ -90,7 +90,7 @@ public partial class QXmlSerializer
         Writer.WriteStartElement(tag);
       if (!namespacesWritten && Options.EmitNamespaces && context == null)
       {
-        if (Options.UseNilValue)
+        if (Options.UseNilValue || Options.UseXsiType)
           Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
 
         if (Options.UseXsdScheme)
@@ -180,7 +180,7 @@ public partial class QXmlSerializer
   ///   then on return it is inserted to this list.
   /// </param>
   /// <returns>Number of properties written</returns>
-  public int WritePropertiesAsAttributes(object? context, object obj, SerializationTypeInfo typeInfo, 
+  public int WritePropertiesAsAttributes(object? context, object obj, SerializationTypeInfo typeInfo,
     out List<SerializationMemberInfo>? rejectedMembers)
   {
     var type = obj.GetType();
@@ -229,11 +229,13 @@ public partial class QXmlSerializer
   /// <param name="typeInfo">Serialization info for the object type.</param>
   /// <param name="attrRejectedList">Optional list of members that were rejected from writing as attributes.</param>
   /// <returns>Number of properties written</returns>
-  public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo, 
+  public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo,
     List<SerializationMemberInfo>? attrRejectedList)
   {
+    if (obj.GetType()?.Name == "RunFonts")
+      Debug.Assert(true);
     var props = typeInfo.MembersAsElements.ToList();
-    if (attrRejectedList!=null)
+    if (attrRejectedList != null)
       props.AddRange(attrRejectedList);
     var propsWritten = 0;
     ITypeDescriptorContext? typeDescriptorContext = new TypeDescriptorContext(obj);
@@ -248,7 +250,7 @@ public partial class QXmlSerializer
       }
       var propValue = memberInfo.GetValue(obj);
       var propTag = CreateElementTag(memberInfo, propValue?.GetType());
-      if (propTag?.Name == "Color")
+      if (propTag?.Name == "Ascii")
         Debug.Assert(true);
       if (propValue == null)
       {
@@ -295,12 +297,12 @@ public partial class QXmlSerializer
           {
             if (propTag != null)
               Writer.WriteStartElement(propTag);
-            var pType = propValue.GetType();
-            if (pType.IsSimple())
+            var propType = propValue.GetType();
+            if (propType.IsSimple())
             {
               WriteValue(propValue);
             }
-            else if (pType.IsArray(out var itemType) && itemType == typeof(byte))
+            else if (propType.IsArray(out var itemType) && itemType == typeof(byte))
               WriteValue(ConvertMemberValueToString(propValue, memberInfo));
             else if (memberInfo.IsReference)
               WriteValue(ConvertMemberValueToString(propValue, memberInfo));
@@ -312,7 +314,13 @@ public partial class QXmlSerializer
                 WriteCollectionItems(context, collection, memberInfo.ContentInfo);
             }
             else
+            {
+              if (propTag != null && !propType.IsSealed)
+              {
+                WriteTypeAttribute(propValue.GetType());
+              }
               WriteObject(context, propValue);
+            }
             if (propTag != null)
               Writer.WriteEndElement(propTag);
           }
@@ -321,6 +329,14 @@ public partial class QXmlSerializer
       }
     }
     return propsWritten;
+  }
+
+  private void WriteTypeAttribute(Type aType)
+  {
+    if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
+      throw new InvalidOperationException($"Type \"{aType}\" not registered");
+    var typeTag = CreateElementTag(serializedTypeInfo, aType);
+    Writer.WriteTypeAttribute(typeTag);
   }
 
   /// <summary>

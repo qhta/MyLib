@@ -466,7 +466,7 @@
             </exitstate>
             <remarks>
             First XML attributes are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>. 
-            If the Xml element is not empty then element content is read by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>
+            If the Xml element is not empty then element content is read by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)"/>
             and if no content elements are read then by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/>
             </remarks>
         </member>
@@ -488,12 +488,14 @@
              The Xsd prefix causes the attribute to be omitted. To read each attribue value a ReadValue method is invoked
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
             Reads all XML elements contained in the instance XML open-end tags.
             </summary>
             <param name="instance">Existing object instance.</param>
             <param name="instanceTypeInfo">Serialized type info according to the instance type.</param>
+            <param name="instanceAsMemberInfo">Optional info when instance is a member of other instance</param>
+            
             <returns>The number of elements read</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown when the XML element is unrecognized.</exception>
             <entrystate>
@@ -511,6 +513,16 @@
             One is when the instance has known ContentProperty. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
             The second case is when the instance is a collection. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/> is called.
             </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryReadElementAsProperty(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object@)">
+            <summary>
+            Tries to read an XmlElement which has a property syntax as an instance Property.
+            </summary>
+            <param name="instance"></param>
+            <param name="instanceTypeInfo"></param>
+            <param name="memberInfo"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
@@ -869,6 +881,13 @@
             If a tag has no namespace, then a local name is translated to registered type name.
             </summary>
             <returns>Read or translated tag name.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TagIsProperty(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Checks if tag syntax is for property name, i.e. Tag.Namespace is null or empty string.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SetValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object)">
             <summary>
@@ -1589,9 +1608,14 @@
             Writes the specified namespace definition usint xmlns prefix.
             </summary>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteTypeAttribute(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Writes a xsi:type="typename" attribute
+            </summary>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteNilAttribute">
             <summary>
-            Writes a "xsi:nil='true'" attribute
+            Writes a xsi:nil="true" attribute
             </summary>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlWriter.WriteValue(System.String)">

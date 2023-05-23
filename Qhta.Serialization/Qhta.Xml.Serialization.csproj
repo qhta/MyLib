@@ -26,8 +26,9 @@
 
   <ItemGroup>
     <PackageReference Include="Qhta.Collections" Version="2.0.0" />
+    <PackageReference Include="Qhta.TestHelper" Version="2.1.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.1.0" />
-    <PackageReference Include="Qhta.TypeUtils" Version="1.3.5" />
+    <PackageReference Include="Qhta.TypeUtils" Version="1.3.7" />
     <PackageReference Include="System.CodeDom" Version="7.0.0" />
     <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
     <PackageReference Include="System.Security.Permissions" Version="7.0.0" />
@@ -41,15 +42,6 @@
 
   <ItemGroup>
     <Folder Include="docs\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Qhta.TextUtils">
-      <HintPath>..\bin\Debug\net6.0\Qhta.TextUtils.dll</HintPath>
-    </Reference>
-    <Reference Include="Qhta.TypeUtils">
-      <HintPath>..\bin\Debug\net6.0\Qhta.TypeUtils.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

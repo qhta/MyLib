@@ -570,6 +570,14 @@
             Checks if the type is Nullable and returns its baseType.
             </summary>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsStruct(System.Type)">
+            <summary>
+            Is a type a struct.
+            Checks if a type is a value type but not a simple type.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TypeUtils.TypeCategorization.IsArray(System.Type)">
             <summary>
               Is a type an array type.

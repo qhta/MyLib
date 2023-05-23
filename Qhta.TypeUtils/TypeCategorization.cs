@@ -132,7 +132,14 @@ public static class TypeCategorization
   public static bool IsSimple(this Type aType)
   {
     var category = GetCategory(aType);
-    return category.HasFlag(TypeCategory.Simple) || aType.IsEnum || aType.IsValueType;
+    if (category.HasFlag(TypeCategory.Simple) || aType.IsEnum)
+      return true;
+    if (aType.IsValueType)
+    {
+      var publicMembersCount = aType.GetProperties().Count()+aType.GetFields().Count();
+      return publicMembersCount==0;
+    }
+    return false;
   }
 
   /// <summary>
@@ -244,7 +251,7 @@ public static class TypeCategorization
   public static Type GetNotNullableType(this object obj)
   {
     Type type = obj.GetType() ?? typeof(object);
-    if (type.IsNullable(out var baseType) && baseType!=null)
+    if (type.IsNullable(out var baseType) && baseType != null)
       type = baseType;
     return type;
   }
@@ -254,9 +261,22 @@ public static class TypeCategorization
   /// </summary>
   public static Type GetNotNullableType(this Type type)
   {
-    if (type.IsNullable(out var baseType) && baseType!=null)
+    if (type.IsNullable(out var baseType) && baseType != null)
       type = baseType;
     return type;
+  }
+  #endregion
+
+  #region IsStruct
+  /// <summary>
+  /// Is a type a struct.
+  /// Checks if a type is a value type but not a simple type.
+  /// </summary>
+  /// <param name="source"></param>
+  /// <returns></returns>
+  public static bool IsStruct(this Type source)
+  {
+    return source.IsValueType && !source.IsSimple();
   }
   #endregion
 

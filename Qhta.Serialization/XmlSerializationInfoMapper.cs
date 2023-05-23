@@ -1,6 +1,5 @@
 ﻿using System.Runtime.Serialization;
 
-using Qhta.Conversion;
 
 namespace Qhta.Xml.Serialization;
 
@@ -225,8 +224,6 @@ public class XmlSerializationInfoMapper
     var elemCount = 0;
     foreach (var memberInfo in members)
     {
-      //if (memberInfo.Name == "Item" && typeInfo.Type.Name == "EmbedFontData")
-      //  Debugger.Break();
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
       if (memberInfo.Name == typeInfo.ContentProperty?.Member.Name)
@@ -303,11 +300,12 @@ public class XmlSerializationInfoMapper
                       else
                       if (memberInfo.CanWrite() == true)
                       {
+                        bool ok = false;
                         if (Options.SimplePropertiesAsAttributes
                           && (memberInfo.GetCustomAttribute<TypeConverterAttribute>() != null
                            || memberInfo.GetValueType()?.GetCustomAttribute<TypeConverterAttribute>() != null))
-                          TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++elemCount);
-                        else
+                          ok = TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++elemCount);
+                        if (!ok)
                           TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
                       }
                     }
@@ -358,6 +356,25 @@ public class XmlSerializationInfoMapper
       return false;
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qAttrName, memberInfo, order);
+
+    var memberType = serializationMemberInfo.MemberType;
+    if (memberType != null)
+    {
+      if (memberType.IsNullable(out var baseType))
+        memberType = baseType;
+      if (memberType.Name == "RunFont")
+        Debug.Assert(true);
+      //var isValueType = memberType.IsValueType;
+      //var isSimpleType = memberType.IsSimple();
+      //var publicMembersCount = memberType.GetProperties().Count()+memberType.GetFields().Count();
+      //var isEnum = memberType.IsEnum;
+      if (memberType.IsStruct())
+      {
+        var hasTypeConverter = memberType.GetCustomAttribute<TypeConverterAttribute>() != null;
+        if (!hasTypeConverter)
+          return false;
+      }
+    }
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
@@ -384,7 +401,7 @@ public class XmlSerializationInfoMapper
       elementName = elementName.ChangeCase(Options.ElementNameCase);
     if (string.IsNullOrEmpty(elementNamespace))
       elementNamespace = memberInfo.DeclaringType?.Namespace ?? "";
-    var qElemName = new QualifiedName(elementName, elementNamespace);
+    var qElemName = new QualifiedName(elementName, null);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
@@ -393,7 +410,7 @@ public class XmlSerializationInfoMapper
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
     typeInfo.KnownMembers.Add(serializationMemberInfo);
-    KnownNamespaces.TryAdd(qElemName.Namespace);
+    //KnownNamespaces.TryAdd(qElemName.Namespace);
     return true;
   }
 
@@ -772,7 +789,7 @@ public class XmlSerializationInfoMapper
       }
       return converter;
     }
-    var result = new ValueTypeConverter(aType, options : new ConversionOptions{ UseEscapeSequences = true, UseHtmlEntities = true });
+    var result = new ValueTypeConverter(aType, options: new ConversionOptions { UseEscapeSequences = true, UseHtmlEntities = true });
     return result?.InternalTypeConverter;
   }
 
@@ -786,7 +803,7 @@ public class XmlSerializationInfoMapper
     if (KnownTypes.TryGetValue(type, out var typeInfo))
       return GetXmlTag(typeInfo);
     var name = type.Name;
-    var k = name.IndexOfAny(new char[]{'`','['});
+    var k = name.IndexOfAny(new char[] { '`', '[' });
     if (k != -1)
     {
       var sep = name[k];
