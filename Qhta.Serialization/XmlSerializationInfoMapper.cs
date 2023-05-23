@@ -230,6 +230,8 @@ public class XmlSerializationInfoMapper
         continue;
       if (memberInfo.Name == typeInfo.TextProperty?.Member.Name)
         continue;
+      var memberType = memberInfo.GetValueType()?.GetNotNullableType() ?? typeof(Object);
+
       var xmlAttribute = memberInfo.GetCustomAttributes(true).OfType<XmlAttributeAttribute>().FirstOrDefault();
       if (xmlAttribute != null)
       {
@@ -276,18 +278,18 @@ public class XmlSerializationInfoMapper
                 {
                   if (!memberInfo.IsIndexer())
                   {
-                    if (memberInfo.GetValueType()?.IsDictionary() == true)
+                    if (memberType.IsDictionary() == true)
                     {
                       TryAddMemberAsDictionary(typeInfo, memberInfo, null, ++elemCount);
                     }
-                    else if (memberInfo.GetValueType()?.IsCollection() == true)
+                    else if (memberType.IsCollection() == true)
                     {
                       if (!type.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
                         TryAddMemberAsCollection(typeInfo, memberInfo, null, ++elemCount);
                     }
                     else if (Options.AcceptAllProperties)
                     {
-                      if (memberInfo.GetValueType()?.IsSimple() == true)
+                      if (memberType.IsSimple() == true)
                       {
                         if (memberInfo.CanWrite() == true)
                         {
@@ -303,7 +305,7 @@ public class XmlSerializationInfoMapper
                         bool ok = false;
                         if (Options.SimplePropertiesAsAttributes
                           && (memberInfo.GetCustomAttribute<TypeConverterAttribute>() != null
-                           || memberInfo.GetValueType()?.GetCustomAttribute<TypeConverterAttribute>() != null))
+                           || memberType.GetCustomAttribute<TypeConverterAttribute>() != null))
                           ok = TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++elemCount);
                         if (!ok)
                           TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
