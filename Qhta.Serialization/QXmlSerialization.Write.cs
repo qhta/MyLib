@@ -250,8 +250,6 @@ public partial class QXmlSerializer
       }
       var propValue = memberInfo.GetValue(obj);
       var propTag = CreateElementTag(memberInfo, propValue?.GetType());
-      if (propTag?.Name == "Ascii")
-        Debug.Assert(true);
       if (propValue == null)
       {
         if (Options.UseNilValue == true && memberInfo.IsNullable)
@@ -315,11 +313,14 @@ public partial class QXmlSerializer
             }
             else
             {
-              if (propTag != null && !propType.IsSealed)
+              if (Options.UseXsiType && propTag!=null)
               {
-                WriteTypeAttribute(propValue.GetType());
+                if (!propType.IsSealed && propValue.GetType()!=propType)
+                  WriteTypeAttribute(propValue.GetType());
+                WriteObjectInterior(context, propValue);
               }
-              WriteObject(context, propValue);
+              else
+                WriteObject(context, propValue);
             }
             if (propTag != null)
               Writer.WriteEndElement(propTag);
@@ -850,10 +851,7 @@ public partial class QXmlSerializer
     if (typeInfo.XmlNamespace != null)
     {
       KnownNamespaces[typeInfo.XmlNamespace].IsUsed = true;
-      return new XmlQualifiedTagName(typeInfo.XmlNamespace, typeInfo.XmlNamespace);
-      //var typeTag = typeInfo.Type.GetTypeTag();
-      //if (!typeTag.Contains('.'))
-      //  return new XmlQualifiedTagName(typeTag);
+      return new XmlQualifiedTagName(typeInfo.XmlNamespace, typeInfo.XmlName);
     }
     var result = Mapper.GetXmlTag(typeInfo);
     if (typeInfo.XmlNamespace != null)

@@ -104,7 +104,7 @@ public class XmlSerializationInfoMapper
     return newTypeInfo;
   }
 
-
+  #region TypeInfo creation.
   /// <summary>
   ///   A method to create type info from a type.
   ///   If it is a nullable type, then type info is created from it's base type.
@@ -156,7 +156,9 @@ public class XmlSerializationInfoMapper
         elementNamespace += "_" + GetElementNamespace(argType);
     return elementNamespace;
   }
+  #endregion
 
+  #region Type members mapping.
   /// <summary>
   ///   This method fills the <see cref="SerializationTypeInfo" /> parameter
   ///   with data taken from a type.
@@ -359,24 +361,18 @@ public class XmlSerializationInfoMapper
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qAttrName, memberInfo, order);
 
-    var memberType = serializationMemberInfo.MemberType;
-    if (memberType != null)
-    {
-      if (memberType.IsNullable(out var baseType))
-        memberType = baseType;
-      if (memberType.Name == "RunFont")
-        Debug.Assert(true);
-      //var isValueType = memberType.IsValueType;
-      //var isSimpleType = memberType.IsSimple();
-      //var publicMembersCount = memberType.GetProperties().Count()+memberType.GetFields().Count();
-      //var isEnum = memberType.IsEnum;
-      if (memberType.IsStruct())
-      {
-        var hasTypeConverter = memberType.GetCustomAttribute<TypeConverterAttribute>() != null;
-        if (!hasTypeConverter)
-          return false;
-      }
-    }
+    //var memberType = serializationMemberInfo.MemberType;
+    //if (memberType != null)
+    //{
+    //  if (memberType.IsNullable(out var baseType))
+    //    memberType = baseType;
+    //  if (memberType.IsStruct())
+    //  {
+    //    var hasTypeConverter = memberType.GetCustomAttribute<TypeConverterAttribute>() != null;
+    //    if (!hasTypeConverter)
+    //      return false;
+    //  }
+    //}
     serializationMemberInfo.IsNullable = memberInfo.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
     if (xmlAttribute?.DataType != null && Enum.TryParse<XsdSimpleType>(xmlAttribute.DataType, out var xsdType))
       serializationMemberInfo.DataType = xsdType;
@@ -505,7 +501,9 @@ public class XmlSerializationInfoMapper
       serializationMemberInfo.TypeConverter = new Qhta.Conversion.ArrayTypeConverter();
     return true;
   }
+  #endregion
 
+  #region MemberInfo creation.
   /// <summary>
   /// Creates serialization member info for a member info.
   /// </summary>
@@ -597,35 +595,9 @@ public class XmlSerializationInfoMapper
     }
     return null;
   }
+  #endregion
 
-  /// <summary>
-  ///   Registers a converter to read/write using XmlReader/XmlWriter.
-  ///   This converter is declared in the type header with <see cref="XmlConverterAttribute" />.
-  /// </summary>
-  /// <param name="aType">Type to reflect</param>
-  /// <returns>An instance of <see cref="XmlConverter" /></returns>
-  public virtual IXmlConverter? GetXmlConverter(Type aType)
-  {
-    var xmlTypeConverterAttrib = aType.GetCustomAttribute<XmlConverterAttribute>(true);
-    if (xmlTypeConverterAttrib != null)
-    {
-      var converterType = xmlTypeConverterAttrib.ConverterType;
-      if (converterType == null)
-        throw new InvalidOperationException($"Converter type not declared in XmlConverterAttribute assigned to a type {aType.Name}");
-      var argTypes = new Type[xmlTypeConverterAttrib.Args.Length];
-      for (var i = 0; i < argTypes.Length; i++)
-        argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
-      var constructor = converterType.GetConstructor(argTypes);
-      if (constructor == null)
-        throw new InvalidOperationException($"Converter type {converterType.Name} has no appropriate constructor");
-      var converter = constructor.Invoke(xmlTypeConverterAttrib.Args) as IXmlConverter;
-      if (converter == null)
-        throw new InvalidOperationException($"Converter type {converterType.Name} is not a subclass of XmlConverter");
-      return converter;
-    }
-    return null;
-  }
-
+  #region KnownTypes handling.
   /// <summary>
   ///   Get types which are assigned to the class with KnownType attribute.
   /// </summary>
@@ -752,7 +724,9 @@ public class XmlSerializationInfoMapper
       }
     return knownItems;
   }
+  #endregion
 
+  #region TypeConverter and XmlConverter handling.
   /// <summary>
   ///   Gets a type converter for a type. It can be pointed out with a
   ///   <see cref="System.ComponentModel.TypeConverterAttribute" />
@@ -795,6 +769,36 @@ public class XmlSerializationInfoMapper
     return result?.InternalTypeConverter;
   }
 
+    /// <summary>
+  ///   Registers a converter to read/write using XmlReader/XmlWriter.
+  ///   This converter is declared in the type header with <see cref="XmlConverterAttribute" />.
+  /// </summary>
+  /// <param name="aType">Type to reflect</param>
+  /// <returns>An instance of <see cref="XmlConverter" /></returns>
+  public virtual IXmlConverter? GetXmlConverter(Type aType)
+  {
+    var xmlTypeConverterAttrib = aType.GetCustomAttribute<XmlConverterAttribute>(true);
+    if (xmlTypeConverterAttrib != null)
+    {
+      var converterType = xmlTypeConverterAttrib.ConverterType;
+      if (converterType == null)
+        throw new InvalidOperationException($"Converter type not declared in XmlConverterAttribute assigned to a type {aType.Name}");
+      var argTypes = new Type[xmlTypeConverterAttrib.Args.Length];
+      for (var i = 0; i < argTypes.Length; i++)
+        argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
+      var constructor = converterType.GetConstructor(argTypes);
+      if (constructor == null)
+        throw new InvalidOperationException($"Converter type {converterType.Name} has no appropriate constructor");
+      var converter = constructor.Invoke(xmlTypeConverterAttrib.Args) as IXmlConverter;
+      if (converter == null)
+        throw new InvalidOperationException($"Converter type {converterType.Name} is not a subclass of XmlConverter");
+      return converter;
+    }
+    return null;
+  }
+#endregion
+
+  #region Tag handling.
   /// <summary>
   /// Gets a qualified tag name for the type.
   /// If a type is registered in <see cref="KnownTypes"/>, its tag name is returned.
@@ -860,6 +864,7 @@ public class XmlSerializationInfoMapper
       return ToQualifiedName(xmlQualifiedName.Name);
     return new QualifiedName(xmlQualifiedName.Name, xmlQualifiedName.Namespace);
   }
+#endregion
 
   #region Collection Handling
 

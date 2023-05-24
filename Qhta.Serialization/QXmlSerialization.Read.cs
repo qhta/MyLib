@@ -217,8 +217,6 @@ public partial class QXmlSerializer
               else
                 ReadXmlTextElement(instance, textMemberInfo);
             }
-            //            else
-            //              ;//throw new XmlInvalidOperationException($"No text or content property found in type {instance.GetType().Name}", Reader);
           }
           Reader.ReadEndElement(startTagName);
         }
@@ -500,7 +498,10 @@ public partial class QXmlSerializer
     value = null;
     if (Reader.HasAttributes)
     {
+      var propertyTag = Reader.Name;
       var typeName = Reader.GetAttribute(new XmlQualifiedTagName("type", QXmlSerializationHelper.xsiNamespace));
+      if (typeName == null)
+        Debug.Assert(false);
       var nodeType = Reader.NodeType;
       var valueType = Reader.ValueType;
       var nodeValue = Reader.Value;
@@ -694,8 +695,6 @@ public partial class QXmlSerializer
     }
     #endregion
 
-    //if (startTagName.Name=="Text")
-    //  Debugger.Break();
     if (knownItemTypeInfo != null)
     {
       #region item (or key-item pair) is read
@@ -844,8 +843,6 @@ public partial class QXmlSerializer
 #endif
     string? propertyElementName = null;
     var tagName = ReadElementTag();
-    if (tagName.Name == "Ascii")
-      Debug.Assert(true);
     if (TagIsProperty(tagName))
     {
       var propInfo = memberInfo.ValueType.MembersAsElements.FirstOrDefault(memberItem => memberItem.XmlName == Reader.LocalName);
@@ -923,8 +920,6 @@ public partial class QXmlSerializer
     Trace.WriteLine($"<ReadMemberObjectWithKnownType instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
     Trace.IndentLevel++;
 #endif
-    if (Reader.Name == "Ascii")
-      Debug.Assert(true);
     object? result = null;
     if (valueTypeInfo.XmlConverter?.CanRead == true)
       result = valueTypeInfo.XmlConverter.ReadXml(instance, Reader, valueTypeInfo.Type, null, null);
