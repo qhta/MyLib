@@ -127,7 +127,7 @@ public partial class QXmlSerializer
     var startTag = Reader.Name;
     if (typeInfo.KnownConstructor == null)
     {
-      if (typeInfo.Type.IsSimple() || typeInfo.Type == typeof(byte[]) || typeInfo.Type == typeof(Uri))
+      if (typeInfo.Type.IsSimple() || typeInfo.Type == typeof(byte[]) || typeInfo.Type == typeof(Uri) || typeInfo.TypeConverter != null)
       {
         if (!Reader.IsEmptyElement)
         {
@@ -385,16 +385,24 @@ public partial class QXmlSerializer
         memberInfo = members.FirstOrDefault(item => item.XmlName == startTagName.Name);
         if (memberInfo != null)
         {
-          if (TryReadElementAsProperty(instance, instanceTypeInfo, memberInfo, out var value))
+          if (memberInfo.ValueType.IsCollection)
           {
-            if (value!=null)
+            var value = ReadElementAsContentProperty(instance, memberInfo);
+            if (value != null)
+              SetValue(instance, memberInfo, value);
+            result++;
+            continue;
+          }
+          else
+          {
+           var value = ReadElementAsProperty(instance, instanceTypeInfo, memberInfo);
+            if (value != null)
               SetValue(instance, memberInfo, value);
             result++;
             continue;
           }
         }
       }
-      else
       {
         memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTagName.Name
         && item.ValueType.XmlNamespace == startTagName.Namespace);
@@ -491,11 +499,10 @@ public partial class QXmlSerializer
   /// <param name="instance"></param>
   /// <param name="instanceTypeInfo"></param>
   /// <param name="memberInfo"></param>
-  /// <param name="value"></param>
-  /// <returns></returns>
-  public bool TryReadElementAsProperty(object instance, SerializationTypeInfo instanceTypeInfo, SerializationMemberInfo memberInfo, out object? value)
+  /// <returns>Object read (or null)</returns>
+  public object? ReadElementAsProperty(object instance, SerializationTypeInfo instanceTypeInfo, SerializationMemberInfo memberInfo)
   {
-    value = null;
+    object? value = null;
     if (Reader.HasAttributes)
     {
       var propertyTag = Reader.Name;
@@ -514,7 +521,7 @@ public partial class QXmlSerializer
         if (!memberInfo.ValueType.HasKnownConstructor)
           throw new InvalidOperationException($"Type {memberInfo.ValueType} has no public, parameterless constructor");
         value = memberInfo.ValueType.KnownConstructor?.Invoke(new Type[0]);
-        if (value!=null)
+        if (value != null)
           value = ReadMemberObjectInterior(value, memberInfo, memberInfo.ValueType);
       }
     }
@@ -524,7 +531,7 @@ public partial class QXmlSerializer
       Reader.ReadStartElement(propertyTag);
       if (Reader.NodeType == XmlNodeType.Text)
       {
-        if (memberInfo.ValueType.TypeConverter!=null)
+        if (memberInfo.ValueType.TypeConverter != null)
           value = ReadValueWithTypeConverter(instance, memberInfo.ValueType.Type, memberInfo.ValueType.TypeConverter, memberInfo);
         else
           value = ReadValue(instance, memberInfo);
@@ -540,22 +547,20 @@ public partial class QXmlSerializer
         else
         if (KnownTypes.TryGetValue(innerTag, out var innerTypeInfo))
         {
-          if (innerTypeInfo.Type.IsEqualOrSubclassOf(memberInfo.ValueType.Type))
-          {
-            value = ReadObjectWithKnownTypeInfo(instance, memberInfo.ValueType);
-          }
-          else
-            Debug.Assert(false);
+        if (innerTypeInfo.Type.IsEqualOrSubclassOf(memberInfo.ValueType.Type))
+          value = ReadObjectWithKnownTypeInfo(instance, memberInfo.ValueType);
+        else
+          throw new InvalidOperationException($"Type {innerTypeInfo.Type} is not compatible with {memberInfo.ValueType.Type}");
         }
         else
-          Debug.Assert(false);
+          throw new InvalidOperationException($"Type {innerTag} not registered");
       }
       else
-          Debug.Assert(false);
+        Debug.Assert(false);
       if (Reader.IsEndElement())
         Reader.ReadEndElement(propertyTag);
     }
-    return value!=null;
+    return value;
   }
 
   /// <summary>
