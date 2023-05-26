@@ -500,19 +500,22 @@ public partial class QXmlSerializer
     {
       var propertyTag = Reader.Name;
       var typeName = Reader.GetAttribute(new XmlQualifiedTagName("type", QXmlSerializationHelper.xsiNamespace));
-      if (typeName == null)
-        Debug.Assert(false);
-      var nodeType = Reader.NodeType;
-      var valueType = Reader.ValueType;
-      var nodeValue = Reader.Value;
-      var isSealed = memberInfo.MemberType?.IsSealed ?? false;
-      if (isSealed)
+      if (typeName != null)
       {
+        Debug.Assert(false);
+        var nodeType = Reader.NodeType;
+        var valueType = Reader.ValueType;
+        var nodeValue = Reader.Value;
+        var isSealed = memberInfo.MemberType?.IsSealed ?? false;
         value = ReadElementAsInstanceMember(instance, memberInfo);
       }
       else
       {
-        value = ReadElementAsInstanceMember(instance, memberInfo);
+        if (!memberInfo.ValueType.HasKnownConstructor)
+          throw new InvalidOperationException($"Type {memberInfo.ValueType} has no public, parameterless constructor");
+        value = memberInfo.ValueType.KnownConstructor?.Invoke(new Type[0]);
+        if (value!=null)
+          value = ReadMemberObjectInterior(value, memberInfo, memberInfo.ValueType);
       }
     }
     else
