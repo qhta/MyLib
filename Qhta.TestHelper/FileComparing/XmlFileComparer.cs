@@ -136,8 +136,8 @@ public class XmlFileComparer : AbstractFileComparer
     }
     var recElementsList = recElement.Elements().ToList();
     var expElementsList = expElement.Elements().ToList();
-    Dictionary<string, XElement> recElementsDir = null!;
-    Dictionary<string, XElement> expElementsDir = null!;
+    SortedDictionary<string, XElement> recElementsDir = null!;
+    SortedDictionary<string, XElement> expElementsDir = null!;
     // Dictionaries of compared child element can be used only if the element names are unique.
     var itemsAreUnique = TryCreateDictionary(recElementsList, out recElementsDir) && TryCreateDictionary(expElementsList, out expElementsDir);
     if (itemsAreUnique)
@@ -155,10 +155,10 @@ public class XmlFileComparer : AbstractFileComparer
   /// <param name="items">Input enumerations of XElements</param>
   /// <param name="itemsDictionary">Output dictionary of XElements</param>
   /// <returns></returns>
-  private static bool TryCreateDictionary(IEnumerable<XElement> items, out Dictionary<string, XElement> itemsDictionary)
+  private static bool TryCreateDictionary(IEnumerable<XElement> items, out SortedDictionary<string, XElement> itemsDictionary)
   {
     bool result = true;
-    itemsDictionary = new Dictionary<string, XElement>();
+    itemsDictionary = new SortedDictionary<string, XElement>();
     foreach (XElement item in items)
     {
       var itemName = item.Name.NamespaceName + ":" + item.Name.LocalName;
@@ -181,7 +181,7 @@ public class XmlFileComparer : AbstractFileComparer
   /// <param name="shown">If unequal element were shown</param>
   /// <returns>true if both elements are equal</returns>
   protected virtual CompResult CompareXmlElements(XElement recElement, XElement expElement,
-    Dictionary<string, XElement> recItemsDict, Dictionary<string, XElement> expItemsDict, bool showUnequal, ref bool shown)
+    SortedDictionary<string, XElement> recItemsDict, SortedDictionary<string, XElement> expItemsDict, bool showUnequal, ref bool shown)
   {
     var result = CompResult.AreEqual;
     int recItemsCount = recItemsDict.Count();
