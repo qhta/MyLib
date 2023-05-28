@@ -232,7 +232,7 @@ public partial class QXmlSerializer
   public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo,
     List<SerializationMemberInfo>? attrRejectedList)
   {
-    if (obj.GetType()?.Name == "RunFonts")
+    if (obj.GetType()?.Name == "Outline")
       Debug.Assert(true);
     var props = typeInfo.MembersAsElements.ToList();
     if (attrRejectedList != null)
