@@ -417,7 +417,7 @@ public static class StringUtils
       pattern = pattern.Substring(1, pattern.Length - 1);
       if (key.EndsWith(pattern, stringComparison))
       {
-        wildKey = key.Substring(0, pattern.Length);
+        wildKey = key.Substring(0, key.Length-pattern.Length);
         return true;
       }
       return false;
@@ -430,7 +430,8 @@ public static class StringUtils
       {
         var wKeys = new string[2];
         wKeys[0] = key.Substring(0, patternPos);
-        wKeys[1] = key.Substring(patternPos + pattern.Length);
+        wKeys[1] = key.Substring(patternPos);
+        wKeys[1] = wKeys[1].Substring(0, wKeys[1].Length-pattern.Length);
         wildKey = String.Join("*", wKeys);
         return true;
       }
