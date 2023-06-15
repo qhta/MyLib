@@ -12,9 +12,15 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Yarreck Qhta</Authors>
-    <Version>2.1</Version>
+    <Version>2.2</Version>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="docs\readme.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
       <WrapperTool>tlbimp</WrapperTool>

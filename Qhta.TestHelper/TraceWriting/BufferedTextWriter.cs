@@ -9,9 +9,9 @@ using Qhta.TestHelper.TraceWriting;
 namespace Qhta.TestHelper;
 
 /// <summary>
-/// Abstract implementation of a text writer
+/// Buffered extension of a text writer
 /// </summary>
-public abstract class AbstractWriter: ITextWriter, IDisposable
+public abstract class BufferedTextWriter: TextWriter, ITextWriter, IDisposable
 {
   /// <summary>
   /// Buffer must not be a collection of string, because it may contain color tags.
@@ -28,7 +28,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   /// This construction is needed to avoid premature cleaning
   /// when subclasses will invoke base method.
   /// </summary>
-  public virtual void Flush() 
+  public override void Flush() 
   {
     FlushBuffer();
     Buffer.Clear();
@@ -86,7 +86,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   /// Basic write implementation. New lines and spaces interpreted according to controlling properties.
   /// </summary>
   /// <param name="str"></param>
-  public virtual void Write(string str)
+  public override void Write(string? str)
   {
     if (!Enabled) return;
     if (!String.IsNullOrEmpty(str))
@@ -157,7 +157,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   /// <summary>
   /// After WriteLine last char is '\n'.
   /// </summary>
-  public virtual void WriteLine()
+  public override void WriteLine()
   {
     if (!Enabled) return;
     Buffer.Add(new NewLineTag());
@@ -170,7 +170,7 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   /// Simply Write(str) and WriteLine();
   /// </summary>
   /// <param name="str"></param>
-  public virtual void WriteLine(string str)
+  public override void WriteLine(string? str)
   {
     if (!Enabled) return;
     Write(str);
@@ -192,25 +192,25 @@ public abstract class AbstractWriter: ITextWriter, IDisposable
   private TraceListener? _traceListener;
 
 
-  private bool disposedValue;
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+//  private bool disposedValue;
+//#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-  protected virtual void Dispose(bool disposing)
-  {
-    if (!disposedValue)
-    {
-      if (disposing)
-      {
-        Flush();
-      }
+//  protected virtual void Dispose(bool disposing)
+//  {
+//    if (!disposedValue)
+//    {
+//      if (disposing)
+//      {
+//        Flush();
+//      }
 
-      disposedValue = true;
-    }
-  }
+//      disposedValue = true;
+//    }
+//  }
 
-  public void Dispose()
-  {
-    Dispose(disposing: true);
-    GC.SuppressFinalize(this);
-  }
+//  public void Dispose()
+//  {
+//    Dispose(disposing: true);
+//    GC.SuppressFinalize(this);
+//  }
 }

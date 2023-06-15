@@ -8,13 +8,13 @@ namespace Qhta.TestHelper.TraceWriting;
 public class WriterTraceListener : TraceListener
 {
   /// <summary>
-  /// Connects listener to <see cref="AbstractWriter"/>
+  /// Connects listener to <see cref="BufferedTextWriter"/>
   /// </summary>
   /// <param name="writer"></param>
-  public WriterTraceListener(AbstractWriter writer)
+  public WriterTraceListener(BufferedTextWriter writer)
   { _writer = writer; }
 
-  private AbstractWriter _writer;
+  private BufferedTextWriter _writer;
 
   /// <summary>
   /// Implemented method to transfer message to base writer.

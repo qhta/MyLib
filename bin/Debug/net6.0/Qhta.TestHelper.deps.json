@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Qhta.TestHelper/2.1": {
+      "Qhta.TestHelper/2.2": {
         "runtime": {
           "Qhta.TestHelper.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "Qhta.TestHelper/2.1": {
+    "Qhta.TestHelper/2.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Text;
 
 namespace Qhta.TestHelper;
 
 /// <summary>
-/// Extends <see cref="AbstractWriter"/> with implementation of
+/// Extends <see cref="BufferedTextWriter"/> with implementation of
 /// color operations and Console output.
 /// </summary>
-public class ConsoleWriter : AbstractWriter, IConsoleWriter
+public class ConsoleWriter : BufferedTextWriter, IConsoleWriter
 {
 
   /// <summary>
@@ -157,4 +158,9 @@ public class ConsoleWriter : AbstractWriter, IConsoleWriter
       }
     }
   }
+
+  /// <summary>
+  /// Implements TextWriter Encoding property.
+  /// </summary>
+  public override Encoding Encoding => Encoding.Unicode;
 }
