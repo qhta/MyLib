@@ -6,7 +6,7 @@
     <members>
         <member name="T:Qhta.TypeUtils.DynamicTypeConverter">
             <summary>
-              A class that helps using <c>TypeConverter</c> to change an object type in the runtime.
+              A class that helps using <see cref="T:System.ComponentModel.TypeConverter"/> to change an object type in the runtime.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.DynamicTypeConverter.#ctor(System.ComponentModel.TypeConverter,System.Type)">
@@ -18,14 +18,14 @@
         </member>
         <member name="M:Qhta.TypeUtils.DynamicTypeConverter.Convert(System.Object)">
             <summary>
-              Wraps TypeConverter.ConvertFrom
+              Wraps TypeConverter.ConvertFrom and returns <c>null</c> when the input value is <c>null</c>.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.TypeUtils.EnumTypeConverter">
             <summary>
-              A class that helps enum type conversion to/from string
+              A class that helps to convert enum type values to/from string. It accepts shortcuts of enum value names.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.EnumTypeConverter.RemoveAll(System.String,System.Int32,System.Char[])">
@@ -74,7 +74,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.JointProperties">
             <summary>
-              A class to copy properties marked with [DataMember] attribute
+              A class to copy properties marked with [DataMember] attribute from one object to another.
             </summary>
         </member>
         <member name="F:Qhta.TypeUtils.JointProperties.SourceProp">
@@ -97,7 +97,7 @@
         </member>
         <member name="M:Qhta.TypeUtils.JointProperties.CopyJointProperties(System.Object,System.Object,System.Collections.Generic.IEnumerable{Qhta.TypeUtils.JointProperties})">
             <summary>
-              Secont - copy common data members using prepared list
+              Second - copy common data members using prepared list
             </summary>
             <param name="sourceDataObject"></param>
             <param name="targetDataObject"></param>
@@ -140,7 +140,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.ObjectComparer">
             <summary>
-              Utility class to object deep comparison
+              A class to compare two object by deep properties comparison.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.ObjectComparer.AreEqual(System.Object,System.Object)">
@@ -165,13 +165,13 @@
         <member name="T:Qhta.TypeUtils.ObjectCopier">
             <summary>
               Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx
-              Provides a method for performing a deep copy of an object.
+              Provides a method for clone object with a deep copy of properties.
               Binary Serialization is used to perform the copy.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.ObjectCopier.Clone``1(``0)">
             <summary>
-              Perform a deep Copy of the object.
+              Perform a deep copy of the object properties.
             </summary>
             <typeparam name="T">The type of object being copied.</typeparam>
             <param name="source">The object instance to copy.</param>
@@ -179,7 +179,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.StaticToStringConverter">
             <summary>
-              A static class that converts object to string
+              A static class that provides methods to convert objects of various types to string.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.StaticToStringConverter.CharToString(System.Char)">
@@ -401,7 +401,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.StaticTypeConverter">
             <summary>
-              A static class that converts object type
+              A static class that converts object type to another type.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.StaticTypeConverter.ConvertToString(System.Object,System.ComponentModel.TypeConverter,System.Type)">
@@ -758,9 +758,17 @@
             <param name="otherType"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeCategorization.IsCompilerGenerated(System.Type)">
+            <summary>
+            Check if a type has <see cref="T:System.Runtime.CompilerServices.CompilerGeneratedAttribute"/> defined
+            or type full name starts with '&lt;' character or it contains '+' character.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeNaming">
             <summary>
-              More friendy type names
+              A static class that provides more friendy type names than Type.GetName().
             </summary>
         </member>
         <member name="F:Qhta.TypeUtils.TypeNaming.TypeNames">
@@ -784,7 +792,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.TypeReflectionByInheritance">
             <summary>
-              Extension methods for getting members in order of inheritance
+              A static class that provides type extension methods for getting members in order of inheritance.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMembersByInheritance(System.Type)">
@@ -935,7 +943,7 @@
         </member>
         <member name="T:Qhta.TypeUtils.TypeUtils">
             <summary>
-              Helper functions that operate on types and supplement <c>System.Reflection</c> library
+              Helper functions that operate on types and supplement <c>System.Reflection</c> library.
             </summary>
         </member>
         <member name="T:Qhta.TypeUtils.TypeUtils.CopyPropertyMethod">

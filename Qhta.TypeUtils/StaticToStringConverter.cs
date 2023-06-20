@@ -3,7 +3,7 @@
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   A static class that converts object to string
+///   A static class that provides methods to convert objects of various types to string.
 /// </summary>
 public static class StaticToStringConverter
 {

@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   A static class that converts object type
+///   A static class that converts object type to another type.
 /// </summary>
 public class StaticTypeConverter
 {

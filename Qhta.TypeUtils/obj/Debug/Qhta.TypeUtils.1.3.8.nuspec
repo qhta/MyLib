@@ -6,6 +6,7 @@
     <authors>Yarreck Qhta</authors>
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
     <description>A package of functions to supplement System.Reflections.</description>
     <dependencies>
       <group targetFramework="net6.0">
@@ -26,5 +27,6 @@
     <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.TypeUtils.xml" target="lib\net7.0\Qhta.TypeUtils.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TypeUtils.dll" target="lib\netstandard2.0\Qhta.TypeUtils.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TypeUtils.xml" target="lib\netstandard2.0\Qhta.TypeUtils.xml" />
+    <file src="D:\VS\Projects\MyLib\Qhta.TypeUtils\docs\readme.md" target="\readme.md" />
   </files>
 </package>

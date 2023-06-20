@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 
 namespace Qhta.TypeUtils;
 
@@ -136,8 +137,8 @@ public static class TypeCategorization
       return true;
     if (aType.IsValueType)
     {
-      var publicMembersCount = aType.GetProperties().Count()+aType.GetFields().Count();
-      return publicMembersCount==0;
+      var publicMembersCount = aType.GetProperties().Count() + aType.GetFields().Count();
+      return publicMembersCount == 0;
     }
     return false;
   }
@@ -527,7 +528,7 @@ public static class TypeCategorization
   /// <param name="valueType">returned value type if a type is a dictionary</param>
   /// <returns>true if a type is a dictionary type</returns>
 #if NET6_0_OR_GREATER
-  public static bool IsDictionary(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType, 
+  public static bool IsDictionary(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType,
     [NotNullWhen(true)][MaybeNullWhen(false)] out Type? valueType)
 #else
   public static bool IsDictionary(this Type aType, out Type? keyType, out Type? valueType)
@@ -592,7 +593,7 @@ public static class TypeCategorization
   /// <param name="valueType">returned value type if a type is a key value pair</param>
   /// <returns>true if a type is a key value pair type</returns>
 #if NET6_0_OR_GREATER
-  public static bool IsKeyValuePair(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType, 
+  public static bool IsKeyValuePair(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType,
     [NotNullWhen(true)][MaybeNullWhen(false)] out Type? valueType)
 #else
   public static bool IsKeyValuePair(this Type aType, out Type? keyType, out Type? valueType)
@@ -716,4 +717,18 @@ public static class TypeCategorization
   }
 
   #endregion
+
+  /// <summary>
+  /// Check if a type has <see cref="System.Runtime.CompilerServices.CompilerGeneratedAttribute"/> defined
+  /// or type full name starts with '&lt;' character or it contains '+' character.
+  /// </summary>
+  /// <param name="type"></param>
+  /// <returns></returns>
+  public static bool IsCompilerGenerated(this Type type)
+  {
+    if (type.GetCustomAttribute<System.Runtime.CompilerServices.CompilerGeneratedAttribute>() != null)
+      return true;
+    var name = type.FullName ?? "";
+    return name.StartsWith("<") || name.Contains('+');
+  }
 }

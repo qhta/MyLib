@@ -6,7 +6,7 @@ using Qhta.Collections;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   More friendy type names
+///   A static class that provides more friendy type names than Type.GetName().
 /// </summary>
 public static class TypeNaming
 {

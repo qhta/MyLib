@@ -31,7 +31,7 @@ public class CompareResult
 }
 
 /// <summary>
-///   Utility class to object deep comparison
+///   A class to compare two object by deep properties comparison.
 /// </summary>
 public static class ObjectComparer
 {

@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   Extension methods for getting members in order of inheritance
+///   A static class that provides type extension methods for getting members in order of inheritance.
 /// </summary>
 public static class TypeReflectionByInheritance
 {

@@ -8,13 +8,13 @@ namespace Qhta.TypeUtils;
 
 /// <summary>
 ///   Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx
-///   Provides a method for performing a deep copy of an object.
+///   Provides a method for clone object with a deep copy of properties.
 ///   Binary Serialization is used to perform the copy.
 /// </summary>
 public static class ObjectCopier
 {
   /// <summary>
-  ///   Perform a deep Copy of the object.
+  ///   Perform a deep copy of the object properties.
   /// </summary>
   /// <typeparam name="T">The type of object being copied.</typeparam>
   /// <param name="source">The object instance to copy.</param>

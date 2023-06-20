@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   A class to copy properties marked with [DataMember] attribute
+///   A class to copy properties marked with [DataMember] attribute from one object to another.
 /// </summary>
 public class JointProperties
 {
@@ -38,7 +38,7 @@ public class JointProperties
   }
 
   /// <summary>
-  ///   Secont - copy common data members using prepared list
+  ///   Second - copy common data members using prepared list
   /// </summary>
   /// <param name="sourceDataObject"></param>
   /// <param name="targetDataObject"></param>

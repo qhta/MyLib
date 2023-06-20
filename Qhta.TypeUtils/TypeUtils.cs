@@ -9,7 +9,7 @@ using System.Reflection;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   Helper functions that operate on types and supplement <c>System.Reflection</c> library
+///   Helper functions that operate on types and supplement <c>System.Reflection</c> library.
 /// </summary>
 public static class TypeUtils
 {
@@ -825,4 +825,5 @@ public class CopyPropertyItemConversionAttribute : Attribute
   ///   A type of target items
   /// </summary>
   public Type TargetItemType { get; set; }
+
 }

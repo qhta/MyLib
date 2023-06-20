@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   A class that helps enum type conversion to/from string
+///   A class that helps to convert enum type values to/from string. It accepts shortcuts of enum value names.
 /// </summary>
 public static class EnumTypeConverter
 {
