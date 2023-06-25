@@ -1,0 +1,5 @@
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.csproj.CoreCompileInputs.cache

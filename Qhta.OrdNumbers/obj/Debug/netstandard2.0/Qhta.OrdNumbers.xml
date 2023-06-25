@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.OrdNumbers</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.OrdNumbers.OrdNum">
+            <class refID="ORDNUM_001"/>
+            <summary>
+              Klasa reprezentująca liczbę porządkową składającą się z segmentów.
+              Segmenty są liczbami całkowitymi z zakresu od 0 do 16777215 oddzielonymi kropkami.
+              Każdy segment może mieć wariant oznaczany literą od "a" do "z".
+              Wariant "a" ma wartość 1, "z" ma wartość 26.
+              Jeśli segment ma więcej wariantów niż 26, to kolejne warianty są oznaczane jako
+              "aa", "ab", "ac".."iu" (maksymalna wartość wariantu to 255).
+            </summary>
+        </member>
+        <member name="F:Qhta.OrdNumbers.OrdNum.fValues">
+            <summary>Wewnętrzna tablica segmentów</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.#ctor">
+            <summary>Konstruktor domyślny</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.#ctor(Qhta.OrdNumbers.OrdNum)">
+            <summary>Konstruktor kopiujący</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.#ctor(System.Int32)">
+            <summary>Konstruktor z wartością całkowitą (0..255)</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.#ctor(System.Double)">
+            <summary>Konstruktor z wartością rzeczywistą (0..255).(0..255)</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.#ctor(System.Decimal)">
+            <summary>Konstruktor z wartością dziesiętną (0..255).(0..255)</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.#ctor(System.String)">
+            <summary>Konstruktor z wartością tekstową</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.HasIntValue">
+            <summary>Czy ma wartość całkowitą?</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.AsInt">
+            <summary>Wartość całkowita liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.SetAsInt(System.Int32)">
+            <summary>Wpisuje wartość całkowitą do liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.GetAsInt">
+            <summary>Podaje wartość całkowitą liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.HasRealValue">
+            <summary>Czy ma wartość rzeczywistą?</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.AsReal">
+            <summary>Wartość rzeczywista liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.SetAsReal(System.Double)">
+            <summary>Wpisuje wartość rzeczywistą do liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.GetAsReal">
+            <summary>Podaje wartość rzeczywistą liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.HasDecimalValue">
+            <summary>Czy ma wartość dziesiętną?</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.DecimalValue">
+            <summary>Wartość dziesiętna liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.FromDecimal(System.Decimal)">
+            <summary>Wpisuje wartość dziesiętną do liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.ToDecimal">
+            <summary>Podaje wartość dziesiętną liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.IsValid(System.String)">
+            <summary>Czy tekst jest poprawnie sformatowaną liczbą porządkową?</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.StrValue">
+            <summary>Wartość tekstowa liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.SetAsString(System.String)">
+            <summary>Wpisuje wartość tekstową do liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.ToString">
+            <summary>Podaje wartość tekstową liczby porządkowej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(Qhta.OrdNumbers.OrdNum)~System.Int32">
+            <summary>Niejawna konwersja na liczbę całkowitą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(Qhta.OrdNumbers.OrdNum)~System.Double">
+            <summary>Niejawna konwersja na liczbę rzeczywistą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(Qhta.OrdNumbers.OrdNum)~System.Decimal">
+            <summary>Niejawna konwersja na liczbę dziesiętną</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(Qhta.OrdNumbers.OrdNum)~System.String">
+            <summary>Niejawna konwersja na tekst</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(System.Int32)~Qhta.OrdNumbers.OrdNum">
+            <summary>Niejawna konwersja z liczby całkowitej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(System.Double)~Qhta.OrdNumbers.OrdNum">
+            <summary>Niejawna konwersja z liczby rzeczywistej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(System.Decimal)~Qhta.OrdNumbers.OrdNum">
+            <summary>Niejawna konwersja z liczby dziesiętnej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Implicit(System.String)~Qhta.OrdNumbers.OrdNum">
+            <summary>Niejawna konwersja z tekstu</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Equality(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum)">
+            <summary>Porównanie dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Inequality(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum)">
+            <summary>Operator nierówności dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_GreaterThan(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum)">
+            <summary>Operator większości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_GreaterThanOrEqual(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum)">
+            <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_LessThan(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum)">
+            <summary>Operator większości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_LessThanOrEqual(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum)">
+            <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Equality(Qhta.OrdNumbers.OrdNum,System.Int32)">
+            <summary>Porównanie z liczbą całkowitą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Inequality(Qhta.OrdNumbers.OrdNum,System.Int32)">
+            <summary>Operator nierówności liczby porządkowej z liczbą całkowitą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Equality(Qhta.OrdNumbers.OrdNum,System.Double)">
+            <summary>Porównanie z liczbą rzeczywistą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Inequality(Qhta.OrdNumbers.OrdNum,System.Double)">
+            <summary>Operator nierówności liczby porządkowej z liczbą rzeczywistą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Equality(Qhta.OrdNumbers.OrdNum,System.Decimal)">
+            <summary>Porównanie z liczbą dziesiętną</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Inequality(Qhta.OrdNumbers.OrdNum,System.Decimal)">
+            <summary>Operator nierówności liczby porządkowej z liczbą dziesiętną</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Equality(Qhta.OrdNumbers.OrdNum,System.String)">
+            <summary>Porównanie z wartością tekstową</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Inequality(Qhta.OrdNumbers.OrdNum,System.String)">
+            <summary>Operator nierówności liczby porządkowej z wartością tekstową</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Compare(System.String,System.String)">
+            <summary>
+            Porównanie dwóch łańcuchów traktowanych jako liczby porządkowe.
+            </summary>
+            <remarks>
+            Łańcuch pusty jest mniejszy od jakiegokolwiek innego, z wyjątkiem innego pustego.
+            </remarks>
+            <returns>-1 gdy pierwszy jest mniejszy od drugiego, 0 gdy równy, +1 gdy większy</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Compare(Qhta.OrdNumbers.OrdNum,Qhta.OrdNumbers.OrdNum,System.Boolean)">
+            <summary>
+            Porównanie dwóch liczb porządkowych.
+            </summary>
+            <returns>-1 gdy pierwsza jest mniejsza od drugiej, 0 gdy równa, +1 gdy większa</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.CompareTo(System.Object)">
+            <summary>Porównanie wartości porządkowej z innym obiektem</summary>
+            <param name="o">wartość porównywana</param>
+            <returns>-1 gdy dana wartość jest mniejsza od tej drugiej, 0 gdy równa, +1 gdy większa</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.CompareTo(Qhta.OrdNumbers.OrdNum)">
+            <summary>Porównanie wartości porządkowej z inną wartością porządkową</summary>
+            <param name="o">wartość porównywana</param>
+            <returns>-1 gdy dana wartość jest mniejsza od tej drugiej, 0 gdy równa, +1 gdy większa</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Equals(System.Object)">
+            <summary>Porównanie wartości porządkowej z dowolną inną wartością</summary>
+            <param name="o">wartość porównywana (obiekt)</param>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.IsNullOrEmpty(Qhta.OrdNumbers.OrdNum)">
+            <summary>
+            Sprawdzenie, czy wartość porządkowa jest pusta.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.StartsWith(Qhta.OrdNumbers.OrdNum,System.Boolean)">
+            <summary>
+            Sprawdzenie, czy wartość porządkowa rozpoczyna się od innej wartości
+            </summary>
+            <param name="v2"></param>
+            <param name="strict">czy brać pod uwagę ostatni wariant</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.FirstSegments(System.Int32)">
+            <summary>
+            Podaje liczbę porządkową utworzoną z pierwszych n segmentów danej liczby
+            </summary>
+            <param name="n">liczba segmentów do podania; gdy przekracza aktualną, to podaje bez zmian</param>
+            <returns>nowoutworzona liczba porządkowa</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.LastSegments(System.Int32)">
+            <summary>
+            Podaje liczbę porządkową utworzoną z ostatnich n segmentów danej liczby
+            </summary>
+            <param name="n">liczba segmentów do podania; gdy przekracza aktualną, to kopiuje bez zmian</param>
+            <returns>nowoutworzona liczba porządkowa</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.MidSegments(System.Int32,System.Int32)">
+            <summary>
+            Podaje liczbę porządkową utworzoną z ostatnich n segmentów danej liczby począwszy od segmentu k
+            </summary>
+            <param name="k">numer segmentu</param>
+            <param name="n">liczba segmentów do podania; gdy k+n przekracza aktualną liczbę segmentów, to podaje do końca</param>
+            <returns>nowoutworzona liczba porządkowa</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_BitwiseOr(Qhta.OrdNumbers.OrdNum,System.Int32)">
+            <summary>Dopisanie liczby całkowitej do liczby porządkowej. Dodawany jest nowy segment</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_BitwiseOr(Qhta.OrdNumbers.OrdNum,System.String)">
+            <summary>Dopisanie wartości tekstowej do liczby porządkowej. Dodawany jest nowy segment</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_BitwiseAnd(Qhta.OrdNumbers.OrdNum,System.Byte)">
+            <summary>Ustawia wariant na ostatnim segmencie liczby porządkowej</summary>
+            <param name="a">wejściowa liczba porządkowa</param>
+            <param name="n">wartość wariantu 1='a', 2='b' itd.</param>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_BitwiseAnd(Qhta.OrdNumbers.OrdNum,System.String)">
+            <summary>Ustawia wariant na ostatnim segmencie liczby porządkowej</summary>
+            <param name="a">wejściowa liczba porządkowa</param>
+            <param name="s">wartość tekstowa wariantu "a"=1, "b"=2 itd.</param>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Increment(Qhta.OrdNumbers.OrdNum)">
+            <summary>
+              Zwiększa wartość ostatniego segmentu o 1.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Addition(Qhta.OrdNumbers.OrdNum,System.Int32)">
+            <summary>
+              Zwiększa wartość ostatniego segmentu o n.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Decrement(Qhta.OrdNumbers.OrdNum)">
+            <summary>
+              Zmniejsza wartość ostatniego segmentu o 1.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Subtraction(Qhta.OrdNumbers.OrdNum,System.Int32)">
+            <summary>
+              Zmniejsza wartość ostatniego segmentu o n.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Multiply(Qhta.OrdNumbers.OrdNum,System.Byte)">
+            <summary>
+              Zwiększa wariant ostatniego segmentu o n.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.op_Division(Qhta.OrdNumbers.OrdNum,System.Byte)">
+            <summary>
+              Zmniejsza wariant ostatniego segmentu o n.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.GetHashCode">
+            <summary>Funkcja mieszania</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Add(Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>
+            Dodaje segment do kolekcji segmentów.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Clear">
+            <summary>
+            Czyści kolekcję segmentów.
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Contains(Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>
+            Sprawdza, czy kolekcja segmentów zawiera dany segment.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.CopyTo(Qhta.OrdNumbers.OrdNumSegment[],System.Int32)">
+            <summary>
+            Kopiuje kolekcję segmentów do tablicy.
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNum.Remove(Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>
+            Usuwa segment z kolekcji segmentów.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.Count">
+            <summary>Liczba segmentów</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.Length">
+            <summary>Długość liczona w wartościach i wariantach</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.IsReadOnly">
+            <summary>
+            Kolekcja nie jest tylko do czytania.
+            </summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.Parent">
+            <summary>
+            Zwraca liczbę "nadrzędną", tj. bez ostatniego segmentu.
+            </summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNum.Item(System.Int32)">
+            <summary>Dostęp do pojedynczego segmentu</summary>
+        </member>
+        <member name="T:Qhta.OrdNumbers.OrdNumSegment">
+            <class refID="ORDNUM_002"/>
+            <summary>
+              Pojedynczy segment liczby porządkowej
+            </summary>
+        </member>
+        <member name="F:Qhta.OrdNumbers.OrdNumSegment.MaxValue">
+            <summary>
+            Maksymalna wartość całkowita, która może być wyrażona
+            </summary>
+        </member>
+        <member name="F:Qhta.OrdNumbers.OrdNumSegment.fValue">
+            <summary>
+            Wartość całkowita segmentu
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.#ctor(Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Konstruktor kopiujący</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.#ctor(System.Int32)">
+            <summary>Konstruktor z wartością całkowitą</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.#ctor(System.String)">
+            <summary>Konstruktor z wartością tekstową</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.#ctor(System.Int32,System.Byte)">
+            <summary>Konstruktor z wartością całkowitą i wariantem w postaci liczby całkowitej</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.#ctor(System.Int32,System.String)">
+            <summary>Konstruktor z wartością całkowitą i wariantem w postaci tekstu: "a"=1.</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNumSegment.Value">
+            <summary>Wartość całkowita segmentu</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNumSegment.Variant">
+            <summary>Wartość całkowita wariantu (0 - gdy brak)</summary>
+        </member>
+        <member name="P:Qhta.OrdNumbers.OrdNumSegment.VariantStr">
+            <summary>Wartość tekstowa wariantu (<c>null</c> - gdy brak)</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.VariantToStr(System.Byte)">
+            <summary>
+              Konwersja wariantu na łańcuch. 0 = <c>null</c>, 1 = "a", 26 = "a", 27 = "aa", 28 = "ab" ... 255 = "iu"
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.StrToVariant(System.String)">
+            <summary>
+              Konwersja łańcucha na wariant. <c>null</c> = 0, "a" = 1, "z" = 26, "aa" = 27 ... "iu" = 255
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.CompareTo(Qhta.OrdNumbers.OrdNumSegment,System.Boolean)">
+            <summary>
+            Porównanie dwóch segmentów.
+            </summary>
+            <param name="v2">drugi segment do porównania</param>
+            <param name="strict"> czy brać pod uwagę wariant segmentu</param>
+            <returns>-1 gdy dany segment jest mniejszy od drugiego, 0 gdy równy, +1 gdy większy</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.CompareTo(System.Object)">
+            <summary>Porównanie segmentu z innym obiektem. Gdy argument jest liczbą całkowitą lub łańcuchem, 
+            to przed porównaniem dokonuje konwersji na segment</summary>
+            <param name="o">wartość porównywana</param>
+            <returns>-1 gdy dany segment jest mniejszy od drugiego, 0 gdy równy, +1 gdy większy</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.Equals(Qhta.OrdNumbers.OrdNumSegment,System.Boolean)">
+            <summary>
+            Porównanie dwóch segmentów.
+            </summary>
+            <param name="v2">drugi segment do porównania</param>
+            <param name="strict"> czy brać pod uwagę wariant segmentu</param>
+            <returns>true gdy dany segment jest równy drugiemu</returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.Equals(System.Object)">
+            <summary>
+            Sprawdza równość dwóch liczb porządkowych
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.GetHashCode">
+            <summary>
+            Podaje kod hash liczby porządkowej.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.op_Equality(Qhta.OrdNumbers.OrdNumSegment,Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Porównanie dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.op_Inequality(Qhta.OrdNumbers.OrdNumSegment,Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Operator nierówności dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.op_GreaterThan(Qhta.OrdNumbers.OrdNumSegment,Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Operator większości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.op_GreaterThanOrEqual(Qhta.OrdNumbers.OrdNumSegment,Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.op_LessThan(Qhta.OrdNumbers.OrdNumSegment,Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Operator większości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.op_LessThanOrEqual(Qhta.OrdNumbers.OrdNumSegment,Qhta.OrdNumbers.OrdNumSegment)">
+            <summary>Operator większości lub równości dwóch liczb porządkowych</summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumSegment.ToString">
+            <summary>
+            Zamienia liczbę na łańcuch.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OrdNumbers.OrdNumTypeConverter">
+            <summary>
+            Konwerter dla potrzeb serializacji
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Konwerter może zamienić łańcuch na liczbę porządkową
+            </summary>
+        </member>
+        <member name="M:Qhta.OrdNumbers.OrdNumTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Konwersja łańcucha na liczbę porządkową
+            </summary>
+        </member>
+    </members>
+</doc>

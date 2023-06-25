@@ -15,3 +15,13 @@ D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObject
 D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.dll
 D:\Dane\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.pdb
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.dll
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.pdb
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.csproj.CopyComplete
+D:\Dane\VS\Projects\MyLib\bin\Qhta.DispatchedObjects.xml
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\Qhta.DispatchedObjects.xml

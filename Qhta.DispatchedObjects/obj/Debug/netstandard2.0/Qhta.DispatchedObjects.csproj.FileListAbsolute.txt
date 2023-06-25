@@ -1,0 +1,13 @@
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DispatchedObjects.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DispatchedObjects.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DispatchedObjects.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.DispatchedObjects.xml
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.dll
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.xml
+D:\VS\Projects\MyLib\Qhta.DispatchedObjects\obj\Debug\netstandard2.0\Qhta.DispatchedObjects.pdb

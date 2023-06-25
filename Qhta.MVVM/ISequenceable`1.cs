@@ -1,8 +1,18 @@
 ﻿namespace Qhta.MVVM
 {
-  public interface ISequenceable<T> where T: class
+  /// <summary>
+  /// Interface for a collection that can go to next or previous object.
+  /// </summary>
+  /// <typeparam name="ItemType"></typeparam>
+  public interface ISequenceable<ItemType> where ItemType: class
   {
-    T Next { get; set; }
-    T Prior { get; set; }
+    /// <summary>
+    /// Next object.
+    /// </summary>
+    ItemType Next { get; set; }
+    /// <summary>
+    /// Previous object.
+    /// </summary>
+    ItemType Prior { get; set; }
   }
 }

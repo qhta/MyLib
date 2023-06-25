@@ -1,0 +1,17 @@
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.MVVM.deps.json
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.MVVM.dll
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.pdb
+D:\Dane\VS\Projects\MyLib\bin\netstandard2.0\Qhta.MVVM.xml
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.xml
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.xml

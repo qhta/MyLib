@@ -2,18 +2,40 @@
 
 namespace Qhta.MVVM
 {
+  /// <summary>
+  /// Abstract VisibleViewModel for a list. Declares <see cref="ParentViewModel"/> property.
+  /// </summary>
   public abstract class ListViewModel : VisibleViewModel, IOrientable, IVisible
   {
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     public ListViewModel() { }
 
+    /// <summary>
+    /// Constructor with a parent ViewModel.
+    /// </summary>
+    /// <param name="parentViewModel"></param>
     public ListViewModel(IViewModel parentViewModel)
     {
       ParentViewModel = parentViewModel;
     }
 
-    public abstract IEnumerable<object> GetItems();
-    public IViewModel ParentViewModel { get; protected set; }
+    /// <summary>
+    /// Parent ViewModel
+    /// </summary>
+    public IViewModel? ParentViewModel { get; protected set; }
 
+
+    /// <summary>
+    /// Enumerable items.
+    /// </summary>
+    /// <returns></returns>
+    public abstract IEnumerable<object> GetItems();
+
+    /// <summary>
+    /// Orientation: horizontal or vertical.
+    /// </summary>
     public OrientationType Orientation
     {
       get { return _Orientation; }

@@ -255,7 +255,7 @@ namespace Qhta.OrdNumbers
       {
         string s = ss[i];
         string sn = "";
-        string sa = "";
+        string? sa = "";
         int mode = 0;
         foreach (char c in s)
         {
@@ -279,8 +279,9 @@ namespace Qhta.OrdNumbers
         {
           int n = Int32.Parse(sn);
           if (sa == "")
-            sa = null;
-          fValues[i] = (new OrdNumSegment(n, sa));
+            fValues[i] = (new OrdNumSegment(n));
+          else
+            fValues[i] = (new OrdNumSegment(n, sa));
         }
         else
           throw new InvalidOperationException(String.Format(sInvalidOrdNumString, value));
@@ -325,7 +326,7 @@ namespace Qhta.OrdNumbers
       return a.DecimalValue;
     }
     /// <summary>Niejawna konwersja na tekst</summary>
-    public static implicit operator string(OrdNum a)
+    public static implicit operator string?(OrdNum a)
     {
       if (IsNullOrEmpty(a))
         return null;
@@ -339,7 +340,7 @@ namespace Qhta.OrdNumbers
     /// <summary>Niejawna konwersja z liczby dziesiętnej</summary>
     public static implicit operator OrdNum(decimal d) { return new OrdNum(d); }
     /// <summary>Niejawna konwersja z tekstu</summary>
-    public static implicit operator OrdNum(string s)
+    public static implicit operator OrdNum?(string s)
     { if (!String.IsNullOrEmpty(s)) return new OrdNum(s); else return null; }
     #endregion
 
@@ -558,6 +559,7 @@ namespace Qhta.OrdNumbers
     /// <summary>
     /// Podaje liczbę porządkową utworzoną z ostatnich n segmentów danej liczby począwszy od segmentu k
     /// </summary>
+    /// <param name="k">numer segmentu</param>
     /// <param name="n">liczba segmentów do podania; gdy k+n przekracza aktualną liczbę segmentów, to podaje do końca</param>
     /// <returns>nowoutworzona liczba porządkowa</returns>
     public OrdNum MidSegments(int k, int n=int.MaxValue)
@@ -712,28 +714,50 @@ namespace Qhta.OrdNumbers
     public override int GetHashCode() { return ToString().GetHashCode(); }
 
     IEnumerator IEnumerable.GetEnumerator() { return fValues.GetEnumerator(); }
-    IEnumerator<OrdNumSegment> IEnumerable<OrdNumSegment>.GetEnumerator() { return fValues.GetEnumerator() as IEnumerator<OrdNumSegment>; }
+    IEnumerator<OrdNumSegment> IEnumerable<OrdNumSegment>.GetEnumerator() { return (IEnumerator<OrdNumSegment>)fValues.GetEnumerator(); }
 
+    /// <summary>
+    /// Dodaje segment do kolekcji segmentów.
+    /// </summary>
+    /// <param name="item"></param>
     public void Add(OrdNumSegment item)
     {
       ((ICollection<OrdNumSegment>)fValues).Add(item);
     }
 
+    /// <summary>
+    /// Czyści kolekcję segmentów.
+    /// </summary>
     public void Clear()
     {
       ((ICollection<OrdNumSegment>)fValues).Clear();
     }
 
+    /// <summary>
+    /// Sprawdza, czy kolekcja segmentów zawiera dany segment.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public bool Contains(OrdNumSegment item)
     {
       return ((ICollection<OrdNumSegment>)fValues).Contains(item);
     }
 
+    /// <summary>
+    /// Kopiuje kolekcję segmentów do tablicy.
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="arrayIndex"></param>
     public void CopyTo(OrdNumSegment[] array, int arrayIndex)
     {
       ((ICollection<OrdNumSegment>)fValues).CopyTo(array, arrayIndex);
     }
 
+    /// <summary>
+    /// Usuwa segment z kolekcji segmentów.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public bool Remove(OrdNumSegment item)
     {
       return ((ICollection<OrdNumSegment>)fValues).Remove(item);
@@ -755,8 +779,15 @@ namespace Qhta.OrdNumbers
       }
     }
 
+    /// <summary>
+    /// Kolekcja nie jest tylko do czytania.
+    /// </summary>
     public bool IsReadOnly => ((ICollection<OrdNumSegment>)fValues).IsReadOnly;
-    public OrdNum Parent
+
+    /// <summary>
+    /// Zwraca liczbę "nadrzędną", tj. bez ostatniego segmentu.
+    /// </summary>
+    public OrdNum? Parent
     {
       get
       {
@@ -819,6 +850,9 @@ return true;
   /// </summary>
   public struct OrdNumSegment: IComparable
   {
+    /// <summary>
+    /// Maksymalna wartość całkowita, która może być wyrażona
+    /// </summary>
     public static int MaxValue = 0xFFFFFF;
     static int Bias = 24;
 
@@ -870,12 +904,12 @@ return true;
     public byte Variant { get { return (byte)(fValue >> Bias); } set { fValue = (value << Bias) | (fValue & MaxValue); } }
 
     /// <summary>Wartość tekstowa wariantu (<c>null</c> - gdy brak)</summary>
-    public string VariantStr { get { return VariantToStr(Variant); } set { Variant = StrToVariant(value); } }
+    public string? VariantStr { get { return VariantToStr(Variant); } set { if (value!=null) Variant = StrToVariant(value); else Variant=0; } }
 
     /// <summary>
     ///   Konwersja wariantu na łańcuch. 0 = <c>null</c>, 1 = "a", 26 = "a", 27 = "aa", 28 = "ab" ... 255 = "iu"
     /// </summary>
-    public static string VariantToStr(byte variant)
+    public static string? VariantToStr(byte variant)
     {
       if (variant == 0)
         return null;
@@ -973,6 +1007,12 @@ return true;
     }
 
     #region implementacja interfejsu IComparable
+
+    /// <summary>
+    /// Sprawdza równość dwóch liczb porządkowych
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public override bool Equals(object obj)
     {
       if (!(obj is OrdNumSegment))
@@ -984,6 +1024,10 @@ return true;
       return fValue==segment.fValue;
     }
 
+    /// <summary>
+    /// Podaje kod hash liczby porządkowej.
+    /// </summary>
+    /// <returns></returns>
     public override int GetHashCode()
     {
       return fValue.GetHashCode();
@@ -1005,6 +1049,10 @@ return true;
     public static bool operator <=(OrdNumSegment a, OrdNumSegment b) { return a.CompareTo(b) <= 0; }
     #endregion
 
+    /// <summary>
+    /// Zamienia liczbę na łańcuch.
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
       return this.Value + this.VariantStr;

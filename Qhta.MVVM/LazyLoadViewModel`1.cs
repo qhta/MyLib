@@ -2,9 +2,16 @@
 
 namespace Qhta.MVVM
 {
-  public abstract class LazyLoadViewModel<ItemType>: VisibleViewModel<ItemType>, ILazyLoad, IExpandable
+  /// <summary>
+  /// Abstract <see cref="LazyLoadViewModel{ModelType}"/> that implements <see cref="ILazyLoad"/> and <see cref="IExpandable"/> interfaces.
+  /// </summary>
+  /// <typeparam name="ModelType"></typeparam>
+  public abstract class LazyLoadViewModel<ModelType>: VisibleViewModel<ModelType>, ILazyLoad, IExpandable
   {
 
+    /// <summary>
+    /// Determines whether a view model should load a model on init.
+    /// </summary>
     public bool LoadOnInit
     {
       get => _LoadOnInit;
@@ -21,6 +28,9 @@ namespace Qhta.MVVM
     }
     bool _LoadOnInit;
 
+    /// <summary>
+    /// Determines whether a view model should load items on expand.
+    /// </summary>
     public bool LoadOnExpand
     {
       get => _LoadOnExpand;
@@ -37,6 +47,9 @@ namespace Qhta.MVVM
     }
     bool _LoadOnExpand;
 
+    /// <summary>
+    /// Determines whether a view model is loading a model.
+    /// </summary>
     public bool IsLoading
     {
       get => _IsLoading;
@@ -55,6 +68,9 @@ namespace Qhta.MVVM
     }
     bool _IsLoading;
 
+    /// <summary>
+    /// Determines whether a view model has already loaded a model.
+    /// </summary>
     public bool IsLoaded
     {
       get => _IsLoaded;
@@ -69,6 +85,9 @@ namespace Qhta.MVVM
     }
     bool _IsLoaded;
 
+    /// <summary>
+    /// Determines whether a view model is expanded (e.g. as a tree view item).
+    /// </summary>
     public override bool IsExpanded
     {
       get => base.IsExpanded;
@@ -84,8 +103,15 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// A method invoked before load on expand
+    /// </summary>
     protected abstract void PrepareLoadOnExpand();
 
+    /// <summary>
+    /// A task to load items.
+    /// </summary>
+    /// <returns></returns>
     public abstract Task StartLoading();
 
   }

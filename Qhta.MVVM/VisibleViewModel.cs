@@ -1,7 +1,13 @@
 ﻿namespace Qhta.MVVM
 {
-  public class VisibleViewModel : ViewModel, IVisible, IExpandable, ISelectable
+  /// <summary>
+  /// ViewModel which implements <see cref="IVisible"/>, <see cref="ISelectable"/>, and <see cref="IExpandable"/> interfaces.
+  /// </summary>
+  public class VisibleViewModel : ViewModel, IVisible, ISelectable, IExpandable
   {
+    /// <summary>
+    /// Specifies whether the ViewModel is visible.
+    /// </summary>
     public virtual bool IsVisible
     {
       get => _IsVisible;
@@ -14,8 +20,14 @@
         }
       }
     }
+    /// <summary>
+    /// Internal property that specifies whether the ViewModel is visible.
+    /// </summary>
     protected bool _IsVisible = true;
 
+    /// <summary>
+    /// Specifies whether the ViewModel has details.
+    /// </summary>
     public virtual bool HasRowDetails
     {
       get => _HasRowDetails;
@@ -28,8 +40,14 @@
         }
       }
     }
+    /// <summary>
+    /// Internal property that specifies whether the ViewModel has details.
+    /// </summary>
     protected bool _HasRowDetails = false;
 
+    /// <summary>
+    /// Specifies whether the ViewModel is expanded.
+    /// </summary>
     public virtual bool IsExpanded
     {
       get => _IsExpanded;
@@ -42,8 +60,14 @@
         }
       }
     }
+    /// <summary>
+    /// Internal property that specifies whether the ViewModel is expanded.
+    /// </summary>
     protected bool _IsExpanded = false;
 
+    /// <summary>
+    /// Specifies whether the ViewModel is selected.
+    /// </summary>
     public bool IsSelected
     {
       get => _IsSelected;
@@ -56,9 +80,15 @@
         }
       }
     }
-    private bool _IsSelected = false;
+    /// <summary>
+    /// Internal property that specifies whether the ViewModel is selected.
+    /// </summary>
+    protected bool _IsSelected = false;
 
-    public Commands Commands { get; set; }
+    /// <summary>
+    /// Observable collection of commands assigned to this ViewModel.
+    /// </summary>
+    public Commands? Commands { get; set; }
 
   }
 }

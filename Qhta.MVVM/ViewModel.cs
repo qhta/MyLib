@@ -3,12 +3,23 @@ using Qhta.DispatchedObjects;
 
 namespace Qhta.MVVM
 {
-  public class ViewModel : DispatchedObject, IValidated, INotifyPropertyChanged, IViewModel
+  /// <summary>
+  /// Base class of view model.
+  /// </summary>
+  public class ViewModel : DispatchedObject, INotifyPropertyChanged, IViewModel, IValidated
   {
+    /// <summary>
+    /// A method to notify that a property has changed.
+    /// </summary>
+    /// <param name="propertyName"></param>
     public new void NotifyPropertyChanged(string propertyName)
     {
       base.NotifyPropertyChanged(propertyName);
     }
+
+    /// <summary>
+    /// Specifies if the data of view model is valid.
+    /// </summary>
     public virtual bool? IsValid { get; set; }
 
   }

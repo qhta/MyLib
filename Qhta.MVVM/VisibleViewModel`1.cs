@@ -2,25 +2,41 @@
 
 namespace Qhta.MVVM
 {
-  public class VisibleViewModel<ItemType> : VisibleViewModel, IVisible, IExpandable, ISelectable
+  /// <summary>
+  /// Visible view model which has a model of a specific type.
+  /// </summary>
+  public class VisibleViewModel<ModelType> : VisibleViewModel, IVisible, IExpandable, ISelectable
   {
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     public VisibleViewModel()
     {
     }
 
+    /// <summary>
+    /// A constructor with a parent ViewModel.
+    /// </summary>
+    /// <param name="parentViewModel"></param>
     public VisibleViewModel(IViewModel parentViewModel)
     {
       ParentViewModel = parentViewModel;
     }
 
-    public IViewModel ParentViewModel { get; private set; }
+    /// <summary>
+    /// A parent ViewModel of this ViewModel.
+    /// </summary>
+    public IViewModel? ParentViewModel { get; private set; }
 
-    public ItemType Model
+    /// <summary>
+    /// A modeled object.
+    /// </summary>
+    public ModelType? Model
     {
       get => _Model;
       set
       {
-        if (!value.Equals(_Model))
+        if (value?.Equals(_Model) !=true)
         {
           _Model = value;
           if (_Model is INotifyPropertyChanged observableModel)
@@ -34,25 +50,38 @@ namespace Qhta.MVVM
       NotifyPropertyChanged(e.PropertyName);
     }
 
-    private ItemType _Model;
+    private ModelType? _Model;
 
+    /// <summary>
+    /// Determines if a <see cref="_WaitCount"/> is greater than 0.
+    /// </summary>
     public bool IsWaiting
     {
       get => _WaitCount>0;
     }
     int _WaitCount;
 
+    /// <summary>
+    /// Increments <see cref="_WaitCount"/> and notifies UI that <see cref="IsWaiting"/> property has been changed.
+    /// </summary>
     public virtual void StartWaiting()
     {
+      var waitCount = _WaitCount;
       _WaitCount++;
-      NotifyPropertyChanged(nameof(IsWaiting));
+      if (waitCount == 0)
+        NotifyPropertyChanged(nameof(IsWaiting));
     }
+
+    /// <summary>
+    /// Decrements <see cref="_WaitCount"/> and notifies UI that <see cref="IsWaiting"/> property has been changed.
+    /// </summary>
     public virtual void StopWaiting()
     {
       if (_WaitCount>0)
       {
         _WaitCount--;
-        NotifyPropertyChanged(nameof(IsWaiting));
+        if (_WaitCount == 0)
+          NotifyPropertyChanged(nameof(IsWaiting));
       }
     }
   }

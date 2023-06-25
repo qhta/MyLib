@@ -9,24 +9,40 @@ namespace Qhta.MVVM
 {
   public partial class ListViewModel<ItemType>: IListViewModel
   {
+    /// <summary>
+    /// Enumerable items.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<object> GetItems()
     {
       return Items;
     }
 
-    Action FindNextItemDelegate;
+    Action? FindNextItemDelegate;
 
+    /// <summary>
+    /// A method to switch to the next item.
+    /// </summary>
     public void FindNextItem()
     {
       FindNextItemDelegate?.Invoke();
     }
 
+
+    /// <summary>
+    /// A method to switch to the first item that fullfills the expression.
+    /// </summary>
+    /// <param name="expression"></param>
     public void FindFirstItem(Expression<Func<object, bool>> expression)
     {
       var predicate = expression.Compile();
       FindFirstItem(predicate);
     }
 
+    /// <summary>
+    /// A method to switch to the first item that fullfills the predicate.
+    /// </summary>
+    /// <param name="predicate"></param>
     public void FindFirstItem(Func<object, bool> predicate)
     {
       Predicate = null;
@@ -56,12 +72,22 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// A method to switch to the first item with a specific pattern and selected propNames.
+    /// </summary>
+    /// <param name="pattern"></param>
+    /// <param name="propNames"></param>
     public void FindFirstItem(object pattern, IEnumerable<string> propNames)
     {
       if (pattern is ItemType typedPattern)
         FindFirstItem(typedPattern, propNames);
     }
 
+    /// <summary>
+    /// A method to switch to the first item with a specific pattern and selected propNames.
+    /// </summary>
+    /// <param name="pattern"></param>
+    /// <param name="propNames"></param>
     public void FindFirstItem(ItemType pattern, IEnumerable<string> propNames)
     {
       Predicate = null;
@@ -93,22 +119,35 @@ namespace Qhta.MVVM
       }
     }
 
-    Func<object, bool> Predicate;
-    ItemType Pattern;
-    IEnumerable<string> PatternPropNames;
+    Func<object, bool>? Predicate;
+    ItemType? Pattern;
+    IEnumerable<string>? PatternPropNames;
 
+    /// <summary>
+    /// Find next item with previously defined predicate.
+    /// </summary>
     public void FindNextItemWithPredicate()
     {
       if (Predicate!=null)
         FindFirstItem(Predicate);
     }
 
+    /// <summary>
+    /// Find next item with previously defined pattern.
+    /// </summary>
     public void FindNextItemWithPattern()
     {
-      if (Pattern!=null)
+      if (Pattern!=null && PatternPropNames!=null)
         FindFirstItem(Pattern, PatternPropNames);
     }
 
+    /// <summary>
+    /// A method to check if the modeled item is same as other item type.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="pattern"></param>
+    /// <param name="properties"></param>
+    /// <returns></returns>
     protected virtual bool SameAs(ItemType item, ItemType pattern, IEnumerable<PropertyInfo> properties)
     {
       foreach (var property in properties)
@@ -125,6 +164,9 @@ namespace Qhta.MVVM
       return true;
     }
 
+    /// <summary>
+    /// Find first invalid item.
+    /// </summary>
     public void FindFirstInvalidItem()
     {
       var invalidItems = GetItemsList().Where(item => item.IsValid==false).ToList();
@@ -136,6 +178,9 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// Find next invalid item.
+    /// </summary>
     public void FindNextInvalidItem()
     {
       var selectedItem = CurrentItem;
@@ -150,17 +195,25 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// Returns a type of the item.
+    /// </summary>
+    /// <returns></returns>
     public Type GetItemType()
     {
       return typeof(ItemType);
     }
 
+    /// <summary>
+    /// Get list of modeled items.
+    /// </summary>
+    /// <returns></returns>
     public List<ItemType> GetItemsList()
     {
       var items = Values.ToList();
       if (SortedBy!=null)
       {
-        IOrderedEnumerable<ItemType> orderedItems = null;
+        IOrderedEnumerable<ItemType>? orderedItems = null;
         List<String> sortedColumns = SortedBy.Split(new char[] { ';', ',' }).ToList();
         foreach (var column in sortedColumns)
         {
@@ -210,8 +263,8 @@ namespace Qhta.MVVM
 
       public int Compare(ItemType x, ItemType y)
       {
-        IComparable value1 = myPropInfo.GetValue(x) as IComparable;
-        IComparable value2 = myPropInfo.GetValue(y) as IComparable;
+        IComparable value1 = (IComparable)myPropInfo.GetValue(x);
+        IComparable value2 = (IComparable)myPropInfo.GetValue(y);
         if (value1!=value2)
           return value1.CompareTo(value2);
         else
@@ -219,7 +272,10 @@ namespace Qhta.MVVM
       }
     }
 
-    public string SortedBy
+    /// <summary>
+    /// Specifes the criteria of sorting
+    /// </summary>
+    public string? SortedBy
     {
       get { return _SortedBy; }
       set
@@ -231,10 +287,13 @@ namespace Qhta.MVVM
         }
       }
     }
-    private string _SortedBy;
+    private string? _SortedBy;
 
     IEnumerable<object> IListViewModel.SelectedItems { get => SelectedItems; set { } /*SelectedItems=value.Cast<ItemType>();*/ }
 
+    /// <summary>
+    /// Returns a list of selected items.
+    /// </summary>
     public IEnumerable<ItemType> SelectedItems { get => _SelectedItems; set { } }
     private List<ItemType> _SelectedItems = new List<ItemType>();
 
@@ -244,11 +303,19 @@ namespace Qhta.MVVM
       CurrentItem = value;
     }
 
-    object IListViewModel.CurrentItem { get => this.CurrentItem; set => CurrentItem=value as ItemType; }
+    object? IListViewModel.CurrentItem { get => this.CurrentItem; set => CurrentItem=value as ItemType; }
 
+    /// <summary>
+    /// Enumerable of all items.
+    /// </summary>
     public IEnumerable<object> Items => Values;
 
     private bool inSelectAll;
+
+    /// <summary>
+    /// A method of selecting or deselecting items.
+    /// </summary>
+    /// <param name="select"></param>
     public void SelectAll(bool select)
     {
       if (inSelectAll)
@@ -261,6 +328,10 @@ namespace Qhta.MVVM
     }
 
     private HashSet<ItemType> previouslySelectedItems = new HashSet<ItemType>();
+
+    /// <summary>
+    /// A method of notification that selection has been changed.
+    /// </summary>
     public void NotifySelectionChanged()
     {
       List<ItemType> unselectedItems = new List<ItemType>();

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Observable property</Title>
+      <Description>Adds a new observable property to the current class.</Description>
+      <Shortcut>observableproperty</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>Type</ID>
+          <ToolTip>Replace with the type you want your property to have.</ToolTip>
+          <Default>PropertyType</Default>
+        </Literal>
+        <Literal>
+          <ID>Name</ID>
+          <ToolTip>Replace with the name you want to give to the property.</ToolTip>
+          <Default>PropertyName</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[public $Type$ $Name$
+        {
+            get { return _$Name$; }
+            set
+            {
+                if (_$Name$ != value)
+                {
+                    _$Name$ = value;
+                    NotifyPropertyChanged(nameof($Name$));
+                }
+            }
+        }        
+        private $Type$ _$Name$;]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,7 +1,14 @@
 ﻿namespace Qhta.MVVM
 {
-  public class ViewModel<ItemType>: ViewModel
+  /// <summary>
+  /// View model which has a model of a specific type.
+  /// </summary>
+  /// <typeparam name="ModelType"></typeparam>
+  public class ViewModel<ModelType>: ViewModel
   {
-    public ItemType Model { get; set; }
+    /// <summary>
+    /// Specific modeled object.
+    /// </summary>
+    public ModelType? Model { get; set; }
   }
 }

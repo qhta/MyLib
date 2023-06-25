@@ -8,17 +8,36 @@ using System.Windows.Threading;
 
 namespace Qhta.DispatchedObjects
 {
+  /// <summary>
+  /// A dispatched version of <see cref="ObservableCollection{TValue}"/>.
+  /// Is is based on <see cref="DispatchedObject"/> to notify on changes and to invoke actions.
+  /// </summary>
+  /// <typeparam name="TValue"></typeparam>
   public class DispatchedCollection<TValue>: DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged, ICollection<TValue>
   {
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     public DispatchedCollection()
     {
       _Values.CollectionChanged+=_Values_CollectionChanged;
     }
 
+    /// <summary>
+    /// External collection of values.
+    /// </summary>
     public IEnumerable<TValue> Values => _Values;
-    private ObservableCollection<TValue> _Values = new ObservableCollection<TValue>();
+
+    /// <summary>
+    /// Internal observable collection of values.
+    /// It can be accessed in descendant classes.
+    /// </summary>
+    protected ObservableCollection<TValue> _Values = new ObservableCollection<TValue>();
 
 
+    /// <summary>
+    /// Implementation of <see cref="INotifyCollectionChanged"/> interface.
+    /// </summary>
     public event NotifyCollectionChangedEventHandler CollectionChanged
     {
       add
@@ -30,16 +49,36 @@ namespace Qhta.DispatchedObjects
         _CollectionChanged-=value;
       }
     }
+    /// <summary>
+    /// Internal <see cref="NotifyCollectionChangedEventHandler"/> event.
+    /// It can be checked in descendant classes.
+    /// </summary>
     protected event NotifyCollectionChangedEventHandler _CollectionChanged;
 
-    private void _Values_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    /// <summary>
+    /// A protected method which enables external objects to notify that the collection has changed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void _Values_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
       OnCollectionChanged(e);
     }
 
+    /// <summary>
+    /// A protected method that is called to notify that the collection has changed.
+    /// When it is called in <see cref="AddRange(IEnumerable{TValue})"/> method, it returns immediatelly.
+    /// When <see cref="DispatchedObject.ApplicationDispatcher"/> was not set
+    /// or it is a CurrentDispatcher (a method is called from within the main thread), a <see cref="_CollectionChanged"/> event
+    /// is invoked directly. 
+    /// After that a <see cref="AfterCollectionChanged(NotifyCollectionChangedEventArgs)"/> is called 
+    /// to notify that a <see cref="Count"/> has changed.
+    /// Otherwise it is invoked using <see cref="DispatchedObject.ApplicationDispatcher"/>.
+    /// </summary>
+    /// <param name="e"></param>
     protected void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-      if (inAddRange)
+      if (_InAddRange)
         return;
       if (_CollectionChanged != null)
       {
@@ -58,23 +97,44 @@ namespace Qhta.DispatchedObjects
         AfterCollectionChanged(e);
     }
 
+    /// <summary>
+    /// A virtual method to notify that a <see cref="Count"/> property has changed.
+    /// </summary>
+    /// <param name="e"></param>
     protected virtual void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
       NotifyPropertyChanged(nameof(Count));
     }
 
-    bool inAddRange;
+    /// <summary>
+    /// A flag to signal that <see cref="Add(TValue)"/> operation is invoked in <see cref="AddRange(IEnumerable{TValue}) "/> method.
+    /// </summary>
+    protected bool _InAddRange;
 
+    /// <summary>
+    /// Adds a whole collection of items. 
+    /// <see cref="_InAddRange"/> is used to omit large number of notifications in the <see cref="Add(TValue)"/> method.
+    /// <see cref="OnCollectionChanged(NotifyCollectionChangedEventArgs)"/> is invoked after adding the last item.
+    /// </summary>
+    /// <param name="items"></param>
     public void AddRange(IEnumerable<TValue> items)
     {
-      inAddRange = true;
+      _InAddRange = true;
       int startIndex = Count;
       foreach (var item in items)
         Add(item);
-      inAddRange = false;
+      _InAddRange = false;
       OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<TValue>(items), startIndex));
     }
 
+    /// <summary>
+    /// Adds a single item.
+    /// When <see cref="DispatchedObject.ApplicationDispatcher"/> was not set
+    /// or it is a CurrentDispatcher (a method is called from within the main thread), 
+    /// the item is added immediately to the <see cref="_Values"/> collection.
+    /// otherwise it is added by invokinf the same method using <see cref="DispatchedObject.ApplicationDispatcher"/>.
+    /// </summary>
+    /// <param name="item"></param>
     public void Add(TValue item)
     {
       if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
@@ -86,40 +146,74 @@ namespace Qhta.DispatchedObjects
       }
     }
 
+    /// <summary>
+    /// Returns the count of items.
+    /// </summary>
     public int Count => _Values.Count;
 
+    /// <summary>
+    /// The collection is not read only.
+    /// </summary>
     public bool IsReadOnly => ((ICollection<TValue>)_Values).IsReadOnly;
 
+    /// <summary>
+    /// Gets the <see cref="_Values"/> collection as an array.
+    /// </summary>
+    /// <returns></returns>
     public TValue[] ToArray()
     {
       return _Values.ToArray();
     }
 
+    /// <summary>
+    /// Enumerates the <see cref="_Values"/> collection.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator<TValue> GetEnumerator()
     {
       return (_Values).GetEnumerator();
     }
 
+    /// <summary>
+    /// Enumerates the <see cref="_Values"/> collection.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
       return this.GetEnumerator();
     }
 
+    /// <summary>
+    /// Clears the <see cref="_Values"/> collection.
+    /// </summary>
     public void Clear()
     {
       ((ICollection<TValue>)_Values).Clear();
     }
 
+    /// <summary>
+    /// Checks if the <see cref="_Values"/> collection contains the item.
+    /// </summary>
     public bool Contains(TValue item)
     {
       return ((ICollection<TValue>)_Values).Contains(item);
     }
 
+    /// <summary>
+    /// Copies the <see cref="_Values"/> collection to an array.
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="arrayIndex"></param>
     public void CopyTo(TValue[] array, int arrayIndex)
     {
       ((ICollection<TValue>)_Values).CopyTo(array, arrayIndex);
     }
 
+    /// <summary>
+    /// Removes an item from the <see cref="_Values"/> collection.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public bool Remove(TValue item)
     {
       return ((ICollection<TValue>)_Values).Remove(item);

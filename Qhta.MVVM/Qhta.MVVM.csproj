@@ -5,25 +5,29 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Version>1.0.4</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Yarreck Qhta</Authors>
     <Description>A simple MVVM framework which enables worker threads to invoke UI notification via DispatchedObjects.</Description>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Qhta.MVVM.key.pfx</AssemblyOriginatorKeyFile>
+    <Version>2.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AutoRedirectBindings>true</AutoRedirectBindings>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="MvvmRoutedEvent.cs" />
-    <Compile Remove="MvvmRoutedEventArgs.cs" />
-    <Compile Remove="MvvmRoutingStrategy.cs" />
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.DispatchedObjects" Version="1.0.2" />
-    <PackageReference Include="Qhta.OrdNumbers" Version="2.2.1" />
+    <PackageReference Include="Qhta.DispatchedObjects" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

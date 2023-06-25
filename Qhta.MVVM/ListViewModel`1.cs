@@ -8,25 +8,43 @@ using Qhta.DispatchedObjects;
 
 namespace Qhta.MVVM
 {
+  /// <summary>
+  /// <see cref="ListViewModel"/> with specified item type.
+  /// </summary>
+  /// <typeparam name="ItemType"></typeparam>
   public partial class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged, IViewModel, ISelectable
          where ItemType : class, IValidated, ISelectable
   {
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     public ListViewModel()
     {
     }
 
+    /// <summary>
+    /// Constructor with parent VIewModel.
+    /// </summary>
+    /// <param name="parentViewModel"></param>
     public ListViewModel(IViewModel parentViewModel) : this()
     {
       ParentViewModel = parentViewModel;
     }
 
-    public IViewModel ParentViewModel { get; private set; }
 
-    public ItemType SelectedItem
+    /// <summary>
+    /// VIewModel that is a parent of this ViewModel.
+    /// </summary>
+    public IViewModel? ParentViewModel { get; private set; }
+
+    /// <summary>
+    /// An item that is currently selected.
+    /// </summary>
+    public ItemType? SelectedItem
     {
       get
       {
-        ItemType selectedItem = null;
+        ItemType? selectedItem = null;
         selectedItem = Values.ToList().FirstOrDefault(item => item.IsSelected);
         return selectedItem;
       }
@@ -37,6 +55,9 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// Number of valid items.
+    /// </summary>
     public int ValidItemsCount
     {
       get
@@ -45,6 +66,9 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// Number of invalid items.
+    /// </summary>
     public int InvalidItemsCount
     {
       get
@@ -53,14 +77,18 @@ namespace Qhta.MVVM
       }
     }
 
-    protected override void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
+    /// <summary>
+    /// Event handler method to get notification of collection changing.
+    /// </summary>
+    /// <param name="arg"></param>
+    protected override void AfterCollectionChanged(NotifyCollectionChangedEventArgs arg)
     {
-      base.AfterCollectionChanged(e);
+      base.AfterCollectionChanged(arg);
       NotifyPropertyChanged(nameof(ValidItemsCount));
       NotifyPropertyChanged(nameof(InvalidItemsCount));
-      if (e.Action==NotifyCollectionChangedAction.Add)
+      if (arg.Action==NotifyCollectionChangedAction.Add)
       {
-        foreach (var item in e.NewItems)
+        foreach (var item in arg.NewItems)
         {
           if (item is INotifyPropertyChanged notifyPropertyChangedItem)
             notifyPropertyChangedItem.PropertyChanged+=Item_PropertyChanged;
@@ -73,9 +101,14 @@ namespace Qhta.MVVM
       }
     }
 
-    private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    /// <summary>
+    /// Event handler method to send notification of property changing.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    private void Item_PropertyChanged(object sender, PropertyChangedEventArgs args)
     {
-      switch (e.PropertyName)
+      switch (args.PropertyName)
       {
         case "IsValid":
           NotifyPropertyChanged(nameof(ValidItemsCount));
@@ -89,6 +122,10 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// A method to notify that selection has been changed.
+    /// </summary>
+    /// <param name="item"></param>
     public void NotifySelectionChanged(object item)
     {
       List<object> selectedItems = new List<object>();
@@ -103,38 +140,55 @@ namespace Qhta.MVVM
       OnSelectionChanged(new SelectionChangedEventArgs(selectedItems, unselectedItems));
     }
 
-    public event SelectionChangedEventHandler SelectionChanged
+    /// <summary>
+    /// An event to be called when selection has changed.
+    /// </summary>
+    public event SelectionChangedEventHandler? SelectionChanged
     {
       add { _SelectionChanged+=value; }
       remove { _SelectionChanged-=value; }
     }
-    protected event SelectionChangedEventHandler _SelectionChanged;
+    /// <summary>
+    /// Protected event to be called when selection has changed.
+    /// </summary>
+    protected event SelectionChangedEventHandler? _SelectionChanged;
 
-    public virtual void OnSelectionChanged(SelectionChangedEventArgs e)
+    /// <summary>
+    /// A method invoked when selection has been changed.
+    /// </summary>
+    /// <param name="args"></param>
+    public virtual void OnSelectionChanged(SelectionChangedEventArgs args)
     {
       if (_SelectionChanged != null)
       {
         if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
         {
-          _SelectionChanged.Invoke(this, e);
-          AfterSelectionChanged(e);
+          _SelectionChanged.Invoke(this, args);
+          AfterSelectionChanged(args);
         }
         else
         {
           var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
-          DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { e });
+          DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { args });
         }
       }
       else
-        AfterSelectionChanged(e);
+        AfterSelectionChanged(args);
     }
 
-    protected virtual void AfterSelectionChanged(SelectionChangedEventArgs e)
+    /// <summary>
+    /// A method called after selection has been changed. Notifies that a property has been changed.
+    /// </summary>
+    /// <param name="args"></param>
+    protected virtual void AfterSelectionChanged(SelectionChangedEventArgs args)
     {
       NotifyPropertyChanged(nameof(SelectedItem));
     }
 
-    public ItemType CurrentItem
+    /// <summary>
+    /// Currently chosen item.
+    /// </summary>
+    public ItemType? CurrentItem
     {
       get => _CurrentItem;
       set
@@ -149,10 +203,16 @@ namespace Qhta.MVVM
         }
       }
     }
-    private ItemType _CurrentItem;
+    private ItemType? _CurrentItem;
 
-    public event CurrentItemChangedEventHandler CurrentItemChanged;
+    /// <summary>
+    /// An event to call when <see cref="CurrentItem"/> property has been changed.
+    /// </summary>
+    public event CurrentItemChangedEventHandler? CurrentItemChanged;
 
+    /// <summary>
+    /// Currently selected item.
+    /// </summary>
     public int SelectedIndex
     {
       get => _SelectedIndex;
@@ -168,6 +228,9 @@ namespace Qhta.MVVM
       }
     }
 
+    /// <summary>
+    /// Specifies whether a view item is selected.
+    /// </summary>
     public bool IsSelected
     {
       get => _IsSelected;

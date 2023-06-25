@@ -4,36 +4,32 @@ using System.Windows.Threading;
 
 namespace Qhta.MVVM
 {
-  public abstract class DispatchedCommand: ICommand
+  /// <summary>
+  ///  A command which invokes Dispatcher when NotifyCanExecuteChanged is called.
+  /// </summary>
+  public abstract class DispatchedCommand: Command, ICommand
   {
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     public DispatchedCommand() { }
 
-    public DispatchedCommand(Dispatcher dispatcher)
+    /// <summary>
+    /// Overriden method to notify that a result of <see cref="Command.CanExecute(object)"/> function may be changed.
+    /// </summary>
+    public override void NotifyCanExecuteChanged()
     {
-      Dispatcher = dispatcher;
-    }
-
-    public Dispatcher Dispatcher { get; set; }
-
-    public event EventHandler CanExecuteChanged;
-
-    public void NotifyCanExecuteChanged()
-    {
-      if (CanExecuteChanged != null)
+      if (_CanExecuteChanged != null)
       {
         if (Dispatcher != null)
           Dispatcher.Invoke(() =>
           {
-            CanExecuteChanged.Invoke(this, new EventArgs());
+            _CanExecuteChanged.Invoke(this, new EventArgs());
           });
         else
-          CanExecuteChanged.Invoke(this, new EventArgs());
+          _CanExecuteChanged.Invoke(this, new EventArgs());
       }
     }
-
-    public abstract bool CanExecute(object parameter);
-
-    public abstract void Execute(object parameter);
 
   }
 }

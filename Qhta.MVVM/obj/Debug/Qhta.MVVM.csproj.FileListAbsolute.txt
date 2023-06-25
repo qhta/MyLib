@@ -8,3 +8,11 @@ D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CoreCompileInputs
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CopyComplete
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.dll
 D:\Dane\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\Qhta.MVVM.csproj.CopyComplete
