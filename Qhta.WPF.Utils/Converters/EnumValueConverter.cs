@@ -24,11 +24,11 @@ namespace Qhta.WPF.Utils
       get
       {
         if (enumValues == null)
-          enumValues = new List<EnumValue> ();
+          enumValues = new List<EnumValue>();
         return enumValues;
       }
     }
-    private List<EnumValue> enumValues;
+    private List<EnumValue> enumValues = null!;
 
     /// <summary>
     /// Typ wyliczeniowy. Określa listę wartości wyliczeniowych
@@ -52,10 +52,10 @@ namespace Qhta.WPF.Utils
     /// Konwersja wprost - identyczna jak konwersja wstecz.
     /// Kierunek konwersji rozpoznawany przez parametr <c>targetType</c>
     /// </summary>
-    public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       if (value == null)
-        throw new ArgumentNullException ("value");
+        throw new ArgumentNullException("value");
       if (targetType.FullName == EnumType.FullName)
         return ConvertToEnum(value, targetType, parameter, culture);
       else if (targetType == typeof(object))
@@ -67,11 +67,11 @@ namespace Qhta.WPF.Utils
     /// Konwersja wstecz - identyczna jak konwersja wprost.
     /// Kierunek konwersji rozpoznawany przez parametr <c>targetType</c>
     /// </summary>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
       if (value == null)
         throw new ArgumentNullException("value");
-      if (targetType.FullName==EnumType.FullName)
+      if (targetType.FullName == EnumType.FullName)
         return ConvertToEnum(value, targetType, parameter, culture);
       else
         return ConvertFromEnum(value, targetType, parameter, culture);
@@ -80,15 +80,17 @@ namespace Qhta.WPF.Utils
     /// <summary>
     /// Konwersja łańcucha, wartości logicznej lub liczby na wartość wyliczeniową
     /// </summary>
-    public object ConvertToEnum (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertToEnum(object value, Type targetType, object parameter, CultureInfo culture)
     {
       if (EnumValues.Count == 0)
         InitEnumValues();
       if (value is EnumValue)
       {
-        object n = (value as EnumValue).Value;
-        MethodInfo castMethod = this.GetType().GetMethod("Cast").MakeGenericMethod(targetType);
-        object castedObject = castMethod.Invoke(null, new object[] { n });
+        object? n = ((EnumValue)value).Value;
+        MethodInfo? castMethod = this.GetType()?.GetMethod("Cast")?.MakeGenericMethod(targetType);
+        object? castedObject = null;
+        if (castMethod != null && n!=null)
+          castedObject = castMethod.Invoke(null, new object[] { n });
         return castedObject;
       }
       else if (value is bool)
@@ -103,7 +105,7 @@ namespace Qhta.WPF.Utils
         return this.EnumValues.ElementAtOrDefault(System.Convert.ToInt32(value));
       else if (value is Enum)
         return this.EnumValues.ElementAtOrDefault(System.Convert.ToInt32(value));
-      throw new InvalidOperationException (string.Format ("Invalid input value of type '{0}'", value.GetType ()));
+      throw new InvalidOperationException(string.Format("Invalid input value of type '{0}'", value.GetType()));
     }
 
     /// <summary>
@@ -120,16 +122,16 @@ namespace Qhta.WPF.Utils
     /// <summary>
     /// Konwersja wartości wyliczeniowej na liczbową
     /// </summary>
-    public object ConvertFromEnum (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertFromEnum(object value, Type targetType, object parameter, CultureInfo culture)
     {
       if (EnumValues.Count == 0)
         InitEnumValues();
       if (targetType == typeof(IEnumerable))
         return EnumValues;
-      if (value!=null)
+      if (value != null)
       {
         int n = (int)value;
-        EnumValue v = EnumValues.FirstOrDefault(item => (item.Value is int) ? (int)(item.Value)==(int)value : item.Value.Equals(value));
+        EnumValue? v = EnumValues.FirstOrDefault(item => (item.Value is int) ? (int)(item.Value) == (int)value : item.Value.Equals(value));
         if (targetType == typeof(EnumValue))
           return v;
         if (v != null)
@@ -147,7 +149,7 @@ namespace Qhta.WPF.Utils
     {
       foreach (object enumValue in Enum.GetValues(EnumType).Cast<object>())
       {
-        EnumValue newValue = new EnumValue { Name = enumValue.ToString(), Value = (int)enumValue };
+        EnumValue newValue = new EnumValue { Name = enumValue.ToString()??"", Value = (int)enumValue };
         //if (NameTranslation != null)
         //{
         //  TextTranslateEventArgs args = new TextTranslateEventArgs(enumValue.ToString());
