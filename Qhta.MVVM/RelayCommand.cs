@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -47,6 +48,8 @@ namespace Qhta.MVVM
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override bool CanExecute(object? parameter)
     {
+      if (canExecute!=null)
+        Debug.Assert(true);
       return canExecute?.Invoke() ?? true;
     }
 

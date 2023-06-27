@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,7 +10,7 @@ namespace Qhta.MVVM
   /// <summary>
   /// Abstract class implementing <see cref="ICommand"/> interface
   /// </summary>
-  public abstract class Command: DispatchedObject, ICommand
+  public abstract class Command : DispatchedObject, ICommand
   {
     /// <summary>
     /// Event required by <see cref="ICommand"/> interface. 
@@ -17,9 +18,12 @@ namespace Qhta.MVVM
     /// </summary>
     public virtual event EventHandler? CanExecuteChanged
     {
-      //add { CommandManager.RequerySuggested += value; }
-      //remove { CommandManager.RequerySuggested -= value; }
-      add { _CanExecuteChanged += value; }
+      add
+      {
+        _CanExecuteChanged += value;
+        if (value!=null)
+          value.Invoke(this, EventArgs.Empty);
+      }
       remove { _CanExecuteChanged -= value; }
     }
     /// <summary>
@@ -33,7 +37,7 @@ namespace Qhta.MVVM
     /// </summary>
     public virtual void NotifyCanExecuteChanged()
     {
-      if (_CanExecuteChanged!=null)
+      if (_CanExecuteChanged != null)
       {
         OnCanExecuteChanged();
       }
@@ -44,7 +48,7 @@ namespace Qhta.MVVM
     /// </summary>
     protected virtual void OnCanExecuteChanged()
     {
-      Dispatch(()=>_CanExecuteChanged?.Invoke(this, EventArgs.Empty));
+      Dispatch(() => _CanExecuteChanged?.Invoke(this, EventArgs.Empty));
     }
 
     /// <summary>

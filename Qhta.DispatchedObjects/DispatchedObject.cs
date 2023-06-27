@@ -58,15 +58,15 @@ namespace Qhta.DispatchedObjects
     {
       if (_PropertyChanged!=null)
       {
-        if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-        {
+        //if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
+        //{
           _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-        else
-        {
-          var action = new Action<string>(NotifyPropertyChanged);
-          ApplicationDispatcher.Invoke(action, new object[] { propertyName });
-        }
+        //}
+        //else
+        //{
+        //  var action = new Action<string>(NotifyPropertyChanged);
+        //  ApplicationDispatcher.Invoke(action, new object[] { propertyName });
+        //}
       }
     }
 
