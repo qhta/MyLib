@@ -45,9 +45,10 @@ namespace Qhta.MVVM
       }
     }
 
-    private void ObservableModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void ObservableModel_PropertyChanged(object? sender, PropertyChangedEventArgs args)
     {
-      NotifyPropertyChanged(e.PropertyName);
+      if (args.PropertyName!=null)
+        NotifyPropertyChanged(args.PropertyName);
     }
 
     private ModelType? _Model;

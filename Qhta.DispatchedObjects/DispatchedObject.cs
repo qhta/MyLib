@@ -12,20 +12,26 @@ namespace Qhta.DispatchedObjects
   public class DispatchedObject: INotifyPropertyChanged
   {
     /// <summary>
+    /// A static object to dispatch actions to main app thread.
+    /// </summary>
+    public static IDispatcherBridge? DispatcherBridge { get; set; }
+
+
+    /// <summary>
     /// A static property which enables a developer to setup a Dispatcher from any application
     /// (e.g. it can be Application.Dispatcher in WPF applications).
     /// </summary>
-    public static Dispatcher ApplicationDispatcher { get; set; }
+    public static Dispatcher? ApplicationDispatcher { get; set; }
 
     /// <summary>
     /// Helper name which can be used on Debugging.
     /// </summary>
-    public virtual string DebugName { get; set; }
+    public virtual string? DebugName { get; set; }
 
     /// <summary>
     /// Property changed event which implements <see cref="INotifyPropertyChanged"/> interface.
     /// </summary>
-    public event PropertyChangedEventHandler PropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged
     {
       add
       {
@@ -39,7 +45,7 @@ namespace Qhta.DispatchedObjects
     /// <summary>
     /// A handler of <see cref="PropertyChanged"/> event which can be checked in descending classes.
     /// </summary>
-    protected event PropertyChangedEventHandler _PropertyChanged;
+    protected event PropertyChangedEventHandler? _PropertyChanged;
 
     /// <summary>
     /// A method to notify that a property has changed. 
@@ -73,14 +79,7 @@ namespace Qhta.DispatchedObjects
     /// <param name="action"></param>
     public virtual void Dispatch(Action action)
     {
-      if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-      {
-        action.Invoke();
-      }
-      else
-      {
-        ApplicationDispatcher.Invoke(action, new object[] { });
-      }
+      DispatcherBridge?.Invoke(action);
     }
   }
 }

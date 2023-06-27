@@ -27,16 +27,13 @@
         }
       },
       "Qhta.DispatchedObjects/1.2.0": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
         "compile": {
-          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
-            "related": ".xml"
-          }
+          "bin/placeholder/Qhta.DispatchedObjects.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
-            "related": ".xml"
-          }
+          "bin/placeholder/Qhta.DispatchedObjects.dll": {}
         }
       }
     }
@@ -183,17 +180,9 @@
       ]
     },
     "Qhta.DispatchedObjects/1.2.0": {
-      "sha512": "FXnack/pp645+0NmUkqF0aS+tjmG+MIDmnH9JscBdBNvNnUAydxRAX72J3Vxwyu9Ro37Nt8zcWVbIYYmQYlXdg==",
-      "type": "package",
-      "path": "qhta.dispatchedobjects/1.2.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/netstandard2.0/Qhta.DispatchedObjects.dll",
-        "lib/netstandard2.0/Qhta.DispatchedObjects.xml",
-        "qhta.dispatchedobjects.1.2.0.nupkg.sha512",
-        "qhta.dispatchedobjects.nuspec",
-        "readme.md"
-      ]
+      "type": "project",
+      "path": "../Qhta.DispatchedObjects/Qhta.DispatchedObjects.csproj",
+      "msbuildProject": "../Qhta.DispatchedObjects/Qhta.DispatchedObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -234,7 +223,11 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.DispatchedObjects\\Qhta.DispatchedObjects.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.DispatchedObjects\\Qhta.DispatchedObjects.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -252,10 +245,6 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "Qhta.DispatchedObjects": {
-            "target": "Package",
-            "version": "[1.2.0, )"
           }
         },
         "imports": [

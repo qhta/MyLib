@@ -27,13 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.DispatchedObjects" Version="1.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="WindowsBase">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\WindowsBase.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Qhta.DispatchedObjects\Qhta.DispatchedObjects.csproj" />
   </ItemGroup>
 
 </Project>

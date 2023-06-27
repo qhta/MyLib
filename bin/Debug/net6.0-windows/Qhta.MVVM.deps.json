@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Qhta.MVVM/2.0": {
+        "dependencies": {
+          "Qhta.DispatchedObjects": "1.2.0"
+        },
+        "runtime": {
+          "Qhta.MVVM.dll": {}
+        }
+      },
+      "Qhta.DispatchedObjects/1.2.0": {
+        "runtime": {
+          "Qhta.DispatchedObjects.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.MVVM/2.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.DispatchedObjects/1.2.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

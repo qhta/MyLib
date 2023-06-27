@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Qhta.MVVM
 {
-  public partial class ListViewModel<ItemType>: IListViewModel
+  public partial class ListViewModel<ItemType> : IListViewModel
   {
     /// <summary>
     /// Enumerable items.
@@ -46,28 +46,28 @@ namespace Qhta.MVVM
     public void FindFirstItem(Func<object, bool> predicate)
     {
       Predicate = null;
-      Pattern=null;
+      Pattern = null;
       var currentItem = CurrentItem;
-      if (currentItem==null)
+      if (currentItem == null)
       {
         var selectedItems = GetItemsList().Where(predicate).Cast<ItemType>().ToList();
         var firstSelectedItem = selectedItems.FirstOrDefault();
-        if (firstSelectedItem!=null)
+        if (firstSelectedItem != null)
         {
-          SelectCurrentItem (firstSelectedItem);
+          SelectCurrentItem(firstSelectedItem);
           Predicate = predicate;
-          FindNextItemDelegate=FindNextItemWithPredicate;
+          FindNextItemDelegate = FindNextItemWithPredicate;
         }
       }
       else
       {
         var selectedItems = GetItemsList().Where(predicate).Cast<ItemType>().ToList();
         var selectedItemIndex = selectedItems.IndexOf(currentItem);
-        if (selectedItemIndex<selectedItems.Count-1)
+        if (selectedItemIndex < selectedItems.Count - 1)
         {
-          SelectCurrentItem(selectedItems[selectedItemIndex+1]);
+          SelectCurrentItem(selectedItems[selectedItemIndex + 1]);
           Predicate = predicate;
-          FindNextItemDelegate=FindNextItemWithPredicate;
+          FindNextItemDelegate = FindNextItemWithPredicate;
         }
       }
     }
@@ -91,30 +91,30 @@ namespace Qhta.MVVM
     public void FindFirstItem(ItemType pattern, IEnumerable<string> propNames)
     {
       Predicate = null;
-      Pattern=null;
+      Pattern = null;
       PatternPropNames = propNames;
       var properties = typeof(ItemType).GetProperties().Where(prop => propNames.Contains(prop.Name)).ToArray();
       var currentItem = CurrentItem;
-      if (currentItem==null)
+      if (currentItem == null)
       {
         var selectedItems = GetItemsList().Where(item => SameAs(item, pattern, properties)).ToList();
         var firstSelectedItem = selectedItems.FirstOrDefault();
-        if (firstSelectedItem!=null)
+        if (firstSelectedItem != null)
         {
           SelectCurrentItem(firstSelectedItem);
           Pattern = pattern;
-          FindNextItemDelegate=FindNextItemWithPattern;
+          FindNextItemDelegate = FindNextItemWithPattern;
         }
       }
       else
       {
         var selectedItems = GetItemsList().Where(item => SameAs(item, pattern, properties)).ToList();
         var selectedItemIndex = selectedItems.IndexOf(currentItem);
-        if (selectedItemIndex<selectedItems.Count-1)
+        if (selectedItemIndex < selectedItems.Count - 1)
         {
-          SelectCurrentItem(selectedItems[selectedItemIndex+1]);
+          SelectCurrentItem(selectedItems[selectedItemIndex + 1]);
           Pattern = pattern;
-          FindNextItemDelegate=FindNextItemWithPattern;
+          FindNextItemDelegate = FindNextItemWithPattern;
         }
       }
     }
@@ -128,7 +128,7 @@ namespace Qhta.MVVM
     /// </summary>
     public void FindNextItemWithPredicate()
     {
-      if (Predicate!=null)
+      if (Predicate != null)
         FindFirstItem(Predicate);
     }
 
@@ -137,7 +137,7 @@ namespace Qhta.MVVM
     /// </summary>
     public void FindNextItemWithPattern()
     {
-      if (Pattern!=null && PatternPropNames!=null)
+      if (Pattern != null && PatternPropNames != null)
         FindFirstItem(Pattern, PatternPropNames);
     }
 
@@ -153,10 +153,10 @@ namespace Qhta.MVVM
       foreach (var property in properties)
       {
         var patternValue = property.GetValue(pattern);
-        if (patternValue!=null)
+        if (patternValue != null)
         {
           var itemValue = property.GetValue(item);
-          if (itemValue!=null)
+          if (itemValue != null)
             if (!itemValue.Equals(patternValue))
               return false;
         }
@@ -169,12 +169,12 @@ namespace Qhta.MVVM
     /// </summary>
     public void FindFirstInvalidItem()
     {
-      var invalidItems = GetItemsList().Where(item => item.IsValid==false).ToList();
+      var invalidItems = GetItemsList().Where(item => item.IsValid == false).ToList();
       var firstInvalidItem = invalidItems.FirstOrDefault();
-      if (firstInvalidItem!=null)
+      if (firstInvalidItem != null)
       {
         SelectCurrentItem(firstInvalidItem);
-        FindNextItemDelegate=FindNextInvalidItem;
+        FindNextItemDelegate = FindNextInvalidItem;
       }
     }
 
@@ -184,14 +184,14 @@ namespace Qhta.MVVM
     public void FindNextInvalidItem()
     {
       var selectedItem = CurrentItem;
-      if (selectedItem==null)
+      if (selectedItem == null)
         FindFirstInvalidItem();
       else
       {
-        var invalidItems = GetItemsList().Where(item => item.IsValid==false).ToList();
+        var invalidItems = GetItemsList().Where(item => item.IsValid == false).ToList();
         var invalidItemIndex = invalidItems.IndexOf(selectedItem);
-        if (invalidItemIndex<invalidItems.Count-1)
-          SelectCurrentItem(invalidItems[invalidItemIndex+1]);
+        if (invalidItemIndex < invalidItems.Count - 1)
+          SelectCurrentItem(invalidItems[invalidItemIndex + 1]);
       }
     }
 
@@ -211,7 +211,7 @@ namespace Qhta.MVVM
     public List<ItemType> GetItemsList()
     {
       var items = Values.ToList();
-      if (SortedBy!=null)
+      if (SortedBy != null)
       {
         IOrderedEnumerable<ItemType>? orderedItems = null;
         List<String> sortedColumns = SortedBy.Split(new char[] { ';', ',' }).ToList();
@@ -221,33 +221,34 @@ namespace Qhta.MVVM
           ListSortDirection? direction = null;
           if (column.EndsWith("(desc)"))
           {
-            columnName = column.Substring(0, column.Length-"(desc)".Length).Trim();
+            columnName = column.Substring(0, column.Length - "(desc)".Length).Trim();
             direction = ListSortDirection.Descending;
           }
           else
           if (column.EndsWith("(asc)"))
           {
-            columnName = column.Substring(0, column.Length-"(asc)".Length).Trim();
+            columnName = column.Substring(0, column.Length - "(asc)".Length).Trim();
             direction = ListSortDirection.Ascending;
           }
           var propertyInfo = typeof(ItemType).GetProperty(columnName);
-          if (propertyInfo!=null)
+          if (propertyInfo != null)
           {
-            if (orderedItems==null)
+            if (orderedItems == null)
             {
-              if (direction==ListSortDirection.Descending)
-                orderedItems=items.OrderByDescending(item => propertyInfo.GetValue(item));
+              if (direction == ListSortDirection.Descending)
+                orderedItems = items.OrderByDescending(item => propertyInfo.GetValue(item));
               else
-                orderedItems=items.OrderBy(item => propertyInfo.GetValue(item));
+                orderedItems = items.OrderBy(item => propertyInfo.GetValue(item));
             }
             else
             {
               IComparer<ItemType> comparer = new MyComparer(propertyInfo);
-              orderedItems=orderedItems.CreateOrderedEnumerable<ItemType>(item => item, comparer, false);
+              orderedItems = orderedItems.CreateOrderedEnumerable<ItemType>(item => item, comparer, false);
             }
           }
         }
-        return orderedItems.ToList();
+        if (orderedItems != null)
+          return orderedItems.ToList();
       }
       return items;
     }
@@ -261,14 +262,16 @@ namespace Qhta.MVVM
 
       PropertyInfo myPropInfo;
 
-      public int Compare(ItemType x, ItemType y)
+      public int Compare(ItemType? x, ItemType? y)
       {
-        IComparable value1 = (IComparable)myPropInfo.GetValue(x);
-        IComparable value2 = (IComparable)myPropInfo.GetValue(y);
-        if (value1!=value2)
-          return value1.CompareTo(value2);
-        else
-          return 0;
+        if (x != null && y != null)
+        {
+          var value1 = (IComparable?)myPropInfo.GetValue(x);
+          var value2 = (IComparable?)myPropInfo.GetValue(y);
+          if (value1 != value2 && value1 != null)
+            return value1.CompareTo(value2);
+        }
+        return 0;
       }
     }
 
@@ -280,9 +283,9 @@ namespace Qhta.MVVM
       get { return _SortedBy; }
       set
       {
-        if (_SortedBy!=value)
+        if (_SortedBy != value)
         {
-          _SortedBy=value;
+          _SortedBy = value;
           NotifyPropertyChanged(nameof(SortedBy));
         }
       }
@@ -303,7 +306,7 @@ namespace Qhta.MVVM
       CurrentItem = value;
     }
 
-    object? IListViewModel.CurrentItem { get => this.CurrentItem; set => CurrentItem=value as ItemType; }
+    object? IListViewModel.CurrentItem { get => this.CurrentItem; set => CurrentItem = value as ItemType; }
 
     /// <summary>
     /// Enumerable of all items.
@@ -320,10 +323,10 @@ namespace Qhta.MVVM
     {
       if (inSelectAll)
         return;
-      inSelectAll=true;
+      inSelectAll = true;
       foreach (var item in Values.ToList())
-        item.IsSelected=select;
-      inSelectAll=false;
+        item.IsSelected = select;
+      inSelectAll = false;
       NotifySelectionChanged();
     }
 
@@ -356,7 +359,7 @@ namespace Qhta.MVVM
       if (selectionChangeDetected)
       {
         //Debug.WriteLine($"NotifySelectionChanged selected={selectedItems.Count},unselected={unselectedItems.Count}");
-        if (_SelectionChanged!=null &&  (unselectedItems.Count!=0  || selectedItems.Count!=0))
+        if (_SelectionChanged != null && (unselectedItems.Count != 0 || selectedItems.Count != 0))
           base.Dispatch(() => _SelectionChanged(this, new SelectionChangedEventArgs(selectedItems, unselectedItems)));
       }
     }

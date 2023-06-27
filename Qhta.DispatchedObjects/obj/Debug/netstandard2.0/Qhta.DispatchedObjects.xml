@@ -551,6 +551,11 @@
             (e.g. it can be Application.Current.Dispatcher in WPF applications).
             </summary>
         </member>
+        <member name="P:Qhta.DispatchedObjects.DispatchedObject.DispatcherBridge">
+            <summary>
+            A static object to dispatch actions to main app thread.
+            </summary>
+        </member>
         <member name="P:Qhta.DispatchedObjects.DispatchedObject.ApplicationDispatcher">
             <summary>
             A static property which enables a developer to setup a Dispatcher from any application
@@ -589,6 +594,17 @@
             is invoked directly, otherwise it is invoked using <see cref="P:Qhta.DispatchedObjects.DispatchedObject.ApplicationDispatcher"/>.
             </summary>
             <param name="action"></param>
+        </member>
+        <member name="T:Qhta.DispatchedObjects.IDispatcherBridge">
+            <summary>
+            Interface declaring methods to execute action in application main thread.
+            </summary>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.IDispatcherBridge.Invoke(System.Action)">
+            <summary>
+            Gets access to Windows Application Dispatcher.
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

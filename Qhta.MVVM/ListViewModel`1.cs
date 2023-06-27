@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Threading;
+//using System.Windows.Threading;
 using Qhta.DispatchedObjects;
 
 namespace Qhta.MVVM
@@ -88,6 +88,7 @@ namespace Qhta.MVVM
       NotifyPropertyChanged(nameof(InvalidItemsCount));
       if (arg.Action==NotifyCollectionChangedAction.Add)
       {
+        if (arg.NewItems!=null)
         foreach (var item in arg.NewItems)
         {
           if (item is INotifyPropertyChanged notifyPropertyChangedItem)
@@ -106,7 +107,7 @@ namespace Qhta.MVVM
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
-    private void Item_PropertyChanged(object sender, PropertyChangedEventArgs args)
+    private void Item_PropertyChanged(object? sender, PropertyChangedEventArgs args)
     {
       switch (args.PropertyName)
       {
@@ -115,7 +116,8 @@ namespace Qhta.MVVM
           NotifyPropertyChanged(nameof(InvalidItemsCount));
           break;
         case "IsSelected":
-          NotifySelectionChanged(sender);
+          if (sender!=null)
+            NotifySelectionChanged(sender);
           break;
         default:
           break;
@@ -159,21 +161,21 @@ namespace Qhta.MVVM
     /// <param name="args"></param>
     public virtual void OnSelectionChanged(SelectionChangedEventArgs args)
     {
-      if (_SelectionChanged != null)
-      {
-        if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
-        {
-          _SelectionChanged.Invoke(this, args);
-          AfterSelectionChanged(args);
-        }
-        else
-        {
-          var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
-          DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { args });
-        }
-      }
-      else
-        AfterSelectionChanged(args);
+      //if (_SelectionChanged != null)
+      //{
+      //  if (Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+      //  {
+      //    _SelectionChanged.Invoke(this, args);
+      //    AfterSelectionChanged(args);
+      //  }
+      //  else
+      //  {
+      //    var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
+      //    DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { args });
+      //  }
+      //}
+      //else
+      //  AfterSelectionChanged(args);
     }
 
     /// <summary>

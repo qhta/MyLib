@@ -10,8 +10,7 @@
       "Qhta.MVVM/2.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.DispatchedObjects": "1.2.0",
-          "WindowsBase": "4.0.0.0"
+          "Qhta.DispatchedObjects": "1.2.0"
         },
         "runtime": {
           "Qhta.MVVM.dll": {}
@@ -25,10 +24,7 @@
       },
       "Qhta.DispatchedObjects/1.2.0": {
         "runtime": {
-          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
-            "assemblyVersion": "1.2.0.0",
-            "fileVersion": "1.2.0.0"
-          }
+          "Qhta.DispatchedObjects.dll": {}
         }
       },
       "WindowsBase/4.0.0.0": {
@@ -86,11 +82,9 @@
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
     "Qhta.DispatchedObjects/1.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-FXnack/pp645+0NmUkqF0aS+tjmG+MIDmnH9JscBdBNvNnUAydxRAX72J3Vxwyu9Ro37Nt8zcWVbIYYmQYlXdg==",
-      "path": "qhta.dispatchedobjects/1.2.0",
-      "hashPath": "qhta.dispatchedobjects.1.2.0.nupkg.sha512"
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "WindowsBase/4.0.0.0": {
       "type": "reference",
