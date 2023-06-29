@@ -13,5 +13,11 @@ namespace Qhta.DispatchedObjects
     /// </summary>
     /// <returns></returns>
     void Invoke (Action action);
+
+        /// <summary>
+    /// Gets access to Windows Application Dispatcher.
+    /// </summary>
+    /// <returns></returns>
+    void Invoke (Action action, object[] args);
   }
 }

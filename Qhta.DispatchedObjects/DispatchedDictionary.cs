@@ -212,7 +212,7 @@ namespace Qhta.DispatchedObjects
     /// <summary>
     /// Implementation of <see cref="INotifyCollectionChanged"/> interface.
     /// </summary>
-    public event NotifyCollectionChangedEventHandler CollectionChanged
+    public event NotifyCollectionChangedEventHandler? CollectionChanged
     {
       add
       {
@@ -227,7 +227,7 @@ namespace Qhta.DispatchedObjects
     /// Internal <see cref="NotifyCollectionChangedEventHandler"/> event.
     /// It can be checked in descendent classes.
     /// </summary>
-    protected event NotifyCollectionChangedEventHandler _CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? _CollectionChanged;
 
     #endregion
 
@@ -370,7 +370,7 @@ namespace Qhta.DispatchedObjects
 
     private void ThrowGetOrAddEvents(TValue oldItem, TValue newItem)
     {
-      if (newItem.Equals(oldItem))
+      if (object.Equals(newItem,oldItem))
         ThrowAddEvent(newItem);
     }
 
@@ -378,16 +378,23 @@ namespace Qhta.DispatchedObjects
     {
       if (_CollectionChanged != null)
       {
-        if (DispatchedObject.ApplicationDispatcher == null || Dispatcher.CurrentDispatcher == ApplicationDispatcher)
+        var dispatcher = DispatcherBridge;
+        if (dispatcher != null)
+        {
+          var action = new Action<TValue>(ThrowAddEvent);
+          dispatcher.Invoke(() =>
+          {
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
             newItem
             ));
-        else
-        {
-          var action = new Action<TValue>(ThrowAddEvent);
-          ApplicationDispatcher.Invoke(action, new object[] { newItem });
+          });
         }
+        else
+          _CollectionChanged.Invoke(this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
+            newItem
+            ));
       }
     }
 
@@ -395,16 +402,24 @@ namespace Qhta.DispatchedObjects
     {
       if (_CollectionChanged != null)
       {
-        if (DispatchedObject.ApplicationDispatcher == null || Dispatcher.CurrentDispatcher == ApplicationDispatcher)
+        var dispatcher = DispatcherBridge;
+        if (dispatcher != null)
+        {
+          var action = new Action<TValue, TValue>(ThrowReplaceEvent);
+          dispatcher.Invoke(() =>
+          {
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
             newItem, oldItem
             ));
-        else
-        {
-          var action = new Action<TValue, TValue>(ThrowReplaceEvent);
-          ApplicationDispatcher.Invoke(action, new object[] { newItem });
+          });
         }
+
+        else
+          _CollectionChanged.Invoke(this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace,
+            newItem, oldItem
+            ));
       }
     }
 
@@ -412,16 +427,23 @@ namespace Qhta.DispatchedObjects
     {
       if (_CollectionChanged != null)
       {
-        if (DispatchedObject.ApplicationDispatcher == null || Dispatcher.CurrentDispatcher == ApplicationDispatcher)
+        var dispatcher = DispatcherBridge;
+        if (dispatcher != null)
+        {
+          var action = new Action<TValue>(ThrowRemoveEvent);
+          dispatcher.Invoke(() =>
+          {
           _CollectionChanged.Invoke(this,
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
             oldItem
             ));
-        else
-        {
-          var action = new Action<TValue>(ThrowRemoveEvent);
-          ApplicationDispatcher.Invoke(action, new object[] { oldItem });
+          });
         }
+        else
+          _CollectionChanged.Invoke(this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
+            oldItem
+            ));
       }
     }
     #endregion overriden methods
@@ -710,7 +732,7 @@ namespace Qhta.DispatchedObjects
         throw new KeyNotFoundException($"Key {key} not found");
       }
       set
-      { 
+      {
         throw new NotImplementedException();
       }
     }

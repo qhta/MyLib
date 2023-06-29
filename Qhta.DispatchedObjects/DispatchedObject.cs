@@ -6,8 +6,6 @@ namespace Qhta.DispatchedObjects
 {
   /// <summary>
   /// A class that invokes <see cref="Dispatcher"/> on <see cref="PropertyChanged"/>> event or on other action.
-  /// It defines a static <see cref="ApplicationDispatcher"/> property which enables a developer to setup a <see cref="Dispatcher"/> from any application
-  /// (e.g. it can be Application.Current.Dispatcher in WPF applications).
   /// </summary>
   public class DispatchedObject: INotifyPropertyChanged
   {
@@ -15,13 +13,6 @@ namespace Qhta.DispatchedObjects
     /// A static object to dispatch actions to main app thread.
     /// </summary>
     public static IDispatcherBridge? DispatcherBridge { get; set; }
-
-
-    /// <summary>
-    /// A static property which enables a developer to setup a Dispatcher from any application
-    /// (e.g. it can be Application.Dispatcher in WPF applications).
-    /// </summary>
-    public static Dispatcher? ApplicationDispatcher { get; set; }
 
     /// <summary>
     /// Helper name which can be used on Debugging.
@@ -49,37 +40,35 @@ namespace Qhta.DispatchedObjects
 
     /// <summary>
     /// A method to notify that a property has changed. 
-    /// When <see cref="ApplicationDispatcher"/> was not set
-    /// or it is a CurrentDispatcher (a method is called from within the main thread), a <see cref="PropertyChanged"/> event
-    /// is invoked directly, otherwise it is invoked using <see cref="ApplicationDispatcher"/>.
+    /// Uses <see cref="DispatcherBridge"/>, if it is set, to invoke <see cref="PropertyChanged"/> event.
+    /// Otherwise the event is invoked directly.
     /// </summary>
     /// <param name="propertyName"></param>
     public virtual void NotifyPropertyChanged(string propertyName)
     {
       if (_PropertyChanged!=null)
       {
-        //if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==ApplicationDispatcher)
-        //{
+        var dispatcher = DispatcherBridge; 
+        if (dispatcher != null)
+          dispatcher.Invoke(()=>_PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
+        else
           _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //}
-        //else
-        //{
-        //  var action = new Action<string>(NotifyPropertyChanged);
-        //  ApplicationDispatcher.Invoke(action, new object[] { propertyName });
-        //}
       }
     }
 
     /// <summary>
     /// A method to invoke and action.
-    /// When <see cref="ApplicationDispatcher"/> was not set
-    /// or it is a CurrentDispatcher (a method is called from within the main thread), the action
-    /// is invoked directly, otherwise it is invoked using <see cref="ApplicationDispatcher"/>.
+    /// Uses <see cref="DispatcherBridge"/>, if it is set, to invoke an action .
+    /// Otherwise the action is invoked directly.
     /// </summary>
     /// <param name="action"></param>
     public virtual void Dispatch(Action action)
     {
-      DispatcherBridge?.Invoke(action);
+      var dispatcher = DispatcherBridge;
+      if (dispatcher != null) 
+        dispatcher.Invoke(action);
+      else
+        action.Invoke();
     }
   }
 }

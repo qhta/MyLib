@@ -13,14 +13,14 @@ namespace Qhta.DispatchedObjects
   /// Is is based on <see cref="DispatchedObject"/> to notify on changes and to invoke actions.
   /// </summary>
   /// <typeparam name="TValue"></typeparam>
-  public class DispatchedCollection<TValue>: DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged, ICollection<TValue>
+  public class DispatchedCollection<TValue> : DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged, ICollection<TValue>
   {
     /// <summary>
     /// Default constructor.
     /// </summary>
     public DispatchedCollection()
     {
-      _Values.CollectionChanged+=_Values_CollectionChanged;
+      _Values.CollectionChanged += _Values_CollectionChanged;
     }
 
     /// <summary>
@@ -38,22 +38,22 @@ namespace Qhta.DispatchedObjects
     /// <summary>
     /// Implementation of <see cref="INotifyCollectionChanged"/> interface.
     /// </summary>
-    public event NotifyCollectionChangedEventHandler CollectionChanged
+    public event NotifyCollectionChangedEventHandler? CollectionChanged
     {
       add
       {
-        _CollectionChanged+=value;
+        _CollectionChanged += value;
       }
       remove
       {
-        _CollectionChanged-=value;
+        _CollectionChanged -= value;
       }
     }
     /// <summary>
     /// Internal <see cref="NotifyCollectionChangedEventHandler"/> event.
     /// It can be checked in descendant classes.
     /// </summary>
-    protected event NotifyCollectionChangedEventHandler _CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? _CollectionChanged;
 
     /// <summary>
     /// A protected method which enables external objects to notify that the collection has changed.
@@ -67,34 +67,36 @@ namespace Qhta.DispatchedObjects
 
     /// <summary>
     /// A protected method that is called to notify that the collection has changed.
-    /// When it is called in <see cref="AddRange(IEnumerable{TValue})"/> method, it returns immediatelly.
-    /// When <see cref="DispatchedObject.ApplicationDispatcher"/> was not set
-    /// or it is a CurrentDispatcher (a method is called from within the main thread), a <see cref="_CollectionChanged"/> event
-    /// is invoked directly. 
+    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to invoke <see cref="CollectionChanged"/> event.
+    /// Otherwise the event is invoked directly.
     /// After that a <see cref="AfterCollectionChanged(NotifyCollectionChangedEventArgs)"/> is called 
     /// to notify that a <see cref="Count"/> has changed.
-    /// Otherwise it is invoked using <see cref="DispatchedObject.ApplicationDispatcher"/>.
     /// </summary>
-    /// <param name="e"></param>
-    protected void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+    /// <param name="args"></param>
+    protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
       if (_InAddRange)
         return;
       if (_CollectionChanged != null)
       {
-        if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
+        var dispatcher = DispatcherBridge;
+        if (dispatcher != null)
         {
-          _CollectionChanged.Invoke(this, e);
-          AfterCollectionChanged(e);
+          var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
+          dispatcher.Invoke(() =>
+          {
+            _CollectionChanged.Invoke(this, args);
+            AfterCollectionChanged(args);
+          });
         }
         else
         {
-          var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
-          DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { e });
+          _CollectionChanged.Invoke(this, args);
+          AfterCollectionChanged(args);
         }
       }
       else
-        AfterCollectionChanged(e);
+        AfterCollectionChanged(args);
     }
 
     /// <summary>
@@ -129,21 +131,22 @@ namespace Qhta.DispatchedObjects
 
     /// <summary>
     /// Adds a single item.
-    /// When <see cref="DispatchedObject.ApplicationDispatcher"/> was not set
-    /// or it is a CurrentDispatcher (a method is called from within the main thread), 
-    /// the item is added immediately to the <see cref="_Values"/> collection.
-    /// otherwise it is added by invokinf the same method using <see cref="DispatchedObject.ApplicationDispatcher"/>.
+    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+    /// Otherwise the item is added directly.
     /// </summary>
     /// <param name="item"></param>
     public void Add(TValue item)
     {
-      if (DispatchedObject.ApplicationDispatcher==null || Dispatcher.CurrentDispatcher==DispatchedObject.ApplicationDispatcher)
-        _Values.Add(item);
-      else
+      var dispatcher = DispatcherBridge;
+      if (dispatcher != null)
       {
-        var action = new Action<TValue>(Add);
-        DispatchedObject.ApplicationDispatcher.Invoke(action, new object[] { item });
+        dispatcher.Invoke(() =>
+        {
+          _Values.Add(item);
+        });
       }
+      else
+        _Values.Add(item);
     }
 
     /// <summary>
