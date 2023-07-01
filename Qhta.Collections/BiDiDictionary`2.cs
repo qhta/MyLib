@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Qhta.Collections;
 
 /// <summary>
 /// Bidirectional dictionary. Converts from Type1 to Type2.
 /// </summary>
-public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>  where Type1: notnull where Type2: notnull
+public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>, IDictionary<Type1, Type2> where Type1 : notnull where Type2 : notnull
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public BiDiDictionary()
@@ -98,5 +100,80 @@ public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>  where Typ
     throw new KeyNotFoundException($"{key} not found in BiDiDictionary");
   }
 
+  public bool ContainsKey(Type1 key)
+  {
+    if (TryGetIndex1(key, out _))
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public bool Remove(Type1 key)
+  {
+    if (TryGetIndex1(key, out int n))
+    {
+      base.RemoveAt(n);
+      return true;
+    }
+    return false;
+  }
+
+#if NET6_0_OR_GREATER
+  public bool TryGetValue(Type1 key, [NotNullWhen(true)] out Type2 value)
+#else
+  public bool TryGetValue(Type1 key, out Type2 value)
+#endif
+  {
+    return TryGetValue2(key, out value);
+  }
+
+  public Type2 this[Type1 key]
+  {
+    get => throw new NotImplementedException();
+    set => throw new NotImplementedException();
+  }
+
+  public ICollection<Type1> Keys { get => base.ToArray().Select(item => item.Item1).ToList(); }
+  public ICollection<Type2> Values { get => base.ToArray().Select(item => item.Item2).ToList(); }
+
+  public void Add(KeyValuePair<Type1, Type2> item)
+  {
+    Add(item.Key, item.Value);
+  }
+
+  public bool Contains(KeyValuePair<Type1, Type2> item)
+  {
+    if (TryGetIndex1(item.Key, out int n))
+    {
+      return base[n].Item2.Equals(item.Value);
+    }
+    return false;
+  }
+
+  public void CopyTo(KeyValuePair<Type1, Type2>[] array, int arrayIndex)
+  {
+    base.ToArray().Select(item => new KeyValuePair<Type1, Type2>(item.Item1, item.Item2)).ToArray().CopyTo(array, arrayIndex);
+  }
+
+  public bool Remove(KeyValuePair<Type1, Type2> item)
+  {
+    if (TryGetIndex1(item.Key, out int n))
+    {
+      if (base[n].Item2.Equals(item.Value))
+      {
+        base.RemoveAt(n);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public bool IsReadOnly { get => false; }
+
+  IEnumerator<KeyValuePair<Type1, Type2>> IEnumerable<KeyValuePair<Type1, Type2>>.GetEnumerator()
+  {
+    return base.ToArray().Select(item=>new KeyValuePair<Type1, Type2>(item.Item1, item.Item2)).GetEnumerator();
+  }
 }
 

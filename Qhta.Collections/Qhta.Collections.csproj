@@ -12,7 +12,16 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A package with Bidirectional dictionary.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>2.0</Version>
+    <Version>3.0</Version>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
+  </ItemGroup>
 
 </Project>
