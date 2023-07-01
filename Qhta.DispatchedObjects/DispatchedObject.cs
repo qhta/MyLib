@@ -17,7 +17,7 @@ namespace Qhta.DispatchedObjects
     /// <summary>
     /// Helper name which can be used on Debugging.
     /// </summary>
-    public virtual string? DebugName { get; set; }
+    public virtual string? Name { get; set; }
 
     /// <summary>
     /// Property changed event which implements <see cref="INotifyPropertyChanged"/> interface.

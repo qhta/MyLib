@@ -53,12 +53,12 @@ namespace Qhta.DispatchedObjects
     }
 
     /// <summary>
-    /// Constructor which enables to set a <see cref="DispatchedObject.DebugName"/> property.
+    /// Constructor which enables to set a <see cref="DispatchedObject.Name"/> property.
     /// </summary>
     /// <param name="debugName"></param>
     public DispatchedDictionary(string debugName)
     {
-      DebugName = debugName;
+      Name = debugName;
       Dictionary = new ConcurrentDictionary<TKey, TValue>();
       _Values = new DispatchedDictionaryValues(this);
     }

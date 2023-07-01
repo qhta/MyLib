@@ -6,7 +6,7 @@ namespace Qhta.MVVM
   /// <summary>
   /// Base class of view model.
   /// </summary>
-  public class ViewModel : DispatchedObject, INotifyPropertyChanged, IViewModel, IValidated
+  public class ViewModel : DispatchedObject, INotifyPropertyChanged, IViewModel
   {
     /// <summary>
     /// A method to notify that a property has changed.
@@ -20,7 +20,7 @@ namespace Qhta.MVVM
     /// <summary>
     /// Specifies if the data of view model is valid.
     /// </summary>
-    public virtual bool? IsValid { get; set; }
+    public virtual bool? IsValid() { return true; }
 
   }
 }
