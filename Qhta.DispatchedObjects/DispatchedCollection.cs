@@ -131,28 +131,55 @@ namespace Qhta.DispatchedObjects
 
     /// <summary>
     /// Adds a single item.
+    /// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
     /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
     /// Otherwise the item is added directly.
     /// </summary>
     /// <param name="item"></param>
     public void Add(TValue item)
     {
+      InsertItem(Count, item);
+      Count++;
+    }
+
+    /// <summary>
+    /// Inserts a single item at the specified index.
+    /// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
+    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+    /// Otherwise the item is added directly.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="item"></param>
+    public virtual void Insert(int index, TValue item)
+    {
+      InsertItem(index, item);
+    }
+
+    /// <summary>
+    /// Inserts a single item at the specified index.
+    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+    /// Otherwise the item is added directly.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="item"></param>
+    protected virtual void InsertItem(int index, TValue item)
+    {
       var dispatcher = DispatcherBridge;
       if (dispatcher != null)
       {
         dispatcher.Invoke(() =>
         {
-          _Values.Add(item);
+          _Values.Insert(index, item);
         });
       }
       else
-        _Values.Add(item);
+        _Values.Insert(index, item);
     }
 
     /// <summary>
     /// Returns the count of items.
     /// </summary>
-    public int Count => _Values.Count;
+    public int Count { get; private set; }
 
     /// <summary>
     /// The collection is not read only.
