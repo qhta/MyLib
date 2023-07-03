@@ -210,7 +210,7 @@ namespace Qhta.MVVM
     /// <returns></returns>
     public List<ItemType> GetItemsList()
     {
-      var items = Values.ToList();
+      var items = this.ToList();
       if (SortedBy != null)
       {
         IOrderedEnumerable<ItemType>? orderedItems = null;
@@ -311,7 +311,7 @@ namespace Qhta.MVVM
     /// <summary>
     /// Enumerable of all items.
     /// </summary>
-    public IEnumerable<object> Items => Values;
+    public new IEnumerable<object> Items => this;
 
     private bool inSelectAll;
 
@@ -324,7 +324,7 @@ namespace Qhta.MVVM
       if (inSelectAll)
         return;
       inSelectAll = true;
-      foreach (var item in Values.ToList())
+      foreach (var item in this.ToList())
         item.IsSelected = select;
       inSelectAll = false;
       NotifySelectionChanged();
@@ -340,7 +340,7 @@ namespace Qhta.MVVM
       List<ItemType> unselectedItems = new List<ItemType>();
       List<ItemType> selectedItems = new List<ItemType>();
       bool selectionChangeDetected = false;
-      foreach (var item in Values.ToList())
+      foreach (var item in this.ToList())
       {
         bool wasSelected = previouslySelectedItems.Contains(item);
         if (!wasSelected && item.IsSelected)

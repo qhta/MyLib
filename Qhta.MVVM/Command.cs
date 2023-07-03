@@ -13,6 +13,11 @@ namespace Qhta.MVVM
   public abstract class Command : DispatchedObject, ICommand
   {
     /// <summary>
+    /// Name to trace command.
+    /// </summary>
+    public string? Name { get; set; }
+
+    /// <summary>
     /// Event required by <see cref="ICommand"/> interface. 
     /// It is a hook for callback method invoked when a result of <see cref="CanExecute(object)"/> function may be changed.
     /// </summary>

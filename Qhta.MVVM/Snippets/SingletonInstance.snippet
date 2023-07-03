@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Singleton instance property</Title>
+      <Description>Adds a static Instance property to the current class.</Description>
+      <Shortcut>singletoninstance</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>Type</ID>
+          <ToolTip>Replace with the type you want your property to have.</ToolTip>
+          <Default>PropertyType</Default>
+        </Literal>
+        <Literal>
+          <ID>Name</ID>
+          <ToolTip>Replace with the name you want to give to the property.</ToolTip>
+          <Default>Instance</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[public static $Type$ $Name$
+        {
+            get
+            {
+                if (_$Name$ == null)
+                    _$Name$ = new $Type$();
+                return _$Name$;
+            }
+        }        
+        private static $Type$ _$Name$ = null!;]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

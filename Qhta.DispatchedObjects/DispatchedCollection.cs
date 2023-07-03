@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Threading;
 
@@ -13,32 +14,37 @@ namespace Qhta.DispatchedObjects
   /// Is is based on <see cref="DispatchedObject"/> to notify on changes and to invoke actions.
   /// </summary>
   /// <typeparam name="TValue"></typeparam>
-  public class DispatchedCollection<TValue> : DispatchedObject, IEnumerable<TValue>, INotifyCollectionChanged, ICollection<TValue>
+  public class DispatchedCollection<TValue> : ObservableCollection<TValue>,
+    //DispatchedObject, ICollection<TValue>,
+    //IList<TValue>, 
+    //IList, 
+    //IReadOnlyList<TValue>,
+    INotifyCollectionChanged, INotifyPropertyChanged
   {
-    /// <summary>
-    /// Default constructor.
-    /// </summary>
-    public DispatchedCollection()
-    {
-      _Values.CollectionChanged += _Values_CollectionChanged;
-    }
+    ///// <summary>
+    ///// Default constructor.
+    ///// </summary>
+    //public DispatchedCollection()
+    //{
+    //  _Values.CollectionChanged += _Values_CollectionChanged;
+    //}
 
-    /// <summary>
-    /// External collection of values.
-    /// </summary>
-    public IEnumerable<TValue> Values => _Values;
+    ///// <summary>
+    ///// External collection of values.
+    ///// </summary>
+    //public IEnumerable<TValue> Values => _Values;
 
-    /// <summary>
-    /// Internal observable collection of values.
-    /// It can be accessed in descendant classes.
-    /// </summary>
-    protected ObservableCollection<TValue> _Values = new ObservableCollection<TValue>();
+    ///// <summary>
+    ///// Internal observable collection of values.
+    ///// It can be accessed in descendant classes.
+    ///// </summary>
+    //protected ObservableCollection<TValue> _Values = new ObservableCollection<TValue>();
 
 
     /// <summary>
     /// Implementation of <see cref="INotifyCollectionChanged"/> interface.
     /// </summary>
-    public event NotifyCollectionChangedEventHandler? CollectionChanged
+    public new event NotifyCollectionChangedEventHandler? CollectionChanged
     {
       add
       {
@@ -56,6 +62,43 @@ namespace Qhta.DispatchedObjects
     protected event NotifyCollectionChangedEventHandler? _CollectionChanged;
 
     /// <summary>
+    /// Property changed event which implements <see cref="INotifyPropertyChanged"/> interface.
+    /// </summary>
+    public new event PropertyChangedEventHandler? PropertyChanged
+    {
+      add
+      {
+        _PropertyChanged+=value;
+      }
+      remove
+      {
+        _PropertyChanged-=value;
+      }
+    }
+    /// <summary>
+    /// A handler of <see cref="PropertyChanged"/> event which can be checked in descending classes.
+    /// </summary>
+    protected event PropertyChangedEventHandler? _PropertyChanged;
+
+    /// <summary>
+    /// A method to notify that a property has changed. 
+    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to invoke <see cref="PropertyChanged"/> event.
+    /// Otherwise the event is invoked directly.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    public virtual void NotifyPropertyChanged(string propertyName)
+    {
+      if (_PropertyChanged!=null)
+      {
+        var dispatcher = DispatchedObject.DispatcherBridge; 
+        if (dispatcher != null)
+          dispatcher.Invoke(()=>_PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
+        else
+          _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+
+    /// <summary>
     /// A protected method which enables external objects to notify that the collection has changed.
     /// </summary>
     /// <param name="sender"></param>
@@ -70,16 +113,16 @@ namespace Qhta.DispatchedObjects
     /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to invoke <see cref="CollectionChanged"/> event.
     /// Otherwise the event is invoked directly.
     /// After that a <see cref="AfterCollectionChanged(NotifyCollectionChangedEventArgs)"/> is called 
-    /// to notify that a <see cref="Count"/> has changed.
+    /// to notify that items Count has changed.
     /// </summary>
     /// <param name="args"></param>
-    protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
+    protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
       if (_InAddRange)
         return;
       if (_CollectionChanged != null)
       {
-        var dispatcher = DispatcherBridge;
+        var dispatcher = DispatchedObject.DispatcherBridge;
         if (dispatcher != null)
         {
           var action = new Action<NotifyCollectionChangedEventArgs>(OnCollectionChanged);
@@ -129,124 +172,213 @@ namespace Qhta.DispatchedObjects
       OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<TValue>(items), startIndex));
     }
 
-    /// <summary>
-    /// Adds a single item.
-    /// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
-    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
-    /// Otherwise the item is added directly.
-    /// </summary>
-    /// <param name="item"></param>
-    public void Add(TValue item)
-    {
-      InsertItem(Count, item);
-      Count++;
-    }
+    ///// <summary>
+    ///// Adds a single item.
+    ///// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
+    ///// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+    ///// Otherwise the item is added directly.
+    ///// </summary>
+    ///// <param name="item"></param>
+    //public void Add(TValue item)
+    //{
+    //  InsertItem(_Count, item);
+    //  _Count++;
+    //}
 
-    /// <summary>
-    /// Inserts a single item at the specified index.
-    /// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
-    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
-    /// Otherwise the item is added directly.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <param name="item"></param>
-    public virtual void Insert(int index, TValue item)
-    {
-      InsertItem(index, item);
-    }
+//    /// <summary>
+//    /// Inserts a single item at the specified index.
+//    /// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
+//    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+//    /// Otherwise the item is added directly.
+//    /// </summary>
+//    /// <param name="index"></param>
+//    /// <param name="item"></param>
+//    public virtual void Insert(int index, TValue item)
+//    {
+//      InsertItem(index, item);
+//    }
 
+//    /// <summary>
+//    /// Inserts a single item at the specified index.
+//    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+//    /// Otherwise the item is added directly.
+//    /// </summary>
+//    /// <param name="index"></param>
+//    /// <param name="item"></param>
+//    protected virtual void InsertItem(int index, TValue item)
+//    {
+//      var dispatcher = DispatcherBridge;
+//      if (dispatcher != null)
+//      {
+//        dispatcher.Invoke(() =>
+//        {
+//          _Values.Insert(index, item);
+//        });
+//      }
+//      else
+//        _Values.Insert(index, item);
+//    }
+
+//    /// <summary>
+//    /// Returns the count of items.
+//    /// </summary>
+//    public int Count => _Count;//(_InAddRange) ? _Count : _Values.Count;
+//    private int _Count;
+
+//    /// <summary>
+//    /// The collection is not read only.
+//    /// </summary>
+//    public bool IsReadOnly => ((ICollection<TValue>)_Values).IsReadOnly;
+
+//    /// <summary>
+//    /// Gets the <see cref="_Values"/> collection as an array.
+//    /// </summary>
+//    /// <returns></returns>
+//    public TValue[] ToArray()
+//    {
+//      return _Values.ToArray();
+//    }
+
+//    /// <summary>
+//    /// Enumerates the <see cref="_Values"/> collection.
+//    /// </summary>
+//    /// <returns></returns>
+//    public IEnumerator<TValue> GetEnumerator()
+//    {
+//      return (_Values).GetEnumerator();
+//    }
+
+//    /// <summary>
+//    /// Enumerates the <see cref="_Values"/> collection.
+//    /// </summary>
+//    /// <returns></returns>
+//    IEnumerator IEnumerable.GetEnumerator()
+//    {
+//      return this.GetEnumerator();
+//    }
+
+//    /// <summary>
+//    /// Clears the <see cref="_Values"/> collection.
+//    /// </summary>
+//    public void Clear()
+//    {
+//      ((ICollection<TValue>)_Values).Clear();
+//    }
+
+//    /// <summary>
+//    /// Checks if the <see cref="_Values"/> collection contains the item.
+//    /// </summary>
+//    public bool Contains(TValue item)
+//    {
+//      return ((ICollection<TValue>)_Values).Contains(item);
+//    }
+
+//    /// <summary>
+//    /// Copies the <see cref="_Values"/> collection to an array.
+//    /// </summary>
+//    /// <param name="array"></param>
+//    /// <param name="arrayIndex"></param>
+//    public void CopyTo(TValue[] array, int arrayIndex)
+//    {
+//      ((ICollection<TValue>)_Values).CopyTo(array, arrayIndex);
+//    }
+
+//    /// <summary>
+//    /// Removes an item from the <see cref="_Values"/> collection.
+//    /// </summary>
+//    /// <param name="item"></param>
+//    /// <returns></returns>
+//    public bool Remove(TValue item)
+//    {
+//      return ((ICollection<TValue>)_Values).Remove(item);
+//    }
+
+//    /// <inheritdoc/>
+//    public int IndexOf(TValue item)
+//    {
+//      throw new NotImplementedException();
+//      //return ((IList<TValue>)_Values).IndexOf(item);
+//    }
+
+//    /// <inheritdoc/>
+//    public void RemoveAt(int index)
+//    {
+//      throw new NotImplementedException();
+//      //((IList<TValue>)_Values).RemoveAt(index);
+//    }
+
+//    /// <inheritdoc/>
+//    public TValue? this[int index]
+//    {
+//      get => (index < _Values.Count) ? ((IList<TValue>)_Values)[index] : default(TValue);
+//      set =>       throw new NotImplementedException();
+////((IList<TValue>)_Values)[index] = value;
+//    }
+
+    ///// <inheritdoc/>
+    //public int Add(object value)
+    //{
+    //  return ((IList)_Values).Add(value);
+    //}
+
+    ///// <inheritdoc/>
+    //public bool Contains(object value)
+    //{
+    //  return ((IList)_Values).Contains(value);
+    //}
+
+    ///// <inheritdoc/>
+    //public int IndexOf(object value)
+    //{
+    //  return ((IList)_Values).IndexOf(value);
+    //}
+
+    ///// <inheritdoc/>
+    //public void Insert(int index, object value)
+    //{
+    //  ((IList)_Values).Insert(index, value);
+    //}
+
+    ///// <inheritdoc/>
+    //public void Remove(object value)
+    //{
+    //  ((IList)_Values).Remove(value);
+    //}
+
+    ///// <inheritdoc/>
+    //public bool IsFixedSize => ((IList)_Values).IsFixedSize;
+
+    //object? IList.this[int index]
+    //{
+    //  get => (index<_Values.Count) ? ((IList)_Values)[index] : null;
+    //  set => ((IList)_Values)[index] = value;
+    //}
+
+    ///// <inheritdoc/>
+    //public void CopyTo(Array array, int index)
+    //{
+    //  ((ICollection)_Values).CopyTo(array, index);
+    //}
+
+    ///// <inheritdoc/>
+    //public bool IsSynchronized => ((ICollection)_Values).IsSynchronized;
+
+    ///// <inheritdoc/>
+    //public object SyncRoot => ((ICollection)_Values).SyncRoot;
+    
     /// <summary>
-    /// Inserts a single item at the specified index.
-    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
-    /// Otherwise the item is added directly.
+    /// A method to invoke and action.
+    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to invoke an action .
+    /// Otherwise the action is invoked directly.
     /// </summary>
-    /// <param name="index"></param>
-    /// <param name="item"></param>
-    protected virtual void InsertItem(int index, TValue item)
+    /// <param name="action"></param>
+    public virtual void Dispatch(Action action)
     {
-      var dispatcher = DispatcherBridge;
-      if (dispatcher != null)
-      {
-        dispatcher.Invoke(() =>
-        {
-          _Values.Insert(index, item);
-        });
-      }
+      var dispatcher = DispatchedObject.DispatcherBridge;
+      if (dispatcher != null) 
+        dispatcher.Invoke(action);
       else
-        _Values.Insert(index, item);
-    }
-
-    /// <summary>
-    /// Returns the count of items.
-    /// </summary>
-    public int Count { get; private set; }
-
-    /// <summary>
-    /// The collection is not read only.
-    /// </summary>
-    public bool IsReadOnly => ((ICollection<TValue>)_Values).IsReadOnly;
-
-    /// <summary>
-    /// Gets the <see cref="_Values"/> collection as an array.
-    /// </summary>
-    /// <returns></returns>
-    public TValue[] ToArray()
-    {
-      return _Values.ToArray();
-    }
-
-    /// <summary>
-    /// Enumerates the <see cref="_Values"/> collection.
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator<TValue> GetEnumerator()
-    {
-      return (_Values).GetEnumerator();
-    }
-
-    /// <summary>
-    /// Enumerates the <see cref="_Values"/> collection.
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return this.GetEnumerator();
-    }
-
-    /// <summary>
-    /// Clears the <see cref="_Values"/> collection.
-    /// </summary>
-    public void Clear()
-    {
-      ((ICollection<TValue>)_Values).Clear();
-    }
-
-    /// <summary>
-    /// Checks if the <see cref="_Values"/> collection contains the item.
-    /// </summary>
-    public bool Contains(TValue item)
-    {
-      return ((ICollection<TValue>)_Values).Contains(item);
-    }
-
-    /// <summary>
-    /// Copies the <see cref="_Values"/> collection to an array.
-    /// </summary>
-    /// <param name="array"></param>
-    /// <param name="arrayIndex"></param>
-    public void CopyTo(TValue[] array, int arrayIndex)
-    {
-      ((ICollection<TValue>)_Values).CopyTo(array, arrayIndex);
-    }
-
-    /// <summary>
-    /// Removes an item from the <see cref="_Values"/> collection.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    public bool Remove(TValue item)
-    {
-      return ((ICollection<TValue>)_Values).Remove(item);
+        action.Invoke();
     }
   }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -45,12 +46,12 @@ namespace Qhta.MVVM
       get
       {
         ItemType? selectedItem = null;
-        selectedItem = Values.ToList().FirstOrDefault(item => item.IsSelected);
+        selectedItem = this.ToList().FirstOrDefault(item => item.IsSelected);
         return selectedItem;
       }
       set
       {
-        foreach (var item in Values.ToList())
+        foreach (var item in this.ToList())
           item.IsSelected = item.Equals(value);
       }
     }
@@ -62,7 +63,7 @@ namespace Qhta.MVVM
     {
       get
       {
-        return Values.ToList().Where(item => item.IsValid==true).Count();
+        return this.ToList().Where(item => item.IsValid==true).Count();
       }
     }
 
@@ -73,7 +74,7 @@ namespace Qhta.MVVM
     {
       get
       {
-        return Values.ToList().Where(item => item.IsValid==false).Count();
+        return this.ToList().Where(item => item.IsValid==false).Count();
       }
     }
 
@@ -96,7 +97,7 @@ namespace Qhta.MVVM
           if (item is INumbered numberedItem)
           {
             if (numberedItem.Number==0)
-              numberedItem.Number=Values.Count();
+              numberedItem.Number=this.Count();
           }
         }
       }
@@ -225,7 +226,7 @@ namespace Qhta.MVVM
           _SelectedIndex=value;
           NotifyPropertyChanged(nameof(SelectedIndex));
           if (_SelectedIndex>=0)
-            CurrentItem = Values.ToList()[_SelectedIndex];
+            CurrentItem = this.ToList()[_SelectedIndex];
         }
       }
     }

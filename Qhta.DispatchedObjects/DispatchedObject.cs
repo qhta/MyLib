@@ -15,11 +15,6 @@ namespace Qhta.DispatchedObjects
     public static IDispatcherBridge? DispatcherBridge { get; set; }
 
     /// <summary>
-    /// Helper name which can be used on Debugging.
-    /// </summary>
-    public virtual string? Name { get; set; }
-
-    /// <summary>
     /// Property changed event which implements <see cref="INotifyPropertyChanged"/> interface.
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged
