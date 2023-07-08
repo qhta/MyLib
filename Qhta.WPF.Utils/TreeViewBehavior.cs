@@ -111,7 +111,7 @@ namespace Qhta.WPF.Utils
       html.Append("<table>");
       html.Append("<tr>");
       for (int i = 0; i < headers.Count(); i++)
-        html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i], true)}</p></td>");
+        html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i])}</p></td>");
       html.Append("</tr>");
 
       int count = WriteCollection(text, html, treeView.ItemsSource.Cast<ISelectable>(), columns);
@@ -120,7 +120,7 @@ namespace Qhta.WPF.Utils
       text.Flush();
       var plainText = text.ToString();
       var htmlText = html.ToString();
-      var htmlFormat = HtmlTextUtils.FormatHtmlForClipboard(htmlText);
+      var htmlFormat = HtmlUtils.HtmlTextUtils.FormatHtmlForClipboard(htmlText);
       var dataObject = new DataObject();
       dataObject.SetData(DataFormats.Html, htmlFormat);
       dataObject.SetData(DataFormats.Text, plainText);
@@ -143,7 +143,7 @@ namespace Qhta.WPF.Utils
           text.WriteLine(String.Join("\t", values));
           html.Append("<tr>");
           for (int i = 0; i < values.Count(); i++)
-            html.Append($"<td>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(values[i], true)}</td>");
+            html.Append($"<td>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(values[i])}</td>");
           html.Append("</tr>");
         }
         if (item is ICompoundItem container)

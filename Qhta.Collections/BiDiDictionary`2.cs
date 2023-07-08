@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -34,6 +35,13 @@ public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>, IDictiona
   IEqualityComparer<Type2>? Comparer2;
   private Dictionary<Type1, int> index1 = null!;
   private Dictionary<Type2, int> index2 = null!;
+
+  public new void Clear()
+  {
+    base.Clear();
+    index1.Clear();
+    index2.Clear();
+  }
 
   public void Add(Type1 value1, Type2 value2)
   {

@@ -41,13 +41,14 @@ namespace Qhta.DispatchedObjects
     /// <param name="propertyName"></param>
     public virtual void NotifyPropertyChanged(string propertyName)
     {
-      if (_PropertyChanged!=null)
+      var _propertyChanged = _PropertyChanged;
+      if (_propertyChanged!=null)
       {
         var dispatcher = DispatcherBridge; 
         if (dispatcher != null)
-          dispatcher.Invoke(()=>_PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
+          dispatcher.Invoke(()=>_propertyChanged(this, new PropertyChangedEventArgs(propertyName)));
         else
-          _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+          _propertyChanged(this, new PropertyChangedEventArgs(propertyName));
       }
     }
 

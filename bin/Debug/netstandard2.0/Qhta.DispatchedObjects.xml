@@ -59,19 +59,19 @@
         </member>
         <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.AfterCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
-            A virtual method to notify that a <see cref="!:Count"/> property has changed.
+            A virtual method to notify that a Count property has changed.
             </summary>
             <param name="e"></param>
         </member>
         <member name="F:Qhta.DispatchedObjects.DispatchedCollection`1._InAddRange">
             <summary>
-            A flag to signal that <see cref="!:Add(TValue)"/> operation is invoked in <see cref="M:Qhta.DispatchedObjects.DispatchedCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})"/> method.
+            A flag to signal that Add(TValue) operation is invoked in <see cref="M:Qhta.DispatchedObjects.DispatchedCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})"/> method.
             </summary>
         </member>
         <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
             <summary>
             Adds a whole collection of items. 
-            <see cref="F:Qhta.DispatchedObjects.DispatchedCollection`1._InAddRange"/> is used to omit large number of notifications in the <see cref="!:Add(TValue)"/> method.
+            <see cref="F:Qhta.DispatchedObjects.DispatchedCollection`1._InAddRange"/> is used to omit large number of notifications in Add(TValue) method.
             <see cref="M:Qhta.DispatchedObjects.DispatchedCollection`1.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)"/> is invoked after adding the last item.
             </summary>
             <param name="items"></param>

@@ -1,0 +1,267 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows7.0": {
+      "Qhta.Collections/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.10.1": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    },
+    "net7.0-windows7.0": {
+      "Qhta.Collections/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.10.1": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.Collections/2.0.0": {
+      "sha512": "hSRcjgHW2Vfq2v7i+smLsa6wo2NMP82StXNYIiGYHPj6IcylOAupz1tOTa05PrWutnHVfaKUEO+XdA0+zgEtnA==",
+      "type": "package",
+      "path": "qhta.collections/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.Collections.dll",
+        "lib/net6.0/Qhta.Collections.xml",
+        "lib/netstandard2.0/Qhta.Collections.dll",
+        "lib/netstandard2.0/Qhta.Collections.xml",
+        "qhta.collections.2.0.0.nupkg.sha512",
+        "qhta.collections.nuspec"
+      ]
+    },
+    "Qhta.TextUtils/3.1.1": {
+      "sha512": "RYRqFK3PdythcfgCiN4gm6FqvXBjis9zQjBA8mtN/XaxOjpJzev/nfNdzbBzk6FVod5d0F+i2GWckG+K3x9u0g==",
+      "type": "package",
+      "path": "qhta.textutils/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.TextUtils.dll",
+        "lib/net6.0/Qhta.TextUtils.xml",
+        "lib/netstandard2.0/Qhta.TextUtils.dll",
+        "lib/netstandard2.0/Qhta.TextUtils.xml",
+        "qhta.textutils.3.1.1.nupkg.sha512",
+        "qhta.textutils.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.TypeUtils/1.3.10.1": {
+      "sha512": "Ftu0du3ern/ZqB524tZpK0pQ4e4AgUpnRKYGqPI01JfipLIwImTbdL4PB5ULHl4kwy0JEyuLaiIIUhtzfh3oHg==",
+      "type": "package",
+      "path": "qhta.typeutils/1.3.10.1",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.TypeUtils.dll",
+        "lib/net6.0/Qhta.TypeUtils.xml",
+        "lib/net7.0/Qhta.TypeUtils.dll",
+        "lib/net7.0/Qhta.TypeUtils.xml",
+        "lib/netstandard2.0/Qhta.TypeUtils.dll",
+        "lib/netstandard2.0/Qhta.TypeUtils.xml",
+        "qhta.typeutils.1.3.10.1.nupkg.sha512",
+        "qhta.typeutils.nuspec",
+        "readme.md"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows7.0": [
+      "Qhta.TextUtils >= 3.1.1",
+      "Qhta.TypeUtils >= 1.3.10.1"
+    ],
+    "net7.0-windows7.0": [
+      "Qhta.TextUtils >= 3.1.1",
+      "Qhta.TypeUtils >= 1.3.10.1"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\qhta1\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
+      "projectName": "Qhta.WPF.Converters",
+      "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
+      "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
+      "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\obj\\",
+      "projectStyle": "PackageReference",
+      "crossTargeting": true,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "D:\\VS\\Projects\\NuGet.Config",
+        "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows",
+        "net7.0-windows"
+      ],
+      "sources": {
+        "d:\\VS\\Projects\\mylib\\bin": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "projectReferences": {}
+        },
+        "net7.0-windows7.0": {
+          "targetAlias": "net7.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
+        "dependencies": {
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.1.1, )"
+          },
+          "Qhta.TypeUtils": {
+            "target": "Package",
+            "version": "[1.3.10.1, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+      },
+      "net7.0-windows7.0": {
+        "targetAlias": "net7.0-windows",
+        "dependencies": {
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.1.1, )"
+          },
+          "Qhta.TypeUtils": {
+            "target": "Package",
+            "version": "[1.3.10.1, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

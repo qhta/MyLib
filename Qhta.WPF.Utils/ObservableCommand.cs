@@ -22,5 +22,9 @@ namespace Qhta.WPF.Utils
       }
     }
 
+    public override void Execute(object parameter)
+    {
+      throw new NotImplementedException();
+    }
   }  
 }

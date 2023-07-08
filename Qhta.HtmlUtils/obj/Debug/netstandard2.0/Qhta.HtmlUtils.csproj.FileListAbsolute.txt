@@ -7,3 +7,13 @@ D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils
 D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.AssemblyInfo.cs
 D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.dll
 D:\Dane\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.HtmlUtils.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.HtmlUtils.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.HtmlUtils.pdb
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.dll
+D:\VS\Projects\MyLib\Qhta.HtmlUtils\obj\Debug\netstandard2.0\Qhta.HtmlUtils.pdb

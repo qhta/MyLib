@@ -26,14 +26,17 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.DispatchedObjects/1.2.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+      "Qhta.DispatchedObjects/2.0.0": {
+        "type": "package",
         "compile": {
-          "bin/placeholder/Qhta.DispatchedObjects.dll": {}
+          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "bin/placeholder/Qhta.DispatchedObjects.dll": {}
+          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -44,6 +47,8 @@
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -57,6 +62,8 @@
       "type": "package",
       "path": "netstandard.library/2.0.3",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -179,16 +186,24 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Qhta.DispatchedObjects/1.2.0": {
-      "type": "project",
-      "path": "../Qhta.DispatchedObjects/Qhta.DispatchedObjects.csproj",
-      "msbuildProject": "../Qhta.DispatchedObjects/Qhta.DispatchedObjects.csproj"
+    "Qhta.DispatchedObjects/2.0.0": {
+      "sha512": "/IeXjwJOF0QzNIdyT3csjqouD9w0dmKkm/VNP5lHzoUSyMpoTnMgGbDBftmh40B9Hh/dnV4s03QEXqiCBVAmGw==",
+      "type": "package",
+      "path": "qhta.dispatchedobjects/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/netstandard2.0/Qhta.DispatchedObjects.dll",
+        "lib/netstandard2.0/Qhta.DispatchedObjects.xml",
+        "qhta.dispatchedobjects.2.0.0.nupkg.sha512",
+        "qhta.dispatchedobjects.nuspec",
+        "readme.md"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.DispatchedObjects >= 1.2.0"
+      "Qhta.DispatchedObjects >= 2.0.0"
     ]
   },
   "packageFolders": {
@@ -196,7 +211,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.0.0",
+    "version": "2.4.1",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",
@@ -223,11 +238,7 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {
-            "D:\\VS\\Projects\\MyLib\\Qhta.DispatchedObjects\\Qhta.DispatchedObjects.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.DispatchedObjects\\Qhta.DispatchedObjects.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -245,6 +256,10 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.DispatchedObjects": {
+            "target": "Package",
+            "version": "[2.0.0, )"
           }
         },
         "imports": [

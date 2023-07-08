@@ -26,9 +26,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       }
-    },
-    "net6.0": {},
-    "net7.0": {}
+    }
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -178,16 +176,14 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3"
-    ],
-    "net6.0": [],
-    "net7.0": []
+    ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "3.0.0",
+    "version": "3.2.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
       "projectName": "Qhta.Collections",
@@ -195,7 +191,6 @@
       "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
       "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\obj\\",
       "projectStyle": "PackageReference",
-      "crossTargeting": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
@@ -206,8 +201,6 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0",
-        "net7.0",
         "netstandard2.0"
       ],
       "sources": {
@@ -215,14 +208,6 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
-          "projectReferences": {}
-        },
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "projectReferences": {}
-        },
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "projectReferences": {}
@@ -235,46 +220,6 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48",
-          "net481"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
-      },
-      "net7.0": {
-        "targetAlias": "net7.0",
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48",
-          "net481"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
-      },
       "netstandard2.0": {
         "targetAlias": "netstandard2.0",
         "dependencies": {

@@ -7,10 +7,10 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.MVVM/2.0": {
+      "Qhta.MVVM/2.4.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.DispatchedObjects": "1.2.0"
+          "Qhta.DispatchedObjects": "2.0.0"
         },
         "runtime": {
           "Qhta.MVVM.dll": {}
@@ -22,47 +22,18 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "Qhta.DispatchedObjects/1.2.0": {
+      "Qhta.DispatchedObjects/2.0.0": {
         "runtime": {
-          "Qhta.DispatchedObjects.dll": {}
-        }
-      },
-      "WindowsBase/4.0.0.0": {
-        "runtime": {
-          "WindowsBase.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
-        }
-      },
-      "System.Xaml/4.0.0.0": {
-        "runtime": {
-          "System.Xaml.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
-        }
-      },
-      "Accessibility/4.0.0.0": {
-        "runtime": {
-          "Accessibility.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
-        }
-      },
-      "System.Security/4.0.0.0": {
-        "runtime": {
-          "System.Security.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
+          "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
           }
         }
       }
     }
   },
   "libraries": {
-    "Qhta.MVVM/2.0": {
+    "Qhta.MVVM/2.4.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -81,30 +52,12 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "Qhta.DispatchedObjects/1.2.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "WindowsBase/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Xaml/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Accessibility/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Security/4.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
+    "Qhta.DispatchedObjects/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/IeXjwJOF0QzNIdyT3csjqouD9w0dmKkm/VNP5lHzoUSyMpoTnMgGbDBftmh40B9Hh/dnV4s03QEXqiCBVAmGw==",
+      "path": "qhta.dispatchedobjects/2.0.0",
+      "hashPath": "qhta.dispatchedobjects.2.0.0.nupkg.sha512"
     }
   }
 }

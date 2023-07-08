@@ -143,7 +143,7 @@ namespace Qhta.DispatchedObjects
     }
 
     /// <summary>
-    /// A virtual method to notify that a <see cref="Count"/> property has changed.
+    /// A virtual method to notify that a Count property has changed.
     /// </summary>
     /// <param name="e"></param>
     protected virtual void AfterCollectionChanged(NotifyCollectionChangedEventArgs e)
@@ -152,13 +152,13 @@ namespace Qhta.DispatchedObjects
     }
 
     /// <summary>
-    /// A flag to signal that <see cref="Add(TValue)"/> operation is invoked in <see cref="AddRange(IEnumerable{TValue}) "/> method.
+    /// A flag to signal that Add(TValue) operation is invoked in <see cref="AddRange(IEnumerable{TValue}) "/> method.
     /// </summary>
     protected bool _InAddRange;
 
     /// <summary>
     /// Adds a whole collection of items. 
-    /// <see cref="_InAddRange"/> is used to omit large number of notifications in the <see cref="Add(TValue)"/> method.
+    /// <see cref="_InAddRange"/> is used to omit large number of notifications in Add(TValue) method.
     /// <see cref="OnCollectionChanged(NotifyCollectionChangedEventArgs)"/> is invoked after adding the last item.
     /// </summary>
     /// <param name="items"></param>

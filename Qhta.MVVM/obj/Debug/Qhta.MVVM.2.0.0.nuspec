@@ -10,7 +10,7 @@
     <description>A simple MVVM framework which enables worker threads to invoke UI notification via DispatchedObjects.</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.DispatchedObjects" version="1.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.DispatchedObjects" version="2.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

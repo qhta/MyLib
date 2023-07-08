@@ -554,7 +554,7 @@ namespace Qhta.WPF.Utils
       html.Append("<table>");
       html.Append("<tr>");
       for (int i = 0; i < headers.Count(); i++)
-        html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i], true)}</p></td>");
+        html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i])}</p></td>");
       html.Append("</tr>");
       var collection = listView.ItemsSource.Cast<ISelectable>();
       if (sortDescriptions != null)
@@ -586,11 +586,11 @@ namespace Qhta.WPF.Utils
           count++;
           var values = new string[selectedColumns.Count()];
           for (int i = 0; i < selectedColumns.Count(); i++)
-            values[i] = selectedColumns[i].PropertyInfo.GetValue(item)?.ToString();
+            values[i] = selectedColumns[i].PropertyInfo.GetValue(item)?.ToString() ?? string.Empty;
           text.WriteLine(String.Join("\t", values));
           html.Append("<tr>");
           for (int i = 0; i < values.Count(); i++)
-            html.Append($"<td>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(values[i], true)}</td>");
+            html.Append($"<td>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(values[i])}</td>");
           html.Append("</tr>");
         }
       }
@@ -598,7 +598,7 @@ namespace Qhta.WPF.Utils
       text.Flush();
       var plainText = text.ToString();
       var htmlText = html.ToString();
-      var htmlFormat = HtmlTextUtils.FormatHtmlForClipboard(htmlText);
+      var htmlFormat = HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(htmlText);
       var dataObject = new DataObject();
       dataObject.SetData(DataFormats.Html, htmlFormat);
       dataObject.SetData(DataFormats.Text, plainText);
