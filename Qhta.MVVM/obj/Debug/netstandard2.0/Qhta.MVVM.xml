@@ -175,6 +175,11 @@
             Default is NaN.
             </summary>
         </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.ResourceDataTemplateKey">
+            <summary>
+            A key to Resource DataTemplate that defines layout of content bound column
+            </summary>
+        </member>
         <member name="T:Qhta.MVVM.DisplayPropertyAttribute">
             <summary>
             An attribute that annotates a property which should be displayed.

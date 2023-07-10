@@ -1,6 +1,6 @@
 ﻿namespace Qhta.WPF.DataGridUtils;
 
-public class DataGridCollectionBoundColumn : DataGridBoundColumn
+public class DataGridContentBoundColumn : DataGridBoundColumn
 {
   public DataTemplate ContentTemplate { get; set; } = null!;
 

@@ -23,6 +23,29 @@ public static class AutoGenerating
                 e.Cancel = true;
               else
               {
+                var dataTemplateResourceName = dataGridColumnAttr.ResourceDataTemplateKey;
+                if (dataTemplateResourceName != null)
+                {
+                  DataTemplate? template = (DataTemplate)(dataGrid.FindResource(dataTemplateResourceName));
+                  if (template != null)
+                  {
+                    var aColumn = (DataGridBoundColumn)e.Column;
+                    var col = new DataGridContentBoundColumn();
+                    var aBinding = (Binding)aColumn.Binding;
+                    col.Binding = aBinding;
+                    col.ContentTemplate = template;
+                    col.Header = e.Column.Header;
+                    col.SortMemberPath = aBinding.Path.Path + ".Count";
+                    col.ClipboardContentBinding =
+                        new Binding
+                        {
+                          Source = aBinding.Source,
+                          Path = new PropertyPath(aBinding.Path.Path + ".Count"),
+                        };
+                    col.CopyingCellClipboardContent += Col_CopyingCellClipboardContent;
+                    e.Column = col;
+                  }
+                }
                 if (dataGridColumnAttr.Header != null)
                   e.Column.Header = dataGridColumnAttr.Header;
                 if (dataGridColumnAttr.HeaderStringFormat != null)
@@ -44,51 +67,15 @@ public static class AutoGenerating
                 if (s != null)
                   e.Column.ClipboardContentBinding = new Binding(s);
                 var n = dataGridColumnAttr.DisplayIndex;
-                if (n >=0)
+                if (n >= 0)
                   e.Column.DisplayIndex = n;
                 n = (int)Convert.ChangeType(dataGridColumnAttr.Visibility, typeof(int));
                 e.Column.Visibility = (System.Windows.Visibility)Enum.ToObject(typeof(System.Windows.Visibility), n);
               }
             }
+            else
+              e.Cancel = true;
           }
-        }
-      }
-    }
-  }
-
-
-  public static void CreateCollectionCountColumn(object sender, DataGridAutoGeneratingColumnEventArgs e,
-    string dataTemplateResourceName)
-  {
-    var dataGrid = sender as DataGrid;
-    if (dataGrid != null)
-    {
-      if (e.PropertyType != typeof(string) && e.PropertyType.IsCollection())
-      {
-        var str = ((string)e.Column.Header);
-        var ss = str.SplitCamelCase();
-        for (int i = 1; i < ss.Length; i++)
-          ss[i] = ss[i].ToLower();
-        e.Column.Header = String.Join(" ", ss);
-
-        DataTemplate? template = (DataTemplate)(dataGrid.FindResource(dataTemplateResourceName));
-        if (template != null)
-        {
-          var aColumn = (DataGridBoundColumn)e.Column;
-          var col = new DataGridCollectionBoundColumn();
-          var aBinding = (Binding)aColumn.Binding;
-          col.Binding = aBinding;
-          col.ContentTemplate = template;
-          col.Header = e.Column.Header;
-          col.SortMemberPath = aBinding.Path.Path + ".Count";
-          col.ClipboardContentBinding =
-              new Binding
-              {
-                Source = aBinding.Source,
-                Path = new PropertyPath(aBinding.Path.Path + ".Count"),
-              };
-          col.CopyingCellClipboardContent += Col_CopyingCellClipboardContent;
-          e.Column = col;
         }
       }
     }
@@ -96,7 +83,7 @@ public static class AutoGenerating
 
   private static void Col_CopyingCellClipboardContent(object? sender, DataGridCellClipboardEventArgs e)
   {
-    var column = sender as DataGridCollectionBoundColumn;
+    var column = sender as DataGridContentBoundColumn;
     if (column != null)
     {
       var obj = e.Item;

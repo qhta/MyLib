@@ -95,4 +95,9 @@ public class DataGridColumnAttribute : System.Attribute
   /// Default is NaN.
   /// </summary>
   public double Width { get; set; } = double.NaN;
+
+  /// <summary>
+  /// A key to Resource DataTemplate that defines layout of content bound column
+  /// </summary>
+  public string? ResourceDataTemplateKey { get; set; }
 }
