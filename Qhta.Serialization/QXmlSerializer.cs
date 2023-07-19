@@ -254,11 +254,21 @@ public partial class QXmlSerializer : IXmlSerializer
   }
 
   /// <summary>
-  /// Serializes an object to the XmlWriter.
+  /// Serializes an object to System.XmlWriter.
   /// </summary>
   /// <param name="xmlWriter">The target of serialization.</param>
   /// <param name="obj">Serialized object.</param>
   public void Serialize(XmlWriter xmlWriter, object? obj)
+  {
+    SerializeObject(xmlWriter, obj);
+  }
+
+  /// <summary>
+  /// Serializes an object to IXmlWriter.
+  /// </summary>
+  /// <param name="xmlWriter">The target of serialization.</param>
+  /// <param name="obj">Serialized object.</param>
+  public void Serialize(IXmlWriter xmlWriter, object? obj)
   {
     SerializeObject(xmlWriter, obj);
   }
@@ -289,7 +299,7 @@ public partial class QXmlSerializer : IXmlSerializer
   }
 
   /// <summary>
-  /// Deserialized and object from the XmlReader.
+  /// Deserialized and object from the System.XmlReader.
   /// </summary>
   /// <param name="xmlReader">Source of serialized data.</param>
   /// <returns>Deserialized object.</returns>
@@ -298,4 +308,13 @@ public partial class QXmlSerializer : IXmlSerializer
     return DeserializeObject(xmlReader);
   }
 
+  /// <summary>
+  /// Deserialized and object from the IXmlReader.
+  /// </summary>
+  /// <param name="xmlReader">Source of serialized data.</param>
+  /// <returns>Deserialized object.</returns>
+  public object? Deserialize(IXmlReader xmlReader)
+  {
+    return DeserializeObject(xmlReader);
+  }
 }

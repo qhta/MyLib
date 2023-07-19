@@ -34,8 +34,8 @@ public class KnownNamespacesCollection : ICollection<XmlNamespaceInfo>
     Items.Add(item.XmlNamespace, item);
     if (!string.IsNullOrEmpty(item.Prefix))
     {
-      XmlNamespaceToPrefix.Add(item.XmlNamespace, item.Prefix);
-      PrefixToXmlNamespace.Add(item.Prefix, item.XmlNamespace);
+      XmlNamespaceToPrefix.Add(item.XmlNamespace, item.Prefix ?? "");
+      PrefixToXmlNamespace.Add(item.Prefix ?? "", item.XmlNamespace);
     }
   }
 

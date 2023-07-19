@@ -1,7 +1,7 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
-/// Wrapper for system XmlReader used by QXmlSerializer
+/// Wrapper for system XmlReader used by QXmlSerializer.
 /// </summary>
 public partial class QXmlReader : IXmlReader, IDisposable
 {
@@ -10,16 +10,19 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public QXmlReader(XmlReader xmlReader)
   {
-    _reader = xmlReader;
+    BaseXmlReader = xmlReader;
   }
 
-  private XmlReader _reader { get; }
+  /// <summary>
+  /// Base XmlReader reference.
+  /// </summary>
+  public XmlReader BaseXmlReader { get; }
 
 
   /// <summary>
   /// Get wrapped XML reader.
   /// </summary>
-  public static implicit operator XmlReader(QXmlReader reader) => reader._reader;
+  public static implicit operator XmlReader(QXmlReader reader) => reader.BaseXmlReader;
 
   #region Reader state
 
@@ -28,7 +31,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public (int line, int pos) GetPosition()
   {
-    if (_reader is XmlTextReader xmlTextReader)
+    if (BaseXmlReader is XmlTextReader xmlTextReader)
     {
       var lineNumber = xmlTextReader.LineNumber;
       var linePosition = xmlTextReader.LinePosition;
@@ -46,17 +49,17 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <summary>
   /// Wrapped EOF property.
   /// </summary>
-  public bool EOF => _reader.EOF;
+  public bool EOF => BaseXmlReader.EOF;
 
   /// <summary>
   /// Wrapped ReadState property.
   /// </summary>
-  public ReadState ReadState => _reader.ReadState;
+  public ReadState ReadState => BaseXmlReader.ReadState;
 
   /// <summary>
   /// Wrapped NodeType property
   /// </summary>
-  public XmlNodeType NodeType => _reader.NodeType;
+  public XmlNodeType NodeType => BaseXmlReader.NodeType;
 
   /// <summary>
   /// Qualified name (local name and namespace URI)
@@ -65,8 +68,8 @@ public partial class QXmlReader : IXmlReader, IDisposable
   {
     get
     {
-      var localName = _reader.LocalName;
-      var uri = _reader.NamespaceURI;
+      var localName = BaseXmlReader.LocalName;
+      var uri = BaseXmlReader.NamespaceURI;
       if (!String.IsNullOrEmpty(uri))
         return new XmlQualifiedTagName(localName, uri);
       return new XmlQualifiedTagName(localName);
@@ -76,68 +79,77 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <summary>
   /// Wrapper for LocalName property.
   /// </summary>
-  public string LocalName => _reader.LocalName;
+  public string LocalName => BaseXmlReader.LocalName;
 
   /// <summary>
   /// Wrapper for NamespaceURI property.
   /// </summary>
-  public string NamespaceURI => _reader.NamespaceURI;
+  public string NamespaceURI => BaseXmlReader.NamespaceURI;
 
   /// <summary>
   /// Wrapper for Prefix property.
   /// </summary>
-  public string Prefix => _reader.Prefix;
+  public string Prefix => BaseXmlReader.Prefix;
 
   /// <summary>
   /// Wrapper for HasValue property.
   /// </summary>
-  public bool HasValue => _reader.HasValue;
+  public bool HasValue => BaseXmlReader.HasValue;
 
   /// <summary>
   /// Wrapper for ValueType property.
   /// </summary>
-  public Type ValueType => _reader.ValueType;
+  public Type ValueType => BaseXmlReader.ValueType;
 
   /// <summary>
   /// Wrapper for Value property.
   /// </summary>
-  public string Value => _reader.Value;
+  public string Value => BaseXmlReader.Value;
 
   /// <summary>
   /// Wrapper for Depth property.
   /// </summary>
-  public int Depth => _reader.Depth;
+  public int Depth => BaseXmlReader.Depth;
 
   /// <summary>
   /// Wrapper for BaseURI property.
   /// </summary>
-  public string BaseURI => _reader.BaseURI;
+  public string BaseURI => BaseXmlReader.BaseURI;
 
   /// <summary>
   /// Wrapper for IsEmptyElement property.
   /// </summary>
-  public bool IsEmptyElement => _reader.IsEmptyElement;
+  public bool IsEmptyElement => BaseXmlReader.IsEmptyElement;
 
   /// <summary>
   /// Wrapper for IsDefault property.
   /// </summary>
-  public bool IsDefault => _reader.IsDefault;
+  public bool IsDefault => BaseXmlReader.IsDefault;
 
   /// <summary>
   /// Wrapper for QuoteChar property.
   /// </summary>
-  public char QuoteChar => _reader.QuoteChar;
+  public char QuoteChar => BaseXmlReader.QuoteChar;
 
   /// <summary>
   /// Wrapper for XmlSpace property.
   /// </summary>
-  public XmlSpace XmlSpace => _reader.XmlSpace;
+  public XmlSpace XmlSpace => BaseXmlReader.XmlSpace;
 
   /// <summary>
   /// Wrapper for XmlLang property.
   /// </summary>
-  public string XmlLang => _reader.XmlLang;
+  public string XmlLang => BaseXmlReader.XmlLang;
 
+  /// <summary>
+  /// Gets line number of XML text file where the exception occured.
+  /// </summary>
+  public int? LineNumber => (BaseXmlReader as System.Xml.XmlTextReader)?.LineNumber;
+
+  /// <summary>
+  /// Gets the position in line of XML text file where the exception occured.
+  /// </summary>
+  public int? LinePosition => (BaseXmlReader as System.Xml.XmlTextReader)?.LinePosition;
   #endregion
 
   #region Settings
@@ -145,17 +157,17 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <summary>
   /// Wrapper for Settings property.
   /// </summary>
-  public XmlReaderSettings? Settings => _reader.Settings;
+  public XmlReaderSettings? Settings => BaseXmlReader.Settings;
 
   /// <summary>
   /// Additional setting that specifies how whitespaces are handled.
   /// </summary>
   public WhitespaceHandling? WhitespaceHandling
   {
-    get { return (_reader as XmlTextReader)?.WhitespaceHandling; }
+    get { return (BaseXmlReader as XmlTextReader)?.WhitespaceHandling; }
     set
     {
-      if (_reader is XmlTextReader xmlTextReader && value != null)
+      if (BaseXmlReader is XmlTextReader xmlTextReader && value != null)
         xmlTextReader.WhitespaceHandling = (WhitespaceHandling)value;
     }
   }
@@ -167,32 +179,32 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// Wrapper for HasAttributes property.
   /// Gets a value indicating whether the current node has any attributes.
   /// </summary>
-  public bool HasAttributes => _reader.HasAttributes;
+  public bool HasAttributes => BaseXmlReader.HasAttributes;
 
   /// <summary>
   /// Wrapper for AttributeCount property.
   /// Gets the number of attributes on the current node.
   /// </summary>
-  public int AttributeCount => _reader.AttributeCount;
+  public int AttributeCount => BaseXmlReader.AttributeCount;
 
   /// <summary>
   /// Wrapper for int indexed item accessors.
   /// Gets the value of the attribute with the specified index.
   /// </summary>
-  public string this[int i] => _reader[i];
+  public string this[int i] => BaseXmlReader[i];
 
   /// <summary>
   /// Wrapper for local name indexed item accessors.
   /// Gets the value of the attribute with the specified Name.
   /// </summary>
-  public string? this[string name] => _reader[name];
+  public string? this[string name] => BaseXmlReader[name];
 
   /// <summary>
   /// Wrapper for tag name indexed item accessors.
   /// Gets the value of the attribute with the specified LocalName and NamespaceURI.
   /// </summary>
   public string? this[XmlQualifiedTagName fullName]
-    => _reader[fullName.Name, fullName.Namespace];
+    => BaseXmlReader[fullName.Name, fullName.Namespace];
 
 
   /// <summary>
@@ -201,7 +213,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string? GetAttribute(string name)
   {
-    return _reader.GetAttribute(name);
+    return BaseXmlReader.GetAttribute(name);
   }
 
   /// <summary>
@@ -210,7 +222,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string? GetAttribute(XmlQualifiedTagName fullName)
   {
-    return _reader.GetAttribute(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.GetAttribute(fullName.Name, fullName.Namespace);
   }
 
   /// <summary>
@@ -219,7 +231,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string GetAttribute(int i)
   {
-    return _reader.GetAttribute(i);
+    return BaseXmlReader.GetAttribute(i);
   }
 
   
@@ -230,7 +242,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <returns>True if there are nodes to return. False otherwise.</returns>
   public bool ReadAttributeValue()
   {
-    return _reader.ReadAttributeValue();
+    return BaseXmlReader.ReadAttributeValue();
   }
 
   #endregion
@@ -243,10 +255,10 @@ public partial class QXmlReader : IXmlReader, IDisposable
   public string ReadString()
   {
     string str;
-    if (_reader.NodeType == XmlNodeType.Element)
-      str = _reader.ReadElementContentAsString();
+    if (BaseXmlReader.NodeType == XmlNodeType.Element)
+      str = BaseXmlReader.ReadElementContentAsString();
     else
-      str = _reader.ReadContentAsString();
+      str = BaseXmlReader.ReadContentAsString();
     //if (str == " ")
     //  Debugger.Break();
     return str;
@@ -258,7 +270,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public object ReadContentAs(Type returnType)
   {
-    return _reader.ReadContentAs(returnType, null);
+    return BaseXmlReader.ReadContentAs(returnType, null);
   }
 
   /// <summary>
@@ -267,7 +279,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementContentAsString()
   {
-    return _reader.ReadElementContentAsString();
+    return BaseXmlReader.ReadElementContentAsString();
   }
 
   /// <summary>
@@ -277,7 +289,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementContentAsString(XmlQualifiedTagName fullName)
   {
-    return _reader.ReadElementContentAsString(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.ReadElementContentAsString(fullName.Name, fullName.Namespace);
   }
   #endregion
 
@@ -288,7 +300,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementString()
   {
-    return _reader.ReadElementString();
+    return BaseXmlReader.ReadElementString();
   }
 
   /// <summary>
@@ -298,7 +310,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementString(string name)
   {
-    return _reader.ReadElementString(name);
+    return BaseXmlReader.ReadElementString(name);
   }
 
   /// <summary>
@@ -308,7 +320,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementString(XmlQualifiedTagName fullName)
   {
-    return _reader.ReadElementString(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.ReadElementString(fullName.Name, fullName.Namespace);
   }
   #endregion
 
@@ -319,7 +331,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool MoveToAttribute(string name)
   {
-    return _reader.MoveToAttribute(name);
+    return BaseXmlReader.MoveToAttribute(name);
   }
 
   /// <summary>
@@ -328,7 +340,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool MoveToAttribute(XmlQualifiedTagName fullName)
   {
-    return _reader.MoveToAttribute(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.MoveToAttribute(fullName.Name, fullName.Namespace);
   }
 
   /// <summary>
@@ -337,7 +349,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void MoveToAttribute(int i)
   {
-    _reader.MoveToAttribute(i);
+    BaseXmlReader.MoveToAttribute(i);
   }
 
   /// <summary>
@@ -346,7 +358,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool MoveToFirstAttribute()
   {
-    return _reader.MoveToFirstAttribute();
+    return BaseXmlReader.MoveToFirstAttribute();
   }
 
   /// <summary>
@@ -355,7 +367,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool MoveToNextAttribute()
   {
-    return _reader.MoveToNextAttribute();
+    return BaseXmlReader.MoveToNextAttribute();
   }
 
   /// <summary>
@@ -364,7 +376,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool MoveToElement()
   {
-    return _reader.MoveToElement();
+    return BaseXmlReader.MoveToElement();
   }
 
   /// <summary>
@@ -375,7 +387,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public XmlNodeType MoveToContent()
   {
-    return _reader.MoveToContent();
+    return BaseXmlReader.MoveToContent();
   }
 
   /// <summary>
@@ -384,7 +396,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void Skip()
   {
-    _reader.Skip();
+    BaseXmlReader.Skip();
   }
   #endregion
 
@@ -396,7 +408,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void Read()
   {
-    _reader.Read();
+    BaseXmlReader.Read();
   }
 
   /// <summary>
@@ -406,7 +418,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// 
   public QXmlReader ReadSubtree ()
   {
-    return new QXmlReader(_reader.ReadSubtree());
+    return new QXmlReader(BaseXmlReader.ReadSubtree());
   }
   #endregion
 
@@ -418,7 +430,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsStartElement()
   {
-    return _reader.IsStartElement();
+    return BaseXmlReader.IsStartElement();
   }
 
   /// <summary>
@@ -428,7 +440,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsStartElement(string name)
   {
-    return _reader.IsStartElement(name);
+    return BaseXmlReader.IsStartElement(name);
   }
 
   /// <summary>
@@ -438,7 +450,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsStartElement(XmlQualifiedTagName tag)
   {
-    return _reader.IsStartElement(tag.Name, tag.Namespace);
+    return BaseXmlReader.IsStartElement(tag.Name, tag.Namespace);
   }
 
   /// <summary>
@@ -447,7 +459,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void ReadStartElement()
   {
-    _reader.ReadStartElement();
+    BaseXmlReader.ReadStartElement();
   }
 
   /// <summary>
@@ -456,7 +468,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void ReadStartElement(string name)
   {
-    _reader.ReadStartElement(name);
+    BaseXmlReader.ReadStartElement(name);
   }
 
   /// <summary>
@@ -466,7 +478,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void ReadStartElement(XmlQualifiedTagName tag)
   {
-    _reader.ReadStartElement(tag.Name, tag.Namespace);
+    BaseXmlReader.ReadStartElement(tag.Name, tag.Namespace);
   }
   #endregion
 
@@ -476,7 +488,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsEndElement()
   {
-    return _reader.NodeType == XmlNodeType.EndElement;
+    return BaseXmlReader.NodeType == XmlNodeType.EndElement;
   }
 
   /// <summary>
@@ -484,7 +496,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsEndElement(string name)
   {
-    return _reader.NodeType == XmlNodeType.EndElement && _reader.Name == name;
+    return BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.Name == name;
   }
 
   /// <summary>
@@ -492,7 +504,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsEndElement(XmlQualifiedTagName tag)
   {
-    return _reader.NodeType == XmlNodeType.EndElement && _reader.LocalName == tag.Name && _reader.NamespaceURI == tag.Namespace;
+    return BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.LocalName == tag.Name && BaseXmlReader.NamespaceURI == tag.Namespace;
   }
 
   /// <summary>
@@ -501,7 +513,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void ReadEndElement()
   {
-    _reader.ReadEndElement();
+    BaseXmlReader.ReadEndElement();
   }
 
   /// <summary>
@@ -511,10 +523,10 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <exception cref="XmlInvalidOperationException">Thrown if node is not end element or name does not match</exception>
   public void ReadEndElement(string name)
   {
-    var ok = _reader.NodeType == XmlNodeType.EndElement && _reader.Name == name;
+    var ok = BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.Name == name;
     if (!ok)
-      throw new XmlInvalidOperationException($"End element \"{name}\" expected but {_reader.NodeType} \"{_reader.Name}\" found", _reader);
-    _reader.ReadEndElement();
+      throw new XmlInvalidOperationException($"End element \"{name}\" expected but {BaseXmlReader.NodeType} \"{BaseXmlReader.Name}\" found", this);
+    BaseXmlReader.ReadEndElement();
   }
 
   /// <summary>
@@ -524,10 +536,10 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <exception cref="XmlInvalidOperationException">Thrown if node is not end element or name and namespaceURI does not match</exception>
   public void ReadEndElement(XmlQualifiedTagName tag)
   {
-    var ok = _reader.NodeType == XmlNodeType.EndElement && _reader.LocalName == tag.Name && _reader.NamespaceURI == tag.Namespace;
+    var ok = BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.LocalName == tag.Name && BaseXmlReader.NamespaceURI == tag.Namespace;
     if (!ok)
-      throw new XmlInvalidOperationException($"End element \"{tag}\" expected but {_reader.NodeType} \"{_reader.Name}\" found", _reader);
-    _reader.ReadEndElement();
+      throw new XmlInvalidOperationException($"End element \"{tag}\" expected but {BaseXmlReader.NodeType} \"{BaseXmlReader.Name}\" found", this);
+    BaseXmlReader.ReadEndElement();
   }
   #endregion
 
@@ -537,7 +549,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void Close()
   {
-    _reader.Close();
+    BaseXmlReader.Close();
   }
 
   /// <summary>
@@ -545,7 +557,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void Dispose()
   {
-    _reader.Dispose();
+    BaseXmlReader.Dispose();
   }
   #endregion
 }

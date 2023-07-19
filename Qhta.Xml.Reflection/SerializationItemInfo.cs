@@ -166,4 +166,9 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
   {
     return $"{GetType().Name}({Type?.Name})";
   }
+
+  /// <summary>
+  /// Gets the the qualified name (XmlName, XmlNamespace) of the element
+  /// </summary>
+  public QualifiedName QualifiedName => new(XmlName, XmlNamespace);
 }

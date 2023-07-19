@@ -47,6 +47,31 @@ public partial class QXmlSerializer
   }
 
   /// <summary>
+  ///   Secondary deserialization entry
+  /// </summary>
+  public object? DeserializeObject(IXmlReader xmlReader)
+  {
+#if TraceReader
+    File.Delete("QXmlSerializerReadTrace.xml");
+    using (var myWriter = new Qhta.TestHelper.TraceTextWriter("QXmlSerializerReadTrace.xml", true))
+    {
+      var defaultListener = Trace.Listeners[0];
+      Trace.Listeners.Remove("Default");
+      Trace.Listeners.Add(myWriter.TraceListener);
+      Trace.IndentSize = 2;
+      Reader = xmlReader;
+      var result = ReadObject();
+      Trace.Listeners.Add(defaultListener);
+      return result;
+    }
+#else
+    Reader = xmlReader;
+    var result = ReadObject();
+    return result;
+#endif
+  }
+
+  /// <summary>
   /// System settings for XmlReader.
   /// </summary>
   public XmlReaderSettings XmlReaderSettings { get; } = new() { IgnoreWhitespace = true };
@@ -59,7 +84,7 @@ public partial class QXmlSerializer
   /// <summary>
   /// System XML reader wrapper.
   /// </summary>
-  public QXmlReader Reader { get; private set; } = null!;
+  public IXmlReader Reader { get; private set; } = null!;
 
   #region Read object methods
 
@@ -155,8 +180,8 @@ public partial class QXmlSerializer
     else
     {
       result = typeInfo.KnownConstructor.Invoke(new object[0]);
-      if (result is IXmlSerializable xmlSerializable)
-        xmlSerializable.ReadXml(Reader);
+      if (result is IXmlSerializable xmlSerializable && Reader.BaseXmlReader!=null)
+        xmlSerializable.ReadXml(Reader.BaseXmlReader);
       else
         ReadObjectInstance(result, typeInfo);
     }
@@ -967,8 +992,8 @@ public partial class QXmlSerializer
       else
       {
         result = valueTypeInfo.KnownConstructor.Invoke(new object[0]);
-        if (result is IXmlSerializable xmlSerializable)
-          xmlSerializable.ReadXml(Reader);
+        if (result is IXmlSerializable xmlSerializable && Reader.BaseXmlReader!=null)
+          xmlSerializable.ReadXml(Reader.BaseXmlReader);
         else
         if (Reader.NodeType == XmlNodeType.Text || Reader.NodeType == XmlNodeType.SignificantWhitespace)
         {
@@ -1162,8 +1187,8 @@ public partial class QXmlSerializer
     else
     {
       result = typeInfo.KnownConstructor.Invoke(new object[0]);
-      if (result is IXmlSerializable xmlSerializable)
-        xmlSerializable.ReadXml(Reader);
+      if (result is IXmlSerializable xmlSerializable && Reader.BaseXmlReader!=null)
+        xmlSerializable.ReadXml(Reader.BaseXmlReader);
       else
         result = ReadObjectInstance(result, typeInfo);
     }
@@ -1630,8 +1655,8 @@ public partial class QXmlSerializer
       else
       {
         result = typeInfo.KnownConstructor.Invoke(new object[0]);
-        if (result is IXmlSerializable xmlSerializable)
-          xmlSerializable.ReadXml(Reader);
+        if (result is IXmlSerializable xmlSerializable && Reader.BaseXmlReader!=null)
+          xmlSerializable.ReadXml(Reader.BaseXmlReader);
         else
         {
           ReadXmlAttributes(result, typeInfo);
@@ -1864,8 +1889,19 @@ public partial class QXmlSerializer
     }
     else if (expectedType.IsEnum)
     {
+#if NET6_0_OR_GREATER
       if (!Enum.TryParse(expectedType, str, Options.IgnoreCaseOnEnum, out propValue))
         throw new XmlInvalidOperationException($"Cannot convert \"{str}\" to enum value of type {expectedType.Name}", Reader);
+#else
+      try
+      {
+        propValue = Enum.Parse(expectedType, str, Options.IgnoreCaseOnEnum);
+      }
+      catch
+      {
+        throw new XmlInvalidOperationException($"Cannot convert \"{str}\" to enum value of type {expectedType.Name}", Reader);
+      }
+#endif
     }
     else if (expectedType == typeof(int))
     {
@@ -1939,6 +1975,7 @@ public partial class QXmlSerializer
         throw new XmlInvalidOperationException($"Cannot convert \"{str}\" to date/time value", Reader);
       propValue = val;
     }
+#if NET6_0_OR_GREATER
     else if (expectedType == typeof(DateOnly))
     {
       if (!DateOnly.TryParse(str, out var val))
@@ -1951,6 +1988,7 @@ public partial class QXmlSerializer
         throw new XmlInvalidOperationException($"Cannot convert \"{str}\" to time-only value", Reader);
       propValue = val;
     }
+#endif
     else if (expectedType == typeof(TimeSpan))
     {
       if (!TimeSpan.TryParse(str, out var val))

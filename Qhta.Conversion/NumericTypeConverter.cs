@@ -82,7 +82,13 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
       if (_Format != value)
       {
         _Format = value;
-        if (_Format != null && _Format.Contains('X', StringComparison.InvariantCultureIgnoreCase))
+        if (_Format != null && 
+#if NET6_0_OR_GREATER
+          _Format.Contains('X', StringComparison.InvariantCultureIgnoreCase)
+#else
+          _Format.Contains('X') || _Format.Contains('x')
+#endif
+          )
           NumberStyle |= NumberStyles.HexNumber;
       }
     }
@@ -195,7 +201,11 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     if (string.IsNullOrEmpty(str)) return true;
     if (culture == null)
       culture = CultureInfo.InvariantCulture;
-    if (str.Contains("E+", StringComparison.Ordinal) || str.Contains("E-", StringComparison.Ordinal))
+#if NET6_0_OR_GREATER
+    if (str.Contains("E+", StringComparison.InvariantCultureIgnoreCase) || str.Contains("E-", StringComparison.InvariantCultureIgnoreCase))
+#else
+    if (str.Contains("E+") || str.Contains("E-") || str.Contains("e+") || str.Contains("e-"))
+#endif
     {
       numberStyle |= NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
       if (XsdType == XsdSimpleType.Float)

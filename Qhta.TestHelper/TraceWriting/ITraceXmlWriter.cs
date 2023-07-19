@@ -15,50 +15,50 @@ public interface ITraceXmlWriter: ITraceTextWriter
   #endregion
 
   #region WriteStartElement
-  void WriteStartElement(string tag) => WriteStartElement(null, tag, null);
+  void WriteStartElement(string tag);// => WriteStartElement(null, tag, null);
 
-  void WriteStartElement(string? prefix, string localName) => WriteStartElement(prefix, localName, null);
+  void WriteStartElement(string? prefix, string localName);// => WriteStartElement(prefix, localName, null);
 
   void WriteStartElement(string? prefix, string localName, string? ns);
   #endregion
 
   #region WriteEndElement
   [DebuggerStepThrough]
-  void WriteEndElement(string tag) => WriteEndElement(null, tag, null);
+  void WriteEndElement(string tag);// => WriteEndElement(null, tag, null);
 
   [DebuggerStepThrough]
-  void WriteEndElement(string? prefix, string localName) => WriteEndElement(prefix, localName, null);
+  void WriteEndElement(string? prefix, string localName);// => WriteEndElement(prefix, localName, null);
 
   [DebuggerStepThrough]
   void WriteEndElement(string? prefix, string localName, string? ns);
   #endregion
 
   #region WriteAttributeString
-  void WriteAttributeString(string attrName, string? value) => WriteAttributeString(null, attrName, null, value);
+  void WriteAttributeString(string attrName, string? value);// => WriteAttributeString(null, attrName, null, value);
 
-  void WriteAttributeString(string? prefix, string localName, string? value) => WriteAttributeString(prefix, localName, null, value);
+  void WriteAttributeString(string? prefix, string localName, string? value);// => WriteAttributeString(prefix, localName, null, value);
 
   void WriteAttributeString(string? prefix, string localName, string? ns, string? value);
   #endregion
 
   #region WriteElementString
-  void WriteElementString(string tagName, string? value) => WriteElementString(null, tagName, null, value);
+  void WriteElementString(string tagName, string? value);// => WriteElementString(null, tagName, null, value);
 
-  void WriteElementString(string? prefix, string localName, string? value) => WriteElementString(prefix, localName, null, value);
+  void WriteElementString(string? prefix, string localName, string? value);// => WriteElementString(prefix, localName, null, value);
 
   void WriteElementString(string? prefix, string localName, string? ns, string? value);
   #endregion
 
   #region WriteEmptyElement
-  void WriteEmptyElement(string tagName) => WriteEmptyElement(null, tagName, null);
+  void WriteEmptyElement(string tagName);// => WriteEmptyElement(null, tagName, null);
 
-  void WriteEmptyElement(string? prefix, string localName) => WriteEmptyElement(prefix, localName, null);
+  void WriteEmptyElement(string? prefix, string localName);// => WriteEmptyElement(prefix, localName, null);
 
   void WriteEmptyElement(string? prefix, string localName, string? ns);
   #endregion
 
   #region WriteValue
-  void WriteValue(string? str) => WriteValue(null, str);
+  void WriteValue(string? str);// => WriteValue(null, str);
 
   /// <param name="prefix">needed only to enable suppression</param>
   /// <param name="str">Written string</param>
@@ -73,7 +73,7 @@ public interface ITraceXmlWriter: ITraceTextWriter
   /// <param name="prefix">needed only to enable suppression</param>
   void WriteEndComment(string? prefix);
 
-  void WriteComment(string? text) => WriteComment(null, text);
+  void WriteComment(string? text);// => WriteComment(null, text);
 
   /// <param name="prefix">needed only to enable suppression</param>
   /// <param name="text">Written comment text</param>

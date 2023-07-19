@@ -23,5 +23,9 @@ public interface INamedElement
   /// <summary>
   /// Gets the the qualified name (XmlName, XmlNamespace) of the element
   /// </summary>
+#if NET6_0_OR_GREATER
   public QualifiedName QualifiedName => new(XmlName, XmlNamespace);
+#else
+  public QualifiedName QualifiedName { get; }
+#endif
 }

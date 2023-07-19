@@ -108,7 +108,7 @@ public abstract class AbstractFileGenTest : AbstractTest
       return true;
     }
   }
-
+#if NET6_0_OR_GREATER
   public static void CreateLink(string linkPath, [NotNull] string targetPath)
   {
     WshShell wsh = new WshShell();
@@ -123,5 +123,5 @@ public abstract class AbstractFileGenTest : AbstractTest
     IWshShortcut shortcut = (IWshShortcut)wsh.CreateShortcut(lnkPath);
     return shortcut.TargetPath;
   }
-
+#endif
 }

@@ -14,12 +14,12 @@ public abstract class AbstractFileComparer
   /// Options of comparizon (e.g. if letter case is ignored). Set up on comparer constructor,
   /// but content can be changed on run.
   /// </summary>
-  public FileCompareOptions Options { get; init; }
+  public FileCompareOptions Options { get; private set; }
 
   /// <summary>
   /// Writer to receive detailed results of comparison. Set up on comparer constructor.
   /// </summary>
-  public ITraceTextWriter? Writer { get; init; }
+  public ITraceTextWriter? Writer { get; private set; }
 
   /// <summary>
   /// Simple constructor

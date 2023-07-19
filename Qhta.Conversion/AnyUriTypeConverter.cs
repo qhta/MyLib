@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// StringTypeConverter converts a Unicode string to its serializable equivalent string (and vice versa). It can operate in three modes (Mode property):
+/// <list type="bullet">
+/// </list>
+/// </summary>
 public class AnyUriTypeConverter : BaseTypeConverter
 {
   private static UriTypeConverter Base = new UriTypeConverter();

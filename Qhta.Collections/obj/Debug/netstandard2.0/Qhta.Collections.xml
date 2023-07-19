@@ -16,5 +16,17 @@
             <param name="comparer1">The comparer1.</param>
             <param name="comparer2">The comparer2.</param>
         </member>
+        <member name="T:Qhta.Collections.WildcardStrings">
+            <summary>
+            It is a sorted set of strings, which can contains wildcard '*' character, that can be encompassed to a fragment of string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStrings.Contains(System.String)">
+            <summary>
+            Overriden "Contains" funtions that uses "IsLike" method.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -9,6 +9,6 @@ public record TestResult
     Message = message;
   }
 
-  public bool? Success { get; init;}
-  public string Message {get; init; }
+  public bool? Success { get; private set;}
+  public string Message {get; private set; }
 }

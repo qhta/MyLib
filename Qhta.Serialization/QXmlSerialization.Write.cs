@@ -6,7 +6,7 @@ public partial class QXmlSerializer
   bool namespacesWritten = false;
 
   /// <summary>
-  ///   Main serialization entry.
+  ///   Main serialization entry for System.Xml.XmlWriter.
   /// </summary>
   /// <param name="xmlWriter">The target of serialization.</param>
   /// <param name="obj">Serialized object.</param>
@@ -15,6 +15,23 @@ public partial class QXmlSerializer
     if (obj == null)
       return;
     Writer = new QXmlWriter(xmlWriter);
+    Writer.TraceElementStack = Options.TraceElementStack;
+    Writer.TraceAttributeStack = Options.TraceAttributeStack;
+    namespacesWritten = false;
+    WriteObject(obj);
+    xmlWriter.Flush();
+  }
+
+  /// <summary>
+  ///   Main serialization entry for IXmlWriter.
+  /// </summary>
+  /// <param name="xmlWriter">The target of serialization.</param>
+  /// <param name="obj">Serialized object.</param>
+  public void SerializeObject(IXmlWriter xmlWriter, object? obj)
+  {
+    if (obj == null)
+      return;
+    Writer = xmlWriter;
     Writer.TraceElementStack = Options.TraceElementStack;
     Writer.TraceAttributeStack = Options.TraceAttributeStack;
     namespacesWritten = false;
@@ -34,7 +51,7 @@ public partial class QXmlSerializer
   /// <summary>
   /// System XmlWriter wrapper.
   /// </summary>
-  public QXmlWriter Writer { get; protected set; } = null!;
+  public IXmlWriter Writer { get; protected set; } = null!;
 
   #region Write methods
 

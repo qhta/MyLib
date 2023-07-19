@@ -1,27 +1,51 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
+
 using Qhta.Collections;
 
 namespace Qhta.Conversion;
 
+/// <summary>
+/// 
+/// </summary>
 public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
 {
+  /// <summary>
+  /// Basic converter from System.ComponentModel.
+  /// </summary>
   public StringConverter Base = new StringConverter();
 
+  /// <summary>
+  /// Default constructor specifies that ExpectedType is string.
+  /// </summary>
   public StringTypeConverter()
   {
     ExpectedType = typeof(string);
   }
 
+  /// <summary>
+  /// Specifies what to do with whitespaces.
+  /// </summary>
   protected WhitespaceBehavior _Whitespaces;
 
+  /// <summary>
+  /// Specifies whether escape sequences like "\t" "\n" "\r" should be used for control characters.
+  /// </summary>
   public bool UseEscapeSequences { get; set; }
-  public bool UseHtmlEntities { get; set; }
-  public bool HexEntities { get; set; }
 
+  /// <summary>
+  /// Specifies whether Html sequences like "$lt;" should be used for some characters.
+  /// </summary>
+  public bool UseHtmlEntities { get; set; }
+
+  /// <summary>
+  /// Specifies whether Hex entities like "\xFF" should be used for control characters.
+  /// </summary>
+  public bool UseHexEntities { get; set; }
+
+  /// <summary>
+  /// Predefined escape sequences.
+  /// </summary>
   public BiDiDictionary<char, string> EscapeSequences { get; set; } = new()
   {
     { '\0', "\\0" },
@@ -37,6 +61,9 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     { '\u005C', "\\\\" }
   };
 
+  /// <summary>
+  /// Predefined Html entities
+  /// </summary>
   public BiDiDictionary<char, string> HtmlEntities { get; set; } = new()
   {
     { '\xA0', "&nbsp;" },
@@ -47,13 +74,34 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     { '\'', "&apos;" }
   };
 
+  /// <summary>
+  /// Min length of the string
+  /// </summary>
   public int? MinLength { get; set; }
+  /// <summary>
+  /// Max length of the string
+  /// </summary>
   public int? MaxLength { get; set; }
 
+  /// <summary>
+  /// Specifies regular expression patterns to be used on ConvertFrom.
+  /// </summary>
   public string[]? Patterns { get; set; }
+
+  /// <summary>
+  /// Specifies acceptable string enumerations to be used on ConvertFrom.
+  /// </summary>
   public string[]? Enumerations { get; set; }
+
+  /// <summary>
+  /// Specifies whether backward conversion is insensitive 
+  /// when checking Patterns or Enumerations.
+  /// </summary>
   public bool CaseInsensitive { get; set; }
 
+  /// <summary>
+  /// Specifies an XsdType with filling Patterns and MinLength.
+  /// </summary>
   public override XsdSimpleType? XsdType
   {
     get => _XsdType;
@@ -104,8 +152,20 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
       _XsdType = value;
     }
   }
+  /// <summary>
+  /// Protected XsdType.
+  /// </summary>
   protected XsdSimpleType? _XsdType;
 
+
+  /// <summary>
+  /// Specifies whether a Whitespaces property can't be changed.
+  /// </summary>
+  public bool WhitespacesFixed { get; set; }
+
+  /// <summary>
+  /// Changes Whitespaces only when WhitespacesFixed is false.
+  /// </summary>
   public WhitespaceBehavior Whitespaces
   {
     get => _Whitespaces;
@@ -116,13 +176,13 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     }
   }
 
-  public bool WhitespacesFixed { get; set; }
-
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value is null)
@@ -148,11 +208,13 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return Base.ConvertTo(context, culture, value, destinationType);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -181,6 +243,11 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return Convert.ChangeType(value, ExpectedType ?? typeof(string));
   }
 
+  /// <summary>
+  /// Encodes escape sequences in a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public string EncodeEscapeSequences(string str)
   {
     var sb = new StringBuilder();
@@ -200,14 +267,14 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
         }
         else if (ch <= '\x7F')
         {
-          if (HexEntities)
+          if (UseHexEntities)
             sb.Append($"\\x{(byte)ch:X2}");
           else
             sb.Append($"\\u00{(byte)ch:X2}");
         }
         else
         {
-          if (HexEntities)
+          if (UseHexEntities)
             sb.Append($"\\x{(UInt16)ch:X4}");
           else
             sb.Append($"\\u{(UInt16)ch:X4}");
@@ -220,6 +287,11 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return result;
   }
 
+  /// <summary>
+  /// Decodes escape sequences in a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public string DecodeEscapeSequences(string str)
   {
     var sb = new StringBuilder();
@@ -262,6 +334,11 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return result;
   }
 
+  /// <summary>
+  /// Encodes HtmlEntities in a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public string EncodeHtmlEntities(string str)
   {
     var sb = new StringBuilder();
@@ -281,14 +358,14 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
         }
         else if (ch <= '\x7F')
         {
-          if (HexEntities)
+          if (UseHexEntities)
             sb.Append($"&#x{(byte)ch:X2};");
           else
             sb.Append($"&#{(byte)ch};");
         }
         else
         {
-          if (HexEntities)
+          if (UseHexEntities)
             sb.Append($"&#x{(UInt16)ch:X4};");
           else
             sb.Append($"&#{(UInt16)ch};");
@@ -301,6 +378,11 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return result;
   }
 
+  /// <summary>
+  /// Decodes HtmlEntities in a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   public string DecodeHtmlEntities(string str)
   {
     var sb = new StringBuilder();
@@ -339,6 +421,13 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return result;
   }
 
+  /// <summary>
+  /// Validates string length. Adds spaces or trims a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="minLength"></param>
+  /// <param name="maxLength"></param>
+  /// <returns></returns>
   public static string ValidateStrLength(string str, int? minLength, int? maxLength)
   {
     if (maxLength != null && str.Length > maxLength)
@@ -348,6 +437,12 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return str;
   }
 
+  /// <summary>
+  /// Validates string against WhitespaceBehavior. Returns converted string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="behavior"></param>
+  /// <returns></returns>
   public static string ValidateWhitespaces(string str, WhitespaceBehavior behavior)
   {
     var chars = str.ToArray();

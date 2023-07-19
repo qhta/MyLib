@@ -16,7 +16,7 @@ public class TestCase<DataType> : TestCase
     ExecFunction = execFunc;
   }
 
-  public DataType Data { get; init; }
+  public DataType Data { get; private set; }
 
   public new Func<DataType?, TestResult>? ExecFunction { get; set; }
 

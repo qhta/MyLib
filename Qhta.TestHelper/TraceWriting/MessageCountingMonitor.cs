@@ -26,7 +26,7 @@ public class MessageCountingMonitor : ITraceMonitor
   /// <summary>
   /// Output filename
   /// </summary>
-  private string? Filename { get; init; }
+  private string? Filename { get; set; }
 
   /// <summary>
   /// If monitor flushes to console

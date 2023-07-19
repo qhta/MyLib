@@ -1,9 +1,12 @@
 ﻿namespace Qhta.Xml;
 
 /// <summary>
-///   Type converter with unit property.
+///   Interface for a type converter with unit property.
 /// </summary>
 public interface IRealTypeConverter
 {
+  /// <summary>
+  /// Defines string shortcut of unit.
+  /// </summary>
   public string? Unit { get; set; }
 }

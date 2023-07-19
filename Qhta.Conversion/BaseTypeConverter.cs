@@ -5,6 +5,9 @@ using Qhta.Xml;
 
 namespace Qhta.Conversion;
 
+/// <summary>
+/// Basic type converter - to be extended by other converters.
+/// </summary>
 public class BaseTypeConverter: TypeConverter
 {
   /// <summary>

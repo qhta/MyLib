@@ -1,5 +1,8 @@
 ﻿namespace Qhta.Xml;
 
+/// <summary>
+/// Defines methods that must be implemented in an XmlReader.
+/// </summary>
 public interface IXmlReader
 {
   ///<summary>
@@ -11,6 +14,11 @@ public interface IXmlReader
   /// Closes the stream/TextReader (if CloseInput==true), changes the ReadState to Closed, and sets all the properties back to zero/empty string.
   ///</summary>
   public void Close();
+
+  /// <summary>
+  /// Needed to use IXmlSerializable interface.
+  /// </summary>
+  public XmlReader? BaseXmlReader { get; }
 
   #region Settings
   ///<summary>
@@ -113,6 +121,15 @@ public interface IXmlReader
   ///</summary>
   public string XmlLang { get; }
   
+  /// <summary>
+  /// Gets line number of XML text file where the exception occured.
+  /// </summary>
+  public int? LineNumber { get; }
+
+  /// <summary>
+  /// Gets the position in line of XML text file where the exception occured.
+  /// </summary>
+  public int? LinePosition { get; }
   #endregion
 
   #region Attribute accessors
@@ -293,6 +310,39 @@ public interface IXmlReader
   /// Checks that the current content node is an element with the given LocalName and NamespaceURI and advances the reader to the next node.
   ///</summary>
   public void ReadStartElement(XmlQualifiedTagName fullName);
+
+  /// <summary>
+  /// Checks if reader node type is EndElement.
+  /// </summary>
+  public bool IsEndElement();
+
+  /// <summary>
+  /// Checks if reader node type is EndElement and reade name is a specified string
+  /// </summary>
+  public bool IsEndElement(string name);
+
+  /// <summary>
+  /// Checks if reader node type is EndElement and reade name is a specified local name and namespaceURI is a specified namespace.
+  /// </summary>
+  public bool IsEndElement(XmlQualifiedTagName tag);
+
+  /// <summary>
+  /// Wrapper for ReadEndElement operation.
+  /// Checks that the current content node is an end tag and advances the reader to the next node.
+  /// </summary>
+  public void ReadEndElement();
+
+  /// <summary>
+  /// Wrapper for ReadEndElement operation.
+  /// Checks that the current content node is an end tag with a specified name and advances the reader to the next node.
+  /// </summary>
+  public void ReadEndElement(string name);
+
+  /// <summary>
+  /// Wrapper for ReadEndElement operation.
+  /// Checks that the current content node is an end tag with a specified name and namespaceURI and advances the reader to the next node.
+  /// </summary>
+  public void ReadEndElement(XmlQualifiedTagName tag);
 
   #endregion
 

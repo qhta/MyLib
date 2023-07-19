@@ -237,19 +237,19 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   ///   Attribute or element name used for serialization.
   /// </summary>
   [XmlAttribute]
-  public string XmlName { get; init; }
+  public string XmlName { get; private set; }
 
   /// <summary>
   ///   Attribute or element XML namespace used for serialization.
   /// </summary>
   [XmlAttribute]
-  public string? XmlNamespace { get; init; }
+  public string? XmlNamespace { get; private set; }
 
   /// <summary>
   ///   ClrNamespace of the property or field.
   /// </summary>
   [XmlAttribute]
-  public string? ClrNamespace { get; init; }
+  public string? ClrNamespace { get; private set; }
 
   /// <summary>
   /// Gets the the qualified name (XmlName, XmlNamespace) of the element.

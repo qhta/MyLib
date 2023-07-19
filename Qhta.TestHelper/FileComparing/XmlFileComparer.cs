@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Runtime.CompilerServices;
 
 namespace Qhta.TestHelper;
 
@@ -617,7 +618,7 @@ public class XmlFileComparer : AbstractFileComparer
       (xmlElement as IXmlSerializable).WriteXml(xmlWriter);
       var str = stringWriter.ToString();
       str = str.Replace("\r\n", "\n"); ;
-      var lines = str.Split("\n");
+      var lines = str.Split('\n');
       return lines;
     }
   }

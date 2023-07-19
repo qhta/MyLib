@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 using Qhta.Conversion;
+using Qhta.Xml;
 
 namespace ConversionTest;
 

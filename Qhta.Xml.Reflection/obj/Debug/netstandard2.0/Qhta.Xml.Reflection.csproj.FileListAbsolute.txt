@@ -8,3 +8,8 @@ D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Refle
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.csproj.CoreCompileInputs.cache
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.xml
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.xml

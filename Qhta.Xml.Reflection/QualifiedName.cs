@@ -150,7 +150,7 @@ public struct QualifiedName : IComparable<QualifiedName>, IEquatable<QualifiedNa
 
   public override int GetHashCode()
   {
-    return HashCode.Combine(Namespace, Name);
+    return (Namespace+"."+Name).GetHashCode();
   }
 
   public static bool operator ==(QualifiedName @this, QualifiedName other)

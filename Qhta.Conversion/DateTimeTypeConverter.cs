@@ -42,6 +42,7 @@ public class DateTimeTypeConverter : BaseTypeConverter
       return null;
     var mode = XsdType;
     var showTimeZone = ShowTimeZone || value is DateTimeOffset;
+#if NET6_0_OR_GREATER
     if (value is DateOnly dateOnly)
     {
       value = new DateTimeOffset(dateOnly.ToDateTime(new TimeOnly()));
@@ -52,7 +53,9 @@ public class DateTimeTypeConverter : BaseTypeConverter
       value = new DateTimeOffset(new DateOnly(1, 1, 1).ToDateTime(timeOnly));
       mode = XsdSimpleType.Time;
     }
-    else if (value is DateTime dateTime)
+    else 
+#endif
+    if (value is DateTime dateTime)
     {
       value = new DateTimeOffset(dateTime);
     }
@@ -154,11 +157,13 @@ public class DateTimeTypeConverter : BaseTypeConverter
       else if (FormatInfo != null) result = DateTimeOffset.Parse(str, FormatInfo, style);
       else result = DateTimeOffset.Parse(str, null, style);
 
+#if NET6_0_OR_GREATER
       if (ExpectedType == typeof(DateOnly))
         return DateOnly.FromDateTime(result.Date);
 
       if (ExpectedType == typeof(TimeOnly))
         return TimeOnly.FromDateTime(result.DateTime);
+#endif
 
       if (ExpectedType == typeof(DateTime))
         return result.DateTime;

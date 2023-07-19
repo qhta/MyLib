@@ -28,10 +28,10 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
   /// <param name="filename">name of output file</param>
   /// <param name="consoleOutputEnabled">if should output to console</param>
   /// <param name="traceOutputEnabled">if should output to trace</param>
-  public TraceXmlWriter(string? filename, bool consoleOutputEnabled = false, bool traceOutputEnabled = false):
+  public TraceXmlWriter(string? filename, bool consoleOutputEnabled = false, bool traceOutputEnabled = false) :
     base(filename, consoleOutputEnabled, traceOutputEnabled)
   {
-    if (OutputStream==null)
+    if (OutputStream == null)
       throw new InvalidOperationException($"Output stream not created for \"{filename}\"");
     _writer = XmlWriter.Create(OutputStream, new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true });
     _stack = new Stack<string>();
@@ -54,7 +54,7 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
     _writer.WriteAttributeString("xmlns", prefix, null, ns);
   }
 
-  public void SuppressPrefix(string prefix, bool value=true)
+  public void SuppressPrefix(string prefix, bool value = true)
   {
     if (value)
       _suppressedPrefixes.Add(prefix);
@@ -63,18 +63,30 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
   }
 
   [DebuggerStepThrough]
+  public void WriteStartElement(string tag) => WriteStartElement(null, tag, null);
+
+  [DebuggerStepThrough]
+  public void WriteStartElement(string? prefix, string localName) => WriteStartElement(prefix, localName, null);
+
+  [DebuggerStepThrough]
   public void WriteStartElement(string? prefix, string localName, string? ns)
   {
-    if (prefix!=null && _suppressedPrefixes.Contains(prefix)) return;
+    if (prefix != null && _suppressedPrefixes.Contains(prefix)) return;
 
     _writer.WriteStartElement(prefix, localName, ns);
     var xmlName = localName;
-    if (prefix!=null)
+    if (prefix != null)
       xmlName = prefix + ":" + localName;
     _stack.Push(xmlName);
     if (AutoFlush)
       Flush();
   }
+
+  [DebuggerStepThrough]
+  public void WriteEndElement(string tag) => WriteEndElement(null, tag, null);
+
+  [DebuggerStepThrough]
+  public void WriteEndElement(string? prefix, string localName) => WriteEndElement(prefix, localName, null);
 
   [DebuggerStepThrough]
   public void WriteEndElement(string? prefix, string localName, string? ns)
@@ -84,16 +96,25 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
     var xmlName = localName;
     if (prefix != null)
       xmlName = prefix + ":" + localName;
-    if (_stack.TryPeek(out var _storedName) && xmlName == _storedName)
+    if (_stack.Count > 0)
     {
-      _stack.Pop();
-      _writer.WriteEndElement();
-      if (AutoFlush)
-        Flush();
-    }
-    else
+      var _storedName = _stack.Peek();
+      if (xmlName == _storedName)
+      {
+        _stack.Pop();
+        _writer.WriteEndElement();
+        if (AutoFlush)
+          Flush();
+        return;
+      }
       throw new InvalidOperationException($"TraceXmlWriter tried to write end of \"{xmlName}\" element but \"{_storedName}\" expected");
+    }
+      throw new InvalidOperationException($"TraceXmlWriter tried to write end of \"{xmlName}\" element but element stack was empty");
   }
+
+  public void WriteAttributeString(string attrName, string? value) => WriteAttributeString(null, attrName, null, value);
+
+  public void WriteAttributeString(string? prefix, string localName, string? value) => WriteAttributeString(prefix, localName, null, value);
 
   public void WriteAttributeString(string? prefix, string attrName, string? ns, string? str)
   {
@@ -103,6 +124,8 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
     _writer.WriteAttributeString(prefix, attrName, ns, str);
   }
 
+  public void WriteValue(string? str) => WriteValue(null, str);
+
   public void WriteValue(string? prefix, string? str)
   {
     if (prefix != null && _suppressedPrefixes.Contains(prefix)) return;
@@ -110,22 +133,30 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
 
     if (_spaceBehavior == XmlSpace.Preserve)
     {
-      if (str.StartsWith(' ') || str.EndsWith(' ') || str.Contains('\n') || str.Contains('\r') || str.Contains('\t'))
+      if (str.StartsWith(" ") || str.EndsWith(" ") || str.Contains('\n') || str.Contains('\r') || str.Contains('\t'))
         WriteSignificantSpaces(true);
     }
     _writer.WriteValue(str);
   }
 
+  public void WriteElementString(string tagName, string? value) => WriteElementString(null, tagName, null, value);
+
+  public void WriteElementString(string? prefix, string localName, string? value) => WriteElementString(prefix, localName, null, value);
+
   public void WriteElementString(string? prefix, string localName, string? ns, string? value)
   {
     if (prefix != null && _suppressedPrefixes.Contains(prefix)) return;
 
-    if (value==null) return;
+    if (value == null) return;
 
     _writer.WriteStartElement(prefix, localName, ns);
     _writer.WriteValue(value);
     _writer.WriteEndElement();
   }
+
+  public void WriteEmptyElement(string tagName) => WriteEmptyElement(null, tagName, null);
+
+  public void WriteEmptyElement(string? prefix, string localName) => WriteEmptyElement(prefix, localName, null);
 
   public void WriteEmptyElement(string? prefix, string localName, string? ns)
   {
@@ -139,6 +170,8 @@ public class TraceXmlWriter : TraceTextWriter, ITraceXmlWriter
   {
     _writer.WriteAttributeString("xml", "space", null, (value) ? "preserve" : "default");
   }
+
+  public void WriteComment(string? text) => WriteComment(null, text);
 
   public void WriteComment(string? prefix, string? str)
   {

@@ -1,19 +1,43 @@
 ﻿namespace Qhta.Xml;
 
-public enum XmlAttributeNameType
+/// <summary>
+/// Specifies a kind of serialized/desetialized name.
+/// </summary>
+public enum XmlAttributeNameKind
 {
+  /// <summary>
+  /// Name represents serialized/deserialized element.
+  /// </summary>
   Element,
+  /// <summary>
+  /// Name represents serialized/deserialized property or field.
+  /// </summary>
   Property,
-  Method
+  /// <summary>
+  /// Name represents a method used in serialization/deserialization.
+  /// </summary>
+  Method,
 }
 
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+/// <summary>
+/// Defines an attribute which can specify a name recognized in a class/interface/struct.
+/// There may be multiple such attributes declared for a single type.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct, AllowMultiple = true)]
 public class XmlNameAttribute : Attribute
 {
+
+  /// <summary>
+  /// Default constructor.
+  /// </summary>
   public XmlNameAttribute()
   {
   }
 
+  /// <summary>
+  /// Constructor with element name.
+  /// </summary>
+  /// <param name="elementName"></param>
   public XmlNameAttribute(string? elementName)
   {
     ElementName = elementName;
@@ -21,35 +45,47 @@ public class XmlNameAttribute : Attribute
 
   private string? Name { get; set; }
 
-  public XmlAttributeNameType NameType { get; set; }
+  /// <summary>
+  /// A type of the name
+  /// </summary>
+  public XmlAttributeNameKind NameType { get; set; }
 
+  /// <summary>
+  /// Gets/sets a name as an element name.
+  /// </summary>
   public string? ElementName
   {
-    get => NameType == XmlAttributeNameType.Element ? Name : null;
+    get => NameType == XmlAttributeNameKind.Element ? Name : null;
     set
     {
       Name = value;
-      NameType = XmlAttributeNameType.Element;
+      NameType = XmlAttributeNameKind.Element;
     }
   }
 
+  /// <summary>
+  /// Gets/sets a name as a property (or field) name.
+  /// </summary>
   public string? PropertyName
   {
-    get => NameType == XmlAttributeNameType.Property ? Name : null;
+    get => NameType == XmlAttributeNameKind.Property ? Name : null;
     set
     {
       Name = value;
-      NameType = XmlAttributeNameType.Property;
+      NameType = XmlAttributeNameKind.Property;
     }
   }
 
+  /// <summary>
+  /// Gets/sets a name as a method name.
+  /// </summary>
   public string? MethodName
   {
-    get => NameType == XmlAttributeNameType.Method ? Name : null;
+    get => NameType == XmlAttributeNameKind.Method ? Name : null;
     set
     {
       Name = value;
-      NameType = XmlAttributeNameType.Method;
+      NameType = XmlAttributeNameKind.Method;
     }
   }
 }

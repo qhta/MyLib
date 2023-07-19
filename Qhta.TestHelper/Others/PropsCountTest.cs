@@ -39,9 +39,9 @@ public class PropsCountTest
     }
   }
 
-  public Type Type { get; init; }
+  public Type Type { get; private set; }
 
-  List<ChangeableKeyValuePair<PropertyInfo, int>> Properties { get; init; }
+  List<ChangeableKeyValuePair<PropertyInfo, int>> Properties { get; set; }
 
   public void CountFilledProps(object obj)
   {

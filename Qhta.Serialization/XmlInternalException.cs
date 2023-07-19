@@ -17,7 +17,7 @@ public class XmlInvalidOperationException : Exception
   /// <param name="xmlReader"></param>
   /// <param name="innerException"></param>
   /// <param name="methodName"></param>
-  public XmlInvalidOperationException(string message, XmlReader xmlReader, Exception? innerException = null,
+  public XmlInvalidOperationException(string message, IXmlReader xmlReader, Exception? innerException = null,
     [CallerMemberName] string? methodName = null) : base(ComposeMessage(message, xmlReader), innerException)
   {
     if (xmlReader is XmlTextReader xmlTextReader)
@@ -49,5 +49,15 @@ public class XmlInvalidOperationException : Exception
       return message + $" in line {lineNumber}  at position {linePosition}";
     }
     return message;
+  }
+
+  /// <summary>
+  /// Composes message adding "in line ... at position ...
+  /// </summary>
+  protected static string ComposeMessage(string message, IXmlReader xmlReader)
+  {
+    var lineNumber = xmlReader.LineNumber;
+    var linePosition = xmlReader.LinePosition;
+    return message + $" in line {lineNumber}  at position {linePosition}";
   }
 }

@@ -5,3 +5,12 @@ D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.Ge
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestHelper.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestHelper.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestHelper.xml
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\refint\Qhta.TestHelper.dll
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.xml
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\Qhta.TestHelper.pdb
+D:\VS\Projects\MyLib\Qhta.TestHelper\obj\Debug\netstandard2.0\ref\Qhta.TestHelper.dll

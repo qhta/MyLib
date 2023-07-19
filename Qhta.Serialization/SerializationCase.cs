@@ -1,7 +1,7 @@
 ﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
-/// Specifies mode for name case change
+/// Specifies modes for name case change.
 /// </summary>
 public enum SerializationCase
 {

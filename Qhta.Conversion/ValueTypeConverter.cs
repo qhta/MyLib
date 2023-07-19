@@ -32,7 +32,9 @@ public class ValueTypeConverter : BaseTypeConverter
     {
       XsdSimpleType.Byte, new[] { typeof(sbyte), typeof(int), typeof(byte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
     },
+#if NET6_0_OR_GREATER
     { XsdSimpleType.Date, new[] { typeof(DateTime), typeof(DateTimeOffset), typeof(DateOnly) } },
+#endif
     { XsdSimpleType.DateTime, new[] { typeof(DateTime), typeof(DateTimeOffset) } },
     {
       XsdSimpleType.Decimal,
@@ -111,7 +113,9 @@ public class ValueTypeConverter : BaseTypeConverter
       new[] { typeof(short), typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(long) }
     },
     { XsdSimpleType.String, new[] { typeof(string) } },
+#if NET6_0_OR_GREATER
     { XsdSimpleType.Time, new[] { typeof(DateTime), typeof(DateTimeOffset), typeof(TimeOnly) } },
+#endif
     { XsdSimpleType.Token, new[] { typeof(string) } },
     {
       XsdSimpleType.UnsignedByte,
@@ -138,7 +142,9 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(bool), new BooleanTypeConverter() },
     { typeof(byte), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedByte } },
     { typeof(byte[]), new Base64TypeConverter() },
+#if NET6_0_OR_GREATER
     { typeof(DateOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Date, ExpectedType = typeof(DateOnly)} },
+#endif
     { typeof(DateTime), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime } },
     { typeof(DateTimeOffset), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime, ExpectedType = typeof(DateTimeOffset) } },
     { typeof(decimal), new NumericTypeConverter { XsdType = XsdSimpleType.Decimal } },
@@ -153,7 +159,9 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(char), new StringTypeConverter{ ExpectedType = typeof(char) } },
     { typeof(string), new StringTypeConverter() },
     { typeof(string[]), new ArrayTypeConverter() },
+#if NET6_0_OR_GREATER
     { typeof(TimeOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Time, ExpectedType = typeof(DateOnly) } },
+#endif
     { typeof(TimeSpan), new TimeSpanTypeConverter() },
     { typeof(uint), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedInt } },
     { typeof(ulong), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedLong } },

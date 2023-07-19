@@ -15,6 +15,6 @@ public class InvalidOperationException : Exception
   protected static string ComposeMessage(string message, string? methodName)
     => message + $" in {methodName}";
 
-  public string? MethodName { get; init; }
+  public string? MethodName { get; private set; }
 
 }

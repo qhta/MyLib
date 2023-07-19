@@ -124,7 +124,7 @@ public class XmlSerializationInfoMapper
     if (String.IsNullOrEmpty(elementNamespace))
       elementNamespace = GetElementNamespace(aType);
 
-    typeInfo.XmlName = elementName;
+    typeInfo.XmlName = elementName ?? "";
     typeInfo.XmlNamespace = elementNamespace;
     typeInfo.ClrNamespace = aType.Namespace;
     if (aType.GetCustomAttribute<XmlObjectAttribute>(false) != null)
@@ -353,9 +353,9 @@ public class XmlSerializationInfoMapper
     var attrNamespace = xmlAttribute?.Namespace;
     if (string.IsNullOrEmpty(attrName))
       attrName = memberInfo.Name;
-    if (Options.AttributeNameCase != 0)
+    if (attrName!=null && Options.AttributeNameCase != 0)
       attrName = attrName.ChangeCase(Options.AttributeNameCase);
-    var qAttrName = new QualifiedName(attrName, attrNamespace);
+    var qAttrName = new QualifiedName(attrName ?? "", attrNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qAttrName))
       return false;
     var order = memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
@@ -395,11 +395,11 @@ public class XmlSerializationInfoMapper
     var elementNamespace = xmlAttribute?.Namespace;
     if (string.IsNullOrEmpty(elementName))
       elementName = memberInfo.Name;
-    if (Options.ElementNameCase != 0)
+    if (elementName!=null && Options.ElementNameCase != 0)
       elementName = elementName.ChangeCase(Options.ElementNameCase);
     if (string.IsNullOrEmpty(elementNamespace))
       elementNamespace = memberInfo.DeclaringType?.Namespace ?? "";
-    var qElemName = new QualifiedName(elementName, null);
+    var qElemName = new QualifiedName(elementName ?? "", null);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = xmlAttribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
@@ -461,14 +461,14 @@ public class XmlSerializationInfoMapper
     var elemNamespace = attribute?.Namespace;
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
-    if (Options.ElementNameCase != 0)
+    if (elemName!=null && Options.ElementNameCase != 0)
       elemName = elemName.ChangeCase(Options.ElementNameCase);
-    var qElemName = new QualifiedName(elemName, elemNamespace);
+    var qElemName = new QualifiedName(elemName ?? "", elemNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
-    typeInfo.KnownMembers.Add(elemName, serializationMemberInfo);
+    typeInfo.KnownMembers.Add(elemName ?? "", serializationMemberInfo);
     //KnownNamespaces.TryAdd(qElemName.XmlNamespace);
     return true;
   }
@@ -487,15 +487,15 @@ public class XmlSerializationInfoMapper
     var elemNamespace = attribute?.Namespace;
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
-    if (Options.ElementNameCase != 0)
+    if (elemName!=null && Options.ElementNameCase != 0)
       elemName = elemName.ChangeCase(Options.ElementNameCase);
-    var qElemName = new QualifiedName(elemName, elemNamespace);
+    var qElemName = new QualifiedName(elemName ?? "", elemNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
     var order = attribute?.Order ?? memberInfo.GetCustomAttribute<SerializationOrderAttribute>()?.Order ?? defaultOrder;
     var serializationMemberInfo = CreateSerializationMemberInfo(typeInfo, qElemName, memberInfo, order);
     serializationMemberInfo.ContentInfo = CreateCollectionInfo(memberInfo);
-    typeInfo.KnownMembers.Add(elemName, serializationMemberInfo);
+    typeInfo.KnownMembers.Add(elemName ?? "", serializationMemberInfo);
     //KnownNamespaces.TryAdd(serializationMemberInfo.Name.Namespace);
     if (serializationMemberInfo.TypeConverter == null && serializationMemberInfo.XmlConverter == null)
       serializationMemberInfo.TypeConverter = new Qhta.Conversion.ArrayTypeConverter();
@@ -783,9 +783,10 @@ public class XmlSerializationInfoMapper
       var converterType = xmlTypeConverterAttrib.ConverterType;
       if (converterType == null)
         throw new InvalidOperationException($"Converter type not declared in XmlConverterAttribute assigned to a type {aType.Name}");
-      var argTypes = new Type[xmlTypeConverterAttrib.Args.Length];
-      for (var i = 0; i < argTypes.Length; i++)
-        argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
+      var argTypes = new Type[xmlTypeConverterAttrib.Args?.Length ?? 0];
+      if (xmlTypeConverterAttrib.Args!=null)
+        for (var i = 0; i < argTypes.Length; i++)
+          argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
       var constructor = converterType.GetConstructor(argTypes);
       if (constructor == null)
         throw new InvalidOperationException($"Converter type {converterType.Name} has no appropriate constructor");
@@ -950,7 +951,7 @@ public class XmlSerializationInfoMapper
         var serializationItemTypeInfo = new SerializationItemInfo(xmlName, xmlNamespace, RegisterType(itemType));
         if (arrayItemAttribute is XmlItemElementAttribute xmlElementAttribute)
         {
-          serializationItemTypeInfo.Value = xmlElementAttribute.Value;
+          serializationItemTypeInfo.Value = xmlElementAttribute.Args?.FirstOrDefault();
           if (xmlElementAttribute.ConverterType != null)
             serializationItemTypeInfo.TypeInfo.TypeConverter = CreateTypeConverter(xmlElementAttribute.ConverterType);
         }
@@ -1125,7 +1126,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   protected void SearchShouldSerializeMethods(Type aType, SerializationTypeInfo typeInfo)
   {
-    if (Options.CheckMethod.EndsWith('*'))
+    if (Options.CheckMethod.EndsWith("*"))
     {
       var prefix = Options.CheckMethod.Substring(0, Options.CheckMethod.Length - 1);
       var methodInfos = aType

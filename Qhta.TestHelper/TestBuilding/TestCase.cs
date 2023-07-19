@@ -14,7 +14,7 @@ public class TestCase
     ExecFunction = execFunc;
   }
 
-  public string Name { get; init; }
+  public string Name { get; private set; }
 
   public TestResult? Result { get; set; }
 

@@ -16,7 +16,7 @@ public abstract class BufferedTextWriter: TextWriter, ITextWriter, IDisposable
   /// <summary>
   /// Buffer must not be a collection of string, because it may contain color tags.
   /// </summary>
-  public List<object> Buffer { get; init; } = new List<object>();
+  public List<object> Buffer { get; private set; } = new List<object>();
 
   /// <summary>
   /// Last written character
@@ -94,7 +94,7 @@ public abstract class BufferedTextWriter: TextWriter, ITextWriter, IDisposable
       if (AllowIntelligentSpacing)
       {
         #region write new line if str starts with "\\n" and lastChar was "\n"
-        if (str.StartsWith("\\n"))
+        if (str!=null && str.StartsWith("\\n"))
         {
           if (LastChar != '\n')
           {
@@ -114,7 +114,7 @@ public abstract class BufferedTextWriter: TextWriter, ITextWriter, IDisposable
         #endregion
 
         #region write space if str starts with "\\s" and lastChar was not "\n" and not space and not opening punctuation
-        if (str.StartsWith("\\s"))
+        if (str!=null && str.StartsWith("\\s"))
         {
           if (LastChar != '\n' && LastChar != ' ' && Char.GetUnicodeCategory(LastChar) != UnicodeCategory.OpenPunctuation)
           {
@@ -130,7 +130,7 @@ public abstract class BufferedTextWriter: TextWriter, ITextWriter, IDisposable
       }
 
       #region write str content
-      if (str != "")
+      if (str != "" && str != null)
       {
         string[] lines = str.Split('\n');
         for (int i=0; i<lines.Length; i++)

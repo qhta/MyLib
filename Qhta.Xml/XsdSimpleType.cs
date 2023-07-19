@@ -1,9 +1,11 @@
-﻿using System.Xml.Serialization;
+﻿namespace Qhta.Xml;
 
-namespace Qhta.Xml;
-
+/// <summary>
+/// Defines Xsd simple types (with their XML tags).
+/// </summary>
 public enum XsdSimpleType
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   [XmlEnum("anyURI")] AnyUri = 1,
   [XmlEnum("base64Binary")] Base64Binary,
   [XmlEnum("boolean")] Boolean,

@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "TSEbaK0q1RipLVE3xOGm54wgeWoy6CQpGRQhs8wT6jFXE8jXDWDMaNhP+e6x0zfQn5mHVMpGL2Ta6+hOr4pOqQ==",
+  "dgSpecHash": "dS5yIyDHM8KyMqzpLkRNx/e4oWAcKP/C4r1u4NcOcDw3k+w8fFY1vgigyM16BMswcMLemlFomuZzfMsjOBU9UA==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.TestHelper\\Qhta.TestHelper.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

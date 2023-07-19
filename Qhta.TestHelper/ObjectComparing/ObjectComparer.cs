@@ -20,7 +20,7 @@ public class ObjectComparer
   /// <summary>
   /// Writer to receive detailed results of comparison. Set up on comparer constructor.
   /// </summary>
-  public ITraceTextWriter? Writer { get; init; }
+  public ITraceTextWriter? Writer { get; private set; }
 
 
   public bool DeepCompare(object? obj1, object? obj2)
@@ -75,10 +75,12 @@ public class ObjectComparer
         return dateTime1 == dateTime2;
       if (obj1 is TimeSpan timespan1 && obj2 is TimeSpan timespan2)
         return timespan1 == timespan2;
+#if NET6_0_OR_GREATER
       if (obj1 is DateOnly dateonly1 && obj2 is DateOnly dateonly2)
         return dateonly1 == dateonly2;
       if (obj1 is TimeOnly timeonly1 && obj2 is TimeOnly timeonly2)
         return timeonly1 == timeonly2;
+#endif
       if (aType.IsEnum)
         return Enum.Equals(obj1, obj2);
       throw new InvalidOperationException($"Unhandled type {aType}");

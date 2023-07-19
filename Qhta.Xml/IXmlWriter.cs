@@ -1,7 +1,8 @@
-﻿using System.Xml;
-using System.Xml.XPath;
+﻿namespace Qhta.Xml;
 
-namespace Qhta.Xml;
+/// <summary>
+/// Defines methods that must be implemented in an  XmlWriter.
+/// </summary>
 public interface IXmlWriter
 {
   /// <summary>
@@ -24,8 +25,14 @@ public interface IXmlWriter
   /// </summary>
   public XmlWriterSettings? Settings { get; }
 
+  /// <summary>
+  /// Needed to use IXmlSerializable interface.
+  /// </summary>
+  public XmlWriter BaseXmlWriter { get; }
+
   #region Write methods
 
+  #region Base write methods
   /// <summary>
   /// Writes out the XML declaration with the version "1.0".
   /// </summary>
@@ -154,7 +161,28 @@ public interface IXmlWriter
   ///// Encodes the specified binary bytes as binhex and writes out the resulting text.
   ///// </summary>
   //public void WriteBinHex(byte[] buffer, int index, int count);
-  //#endregion
+  #endregion
+
+  #region Xsi/Xsd prefix usage
+  /// <summary>
+  /// Writes a xsi:type="typename" attribute
+  /// </summary>
+  public void WriteTypeAttribute(XmlQualifiedTagName tag);
+  /// <summary>
+  /// Option that specifies whether the reader used xsi namespace.
+  /// </summary>
+  public bool XsiNamespaceUsed { get; }
+
+  /// <summary>
+  /// Option that specifies whether the reader used xsd namespace.
+  /// </summary>
+  public bool XsdNamespaceUsed { get; }
+
+  /// <summary>
+  /// Sorted list of used namespaces.
+  /// </summary>
+  public SortedSet<string> NamespacesUsed { get; }
+  #endregion
 
   #region status
   /// <summary>
@@ -171,6 +199,8 @@ public interface IXmlWriter
   /// Gets the current xml:lang scope.
   /// </summary>
   public string? XmlLang { get; }
+
+
   #endregion
 
   ///// <summary>
@@ -286,7 +316,25 @@ public interface IXmlWriter
   #endregion
 
   #region extra Methods
+
+  /// <summary>
+  /// Specifies whether the significant spaces should be written.
+  /// </summary>
+  /// <param name="value"></param>
   public void WriteSignificantSpaces(bool value);
+
+  #endregion
+
+  #region TraceProperties
+  /// <summary>
+  /// Specifies whether the writer should trace element stack building.
+  /// </summary>
+  public bool TraceElementStack { get; set; }
+
+  /// <summary>
+  /// Specifies whether the writer should trace element stack building.
+  /// </summary>
+  public bool TraceAttributeStack { get; set; }
 
   #endregion
 }

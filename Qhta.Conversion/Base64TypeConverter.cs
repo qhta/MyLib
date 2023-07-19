@@ -35,7 +35,7 @@ public class Base64TypeConverter : BaseTypeConverter
       // Base64String is default encoder for bytes[] type, however sometimes it can be encoded with HexString.
       catch 
       {
-        return Convert.FromHexString(str);
+        return ArrayTypeConverter.FromHexString(str);
       }
     }
     return null;
