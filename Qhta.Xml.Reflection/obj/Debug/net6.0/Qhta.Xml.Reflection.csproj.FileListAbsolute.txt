@@ -26,3 +26,4 @@ D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net6.0\refint\Qhta.Xml.Reflec
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net6.0\Qhta.Xml.Reflection.xml
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net6.0\Qhta.Xml.Reflection.pdb
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net6.0\ref\Qhta.Xml.Reflection.dll
+D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net6.0\Qhta.Xml.Reflection.csproj.CopyComplete

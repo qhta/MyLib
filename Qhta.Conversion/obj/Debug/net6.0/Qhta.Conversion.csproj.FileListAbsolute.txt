@@ -8,7 +8,6 @@ D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.GeneratedM
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.csproj.CoreCompileInputs.cache
-D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\refint\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net6.0\Qhta.Conversion.pdb

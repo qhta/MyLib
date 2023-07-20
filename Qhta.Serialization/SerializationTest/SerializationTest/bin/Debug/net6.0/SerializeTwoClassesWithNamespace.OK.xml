@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root:Class1 xmlns:spec="http://specificNamespace" xmlns:root="http://rootNamespace">
-  <root:Subclass1>
-    <spec:Name>Subclass1</spec:Name>
-  </root:Subclass1>
-  <root:Subclass2>
-    <root:Name>Class2</root:Name>
-  </root:Subclass2>
-</root:Class1>
