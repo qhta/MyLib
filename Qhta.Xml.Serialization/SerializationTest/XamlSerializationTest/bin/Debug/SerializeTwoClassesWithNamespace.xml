@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Class1 xmlns="clr-namespace:XamlSerializationTest.Root;assembly=XamlSerializationTest" xmlns:xsts="clr-namespace:XamlSerializationTest.Specific;assembly=XamlSerializationTest">
+  <Class1.Subclass1>
+    <xsts:Class1 Name="Subclass1" />
+  </Class1.Subclass1>
+  <Class1.Subclass2>
+    <Class2 Name="Class2" />
+  </Class1.Subclass2>
+</Class1>

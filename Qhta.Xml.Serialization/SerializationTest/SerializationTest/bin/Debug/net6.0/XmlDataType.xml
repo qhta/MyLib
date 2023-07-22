@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AttributedData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StringAsInteger>123456789012345678901234567890</StringAsInteger>
+  <IntAsInteger>1234567890</IntAsInteger>
+  <IntAsBool>1</IntAsBool>
+  <BoolAsInt>True</BoolAsInt>
+  <Now>2022-09-21 21:30:11.5338655</Now>
+  <DateTime>2022-09-21 21:30:11.5338655</DateTime>
+  <Date>2022-09-21 00:00:00</Date>
+  <Time>0001-01-01 21:30:11</Time>
+  <DateOnly>2022-09-21</DateOnly>
+  <TimeOnly>21:30:11.5338655</TimeOnly>
+  <LastModified>2022-09-21 21:30:11</LastModified>
+  <Base64Binary>AQIDBAUGBwg=</Base64Binary>
+  <HexBinary>AQIDBAUGBwg=</HexBinary>
+  <BoolTrue>True</BoolTrue>
+  <BoolFalse>False</BoolFalse>
+  <Float>1.1234568</Float>
+  <Double>1.1234567890123457E+19</Double>
+  <Decimal>12345.67890</Decimal>
+</AttributedData>

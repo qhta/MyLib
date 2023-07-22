@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
-      "version": "2.1.0",
+      "version": "1.0.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj",
         "projectName": "Qhta.Xml",
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
@@ -115,7 +115,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }
