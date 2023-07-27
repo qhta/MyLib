@@ -13,7 +13,7 @@
     <RootNamespace>Qhta.Xml.Serialization</RootNamespace>
     <Description>Flexible implementation of XmlSerializer</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>2.2</Version>
+    <Version>2.3</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 

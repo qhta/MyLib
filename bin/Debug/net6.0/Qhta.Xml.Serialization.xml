@@ -953,6 +953,19 @@
             </summary>
             <param name="context">Context object for write operation. Usually a container of the written object</param>
             <param name="obj">Object to writer</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when the object type is not registered.</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.GetSerializationTypeInfo(System.Type)">
+            <summary>
+            Tries to find serialization type info for a specified type.
+            If it can't be found and options allow to serialize unregistered types,
+            it tries to register it.
+            Otherwise it throws an exception.
+            </summary>
+            <param name="aType"></param>
+            <exception cref="T:System.InvalidOperationException">Thrown when the object type is not registered.</exception>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObject(System.Object,System.Object,Qhta.Xml.XmlQualifiedTagName)">
             <summary>
@@ -973,7 +986,7 @@
             </summary>
             <param name="context">Context object for write operation. Usually a container of the written object</param>
             <param name="obj">Object to writer</param>
-            <param name="typeInfo">Serialization info for the object type.</param>
+            <param name="serializationTypeInfo">Serialization info for the object type.</param>
             <exception cref="T:System.InvalidOperationException">Thrown when the object type is not registered.</exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WritePropertiesAsAttributes(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,System.Collections.Generic.List{Qhta.Xml.Reflection.SerializationMemberInfo}@)">
@@ -1083,7 +1096,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteRawString(System.String)">
             <summary>
-            Writes a raw string - without encodind
+            Writes a raw string - without encoding
             </summary>
             <param name="value">value to write</param>
             <remarks>
@@ -1795,6 +1808,12 @@
             <summary>
               Culture used in numbers during serialization/deserialization.
               Default is invariant culture.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.AllowUnregisteredTypes">
+            <summary>
+              Specifies that when the serializer finds an unregistered type,
+              it tries to serialize it anyhow.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.IgnoreUnknownElements">

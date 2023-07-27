@@ -69,13 +69,33 @@ public partial class QXmlSerializer
   /// </summary>
   /// <param name="context">Context object for write operation. Usually a container of the written object</param>
   /// <param name="obj">Object to writer</param>
+  /// <exception cref="InvalidOperationException">Thrown when the object type is not registered.</exception>
   public void WriteObject(object? context, object obj)
   {
     var aType = obj.GetType();
-    if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-      throw new InvalidOperationException($"Type \"{aType}\" not registered");
-    var tag = CreateElementTag(serializedTypeInfo, aType);
+    var serializationTypeInfo = GetSerializationTypeInfo(aType);
+    var tag = CreateElementTag(serializationTypeInfo, aType);
     WriteObject(context, obj, tag);
+  }
+
+  /// <summary>
+  /// Tries to find serialization type info for a specified type.
+  /// If it can't be found and options allow to serialize unregistered types,
+  /// it tries to register it.
+  /// Otherwise it throws an exception.
+  /// </summary>
+  /// <param name="aType"></param>
+  /// <exception cref="InvalidOperationException">Thrown when the object type is not registered.</exception>
+  /// <returns></returns>
+  /// <exception cref="InvalidOperationException"></exception>
+  private SerializationTypeInfo GetSerializationTypeInfo(Type aType)
+  {
+    if (!KnownTypes.TryGetValue(aType, out var serializationTypeInfo))
+      if (Options.AllowUnregisteredTypes)
+        serializationTypeInfo = RegisterType(aType);
+    if (serializationTypeInfo == null)
+      throw new InvalidOperationException($"Type \"{aType}\" not registered for serialization");
+    return serializationTypeInfo;
   }
 
   /// <summary>
@@ -100,8 +120,7 @@ public partial class QXmlSerializer
     }
     else
     {
-      if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-        throw new InvalidOperationException($"Type \"{aType}\" not registered");
+      var serializationTypeInfo = GetSerializationTypeInfo(aType);
       Writer.EmitNamespaces = Options.EmitNamespaces;
       if (tag != null)
         Writer.WriteStartElement(tag);
@@ -120,7 +139,7 @@ public partial class QXmlSerializer
         namespacesWritten = true;
       }
 
-      WriteObjectInterior(context, obj, serializedTypeInfo);
+      WriteObjectInterior(context, obj, serializationTypeInfo);
       if (tag != null)
         Writer.WriteEndElement(tag);
     }
@@ -131,19 +150,18 @@ public partial class QXmlSerializer
   /// </summary>
   /// <param name="context">Context object for write operation. Usually a container of the written object</param>
   /// <param name="obj">Object to writer</param>
-  /// <param name="typeInfo">Serialization info for the object type.</param>
+  /// <param name="serializationTypeInfo">Serialization info for the object type.</param>
   /// <exception cref="InvalidOperationException">Thrown when the object type is not registered.</exception>
-  public void WriteObjectInterior(object? context, object obj, SerializationTypeInfo? typeInfo = null)
+  public void WriteObjectInterior(object? context, object obj, SerializationTypeInfo? serializationTypeInfo = null)
   {
-    if (typeInfo == null)
+    if (serializationTypeInfo == null)
     {
       var aType = obj.GetType();
-      if (!KnownTypes.TryGetValue(aType, out typeInfo))
-        throw new InvalidOperationException($"Type \"{aType}\" not registered");
+      serializationTypeInfo = GetSerializationTypeInfo(aType);
     }
 
-    WritePropertiesAsAttributes(context, obj, typeInfo, out var rejectedList);
-    var typeConverter = typeInfo.TypeConverter;
+    WritePropertiesAsAttributes(context, obj, serializationTypeInfo, out var rejectedList);
+    var typeConverter = serializationTypeInfo.TypeConverter;
     if (typeConverter != null)
     {
       if (typeConverter is IRealTypeConverter realTypeConverter)
@@ -151,39 +169,39 @@ public partial class QXmlSerializer
       WriteConvertedString(typeConverter, obj);
     }
     else
-    if (typeInfo.Type.IsSimple())
+    if (serializationTypeInfo.Type.IsSimple())
     {
-      typeConverter = new ValueTypeConverter(typeInfo.Type);
+      typeConverter = new ValueTypeConverter(serializationTypeInfo.Type);
       if (typeConverter is IRealTypeConverter realTypeConverter)
         realTypeConverter.Unit = Options.DefaultUnit;
       WriteConvertedString(typeConverter, obj);
     }
     else
-    if (typeInfo.ContentProperty != null)
+    if (serializationTypeInfo.ContentProperty != null)
     {
-      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
-      WriteContentProperty(obj, typeInfo.ContentProperty);
+      WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
+      WriteContentProperty(obj, serializationTypeInfo.ContentProperty);
     }
     else
-    if (typeInfo.TextProperty != null)
+    if (serializationTypeInfo.TextProperty != null)
     {
-      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
-      WriteContentProperty(obj, typeInfo.TextProperty);
+      WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
+      WriteContentProperty(obj, serializationTypeInfo.TextProperty);
     }
     else
-    if (typeInfo.IsCollection && typeInfo.ContentInfo is ContentItemInfo contentItemInfo && obj is IEnumerable collection)
+    if (serializationTypeInfo.IsCollection && serializationTypeInfo.ContentInfo is ContentItemInfo contentItemInfo && obj is IEnumerable collection)
     {
-      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
+      WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
       WriteCollectionElement(context, collection, null, contentItemInfo);
     }
     else
-    if (typeInfo.IsDictionary && typeInfo.ContentInfo is DictionaryInfo dictionaryInfo && obj is IDictionary dictionary)
+    if (serializationTypeInfo.IsDictionary && serializationTypeInfo.ContentInfo is DictionaryInfo dictionaryInfo && obj is IDictionary dictionary)
     {
-      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
+      WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
       WriteDictionaryElement(context, dictionary, null, dictionaryInfo);
     }
     else
-      WritePropertiesAsElements(context, obj, typeInfo, rejectedList);
+      WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
   }
 
   /// <summary>
@@ -201,7 +219,7 @@ public partial class QXmlSerializer
     out List<SerializationMemberInfo>? rejectedMembers)
   {
     var type = obj.GetType();
-    var propList = typeInfo.MembersAsAttributes;
+    var propList = typeInfo.MembersAsAttributes.OrderBy(item=>item.Order);
     var attrsWritten = 0;
     rejectedMembers = null;
     foreach (var memberInfo in propList)
@@ -249,8 +267,6 @@ public partial class QXmlSerializer
   public int WritePropertiesAsElements(object? context, object obj, SerializationTypeInfo typeInfo,
     List<SerializationMemberInfo>? attrRejectedList)
   {
-    if (obj.GetType()?.Name == "Outline")
-      Debug.Assert(true);
     var props = typeInfo.MembersAsElements.ToList();
     if (attrRejectedList != null)
       props.AddRange(attrRejectedList);
@@ -330,9 +346,9 @@ public partial class QXmlSerializer
             }
             else
             {
-              if (Options.UseXsiType && propTag!=null)
+              if (Options.UseXsiType && propTag != null)
               {
-                if (!propType.IsSealed && propValue.GetType()!=propType)
+                if (!propType.IsSealed && propValue.GetType() != propType)
                   WriteTypeAttribute(propValue.GetType());
                 WriteObjectInterior(context, propValue);
               }
@@ -351,9 +367,8 @@ public partial class QXmlSerializer
 
   private void WriteTypeAttribute(Type aType)
   {
-    if (!KnownTypes.TryGetValue(aType, out var serializedTypeInfo))
-      throw new InvalidOperationException($"Type \"{aType}\" not registered");
-    var typeTag = CreateElementTag(serializedTypeInfo, aType);
+    var serializationTypeInfo = GetSerializationTypeInfo(aType);
+    var typeTag = CreateElementTag(serializationTypeInfo, aType);
     Writer.WriteTypeAttribute(typeTag);
   }
 
@@ -732,7 +747,7 @@ public partial class QXmlSerializer
   }
 
   /// <summary>
-  /// Writes a raw string - without encodind
+  /// Writes a raw string - without encoding
   /// </summary>
   /// <param name="value">value to write</param>
   /// <remarks>
@@ -743,8 +758,6 @@ public partial class QXmlSerializer
   {
     if (value is string str)
     {
-      if (str.Contains('&'))
-        Debugger.Break();
       Writer.WriteString(str);
     }
   }

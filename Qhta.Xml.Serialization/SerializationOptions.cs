@@ -94,6 +94,12 @@ public class SerializationOptions
   public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
 
   /// <summary>
+  ///   Specifies that when the serializer finds an unregistered type,
+  ///   it tries to serialize it anyhow.
+  /// </summary>
+  public bool AllowUnregisteredTypes { get; set; }
+
+  /// <summary>
   ///   Specifies that when the deserializer finds an unknown XML element,
   ///   it skips to the closing element (or ignores if it is an empty element).
   /// </summary>

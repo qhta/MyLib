@@ -116,7 +116,7 @@ public partial class QXmlSerializer : IXmlSerializer
   /// <summary>
   /// Gets the defined SerializationOptions.
   /// </summary>
-  public static SerializationOptions Options { get; protected set; } = new();
+  public SerializationOptions Options { get; protected set; } = new();
 
   /// <summary>
   /// Gets the XmlSerializationInfoMapper.
