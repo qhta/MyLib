@@ -24,7 +24,9 @@ Converter classes:
 * ValidityBrushConverter -  One-way converter that gets a color from string-to-color dictionary and converts it to solid brush.
 
 Helper converters:
-* ArithmeticConverter - Abstract converter to operate on two double values. The second value is passed as a binding declaration or as Param dependend property.
+* StringConverter - Abstract converter to operate on two string values. The second value is passed as a binding declaration or as Param dependency property.
+* AppendingConverter - String converter to append a string parameter to the string value.
+* ArithmeticConverter - Abstract converter to operate on two double values. The second value is passed as a binding declaration or as Param dependency property.
 * AddingConverter - Arithmetic converter to add a double parameter to the double value.
 * SubtractingConverter - Arithmetic converter to subtract a double parameter from the double value.
 * MultiplyingConverter - Arithmetic converter to multiply the double value by the double parameter.
@@ -33,7 +35,8 @@ Helper converters:
 * NegateValueConverter - Converts a numeric value to a negate numeric value.
 * NegateBoolConverter - Converts a bool value to a negate bool value.
 * BitTestConverter - One way converter to convert a specific bitset to bool. 
-* EqualityComparingConverter -  Compares a value to the parameter and returns a boolean value.
+* EqualityComparingConverter - Compares a value to the parameter and returns a boolean value.
+* IndirectPropertyConverter - Multi-value converter with two bindings. First binding returns an instance object. Second binding returns a property name. Converter gets a value from this property found in the instance object
 
 Helper classes:
 * ColorDictionary - Dictionary of Colors indexed by string names.Used in ValidityBrushConverter.

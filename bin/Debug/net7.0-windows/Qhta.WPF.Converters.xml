@@ -19,6 +19,21 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.WPF.Converters.AppendingConverter">
+            <summary>
+            Appending converter that adds a string parameter to the string value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.AppendingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Adds a double parameter to the double value.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.WPF.Converters.ArithmeticConverter">
             <summary>
             Abstract ArithmeticConverter. Convert method is abstract.
@@ -567,6 +582,34 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.WPF.Converters.IndirectPropertyConverter">
+            <summary>
+             Multi-value converter with two bindings. First binding returns an instance object.
+             Second binding returns a property name. Converter gets a value from this property found in the instance object.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IndirectPropertyConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Gets data from the property which name is returned by the second value. Property is searched in the first value.
+            </summary>
+            <param name="values"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IndirectPropertyConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented convert back method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.WPF.Converters.InverseValueConverter">
             <summary>
             Converts a double value to one over value.
@@ -847,6 +890,54 @@
             A dictionary that maps strings to objects.
             Used in <see cref="T:Qhta.WPF.Converters.String2ObjectConverter"/>.
             </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.StringConverter">
+            <summary>
+            Abstract StringConverter. Convert method is abstract.
+            ConvertBack method is unimplemented.
+            Converter has string <see cref="P:Qhta.WPF.Converters.StringConverter.Param"/> dependency property.
+            It can be declared in XAML code.
+            Other option is to declare ConverterParameter in Binding.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Converters.StringConverter.ParamProperty">
+            <summary>
+            Static dependency property of double parameter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.StringConverter.Param">
+            <summary>
+            Dependency property of double parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Abstract method to implement an arithmetic operation.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert back unimplemented method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringConverter.TryGetValue(System.Object,System.String@)">
+            <summary>
+            A method to convert an object parameter to string.
+            </summary>
+            <param name="parameter"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.WPF.Converters.StringFormatConverter">
             <summary>
