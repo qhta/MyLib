@@ -68,11 +68,11 @@ namespace Qhta.DispatchedObjects
     {
       add
       {
-        _PropertyChanged+=value;
+        _PropertyChanged += value;
       }
       remove
       {
-        _PropertyChanged-=value;
+        _PropertyChanged -= value;
       }
     }
     /// <summary>
@@ -88,11 +88,12 @@ namespace Qhta.DispatchedObjects
     /// <param name="propertyName"></param>
     public virtual void NotifyPropertyChanged(string propertyName)
     {
-      if (_PropertyChanged!=null)
+      if (_PropertyChanged != null)
       {
-        var dispatcher = DispatchedObject.DispatcherBridge; 
+        var dispatcher = DispatchedObject.DispatcherBridge;
         if (dispatcher != null)
-          dispatcher.Invoke(()=>_PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
+          lock (this)
+            dispatcher.Invoke(() => _PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
         else
           _PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
       }
@@ -164,186 +165,207 @@ namespace Qhta.DispatchedObjects
     /// <param name="items"></param>
     public void AddRange(IEnumerable<TValue> items)
     {
-      _InAddRange = true;
-      int startIndex = Count;
-      foreach (var item in items)
-        Add(item);
-      _InAddRange = false;
-      OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<TValue>(items), startIndex));
+      lock (this)
+      {
+        _InAddRange = true;
+        int startIndex = Count;
+        foreach (var item in items)
+          InsertItem(startIndex++, item);
+        _InAddRange = false;
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<TValue>(items), startIndex));
+      }
     }
 
-    ///// <summary>
-    ///// Adds a single item.
-    ///// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
-    ///// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
-    ///// Otherwise the item is added directly.
-    ///// </summary>
-    ///// <param name="item"></param>
-    //public void Add(TValue item)
-    //{
-    //  InsertItem(_Count, item);
-    //  _Count++;
-    //}
+    /// <summary>
+    /// Adds a single item.
+    /// Invokes protected InsertItem method.
+    /// </summary>
+    /// <param name="item"></param>
+    public new int Add(TValue item)
+    {
+      lock (this)
+      {
+        var count = Count;
+        InsertItem(count, item);
+        return count;
+      }
+    }
 
-//    /// <summary>
-//    /// Inserts a single item at the specified index.
-//    /// Invokes protected <see cref="InsertItem(int, TValue)"/> method.
-//    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
-//    /// Otherwise the item is added directly.
-//    /// </summary>
-//    /// <param name="index"></param>
-//    /// <param name="item"></param>
-//    public virtual void Insert(int index, TValue item)
-//    {
-//      InsertItem(index, item);
-//    }
+    /// <summary>
+    /// Inserts a single item at the specified index.
+    /// Invokes protected InsertItem method.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="item"></param>
+    public new void Insert(int index, TValue item)
+    {
+      lock (this)
+        InsertItem(index, item);
+    }
 
-//    /// <summary>
-//    /// Inserts a single item at the specified index.
-//    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
-//    /// Otherwise the item is added directly.
-//    /// </summary>
-//    /// <param name="index"></param>
-//    /// <param name="item"></param>
-//    protected virtual void InsertItem(int index, TValue item)
-//    {
-//      var dispatcher = DispatcherBridge;
-//      if (dispatcher != null)
-//      {
-//        dispatcher.Invoke(() =>
-//        {
-//          _Values.Insert(index, item);
-//        });
-//      }
-//      else
-//        _Values.Insert(index, item);
-//    }
+    //    /// <summary>
+    //    /// Inserts a single item at the specified index.
+    //    /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to add the item.
+    //    /// Otherwise the item is added directly.
+    //    /// </summary>
+    //    /// <param name="index"></param>
+    //    /// <param name="item"></param>
+    //    protected virtual void InsertItem(int index, TValue item)
+    //    {
+    //      var dispatcher = DispatcherBridge;
+    //      if (dispatcher != null)
+    //      {
+    //        dispatcher.Invoke(() =>
+    //        {
+    //          _Values.Insert(index, item);
+    //        });
+    //      }
+    //      else
+    //        _Values.Insert(index, item);
+    //    }
 
-//    /// <summary>
-//    /// Returns the count of items.
-//    /// </summary>
-//    public int Count => _Count;//(_InAddRange) ? _Count : _Values.Count;
-//    private int _Count;
+    //    /// <summary>
+    //    /// Returns the count of items.
+    //    /// </summary>
+    //    public int Count => _Count;//(_InAddRange) ? _Count : _Values.Count;
+    //    private int _Count;
 
-//    /// <summary>
-//    /// The collection is not read only.
-//    /// </summary>
-//    public bool IsReadOnly => ((ICollection<TValue>)_Values).IsReadOnly;
+    //    /// <summary>
+    //    /// The collection is not read only.
+    //    /// </summary>
+    //    public bool IsReadOnly => base.IsReadOnly;
 
-//    /// <summary>
-//    /// Gets the <see cref="_Values"/> collection as an array.
-//    /// </summary>
-//    /// <returns></returns>
-//    public TValue[] ToArray()
-//    {
-//      return _Values.ToArray();
-//    }
+    //    /// <summary>
+    //    /// Gets the collection as an array.
+    //    /// </summary>
+    //    /// <returns></returns>
+    //    public TValue[] ToArray()
+    //    {
+    //      return _Values.ToArray();
+    //    }
 
-//    /// <summary>
-//    /// Enumerates the <see cref="_Values"/> collection.
-//    /// </summary>
-//    /// <returns></returns>
-//    public IEnumerator<TValue> GetEnumerator()
-//    {
-//      return (_Values).GetEnumerator();
-//    }
+    /// <summary>
+    /// Enumerates the collection.
+    /// </summary>
+    /// <returns></returns>
+    public new IEnumerator<TValue> GetEnumerator()
+    {
+      lock (this)
+        return base.GetEnumerator();
+    }
 
-//    /// <summary>
-//    /// Enumerates the <see cref="_Values"/> collection.
-//    /// </summary>
-//    /// <returns></returns>
-//    IEnumerator IEnumerable.GetEnumerator()
-//    {
-//      return this.GetEnumerator();
-//    }
+    //    /// <summary>
+    //    /// Enumerates the collection.
+    //    /// </summary>
+    //    /// <returns></returns>
+    //    IEnumerator IEnumerable.GetEnumerator()
+    //    {
+    //      return this.GetEnumerator();
+    //    }
 
-//    /// <summary>
-//    /// Clears the <see cref="_Values"/> collection.
-//    /// </summary>
-//    public void Clear()
-//    {
-//      ((ICollection<TValue>)_Values).Clear();
-//    }
+    /// <summary>
+    /// Clears the collection.
+    /// </summary>
+    public new void Clear()
+    {
+      lock (this)
+        base.Clear();
+    }
 
-//    /// <summary>
-//    /// Checks if the <see cref="_Values"/> collection contains the item.
-//    /// </summary>
-//    public bool Contains(TValue item)
-//    {
-//      return ((ICollection<TValue>)_Values).Contains(item);
-//    }
+    /// <summary>
+    /// Checks if the collection contains the item.
+    /// </summary>
+    public new bool Contains(TValue item)
+    {
+      lock (this)
+        return base.Contains(item);
+    }
 
-//    /// <summary>
-//    /// Copies the <see cref="_Values"/> collection to an array.
-//    /// </summary>
-//    /// <param name="array"></param>
-//    /// <param name="arrayIndex"></param>
-//    public void CopyTo(TValue[] array, int arrayIndex)
-//    {
-//      ((ICollection<TValue>)_Values).CopyTo(array, arrayIndex);
-//    }
+    /// <summary>
+    /// Copies the collection to an array.
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="arrayIndex"></param>
+    public new void CopyTo(TValue[] array, int arrayIndex)
+    {
+      lock (this)
+        base.CopyTo(array, arrayIndex);
+    }
 
-//    /// <summary>
-//    /// Removes an item from the <see cref="_Values"/> collection.
-//    /// </summary>
-//    /// <param name="item"></param>
-//    /// <returns></returns>
-//    public bool Remove(TValue item)
-//    {
-//      return ((ICollection<TValue>)_Values).Remove(item);
-//    }
+    /// <summary>
+    /// Removes an item from the collection.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public new bool Remove(TValue item)
+    {
+      lock (this)
+        return base.Remove(item);
+    }
 
-//    /// <inheritdoc/>
-//    public int IndexOf(TValue item)
-//    {
-//      throw new NotImplementedException();
-//      //return ((IList<TValue>)_Values).IndexOf(item);
-//    }
+    /// <inheritdoc/>
+    public new int IndexOf(TValue item)
+    {
+      lock (this)
+        return base.IndexOf(item);
+    }
 
-//    /// <inheritdoc/>
-//    public void RemoveAt(int index)
-//    {
-//      throw new NotImplementedException();
-//      //((IList<TValue>)_Values).RemoveAt(index);
-//    }
+    /// <inheritdoc/>
+    public new void RemoveAt(int index)
+    {
+      lock (this)
+        base.RemoveAt(index);
+    }
 
-//    /// <inheritdoc/>
-//    public TValue? this[int index]
-//    {
-//      get => (index < _Values.Count) ? ((IList<TValue>)_Values)[index] : default(TValue);
-//      set =>       throw new NotImplementedException();
-////((IList<TValue>)_Values)[index] = value;
-//    }
+    /// <inheritdoc/>
+    public new TValue? this[int index]
+    {
+      get
+      {
+        lock (this)
+          return (index < Count) ? base[index] : default(TValue);
+      }
+      set => throw new NotImplementedException();
 
-    ///// <inheritdoc/>
-    //public int Add(object value)
-    //{
-    //  return ((IList)_Values).Add(value);
-    //}
+    }
 
-    ///// <inheritdoc/>
-    //public bool Contains(object value)
-    //{
-    //  return ((IList)_Values).Contains(value);
-    //}
+    /// <inheritdoc/>
+    public int Add(object? value)
+    {
+      if (value is TValue tValue)
+        return this.Add(tValue);
+      return -1;
+    }
 
-    ///// <inheritdoc/>
-    //public int IndexOf(object value)
-    //{
-    //  return ((IList)_Values).IndexOf(value);
-    //}
+    /// <inheritdoc/>
+    public bool Contains(object value)
+    {
+      if (value is TValue tValue)
+        return this.Contains(tValue);
+      return false;
+    }
 
-    ///// <inheritdoc/>
-    //public void Insert(int index, object value)
-    //{
-    //  ((IList)_Values).Insert(index, value);
-    //}
+    /// <inheritdoc/>
+    public int IndexOf(object value)
+    {
+      if (value is TValue tValue)
+        return this.IndexOf(tValue);
+      return -1;
+    }
 
-    ///// <inheritdoc/>
-    //public void Remove(object value)
-    //{
-    //  ((IList)_Values).Remove(value);
-    //}
+    /// <inheritdoc/>
+    public void Insert(int index, object value)
+    {
+      if (value is TValue tValue)
+        this.Insert(index, tValue);
+    }
+
+    /// <inheritdoc/>
+    public void Remove(object value)
+    {
+      if (value is TValue tValue)
+        this.Remove(tValue);
+    }
 
     ///// <inheritdoc/>
     //public bool IsFixedSize => ((IList)_Values).IsFixedSize;
@@ -365,7 +387,7 @@ namespace Qhta.DispatchedObjects
 
     ///// <inheritdoc/>
     //public object SyncRoot => ((ICollection)_Values).SyncRoot;
-    
+
     /// <summary>
     /// A method to invoke and action.
     /// Uses <see cref="DispatchedObject.DispatcherBridge"/>, if it is set, to invoke an action .
@@ -375,8 +397,9 @@ namespace Qhta.DispatchedObjects
     public virtual void Dispatch(Action action)
     {
       var dispatcher = DispatchedObject.DispatcherBridge;
-      if (dispatcher != null) 
-        dispatcher.Invoke(action);
+      if (dispatcher != null)
+        lock (this)
+          dispatcher.Invoke(action);
       else
         action.Invoke();
     }

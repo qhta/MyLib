@@ -1,7 +1,16 @@
 namespace Qhta.WPF.DataGridUtils;
 
+/// <summary>
+/// Utility class that helps to autogenerate <see cref="DataGridContentBoundColumn"/>
+/// </summary>
 public static class AutoGenerating
 {
+  /// <summary>
+  /// Creates <see cref="DataGridContentBoundColumn"/> for ItemsSource thas have DataGridColumnAttribute (defined in Qhta.MVVM)
+  /// 
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
   public static void UseDataGridColumnAttribute(object sender, DataGridAutoGeneratingColumnEventArgs e)
   {
     var dataGrid = sender as DataGrid;

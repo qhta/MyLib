@@ -76,6 +76,75 @@
             </summary>
             <param name="items"></param>
         </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Add(`0)">
+            <summary>
+            Adds a single item.
+            Invokes protected InsertItem method.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Insert(System.Int32,`0)">
+            <summary>
+            Inserts a single item at the specified index.
+            Invokes protected InsertItem method.
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.GetEnumerator">
+            <summary>
+            Enumerates the collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Clear">
+            <summary>
+            Clears the collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Contains(`0)">
+            <summary>
+            Checks if the collection contains the item.
+            </summary>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the collection to an array.
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Remove(`0)">
+            <summary>
+            Removes an item from the collection.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.IndexOf(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.RemoveAt(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.DispatchedObjects.DispatchedCollection`1.Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Add(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Contains(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.IndexOf(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Insert(System.Int32,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Remove(System.Object)">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.DispatchedObjects.DispatchedCollection`1.Dispatch(System.Action)">
             <summary>
             A method to invoke and action.

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.WPF.DataGridUtils</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.WPF.DataGridUtils.AutoGenerating">
+            <summary>
+            Utility class that helps to autogenerate <see cref="T:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.DataGridUtils.AutoGenerating.UseDataGridColumnAttribute(System.Object,System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs)">
+            <summary>
+            Creates <see cref="T:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn"/> for ItemsSource thas have DataGridColumnAttribute (defined in Qhta.MVVM)
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn">
+            <summary>
+            Specific implementation of DataGridBoundColumn with <see cref="P:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.ContentTemplate"/>
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.ContentTemplate">
+            <summary>
+            DataTemplate to be used in <see cref="M:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.GenerateElement(System.Windows.Controls.DataGridCell,System.Object)"/>. Must be set if WPF.
+            Sets also <see cref="P:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.ContentEditingTemplate"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.ContentEditingTemplate">
+            <summary>
+            DataTemplate to be used in <see cref="M:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.GenerateEditingElement(System.Windows.Controls.DataGridCell,System.Object)"/>. Can be set in WPF.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.GenerateElement(System.Windows.Controls.DataGridCell,System.Object)">
+            <summary>
+            Overriden abstract method to generate view element in DataGrid.
+            </summary>
+            <param name="cell"></param>
+            <param name="dataItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn.GenerateEditingElement(System.Windows.Controls.DataGridCell,System.Object)">
+            <summary>
+            Overriden abstract method to generate editing element in DataGrid.
+            </summary>
+            <param name="cell"></param>
+            <param name="dataItem"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
