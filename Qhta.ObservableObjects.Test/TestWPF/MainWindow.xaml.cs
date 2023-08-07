@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,40 +28,44 @@ namespace TestWPF
       BindingOperations.EnableCollectionSynchronization(testList, testList.LockObject);
       DataContext = testList;
       int[] testArray = new int[30];
-      var random = new System.Random();
-      for (int i = 0; i < 30; i++)
-        testArray[i] = random.Next();
+      int k=0;
       Task.Run(() =>
       {
         Thread.Sleep(1000);
+        k = 0;
         for (int i = 0; i < 30; i++)
         {
-          int n = testArray[i];
-          testList.Add(n);
+          testList.Add(++k);
+          Thread.Sleep(100);
+        }
+        Thread.Sleep(1000);
+        k = 0;
+        for (int i = 0; i < 30; i++)
+        {
+          testList.Remove(++k);
+          Thread.Sleep(100);
+        }
+        Thread.Sleep(1000);
+        k = 0;
+        for (int i = 0; i < 30; i++)
+        {
+          testList.Add(++k);
           Thread.Sleep(100);
         }
         Thread.Sleep(1000);
         for (int i = 0; i < 30; i++)
         {
-          int n = testArray[i];
-          testList.Remove(n);
+          testList.Remove(k--);
           Thread.Sleep(100);
         }
         Thread.Sleep(1000);
-        for (int i = 0; i < 10; i++)
+        k = 0;
+        var intList = new List<int>();
+        for (int i = 0; i < 100000; i++)
         {
-          int n = testArray[i];
-          testList.Add(n);
-          Thread.Sleep(100);
+          intList.Add(++k);
         }
-        Thread.Sleep(1000);
-        testList.Clear();
-        for (int i = 0; i < 10; i++)
-        {
-          int n = testArray[i];
-          testList.Add(n);
-          Thread.Sleep(100);
-        }
+        testList.AddRange(intList);
       });
     }
 

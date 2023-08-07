@@ -165,9 +165,9 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         var index = _items.Count;
+       _items = _items.AddRange(collection);
         foreach (var item in collection)
-          _items = _items.Add(item);
-        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset, collection, index));
+          NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index++));
       }
     }
 
