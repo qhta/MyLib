@@ -38,6 +38,7 @@ namespace TestWPF
           testList.Add(++k);
           Thread.Sleep(100);
         }
+
         Thread.Sleep(1000);
         k = 0;
         for (int i = 0; i < 30; i++)
@@ -45,6 +46,7 @@ namespace TestWPF
           testList.Remove(++k);
           Thread.Sleep(100);
         }
+
         Thread.Sleep(1000);
         k = 0;
         for (int i = 0; i < 30; i++)
@@ -52,12 +54,14 @@ namespace TestWPF
           testList.Add(++k);
           Thread.Sleep(100);
         }
+
         Thread.Sleep(1000);
         for (int i = 0; i < 30; i++)
         {
           testList.Remove(k--);
           Thread.Sleep(100);
         }
+
         Thread.Sleep(1000);
         k = 0;
         var intList = new List<int>();
@@ -65,7 +69,28 @@ namespace TestWPF
         {
           intList.Add(++k);
         }
+
         testList.AddRange(intList);
+
+        Thread.Sleep(1000);
+        testList.Clear();
+
+        Thread.Sleep(1000);
+        k = 0;
+        for (int i = 0; i < 100; i++)
+        {
+          testList.Add(--k);
+        }
+
+        Thread.Sleep(1000);
+        testList.Clear();
+
+        Thread.Sleep(1000);
+        k = 0;
+        for (int i = 0; i < 100; i++)
+        {
+          testList.Insert(0,++k);
+        }
       });
     }
 
