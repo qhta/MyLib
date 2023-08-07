@@ -15,7 +15,7 @@ namespace TestWPF
     public MainWindow()
     {
       InitializeComponent();
-      StartTestObservableDictionary();
+      StartTestObservableList();
     }
 
     private object testCollection;
@@ -24,7 +24,7 @@ namespace TestWPF
     {
       var testList = new ObservableList<int>();
       testCollection = testList;
-      //BindingOperations.EnableCollectionSynchronization(testList, testList.LockObject);
+      BindingOperations.EnableCollectionSynchronization(testList, testList.LockObject);
       DataContext = testList;
       int[] testArray = new int[30];
       var random = new System.Random();
@@ -32,12 +32,12 @@ namespace TestWPF
         testArray[i] = random.Next();
       Task.Run(() =>
       {
-        Thread.Sleep(3000);
+        Thread.Sleep(1000);
         for (int i = 0; i < 30; i++)
         {
           int n = testArray[i];
           testList.Add(n);
-          //Thread.Sleep(100);
+          Thread.Sleep(100);
         }
         Thread.Sleep(1000);
         for (int i = 0; i < 30; i++)
@@ -46,14 +46,14 @@ namespace TestWPF
           testList.Remove(n);
           Thread.Sleep(100);
         }
-        Thread.Sleep(500);
+        Thread.Sleep(1000);
         for (int i = 0; i < 10; i++)
         {
           int n = testArray[i];
           testList.Add(n);
           Thread.Sleep(100);
         }
-        Thread.Sleep(100);
+        Thread.Sleep(1000);
         testList.Clear();
         for (int i = 0; i < 10; i++)
         {
@@ -68,7 +68,7 @@ namespace TestWPF
     {
       var testDictionary = new ObservableDictionary<int, int>();
       testCollection = testDictionary;
-      //BindingOperations.EnableCollectionSynchronization(testDictionary, testDictionary.LockObject);
+      BindingOperations.EnableCollectionSynchronization(testDictionary, testDictionary.LockObject);
       DataContext = testDictionary;
       int[] testArray = new int[30];
       var random = new System.Random();

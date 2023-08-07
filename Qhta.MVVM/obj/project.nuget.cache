@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "AvQi1fjzHSI/7RGRZPJsaNmGtsMnkCRchPW0cpS3pQoaJ3F/+BOBgZU+J7h528hOTXxGZzBOWWOtkizPLEx2nw==",
+  "dgSpecHash": "Ns25KepoiZlvD35yPiXzBvcHp6d6xPMOi2V0VAhkrB39UazIwZPmy+j2albvthuYd7bCTY/XNUQ7fMjKEpujrg==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.dispatchedobjects\\2.0.0\\qhta.dispatchedobjects.2.0.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.dispatchedobjects\\2.3.0\\qhta.dispatchedobjects.2.3.0.nupkg.sha512"
   ],
   "logs": []
 }

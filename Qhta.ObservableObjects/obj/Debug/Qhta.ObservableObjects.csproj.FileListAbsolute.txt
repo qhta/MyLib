@@ -7,3 +7,6 @@ D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObject
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObjects.csproj.CoreCompileInputs.cache
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObjects.dll
 D:\Dane\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObjects.pdb
+D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObjects.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObjects.dll
+D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\Qhta.ObservableObjects.pdb

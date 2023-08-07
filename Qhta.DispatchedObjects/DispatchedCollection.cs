@@ -172,7 +172,7 @@ namespace Qhta.DispatchedObjects
         foreach (var item in items)
           InsertItem(startIndex++, item);
         _InAddRange = false;
-        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<TValue>(items), startIndex));
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset, new List<TValue>(items), startIndex));
       }
     }
 

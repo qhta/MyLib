@@ -100,4 +100,14 @@ public class DataGridColumnAttribute : System.Attribute
   /// A key to Resource DataTemplate that defines layout of content bound column
   /// </summary>
   public string? ResourceDataTemplateKey { get; set; }
+
+  /// <summary>
+  /// A key to Resource DataEditingTemplate that defines layout of content bound column
+  /// </summary>
+  public string? ResourceDataEditingTemplateKey { get; set; }
+
+  /// <summary>
+  /// A key to Resource HeaderTemplate that defines layout of content bound column
+  /// </summary>
+  public string? ResourceHeaderTemplateKey { get; set; }
 }

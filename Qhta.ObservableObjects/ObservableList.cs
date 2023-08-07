@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -13,8 +14,9 @@ namespace Qhta.ObservableObjects
   /// <summary>
   /// Multithread version of List<typeparamref name="T"/> with CollectionChanged notification.
   /// It should be used instead of ObservableCollection<typeparamref name="T"/> in MVVM architecture model.
-  /// To bind it to CollectionView, <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c>
-  /// must be invoked. It can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Utils assembly.
+  /// To bind it to CollectionView, 
+  /// <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c> must be invoked. 
+  /// Instead it can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Utils assembly.
   /// Syntax is:
   /// <c>xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"</c>
   /// <c>utils:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
@@ -23,31 +25,58 @@ namespace Qhta.ObservableObjects
   public class ObservableList<T> : ObservableCollectionObject,
     IEnumerable,
     ICollection,
-    IList, 
+    IList,
     IEnumerable<T>,
     ICollection<T>,
     IList<T>,
     INotifyCollectionChanged, INotifyPropertyChanged
   {
 
-    protected List<T> _items = new List<T>();
+    /// <summary>
+    /// Internal ImmutableList
+    /// </summary>
+    protected ImmutableList<T> _items;
+
+    /// <summary>
+    /// Gets ImmutableList to notify that collection is changed
+    /// </summary>
+    /// <returns></returns>
+    protected override ICollection GetNotifyObject()
+    {
+      return _items;
+    }
 
     #region constructors
 
-    public ObservableList() : this(new T[0]) { }
-
-    public ObservableList(IEnumerable<T> items) : base()
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    public ObservableList()
     {
-      foreach (var item in items)
-        _items.Add(item);
+      _items = ImmutableList.Create<T>();
+    }
+
+    /// <summary>
+    /// Constructor with initial collection
+    /// </summary>
+    /// <param name="items"></param>
+    public ObservableList(IEnumerable<T> items)
+    {
+      _items = items.ToImmutableList<T>();
     }
     #endregion
 
     #region List<T> wrappers
 
-    public bool IsFixedSize => false;
+    /// <summary>
+    /// Specifies whether collection size is fixed.
+    /// </summary>
+    public bool IsFixedSize { get; set; }
 
-    public bool IsReadOnly => false;
+    /// <summary>
+    /// Specifies whether collection is read only.
+    /// </summary>
+    public bool IsReadOnly { get; set; }
 
     /// <summary>
     ///   Gets or sets the element at the specified index.
@@ -72,7 +101,7 @@ namespace Qhta.ObservableObjects
     }
 
     /// <summary>
-    ///   Gets the number of elements contained in the list
+    ///   Gets the number of elements contained in the list.
     /// </summary>
     public int Count
     {
@@ -88,19 +117,23 @@ namespace Qhta.ObservableObjects
       }
     }
 
-
+    /// <summary>
+    /// Sets an item changing ImmutableList.
+    /// </summary>
+    /// <param name="index">Index of the changed item.</param>
+    /// <param name="value">Value to set.</param>
     public void SetItem(int index, T value)
     {
       lock (LockObject)
       {
         var oldItem = _items[index];
-        _items[index] = value;
+        _items = _items.SetItem(index, value);
         NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem, value, index));
       }
     }
 
     /// <summary>
-    ///   Adds an object to the end of the list
+    ///   Adds an object to the end of the ImmutableList.
     /// </summary>
     /// <param name="item">
     ///   The object to be added to the end of the list. The value can be null for reference types.
@@ -111,13 +144,13 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         var index = _items.Count;
-        _items.Add(item);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
+        _items = _items.Add(item);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
       }
     }
 
     /// <summary>
-    ///   Adds the elements of the specified collection to the end of the list.
+    ///   Adds the elements of the specified collection to the end of the ImmutableList.
     /// </summary>
     /// <param name="collection">
     ///   The collection whose elements should be added to the end of the list.
@@ -133,8 +166,8 @@ namespace Qhta.ObservableObjects
       {
         var index = _items.Count;
         foreach (var item in collection)
-          _items.Add(item);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, collection, index);
+          _items = _items.Add(item);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset, collection, index));
       }
     }
 
@@ -144,10 +177,10 @@ namespace Qhta.ObservableObjects
     /// <returns>
     ///   An object that acts as a read-only wrapper around the current list.
     /// </returns>
-    public ReadOnlyCollection<T> AsReadOnly()
+    public ReadOnlyCollection<T>? AsReadOnly()
     {
       lock (LockObject)
-        return _items.AsReadOnly();
+        return _items as ReadOnlyCollection<T>;
     }
 
     /// <summary>
@@ -247,11 +280,11 @@ namespace Qhta.ObservableObjects
         var priorItems = _items.ToList();
         foreach (var item in priorItems)
           _items.Remove(item);
-        _items.Clear();
+        _items = _items.Clear();
         var enumerator = GetEnumerator();
         enumerator.Dispose();
         //Debug.WriteLine($"{this}.Count = {Count}" + $" {DateTime.Now.ToString(dateTimeFormat)}");
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -279,7 +312,7 @@ namespace Qhta.ObservableObjects
     /// <exception cref="ArgumentNullException">
     ///   converter is null.
     /// </exception>
-    public List<TOutput> ConvertAll<TOutput>(Converter<T, TOutput> converter)
+    public ImmutableList<TOutput> ConvertAll<TOutput>(Func<T, TOutput> converter)
     {
       lock (LockObject)
         return _items.ConvertAll(converter);
@@ -396,7 +429,7 @@ namespace Qhta.ObservableObjects
     ///<exception cref="ArgumentNullException">
     ///    match is null.
     ///</exception>
-    public T Find(Predicate<T> match)
+    public T? Find(Predicate<T> match)
     {
       lock (LockObject)
         return _items.Find(match);
@@ -418,7 +451,7 @@ namespace Qhta.ObservableObjects
     ///<exception cref="ArgumentNullException">
     ///    match is null.
     ///</exception>
-    public List<T> FindAll(Predicate<T> match)
+    public ImmutableList<T> FindAll(Predicate<T> match)
     {
       lock (LockObject)
         return _items.FindAll(match);
@@ -525,7 +558,7 @@ namespace Qhta.ObservableObjects
     ///<exception cref="ArgumentNullException">
     ///    match is null.
     ///</exception>
-    public T FindLast(Predicate<T> match)
+    public T? FindLast(Predicate<T> match)
     {
       lock (LockObject)
         return _items.FindLast(match);
@@ -536,6 +569,7 @@ namespace Qhta.ObservableObjects
     ///    predicate, and returns the zero-based index of the last occurrence within the
     ///    range of elements in the list that contains the
     ///    specified number of elements and ends at the specified index.
+    ///</summary>
     ///<param name="startIndex">
     ///    The zero-based starting index of the search.
     ///</param>
@@ -632,7 +666,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         _items.ForEach(action);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
     //
@@ -673,7 +707,7 @@ namespace Qhta.ObservableObjects
     ///<exception cref="ArgumentException">
     ///    index and count do not denote a valid range of elements in the list.
     ///</exception>
-    public List<T> GetRange(int index, int count)
+    public ImmutableList<T> GetRange(int index, int count)
     {
       lock (LockObject)
         return _items.GetRange(index, count);
@@ -774,7 +808,7 @@ namespace Qhta.ObservableObjects
         try
         {
           _items.Insert(index, item);
-          NotifyCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
+          NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         }
         catch (ArgumentOutOfRangeException ex)
         {
@@ -818,7 +852,7 @@ namespace Qhta.ObservableObjects
           Debug.Fail($"ObservableList.InsertRange({index}) when Count={Count} failed");
         }
 
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Add, collection, index);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection, index));
       }
     }
 
@@ -885,6 +919,7 @@ namespace Qhta.ObservableObjects
     ///    The zero-based index of the last occurrence of item within the range of elements
     ///    in the list that contains count number of elements
     ///    and ends at index, if found; otherwise, –1.
+    ///</returns>
     ///<exception cref="ArgumentOutOfRangeException">
     ///    index is outside the range of valid indexes for the list.
     ///    -or- count is less than 0. -or- index and count do not specify a valid section
@@ -915,8 +950,8 @@ namespace Qhta.ObservableObjects
         if (index < 0)
           return false;
 
-        _items.RemoveAt(index);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
+        _items = _items.RemoveAt(index);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
         return true;
       }
     }
@@ -939,16 +974,15 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         var removeList = this.Where(item => match(item)).ToList();
-        foreach (var item in removeList)
-          _items.Remove(item);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.RemoveAll(match);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         return removeList.Count;
       }
     }
 
     ///<summary>
     ///    Removes the element at the specified index of the list.
-    ///
+    ///</summary>
     ///<param name="index">
     ///    The zero-based index of the element to remove.
     ///</param>
@@ -960,8 +994,8 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         var value = _items[index];
-        _items.RemoveAt(index);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, value, index);
+        _items = _items.RemoveAt(index);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
       }
     }
 
@@ -989,8 +1023,8 @@ namespace Qhta.ObservableObjects
           count = count1;
         var items = new T[count];
         _items.CopyTo(index, items, 0, count);
-        _items.RemoveRange(index, count);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, items, index);
+        _items = _items.RemoveRange(index, count);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, items, index));
       }
     }
 
@@ -1013,8 +1047,8 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Reverse(index, count);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.Reverse(index, count);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1026,8 +1060,8 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Reverse();
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.Reverse();
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1049,8 +1083,8 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Sort(comparison);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.Sort(comparison);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1085,8 +1119,8 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Sort(index, count, comparer);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.Sort(index, count, comparer);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1103,8 +1137,8 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Sort();
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.Sort();
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1129,8 +1163,8 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.Sort(comparer);
-        NotifyCollectionChanged(NotifyCollectionChangedAction.Reset);
+        _items = _items.Sort(comparer);
+        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1145,18 +1179,6 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
         return _items.ToArray();
-    }
-
-    ///<summary>
-    ///    This method in List&lt;T&gt; implementation sets the capacity 
-    ///    to the actual number of elements in the list,
-    ///    if that number is less than a threshold value.
-    ///    In this class this method does nothing.
-    ///</summary>
-    public void TrimExcess()
-    {
-      lock (LockObject)
-        _items.TrimExcess();
     }
 
     ///<summary>
@@ -1202,7 +1224,7 @@ namespace Qhta.ObservableObjects
     #endregion
 
     #region IList explicit implementation
-    object IList.this[int index]
+    object? IList.this[int index]
     {
       get
       {

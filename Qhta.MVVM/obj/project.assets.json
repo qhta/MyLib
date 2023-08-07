@@ -26,7 +26,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.DispatchedObjects/2.0.0": {
+      "Qhta.DispatchedObjects/2.3.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.DispatchedObjects.dll": {
@@ -186,15 +186,15 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Qhta.DispatchedObjects/2.0.0": {
-      "sha512": "/IeXjwJOF0QzNIdyT3csjqouD9w0dmKkm/VNP5lHzoUSyMpoTnMgGbDBftmh40B9Hh/dnV4s03QEXqiCBVAmGw==",
+    "Qhta.DispatchedObjects/2.3.0": {
+      "sha512": "O1ROBjejXwBD2/oqF8Tisfv++v218Ct6RmPIFdHz+npEH752pWDy60+4JJ3sML3e/NGndDaqRy8O1+d6WvpInw==",
       "type": "package",
-      "path": "qhta.dispatchedobjects/2.0.0",
+      "path": "qhta.dispatchedobjects/2.3.0",
       "files": [
         ".nupkg.metadata",
         "lib/netstandard2.0/Qhta.DispatchedObjects.dll",
         "lib/netstandard2.0/Qhta.DispatchedObjects.xml",
-        "qhta.dispatchedobjects.2.0.0.nupkg.sha512",
+        "qhta.dispatchedobjects.2.3.0.nupkg.sha512",
         "qhta.dispatchedobjects.nuspec",
         "readme.md"
       ]
@@ -203,7 +203,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.DispatchedObjects >= 2.0.0"
+      "Qhta.DispatchedObjects >= 2.3.0"
     ]
   },
   "packageFolders": {
@@ -211,7 +211,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.5.0",
+    "version": "2.7.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",
@@ -259,7 +259,7 @@
           },
           "Qhta.DispatchedObjects": {
             "target": "Package",
-            "version": "[2.0.0, )"
+            "version": "[2.3.0, )"
           }
         },
         "imports": [
@@ -273,7 +273,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }

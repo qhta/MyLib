@@ -15,7 +15,110 @@
             
             </summary>
             <param name="sender"></param>
-            <param name="e"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Qhta.WPF.DataGridUtils.DataGridColumnDef">
+            <summary>
+            This data contains full <see cref="T:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn"/> definition.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.DataGridUtils.DataGridColumnDef.#ctor(System.Windows.Data.BindingBase)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="binding"></param>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.Binding">
+            <summary>
+            Required binding to data.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.CanUserReorder">
+            <summary>
+            Indicates whether the user can change the column display position by dragging the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.CanUserResize">
+            <summary>
+            Indicates whether the user can adjust the column width by using the mouse.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.CanUserSort">
+            <summary>
+            Indicates whether the user can sort the column by clicking the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.ClipboardContentPath">
+            <summary>
+            Specifies the binding path of properties to use when getting or setting cell content for the clipboard.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.DisplayIndex">
+            <summary>
+            Gets or sets the display position of the column relative to the other columns in the DataGrid.
+            Default is -1.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.Header">
+            <summary>
+            Gets or sets the column header.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.HeaderStringFormat">
+            <summary>
+            Gets or sets the format pattern to apply to the content of the column header.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.HeaderTemplate">
+            <summary>
+            Gets or sets the header template to apply to the content of the column header.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.IsReadOnly">
+            <summary>
+            Gets a value that indicates whether cells in the column can be edited.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.MaxWidth">
+            <summary>
+            Gets or sets the maximum width constraint of the column. Default is PositiveInfinity.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.MinWidth">
+            <summary>
+            Gets or sets the minimum width constraint of the column. Default is 20.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.SortDirection">
+            <summary>
+            Gets or sets the sort direction (ascending or descending) of the column. Default is null;
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.SortMemberPath">
+            <summary>
+            Gets or sets a property name, or a period-delimited hierarchy of property names, 
+            that indicates the member to sort by.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.Visibility">
+            <summary>
+            Gets or sets the visibility of the column. Default is Visible
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.DataGridUtils.DataGridColumnDef.Width">
+            <summary>
+            Gets or sets the column width or automatic sizing mode.
+            Default is NaN.
+            </summary>
         </member>
         <member name="T:Qhta.WPF.DataGridUtils.DataGridContentBoundColumn">
             <summary>

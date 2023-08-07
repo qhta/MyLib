@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.MVVM</id>
+    <version>2.7.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>A simple MVVM framework which enables worker threads to invoke UI notification via DispatchedObjects.</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.DispatchedObjects" version="2.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.dll" target="lib\netstandard2.0\Qhta.MVVM.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.xml" target="lib\netstandard2.0\Qhta.MVVM.xml" />
+    <file src="D:\VS\Projects\MyLib\Qhta.MVVM\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

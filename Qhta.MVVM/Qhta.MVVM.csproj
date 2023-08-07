@@ -7,7 +7,7 @@
   <PropertyGroup>
     <Authors>Yarreck Qhta</Authors>
     <Description>A simple MVVM framework which enables worker threads to invoke UI notification via DispatchedObjects.</Description>
-    <Version>2.5</Version>
+    <Version>2.7</Version>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AutoRedirectBindings>true</AutoRedirectBindings>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.DispatchedObjects" Version="2.0.0" />
+    <PackageReference Include="Qhta.DispatchedObjects" Version="2.3.0" />
   </ItemGroup>
 
 </Project>

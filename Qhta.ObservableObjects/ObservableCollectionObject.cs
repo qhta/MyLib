@@ -7,140 +7,179 @@ using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
-  public class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
+  /// <summary>
+  /// Base class for all observable collection classes
+  /// </summary>
+  public abstract class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
   {
-    public const string dateTimeFormat = "hh:mm:ss.fff";
+    //internal const string dateTimeFormat = "hh:mm:ss.fff";
 
     #region INotifyCollectionChanged
 
-    public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
+    /// <summary>
+    /// Abstract get accessor for object which will be notify other objects on collection change.
+    /// Will be implemented to get immutable collection of items.
+    /// </summary>
+    /// <returns></returns>
+    protected abstract ICollection GetNotifyObject();
 
-    public virtual event NotifyCollectionChangedEventHandler CollectionChangedImmediately;
+    /// <summary>
+    /// Handler for collection changed event.
+    /// </summary>
+    public virtual event NotifyCollectionChangedEventHandler? CollectionChanged;
 
+    /// <summary>
+    /// Specifies whether collection notifies about changes.
+    /// </summary>
     public bool NotifyCollectionChangedEnabled { get; set; } = true;
 
+    /// <summary>
+    /// Starts bulk change operation.
+    /// </summary>
+    /// <param name="action">Specifies action to invoke on end of bulk change operation.</param>
     public void BulkChangeStart(NotifyCollectionChangedAction action)
     {
       if (bulkAction != null)
         BulkChangeEnd();
       bulkAction = action;
-      bulkItems = new List<object>();
-      bulkIndex = -1;
+      newItems = new List<object>();
+      itemsIndex = -1;
+      oldItems = new List<object>();
     }
+
+    /// <summary>
+    /// Ends bulk change operation. Invokes action set with previous <see cref="BulkChangeStart"/> method.
+    /// </summary>
     public void BulkChangeEnd()
     {
       if (bulkAction != null)
       {
         var action = (NotifyCollectionChangedAction)bulkAction;
         bulkAction = null;
-        if (bulkItems.Count > 0)
-        {
-          NotifyCollectionChanged(action, bulkItems, bulkIndex);
-        }
-        bulkItems = null;
+        if (newItems.Count > 0)
+          NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action, newItems, oldItems, itemsIndex));
+        newItems = null!;
       }
     }
 
-    private NotifyCollectionChangedAction? bulkAction;
-    private List<object> bulkItems;
-    private int bulkIndex;
+    /// <summary>
+    /// Action to invoke on <see cref="BulkChangeEnd()"/>
+    /// </summary>
+    protected NotifyCollectionChangedAction? bulkAction;
 
+    /// <summary>
+    /// List of items added in bulk operation.
+    /// Set up in <see cref="BulkChangeStart"/> method.
+    /// </summary>
+    protected List<object> newItems = null!;
+
+    /// <summary>
+    /// List of items removed in bulk operation.
+    /// Set up in <see cref="BulkChangeStart"/> method.
+    /// </summary>
+    protected List<object> oldItems = null!;
+
+    /// <summary>
+    /// Index of items changed in bulk operation.
+    /// </summary>
+    protected int itemsIndex;
+
+    /// <summary>
+    /// Method invoked on each collection change.
+    /// If a bulk change operation was started, 
+    /// then it collects items in <see cref="newItems"/> items.
+    /// Otherwise it invokes <see cref="CollectionChanged"/> events
+    /// (if they are set.
+    /// </summary>
+    /// <param name="args"></param>
     protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
       if (args.Action == bulkAction)
       {
-        if (bulkIndex == -1)
-          bulkIndex = args.NewStartingIndex;
+        if (itemsIndex == -1)
+          itemsIndex = args.NewStartingIndex;
         foreach (var item in args.NewItems)
-          bulkItems.Add(item);
-        //Debug.WriteLine("OnCollectionChanged return as action is bulkAction");
+          newItems.Add(item);
         return;
       }
 
       if (!NotifyCollectionChangedEnabled)
-      {
-        //Debug.WriteLine("OnCollectionChanged return as NotifyCollectionChangedEnabled is false");
         return;
-      }
 
-      HandleCollectionChangedEvent(CollectionChangedImmediately, args, true);
-      HandleCollectionChangedEvent(CollectionChanged, args, false);
+      if (CollectionChanged != null)
+        HandleCollectionChangedEvent(CollectionChanged, args, false);
     }
-    private void HandleCollectionChangedEvent(NotifyCollectionChangedEventHandler notifyCollectionChangedEventHandler, 
-      NotifyCollectionChangedEventArgs args,  bool immediately)
-    { 
-      if (notifyCollectionChangedEventHandler != null)
-      {
-        //var newItemsCount = args.NewItems?.Count ?? 0;
-        //var oldItemsCount = args.OldItems?.Count ?? 0;
-        //if (args.Action == NotifyCollectionChangedAction.Add)
-        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
-        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
-        //else if (args.Action == NotifyCollectionChangedAction.Remove)
-        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
-        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
-        //else if (newItemsCount > 0 || oldItemsCount > 0)
-        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}," +
-        //    $" newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
-        //    $" oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
-        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
-        //else
-        //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action})" +
-        //  $" {DateTime.Now.ToString(dateTimeFormat)}");
 
-        if (Dispatcher != null)
+    /// <summary>
+    /// Method to handle collection changed event.
+    /// If a Dispatcher is set, then it is used to begin invoke the action
+    /// </summary>
+    /// <param name="notifyCollectionChangedEventHandler"></param>
+    /// <param name="args"></param>
+    /// <param name="immediately"></param>
+    protected virtual void HandleCollectionChangedEvent(NotifyCollectionChangedEventHandler notifyCollectionChangedEventHandler,
+      NotifyCollectionChangedEventArgs args, bool immediately)
+    {
+      if (notifyCollectionChangedEventHandler == null)
+        return;
+      //var newItemsCount = args.NewItems?.Count ?? 0;
+      //var oldItemsCount = args.OldItems?.Count ?? 0;
+      //if (args.Action == NotifyCollectionChangedAction.Add)
+      //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
+      //  $" {DateTime.Now.ToString(dateTimeFormat)}");
+      //else if (args.Action == NotifyCollectionChangedAction.Remove)
+      //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}, oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
+      //  $" {DateTime.Now.ToString(dateTimeFormat)}");
+      //else if (newItemsCount > 0 || oldItemsCount > 0)
+      //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action}," +
+      //    $" newItems.Count={newItemsCount}, newStartingIndex={args.NewStartingIndex})" +
+      //    $" oldItems.Count={oldItemsCount}, oldStartingIndex={args.OldStartingIndex})" +
+      //  $" {DateTime.Now.ToString(dateTimeFormat)}");
+      //else
+      //  Debug.WriteLine($"NotifyCollectionChanged(action={args.Action})" +
+      //  $" {DateTime.Now.ToString(dateTimeFormat)}");
+
+      var dispatcher = Dispatcher;
+      foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
+      {
+        if (dispatcher != null)
         {
-          //dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-          Dispatcher.BeginInvoke(DispatcherPriority.Background,
-            new Action<object, NotifyCollectionChangedEventArgs>(NotifyCollectionChangedEventHandler), this, args);
+          try
+          {
+            if (BeginInvokeActionEnabled)
+              dispatcher.BeginInvoke(DispatcherPriority.Background, handler, GetNotifyObject(), args, null, null);
+            else
+              dispatcher.Invoke(DispatcherPriority.Background, handler, GetNotifyObject(), args);
+          }
+          catch (Exception ex)
+          {
+            Debug.WriteLine($"{ex.GetType()} thrown in {this.GetType()} NotifyCollectionChanged dispatched invoke:\n {ex.Message}");
+          }
         }
         else
-
-          foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
+          try
           {
-            handler.Invoke(this, args);
-            //handler.BeginInvoke(this, args, null, null);
+            if (BeginInvokeActionEnabled)
+              handler.BeginInvoke(GetNotifyObject(), args, null, null);
+            else
+              handler.Invoke(GetNotifyObject(), args);
+          }
+          catch (Exception ex)
+          {
+            Debug.WriteLine($"{ex.GetType()} thrown in NotifyCollectionChanged direct invoke:\n {ex.Message}");
           }
       }
     }
 
 
-    private void NotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgs args)
-    {
-      lock (LockObject)
-      {
-        var notifyCollectionChangedEventHandler = CollectionChanged;
-        if (notifyCollectionChangedEventHandler == null)
-          return;
-        foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
-        {
-          handler.Invoke(this, args);
-        }
-      }
-    }
-
-    protected virtual void NotifyCollectionChanged(NotifyCollectionChangedAction action)
-    {
-      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action));
-    }
-
+    /// <summary>
+    /// Redirects event to <see cref="OnCollectionChanged"/>
+    /// </summary>
+    /// <param name="args"></param>
     public virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
-      //NotifyPropertyChanged("Count");
-      //NotifyPropertyChanged("Item[]");
       OnCollectionChanged(args);
     }
-
-    public void NotifyCollectionChanged(NotifyCollectionChangedAction action, object changedItem, int index)
-    {
-      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action, changedItem, index));
-    }
-
-    public void NotifyCollectionChanged(NotifyCollectionChangedAction action, IList changedItems, int index)
-    {
-      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(action, changedItems, index));
-    }
-
     #endregion INotifyCollectionChanged
 
   }

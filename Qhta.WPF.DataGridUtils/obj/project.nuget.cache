@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "LYpqnjJVTP+uusVembAuK2YnqTe+0Ee79QBKdPtttBsaHcDXm7HzjGXywpZcHnT1GEaK9kSLhSvG9WhnVOaGqg==",
+  "dgSpecHash": "h8nQpnvHzPh2B10Szik376zTKu+LSRYr5MxEEnDl+YhubXbsHWQXiK06b1ONLp6YB/HLRF73sQvD/36qCfEwhw==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.DataGridUtils\\Qhta.WPF.DataGridUtils.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.dispatchedobjects\\2.0.0\\qhta.dispatchedobjects.2.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\2.5.0\\qhta.mvvm.2.5.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\2.6.0\\qhta.mvvm.2.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.1\\qhta.textutils.3.1.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.10.1\\qhta.typeutils.1.3.10.1.nupkg.sha512"
   ],
