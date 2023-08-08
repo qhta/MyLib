@@ -85,7 +85,7 @@ namespace Qhta.ObservableObjects
           _keyComparer = value;
           _items = ImmutableDictionary.CreateRange(_keyComparer, _items);
           NotifyPropertyChanged(nameof(KeyComparer));
-          NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+          NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
       }
     }
@@ -115,9 +115,9 @@ namespace Qhta.ObservableObjects
         {
           enumerator.Reset();
         }
-        _items.Clear();
+        _items = _items.Clear();
         wasReset = true;
-        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         //NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -172,8 +172,8 @@ namespace Qhta.ObservableObjects
       }
       set
       {
-        _items.SetItem(key, value);
-        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        _items = _items.SetItem(key, value);
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -207,9 +207,9 @@ namespace Qhta.ObservableObjects
       {
         lock (LockObject)
         {
-          _items.Add(key, value);
+          _items = _items.Add(key, value);
           int index = _items.Keys.ToImmutableSortedSet().IndexOf(key);
-          NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
+          NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
         }
       }
       catch (System.ArgumentException ex)
@@ -254,7 +254,7 @@ namespace Qhta.ObservableObjects
           return false;
         TValue value = _items[key];
         _items = _items.Remove(key);
-        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
         return true;
       }
     }
@@ -408,7 +408,7 @@ namespace Qhta.ObservableObjects
     {
       var result = this.Contains(item.Key);
       _items = _items.Remove(item.Key);
-      NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+      NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       return result;
     }
 

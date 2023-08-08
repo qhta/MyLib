@@ -21,67 +21,20 @@
             Handler for collection changed event.
             </summary>
         </member>
-        <member name="P:Qhta.ObservableObjects.ObservableCollectionObject.NotifyCollectionChangedEnabled">
-            <summary>
-            Specifies whether collection notifies about changes.
-            </summary>
-        </member>
-        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.BulkChangeStart(System.Collections.Specialized.NotifyCollectionChangedAction)">
-            <summary>
-            Starts bulk change operation.
-            </summary>
-            <param name="action">Specifies action to invoke on end of bulk change operation.</param>
-        </member>
-        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.BulkChangeEnd">
-            <summary>
-            Ends bulk change operation. Invokes action set with previous <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.BulkChangeStart(System.Collections.Specialized.NotifyCollectionChangedAction)"/> method.
-            </summary>
-        </member>
-        <member name="F:Qhta.ObservableObjects.ObservableCollectionObject.bulkAction">
-            <summary>
-            Action to invoke on <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.BulkChangeEnd"/>
-            </summary>
-        </member>
-        <member name="F:Qhta.ObservableObjects.ObservableCollectionObject.newItems">
-            <summary>
-            List of items added in bulk operation.
-            Set up in <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.BulkChangeStart(System.Collections.Specialized.NotifyCollectionChangedAction)"/> method.
-            </summary>
-        </member>
-        <member name="F:Qhta.ObservableObjects.ObservableCollectionObject.oldItems">
-            <summary>
-            List of items removed in bulk operation.
-            Set up in <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.BulkChangeStart(System.Collections.Specialized.NotifyCollectionChangedAction)"/> method.
-            </summary>
-        </member>
-        <member name="F:Qhta.ObservableObjects.ObservableCollectionObject.itemsIndex">
-            <summary>
-            Index of items changed in bulk operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
-            <summary>
-            Method invoked on each collection change.
-            If a bulk change operation was started, 
-            then it collects items in <see cref="F:Qhta.ObservableObjects.ObservableCollectionObject.newItems"/> items.
-            Otherwise it invokes <see cref="E:Qhta.ObservableObjects.ObservableCollectionObject.CollectionChanged"/> events
-            (if they are set.
-            </summary>
-            <param name="args"></param>
-        </member>
-        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.HandleCollectionChangedEvent(System.Collections.Specialized.NotifyCollectionChangedEventHandler,System.Collections.Specialized.NotifyCollectionChangedEventArgs,System.Boolean)">
+        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.HandleCollectionChangedEvent(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventHandler,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
             Method to handle collection changed event.
             If a Dispatcher is set, then it is used to begin invoke the action
             </summary>
+            <param name="sender">Immutable collection which is a result of the operation</param>
             <param name="notifyCollectionChangedEventHandler"></param>
             <param name="args"></param>
-            <param name="immediately"></param>
         </member>
-        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.NotifyCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.NotifyCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
-            Redirects event to <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)"/>
+            Invokes <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.HandleCollectionChangedEvent(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventHandler,System.Collections.Specialized.NotifyCollectionChangedEventArgs)"/> handle method.
             </summary>
+            <param name="sender">Immutable collection which is a result of the operation</param>
             <param name="args"></param>
         </member>
         <member name="T:Qhta.ObservableObjects.ObservableDictionary`2">

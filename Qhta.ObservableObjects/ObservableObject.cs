@@ -15,7 +15,7 @@ namespace Qhta.ObservableObjects
     /// <summary>
     /// Common static dispatcher for notifying actions.
     /// </summary>
-    public static Dispatcher CommonDispatcher { get; set; } = null!;
+    public static Dispatcher CommonDispatcher { get; set; } = Dispatcher.CurrentDispatcher;
 
     /// <summary>
     /// Individual dispatcher for notifying actions. 

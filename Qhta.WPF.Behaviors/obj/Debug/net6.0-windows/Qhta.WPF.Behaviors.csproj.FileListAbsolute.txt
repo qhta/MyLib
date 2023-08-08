@@ -1,0 +1,12 @@
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.deps.json
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.dll
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.pdb
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.dll
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\refint\Qhta.WPF.Behaviors.dll
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\Qhta.WPF.Behaviors.pdb
+D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\obj\Debug\net6.0-windows\ref\Qhta.WPF.Behaviors.dll
