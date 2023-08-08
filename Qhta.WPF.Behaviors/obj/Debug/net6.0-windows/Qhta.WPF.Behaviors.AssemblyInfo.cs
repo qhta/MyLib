@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.WPF.Behaviors")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Yarreck Qhta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Package with behavior classes which can be used in WPF XAML.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.WPF.Behaviors")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.WPF.Behaviors")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

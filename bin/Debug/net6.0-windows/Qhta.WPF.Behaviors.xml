@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.WPF.Behaviors</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.WPF.Behaviors.CollectionViewBehavior">
+            <summary>
+            Defines <see cref="F:Qhta.WPF.Behaviors.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
+            between CollectionView and Collection which has thread-safe operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.CollectionViewBehavior.GetEnableCollectionSynchronization(System.Windows.DependencyObject)">
+            <summary>
+            <see cref="F:Qhta.WPF.Behaviors.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> getter.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.CollectionViewBehavior.SetEnableCollectionSynchronization(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            <see cref="F:Qhta.WPF.Behaviors.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> setter.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.CollectionViewBehavior.EnableCollectionSynchronizationProperty">
+            <summary>
+            Static DependencyProperty.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.CollectionViewBehavior.EnableCollectionSynchronizationPropertyChangedCallback(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Callback method invoked on Items control.
+            </summary>
+            <param name="obj"></param>
+            <param name="args"></param>
+        </member>
+    </members>
+</doc>

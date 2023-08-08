@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 //using System.Windows.Threading;
-using Qhta.DispatchedObjects;
+using Qhta.ObservableObjects;
 
 namespace Qhta.MVVM
 {
@@ -13,7 +13,7 @@ namespace Qhta.MVVM
   /// <see cref="ListViewModel"/> with specified item type.
   /// </summary>
   /// <typeparam name="ItemType"></typeparam>
-  public partial class ListViewModel<ItemType> : DispatchedCollection<ItemType>, INotifySelectionChanged, IViewModel, ISelectable
+  public partial class ListViewModel<ItemType> : ObservableList<ItemType>, INotifySelectionChanged, IViewModel, ISelectable
          where ItemType : class, IValidated, ISelectable
   {
     /// <summary>
@@ -82,30 +82,30 @@ namespace Qhta.MVVM
       }
     }
 
-    /// <summary>
-    /// Event handler method to get notification of collection changing.
-    /// </summary>
-    /// <param name="arg"></param>
-    protected override void AfterCollectionChanged(NotifyCollectionChangedEventArgs arg)
-    {
-      base.AfterCollectionChanged(arg);
-      NotifyPropertyChanged(nameof(ValidItemsCount));
-      NotifyPropertyChanged(nameof(InvalidItemsCount));
-      if (arg.Action==NotifyCollectionChangedAction.Add)
-      {
-        if (arg.NewItems!=null)
-        foreach (var item in arg.NewItems)
-        {
-          if (item is INotifyPropertyChanged notifyPropertyChangedItem)
-            notifyPropertyChangedItem.PropertyChanged+=Item_PropertyChanged;
-          if (item is INumbered numberedItem)
-          {
-            if (numberedItem.Number==0)
-              numberedItem.Number=this.Count();
-          }
-        }
-      }
-    }
+    ///// <summary>
+    ///// Event handler method to get notification of collection changing.
+    ///// </summary>
+    ///// <param name="arg"></param>
+    //protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs arg)
+    //{
+    //  base.AfterCollectionChanged(arg);
+    //  NotifyPropertyChanged(nameof(ValidItemsCount));
+    //  NotifyPropertyChanged(nameof(InvalidItemsCount));
+    //  if (arg.Action==NotifyCollectionChangedAction.Add)
+    //  {
+    //    if (arg.NewItems!=null)
+    //    foreach (var item in arg.NewItems)
+    //    {
+    //      if (item is INotifyPropertyChanged notifyPropertyChangedItem)
+    //        notifyPropertyChangedItem.PropertyChanged+=Item_PropertyChanged;
+    //      if (item is INumbered numberedItem)
+    //      {
+    //        if (numberedItem.Number==0)
+    //          numberedItem.Number=this.Count();
+    //      }
+    //    }
+    //  }
+    //}
 
     /// <summary>
     /// Event handler method to send notification of property changing.

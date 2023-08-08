@@ -16,10 +16,10 @@ namespace Qhta.ObservableObjects
   /// It should be used instead of ObservableCollection<typeparamref name="T"/> in MVVM architecture model.
   /// To bind it to CollectionView, 
   /// <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c> must be invoked. 
-  /// Instead it can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Utils assembly.
+  /// Instead, it can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Behaviors assembly.
   /// Syntax is:
-  /// <c>xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"</c>
-  /// <c>utils:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
+  /// <c>xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"</c>
+  /// <c>bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
   /// </summary>
   /// <typeparam name="T"></typeparam>
   public class ObservableList<T> : ObservableCollectionObject,
@@ -36,15 +36,6 @@ namespace Qhta.ObservableObjects
     /// Internal ImmutableList
     /// </summary>
     protected ImmutableList<T> _items;
-
-    /// <summary>
-    /// Gets ImmutableList to notify that collection is changed
-    /// </summary>
-    /// <returns></returns>
-    protected override ICollection GetNotifyObject()
-    {
-      return _items;
-    }
 
     #region constructors
 
@@ -90,12 +81,12 @@ namespace Qhta.ObservableObjects
     {
       get
       {
-        Debug.WriteLine($"Get({index})" + $" {DateTime.Now.TimeOfDay}");
+        //Debug.WriteLine($"Get({index})" + $" {DateTime.Now.TimeOfDay}");
         return _items[index];
       }
       set
       {
-        Debug.WriteLine($"Set({index},{value})" + $" {DateTime.Now.TimeOfDay}");
+        //Debug.WriteLine($"Set({index},{value})" + $" {DateTime.Now.TimeOfDay}");
         SetItem(index, value);
       }
     }
@@ -108,8 +99,7 @@ namespace Qhta.ObservableObjects
       get
       {
         var count = _items.Count;
-        Debug.WriteLine($"GetCount({count})" + $" {DateTime.Now.TimeOfDay}");
-        //Debug.WriteLine($"{Environment.StackTrace}");
+        //Debug.WriteLine($"GetCount({count})" + $" {DateTime.Now.TimeOfDay}");
         return count;
       }
     }
@@ -121,7 +111,7 @@ namespace Qhta.ObservableObjects
     /// <param name="value">Value to set.</param>
     public void SetItem(int index, T value)
     {
-      Debug.WriteLine($"SetItem({index},value)" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"SetItem({index},value)" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         var oldItem = _items[index];
@@ -138,7 +128,7 @@ namespace Qhta.ObservableObjects
     /// </param>
     public void Add(T item)
     {
-      Debug.WriteLine($"Add({item})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Add({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         var index = _items.Count;
@@ -160,7 +150,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void AddRange(IEnumerable<T> collection)
     {
-      Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         var index = _items.Count;
@@ -268,7 +258,7 @@ namespace Qhta.ObservableObjects
     /// </summary>
     public void Clear()
     {
-      Debug.WriteLine($"Clear()" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Clear()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Clear();
@@ -651,7 +641,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public IEnumerator<T> GetEnumerator()
     {
-      Debug.WriteLine($"GetEnumerator()" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"GetEnumerator()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         for (int i = 0; i < _items.Count; i++)
@@ -772,7 +762,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Insert(int index, T item)
     {
-      Debug.WriteLine($"Insert({index},{item})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Insert({index},{item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Insert(index, item);
@@ -801,7 +791,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void InsertRange(int index, IEnumerable<T> collection)
     {
-      Debug.WriteLine($"InsertRange({index},{collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"InsertRange({index},{collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         foreach (var item in collection)
@@ -895,7 +885,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public bool Remove(T item)
     {
-      Debug.WriteLine($"Remove({item})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Remove({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         int index = _items.IndexOf(item);
@@ -943,7 +933,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void RemoveAt(int index)
     {
-      Debug.WriteLine($"RemoveAt({index})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"RemoveAt({index})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         var value = _items[index];
@@ -969,7 +959,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void RemoveRange(int index, int count)
     {
-      Debug.WriteLine($"RemoveRange({index},{count})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"RemoveRange({index},{count})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         var count1 = _items.Count - index;
@@ -999,7 +989,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Reverse(int index, int count)
     {
-      Debug.WriteLine($"Reverse({index},{count})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Reverse({index},{count})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Reverse(index, count);
@@ -1013,7 +1003,7 @@ namespace Qhta.ObservableObjects
     ///</summary>
     public void Reverse()
     {
-      Debug.WriteLine($"Reverse()" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Reverse()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Reverse();
@@ -1037,7 +1027,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort(Comparison<T> comparison)
     {
-      Debug.WriteLine($"Sort({comparison})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Sort({comparison})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Sort(comparison);
@@ -1074,7 +1064,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort(int index, int count, IComparer<T> comparer)
     {
-      Debug.WriteLine($"Sort({index},{count},{comparer})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Sort({index},{count},{comparer})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Sort(index, count, comparer);
@@ -1093,7 +1083,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort()
     {
-      Debug.WriteLine($"Sort()" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Sort()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Sort();
@@ -1120,7 +1110,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public void Sort(IComparer<T> comparer)
     {
-      Debug.WriteLine($"Sort({comparer})" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"Sort({comparer})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
         _items = _items.Sort(comparer);
@@ -1158,7 +1148,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public bool TrueForAll(Predicate<T> match)
     {
-      Debug.WriteLine($"TrueForAll()" + $" {DateTime.Now.TimeOfDay}");
+      //Debug.WriteLine($"TrueForAll()" + $" {DateTime.Now.TimeOfDay}");
       return _items.TrueForAll(match);
     }
 

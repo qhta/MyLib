@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
-using Qhta.DispatchedObjects;
+using Qhta.ObservableObjects;
 
 namespace Qhta.MVVM
 {
   /// <summary>
   /// Base class of view model.
   /// </summary>
-  public class ViewModel : DispatchedObject, INotifyPropertyChanged, IViewModel
+  public class ViewModel : ObservableObject, INotifyPropertyChanged, IViewModel
   {
     /// <summary>
     /// A method to notify that a property has changed.

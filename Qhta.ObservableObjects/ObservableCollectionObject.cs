@@ -8,18 +8,11 @@ using System.Windows.Threading;
 namespace Qhta.ObservableObjects
 {
   /// <summary>
-  /// Base class for all observable collection classes
+  /// Base class for all observable collection classes.
   /// </summary>
   public abstract class ObservableCollectionObject : ObservableObject, INotifyCollectionChanged
   {
     #region INotifyCollectionChanged
-
-    /// <summary>
-    /// Abstract get accessor for object which will be notify other objects on collection change.
-    /// Will be implemented to get immutable collection of items.
-    /// </summary>
-    /// <returns></returns>
-    protected abstract ICollection GetNotifyObject();
 
     /// <summary>
     /// Handler for collection changed event.

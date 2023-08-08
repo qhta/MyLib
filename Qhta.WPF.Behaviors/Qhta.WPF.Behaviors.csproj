@@ -2,8 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Authors>Yarreck Qhta</Authors>
+    <Description>Package with behavior classes which can be used in WPF XAML.</Description>
+    <Version>1.0</Version>
+    <AutoRedirectBindings>true</AutoRedirectBindings>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>

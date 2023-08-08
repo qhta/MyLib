@@ -555,12 +555,6 @@
             Number of invalid items.
             </summary>
         </member>
-        <member name="M:Qhta.MVVM.ListViewModel`1.AfterCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
-            <summary>
-            Event handler method to get notification of collection changing.
-            </summary>
-            <param name="arg"></param>
-        </member>
         <member name="M:Qhta.MVVM.ListViewModel`1.Item_PropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
             <summary>
             Event handler method to send notification of property changing.

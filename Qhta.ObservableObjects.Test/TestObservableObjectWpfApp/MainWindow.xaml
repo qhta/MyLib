@@ -8,6 +8,45 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
   <Grid>
-    <ListView x:Name="MainListView"  ItemsSource="{Binding}"  />
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Border Grid.Column="0" Grid.Row="0"
+            Background="LightGray">
+      <Button x:Name="StartObservableListTest"
+              Click="StartObservableListTest_Click"
+        Content="{Binding Path=ObservableListTest.Caption}"/>
+    </Border>
+    <ListView x:Name="ObservableListView" 
+              Grid.Column="0" Grid.Row="1"
+              ItemsSource="{Binding Path=ObservableListTest.DataContext}" 
+              bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"/>
+    <Border Grid.Column="0" Grid.Row="2"
+            Background="LightGray">
+      <Label HorizontalAlignment="Center"
+        Content="{Binding Path=ObservableListTest.Status}"/>
+    </Border>
+    
+    <Border Grid.Column="1" Grid.Row="0"
+            Background="LightGray">
+      <Button x:Name="StartObservableDictionaryTest"
+              Click="StartObservableDictionaryTest_Click"
+        Content="{Binding Path=ObservableDictionaryTest.Caption}"/>
+    </Border>
+    <ListView x:Name="ObservableDictionaryView" 
+              Grid.Column="1" Grid.Row="1"
+              ItemsSource="{Binding Path=ObservableDictionaryTest.DataContext}" 
+              bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"/>
+    <Border Grid.Column="1" Grid.Row="2"
+            Background="LightGray">
+      <Label HorizontalAlignment="Center"
+        Content="{Binding Path=ObservableDictionaryTest.Status}"/>
+    </Border>    
   </Grid>
 </Window>

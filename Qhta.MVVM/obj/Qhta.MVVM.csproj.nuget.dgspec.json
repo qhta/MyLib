@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj": {
-      "version": "2.7.0",
+      "version": "3.0.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
         "projectName": "Qhta.MVVM",
@@ -51,7 +51,7 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
-            "Qhta.DispatchedObjects": {
+            "Qhta.ObservableObjects": {
               "target": "Package",
               "version": "[2.3.0, )"
             }

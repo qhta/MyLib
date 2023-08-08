@@ -1,0 +1,9 @@
+﻿This package contains behavior classes which can be used in WPF XAML. 
+
+The classes are as follows:
+* CollectionViewBehavior - defines EnableCollectionSynchronization property to help establish synchronized binding
+ between CollectionView and Collection which has thread-safe operations. To use it,
+ first you must define a namespace prefix, like this:
+         xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"
+ Then set-up an attribute in the collection view declaration in XAML:
+         bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"

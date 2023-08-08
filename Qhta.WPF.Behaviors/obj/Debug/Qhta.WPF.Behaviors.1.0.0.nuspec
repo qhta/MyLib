@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.WPF.Behaviors</id>
+    <version>1.0.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>Package with behavior classes which can be used in WPF XAML.</description>
+    <dependencies>
+      <group targetFramework="net6.0-windows7.0" />
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.dll" target="lib\net6.0-windows7.0\Qhta.WPF.Behaviors.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.xml" target="lib\net6.0-windows7.0\Qhta.WPF.Behaviors.xml" />
+    <file src="D:\VS\Projects\MyLib\Qhta.WPF.Behaviors\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

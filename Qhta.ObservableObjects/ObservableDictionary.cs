@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Threading;
 
@@ -14,24 +15,23 @@ namespace Qhta.ObservableObjects
   /// Multithread version of Dictionary<typeparamref name="TKey"/>, <typeparamref name="TValue"/> with CollectionChanged notification.
   /// It should be used instead of ObservableCollection<typeparamref name="TValue"/> in MVVM architecture model when
   /// data source must be a dictionary.
-  /// To bind it to CollectionView, <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c>
-  /// must be invoked. It can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Utils assembly.
+  /// To bind it to CollectionView, 
+  /// <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c> must be invoked. 
+  /// Instead, it can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Behaviors assembly.
   /// Syntax is:
-  /// <c>xmlns:utils="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"</c>
-  /// <c>utils:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
+  /// <c>xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"</c>
+  /// <c>bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
   /// </summary>
   /// <typeparam name="TKey"></typeparam>
   /// <typeparam name="TValue"></typeparam>
   public class ObservableDictionary<TKey, TValue> : ObservableCollectionObject,
     IEnumerable,
     ICollection,
-    //IList,// This interface must not be implemented due to error in PresentationFramework. The error occurs after invoking Clear() method,
+    //IList, This interface must not be implemented
     IEnumerable<KeyValuePair<TKey, TValue>>,
     ICollection<KeyValuePair<TKey, TValue>>,
     IDictionary,
     IDictionary<TKey, TValue>,
-    //ISerializable,
-    //IDeserializationCallback,
     INotifyCollectionChanged, INotifyPropertyChanged
     where TKey : notnull, IEquatable<TKey>
   {
@@ -43,17 +43,7 @@ namespace Qhta.ObservableObjects
     /// </summary>
     protected ImmutableDictionary<TKey, TValue> _items = null!;
 
-    /// <summary>
-    /// Gets ImmutableList to notify that collection is changed
-    /// </summary>
-    /// <returns></returns>
-    protected override ICollection GetNotifyObject()
-    {
-      return _items;
-    }
-
     #region constructors
-
     /// <summary>
     /// Default constructor.
     /// </summary>
@@ -111,24 +101,31 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         //Debug.WriteLine("Clear");
-        foreach (var enumerator in enumerators)
-        {
-          enumerator.Reset();
-        }
         _items = _items.Clear();
-        wasReset = true;
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        //NotifyPropertyChanged(nameof(Count));
       }
     }
     internal bool wasReset;
-
-    private List<ObservableDictionaryEnumerator> enumerators = new List<ObservableDictionaryEnumerator>();
 
     /// <summary>
     /// Returns the count of items.
     /// </summary>
     public int Count
+    {
+      get
+      {
+        var count = _items.Count;
+        if (count==100000)
+          Debug.Assert(true);
+        Debug.WriteLine($"GetCount({count})" + $" {DateTime.Now.TimeOfDay}");
+        return count;
+      }
+    }
+
+    /// <summary>
+    /// Returns the count of items.
+    /// </summary>
+    internal int _Count
     {
       get
       {
@@ -180,18 +177,19 @@ namespace Qhta.ObservableObjects
     IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
     {
       //Debug.WriteLine($"IEnumerable<KeyValuePair<T, V>>.GetEnumerator");
-      return this.GetEnumerator();
+      var enumerator = _items.GetEnumerator();
+      return enumerator;
     }
 
     /// <summary>
     /// Gets enumerator adding it to enumerator list.
     /// </summary>
     /// <returns></returns>
-    public ObservableDictionaryEnumerator GetEnumerator()
+    public IEnumerator<TValue> GetEnumerator()
     {
       //Debug.WriteLine($"GetEnumerator");
-      var enumerator = new ObservableDictionaryEnumerator(this);
-      enumerators.Add(enumerator);
+      //var enumerator = new ObservableDictionaryEnumerator(this);
+      var enumerator = _items.Values.GetEnumerator();
       return enumerator;
     }
 
@@ -203,20 +201,54 @@ namespace Qhta.ObservableObjects
     public void Add(TKey key, TValue value)
     {
       //Debug.WriteLine($"Add({key}, {value})" + $" {DateTime.Now.ToString(dateTimeFormat)}");
-      try
+      lock (LockObject)
       {
-        lock (LockObject)
-        {
-          _items = _items.Add(key, value);
-          int index = _items.Keys.ToImmutableSortedSet().IndexOf(key);
-          NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
-        }
-      }
-      catch (System.ArgumentException ex)
-      {
-        Debug.WriteLine($"{ex.GetType().Name} thrown in ObservableDictionary:\n {ex.Message}");
+        int index = _items.Count;
+        _items = _items.Add(key, value);
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
       }
     }
+
+
+    /// <summary>
+    ///   Adds the elements of the specified collection to the end of the ImmutableList.
+    /// </summary>
+    /// <param name="collection">
+    ///   The collection whose elements should be added to the end of the list.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    ///   collection is null.
+    /// </exception>
+    public void AddRange(IEnumerable<(TKey, TValue)> collection)
+    {
+      //Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
+      lock (LockObject)
+      {
+        _items = _items.AddRange(collection.Select(item=>new KeyValuePair<TKey, TValue>(item.Item1, item.Item2)).ToArray());
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+      }
+    }
+
+
+    /// <summary>
+    ///   Adds the elements of the specified collection to the end of the ImmutableList.
+    /// </summary>
+    /// <param name="collection">
+    ///   The collection whose elements should be added to the end of the list.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    ///   collection is null.
+    /// </exception>
+    public void AddRange(IEnumerable<KeyValuePair<TKey, TValue>> collection)
+    {
+      //Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
+      lock (LockObject)
+      {
+        _items = _items.AddRange(collection);
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+      }
+    }
+
 
     /// <summary>
     /// Checks if the dictionary contains the specific key.
@@ -304,7 +336,7 @@ namespace Qhta.ObservableObjects
 
     IDictionaryEnumerator IDictionary.GetEnumerator()
     {
-      return this.GetEnumerator();
+      return ((IDictionary)_items).GetEnumerator();
     }
 
     ICollection IDictionary.Keys
@@ -422,165 +454,5 @@ namespace Qhta.ObservableObjects
       return _items.ContainsKey(pair.Key);
     }
 
-    //#region IList explicit implementation
-
-    //object IList.this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-
-    //int IList.Add(object value)
-    //{
-    //  throw new NotImplementedException();
-    //}
-
-    //int IList.IndexOf(object value)
-    //{
-    //  throw new NotImplementedException();
-    //}
-
-    //void IList.Insert(int index, object value)
-    //{
-    //  throw new NotImplementedException();
-    //}
-
-    //void IList.RemoveAt(int index)
-    //{
-    //  throw new NotImplementedException();
-    //}
-    //#endregion
-
-
-    /// <summary>
-    /// Enumerator class for observable dictionary.
-    /// </summary>
-    public class ObservableDictionaryEnumerator : IDictionaryEnumerator, IEnumerator<KeyValuePair<TKey, TValue>>
-    {
-      /// <summary>
-      /// Initializing constructor.
-      /// </summary>
-      /// <param name="items"></param>
-      public ObservableDictionaryEnumerator(ObservableDictionary<TKey, TValue> items)
-      {
-        _items = items;
-        if (items.wasReset)
-        {
-          currentIndex = -2;
-          items.wasReset = false;
-        }
-      }
-
-      private ObservableDictionary<TKey, TValue> _items;
-      private int currentIndex = -1;
-
-      /// <summary>
-      /// Gets the current dictionary entry.
-      /// </summary>
-      public DictionaryEntry Entry => new DictionaryEntry(Current.Key, Current.Value);
-
-      /// <summary>
-      /// Gets the current entry key.
-      /// </summary>
-      public object Key => Current.Key;
-
-      /// <summary>
-      /// Gets the current entry value.
-      /// </summary>
-      public object? Value => Current.Value;
-
-      /// <summary>
-      /// Gets the current key-value pair.
-      /// </summary>
-      public KeyValuePair<TKey, TValue> Current
-      {
-        get
-        {
-          //Debug.WriteLine($"Current[{currentIndex}]");
-          if (currentIndex >= 0 && currentIndex < _items.Count)
-            return _items._items.ToImmutableArray()[currentIndex];
-          return default(KeyValuePair<TKey, TValue>);
-        }
-      }
-
-      object IEnumerator.Current => this.Current;
-
-      /// <summary>
-      /// Moves current index to the next position.
-      /// </summary>
-      /// <returns></returns>
-      public bool MoveNext()
-      {
-        if (currentIndex < _items.Count - 1)
-        {
-          currentIndex++;
-          //Debug.WriteLine($"ObservableDictionaryEnumerator moved next to {currentIndex}");
-          return currentIndex >= 0;
-        }
-        else
-        {
-          //Debug.WriteLine($"ObservableDictionaryEnumerator currentIndex={currentIndex}, itemsCount={_items.Count}");
-          currentIndex = _items.Count - 1;
-          //Debug.WriteLine($"ObservableDictionaryEnumerator cannot moved next to {currentIndex}");
-          return false;
-        }
-      }
-
-      /// <summary>
-      /// Resets the current index.
-      /// </summary>
-      public void Reset()
-      {
-        //Debug.WriteLine("Reset");
-        currentIndex = -2;
-      }
-
-      bool IEnumerator.MoveNext()
-      {
-        return this.MoveNext();
-      }
-
-      void IEnumerator.Reset()
-      {
-        this.Reset();
-      }
-
-      #region IDisposable Support
-      private bool disposedValue = false; // To detect redundant calls
-
-      /// <summary>
-      /// Dispose implementation method.
-      /// </summary>
-      /// <param name="disposing"></param>
-      protected virtual void Dispose(bool disposing)
-      {
-        if (!disposedValue)
-        {
-          if (disposing)
-          {
-            //_items.enumerators.Remove(this);
-          }
-
-          // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-          // TODO: set large fields to null.
-
-          disposedValue = true;
-        }
-      }
-
-      // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-      // ~ObservableDictionaryEnumerator() {
-      //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-      //   Dispose(false);
-      // }
-
-      // This code added to correctly implement the disposable pattern.
-      void IDisposable.Dispose()
-      {
-        // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        Dispose(true);
-        // TODO: uncomment the following line if the finalizer is overridden above.
-        // GC.SuppressFinalize(this);
-      }
-      #endregion
-
-    }
   }
 }

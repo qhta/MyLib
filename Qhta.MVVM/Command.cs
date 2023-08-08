@@ -3,14 +3,14 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
-using Qhta.DispatchedObjects;
+using Qhta.ObservableObjects;
 
 namespace Qhta.MVVM
 {
   /// <summary>
   /// Abstract class implementing <see cref="ICommand"/> interface
   /// </summary>
-  public abstract class Command : DispatchedObject, ICommand
+  public abstract class Command : ObservableObject, ICommand
   {
     /// <summary>
     /// Name to trace command.
@@ -53,7 +53,7 @@ namespace Qhta.MVVM
     /// </summary>
     protected virtual void OnCanExecuteChanged()
     {
-      Dispatch(() => _CanExecuteChanged?.Invoke(this, EventArgs.Empty));
+      base.Dispatcher.Invoke(() => _CanExecuteChanged?.Invoke(this, EventArgs.Empty));
     }
 
     /// <summary>
