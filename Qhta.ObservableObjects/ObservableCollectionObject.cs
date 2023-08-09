@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
@@ -37,9 +36,9 @@ namespace Qhta.ObservableObjects
           try
           {
             if (BeginInvokeActionEnabled)
-              dispatcher.BeginInvoke(DispatcherPriority.Background, handler, sender, args, null, null);
+              dispatcher.BeginInvoke(handler, sender, args);
             else
-              dispatcher.Invoke(DispatcherPriority.Send, handler, sender, args);
+              dispatcher.Invoke(handler, sender, args);
           }
           catch (Exception ex)
           {

@@ -48,7 +48,7 @@ namespace Qhta.MVVM
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override bool CanExecute(object? parameter)
     {
-      if (canExecute!=null)
+      if (canExecute != null)
         Debug.Assert(true);
       return canExecute?.Invoke() ?? true;
     }

@@ -1,8 +1,3 @@
-D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp.csproj.AssemblyReference.cache
-D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\MainWindow.g.cs
-D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\App.g.cs
-D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp_MarkupCompile.cache
-D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp_MarkupCompile.lref
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\TestObservableObjectWpfApp.exe
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\TestObservableObjectWpfApp.deps.json
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\TestObservableObjectWpfApp.runtimeconfig.json
@@ -14,6 +9,12 @@ D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.ObservableObjects.pdb
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.ObservableObjects.xml
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.pdb
+D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.xml
+D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\MainWindow.g.cs
+D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\App.g.cs
+D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp_MarkupCompile.cache
+D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp_MarkupCompile.lref
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\MainWindow.baml
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp.g.resources
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\obj\Debug\net6.0-windows\TestObservableObjectWpfApp.GeneratedMSBuildEditorConfig.editorconfig

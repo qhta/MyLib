@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
-      "version": "2.3.0",
+      "version": "2.6.1",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
         "projectName": "Qhta.ObservableObjects",
@@ -58,10 +58,6 @@
             "System.Collections.Immutable": {
               "target": "Package",
               "version": "[7.0.0, )"
-            },
-            "WindowsBase": {
-              "target": "Package",
-              "version": "[4.6.1055, )"
             }
           },
           "imports": [

@@ -307,15 +307,6 @@
             "related": ".xml"
           }
         }
-      },
-      "WindowsBase/4.6.1055": {
-        "type": "package",
-        "compile": {
-          "lib/WindowsBase.dll": {}
-        },
-        "runtime": {
-          "lib/WindowsBase.dll": {}
-        }
       }
     }
   },
@@ -1646,26 +1637,13 @@
         "system.threading.tasks.4.3.0.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
-    },
-    "WindowsBase/4.6.1055": {
-      "sha512": "1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "type": "package",
-      "path": "windowsbase/4.6.1055",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/WindowsBase.dll",
-        "windowsbase.4.6.1055.nupkg.sha512",
-        "windowsbase.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "System.Collections.Concurrent >= 4.3.0",
-      "System.Collections.Immutable >= 7.0.0",
-      "WindowsBase >= 4.6.1055"
+      "System.Collections.Immutable >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -1673,7 +1651,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.3.0",
+    "version": "2.6.1",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
       "projectName": "Qhta.ObservableObjects",
@@ -1726,10 +1704,6 @@
           "System.Collections.Immutable": {
             "target": "Package",
             "version": "[7.0.0, )"
-          },
-          "WindowsBase": {
-            "target": "Package",
-            "version": "[4.6.1055, )"
           }
         },
         "imports": [
@@ -1746,17 +1720,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.",
-      "libraryId": "WindowsBase",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    }
-  ]
+  }
 }

@@ -5,8 +5,8 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Authors>Yarreck Qhta</Authors>
-    <Description>Classes to use replace ObservableCollection when used in background task. Requires WindowsBase.dll.</Description>
-    <Version>2.3</Version>
+    <Description>Classes to use replace ObservableCollection when used in background task.</Description>
+    <Version>2.6.1</Version>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -25,7 +25,6 @@
   <ItemGroup>
     <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
     <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
-    <PackageReference Include="WindowsBase" Version="4.6.1055" />
   </ItemGroup>
 
 </Project>

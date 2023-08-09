@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
-using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
@@ -15,29 +13,18 @@ namespace Qhta.ObservableObjects
     /// <summary>
     /// Common static dispatcher for notifying actions.
     /// </summary>
-    public static Dispatcher CommonDispatcher { get; set; } = Dispatcher.CurrentDispatcher;
+    public static IDispatcherBridge? CommonDispatcher { get; set; }
 
     /// <summary>
     /// Individual dispatcher for notifying actions. 
     /// If not set, then <see cref="CommonDispatcher"/> is used.
     /// </summary>
-    public Dispatcher Dispatcher
+    public IDispatcherBridge? Dispatcher
     {
       get => _Dispatcher ?? CommonDispatcher;
-      set
-      {
-#if DEBUG
-        {
-          if (value.Thread.GetApartmentState() != ApartmentState.STA)
-            Debug.Fail($"{this} should be set with STA thread dispatcher");
-          if (value.Thread.Name != "VSTA_Main")
-            Debug.Fail($"{this.GetType().Name} should be created with VSTA_Main dispatcher");
-        }
-#endif
-        _Dispatcher = value;
-      }
+      set => _Dispatcher = value;
     }
-    private Dispatcher? _Dispatcher;
+    private IDispatcherBridge? _Dispatcher;
 
     /// <summary>
     /// Common property that specifies 
@@ -100,9 +87,9 @@ namespace Qhta.ObservableObjects
           try
           {
             if (BeginInvokeActionEnabled)
-              dispatcher.BeginInvoke(DispatcherPriority.Background, handler, sender, args, null, null);
+              dispatcher.BeginInvoke(handler, sender, args);
             else
-              dispatcher.Invoke(DispatcherPriority.Background, handler, sender, args);
+              dispatcher.Invoke(handler, sender, args);
           }
           catch (Exception ex)
           {

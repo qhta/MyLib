@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <Authors>Yarreck Qhta</Authors>
     <Description>Package with behavior classes which can be used in WPF XAML.</Description>
-    <Version>1.0</Version>
+    <Version>1.4</Version>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -21,6 +21,11 @@
 
   <ItemGroup>
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Qhta.MVVM\Qhta.MVVM.csproj" />
+    <ProjectReference Include="..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,10 +7,10 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.MVVM/3.0": {
+      "Qhta.MVVM/3.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.ObservableObjects": "2.3.0"
+          "Qhta.ObservableObjects": "2.6.1"
         },
         "runtime": {
           "Qhta.MVVM.dll": {}
@@ -21,19 +21,6 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
-        }
-      },
-      "Qhta.ObservableObjects/2.3.0": {
-        "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0",
-          "WindowsBase": "4.6.1055"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "assemblyVersion": "2.3.0.0",
-            "fileVersion": "2.3.0.0"
-          }
         }
       },
       "System.Buffers/4.5.1": {
@@ -206,18 +193,19 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "WindowsBase/4.6.1055": {
+      "Qhta.ObservableObjects/2.6.1": {
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Immutable": "7.0.0"
+        },
         "runtime": {
-          "lib/WindowsBase.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.1055.0"
-          }
+          "Qhta.ObservableObjects.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Qhta.MVVM/3.0": {
+    "Qhta.MVVM/3.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -242,13 +230,6 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "Qhta.ObservableObjects/2.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xvi2PC96FMgjVjb48AIwdgZV5GiPVgduuXC5wMciOSd2bKSohLALP1dros75O9pIHbJjhFt4fL+8UCjz0TMkwA==",
-      "path": "qhta.observableobjects/2.3.0",
-      "hashPath": "qhta.observableobjects.2.3.0.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
@@ -383,12 +364,10 @@
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
-    "WindowsBase/4.6.1055": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "path": "windowsbase/4.6.1055",
-      "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
+    "Qhta.ObservableObjects/2.6.1": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

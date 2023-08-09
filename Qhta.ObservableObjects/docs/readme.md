@@ -3,9 +3,10 @@ INotifyPropertyChanged and INotifyCollectionChanged.
 
 Classes are:
 * ObservableObject - a class that implements INotifyPropertyChanged interface. It invokes Dispatcher on PropertyChanged event.
- It defines a static CommonDispatcher property which is initially set to Dispatcher.CurrentDispatcher.
- To use it properly, an instance of this class or any derived class must be created in main application thread (GUI thread).
- It can also be set-up programatically in GUI thread or overriden in any instance by set-up its Dispatcher property.
+ It defines a static CommonDispatcher property which is of IDispatcherBridge interface type.
+ To use it properly, an instance of a class implementing this interface must be created in main application thread (GUI thread)
+ and assigned to this property.
+ This setting can be overriden in any instance by set-up its Dispatcher property.
 
  * ObservableCollectionObject - an abstract base class for derived collection classes.
  It itself derives from ObservableObject class.
@@ -28,3 +29,7 @@ Classes are:
  It derives from ObservableCollectionObject class to notify collection changes.
  It uses ImmutableDictionary class to implement items.
  Its default enumerator moves on Values.
+
+
+The package also defines an interface IDispatcherBridge with Invoke (synchronous) and BeginInvoke (asynchronous) operations
+which should be implemented by using Dispatcher object (in WPF applications).

@@ -311,7 +311,7 @@ namespace Qhta.MVVM
     /// <summary>
     /// Enumerable of all items.
     /// </summary>
-    public new IEnumerable<object> Items => this;
+    public IEnumerable<object> Items => this;
 
     private bool inSelectAll;
 
@@ -360,7 +360,7 @@ namespace Qhta.MVVM
       {
         //Debug.WriteLine($"NotifySelectionChanged selected={selectedItems.Count},unselected={unselectedItems.Count}");
         if (_SelectionChanged != null && (unselectedItems.Count != 0 || selectedItems.Count != 0))
-          base.Dispatcher.Invoke(() => _SelectionChanged(this, new SelectionChangedEventArgs(selectedItems, unselectedItems)));
+          base.Dispatcher?.Invoke(() => _SelectionChanged(this, new SelectionChangedEventArgs(selectedItems, unselectedItems)));
       }
     }
   }

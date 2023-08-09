@@ -13,6 +13,11 @@ namespace Qhta.MVVM
   public abstract class Command : ObservableObject, ICommand
   {
     /// <summary>
+    /// Listener of CanExecuteChanged event. In WPF it should be bridged to CommandManager.
+    /// </summary>
+    public static ICanExecuteChangedListener? CanExecuteChangedListener { get; set; }
+
+    /// <summary>
     /// Name to trace command.
     /// </summary>
     public string? Name { get; set; }
@@ -26,11 +31,19 @@ namespace Qhta.MVVM
       add
       {
         _CanExecuteChanged += value;
-        if (value!=null)
+        if (value != null)
           value.Invoke(this, EventArgs.Empty);
+        if (CanExecuteChangedListener!=null)
+          CanExecuteChangedListener.CanExecuteChanged += value;
       }
-      remove { _CanExecuteChanged -= value; }
+      remove 
+        { 
+          _CanExecuteChanged -= value; 
+        if (CanExecuteChangedListener!=null)
+          CanExecuteChangedListener.CanExecuteChanged -= value;
+        }
     }
+
     /// <summary>
     /// Internal event for <see cref="CanExecuteChanged"/> to be called in descendant classes.
     /// </summary>
@@ -53,7 +66,7 @@ namespace Qhta.MVVM
     /// </summary>
     protected virtual void OnCanExecuteChanged()
     {
-      base.Dispatcher.Invoke(() => _CanExecuteChanged?.Invoke(this, EventArgs.Empty));
+      base.Dispatcher?.Invoke(() => _CanExecuteChanged?.Invoke(this, EventArgs.Empty));
     }
 
     /// <summary>

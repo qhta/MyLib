@@ -35,24 +35,6 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.ObservableObjects/2.3.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0",
-          "WindowsBase": "4.6.1055"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -326,13 +308,18 @@
           }
         }
       },
-      "WindowsBase/4.6.1055": {
-        "type": "package",
+      "Qhta.ObservableObjects/2.6.1": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Immutable": "7.0.0"
+        },
         "compile": {
-          "lib/WindowsBase.dll": {}
+          "bin/placeholder/Qhta.ObservableObjects.dll": {}
         },
         "runtime": {
-          "lib/WindowsBase.dll": {}
+          "bin/placeholder/Qhta.ObservableObjects.dll": {}
         }
       }
     }
@@ -495,19 +482,6 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
-      ]
-    },
-    "Qhta.ObservableObjects/2.3.0": {
-      "sha512": "xvi2PC96FMgjVjb48AIwdgZV5GiPVgduuXC5wMciOSd2bKSohLALP1dros75O9pIHbJjhFt4fL+8UCjz0TMkwA==",
-      "type": "package",
-      "path": "qhta.observableobjects/2.3.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/netstandard2.0/Qhta.ObservableObjects.dll",
-        "lib/netstandard2.0/Qhta.ObservableObjects.xml",
-        "qhta.observableobjects.2.3.0.nupkg.sha512",
-        "qhta.observableobjects.nuspec",
-        "readme.md"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -1678,23 +1652,16 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "WindowsBase/4.6.1055": {
-      "sha512": "1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "type": "package",
-      "path": "windowsbase/4.6.1055",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/WindowsBase.dll",
-        "windowsbase.4.6.1055.nupkg.sha512",
-        "windowsbase.nuspec"
-      ]
+    "Qhta.ObservableObjects/2.6.1": {
+      "type": "project",
+      "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
+      "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.ObservableObjects >= 2.3.0"
+      "Qhta.ObservableObjects >= 2.6.1"
     ]
   },
   "packageFolders": {
@@ -1702,7 +1669,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "3.0.0",
+    "version": "3.1.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",
@@ -1729,7 +1696,11 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1747,10 +1718,6 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "Qhta.ObservableObjects": {
-            "target": "Package",
-            "version": "[2.3.0, )"
           }
         },
         "imports": [
@@ -1767,17 +1734,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.",
-      "libraryId": "WindowsBase",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    }
-  ]
+  }
 }

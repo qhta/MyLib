@@ -254,22 +254,12 @@
           }
         }
       },
-      "WindowsBase/4.6.1055": {
-        "type": "package",
-        "compile": {
-          "lib/WindowsBase.dll": {}
-        },
-        "runtime": {
-          "lib/WindowsBase.dll": {}
-        }
-      },
-      "Qhta.ObservableObjects/2.3.0": {
+      "Qhta.ObservableObjects/2.6.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0",
-          "WindowsBase": "4.6.1055"
+          "System.Collections.Immutable": "7.0.0"
         },
         "compile": {
           "bin/placeholder/Qhta.ObservableObjects.dll": {}
@@ -278,9 +268,12 @@
           "bin/placeholder/Qhta.ObservableObjects.dll": {}
         }
       },
-      "Qhta.WPF.Behaviors/1.0.0": {
+      "Qhta.WPF.Behaviors/1.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Qhta.ObservableObjects": "2.6.0"
+        },
         "compile": {
           "bin/placeholder/Qhta.WPF.Behaviors.dll": {}
         },
@@ -1395,24 +1388,12 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "WindowsBase/4.6.1055": {
-      "sha512": "1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "type": "package",
-      "path": "windowsbase/4.6.1055",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/WindowsBase.dll",
-        "windowsbase.4.6.1055.nupkg.sha512",
-        "windowsbase.nuspec"
-      ]
-    },
-    "Qhta.ObservableObjects/2.3.0": {
+    "Qhta.ObservableObjects/2.6.0": {
       "type": "project",
       "path": "../../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
       "msbuildProject": "../../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
     },
-    "Qhta.WPF.Behaviors/1.0.0": {
+    "Qhta.WPF.Behaviors/1.2.0": {
       "type": "project",
       "path": "../../Qhta.WPF.Behaviors/Qhta.WPF.Behaviors.csproj",
       "msbuildProject": "../../Qhta.WPF.Behaviors/Qhta.WPF.Behaviors.csproj"
@@ -1420,8 +1401,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Qhta.ObservableObjects >= 2.3.0",
-      "Qhta.WPF.Behaviors >= 1.0.0"
+      "Qhta.ObservableObjects >= 2.6.0",
+      "Qhta.WPF.Behaviors >= 1.2.0"
     ]
   },
   "packageFolders": {
@@ -1497,17 +1478,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "WindowsBase",
-      "targetGraphs": [
-        "net6.0-windows7.0"
-      ]
-    }
-  ]
+  }
 }

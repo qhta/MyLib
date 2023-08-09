@@ -1,4 +1,4 @@
-﻿This package contains behavior classes which can be used in WPF XAML. 
+﻿This package contains behavior helper classes which can be used in WPF XAML. 
 
 The classes are as follows:
 * CollectionViewBehavior - defines EnableCollectionSynchronization property to help establish synchronized binding
@@ -7,3 +7,6 @@ The classes are as follows:
          xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"
  Then set-up an attribute in the collection view declaration in XAML:
          bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"
+
+* DispatcherBridge - implements IDispatcherBridge interface from ObservableObjects assembly.
+

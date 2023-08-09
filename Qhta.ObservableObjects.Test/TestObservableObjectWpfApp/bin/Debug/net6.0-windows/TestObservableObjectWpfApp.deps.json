@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "TestObservableObjectWpfApp/1.0.0": {
         "dependencies": {
-          "Qhta.ObservableObjects": "2.3.0",
-          "Qhta.WPF.Behaviors": "1.0.0"
+          "Qhta.ObservableObjects": "2.5.0",
+          "Qhta.WPF.Behaviors": "1.1.0"
         },
         "runtime": {
           "TestObservableObjectWpfApp.dll": {}
@@ -138,18 +138,19 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "WindowsBase/4.6.1055": {},
-      "Qhta.ObservableObjects/2.3.0": {
+      "Qhta.ObservableObjects/2.5.0": {
         "dependencies": {
           "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0",
-          "WindowsBase": "4.6.1055"
+          "System.Collections.Immutable": "7.0.0"
         },
         "runtime": {
           "Qhta.ObservableObjects.dll": {}
         }
       },
-      "Qhta.WPF.Behaviors/1.0.0": {
+      "Qhta.WPF.Behaviors/1.1.0": {
+        "dependencies": {
+          "Qhta.ObservableObjects": "2.5.0"
+        },
         "runtime": {
           "Qhta.WPF.Behaviors.dll": {}
         }
@@ -288,19 +289,12 @@
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
-    "WindowsBase/4.6.1055": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "path": "windowsbase/4.6.1055",
-      "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
-    },
-    "Qhta.ObservableObjects/2.3.0": {
+    "Qhta.ObservableObjects/2.5.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Qhta.WPF.Behaviors/1.0.0": {
+    "Qhta.WPF.Behaviors/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

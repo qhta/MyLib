@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dbHJ1xT70ZIbxTiq37ykS59Wfn5tuGXwKFbb1JwCS3+tAlsDIW7eDcIPHNh1TNPsOpnBJNoLHREZBxh0lmhlhQ==",
+  "dgSpecHash": "0+DZRDstpK/S/nfj8Je/HL0o0ncyoYLknTSiUtrbuxmT7vHndZWvbR+uteojLGgrIozjRprnOEmtuBrLxwH4Ow==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj",
   "expectedPackageFiles": [
@@ -21,20 +21,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\windowsbase\\4.6.1055\\windowsbase.4.6.1055.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.3.0\\qhta.observableobjects.2.3.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "WindowsBase",
-      "targetGraphs": [
-        "net6.0-windows7.0"
-      ]
-    }
-  ]
+  "logs": []
 }

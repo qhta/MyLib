@@ -6,8 +6,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
@@ -105,7 +103,6 @@ namespace Qhta.ObservableObjects
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
-    internal bool wasReset;
 
     /// <summary>
     /// Returns the count of items.
@@ -115,7 +112,7 @@ namespace Qhta.ObservableObjects
       get
       {
         var count = _items.Count;
-        if (count==100000)
+        if (count == 100000)
           Debug.Assert(true);
         Debug.WriteLine($"GetCount({count})" + $" {DateTime.Now.TimeOfDay}");
         return count;
@@ -206,6 +203,7 @@ namespace Qhta.ObservableObjects
         int index = _items.Count;
         _items = _items.Add(key, value);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -224,8 +222,9 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.AddRange(collection.Select(item=>new KeyValuePair<TKey, TValue>(item.Item1, item.Item2)).ToArray());
+        _items = _items.AddRange(collection.Select(item => new KeyValuePair<TKey, TValue>(item.Item1, item.Item2)).ToArray());
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -246,6 +245,7 @@ namespace Qhta.ObservableObjects
       {
         _items = _items.AddRange(collection);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -287,6 +287,7 @@ namespace Qhta.ObservableObjects
         TValue value = _items[key];
         _items = _items.Remove(key);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
+        NotifyPropertyChanged(nameof(Count));
         return true;
       }
     }
@@ -441,6 +442,7 @@ namespace Qhta.ObservableObjects
       var result = this.Contains(item.Key);
       _items = _items.Remove(item.Key);
       NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+      NotifyPropertyChanged(nameof(Count));
       return result;
     }
 

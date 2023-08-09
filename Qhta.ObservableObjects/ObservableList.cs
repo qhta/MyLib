@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows.Threading;
 
 namespace Qhta.ObservableObjects
 {
@@ -134,6 +133,7 @@ namespace Qhta.ObservableObjects
         var index = _items.Count;
         _items = _items.Add(item);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -156,6 +156,7 @@ namespace Qhta.ObservableObjects
         var index = _items.Count;
         _items = _items.AddRange(collection);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -767,6 +768,7 @@ namespace Qhta.ObservableObjects
       {
         _items = _items.Insert(index, item);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -794,9 +796,9 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"InsertRange({index},{collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        foreach (var item in collection)
-          _items = _items.Insert(index++, item);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection, index));
+        _items = _items.InsertRange(index, collection);
+        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -894,6 +896,7 @@ namespace Qhta.ObservableObjects
 
         _items = _items.RemoveAt(index);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+        NotifyPropertyChanged(nameof(Count));
         return true;
       }
     }
@@ -918,6 +921,7 @@ namespace Qhta.ObservableObjects
         var removeList = this.Where(item => match(item)).ToList();
         _items = _items.RemoveAll(match);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyPropertyChanged(nameof(Count));
         return removeList.Count;
       }
     }
@@ -939,6 +943,7 @@ namespace Qhta.ObservableObjects
         var value = _items[index];
         _items = _items.RemoveAt(index);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 
@@ -969,6 +974,7 @@ namespace Qhta.ObservableObjects
         _items.CopyTo(index, items, 0, count);
         _items = _items.RemoveRange(index, count);
         NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, items, index));
+        NotifyPropertyChanged(nameof(Count));
       }
     }
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using Qhta.ObservableObjects;
+using Qhta.WPF.Behaviors;
 
 namespace TestObservableObjectWpfApp;
 
@@ -11,6 +12,7 @@ public partial class MainWindow : Window
   public MainWindow()
   {
     InitializeComponent();
+    ObservableObject.CommonDispatcher = new DispatcherBridge();
     var tests = new Tests();
     DataContext = tests;
     tests.ObservableListTest = new TestObservableList();
