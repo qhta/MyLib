@@ -33,15 +33,15 @@ namespace Qhta.MVVM
         _CanExecuteChanged += value;
         if (value != null)
           value.Invoke(this, EventArgs.Empty);
-        if (CanExecuteChangedListener!=null)
+        if (CanExecuteChangedListener != null)
           CanExecuteChangedListener.CanExecuteChanged += value;
       }
-      remove 
-        { 
-          _CanExecuteChanged -= value; 
-        if (CanExecuteChangedListener!=null)
+      remove
+      {
+        _CanExecuteChanged -= value;
+        if (CanExecuteChangedListener != null)
           CanExecuteChangedListener.CanExecuteChanged -= value;
-        }
+      }
     }
 
     /// <summary>
@@ -51,23 +51,39 @@ namespace Qhta.MVVM
 
     /// <summary>
     /// A method to notify that a result of <see cref="CanExecute(object)"/> function may be changed.
-    /// Invokes <see cref="OnCanExecuteChanged"/> callback method.
     /// </summary>
     public virtual void NotifyCanExecuteChanged()
     {
       if (_CanExecuteChanged != null)
       {
-        OnCanExecuteChanged();
+        var dispatcher = base.Dispatcher;
+        foreach (EventHandler eventHandler in _CanExecuteChanged.GetInvocationList())
+        {
+          if (dispatcher != null)
+          {
+            if (BeginInvokeActionEnabled)
+              dispatcher.BeginInvoke(eventHandler, this, EventArgs.Empty);
+            else
+              dispatcher.Invoke(eventHandler, this, EventArgs.Empty);
+          }
+          else
+          {
+            if (BeginInvokeActionEnabled)
+              eventHandler.BeginInvoke(this, EventArgs.Empty, null, null);
+            else
+              eventHandler.Invoke(this, EventArgs.Empty);
+          }
+        }
       }
     }
 
-    /// <summary>
-    /// Callback method to notify, that a result of <see cref="CanExecute(object)"/> function may be changed.
-    /// </summary>
-    protected virtual void OnCanExecuteChanged()
-    {
-      base.Dispatcher?.Invoke(() => _CanExecuteChanged?.Invoke(this, EventArgs.Empty));
-    }
+    ///// <summary>
+    ///// Callback method to notify, that a result of <see cref="CanExecute(object)"/> function may be changed.
+    ///// </summary>
+    //protected virtual void OnCanExecuteChanged()
+    //{
+
+    //}
 
     /// <summary>
     /// Default function which checks if a command can execute an action.

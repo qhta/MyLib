@@ -33,12 +33,6 @@
         <member name="M:Qhta.MVVM.Command.NotifyCanExecuteChanged">
             <summary>
             A method to notify that a result of <see cref="M:Qhta.MVVM.Command.CanExecute(System.Object)"/> function may be changed.
-            Invokes <see cref="M:Qhta.MVVM.Command.OnCanExecuteChanged"/> callback method.
-            </summary>
-        </member>
-        <member name="M:Qhta.MVVM.Command.OnCanExecuteChanged">
-            <summary>
-            Callback method to notify, that a result of <see cref="M:Qhta.MVVM.Command.CanExecute(System.Object)"/> function may be changed.
             </summary>
         </member>
         <member name="M:Qhta.MVVM.Command.CanExecute(System.Object)">
