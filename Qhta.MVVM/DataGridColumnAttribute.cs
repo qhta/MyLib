@@ -40,7 +40,7 @@ public class DataGridColumnAttribute : System.Attribute
   public int DisplayIndex { get; set; } = -1;
 
   /// <summary>
-  /// Gets or sets the column header.
+  /// Gets or sets the column header text content.
   /// Default is null.
   /// </summary>
   public string? Header { get; set; }
@@ -50,6 +50,27 @@ public class DataGridColumnAttribute : System.Attribute
   /// Default is null.
   /// </summary>
   public string? HeaderStringFormat { get; set; }
+
+  /// <summary>
+  /// Gets or sets the column header tooltip.
+  /// Default is null.
+  /// </summary>
+  public string? HeaderTooltip { get; set; }
+
+  /// <summary>
+  /// A key to HeaderTemplate resource that defines layout of content bound column
+  /// </summary>
+  public string? HeaderTemplateResourceKey { get; set; }
+
+  /// <summary>
+  /// A key to Header content resource that defines layout of content bound column
+  /// </summary>
+  public string? HeaderResourceKey { get; set; }
+
+  /// <summary>
+  /// A key to Header tooltip resource that defines layout of content bound column
+  /// </summary>
+  public string? HeaderTooltipResourceKey { get; set; }
 
   /// <summary>
   /// Gets a value that indicates whether the column should be auto-generated.
@@ -97,17 +118,13 @@ public class DataGridColumnAttribute : System.Attribute
   public double Width { get; set; } = double.NaN;
 
   /// <summary>
-  /// A key to Resource DataTemplate that defines layout of content bound column
+  /// A key to DataTemplate resource that defines layout of content bound column
   /// </summary>
-  public string? ResourceDataTemplateKey { get; set; }
+  public string? DataTemplateResourceKey { get; set; }
 
   /// <summary>
-  /// A key to Resource DataEditingTemplate that defines layout of content bound column
+  /// A key to DataEditingTemplate resource that defines layout of content bound column
   /// </summary>
-  public string? ResourceDataEditingTemplateKey { get; set; }
+  public string? DataEditingTemplateResourceKey { get; set; }
 
-  /// <summary>
-  /// A key to Resource HeaderTemplate that defines layout of content bound column
-  /// </summary>
-  public string? ResourceHeaderTemplateKey { get; set; }
 }

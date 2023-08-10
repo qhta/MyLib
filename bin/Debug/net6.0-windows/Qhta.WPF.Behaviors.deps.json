@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Qhta.WPF.Behaviors/1.4": {
         "dependencies": {
-          "Qhta.MVVM": "3.1.0",
+          "Qhta.MVVM": "3.3.0",
           "Qhta.ObservableObjects": "2.6.1"
         },
         "runtime": {
@@ -138,7 +138,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "Qhta.MVVM/3.1.0": {
+      "Qhta.MVVM/3.3.0": {
         "dependencies": {
           "Qhta.ObservableObjects": "2.6.1"
         },
@@ -289,7 +289,7 @@
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
-    "Qhta.MVVM/3.1.0": {
+    "Qhta.MVVM/3.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

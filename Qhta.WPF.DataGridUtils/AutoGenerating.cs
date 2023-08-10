@@ -1,3 +1,5 @@
+using System.Windows.Markup;
+
 namespace Qhta.WPF.DataGridUtils;
 
 /// <summary>
@@ -46,15 +48,43 @@ public static class AutoGenerating
                 Visibility = dataGridColumnAttr.Visibility,
                 Width = dataGridColumnAttr.Width,
               };
-              if (dataGridColumnAttr.ResourceHeaderTemplateKey != null)
-                dataGridColumnDef.HeaderTemplate = (DataTemplate)dataGrid.FindResource(dataGridColumnAttr.ResourceHeaderTemplateKey);
+              if (dataGridColumnAttr.HeaderTemplateResourceKey != null)
+                dataGridColumnDef.HeaderTemplate = (DataTemplate)dataGrid.FindResource(dataGridColumnAttr.HeaderTemplateResourceKey);
+              else if (dataGridColumnAttr.HeaderResourceKey != null)
+              {
+                var contentControl = new TextBlock();
+                contentControl.Text = GetResourceString(dataGridColumnAttr.HeaderResourceKey);
+                if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
+                  contentControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
+                else if (dataGridColumnAttr.HeaderTooltip != null)
+                  contentControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
+                dataGridColumnDef.Header = contentControl;
+              }
+              else if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
+              {
+                var contentControl = new ContentControl();
+                contentControl.Content = dataGridColumnDef.Header;
+                if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
+                  contentControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
+                else if (dataGridColumnAttr.HeaderTooltip != null)
+                  contentControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
+                dataGridColumnDef.Header = contentControl;
+              }
+              else if (dataGridColumnAttr.HeaderTooltip != null)
+              {
+                var contentControl = new ContentControl();
+                contentControl.Content = dataGridColumnDef.Header;
+                contentControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
+                dataGridColumnDef.Header = contentControl;
+              }
+
               DataTemplate? dataTemplate = null;
-              if (dataGridColumnAttr.ResourceDataTemplateKey != null)
-                dataTemplate = (DataTemplate)dataGrid.FindResource(dataGridColumnAttr.ResourceDataTemplateKey);
+              if (dataGridColumnAttr.DataTemplateResourceKey != null)
+                dataTemplate = (DataTemplate)dataGrid.FindResource(dataGridColumnAttr.DataTemplateResourceKey);
               DataTemplate? dataEditingTemplate = null;
-              if (dataGridColumnAttr.ResourceDataEditingTemplateKey != null)
-                dataEditingTemplate = (DataTemplate)dataGrid.FindResource(dataGridColumnAttr.ResourceDataEditingTemplateKey);
-              if (dataTemplate!=null)
+              if (dataGridColumnAttr.DataEditingTemplateResourceKey != null)
+                dataEditingTemplate = (DataTemplate)dataGrid.FindResource(dataGridColumnAttr.DataEditingTemplateResourceKey);
+              if (dataTemplate != null)
                 args.Column = CreateColumn(dataGridColumnDef, dataTemplate, dataEditingTemplate);
               else
                 FormatColumn(oldColumn, dataGridColumnDef);
@@ -67,6 +97,81 @@ public static class AutoGenerating
     }
   }
 
+  private static string? GetResourceString(string staticResourceKey)
+  {
+    var k = staticResourceKey.LastIndexOf('.');
+    if (k < 0)
+      throw new InvalidOperationException($"HeaderResourceKey must be in the format \"typename.propName\"");
+    var fullClassName = staticResourceKey.Substring(0, k);
+    var className = fullClassName;
+    var propName = staticResourceKey.Substring(k + 1);
+    Assembly assembly;
+    k = className.LastIndexOf('.');
+    if (k > 0)
+    {
+      var ns = className.Substring(0, k);
+      className = className.Substring(k + 1);
+      assembly = Assembly.Load(ns);
+    }
+    else
+      assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+
+    var ResourceManager = new global::System.Resources.ResourceManager(fullClassName, assembly);
+    var resourceCulture = System.Globalization.CultureInfo.CurrentUICulture;
+    var str = ResourceManager.GetString(propName, resourceCulture);
+    return str;
+  }
+
+  private static BindingBase CreateStaticResourceBinding(string staticResourceKey)
+  {
+    var k = staticResourceKey.LastIndexOf('.');
+    if (k < 0)
+      throw new InvalidOperationException($"HeaderResourceKey must be in the format \"typename.propName\"");
+    var className = staticResourceKey.Substring(0, k);
+    var propName = staticResourceKey.Substring(k + 1);
+    Assembly assembly;
+    k = className.LastIndexOf('.');
+    if (k > 0)
+    {
+      var ns = className.Substring(0, k);
+      className = className.Substring(k + 1);
+      assembly = Assembly.Load(ns);
+    }
+    else
+      assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+    var staticResourceClass = assembly.GetType(className);
+    if (staticResourceClass == null)
+      throw new InvalidOperationException($"Type {className} not found");
+    var staticResourceProperty = staticResourceClass.GetProperty(propName, BindingFlags.Public | BindingFlags.Static);
+    if (staticResourceProperty == null)
+      throw new InvalidOperationException($"Property {propName} in type {className} not found");
+    var binding = new Binding()
+    {
+      Source = staticResourceClass,
+      Path = new PropertyPath(staticResourceProperty),
+    };
+    return binding;
+  }
+
+  private static DataTemplate CreateTemplate(Type viewModelType, Type viewType)
+  {
+    const string xamlTemplate = "<DataTemplate DataType=\"{{x:Type vm:{0}}}\"><v:{1} /></DataTemplate>";
+    var xaml = String.Format(xamlTemplate, viewModelType.Name, viewType.Name, viewModelType.Namespace, viewType.Namespace);
+
+    var context = new ParserContext();
+
+    context.XamlTypeMapper = new XamlTypeMapper(new string[0]);
+    context.XamlTypeMapper.AddMappingProcessingInstruction("vm", viewModelType.Namespace, viewModelType.Assembly.FullName);
+    context.XamlTypeMapper.AddMappingProcessingInstruction("v", viewType.Namespace, viewType.Assembly.FullName);
+
+    context.XmlnsDictionary.Add("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
+    context.XmlnsDictionary.Add("x", "http://schemas.microsoft.com/winfx/2006/xaml");
+    context.XmlnsDictionary.Add("vm", "vm");
+    context.XmlnsDictionary.Add("v", "v");
+
+    var template = (DataTemplate)XamlReader.Parse(xaml, context);
+    return template;
+  }
   private static DataGridContentBoundColumn CreateColumn(DataGridColumnDef dataGridColumnData, DataTemplate contentTemplate,
     DataTemplate? contentEditingTemplate = null)
   {
@@ -74,7 +179,7 @@ public static class AutoGenerating
     var aBinding = dataGridColumnData.Binding as Binding;
     newColumn.Binding = dataGridColumnData.Binding;
     newColumn.ContentTemplate = contentTemplate;
-    if (contentEditingTemplate != null) 
+    if (contentEditingTemplate != null)
       newColumn.ContentEditingTemplate = contentEditingTemplate;
     newColumn.Header = dataGridColumnData.Header;
     newColumn.SortMemberPath = dataGridColumnData.SortMemberPath;
@@ -88,30 +193,34 @@ public static class AutoGenerating
     return newColumn;
   }
 
-  private static void FormatColumn(DataGridColumn column, DataGridColumnDef dataGridColumnData)
+  private static void FormatColumn(DataGridColumn column, DataGridColumnDef dataGridColumnDef)
   {
-    if (dataGridColumnData.HeaderStringFormat != null)
-      column.HeaderStringFormat = dataGridColumnData.HeaderStringFormat;
-    var b = dataGridColumnData.IsReadOnly;
+    if (dataGridColumnDef.HeaderTemplate != null)
+      column.HeaderTemplate = dataGridColumnDef.HeaderTemplate;
+    else if (dataGridColumnDef.Header != null)
+      column.Header = dataGridColumnDef.Header;
+    if (dataGridColumnDef.HeaderStringFormat != null)
+      column.HeaderStringFormat = dataGridColumnDef.HeaderStringFormat;
+    var b = dataGridColumnDef.IsReadOnly;
     if (b == true)
       column.IsReadOnly = (bool)b;
-    column.MaxWidth = dataGridColumnData.MaxWidth;
-    column.MinWidth = dataGridColumnData.MinWidth;
-    var d = dataGridColumnData.Width;
+    column.MaxWidth = dataGridColumnDef.MaxWidth;
+    column.MinWidth = dataGridColumnDef.MinWidth;
+    var d = dataGridColumnDef.Width;
     if (!double.IsNaN(d))
       column.Width = (double)d;
-    column.CanUserReorder = dataGridColumnData.CanUserReorder;
-    column.CanUserResize = dataGridColumnData.CanUserResize;
-    column.CanUserSort = dataGridColumnData.CanUserSort;
-    column.SortMemberPath = dataGridColumnData.SortMemberPath;
-    column.SortDirection = dataGridColumnData.SortDirection;
-    var s = dataGridColumnData.ClipboardContentPath;
+    column.CanUserReorder = dataGridColumnDef.CanUserReorder;
+    column.CanUserResize = dataGridColumnDef.CanUserResize;
+    column.CanUserSort = dataGridColumnDef.CanUserSort;
+    column.SortMemberPath = dataGridColumnDef.SortMemberPath;
+    column.SortDirection = dataGridColumnDef.SortDirection;
+    var s = dataGridColumnDef.ClipboardContentPath;
     if (s != null)
       column.ClipboardContentBinding = new Binding(s);
-    var n = dataGridColumnData.DisplayIndex;
+    var n = dataGridColumnDef.DisplayIndex;
     if (n >= 0)
       column.DisplayIndex = n;
-    n = (int)Convert.ChangeType(dataGridColumnData.Visibility, typeof(int));
+    n = (int)Convert.ChangeType(dataGridColumnDef.Visibility, typeof(int));
     column.Visibility = (System.Windows.Visibility)Enum.ToObject(typeof(System.Windows.Visibility), n);
   }
 

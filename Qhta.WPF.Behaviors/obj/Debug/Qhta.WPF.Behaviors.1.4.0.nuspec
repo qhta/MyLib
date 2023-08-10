@@ -10,7 +10,7 @@
     <description>Package with behavior classes which can be used in WPF XAML.</description>
     <dependencies>
       <group targetFramework="net6.0-windows7.0">
-        <dependency id="Qhta.MVVM" version="3.1.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.MVVM" version="3.3.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.ObservableObjects" version="2.6.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>

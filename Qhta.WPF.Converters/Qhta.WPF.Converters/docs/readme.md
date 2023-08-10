@@ -37,6 +37,7 @@ Helper converters:
 * BitTestConverter - One way converter to convert a specific bitset to bool. 
 * EqualityComparingConverter - Compares a value to the parameter and returns a boolean value.
 * IndirectPropertyConverter - Multi-value converter with two bindings. First binding returns an instance object. Second binding returns a property name. Converter gets a value from this property found in the instance object
+* NotNullToVisibilityConverter - One way converter that checks if the value is not null and converts it to Visibility (Visible, Collapsed).
 
 Helper classes:
 * ColorDictionary - Dictionary of Colors indexed by string names.Used in ValidityBrushConverter.

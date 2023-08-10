@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.WPF.DataGridUtils\\Qhta.WPF.DataGridUtils.csproj": {
-      "version": "1.5.0",
+      "version": "1.6.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.DataGridUtils\\Qhta.WPF.DataGridUtils.csproj",
         "projectName": "Qhta.WPF.DataGridUtils",
@@ -47,7 +47,7 @@
           "dependencies": {
             "Qhta.MVVM": {
               "target": "Package",
-              "version": "[2.6.0, )"
+              "version": "[3.3.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
