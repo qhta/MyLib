@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-//using System.Windows.Threading;
-using Qhta.ObservableObjects;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// <see cref="ListViewModel"/> with specified item type.

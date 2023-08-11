@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// <see cref="EventArgs"/> to notify that a selection has been changed.

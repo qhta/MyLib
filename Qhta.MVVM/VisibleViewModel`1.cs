@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// Visible view model which has a model of a specific type.

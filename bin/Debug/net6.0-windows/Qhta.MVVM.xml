@@ -210,6 +210,95 @@
             An attribute that annotates a property which should be displayed.
             </summary>
         </member>
+        <member name="T:Qhta.MVVM.FilteredCollection`1">
+            <summary>
+            Collection of objects that serves as a filter for ObservableList collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.#ctor(Qhta.ObservableObjects.ObservableList{`0})">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="sourceCollection"></param>
+        </member>
+        <member name="P:Qhta.MVVM.FilteredCollection`1.SourceCollection">
+            <summary>
+            Collection that serves as an original source of items.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.FilteredCollection`1.Filter">
+            <summary>
+            Items qualifier
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.SourceCollection_CollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            If <see cref="P:Qhta.MVVM.FilteredCollection`1.Filter"/> is set then passes Reset change notification.
+            Otherwise passes the original notification.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.ApplyFilter">
+            <summary>
+            Apply filter to all source items.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.GetEnumerator">
+            <summary>
+            Enumerates filtered items if <see cref="P:Qhta.MVVM.FilteredCollection`1.Filter"/> is set.
+            Otherwise enumerates original items.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.Add(`0)">
+            <summary>
+            Adds an item to the source collection, but first check the predicate 
+            and throw an exception if the item does not meet the filter condition.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.Clear">
+            <summary>
+            If <see cref="P:Qhta.MVVM.FilteredCollection`1.Filter"/> is set then removes the filtered items from the source collection.
+            Otherwise clears the source collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.Contains(`0)">
+            <summary>
+            If <see cref="P:Qhta.MVVM.FilteredCollection`1.Filter"/> is set then checks whether filtered items contains an item.
+            Otherwise checks whether the source collection contains an item.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            If <see cref="P:Qhta.MVVM.FilteredCollection`1.Filter"/> is set then copies filtered items to the array.
+            Otherwise copies the source collection items.
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.Remove(`0)">
+            <summary>
+            Removes the item from the source collection.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.MVVM.FilteredCollection`1.Count">
+            <summary>
+            If <see cref="P:Qhta.MVVM.FilteredCollection`1.Filter"/> is set then returns filtered items count.
+            Otherwise returns the source collection count.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.FilteredCollection`1.IsReadOnly">
+            <summary>
+            Get/sets is read-only. 
+            If is not set explicitily, then checks if the source collection is read-only.
+            </summary>
+        </member>
         <member name="T:Qhta.MVVM.ICanExecuteChangedListener">
             <summary>
             Interface for class which will listen to Command.CanExecuteChanged event.

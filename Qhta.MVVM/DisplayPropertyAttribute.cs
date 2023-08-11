@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
 
   /// <summary>

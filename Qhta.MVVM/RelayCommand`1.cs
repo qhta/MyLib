@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   ///  A command which relays its functionality to other objects by invoking delegates.

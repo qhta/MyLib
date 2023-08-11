@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Qhta.MVVM;
+﻿namespace Qhta.MVVM;
 
 /// <summary>
 /// This attribute can be used in DataGrid.AutoGeneratingColumns to format a column.

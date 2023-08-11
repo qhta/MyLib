@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// An interface expanding ICommand (from System.Windows.Input) with NotifyCanExecuteChanged method.

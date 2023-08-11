@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// Abstract VisibleViewModel for a list. Declares <see cref="ParentViewModel"/> property.

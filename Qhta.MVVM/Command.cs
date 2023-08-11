@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
-
-using Qhta.ObservableObjects;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// Abstract class implementing <see cref="ICommand"/> interface

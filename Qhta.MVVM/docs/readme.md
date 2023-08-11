@@ -24,7 +24,7 @@ ViewModels:
 * VisibleViewModel{ModelType} - VisibleViewModel which has a model of a specific type.
 * LazyLoadViewModel{ModelType} -abstract LazyLoadViewModel{ModelType} that implements ILazyLoad and IExpandable interfaces.
 * ListViewModel - abstract VisibleViewModel for a list.
-* ListViewModel{ItemType} with specified item type.
+* ListViewModel{ItemType} - ListViewModel with specified item type.
 
 Commands:
 * Command - a class that implements interface ICommand (from System.Windows.Input) using DependencyObject (from System.Windows).

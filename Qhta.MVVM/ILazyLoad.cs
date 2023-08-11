@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// Interface that defines properties and a method for loading object in background thread.

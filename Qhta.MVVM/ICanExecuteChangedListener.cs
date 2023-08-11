@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Qhta.MVVM;
+﻿namespace Qhta.MVVM;
 
 /// <summary>
 /// Interface for class which will listen to Command.CanExecuteChanged event.

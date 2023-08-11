@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// <see cref="EventArgs"/> to notify that a current item in a list has changed.

@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Qhta.MVVM
+﻿namespace Qhta.MVVM
 {
   /// <summary>
   /// ObservableCollection of Command items.
