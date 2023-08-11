@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace Qhta.WPF.Utils
+﻿namespace Qhta.WPF.Utils
 {
+  /// <summary>
+  /// A class that holds an action.
+  /// </summary>
   public class ActionHolder
   {
-    public Action Action { get; set; }
+    /// <summary>
+    /// Action to hold and execute.
+    /// </summary>
+    public Action? Action { get; set; }
 
+    /// <summary>
+    /// Executes the action.
+    /// </summary>
     public void Execute()
     {
-      Action.Invoke();
+      Action?.Invoke();
     }
   }
 }

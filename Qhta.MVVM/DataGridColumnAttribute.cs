@@ -55,17 +55,17 @@ public class DataGridColumnAttribute : System.Attribute
   public string? HeaderTooltip { get; set; }
 
   /// <summary>
-  /// A key to HeaderTemplate resource that defines layout of content bound column
+  /// A key to HeaderTemplate resource that defines layout of content bound column.
   /// </summary>
   public string? HeaderTemplateResourceKey { get; set; }
 
   /// <summary>
-  /// A key to Header content resource that defines layout of content bound column
+  /// A key to Header content resource that defines layout of content bound column.
   /// </summary>
   public string? HeaderResourceKey { get; set; }
 
   /// <summary>
-  /// A key to Header tooltip resource that defines layout of content bound column
+  /// A key to Header tooltip resource that defines layout of content bound column.
   /// </summary>
   public string? HeaderTooltipResourceKey { get; set; }
 
@@ -124,4 +124,8 @@ public class DataGridColumnAttribute : System.Attribute
   /// </summary>
   public string? DataEditingTemplateResourceKey { get; set; }
 
+  ///// <summary>
+  ///// A key to context menu resource that defines functionality of the header.
+  ///// </summary>
+  //public string? HeaderContextMenuResourceKey {get; set; }
 }

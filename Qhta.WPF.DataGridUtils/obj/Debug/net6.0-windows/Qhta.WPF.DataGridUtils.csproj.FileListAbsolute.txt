@@ -15,3 +15,4 @@ D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.DataGridUtils.dll
 D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.DataGridUtils.pdb
 D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.DataGridUtils.xml
 D:\VS\Projects\MyLib\Qhta.WPF.DataGridUtils\obj\Debug\net6.0-windows\Qhta.WPF.DataGridUtils.xml
+D:\VS\Projects\MyLib\Qhta.WPF.DataGridUtils\obj\Debug\net6.0-windows\Qhta.WPF.DataGridUtils.csproj.CopyComplete

@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace Qhta.WPF.Utils
+﻿namespace Qhta.WPF.Utils
 {
+  /// <summary>
+  /// Defines <see cref="EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
+  /// between CollectionView and Collection which has thread-safe operations.
+  /// </summary>
   public static class CollectionViewBehavior
   {
     static CollectionViewBehavior()
@@ -20,20 +12,39 @@ namespace Qhta.WPF.Utils
       BindingOperations.CollectionViewRegistering += BindingOperations_CollectionViewRegistering;
     }
 
+    /// <summary>
+    /// <see cref="EnableCollectionSynchronizationProperty"/> getter.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static bool GetEnableCollectionSynchronization(DependencyObject obj)
     {
       return (bool)obj.GetValue(EnableCollectionSynchronizationProperty);
     }
+
+    /// <summary>
+    /// <see cref="EnableCollectionSynchronizationProperty"/> setter.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetEnableCollectionSynchronization(DependencyObject obj, bool value)
     {
       obj.SetValue(EnableCollectionSynchronizationProperty, value);
     }
 
+    /// <summary>
+    /// Static DependencyProperty.
+    /// </summary>
     public static readonly DependencyProperty EnableCollectionSynchronizationProperty =
         DependencyProperty.RegisterAttached("EnableCollectionSynchronization", typeof(bool), typeof(CollectionViewBehavior),
           new UIPropertyMetadata(false, EnableCollectionSynchronizationPropertyChangedCallback));
 
-    public static void EnableCollectionSynchronizationPropertyChangedCallback(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+    /// <summary>
+    /// Callback method invoked on Items control.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="args"></param>
+    private static void EnableCollectionSynchronizationPropertyChangedCallback(DependencyObject obj, DependencyPropertyChangedEventArgs args)
     {
       //Debug.WriteLine($"EnableCollectionSynchronizationPropertyChangedCallback({obj}, {args.NewValue})");
       if (obj is ItemsControl itemsControl)
@@ -42,7 +53,7 @@ namespace Qhta.WPF.Utils
       }
     }
 
-    private static void BindingOperations_CollectionViewRegistering(object sender, CollectionViewRegisteringEventArgs args)
+    private static void BindingOperations_CollectionViewRegistering(object? sender, CollectionViewRegisteringEventArgs args)
     {
       //Debug.WriteLine($"CollectionViewRegistering({sender},{args.CollectionView})");
       CollectionView cv = args.CollectionView as CollectionView;
@@ -52,7 +63,7 @@ namespace Qhta.WPF.Utils
       }
     }
 
-    private static void BindingOperations_CollectionRegistering(object sender, CollectionRegisteringEventArgs args)
+    private static void BindingOperations_CollectionRegistering(object? sender, CollectionRegisteringEventArgs args)
     {
       //Debug.WriteLine($"CollectionRegistering({sender},{args.Collection})");
       if (args.Collection is IList itemsCollection)

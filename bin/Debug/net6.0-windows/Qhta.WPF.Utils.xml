@@ -1,0 +1,1005 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.WPF.Utils</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.WPF.Utils.ActionHolder">
+            <summary>
+            A class that holds an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ActionHolder.Action">
+            <summary>
+            Action to hold and execute.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ActionHolder.Execute">
+            <summary>
+            Executes the action.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.AutoGenerating">
+            <summary>
+            Utility class that helps to autogenerate <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.AutoGenerating.UseDataGridColumnAttribute(System.Object,System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs)">
+            <summary>
+            Creates <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/> for ItemsSource thas have DataGridColumnAttribute (defined in Qhta.MVVM)
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ClipboardUtils.Header">
+            <summary>      
+            The string contains index references to  other spots in the string, so we need placeholders so we can compute the  offsets. <br/>      
+            The  <![CDATA[<<<<<<<]]>_ strings are just placeholders.  We'll back-patch them actual values afterwards. <br/>      
+            The string layout  (<![CDATA[<<<]]>) also ensures that it can't appear in the body  of the html because the <![CDATA[<]]> <br/>      
+            character must be escaped. <br/>      
+            </summary>      
+        </member>
+        <member name="F:Qhta.WPF.Utils.ClipboardUtils.StartFragment">
+            <summary>      
+            html comment to point the beginning of  html fragment      
+            </summary>      
+        </member>
+        <member name="F:Qhta.WPF.Utils.ClipboardUtils.EndFragment">
+            <summary>      
+            html comment to point the end of html  fragment      
+            </summary>      
+        </member>
+        <member name="F:Qhta.WPF.Utils.ClipboardUtils._byteCount">
+            <summary>      
+            Used to calculate characters byte count  in UTF-8      
+            </summary>      
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CreateHtmlDataObject(System.String,System.String)">
+            <summary>      
+            Create <see  cref="T:System.Windows.DataObject"/> with given html and plain-text ready to be  used for clipboard or drag and drop.<br/>      
+            Handle missing  <![CDATA[<html>]]> tags, specified startend segments and Unicode  characters.      
+            </summary>      
+            <remarks>      
+            <para>      
+            Windows Clipboard works with UTF-8  Unicode encoding while .NET strings use with UTF-16 so for clipboard to  correctly      
+            decode Unicode string added to it from  .NET we needs to be re-encoded it using UTF-8 encoding.      
+            </para>      
+            <para>      
+            Builds the CF_HTML header correctly for  all possible HTMLs<br/>      
+            If given html contains start/end  fragments then it will use them in the header:      
+             <code><![CDATA[<html><body><!--StartFragment-->hello  <b>world</b><!--EndFragment--></body></html>]]></code>      
+            If given html contains html/body tags  then it will inject start/end fragments to exclude html/body tags:      
+             <code><![CDATA[<html><body>hello  <b>world</b></body></html>]]></code>      
+            If given html doesn't contain html/body  tags then it will inject the tags and start/end fragments properly:      
+            <code><![CDATA[hello  <b>world</b>]]></code>      
+            In all cases creating a proper CF_HTML  header:<br/>      
+            <code>      
+            <![CDATA[      
+            Version:1.0      
+            StartHTML:000000177      
+            EndHTML:000000329      
+            StartFragment:000000277      
+            EndFragment:000000295      
+            StartSelection:000000277      
+            EndSelection:000000277      
+            <!DOCTYPE HTML PUBLIC  "-//W3C//DTD HTML 4.0 Transitional//EN">      
+             <html><body><!--StartFragment-->hello  <b>world</b><!--EndFragment--></body></html>      
+            ]]>      
+            </code>      
+            See format specification here: [http://msdn.microsoft.com/library/default.asp?url=/workshop/networking/clipboard/htmlclipboard.asp][9]      
+            </para>      
+            </remarks>      
+            <param name="html">a  html fragment</param>      
+            <param  name="plainText">the plain text</param>      
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyToClipboard(System.String,System.String)">
+            <summary>      
+            Clears clipboard and sets the given  HTML and plain text fragment to the clipboard, providing additional  meta-information for HTML.<br/>      
+            See <see  cref="M:Qhta.WPF.Utils.ClipboardUtils.CreateHtmlDataObject(System.String,System.String)"/> for HTML fragment details.<br/>      
+            </summary>      
+            <example>      
+             ClipboardHelper.CopyToClipboard("Hello <b>World</b>",  "Hello World");      
+            </example>      
+            <param name="html">a  html fragment</param>      
+            <param  name="plainText">the plain text</param>      
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.GetHtmlDataString(System.String)">
+            <summary>      
+            Generate HTML fragment data string with  header that is required for the clipboard.      
+            </summary>      
+            <param name="html">the  html to generate for</param>      
+            <returns>the resulted  string</returns>      
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.GetByteCount(System.Text.StringBuilder,System.Int32,System.Int32)">
+            <summary>      
+            Calculates the number of bytes produced  by encoding the string in the string builder in UTF-8 and not .NET default  string encoding.      
+            </summary>      
+            <param name="sb">the  string builder to count its string</param>      
+            <param  name="start">optional: the start index to calculate from (default  - start of string)</param>      
+            <param  name="end">optional: the end index to calculate to (default - end  of string)</param>      
+            <returns>the number of bytes  required to encode the string in UTF-8</returns>      
+        </member>
+        <member name="T:Qhta.WPF.Utils.CollectionViewBehavior">
+            <summary>
+            Defines <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
+            between CollectionView and Collection which has thread-safe operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetEnableCollectionSynchronization(System.Windows.DependencyObject)">
+            <summary>
+            <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> getter.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetEnableCollectionSynchronization(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> setter.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty">
+            <summary>
+            Static DependencyProperty.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationPropertyChangedCallback(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Callback method invoked on Items control.
+            </summary>
+            <param name="obj"></param>
+            <param name="args"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.Saturation">
+            <summary>A value between 0 and 1 to alter the amount of colour left in the image. 0 is entirely greyscale, and 1 is unaffected. Default is 1.</summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.Gamma">
+            <summary>A value between 0 and 1 to alter the lightness of the greyscale without altering true black or true white. 
+            0 shifts shades closer to true black, and 1 shifts shades closer to true white. Default is 0.5.</summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.BrightnessAdjustment">
+            <summary>A value between -1 and 1 to linearly move the end result closer to true black or true white respectively.
+            -1 will result in an entirely black image, +1 will result in an entirely white image. Default is 0.</summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.RedAdjustment">
+            <summary>A value between -1 and 1 to linearly increase the Red component of the result.
+            -1 will remove all Red from the image, +1 will maximize all Red in the image. Default is 0.</summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.GreenAdjustment">
+            <summary>A value between -1 and 1 to linearly increase the Green component of the result.
+            -1 will remove all Green from the image, +1 will maximize all Green in the image. Default is 0.</summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.BlueAdjustment">
+            <summary>A value between -1 and 1 to linearly increase the Blue component of the result.
+            -1 will remove all Blue from the image, +1 will maximize all Blue in the image. Default is 0.</summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ComboBoxBehavior">
+            <summary>
+            ComboBoxBehavior
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.CommandManagerBridge">
+            <summary>
+            Listener for CanExecuteChanged event implementation based on WPF <see cref="T:System.Windows.Input.CommandManager"/>.
+            </summary>
+        </member>
+        <member name="E:Qhta.WPF.Utils.CommandManagerBridge.CanExecuteChanged">
+            <summary>
+            EventHandler of CanExecuteChanged assigned to <see cref="E:System.Windows.Input.CommandManager.RequerySuggested"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DataGridBehavior">
+            <summary>
+            Collection of DataGrid behavior
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DataGridColumnDef">
+            <summary>
+            This data contains full <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/> definition.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnDef.#ctor(System.Windows.Data.BindingBase)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="binding"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Binding">
+            <summary>
+            Required binding to data.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserReorder">
+            <summary>
+            Indicates whether the user can change the column display position by dragging the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserResize">
+            <summary>
+            Indicates whether the user can adjust the column width by using the mouse.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserSort">
+            <summary>
+            Indicates whether the user can sort the column by clicking the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.ClipboardContentPath">
+            <summary>
+            Specifies the binding path of properties to use when getting or setting cell content for the clipboard.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.DisplayIndex">
+            <summary>
+            Gets or sets the display position of the column relative to the other columns in the DataGrid.
+            Default is -1.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Header">
+            <summary>
+            Gets or sets the column header.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderStringFormat">
+            <summary>
+            Gets or sets the format pattern to apply to the content of the column header.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderTemplate">
+            <summary>
+            Gets or sets the header template to apply to the content of the column header.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.IsReadOnly">
+            <summary>
+            Gets a value that indicates whether cells in the column can be edited.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.MaxWidth">
+            <summary>
+            Gets or sets the maximum width constraint of the column. Default is PositiveInfinity.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.MinWidth">
+            <summary>
+            Gets or sets the minimum width constraint of the column. Default is 20.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.SortDirection">
+            <summary>
+            Gets or sets the sort direction (ascending or descending) of the column. Default is null;
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.SortMemberPath">
+            <summary>
+            Gets or sets a property name, or a period-delimited hierarchy of property names, 
+            that indicates the member to sort by.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Visibility">
+            <summary>
+            Gets or sets the visibility of the column. Default is Visible
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Width">
+            <summary>
+            Gets or sets the column width or automatic sizing mode.
+            Default is NaN.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderContextMenu">
+            <summary>
+            Context menu for a column.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DataGridContentBoundColumn">
+            <summary>
+            Specific implementation of DataGridBoundColumn with <see cref="P:Qhta.WPF.Utils.DataGridContentBoundColumn.ContentTemplate"/>
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridContentBoundColumn.ContentTemplate">
+            <summary>
+            DataTemplate to be used in <see cref="M:Qhta.WPF.Utils.DataGridContentBoundColumn.GenerateElement(System.Windows.Controls.DataGridCell,System.Object)"/>. Must be set if WPF.
+            Sets also <see cref="P:Qhta.WPF.Utils.DataGridContentBoundColumn.ContentEditingTemplate"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridContentBoundColumn.ContentEditingTemplate">
+            <summary>
+            DataTemplate to be used in <see cref="M:Qhta.WPF.Utils.DataGridContentBoundColumn.GenerateEditingElement(System.Windows.Controls.DataGridCell,System.Object)"/>. Can be set in WPF.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridContentBoundColumn.GenerateElement(System.Windows.Controls.DataGridCell,System.Object)">
+            <summary>
+            Overriden abstract method to generate view element in DataGrid.
+            </summary>
+            <param name="cell"></param>
+            <param name="dataItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridContentBoundColumn.GenerateEditingElement(System.Windows.Controls.DataGridCell,System.Object)">
+            <summary>
+            Overriden abstract method to generate editing element in DataGrid.
+            </summary>
+            <param name="cell"></param>
+            <param name="dataItem"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DispatcherBridge">
+            <summary>
+            A class that implements <see cref="T:Qhta.ObservableObjects.IDispatcherBridge"/> in WPF applications
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.#ctor(System.Windows.Threading.Dispatcher)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="dispatcher"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.BeginInvoke(System.Delegate)">
+            <summary>
+             Executes the specified delegate asynchronously 
+             on the thread that the System.Windows.Threading.Dispatcher was created on.
+            </summary>
+            <param name="method">The delegate to a method that takes parameters specified in args, which is pushed
+                onto the Dispatcher event queue.
+            </param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.BeginInvoke(System.Delegate,System.Object)">
+            <summary>
+             Executes the specified delegate asynchronously 
+             on the thread that the Dispatcher was created on.
+            </summary>
+            <param name="method">The delegate to a method that takes parameters specified in args, which is pushed
+            onto the Dispatcher event queue.</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.BeginInvoke(System.Delegate,System.Object,System.Object)">
+            <summary>
+             Executes the specified delegate asynchronously 
+             on the thread that the Dispatcher was created on.
+            </summary>
+            <param name="method">The delegate to a method that takes parameters specified in args, which is pushed
+            onto the Dispatcher event queue.</param>
+            <param name="sender">Sender object to pass as the first argument to the given method</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.Invoke(System.Delegate)">
+            <summary>
+            Executes the specified delegate synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="method">A delegate to a method that takes parameters specified in args, which is pushed
+             onto the Dispatcher event queue.</param>
+            <returns>The return value from the delegate being invoked or null if the delegate has no return value</returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.Invoke(System.Delegate,System.Object)">
+            <summary>
+            Executes the specified delegate with the specified arguments synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="method">A delegate to a method that takes parameters specified in args, which is pushed
+             onto the Dispatcher event queue.</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+            <returns>The return value from the delegate being invoked or null if the delegate has no return value</returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.Invoke(System.Delegate,System.Object,System.Object)">
+            <summary>
+            Executes the specified delegate with the specified arguments synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="method">A delegate to a method that takes parameters specified in args, which is pushed
+             onto the Dispatcher event queue.</param>
+            <param name="sender">Sender object to pass as the first argument to the given method</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+            <returns>The return value from the delegate being invoked or null if the delegate has no return value</returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.Invoke(System.Action)">
+            <summary>
+             Executes the specified System.Action synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="callback">A delegate to invoke through the dispatcher.</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DispatcherBridge.Invoke``1(System.Func{``0})">
+            <summary>
+             Executes the specified System.Func synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="callback">A delegate to invoke through the dispatcher.</param>
+            <returns>The value returned by callback.</returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DynamicTemplateSelector">
+            <summary>
+            Provides a means to specify DataTemplates to be selected from within WPF code
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DynamicTemplateSelector.TemplatesProperty">
+            <summary>
+            Generic attached property specifying <see cref="T:Qhta.WPF.Utils.Template"/>s
+            used by the <see cref="T:Qhta.WPF.Utils.DynamicTemplateSelector"/>
+            </summary>
+            <remarks>
+            This attached property will allow you to set the templates you wish to be available whenever
+            a control's TemplateSelector is set to an instance of <see cref="T:Qhta.WPF.Utils.DynamicTemplateSelector"/>
+            </remarks>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicTemplateSelector.GetTemplates(System.Windows.UIElement)">
+            <summary>
+            Gets the value of the <paramref name="element"/>'s attached <see cref="F:Qhta.WPF.Utils.DynamicTemplateSelector.TemplatesProperty"/>
+            </summary>
+            <param name="element">The <see cref="T:System.Windows.UIElement"/> who's attached template's property you wish to retrieve</param>
+            <returns>The templates used by the givem <paramref name="element"/>
+            when using the <see cref="T:Qhta.WPF.Utils.DynamicTemplateSelector"/></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicTemplateSelector.SetTemplates(System.Windows.UIElement,Qhta.WPF.Utils.TemplateCollection)">
+            <summary>
+            Sets the value of the <paramref name="element"/>'s attached <see cref="F:Qhta.WPF.Utils.DynamicTemplateSelector.TemplatesProperty"/>
+            </summary>
+            <param name="element">The element to set the property on</param>
+            <param name="collection">The collection of <see cref="T:Qhta.WPF.Utils.Template"/>s to apply to this element</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicTemplateSelector.SelectTemplate(System.Object,System.Windows.DependencyObject)">
+            <summary>
+            Overriden base method to allow the selection of the correct DataTemplate
+            </summary>
+            <param name="item">The item for which the template should be retrieved</param>
+            <param name="container">The object containing the current item</param>
+            <returns>The <see cref="T:System.Windows.DataTemplate"/> to use when rendering the <paramref name="item"/></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.TemplateCollection">
+            <summary>
+            Holds a collection of <see cref="T:Qhta.WPF.Utils.Template"/> items
+            for application as a control's DataTemplate.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Template">
+            <summary>
+            Provides a link between a value and a <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/>
+            for the <see cref="T:Qhta.WPF.Utils.DynamicTemplateSelector"/>
+            </summary>
+            <remarks>
+            In this case, our value is a <see cref="T:System.Type"/> which we are attempting to match
+            to a <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/>
+            </remarks>
+        </member>
+        <member name="F:Qhta.WPF.Utils.Template.ValueProperty">
+            <summary>
+            Provides the value used to match this <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/> to an item
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.Template.DataTemplateProperty">
+            <summary>
+            Provides the <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/> used to render items matching the <see cref="P:Qhta.WPF.Utils.Template.DataType"/>
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.Template.DataType">
+            <summary>
+            Gets or Sets the value used to match this <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/> to an item
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.Template.DataTemplate">
+            <summary>
+            Gets or Sets the <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/> used to render items matching the <see cref="P:Qhta.WPF.Utils.Template.DataType"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GeometryUtils.Angle(System.Windows.Point,System.Windows.Point)">
+            <summary>
+            Kąt punktu w biegunowym układzie współrzędnych
+            </summary>
+            <param name="p">wejściowy punkt</param>
+            <param name="center">Środek układu współrzędnych</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GeometryUtils.Radius(System.Windows.Point,System.Windows.Point)">
+            <summary>
+            Odległość punktu od środka układu współrzędnych
+            </summary>
+            <param name="p">wejściowy punkt</param>
+            <param name="center">Środek układu współrzędnych</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GeometryUtils.Move(System.Windows.Point,System.Windows.Point,System.Double)">
+            <summary>
+            Przesunięcie współrzędnych punktu radialnie wzlędem środka o pewną odległość
+            </summary>
+            <param name="p">Przesuwany punkt</param>
+            <param name="center">Środek układu współrzędnych</param>
+            <param name="M">Odległość przesunięcia. 
+            Wartość dodatnia oznacza zwiększenie, ujemna - zmniejszenie odległości od środka</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GeometryUtils.Rotate(System.Windows.Point,System.Windows.Point,System.Double)">
+            <summary>
+            Przesunięcie współrzędnych punktu po okręgu względem środka o pewien kąt
+            </summary>
+            <param name="p">Przesuwany punkt</param>
+            <param name="center">Środek układu współrzędnych</param>
+            <param name="A">Kąt obrotu. 
+            Wartość dodatnia oznacza zwiększenie, ujemna - zmniejszenie odległości od środka</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GeometryUtils.GetOverlappingGeometry(System.Windows.Media.Geometry)">
+            <summary>
+            Utworzenie z geometrii nakładających się obszarów.
+            </summary>
+            <param name="geometry">geometria wejściowa</param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.GridViewBehavior">
+            <summary>
+            Defines behavior for GridView - a special component of ListView.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetCommand(System.Windows.DependencyObject)">
+            <summary>
+            Getter for Command property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetCommand(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Setter for Command property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.CommandProperty">
+            <summary>
+              DependencyProperty as the backing store for Command.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetSortEnabled(System.Windows.DependencyObject)">
+            <summary>
+            Getter for SortEnabled property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetSortEnabled(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Setter for SortEnabled property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.SortEnabledProperty">
+            <summary>
+            DependencyProperty as the backing store for SortEnabled.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetPropertyName(System.Windows.DependencyObject)">
+            <summary>
+            Getter for PropertyName property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetPropertyName(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Setter for PropertyName property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.PropertyNameProperty">
+            <summary>
+            DependencyProperty as the backing store for PropertyName.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetWidth(System.Windows.DependencyObject)">
+            <summary>
+            Getter for Width property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetWidth(System.Windows.DependencyObject,System.Double)">
+            <summary>
+            Setter for Width property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.WidthProperty">
+            <summary>
+            DependencyProperty as the backing store for Width.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetShowColumnWidthChangeCursor(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ShowColumnWidthChangeCursor property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetShowColumnWidthChangeCursor(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Setter for ShowColumnWidthChangeCursor property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.ShowColumnWidthChangeCursorProperty">
+            <summary>
+            DependencyProperty as the backing store for ShowColumnWidthChangeCursor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetColumnWidthChangeCursor(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ColumnWidthChangeCursor property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetColumnWidthChangeCursor(System.Windows.DependencyObject,System.Windows.Input.Cursor)">
+            <summary>
+            Setter for ColumnWidthChangeCursor property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.ColumnWidthChangeCursorProperty">
+            <summary>
+            DependencyProperty as the backing store for ColumnWidthChangeCursor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetShowSortGlyph(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ShowSortGlyph property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetShowSortGlyph(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Setter for ShowSortGlyph property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.ShowSortGlyphProperty">
+            <summary>
+            DependencyProperty as the backing store for ShowSortGlyph.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetSortGlyphAscending(System.Windows.DependencyObject)">
+            <summary>
+            Getter for SortGlyphAscending property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetSortGlyphAscending(System.Windows.DependencyObject,System.Windows.Media.ImageSource)">
+            <summary>
+            Setter for SortGlyphAscending property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.SortGlyphAscendingProperty">
+            <summary>
+            DependencyProperty as the backing store for SortGlyphAscending.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetSortGlyphDescending(System.Windows.DependencyObject)">
+            <summary>
+            Getter for SortGlyphDescending property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetSortGlyphDescending(System.Windows.DependencyObject,System.Windows.Media.ImageSource)">
+            <summary>
+            Setter for SortGlyphDescending property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.SortGlyphDescendingProperty">
+            <summary>
+            DependencyProperty as the backing store for SortGlyphDescending.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetColumnHeader(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ColumnHeader property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.SetColumnHeader(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Setter for ColumnHeader property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.GridViewBehavior.ColumnHeaderProperty">
+            <summary>
+            DependencyProperty as the backing store for ColumnHeader.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.RegisterColumn(System.Windows.Controls.GridViewColumn,System.Windows.Controls.ListView)">
+            <summary>
+            Registering columns needed as there is no backward relationship between GridViewColumn an its parent ListView
+            </summary>
+            <param name="column"></param>
+            <param name="listView"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListBoxBehavior.GetMoveItemsEnabled(System.Windows.DependencyObject)">
+            <summary>
+              MoveItemsEnabled behavior allows ListBoxItems to be drag and drop inside list with mouse.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListBoxBehavior.SetMoveItemsEnabled(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+              For MoveItemsEnabled behavior list view items source should implement IListSelector interface.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListBoxBehavior.MoveItemsEnabledProperty">
+            <summary>
+              For MoveItemsEnabled behavior list view items source should implement IListSelector interface.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ListViewBehavior">
+            <summary>
+            Collection of ListView behavior
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.RegisterColumn(System.Windows.Controls.GridViewColumn,System.Windows.Controls.ListView)">
+            <summary>
+            Registering columns needed as there is no backward relationship between GridViewColumn an its parent ListView
+            </summary>
+            <param name="column"></param>
+            <param name="listView"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetMultiSelect(System.Windows.DependencyObject)">
+            <summary>
+              For MultiSelect behavior list view items source should implement IListSelector interface.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SetMultiSelect(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+              For MultiSelect behavior list view items source should implement IListSelector interface.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.MultiSelectProperty">
+            <summary>
+              For MultiSelect behavior list view items source should implement IListSelector interface.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ListViewCustomizableCellPresenter">
+            <summary>
+            Class allows for reseting hard coded ListViewItem margins and paddings
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewCustomizableCellPresenter.PaddingProperty">
+            <summary>
+            Padding dependency property registration
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ListViewCustomizableCellPresenter.Padding">
+            <summary>
+            Padding dependency property
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ProgressMonitor`1.#ctor(System.Windows.DependencyObject,System.Windows.DependencyProperty,System.Int32)">
+            <summary>
+            Create for value only update.
+            </summary>
+            <param name="object">DependencyObject to be updated on Report</param>
+            <param name="valueProperty">DependencyProperty of DependencyObject to be updated</param>
+            <param name="updatePeriod">updatePeriod in milliseconds</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ProgressMonitor`1.#ctor(System.Windows.DependencyObject,System.Windows.DependencyProperty,System.Windows.DependencyProperty,System.Int32)">
+            <summary>
+            Create for maximum and current value update.
+            </summary>
+            <param name="object">DependencyObject to be updated</param>
+            <param name="valueProperty">DependencyProperty of DependencyObject to be updated on Report</param>
+            <param name="maxProperty">DependencyProperty of DependencyObject to be updated on SetMaximum</param>
+            <param name="updatePeriod">updatePeriod in milliseconds (apply to valueProperty only)</param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.TimingMessageBox">
+            <summary>
+            TimingMessageBox
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TimingMessageBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ToolTipBehavior.GetActiveToolTipEnabled(System.Windows.DependencyObject)">
+            <summary>
+              ActiveToolTipEnabled behavior allows ToolTip Popup to contain active hyperlinks
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ToolTipBehavior.SetActiveToolTipEnabled(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+              ActiveToolTipEnabled behavior allows ToolTip Popup to contain active hyperlinks
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ToolTipBehavior.ActiveToolTipEnabledProperty">
+            <summary>
+              Dependency property for ActiveToolTipEnabled
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewBehavior.TreeViewSelectedItemBehavior.GetTreeViewItem(System.Windows.Controls.ItemsControl,System.Object)">
+            <summary>
+              Recursively search for an item in this subtree.
+            </summary>
+            <param name="container">
+              The parent ItemsControl. This can be a TreeView or a TreeViewItem.
+            </param>
+            <param name="obj">
+              The object to search item for.
+            </param>
+            <returns>
+              The TreeViewItem that DataContext is the specified object.
+            </returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewBehavior.GetMultiSelect(System.Windows.DependencyObject)">
+            <summary>
+            For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
+            but also all tree view item items sources.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewBehavior.SetMultiSelect(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
+            but also all tree view item items sources.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.TreeViewBehavior.MultiSelectProperty">
+            <summary>
+            For MultiSelect behavior not only tree view items source should implement IListSelector interface, 
+            but also all tree view item items sources.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewHelper.SetItemHierarchyVisible(System.Windows.Controls.TreeView,System.Collections.Generic.IEnumerable{System.Object},Qhta.WPF.Utils.TreeViewHelper.OnTreeViewVisible)">
+            <summary>
+            You cannot rely on this method to be synchronous. If you have any action that depend on the TreeViewItem 
+            (last item of collectionOfRootToNodePath) to be visible, you should set it in the 'onTreeViewItemVisible' method.
+            This method should work for Virtualized and non virtualized tree.
+            The difference with ExpandItem is that this one open up the tree up to the target but will not expand the target itself,
+            while ExpandItem expand the target itself.
+            </summary>
+            <param name="treeView">TreeView where  an item has to be set visible</param>
+            <param name="listOfRootToNodePath">Any collectionic List. The collection should have every objet of the path to the targeted item from the root
+            to the target. For example for an apple tree: AppleTree (index 0), Branch4, SubBranch3, Leaf2 (index 3)</param>
+            <param name="onTreeViewVisible">Optionnal</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewHelper.ExpandItem(System.Windows.Controls.TreeView,System.Collections.Generic.IEnumerable{System.Object},Qhta.WPF.Utils.TreeViewHelper.OnTreeViewVisible)">
+            <summary>
+            You cannot rely on this method to be synchronous. If you have any action that depend on the TreeViewItem 
+            (last item of collectionOfRootToNodePath) to be visible, you should set it in the 'onTreeViewItemVisible' method.
+            This method should work for Virtualized and non virtualized tree.
+            The difference with SetItemHierarchyVisible is that this one open the target while SetItemHierarchyVisible does not try to expand the target.
+            (SetItemHierarchyVisible just ensure the target will be visible)
+            </summary>
+            <param name="treeView">TreeView where  an item has to be set visible</param>
+            <param name="listOfRootToNodePath">The collection should have every objet of the path, from the root to the targeted item.
+            For example for an apple tree: AppleTree (index 0), Branch4, SubBranch3, Leaf2</param>
+            <param name="onTreeViewVisible">Optionnal</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewHelper.ExpandSubContainers(System.Windows.Controls.ItemsControl,System.Action{System.Windows.Controls.TreeViewItem,System.Object},Qhta.WPF.Utils.TreeViewHelper.ReferenceCounterTracker)">
+            <summary>
+            Expand any ItemsControl (TreeView, TreeViewItem, ListBox, ComboBox, ...) and their childs if any (TreeView)
+            </summary>
+            <param name="ic"></param>
+            <param name="actionItemExpanded"></param>
+            <param name="referenceCounterTracker"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TreeViewHelper.ExpandAll(System.Windows.Controls.TreeView,System.Action{System.Windows.Controls.TreeViewItem,System.Object},System.Action)">
+            <summary>
+            This method is asynchronous.
+            Expand all items and subs recursively if any. Does support virtualization (item recycling).
+            But honestly, make you a favor, make your life easier en create a model view around your hierarchy with
+            a IsExpanded property for each node level and bind it to each TreeView node level.
+            </summary>
+            <param name="treeView"></param>
+            <param name="actionItemExpanded"></param>
+            <param name="actionAllItemExpanded"></param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.TreeViewItemBehavior">
+            <summary>
+            Exposes attached behaviors that can be
+            applied to TreeViewItem objects.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.TriggerTracing">
+            <summary>
+            Contains attached properties to activate Trigger Tracing on the specified Triggers.
+            This file alone should be dropped into your app.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TriggerTracing.GetTriggerName(System.Windows.TriggerBase)">
+            <summary>
+            Gets the trigger name for the specified trigger. This will be used
+            to identify the trigger in the debug output.
+            </summary>
+            <param name="trigger">The trigger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TriggerTracing.SetTriggerName(System.Windows.TriggerBase,System.String)">
+            <summary>
+            Sets the trigger name for the specified trigger. This will be used
+            to identify the trigger in the debug output.
+            </summary>
+            <param name="trigger">The trigger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TriggerTracing.GetTraceEnabled(System.Windows.TriggerBase)">
+            <summary>
+            Gets a value indication whether trace is enabled for the specified trigger.
+            </summary>
+            <param name="trigger">The trigger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.TriggerTracing.SetTraceEnabled(System.Windows.TriggerBase,System.Boolean)">
+            <summary>
+            Sets a value specifying whether trace is enabled for the specified trigger
+            </summary>
+            <param name="trigger"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.TriggerTracing.TriggerTraceStoryboard">
+            <summary>
+            A dummy storyboard for tracing purposes
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.TriggerTracing.TriggerTraceListener">
+            <summary>
+            A custom tracelistener.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.VisualTreeHelperExt">
+            <summary>
+            Extensions for VisualTreeHelper
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

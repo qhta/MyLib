@@ -1,38 +1,35 @@
-﻿using Qhta.HtmlUtils;
-using Qhta.MVVM;
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace Qhta.WPF.Utils
+﻿namespace Qhta.WPF.Utils
 {
+  /// <summary>
+  /// Defines behavior for GridView - a special component of ListView.
+  /// </summary>
   public class GridViewBehavior
   {
     #region Command property
 
+    /// <summary>
+    /// Getter for Command property.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static ICommand GetCommand(DependencyObject obj)
     {
       return (ICommand)obj.GetValue(CommandProperty);
     }
 
+    /// <summary>
+    /// Setter for Command property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetCommand(DependencyObject obj, ICommand value)
     {
       obj.SetValue(CommandProperty, value);
     }
 
-    // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
+    /// <summary>
+    ///   DependencyProperty as the backing store for Command.
+    /// </summary>
     public static readonly DependencyProperty CommandProperty =
         DependencyProperty.RegisterAttached(
             "Command",
@@ -42,7 +39,7 @@ namespace Qhta.WPF.Utils
                 null,
                 (o, e) =>
                 {
-                  ItemsControl listView = o as ItemsControl;
+                  ItemsControl? listView = o as ItemsControl;
                   if (listView != null)
                   {
                     if (!GetSortEnabled(listView)) // Don't change click handler if SortEnabled enabled
@@ -63,17 +60,30 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region SortEnabled property
+
+    /// <summary>
+    /// Getter for SortEnabled property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static bool GetSortEnabled(DependencyObject obj)
     {
       return (bool)obj.GetValue(SortEnabledProperty);
     }
 
+    /// <summary>
+    /// Setter for SortEnabled property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetSortEnabled(DependencyObject obj, bool value)
     {
       obj.SetValue(SortEnabledProperty, value);
     }
 
-    // Using a DependencyProperty as the backing store for SortEnabled.  This enables animation, styling, binding, etc...
+    /// <summary>
+    /// DependencyProperty as the backing store for SortEnabled.
+    /// </summary>
     public static readonly DependencyProperty SortEnabledProperty =
         DependencyProperty.RegisterAttached(
             "SortEnabled",
@@ -83,7 +93,7 @@ namespace Qhta.WPF.Utils
                 false,
                 (o, e) =>
                 {
-                  ListView listView = o as ListView;
+                  ListView? listView = o as ListView;
                   if (listView != null)
                   {
                     if (GetCommand(listView) == null) // Don't change click handler if a command is set
@@ -106,16 +116,30 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region PropertyName property
+
+    /// <summary>
+    /// Getter for PropertyName property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static string GetPropertyName(DependencyObject obj)
     {
       return (string)obj.GetValue(PropertyNameProperty);
     }
 
+    /// <summary>
+    /// Setter for PropertyName property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetPropertyName(DependencyObject obj, string value)
     {
       obj.SetValue(PropertyNameProperty, value);
     }
 
+    /// <summary>
+    /// DependencyProperty as the backing store for PropertyName.
+    /// </summary>
     public static readonly DependencyProperty PropertyNameProperty =
         DependencyProperty.RegisterAttached(
             "PropertyName",
@@ -126,16 +150,30 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region Width property
+
+    /// <summary>
+    /// Getter for Width property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static Double GetWidth(DependencyObject obj)
     {
       return (Double)obj.GetValue(WidthProperty);
     }
 
+    /// <summary>
+    /// Setter for Width property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetWidth(DependencyObject obj, Double value)
     {
       obj.SetValue(WidthProperty, value);
     }
 
+    /// <summary>
+    /// DependencyProperty as the backing store for Width.
+    /// </summary>
     public static readonly DependencyProperty WidthProperty =
         DependencyProperty.RegisterAttached(
             "Width",
@@ -146,16 +184,30 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region ShowColumnWidthChangeCursor property
+
+    /// <summary>
+    /// Getter for ShowColumnWidthChangeCursor property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static bool GetShowColumnWidthChangeCursor(DependencyObject obj)
     {
       return (bool)obj.GetValue(ShowColumnWidthChangeCursorProperty);
     }
 
+    /// <summary>
+    /// Setter for ShowColumnWidthChangeCursor property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetShowColumnWidthChangeCursor(DependencyObject obj, bool value)
     {
       obj.SetValue(ShowColumnWidthChangeCursorProperty, value);
     }
 
+    /// <summary>
+    /// DependencyProperty as the backing store for ShowColumnWidthChangeCursor.
+    /// </summary>
     public static readonly DependencyProperty ShowColumnWidthChangeCursorProperty =
         DependencyProperty.RegisterAttached("ShowColumnWidthChangeCursor", typeof(bool), typeof(GridViewBehavior),
           new UIPropertyMetadata(
@@ -186,80 +238,148 @@ namespace Qhta.WPF.Utils
     #endregion
 
     #region ColumnWidthChangeCursor property
+
+    /// <summary>
+    /// Getter for ColumnWidthChangeCursor property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static Cursor GetColumnWidthChangeCursor(DependencyObject obj)
     {
       return (Cursor)obj.GetValue(ColumnWidthChangeCursorProperty);
     }
 
+    /// <summary>
+    /// Setter for ColumnWidthChangeCursor property.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetColumnWidthChangeCursor(DependencyObject obj, Cursor value)
     {
       obj.SetValue(ColumnWidthChangeCursorProperty, value);
     }
 
+    /// <summary>
+    /// DependencyProperty as the backing store for ColumnWidthChangeCursor.
+    /// </summary>
     public static readonly DependencyProperty ColumnWidthChangeCursorProperty =
         DependencyProperty.RegisterAttached("ColumnWidthChangeCursor", typeof(Cursor), typeof(GridViewBehavior), new UIPropertyMetadata(Cursors.SizeWE));
     #endregion
 
     #region ShowSortGlyph property
+
+    /// <summary>
+    /// Getter for ShowSortGlyph property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static bool GetShowSortGlyph(DependencyObject obj)
     {
       return (bool)obj.GetValue(ShowSortGlyphProperty);
     }
 
+    /// <summary>
+    /// Setter for ShowSortGlyph property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetShowSortGlyph(DependencyObject obj, bool value)
     {
       obj.SetValue(ShowSortGlyphProperty, value);
     }
 
-    // Using a DependencyProperty as the backing store for ShowSortGlyph.  This enables animation, styling, binding, etc...
+    /// <summary>
+    /// DependencyProperty as the backing store for ShowSortGlyph.
+    /// </summary>
     public static readonly DependencyProperty ShowSortGlyphProperty =
         DependencyProperty.RegisterAttached("ShowSortGlyph", typeof(bool), typeof(GridViewBehavior), new UIPropertyMetadata(true));
     #endregion
 
     #region SortGlyphAscending property
+
+    /// <summary>
+    /// Getter for SortGlyphAscending property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static ImageSource GetSortGlyphAscending(DependencyObject obj)
     {
       return (ImageSource)obj.GetValue(SortGlyphAscendingProperty);
     }
 
+    /// <summary>
+    /// Setter for SortGlyphAscending property.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetSortGlyphAscending(DependencyObject obj, ImageSource value)
     {
       obj.SetValue(SortGlyphAscendingProperty, value);
     }
 
+    /// <summary>
+    /// DependencyProperty as the backing store for SortGlyphAscending.
+    /// </summary>
     public static readonly DependencyProperty SortGlyphAscendingProperty =
         DependencyProperty.RegisterAttached("SortGlyphAscending", typeof(ImageSource), typeof(GridViewBehavior), new UIPropertyMetadata(null));
     #endregion
 
     #region SortGlyphDescending property
+
+    /// <summary>
+    /// Getter for SortGlyphDescending property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static ImageSource GetSortGlyphDescending(DependencyObject obj)
     {
       return (ImageSource)obj.GetValue(SortGlyphDescendingProperty);
     }
 
+    /// <summary>
+    /// Setter for SortGlyphDescending property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetSortGlyphDescending(DependencyObject obj, ImageSource value)
     {
       obj.SetValue(SortGlyphDescendingProperty, value);
     }
 
-    // Using a DependencyProperty as the backing store for SortGlyphDescending.  This enables animation, styling, binding, etc...
+    /// <summary>
+    /// DependencyProperty as the backing store for SortGlyphDescending.
+    /// </summary>
     public static readonly DependencyProperty SortGlyphDescendingProperty =
         DependencyProperty.RegisterAttached("SortGlyphDescending", typeof(ImageSource), typeof(GridViewBehavior), new UIPropertyMetadata(null));
     #endregion
 
     #region ColumnHeader property
-    public static readonly DependencyProperty ColumnHeaderProperty =
-        DependencyProperty.RegisterAttached("ColumnHeader", typeof(string), typeof(GridViewBehavior), new UIPropertyMetadata(null));
 
+    /// <summary>
+    /// Getter for ColumnHeader property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static string GetColumnHeader(DependencyObject obj)
     {
       return (string)obj.GetValue(ColumnHeaderProperty);
     }
 
+    /// <summary>
+    /// Setter for ColumnHeader property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetColumnHeader(DependencyObject obj, string value)
     {
       obj.SetValue(ColumnHeaderProperty, value);
     }
+
+    /// <summary>
+    /// DependencyProperty as the backing store for ColumnHeader.
+    /// </summary>
+    public static readonly DependencyProperty ColumnHeaderProperty =
+        DependencyProperty.RegisterAttached("ColumnHeader", typeof(string), typeof(GridViewBehavior), new UIPropertyMetadata(null));
 
     #endregion
 
@@ -267,7 +387,7 @@ namespace Qhta.WPF.Utils
 
     private static void ColumnHeader_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-      GridViewColumnHeader clickedHeader = e.OriginalSource as GridViewColumnHeader;
+      GridViewColumnHeader? clickedHeader = e.OriginalSource as GridViewColumnHeader;
       if (clickedHeader != null && clickedHeader.Column != null)
       {
         string propertyName = GetPropertyName(clickedHeader.Column);
@@ -818,7 +938,7 @@ namespace Qhta.WPF.Utils
       listView.Dispatcher.Invoke(() =>
       {
         listView.UpdateLayout();
-        listView.FitLastColumnWidthEnable((bool)e.NewValue);
+        FitLastColumnWidthEnable(listView, (bool)e.NewValue);
         listView.UpdateLayout();
       });
     }
@@ -842,13 +962,18 @@ namespace Qhta.WPF.Utils
       //Debug.WriteLine("ListView_Loaded");
       if (sender is ListView listView)
       {
-        GridView gridView = listView.View as GridView;
-        foreach (var column in gridView.Columns)
+        GridView? gridView = listView.View as GridView;
+        if (gridView != null)
         {
-          RegisterColumn(column, listView);
-          (column as INotifyPropertyChanged).PropertyChanged += Column_PropertyChanged;
+          {
+            foreach (var column in gridView.Columns)
+            {
+              RegisterColumn(column, listView);
+              (column as INotifyPropertyChanged).PropertyChanged += Column_PropertyChanged;
+            }
+            FitLastColumn(listView);
+          }
         }
-        FitLastColumn(listView);
       }
     }
 

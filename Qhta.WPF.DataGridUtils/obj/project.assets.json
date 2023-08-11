@@ -33,39 +33,6 @@
           }
         }
       },
-      "Qhta.MVVM/3.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.ObservableObjects": "2.6.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.ObservableObjects/2.6.1": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Qhta.TextUtils/3.1.1": {
         "type": "package",
         "compile": {
@@ -328,6 +295,33 @@
             "related": ".xml"
           }
         }
+      },
+      "Qhta.MVVM/3.3.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Qhta.ObservableObjects": "2.6.1"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.MVVM.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.MVVM.dll": {}
+        }
+      },
+      "Qhta.ObservableObjects/2.6.1": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Immutable": "7.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.ObservableObjects.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.ObservableObjects.dll": {}
+        }
       }
     }
   },
@@ -374,32 +368,6 @@
         "lib/netstandard2.0/Qhta.Collections.xml",
         "qhta.collections.2.0.0.nupkg.sha512",
         "qhta.collections.nuspec"
-      ]
-    },
-    "Qhta.MVVM/3.3.0": {
-      "sha512": "GNiWQ32zVmYlizrUW7coP3Pc2EXUdoF3U7IjbjJuNL0vcLM+SgbikB887r31OjK62rhaLQMGrWGy59sPuDU+vQ==",
-      "type": "package",
-      "path": "qhta.mvvm/3.3.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/netstandard2.0/Qhta.MVVM.dll",
-        "lib/netstandard2.0/Qhta.MVVM.xml",
-        "qhta.mvvm.3.3.0.nupkg.sha512",
-        "qhta.mvvm.nuspec",
-        "readme.md"
-      ]
-    },
-    "Qhta.ObservableObjects/2.6.1": {
-      "sha512": "0nCfLBwto+UT2/04KUL6i1b9RKrhD4rDFdXfazt3HbHm7oGRH8gS3s4AzC9zow4Syb0Dc91Vx2sIR1DJZ4b1RQ==",
-      "type": "package",
-      "path": "qhta.observableobjects/2.6.1",
-      "files": [
-        ".nupkg.metadata",
-        "lib/netstandard2.0/Qhta.ObservableObjects.dll",
-        "lib/netstandard2.0/Qhta.ObservableObjects.xml",
-        "qhta.observableobjects.2.6.1.nupkg.sha512",
-        "qhta.observableobjects.nuspec",
-        "readme.md"
       ]
     },
     "Qhta.TextUtils/3.1.1": {
@@ -1504,6 +1472,16 @@
         "system.threading.tasks.4.3.0.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
+    },
+    "Qhta.MVVM/3.3.0": {
+      "type": "project",
+      "path": "../Qhta.MVVM/Qhta.MVVM.csproj",
+      "msbuildProject": "../Qhta.MVVM/Qhta.MVVM.csproj"
+    },
+    "Qhta.ObservableObjects/2.6.1": {
+      "type": "project",
+      "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
+      "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1545,7 +1523,11 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1558,10 +1540,6 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
-          "Qhta.MVVM": {
-            "target": "Package",
-            "version": "[3.3.0, )"
-          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.1.1, )"

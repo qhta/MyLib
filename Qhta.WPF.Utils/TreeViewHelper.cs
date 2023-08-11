@@ -85,7 +85,7 @@ namespace Qhta.WPF.Utils
         if (listOfRootToNodeItemPath.Count == 0) // nothing to do
           return;
 
-        TreeViewItem tvi = icg.ContainerFromItem(listOfRootToNodeItemPath[0]) as TreeViewItem;
+        TreeViewItem? tvi = icg.ContainerFromItem(listOfRootToNodeItemPath[0]) as TreeViewItem;
         if (tvi != null) // Due to threading, always better to verify
         {
           listOfRootToNodeItemPath.RemoveAt(0);
@@ -106,7 +106,7 @@ namespace Qhta.WPF.Utils
         else
         {
           ActionHolder actionHolder = new ActionHolder();
-          EventHandler itemCreated = delegate (object sender, EventArgs eventArgs)
+          EventHandler itemCreated = delegate (object? sender, EventArgs eventArgs)
           {
             var icgSender = sender as ItemContainerGenerator;
             tvi = icgSender.ContainerFromItem(listOfRootToNodeItemPath[0]) as TreeViewItem;

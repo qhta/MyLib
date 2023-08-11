@@ -1,14 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ASNMQNlw8ETXXi20jgdbzL045geBnQRwYl3wJ7W8FDLxmagU0SoDwN/0+puF/z4DhWmnZad5ym65O3iaz7G1sA==",
+  "dgSpecHash": "6lfGZqzJbjYDoSCxFUQi/YOktfdbY1P+WLkz7OrPj7AvIpLJDtaDEe8qi3A8Jhg/4d41QCCo6KHZPzr27yUtLQ==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.DataGridUtils\\Qhta.WPF.DataGridUtils.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.3.0\\qhta.mvvm.3.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.6.1\\qhta.observableobjects.2.6.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.1\\qhta.textutils.3.1.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.10.1\\qhta.typeutils.1.3.10.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
@@ -26,7 +24,9 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.3.0\\qhta.mvvm.3.3.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.6.1\\qhta.observableobjects.2.6.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Qhta.HtmlUtils" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Qhta.MVVM\Qhta.MVVM.csproj" />
     <ProjectReference Include="..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
   </ItemGroup>
