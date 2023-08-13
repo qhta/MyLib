@@ -1,41 +1,51 @@
-﻿using System;
-using System.Windows;
+﻿namespace Qhta.WPF.Utils;
 
-namespace Qhta.WPF.Utils
+public static partial class ClipboardUtils
 {
-  public static partial class ClipboardUtils
+  /// <summary>
+  /// Copies contents of the source object to the clipboard.
+  /// Source object must implement <see cref="IClipboardMate"/> interface.
+  /// The method first checks whether the source object can copy content in any data format.
+  /// Then it gets data objects array and not null objects are copied to the clipboard.
+  /// </summary>
+  /// <param name="source"></param>
+  /// <returns></returns>
+  public static bool CopyToClipboard(IClipboardMate source)
   {
-    public static bool CopyToClipboard(IClipboardMate clipboardMate)
+    bool success = true;
+    Clipboard.Clear();
+    if (source.CanCopy(out string[] dataFormats))
     {
-      bool success = true;
-      Clipboard.Clear();
-      if (clipboardMate.CanCopy(out string[] dataFormats))
-      {
-        var dataObjects = clipboardMate.CopyToClipboard(dataFormats);
-        foreach (var dataObject in dataObjects)
-          if (dataObject!=null)
+      var dataObjects = source.CopyToClipboard(dataFormats);
+      foreach (var dataObject in dataObjects)
+        if (dataObject != null)
           CopyToClipboard(dataObject);
-        return success;
-      }
-      return false;
+      return success;
     }
+    return false;
+  }
 
-    static void CopyToClipboard(DataObject dataObject)
+  /// <summary>
+  /// Helper method to copy data object to clipboard.
+  /// If the data object contains EnhancedMetafile data format, then its intPtr is copied to clipboard.
+  /// Otherwise simple copy is performed.
+  /// </summary>
+  /// <param name="dataObject"></param>
+  static void CopyToClipboard(DataObject dataObject)
+  {
+    if (dataObject.GetDataPresent(DataFormats.EnhancedMetafile))
     {
-      if (dataObject.GetDataPresent(DataFormats.EnhancedMetafile))
+      IntPtr hEMF2 = (IntPtr)dataObject.GetData(DataFormats.EnhancedMetafile);
+      if (OpenClipboard(new IntPtr(0)))
       {
-        IntPtr hEMF2 = (IntPtr)dataObject.GetData(DataFormats.EnhancedMetafile);
-        if (OpenClipboard(new IntPtr(0)))
+        if (EmptyClipboard())
         {
-          if (EmptyClipboard())
-          {
-            IntPtr hRes = SetClipboardData(14 /*CF_ENHMETAFILE*/, hEMF2);
-            CloseClipboard();
-          }
+          IntPtr hRes = SetClipboardData(14 /*CF_ENHMETAFILE*/, hEMF2);
+          CloseClipboard();
         }
       }
-      else
-       Clipboard.SetDataObject(dataObject, true);
     }
+    else
+      Clipboard.SetDataObject(dataObject, true);
   }
 }

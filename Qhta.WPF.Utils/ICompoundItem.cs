@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿namespace Qhta.WPF.Utils;
 
-namespace Qhta.WPF.Utils
+/// <summary>
+/// Interface that defines Items property.
+/// </summary>
+public interface ICompoundItem
 {
-  public interface ICompoundItem
-  {
-    IEnumerable<object> Items { get; }
-  }
+  /// <summary>
+  /// IEnumerable Items.
+  /// </summary>
+  IEnumerable<object> Items { get; }
 }

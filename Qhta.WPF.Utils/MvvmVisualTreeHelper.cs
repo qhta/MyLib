@@ -1,33 +1,41 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿namespace Qhta.WPF.Utils;
 
-namespace Qhta.WPF.Utils
+/// <summary>
+/// Utility class that contains a method working on VisualTree.
+/// </summary>
+public static class MvvmVisualTreeHelper
 {
-  public static class MvvmVisualTreeHelper
+  /// <summary>
+  /// Finds a visual child where DataContext equals dataObject.
+  /// </summary>
+  /// <typeparam name="VisualType"></typeparam>
+  /// <param name="parent"></param>
+  /// <param name="dataObject"></param>
+  /// <returns></returns>
+  public static VisualType? FindVisualChildForDataContext<VisualType>(DependencyObject parent, object dataObject) where VisualType : Visual
   {
-    public static VisualType FindVisualChildForDataContext<VisualType>(DependencyObject parent, object dataObject) where VisualType: Visual
+    int n = VisualTreeHelper.GetChildrenCount(parent);
+    for (int i = 0; i < n; i++)
     {
-      int n = VisualTreeHelper.GetChildrenCount(parent);
-      for (int i = 0; i<n; i++)
+      var child = VisualTreeHelper.GetChild(parent, i);
+      if (child is VisualType result)
       {
-        var child = VisualTreeHelper.GetChild(parent, i);
-        if (child is VisualType result)
+        var dataContext = child.GetValue(Control.DataContextProperty);
+        if (dataContext != null)
         {
-          var dataContext = child.GetValue(Control.DataContextProperty);
           //Debug.WriteLine($"Child type = {child.GetType().Name}");
-          var value = dataContext.GetType().GetProperty("Number").GetValue(dataContext);
+          //var value = dataContext.GetType()?.GetProperty("Number")?.GetValue(dataContext);
           //Debug.WriteLine($"DataContext = {dataContext} Number = {value}");
-          if (dataContext==dataObject)
+          if (dataContext == dataObject)
           {
             return result;
           }
         }
-        var recursiveResult = FindVisualChildForDataContext<VisualType>(child, dataObject);
-        if (recursiveResult!=null)
-          return recursiveResult;
       }
-      return null;
+      var recursiveResult = FindVisualChildForDataContext<VisualType>(child, dataObject);
+      if (recursiveResult != null)
+        return recursiveResult;
     }
+    return null;
   }
 }

@@ -6,7 +6,7 @@
     <members>
         <member name="T:Qhta.WPF.Utils.ActionHolder">
             <summary>
-            A class that holds an action.
+            A class that can hold and execute an action.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ActionHolder.Action">
@@ -19,18 +19,314 @@
             Executes the action.
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.AutoGenerating">
+        <member name="T:Qhta.WPF.Utils.ArrayGraphics">
             <summary>
-            Utility class that helps to autogenerate <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/>
+            Helper class to handle a bitmap (get/set array of pixels).
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.AutoGenerating.UseDataGridColumnAttribute(System.Object,System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs)">
+        <member name="M:Qhta.WPF.Utils.ArrayGraphics.GetColorArray(System.Windows.Media.Imaging.BitmapSource)">
             <summary>
-            Creates <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/> for ItemsSource thas have DataGridColumnAttribute (defined in Qhta.MVVM)
-            
+            Converts <see cref="T:System.Windows.Media.Imaging.BitmapSource"/> to array of pixels.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ArrayGraphics.SetColorArray(System.Windows.Media.Imaging.WriteableBitmap,System.Windows.Media.Color[0:,0:])">
+            <summary>
+            Sets array of pixels to <see cref="T:System.Windows.Media.Imaging.WriteableBitmap"/>
+            </summary>
+            <param name="target"></param>
+            <param name="pixels"></param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.BackgroundBehavior">
+            <summary>
+            A class to define background behavior. 
+            It enables a control to observe target object "Waiting" boolean property and display a waiting cursor.
+            Target object must be implement <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface.
+            There are two properties:
+            <list type="table">
+              <item><term>Target</term><description>Declares the observed object</description></item>
+              <item><term>EnableWaitingCursor</term><description>Enables observing control to display waiting cursor.</description></item>
+            </list>
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.GetTarget(System.Windows.DependencyObject)">
+            <summary>
+            Getter for Target property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.SetTarget(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Setter for Target property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.BackgroundBehavior.TargetProperty">
+            <summary>
+            Dependency property to store Target property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.GetEnableWaitingCursor(System.Windows.DependencyObject)">
+            <summary>
+            Getter for EnableWaitingCursor property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.SetEnableWaitingCursor(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Setter for EnableWaitingCursor property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.BackgroundBehavior.EnableWaitingCursorProperty">
+            <summary>
+            Dependency property to store EnableWaitingCursor property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.EnableWaitingCursorPropertyChangedCallback(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Callback method invoked when EnableWaitingCursor property was changed.
+            If it is true, then it adds a handler to observing control Loaded event.
+            </summary>
+            <param name="obj"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.Control_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handler for observing control Loaded event. 
+            Invokes an EnableWaitingCursor method for the control with its EnabledWaitingCursor property as an argument.
             </summary>
             <param name="sender"></param>
             <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.EnableWaitingCursor(System.Windows.Controls.Control,System.Boolean)">
+            <summary>
+            A method that adds or removes a control to internal Observers dictionary.
+            </summary>
+            <param name="control"></param>
+            <param name="enable"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BackgroundBehavior.TargetObject_PropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            A method to handle target object PropertyChanged event. It observes "Waiting" property of the target object.
+            If it is set to true, then it sets each observing control cursor to Wait cursor.
+            If it is set to false, then it sets each observing control cursor to Arrow cursor.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.BackgroundBehavior.Observers">
+            <summary>
+            Helper definition for Observers hash set type.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.BackgroundBehavior.observerMapping">
+            <summary>
+            Internal dictionary assigning a hash set of observing controls to each target object.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DummyDO">
+            <summary>
+            Helper class that defines dummy object used in <see cref="T:Qhta.WPF.Utils.BindingEvaluator"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DummyDO.Value">
+            <summary>
+            Dummy Value property
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DummyDO.ValueProperty">
+            <summary>
+            Dependency property to store Value property.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.BindingEvaluator">
+            <summary>
+            Utility class to evaluate this Binding value. Defines GetValue methods.
+            It is used in ClipboardUtils.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BindingEvaluator.GetValue(System.Windows.Data.Binding)">
+            <summary>
+            Gets dummy object Value property for this Binding.
+            </summary>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BindingEvaluator.GetValue(System.Windows.Data.Binding,System.Object)">
+            <summary>
+            Gets dummy object value for this Binding using source object.
+            </summary>
+            <param name="b"></param>
+            <param name="sourceObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.BindingExpressionUtils">
+            <summary>
+            Utility class for BindingExpressions. It defines GetString and RefreshBinding methods.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BindingExpressionUtils.GetString(System.Windows.Data.BindingExpressionBase)">
+            <summary>
+            Gets a string value from this <see cref="T:System.Windows.Data.BindingExpressionBase"/> expression DataItem property.
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BindingExpressionUtils.RefreshBinding(System.Windows.DependencyObject,System.Windows.DependencyProperty,System.Object)">
+            <summary>
+            Creates a new <see cref="T:System.Windows.Data.BindingExpression"/> for the specific property of this object 
+            </summary>
+            <param name="obj">Must be a dependency object</param>
+            <param name="property">Must be a dependency property</param>
+            <param name="newDataItem">Defines source for new binding</param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.BorderLine">
+            <summary>
+            A helper class that draws a border line adorner for an UI element.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BorderLine.#ctor(System.Windows.UIElement)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="adornedElement"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.BorderLine.Side">
+            <summary>
+            Defines a side of the element at which the border line is drawn.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.BorderLine.SideProperty">
+            <summary>
+            Dependency property to store Side property. Note: it is declared with "DrawAt" name.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BorderLine.OnRender(System.Windows.Media.DrawingContext)">
+            <summary>
+            Render event handling method that draws a line at the declared side of the element.
+            </summary>
+            <param name="drawingContext"></param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.BrushUtils">
+            <summary>
+            Brush utility class that checks if the brush is null or empty.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.BrushUtils.IsNullOrEmpty(System.Windows.Media.Brush)">
+            <summary>
+            Checks if the brush is null or empty. 
+            "Empty" brush is a solid color brush with Alpha component set to 0.
+            </summary>
+            <param name="brush"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ClipboardUtils">
+            <summary>
+            Utility class that contains multiple method to handle clipboard operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyToClipboard(Qhta.WPF.Utils.IClipboardMate)">
+            <summary>
+            Copies contents of the source object to the clipboard.
+            Source object must implement <see cref="T:Qhta.WPF.Utils.IClipboardMate"/> interface.
+            The method first checks whether the source object can copy content in any data format.
+            Then it gets data objects array and not null objects are copied to the clipboard.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyToClipboard(System.Windows.DataObject)">
+            <summary>
+            Helper method to copy data object to clipboard.
+            If the data object contains EnhancedMetafile data format, then its intPtr is copied to clipboard.
+            Otherwise simple copy is performed.
+            </summary>
+            <param name="dataObject"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyToClipboard(System.Windows.UIElement)">
+            <summary>
+            Copies UI element as rendered bitmap to the clipboard.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.MakeRenderTargetBitmap(System.Windows.UIElement)">
+            <summary>
+            Helper method to create a render bitmap of the UI element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.MakeRenderTargetXAML(System.Windows.UIElement)">
+            <summary>
+            Helper method to create a XAML string of the UI element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyToClipboard(System.Windows.Controls.DataGrid)">
+            <summary>
+            Copies data grid content to clipboard as an HTML table.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.MakeHtml(System.Windows.Controls.DataGrid,System.String@)">
+            <summary>
+            Helper method that creates HTML table string of the data grid.
+            Emits plain text as the output parameter.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.StripAttributes(System.String,System.String[])">
+            <summary>
+            Strips attributes from the source string.
+            </summary>
+            <param name="srs"></param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.ReplaceAttribute(System.String,System.String,System.String)">
+            <summary>
+            Replaces atrribute value with a new value.
+            </summary>
+            <param name="srs"></param>
+            <param name="attributeName"></param>
+            <param name="replacementValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.ReplaceAttribute(System.String,System.String,System.String,System.String)">
+            <summary>
+            Replaces a specific attribute value with a new value.
+            </summary>
+            <param name="srs"></param>
+            <param name="attributeName"></param>
+            <param name="attributeValue"></param>
+            <param name="replacementValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.GetFileName(System.Uri)">
+            <summary>
+            Gets a filename from the Uri string.
+            </summary>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.SaveToDisk(System.Windows.Xps.Packaging.XpsFont,System.String)">
+            <summary>
+            Saves XpsFont to the file.
+            </summary>
+            <param name="font"></param>
+            <param name="path"></param>
         </member>
         <member name="F:Qhta.WPF.Utils.ClipboardUtils.Header">
             <summary>      
@@ -120,29 +416,118 @@
             <param  name="end">optional: the end index to calculate to (default - end  of string)</param>      
             <returns>the number of bytes  required to encode the string in UTF-8</returns>      
         </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.OpenClipboard(System.IntPtr)">
+            <summary>
+            Interop method to open the clipboard.
+            </summary>
+            <param name="hWndNewOwner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.EmptyClipboard">
+            <summary>
+            Interop method to empty the clipboard.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.SetClipboardData(System.UInt32,System.IntPtr)">
+            <summary>
+            Interop method to set the clipboard data.
+            </summary>
+            <param name="uFormat"></param>
+            <param name="hMem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CloseClipboard">
+            <summary>
+            Interop method to close the clipboard.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyEnhMetaFile(System.IntPtr,System.IntPtr)">
+            <summary>
+            Interop method to copy enhanced metafile to the clipboard.
+            </summary>
+            <param name="hemfSrc"></param>
+            <param name="hNULL"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.DeleteEnhMetaFile(System.IntPtr)">
+            <summary>
+            Interop method to delete enhanced metafile.
+            </summary>
+            <param name="hemf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ClipboardUtils.CopyToClipboard(System.Windows.Controls.ListView)">
+            <summary>
+            Copies ListView content to the clipboard.
+            If the ListView implements <see cref="T:Qhta.WPF.Utils.IClipboardMate"/> interface, then it is used.
+            Otherwise it copies content as HTML table string.
+            </summary>
+            <param name="listView"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Comparator">
+            <summary>
+            Helper class to sort bindings.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Comparator.Compare(System.Object,System.Object)">
+            <summary>
+            Compares to values gets from object x and y using binding.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.IClipboardMate">
+            <summary>
+            Interface that defines CanCopy and CopyToClipboard funtions.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.IClipboardMate.CanCopy(System.String[]@)">
+            <summary>
+            Specifies whether the object can copy its content to clipboard using any of the specified data formats.
+            </summary>
+            <param name="dataFormats"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.IClipboardMate.CopyToClipboard(System.String[])">
+            <summary>
+            Generates DataObject array with content to copy do clipboard using the specified data formats.
+            Some of the items can be null.
+            </summary>
+            <param name="dataFormats"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.WPF.Utils.CollectionViewBehavior">
             <summary>
             Defines <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
             between CollectionView and Collection which has thread-safe operations.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.#cctor">
+            <summary>
+            Static constructor that initializes registering of collection and collection view.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetEnableCollectionSynchronization(System.Windows.DependencyObject)">
             <summary>
-            <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> getter.
+            Getter for EnableCollectionSynchronization property.
             </summary>
             <param name="obj"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetEnableCollectionSynchronization(System.Windows.DependencyObject,System.Boolean)">
             <summary>
-            <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> setter.
+            Setter for EnableCollectionSynchronization property.
             </summary>
             <param name="obj"></param>
             <param name="value"></param>
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty">
             <summary>
-            Static DependencyProperty.
+            Dependency property to store EnableCollectionSynchronization property.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationPropertyChangedCallback(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
@@ -152,37 +537,326 @@
             <param name="obj"></param>
             <param name="args"></param>
         </member>
+        <member name="T:Qhta.WPF.Utils.ColorAdjustEffect">
+            <summary>
+            ShaderEffect class to adjust colors of the brush.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.InputProperty">
+            <summary>Dependency property to store Input property.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.SaturationProperty">
+            <summary>Dependency property to store Saturation property.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.GammaProperty">
+            <summary>Dependency property to store Gamma property.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.BrightnessAdjustmentProperty">
+            <summary>Dependency property to store BrightnessAdjustment property.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.RedAdjustmentProperty">
+            <summary>Dependency property to store RedAdjustment property.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.GreenAdjustmentProperty">
+            <summary>Dependency property to store GreenAdjustment property.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ColorAdjustEffect.BlueAdjustmentProperty">
+            <summary>Dependency property to store BlueAdjustment property.</summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColorAdjustEffect.#ctor">
+            <summary>
+            Default constructor that updates shader values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.Input">
+            <summary>
+            Input brush property.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.Saturation">
-            <summary>A value between 0 and 1 to alter the amount of colour left in the image. 0 is entirely greyscale, and 1 is unaffected. Default is 1.</summary>
+            <summary>
+            A value between 0 and 1 to alter the amount of colour left in the image. 0 is entirely greyscale, and 1 is unaffected. Default is 1.
+            </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.Gamma">
-            <summary>A value between 0 and 1 to alter the lightness of the greyscale without altering true black or true white. 
-            0 shifts shades closer to true black, and 1 shifts shades closer to true white. Default is 0.5.</summary>
+            <summary>
+            A value between 0 and 1 to alter the lightness of the greyscale without altering true black or true white. 
+            0 shifts shades closer to true black, and 1 shifts shades closer to true white. Default is 0.5.
+            </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.BrightnessAdjustment">
-            <summary>A value between -1 and 1 to linearly move the end result closer to true black or true white respectively.
-            -1 will result in an entirely black image, +1 will result in an entirely white image. Default is 0.</summary>
+            <summary>
+            A value between -1 and 1 to linearly move the end result closer to true black or true white respectively.
+            -1 will result in an entirely black image, +1 will result in an entirely white image. Default is 0.
+            </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.RedAdjustment">
-            <summary>A value between -1 and 1 to linearly increase the Red component of the result.
-            -1 will remove all Red from the image, +1 will maximize all Red in the image. Default is 0.</summary>
+            <summary>
+            A value between -1 and 1 to linearly increase the Red component of the result.
+            -1 will remove all Red from the image, +1 will maximize all Red in the image. Default is 0.
+            </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.GreenAdjustment">
-            <summary>A value between -1 and 1 to linearly increase the Green component of the result.
-            -1 will remove all Green from the image, +1 will maximize all Green in the image. Default is 0.</summary>
+            <summary>
+            A value between -1 and 1 to linearly increase the Green component of the result.
+            -1 will remove all Green from the image, +1 will maximize all Green in the image. Default is 0.
+            </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColorAdjustEffect.BlueAdjustment">
-            <summary>A value between -1 and 1 to linearly increase the Blue component of the result.
-            -1 will remove all Blue from the image, +1 will maximize all Blue in the image. Default is 0.</summary>
+            <summary>
+            A value between -1 and 1 to linearly increase the Blue component of the result.
+            -1 will remove all Blue from the image, +1 will maximize all Blue in the image. Default is 0.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColorAdjustEffect.CoerceFactor(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Coerces factor to the range of 0.0 to 1.0.
+            </summary>
+            <param name="d"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ColumnsViewInfo">
+            <summary>
+            Observable collection of <see cref="T:Qhta.WPF.Utils.ColumnViewInfo"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnsViewInfo.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnsViewInfo.AllSelected">
+            <summary>
+            Checks if all the items are selected.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ColumnViewInfo">
+            <summary>
+            An information of the single column.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnViewInfo.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnViewInfo.Duplicate">
+            <summary>
+            Duplicates the column definition.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.Header">
+            <summary>
+            Header text to be displayed.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.PropertyName">
+            <summary>
+            Property name to bind values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.PropertyInfo">
+            <summary>
+            Property info to bind values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.IsVisible">
+            <summary>
+            Property to change column visibility.
+            A converter to Control.Visibility may be needed to bind to column Visibility.
+            If IsVisibile is changed then ActualWidth is also changed.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.Width">
+            <summary>
+            Stored Width of the column. 
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.ActualWidth">
+            <summary>
+            Actual width of the column. Is changed between 0 and HiddenWidth
+            when IsVisible is changed.
+            </summary>
+        </member>
+        <member name="E:Qhta.WPF.Utils.ColumnViewInfo.PropertyChanged">
+            <summary>
+            Event used to implement <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnViewInfo.ToString">
+            <summary>
+            Overriden to help debugging.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Qhta.WPF.Utils.ComboBoxBehavior">
+            <summary>
+            ComboBox behavior class that defines its IsNullable property and Cleared event.
+            </summary>
             <summary>
             ComboBoxBehavior
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.GetIsNullable(System.Windows.DependencyObject)">
+            <summary>
+            Getter for IsNullable property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.SetIsNullable(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Setter for IsNullable property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ComboBoxBehavior.IsNullableProperty">
+            <summary>
+            Dependency property to store IsNullable property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.IsNullablePropertyChangedCallback(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Callback method invoked when IsNullable property was changed.
+            </summary>
+            <param name="obj"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.AddClearedHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            Add accessor for Cleared event.
+            </summary>
+            <param name="obj"></param>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.RemoveClearedHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            Remove accessor for Cleared event.
+            </summary>
+            <param name="obj"></param>
+            <param name="handler"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ComboBoxBehavior.ClearedEvent">
+            <summary>
+            Routed event to store Cleared event handler.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.ComboBox_PreviewKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Handler method for PreviewKeyDown event of the ComboBox. Handles Delete key.
+            Clears SelectedValue and SelectedItem properties and raises Cleared event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.ComboBox_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Handler for SelectionChanged event. Now does nothing.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.ClearButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handler for Click event of ClearButton (defined in default ComboBox style).
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.ComboBoxItem_Selected(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handler for ComboBox item Selected event. Now does nothing.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.ComboBoxItem_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handler for PreviewMouseLeftButtonDown of the ComboBox item. Clears the parent ComboBox SelectedValue.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
         <member name="M:Qhta.WPF.Utils.ComboBoxBehavior.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.CommandBindingExtension">
+            <summary>
+            Markup extension class that defines a commandName for a Command XAML definition.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.#ctor(System.String)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="commandName"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommandBindingExtension.CommandName">
+            <summary>
+            Constructor argument.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CommandBindingExtension.targetObject">
+            <summary>
+            Defines the target object to which the command is assigned.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CommandBindingExtension.targetProperty">
+            <summary>
+            Defines the target property to which the command is assigned.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Provides a Command using the service provider.
+            If there is some problem, it provides a DummyCommand.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.GetCommand(System.Object,System.String)">
+            <summary>
+            Gets a Command for a command name. Can return null.
+            </summary>
+            <param name="dataContext"></param>
+            <param name="commandName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.AssignCommand(System.Windows.Input.ICommand)">
+            <summary>
+            Assignes a command to the target property of the target object.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.RootElement_DataContextChanged(System.Object,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handler for DataContextChanged event of the rpot element.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CommandBindingExtension.GetPrivateFieldValue``1(System.Object,System.String)">
+            <summary>
+            Gets a private field value of the target object. Can return null.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="target"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.CommandBindingExtension.DummyCommand">
+            <summary>
+            A dummy command that does nothing
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.CommandManagerBridge">
@@ -197,8 +871,169 @@
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridBehavior">
             <summary>
-            Collection of DataGrid behavior
+            Collection of DataGrid behavior properties and events.
             </summary>
+            <summary>
+            DataGridBehavior
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.GetUserCanFilter(System.Windows.Controls.DataGrid)">
+            <summary>
+            Getter of UserCanFilter property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.SetUserCanFilter(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Setter of UserCanFilter property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DataGridBehavior.UserCanFilterProperty">
+            <summary>
+            Dependency property to store UserCanFilter property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.GetShowFilterButton(System.Windows.Controls.DataGrid)">
+            <summary>
+            Getter of ShowFilterButton property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.SetShowFilterButton(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Setter of ShowFilterButton property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DataGridBehavior.ShowFilterButtonProperty">
+            <summary>
+            Dependency property to store ShowFilterButton property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.AddFilterButtonClickHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            Add accessor for ShowFilterButtonClick event.
+            </summary>
+            <param name="obj"></param>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.RemoveFilterButtonClickHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            Remove accessor for FilterButtonClick event.
+            </summary>
+            <param name="obj"></param>
+            <param name="handler"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DataGridBehavior.FilterButtonClickEvent">
+            <summary>
+            Routed event to store FilterButtonClick event handler.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.FilterButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handler for Click event of ClearButton (defined in default ComboBox style).
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.GetUserCanFind(System.Windows.Controls.DataGrid)">
+            <summary>
+            Getter of UserCanFilter property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.SetUserCanFind(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Setter of UserCanFind property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DataGridBehavior.UserCanFindProperty">
+            <summary>
+            Dependency property to store UserCanFind property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.GetShowFindButton(System.Windows.Controls.DataGrid)">
+            <summary>
+            Getter of ShowFindButton property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.SetShowFindButton(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Setter of ShowFindButton property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DataGridBehavior.ShowFindButtonProperty">
+            <summary>
+            Dependency property to store ShowFindButton property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.GetSortingEventHandler(System.Windows.DependencyObject)">
+            <summary>
+            Getter of SortingEventHandler property.
+            We do not define new event, but a handler for already defined event.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.SetSortingEventHandler(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Setter of SortingEventHandler property.
+            We do not define new event, but a handler for already defined event.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.DataGridBehavior.SortingEventHandlerProperty">
+            <summary>
+            Dependency property to store SortingEventHandler property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.OnSortingEventHandlerChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Method to handle SortingEventHandler property changed event.
+            If its new value is a proper <see cref="T:System.Windows.Controls.DataGridSortingEventHandler"/>, it is assigned to the data grid.
+            Otherwise a default handler is assigned.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.DataGrid_Sorting(System.Object,System.Windows.Controls.DataGridSortingEventArgs)">
+            <summary>
+            Default handler method of the DataGrid sorting event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridBehavior.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DataGridColumnCreator">
+            <summary>
+            Utility class that helps to autogenerate <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/>.
+            It uses DataGridColumn attributes assigned to properties.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnCreator.GenerateColumn(System.Object,System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs)">
+            <summary>
+            Creates <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/> for ItemsSource thas have DataGridColumnAttribute (defined in Qhta.MVVM)
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridColumnDef">
             <summary>
@@ -419,9 +1254,115 @@
             <param name="callback">A delegate to invoke through the dispatcher.</param>
             <returns>The value returned by callback.</returns>
         </member>
+        <member name="T:Qhta.WPF.Utils.DragData">
+            <summary>
+            Helper class to drag data. Contains source DependencyObject and dragged data.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DragData.Source">
+            <summary>
+            Source DependencyObject.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DragData.Data">
+            <summary>
+            Dragged data.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DynamicResource">
+            <summary>
+            Markup extension class that defines a dynamic resource.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResource.#ctor(System.String)">
+            <summary>
+            Ininitalizing constructor.
+            </summary>
+            <param name="resourceName"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DynamicResource.ResourceName">
+            <summary>
+            Name of the resource.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResource.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Provides value of the resource using service provider.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DynamicResourceBinding">
+            <summary>
+            DynamicResourceExtension class that implements dynamic resource binding with optional converter (as normal Binding).
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResourceBinding.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResourceBinding.#ctor(System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="resourceKey"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DynamicResourceBinding.Converter">
+            <summary>
+            Optional converter of the resource value.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DynamicResourceBinding.ConverterParameter">
+            <summary>
+            Optional parameter of the converter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DynamicResourceBinding.ConverterCulture">
+            <summary>
+            Optional culture of the conversion.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DynamicResourceBinding.StringFormat">
+            <summary>
+            String format to convert data.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResourceBinding.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Provides resource value using service provider.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DynamicResourceProvider">
+            <summary>
+            Markup extension class that provides a type instance.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResourceProvider.#ctor(System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="typeName"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DynamicResourceProvider.TypeName">
+            <summary>
+            Name of the type.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DynamicResourceProvider.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Provides value using IXamlTypeResolver interface.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.WPF.Utils.DynamicTemplateSelector">
             <summary>
-            Provides a means to specify DataTemplates to be selected from within WPF code
+            Provides means to specify DataTemplates to be selected from within WPF code.
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.DynamicTemplateSelector.TemplatesProperty">
@@ -493,47 +1434,137 @@
             Gets or Sets the <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/> used to render items matching the <see cref="P:Qhta.WPF.Utils.Template.DataType"/>
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.EnumValuesProvider">
+            <summary>
+            DataSourceProvider that provides enum type values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.EnumValuesProvider.ObjectType">
+            <summary>
+            Enum type to get values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.EnumValuesProvider.ItemType">
+            <summary>
+            Type of the item.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.EnumValuesProvider.AddNull">
+            <summary>
+            Specifies whether it should add a null value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumValuesProvider.BeginQuery">
+            <summary>
+            Starts querying.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumValuesProvider.GetValues(System.Type)">
+            <summary>
+            Gets values array
+            </summary>
+            <param name="enumtype"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumValuesProvider.GetValuesWithNull(System.Type)">
+            <summary>
+            Gets value array with null value.
+            </summary>
+            <param name="enumType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumValuesProvider.GetNames(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            Get names of the values.
+            </summary>
+            <param name="enumtype"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.FocusUtils">
+            <summary>
+            Utility class that checks whether the window has a control with focus.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.FocusUtils.HasFocus(System.Windows.Window,System.Windows.Controls.Control,System.Boolean)">
+            <summary>
+            Checks whether the window has a control with focus.
+            </summary>
+            <param name="parentWindow"></param>
+            <param name="aControl"></param>
+            <param name="aCheckChildren"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.FrameworkElementUtils">
+            <summary>
+            Utility class that gets a parent window of the framework element.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.FrameworkElementUtils.FindParentWindow(System.Windows.FrameworkElement)">
+            <summary>
+            Obsolete method to find a parent window od the framework element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.FrameworkElementUtils.GetParentWindow(System.Windows.FrameworkElement)">
+            <summary>
+            Method to get a parent window od the framework element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.GeometryUtils">
+            <summary>
+            Utility class that contains some geometry calculation methods.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.GeometryUtils.Angle(System.Windows.Point,System.Windows.Point)">
             <summary>
-            Kąt punktu w biegunowym układzie współrzędnych
+            The angle of the point in the polar coordinate system.
             </summary>
-            <param name="p">wejściowy punkt</param>
-            <param name="center">Środek układu współrzędnych</param>
+            <param name="p">Input point</param>
+            <param name="center">The center of the coordinate system</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.GeometryUtils.Radius(System.Windows.Point,System.Windows.Point)">
             <summary>
-            Odległość punktu od środka układu współrzędnych
+            The distance of a point from the center of the coordinate system.
             </summary>
-            <param name="p">wejściowy punkt</param>
-            <param name="center">Środek układu współrzędnych</param>
+            <param name="p">Input point</param>
+            <param name="center">The center of the coordinate system</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.GeometryUtils.Move(System.Windows.Point,System.Windows.Point,System.Double)">
             <summary>
-            Przesunięcie współrzędnych punktu radialnie wzlędem środka o pewną odległość
+            Shift the coordinates of a point radially from the center by some distance.
             </summary>
-            <param name="p">Przesuwany punkt</param>
-            <param name="center">Środek układu współrzędnych</param>
-            <param name="M">Odległość przesunięcia. 
-            Wartość dodatnia oznacza zwiększenie, ujemna - zmniejszenie odległości od środka</param>
+            <param name="p">Moved point</param>
+            <param name="center">The center of the coordinate system</param>
+            <param name="M">Move distance</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.GeometryUtils.Rotate(System.Windows.Point,System.Windows.Point,System.Double)">
             <summary>
-            Przesunięcie współrzędnych punktu po okręgu względem środka o pewien kąt
+            Shifting the coordinates of a point in a circle relative to the center by some angle.
             </summary>
-            <param name="p">Przesuwany punkt</param>
-            <param name="center">Środek układu współrzędnych</param>
-            <param name="A">Kąt obrotu. 
-            Wartość dodatnia oznacza zwiększenie, ujemna - zmniejszenie odległości od środka</param>
+            <param name="p">Moved point</param>
+            <param name="center">The center of the coordinate system</param>
+            <param name="A">Rotation angle</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.GeometryUtils.GetOverlappingGeometry(System.Windows.Media.Geometry)">
             <summary>
-            Utworzenie z geometrii nakładających się obszarów.
+            Merging overlapping areas from the geometry.
             </summary>
-            <param name="geometry">geometria wejściowa</param>
+            <param name="geometry">Input geometry</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GeometryUtils.GetPoints(System.Windows.Media.PathGeometry)">
+            <summary>
+            Extracting points from the PathGeometry.
+            </summary>
+            <param name="geometry"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.WPF.Utils.GridViewBehavior">
@@ -731,12 +1762,200 @@
             DependencyProperty as the backing store for ColumnHeader.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetAncestor``1(System.Windows.DependencyObject)">
+            <summary>
+            Helper method to get ancestor of the dependency object.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="reference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.ApplySort(System.ComponentModel.ICollectionView,System.String,System.Windows.Controls.ListView,System.Windows.Controls.GridViewColumnHeader)">
+            <summary>
+            Helper method to apply sort on ICollectionView.
+            </summary>
+            <param name="view">CollectionView to sort</param>
+            <param name="properties">String of property names to sort (separated with comma or semicolon)</param>
+            <param name="listView">Parent ListView</param>
+            <param name="clickedHeader">Currently clicked header</param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.TryGetPropertyNames(System.String,System.String[]@,System.ComponentModel.ListSortDirection[]@)">
+            <summary>
+            Helper method to split property names string to the array and check their sort directions.
+            </summary>
+            <param name="properties">String of property names to sort (separated with comma or semicolon)</param>
+            <param name="propertyNames">Result property name array</param>
+            <param name="directions">Array of directions (size same as property names)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.GetPropertyNames(System.String)">
+            <summary>
+            Helper method to split property names string to the array.
+            </summary>
+            <param name="properties">String of property names to sort (separated with comma or semicolon)</param>
+            <returns>Result property name array</returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.ApplySort(System.ComponentModel.ICollectionView,System.String,System.Windows.Controls.ListView,System.Boolean,System.ComponentModel.ListSortDirection)">
+            <summary>
+            Helper method to apply sort operation 
+            </summary>
+            <param name="view">CollectionView to sort</param>
+            <param name="propertyName">Clicked header property name</param>
+            <param name="listView">Parent ListView</param>
+            <param name="addSortColumn">Specifies whether to add a column to sort (or sort separately)</param>
+            <param name="direction">Direction to sort a column</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.RemoveAllSortGlyphs(System.Windows.Controls.ListView)">
+            <summary>
+            Remove all sort buttons from the ListView headers.
+            </summary>
+            <param name="listView"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.AddSortGlyph(System.Windows.Controls.GridViewColumnHeader,System.ComponentModel.ListSortDirection,System.Windows.Media.ImageSource)">
+            <summary>
+            Add sort glyph adorner to column header.
+            </summary>
+            <param name="columnHeader"></param>
+            <param name="direction"></param>
+            <param name="imageSource"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.RemoveSortGlyph(System.Windows.Controls.GridViewColumnHeader)">
+            <summary>
+            Remove sort glyph adorner from column header.
+            </summary>
+            <param name="columnHeader"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.GridViewBehavior.CopyToClipboard(System.Windows.Controls.ListView,System.Type,Qhta.WPF.Utils.ColumnsViewInfo)">
+            <summary>
+            Copies selected items of the ListView to the clipboard. Data is copied as HTML table string.
+            Result is the number of copied items.
+            </summary>
+            <param name="listView">ListView to copy items</param>
+            <param name="itemType">Type of the item (not used)</param>
+            <param name="columnsInfo">Info of columns to copy</param>
+            <returns>Number of the copied items</returns>
+        </member>
         <member name="M:Qhta.WPF.Utils.GridViewBehavior.RegisterColumn(System.Windows.Controls.GridViewColumn,System.Windows.Controls.ListView)">
             <summary>
             Registering columns needed as there is no backward relationship between GridViewColumn an its parent ListView
             </summary>
             <param name="column"></param>
             <param name="listView"></param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ICompoundItem">
+            <summary>
+            Interface that defines Items property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ICompoundItem.Items">
+            <summary>
+            IEnumerable Items.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.IListSelector">
+            <summary>
+            Interface that defines selecting methods.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.IListSelector.SelectItem(System.Object,System.Boolean)">
+            <summary>
+            Select an item.
+            </summary>
+            <param name="item"></param>
+            <param name="select"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.IListSelector.SelectAll(System.Boolean)">
+            <summary>
+            Select all items.
+            </summary>
+            <param name="select"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.IListSelector.SelectedItemsCount">
+            <summary>
+            Count of selected items.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.IListSelector.SelectedItems">
+            <summary>
+            Enumeration of selected items.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.IListSelector.NotifySelectionChanged">
+            <summary>
+            A method to notify that selection was changed.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.InputBindingAttachment">
+            <summary>
+            Behavior class to define an InputBinding property that can be attached to an UI element.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.InputBindingAttachment.GetInputBindings(System.Windows.UIElement)">
+            <summary>
+            Getter of InputBinding property.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.InputBindingAttachment.SetInputBindings(System.Windows.UIElement,System.Windows.Input.InputBindingCollection)">
+            <summary>
+            Setter of InputBinding property
+            </summary>
+            <param name="element"></param>
+            <param name="inputBindings"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.InputBindingAttachment.InputBindingsProperty">
+            <summary>
+            Dependency property to store InputBinding property.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.IProposedValueErrorInfo">
+            <summary>
+            Interface that defines GetError method.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.IProposedValueErrorInfo.GetError(System.String,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Gets an error for some value proposed for a property.
+            </summary>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <param name="cultureInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.JoinStrings">
+            <summary>
+            Markup extension that joins input strings.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.JoinStrings.Separator">
+            <summary>
+            Separator set between input strings.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.JoinStrings.Items">
+            <summary>
+            Input strings.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.JoinStrings.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Provides value with service provider.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.JoinStrings.ToString">
+            <summary>
+            Joins the strings.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ListBoxBehavior">
+            <summary>
+            Behavior class that defines several properties and events for ListBox.
+            </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ListBoxBehavior.GetMoveItemsEnabled(System.Windows.DependencyObject)">
             <summary>
@@ -755,7 +1974,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ListViewBehavior">
             <summary>
-            Collection of ListView behavior
+            Behavior class that defines a few ListView properties.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ListViewBehavior.RegisterColumn(System.Windows.Controls.GridViewColumn,System.Windows.Controls.ListView)">
@@ -779,6 +1998,217 @@
             <summary>
               For MultiSelect behavior list view items source should implement IListSelector interface.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetIsItemSelected(System.Windows.Controls.ListViewItem)">
+            <summary>
+            Getter for IsItemSelected property.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SetIsItemSelected(System.Windows.Controls.ListViewItem,System.Boolean)">
+            <summary>
+            Setter for IsItemSelected property.
+            </summary>
+            <param name="element"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.IsItemSelectedProperty">
+            <summary>
+            Dependency property for IsItemSelected property
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetSelectedItems(System.Windows.Controls.ListView)">
+            <summary>
+            Getter for SelectedItems property.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SetSelectedItems(System.Windows.Controls.ListView,System.Collections.IList)">
+            <summary>
+            Setter for SelectedItems property.
+            </summary>
+            <param name="element"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.SelectedItemsProperty">
+            <summary>
+            Dependency property to store SelectedItems property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetCurrentItem(System.Windows.Controls.ListView)">
+            <summary>
+            Getter for CurrentItem property.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SetCurrentItem(System.Windows.Controls.ListView,System.Object)">
+            <summary>
+            Setter for CurrentItem property.
+            </summary>
+            <param name="listView"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.UpdateCurrentItem(System.Windows.Controls.ListView,System.Object)">
+            <summary>
+            Updater for CurrentItem property.
+            </summary>
+            <param name="listView"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.CurrentItemProperty">
+            <summary>
+            Dependency property to store CurrentItem property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetUseCurrentItemChangeEvent(System.Windows.DependencyObject)">
+            <summary>
+            Setter for UseCurrentItemChangedEvent property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SetUseCurrentItemChangeEvent(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Getter for UseCurrentItemChangeEvent property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.UseCurrentItemChangeEventProperty">
+            <summary>
+            Dependency property to store UseCurrentItemChangeEvent property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.AddCurrentItemChangeHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            Add method for CurrentItemChange event handler.
+            </summary>
+            <param name="obj"></param>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.RemoveCurrentItemChangeHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            Remove method for CurrentItemChange event handler.
+            </summary>
+            <param name="obj"></param>
+            <param name="handler"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.CurrentItemChangeEvent">
+            <summary>
+            Routed event to store CurrentItemChange event handler.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetStartItem(System.Windows.Controls.ListView)">
+            <summary>
+            Getter for StartItem property.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SetStartItem(System.Windows.Controls.ListView,System.Object)">
+            <summary>
+            Setter for StartItem property.
+            </summary>
+            <param name="element"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ListViewBehavior.StartItemProperty">
+            <summary>
+            Dependency property to store StartItem property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.OnListViewItemGotFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handle method for ListViewItem GotFocus event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.OnListViewItemPreviewMouseDown(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Handle method for ListViewItem PreviewMouseDown event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.OnListViewItemPreviewMouseUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handle method for ListViewItem PreviewMouseUp event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.FindParentListView(System.Windows.DependencyObject)">
+            <summary>
+            Helper method to find parent ListView of the dependency object.
+            </summary>
+            <param name="dependencyObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.FindParentListViewItem(System.Windows.DependencyObject)">
+            <summary>
+            Helper method to find parent ListViewItem of the dependency object.
+            </summary>
+            <param name="dependencyObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SelectItems(System.Windows.Controls.ListView,System.Windows.Controls.ListViewItem)">
+            <summary>
+            Helper method to select items in a ListView when a ListViewItem is currently pointed by mouse.
+            </summary>
+            <param name="listView"></param>
+            <param name="listViewItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SelectSingleItem(System.Windows.Controls.ListView,System.Windows.Controls.ListViewItem)">
+            <summary>
+            Helper method to select a single item in a ListView when a ListViewItem is currently pointed by mouse.
+            </summary>
+            <param name="listView"></param>
+            <param name="listViewItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.DeselectAllItems(System.Windows.Controls.ListView)">
+            <summary>
+            Helper method to deselect all items in a ListView.
+            </summary>
+            <param name="listView"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.DeselectAllItemsExcept(System.Windows.Controls.ListView,System.Collections.Generic.IEnumerable{System.Windows.Controls.ListViewItem})">
+            <summary>
+            Helper method to deselect all items in a ListView except specific view items list.
+            </summary>
+            <param name="listView"></param>
+            <param name="exceptViewItems"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SelectMultipleItems(System.Windows.Controls.ListView,System.Windows.Controls.ListViewItem)">
+            <summary>
+            Helper method to select multiple items in a list view when ListViewItem is currently pointed by mouse.
+            </summary>
+            <param name="listView"></param>
+            <param name="listViewItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.SelectMultipleItemsContinuously(System.Windows.Controls.ListView,System.Windows.Controls.ListViewItem,System.Boolean)">
+            <summary>
+            Helper method to select multiple items in a list view when ListViewItem is currently pointed by mouse.
+            All items from StartItem to the current list view item are selected.
+            </summary>
+            <param name="listView"></param>
+            <param name="listViewItem"></param>
+            <param name="shiftControl">Is Shift key is currently pressed</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ListViewBehavior.GetAllItems(System.Windows.Controls.ListView,System.Collections.Generic.ICollection{System.Windows.Controls.ListViewItem})">
+            <summary>
+            Helper method to get all items of the ListView in the order specified by ItemContainerGenerator.
+            </summary>
+            <param name="listView"></param>
+            <param name="allItems"></param>
         </member>
         <member name="T:Qhta.WPF.Utils.ListViewCustomizableCellPresenter">
             <summary>
@@ -811,6 +2241,47 @@
             <param name="valueProperty">DependencyProperty of DependencyObject to be updated on Report</param>
             <param name="maxProperty">DependencyProperty of DependencyObject to be updated on SetMaximum</param>
             <param name="updatePeriod">updatePeriod in milliseconds (apply to valueProperty only)</param>
+        </member>
+        <member name="T:Qhta.WPF.Utils.PropUpdateEventArgs">
+            <summary>
+            CancelEventArgs that holds information on updating a property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.PropUpdateEventArgs.#ctor(System.Object,System.Reflection.PropertyInfo,System.Object,System.Object)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="targetObject"></param>
+            <param name="property"></param>
+            <param name="newValue"></param>
+            <param name="oldValue"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.PropUpdateEventArgs.TargetObject">
+            <summary>
+            Updated object
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.PropUpdateEventArgs.Property">
+            <summary>
+            Updated property info.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.PropUpdateEventArgs.NewValue">
+            <summary>
+            New value of the property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.PropUpdateEventArgs.OldValue">
+            <summary>
+            Old value of the property.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.PropUpdateEventHandler">
+            <summary>
+            Handler for prop update event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
         </member>
         <member name="T:Qhta.WPF.Utils.TimingMessageBox">
             <summary>
@@ -940,6 +2411,7 @@
             to identify the trigger in the debug output.
             </summary>
             <param name="trigger">The trigger.</param>
+            <param name="value">Value to set.</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.TriggerTracing.GetTraceEnabled(System.Windows.TriggerBase)">

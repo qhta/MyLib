@@ -19,6 +19,7 @@ D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.deps.json
 D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.dll
 D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.pdb
 D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.xml
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\DataGridStyle.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\ClearButtonStyle.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\ComboBoxStyle.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\ListBoxStyle.baml
@@ -39,3 +40,4 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\refint\Qhta.WPF.Uti
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.xml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.pdb
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\ref\Qhta.WPF.Utils.dll
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\DataGridStyle.g.cs

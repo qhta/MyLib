@@ -1,17 +1,35 @@
-﻿using System.Collections.Generic;
+﻿namespace Qhta.WPF.Utils;
 
-namespace Qhta.WPF.Utils
+/// <summary>
+/// Interface that defines selecting methods.
+/// </summary>
+public interface IListSelector
 {
-  public interface IListSelector
-  {
-    void SelectItem(object item, bool select);
+  /// <summary>
+  /// Select an item.
+  /// </summary>
+  /// <param name="item"></param>
+  /// <param name="select"></param>
+  void SelectItem(object item, bool select);
 
-    void SelectAll(bool select);
+  /// <summary>
+  /// Select all items.
+  /// </summary>
+  /// <param name="select"></param>
+  void SelectAll(bool select);
 
-    int SelectedItemsCount { get; }
+  /// <summary>
+  /// Count of selected items.
+  /// </summary>
+  int SelectedItemsCount { get; }
 
-    IEnumerable<object> SelectedItems { get; }
+  /// <summary>
+  /// Enumeration of selected items.
+  /// </summary>
+  IEnumerable<object> SelectedItems { get; }
 
-    void NotifySelectionChanged();
-  }
+  /// <summary>
+  /// A method to notify that selection was changed.
+  /// </summary>
+  void NotifySelectionChanged();
 }

@@ -1,40 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Data;
+﻿namespace Qhta.WPF.Utils;
 
-namespace Qhta.WPF.Utils
+struct SortInfo
 {
-  struct SortInfo
+  public Binding Binding;
+  public ListSortDirection SortDirection;
+}
+
+/// <summary>
+/// Helper class to sort bindings.
+/// </summary>
+class Comparator : IComparer<object>
+{
+  public Comparator(List<SortInfo> sortedBy)
   {
-    public Binding Binding;
-    public ListSortDirection SortDirection;
+    SortedBy = sortedBy;
   }
 
-  class Comparator : IComparer<object>
+  List<SortInfo> SortedBy;
+
+  /// <summary>
+  /// Compares to values gets from object x and y using binding.
+  /// </summary>
+  /// <param name="x"></param>
+  /// <param name="y"></param>
+  /// <returns></returns>
+  public int Compare(object? x, object? y)
   {
-    public Comparator(List<SortInfo> sortedBy)
+    if (x != null && y != null)
+    foreach (var sortInfo in SortedBy)
     {
-      SortedBy = sortedBy;
-    }
-
-    List<SortInfo> SortedBy;
-
-    public int Compare(object x, object y)
-    {
-      foreach (var sortInfo in SortedBy)
+      var value1 = sortInfo.Binding.GetValue(x);
+      var value2 = sortInfo.Binding.GetValue(y);
+      if (value1 is IComparable cValue1 && value2 is IComparable)
       {
-        var value1 = sortInfo.Binding.GetValue(x);
-        var value2 = sortInfo.Binding.GetValue(y);
-        if (value1 is IComparable cValue1 && value2 is IComparable)
-        {
-          var cmp = cValue1.CompareTo(value2);
-          if (cmp!=0)
-            return cmp;
-        }
+        var cmp = cValue1.CompareTo(value2);
+        if (cmp!=0)
+          return cmp;
       }
-      return 0;
     }
+    return 0;
   }
-
 }

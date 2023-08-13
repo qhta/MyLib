@@ -26,6 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Filter.png" />
+    <None Remove="Resources\Find.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="Resources\Aero.NormalColors.xaml" />
   </ItemGroup>
 
@@ -48,6 +53,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Qhta.MVVM\Qhta.MVVM.csproj" />
     <ProjectReference Include="..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 

@@ -9,7 +9,7 @@
             Abstract class implementing <see cref="T:System.Windows.Input.ICommand"/> interface
             </summary>
         </member>
-        <member name="P:Qhta.MVVM.Command.CanExecuteChangedListener">
+        <member name="P:Qhta.MVVM.Command.CommandManager">
             <summary>
             Listener of CanExecuteChanged event. In WPF it should be bridged to CommandManager.
             </summary>

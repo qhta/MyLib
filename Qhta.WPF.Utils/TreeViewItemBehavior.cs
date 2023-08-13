@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace Qhta.WPF.Utils
+﻿namespace Qhta.WPF.Utils
 {
   /// <summary>
   /// Exposes attached behaviors that can be
@@ -10,19 +6,32 @@ namespace Qhta.WPF.Utils
   /// </summary>
   public static class TreeViewItemBehavior
   {
-    #region IsBroughtIntoViewWhenSelected
+    #region IsBroughtIntoViewWhenSelected property
 
+    /// <summary>
+    /// Getter for IsBroughtIntoViewWhenSelected property
+    /// </summary>
+    /// <param name="treeViewItem"></param>
+    /// <returns></returns>
     public static bool GetIsBroughtIntoViewWhenSelected(TreeViewItem treeViewItem)
     {
       return (bool)treeViewItem.GetValue(IsBroughtIntoViewWhenSelectedProperty);
     }
 
+    /// <summary>
+    /// Setter for IsBroughtIntoViewWhenSelected property.
+    /// </summary>
+    /// <param name="treeViewItem"></param>
+    /// <param name="value"></param>
     public static void SetIsBroughtIntoViewWhenSelected(
       TreeViewItem treeViewItem, bool value)
     {
       treeViewItem.SetValue(IsBroughtIntoViewWhenSelectedProperty, value);
     }
 
+    /// <summary>
+    /// Dependency property to store IsBroughtIntoViewWhenSelected property.
+    /// </summary>
     public static readonly DependencyProperty IsBroughtIntoViewWhenSelectedProperty =
         DependencyProperty.RegisterAttached(
         "IsBroughtIntoViewWhenSelected",
@@ -33,7 +42,7 @@ namespace Qhta.WPF.Utils
     static void OnIsBroughtIntoViewWhenSelectedChanged(
       DependencyObject depObj, DependencyPropertyChangedEventArgs e)
     {
-      TreeViewItem item = depObj as TreeViewItem;
+      TreeViewItem? item = depObj as TreeViewItem;
       if (item == null)
         return;
 
@@ -54,7 +63,7 @@ namespace Qhta.WPF.Utils
       if (!Object.ReferenceEquals(sender, e.OriginalSource))
         return;
 
-      TreeViewItem item = e.OriginalSource as TreeViewItem;
+      TreeViewItem? item = e.OriginalSource as TreeViewItem;
       if (item != null)
         item.BringIntoView();
     }

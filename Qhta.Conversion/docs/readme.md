@@ -12,3 +12,4 @@ New converters:
 * GuidTypeConverter - The Guid type converter respects the standard formats for this type.
 * ArrayTypeConverter - ArrayTypeConverter operates on a one-dimensional array of elements of the type specified by the ExpectedType property. By default, items are separated by spaces. If the specified type is a byte array, the conversion method can be changed to Base64Binary or HexBinary.
 * ValueTypeConverter - this class combines the above-mentioned converters. When creating a ValueTypeConverter class converter, the expected .NET data type must be provided, and an XSD simple type may be provided.
+* FloatDoubleFormatter - One side double value converter in specific culture.

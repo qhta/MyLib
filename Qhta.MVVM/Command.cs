@@ -8,7 +8,7 @@
     /// <summary>
     /// Listener of CanExecuteChanged event. In WPF it should be bridged to CommandManager.
     /// </summary>
-    public static ICanExecuteChangedListener? CanExecuteChangedListener { get; set; }
+    public static ICanExecuteChangedListener? CommandManager { get; set; }
 
     /// <summary>
     /// Name to trace command.
@@ -26,14 +26,14 @@
         _CanExecuteChanged += value;
         if (value != null)
           value.Invoke(this, EventArgs.Empty);
-        if (CanExecuteChangedListener != null)
-          CanExecuteChangedListener.CanExecuteChanged += value;
+        if (CommandManager != null)
+          CommandManager.CanExecuteChanged += value;
       }
       remove
       {
         _CanExecuteChanged -= value;
-        if (CanExecuteChangedListener != null)
-          CanExecuteChangedListener.CanExecuteChanged -= value;
+        if (CommandManager != null)
+          CommandManager.CanExecuteChanged -= value;
       }
     }
 

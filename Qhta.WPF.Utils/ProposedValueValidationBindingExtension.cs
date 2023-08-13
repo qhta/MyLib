@@ -1,29 +1,38 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Markup;
+﻿namespace Qhta.WPF.Utils;
 
-namespace Qhta.WPF.Utils
+/// <summary>
+/// Markup extension that defines proposed value validation binding.
+/// </summary>
+public sealed class ProposedValueValidationBindingExtension : MarkupExtension
 {
-  public sealed class ProposedValueValidationBindingExtension : MarkupExtension
+  private readonly Binding binding;
+
+  /// <summary>
+  /// Initialization constructor.
+  /// </summary>
+  /// <param name="binding"></param>
+  /// <exception cref="ArgumentNullException"></exception>
+  public ProposedValueValidationBindingExtension(Binding binding)
   {
-    private readonly Binding binding;
+    if (binding == null)
+      throw new ArgumentNullException("binding");
 
-    public ProposedValueValidationBindingExtension(Binding binding)
-    {
-      if (binding == null)
-        throw new ArgumentNullException("binding");
+    this.binding = binding;
+  }
 
-      this.binding = binding;
-    }
+  /// <summary>
+  /// Provides value using service provider.
+  /// </summary>
+  /// <param name="serviceProvider"></param>
+  /// <returns></returns>
+  public override object ProvideValue(IServiceProvider serviceProvider)
+  {
+    var provideValueTarget = serviceProvider != null ? serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget : null;
+    if (provideValueTarget != null 
+      && provideValueTarget.TargetObject is DependencyObject dependencyTargetObject 
+      && provideValueTarget.TargetProperty is DependencyProperty dependencyTargetProperty)
+      this.binding.ValidationRules.Add(new ProposedValueErrorValidationRule(dependencyTargetObject, dependencyTargetProperty));
 
-    public override object ProvideValue(IServiceProvider serviceProvider)
-    {
-      var provideValueTarget = serviceProvider != null ? serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget : null;
-      if (provideValueTarget != null)
-        this.binding.ValidationRules.Add(new ProposedValueErrorValidationRule(provideValueTarget.TargetObject as DependencyObject, provideValueTarget.TargetProperty as DependencyProperty));
-
-      return this.binding.ProvideValue(serviceProvider);
-    }
+    return this.binding.ProvideValue(serviceProvider);
   }
 }
