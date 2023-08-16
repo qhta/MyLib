@@ -1,4 +1,7 @@
-﻿namespace Qhta.WPF.Utils;
+﻿using Qhta.WPF.Utils.ViewModels;
+using Qhta.WPF.Utils.Views;
+
+namespace Qhta.WPF.Utils;
 
 /// <summary>
 /// Defines <see cref="EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
@@ -228,7 +231,7 @@ public partial class CollectionViewBehavior
   /// Routed event to store FilterButtonClick event handler.
   /// </summary>
   public static readonly RoutedEvent FilterButtonClickEvent = EventManager.RegisterRoutedEvent
-    ("FilterButtonClick",RoutingStrategy.Bubble,typeof(RoutedEventHandler), typeof(CollectionViewBehavior));
+    ("FilterButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CollectionViewBehavior));
 
   /// <summary>
   /// Handler for Click event of ClearButton (defined in default ComboBox style).
@@ -242,11 +245,172 @@ public partial class CollectionViewBehavior
       var dataGridColumnHeader = VisualTreeHelperExt.FindAncestor<DataGridColumnHeader>(button);
       if (dataGridColumnHeader != null)
       {
-        dataGridColumnHeader.RaiseEvent(new RoutedEventArgs(CollectionViewBehavior.FilterButtonClickEvent, dataGridColumnHeader.Column));
+        var newArgs = new RoutedEventArgs(CollectionViewBehavior.FilterButtonClickEvent, dataGridColumnHeader.Column);
+        dataGridColumnHeader.RaiseEvent(newArgs);
+        if (!newArgs.Handled)
+          OnShowFilterButton_Clicked(sender, newArgs);
       }
     }
   }
 
+  /// <summary>
+  /// Default handler for ShowFilterButton_Clicked event.
+  /// Invokes DisplayFilterDialog method.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="args"></param>
+  protected virtual void OnShowFilterButton_Clicked(object sender, RoutedEventArgs args)
+  {
+    if (sender is Button button)
+    {
+      var itemsControl = VisualTreeHelperExt.FindAncestor<ItemsControl>(button);
+      if (itemsControl is DataGridColumnHeadersPresenter presenter)
+        itemsControl = VisualTreeHelperExt.FindAncestor<ItemsControl>(presenter);
+      if (itemsControl != null)
+      {
+        var itemsSource = itemsControl.ItemsSource;
+        var sourceCollectionView = itemsSource as CollectionView;
+        while (itemsSource is CollectionView collectionView)
+          itemsSource = collectionView.SourceCollection;
+        if (itemsSource != null)
+        {
+          var itemsSourceType = itemsSource.GetType();
+          if (itemsSourceType.IsEnumerable(out var itemType))
+          {
+            var column = args.Source as DataGridColumn;
+            if (column != null)
+            {
+              if (column is DataGridBoundColumn boundColumn)
+              {
+                var binding = boundColumn.Binding as Binding;
+                if (binding != null)
+                {
+                  PropertyInfo? propertyInfo = null;
+                  var path = binding.Path;
+                  var valueType = itemType;
+                  if (itemType != null && path != null)
+                  {
+                    var pathStrs = path.Path.Split('.');
+                    //PropertyInfo? propertyInfo = null;
+                    foreach (var pathStr in pathStrs)
+                    {
+                      propertyInfo = valueType.GetProperty(pathStr);
+                      if (propertyInfo != null)
+                        valueType = propertyInfo.PropertyType;
+                    }
+                  }
+                  if (valueType != null)
+                  {
+                    var ok = DisplayFilterDialog(column, valueType, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)));
+                    if (ok)
+                    {
+                      var viewModel = CollectionViewBehavior.GetColumnFilter(column) as ColumnFilterViewModel;
+                      if (viewModel != null && propertyInfo != null)
+                      {
+                        var filter = viewModel.CreateFilter(propertyInfo);
+                        SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
+                        if (sourceCollectionView!=null)
+                        {
+                          sourceCollectionView.Filter = filter?.Predicate;
+                        }
+                      }
+                      args.Handled = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /// <summary>
+  /// Displays a filter dialog for
+  /// </summary>
+  /// <param name="column"></param>
+  /// <param name="dataType"></param>
+  /// <param name="position"></param>
+  protected virtual bool DisplayFilterDialog(DataGridColumn column, Type dataType, Point position)
+  {
+    var dialog = new TextFilterDialog();
+    var viewModel = GetColumnFilter(column) as TextFilterViewModel ??
+      new TextFilterViewModel();
+    viewModel.ClearAllFilters = false;
+    dialog.DataContext = viewModel;
+    dialog.Left = position.X;
+    dialog.Top = position.Y;
+    if (dialog.ShowDialog() == true)
+    {
+      SetColumnFilter(column, viewModel);
+      return true;
+    }
+    return false;
+  }
+  #endregion
+
+
+  #region FilterButtonShape property
+  /// <summary>
+  /// Getter of FilterButtonShape property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static FilterButtonShape? GetFilterButtonShape(DataGridColumn target)
+  {
+    return (FilterButtonShape)target.GetValue(FilterButtonShapeProperty);
+  }
+
+  /// <summary>
+  /// Setter of FilterButtonShape property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetFilterButtonShape(DataGridColumn target, FilterButtonShape value)
+  {
+    target.SetValue(FilterButtonShapeProperty, value);
+  }
+
+  /// <summary>
+  /// Dependency property to store FilterButtonShape property.
+  /// </summary>
+  public static readonly DependencyProperty FilterButtonShapeProperty = DependencyProperty.RegisterAttached(
+      "FilterButtonShape",
+      typeof(FilterButtonShape),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(FilterButtonShape.Empty));
+  #endregion
+
+  #region ColumnFilter property
+  /// <summary>
+  /// Getter of ColumnFilter property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static object? GetColumnFilter(DataGridColumn target)
+  {
+    return (object?)target.GetValue(ColumnFilterProperty);
+  }
+
+  /// <summary>
+  /// Setter of ColumnFilter property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetColumnFilter(DataGridColumn target, object? value)
+  {
+    target.SetValue(ColumnFilterProperty, value);
+  }
+
+  /// <summary>
+  /// Dependency property to store ColumnFilter property.
+  /// </summary>
+  public static readonly DependencyProperty ColumnFilterProperty = DependencyProperty.RegisterAttached(
+      "ColumnFilter",
+      typeof(object),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(null));
   #endregion
 
   #region UserCanFind property

@@ -159,4 +159,10 @@
   <data name="ClearAllFilters" xml:space="preserve">
     <value>Clear all filters</value>
   </data>
+  <data name="IsEmpty" xml:space="preserve">
+    <value>Is empty</value>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>Not empty</value>
+  </data>
 </root>

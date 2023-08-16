@@ -142,11 +142,29 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is empty.
+        /// </summary>
+        public static string IsEmpty {
+            get {
+                return ResourceManager.GetString("IsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is equal.
         /// </summary>
         public static string IsEqual {
             get {
                 return ResourceManager.GetString("IsEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not empty.
+        /// </summary>
+        public static string NotEmpty {
+            get {
+                return ResourceManager.GetString("NotEmpty", resourceCulture);
             }
         }
         

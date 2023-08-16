@@ -128,6 +128,26 @@
           }
         }
       },
+      "Qhta.WPF.Converters/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.TextUtils": "3.1.1",
+          "Qhta.TypeUtils": "1.3.10.1"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/Qhta.WPF.Converters.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Qhta.WPF.Converters.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -1324,6 +1344,21 @@
         "lib/netstandard2.0/Qhta.TypeUtils.xml",
         "qhta.typeutils.1.3.10.1.nupkg.sha512",
         "qhta.typeutils.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.WPF.Converters/1.3.1": {
+      "sha512": "Q3TUnTD3JBxb/RFl9yHu/WA4NYl/VY1gzXCheBbC5wSbF61fQNPMBAKl7iFjirRPNH0CGfULuSIVDy0rZyF/dg==",
+      "type": "package",
+      "path": "qhta.wpf.converters/1.3.1",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0-windows7.0/Qhta.WPF.Converters.dll",
+        "lib/net6.0-windows7.0/Qhta.WPF.Converters.xml",
+        "lib/net7.0-windows7.0/Qhta.WPF.Converters.dll",
+        "lib/net7.0-windows7.0/Qhta.WPF.Converters.xml",
+        "qhta.wpf.converters.1.3.1.nupkg.sha512",
+        "qhta.wpf.converters.nuspec",
         "readme.md"
       ]
     },
@@ -3822,6 +3857,7 @@
       "Qhta.OrdNumbers >= 2.3.0",
       "Qhta.TextUtils >= 3.1.1",
       "Qhta.TypeUtils >= 1.3.10.1",
+      "Qhta.WPF.Converters >= 1.3.1",
       "System.Drawing.Common >= 7.0.0"
     ]
   },
@@ -3892,6 +3928,10 @@
           "Qhta.TypeUtils": {
             "target": "Package",
             "version": "[1.3.10.1, )"
+          },
+          "Qhta.WPF.Converters": {
+            "target": "Package",
+            "version": "[1.3.1, )"
           },
           "System.Drawing.Common": {
             "target": "Package",

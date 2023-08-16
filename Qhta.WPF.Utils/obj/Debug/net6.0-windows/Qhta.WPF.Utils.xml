@@ -604,6 +604,60 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.OnShowFilterButton_Clicked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Default handler for ShowFilterButton_Clicked event.
+            Invokes DisplayFilterDialog method.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Type,System.Windows.Point)">
+            <summary>
+            Displays a filter dialog for
+            </summary>
+            <param name="column"></param>
+            <param name="dataType"></param>
+            <param name="position"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterButtonShape(System.Windows.Controls.DataGridColumn)">
+            <summary>
+            Getter of FilterButtonShape property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetFilterButtonShape(System.Windows.Controls.DataGridColumn,Qhta.WPF.Utils.FilterButtonShape)">
+            <summary>
+            Setter of FilterButtonShape property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.FilterButtonShapeProperty">
+            <summary>
+            Dependency property to store FilterButtonShape property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetColumnFilter(System.Windows.Controls.DataGridColumn)">
+            <summary>
+            Getter of ColumnFilter property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetColumnFilter(System.Windows.Controls.DataGridColumn,System.Object)">
+            <summary>
+            Setter of ColumnFilter property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ColumnFilterProperty">
+            <summary>
+            Dependency property to store ColumnFilter property.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetUserCanFind(System.Windows.DependencyObject)">
             <summary>
             Getter of UserCanFilter property.
@@ -1110,9 +1164,19 @@
               Looks up a localized string similar to Ignore case.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.IsEmpty">
+            <summary>
+              Looks up a localized string similar to Is empty.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.IsEqual">
             <summary>
               Looks up a localized string similar to Is equal.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NotEmpty">
+            <summary>
+              Looks up a localized string similar to Not empty.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotEqual">
@@ -1308,6 +1372,37 @@
         <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderContextMenu">
             <summary>
             Context menu for a column.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DataGridColumnFilter">
+            <summary>
+            Preprocessed filter for a column.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnFilter.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.PropertyInfo">
+            <summary>
+            Storage for property info.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.OtherValue">
+            <summary>
+            Storage for other value to compare.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.CompareFunction">
+            <summary>
+            Predicate to evaluate for the column value.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.Predicate">
+            <summary>
+            Predicate to evaluate for the column value.
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridContentBoundColumn">
@@ -1647,6 +1742,21 @@
             <param name="enumtype"></param>
             <param name="culture"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.FilterButtonShape">
+            <summary>
+            Enumeration of the shape of the filter button image.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.FilterButtonShape.Empty">
+            <summary>
+            Filter glyph is empty.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.FilterButtonShape.Filled">
+            <summary>
+            Filter glyph is filled
+            </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.FocusUtils">
             <summary>
@@ -3381,9 +3491,20 @@
             <returns></returns>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel">
+            <summary>
+            View model stored and shown in FilterDialog.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.CreateFilter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates Predicate basing on current properties.
+            </summary>
+            <returns>Predicate that takes a property value from the object.</returns>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextFilterViewModel">
             <summary>
-            View model shown in TextFilterWindow
+            View model shown in TextFilterWindow.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.ClearAllFilters">
@@ -3416,6 +3537,16 @@
             Specifies whether predicate function is NotEqual.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.IsEmpty">
+            <summary>
+            Specifies whether predicate function is IsEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.NotEmpty">
+            <summary>
+            Specifies whether predicate function is NotEmpty.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.StartsWith">
             <summary>
             Specifies whether predicate function is StartsWith.
@@ -3436,6 +3567,12 @@
             Specifies whether predicate function is RegExpr.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CreateFilter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates DataGridColumnFilter basing on current properties.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextPredicateFunction">
             <summary>
             Function uses to define text predicate
@@ -3449,6 +3586,16 @@
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotEqual">
             <summary>
             Text is not equal to specific string.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.IsEmpty">
+            <summary>
+            Text is null or empty.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotEmpty">
+            <summary>
+            Text is not null and is not empty.
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.StartsWith">
@@ -3471,15 +3618,15 @@
             Regular expression is found in text.
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.Views.TextFilterWindow">
+        <member name="T:Qhta.WPF.Utils.Views.TextFilterDialog">
             <summary>
             Popup window to edit text filter
             </summary>
             <summary>
-            TextFilterWindow
+            TextFilterDialog
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.Views.TextFilterWindow.InitializeComponent">
+        <member name="M:Qhta.WPF.Utils.Views.TextFilterDialog.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -3666,6 +3813,36 @@
             </summary>
             <param name="obj"></param>
             <returns></returns>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
         </member>
     </members>
 </doc>

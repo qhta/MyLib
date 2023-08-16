@@ -16,6 +16,16 @@
     NotEqual,
 
     /// <summary>
+    /// Text is null or empty.
+    /// </summary>
+    IsEmpty,
+
+    /// <summary>
+    /// Text is not null and is not empty.
+    /// </summary>
+    NotEmpty,
+
+    /// <summary>
     /// Text starts with specific string.
     /// </summary>
     StartsWith,
