@@ -41,3 +41,9 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.xml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.pdb
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\ref\Qhta.WPF.Utils.dll
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\DataGridStyle.g.cs
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\TextFilterWindow.g.cs
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\TextFilterWindow.baml
+D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\pl\Qhta.WPF.Utils.resources.dll
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.CommonStrings.resources
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.CommonStrings.pl.resources
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\pl\Qhta.WPF.Utils.resources.dll

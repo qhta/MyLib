@@ -1,13 +1,18 @@
 ﻿namespace Qhta.MVVM
 {
   /// <summary>
-  /// Interface for an object that has an <see cref="IsFiltered"/> property.
+  /// Interface for collection that can filter items.
   /// </summary>
   public interface IFiltered
   {
     /// <summary>
-    /// A number of the item.
+    /// Is collection filtered.
     /// </summary>
     bool IsFiltered { get; set; }
+
+    /// <summary>
+    /// Predicate to filter Items.
+    /// </summary>
+    Predicate<object>? Filter { get; set; }
   }
 }

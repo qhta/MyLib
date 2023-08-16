@@ -417,7 +417,7 @@ public class GridViewBehavior
   {
     if (args.Source is ListView listView)
     {
-      var gridViewHeaderRowPresenter = VisualTreeHelperExt.FindDescentant<GridViewHeaderRowPresenter>(listView);
+      var gridViewHeaderRowPresenter = VisualTreeHelperExt.FindDescendant<GridViewHeaderRowPresenter>(listView);
       if (gridViewHeaderRowPresenter != null)
       {
         var pos = Mouse.GetPosition(gridViewHeaderRowPresenter);
@@ -585,7 +585,7 @@ public class GridViewBehavior
   /// <param name="listView"></param>
   private static void RemoveAllSortGlyphs(ListView listView)
   {
-    var headerRowPresenter = VisualTreeHelperExt.FindDescentant<GridViewHeaderRowPresenter>(listView);
+    var headerRowPresenter = VisualTreeHelperExt.FindDescendant<GridViewHeaderRowPresenter>(listView);
     if (headerRowPresenter != null)
     {
 

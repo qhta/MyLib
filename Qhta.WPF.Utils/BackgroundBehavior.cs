@@ -3,11 +3,11 @@
 /// <summary>
 /// A class to define background behavior. 
 /// It enables a control to observe target object "Waiting" boolean property and display a waiting cursor.
-/// Target object must be implement <see cref="INotifyPropertyChanged"/> interface.
+/// Target object must implement <see cref="INotifyPropertyChanged"/> interface.
 /// There are two properties:
 /// <list type="table">
-///   <item><term>Target</term><description>Declares the observed object</description></item>
-///   <item><term>EnableWaitingCursor</term><description>Enables observing control to display waiting cursor.</description></item>
+///   <item><term>Target: object</term><description>Declares the observed object</description></item>
+///   <item><term>EnableWaitingCursor: bool</term><description>Enables observing control to display waiting cursor.</description></item>
 /// </list>
 /// </summary>
 public static class BackgroundBehavior

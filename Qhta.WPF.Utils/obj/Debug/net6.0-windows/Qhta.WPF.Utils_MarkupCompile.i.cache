@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 
-19555775204
+20-87174411
 
-67314676873
+72-1171343860
 204348760672
-Resources\AeroStyles.xaml;Resources\ClassicStyles.PresentationUI.xaml;Resources\ClassicStyles.xaml;Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\DataGridStyle.xaml;Resources\GridViewStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\ListBoxStyle.xaml;Resources\ListViewStyle.xaml;Resources\MulticolumnTreeViewItemStyle.xaml;Resources\MultiselectListViewItemStyle.xaml;Resources\MultiselectTreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\TreeViewItemStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;
+Resources\AeroStyles.xaml;Resources\ClassicStyles.PresentationUI.xaml;Resources\ClassicStyles.xaml;Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\DataGridStyle.xaml;Resources\GridViewStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\ListBoxStyle.xaml;Resources\ListViewStyle.xaml;Resources\MulticolumnTreeViewItemStyle.xaml;Resources\MultiselectListViewItemStyle.xaml;Resources\MultiselectTreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\TreeViewItemStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;Views\TextFilterWindow.xaml;
 
-True
+False
 

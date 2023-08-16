@@ -38,6 +38,30 @@ public class DataGridColumnDef
   public bool CanUserSort { get; set; } = true;
 
   /// <summary>
+  /// Indicates whether the user can search the column for a value provided in FindDialog.
+  /// Default is true.
+  /// </summary>
+  public bool CanUserFind { get; set; } = true;
+
+  /// <summary>
+  /// Indicates whether Find button should be displayed in the column header.
+  /// Default is true.
+  /// </summary>
+  public bool ShowFindButton { get; set; } = true;
+
+  /// <summary>
+  /// Indicates whether the user can filter column with a predicate provided in FilterDialog.
+  /// Default is true.
+  /// </summary>
+  public bool CanUserFilter { get; set; } = true;
+
+  /// <summary>
+  /// Indicates whether Filter button should be displayed in the column header.
+  /// Default is true.
+  /// </summary>
+  public bool ShowFilterButton { get; set; } = true;
+
+  /// <summary>
   /// Specifies the binding path of properties to use when getting or setting cell content for the clipboard.
   /// Default is null.
   /// </summary>

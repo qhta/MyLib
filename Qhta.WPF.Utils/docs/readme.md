@@ -8,14 +8,12 @@ These classes are defined outside ObservableObject and MVVM modules to let these
 To use behavior classes in XAML you must first define a namespace prefix in XAML, e.g.:
         xmlns:utl="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
  Then you can set-up an attribute in the collection view declaration in XAML, e.g.:
-         utl:CollectionViewBehavior.EnableCollectionSynchronization="True"
+        utl:CollectionViewBehavior.EnableCollectionSynchronization="True"
 
 Behavior classes are as follows:
 
 * BackgroundDehavior - Enables a control to observe target object "Waiting" boolean property and display a waiting cursor.
- Target object must be implement INotifyPropertyChanged interface. It defines two properties:
-* CollectionViewBehavior - Establishes synchronized binding
- between CollectionView and Collection which has thread-safe operations. The only property is:
+* CollectionViewBehavior - Establishes synchronized binding between CollectionView and Collection which has thread-safe operations.
 * ComboBoxBehavior - ComboBox behavior class that defines its IsNullable property and Cleared event.
 * DataGridBehavior - DataGrid behavior class that defines properties and events for find and filter functionality.
 * GridViewBehavior - Defines behavior for GridView - a special component of ListView.

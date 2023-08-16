@@ -257,12 +257,12 @@ public partial class TreeViewBehavior
         {
           // The Tree template has not named the ItemsPresenter,
           // so walk the descendents and find the child.
-          itemsPresenter = VisualTreeHelperExt.FindDescentant<ItemsPresenter>(container);
+          itemsPresenter = VisualTreeHelperExt.FindDescendant<ItemsPresenter>(container);
           if (itemsPresenter == null)
           {
             container.UpdateLayout();
 
-            itemsPresenter = VisualTreeHelperExt.FindDescentant<ItemsPresenter>(container);
+            itemsPresenter = VisualTreeHelperExt.FindDescendant<ItemsPresenter>(container);
           }
         }
 

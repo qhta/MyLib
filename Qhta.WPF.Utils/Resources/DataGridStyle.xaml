@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
                     xmlns:utl="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
-                    x:Class="Qhta.WPF.Utils.DataGridBehavior"
+                    x:Class="Qhta.WPF.Utils.CollectionViewBehavior"
                     >
   <BooleanToVisibilityConverter x:Key="é" />
   <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}"
@@ -437,7 +437,7 @@
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Visibility="{Binding Path=(utl:DataGridBehavior.ShowFindButton),
+                        Visibility="{Binding Path=(utl:CollectionViewBehavior.ShowFindButton),
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid},
                         Converter={StaticResource é}}"
                         >
@@ -449,18 +449,28 @@
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Visibility="{Binding Path=(utl:DataGridBehavior.ShowFilterButton),
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid},
+                        Visibility="{Binding Path=Column.(utl:CollectionViewBehavior.ShowFilterButton),
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader},
                         Converter={StaticResource é}}"
                         >
                   <Button.Style>
                     <Style TargetType="{x:Type Button}">
                       <EventSetter Event="Click"
                                    Handler="FilterButton_Click" />
+                      <!--<Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Column.(utl:CollectionViewBehavior.ShowFilterButton),
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader},
+                        Converter={StaticResource é}}"
+                                     Value="True">
+                          <Setter Property="Background"
+                                  Value="Yellow" />
+                        </DataTrigger>
+                      </Style.Triggers>-->
                     </Style>
                   </Button.Style>
-                  <Image Source="pack://application:,,,/Qhta.WPF.Utils;component/Resources/Filter.png" />
+                  <Image Source="pack://application:,,,/Qhta.WPF.Utils;component/Resources/EmptyFilter.png" />
                 </Button>
+
               </Grid>
             </theme:DataGridHeaderBorder>
             <Thumb Thumb.Name="PART_LeftHeaderGripper"

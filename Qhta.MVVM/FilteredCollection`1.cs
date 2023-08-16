@@ -46,6 +46,8 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   }
   private bool _IsFiltered;
 
+  Predicate<object>? IFiltered.Filter { get; set; }
+
   /// <summary>
   /// Items qualifier
   /// </summary>
@@ -113,7 +115,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   public void Add(T item)
   {
     if (_IsFiltered && Filter!=null)
-      if (!Filter(item))
+      if (item!=null && !Filter(item))
         throw new InvalidOperationException($"Item {item} does not meet the filter condition");
     SourceCollection.Add(item);
   }

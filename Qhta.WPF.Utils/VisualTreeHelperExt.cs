@@ -217,12 +217,12 @@
     }
 
     /// <summary>
-    /// Find first descendent of the specific type.
+    /// Find first descendant of the specific type.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static T? FindDescentant<T>(DependencyObject obj) where T : class
+    public static T? FindDescendant<T>(DependencyObject obj) where T : class
     {
       var c = VisualTreeHelper.GetChildrenCount(obj);
       for (int i = 0; i < c; i++)
@@ -234,7 +234,7 @@
       for (int i = 0; i < c; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        var result = FindDescentant<T>(child);
+        var result = FindDescendant<T>(child);
         if (result is T)
           return result as T;
       }
@@ -399,7 +399,7 @@
     /// <returns></returns>
     public static IEnumerable<FrameworkElement> FindColumnsContent(ListViewItem listViewItem)
     {
-      GridViewRowPresenter? rowPresenter = FindDescentant<GridViewRowPresenter>(listViewItem);
+      GridViewRowPresenter? rowPresenter =  FindDescendant<GridViewRowPresenter>(listViewItem);
       int colCount = 0;
       if (rowPresenter!=null)
         colCount = VisualTreeHelper.GetChildrenCount(rowPresenter);
@@ -422,7 +422,7 @@
       int colCount = columns.Count();
       ElementType[] result = new ElementType[colCount];
       for (int i = 0; i < colCount; i++)
-        if (VisualTreeHelperExt.FindDescentant<ElementType>(columns[i]) is ElementType element)
+        if (VisualTreeHelperExt.FindDescendant<ElementType>(columns[i]) is ElementType element)
           result[i] = element;
       return result;
     }

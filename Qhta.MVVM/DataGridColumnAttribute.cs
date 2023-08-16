@@ -6,23 +6,101 @@
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 public class DataGridColumnAttribute : System.Attribute
 {
+
+  /// <summary>
+  /// Indicates whether Find button should be displayed in the column header.
+  /// This is a named property that uses nullable <see cref="CanUserResize"/> propertie.
+  /// </summary>
+  public bool CanUserReorderEnabled { get => CanUserReorder!=true; set=> CanUserReorder= value; }
+
   /// <summary>
   /// Indicates whether the user can change the column display position by dragging the column header.
-  /// Default is true.
+  /// This is a nullable property. 
+  /// If it is not set, then DataGrid CanUserReorder or 
+  /// CollectionViewBehavior attached property CanUserReorder is used.
   /// </summary>
-  public bool CanUserReorder { get; set; } = true;
+  public bool? CanUserReorder { get; set; }
+
+  /// <summary>
+  /// Indicates whether Find button should be displayed in the column header.
+  /// This is a named property that uses nullable <see cref="CanUserResize"/> propertie.
+  /// </summary>
+  public bool CanUserResizeEnabled { get => CanUserResize!=true; set=> CanUserResize= value; }
 
   /// <summary>
   /// Indicates whether the user can adjust the column width by using the mouse.
-  /// Default is true.
+  /// This is a nullable property. 
+  /// If it is not set, then DataGrid CanUserResize or 
+  /// CollectionViewBehavior attached property CanUserResize is used.
   /// </summary>
-  public bool CanUserResize { get; set; } = true;
+  public bool? CanUserResize { get; set; }
+
+  /// <summary>
+  /// Indicates whether the user can sort the column by clicking the column header
+  /// This is a named property that uses nullable <see cref="CanUserSort"/> propertie.
+  /// </summary>
+  public bool CanUserSortEnabled { get => CanUserSort!=true; set=> CanUserSort= value; }
 
   /// <summary>
   /// Indicates whether the user can sort the column by clicking the column header.
-  /// Default is true.
+  /// This is a nullable property. 
+  /// If it is not set, then DataGrid CanUserSort or 
+  /// CollectionViewBehavior attached property CanUserSort is used.
   /// </summary>
-  public bool CanUserSort { get; set; } = true;
+  public bool? CanUserSort { get; set; }
+
+  /// <summary>
+  /// IIndicates whether the user can search the column for a value provided in FindDialog.
+  /// This is a named property that uses nullable <see cref="CanUserFind"/> propertie.
+  /// </summary>
+  public bool CanUserFindEnabled { get => CanUserFind!=true; set=> CanUserFind= value; }
+
+  /// <summary>
+  /// Indicates whether the user can search the column for a value provided in FindDialog.
+  /// This is a nullable property. 
+  /// If it is not set, then CollectionViewBehavior attached property CanUserFind is used.
+  /// </summary>
+  public bool? CanUserFind { get; set; }
+
+  /// <summary>
+  /// Indicates whether Find button should be displayed in the column header.
+  /// This is a named property that uses nullable <see cref="ShowFindButton"/> property.
+  /// </summary>
+  public bool ShowFindButtonEnabled { get => ShowFindButton!=true; set=> ShowFindButton= value; }
+
+  /// <summary>
+  /// Indicates whether Find button should be displayed in the column header.
+  /// This is a nullable property. 
+  /// If it is not set, then CollectionViewBehavior attached property ShowFindButton is used.
+  /// </summary>
+  public bool? ShowFindButton { get; set; }
+
+
+  /// <summary>
+  /// Indicates whether the user can filter column with a predicate provided in FilterDialog.
+  /// This is a named property that uses nullable <see cref="CanUserFilter"/> propertie.
+  /// </summary>
+  public bool CanUserFilterEnabled { get => CanUserFilter!=true; set=> CanUserFilter= value; }
+
+  /// <summary>
+  /// Indicates whether the user can filter column with a predicate provided in FilterDialog.
+  /// This is a nullable property. 
+  /// If it is not set, then CollectionViewBehavior attached property CanUserFilter is used.
+  /// </summary>
+  public bool? CanUserFilter { get; set; }
+
+  /// <summary>
+  /// Indicates whether Filter button should be displayed in the column header.
+  /// This is a named property that uses nullable <see cref="ShowFilterButton"/> property.
+  /// </summary>
+  public bool ShowFilterButtonEnabled { get => ShowFilterButton!=true; set=> ShowFilterButton= value; }
+
+  /// <summary>
+  /// Indicates whether Filter button should be displayed in the column header.
+  /// This is a nullable property. 
+  /// If it is not set, then CollectionViewBehavior attached property ShowFilterButton is used.
+  /// </summary>
+  public bool? ShowFilterButton { get; set; }
 
   /// <summary>
   /// Specifies the binding path of properties to use when getting or setting cell content for the clipboard.

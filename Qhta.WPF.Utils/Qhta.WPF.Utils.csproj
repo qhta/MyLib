@@ -20,12 +20,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MS.Internal\**" />
+    <Compile Remove="Original\**" />
+    <EmbeddedResource Remove="MS.Internal\**" />
+    <EmbeddedResource Remove="Original\**" />
+    <None Remove="MS.Internal\**" />
+    <None Remove="Original\**" />
+    <Page Remove="MS.Internal\**" />
+    <Page Remove="Original\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataGridBehavior.cs" />
     <Compile Remove="ListViewColumnSorter.cs" />
     <Compile Remove="RelayCommand.cs" />
     <Compile Remove="WpfWin32Window.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ClearFilter.png" />
+    <None Remove="Resources\EmptyFIlter.png" />
     <None Remove="Resources\Filter.png" />
     <None Remove="Resources\Find.png" />
   </ItemGroup>
@@ -56,12 +70,33 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Find.png">
+    <Resource Include="Resources\EmptyFIlter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Filter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ClearFilter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CommonStrings.Designer.cs">
+      <DependentUpon>CommonStrings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CommonStrings.resx">
+      <LastGenOutput>CommonStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 

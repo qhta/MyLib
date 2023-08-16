@@ -105,6 +105,36 @@
             Default is true.
             </summary>
         </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.CanUserFind">
+            <summary>
+            Indicates whether the user can search the column for a value provided in FindDialog.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.ShowFindButton">
+            <summary>
+            Indicates whether Find button should be displayed in the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.CanUserFilter">
+            <summary>
+            Indicates whether the user can filter column with a predicate provided in FilterDialog.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.ShowFilterButtonEnabled">
+            <summary>
+            Indicates whether Filter button should be displayed in the column header.
+            This is a named property that used nullable <see cref="P:Qhta.MVVM.DataGridColumnAttribute.ShowFilterButton"/> propertie.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.ShowFilterButton">
+            <summary>
+            Indicates whether Filter button should be displayed in the column header.
+            This is a nullable property.
+            </summary>
+        </member>
         <member name="P:Qhta.MVVM.DataGridColumnAttribute.ClipboardContentPath">
             <summary>
             Specifies the binding path of properties to use when getting or setting cell content for the clipboard.
@@ -331,12 +361,17 @@
         </member>
         <member name="T:Qhta.MVVM.IFiltered">
             <summary>
-            Interface for an object that has an <see cref="P:Qhta.MVVM.IFiltered.IsFiltered"/> property.
+            Interface for collection that can filter items.
             </summary>
         </member>
         <member name="P:Qhta.MVVM.IFiltered.IsFiltered">
             <summary>
-            A number of the item.
+            Is collection filtered.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.IFiltered.Filter">
+            <summary>
+            Predicate to filter Items.
             </summary>
         </member>
         <member name="T:Qhta.MVVM.ILazyLoad">

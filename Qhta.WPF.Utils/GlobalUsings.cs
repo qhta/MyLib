@@ -39,4 +39,3 @@ global using ModelVisibility = Qhta.MVVM.Visibility;
 global using Visibility = System.Windows.Visibility;
 
 
-

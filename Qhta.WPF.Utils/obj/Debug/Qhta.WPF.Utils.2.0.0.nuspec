@@ -26,6 +26,7 @@
     </frameworkReferences>
   </metadata>
   <files>
+    <file src="D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\pl\Qhta.WPF.Utils.resources.dll" target="lib\net6.0-windows7.0\pl\Qhta.WPF.Utils.resources.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.dll" target="lib\net6.0-windows7.0\Qhta.WPF.Utils.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.xml" target="lib\net6.0-windows7.0\Qhta.WPF.Utils.xml" />
     <file src="D:\VS\Projects\MyLib\Qhta.WPF.Utils\docs\readme.md" target="\readme.md" />
