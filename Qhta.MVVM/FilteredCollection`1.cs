@@ -34,7 +34,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// </summary>
   public bool IsFiltered
   {
-    get { return Filter!=null && _IsFiltered; }
+    get { return Filter != null && _IsFiltered; }
     set
     {
       if (_IsFiltered != value)
@@ -46,7 +46,20 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   }
   private bool _IsFiltered;
 
-  Predicate<object>? IFiltered.Filter { get; set; }
+  Predicate<object>? IFiltered.Filter
+  {
+    get => _filter as Predicate<object>;
+    set
+    {
+      _ObjectFilter = value;
+      if (_ObjectFilter != null)
+        this.Filter = new Predicate<T>(item => item != null && _ObjectFilter(item));
+      else
+        this.Filter = null;
+    }
+  }
+
+  private Predicate<object>? _ObjectFilter;
 
   /// <summary>
   /// Items qualifier
@@ -85,7 +98,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// </summary>
   public void ApplyFilter()
   {
-    IsFiltered = true;
+    IsFiltered = Filter != null;
     NotifyCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
   }
 
@@ -96,7 +109,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// <returns></returns>
   public IEnumerator<T> GetEnumerator()
   {
-    if (_IsFiltered && Filter!=null)
+    if (_IsFiltered && Filter != null)
       return SourceCollection.Where(item => Filter(item)).GetEnumerator();
     else
       return SourceCollection.GetEnumerator();
@@ -114,8 +127,8 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// <param name="item"></param>
   public void Add(T item)
   {
-    if (_IsFiltered && Filter!=null)
-      if (item!=null && !Filter(item))
+    if (_IsFiltered && Filter != null)
+      if (item != null && !Filter(item))
         throw new InvalidOperationException($"Item {item} does not meet the filter condition");
     SourceCollection.Add(item);
   }
@@ -126,7 +139,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// </summary>
   public void Clear()
   {
-    if (_IsFiltered && Filter!=null)
+    if (_IsFiltered && Filter != null)
       SourceCollection.RemoveAll(Filter);
     else
       SourceCollection.Clear();
@@ -140,7 +153,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// <returns></returns>
   public bool Contains(T item)
   {
-    if (_IsFiltered && Filter!=null)
+    if (_IsFiltered && Filter != null)
       return ((IEnumerable<T>)this).Any(item => Filter(item));
     return SourceCollection.Contains(item);
   }

@@ -284,9 +284,10 @@ public partial class CollectionViewBehavior
                           SetCollectionFilter(itemsControl, collectionViewFilter);
                         }
                         if (sourceCollectionView != null)
-                        {
                           sourceCollectionView.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
-                        }
+                        else 
+                        if (itemsSource is IFiltered filteredCollection)
+                          filteredCollection.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
                       }
                       args.Handled = true;
                     }
