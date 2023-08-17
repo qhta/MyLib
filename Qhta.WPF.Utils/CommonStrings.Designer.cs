@@ -115,6 +115,15 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit filter.
+        /// </summary>
+        public static string EditFilter {
+            get {
+                return ResourceManager.GetString("EditFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ends with.
         /// </summary>
         public static string EndsWith {

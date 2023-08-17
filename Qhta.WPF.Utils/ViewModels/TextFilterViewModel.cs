@@ -7,27 +7,103 @@ namespace Qhta.WPF.Utils.ViewModels;
 /// </summary>
 public class TextFilterViewModel : ColumnFilterViewModel
 {
+
   /// <summary>
-  /// Specifies if other filters should be cleared.
+  /// Default constructor.
   /// </summary>
-  public bool ClearAllFilters { get; set; }
+  public TextFilterViewModel(){ }
+
+  /// <summary>
+  /// Copying constructor.
+  /// </summary>
+  /// <returns></returns>
+  public TextFilterViewModel(TextFilterViewModel other): base(other)
+  {
+    this.FilterText = other.FilterText;
+    this.Function = other.Function;
+    this.IgnoreCase = other.IgnoreCase;
+  }
+
+  /// <summary>
+  /// Creates a copy of this instance;
+  /// </summary>
+  /// <returns></returns>
+  /// <exception cref="NotImplementedException"></exception>
+  public override ColumnFilterViewModel CreateCopy()
+  {
+    return new TextFilterViewModel(this);
+  }
+
+  /// <summary>
+  /// Clears <see cref="FilterText"/> and <see cref="Function"/>
+  /// </summary>
+  /// <exception cref="NotImplementedException"></exception>
+  public override void ClearFilter()
+  {
+    FilterText = null;
+    Function = 0;
+    IgnoreCase = false;
+  }
 
   /// <summary>
   /// Simple filter text.
   /// </summary>
-  public string? FilterText { get; set; }
+  public string? FilterText
+  {
+    get { return _FilterText; }
+    set
+    {
+      if (_FilterText != value)
+      {
+        _FilterText = value;
+        NotifyPropertyChanged(nameof(FilterText));
+      }
+    }
+  }
+  private string? _FilterText;
 
   /// <summary>
   /// Selected predicate function.
   /// </summary>
-  public TextPredicateFunction Function { get; set; }
+  public TextPredicateFunction Function
+  {
+    get { return _Function; }
+    set
+    {
+      if (_Function != value)
+      {
+        _Function = value;
+        NotifyFunctionChanged();
+      }
+    }
+  }
+  private TextPredicateFunction _Function;
+
+  private void NotifyFunctionChanged()
+  {
+    NotifyPropertyChanged(nameof(Function));
+    foreach (var enumName in typeof(TextPredicateFunction).GetEnumNames())
+      NotifyPropertyChanged(enumName);
+  }
 
   /// <summary>
   /// Specifies whether letter case should be ignored.
   /// </summary>
-  public bool IgnoreCase { get; set; }
+  public bool IgnoreCase
+  {
+    get { return _IgnoreCase; }
+    set
+    {
+      if (_IgnoreCase != value)
+      {
+        _IgnoreCase = value;
+        NotifyPropertyChanged(nameof(IgnoreCase));
+      }
+    }
+  }
+  private bool _IgnoreCase;
 
-  #region Individual boolean properties used in view.
+  #region Individual boolean properties for Function used in RadioButton.
 
   /// <summary>
   /// Specifies whether predicate function is IsEqual.

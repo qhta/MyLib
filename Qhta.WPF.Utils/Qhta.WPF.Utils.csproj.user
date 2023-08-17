@@ -4,7 +4,10 @@
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Views\TextFilterDialog.xaml.cs">
+    <Compile Update="Views\ColumnFilterDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TextFilterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -12,7 +15,10 @@
     <Page Update="Resources\DataGridStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\TextFilterDialog.xaml">
+    <Page Update="Views\ColumnFilterDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TextFilterView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

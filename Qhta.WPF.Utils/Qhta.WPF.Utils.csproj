@@ -38,7 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\AddFilter.png" />
     <None Remove="Resources\ClearFilter.png" />
+    <None Remove="Resources\Delete.png" />
+    <None Remove="Resources\EditFilter.png" />
     <None Remove="Resources\EmptyFIlter.png" />
     <None Remove="Resources\Filter.png" />
     <None Remove="Resources\Find.png" />
@@ -71,6 +74,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\EditFilter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\AddFilter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\EmptyFIlter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

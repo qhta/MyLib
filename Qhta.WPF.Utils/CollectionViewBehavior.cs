@@ -291,7 +291,6 @@ public partial class CollectionViewBehavior
                   if (itemType != null && path != null)
                   {
                     var pathStrs = path.Path.Split('.');
-                    //PropertyInfo? propertyInfo = null;
                     foreach (var pathStr in pathStrs)
                     {
                       propertyInfo = valueType.GetProperty(pathStr);
@@ -327,17 +326,18 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Displays a filter dialog for
+  /// Displays a filter dialog for a column storing specified data type.
+  /// Dialog is displayed in specific screen position.
+  /// View model is stored in column's attached ColumnFilter property.
   /// </summary>
   /// <param name="column"></param>
   /// <param name="dataType"></param>
   /// <param name="position"></param>
   protected virtual bool DisplayFilterDialog(DataGridColumn column, Type dataType, Point position)
   {
-    var dialog = new TextFilterDialog();
-    var viewModel = GetColumnFilter(column) as TextFilterViewModel ??
+    var dialog = new ColumnFilterDialog();
+    var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy() ??
       new TextFilterViewModel();
-    viewModel.ClearAllFilters = false;
     dialog.DataContext = viewModel;
     dialog.Left = position.X;
     dialog.Top = position.Y;

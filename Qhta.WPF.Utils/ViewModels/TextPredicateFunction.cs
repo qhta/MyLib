@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels
 {
   /// <summary>
-  /// Function uses to define text predicate
+  /// Function used to define text predicate
   /// </summary>
   public enum TextPredicateFunction
   {

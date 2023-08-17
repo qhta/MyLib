@@ -165,4 +165,7 @@
   <data name="NotEmpty" xml:space="preserve">
     <value>Not empty</value>
   </data>
+  <data name="EditFilter" xml:space="preserve">
+    <value>Edit filter</value>
+  </data>
 </root>

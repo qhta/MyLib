@@ -7,5 +7,6 @@ FD:\VS\Projects\MyLib\Qhta.WPF.Utils\Resources\MultiselectListViewItemStyle.xaml
 FD:\VS\Projects\MyLib\Qhta.WPF.Utils\Resources\MultiselectTreeViewItemStyle.xaml;;
 FD:\VS\Projects\MyLib\Qhta.WPF.Utils\Resources\TreeViewItemStyle.xaml;;
 FD:\VS\Projects\MyLib\Qhta.WPF.Utils\TimingMessageBox.xaml;;
-FD:\VS\Projects\MyLib\Qhta.WPF.Utils\Views\TextFilterDialog.xaml;;
+FD:\VS\Projects\MyLib\Qhta.WPF.Utils\Views\ColumnFilterDialog.xaml;;
+FD:\VS\Projects\MyLib\Qhta.WPF.Utils\Views\TextFilterView.xaml;;
 

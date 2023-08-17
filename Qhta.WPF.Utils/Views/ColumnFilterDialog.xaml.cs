@@ -1,13 +1,11 @@
-﻿using Qhta.WPF.Utils.ViewModels;
-
-namespace Qhta.WPF.Utils.Views;
+﻿namespace Qhta.WPF.Utils.Views;
 /// <summary>
 /// Popup window to edit text filter
 /// </summary>
-public partial class TextFilterDialog : Window
+public partial class ColumnFilterDialog : Window
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-  public TextFilterDialog()
+  public ColumnFilterDialog()
   {
     InitializeComponent();
     Activated += Window_Activated;

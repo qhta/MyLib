@@ -614,7 +614,9 @@
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Type,System.Windows.Point)">
             <summary>
-            Displays a filter dialog for
+            Displays a filter dialog for a column storing specified data type.
+            Dialog is displayed in specific screen position.
+            View model is stored in column's attached ColumnFilter property.
             </summary>
             <param name="column"></param>
             <param name="dataType"></param>
@@ -1147,6 +1149,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.Contains">
             <summary>
               Looks up a localized string similar to Contains.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.EditFilter">
+            <summary>
+              Looks up a localized string similar to Edit filter.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.EndsWith">
@@ -1742,21 +1749,6 @@
             <param name="enumtype"></param>
             <param name="culture"></param>
             <returns></returns>
-        </member>
-        <member name="T:Qhta.WPF.Utils.FilterButtonShape">
-            <summary>
-            Enumeration of the shape of the filter button image.
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.FilterButtonShape.Empty">
-            <summary>
-            Filter glyph is empty.
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.FilterButtonShape.Filled">
-            <summary>
-            Filter glyph is filled
-            </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.FocusUtils">
             <summary>
@@ -3491,10 +3483,78 @@
             <returns></returns>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation">
+            <summary>
+            Specifies what to do with a column filter.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation.Add">
+            <summary>
+            Add a filter to collection filter.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation.Edit">
+            <summary>
+            Edit a filter and replace the old one in collection filter.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation.Clear">
+            <summary>
+            Clear the filter and remove the old one from collection filter.
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel">
             <summary>
             View model stored and shown in FilterDialog.
             </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.Operation">
+            <summary>
+             Specifies what to do with a column filter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.EditOpEnabled">
+            <summary>
+            Specifies whether Edit operation is enabled. If not, then Add operation is enabled.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.DefaultOp">
+            <summary>
+            Specifies whether Operation is Add or Edit.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.AddOp">
+            <summary>
+            Specifies whether Operation is Add.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.EditOp">
+            <summary>
+            Specifies whether Operation is Edit.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.ClearOp">
+            <summary>
+             Specifies whether Operation is Clear.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel)">
+            <summary>
+            Copying constructor that copies the data of the view model is needed
+            because we need to edit its copy and after Cancel button is pressed
+            the previous content remains unchanged.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.CreateCopy">
+            <summary>
+            This method must create a copy of the original instance;
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.CreateFilter(System.Reflection.PropertyInfo)">
             <summary>
@@ -3502,15 +3562,39 @@
             </summary>
             <returns>Predicate that takes a property value from the object.</returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.ClearFilter">
+            <summary>
+            Clear filter properties.
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextFilterViewModel">
             <summary>
             View model shown in TextFilterWindow.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.ClearAllFilters">
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor">
             <summary>
-            Specifies if other filters should be cleared.
+            Default constructor.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.TextFilterViewModel)">
+            <summary>
+            Copying constructor.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CreateCopy">
+            <summary>
+            Creates a copy of this instance;
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.ClearFilter">
+            <summary>
+            Clears <see cref="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.FilterText"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.Function"/>
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.FilterText">
             <summary>
@@ -3575,7 +3659,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextPredicateFunction">
             <summary>
-            Function uses to define text predicate
+            Function used to define text predicate
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.IsEqual">
@@ -3618,17 +3702,45 @@
             Regular expression is found in text.
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.Views.TextFilterDialog">
+        <member name="T:Qhta.WPF.Utils.Views.ColumnFilterDialog">
             <summary>
             Popup window to edit text filter
             </summary>
             <summary>
-            TextFilterDialog
+            ColumnFilterDialog
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.Views.TextFilterDialog.InitializeComponent">
+        <member name="M:Qhta.WPF.Utils.Views.ColumnFilterDialog.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Views.TextFilterView">
+            <summary>
+            Interaction logic for TextFilterView.xaml
+            </summary>
+            <summary>
+            TextFilterView
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Views.TextFilterView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.FilterButtonShape">
+            <summary>
+            Enumeration of the shape of the filter button image.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.FilterButtonShape.Empty">
+            <summary>
+            Filter glyph is empty.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.FilterButtonShape.Filled">
+            <summary>
+            Filter glyph is filled
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.VisualTreeHelperExt">
