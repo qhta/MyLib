@@ -110,7 +110,7 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// Creates Predicate basing on current properties.
   /// </summary>
   /// <returns>Predicate that takes a property value from the object.</returns>
-  public abstract DataGridColumnFilter? CreateFilter(PropertyInfo propInfo);
+  public abstract ColumnFilter? CreateFilter(PropertyInfo propInfo);
 
   /// <summary>
   /// Clear filter properties.

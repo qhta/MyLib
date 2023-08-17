@@ -641,14 +641,14 @@
             Dependency property to store FilterButtonShape property.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetColumnFilter(System.Windows.Controls.DataGridColumn)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetColumnFilter(System.Windows.DependencyObject)">
             <summary>
             Getter of ColumnFilter property.
             </summary>
             <param name="target"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetColumnFilter(System.Windows.Controls.DataGridColumn,System.Object)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetColumnFilter(System.Windows.DependencyObject,System.Object)">
             <summary>
             Setter of ColumnFilter property.
             </summary>
@@ -658,6 +658,25 @@
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ColumnFilterProperty">
             <summary>
             Dependency property to store ColumnFilter property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetCollectionFilter(System.Windows.DependencyObject)">
+            <summary>
+            Getter of CollectionFilter property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetCollectionFilter(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Setter of CollectionFilter property.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.CollectionFilterProperty">
+            <summary>
+            Dependency property to store CollectionFilter property.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetUserCanFind(System.Windows.DependencyObject)">
@@ -739,6 +758,66 @@
             <summary>
             InitializeComponent
             </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.CollectionViewFilter">
+            <summary>
+            Prepared filter for a collection view.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewFilter.Filters">
+            <summary>
+            Internal storage of column filters. 
+            The order of filtering can be different than the order of columns.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.#ctor">
+            <summary>
+            Default constructor. Initialized Predicate.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CollectionViewFilter.Predicate">
+            <summary>
+            Qualifier function for the whole object.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.IsEmpty">
+            <summary>
+            Checks if there is no column filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.ContainsFilter(System.String)">
+            <summary>
+            Checks if the filter for this property name already exits.
+            </summary>
+            <param name="propName"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.AddFilter(System.String,Qhta.WPF.Utils.ColumnFilter)">
+            <summary>
+            Adds a column filter to collection view filter.
+            </summary>
+            <param name="propName"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.ChangeFilter(System.String,Qhta.WPF.Utils.ColumnFilter)">
+            <summary>
+            Changes a column filter to another one.
+            </summary>
+            <param name="propName"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.RemoveFilter(System.String)">
+            <summary>
+            Removes a column filter from collection view filter.
+            </summary>
+            <param name="propName"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.ApplyFilter(System.String,Qhta.WPF.Utils.ColumnFilter)">
+            <summary>
+            Adds, changes or removes filter for a column.
+            Returns predicate or null (if is empty)
+            </summary>
+            <param name="propName"></param>
+            <param name="filter"></param>
         </member>
         <member name="T:Qhta.WPF.Utils.CollectionViewSource`1">
             <summary>
@@ -851,6 +930,37 @@
             <param name="d"></param>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ColumnFilter">
+            <summary>
+            Prepared filter for a column. Holds property info, other value to compare, compare function and predicate function.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnFilter.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.PropertyInfo">
+            <summary>
+            Storage for property info.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.OtherValue">
+            <summary>
+            Storage for other value to compare.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.CompareFunction">
+            <summary>
+            Predicate to evaluate for the column value.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.Predicate">
+            <summary>
+            Predicate to evaluate for the column value.
+            </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.ColumnsViewInfo">
             <summary>
@@ -1379,37 +1489,6 @@
         <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderContextMenu">
             <summary>
             Context menu for a column.
-            </summary>
-        </member>
-        <member name="T:Qhta.WPF.Utils.DataGridColumnFilter">
-            <summary>
-            Preprocessed filter for a column.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.DataGridColumnFilter.#ctor(System.Reflection.PropertyInfo)">
-            <summary>
-            Initializing constructor.
-            </summary>
-            <param name="propertyInfo"></param>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.PropertyInfo">
-            <summary>
-            Storage for property info.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.OtherValue">
-            <summary>
-            Storage for other value to compare.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.CompareFunction">
-            <summary>
-            Predicate to evaluate for the column value.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnFilter.Predicate">
-            <summary>
-            Predicate to evaluate for the column value.
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridContentBoundColumn">

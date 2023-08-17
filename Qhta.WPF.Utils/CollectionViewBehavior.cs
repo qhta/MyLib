@@ -308,9 +308,15 @@ public partial class CollectionViewBehavior
                       {
                         var filter = viewModel.CreateFilter(propertyInfo);
                         SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
-                        if (sourceCollectionView!=null)
+                        var collectionViewFilter = GetCollectionFilter(itemsControl) as CollectionViewFilter;
+                        if (collectionViewFilter == null)
                         {
-                          sourceCollectionView.Filter = filter?.Predicate;
+                          collectionViewFilter = new CollectionViewFilter();
+                          SetCollectionFilter(itemsControl, collectionViewFilter);
+                        }
+                        if (sourceCollectionView != null)
+                        {
+                          sourceCollectionView.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
                         }
                       }
                       args.Handled = true;
@@ -388,7 +394,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="target"></param>
   /// <returns></returns>
-  public static object? GetColumnFilter(DataGridColumn target)
+  public static object? GetColumnFilter(DependencyObject target)
   {
     return (object?)target.GetValue(ColumnFilterProperty);
   }
@@ -398,7 +404,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="target"></param>
   /// <param name="value"></param>
-  public static void SetColumnFilter(DataGridColumn target, object? value)
+  public static void SetColumnFilter(DependencyObject target, object? value)
   {
     target.SetValue(ColumnFilterProperty, value);
   }
@@ -408,6 +414,37 @@ public partial class CollectionViewBehavior
   /// </summary>
   public static readonly DependencyProperty ColumnFilterProperty = DependencyProperty.RegisterAttached(
       "ColumnFilter",
+      typeof(object),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(null));
+  #endregion
+
+  #region CollectionFilter property
+  /// <summary>
+  /// Getter of CollectionFilter property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static object? GetCollectionFilter(DependencyObject target)
+  {
+    return (object?)target.GetValue(CollectionFilterProperty);
+  }
+
+  /// <summary>
+  /// Setter of CollectionFilter property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetCollectionFilter(DependencyObject target, object? value)
+  {
+    target.SetValue(CollectionFilterProperty, value);
+  }
+
+  /// <summary>
+  /// Dependency property to store CollectionFilter property.
+  /// </summary>
+  public static readonly DependencyProperty CollectionFilterProperty = DependencyProperty.RegisterAttached(
+      "CollectionFilter",
       typeof(object),
       typeof(CollectionViewBehavior),
       new PropertyMetadata(null));

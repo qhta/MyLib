@@ -1,15 +1,15 @@
 ﻿namespace Qhta.WPF.Utils;
 
 /// <summary>
-/// Preprocessed filter for a column.
+/// Prepared filter for a column. Holds property info, other value to compare, compare function and predicate function.
 /// </summary>
-public class DataGridColumnFilter
+public class ColumnFilter
 {
   /// <summary>
   /// Initializing constructor.
   /// </summary>
   /// <param name="propertyInfo"></param>
-  public DataGridColumnFilter(PropertyInfo propertyInfo)
+  public ColumnFilter(PropertyInfo propertyInfo)
   {
     PropertyInfo = propertyInfo;
   }
@@ -32,5 +32,5 @@ public class DataGridColumnFilter
   /// <summary>
   /// Predicate to evaluate for the column value.
   /// </summary>
-  public Predicate<object>? Predicate { get; set; }
+  public Predicate<object> Predicate { get; set; } = null!;
 }

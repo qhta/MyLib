@@ -151,11 +151,11 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// Creates DataGridColumnFilter basing on current properties.
   /// </summary>
   /// <returns></returns>
-  public override DataGridColumnFilter? CreateFilter(PropertyInfo propertyInfo)
+  public override ColumnFilter? CreateFilter(PropertyInfo propertyInfo)
   {
     if (String.IsNullOrEmpty(FilterText) && !IsEmpty && !NotEmpty)
       return null;
-    var dataGridColumnFilter = new DataGridColumnFilter(propertyInfo);
+    var dataGridColumnFilter = new ColumnFilter(propertyInfo);
     switch (Function)
     {
       case TextPredicateFunction.IsEmpty:
