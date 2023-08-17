@@ -168,4 +168,10 @@
   <data name="EditFilter" xml:space="preserve">
     <value>Edytuj filtr</value>
   </data>
+  <data name="True" xml:space="preserve">
+    <value>Prawda</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>Fałsz</value>
+  </data>
 </root>

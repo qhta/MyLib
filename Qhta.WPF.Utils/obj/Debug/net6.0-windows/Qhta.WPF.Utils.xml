@@ -540,25 +540,6 @@
             <param name="obj"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetUserCanFilter(System.Windows.DependencyObject)">
-            <summary>
-            Getter of UserCanFilter property.
-            </summary>
-            <param name="target"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetUserCanFilter(System.Windows.DependencyObject,System.Boolean)">
-            <summary>
-            Setter of UserCanFilter property.
-            </summary>
-            <param name="target"></param>
-            <param name="value"></param>
-        </member>
-        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.UserCanFilterProperty">
-            <summary>
-            Dependency property to store UserCanFilter property.
-            </summary>
-        </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetShowFilterButton(System.Windows.DependencyObject)">
             <summary>
             Getter of ShowFilterButton property.
@@ -677,44 +658,6 @@
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.CollectionFilterProperty">
             <summary>
             Dependency property to store CollectionFilter property.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetUserCanFind(System.Windows.DependencyObject)">
-            <summary>
-            Getter of UserCanFilter property.
-            </summary>
-            <param name="target"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetUserCanFind(System.Windows.DependencyObject,System.Boolean)">
-            <summary>
-            Setter of UserCanFind property.
-            </summary>
-            <param name="target"></param>
-            <param name="value"></param>
-        </member>
-        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.UserCanFindProperty">
-            <summary>
-            Dependency property to store UserCanFind property.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetShowFindButton(System.Windows.DependencyObject)">
-            <summary>
-            Getter of ShowFindButton property.
-            </summary>
-            <param name="target"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetShowFindButton(System.Windows.DependencyObject,System.Nullable{System.Boolean})">
-            <summary>
-            Setter of ShowFindButton property.
-            </summary>
-            <param name="target"></param>
-            <param name="value"></param>
-        </member>
-        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ShowFindButtonProperty">
-            <summary>
-            Dependency property to store ShowFindButton property.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetSortingEventHandler(System.Windows.DependencyObject)">
@@ -851,6 +794,18 @@
             <summary>
             Implemented IFiltered predicate.
             </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.CollectionView`1">
+            <summary>
+            Generic version of CollectionView class.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionView`1.#ctor(System.Collections.IEnumerable)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="collection"></param>
         </member>
         <member name="T:Qhta.WPF.Utils.ColorAdjustEffect">
             <summary>
@@ -1271,6 +1226,11 @@
               Looks up a localized string similar to Ends with.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.False">
+            <summary>
+              Looks up a localized string similar to False.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.FunctionsAndOptions">
             <summary>
               Looks up a localized string similar to Functions and options.
@@ -1314,6 +1274,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.StartsWith">
             <summary>
               Looks up a localized string similar to Starts with.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.True">
+            <summary>
+              Looks up a localized string similar to True.
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridColumnCreator">
@@ -3575,6 +3540,90 @@
             <returns></returns>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel">
+            <summary>
+            View model shown in TextFilterWindow.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(System.Reflection.PropertyInfo,System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.BoolFilterViewModel)">
+            <summary>
+            Copying constructor.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.CreateCopy">
+            <summary>
+            Creates a copy of this instance;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.ClearFilter">
+            <summary>
+            Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.Function"/> property.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.Function">
+            <summary>
+            Selected predicate function.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.IsTrue">
+            <summary>
+            Specifies whether predicate function is IsTrue.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.IsFalse">
+            <summary>
+            Specifies whether predicate function is IsFalse.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.IsEmpty">
+            <summary>
+            Specifies whether predicate function is IsEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.NotEmpty">
+            <summary>
+            Specifies whether predicate function is NotEmpty.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.CreateFilter">
+            <summary>
+            Creates DataGridColumnFilter basing on current properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction">
+            <summary>
+            Enumeration of functions used to define boolean predicate.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.IsTrue">
+            <summary>
+            Is boolean a true value.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.IsFalse">
+            <summary>
+            Is boolean a false value.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.IsEmpty">
+            <summary>
+            Boolean is undefined (is null).
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.NotEmpty">
+            <summary>
+            Boolean is defined (is not null).
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation">
             <summary>
             Specifies what to do with a column filter.
@@ -3694,9 +3743,8 @@
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.ClearFilter">
             <summary>
-            Clears <see cref="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.FilterText"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.Function"/>
+            Clears <see cref="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.FilterText"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.Function"/> properties.
             </summary>
-            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.FilterText">
             <summary>
@@ -3761,7 +3809,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextPredicateFunction">
             <summary>
-            Function used to define text predicate
+            Enumeration of functions used to define text predicate,
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.IsEqual">
@@ -3802,6 +3850,19 @@
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.RegExpr">
             <summary>
             Regular expression is found in text.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Views.BoolFilterView">
+            <summary>
+            Interaction logic for BoolFilterView.xaml
+            </summary>
+            <summary>
+            BoolFilterView
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Views.BoolFilterView.InitializeComponent">
+            <summary>
+            InitializeComponent
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.Views.ColumnFilterDialog">

@@ -148,7 +148,7 @@ public class DataGridColumnCreator
           }
 
           dataGridColumnDef.ShowFilterButton = dataGridColumnAttr.ShowFilterButton 
-            ?? CollectionViewBehavior.GetShowFindButton(DataGrid) ?? IsFilterButtonVisible ?? false;
+            ?? CollectionViewBehavior.GetShowFilterButton(DataGrid) ?? IsFilterButtonVisible ?? false;
 
           DataTemplate? dataTemplate = null;
           if (dataGridColumnAttr.DataTemplateResourceKey != null)

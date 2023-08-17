@@ -140,37 +140,6 @@ public partial class CollectionViewBehavior
   }
   #endregion
 
-  #region UserCanFilter property
-  /// <summary>
-  /// Getter of UserCanFilter property.
-  /// </summary>
-  /// <param name="target"></param>
-  /// <returns></returns>
-  public static bool GetUserCanFilter(DependencyObject target)
-  {
-    return (bool)target.GetValue(UserCanFilterProperty);
-  }
-
-  /// <summary>
-  /// Setter of UserCanFilter property.
-  /// </summary>
-  /// <param name="target"></param>
-  /// <param name="value"></param>
-  public static void SetUserCanFilter(DependencyObject target, bool value)
-  {
-    target.SetValue(UserCanFilterProperty, value);
-  }
-
-  /// <summary>
-  /// Dependency property to store UserCanFilter property.
-  /// </summary>
-  public static readonly DependencyProperty UserCanFilterProperty = DependencyProperty.RegisterAttached(
-      "UserCanFilter",
-      typeof(bool),
-      typeof(CollectionViewBehavior),
-      new PropertyMetadata(false));
-  #endregion
-
   #region ShowFilterButton property
   /// <summary>
   /// Getter of ShowFilterButton property.
@@ -343,8 +312,17 @@ public partial class CollectionViewBehavior
   {
     var propName = column.GetHeaderText() ?? propInfo.Name;
     var dialog = new ColumnFilterDialog();
-    var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy() ??
-      new TextFilterViewModel(propInfo, propName);
+    var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();
+    if (viewModel == null)
+    {
+      if (!propInfo.PropertyType.IsNullable(out var propType))
+        propType = propInfo.PropertyType;
+      if (propType == typeof(string))
+        viewModel = new TextFilterViewModel(propInfo, propName);
+      else
+      if (propType == typeof(bool))
+        viewModel = new BoolFilterViewModel(propInfo, propName);
+    }
     dialog.DataContext = viewModel;
     dialog.Left = position.X;
     dialog.Top = position.Y;
@@ -447,68 +425,6 @@ public partial class CollectionViewBehavior
   public static readonly DependencyProperty CollectionFilterProperty = DependencyProperty.RegisterAttached(
       "CollectionFilter",
       typeof(object),
-      typeof(CollectionViewBehavior),
-      new PropertyMetadata(null));
-  #endregion
-
-  #region UserCanFind property
-  /// <summary>
-  /// Getter of UserCanFilter property.
-  /// </summary>
-  /// <param name="target"></param>
-  /// <returns></returns>
-  public static bool GetUserCanFind(DependencyObject target)
-  {
-    return (bool)target.GetValue(UserCanFindProperty);
-  }
-
-  /// <summary>
-  /// Setter of UserCanFind property.
-  /// </summary>
-  /// <param name="target"></param>
-  /// <param name="value"></param>
-  public static void SetUserCanFind(DependencyObject target, bool value)
-  {
-    target.SetValue(UserCanFindProperty, value);
-  }
-
-  /// <summary>
-  /// Dependency property to store UserCanFind property.
-  /// </summary>
-  public static readonly DependencyProperty UserCanFindProperty = DependencyProperty.RegisterAttached(
-      "UserCanFind",
-      typeof(bool),
-      typeof(CollectionViewBehavior),
-      new PropertyMetadata(false));
-  #endregion
-
-  #region ShowFindButton property
-  /// <summary>
-  /// Getter of ShowFindButton property.
-  /// </summary>
-  /// <param name="target"></param>
-  /// <returns></returns>
-  public static bool? GetShowFindButton(DependencyObject target)
-  {
-    return (bool?)target.GetValue(ShowFindButtonProperty);
-  }
-
-  /// <summary>
-  /// Setter of ShowFindButton property.
-  /// </summary>
-  /// <param name="target"></param>
-  /// <param name="value"></param>
-  public static void SetShowFindButton(DependencyObject target, bool? value)
-  {
-    target.SetValue(ShowFindButtonProperty, value);
-  }
-
-  /// <summary>
-  /// Dependency property to store ShowFindButton property.
-  /// </summary>
-  public static readonly DependencyProperty ShowFindButtonProperty = DependencyProperty.RegisterAttached(
-      "ShowFindButton",
-      typeof(bool),
       typeof(CollectionViewBehavior),
       new PropertyMetadata(null));
   #endregion

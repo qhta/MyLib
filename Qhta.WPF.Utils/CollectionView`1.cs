@@ -1,8 +1,15 @@
 ﻿namespace Qhta.WPF.Utils;
 
-public class CollectionView<T>: CollectionView, IFiltered
+/// <summary>
+/// Generic version of CollectionView class.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class CollectionView<T>: CollectionView
 {
-  public CollectionView(IEnumerable collection): base(collection){ IsFiltered = true;}
+  /// <summary>
+  /// Initializing constructor.
+  /// </summary>
+  /// <param name="collection"></param>
+  public CollectionView(IEnumerable collection): base(collection){}
 
-  public bool IsFiltered { get; set; }
 }

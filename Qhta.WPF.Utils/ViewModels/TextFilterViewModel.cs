@@ -36,9 +36,8 @@ public class TextFilterViewModel : ColumnFilterViewModel
   }
 
   /// <summary>
-  /// Clears <see cref="FilterText"/> and <see cref="Function"/>
+  /// Clears <see cref="FilterText"/> and <see cref="Function"/> properties.
   /// </summary>
-  /// <exception cref="NotImplementedException"></exception>
   public override void ClearFilter()
   {
     FilterText = null;
