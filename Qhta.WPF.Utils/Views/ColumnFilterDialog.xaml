@@ -18,6 +18,7 @@
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="*"
                      MinHeight="30" />
       <RowDefinition Height="Auto" />
@@ -88,7 +89,13 @@
         </StackPanel>
       </ToggleButton>
     </Grid>
-    <ContentPresenter Grid.Row="1"
+    <TextBlock Grid.Row="1"
+               Margin="10"
+               HorizontalAlignment="Center"
+               FontWeight="Bold"
+               Text="{Binding Path=PropName}"
+               />
+    <ContentPresenter Grid.Row="2"
                       Content="{Binding}">
       <ContentPresenter.Resources>
         <DataTemplate DataType="{x:Type vm:TextFilterViewModel}">
@@ -96,7 +103,7 @@
         </DataTemplate>
       </ContentPresenter.Resources>
     </ContentPresenter>
-    <StackPanel Grid.Row="2"
+    <StackPanel Grid.Row="3"
                 Orientation="Horizontal"
                 HorizontalAlignment="Center">
       <Button x:Name="OkButton"

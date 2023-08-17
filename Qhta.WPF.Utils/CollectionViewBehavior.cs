@@ -298,15 +298,15 @@ public partial class CollectionViewBehavior
                         valueType = propertyInfo.PropertyType;
                     }
                   }
-                  if (valueType != null)
+                  if (valueType != null && propertyInfo != null)
                   {
-                    var ok = DisplayFilterDialog(column, valueType, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)));
+                    var ok = DisplayFilterDialog(column, propertyInfo, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)));
                     if (ok)
                     {
                       var viewModel = CollectionViewBehavior.GetColumnFilter(column) as ColumnFilterViewModel;
                       if (viewModel != null && propertyInfo != null)
                       {
-                        var filter = viewModel.CreateFilter(propertyInfo);
+                        var filter = viewModel.CreateFilter();
                         SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
                         var collectionViewFilter = GetCollectionFilter(itemsControl) as CollectionViewFilter;
                         if (collectionViewFilter == null)
@@ -332,18 +332,19 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Displays a filter dialog for a column storing specified data type.
+  /// Displays a filter dialog for a column bound to the specific property.
   /// Dialog is displayed in specific screen position.
   /// View model is stored in column's attached ColumnFilter property.
   /// </summary>
   /// <param name="column"></param>
-  /// <param name="dataType"></param>
+  /// <param name="propInfo"></param>
   /// <param name="position"></param>
-  protected virtual bool DisplayFilterDialog(DataGridColumn column, Type dataType, Point position)
+  protected virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo propInfo, Point position)
   {
+    var propName = column.GetHeaderText() ?? propInfo.Name;
     var dialog = new ColumnFilterDialog();
     var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy() ??
-      new TextFilterViewModel();
+      new TextFilterViewModel(propInfo, propName);
     dialog.DataContext = viewModel;
     dialog.Left = position.X;
     dialog.Top = position.Y;

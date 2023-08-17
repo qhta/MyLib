@@ -9,9 +9,10 @@ public class TextFilterViewModel : ColumnFilterViewModel
 {
 
   /// <summary>
-  /// Default constructor.
+  /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(){ }
+  public TextFilterViewModel(PropertyInfo propInfo, string propName): base(propInfo, propName)
+    { }
 
   /// <summary>
   /// Copying constructor.
@@ -151,11 +152,11 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// Creates DataGridColumnFilter basing on current properties.
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilter? CreateFilter(PropertyInfo propertyInfo)
+  public override ColumnFilter? CreateFilter()
   {
     if (String.IsNullOrEmpty(FilterText) && !IsEmpty && !NotEmpty)
       return null;
-    var dataGridColumnFilter = new ColumnFilter(propertyInfo);
+    var dataGridColumnFilter = new ColumnFilter(PropInfo);
     switch (Function)
     {
       case TextPredicateFunction.IsEmpty:

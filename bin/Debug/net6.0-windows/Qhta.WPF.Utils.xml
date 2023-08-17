@@ -612,14 +612,14 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Type,System.Windows.Point)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Reflection.PropertyInfo,System.Windows.Point)">
             <summary>
-            Displays a filter dialog for a column storing specified data type.
+            Displays a filter dialog for a column bound to the specific property.
             Dialog is displayed in specific screen position.
             View model is stored in column's attached ColumnFilter property.
             </summary>
             <param name="column"></param>
-            <param name="dataType"></param>
+            <param name="propInfo"></param>
             <param name="position"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterButtonShape(System.Windows.Controls.DataGridColumn)">
@@ -1490,6 +1490,19 @@
             <summary>
             Context menu for a column.
             </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.DataGridColumnUtils">
+            <summary>
+            Utility class that contains extension methods for DataGridColumn.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnUtils.GetHeaderText(System.Windows.Controls.DataGridColumn)">
+            <summary>
+            Gets a header text of the column. 
+            Header text can be declared directly as string, as a text of TextBlock or as string content of Label.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridContentBoundColumn">
             <summary>
@@ -3617,9 +3630,19 @@
              Specifies whether Operation is Clear.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor">
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropInfo">
             <summary>
-            Default constructor.
+            Stored info on column binding property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropName">
+            <summary>
+            Displayed name of column binding property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(System.Reflection.PropertyInfo,System.String)">
+            <summary>
+            Initializing constructor.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel)">
@@ -3635,7 +3658,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.CreateFilter(System.Reflection.PropertyInfo)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.CreateFilter">
             <summary>
             Creates Predicate basing on current properties.
             </summary>
@@ -3651,9 +3674,9 @@
             View model shown in TextFilterWindow.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor">
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(System.Reflection.PropertyInfo,System.String)">
             <summary>
-            Default constructor.
+            Initializing constructor.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.TextFilterViewModel)">
@@ -3730,7 +3753,7 @@
             Specifies whether predicate function is RegExpr.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CreateFilter(System.Reflection.PropertyInfo)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CreateFilter">
             <summary>
             Creates DataGridColumnFilter basing on current properties.
             </summary>

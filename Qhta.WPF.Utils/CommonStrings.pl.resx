@@ -130,10 +130,10 @@
     <value>Funkcje i opcje</value>
   </data>
   <data name="IsEqual" xml:space="preserve">
-    <value>Równe</value>
+    <value>Równa się</value>
   </data>
   <data name="NotEqual" xml:space="preserve">
-    <value>Nie równe</value>
+    <value>Nie równa się</value>
   </data>
   <data name="StartsWith" xml:space="preserve">
     <value>Zaczyna się od</value>

@@ -67,7 +67,7 @@ public abstract class ColumnFilterViewModel : ViewModel
     set
     {
       if (value)
-      { 
+      {
         Operation = ColumnFilterOperation.Clear;
         ClearFilter();
       }
@@ -84,10 +84,49 @@ public abstract class ColumnFilterViewModel : ViewModel
   }
   #endregion
 
+
   /// <summary>
-  /// Default constructor.
+  /// Stored info on column binding property.
   /// </summary>
-  public ColumnFilterViewModel() { }
+  public PropertyInfo PropInfo
+  {
+    get { return _PropInfo; }
+    set
+    {
+      if (_PropInfo != value)
+      {
+        _PropInfo = value;
+        NotifyPropertyChanged(nameof(PropInfo));
+      }
+    }
+  }
+  private PropertyInfo _PropInfo;
+
+  /// <summary>
+  /// Displayed name of column binding property.
+  /// </summary>
+  public string PropName
+  {
+    get { return _PropName; }
+    set
+    {
+      if (_PropName != value)
+      {
+        _PropName = value;
+        NotifyPropertyChanged(nameof(PropName));
+      }
+    }
+  }
+  private string _PropName;
+
+  /// <summary>
+  /// Initializing constructor.
+  /// </summary>
+  public ColumnFilterViewModel(PropertyInfo propInfo, string propName)
+  {
+    _PropInfo = propInfo;
+    _PropName = propName;
+  }
 
   /// <summary>
   /// Copying constructor that copies the data of the view model is needed
@@ -96,6 +135,8 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// </summary>
   public ColumnFilterViewModel(ColumnFilterViewModel other)
   {
+    _PropInfo = other.PropInfo;
+    _PropName = other.PropName;
     EditOpEnabled = true;
     DefaultOp = true;
   }
@@ -110,7 +151,7 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// Creates Predicate basing on current properties.
   /// </summary>
   /// <returns>Predicate that takes a property value from the object.</returns>
-  public abstract ColumnFilter? CreateFilter(PropertyInfo propInfo);
+  public abstract ColumnFilter? CreateFilter();
 
   /// <summary>
   /// Clear filter properties.

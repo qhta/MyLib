@@ -58,6 +58,7 @@
       <CheckBox Grid.Row="1"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
+                Margin="10"
                 IsChecked="{Binding Path=IgnoreCase}"
                 Content="{x:Static local:CommonStrings.IgnoreCase}" />
     </Grid>
