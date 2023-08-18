@@ -1,7 +1,14 @@
 ﻿namespace Qhta.Conversion;
 
+/// <summary>
+/// Generic date structure that specifies Year, Month, Day and Zone components.
+/// A 0 (zero) value for a specific component means it is unimportant.
+/// So we can have Year-only, Year-month, Year-Month-Day or Year-Month-Date-Zone values.
+/// </summary>
 public struct GDate
 {
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public ushort Year { get; set; }
   public byte Month { get; set; }
   public byte Day { get; set; }

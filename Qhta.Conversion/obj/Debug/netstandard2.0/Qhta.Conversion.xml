@@ -6,19 +6,40 @@
     <members>
         <member name="T:Qhta.Conversion.AnyUriTypeConverter">
             <summary>
-            StringTypeConverter converts a Unicode string to its serializable equivalent string (and vice versa). It can operate in three modes (Mode property):
-            <list type="bullet">
-            </list>
+            The Visual Studio community provides a UriTypeConverter to convert Uri type to String. 
+            This converter just gives the original Uri string without any conversion. 
+            On its basis, the AnyUriTypeConverter converter was defined, which implements the ITypeConverter interface 
+            and returns null when reverse conversion is performed for the empty string.
             </summary>
+        </member>
+        <member name="F:Qhta.Conversion.AnyUriTypeConverter.Base">
+            <summary>
+            Internal original UriTypeConverter
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.AnyUriTypeConverter.#ctor">
+            <summary>
+            Sets ExpectedType to Uri
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.AnyUriTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.AnyUriTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.AnyUriTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.AnyUriTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.Conversion.ArrayTypeConverter">
             <summary>
-            Converts an array to/from string.
-            </summary>
-        </member>
-        <member name="M:Qhta.Conversion.ArrayTypeConverter.#ctor">
-            <summary>
-            Default converter.
+            ArrayTypeConverter operates on a one-dimensional array of elements 
+            of the type specified by the ExpectedType property (from BaseTypeConverter). 
+            By default, items are separated by spaces. 
+            If the specified type is a byte array, the conversion method can be changed to Base64Binary or HexBinary.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.ArrayTypeConverter.MinLength">
@@ -78,6 +99,29 @@
             <param name="maxLength"></param>
             <exception cref="T:System.IO.InvalidDataException"></exception>
         </member>
+        <member name="T:Qhta.Conversion.Base64TypeConverter">
+            <summary>
+            Converts array of bytes to Base64String and vice/versa.
+            On backward conversion error it tries to convert array of bytes from HexString.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.Base64TypeConverter.#ctor">
+            <summary>
+            Sets ExpectedType to byte[]
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.Base64TypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.Base64TypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.Base64TypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.Base64TypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
         <member name="T:Qhta.Conversion.BaseTypeConverter">
             <summary>
             Basic type converter - to be extended by other converters.
@@ -100,7 +144,7 @@
         </member>
         <member name="P:Qhta.Conversion.BaseTypeConverter.XsdType">
             <summary>
-              Type to use when converting to string in ConvertTo
+              XsdSimpleType to use when converting to string in ConvertTo
             </summary>
         </member>
         <member name="P:Qhta.Conversion.BaseTypeConverter.Format">
@@ -113,14 +157,55 @@
               CultureInfo to use when converting to/from string in ConvertTo/ConvertFrom
             </summary>
         </member>
+        <member name="T:Qhta.Conversion.BooleanTypeConverter">
+            <summary>
+            Converts a Boolean value to/from string using true/false, 1/0, on/off pairs.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.BooleanTypeConverter.#ctor">
+            <summary>
+            Sets Expected type to Boolean.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.BooleanTypeConverter.BooleanStrings">
+            <summary>
+            Definition of strings pairs that are used to represent true and false boolean values.
+            The first string of the pair represents true value and the second string represents false value.
+            This property is public and can be changed for the specific converter instance.
+            </summary>
+        </member>
         <member name="P:Qhta.Conversion.BooleanTypeConverter.Patterns">
             <summary>
-              Unused for this converter
+              ITextRestrictions patterns unused in this converter
             </summary>
         </member>
         <member name="P:Qhta.Conversion.BooleanTypeConverter.Enumerations">
             <summary>
-              Set BooleanStrings
+              BooleanStrings represented as a single-dimension string array.
+              This array must have even number of strings.
+              Each event string represents true value and odd string represents false value.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.BooleanTypeConverter.CaseInsensitive">
+            <summary>
+            Specifies whether backward conversion is case insensitive.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.BooleanTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.BooleanTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.BooleanTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.BooleanTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.ConversionOptions">
+            <summary>
+            This class groups options for conversion in ValueTypeConverter.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.ConversionOptions.UseEscapeSequences">
@@ -135,7 +220,7 @@
         </member>
         <member name="P:Qhta.Conversion.ConversionOptions.DateTimeSeparator">
             <summary>
-              The character to insert between the date and time when serializing a DateTime value.
+              Specifies the character to insert between the date and time when serializing a DateTime value.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.ConversionOptions.ShowFullTime">
@@ -150,8 +235,20 @@
         </member>
         <member name="P:Qhta.Conversion.ConversionOptions.BooleanStrings">
             <summary>
-              Specifies strings representation of the boolean value. First goes TrueString, false goes FalseString.
+              Specifies strings representation of the boolean value. First goes TrueString, second goes FalseString.
               First pair is used on serialization, all pairs are accepted on deserialization.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.DateTimeTypeConverter">
+            <summary>
+            This converter supports the following types: DateTime, DateTimeOffset, DateOnly and TimeOnly
+            (the last two types are supported when compiled for .NET 6 or greater version).
+            Has several properties that specify format of output string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.DateTimeTypeConverter.#ctor">
+            <summary>
+            Sets ExpectedType to DateTime and XsdType to XsdSimpleType.DateTime.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.DateTimeTypeConverter.DateTimeSeparator">
@@ -169,14 +266,456 @@
               Specifies whether to add the time zone to time format.
             </summary>
         </member>
+        <member name="P:Qhta.Conversion.DateTimeTypeConverter.FormatInfo">
+            <summary>
+            Can specify DateTimeFormatInfo as defined in System.Globalization.CultureInfo.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.DateTimeTypeConverter.DateTimeStyle">
+            <summary>
+            Can specify DateTimeStyle as defined in System.Globalization.CultureInfo.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.DateTimeTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DateTimeTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DateTimeTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DateTimeTypeConverter.ConvertFrom(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DateTimeTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.DbNullTypeXmlConverter">
+            <summary>
+            Converter for System.DBNull type to string and backward.
+            On ConvertTo, it converts null and DBNull values to null.
+            On ConvertFrom, it gives DBNull value.
+            This converter also implements Qhta.Xml.IXmlConverter interface.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.#ctor">
+            <summary>
+            Sets ExpectedType to DBNull and XsdType to XsdSimpleType.String.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.Conversion.DbNullTypeXmlConverter.CanRead">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.Conversion.DbNullTypeXmlConverter.CanWrite">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.WriteXml(System.Object,Qhta.Xml.IXmlWriter,System.Object,Qhta.Xml.IXmlSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.ReadXml(System.Object,Qhta.Xml.IXmlReader,System.Type,System.Object,Qhta.Xml.IXmlSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.CanConvert(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.DoubleTypeConverter">
+            <summary>
+            Double to string converter that uses the specific Culture and Format string (as defined in BaseTypeConverter).
+            If culture is not declared, then Invariant culture is used.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.DoubleTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.DoubleTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.EnumTypeConverter">
+            <summary>
+            Formattable converter for enum type. Uses standard EnumTypeConverter.
+            Uses Format string in ConvertTo (as defined in Enum.ToString method).
+            Converts empty string to null.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.EnumTypeConverter.#ctor(System.Type)">
+            <summary>
+            Creates an instance of standard EnumConverter for specified enumType.
+            Sets ExpectedType to Enum and XsdType to XsdSimpleType.String.
+            </summary>
+            <param name="enumType"></param>
+        </member>
+        <member name="M:Qhta.Conversion.EnumTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.EnumTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.EnumTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.EnumTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.GDate">
+            <summary>
+            Generic date structure that specifies Year, Month, Day and Zone components.
+            A 0 (zero) value for a specific component means it is unimportant.
+            So we can have Year-only, Year-month, Year-Month-Day or Year-Month-Date-Zone values.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.GDateTypeConverter">
+            <summary>
+            Type converter for GDate (Generic Date) structure.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.GDateTypeConverter.#ctor">
+            <summary>
+            Sets ExpectedType to GDate.
+            </summary>
+        </member>
         <member name="P:Qhta.Conversion.GDateTypeConverter.ShowTimeZone">
             <summary>
               Specifies whether to add the time zone to day.
             </summary>
         </member>
+        <member name="M:Qhta.Conversion.GDateTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GDateTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GDateTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GDateTypeConverter.ConvertFrom(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GDateTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.GuidTypeConverter">
+            <summary>
+            Guid datatype converter that uses Format property (defined in BaseTypeConverter). Uses the standard GuidConverter.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.GuidTypeConverter.#ctor">
+            <summary>
+            Sets ExpectedType to Guid and XsdType to XsdSimpleType.String.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.GuidTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GuidTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GuidTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.GuidTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.ILengthRestrictions">
+            <summary>
+            Defines string (or array) length restrictions.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ILengthRestrictions.MinLength">
+            <summary>
+            Minimum length.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ILengthRestrictions.MaxLength">
+            <summary>
+            Maximum length.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.INumberRestrictions">
+            <summary>
+             Defines numeric length restrictions and value restrictions.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.INumberRestrictions.TotalDigits">
+            <summary>
+            Specifies total number of digits
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.INumberRestrictions.FractionDigits">
+            <summary>
+            Specifies fractional number of digits
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.INumberRestrictions.MinExclusive">
+            <summary>
+            Specifies minimum (double) value outside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.INumberRestrictions.MaxExclusive">
+            <summary>
+            Specifies maximum (double) value outside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.INumberRestrictions.MinInclusive">
+            <summary>
+            Specifies minimum (double) value inside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.INumberRestrictions.MaxInclusive">
+            <summary>
+            Specifies maximum (double) value inside an accepted range.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.ITextRestrictions">
+            <summary>
+            Defines Patterns and Enumerations and case insensitive option for string converter.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITextRestrictions.Patterns">
+            <summary>
+            Regular expression patterns for acceptable strings.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITextRestrictions.Enumerations">
+            <summary>
+            List of acceptable strings.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITextRestrictions.CaseInsensitive">
+            <summary>
+            Specifies whether check is case-insensitive.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.ITypeConverter">
+            <summary>
+            Defines interface to implement in internal converter.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITypeConverter.ExpectedType">
+            <summary>
+            Expected type of output value in convert-back methods.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITypeConverter.KnownTypes">
+            <summary>
+            Known types for convert-back methods.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITypeConverter.XsdType">
+            <summary>
+            XsdType for convert-forth methods.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITypeConverter.Format">
+            <summary>
+            Format of string values.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ITypeConverter.Culture">
+            <summary>
+            Culture used in conversion.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.WhitespaceBehavior">
+            <summary>
+            Declares how to treat whitespaces.
+            </summary>
+        </member>
+        <member name="F:Qhta.Conversion.WhitespaceBehavior.Preserve">
+            <summary>
+            Preserve whitespaces.
+            </summary>
+        </member>
+        <member name="F:Qhta.Conversion.WhitespaceBehavior.Replace">
+            <summary>
+            Replace whitespaces with spaces.
+            </summary>
+        </member>
+        <member name="F:Qhta.Conversion.WhitespaceBehavior.Collapse">
+            <summary>
+            Collapce whitespaces to a single space.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.IWhitespaceRestrictions">
+            <summary>
+            Specifies how to treat whitespaces and whether they were fixed on convert-back.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.IWhitespaceRestrictions.Whitespaces">
+            <summary>
+            Specifies how to treat whitespaces.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.IWhitespaceRestrictions.WhitespacesFixed">
+            <summary>
+            Specifies whether whitespaces were fixed on convert-back method.
+            </summary>
+        </member>
+        <member name="T:Qhta.Conversion.NumericTypeConverter">
+            <summary>
+            Universal converter for converting a numeric type into a string (forth and back). 
+            Supports types: Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Decimal, Single, Double.
+            Specifies additional NumberStyle property to support hexadecimal format.
+            Specifies min/max exclusive/inclusive values to validate the range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.NumberStyle">
+            <summary>
+            Additional formatting property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.TotalDigits">
+            <summary>
+            Specifies total number of digits
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.FractionDigits">
+            <summary>
+            Specifies fractional number of digits
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.MinExclusive">
+            <summary>
+            Specifies minimum (double) value outside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.MaxExclusive">
+            <summary>
+            Specifies maximum (double) value outside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.MinInclusive">
+            <summary>
+            Specifies minimum (double) value inside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.MaxInclusive">
+            <summary>
+            Specifies maximum (double) value inside an accepted range.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.XsdType">
+            <summary>
+            Overrides the base XsdType property such that setting a XsdType also sets ExpectedType.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.NumericTypeConverter.Format">
+            <summary>
+            Overrides the base Format property such that setting a format with 'X' (or 'x') character
+            implies specifying NumberStyle as HexNumber.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.NumericTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.NumericTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.NumericTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.NumericTypeConverter.ConvertFrom(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.NumericTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.NumericTypeConverter.TryParseAnyNumber(System.String,System.Globalization.NumberStyles,System.Globalization.CultureInfo,System.Object@)">
+            <summary>
+            Universal method to parse any number from string.
+            </summary>
+            <param name="str"></param>
+            <param name="numberStyle"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Conversion.PropertyInfoDescriptor">
+            <summary>
+            Extends PropertyDescriptor class (declared in System.ComponentModel) with PropertyInfo data.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.PropertyInfoDescriptor.PropertyInfo">
+            <summary>
+            Access property to PropertyInfo.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.PropertyInfoDescriptor.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="P:Qhta.Conversion.PropertyInfoDescriptor.ComponentType">
+            <summary>
+            Gets PropertyInfo declaring type.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.PropertyInfoDescriptor.IsReadOnly">
+            <summary>
+            Informs if a property is read only.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.PropertyInfoDescriptor.PropertyType">
+            <summary>
+            Gets PropertyInfo property type.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.PropertyInfoDescriptor.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets a value to the component using PropertyInfo.
+            </summary>
+            <param name="component"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.Conversion.PropertyInfoDescriptor.GetValue(System.Object)">
+            <summary>
+            Gets a value from the component using PropertyInfo.
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Conversion.PropertyInfoDescriptor.CanResetValue(System.Object)">
+            <summary>
+            Checks if the PropertyInfo can write.
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Conversion.PropertyInfoDescriptor.ResetValue(System.Object)">
+            <summary>
+            If a PropertyType is not value type then sets null to component using PropertyInfo.
+            Otherwise sets 0 (zero).
+            </summary>
+            <param name="component"></param>
+        </member>
+        <member name="M:Qhta.Conversion.PropertyInfoDescriptor.ShouldSerializeValue(System.Object)">
+            <summary>
+            Checks whether the component type contains ShouldSerializeXXXXX method (where XXXXX is the property name).
+            If so, it invokes this method on the component and returns the boolean result.
+            Otherwise it returns true.
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.Conversion.StringTypeConverter">
             <summary>
-            
+            Converts a Unicode string to its serializable equivalent string (and vice versa). 
+            When it meets invisible character, it can use EscapeSequences (like "\t" "\n" "\r"), Html entities or Hex entities. 
+            EscapeSequences and HexEntities are predefined, but may be redefined by the programmer.
+            It also supports Patterns and Enumerations on ConvertFrom (they can be case-insensitive).
             </summary>
         </member>
         <member name="F:Qhta.Conversion.StringTypeConverter.Base">
@@ -201,7 +740,7 @@
         </member>
         <member name="P:Qhta.Conversion.StringTypeConverter.UseHtmlEntities">
             <summary>
-            Specifies whether Html sequences like "$lt;" should be used for some characters.
+            Specifies whether Html sequences should be used for some characters.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.StringTypeConverter.UseHexEntities">
@@ -322,9 +861,112 @@
             <param name="behavior"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.Conversion.StringTypeConverter.ValidatePatterns(System.String,System.String[])">
+            <summary>
+            Validates patterns. 
+            If the string does not match to any pattern, then InvalidOperationException is thrown.
+            </summary>
+            <param name="str"></param>
+            <param name="patterns"></param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Qhta.Conversion.StringTypeConverter.ValidatePattern(System.String,System.String)">
+            <summary>
+            Validates a single pattern.
+            </summary>
+            <param name="str"></param>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Conversion.StringTypeConverter.ValidateEnumerations(System.String,System.String[])">
+            <summary>
+            Validates enumeration 
+            If the string does not match to any enumeration, then InvalidOperationException is thrown.
+            </summary>
+            <param name="str"></param>
+            <param name="enumerations"></param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:Qhta.Conversion.TimeSpanTypeConverter">
+            <summary>
+            Converts TimeSpan values to a string and backward.
+            Uses TimeSpanStyle as defined in System.Globalization.
+            </summary>
+        </member>
         <member name="P:Qhta.Conversion.TimeSpanTypeConverter.Format">
             <summary>
               Specifies format for ConvertTo method.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.TimeSpanTypeConverter.TimeSpanStyle">
+            <summary>
+            TimeSpanStyle as defined in System.Globalization.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.ConvertFrom(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.DurationToString(System.TimeSpan)">
+            <summary>
+            Converts duration to string.
+            </summary>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Conversion.TimeSpanTypeConverter.ParseDuration(System.String)">
+            <summary>
+            Parses duration string and returns TimeSpan result.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:Qhta.Conversion.TypeDescriptorContext">
+            <summary>
+            Class implementing ITypeDescriptorContext interface (defined in System.ComponentModel).
+            Parameter of this interface type is used in standard TypeConverter methods.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.TypeDescriptorContext.#ctor(System.Object,System.Reflection.PropertyInfo)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="instance"></param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="M:Qhta.Conversion.TypeDescriptorContext.GetService(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TypeDescriptorContext.OnComponentChanged">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TypeDescriptorContext.OnComponentChanging">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.Conversion.TypeDescriptorContext.Container">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.Conversion.TypeDescriptorContext.Instance">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.Conversion.TypeDescriptorContext.PropertyDescriptor">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.TypeNameConverter">
+            <summary>
+            Converts type name to the specific type using known types, known namespaces and namespace prefixes.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.TypeNameConverter.KnownPrefixes">
@@ -332,11 +974,133 @@
               Prefix to namespace conversion
             </summary>
         </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.#ctor">
+            <summary>
+            Default converter.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.#ctor(System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initializing converter with types.
+            </summary>
+            <param name="types"></param>
+            <param name="knownNamespaces"></param>
+        </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.#ctor(System.Collections.Generic.Dictionary{System.String,System.Type},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initializing converter with types dictionary.
+            </summary>
+            <param name="types"></param>
+            <param name="knownNamespaces"></param>
+        </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.TypeNameConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.ValueTypeConverter">
+            <summary>
+            This class combines all other converters.
+            When creating a ValueTypeConverter class converter, the expected .NET data type must be provided, 
+            and an XSD simple type may be provided.
+            </summary>
+        </member>
         <member name="P:Qhta.Conversion.ValueTypeConverter.ExpectedType">
             <summary>
             Type expected in ConvertFrom method.
             Overriden as its change must force internal converter reinitialization;
             </summary>
+        </member>
+        <member name="F:Qhta.Conversion.ValueTypeConverter.XsdSimpleTypeAcceptedTypes">
+            <summary>
+            Declares XsdSimpleType to Type conversion.
+            </summary>
+        </member>
+        <member name="F:Qhta.Conversion.ValueTypeConverter.KnownTypeConverters">
+            <summary>
+            Declares known Type converters.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{Qhta.Xml.XsdSimpleType},System.String,System.Globalization.CultureInfo,Qhta.Conversion.ConversionOptions)">
+            <summary>
+            Constructor with parameters.
+            </summary>
+            <param name="expectedType"></param>
+            <param name="knownTypes"></param>
+            <param name="knownNamespaces"></param>
+            <param name="xsdType"></param>
+            <param name="format"></param>
+            <param name="culture"></param>
+            <param name="options"></param>
+        </member>
+        <member name="P:Qhta.Conversion.ValueTypeConverter.InternalTypeConverter">
+            <summary>
+            InternalTypeConverter that is used in this instance.
+            </summary>
+        </member>
+        <member name="P:Qhta.Conversion.ValueTypeConverter.Options">
+            <summary>
+            Conversion options.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.Init">
+            <summary>
+            Initializing method using previously declared properties.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.Init(System.Type,System.Collections.Generic.Dictionary{System.String,System.Type},System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{Qhta.Xml.XsdSimpleType},System.String,System.Globalization.CultureInfo,Qhta.Conversion.ConversionOptions)">
+            <summary>
+            Initializing method with parameters.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.ValueTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Conversion.XmlQualifiedNameTypeConverter">
+            <summary>
+            Converts an XmlQualifiedName (defined in System.Xml) value to string and backward.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.#ctor">
+            <summary>
+            Sets ExpectedType to XmlQualifiedName and XsdType to QName.
+            </summary>
+        </member>
+        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.ConvertFrom(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

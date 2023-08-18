@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.Design;
-using System.Diagnostics;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// This class combines all other converters.
+ /// When creating a ValueTypeConverter class converter, the expected .NET data type must be provided, 
+ /// and an XSD simple type may be provided.
+/// </summary>
 public class ValueTypeConverter : BaseTypeConverter
 {
 
@@ -24,6 +26,9 @@ public class ValueTypeConverter : BaseTypeConverter
   }
   private Type? _ExpectedType;
 
+  /// <summary>
+  /// Declares XsdSimpleType to Type conversion.
+  /// </summary>
   public static readonly Dictionary<XsdSimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
   {
     { XsdSimpleType.AnyUri, new[] { typeof(Uri), typeof(string) } },
@@ -135,6 +140,9 @@ public class ValueTypeConverter : BaseTypeConverter
     }
   };
 
+  /// <summary>
+  /// Declares known Type converters.
+  /// </summary>
   public static readonly Dictionary<Type, TypeConverter> KnownTypeConverters = new()
   {
     //{ typeof(Object), new ObjectTypeConverter() },
@@ -171,10 +179,23 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(DBNull), new DbNullTypeXmlConverter() },
   };
 
+  /// <summary>
+  /// Default constructor
+  /// </summary>
   public ValueTypeConverter()
   {
   }
 
+  /// <summary>
+  /// Constructor with parameters.
+  /// </summary>
+  /// <param name="expectedType"></param>
+  /// <param name="knownTypes"></param>
+  /// <param name="knownNamespaces"></param>
+  /// <param name="xsdType"></param>
+  /// <param name="format"></param>
+  /// <param name="culture"></param>
+  /// <param name="options"></param>
   public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, Dictionary<string, string>? knownNamespaces = null, XsdSimpleType? xsdType = null, string? format = null, CultureInfo? culture = null,
     ConversionOptions? options = null)
   {
@@ -184,15 +205,27 @@ public class ValueTypeConverter : BaseTypeConverter
     Init(expectedType, KnownTypes, KnownNamespaces, xsdType, format, culture, options);
   }
 
+  /// <summary>
+  /// InternalTypeConverter that is used in this instance.
+  /// </summary>
   public TypeConverter? InternalTypeConverter { get; set; }
 
+  /// <summary>
+  /// Conversion options.
+  /// </summary>
   public ConversionOptions? Options { get; set; }
 
+  /// <summary>
+  /// Initializing method using previously declared properties.
+  /// </summary>
   public void Init()
   {
     Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture, Options);
   }
 
+    /// <summary>
+  /// Initializing method with parameters.
+  /// </summary>
   public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, Dictionary<string, string>? knownNamespaces, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
   {
     Options = options;
@@ -401,6 +434,7 @@ public class ValueTypeConverter : BaseTypeConverter
     return result;
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     if (ExpectedType == typeof(string))
@@ -410,6 +444,7 @@ public class ValueTypeConverter : BaseTypeConverter
     return base.CanConvertFrom(context, sourceType);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     if (InternalTypeConverter != null)
@@ -417,6 +452,7 @@ public class ValueTypeConverter : BaseTypeConverter
     return base.CanConvertTo(context, destinationType);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? Culture, object? value, Type destinationType)
   {
 
@@ -427,6 +463,7 @@ public class ValueTypeConverter : BaseTypeConverter
     return null;
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (InternalTypeConverter == null)

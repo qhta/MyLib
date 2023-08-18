@@ -1,5 +1,8 @@
 ﻿namespace Qhta.Conversion;
 
+/// <summary>
+/// Converts type name to the specific type using known types, known namespaces and namespace prefixes.
+/// </summary>
 public class TypeNameConverter : BaseTypeConverter
 {
   /// <summary>
@@ -7,10 +10,18 @@ public class TypeNameConverter : BaseTypeConverter
   /// </summary>
   public virtual Dictionary<string, string>? KnownPrefixes { get; set; }
 
+  /// <summary>
+  /// Default converter.
+  /// </summary>
   public TypeNameConverter()
   {
   }
 
+  /// <summary>
+  /// Initializing converter with types.
+  /// </summary>
+  /// <param name="types"></param>
+  /// <param name="knownNamespaces"></param>
   public TypeNameConverter(IEnumerable<Type> types, Dictionary<string, string>? knownNamespaces = null)
   {
     if (KnownTypes == null)
@@ -25,6 +36,11 @@ public class TypeNameConverter : BaseTypeConverter
       KnownPrefixes = knownNamespaces.ToDictionary(item => item.Value, item => item.Key);
   }
 
+  /// <summary>
+  /// Initializing converter with types dictionary.
+  /// </summary>
+  /// <param name="types"></param>
+  /// <param name="knownNamespaces"></param>
   public TypeNameConverter(Dictionary<string, Type> types, Dictionary<string, string>? knownNamespaces)
   {
     KnownTypes = types;
@@ -33,11 +49,13 @@ public class TypeNameConverter : BaseTypeConverter
       KnownPrefixes = knownNamespaces.ToDictionary(item => item.Value, item => item.Key);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
@@ -63,11 +81,13 @@ public class TypeNameConverter : BaseTypeConverter
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (value == null)

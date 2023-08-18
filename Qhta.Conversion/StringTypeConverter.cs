@@ -1,12 +1,10 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
-
-using Qhta.Collections;
-
-namespace Qhta.Conversion;
+﻿namespace Qhta.Conversion;
 
 /// <summary>
-/// 
+/// Converts a Unicode string to its serializable equivalent string (and vice versa). 
+/// When it meets invisible character, it can use EscapeSequences (like "\t" "\n" "\r"), Html entities or Hex entities. 
+/// EscapeSequences and HexEntities are predefined, but may be redefined by the programmer.
+/// It also supports Patterns and Enumerations on ConvertFrom (they can be case-insensitive).
 /// </summary>
 public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, ITextRestrictions, IWhitespaceRestrictions
 {
@@ -34,7 +32,7 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
   public bool UseEscapeSequences { get; set; }
 
   /// <summary>
-  /// Specifies whether Html sequences like "$lt;" should be used for some characters.
+  /// Specifies whether Html sequences should be used for some characters.
   /// </summary>
   public bool UseHtmlEntities { get; set; }
 
@@ -468,6 +466,13 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return str;
   }
 
+  /// <summary>
+  /// Validates patterns. 
+  /// If the string does not match to any pattern, then InvalidOperationException is thrown.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="patterns"></param>
+  /// <exception cref="InvalidOperationException"></exception>
   public void ValidatePatterns(string str, string[] patterns)
   {
     var ok = patterns.Length == 0;
@@ -486,6 +491,12 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     }
   }
 
+  /// <summary>
+  /// Validates a single pattern.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
   public bool ValidatePattern(string str, string pattern)
   {
     pattern = @"\A" + pattern + @"\Z";
@@ -493,6 +504,13 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     return regex.Match(str).Success;
   }
 
+  /// <summary>
+  /// Validates enumeration 
+  /// If the string does not match to any enumeration, then InvalidOperationException is thrown.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="enumerations"></param>
+  /// <exception cref="InvalidOperationException"></exception>
   public void ValidateEnumerations(string str, string[] enumerations)
   {
     var ok = enumerations.Length == 0;

@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
-using System.Globalization;
-using System.Text;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// Type converter for GDate (Generic Date) structure.
+/// </summary>
 public class GDateTypeConverter : BaseTypeConverter
 {
+  /// <summary>
+  /// Sets ExpectedType to GDate.
+  /// </summary>
   public GDateTypeConverter()
   {
     ExpectedType = typeof(GDate);
@@ -16,11 +18,13 @@ public class GDateTypeConverter : BaseTypeConverter
   /// </summary>
   public bool ShowTimeZone { get; set; }
 
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
@@ -78,7 +82,7 @@ public class GDateTypeConverter : BaseTypeConverter
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
-  protected string ZoneToStr(GDate dt)
+  private string ZoneToStr(GDate dt)
   {
     if (dt.Zone > 0)
       return "+" + dt.Zone.ToString("D2");
@@ -87,16 +91,19 @@ public class GDateTypeConverter : BaseTypeConverter
     return "Z";
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, null, value);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract

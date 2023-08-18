@@ -1,16 +1,13 @@
 ﻿namespace Qhta.Conversion;
 
 /// <summary>
-/// Converts an array to/from string.
+/// ArrayTypeConverter operates on a one-dimensional array of elements 
+/// of the type specified by the ExpectedType property (from BaseTypeConverter). 
+/// By default, items are separated by spaces. 
+/// If the specified type is a byte array, the conversion method can be changed to Base64Binary or HexBinary.
 /// </summary>
 public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
 {
-  /// <summary>
-  /// Default converter.
-  /// </summary>
-  public ArrayTypeConverter()
-  {
-  }
 
   private ValueTypeConverter ItemConverter { get; } = new();
 

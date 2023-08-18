@@ -1,9 +1,4 @@
-﻿using System.ComponentModel;
-using System.Globalization;
-using System.Xml;
-using Qhta.Xml;
-
-namespace Qhta.Conversion;
+﻿namespace Qhta.Conversion;
 
 /// <summary>
 /// Basic type converter - to be extended by other converters.
@@ -26,7 +21,7 @@ public class BaseTypeConverter: TypeConverter
   public virtual Dictionary<string, string>? KnownNamespaces { get; set; }
 
   /// <summary>
-  ///   Type to use when converting to string in ConvertTo
+  ///   XsdSimpleType to use when converting to string in ConvertTo
   /// </summary>
   public virtual XsdSimpleType? XsdType { get; set; }
 

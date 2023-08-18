@@ -1,15 +1,19 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// This converter supports the following types: DateTime, DateTimeOffset, DateOnly and TimeOnly
+/// (the last two types are supported when compiled for .NET 6 or greater version).
+/// Has several properties that specify format of output string.
+/// </summary>
 public class DateTimeTypeConverter : BaseTypeConverter
 {
+  /// <summary>
+  /// Sets ExpectedType to DateTime and XsdType to XsdSimpleType.DateTime.
+  /// </summary>
   public DateTimeTypeConverter()
   {
     ExpectedType = typeof(DateTime);
     XsdType = XsdSimpleType.DateTime;
-
   }
 
   /// <summary>
@@ -27,15 +31,23 @@ public class DateTimeTypeConverter : BaseTypeConverter
   /// </summary>
   public bool ShowTimeZone { get; set; }
 
+  /// <summary>
+  /// Can specify DateTimeFormatInfo as defined in System.Globalization.CultureInfo.
+  /// </summary>
   public DateTimeFormatInfo? FormatInfo { get; set; }
 
+  /// <summary>
+  /// Can specify DateTimeStyle as defined in System.Globalization.CultureInfo.
+  /// </summary>
   public DateTimeStyles DateTimeStyle { get; set; }
 
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
@@ -130,16 +142,19 @@ public class DateTimeTypeConverter : BaseTypeConverter
     return format;
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, null, value);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract

@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.Globalization;
-using System.Text;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// Converts TimeSpan values to a string and backward.
+/// Uses TimeSpanStyle as defined in System.Globalization.
+/// </summary>
 public class TimeSpanTypeConverter : TypeConverter
 {
   /// <summary>
@@ -11,13 +11,18 @@ public class TimeSpanTypeConverter : TypeConverter
   /// </summary>
   public string? Format { get; set; }
 
+  /// <summary>
+  /// TimeSpanStyle as defined in System.Globalization.
+  /// </summary>
   public TimeSpanStyles TimeSpanStyle { get; set; }
 
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
@@ -32,16 +37,19 @@ public class TimeSpanTypeConverter : TypeConverter
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, null, value);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -66,6 +74,11 @@ public class TimeSpanTypeConverter : TypeConverter
     return base.ConvertFrom(context, culture, value);
   }
 
+  /// <summary>
+  /// Converts duration to string.
+  /// </summary>
+  /// <param name="ts"></param>
+  /// <returns></returns>
   public string DurationToString(TimeSpan ts)
   {
     var sb = new StringBuilder();
@@ -104,6 +117,12 @@ public class TimeSpanTypeConverter : TypeConverter
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Parses duration string and returns TimeSpan result.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  /// <exception cref="InvalidOperationException"></exception>
   public TimeSpan ParseDuration(string str)
   {
     var neg = false;

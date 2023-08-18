@@ -1,22 +1,54 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// Universal converter for converting a numeric type into a string (forth and back). 
+/// Supports types: Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Decimal, Single, Double.
+/// Specifies additional NumberStyle property to support hexadecimal format.
+/// Specifies min/max exclusive/inclusive values to validate the range.
+/// </summary>
 public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
 {
   private string? _Format;
-  protected XsdSimpleType? _XsdType;
+  private XsdSimpleType? _XsdType;
 
+  /// <summary>
+  /// Additional formatting property.
+  /// </summary>
   public NumberStyles NumberStyle { get; set; } = NumberStyles.None;
 
+  /// <summary>
+  /// Specifies total number of digits
+  /// </summary>
   public int? TotalDigits { get; set; }
+
+  /// <summary>
+  /// Specifies fractional number of digits
+  /// </summary>
   public int? FractionDigits { get; set; }
+
+  /// <summary>
+  /// Specifies minimum (double) value outside an accepted range.
+  /// </summary>
   public double? MinExclusive { get; set; }
+
+  /// <summary>
+  /// Specifies maximum (double) value outside an accepted range.
+  /// </summary>
   public double? MaxExclusive { get; set; }
+
+  /// <summary>
+  /// Specifies minimum (double) value inside an accepted range.
+  /// </summary>
   public double? MinInclusive { get; set; }
+
+  /// <summary>
+  /// Specifies maximum (double) value inside an accepted range.
+  /// </summary>
   public double? MaxInclusive { get; set; }
 
+  /// <summary>
+  /// Overrides the base XsdType property such that setting a XsdType also sets ExpectedType.
+  /// </summary>
   public override XsdSimpleType? XsdType
   {
     get => _XsdType;
@@ -74,6 +106,10 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     }
   }
 
+  /// <summary>
+  /// Overrides the base Format property such that setting a format with 'X' (or 'x') character
+  /// implies specifying NumberStyle as HexNumber.
+  /// </summary>
   public override string? Format
   {
     get => _Format;
@@ -94,11 +130,13 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     }
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
@@ -152,16 +190,19 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     return Convert.ChangeType(value, destinationType, culture);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type? sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, CultureInfo.InvariantCulture, value);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -195,6 +236,14 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     return base.ConvertFrom(context, culture, value);
   }
 
+  /// <summary>
+  /// Universal method to parse any number from string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="numberStyle"></param>
+  /// <param name="culture"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
   public bool TryParseAnyNumber(string? str, NumberStyles numberStyle, CultureInfo? culture, out object? value)
   {
     value = null;
@@ -204,7 +253,7 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
 #if NET6_0_OR_GREATER
     if (str.Contains("E+", StringComparison.InvariantCultureIgnoreCase) || str.Contains("E-", StringComparison.InvariantCultureIgnoreCase))
 #else
-    if (str.Contains("E+") || str.Contains("E-") || str.Contains("e+") || str.Contains("e-"))
+    if (str!= null && (str.Contains("E+") || str.Contains("E-") || str.Contains("e+") || str.Contains("e-")))
 #endif
     {
       numberStyle |= NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -224,7 +273,7 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
       }
       return false;
     }
-    if (str.Contains(culture.NumberFormat.NumberDecimalSeparator))
+    if (str != null && str.Contains(culture.NumberFormat.NumberDecimalSeparator))
     {
       numberStyle |= NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
       if (decimal.TryParse(str, numberStyle, culture, out var dm))
@@ -234,7 +283,7 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
       }
       return false;
     }
-    if (str.Contains(culture.NumberFormat.NegativeSign))
+    if (str != null && str.Contains(culture.NumberFormat.NegativeSign))
     {
       numberStyle |= NumberStyles.AllowLeadingSign;
       if (Int64.TryParse(str, numberStyle, culture, out var i64))
@@ -250,7 +299,7 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
         value = dm;
         return true;
       }
-      if (str.StartsWith("-INF", StringComparison.InvariantCultureIgnoreCase))
+      if (str != null && str.StartsWith("-INF", StringComparison.InvariantCultureIgnoreCase))
       {
         value = double.NegativeInfinity;
         return true;
@@ -277,7 +326,7 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
         value = double.NaN;
         return true;
       }
-      if (str.StartsWith("INF", StringComparison.InvariantCultureIgnoreCase))
+      if (str != null && str.StartsWith("INF", StringComparison.InvariantCultureIgnoreCase))
       {
         value = double.PositiveInfinity;
         return true;

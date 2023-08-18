@@ -1,20 +1,32 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// Converts array of bytes to Base64String and vice/versa.
+/// On backward conversion error it tries to convert array of bytes from HexString.
+/// </summary>
 public class Base64TypeConverter : BaseTypeConverter
 {
+  /// <summary>
+  /// Sets ExpectedType to byte[]
+  /// </summary>
+  public Base64TypeConverter()
+  {
+    ExpectedType = typeof(byte[]);
+  }
+
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value == null)
@@ -24,6 +36,7 @@ public class Base64TypeConverter : BaseTypeConverter
   }
 
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (value is string str)
@@ -32,7 +45,7 @@ public class Base64TypeConverter : BaseTypeConverter
       {
         return Convert.FromBase64String(str);
       }
-      // Base64String is default encoder for bytes[] type, however sometimes it can be encoded with HexString.
+      // Base64String is the default encoder for bytes[] type, however sometimes byte array can be encoded with HexString.
       catch 
       {
         return ArrayTypeConverter.FromHexString(str);

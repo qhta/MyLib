@@ -1,25 +1,35 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿namespace Qhta.Conversion;
 
-namespace Qhta.Conversion;
-
+/// <summary>
+/// Converts a Boolean value to/from string using true/false, 1/0, on/off pairs.
+/// </summary>
 public class BooleanTypeConverter : BaseTypeConverter, ITextRestrictions
 {
+  /// <summary>
+  /// Sets Expected type to Boolean.
+  /// </summary>
   public BooleanTypeConverter()
   {
     ExpectedType = typeof(Boolean);
   }
 
+  /// <summary>
+  /// Definition of strings pairs that are used to represent true and false boolean values.
+  /// The first string of the pair represents true value and the second string represents false value.
+  /// This property is public and can be changed for the specific converter instance.
+  /// </summary>
   public (string, string)[] BooleanStrings { get; set; }
     = { ("True", "False"), ("1", "0"), ("on", "off") };
 
   /// <summary>
-  ///   Unused for this converter
+  ///   ITextRestrictions patterns unused in this converter
   /// </summary>
   public string[]? Patterns { get; set; }
 
   /// <summary>
-  ///   Set BooleanStrings
+  ///   BooleanStrings represented as a single-dimension string array.
+  ///   This array must have even number of strings.
+  ///   Each event string represents true value and odd string represents false value.
   /// </summary>
   public string[]? Enumerations
   {
@@ -41,13 +51,19 @@ public class BooleanTypeConverter : BaseTypeConverter, ITextRestrictions
     }
   }
 
+  /// <summary>
+  /// Specifies whether backward conversion is case insensitive.
+  /// </summary>
   public bool CaseInsensitive { get; set; } = true;
 
+
+  /// <inheritdoc/>
   public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
   {
     return destinationType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
   {
     if (value is null)
@@ -69,11 +85,13 @@ public class BooleanTypeConverter : BaseTypeConverter, ITextRestrictions
     return base.ConvertTo(context, culture, value, destinationType);
   }
 
+  /// <inheritdoc/>
   public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
   {
     return sourceType == typeof(string);
   }
 
+  /// <inheritdoc/>
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
