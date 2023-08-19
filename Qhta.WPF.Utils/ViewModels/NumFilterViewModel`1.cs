@@ -164,6 +164,13 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
       case NumPredicateFunction.NotGreater:
         compareFunction = NotGreaterFunction;
         break;
+      case NumPredicateFunction.IsLess:
+        compareFunction = IsLessFunction;
+        break;
+      case NumPredicateFunction.NotLess:
+        compareFunction = NotLessFunction;
+        break;
+
       default:
         return null;
     }
@@ -262,7 +269,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
       }
     }
 
-    MessageBox.Show(CommonStrings.NumFilter_parse_error);
+    MessageBox.Show(String.Format(CommonStrings.NumFilter_parse_error, typeof(T).Name));
     value = null;
     return false;
   }

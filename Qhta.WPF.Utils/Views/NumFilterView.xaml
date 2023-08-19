@@ -7,7 +7,7 @@
              xmlns:views="clr-namespace:Qhta.WPF.Utils.Views"
              xmlns:vm="clr-namespace:Qhta.WPF.Utils.ViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type={x:Type vm:TextFilterViewModel}}"
+             d:DataContext="{d:DesignInstance Type={x:Type vm:NumFilterViewModel}}"
              d:Height="Auto"
              d:Width="300"
              MinWidth="300">

@@ -233,6 +233,9 @@ public partial class CollectionViewBehavior
       if (propType == typeof(bool))
         viewModel = new BoolFilterViewModel(propPath, propName);
       else
+      if (propType.IsEnum)
+        viewModel = new EnumFilterViewModel(propType, propPath, propName);
+      else
       if (propType == typeof(int))
         viewModel = new NumFilterViewModel<int>(propPath, propName);
       else

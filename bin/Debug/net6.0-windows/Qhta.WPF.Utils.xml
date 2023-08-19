@@ -3772,6 +3772,198 @@
             Clear filter properties.
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel">
+            <summary>
+            View model shown in NumFilterView.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(System.Type,System.Reflection.PropertyInfo[],System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.EnumFilterViewModel)">
+            <summary>
+            Copying constructor.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.CreateCopy">
+            <summary>
+            Creates a copy of this instance;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.ClearFilter">
+            <summary>
+            Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.FilterValue"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.Function"/> property.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.EnumType">
+            <summary>
+            Enum type to compare.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.FilterValue">
+            <summary>
+            Simple filter value.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.EnumValues">
+            <summary>
+            Array of enum values to select.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.Function">
+            <summary>
+            Selected predicate function.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.IsEqual">
+            <summary>
+            Specifies whether predicate function is IsEqual.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.NotEqual">
+            <summary>
+            Specifies whether predicate function is NotEqual.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.IsEmpty">
+            <summary>
+            Specifies whether predicate function is IsEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.NotEmpty">
+            <summary>
+            Specifies whether predicate function is NotEmpty.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.CreateFilter">
+            <summary>
+            Creates DataGridColumnFilter basing on current properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1">
+            <summary>
+            Generic view model for numeric values filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.#ctor(System.Reflection.PropertyInfo[],System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.#ctor(Qhta.WPF.Utils.ViewModels.EnumFilterViewModel{`0})">
+            <summary>
+            Copying constructor.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.CreateCopy">
+            <summary>
+            Creates a copy of this instance;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.FilterValue">
+            <summary>
+            Simple filter text.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsEqual">
+            <summary>
+            Specifies whether predicate function is IsEqual.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotEqual">
+            <summary>
+            Specifies whether predicate function is NotEqual.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsEmpty">
+            <summary>
+            Specifies whether predicate function is IsEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotEmpty">
+            <summary>
+            Specifies whether predicate function is NotEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsGreater">
+            <summary>
+            Specifies whether predicate function is IsGreater.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotGreater">
+            <summary>
+            Specifies whether predicate function is NotGreater.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsLess">
+            <summary>
+            Specifies whether predicate function is IsLess.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotLess">
+            <summary>
+            Specifies whether predicate function is NotLess.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.CreateFilter">
+            <summary>
+            Creates DataGridColumnFilter basing on current properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction">
+            <summary>
+            Enumeration of functions used to define enum value predicate.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsEqual">
+            <summary>
+            Is number equal to specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotEqual">
+            <summary>
+            Is number not equal to specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsEmpty">
+            <summary>
+            Is number undefined (is null)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotEmpty">
+            <summary>
+            Is number defined (is not null)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsGreater">
+            <summary>
+            Is number greater than specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotGreater">
+            <summary>
+            Is number not greater than specific value (is less or equal)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsLess">
+            <summary>
+            Is number less than specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotLess">
+            <summary>
+            Is number not less than specific value (is greater or equal)?
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel">
             <summary>
             View model shown in NumFilterView.
@@ -4137,6 +4329,19 @@
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.Views.ColumnFilterDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Views.EnumFilterView">
+            <summary>
+            Interaction logic for EnumFilterView.xaml
+            </summary>
+            <summary>
+            EnumFilterView
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Views.EnumFilterView.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

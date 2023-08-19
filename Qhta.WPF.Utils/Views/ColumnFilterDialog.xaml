@@ -104,6 +104,9 @@
         <DataTemplate DataType="{x:Type vm:BoolFilterViewModel}">
           <views:BoolFilterView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EnumFilterViewModel}">
+          <views:EnumFilterView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:NumFilterViewModel}">
           <views:NumFilterView />
         </DataTemplate>
