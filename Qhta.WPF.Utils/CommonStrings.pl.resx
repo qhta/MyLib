@@ -201,4 +201,10 @@
   <data name="CantParseCompareValue_0" xml:space="preserve">
     <value>Nie można przetworzyć tekstu na wartość typu {0}.</value>
   </data>
+  <data name="ShortcutErrorMsg" xml:space="preserve">
+    <value>Błąd skrótu</value>
+  </data>
+  <data name="TargetShortcutErrorMsg" xml:space="preserve">
+    <value>Błąd skrótu docelowego</value>
+  </data>
 </root>

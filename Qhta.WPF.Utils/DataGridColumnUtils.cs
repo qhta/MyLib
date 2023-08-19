@@ -16,7 +16,11 @@ public static class DataGridColumnUtils
   {
     var header = column.Header;
     if (header is string headerString)
-      return headerString;
+    {
+      if (!string.IsNullOrEmpty(headerString))
+        return headerString;
+    }
+    else
     if (header is TextBlock textBlock)
     {
       headerString = textBlock.Text;

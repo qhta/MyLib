@@ -1316,6 +1316,11 @@
               Looks up a localized string similar to Regular expression.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.ShortcutErrorMsg">
+            <summary>
+              Looks up a localized string similar to Shortcut error.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.StartsWith">
             <summary>
               Looks up a localized string similar to Starts with.

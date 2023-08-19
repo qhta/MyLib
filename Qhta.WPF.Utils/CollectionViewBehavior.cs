@@ -346,7 +346,14 @@ public partial class CollectionViewBehavior
   protected virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo[] propPath, Point position, Window ownerWindow)
   {
     var propInfo = propPath.Last();
-    var propName = column.GetHeaderText() ?? propInfo.Name;
+    var propName = column.GetHeaderText();
+    if (propName==null)
+    {
+       propName = propInfo.Name;
+       var localizedPropName = CommonStrings.ResourceManager.GetString(propName, CultureInfo.CurrentUICulture);
+      if (localizedPropName != null)
+        propName = localizedPropName;
+    }
     var dialog = new ColumnFilterDialog();
     var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();
     if (viewModel == null)
