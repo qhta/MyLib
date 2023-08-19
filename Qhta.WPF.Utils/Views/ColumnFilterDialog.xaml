@@ -107,6 +107,9 @@
         <DataTemplate DataType="{x:Type vm:NumFilterViewModel}">
           <views:NumFilterView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ObjFilterViewModel}">
+          <views:ObjFilterView />
+        </DataTemplate>
       </ContentPresenter.Resources>
     </ContentPresenter>
     <StackPanel Grid.Row="3"

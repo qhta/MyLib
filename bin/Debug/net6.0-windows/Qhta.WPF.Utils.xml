@@ -533,11 +533,41 @@
             Dependency property to store EnableCollectionSynchronization property.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationPropertyChangedCallback(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetSortingEventHandler(System.Windows.DependencyObject)">
             <summary>
-            Callback method invoked on Items control.
+            Getter of SortingEventHandler property.
+            We do not define new event, but a handler for already defined event.
             </summary>
-            <param name="obj"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetSortingEventHandler(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Setter of SortingEventHandler property.
+            We do not define new event, but a handler for already defined event.
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.SortingEventHandlerProperty">
+            <summary>
+            Dependency property to store SortingEventHandler property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.OnSortingEventHandlerChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Method to handle SortingEventHandler property changed event.
+            If its new value is a proper <see cref="T:System.Windows.Controls.DataGridSortingEventHandler"/>, it is assigned to the data grid.
+            Otherwise a default handler is assigned.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DataGrid_Sorting(System.Object,System.Windows.Controls.DataGridSortingEventArgs)">
+            <summary>
+            Default handler method of the DataGrid sorting event.
+            </summary>
+            <param name="sender"></param>
             <param name="args"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetShowFilterButton(System.Windows.DependencyObject)">
@@ -660,43 +690,6 @@
             <summary>
             Dependency property to store CollectionFilter property.
             </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetSortingEventHandler(System.Windows.DependencyObject)">
-            <summary>
-            Getter of SortingEventHandler property.
-            We do not define new event, but a handler for already defined event.
-            </summary>
-            <param name="target"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetSortingEventHandler(System.Windows.DependencyObject,System.Object)">
-            <summary>
-            Setter of SortingEventHandler property.
-            We do not define new event, but a handler for already defined event.
-            </summary>
-            <param name="target"></param>
-            <param name="value"></param>
-        </member>
-        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.SortingEventHandlerProperty">
-            <summary>
-            Dependency property to store SortingEventHandler property.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.OnSortingEventHandlerChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
-            <summary>
-            Method to handle SortingEventHandler property changed event.
-            If its new value is a proper <see cref="T:System.Windows.Controls.DataGridSortingEventHandler"/>, it is assigned to the data grid.
-            Otherwise a default handler is assigned.
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DataGrid_Sorting(System.Object,System.Windows.Controls.DataGridSortingEventArgs)">
-            <summary>
-            Default handler method of the DataGrid sorting event.
-            </summary>
-            <param name="sender"></param>
-            <param name="args"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.InitializeComponent">
             <summary>
@@ -1324,6 +1317,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.StartsWith">
             <summary>
               Looks up a localized string similar to Starts with.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.TargetShortcutErrorMsg">
+            <summary>
+              Looks up a localized string similar to Target shortcut error.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.True">
@@ -3597,7 +3595,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel">
             <summary>
-            View model shown in TextFilterWindow.
+            View model shown in BoolFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -3776,7 +3774,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel">
             <summary>
-            View model shown in NumFilterWindow.
+            View model shown in NumFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -3919,9 +3917,73 @@
             Is number not less than specific value (is greater or equal)?
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel">
+            <summary>
+            View model shown in ObjFilterView.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.ObjFilterViewModel)">
+            <summary>
+            Copying constructor.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.CreateCopy">
+            <summary>
+            Creates a copy of this instance;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.ClearFilter">
+            <summary>
+            Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.Function"/> property.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.Function">
+            <summary>
+            Selected predicate function.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.IsEmpty">
+            <summary>
+            Specifies whether predicate function is IsEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.NotEmpty">
+            <summary>
+            Specifies whether predicate function is NotEmpty.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.CreateFilter">
+            <summary>
+            Creates DataGridColumnFilter basing on current properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.ObjPredicateFunction">
+            <summary>
+            Enumeration of functions used to define object predicate.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.ObjPredicateFunction.IsEmpty">
+            <summary>
+            Is boolean undefined (is null)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.ObjPredicateFunction.NotEmpty">
+            <summary>
+            Is boolean defined (is not null)?
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextFilterViewModel">
             <summary>
-            View model shown in TextFilterWindow.
+            View model shown in TextFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -4088,6 +4150,19 @@
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.Views.NumFilterView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Views.ObjFilterView">
+            <summary>
+            View control for edit ObjFilterViewModel properties.
+            </summary>
+            <summary>
+            ObjFilterView
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Views.ObjFilterView.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

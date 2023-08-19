@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model shown in TextFilterWindow.
+/// View model shown in BoolFilterView.
 /// </summary>
 public class BoolFilterViewModel : ColumnFilterViewModel
 {
@@ -9,7 +9,7 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public BoolFilterViewModel(PropertyInfo[] propChain, string propName): base(propChain, propName)
+  public BoolFilterViewModel(PropertyInfo[] propPath, string propName): base(propPath, propName)
     { }
 
   /// <summary>

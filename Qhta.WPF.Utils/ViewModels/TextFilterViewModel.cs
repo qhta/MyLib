@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model shown in TextFilterWindow.
+/// View model shown in TextFilterView.
 /// </summary>
 public class TextFilterViewModel : ColumnFilterViewModel
 {

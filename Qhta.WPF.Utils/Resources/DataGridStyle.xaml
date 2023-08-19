@@ -447,7 +447,7 @@
                                    Handler="FilterButton_Click" />
                     </Style>
                   </Button.Style>
-                  <Image >
+                  <Image>
                     <Image.Style>
                       <Style TargetType="{x:Type Image}">
                         <Style.Triggers>
@@ -463,7 +463,14 @@
                             }"
                                        Value="Filled">
                             <Setter Property="Source"
-                                    Value="pack://application:,,,/Qhta.WPF.Utils;component/Resources/Filter.png"/>
+                                    Value="pack://application:,,,/Qhta.WPF.Utils;component/Resources/Filter.png" />
+                          </DataTrigger>
+                          <DataTrigger Binding="{Binding Path=Column.(utl:CollectionViewBehavior.FilterButtonShape),
+                              RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader}
+                            }"
+                                       Value="{x:Null}">
+                            <Setter Property="Source"
+                                    Value="pack://application:,,,/Qhta.WPF.Utils;component/Resources/EmptyFilter.png" />
                           </DataTrigger>
                         </Style.Triggers>
                       </Style>
