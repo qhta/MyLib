@@ -1,6 +1,6 @@
 ﻿namespace Qhta.WPF.Utils.Views;
 /// <summary>
-/// Interaction logic for BoolFilterView.xaml
+/// View control for edit BoolFilterViewModel properties.
 /// </summary>
 public partial class BoolFilterView : UserControl
 {
@@ -9,5 +9,4 @@ public partial class BoolFilterView : UserControl
   {
     InitializeComponent();
   }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

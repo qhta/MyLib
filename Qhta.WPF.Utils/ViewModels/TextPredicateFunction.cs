@@ -6,42 +6,42 @@
   public enum TextPredicateFunction
   {
     /// <summary>
-    /// Is text equal to specific string.
+    /// Is text equal to specific string?
     /// </summary>
     IsEqual,
 
     /// <summary>
-    /// Text is not equal to specific string.
+    /// Is text not equal to specific string?
     /// </summary>
     NotEqual,
 
     /// <summary>
-    /// Text is null or empty.
+    /// Is text null or empty?
     /// </summary>
     IsEmpty,
 
     /// <summary>
-    /// Text is not null and is not empty.
+    /// Is text not null and is not empty?
     /// </summary>
     NotEmpty,
 
     /// <summary>
-    /// Text starts with specific string.
+    /// Does text start with specific string?
     /// </summary>
     StartsWith,
 
     /// <summary>
-    /// Text ends with specific string.
+    /// Does text end with specific string?
     /// </summary>
     EndsWith,
 
     /// <summary>
-    /// Text contains specific string.
+    /// Does text contain specific string?
     /// </summary>
     Contains,
 
     /// <summary>
-    /// Regular expression is found in text.
+    /// Is regular expression found in text?
     /// </summary>
     RegExpr,
   }

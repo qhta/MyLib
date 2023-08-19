@@ -10,6 +10,9 @@
     <Compile Update="Views\ColumnFilterDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\NumFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\TextFilterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,6 +25,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ColumnFilterDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NumFilterView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\TextFilterView.xaml">

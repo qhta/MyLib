@@ -51,3 +51,5 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\ColumnFilterD
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\ColumnFilterDialog.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\BoolFilterView.g.cs
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\BoolFilterView.baml
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\NumFilterView.g.cs
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\NumFilterView.baml

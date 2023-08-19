@@ -79,6 +79,33 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This collection cannot be filtered..
+        /// </summary>
+        public static string CantFilterThisCollection {
+            get {
+                return ResourceManager.GetString("CantFilterThisCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This collection cannot be filtered by this field..
+        /// </summary>
+        public static string CantFilterThisCollectionByThisField {
+            get {
+                return ResourceManager.GetString("CantFilterThisCollectionByThisField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t convert text to value of {0} type..
+        /// </summary>
+        public static string CantParseCompareValue_0 {
+            get {
+                return ResourceManager.GetString("CantParseCompareValue_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace filter.
         /// </summary>
         public static string ChangeFilter {
@@ -178,6 +205,24 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is greater.
+        /// </summary>
+        public static string IsGreater {
+            get {
+                return ResourceManager.GetString("IsGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is less.
+        /// </summary>
+        public static string IsLess {
+            get {
+                return ResourceManager.GetString("IsLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not empty.
         /// </summary>
         public static string NotEmpty {
@@ -192,6 +237,33 @@ namespace Qhta.WPF.Utils {
         public static string NotEqual {
             get {
                 return ResourceManager.GetString("NotEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not greater.
+        /// </summary>
+        public static string NotGreater {
+            get {
+                return ResourceManager.GetString("NotGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not less.
+        /// </summary>
+        public static string NotLess {
+            get {
+                return ResourceManager.GetString("NotLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t get numeric value from supplied text..
+        /// </summary>
+        public static string NumFilter_parse_error {
+            get {
+                return ResourceManager.GetString("NumFilter_parse_error", resourceCulture);
             }
         }
         
@@ -228,6 +300,15 @@ namespace Qhta.WPF.Utils {
         public static string True {
             get {
                 return ResourceManager.GetString("True", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value to compare is not declared..
+        /// </summary>
+        public static string UndeclaredCompareValue {
+            get {
+                return ResourceManager.GetString("UndeclaredCompareValue", resourceCulture);
             }
         }
     }

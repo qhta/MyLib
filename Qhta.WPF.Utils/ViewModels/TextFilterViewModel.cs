@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Qhta.WPF.Utils.ViewModels;
+﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
 /// View model shown in TextFilterWindow.
@@ -11,7 +9,7 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(PropertyInfo propInfo, string propName): base(propInfo, propName)
+  public TextFilterViewModel(PropertyInfo[] propPath, string propName): base(propPath, propName)
     { }
 
   /// <summary>
@@ -155,43 +153,38 @@ public class TextFilterViewModel : ColumnFilterViewModel
   {
     if (String.IsNullOrEmpty(FilterText) && !IsEmpty && !NotEmpty)
       return null;
-    var dataGridColumnFilter = new ColumnFilter(PropInfo);
+    Func<object?, object?, bool> compareFunction; 
     switch (Function)
     {
       case TextPredicateFunction.IsEmpty:
-        dataGridColumnFilter.CompareFunction = IsEmptyFunction;
+        compareFunction = IsEmptyFunction;
         break;
       case TextPredicateFunction.NotEmpty:
-        dataGridColumnFilter.CompareFunction = NotEmptyFunction;
+        compareFunction = NotEmptyFunction;
         break;
       case TextPredicateFunction.IsEqual:
-        dataGridColumnFilter.CompareFunction = (IgnoreCase) ? IsEqualIgnoreCaseFunction : IsEqualFunction;
+        compareFunction = (IgnoreCase) ? IsEqualIgnoreCaseFunction : IsEqualFunction;
         break;
       case TextPredicateFunction.NotEqual:
-        dataGridColumnFilter.CompareFunction = (IgnoreCase) ? NotEqualIgnoreCaseFunction : NotEqualFunction;
+        compareFunction = (IgnoreCase) ? NotEqualIgnoreCaseFunction : NotEqualFunction;
         break;
       case TextPredicateFunction.Contains:
-        dataGridColumnFilter.CompareFunction = (IgnoreCase) ? ContainsIgnoreCaseFunction : ContainsFunction;
+        compareFunction = (IgnoreCase) ? ContainsIgnoreCaseFunction : ContainsFunction;
         break;
       case TextPredicateFunction.StartsWith:
-        dataGridColumnFilter.CompareFunction = (IgnoreCase) ? StartsWithIgnoreCaseFunction : StartsWithFunction;
+        compareFunction = (IgnoreCase) ? StartsWithIgnoreCaseFunction : StartsWithFunction;
         break;
       case TextPredicateFunction.EndsWith:
-        dataGridColumnFilter.CompareFunction = (IgnoreCase) ? EndsWithIgnoreCaseFunction : EndsWithFunction;
+        compareFunction = (IgnoreCase) ? EndsWithIgnoreCaseFunction : EndsWithFunction;
         break;
       case TextPredicateFunction.RegExpr:
-        dataGridColumnFilter.CompareFunction = (IgnoreCase) ? RegExprIgnoreCaseFunction : RegExprFunction;
+        compareFunction = (IgnoreCase) ? RegExprIgnoreCaseFunction : RegExprFunction;
         break;
       default:
         return null;
     }
+    var dataGridColumnFilter = new ColumnFilter(PropPath, compareFunction);
     dataGridColumnFilter.OtherValue = FilterText;
-    dataGridColumnFilter.Predicate =
-      new Predicate<object>(obj =>
-      {
-        var value = dataGridColumnFilter.PropertyInfo.GetValue(obj, null);
-        return dataGridColumnFilter.CompareFunction(value, dataGridColumnFilter.OtherValue);
-      });
     return dataGridColumnFilter;
   }
 

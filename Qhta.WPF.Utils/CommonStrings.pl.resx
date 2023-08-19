@@ -163,7 +163,7 @@
     <value>Jest puste</value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
-    <value>Nie puste</value>
+    <value>Nie jest puste</value>
   </data>
   <data name="EditFilter" xml:space="preserve">
     <value>Edytuj filtr</value>
@@ -173,5 +173,32 @@
   </data>
   <data name="False" xml:space="preserve">
     <value>Fałsz</value>
+  </data>
+  <data name="IsGreater" xml:space="preserve">
+    <value>Jest większe</value>
+  </data>
+  <data name="NotGreater" xml:space="preserve">
+    <value>Nie jest większe</value>
+  </data>
+  <data name="IsLess" xml:space="preserve">
+    <value>Jest mniejsze</value>
+  </data>
+  <data name="NotLess" xml:space="preserve">
+    <value>Nie jest mniejsze</value>
+  </data>
+  <data name="NumFilter_parse_error" xml:space="preserve">
+    <value>Nie można uzyskać liczby z podanego tekstu.</value>
+  </data>
+  <data name="CantFilterThisCollectionByThisField" xml:space="preserve">
+    <value>Nie można filtrować tej kolekcji po tym polu.</value>
+  </data>
+  <data name="CantFilterThisCollection" xml:space="preserve">
+    <value>Nie można filtrować tej kolekcji.</value>
+  </data>
+  <data name="UndeclaredCompareValue" xml:space="preserve">
+    <value>Wartość do porównania jest niezadeklarowana.</value>
+  </data>
+  <data name="CantParseCompareValue_0" xml:space="preserve">
+    <value>Nie można przetworzyć tekstu na wartość typu {0}.</value>
   </data>
 </root>

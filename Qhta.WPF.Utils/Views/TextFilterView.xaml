@@ -35,11 +35,11 @@
                      IsChecked="{Binding Path=NotEqual}"
                      Content="{x:Static local:CommonStrings.NotEqual}" />
         <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=RegExpr}"
-                     Content="{x:Static local:CommonStrings.RegularExpression}" />
-        <RadioButton GroupName="SelectFunction"
                      IsChecked="{Binding Path=IsEmpty}"
                      Content="{x:Static local:CommonStrings.IsEmpty}" />
+        <RadioButton GroupName="SelectFunction"
+                     IsChecked="{Binding Path=NotEmpty}"
+                     Content="{x:Static local:CommonStrings.NotEmpty}" />
       </StackPanel>
       <StackPanel Grid.Column="1">
         <RadioButton GroupName="SelectFunction"
@@ -52,8 +52,8 @@
                      IsChecked="{Binding Path=Contains}"
                      Content="{x:Static local:CommonStrings.Contains}" />
         <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=NotEmpty}"
-                     Content="{x:Static local:CommonStrings.NotEmpty}" />
+                     IsChecked="{Binding Path=RegExpr}"
+                     Content="{x:Static local:CommonStrings.RegularExpression}" />
       </StackPanel>
       <CheckBox Grid.Row="1"
                 Grid.ColumnSpan="2"

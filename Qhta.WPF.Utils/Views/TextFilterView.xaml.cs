@@ -1,6 +1,6 @@
 ﻿namespace Qhta.WPF.Utils.Views;
 /// <summary>
-/// Interaction logic for TextFilterView.xaml
+/// View control for edit TextFilterViewModel properties.
 /// </summary>
 public partial class TextFilterView : UserControl
 {
@@ -9,5 +9,4 @@ public partial class TextFilterView : UserControl
   {
     InitializeComponent();
   }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

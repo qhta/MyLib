@@ -593,15 +593,16 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Reflection.PropertyInfo,System.Windows.Point)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Reflection.PropertyInfo[],System.Windows.Point,System.Windows.Window)">
             <summary>
-            Displays a filter dialog for a column bound to the specific property.
+            Displays a filter dialog for a column bound to the specific property info path.
             Dialog is displayed in specific screen position.
             View model is stored in column's attached ColumnFilter property.
             </summary>
             <param name="column"></param>
-            <param name="propInfo"></param>
+            <param name="propPath"></param>
             <param name="position"></param>
+            <param name="ownerWindow"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterButtonShape(System.Windows.Controls.DataGridColumn)">
             <summary>
@@ -891,15 +892,19 @@
             Prepared filter for a column. Holds property info, other value to compare, compare function and predicate function.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ColumnFilter.#ctor(System.Reflection.PropertyInfo)">
+        <member name="M:Qhta.WPF.Utils.ColumnFilter.#ctor(System.Reflection.PropertyInfo[],System.Func{System.Object,System.Object,System.Boolean})">
             <summary>
             Initializing constructor.
             </summary>
-            <param name="propertyInfo"></param>
+            <param name="propertyPath"></param>
+            <param name="compareFunction"></param>
         </member>
-        <member name="P:Qhta.WPF.Utils.ColumnFilter.PropertyInfo">
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.PropertyPath">
             <summary>
-            Storage for property info.
+            Stored info on column binding properties.
+            Predicate function gets values sequentially.
+            First value is got from the object argument,
+            next from the previous value.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColumnFilter.OtherValue">
@@ -1196,6 +1201,21 @@
               Looks up a localized string similar to Cancel.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.CantFilterThisCollection">
+            <summary>
+              Looks up a localized string similar to This collection cannot be filtered..
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.CantFilterThisCollectionByThisField">
+            <summary>
+              Looks up a localized string similar to This collection cannot be filtered by this field..
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.CantParseCompareValue_0">
+            <summary>
+              Looks up a localized string similar to Can&apos;t convert text to value of {0} type..
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.ChangeFilter">
             <summary>
               Looks up a localized string similar to Replace filter.
@@ -1251,6 +1271,16 @@
               Looks up a localized string similar to Is equal.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.IsGreater">
+            <summary>
+              Looks up a localized string similar to Is greater.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.IsLess">
+            <summary>
+              Looks up a localized string similar to Is less.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotEmpty">
             <summary>
               Looks up a localized string similar to Not empty.
@@ -1259,6 +1289,21 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotEqual">
             <summary>
               Looks up a localized string similar to Not equal.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NotGreater">
+            <summary>
+              Looks up a localized string similar to Not greater.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NotLess">
+            <summary>
+              Looks up a localized string similar to Not less.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NumFilter_parse_error">
+            <summary>
+              Looks up a localized string similar to Can&apos;t get numeric value from supplied text..
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.OK">
@@ -1279,6 +1324,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.True">
             <summary>
               Looks up a localized string similar to True.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.UndeclaredCompareValue">
+            <summary>
+              Looks up a localized string similar to Value to compare is not declared..
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridColumnCreator">
@@ -3545,7 +3595,7 @@
             View model shown in TextFilterWindow.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(System.Reflection.PropertyInfo,System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -3606,22 +3656,22 @@
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.IsTrue">
             <summary>
-            Is boolean a true value.
+            Is boolean a true value?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.IsFalse">
             <summary>
-            Is boolean a false value.
+            Is boolean a false value?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.IsEmpty">
             <summary>
-            Boolean is undefined (is null).
+            Is boolean undefined (is null)?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction.NotEmpty">
             <summary>
-            Boolean is defined (is not null).
+            Is boolean defined (is not null)?
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation">
@@ -3679,9 +3729,10 @@
              Specifies whether Operation is Clear.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropInfo">
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropPath">
             <summary>
-            Stored info on column binding property.
+            Stored info on column binding properties.
+            As binding path may complex, it is an array.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropName">
@@ -3689,7 +3740,7 @@
             Displayed name of column binding property.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(System.Reflection.PropertyInfo,System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -3718,12 +3769,157 @@
             Clear filter properties.
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel">
+            <summary>
+            View model shown in NumFilterWindow.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.NumFilterViewModel)">
+            <summary>
+            Copying constructor (empty, just for pass specific class constructor).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1">
+            <summary>
+            Generic view model for numeric values filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(System.Reflection.PropertyInfo[],System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(Qhta.WPF.Utils.ViewModels.NumFilterViewModel{`0})">
+            <summary>
+            Copying constructor.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CreateCopy">
+            <summary>
+            Creates a copy of this instance;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.ClearFilter">
+            <summary>
+            Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.FilterText"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.Function"/> property.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.FilterText">
+            <summary>
+            Simple filter text.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.Function">
+            <summary>
+            Selected predicate function.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsEqual">
+            <summary>
+            Specifies whether predicate function is IsEqual.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotEqual">
+            <summary>
+            Specifies whether predicate function is NotEqual.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsEmpty">
+            <summary>
+            Specifies whether predicate function is IsEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotEmpty">
+            <summary>
+            Specifies whether predicate function is NotEmpty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsGreater">
+            <summary>
+            Specifies whether predicate function is IsGreater.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotGreater">
+            <summary>
+            Specifies whether predicate function is NotGreater.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsLess">
+            <summary>
+            Specifies whether predicate function is IsLess.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotLess">
+            <summary>
+            Specifies whether predicate function is NotLess.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CreateFilter">
+            <summary>
+            Creates DataGridColumnFilter basing on current properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.NumPredicateFunction">
+            <summary>
+            Enumeration of functions used to define number value predicate.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.IsEqual">
+            <summary>
+            Is number equal to specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.NotEqual">
+            <summary>
+            Is number not equal to specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.IsEmpty">
+            <summary>
+            Is number undefined (is null)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.NotEmpty">
+            <summary>
+            Is number defined (is not null)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.IsGreater">
+            <summary>
+            Is number greater than specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.NotGreater">
+            <summary>
+            Is number not greater than specific value (is less or equal)?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.IsLess">
+            <summary>
+            Is number less than specific value?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.NotLess">
+            <summary>
+            Is number not less than specific value (is greater or equal)?
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextFilterViewModel">
             <summary>
             View model shown in TextFilterWindow.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(System.Reflection.PropertyInfo,System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -3814,47 +4010,47 @@
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.IsEqual">
             <summary>
-            Is text equal to specific string.
+            Is text equal to specific string?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotEqual">
             <summary>
-            Text is not equal to specific string.
+            Is text not equal to specific string?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.IsEmpty">
             <summary>
-            Text is null or empty.
+            Is text null or empty?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotEmpty">
             <summary>
-            Text is not null and is not empty.
+            Is text not null and is not empty?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.StartsWith">
             <summary>
-            Text starts with specific string.
+            Does text start with specific string?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.EndsWith">
             <summary>
-            Text ends with specific string.
+            Does text end with specific string?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.Contains">
             <summary>
-            Text contains specific string.
+            Does text contain specific string?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.RegExpr">
             <summary>
-            Regular expression is found in text.
+            Is regular expression found in text?
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.Views.BoolFilterView">
             <summary>
-            Interaction logic for BoolFilterView.xaml
+            View control for edit BoolFilterViewModel properties.
             </summary>
             <summary>
             BoolFilterView
@@ -3878,9 +4074,22 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.Views.NumFilterView">
+            <summary>
+            View control for edit NumFilterViewModel properties.
+            </summary>
+            <summary>
+            NumFilterView
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Views.NumFilterView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.Views.TextFilterView">
             <summary>
-            Interaction logic for TextFilterView.xaml
+            View control for edit TextFilterViewModel properties.
             </summary>
             <summary>
             TextFilterView
@@ -4088,6 +4297,36 @@
             </summary>
             <param name="obj"></param>
             <returns></returns>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
         </member>
     </members>
 </doc>

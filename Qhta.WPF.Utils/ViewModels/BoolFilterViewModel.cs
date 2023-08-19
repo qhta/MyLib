@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Qhta.WPF.Utils.ViewModels;
+﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
 /// View model shown in TextFilterWindow.
@@ -11,7 +9,7 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public BoolFilterViewModel(PropertyInfo propInfo, string propName): base(propInfo, propName)
+  public BoolFilterViewModel(PropertyInfo[] propChain, string propName): base(propChain, propName)
     { }
 
   /// <summary>
@@ -98,30 +96,25 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   {
     if (Function == null)
       return null;
-    var dataGridColumnFilter = new ColumnFilter(PropInfo);
+    Func<object?, object?, bool> compareFunction; 
     switch (Function)
     {
       case BoolPredicateFunction.IsEmpty:
-        dataGridColumnFilter.CompareFunction = IsEmptyFunction;
+        compareFunction = IsEmptyFunction;
         break;
       case BoolPredicateFunction.NotEmpty:
-        dataGridColumnFilter.CompareFunction = NotEmptyFunction;
+        compareFunction = NotEmptyFunction;
         break;
       case BoolPredicateFunction.IsTrue:
-        dataGridColumnFilter.CompareFunction = IsTrueFunction;
+        compareFunction = IsTrueFunction;
         break;
       case BoolPredicateFunction.IsFalse:
-        dataGridColumnFilter.CompareFunction = IsFalseFunction;
+        compareFunction = IsFalseFunction;
         break;
       default:
         return null;
     }
-    dataGridColumnFilter.Predicate =
-      new Predicate<object>(obj =>
-      {
-        var value = dataGridColumnFilter.PropertyInfo.GetValue(obj, null);
-        return dataGridColumnFilter.CompareFunction(value, dataGridColumnFilter.OtherValue);
-      });
+    var dataGridColumnFilter = new ColumnFilter(PropPath, compareFunction);
     return dataGridColumnFilter;
   }
 

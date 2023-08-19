@@ -86,21 +86,22 @@ public abstract class ColumnFilterViewModel : ViewModel
 
 
   /// <summary>
-  /// Stored info on column binding property.
+  /// Stored info on column binding properties.
+  /// As binding path may complex, it is an array.
   /// </summary>
-  public PropertyInfo PropInfo
+  public PropertyInfo[] PropPath
   {
-    get { return _PropInfo; }
+    get { return _PropPath; }
     set
     {
-      if (_PropInfo != value)
+      if (_PropPath != value)
       {
-        _PropInfo = value;
-        NotifyPropertyChanged(nameof(PropInfo));
+        _PropPath = value;
+        NotifyPropertyChanged(nameof(PropPath));
       }
     }
   }
-  private PropertyInfo _PropInfo;
+  private PropertyInfo[] _PropPath;
 
   /// <summary>
   /// Displayed name of column binding property.
@@ -122,9 +123,9 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public ColumnFilterViewModel(PropertyInfo propInfo, string propName)
+  public ColumnFilterViewModel(PropertyInfo[] propPath, string propName)
   {
-    _PropInfo = propInfo;
+    _PropPath = propPath;
     _PropName = propName;
   }
 
@@ -135,7 +136,7 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// </summary>
   public ColumnFilterViewModel(ColumnFilterViewModel other)
   {
-    _PropInfo = other.PropInfo;
+    _PropPath = other.PropPath;
     _PropName = other.PropName;
     EditOpEnabled = true;
     DefaultOp = true;

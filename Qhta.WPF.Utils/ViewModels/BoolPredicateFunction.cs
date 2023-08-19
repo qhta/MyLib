@@ -6,22 +6,22 @@
   public enum BoolPredicateFunction
   {
     /// <summary>
-    /// Is boolean a true value.
+    /// Is boolean a true value?
     /// </summary>
     IsTrue,
 
     /// <summary>
-    /// Is boolean a false value.
+    /// Is boolean a false value?
     /// </summary>
     IsFalse,
 
     /// <summary>
-    /// Boolean is undefined (is null).
+    /// Is boolean undefined (is null)?
     /// </summary>
     IsEmpty,
 
     /// <summary>
-    /// Boolean is defined (is not null).
+    /// Is boolean defined (is not null)?
     /// </summary>
     NotEmpty,
 

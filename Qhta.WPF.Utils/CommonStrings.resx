@@ -174,4 +174,31 @@
   <data name="False" xml:space="preserve">
     <value>False</value>
   </data>
+  <data name="IsGreater" xml:space="preserve">
+    <value>Is greater</value>
+  </data>
+  <data name="NotGreater" xml:space="preserve">
+    <value>Not greater</value>
+  </data>
+  <data name="IsLess" xml:space="preserve">
+    <value>Is less</value>
+  </data>
+  <data name="NotLess" xml:space="preserve">
+    <value>Not less</value>
+  </data>
+  <data name="NumFilter_parse_error" xml:space="preserve">
+    <value>Can't get numeric value from supplied text.</value>
+  </data>
+  <data name="CantFilterThisCollectionByThisField" xml:space="preserve">
+    <value>This collection cannot be filtered by this field.</value>
+  </data>
+  <data name="CantFilterThisCollection" xml:space="preserve">
+    <value>This collection cannot be filtered.</value>
+  </data>
+  <data name="UndeclaredCompareValue" xml:space="preserve">
+    <value>Value to compare is not declared.</value>
+  </data>
+  <data name="CantParseCompareValue_0" xml:space="preserve">
+    <value>Can't convert text to value of {0} type.</value>
+  </data>
 </root>

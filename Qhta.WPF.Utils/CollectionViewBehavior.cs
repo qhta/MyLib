@@ -150,7 +150,8 @@ public partial class CollectionViewBehavior
   {
     if (target is DataGridColumnHeader header)
       return (bool)header.GetValue(ShowFilterButtonProperty);
-    return (bool)target.GetValue(ShowFilterButtonProperty);
+    var result = target.GetValue(ShowFilterButtonProperty);
+    return (bool?)result;
   }
 
   /// <summary>
@@ -167,9 +168,9 @@ public partial class CollectionViewBehavior
   /// </summary>
   public static readonly DependencyProperty ShowFilterButtonProperty = DependencyProperty.RegisterAttached(
       "ShowFilterButton",
-      typeof(bool),
+      typeof(bool?),
       typeof(CollectionViewBehavior),
-      new PropertyMetadata(false));
+      new PropertyMetadata(null));
   #endregion
 
   #region FilterButtonClick event
@@ -239,8 +240,18 @@ public partial class CollectionViewBehavior
       {
         var itemsSource = itemsControl.ItemsSource;
         var sourceCollectionView = itemsSource as CollectionView;
+        var filteredCollection = itemsSource as IFiltered;
         while (itemsSource is CollectionView collectionView)
           itemsSource = collectionView.SourceCollection;
+        if (sourceCollectionView == null && filteredCollection == null)
+        {
+          sourceCollectionView = itemsControl.Items as CollectionView;
+          if (sourceCollectionView == null)
+          {
+            MessageBox.Show(CommonStrings.CantFilterThisCollection);
+            return;
+          }
+        }
         if (itemsSource != null)
         {
           var itemsSourceType = itemsSource.GetType();
@@ -255,21 +266,43 @@ public partial class CollectionViewBehavior
                 if (binding != null)
                 {
                   PropertyInfo? propertyInfo = null;
-                  var path = binding.Path;
+                  List<PropertyInfo> propPath = new List<PropertyInfo>();
+                  var path = binding.Path.Path;
                   var valueType = itemType;
                   if (itemType != null && path != null)
                   {
-                    var pathStrs = path.Path.Split('.');
+                    var pathStrs = path.Split('.');
                     foreach (var pathStr in pathStrs)
                     {
                       propertyInfo = valueType.GetProperty(pathStr);
                       if (propertyInfo != null)
+                      {
+                        propPath.Add(propertyInfo);
                         valueType = propertyInfo.PropertyType;
+                      }
                     }
                   }
+
+                  if (valueType.IsClass && valueType != typeof(string) && column.SortMemberPath != null && itemType != null)
+                  {
+                    valueType = itemType;
+                    path = column.SortMemberPath;
+                    var pathStrs = path.Split('.');
+                    propPath.Clear();
+                    foreach (var pathStr in pathStrs)
+                    {
+                      propertyInfo = valueType.GetProperty(pathStr);
+                      if (propertyInfo != null)
+                      {
+                        propPath.Add(propertyInfo);
+                        valueType = propertyInfo.PropertyType;
+                      }
+                    }
+                  }
+
                   if (valueType != null && propertyInfo != null)
                   {
-                    var ok = DisplayFilterDialog(column, propertyInfo, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)));
+                    var ok = DisplayFilterDialog(column, propPath.ToArray(), button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),VisualTreeHelperExt.FindAncestor<Window>(button));
                     if (ok)
                     {
                       var viewModel = CollectionViewBehavior.GetColumnFilter(column) as ColumnFilterViewModel;
@@ -285,8 +318,8 @@ public partial class CollectionViewBehavior
                         }
                         if (sourceCollectionView != null)
                           sourceCollectionView.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
-                        else 
-                        if (itemsSource is IFiltered filteredCollection)
+                        else
+                        if (filteredCollection != null)
                           filteredCollection.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
                       }
                       args.Handled = true;
@@ -302,15 +335,17 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Displays a filter dialog for a column bound to the specific property.
+  /// Displays a filter dialog for a column bound to the specific property info path.
   /// Dialog is displayed in specific screen position.
   /// View model is stored in column's attached ColumnFilter property.
   /// </summary>
   /// <param name="column"></param>
-  /// <param name="propInfo"></param>
+  /// <param name="propPath"></param>
   /// <param name="position"></param>
-  protected virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo propInfo, Point position)
+  /// <param name="ownerWindow"></param>
+  protected virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo[] propPath, Point position, Window ownerWindow)
   {
+    var propInfo = propPath.Last();
     var propName = column.GetHeaderText() ?? propInfo.Name;
     var dialog = new ColumnFilterDialog();
     var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();
@@ -319,14 +354,49 @@ public partial class CollectionViewBehavior
       if (!propInfo.PropertyType.IsNullable(out var propType))
         propType = propInfo.PropertyType;
       if (propType == typeof(string))
-        viewModel = new TextFilterViewModel(propInfo, propName);
+        viewModel = new TextFilterViewModel(propPath, propName);
       else
       if (propType == typeof(bool))
-        viewModel = new BoolFilterViewModel(propInfo, propName);
+        viewModel = new BoolFilterViewModel(propPath, propName);
+      else
+      if (propType == typeof(int))
+        viewModel = new NumFilterViewModel<int>(propPath, propName);
+      else
+      if (propType == typeof(uint))
+        viewModel = new NumFilterViewModel<uint>(propPath, propName);
+      else
+      if (propType == typeof(byte))
+        viewModel = new NumFilterViewModel<byte>(propPath, propName);
+      else
+      if (propType == typeof(sbyte))
+        viewModel = new NumFilterViewModel<sbyte>(propPath, propName);
+      else
+      if (propType == typeof(Int16))
+        viewModel = new NumFilterViewModel<Int16>(propPath, propName);
+      else
+      if (propType == typeof(UInt16))
+        viewModel = new NumFilterViewModel<UInt16>(propPath, propName);
+      else
+      if (propType == typeof(Int64))
+        viewModel = new NumFilterViewModel<Int64>(propPath, propName);
+      else
+      if (propType == typeof(UInt64))
+        viewModel = new NumFilterViewModel<UInt64>(propPath, propName);
+      else
+      if (propType == typeof(Single))
+        viewModel = new NumFilterViewModel<Single>(propPath, propName);
+      else
+      if (propType == typeof(Double))
+        viewModel = new NumFilterViewModel<Double>(propPath, propName);
+      else
+      if (propType == typeof(Decimal))
+        viewModel = new NumFilterViewModel<Decimal>(propPath, propName);
+
     }
     dialog.DataContext = viewModel;
     dialog.Left = position.X;
     dialog.Top = position.Y;
+    dialog.Owner = ownerWindow;
     if (dialog.ShowDialog() == true)
     {
       SetColumnFilter(column, viewModel);
