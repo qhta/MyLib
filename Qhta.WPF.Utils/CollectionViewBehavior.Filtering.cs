@@ -126,71 +126,68 @@ public partial class CollectionViewBehavior
             var column = args.Source as DataGridColumn;
             if (column != null)
             {
-              if (column is DataGridBoundColumn boundColumn)
+              var binding = column.GetBinding() as Binding;
+              if (binding != null)
               {
-                var binding = boundColumn.Binding as Binding;
-                if (binding != null)
+                PropertyInfo? propertyInfo = null;
+                List<PropertyInfo> propPath = new List<PropertyInfo>();
+                var path = binding.Path.Path;
+                var valueType = itemType;
+                if (itemType != null && path != null)
                 {
-                  PropertyInfo? propertyInfo = null;
-                  List<PropertyInfo> propPath = new List<PropertyInfo>();
-                  var path = binding.Path.Path;
-                  var valueType = itemType;
-                  if (itemType != null && path != null)
+                  var pathStrs = path.Split('.');
+                  foreach (var pathStr in pathStrs)
                   {
-                    var pathStrs = path.Split('.');
-                    foreach (var pathStr in pathStrs)
+                    propertyInfo = valueType.GetProperty(pathStr);
+                    if (propertyInfo != null)
                     {
-                      propertyInfo = valueType.GetProperty(pathStr);
-                      if (propertyInfo != null)
-                      {
-                        propPath.Add(propertyInfo);
-                        valueType = propertyInfo.PropertyType;
-                      }
+                      propPath.Add(propertyInfo);
+                      valueType = propertyInfo.PropertyType;
                     }
                   }
+                }
 
-                  if (valueType.IsClass && valueType != typeof(string) && column.SortMemberPath != null && itemType != null)
+                if (valueType.IsClass && valueType != typeof(string) && column.SortMemberPath != null && itemType != null)
+                {
+                  valueType = itemType;
+                  path = column.SortMemberPath;
+                  var pathStrs = path.Split('.');
+                  propPath.Clear();
+                  foreach (var pathStr in pathStrs)
                   {
-                    valueType = itemType;
-                    path = column.SortMemberPath;
-                    var pathStrs = path.Split('.');
-                    propPath.Clear();
-                    foreach (var pathStr in pathStrs)
+                    propertyInfo = valueType.GetProperty(pathStr);
+                    if (propertyInfo != null)
                     {
-                      propertyInfo = valueType.GetProperty(pathStr);
-                      if (propertyInfo != null)
-                      {
-                        propPath.Add(propertyInfo);
-                        valueType = propertyInfo.PropertyType;
-                      }
+                      propPath.Add(propertyInfo);
+                      valueType = propertyInfo.PropertyType;
                     }
                   }
+                }
 
-                  if (valueType != null && propertyInfo != null)
+                if (valueType != null && propertyInfo != null)
+                {
+                  var ok = DisplayFilterDialog(column, propPath.ToArray(), button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
+                    VisualTreeHelperExt.FindAncestor<Window>(button));
+                  if (ok)
                   {
-                    var ok = DisplayFilterDialog(column, propPath.ToArray(), button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
-                      VisualTreeHelperExt.FindAncestor<Window>(button));
-                    if (ok)
+                    var viewModel = CollectionViewBehavior.GetColumnFilter(column) as ColumnFilterViewModel;
+                    if (viewModel != null && propertyInfo != null)
                     {
-                      var viewModel = CollectionViewBehavior.GetColumnFilter(column) as ColumnFilterViewModel;
-                      if (viewModel != null && propertyInfo != null)
+                      var filter = viewModel.CreateFilter();
+                      SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
+                      var collectionViewFilter = GetCollectionFilter(itemsControl) as CollectionViewFilter;
+                      if (collectionViewFilter == null)
                       {
-                        var filter = viewModel.CreateFilter();
-                        SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
-                        var collectionViewFilter = GetCollectionFilter(itemsControl) as CollectionViewFilter;
-                        if (collectionViewFilter == null)
-                        {
-                          collectionViewFilter = new CollectionViewFilter();
-                          SetCollectionFilter(itemsControl, collectionViewFilter);
-                        }
-                        if (sourceCollectionView != null)
-                          sourceCollectionView.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
-                        else
-                        if (filteredCollection != null)
-                          filteredCollection.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
+                        collectionViewFilter = new CollectionViewFilter();
+                        SetCollectionFilter(itemsControl, collectionViewFilter);
                       }
-                      args.Handled = true;
+                      if (sourceCollectionView != null)
+                        sourceCollectionView.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
+                      else
+                      if (filteredCollection != null)
+                        filteredCollection.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
                     }
+                    args.Handled = true;
                   }
                 }
               }
@@ -214,11 +211,11 @@ public partial class CollectionViewBehavior
   {
     var propInfo = propPath.Last();
     var propName = column.GetHeaderText();
-    if (propName==null)
+    if (propName == null)
     {
-       propName = CollectionViewBehavior.GetHiddenHeader(column);
-       if (propName==null) 
-         propName = propInfo.Name;
+      propName = CollectionViewBehavior.GetHiddenHeader(column);
+      if (propName == null)
+        propName = propInfo.Name;
     }
     var dialog = new ColumnFilterDialog();
     var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();

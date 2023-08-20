@@ -1620,6 +1620,13 @@
             <param name="column"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnUtils.GetBinding(System.Windows.Controls.DataGridColumn)">
+            <summary>
+            Gets binding from DataGridBoundColumn and DataGridComboBoxColumn.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.WPF.Utils.DataGridContentBoundColumn">
             <summary>
             Specific implementation of DataGridBoundColumn with <see cref="P:Qhta.WPF.Utils.DataGridContentBoundColumn.ContentTemplate"/>

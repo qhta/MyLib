@@ -26,6 +26,7 @@ public class EnumFilterViewModel : ColumnFilterViewModel
     this.EnumType = other.EnumType;
     this.PropPath = other.PropPath;
     this.PropName = other.PropName;
+    this.FilterValue = other.FilterValue;
     this.Function = other.Function;
   }
 

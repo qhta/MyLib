@@ -36,4 +36,20 @@ public static class DataGridColumnUtils
     }
     return null;
   }
+
+  /// <summary>
+  /// Gets binding from DataGridBoundColumn and DataGridComboBoxColumn.
+  /// </summary>
+  /// <param name="column"></param>
+  /// <returns></returns>
+  public static BindingBase? GetBinding(this DataGridColumn column)
+  {
+    if (column is DataGridBoundColumn boundColumn)
+      return boundColumn.Binding;
+    else
+    if (column is DataGridComboBoxColumn comboBoxColumn)
+      return comboBoxColumn.SelectedItemBinding ?? comboBoxColumn.SelectedValueBinding
+        ?? comboBoxColumn.TextBinding ?? comboBoxColumn.ClipboardContentBinding;
+    return null;
+  }
 }
