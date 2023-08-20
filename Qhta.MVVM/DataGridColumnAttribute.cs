@@ -116,19 +116,16 @@ public class DataGridColumnAttribute : System.Attribute
 
   /// <summary>
   /// Gets or sets the column header text content.
-  /// Default is null.
   /// </summary>
-  public string? Header { get; set; }
+  public object? Header { get; set; }
 
   /// <summary>
   /// Gets or sets the format pattern to apply to the content of the column header.
-  /// Default is null.
   /// </summary>
   public string? HeaderStringFormat { get; set; }
 
   /// <summary>
   /// Gets or sets the column header tooltip.
-  /// Default is null.
   /// </summary>
   public string? HeaderTooltip { get; set; }
 
@@ -146,6 +143,16 @@ public class DataGridColumnAttribute : System.Attribute
   /// A key to Header tooltip resource that defines layout of content bound column.
   /// </summary>
   public string? HeaderTooltipResourceKey { get; set; }
+
+  /// <summary>
+  /// Gets or sets the column hidden header string.
+  /// </summary>
+  public string? HiddenHeader { get; set; }
+
+  /// <summary>
+  /// A key to hidden header content resource that defines layout of content bound column.
+  /// </summary>
+  public string? HiddenHeaderResourceKey { get; set; }
 
   /// <summary>
   /// Gets a value that indicates whether the column should be auto-generated.

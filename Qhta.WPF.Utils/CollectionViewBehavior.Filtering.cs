@@ -216,10 +216,9 @@ public partial class CollectionViewBehavior
     var propName = column.GetHeaderText();
     if (propName==null)
     {
-       propName = propInfo.Name;
-       var localizedPropName = CommonStrings.ResourceManager.GetString(propName, CultureInfo.CurrentUICulture);
-      if (localizedPropName != null)
-        propName = localizedPropName;
+       propName = CollectionViewBehavior.GetHiddenHeader(column);
+       if (propName==null) 
+         propName = propInfo.Name;
     }
     var dialog = new ColumnFilterDialog();
     var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();

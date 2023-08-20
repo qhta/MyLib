@@ -286,29 +286,11 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shortcut error.
-        /// </summary>
-        public static string ShortcutErrorMsg {
-            get {
-                return ResourceManager.GetString("ShortcutErrorMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Starts with.
         /// </summary>
         public static string StartsWith {
             get {
                 return ResourceManager.GetString("StartsWith", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Target shortcut error.
-        /// </summary>
-        public static string TargetShortcutErrorMsg {
-            get {
-                return ResourceManager.GetString("TargetShortcutErrorMsg", resourceCulture);
             }
         }
         

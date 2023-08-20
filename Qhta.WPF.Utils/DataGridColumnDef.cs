@@ -75,21 +75,23 @@ public class DataGridColumnDef
 
   /// <summary>
   /// Gets or sets the column header.
-  /// Default is null.
   /// </summary>
   public object? Header { get; set; }
 
   /// <summary>
   /// Gets or sets the format pattern to apply to the content of the column header.
-  /// Default is null.
   /// </summary>
   public string? HeaderStringFormat { get; set; }
 
   /// <summary>
   /// Gets or sets the header template to apply to the content of the column header.
-  /// Default is null.
   /// </summary>
   public DataTemplate? HeaderTemplate { get; set; }
+
+  /// <summary>
+  /// Gets or sets the column hidden header.
+  /// </summary>
+  public string? HiddenHeader { get; set; }
 
   /// <summary>
   /// Gets a value that indicates whether cells in the column can be edited.

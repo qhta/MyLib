@@ -185,190 +185,142 @@ public partial class CollectionViewBehavior
 
   #endregion SortingEventHandler
 
+  #region IsSelectable
 
-  //#region DisplayRowNumberOffset
+  /// <summary>
+  /// Specifies if a row can be selected.
+  /// </summary>
+  public static readonly DependencyProperty IsSelectableProperty = DependencyProperty.RegisterAttached(
+      "IsSelectable",
+      typeof(object),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(default(object), OnIsSelectableChanged));
 
-  ///// <summary>
-  ///// Sets the starting value of the row header if enabled
-  ///// </summary>
-  //public static DependencyProperty DisplayRowNumberOffsetProperty =
-  //    DependencyProperty.RegisterAttached("DisplayRowNumberOffset",
-  //                                        typeof(int),
-  //                                        typeof(CollectionViewBehavior),
-  //                                        new FrameworkPropertyMetadata(0, OnDisplayRowNumberOffsetChanged));
+  /// <summary>
+  /// Getter for IsSelectable property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static object GetIsSelectable(DependencyObject target)
+  {
+    return (object)target.GetValue(IsSelectableProperty);
+  }
 
-  //public static int GetDisplayRowNumberOffset(DependencyObject target)
-  //{
-  //  return (int)target.GetValue(DisplayRowNumberOffsetProperty);
-  //}
+  /// <summary>
+  /// Setter for IsSelectable property
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetIsSelectable(DependencyObject target, object value)
+  {
+    target.SetValue(IsSelectableProperty, value);
+  }
 
-  //public static void SetDisplayRowNumberOffset(DependencyObject target, int value)
-  //{
-  //  target.SetValue(DisplayRowNumberOffsetProperty, value);
-  //}
+  static void OnIsSelectableChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+  {
+    var dataGrid = sender as DataGrid;
+    if (dataGrid == null || e.NewValue == null)
+      return;
+    dataGrid.Dispatcher.Invoke((Action)(() =>
+    {
+      try
+      {
+        dataGrid.SelectedIndex=-1;
+      }
+      catch
+      {
+      }
+    }));
+  }
 
-  //private static void OnDisplayRowNumberOffsetChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
-  //{
-  //  DataGrid dataGrid = target as DataGrid;
-  //  int offset = (int)e.NewValue;
+  #endregion IsSelectable
 
-  //  if (GetDisplayRowNumber(target))
-  //  {
-  //    GetVisualChildCollection<DataGridRow>(dataGrid).
-  //            ForEach(d => d.Header = d.GetIndex() + offset);
-  //  }
-  //}
+  #region ScrollIntoView property
 
-  //#endregion
+  /// <summary>
+  /// Getter for ScrollIntoView property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static object GetScrollIntoView(DependencyObject target)
+  {
+    return (object)target.GetValue(ScrollIntoViewProperty);
+  }
 
-  //#region DisplayRowNumber
+  /// <summary>
+  /// Setter for ScrollIntoView property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetScrollIntoView(DependencyObject target, object value)
+  {
+    target.SetValue(ScrollIntoViewProperty, value);
+  }
 
-  ///// <summary>
-  ///// Enable display of row header automatically
-  ///// </summary>
-  ///// <remarks>
-  ///// Source: 
-  ///// </remarks>
-  //public static DependencyProperty DisplayRowNumberProperty =
-  //    DependencyProperty.RegisterAttached("DisplayRowNumber",
-  //                                        typeof(bool),
-  //                                        typeof(CollectionViewBehavior),
-  //                                        new FrameworkPropertyMetadata(false, OnDisplayRowNumberChanged));
+  /// <summary>
+  /// Helper property to store added row which is passed to DataGrid ScrollIntoView.
+  /// </summary>
+  public static readonly DependencyProperty ScrollIntoViewProperty = DependencyProperty.RegisterAttached(
+      "ScrollIntoView",
+      typeof(object),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(default(object), OnScrollIntoViewChanged));
 
-  //public static bool GetDisplayRowNumber(DependencyObject target)
-  //{
-  //  return (bool)target.GetValue(DisplayRowNumberProperty);
-  //}
+  /// <summary>
+  /// Handler for ScrollIntoView property changed event. Invoked DataGrid ScrollIntoView method.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  private static void OnScrollIntoViewChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+  {
+    var dataGrid = sender as DataGrid;
+    if (dataGrid == null || e.NewValue == null)
+      return;
+    dataGrid.Dispatcher.Invoke((Action)(() =>
+    {
+      try
+      {
+        dataGrid.UpdateLayout();
+        dataGrid.ScrollIntoView(e.NewValue, null);
+        dataGrid.UpdateLayout();
+      }
+      catch
+      {
+      }
+    }));
+  }
+  #endregion
 
-  //public static void SetDisplayRowNumber(DependencyObject target, bool value)
-  //{
-  //  target.SetValue(DisplayRowNumberProperty, value);
-  //}
+  #region IsSelectable
 
-  //private static void OnDisplayRowNumberChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
-  //{
-  //  DataGrid dataGrid = target as DataGrid;
-  //  if ((bool)e.NewValue == true)
-  //  {
-  //    int offset = GetDisplayRowNumberOffset(target);
+  /// <summary>
+  /// Specifies a hidden header string for a column. 
+  /// This header is not displayed, but may be used e.g. in filtering dialog.
+  /// </summary>
+  public static readonly DependencyProperty HiddenHeaderProperty = DependencyProperty.RegisterAttached(
+      "HiddenHeader",
+      typeof(string),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(null));
 
-  //    EventHandler<DataGridRowEventArgs> loadedRowHandler = null;
-  //    loadedRowHandler = (object sender, DataGridRowEventArgs ea) =>
-  //    {
-  //      if (GetDisplayRowNumber(dataGrid) == false)
-  //      {
-  //        dataGrid.LoadingRow -= loadedRowHandler;
-  //        return;
-  //      }
-  //      ea.Row.Header = ea.Row.GetIndex() + offset;
-  //    };
-  //    dataGrid.LoadingRow += loadedRowHandler;
+  /// <summary>
+  /// Getter for HiddenHeader property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static string GetHiddenHeader(DependencyObject target)
+  {
+    return (string)target.GetValue(HiddenHeaderProperty);
+  }
 
-  //    ItemsChangedEventHandler itemsChangedHandler = null;
-  //    itemsChangedHandler = (object sender, ItemsChangedEventArgs ea) =>
-  //    {
-  //      if (GetDisplayRowNumber(dataGrid) == false)
-  //      {
-  //        dataGrid.ItemContainerGenerator.ItemsChanged -= itemsChangedHandler;
-  //        return;
-  //      }
-  //      GetVisualChildCollection<DataGridRow>(dataGrid).
-  //          ForEach(d => d.Header = d.GetIndex() + offset);
-  //    };
-  //    dataGrid.ItemContainerGenerator.ItemsChanged += itemsChangedHandler;
-  //  }
-  //}
-  //#endregion // DisplayRowNumber
-
-  //#region IsSelectable
-  //public static readonly DependencyProperty IsSelectableProperty = DependencyProperty.RegisterAttached(
-  //    "IsSelectable",
-  //    typeof(object),
-  //    typeof(CollectionViewBehavior),
-  //    new PropertyMetadata(default(object), OnIsSelectableChanged));
-
-  //public static object GetIsSelectable(DependencyObject target)
-  //{
-  //  return (object)target.GetValue(IsSelectableProperty);
-  //}
-
-  //public static void SetIsSelectable(DependencyObject target, object value)
-  //{
-  //  target.SetValue(IsSelectableProperty, value);
-  //}
-
-  //static void OnIsSelectableChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-  //{
-  //  var dataGrid = sender as DataGrid;
-  //  if (dataGrid == null || e.NewValue == null)
-  //    return;
-  //  dataGrid.Dispatcher.Invoke((Action)(() =>
-  //  {
-  //    try
-  //    {
-  //      //dataGrid.SelectedIndex=-1;
-  //    }
-  //    catch
-  //    {
-  //    }
-  //  }));
-  //}
-
-  //#endregion IsSelectable
-
-  //#region ScrollIntoView property
-
-  ///// <summary>
-  ///// Getter for ScrollIntoView property.
-  ///// </summary>
-  ///// <param name="target"></param>
-  ///// <returns></returns>
-  //public static object GetScrollIntoView(DependencyObject target)
-  //{
-  //  return (object)target.GetValue(ScrollIntoViewProperty);
-  //}
-
-  ///// <summary>
-  ///// Setter for ScrollIntoView property.
-  ///// </summary>
-  ///// <param name="target"></param>
-  ///// <param name="value"></param>
-  //public static void SetScrollIntoView(DependencyObject target, object value)
-  //{
-  //  target.SetValue(ScrollIntoViewProperty, value);
-  //}
-
-  ///// <summary>
-  ///// Dependency property to store ScrollIntoView property
-  ///// </summary>
-  //public static readonly DependencyProperty ScrollIntoViewProperty = DependencyProperty.RegisterAttached(
-  //    "ScrollIntoView",
-  //    typeof(object),
-  //    typeof(CollectionViewBehavior),
-  //    new PropertyMetadata(default(object), OnScrollIntoViewChanged));
-
-  ///// <summary>
-  ///// Handler for ScrollIntoView property changed event. Invoked DataGrid ScrollIntoView method.
-  ///// </summary>
-  ///// <param name="sender"></param>
-  ///// <param name="e"></param>
-  //private static void OnScrollIntoViewChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-  //{
-  //  var dataGrid = sender as DataGrid;
-  //  if (dataGrid == null || e.NewValue == null)
-  //    return;
-  //  dataGrid.Dispatcher.Invoke((Action)(() =>
-  //  {
-  //    try
-  //    {
-  //      dataGrid.UpdateLayout();
-  //      dataGrid.ScrollIntoView(e.NewValue, null);
-  //      dataGrid.UpdateLayout();
-  //    }
-  //    catch
-  //    {
-  //    }
-  //  }));
-  //}
-
+  /// <summary>
+  /// Setter for HiddenHeader property
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetHiddenHeader(DependencyObject target, string value)
+  {
+    target.SetValue(HiddenHeaderProperty, value);
+  }
+  #endregion
 }

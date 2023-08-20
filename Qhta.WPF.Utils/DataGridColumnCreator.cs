@@ -147,6 +147,11 @@ public class DataGridColumnCreator
             dataGridColumnDef.Header = headerControl;
           }
 
+          if (dataGridColumnAttr.HiddenHeaderResourceKey != null)
+            dataGridColumnDef.HiddenHeader = GetResourceString(dataGridColumnAttr.HiddenHeaderResourceKey);
+          else if (dataGridColumnAttr.HiddenHeader != null)
+            dataGridColumnDef.HiddenHeader = GetResourceString(dataGridColumnAttr.HiddenHeader);
+
           dataGridColumnDef.ShowFilterButton = dataGridColumnAttr.ShowFilterButton 
             ?? CollectionViewBehavior.GetShowFilterButton(DataGrid) ?? IsFilterButtonVisible ?? false;
 
@@ -293,6 +298,8 @@ public class DataGridColumnCreator
     column.CanUserSort = dataGridColumnDef.CanUserSort;
     column.SortMemberPath = dataGridColumnDef.SortMemberPath;
     column.SortDirection = dataGridColumnDef.SortDirection;
+    if (dataGridColumnDef.HiddenHeader!=null)
+      CollectionViewBehavior.SetHiddenHeader(column, dataGridColumnDef.HiddenHeader);
     CollectionViewBehavior.SetShowFilterButton(column,dataGridColumnDef.ShowFilterButton);
     var s = dataGridColumnDef.ClipboardContentPath;
     if (s != null)
