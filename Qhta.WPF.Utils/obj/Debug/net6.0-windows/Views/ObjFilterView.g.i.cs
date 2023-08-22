@@ -55,7 +55,7 @@ namespace Qhta.WPF.Utils.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;component/views/objfilterview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;V2.0.0.0;component/views/objfilterview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\ObjFilterView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
