@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model shown in NumFilterView.
+/// Specific ColumnFilterViewModel of enum property filter edited in EnumFilterView.
 /// </summary>
 public class EnumFilterViewModel : ColumnFilterViewModel
 {

@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model stored and shown in FilterDialog.
+/// Abstract view model of the filter stored and edited in ColumnFilterDialog.
 /// </summary>
 public abstract class ColumnFilterViewModel : ViewModel
 {
@@ -86,8 +86,8 @@ public abstract class ColumnFilterViewModel : ViewModel
 
 
   /// <summary>
-  /// Stored info on column binding properties.
-  /// As binding path may complex, it is an array.
+  /// Holds info of column binding properties.
+  /// As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
   /// </summary>
   public PropertyInfo[] PropPath
   {

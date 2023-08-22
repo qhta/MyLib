@@ -1,7 +1,8 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// Generic view model for numeric values filter.
+/// Generic NumFilterViewModel for numeric values filter with a type parameter. Valid types are all comparable values, 
+/// however internal TryParseFilterText method recognizes only integers, floats, DateTime and TimeSpan.
 /// </summary>
 public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
 {
@@ -265,6 +266,24 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
       if (UInt64.TryParse(filterText, out var valUInt64))
       {
         value = valUInt64;
+        return true;
+      }
+    }
+    else
+    if (typeof(T) == typeof(DateTime))
+    {
+      if (DateTime.TryParse(filterText, out var valDateTime))
+      {
+        value = valDateTime;
+        return true;
+      }
+    }
+    else
+    if (typeof(T) == typeof(TimeSpan))
+    {
+      if (TimeSpan.TryParse(filterText, out var valTimeSpan))
+      {
+        value = valTimeSpan;
         return true;
       }
     }

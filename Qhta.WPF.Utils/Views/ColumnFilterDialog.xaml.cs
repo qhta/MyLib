@@ -1,6 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.Views;
+
 /// <summary>
-/// Popup window to edit text filter
+/// Main dialog window for specific filter views.
 /// </summary>
 public partial class ColumnFilterDialog : Window
 {

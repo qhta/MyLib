@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels
 {
   /// <summary>
-  /// Enumeration of functions used to define number value predicate.
+  /// Enumeration of functions used to define numeric value predicate.
   /// </summary>
   public enum NumPredicateFunction
   {

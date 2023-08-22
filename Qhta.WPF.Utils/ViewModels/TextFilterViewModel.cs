@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model shown in TextFilterView.
+/// Specific ColumnFilterViewModel of string property filter edited in TextFilterView.
 /// </summary>
 public class TextFilterViewModel : ColumnFilterViewModel
 {
@@ -9,14 +9,14 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(PropertyInfo[] propPath, string propName): base(propPath, propName)
-    { }
+  public TextFilterViewModel(PropertyInfo[] propPath, string propName) : base(propPath, propName)
+  { }
 
   /// <summary>
   /// Copying constructor.
   /// </summary>
   /// <returns></returns>
-  public TextFilterViewModel(TextFilterViewModel other): base(other)
+  public TextFilterViewModel(TextFilterViewModel other) : base(other)
   {
     this.FilterText = other.FilterText;
     this.Function = other.Function;
@@ -153,7 +153,7 @@ public class TextFilterViewModel : ColumnFilterViewModel
   {
     if (String.IsNullOrEmpty(FilterText) && !IsEmpty && !NotEmpty)
       return null;
-    Func<object?, object?, bool> compareFunction; 
+    Func<object?, object?, bool> compareFunction;
     switch (Function)
     {
       case TextPredicateFunction.IsEmpty:

@@ -414,7 +414,7 @@
         </member>
         <member name="T:Qhta.MVVM.IFiltered">
             <summary>
-            Interface for collection that can filter items.
+            Interface for collection that can filter items of other collection.
             </summary>
         </member>
         <member name="P:Qhta.MVVM.IFiltered.IsFiltered">
@@ -587,7 +587,7 @@
         </member>
         <member name="T:Qhta.MVVM.ISameAs`1">
             <summary>
-            Interface for an object which can be compared to another object.
+            Interface for an object which can be compared to another object without full precision.
             </summary>
             <typeparam name="T"></typeparam>
         </member>

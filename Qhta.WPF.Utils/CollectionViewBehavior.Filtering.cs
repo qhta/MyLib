@@ -30,7 +30,7 @@ public partial class CollectionViewBehavior
     target.SetValue(ShowFilterButtonProperty, value);
   }
   /// <summary>
-  /// Dependency property to store ShowFilterButton property.
+  /// Specifies whether a "Filter" button should be displayed in the column header.
   /// </summary>
   public static readonly DependencyProperty ShowFilterButtonProperty = DependencyProperty.RegisterAttached(
       "ShowFilterButton",
@@ -64,7 +64,8 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Routed event to store FilterButtonClick event handler.
+  /// Routed event to store FilterButtonClick event handler. It the DataGridColumnHeader
+  /// has not handled this event, then <see cref="OnShowFilterButton_Clicked"/> is invoked.
   /// </summary>
   public static readonly RoutedEvent FilterButtonClickEvent = EventManager.RegisterRoutedEvent
     ("FilterButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CollectionViewBehavior));
@@ -95,7 +96,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="sender"></param>
   /// <param name="args"></param>
-  protected virtual void OnShowFilterButton_Clicked(object sender, RoutedEventArgs args)
+  public virtual void OnShowFilterButton_Clicked(object sender, RoutedEventArgs args)
   {
     if (sender is Button button)
     {
@@ -207,7 +208,7 @@ public partial class CollectionViewBehavior
   /// <param name="propPath"></param>
   /// <param name="position"></param>
   /// <param name="ownerWindow"></param>
-  protected virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo[] propPath, Point position, Window? ownerWindow)
+  public virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo[] propPath, Point position, Window? ownerWindow)
   {
     var propInfo = propPath.Last();
     var propName = column.GetHeaderText();
@@ -265,6 +266,12 @@ public partial class CollectionViewBehavior
       if (propType == typeof(Decimal))
         viewModel = new NumFilterViewModel<Decimal>(propPath, propName);
       else
+      if (propType == typeof(DateTime))
+        viewModel = new NumFilterViewModel<DateTime>(propPath, propName);
+      else
+      if (propType == typeof(TimeSpan))
+        viewModel = new NumFilterViewModel<TimeSpan>(propPath, propName);
+      else
         viewModel = new ObjFilterViewModel(propPath, propName);
 
     }
@@ -303,7 +310,8 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Dependency property to store FilterButtonShape property.
+  /// Helper property which defines visual shape of the filter button. 
+  /// The type of this property is FilterButtonShape. It can be "Empty" or "Filled".
   /// </summary>
   public static readonly DependencyProperty FilterButtonShapeProperty = DependencyProperty.RegisterAttached(
       "FilterButtonShape",
@@ -334,7 +342,7 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Dependency property to store ColumnFilter property.
+  /// Helper property to store ColumnFilter property. It can be any object.
   /// </summary>
   public static readonly DependencyProperty ColumnFilterProperty = DependencyProperty.RegisterAttached(
       "ColumnFilter",
@@ -365,7 +373,7 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Dependency property to store CollectionFilter property.
+  /// Helper property to store CollectionFilter property. It can be any object.
   /// </summary>
   public static readonly DependencyProperty CollectionFilterProperty = DependencyProperty.RegisterAttached(
       "CollectionFilter",

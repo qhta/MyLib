@@ -14,4 +14,3 @@ D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.csproj.CoreCom
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.dll
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.xml
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.pdb
-D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\netstandard2.0\Qhta.MVVM.csproj.CopyComplete

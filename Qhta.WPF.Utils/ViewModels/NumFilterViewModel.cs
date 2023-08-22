@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model shown in NumFilterView.
+/// Abstract base ColumnFilterViewModel of numeric property filter edited in NumFilterView.
 /// </summary>
 public abstract class NumFilterViewModel : ColumnFilterViewModel
 {

@@ -1,7 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// View model shown in BoolFilterView.
+/// specific ColumnFilterViewModel of boolean property filter edited in BoolFilterView.
 /// </summary>
 public class BoolFilterViewModel : ColumnFilterViewModel
 {

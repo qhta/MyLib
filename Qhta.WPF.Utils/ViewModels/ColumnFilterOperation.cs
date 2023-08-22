@@ -1,24 +1,23 @@
-﻿namespace Qhta.WPF.Utils.ViewModels
+﻿namespace Qhta.WPF.Utils.ViewModels;
+
+/// <summary>
+/// Specifies what to do with a column filter.
+/// </summary>
+public enum ColumnFilterOperation
 {
   /// <summary>
-  /// Specifies what to do with a column filter.
+  /// Add a filter to collection filter.
   /// </summary>
-  public enum ColumnFilterOperation
-  {
-    /// <summary>
-    /// Add a filter to collection filter.
-    /// </summary>
-    Add,
+  Add,
 
-    /// <summary>
-    /// Edit a filter and replace the old one in collection filter.
-    /// </summary>
-    Edit,
+  /// <summary>
+  /// Edit a filter and replace the old one in collection filter.
+  /// </summary>
+  Edit,
 
-    /// <summary>
-    /// Clear the filter and remove the old one from collection filter.
-    /// </summary>
-    Clear,
+  /// <summary>
+  /// Clear the filter and remove the old one from collection filter.
+  /// </summary>
+  Clear,
 
-  }
 }

@@ -2,7 +2,7 @@
 {
 
   /// <summary>
-  /// Interface for an object which can be compared to another object.
+  /// Interface for an object which can be compared to another object without full precision.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   public interface ISameAs<T>

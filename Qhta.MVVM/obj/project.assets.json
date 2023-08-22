@@ -35,6 +35,23 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Qhta.ObservableObjects/2.7.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Immutable": "7.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -307,20 +324,6 @@
             "related": ".xml"
           }
         }
-      },
-      "Qhta.ObservableObjects/2.6.1": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.ObservableObjects.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.ObservableObjects.dll": {}
-        }
       }
     }
   },
@@ -482,6 +485,19 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Qhta.ObservableObjects/2.7.0": {
+      "sha512": "KJbl90ggUs80WiIQvot+QZ+ijkC9DVow5DT7sguq6/9Phn9OwF9PweVx5vIvlKFgjR32+2JWNdFTFnqbmLRcVg==",
+      "type": "package",
+      "path": "qhta.observableobjects/2.7.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/netstandard2.0/Qhta.ObservableObjects.dll",
+        "lib/netstandard2.0/Qhta.ObservableObjects.xml",
+        "qhta.observableobjects.2.7.0.nupkg.sha512",
+        "qhta.observableobjects.nuspec",
+        "readme.md"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -1651,17 +1667,12 @@
         "system.threading.tasks.4.3.0.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
-    },
-    "Qhta.ObservableObjects/2.6.1": {
-      "type": "project",
-      "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
-      "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Qhta.ObservableObjects >= 2.6.1"
+      "Qhta.ObservableObjects >= 2.7.0"
     ]
   },
   "packageFolders": {
@@ -1669,7 +1680,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "3.3.0",
+    "version": "3.4.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",
@@ -1696,11 +1707,7 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {
-            "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -1718,6 +1725,10 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.ObservableObjects": {
+            "target": "Package",
+            "version": "[2.7.0, )"
           }
         },
         "imports": [

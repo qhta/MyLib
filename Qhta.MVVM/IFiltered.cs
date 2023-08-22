@@ -1,7 +1,7 @@
 ﻿namespace Qhta.MVVM
 {
   /// <summary>
-  /// Interface for collection that can filter items.
+  /// Interface for collection that can filter items of other collection.
   /// </summary>
   public interface IFiltered
   {

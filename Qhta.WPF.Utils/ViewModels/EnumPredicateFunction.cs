@@ -6,44 +6,24 @@
   public enum EnumPredicateFunction
   {
     /// <summary>
-    /// Is number equal to specific value?
+    /// Is enum equal to specific value?
     /// </summary>
     IsEqual,
 
     /// <summary>
-    /// Is number not equal to specific value?
+    /// Is enum not equal to specific value?
     /// </summary>
     NotEqual,
 
     /// <summary>
-    /// Is number undefined (is null)?
+    /// Is enum undefined (is null)?
     /// </summary>
     IsEmpty,
 
     /// <summary>
-    /// Is number defined (is not null)?
+    /// Is enum defined (is not null)?
     /// </summary>
     NotEmpty,
-
-    /// <summary>
-    /// Is number greater than specific value?
-    /// </summary>
-    IsGreater,
-
-    /// <summary>
-    /// Is number not greater than specific value (is less or equal)?
-    /// </summary>
-    NotGreater,
-
-    /// <summary>
-    /// Is number less than specific value?
-    /// </summary>
-    IsLess,
-
-    /// <summary>
-    /// Is number not less than specific value (is greater or equal)?
-    /// </summary>
-    NotLess,
 
   }
 }

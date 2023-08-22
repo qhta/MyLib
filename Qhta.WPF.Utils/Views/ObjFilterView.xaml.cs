@@ -1,6 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.Views;
+
 /// <summary>
-/// View control for edit ObjFilterViewModel properties.
+/// User control for editing ObjFilterViewModel properties.
 /// </summary>
 public partial class ObjFilterView : UserControl
 {

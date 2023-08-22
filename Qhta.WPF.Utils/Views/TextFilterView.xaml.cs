@@ -1,6 +1,7 @@
 ﻿namespace Qhta.WPF.Utils.Views;
+
 /// <summary>
-/// View control for edit TextFilterViewModel properties.
+/// User control for editing TextFilterViewModel properties.
 /// </summary>
 public partial class TextFilterView : UserControl
 {

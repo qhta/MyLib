@@ -1,8 +1,8 @@
 ﻿namespace Qhta.WPF.Utils;
 
 /// <summary>
-/// Defines <see cref="EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
-/// between CollectionView and Collection which has thread-safe operations.
+/// Establishes synchronized binding between CollectionView and Collection which has thread-safe operations.
+/// Defines many attached properties for Column and ItemsControls (like DataGrid) that help to format DataGridColumns.
 /// </summary>
 public partial class CollectionViewBehavior
 {
@@ -14,7 +14,7 @@ public partial class CollectionViewBehavior
     BindingOperations.CollectionRegistering += BindingOperations_CollectionRegistering;
   }
 
-  #region EnableCollectionSychronization
+  #region EnableCollectionSychronization property
   /// <summary>
   /// Getter for EnableCollectionSynchronization property.
   /// </summary>
@@ -36,7 +36,8 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Dependency property to store EnableCollectionSynchronization property.
+  /// When is set to true, then establishes synchronized binding 
+  /// between CollectionView and Collection which has thread-safe operations.
   /// </summary>
   public static readonly DependencyProperty EnableCollectionSynchronizationProperty =
       DependencyProperty.RegisterAttached("EnableCollectionSynchronization", typeof(bool), typeof(CollectionViewBehavior),
@@ -117,9 +118,9 @@ public partial class CollectionViewBehavior
       new PropertyMetadata(default(object), OnSortingEventHandlerChanged));
 
   /// <summary>
-  /// Method to handle SortingEventHandler property changed event.
-  /// If its new value is a proper <see cref="DataGridSortingEventHandler"/>, it is assigned to the data grid.
-  /// Otherwise a default handler is assigned.
+  /// Sets a method to handle SortingEventHandler property changed event.
+  /// If this method <see cref="DataGridSortingEventHandler"/>, it is assigned to the data grid.
+  /// Otherwise a default handler is assigned which redirects event to DataContext implementing IListViewModel interface.
   /// </summary>
   /// <param name="sender"></param>
   /// <param name="e"></param>
@@ -185,10 +186,10 @@ public partial class CollectionViewBehavior
 
   #endregion SortingEventHandler
 
-  #region IsSelectable
+  #region IsSelectable property
 
   /// <summary>
-  /// Specifies if a row can be selected.
+  /// Specifies whether rows of the collection can be separately selected.
   /// </summary>
   public static readonly DependencyProperty IsSelectableProperty = DependencyProperty.RegisterAttached(
       "IsSelectable",
@@ -291,7 +292,7 @@ public partial class CollectionViewBehavior
   }
   #endregion
 
-  #region IsSelectable
+  #region HiddenHeader property
 
   /// <summary>
   /// Specifies a hidden header string for a column. 

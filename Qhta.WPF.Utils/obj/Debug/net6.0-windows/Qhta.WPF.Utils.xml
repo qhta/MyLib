@@ -502,8 +502,8 @@
         </member>
         <member name="T:Qhta.WPF.Utils.CollectionViewBehavior">
             <summary>
-            Defines <see cref="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty"/> to help establish synchronized binding 
-            between CollectionView and Collection which has thread-safe operations.
+            Establishes synchronized binding between CollectionView and Collection which has thread-safe operations.
+            Defines many attached properties for Column and ItemsControls (like DataGrid) that help to format DataGridColumns.
             </summary>
             <summary>
             CollectionViewBehavior
@@ -530,7 +530,8 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.EnableCollectionSynchronizationProperty">
             <summary>
-            Dependency property to store EnableCollectionSynchronization property.
+            When is set to true, then establishes synchronized binding 
+            between CollectionView and Collection which has thread-safe operations.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetSortingEventHandler(System.Windows.DependencyObject)">
@@ -556,9 +557,9 @@
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.OnSortingEventHandlerChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
-            Method to handle SortingEventHandler property changed event.
-            If its new value is a proper <see cref="T:System.Windows.Controls.DataGridSortingEventHandler"/>, it is assigned to the data grid.
-            Otherwise a default handler is assigned.
+            Sets a method to handle SortingEventHandler property changed event.
+            If this method <see cref="T:System.Windows.Controls.DataGridSortingEventHandler"/>, it is assigned to the data grid.
+            Otherwise a default handler is assigned which redirects event to DataContext implementing IListViewModel interface.
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -572,7 +573,7 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.IsSelectableProperty">
             <summary>
-            Specifies if a row can be selected.
+            Specifies whether rows of the collection can be separately selected.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetIsSelectable(System.Windows.DependencyObject)">
@@ -692,7 +693,7 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ShowFilterButtonProperty">
             <summary>
-            Dependency property to store ShowFilterButton property.
+            Specifies whether a "Filter" button should be displayed in the column header.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.AddFilterButtonClickHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
@@ -711,7 +712,8 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.FilterButtonClickEvent">
             <summary>
-            Routed event to store FilterButtonClick event handler.
+            Routed event to store FilterButtonClick event handler. It the DataGridColumnHeader
+            has not handled this event, then <see cref="M:Qhta.WPF.Utils.CollectionViewBehavior.OnShowFilterButton_Clicked(System.Object,System.Windows.RoutedEventArgs)"/> is invoked.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.FilterButton_Click(System.Object,System.Windows.RoutedEventArgs)">
@@ -756,7 +758,8 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.FilterButtonShapeProperty">
             <summary>
-            Dependency property to store FilterButtonShape property.
+            Helper property which defines visual shape of the filter button. 
+            The type of this property is FilterButtonShape. It can be "Empty" or "Filled".
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetColumnFilter(System.Windows.DependencyObject)">
@@ -775,7 +778,7 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ColumnFilterProperty">
             <summary>
-            Dependency property to store ColumnFilter property.
+            Helper property to store ColumnFilter property. It can be any object.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetCollectionFilter(System.Windows.DependencyObject)">
@@ -794,7 +797,7 @@
         </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.CollectionFilterProperty">
             <summary>
-            Dependency property to store CollectionFilter property.
+            Helper property to store CollectionFilter property. It can be any object.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.InitializeComponent">
@@ -3700,7 +3703,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel">
             <summary>
-            View model shown in BoolFilterView.
+            specific ColumnFilterViewModel of boolean property filter edited in BoolFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -3804,7 +3807,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel">
             <summary>
-            View model stored and shown in FilterDialog.
+            Abstract view model of the filter stored and edited in ColumnFilterDialog.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.Operation">
@@ -3839,8 +3842,8 @@
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropPath">
             <summary>
-            Stored info on column binding properties.
-            As binding path may complex, it is an array.
+            Holds info of column binding properties.
+            As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropName">
@@ -3879,7 +3882,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel">
             <summary>
-            View model shown in NumFilterView.
+            Specific ColumnFilterViewModel of enum property filter edited in EnumFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(System.Type,System.Reflection.PropertyInfo[],System.String)">
@@ -3951,79 +3954,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1">
-            <summary>
-            Generic view model for numeric values filter.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.#ctor(System.Reflection.PropertyInfo[],System.String)">
-            <summary>
-            Initializing constructor.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.#ctor(Qhta.WPF.Utils.ViewModels.EnumFilterViewModel{`0})">
-            <summary>
-            Copying constructor.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.CreateCopy">
-            <summary>
-            Creates a copy of this instance;
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.FilterValue">
-            <summary>
-            Simple filter text.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsEqual">
-            <summary>
-            Specifies whether predicate function is IsEqual.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotEqual">
-            <summary>
-            Specifies whether predicate function is NotEqual.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsEmpty">
-            <summary>
-            Specifies whether predicate function is IsEmpty.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotEmpty">
-            <summary>
-            Specifies whether predicate function is NotEmpty.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsGreater">
-            <summary>
-            Specifies whether predicate function is IsGreater.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotGreater">
-            <summary>
-            Specifies whether predicate function is NotGreater.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.IsLess">
-            <summary>
-            Specifies whether predicate function is IsLess.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.NotLess">
-            <summary>
-            Specifies whether predicate function is NotLess.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel`1.CreateFilter">
-            <summary>
-            Creates DataGridColumnFilter basing on current properties.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction">
             <summary>
             Enumeration of functions used to define enum value predicate.
@@ -4031,47 +3961,27 @@
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsEqual">
             <summary>
-            Is number equal to specific value?
+            Is enum equal to specific value?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotEqual">
             <summary>
-            Is number not equal to specific value?
+            Is enum not equal to specific value?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsEmpty">
             <summary>
-            Is number undefined (is null)?
+            Is enum undefined (is null)?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotEmpty">
             <summary>
-            Is number defined (is not null)?
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsGreater">
-            <summary>
-            Is number greater than specific value?
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotGreater">
-            <summary>
-            Is number not greater than specific value (is less or equal)?
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.IsLess">
-            <summary>
-            Is number less than specific value?
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction.NotLess">
-            <summary>
-            Is number not less than specific value (is greater or equal)?
+            Is enum defined (is not null)?
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel">
             <summary>
-            View model shown in NumFilterView.
+            Abstract base ColumnFilterViewModel of numeric property filter edited in NumFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -4087,7 +3997,8 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1">
             <summary>
-            Generic view model for numeric values filter.
+            Generic NumFilterViewModel for numeric values filter with a type parameter. Valid types are all comparable values, 
+            however internal TryParseFilterText method recognizes only integers, floats, DateTime and TimeSpan.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -4171,7 +4082,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumPredicateFunction">
             <summary>
-            Enumeration of functions used to define number value predicate.
+            Enumeration of functions used to define numeric value predicate.
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.NumPredicateFunction.IsEqual">
@@ -4280,7 +4191,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextFilterViewModel">
             <summary>
-            View model shown in TextFilterView.
+            Specific ColumnFilterViewModel of string property filter edited in TextFilterView.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
@@ -4369,7 +4280,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextPredicateFunction">
             <summary>
-            Enumeration of functions used to define text predicate,
+            Enumeration of functions used to define text predicate.
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.IsEqual">
@@ -4414,7 +4325,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.Views.BoolFilterView">
             <summary>
-            View control for edit BoolFilterViewModel properties.
+            User control for editing BoolFilterViewModel properties.
             </summary>
             <summary>
             BoolFilterView
@@ -4427,7 +4338,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.Views.ColumnFilterDialog">
             <summary>
-            Popup window to edit text filter
+            Main dialog window for specific filter views.
             </summary>
             <summary>
             ColumnFilterDialog
@@ -4440,7 +4351,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.Views.EnumFilterView">
             <summary>
-            Interaction logic for EnumFilterView.xaml
+            User control for editing EnumFilterViewModel properties.
             </summary>
             <summary>
             EnumFilterView
@@ -4453,7 +4364,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.Views.NumFilterView">
             <summary>
-            View control for edit NumFilterViewModel properties.
+            User control for editing NumFilterViewModel properties.
             </summary>
             <summary>
             NumFilterView
@@ -4466,7 +4377,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.Views.ObjFilterView">
             <summary>
-            View control for edit ObjFilterViewModel properties.
+            User control for editing ObjFilterViewModel properties.
             </summary>
             <summary>
             ObjFilterView
@@ -4479,7 +4390,7 @@
         </member>
         <member name="T:Qhta.WPF.Utils.Views.TextFilterView">
             <summary>
-            View control for edit TextFilterViewModel properties.
+            User control for editing TextFilterViewModel properties.
             </summary>
             <summary>
             TextFilterView

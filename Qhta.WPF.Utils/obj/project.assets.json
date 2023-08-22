@@ -86,6 +86,39 @@
           "lib/netstandard2.0/Qhta.HtmlUtils.dll": {}
         }
       },
+      "Qhta.MVVM/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.ObservableObjects": "2.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.MVVM.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.MVVM.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.ObservableObjects/2.7.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Immutable": "7.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.OrdNumbers/2.3.0": {
         "type": "package",
         "compile": {
@@ -1137,33 +1170,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
-      },
-      "Qhta.MVVM/3.3.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Qhta.ObservableObjects": "2.6.1"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.MVVM.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.MVVM.dll": {}
-        }
-      },
-      "Qhta.ObservableObjects/2.6.1": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.ObservableObjects.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.ObservableObjects.dll": {}
-        }
       }
     }
   },
@@ -1300,6 +1306,32 @@
         "lib/netstandard2.0/Qhta.HtmlUtils.dll",
         "qhta.htmlutils.2.1.0.nupkg.sha512",
         "qhta.htmlutils.nuspec"
+      ]
+    },
+    "Qhta.MVVM/3.4.0": {
+      "sha512": "bqNIPsMLvb1sSMKqsNBKhbI1nnQU62n7yRiEYFR2e4lDPfVHG9HB7bMM2ijcD7tuwPTkQeK3jXsW//EQAQISgw==",
+      "type": "package",
+      "path": "qhta.mvvm/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/netstandard2.0/Qhta.MVVM.dll",
+        "lib/netstandard2.0/Qhta.MVVM.xml",
+        "qhta.mvvm.3.4.0.nupkg.sha512",
+        "qhta.mvvm.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.ObservableObjects/2.7.0": {
+      "sha512": "KJbl90ggUs80WiIQvot+QZ+ijkC9DVow5DT7sguq6/9Phn9OwF9PweVx5vIvlKFgjR32+2JWNdFTFnqbmLRcVg==",
+      "type": "package",
+      "path": "qhta.observableobjects/2.7.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/netstandard2.0/Qhta.ObservableObjects.dll",
+        "lib/netstandard2.0/Qhta.ObservableObjects.xml",
+        "qhta.observableobjects.2.7.0.nupkg.sha512",
+        "qhta.observableobjects.nuspec",
+        "readme.md"
       ]
     },
     "Qhta.OrdNumbers/2.3.0": {
@@ -3837,23 +3869,13 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
-    },
-    "Qhta.MVVM/3.3.0": {
-      "type": "project",
-      "path": "../Qhta.MVVM/Qhta.MVVM.csproj",
-      "msbuildProject": "../Qhta.MVVM/Qhta.MVVM.csproj"
-    },
-    "Qhta.ObservableObjects/2.6.1": {
-      "type": "project",
-      "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
-      "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "Qhta.HtmlUtils >= 2.1.0",
-      "Qhta.MVVM >= 3.3.0",
-      "Qhta.ObservableObjects >= 2.6.1",
+      "Qhta.MVVM >= 3.4.0",
+      "Qhta.ObservableObjects >= 2.7.0",
       "Qhta.OrdNumbers >= 2.3.0",
       "Qhta.TextUtils >= 3.1.1",
       "Qhta.TypeUtils >= 1.3.10.1",
@@ -3866,7 +3888,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.0.0",
+    "version": "3.0.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
       "projectName": "Qhta.WPF.Utils",
@@ -3893,14 +3915,7 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {
-            "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj"
-            },
-            "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
-              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -3916,6 +3931,14 @@
           "Qhta.HtmlUtils": {
             "target": "Package",
             "version": "[2.1.0, )"
+          },
+          "Qhta.MVVM": {
+            "target": "Package",
+            "version": "[3.4.0, )"
+          },
+          "Qhta.ObservableObjects": {
+            "target": "Package",
+            "version": "[2.7.0, )"
           },
           "Qhta.OrdNumbers": {
             "target": "Package",

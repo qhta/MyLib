@@ -10,7 +10,7 @@
     <description>A simple MVVM framework which enables worker threads to invoke UI notification via ObservableObjects.</description>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.ObservableObjects" version="2.6.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.ObservableObjects" version="2.7.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

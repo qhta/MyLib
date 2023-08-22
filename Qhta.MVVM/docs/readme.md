@@ -3,13 +3,14 @@ that use System.Windows and System.Windows.Input namespaces components from Wind
 
 Interfaces:
 * IExpandable - interface that defines IsExpanded property.
+* IFiltered - interface for collection that can filter items of other collection.
 * ILazyLoad - interface that defines properties and a method for loading object in background thread.
 * IListViewModel - interface for ListViewModel{ItemType}
 * INotifySelectionChanged - interface that declares SelectionChanged event.
 * INumbered - interface for an object that has a <see cref="Number"/> property.
 * IOrientable - interface for ListViewModel to be oriented horizontally or vertically.
 * IRelayCommand - an interface expanding ICommand (from System.Windows.Input) with NotifyCanExecuteChanged method.
-* ISameAs - interface for an object which can be compared to another object.
+* ISameAs - interface for an object which can be compared to another object without full precision.
 * ISelectable - interface that defines IsSelected property.
 * ISelector - interface for the object that can have a selection.
 * ISequenceable{ItemType} - Interface for a collection that can go to next or previous object.
@@ -19,12 +20,12 @@ Interfaces:
 
 ViewModels:
 * ViewModel - base class of view model.
-* ViewModel{ModelType} - ViewModel with a specific model object.
+* ViewModel\<ModelType\> - ViewModel with a specific model object.
 * VisibleViewModel - ViewModel which implements IVisible, ISelectable, IDetailedRow and IExpandable interfaces.
-* VisibleViewModel{ModelType} - VisibleViewModel which has a model of a specific type.
-* LazyLoadViewModel{ModelType} -abstract LazyLoadViewModel{ModelType} that implements ILazyLoad and IExpandable interfaces.
+* VisibleViewModel\<ModelType\> - VisibleViewModel which has a model of a specific type.
+* LazyLoadViewModel\<ModelType\> - abstract LazyLoadViewModel{ModelType} that implements ILazyLoad and IExpandable interfaces.
 * ListViewModel - abstract VisibleViewModel for a list.
-* ListViewModel{ItemType} - ListViewModel with specified item type.
+* ListViewModel\<ItemType\> - ListViewModel with specified item type.
 
 Commands:
 * Command - a class that implements interface ICommand (from System.Windows.Input) using DependencyObject (from System.Windows).

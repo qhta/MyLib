@@ -34,7 +34,6 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.Gene
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.csproj.CoreCompileInputs.cache
-D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.csproj.CopyComplete
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.dll
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\refint\Qhta.WPF.Utils.dll
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.xml
