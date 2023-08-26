@@ -1,21 +1,33 @@
-﻿namespace Qhta.WPF.Utils;
+﻿using System.Collections.Immutable;
+
+namespace Qhta.WPF.Utils;
 
 /// <summary>
-/// Prepared filter for a collection view.
+/// Prepared filter for a collection view. This is an immutable object.
 /// </summary>
-public class CollectionViewFilter
+public class CollectionViewFilter: IFilter
 {
   /// <summary>
   /// Internal storage of column filters. 
   /// The order of filtering can be different than the order of columns.
   /// </summary>
-  private Dictionary<string, ColumnFilter> Filters = new Dictionary<string, ColumnFilter>();
+  public ImmutableDictionary<string, ColumnFilter> Filters { get; private set; }
 
   /// <summary>
-  /// Default constructor. Initialized Predicate.
+  /// Default constructor. Initialized always true Predicate.
   /// </summary>
   public CollectionViewFilter()
   {
+    Filters = ImmutableDictionary<string, ColumnFilter>.Empty;
+    Predicate = new Predicate<object>((object item) => true);
+  }
+
+  /// <summary>
+  /// Copyint constructor. Initialized Filters and Predicate
+  /// </summary>
+  public CollectionViewFilter(ImmutableDictionary<string, ColumnFilter> filters)
+  {
+    Filters = filters;
     Predicate = new Predicate<object>((object item) =>
     {
       foreach (ColumnFilter filter in Filters.Values)
@@ -31,6 +43,20 @@ public class CollectionViewFilter
   /// Qualifier function for the whole object.
   /// </summary>
   public Predicate<object> Predicate { get; private set; }
+
+
+  /// <summary>
+  /// Implementation of IFilter.
+  /// </summary>
+  /// <returns></returns>
+  public Predicate<object> GetPredicate() => Predicate;
+
+  /// <summary>
+  /// Implementation of IFilter.
+  /// </summary>
+  /// <param name="item"></param>
+  /// <returns></returns>
+  public bool Accept(object item) => Predicate.Invoke(item);
 
   /// <summary>
   /// Checks if there is no column filter.
@@ -50,53 +76,50 @@ public class CollectionViewFilter
   }
 
   /// <summary>
-  /// Adds a column filter to collection view filter.
+  /// Adds a column filter to collection view filter. Returns new instance of Filters.
   /// </summary>
   /// <param name="propName"></param>
   /// <param name="filter"></param>
-  public void AddFilter(string propName, ColumnFilter filter)
+  public ImmutableDictionary<string, ColumnFilter> AddFilter(string propName, ColumnFilter filter)
   {
-    Filters.Add(propName, filter);
+    return Filters.Add(propName, filter);
   }
 
   /// <summary>
-  /// Changes a column filter to another one.
+  /// Changes a column filter to another one. Returns new instance of Filters.
   /// </summary>
   /// <param name="propName"></param>
   /// <param name="filter"></param>
-  public void ChangeFilter(string propName, ColumnFilter filter)
+  public ImmutableDictionary<string, ColumnFilter> ChangeFilter(string propName, ColumnFilter filter)
   {
-    Filters[propName] = filter;
+    return Filters.SetItem(propName, filter);
   }
 
   /// <summary>
-  /// Removes a column filter from collection view filter.
+  /// Removes a column filter from collection view filter. Returns new instance of Filters.
   /// </summary>
   /// <param name="propName"></param>
-  public void RemoveFilter(string propName)
+  public ImmutableDictionary<string, ColumnFilter> RemoveFilter(string propName)
   {
-    Filters.Remove(propName);
+    return Filters.Remove(propName);
   }
 
   /// <summary>
-  /// Adds, changes or removes filter for a column.
-  /// Returns predicate or null (if is empty)
+  /// Adds, changes or removes filter for a column and returns the new instance of the class.
   /// </summary>
   /// <param name="propName"></param>
   /// <param name="filter"></param>
-  public Predicate<object>? ApplyFilter(string propName, ColumnFilter? filter)
+  public CollectionViewFilter ApplyFilter(string propName, ColumnFilter? filter)
   {
-    if (filter!=null)
+    if (filter != null)
     {
-    if (ContainsFilter(propName))
-      ChangeFilter(propName, filter);
-    else
-      AddFilter(propName, filter);
+      Debug.Assert(propName==filter.PropName);
+      if (ContainsFilter(propName))
+        return new CollectionViewFilter(ChangeFilter(propName, filter));
+      else
+        return new CollectionViewFilter(AddFilter(propName, filter));
     }
     else
-      RemoveFilter(propName);
-    if (IsEmpty())
-      return null;
-    return Predicate;
+      return new CollectionViewFilter(RemoveFilter(propName));
   }
 }

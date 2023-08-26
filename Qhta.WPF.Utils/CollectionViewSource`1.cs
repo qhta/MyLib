@@ -4,7 +4,7 @@
 /// CollectionViewSource specialized for a specific item type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class CollectionViewSource<T> : System.Windows.Data.CollectionViewSource, IFiltered
+public class CollectionViewSource<T> : System.Windows.Data.CollectionViewSource, IFilteredCollection<T>
 {
   /// <summary>
   /// Initializing constructor.
@@ -38,5 +38,5 @@ public class CollectionViewSource<T> : System.Windows.Data.CollectionViewSource,
   /// <summary>
   /// Implemented IFiltered predicate.
   /// </summary>
-  public new Predicate<object>? Filter { get; set; }
+  public new IFilter<T>? Filter { get; set; }
 }

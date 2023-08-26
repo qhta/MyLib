@@ -3,7 +3,7 @@
 /// <summary>
 /// Collection of objects that serves as a filter for ObservableList collection.
 /// </summary>
-public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
+public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollection, IFilteredCollection<T>,
     IEnumerable,
     //ICollection,
     //IList,
@@ -46,38 +46,39 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   }
   private bool _IsFiltered;
 
-  Predicate<object>? IFiltered.Filter
+  IFilter? IFilteredCollection.Filter
   {
-    get => _filter as Predicate<object>;
+    get => _ObjectFilter;
     set
     {
-      _ObjectFilter = value;
-      if (_ObjectFilter != null)
-        this.Filter = new Predicate<T>(item => item != null && _ObjectFilter(item));
-      else
-        this.Filter = null;
-    }
-  }
-
-  private Predicate<object>? _ObjectFilter;
-
-  /// <summary>
-  /// Items qualifier
-  /// </summary>
-  public Predicate<T>? Filter
-  {
-    get => _filter;
-    set
-    {
-      if (value != _filter)
+      if (_ObjectFilter != value)
       {
-        _filter = value;
+        _ObjectFilter = value;
         NotifyPropertyChanged(nameof(Filter));
         ApplyFilter();
       }
     }
   }
-  private Predicate<T>? _filter;
+  private IFilter? _ObjectFilter;
+
+  /// <summary>
+  /// Items qualifier
+  /// </summary>
+  public IFilter<T>? Filter
+  {
+    get => _Filter;
+    set
+    {
+      if (value != _Filter)
+      {
+        _Filter = value;
+        NotifyPropertyChanged(nameof(Filter));
+        ApplyFilter();
+      }
+    }
+  }
+  private IFilter<T>? _Filter;
+
 
   /// <summary>
   /// If <see cref="IsFiltered"/> then passes Reset change notification.
@@ -98,7 +99,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// </summary>
   public void ApplyFilter()
   {
-    IsFiltered = Filter != null;
+    IsFiltered = _Filter != null || _ObjectFilter!=null;
     NotifyCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
   }
 
@@ -109,8 +110,8 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// <returns></returns>
   public IEnumerator<T> GetEnumerator()
   {
-    if (_IsFiltered && Filter != null)
-      return SourceCollection.Where(item => Filter(item)).GetEnumerator();
+    if (_IsFiltered)
+      return SourceCollection.Where(item => item!=null && (_ObjectFilter?.Accept(item) ?? true) && (_Filter?.Accept(item) ??  true)).GetEnumerator();
     else
       return SourceCollection.GetEnumerator();
   }
@@ -127,9 +128,13 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// <param name="item"></param>
   public void Add(T item)
   {
-    if (_IsFiltered && Filter != null)
-      if (item != null && !Filter(item))
+    if (_IsFiltered)
+    {
+      if (item != null && !(_Filter?.Accept(item) ?? true))
         throw new InvalidOperationException($"Item {item} does not meet the filter condition");
+      if (item != null && !(_ObjectFilter?.Accept(item) ?? true))
+        throw new InvalidOperationException($"Item {item} does not meet the filter condition");
+    }
     SourceCollection.Add(item);
   }
 
@@ -139,8 +144,8 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   /// </summary>
   public void Clear()
   {
-    if (_IsFiltered && Filter != null)
-      SourceCollection.RemoveAll(Filter);
+    if (_IsFiltered)
+      SourceCollection.RemoveAll(item=> item!=null && _Filter?.Accept(item) == true && _ObjectFilter?.Accept(item) == true);
     else
       SourceCollection.Clear();
   }
@@ -154,7 +159,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFiltered,
   public bool Contains(T item)
   {
     if (_IsFiltered && Filter != null)
-      return ((IEnumerable<T>)this).Any(item => Filter(item));
+      return ((IEnumerable<T>)this).Any(item=> item!=null && _Filter?.Accept(item) == true && _ObjectFilter?.Accept(item) == true);
     return SourceCollection.Contains(item);
   }
 

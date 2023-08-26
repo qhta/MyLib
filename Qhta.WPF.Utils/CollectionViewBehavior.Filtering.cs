@@ -107,7 +107,7 @@ public partial class CollectionViewBehavior
       {
         var itemsSource = itemsControl.ItemsSource;
         var sourceCollectionView = itemsSource as CollectionView;
-        var filteredCollection = itemsSource as IFiltered;
+        var filteredCollection = itemsSource as IFilteredCollection;
         while (itemsSource is CollectionView collectionView)
           itemsSource = collectionView.SourceCollection;
         if (sourceCollectionView == null && filteredCollection == null)
@@ -182,11 +182,14 @@ public partial class CollectionViewBehavior
                         collectionViewFilter = new CollectionViewFilter();
                         SetCollectionFilter(itemsControl, collectionViewFilter);
                       }
+
+                      collectionViewFilter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
+
                       if (sourceCollectionView != null)
-                        sourceCollectionView.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
+                        sourceCollectionView.Filter = collectionViewFilter.GetPredicate();
                       else
                       if (filteredCollection != null)
-                        filteredCollection.Filter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
+                        filteredCollection.Filter = collectionViewFilter;
                     }
                     args.Handled = true;
                   }

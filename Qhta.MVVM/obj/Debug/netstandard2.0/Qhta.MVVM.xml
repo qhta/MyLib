@@ -412,20 +412,69 @@
             Determines whether an object has details.
             </summary>
         </member>
-        <member name="T:Qhta.MVVM.IFiltered">
+        <member name="T:Qhta.MVVM.IFilter">
+            <summary>
+            Filter is a wrapper for predicate of object.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.IFilter.GetPredicate">
+            <summary>
+            Get delegate to any function that gets an object and returns boolean.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.IFilter.Accept(System.Object)">
+            <summary>
+            Checks whether the item should be accepted using a predicate.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.MVVM.IFilteredCollection">
             <summary>
             Interface for collection that can filter items of other collection.
             </summary>
         </member>
-        <member name="P:Qhta.MVVM.IFiltered.IsFiltered">
+        <member name="P:Qhta.MVVM.IFilteredCollection.IsFiltered">
             <summary>
             Is collection filtered.
             </summary>
         </member>
-        <member name="P:Qhta.MVVM.IFiltered.Filter">
+        <member name="P:Qhta.MVVM.IFilteredCollection.Filter">
             <summary>
             Predicate to filter Items.
             </summary>
+        </member>
+        <member name="T:Qhta.MVVM.IFilteredCollection`1">
+            <summary>
+            Interface for collection that can filter items of other collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.IFilteredCollection`1.IsFiltered">
+            <summary>
+            Is collection filtered.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.IFilteredCollection`1.Filter">
+            <summary>
+            Predicate to filter Items.
+            </summary>
+        </member>
+        <member name="T:Qhta.MVVM.IFilter`1">
+            <summary>
+            Filter of T is a wrapper for predicate of T.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.IFilter`1.GetPredicate">
+            <summary>
+            Delegate to any function that gets an object and returns boolean.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.IFilter`1.Accept(`0)">
+            <summary>
+            Checks whether the item should be accepted using a predicate.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.MVVM.ILazyLoad">
             <summary>

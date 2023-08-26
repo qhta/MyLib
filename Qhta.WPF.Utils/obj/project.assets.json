@@ -86,7 +86,7 @@
           "lib/netstandard2.0/Qhta.HtmlUtils.dll": {}
         }
       },
-      "Qhta.MVVM/3.4.0": {
+      "Qhta.MVVM/3.5.0": {
         "type": "package",
         "dependencies": {
           "Qhta.ObservableObjects": "2.7.0"
@@ -1308,15 +1308,15 @@
         "qhta.htmlutils.nuspec"
       ]
     },
-    "Qhta.MVVM/3.4.0": {
-      "sha512": "bqNIPsMLvb1sSMKqsNBKhbI1nnQU62n7yRiEYFR2e4lDPfVHG9HB7bMM2ijcD7tuwPTkQeK3jXsW//EQAQISgw==",
+    "Qhta.MVVM/3.5.0": {
+      "sha512": "b8yV/bI/Mkid7Pd7OeJ6FcytuGZ6r/JLi7JRvU255QZ2vsHaXDbyQRxDXhEsfJN1Is7YMF9c2UafNzZGx4QgZg==",
       "type": "package",
-      "path": "qhta.mvvm/3.4.0",
+      "path": "qhta.mvvm/3.5.0",
       "files": [
         ".nupkg.metadata",
         "lib/netstandard2.0/Qhta.MVVM.dll",
         "lib/netstandard2.0/Qhta.MVVM.xml",
-        "qhta.mvvm.3.4.0.nupkg.sha512",
+        "qhta.mvvm.3.5.0.nupkg.sha512",
         "qhta.mvvm.nuspec",
         "readme.md"
       ]
@@ -3874,7 +3874,7 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "Qhta.HtmlUtils >= 2.1.0",
-      "Qhta.MVVM >= 3.4.0",
+      "Qhta.MVVM >= 3.5.0",
       "Qhta.ObservableObjects >= 2.7.0",
       "Qhta.OrdNumbers >= 2.3.0",
       "Qhta.TextUtils >= 3.1.1",
@@ -3934,7 +3934,7 @@
           },
           "Qhta.MVVM": {
             "target": "Package",
-            "version": "[3.4.0, )"
+            "version": "[3.5.0, )"
           },
           "Qhta.ObservableObjects": {
             "target": "Package",

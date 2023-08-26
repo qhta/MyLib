@@ -3,7 +3,7 @@
 /// <summary>
 /// Prepared filter for a column. Holds property info, other value to compare, compare function and predicate function.
 /// </summary>
-public class ColumnFilter
+public class ColumnFilter: IFilter
 {
   /// <summary>
   /// Initializing constructor.
@@ -23,6 +23,11 @@ public class ColumnFilter
       });
 
   }
+
+  /// <summary>
+  /// Takes name of the last item of PropertyPath.
+  /// </summary>
+  public string PropName => PropertyPath.Last().Name;
 
   /// <summary>
   /// Stored info on column binding properties.
@@ -47,4 +52,16 @@ public class ColumnFilter
   /// </summary>
   public Predicate<object> Predicate { get; private set; } 
 
+  /// <summary>
+  /// Implementation of IFilter.
+  /// </summary>
+  /// <returns></returns>
+  Predicate<object> IFilter.GetPredicate() => Predicate; 
+
+  /// <summary>
+  /// Implementation of IFilter.
+  /// </summary>
+  /// <param name="item"></param>
+  /// <returns></returns>
+  public bool Accept(object item) => Predicate.Invoke(item);
 }

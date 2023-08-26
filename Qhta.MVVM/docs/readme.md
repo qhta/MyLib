@@ -3,7 +3,8 @@ that use System.Windows and System.Windows.Input namespaces components from Wind
 
 Interfaces:
 * IExpandable - interface that defines IsExpanded property.
-* IFiltered - interface for collection that can filter items of other collection.
+* IFilteredCollection - interface for collection that can filter items of other collection.
+* IFilteredCollection\<ItemType\> - interface for collection that can filter items of other collection of the specific type.
 * ILazyLoad - interface that defines properties and a method for loading object in background thread.
 * IListViewModel - interface for ListViewModel{ItemType}
 * INotifySelectionChanged - interface that declares SelectionChanged event.
@@ -13,7 +14,7 @@ Interfaces:
 * ISameAs - interface for an object which can be compared to another object without full precision.
 * ISelectable - interface that defines IsSelected property.
 * ISelector - interface for the object that can have a selection.
-* ISequenceable{ItemType} - Interface for a collection that can go to next or previous object.
+* ISequenceable\<ItemType\> - Interface for a collection that can go to next or previous object.
 * IValidated - an interface that defines IsValid method.
 * IViewModel - an interface expanding INotifyPropertyChanged (from System.ComponentModel) with NotifyPropertyChanged method.
 * IVisible - interface that defines IsVisible property.

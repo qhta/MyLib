@@ -846,10 +846,10 @@
         </member>
         <member name="T:Qhta.WPF.Utils.CollectionViewFilter">
             <summary>
-            Prepared filter for a collection view.
+            Prepared filter for a collection view. This is an immutable object.
             </summary>
         </member>
-        <member name="F:Qhta.WPF.Utils.CollectionViewFilter.Filters">
+        <member name="P:Qhta.WPF.Utils.CollectionViewFilter.Filters">
             <summary>
             Internal storage of column filters. 
             The order of filtering can be different than the order of columns.
@@ -857,13 +857,31 @@
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewFilter.#ctor">
             <summary>
-            Default constructor. Initialized Predicate.
+            Default constructor. Initialized always true Predicate.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.#ctor(System.Collections.Immutable.ImmutableDictionary{System.String,Qhta.WPF.Utils.ColumnFilter})">
+            <summary>
+            Copyint constructor. Initialized Filters and Predicate
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CollectionViewFilter.Predicate">
             <summary>
             Qualifier function for the whole object.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.GetPredicate">
+            <summary>
+            Implementation of IFilter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewFilter.Accept(System.Object)">
+            <summary>
+            Implementation of IFilter.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewFilter.IsEmpty">
             <summary>
@@ -878,28 +896,27 @@
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewFilter.AddFilter(System.String,Qhta.WPF.Utils.ColumnFilter)">
             <summary>
-            Adds a column filter to collection view filter.
+            Adds a column filter to collection view filter. Returns new instance of Filters.
             </summary>
             <param name="propName"></param>
             <param name="filter"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewFilter.ChangeFilter(System.String,Qhta.WPF.Utils.ColumnFilter)">
             <summary>
-            Changes a column filter to another one.
+            Changes a column filter to another one. Returns new instance of Filters.
             </summary>
             <param name="propName"></param>
             <param name="filter"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewFilter.RemoveFilter(System.String)">
             <summary>
-            Removes a column filter from collection view filter.
+            Removes a column filter from collection view filter. Returns new instance of Filters.
             </summary>
             <param name="propName"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewFilter.ApplyFilter(System.String,Qhta.WPF.Utils.ColumnFilter)">
             <summary>
-            Adds, changes or removes filter for a column.
-            Returns predicate or null (if is empty)
+            Adds, changes or removes filter for a column and returns the new instance of the class.
             </summary>
             <param name="propName"></param>
             <param name="filter"></param>
@@ -1040,6 +1057,11 @@
             <param name="propertyPath"></param>
             <param name="compareFunction"></param>
         </member>
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.PropName">
+            <summary>
+            Takes name of the last item of PropertyPath.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ColumnFilter.PropertyPath">
             <summary>
             Stored info on column binding properties.
@@ -1062,6 +1084,19 @@
             <summary>
             Predicate to evaluate for the column value.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnFilter.Qhta#MVVM#IFilter#GetPredicate">
+            <summary>
+            Implementation of IFilter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnFilter.Accept(System.Object)">
+            <summary>
+            Implementation of IFilter.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.WPF.Utils.ColumnsViewInfo">
             <summary>
@@ -4642,36 +4677,6 @@
             </summary>
             <param name="obj"></param>
             <returns></returns>
-        </member>
-        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
-            <summary>
-            GeneratedInternalTypeHelper
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
-            <summary>
-            CreateInstance
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            GetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            SetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
-            <summary>
-            CreateDelegate
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
-            <summary>
-            AddEventHandler
-            </summary>
         </member>
     </members>
 </doc>
