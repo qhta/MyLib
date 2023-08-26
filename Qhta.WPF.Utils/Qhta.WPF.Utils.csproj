@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <Description>A package classes (converters) to use in WPF applications.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>3.0</Version>
+    <Version>3.1</Version>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

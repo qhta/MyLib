@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.WPF.Utils</id>
+    <version>3.0.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>A package classes (converters) to use in WPF applications.</description>
+    <dependencies>
+      <group targetFramework="net6.0-windows7.0">
+        <dependency id="Qhta.HtmlUtils" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.MVVM" version="3.4.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.ObservableObjects" version="2.7.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.OrdNumbers" version="2.3.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.1.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.WPF.Converters" version="1.3.1" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="7.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\pl\Qhta.WPF.Utils.resources.dll" target="lib\net6.0-windows7.0\pl\Qhta.WPF.Utils.resources.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.dll" target="lib\net6.0-windows7.0\Qhta.WPF.Utils.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Utils.xml" target="lib\net6.0-windows7.0\Qhta.WPF.Utils.xml" />
+    <file src="D:\VS\Projects\MyLib\Qhta.WPF.Utils\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

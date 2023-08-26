@@ -63,7 +63,7 @@ namespace Qhta.WPF.Utils.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;V3.0.0.0;component/views/enumfilterview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;component/views/enumfilterview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\EnumFilterView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

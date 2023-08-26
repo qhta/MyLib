@@ -125,30 +125,34 @@ public class DataGridColumnCreator
             }
             else if (dataGridColumnAttr.HeaderResourceKey != null)
             {
-              var headerControl = new TextBlock();
-              headerControl.Text = GetResourceString(dataGridColumnAttr.HeaderResourceKey);
-              if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
-                headerControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
-              else if (dataGridColumnAttr.HeaderTooltip != null)
-                headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
-              dataGridColumnDef.Header = headerControl;
+              //var headerControl = new TextBlock();
+              //headerControl.Text = GetResourceString(dataGridColumnAttr.HeaderResourceKey);
+              //if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
+              //  headerControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
+              //else if (dataGridColumnAttr.HeaderTooltip != null)
+              //  headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
+              //dataGridColumnDef.Header = headerControl;
+              dataGridColumnDef.Header = GetResourceString(dataGridColumnAttr.HeaderResourceKey);
             }
-            else if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
+
+            if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
             {
-              var headerControl = new ContentControl();
-              headerControl.Content = dataGridColumnDef.Header;
-              if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
-                headerControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
-              else if (dataGridColumnAttr.HeaderTooltip != null)
-                headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
-              dataGridColumnDef.Header = headerControl;
+              //var headerControl = new ContentControl();
+              //headerControl.Content = dataGridColumnDef.Header;
+              //if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
+              //  headerControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
+              //else if (dataGridColumnAttr.HeaderTooltip != null)
+              //  headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
+              //dataGridColumnDef.Header = headerControl;
+              dataGridColumnDef.HeaderTooltip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
             }
             else if (dataGridColumnAttr.HeaderTooltip != null)
             {
-              var headerControl = new ContentControl();
-              headerControl.Content = dataGridColumnDef.Header;
-              headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
-              dataGridColumnDef.Header = headerControl;
+              //var headerControl = new ContentControl();
+              //headerControl.Content = dataGridColumnDef.Header;
+              //headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
+              //dataGridColumnDef.Header = headerControl;
+              dataGridColumnDef.HeaderTooltip = dataGridColumnAttr.HeaderTooltip;
             }
 
             if (dataGridColumnAttr.HiddenHeaderResourceKey != null)
@@ -270,14 +274,9 @@ public class DataGridColumnCreator
     if (contentEditingTemplate != null)
       newColumn.ContentEditingTemplate = contentEditingTemplate;
     newColumn.Header = dataGridColumnDef.Header;
-    newColumn.SortMemberPath = dataGridColumnDef.SortMemberPath;
-    newColumn.ClipboardContentBinding =
-        new Binding
-        {
-          Source = aBinding?.Source,
-          Path = new PropertyPath(dataGridColumnDef.ClipboardContentPath),
-        };
-    newColumn.CopyingCellClipboardContent += Col_CopyingCellClipboardContent;
+    if (dataGridColumnDef.HeaderTooltip != null)
+      CollectionViewBehavior.SetHeaderTooltip(newColumn, dataGridColumnDef.HeaderTooltip);
+
     FormatColumn(newColumn, dataGridColumnDef);
     return newColumn;
   }
@@ -290,6 +289,8 @@ public class DataGridColumnCreator
       column.Header = dataGridColumnDef.Header;
     if (dataGridColumnDef.HeaderStringFormat != null)
       column.HeaderStringFormat = dataGridColumnDef.HeaderStringFormat;
+    if (dataGridColumnDef.HeaderTooltip != null)
+      CollectionViewBehavior.SetHeaderTooltip(column, dataGridColumnDef.HeaderTooltip);
     var b = dataGridColumnDef.IsReadOnly;
     if (b == true)
       column.IsReadOnly = (bool)b;
@@ -306,9 +307,22 @@ public class DataGridColumnCreator
     if (dataGridColumnDef.HiddenHeader != null)
       CollectionViewBehavior.SetHiddenHeader(column, dataGridColumnDef.HiddenHeader);
     CollectionViewBehavior.SetShowFilterButton(column, dataGridColumnDef.ShowFilterButton);
+
+
+    if (!String.IsNullOrEmpty(dataGridColumnDef.ClipboardContentPath))
+    {
+      column.ClipboardContentBinding =
+          new Binding
+          {
+            Path = new PropertyPath(dataGridColumnDef.ClipboardContentPath),
+          };
+      column.CopyingCellClipboardContent += Col_CopyingCellClipboardContent;
+    }
+
     var s = dataGridColumnDef.ClipboardContentPath;
-    if (s != null)
+    if (!String.IsNullOrEmpty(s))
       column.ClipboardContentBinding = new Binding(s);
+
     var n = dataGridColumnDef.DisplayIndex;
     if (n >= 0)
       column.DisplayIndex = n;

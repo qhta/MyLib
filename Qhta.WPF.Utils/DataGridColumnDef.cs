@@ -94,6 +94,11 @@ public class DataGridColumnDef
   public string? HiddenHeader { get; set; }
 
   /// <summary>
+  /// Gets or sets the column hidden header.
+  /// </summary>
+  public string? HeaderTooltip { get; set; }
+
+  /// <summary>
   /// Gets a value that indicates whether cells in the column can be edited.
   /// Default is null.
   /// </summary>

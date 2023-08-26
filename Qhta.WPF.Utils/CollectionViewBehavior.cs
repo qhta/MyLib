@@ -193,9 +193,9 @@ public partial class CollectionViewBehavior
   /// </summary>
   public static readonly DependencyProperty IsSelectableProperty = DependencyProperty.RegisterAttached(
       "IsSelectable",
-      typeof(object),
+      typeof(bool),
       typeof(CollectionViewBehavior),
-      new PropertyMetadata(default(object), OnIsSelectableChanged));
+      new PropertyMetadata(false, OnIsSelectableChanged));
 
   /// <summary>
   /// Getter for IsSelectable property.
@@ -204,7 +204,7 @@ public partial class CollectionViewBehavior
   /// <returns></returns>
   public static object GetIsSelectable(DependencyObject target)
   {
-    return (object)target.GetValue(IsSelectableProperty);
+    return (bool)target.GetValue(IsSelectableProperty);
   }
 
   /// <summary>
@@ -212,7 +212,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="target"></param>
   /// <param name="value"></param>
-  public static void SetIsSelectable(DependencyObject target, object value)
+  public static void SetIsSelectable(DependencyObject target, bool value)
   {
     target.SetValue(IsSelectableProperty, value);
   }
@@ -235,6 +235,58 @@ public partial class CollectionViewBehavior
   }
 
   #endregion IsSelectable
+
+
+  #region IsFocusable property
+
+  /// <summary>
+  /// Specifies whether the whole collection view can be focused when select all button is clicked.
+  /// </summary>
+  public static readonly DependencyProperty IsFocusableProperty = DependencyProperty.RegisterAttached(
+      "IsFocusable",
+      typeof(bool),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(false, OnIsFocusableChanged));
+
+  /// <summary>
+  /// Getter for IsFocusable property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static bool GetIsFocusable(DependencyObject target)
+  {
+    return (bool)target.GetValue(IsSelectableProperty);
+  }
+
+  /// <summary>
+  /// Setter for IsFocusable property
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetIsFocusable(DependencyObject target, object value)
+  {
+    target.SetValue(IsSelectableProperty, value);
+  }
+
+  static void OnIsFocusableChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+  {
+    var dataGrid = sender as DataGrid;
+    if (dataGrid == null || args.NewValue == null)
+      return;
+    if ((bool)args.NewValue)
+      dataGrid.CommandBindings.Add(new CommandBinding(ApplicationCommands.SelectAll, OnDataGridSelectAll));
+  }
+
+  private static void OnDataGridSelectAll(object sender, ExecutedRoutedEventArgs args)
+  {
+    if (sender is DataGrid grid)
+    {
+      grid.Focus();
+      grid.SelectAll();
+    }
+  }
+
+  #endregion IsFocusable
 
   #region ScrollIntoView property
 
@@ -324,4 +376,38 @@ public partial class CollectionViewBehavior
     target.SetValue(HiddenHeaderProperty, value);
   }
   #endregion
+
+  #region HeaderTooltip property
+
+  /// <summary>
+  /// Specifies a hidden header string for a column. 
+  /// This header is not displayed, but may be used e.g. in filtering dialog.
+  /// </summary>
+  public static readonly DependencyProperty HeaderTooltipProperty = DependencyProperty.RegisterAttached(
+      "HeaderTooltip",
+      typeof(string),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(null));
+
+  /// <summary>
+  /// Getter for HeaderTooltip property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static string GetHeaderTooltip(DependencyObject target)
+  {
+    return (string)target.GetValue(HeaderTooltipProperty);
+  }
+
+  /// <summary>
+  /// Setter for HeaderTooltip property
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetHeaderTooltip(DependencyObject target, string value)
+  {
+    target.SetValue(HeaderTooltipProperty, value);
+  }
+  #endregion
+
 }

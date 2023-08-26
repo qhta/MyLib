@@ -431,7 +431,10 @@
                 <ContentPresenter UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
                                   FrameworkElement.VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
                                   FrameworkElement.HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                  ToolTip="{Binding Path=Column.(utl:CollectionViewBehavior.HeaderTooltip),
+                                       RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader} }"
                                   ContentPresenter.RecognizesAccessKey="True" />
+
                 <Button x:Name="FilterButton"
                         Grid.Column="2"
                         HorizontalAlignment="Right"
@@ -452,8 +455,7 @@
                       <Style TargetType="{x:Type Image}">
                         <Style.Triggers>
                           <DataTrigger Binding="{Binding Path=Column.(utl:CollectionViewBehavior.FilterButtonShape),
-                              RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader}
-                            }"
+                              RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader} }"
                                        Value="Empty">
                             <Setter Property="Source"
                                     Value="pack://application:,,,/Qhta.WPF.Utils;component/Resources/EmptyFilter.png" />

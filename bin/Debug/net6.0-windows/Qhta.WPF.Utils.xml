@@ -583,9 +583,28 @@
             <param name="target"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetIsSelectable(System.Windows.DependencyObject,System.Object)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetIsSelectable(System.Windows.DependencyObject,System.Boolean)">
             <summary>
             Setter for IsSelectable property
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.IsFocusableProperty">
+            <summary>
+            Specifies whether the whole collection view can be focused when select all button is clicked.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetIsFocusable(System.Windows.DependencyObject)">
+            <summary>
+            Getter for IsFocusable property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetIsFocusable(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Setter for IsFocusable property
             </summary>
             <param name="target"></param>
             <param name="value"></param>
@@ -632,6 +651,26 @@
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetHiddenHeader(System.Windows.DependencyObject,System.String)">
             <summary>
             Setter for HiddenHeader property
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.HeaderTooltipProperty">
+            <summary>
+            Specifies a hidden header string for a column. 
+            This header is not displayed, but may be used e.g. in filtering dialog.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetHeaderTooltip(System.Windows.DependencyObject)">
+            <summary>
+            Getter for HeaderTooltip property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetHeaderTooltip(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Setter for HeaderTooltip property
             </summary>
             <param name="target"></param>
             <param name="value"></param>
@@ -1562,6 +1601,11 @@
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HiddenHeader">
+            <summary>
+            Gets or sets the column hidden header.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderTooltip">
             <summary>
             Gets or sets the column hidden header.
             </summary>
