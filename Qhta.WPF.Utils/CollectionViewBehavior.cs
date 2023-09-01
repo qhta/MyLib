@@ -263,7 +263,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="target"></param>
   /// <param name="value"></param>
-  public static void SetIsFocusable(DependencyObject target, object value)
+  public static void SetIsFocusable(DependencyObject target, bool value)
   {
     target.SetValue(IsSelectableProperty, value);
   }

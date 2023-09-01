@@ -55,7 +55,7 @@ namespace Qhta.WPF.Utils {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;component/resources/datagridstyle.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;V3.2.0.0;component/resources/datagridstyle.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Resources\DataGridStyle.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

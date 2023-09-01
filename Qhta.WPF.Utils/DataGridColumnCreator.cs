@@ -174,13 +174,11 @@ public class DataGridColumnCreator
             else
               FormatColumn(oldColumn, dataGridColumnDef);
           }
+          return;
         }
-        else
-          args.Cancel = true;
       }
-      //}
-      //}
     }
+    args.Cancel = true;
   }
 
   private static string? GetResourceString(string staticResourceKey)
