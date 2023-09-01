@@ -9,7 +9,7 @@
       "Qhta.WPF.Utils/3.2": {
         "dependencies": {
           "Qhta.HtmlUtils": "2.1.0",
-          "Qhta.MVVM": "3.5.0",
+          "Qhta.MVVM": "3.6.1",
           "Qhta.ObservableObjects": "2.7.0",
           "Qhta.OrdNumbers": "2.3.0",
           "Qhta.TextUtils": "3.1.1",
@@ -77,14 +77,14 @@
           }
         }
       },
-      "Qhta.MVVM/3.5.0": {
+      "Qhta.MVVM/3.6.1": {
         "dependencies": {
           "Qhta.ObservableObjects": "2.7.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "assemblyVersion": "3.5.0.0",
-            "fileVersion": "3.5.0.0"
+            "assemblyVersion": "3.6.1.0",
+            "fileVersion": "3.6.1.0"
           }
         }
       },
@@ -696,12 +696,12 @@
       "path": "qhta.htmlutils/2.1.0",
       "hashPath": "qhta.htmlutils.2.1.0.nupkg.sha512"
     },
-    "Qhta.MVVM/3.5.0": {
+    "Qhta.MVVM/3.6.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-b8yV/bI/Mkid7Pd7OeJ6FcytuGZ6r/JLi7JRvU255QZ2vsHaXDbyQRxDXhEsfJN1Is7YMF9c2UafNzZGx4QgZg==",
-      "path": "qhta.mvvm/3.5.0",
-      "hashPath": "qhta.mvvm.3.5.0.nupkg.sha512"
+      "sha512": "sha512-/9msAOY36+rNqvqy8riyCxek/uu3bqFWzHCYPz4emOg/2aYlB1pYPilt5umPTk82+p7VrJGlOLnc06A/DkgGfg==",
+      "path": "qhta.mvvm/3.6.1",
+      "hashPath": "qhta.mvvm.3.6.1.nupkg.sha512"
     },
     "Qhta.ObservableObjects/2.7.0": {
       "type": "package",

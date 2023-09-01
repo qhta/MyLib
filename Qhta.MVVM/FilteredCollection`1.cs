@@ -3,7 +3,7 @@
 /// <summary>
 /// Collection of objects that serves as a filter for ObservableList collection.
 /// </summary>
-public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollection, IFilteredCollection<T>,
+public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollection,
     IEnumerable,
     //ICollection,
     //IList,
@@ -19,6 +19,30 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   /// <param name="sourceCollection"></param>
   public FilteredCollection(ObservableList<T> sourceCollection)
   {
+    SourceCollection = sourceCollection;
+    SourceCollection.CollectionChanged += SourceCollection_CollectionChanged;
+  }
+
+  /// <summary>
+  /// Initializing constructor.
+  /// </summary>
+  /// <param name="sourceCollection"></param>
+  /// <param name="filter"></param>
+  public FilteredCollection(ObservableList<T> sourceCollection, IFilter<T>? filter)
+  {
+    Filter = filter;
+    SourceCollection = sourceCollection;
+    SourceCollection.CollectionChanged += SourceCollection_CollectionChanged;
+  }
+
+  /// <summary>
+  /// Initializing constructor.
+  /// </summary>
+  /// <param name="sourceCollection"></param>
+  /// <param name="filter"></param>
+  public FilteredCollection(ObservableList<T> sourceCollection, IFilter? filter)
+  {
+    Filter = filter as IFilter<T>;
     SourceCollection = sourceCollection;
     SourceCollection.CollectionChanged += SourceCollection_CollectionChanged;
   }
@@ -44,27 +68,27 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
       }
     }
   }
-  private bool _IsFiltered;
+  private bool _IsFiltered = true;
 
-  IFilter? IFilteredCollection.Filter
-  {
-    get => _ObjectFilter;
-    set
-    {
-      if (_ObjectFilter != value)
-      {
-        _ObjectFilter = value;
-        NotifyPropertyChanged(nameof(Filter));
-        ApplyFilter();
-      }
-    }
-  }
-  private IFilter? _ObjectFilter;
+  //IFilter? IFilteredCollection.Filter
+  //{
+  //  get => _ObjectFilter;
+  //  set
+  //  {
+  //    if (_ObjectFilter != value)
+  //    {
+  //      _ObjectFilter = value;
+  //      NotifyPropertyChanged(nameof(Filter));
+  //      ApplyFilter();
+  //    }
+  //  }
+  //}
+  //private IFilter? _ObjectFilter;
 
   /// <summary>
   /// Items qualifier
   /// </summary>
-  public IFilter<T>? Filter
+  public IFilter? Filter
   {
     get => _Filter;
     set
@@ -77,7 +101,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
       }
     }
   }
-  private IFilter<T>? _Filter;
+  private IFilter? _Filter;
 
 
   /// <summary>
@@ -99,7 +123,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   /// </summary>
   public void ApplyFilter()
   {
-    IsFiltered = _Filter != null || _ObjectFilter!=null;
+    IsFiltered = _Filter != null/* || _ObjectFilter!=null*/;
     NotifyCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
   }
 
@@ -111,7 +135,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   public IEnumerator<T> GetEnumerator()
   {
     if (_IsFiltered)
-      return SourceCollection.Where(item => item!=null && (_ObjectFilter?.Accept(item) ?? true) && (_Filter?.Accept(item) ??  true)).GetEnumerator();
+      return SourceCollection.Where(item => item!=null /*&& (_ObjectFilter?.Accept(item) ?? true)*/ && (_Filter?.Accept(item) ??  true)).GetEnumerator();
     else
       return SourceCollection.GetEnumerator();
   }
@@ -132,8 +156,8 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
     {
       if (item != null && !(_Filter?.Accept(item) ?? true))
         throw new InvalidOperationException($"Item {item} does not meet the filter condition");
-      if (item != null && !(_ObjectFilter?.Accept(item) ?? true))
-        throw new InvalidOperationException($"Item {item} does not meet the filter condition");
+      //if (item != null && !(_ObjectFilter?.Accept(item) ?? true))
+      //  throw new InvalidOperationException($"Item {item} does not meet the filter condition");
     }
     SourceCollection.Add(item);
   }
@@ -145,7 +169,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   public void Clear()
   {
     if (_IsFiltered)
-      SourceCollection.RemoveAll(item=> item!=null && _Filter?.Accept(item) == true && _ObjectFilter?.Accept(item) == true);
+      SourceCollection.RemoveAll(item=> item!=null && _Filter?.Accept(item) == true /*&& _ObjectFilter?.Accept(item) == true*/);
     else
       SourceCollection.Clear();
   }
@@ -159,7 +183,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   public bool Contains(T item)
   {
     if (_IsFiltered && Filter != null)
-      return ((IEnumerable<T>)this).Any(item=> item!=null && _Filter?.Accept(item) == true && _ObjectFilter?.Accept(item) == true);
+      return ((IEnumerable<T>)this).Any(item=> item!=null && _Filter?.Accept(item) == true /*&& _ObjectFilter?.Accept(item) == true*/);
     return SourceCollection.Contains(item);
   }
 
@@ -196,7 +220,7 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
     get
     {
       if (IsFiltered)
-        return ((IEnumerable<T>)this).Count();
+        return SourceCollection.Count(item=> item!=null && _Filter?.Accept(item) == true);
       else
         return SourceCollection.Count;
     }

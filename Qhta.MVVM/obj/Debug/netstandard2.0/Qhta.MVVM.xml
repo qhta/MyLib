@@ -304,6 +304,20 @@
             </summary>
             <param name="sourceCollection"></param>
         </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.#ctor(Qhta.ObservableObjects.ObservableList{`0},Qhta.MVVM.IFilter{`0})">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="sourceCollection"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.#ctor(Qhta.ObservableObjects.ObservableList{`0},Qhta.MVVM.IFilter)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="sourceCollection"></param>
+            <param name="filter"></param>
+        </member>
         <member name="P:Qhta.MVVM.FilteredCollection`1.SourceCollection">
             <summary>
             Collection that serves as an original source of items.
