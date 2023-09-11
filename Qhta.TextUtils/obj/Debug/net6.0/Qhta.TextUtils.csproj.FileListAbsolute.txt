@@ -5,7 +5,6 @@ D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.deps.json
 D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.dll
 D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.pdb
 D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.xml
-D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.csproj.AssemblyReference.cache
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.GeneratedMSBuildEditorConfig.editorconfig
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.AssemblyInfo.cs

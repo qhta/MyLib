@@ -312,12 +312,12 @@ public static class StringUtils
     if (string.IsNullOrEmpty(str))
       return false;
     foreach (var ch in str)
-      if (ch<' ' || ch>'~')
+      if (ch < ' ' || ch > '~')
         return false;
     return true;
   }
 
-    /// <summary>
+  /// <summary>
   /// Checks if a string contains Unicode characters (i.e. with codes greater than 127)
   /// </summary>
   /// <param name="str"></param>
@@ -328,7 +328,7 @@ public static class StringUtils
     if (string.IsNullOrEmpty(str))
       return false;
     foreach (var ch in str)
-      if (ch>'\x7F')
+      if (ch > '\x7F')
         return true;
     return false;
   }
@@ -417,7 +417,7 @@ public static class StringUtils
       pattern = pattern.Substring(1, pattern.Length - 1);
       if (key.EndsWith(pattern, stringComparison))
       {
-        wildKey = key.Substring(0, key.Length-pattern.Length);
+        wildKey = key.Substring(0, key.Length - pattern.Length);
         return true;
       }
       return false;
@@ -431,7 +431,7 @@ public static class StringUtils
         var wKeys = new string[2];
         wKeys[0] = key.Substring(0, patternPos);
         wKeys[1] = key.Substring(patternPos);
-        wKeys[1] = wKeys[1].Substring(0, wKeys[1].Length-pattern.Length);
+        wKeys[1] = wKeys[1].Substring(0, wKeys[1].Length - pattern.Length);
         wildKey = String.Join("*", wKeys);
         return true;
       }
@@ -900,15 +900,15 @@ public static class StringUtils
       return text.Substring(0, text.Length - endString.Length) + replaceString;
     return text;
   }
-  
+
   /// <summary>
   /// Replaces the first occurence of the string searching in a specified text.
   /// </summary>
   public static string ReplaceFirst(this string text, string searchString, string replaceString)
   {
     var k = text.IndexOf(searchString);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -918,8 +918,8 @@ public static class StringUtils
   public static string ReplaceFirst(this string text, string searchString, string replaceString, int index)
   {
     var k = text.IndexOf(searchString, index);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -940,8 +940,8 @@ public static class StringUtils
   public static string ReplaceFirst(this string text, string searchString, string replaceString, StringComparison comparisonType)
   {
     var k = text.IndexOf(searchString, comparisonType);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -951,8 +951,8 @@ public static class StringUtils
   public static string ReplaceFirst(this string text, string searchString, string replaceString, int index, StringComparison comparisonType)
   {
     var k = text.IndexOf(searchString, index, comparisonType);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -974,8 +974,8 @@ public static class StringUtils
   public static string ReplaceLast(this string text, string searchString, string replaceString)
   {
     var k = text.LastIndexOf(searchString);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -986,8 +986,8 @@ public static class StringUtils
   public static string ReplaceLast(this string text, string searchString, string replaceString, int index)
   {
     var k = text.LastIndexOf(searchString, index);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -1009,8 +1009,8 @@ public static class StringUtils
   public static string ReplaceLast(this string text, string searchString, string replaceString, StringComparison comparisonType)
   {
     var k = text.LastIndexOf(searchString, comparisonType);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -1021,8 +1021,8 @@ public static class StringUtils
   public static string ReplaceLast(this string text, string searchString, string replaceString, int index, StringComparison comparisonType)
   {
     var k = text.LastIndexOf(searchString, index, comparisonType);
-    if (k>=0)
-      return text.Substring(0,k) + replaceString + text.Substring(k+searchString.Length);
+    if (k >= 0)
+      return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
 
@@ -1034,7 +1034,7 @@ public static class StringUtils
   public static string ReplaceLast(this string text, string searchString, string replaceString, int index, int count, StringComparison comparisonType)
   {
     var k = text.LastIndexOf(searchString, index, count, comparisonType);
-    if (k>=0)
+    if (k >= 0)
       return text.Substring(0, k) + replaceString + text.Substring(k + searchString.Length);
     return text;
   }
@@ -1088,5 +1088,77 @@ public static class StringUtils
     if (text.EndsWith("s"))
       return text.Shorten(1);
     return text;
+  }
+
+  /// <summary>
+  /// Decodes escapes sequences: \\, \t, \r, \n, \s, \u
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string DecodeEscapeSeq(this string str)
+  {
+    int index = 0;
+    var sb = new StringBuilder();
+    while (index < str.Length)
+    {
+      char c = str[index];
+      if (c == '\\')
+        sb.Append(DecodeEscapeSeq_(str, ref index));
+      else
+        sb.Append(c);
+      index++;
+    }
+    return sb.ToString();
+  }
+
+
+  private static string DecodeEscapeSeq_(this string str, ref int index)
+  {
+    char c = str[index + 1];
+    switch (c)
+    {
+      case '\\':
+        index++;
+        return "\\";
+      case 't':
+        index++;
+        return "\t";
+      case 'r':
+        index++;
+        return "\r";
+      case 'n':
+        index++;
+        return "\n";
+      case 's':
+        index++;
+        return "\u00a0";
+      case 'u':
+        {
+          index++;
+          ushort num = 0;
+          for (int i = 1; i <= 4; i++)
+          {
+            char c2 = str[index + i];
+            if (c2 >= '0' && c2 <= '9')
+            {
+              num = (ushort)(num * 16 + (ushort)(c2 - 48));
+            }
+            else if (c2 >= 'A' && c2 <= 'F')
+            {
+              num = (ushort)(num * 16 + (ushort)(c2 - 65) + 10);
+            }
+            else if (c2 >= 'a' && c2 <= 'f')
+            {
+              num = (ushort)(num * 16 + (ushort)(c2 - 97) + 10);
+            }
+          }
+
+          index += 4;
+          return new string((char)num, 1);
+        }
+      default:
+        index++;
+        return new string(c, 1);
+    }
   }
 }

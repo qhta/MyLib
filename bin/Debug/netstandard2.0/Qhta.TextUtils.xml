@@ -603,6 +603,13 @@
             Makes Englush singular form of the noun.
             </summary>
         </member>
+        <member name="M:Qhta.TextUtils.StringUtils.DecodeEscapeSeq(System.String)">
+            <summary>
+            Decodes escapes sequences: \\, \t, \r, \n, \s, \u
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TextUtils.CharEquivalence">
             <summary>
             Equivalence of Unicode chars.

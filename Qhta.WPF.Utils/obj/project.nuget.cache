@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wCpgRfH8KR9o1ETur56Sv15O4JlSdqgv0qw6uEvk/KFantnZDABYpCOnyoc3WPhmS9jkCknqgQ2O7tyQYEZOFw==",
+  "dgSpecHash": "NXobj22Jl+D7caTmQju5fRCyVFXVY7uNhx4GxUzphh40u5h/Zl4SyDqvJ2JcSMs7QOzwzDB1r4n0eqIHa+yNzg==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
   "expectedPackageFiles": [
@@ -13,7 +13,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.6.1\\qhta.mvvm.3.6.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.7.0\\qhta.observableobjects.2.7.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.3.0\\qhta.ordnumbers.2.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.1\\qhta.textutils.3.1.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.10.1\\qhta.typeutils.1.3.10.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.converters\\1.3.1\\qhta.wpf.converters.1.3.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
