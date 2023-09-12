@@ -3,3 +3,12 @@ D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.GeneratedMSBuildEditor
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.AssemblyInfoInputs.cache
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.AssemblyInfo.cs
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.MVVM.deps.json
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.MVVM.xml
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\refint\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.xml
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\ref\Qhta.MVVM.dll

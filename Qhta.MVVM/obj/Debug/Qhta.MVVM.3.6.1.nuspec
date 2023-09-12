@@ -9,12 +9,17 @@
     <readme>readme.md</readme>
     <description>A simple MVVM framework which enables worker threads to invoke UI notification via ObservableObjects.</description>
     <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Qhta.ObservableObjects" version="2.7.0" exclude="Build,Analyzers" />
+      </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Qhta.ObservableObjects" version="2.7.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.MVVM.dll" target="lib\net6.0\Qhta.MVVM.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.MVVM.xml" target="lib\net6.0\Qhta.MVVM.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.dll" target="lib\netstandard2.0\Qhta.MVVM.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.MVVM.xml" target="lib\netstandard2.0\Qhta.MVVM.xml" />
     <file src="D:\VS\Projects\MyLib\Qhta.MVVM\docs\readme.md" target="\readme.md" />
