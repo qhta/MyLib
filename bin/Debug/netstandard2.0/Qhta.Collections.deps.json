@@ -7,10 +7,10 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.Collections/4.0": {
+      "Qhta.Collections/4.6": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.TextUtils": "3.1.1"
+          "Qhta.TextUtils": "3.2.0"
         },
         "runtime": {
           "Qhta.Collections.dll": {}
@@ -22,18 +22,18 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "Qhta.TextUtils/3.1.1": {
+      "Qhta.TextUtils/3.2.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.1.1.0",
-            "fileVersion": "3.1.1.0"
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
           }
         }
       }
     }
   },
   "libraries": {
-    "Qhta.Collections/4.0": {
+    "Qhta.Collections/4.6": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -52,12 +52,12 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.1.1": {
+    "Qhta.TextUtils/3.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RYRqFK3PdythcfgCiN4gm6FqvXBjis9zQjBA8mtN/XaxOjpJzev/nfNdzbBzk6FVod5d0F+i2GWckG+K3x9u0g==",
-      "path": "qhta.textutils/3.1.1",
-      "hashPath": "qhta.textutils.3.1.1.nupkg.sha512"
+      "sha512": "sha512-SE6TMY3sLGm6/ta6UGl9FYwLNEGpkpSU/tiuymb8S5w6fJoZivGS6KC4+sk/YUKYt1kjdvwZYmwZEuR0hCXL0g==",
+      "path": "qhta.textutils/3.2.0",
+      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
     }
   }
 }

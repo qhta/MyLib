@@ -16,6 +16,96 @@
             <param name="comparer1">The comparer1.</param>
             <param name="comparer2">The comparer2.</param>
         </member>
+        <member name="T:Qhta.Collections.WildcardSortedStringDictionary">
+            <summary>
+            Sorted dictionary of (string, string>, which can contains wildcard '*' character, that can be encompassed to a fragment of string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardSortedStringDictionary.#ctor">
+            <summary>
+            Default constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardSortedStringDictionary.#ctor(System.StringComparison)">
+            <summary>
+            Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
+            </summary>
+        </member>
+        <member name="T:Qhta.Collections.WildcardSortedStringDictionary`1">
+            <summary>
+            Sorted dictionary of (string, TValue), which can contains wildcard '*' character, that can be encompassed to a fragment of string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardSortedStringDictionary`1.#ctor">
+            <summary>
+            Default constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardSortedStringDictionary`1.#ctor(System.StringComparison)">
+            <summary>
+            Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
+            </summary>
+        </member>
+        <member name="T:Qhta.Collections.WildcardStringComparer">
+            <summary>
+            String comparer that uses wildcard '*' character in str2, that can be encompassed to a fragment of string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringComparer.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringComparer.#ctor(System.StringComparison)">
+            <summary>
+            Constructor that enables letter case ignore.
+            </summary>
+            <param name="stringComparison"></param>
+        </member>
+        <member name="P:Qhta.Collections.WildcardStringComparer.Comparison">
+            <summary>
+            Specifies whether letter case is ignored.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringComparer.Equals(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringComparer.Compare(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringComparer.GetHashCode(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.Collections.WildcardStringDictionary">
+            <summary>
+            Dictionary of (string, string), which can contains wildcard '*' character, that can be encompassed to a fragment of string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary.#ctor">
+            <summary>
+            Default constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary.#ctor(System.StringComparison)">
+            <summary>
+            Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
+            </summary>
+        </member>
+        <member name="T:Qhta.Collections.WildcardStringDictionary`1">
+            <summary>
+            Dictionary of (string, TValue), which can contains wildcard '*' character, that can be encompassed to a fragment of string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary`1.#ctor">
+            <summary>
+            Default constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary`1.#ctor(System.StringComparison)">
+            <summary>
+            Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
+            </summary>
+        </member>
         <member name="T:Qhta.Collections.WildcardStrings">
             <summary>
             It is a sorted set of strings, which can contains wildcard '*' character, that can be encompassed to a fragment of string.

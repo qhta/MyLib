@@ -6,18 +6,36 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Qhta.Collections/3.1": {
+      "Qhta.Collections/4.6": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.2.0"
+        },
         "runtime": {
           "Qhta.Collections.dll": {}
+        }
+      },
+      "Qhta.TextUtils/3.2.0": {
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
-    "Qhta.Collections/3.1": {
+    "Qhta.Collections/4.6": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Qhta.TextUtils/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SE6TMY3sLGm6/ta6UGl9FYwLNEGpkpSU/tiuymb8S5w6fJoZivGS6KC4+sk/YUKYt1kjdvwZYmwZEuR0hCXL0g==",
+      "path": "qhta.textutils/3.2.0",
+      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
     }
   }
 }

@@ -9,12 +9,17 @@
     <readme>readme.md</readme>
     <description>A package with Bidirectional dictionary.</description>
     <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Qhta.TextUtils" version="3.1.1" exclude="Build,Analyzers" />
+      </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Qhta.TextUtils" version="3.1.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.Collections.dll" target="lib\net6.0\Qhta.Collections.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.Collections.xml" target="lib\net6.0\Qhta.Collections.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.dll" target="lib\netstandard2.0\Qhta.Collections.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.xml" target="lib\netstandard2.0\Qhta.Collections.xml" />
     <file src="D:\VS\Projects\MyLib\Qhta.Collections\docs\readme.md" target="\readme.md" />
