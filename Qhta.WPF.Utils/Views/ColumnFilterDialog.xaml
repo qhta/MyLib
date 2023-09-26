@@ -122,12 +122,13 @@
               Content="{x:Static local:CommonStrings.OK}"
               MinWidth="50"
               Margin="10,4"
+              IsDefault="True"
               Click="OkButton_Click" />
       <Button x:Name="CancelButton"
-              IsCancel="true"
               Content="{x:Static local:CommonStrings.Cancel}"
               MinWidth="50"
               Margin="10,4"
+              IsCancel="True"
               Click="CancelButton_Click" />
     </StackPanel>
   </Grid>

@@ -57,14 +57,14 @@
           }
         }
       },
-      "Qhta.MVVM/3.5.0": {
+      "Qhta.MVVM/3.6.1": {
         "dependencies": {
           "Qhta.ObservableObjects": "2.7.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "assemblyVersion": "3.5.0.0",
-            "fileVersion": "3.5.0.0"
+            "assemblyVersion": "3.6.1.0",
+            "fileVersion": "3.6.1.0"
           }
         }
       },
@@ -88,11 +88,11 @@
           }
         }
       },
-      "Qhta.TextUtils/3.1.1": {
+      "Qhta.TextUtils/3.2.0": {
         "runtime": {
           "lib/net6.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.1.1.0",
-            "fileVersion": "3.1.1.0"
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
           }
         }
       },
@@ -109,7 +109,7 @@
       },
       "Qhta.WPF.Converters/1.3.1": {
         "dependencies": {
-          "Qhta.TextUtils": "3.1.1",
+          "Qhta.TextUtils": "3.2.0",
           "Qhta.TypeUtils": "1.3.10.1"
         },
         "runtime": {
@@ -956,12 +956,12 @@
       "path": "qhta.htmlutils/2.1.0",
       "hashPath": "qhta.htmlutils.2.1.0.nupkg.sha512"
     },
-    "Qhta.MVVM/3.5.0": {
+    "Qhta.MVVM/3.6.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-b8yV/bI/Mkid7Pd7OeJ6FcytuGZ6r/JLi7JRvU255QZ2vsHaXDbyQRxDXhEsfJN1Is7YMF9c2UafNzZGx4QgZg==",
-      "path": "qhta.mvvm/3.5.0",
-      "hashPath": "qhta.mvvm.3.5.0.nupkg.sha512"
+      "sha512": "sha512-/9msAOY36+rNqvqy8riyCxek/uu3bqFWzHCYPz4emOg/2aYlB1pYPilt5umPTk82+p7VrJGlOLnc06A/DkgGfg==",
+      "path": "qhta.mvvm/3.6.1",
+      "hashPath": "qhta.mvvm.3.6.1.nupkg.sha512"
     },
     "Qhta.ObservableObjects/2.7.0": {
       "type": "package",
@@ -977,12 +977,12 @@
       "path": "qhta.ordnumbers/2.3.0",
       "hashPath": "qhta.ordnumbers.2.3.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.1.1": {
+    "Qhta.TextUtils/3.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RYRqFK3PdythcfgCiN4gm6FqvXBjis9zQjBA8mtN/XaxOjpJzev/nfNdzbBzk6FVod5d0F+i2GWckG+K3x9u0g==",
-      "path": "qhta.textutils/3.1.1",
-      "hashPath": "qhta.textutils.3.1.1.nupkg.sha512"
+      "sha512": "sha512-SE6TMY3sLGm6/ta6UGl9FYwLNEGpkpSU/tiuymb8S5w6fJoZivGS6KC4+sk/YUKYt1kjdvwZYmwZEuR0hCXL0g==",
+      "path": "qhta.textutils/3.2.0",
+      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
     },
     "Qhta.TypeUtils/1.3.10.1": {
       "type": "package",
