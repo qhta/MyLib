@@ -63,7 +63,7 @@ namespace Qhta.WPF.Utils.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;V3.3.0.0;component/views/textfilterview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;component/views/textfilterview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\TextFilterView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

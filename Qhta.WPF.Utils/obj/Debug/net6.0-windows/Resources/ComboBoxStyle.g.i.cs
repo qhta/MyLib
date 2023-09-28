@@ -55,7 +55,7 @@ namespace Qhta.WPF.Utils {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;V3.3.0.0;component/resources/comboboxstyle.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.WPF.Utils;component/resources/comboboxstyle.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Resources\ComboBoxStyle.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

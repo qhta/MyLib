@@ -109,13 +109,13 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   /// Otherwise passes the original notification.
   /// </summary>
   /// <param name="sender"></param>
-  /// <param name="e"></param>
-  private void SourceCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+  /// <param name="args"></param>
+  private void SourceCollection_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
   {
     if (IsFiltered)
       NotifyCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     else
-      NotifyCollectionChanged(this, e);
+      NotifyCollectionChanged(this, args);
   }
 
   /// <summary>

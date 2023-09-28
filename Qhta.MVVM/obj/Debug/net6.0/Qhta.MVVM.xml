@@ -339,7 +339,7 @@
             Otherwise passes the original notification.
             </summary>
             <param name="sender"></param>
-            <param name="e"></param>
+            <param name="args"></param>
         </member>
         <member name="M:Qhta.MVVM.FilteredCollection`1.ApplyFilter">
             <summary>
