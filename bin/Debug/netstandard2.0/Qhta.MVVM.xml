@@ -1216,6 +1216,12 @@
             Default constructor.
             </summary>
         </member>
+        <member name="M:Qhta.MVVM.VisibleViewModel`1.#ctor(`0)">
+            <summary>
+            A constructor with a Model.
+            </summary>
+            <param name="model"></param>
+        </member>
         <member name="M:Qhta.MVVM.VisibleViewModel`1.#ctor(Qhta.MVVM.IViewModel)">
             <summary>
             A constructor with a parent ViewModel.

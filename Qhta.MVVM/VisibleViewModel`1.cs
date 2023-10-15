@@ -13,6 +13,15 @@
     }
 
     /// <summary>
+    /// A constructor with a Model.
+    /// </summary>
+    /// <param name="model"></param>
+    public VisibleViewModel(ModelType model)
+    {
+      Model = model;
+    }
+
+    /// <summary>
     /// A constructor with a parent ViewModel.
     /// </summary>
     /// <param name="parentViewModel"></param>
