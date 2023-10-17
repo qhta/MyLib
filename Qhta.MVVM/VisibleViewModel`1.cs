@@ -16,7 +16,7 @@
     /// A constructor with a Model.
     /// </summary>
     /// <param name="model"></param>
-    public VisibleViewModel(ModelType model)
+    public VisibleViewModel(ModelType? model)
     {
       Model = model;
     }
@@ -25,9 +25,20 @@
     /// A constructor with a parent ViewModel.
     /// </summary>
     /// <param name="parentViewModel"></param>
-    public VisibleViewModel(IViewModel parentViewModel)
+    public VisibleViewModel(IViewModel? parentViewModel)
     {
       ParentViewModel = parentViewModel;
+    }
+
+    /// <summary>
+    /// A constructor with a parent ViewModel and Model.
+    /// </summary>
+    /// <param name="parentViewModel"></param>
+    /// <param name="model"></param>
+    public VisibleViewModel(IViewModel? parentViewModel, ModelType model)
+    {
+      ParentViewModel = parentViewModel;
+      Model = model;
     }
 
     /// <summary>

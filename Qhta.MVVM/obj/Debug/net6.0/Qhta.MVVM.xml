@@ -1228,6 +1228,13 @@
             </summary>
             <param name="parentViewModel"></param>
         </member>
+        <member name="M:Qhta.MVVM.VisibleViewModel`1.#ctor(Qhta.MVVM.IViewModel,`0)">
+            <summary>
+            A constructor with a parent ViewModel and Model.
+            </summary>
+            <param name="parentViewModel"></param>
+            <param name="model"></param>
+        </member>
         <member name="P:Qhta.MVVM.VisibleViewModel`1.ParentViewModel">
             <summary>
             A parent ViewModel of this ViewModel.
