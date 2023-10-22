@@ -196,7 +196,10 @@ public class FilteredCollection<T> : ObservableCollectionObject, IFilteredCollec
   public void CopyTo(T[] array, int arrayIndex)
   {
     if (IsFiltered)
-      ((IEnumerable<T>)this).ToArray().CopyTo(array, arrayIndex);
+    {
+      foreach (var item in this)
+        array[arrayIndex++] = item;
+    }
     else
       SourceCollection.CopyTo(array, arrayIndex);
   }
