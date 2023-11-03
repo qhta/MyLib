@@ -8,6 +8,24 @@ public partial class QXmlSerializer
   /// <summary>
   ///   Main serialization entry for System.Xml.XmlWriter.
   /// </summary>
+  /// <param name="fileStream">The target of serialization.</param>
+  /// <param name="obj">Serialized object.</param>
+  public void SerializeObject(Stream fileStream, object? obj)
+  {
+    if (obj == null)
+      return;
+    var xmlWriter = XmlWriter.Create(fileStream);
+    Writer = new QXmlWriter(xmlWriter);
+    Writer.TraceElementStack = Options.TraceElementStack;
+    Writer.TraceAttributeStack = Options.TraceAttributeStack;
+    namespacesWritten = false;
+    WriteObject(obj);
+    fileStream.Flush();
+  }
+
+  /// <summary>
+  ///   Main serialization entry for System.Xml.XmlWriter.
+  /// </summary>
   /// <param name="xmlWriter">The target of serialization.</param>
   /// <param name="obj">Serialized object.</param>
   public void SerializeObject(XmlWriter xmlWriter, object? obj)
@@ -51,7 +69,7 @@ public partial class QXmlSerializer
   /// <summary>
   /// System XmlWriter wrapper.
   /// </summary>
-  public IXmlWriter Writer { get; protected set; } = null!;
+  public IXmlWriter Writer { get; set; } = null!;
 
   #region Write methods
 

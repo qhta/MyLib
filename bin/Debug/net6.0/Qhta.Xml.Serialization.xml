@@ -917,6 +917,13 @@
             <param name="memberInfo">Serialization member info of the value.</param>
             <param name="value">The value to set (may be null).</param>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.IO.Stream,System.Object)">
+            <summary>
+              Main serialization entry for System.Xml.XmlWriter.
+            </summary>
+            <param name="fileStream">The target of serialization.</param>
+            <param name="obj">Serialized object.</param>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.Xml.XmlWriter,System.Object)">
             <summary>
               Main serialization entry for System.Xml.XmlWriter.

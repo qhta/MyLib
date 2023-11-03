@@ -185,7 +185,7 @@ public partial class QXmlSerializer : IXmlSerializer
 
     RegisterType(type);
     if (extraTypes != null)
-      foreach (var t in extraTypes)
+      foreach (var t in extraTypes.Where(type=>!type.Name.Contains('<') && !type.Name.Contains('`')))
         RegisterType(t);
     RegisterType(typeof(object));
     if (Options.AutoSetPrefixes)
