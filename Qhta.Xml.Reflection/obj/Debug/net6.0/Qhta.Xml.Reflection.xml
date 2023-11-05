@@ -147,6 +147,12 @@
             Named collection of serialization member info.
             </summary>
         </member>
+        <member name="M:Qhta.Xml.Reflection.KnownMembersCollection.#ctor(Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="ownerTypeInfo"></param>
+        </member>
         <member name="M:Qhta.Xml.Reflection.KnownMembersCollection.Dump(System.String,Qhta.Xml.Reflection.KnownNamespacesCollection)">
             <summary>
             Dumps collection to debug output window

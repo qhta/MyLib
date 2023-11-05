@@ -5,26 +5,26 @@
 /// </summary>
 public interface IXmlReader
 {
-  ///<summary>
-  /// IDisposable interface
-  ///</summary>
-  public void Dispose();
+  /////<summary>
+  ///// IDisposable interface
+  /////</summary>
+  //public void Dispose();
 
-  ///<summary>
-  /// Closes the stream/TextReader (if CloseInput==true), changes the ReadState to Closed, and sets all the properties back to zero/empty string.
-  ///</summary>
-  public void Close();
+  /////<summary>
+  ///// Closes the stream/TextReader (if CloseInput==true), changes the ReadState to Closed, and sets all the properties back to zero/empty string.
+  /////</summary>
+  //public void Close();
 
   /// <summary>
   /// Needed to use IXmlSerializable interface.
   /// </summary>
   public XmlReader? BaseXmlReader { get; }
 
-  #region Settings
-  ///<summary>
-  /// Predefined reader settings
-  ///</summary>
-  public XmlReaderSettings? Settings { get; }
+  //#region Settings
+  /////<summary>
+  ///// Predefined reader settings
+  /////</summary>
+  //public XmlReaderSettings? Settings { get; }
 
   /// <summary>
   /// Gets or sets the whitespace handling.
@@ -33,7 +33,7 @@ public interface IXmlReader
   /// no Whitespace at all.
   /// </summary>
   public WhitespaceHandling? WhitespaceHandling { get; set; }
-  #endregion
+  //#endregion
 
   #region Reader state
   ///<summary>
@@ -41,10 +41,10 @@ public interface IXmlReader
   ///</summary>
   public bool EOF { get; }
 
-  ///<summary>
-  /// Returns the read state of the XmlReader.
-  ///</summary>
-  public ReadState ReadState { get; }
+  /////<summary>
+  ///// Returns the read state of the XmlReader.
+  /////</summary>
+  //public ReadState ReadState { get; }
 
   ///<summary>
   /// Get the type of the current node.
@@ -61,20 +61,20 @@ public interface IXmlReader
   ///</summary>
   public string LocalName { get; }
 
-  ///<summary>
-  /// Gets the namespace URN (as defined in the W3C Namespace Specification) of the current namespace scope.
-  ///</summary>
-  public string NamespaceURI { get; }
+  /////<summary>
+  ///// Gets the namespace URN (as defined in the W3C Namespace Specification) of the current namespace scope.
+  /////</summary>
+  //public string NamespaceURI { get; }
 
   ///<summary>
   /// Gets the namespace prefix associated with the current node.
   ///</summary>
   public string Prefix { get; }
 
-  ///<summary>
-  /// Gets a value indicating whether the current node can have a Value.
-  ///</summary>
-  public bool HasValue { get; }
+  /////<summary>
+  ///// Gets a value indicating whether the current node can have a Value.
+  /////</summary>
+  //public bool HasValue { get; }
 
   ///<summary>
   /// returns the type of the current node
@@ -86,41 +86,41 @@ public interface IXmlReader
   ///</summary>
   public string Value { get; }
 
-  ///<summary>
-  /// Gets the depth of the current node in the XML element stack.
-  ///</summary>
-  public int Depth { get; }
+  /////<summary>
+  ///// Gets the depth of the current node in the XML element stack.
+  /////</summary>
+  //public int Depth { get; }
 
-  ///<summary>
-  /// Gets the base URI of the current node.
-  ///</summary>
-  public string BaseURI { get; }
+  /////<summary>
+  ///// Gets the base URI of the current node.
+  /////</summary>
+  //public string BaseURI { get; }
 
   ///<summary>
   /// Gets a value indicating whether the current node is an empty element (for example, <MyElement/>).
   ///</summary>
   public bool IsEmptyElement { get; }
 
-  ///<summary>
-  /// Gets a value indicating whether the current node is an attribute that was generated from the default value defined in the DTD or schema.
-  ///</summary>
-  public bool IsDefault { get; }
+  /////<summary>
+  ///// Gets a value indicating whether the current node is an attribute that was generated from the default value defined in the DTD or schema.
+  /////</summary>
+  //public bool IsDefault { get; }
 
-  ///<summary>
-  /// Gets the quotation mark character used to enclose the value of an attribute node.
-  ///</summary>
-  public char QuoteChar { get; }
+  /////<summary>
+  ///// Gets the quotation mark character used to enclose the value of an attribute node.
+  /////</summary>
+  //public char QuoteChar { get; }
 
-  ///<summary>
-  /// Gets the current xml:space scope.
-  ///</summary>
-  public XmlSpace XmlSpace { get; }
+  /////<summary>
+  ///// Gets the current xml:space scope.
+  /////</summary>
+  //public XmlSpace XmlSpace { get; }
 
-  ///<summary>
-  /// Gets the current xml:lang scope.
-  ///</summary>
-  public string XmlLang { get; }
-  
+  /////<summary>
+  ///// Gets the current xml:lang scope.
+  /////</summary>
+  //public string XmlLang { get; }
+
   /// <summary>
   /// Gets line number of XML text file where the exception occured.
   /// </summary>
@@ -138,26 +138,26 @@ public interface IXmlReader
   /// Returns true when the current node has any attributes.
   ///</summary>
   public bool HasAttributes { get; }
-  
+
   ///<summary>
   /// The number of attributes on the current node.
   ///</summary>
   public int AttributeCount { get; }
 
-  ///<summary>
-  /// Gets the value of the attribute with the specified index.
-  ///</summary>
-  public string this[int i] { get; }
+  /////<summary>
+  ///// Gets the value of the attribute with the specified index.
+  /////</summary>
+  //public string this[int i] { get; }
 
-  ///<summary>
-  /// Gets the value of the attribute with the specified Name.
-  ///</summary>
-  public string? this[string name] { get; }
+  /////<summary>
+  ///// Gets the value of the attribute with the specified Name.
+  /////</summary>
+  //public string? this[string name] { get; }
 
-  ///<summary>
-  /// Gets the value of the attribute with the LocalName and NamespaceURI
-  ///</summary>
-  public string? this[XmlQualifiedTagName fullName] { get; }
+  /////<summary>
+  ///// Gets the value of the attribute with the LocalName and NamespaceURI
+  /////</summary>
+  //public string? this[XmlQualifiedTagName fullName] { get; }
 
   ///<summary>
   /// Gets the value of the attribute with the specified Name
@@ -182,56 +182,56 @@ public interface IXmlReader
   ///</summary>
   public string ReadString();
 
-  ///<summary>
-  /// Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
-  /// and converts the content to the requested type. Stops at start tags and end tags.
-  ///</summary>
-  public object ReadContentAs(Type returnType);
+  /////<summary>
+  ///// Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
+  ///// and converts the content to the requested type. Stops at start tags and end tags.
+  /////</summary>
+  //public object ReadContentAs(Type returnType);
 
-  ///<summary>
-  /// Returns the content of the current element as a string. Moves to the node following the element's end tag.
-  ///</summary>
-  public string ReadElementContentAsString();
+  /////<summary>
+  ///// Returns the content of the current element as a string. Moves to the node following the element's end tag.
+  /////</summary>
+  //public string ReadElementContentAsString();
 
-  ///<summary>
-  /// Checks local name and namespace of the current element and returns its content as a string. Moves to the node following the element's end tag.
-  ///</summary>
-  public string ReadElementContentAsString(XmlQualifiedTagName fullName);
+  /////<summary>
+  ///// Checks local name and namespace of the current element and returns its content as a string. Moves to the node following the element's end tag.
+  /////</summary>
+  //public string ReadElementContentAsString(XmlQualifiedTagName fullName);
 
   #endregion
 
-  #region Element accessors
-  ///<summary>
-  /// Reads a text-only element.
-  ///</summary>
-  public string ReadElementString();
+  //#region Element accessors
+  /////<summary>
+  ///// Reads a text-only element.
+  /////</summary>
+  //public string ReadElementString();
 
-  ///<summary>
-  /// Checks that the Name property of the element found matches the given string before reading a text-only element.
-  ///</summary>
-  public string ReadElementString(string name);
+  /////<summary>
+  ///// Checks that the Name property of the element found matches the given string before reading a text-only element.
+  /////</summary>
+  //public string ReadElementString(string name);
 
-  ///<summary>
-  /// Checks that the LocalName and NamespaceURI properties of the element found matches the given strings before reading a text-only element.
-  ///</summary>
-  public string ReadElementString(XmlQualifiedTagName fullName);
-  #endregion
+  /////<summary>
+  ///// Checks that the LocalName and NamespaceURI properties of the element found matches the given strings before reading a text-only element.
+  /////</summary>
+  //public string ReadElementString(XmlQualifiedTagName fullName);
+  //#endregion
 
-  #region Movement
-  ///<summary>
-  /// Moves to the attribute with the specified Name.
-  ///</summary>
-  public bool MoveToAttribute(string name);
+  //#region Movement
+  /////<summary>
+  ///// Moves to the attribute with the specified Name.
+  /////</summary>
+  //public bool MoveToAttribute(string name);
 
-  ///<summary>
-  /// Moves to the attribute with the specified LocalName and NamespaceURI.
-  ///</summary>
-  public bool MoveToAttribute(XmlQualifiedTagName fullName);
+  /////<summary>
+  ///// Moves to the attribute with the specified LocalName and NamespaceURI.
+  /////</summary>
+  //public bool MoveToAttribute(XmlQualifiedTagName fullName);
 
-  ///<summary>
-  /// Moves to the attribute with the specified index.
-  ///</summary>
-  public void MoveToAttribute(int i);
+  /////<summary>
+  ///// Moves to the attribute with the specified index.
+  /////</summary>
+  //public void MoveToAttribute(int i);
 
   ///<summary>
   /// Moves to the first attribute of the current node.
@@ -243,24 +243,24 @@ public interface IXmlReader
   ///</summary>
   public bool MoveToNextAttribute();
 
-  ///<summary>
-  /// Moves to the element that contains the current attribute node.
-  ///</summary>
-  public bool MoveToElement();
+  /////<summary>
+  ///// Moves to the element that contains the current attribute node.
+  /////</summary>
+  //public bool MoveToElement();
 
-  ///<summary>
-  /// Checks whether the current node is a content (non-whitespace text, CDATA, Element, EndElement, EntityReference or EndEntity) node.
-  /// If the node is not a content node, then the method skips ahead to the next content node or end of file.
-  /// Skips over nodes of type ProcessingInstruction, DocumentType, Comment, Whitespace and SignificantWhitespace.
-  ///</summary>
-  public XmlNodeType MoveToContent();
+  /////<summary>
+  ///// Checks whether the current node is a content (non-whitespace text, CDATA, Element, EndElement, EntityReference or EndEntity) node.
+  ///// If the node is not a content node, then the method skips ahead to the next content node or end of file.
+  ///// Skips over nodes of type ProcessingInstruction, DocumentType, Comment, Whitespace and SignificantWhitespace.
+  /////</summary>
+  //public XmlNodeType MoveToContent();
 
   ///<summary>
   /// Skips to the end tag of the current element.
   ///</summary>
   public void Skip();
 
-  #endregion
+  //#endregion
 
   #region Read but return no significant value.
 

@@ -66,7 +66,8 @@ public class XmlSerializationInfoMapper
       aType = baseType;
     #region Checking if a type was already registered
 
-    if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null) return knownTypeInfo;
+    if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null) 
+      return knownTypeInfo;
 
     #endregion
 
@@ -226,6 +227,8 @@ public class XmlSerializationInfoMapper
     var elemCount = 0;
     foreach (var memberInfo in members)
     {
+      if (memberInfo.Name=="Compatibility")
+        Debug.Assert(true);
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
       if (memberInfo.Name == typeInfo.ContentProperty?.Member.Name)
@@ -353,7 +356,7 @@ public class XmlSerializationInfoMapper
     var attrNamespace = xmlAttribute?.Namespace;
     if (string.IsNullOrEmpty(attrName))
       attrName = memberInfo.Name;
-    if (attrName!=null && Options.AttributeNameCase != 0)
+    if (attrName != null && Options.AttributeNameCase != 0)
       attrName = attrName.ChangeCase(Options.AttributeNameCase);
     var qAttrName = new QualifiedName(attrName ?? "", attrNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qAttrName))
@@ -395,7 +398,7 @@ public class XmlSerializationInfoMapper
     var elementNamespace = xmlAttribute?.Namespace;
     if (string.IsNullOrEmpty(elementName))
       elementName = memberInfo.Name;
-    if (elementName!=null && Options.ElementNameCase != 0)
+    if (elementName != null && Options.ElementNameCase != 0)
       elementName = elementName.ChangeCase(Options.ElementNameCase);
     if (string.IsNullOrEmpty(elementNamespace))
       elementNamespace = memberInfo.DeclaringType?.Namespace ?? "";
@@ -461,7 +464,7 @@ public class XmlSerializationInfoMapper
     var elemNamespace = attribute?.Namespace;
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
-    if (elemName!=null && Options.ElementNameCase != 0)
+    if (elemName != null && Options.ElementNameCase != 0)
       elemName = elemName.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName ?? "", elemNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
@@ -487,7 +490,7 @@ public class XmlSerializationInfoMapper
     var elemNamespace = attribute?.Namespace;
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
-    if (elemName!=null && Options.ElementNameCase != 0)
+    if (elemName != null && Options.ElementNameCase != 0)
       elemName = elemName.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName ?? "", elemNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
@@ -654,76 +657,76 @@ public class XmlSerializationInfoMapper
     return knownItems;
   }
 
-  /// <summary>
-  ///   Registers types, which are indended to be serialized as Xml children elements.
-  ///   These types are marked for the type with XmlItemElementAttribute />
-  /// </summary>
-  /// <param name="aType">Type to reflect</param>
-  /// <returns>A dictionary of known item types</returns>
-  public virtual KnownItemTypesCollection GetKnownItemTypes(Type aType)
-  {
-    KnownItemTypesCollection knownItems = new();
-    var xmlItemElementAttributes = aType.GetCustomAttributes<XmlItemElementAttribute>(false).ToList();
-    var xmlDictionaryItemAttributes = aType.GetCustomAttributes<XmlDictionaryItemAttribute>(false);
-    xmlItemElementAttributes.AddRange(xmlDictionaryItemAttributes);
-    if (xmlItemElementAttributes.Any())
-      foreach (var xmlItemElementAttribute in xmlItemElementAttributes)
-      {
-        var itemType = xmlItemElementAttribute.Type;
-        if (itemType == null)
-          itemType = typeof(object);
-        if (!KnownTypes.TryGetValue(itemType, out var itemTypeInfo)) itemTypeInfo = RegisterType(itemType);
-        if (itemTypeInfo == null)
-          throw new InvalidOperationException($"Unknown type {itemType} for deserialization");
-        SerializationItemInfo knownItemTypeInfo;
-        if (!string.IsNullOrEmpty(xmlItemElementAttribute.ElementName))
-          knownItemTypeInfo = new SerializationItemInfo(xmlItemElementAttribute.ElementName, itemTypeInfo);
-        else
-          knownItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
-        var addMethodName = xmlItemElementAttribute.AddMethod;
-        if (xmlItemElementAttribute is XmlDictionaryItemAttribute xmlDictionaryItemAttribute)
-        {
-          if (xmlDictionaryItemAttribute.KeyAttributeName != null) knownItemTypeInfo.KeyName = xmlDictionaryItemAttribute.KeyAttributeName;
-          if (addMethodName == null)
-            addMethodName = "Add";
-        }
-        if (addMethodName != null)
-        {
-          var addMethods = aType.GetMethods().Where(m => m.Name == addMethodName).ToList();
-          if (!addMethods.Any())
-          {
-            throw new InvalidOperationException($"Add method \"{xmlItemElementAttribute.AddMethod}\" in type {aType} not found for deserialization");
-          }
-          MethodInfo? addMethodInfo = null;
-          foreach (var addMethod in addMethods)
-          {
-            var parameters = addMethod.GetParameters();
-            if (parameters.Length == 1 && !(xmlItemElementAttribute is XmlDictionaryItemAttribute))
-            {
-              if (itemType.IsEqualOrSubclassOf(parameters[0].ParameterType))
-              {
-                addMethodInfo = addMethod;
-                break;
-              }
-            }
-            else if (parameters.Length == 2 && xmlItemElementAttribute is XmlDictionaryItemAttribute)
-            {
-              if (itemType.IsEqualOrSubclassOf(parameters[1].ParameterType))
-              {
-                addMethodInfo = addMethod;
-                break;
-              }
-            }
-          }
-          if (addMethodInfo != null)
-            knownItemTypeInfo.AddMethod = addMethodInfo;
-          else
-            throw new InvalidOperationException($"No compatible \"{xmlItemElementAttribute.AddMethod}\"method found in type {itemType}.");
-        }
-        knownItems.Add(knownItemTypeInfo);
-      }
-    return knownItems;
-  }
+  ///// <summary>
+  /////   Registers types, which are indended to be serialized as Xml children elements.
+  /////   These types are marked for the type with XmlItemElementAttribute />
+  ///// </summary>
+  ///// <param name="aType">Type to reflect</param>
+  ///// <returns>A dictionary of known item types</returns>
+  //public virtual KnownItemTypesCollection GetKnownItemTypes(Type aType)
+  //{
+  //  KnownItemTypesCollection knownItems = new();
+  //  var xmlItemElementAttributes = aType.GetCustomAttributes<XmlItemElementAttribute>(false).ToList();
+  //  var xmlDictionaryItemAttributes = aType.GetCustomAttributes<XmlDictionaryItemAttribute>(false);
+  //  xmlItemElementAttributes.AddRange(xmlDictionaryItemAttributes);
+  //  if (xmlItemElementAttributes.Any())
+  //    foreach (var xmlItemElementAttribute in xmlItemElementAttributes)
+  //    {
+  //      var itemType = xmlItemElementAttribute.Type;
+  //      if (itemType == null)
+  //        itemType = typeof(object);
+  //      if (!KnownTypes.TryGetValue(itemType, out var itemTypeInfo)) itemTypeInfo = RegisterType(itemType);
+  //      if (itemTypeInfo == null)
+  //        throw new InvalidOperationException($"Unknown type {itemType} for deserialization");
+  //      SerializationItemInfo knownItemTypeInfo;
+  //      if (!string.IsNullOrEmpty(xmlItemElementAttribute.ElementName))
+  //        knownItemTypeInfo = new SerializationItemInfo(xmlItemElementAttribute.ElementName, itemTypeInfo);
+  //      else
+  //        knownItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
+  //      var addMethodName = xmlItemElementAttribute.AddMethod;
+  //      if (xmlItemElementAttribute is XmlDictionaryItemAttribute xmlDictionaryItemAttribute)
+  //      {
+  //        if (xmlDictionaryItemAttribute.KeyAttributeName != null) knownItemTypeInfo.KeyName = xmlDictionaryItemAttribute.KeyAttributeName;
+  //        if (addMethodName == null)
+  //          addMethodName = "Add";
+  //      }
+  //      if (addMethodName != null)
+  //      {
+  //        var addMethods = aType.GetMethods().Where(m => m.Name == addMethodName).ToList();
+  //        if (!addMethods.Any())
+  //        {
+  //          throw new InvalidOperationException($"Add method \"{xmlItemElementAttribute.AddMethod}\" in type {aType} not found for deserialization");
+  //        }
+  //        MethodInfo? addMethodInfo = null;
+  //        foreach (var addMethod in addMethods)
+  //        {
+  //          var parameters = addMethod.GetParameters();
+  //          if (parameters.Length == 1 && !(xmlItemElementAttribute is XmlDictionaryItemAttribute))
+  //          {
+  //            if (itemType.IsEqualOrSubclassOf(parameters[0].ParameterType))
+  //            {
+  //              addMethodInfo = addMethod;
+  //              break;
+  //            }
+  //          }
+  //          else if (parameters.Length == 2 && xmlItemElementAttribute is XmlDictionaryItemAttribute)
+  //          {
+  //            if (itemType.IsEqualOrSubclassOf(parameters[1].ParameterType))
+  //            {
+  //              addMethodInfo = addMethod;
+  //              break;
+  //            }
+  //          }
+  //        }
+  //        if (addMethodInfo != null)
+  //          knownItemTypeInfo.AddMethod = addMethodInfo;
+  //        else
+  //          throw new InvalidOperationException($"No compatible \"{xmlItemElementAttribute.AddMethod}\"method found in type {itemType}.");
+  //      }
+  //      knownItems.Add(knownItemTypeInfo);
+  //    }
+  //  return knownItems;
+  //}
   #endregion
 
   #region TypeConverter and XmlConverter handling.
@@ -769,7 +772,7 @@ public class XmlSerializationInfoMapper
     return result?.InternalTypeConverter;
   }
 
-    /// <summary>
+  /// <summary>
   ///   Registers a converter to read/write using XmlReader/XmlWriter.
   ///   This converter is declared in the type header with <see cref="XmlConverterAttribute" />.
   /// </summary>
@@ -784,7 +787,7 @@ public class XmlSerializationInfoMapper
       if (converterType == null)
         throw new InvalidOperationException($"Converter type not declared in XmlConverterAttribute assigned to a type {aType.Name}");
       var argTypes = new Type[xmlTypeConverterAttrib.Args?.Length ?? 0];
-      if (xmlTypeConverterAttrib.Args!=null)
+      if (xmlTypeConverterAttrib.Args != null)
         for (var i = 0; i < argTypes.Length; i++)
           argTypes[i] = xmlTypeConverterAttrib.Args[i].GetType();
       var constructor = converterType.GetConstructor(argTypes);
@@ -797,7 +800,7 @@ public class XmlSerializationInfoMapper
     }
     return null;
   }
-#endregion
+  #endregion
 
   #region Tag handling.
   /// <summary>
@@ -865,7 +868,7 @@ public class XmlSerializationInfoMapper
       return ToQualifiedName(xmlQualifiedName.Name);
     return new QualifiedName(xmlQualifiedName.Name, xmlQualifiedName.Namespace);
   }
-#endregion
+  #endregion
 
   #region Collection Handling
 
@@ -975,10 +978,61 @@ public class XmlSerializationInfoMapper
           serializationItemTypeInfo = new SerializationItemInfo(itemTypeInfo);
           collectionTypeInfo.KnownItemTypes.Add(serializationItemTypeInfo);
         }
+      if (!aType.IsArray)
+        SetAddMethods(aType, collectionTypeInfo);
     }
     return collectionTypeInfo;
   }
 
+
+  private void SetAddMethods(Type aType, ContentItemInfo collectionTypeInfo)
+  {
+    KnownItemTypesCollection knownItems = collectionTypeInfo.KnownItemTypes;
+    foreach (var knownItemTypeInfo in knownItems)
+    {
+      var itemType = knownItemTypeInfo.Type;
+      if (itemType == null)
+        itemType = typeof(object);
+      if (!KnownTypes.TryGetValue(itemType, out var itemTypeInfo)) itemTypeInfo = RegisterType(itemType);
+      if (itemTypeInfo == null)
+        throw new InvalidOperationException($"Unknown type {itemType} for deserialization");
+      var addMethodName = "Add";
+      if (addMethodName != null)
+      {
+        var addMethods = aType.GetMethods().Where(m => m.Name == addMethodName).ToList();
+        if (!addMethods.Any())
+        {
+          throw new InvalidOperationException($"Add methods in type {aType} not found for deserialization");
+        }
+        MethodInfo? addMethodInfo = null;
+        foreach (var addMethod in addMethods)
+        {
+          var parameters = addMethod.GetParameters();
+          if (parameters.Length == 1)
+          {
+            if (itemType.IsEqualOrSubclassOf(parameters[0].ParameterType))
+            {
+              addMethodInfo = addMethod;
+              break;
+            }
+          }
+          else if (parameters.Length == 2)
+          {
+            if (itemType.IsEqualOrSubclassOf(parameters[1].ParameterType))
+            {
+              addMethodInfo = addMethod;
+              break;
+            }
+          }
+        }
+        if (addMethodInfo != null)
+          knownItemTypeInfo.AddMethod = addMethodInfo;
+        else
+          throw new InvalidOperationException($"No compatible add method for {itemType} found in type {aType}");
+      }
+    }
+
+  }
   #endregion
 
   #region DictionaryHandling

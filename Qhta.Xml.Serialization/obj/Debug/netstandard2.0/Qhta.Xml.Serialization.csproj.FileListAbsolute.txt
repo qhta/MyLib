@@ -18,3 +18,4 @@ D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Se
 D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.xml
 D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.pdb
+D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.csproj.CopyComplete

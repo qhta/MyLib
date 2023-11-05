@@ -920,6 +920,7 @@ public partial class QXmlSerializer
   /// </remarks>
   protected XmlQualifiedTagName? CreateElementTag(SerializationMemberInfo memberInfo, Type? type)
   {
+
     if (memberInfo.IsContentElement)
       return null;
     var result = Mapper.GetXmlTag(memberInfo);

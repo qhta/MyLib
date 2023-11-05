@@ -52,24 +52,9 @@
             Defines methods that must be implemented in an XmlReader.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.IXmlReader.Dispose">
-            <summary>
-             IDisposable interface
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.Close">
-            <summary>
-             Closes the stream/TextReader (if CloseInput==true), changes the ReadState to Closed, and sets all the properties back to zero/empty string.
-            </summary>
-        </member>
         <member name="P:Qhta.Xml.IXmlReader.BaseXmlReader">
             <summary>
             Needed to use IXmlSerializable interface.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.Settings">
-            <summary>
-             Predefined reader settings
             </summary>
         </member>
         <member name="P:Qhta.Xml.IXmlReader.WhitespaceHandling">
@@ -83,11 +68,6 @@
         <member name="P:Qhta.Xml.IXmlReader.EOF">
             <summary>
              Returns true when the XmlReader is positioned at the end of the stream.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.ReadState">
-            <summary>
-             Returns the read state of the XmlReader.
             </summary>
         </member>
         <member name="P:Qhta.Xml.IXmlReader.NodeType">
@@ -105,19 +85,9 @@
              Gets the name of the current node without the namespace prefix.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.IXmlReader.NamespaceURI">
-            <summary>
-             Gets the namespace URN (as defined in the W3C Namespace Specification) of the current namespace scope.
-            </summary>
-        </member>
         <member name="P:Qhta.Xml.IXmlReader.Prefix">
             <summary>
              Gets the namespace prefix associated with the current node.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.HasValue">
-            <summary>
-             Gets a value indicating whether the current node can have a Value.
             </summary>
         </member>
         <member name="P:Qhta.Xml.IXmlReader.ValueType">
@@ -130,39 +100,9 @@
              Gets the text value of the current node.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.IXmlReader.Depth">
-            <summary>
-             Gets the depth of the current node in the XML element stack.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.BaseURI">
-            <summary>
-             Gets the base URI of the current node.
-            </summary>
-        </member>
         <member name="P:Qhta.Xml.IXmlReader.IsEmptyElement">
             <summary>
              Gets a value indicating whether the current node is an empty element (for example, <MyElement/>).
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.IsDefault">
-            <summary>
-             Gets a value indicating whether the current node is an attribute that was generated from the default value defined in the DTD or schema.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.QuoteChar">
-            <summary>
-             Gets the quotation mark character used to enclose the value of an attribute node.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.XmlSpace">
-            <summary>
-             Gets the current xml:space scope.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.XmlLang">
-            <summary>
-             Gets the current xml:lang scope.
             </summary>
         </member>
         <member name="P:Qhta.Xml.IXmlReader.LineNumber">
@@ -185,21 +125,6 @@
              The number of attributes on the current node.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.IXmlReader.Item(System.Int32)">
-            <summary>
-             Gets the value of the attribute with the specified index.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.Item(System.String)">
-            <summary>
-             Gets the value of the attribute with the specified Name.
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.IXmlReader.Item(Qhta.Xml.XmlQualifiedTagName)">
-            <summary>
-             Gets the value of the attribute with the LocalName and NamespaceURI
-            </summary>
-        </member>
         <member name="M:Qhta.Xml.IXmlReader.GetAttribute(System.String)">
             <summary>
              Gets the value of the attribute with the specified Name
@@ -220,52 +145,6 @@
              Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references, and returns the content as a string. Stops at start tags and end tags.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.IXmlReader.ReadContentAs(System.Type)">
-            <summary>
-             Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
-             and converts the content to the requested type. Stops at start tags and end tags.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.ReadElementContentAsString">
-            <summary>
-             Returns the content of the current element as a string. Moves to the node following the element's end tag.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.ReadElementContentAsString(Qhta.Xml.XmlQualifiedTagName)">
-            <summary>
-             Checks local name and namespace of the current element and returns its content as a string. Moves to the node following the element's end tag.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.ReadElementString">
-            <summary>
-             Reads a text-only element.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.ReadElementString(System.String)">
-            <summary>
-             Checks that the Name property of the element found matches the given string before reading a text-only element.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.ReadElementString(Qhta.Xml.XmlQualifiedTagName)">
-            <summary>
-             Checks that the LocalName and NamespaceURI properties of the element found matches the given strings before reading a text-only element.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.MoveToAttribute(System.String)">
-            <summary>
-             Moves to the attribute with the specified Name.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.MoveToAttribute(Qhta.Xml.XmlQualifiedTagName)">
-            <summary>
-             Moves to the attribute with the specified LocalName and NamespaceURI.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.MoveToAttribute(System.Int32)">
-            <summary>
-             Moves to the attribute with the specified index.
-            </summary>
-        </member>
         <member name="M:Qhta.Xml.IXmlReader.MoveToFirstAttribute">
             <summary>
              Moves to the first attribute of the current node.
@@ -274,18 +153,6 @@
         <member name="M:Qhta.Xml.IXmlReader.MoveToNextAttribute">
             <summary>
              Moves to the next attribute.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.MoveToElement">
-            <summary>
-             Moves to the element that contains the current attribute node.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.IXmlReader.MoveToContent">
-            <summary>
-             Checks whether the current node is a content (non-whitespace text, CDATA, Element, EndElement, EntityReference or EndEntity) node.
-             If the node is not a content node, then the method skips ahead to the next content node or end of file.
-             Skips over nodes of type ProcessingInstruction, DocumentType, Comment, Whitespace and SignificantWhitespace.
             </summary>
         </member>
         <member name="M:Qhta.Xml.IXmlReader.Skip">
@@ -436,6 +303,12 @@
         <member name="M:Qhta.Xml.IXmlSerializer.ReadObject(System.Object)">
             <summary>
             Reads an object in a specified context from XML.
+            Returns a newly created instance.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.IXmlSerializer.ReadObject(System.Object,System.Object)">
+            <summary>
+            Reads an existing object in a specified context from XML.
             </summary>
         </member>
         <member name="M:Qhta.Xml.IXmlSerializer.TryGetKnownType(System.String,System.Type@)">

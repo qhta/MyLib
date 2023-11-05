@@ -14,7 +14,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A package with Xml attributes</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>2.1</Version>
+    <Version>2.2</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 

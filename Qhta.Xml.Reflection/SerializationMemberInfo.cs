@@ -73,37 +73,37 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <summary>
   /// Specifies whether serialization as XML attribute is preferred over XML element.
   /// </summary>
-  public bool IsAttribute { get; set; }
+  public bool IsAttribute { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Needed to sort the order of properties for serialization.
   /// </summary>
   [XmlAttribute]
-  public int Order { get; set; }
+  public int Order { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Applied member info.
   /// </summary>
   [XmlIgnore]
-  public MemberInfo Member { get; }
+  public MemberInfo Member { [DebuggerStepThrough] get; }
 
   /// <summary>
   ///   XSD standard data type for simple value text conversion.
   /// </summary>
   [XmlAttribute]
-  public XsdSimpleType? DataType { get; set; }
+  public XsdSimpleType? DataType { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specific format for text conversion.
   /// </summary>
   [XmlAttribute]
-  public string? Format { get; set; }
+  public string? Format { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specific culture info for text conversion.
   /// </summary>
   [XmlAttribute]
-  public CultureInfo? Culture { get; set; }
+  public CultureInfo? Culture { [DebuggerStepThrough] get; set; }
 
   ///// <summary>
   /////   Conversion options for default TypeConverter.
@@ -117,51 +117,51 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsContentElement { get; set; }
+  public bool IsContentElement { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies whether a member is nullable.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsNullable { get; set; }
+  public bool IsNullable { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies whether a member is serialized as a reference to an object.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsReference { get; set; }
+  public bool IsReference { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies a default value (for simple types only) which is not serialized.
   /// </summary>
   [XmlAttribute]
-  public object? DefaultValue { get; set; }
+  public object? DefaultValue { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Applied type info of the member value.
   /// </summary>
   [XmlAttribute]
   [XmlReference]
-  public SerializationTypeInfo ValueType { get; set; } = null!;
+  public SerializationTypeInfo ValueType { [DebuggerStepThrough] get; set; } = null!;
 
   /// <summary>
   ///   Used for conversion value from/to string.
   /// </summary>
-  public TypeConverter? TypeConverter { get; set; }
+  public TypeConverter? TypeConverter { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Used for conversion value from/to xml.
   /// </summary>
-  public IXmlConverter? XmlConverter { get; set; }
+  public IXmlConverter? XmlConverter { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   A method used to specify if a member should be serialized at run-time.
   ///   The method should be a parameterless function of type boolean.
   /// </summary>
   [XmlIgnore]
-  public MethodInfo? CheckMethod { get; set; }
+  public MethodInfo? CheckMethod { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Specifies whether this instance has check method.
@@ -184,7 +184,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   ///   If a valueType can be substituted by subclasses then these classes are listed here.
   /// </summary>
   [XmlElement]
-  public KnownTypesCollection? KnownSubtypes { get; set; }
+  public KnownTypesCollection? KnownSubtypes { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies whether the type is serialized as a collection but not as a dictionary
@@ -216,7 +216,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   ///   Optional collection info filled if a member is an array, collection or dictionary.
   /// </summary>
   [XmlElement]
-  public ContentItemInfo? ContentInfo { get; set; }
+  public ContentItemInfo? ContentInfo { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Compares the order of two instances. Allows two items of the same order to occur in dictionary.
@@ -237,19 +237,19 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   ///   Attribute or element name used for serialization.
   /// </summary>
   [XmlAttribute]
-  public string XmlName { get; private set; }
+  public string XmlName { [DebuggerStepThrough] get; private set; }
 
   /// <summary>
   ///   Attribute or element XML namespace used for serialization.
   /// </summary>
   [XmlAttribute]
-  public string? XmlNamespace { get; private set; }
+  public string? XmlNamespace { [DebuggerStepThrough] get; private set; }
 
   /// <summary>
   ///   ClrNamespace of the property or field.
   /// </summary>
   [XmlAttribute]
-  public string? ClrNamespace { get; private set; }
+  public string? ClrNamespace { [DebuggerStepThrough] get; private set; }
 
   /// <summary>
   /// Gets the the qualified name (XmlName, XmlNamespace) of the element.

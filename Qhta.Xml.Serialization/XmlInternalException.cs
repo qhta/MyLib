@@ -43,7 +43,13 @@ public class XmlInvalidOperationException : Exception
     {
       var lineNumber = xmlTextReader.LineNumber;
       var linePosition = xmlTextReader.LinePosition;
-      return message + $" in line {lineNumber}  at position {linePosition}";
+      if (lineNumber != 0)
+      {
+        if (linePosition != 0)
+          return message + $" in line {lineNumber} at position {linePosition}";
+        else
+          return message + $" in line {lineNumber}";
+      }
     }
     return message;
   }
@@ -55,6 +61,13 @@ public class XmlInvalidOperationException : Exception
   {
     var lineNumber = xmlReader.LineNumber;
     var linePosition = xmlReader.LinePosition;
-    return message + $" in line {lineNumber}  at position {linePosition}";
+    if (lineNumber != null && lineNumber != 0)
+    {
+      if (linePosition != null && linePosition != 0)
+        return message + $" in line {lineNumber} at position {linePosition}";
+      else
+        return message + $" in line {lineNumber}";
+    }
+    return message;
   }
 }

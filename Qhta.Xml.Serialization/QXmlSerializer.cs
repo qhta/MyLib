@@ -278,10 +278,18 @@ public partial class QXmlSerializer : IXmlSerializer
   /// </summary>
   /// <param name="stream">Source of serialized data.</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(Stream stream)
+  public object? Deserialize(Stream stream) => Deserialize(stream, null);
+
+  /// <summary>
+  /// Deserialized and object from the stream.
+  /// </summary>
+  /// <param name="stream">Source of serialized data.</param>
+  /// <param name="instance">Optional existing object instance</param>
+  /// <returns>Deserialized object.</returns>
+  public object? Deserialize(Stream stream, object? instance=null)
   {
     var xmlReader = XmlReader.Create(stream, XmlReaderSettings);
-    return Deserialize(xmlReader);
+    return Deserialize(xmlReader, instance);
   }
 
   /// <summary>
@@ -289,13 +297,21 @@ public partial class QXmlSerializer : IXmlSerializer
   /// </summary>
   /// <param name="textReader">Source of serialized data.</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(TextReader textReader)
+  public object? Deserialize(TextReader textReader) => Deserialize(textReader, null);
+
+  /// <summary>
+  /// Deserialized and object from the TextReader.
+  /// </summary>
+  /// <param name="textReader">Source of serialized data.</param>
+  /// <param name="instance">Optional existing object instance</param>
+  /// <returns>Deserialized object.</returns>
+  public object? Deserialize(TextReader textReader, object? instance)
   {
     var xmlReader = new XmlTextReader(textReader);
     xmlReader.WhitespaceHandling = WhitespaceHandling.Significant;
     xmlReader.Normalization = true;
     xmlReader.XmlResolver = null;
-    return Deserialize(xmlReader);
+    return Deserialize(xmlReader, instance);
   }
 
   /// <summary>
@@ -303,7 +319,15 @@ public partial class QXmlSerializer : IXmlSerializer
   /// </summary>
   /// <param name="xmlReader">Source of serialized data.</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(XmlReader xmlReader)
+  public object? Deserialize(XmlReader xmlReader) => Deserialize(xmlReader);
+
+  /// <summary>
+  /// Deserialized and object from the System.XmlReader.
+  /// </summary>
+  /// <param name="xmlReader">Source of serialized data.</param>
+  /// <param name="instance">Optional existing object instance</param>
+  /// <returns>Deserialized object.</returns>
+  public object? Deserialize(XmlReader xmlReader, object? instance)
   {
     var type = xmlReader.GetType();
     if (type != null)
@@ -318,16 +342,25 @@ public partial class QXmlSerializer : IXmlSerializer
       if (prop!=null)
         prop.SetValue(xmlReader , null);
       }
-    return DeserializeObject(xmlReader);
+    return DeserializeObject(xmlReader, instance);
   }
+
+
+  /// <summary>
+  /// Deserialized and object from the System.XmlReader.
+  /// </summary>
+  /// <param name="xmlReader">Source of serialized data.</param>
+  /// <returns>Deserialized object.</returns>
+  public object? Deserialize(IXmlReader xmlReader) => Deserialize(xmlReader);
 
   /// <summary>
   /// Deserialized and object from the IXmlReader.
   /// </summary>
   /// <param name="xmlReader">Source of serialized data.</param>
+  /// <param name="instance">Optional existing object instance</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(IXmlReader xmlReader)
+  public object? Deserialize(IXmlReader xmlReader, object? instance=null)
   {
-    return DeserializeObject(xmlReader);
+    return DeserializeObject(xmlReader, instance);
   }
 }

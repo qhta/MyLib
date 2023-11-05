@@ -5,13 +5,24 @@
 /// </summary>
 public class KnownMembersCollection : ICollection<SerializationMemberInfo>, IMembersDictionary
 {
-  private static readonly PropOrderComparer propertyInfoOrderComparer = new();
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+  /// <summary>
+  /// Initializing constructor
+  /// </summary>
+  /// <param name="ownerTypeInfo"></param>
+  public KnownMembersCollection(SerializationTypeInfo ownerTypeInfo)
+  {
+    Owner = ownerTypeInfo;
+  }
 
+
+  //private static PropOrderComparer propertyInfoOrderComparer { get; } = new();
   private ObservableCollection<SerializationMemberInfo> Items { get; } = new();
   private SortedSet<SerializationMemberInfo> OrderedItems { get; } = new();
   private SortedDictionary<QualifiedName, SerializationMemberInfo> NameIndexedItems { get; } = new();
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+  public SerializationTypeInfo Owner { get; }
+
   public void Add(SerializationMemberInfo item)
   {
     Items.Add(item);

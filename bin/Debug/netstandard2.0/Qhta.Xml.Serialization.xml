@@ -113,6 +113,328 @@
         <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
             <summary>Gets field or property member names.</summary>
         </member>
+        <member name="T:Qhta.Xml.Serialization.QXDocReader">
+            <summary>
+            Wrapper for system XmlReader used by QXmlSerializer.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.#ctor(System.Xml.XmlReader)">
+            <summary>
+            Initializing constructor
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.BaseXmlReader">
+            <summary>
+            Base XmlReader reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.Document">
+            <summary>
+            Loaded XDocument;
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.CurrentNode">
+            <summary>
+            Current node of the loaded XDocument. See also <see cref="P:Qhta.Xml.Serialization.QXDocReader.ParsedValue"/>
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.QXDocReader.XEndElement">
+            <summary>
+            Class "XEndElement" does not exist in System.Xml.Linq and XElement does not have type of XmlNodeType.EndElement
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.ParsedAttribute">
+            <summary>
+            Parsed attribute of the loaded XDocument
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.ParsedValue">
+            <summary>
+            Parsed value of the <see cref="P:Qhta.Xml.Serialization.QXDocReader.ParsedAttribute"/> of the loaded XDocument
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.op_Implicit(Qhta.Xml.Serialization.QXDocReader)~System.Xml.XmlReader">
+            <summary>
+            Get wrapped XML reader.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.GetPosition">
+            <summary>
+            Getting LineNumber and LinePosition of the reader
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.LineLengthLimit">
+            <summary>
+            Limit divides text to separate lines.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.EOF">
+            <summary>
+            Wrapped EOF property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.ReadState">
+            <summary>
+            Wrapped ReadState property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.NodeType">
+            <summary>
+            Wrapped NodeType property
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.Name">
+            <summary>
+            Qualified name (local name and namespace URI)
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.LocalName">
+            <summary>
+            Wrapper for LocalName property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.NamespaceURI">
+            <summary>
+            Wrapper for NamespaceURI property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.Prefix">
+            <summary>
+            Wrapper for Prefix property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.HasValue">
+            <summary>
+            Wrapper for HasValue property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.ValueType">
+            <summary>
+            Wrapper for ValueType property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.Value">
+            <summary>
+            Wrapper for Value property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.Depth">
+            <summary>
+            Wrapper for Depth property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.BaseURI">
+            <summary>
+            Wrapper for BaseURI property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.IsEmptyElement">
+            <summary>
+            Wrapper for IsEmptyElement property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.IsDefault">
+            <summary>
+            Wrapper for IsDefault property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.QuoteChar">
+            <summary>
+            Wrapper for QuoteChar property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.XmlSpace">
+            <summary>
+            Wrapper for XmlSpace property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.XmlLang">
+            <summary>
+            Wrapper for XmlLang property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.LineNumber">
+            <summary>
+            Gets line number of XML text file where the exception occured.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.LinePosition">
+            <summary>
+            Gets the position in line of XML text file where the exception occured.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.Settings">
+            <summary>
+            Wrapper for Settings property.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.WhitespaceHandling">
+            <summary>
+            Additional setting that specifies how whitespaces are handled.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.HasAttributes">
+            <summary>
+            Wrapper for HasAttributes property.
+            Gets a value indicating whether the current node has any attributes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.QXDocReader.AttributeCount">
+            <summary>
+            Wrapper for AttributeCount property.
+            Gets the number of attributes on the current node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.GetAttribute(System.String)">
+            <summary>
+            Wrapper for GetAttribute operation.
+            Gets the value of the attribute with the specified Name.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.GetAttribute(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for GetAttribute operation.
+            Gets the value of the attribute with the specified LocalName and NamespaceURI.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.GetAttribute(System.Int32)">
+            <summary>
+            Wrapper for GetAttribute operation.
+            Gets the value of the attribute with the specified index.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadAttributeValue">
+            <summary>
+            Wrapper for ReadAttributeValue operation.
+            Parses the attribute value into one or more Text, EntityReference, or EndEntity nodes.
+            </summary>
+            <returns>True if there are nodes to return. False otherwise.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadString">
+            <summary>
+            Gets a string from element content or gets content as string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadElementContentAsString">
+            <summary>
+            Wrapper for ReadElementContentAsString operation.
+            Reads the current element and returns the contents as a String object.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.MoveToFirstAttribute">
+            <summary>
+            Wrapper for MoveToFirstAttribute operation.
+            Moves to the first attribute.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.MoveToNextAttribute">
+            <summary>
+            Wrapper for MoveToNextAttribute operation.
+            Moves to the next attribute.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.MoveToElement">
+            <summary>
+            Wrapper for MoveToElement operation.
+            Moves to the element that contains the current attribute node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.Skip">
+            <summary>
+            Wrapper for Skip operation.
+            Skips the children of the current node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.Read">
+            <summary>
+            Wrapper for Read operation.
+            Reads the next node from the stream.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.IsStartElement">
+            <summary>
+            Wrapper for IsStartElement operation.
+            Calls MoveToContent() and tests if the current content node is a start tag or empty element tag.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.IsStartElement(System.String)">
+            <summary>
+            Wrapper for IsStartElement operation.
+            Calls MoveToContent() and tests if the current content node is a start tag or empty element tag 
+            and if the Name property of the element found matches the given argument.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.IsStartElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for IsStartElement operation.
+            Calls MoveToContent() and tests if the current content node is a start tag or empty element tag 
+            and if the LocalName and NamespaceURI properties of the element found match the given strings.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadStartElement">
+            <summary>
+            Wrapper for ReadStartElement operation.
+            Checks that the current node is an element and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadStartElement(System.String)">
+            <summary>
+            Wrapper for ReadStartElement operation.
+            Checks that the current content node is an element with the given Name and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadStartElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for ReadStartElement operation.
+            Checks that the current content node is an element with the given LocalName 
+            and NamespaceURI and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.IsEndElement">
+            <summary>
+            Checks if reader node type is EndElement.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.IsEndElement(System.String)">
+            <summary>
+            Checks if reader node type is EndElement and reade name is a specified string
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.IsEndElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Checks if reader node type is EndElement and reade name is a specified local name and namespaceURI is a specified namespace.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadEndElement">
+            <summary>
+            Wrapper for ReadEndElement operation.
+            Checks that the current content node is an end tag and advances the reader to the next node.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadEndElement(System.String)">
+            <summary>
+            Wrapper for ReadEndElement operation.
+            Checks that the current content node is an end tag with a specified name and advances the reader to the next node.
+            </summary>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown if node is not end element or name does not match</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadEndElement(Qhta.Xml.XmlQualifiedTagName)">
+            <summary>
+            Wrapper for ReadEndElement operation.
+            Checks that the current content node is an end tag with a specified name and namespaceURI and advances the reader to the next node.
+            </summary>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown if node is not end element or name and namespaceURI does not match</exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.Close">
+            <summary>
+            Wrapper for Close operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.Dispose">
+            <summary>
+            Wrapper for Dispose operation.
+            </summary>
+        </member>
         <member name="T:Qhta.Xml.Serialization.QXmlReader">
             <summary>
             Wrapper for system XmlReader used by QXmlSerializer.
@@ -514,15 +836,19 @@
             Optional event raised when a reader meets an element or attribute which can't be recognized.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(System.Xml.XmlReader)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(System.Xml.XmlReader,System.Object)">
             <summary>
-              Main deserialization entry
+              Main deserialization entry.
             </summary>
+            <param name="xmlReader">reader to use</param>
+            <param name="instance">optional existing object to read</param>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(Qhta.Xml.IXmlReader)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(Qhta.Xml.IXmlReader,System.Object)">
             <summary>
               Secondary deserialization entry
             </summary>
+            <param name="xmlReader">reader to use</param>
+            <param name="instance">optional existing object to read</param>
         </member>
         <member name="P:Qhta.Xml.Serialization.QXmlSerializer.XmlReaderSettings">
             <summary>
@@ -544,6 +870,27 @@
             Reads an object in a specific context. 
             </summary>
             <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
+            <returns>Read object</returns>
+            <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown in a tag does not represent a registered type.</exception>
+            <entrystate>
+            On entry, the Reader must be located at the XML start element (or empty element) tag.
+            This tag represents the object type. Its name is a type name (with namespace) or a type root element name.
+            </entrystate>
+            <exitstate>
+            On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
+            </exitstate>
+            <remarks>
+            A typeInfo is get from the <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object. 
+            If a typeInfo has <see cref="T:Qhta.Xml.Serialization.XmlConverter"/> defined, then this converter is used.
+            Otherwise <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
+            </remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object,System.Object)">
+            <summary>
+            Reads an existig object in a specific context. 
+            </summary>
+            <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
+            <param name="instance">Existing object which content is filled</param>
             <returns>Read object</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown in a tag does not represent a registered type.</exception>
             <entrystate>
@@ -651,6 +998,15 @@
             <param name="instanceTypeInfo"></param>
             <param name="memberInfo"></param>
             <returns>Object read (or null)</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementsAsPropertiesOrMembers(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+            <summary>
+            Method invoked for a sequence of child elements of an instance. These child elements can be item elements or properties.
+            </summary>
+            <param name="instance"></param>
+            <param name="instanceTypeInfo"></param>
+            <param name="contentInfo"></param>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
@@ -1461,11 +1817,27 @@
             <param name="stream">Source of serialized data.</param>
             <returns>Deserialized object.</returns>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.IO.Stream,System.Object)">
+            <summary>
+            Deserialized and object from the stream.
+            </summary>
+            <param name="stream">Source of serialized data.</param>
+            <param name="instance">Optional existing object instance</param>
+            <returns>Deserialized object.</returns>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.IO.TextReader)">
             <summary>
             Deserialized and object from the TextReader.
             </summary>
             <param name="textReader">Source of serialized data.</param>
+            <returns>Deserialized object.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.IO.TextReader,System.Object)">
+            <summary>
+            Deserialized and object from the TextReader.
+            </summary>
+            <param name="textReader">Source of serialized data.</param>
+            <param name="instance">Optional existing object instance</param>
             <returns>Deserialized object.</returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.Xml.XmlReader)">
@@ -1475,11 +1847,27 @@
             <param name="xmlReader">Source of serialized data.</param>
             <returns>Deserialized object.</returns>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.Xml.XmlReader,System.Object)">
+            <summary>
+            Deserialized and object from the System.XmlReader.
+            </summary>
+            <param name="xmlReader">Source of serialized data.</param>
+            <param name="instance">Optional existing object instance</param>
+            <returns>Deserialized object.</returns>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(Qhta.Xml.IXmlReader)">
+            <summary>
+            Deserialized and object from the System.XmlReader.
+            </summary>
+            <param name="xmlReader">Source of serialized data.</param>
+            <returns>Deserialized object.</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(Qhta.Xml.IXmlReader,System.Object)">
             <summary>
             Deserialized and object from the IXmlReader.
             </summary>
             <param name="xmlReader">Source of serialized data.</param>
+            <param name="instance">Optional existing object instance</param>
             <returns>Deserialized object.</returns>
         </member>
         <member name="T:Qhta.Xml.Serialization.QXmlSerializationHelper">
@@ -2241,14 +2629,6 @@
             </summary>
             <param name="aType">Type to reflect</param>
             <returns>A dictionary of known item types (or null) if no KnownType attributes found)</returns>
-        </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetKnownItemTypes(System.Type)">
-            <summary>
-              Registers types, which are indended to be serialized as Xml children elements.
-              These types are marked for the type with XmlItemElementAttribute />
-            </summary>
-            <param name="aType">Type to reflect</param>
-            <returns>A dictionary of known item types</returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTypeConverter(System.Type)">
             <summary>

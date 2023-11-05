@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.Xml/2.1": {
+      "Qhta.Xml/2.2": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.Collections": "2.0.0",
@@ -54,7 +54,7 @@
     }
   },
   "libraries": {
-    "Qhta.Xml/2.1": {
+    "Qhta.Xml/2.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -13,6 +13,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// <param name="aType">a type.</param>
   public SerializationTypeInfo(Type aType)
   {
+    KnownMembers = new KnownMembersCollection(this);
     var aName = aType.Name;
     var rootAttribute = aType.GetCustomAttribute<XmlRootAttribute>();
     if (rootAttribute != null)
@@ -40,22 +41,22 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// A public constructor info to invoke while deserialization
   /// </summary>
   [XmlIgnore]
-  public ConstructorInfo? KnownConstructor { get; set; }
+  public ConstructorInfo? KnownConstructor { [DebuggerStepThrough] get; set; }
 
     /// <summary>
   ///   Converter to/from string value.
   /// </summary>
-  public TypeConverter? TypeConverter { get; set; }
+  public TypeConverter? TypeConverter { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Converter to read/write XML.
   /// </summary>
-  public IXmlConverter? XmlConverter { get; set; }
+  public IXmlConverter? XmlConverter { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Known properties to serialize as XML attributes.
   /// </summary>
-  public KnownMembersCollection KnownMembers { get; set; } = new();
+  public KnownMembersCollection KnownMembers { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Known properties to serialize as XML attributes.
@@ -70,18 +71,18 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// <summary>
   ///   Known property to accept text content of XmlElement.
   /// </summary>
-  public SerializationMemberInfo? TextProperty { get; set; }
+  public SerializationMemberInfo? TextProperty { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Specifies that a derived types can't occur when serializing object values.
   /// </summary>
-  public bool IsSealed { get; set; }
+  public bool IsSealed { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   If a class can be substituted by subclasses then these classes are listed here.
   /// </summary>
   [XmlElement]
-  public KnownTypesCollection? KnownSubtypes { get; set; }
+  public KnownTypesCollection? KnownSubtypes { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies whether the type is serialized as a collection but not as a dictionary.
@@ -100,43 +101,43 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// <summary>
   ///   Known property to accept content of XmlElement.
   /// </summary>
-  public SerializationMemberInfo? ContentProperty { get; set; }
+  public SerializationMemberInfo? ContentProperty { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies whether the type instance must be serialized as an object, not a simple collection.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsObject { get; set; }
+  public bool IsObject { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Optional collection info filled if a property is an array, collection or dictionary
   /// </summary>
   [XmlElement]
-  public ContentItemInfo? ContentInfo { get; set; }
+  public ContentItemInfo? ContentInfo { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Name of the Xml element
   /// </summary>
   [XmlAttribute]
-  public string XmlName { get; set; }
+  public string XmlName { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   XmlNamespace of the element
   /// </summary>
   [XmlAttribute]
-  public string? XmlNamespace { get; set; }
+  public string? XmlNamespace { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   ClrNamespace of the element
   /// </summary>
   [XmlAttribute]
-  public string? ClrNamespace { get; set; }
+  public string? ClrNamespace { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Mapped type
   /// </summary>
-  public Type Type { get; set; }
+  public Type Type { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets the value that indicates whether the type should be serialized.

@@ -72,8 +72,14 @@ public interface IXmlSerializer
 
   /// <summary>
   /// Reads an object in a specified context from XML.
+  /// Returns a newly created instance.
   /// </summary>
   public object? ReadObject(object? context = null);
+
+  /// <summary>
+  /// Reads an existing object in a specified context from XML.
+  /// </summary>
+  public void ReadObject(object? context, object obj);
   #endregion
 
   #region helper methods
