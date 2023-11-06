@@ -657,7 +657,7 @@ public partial class QXmlSerializer
           var collectionInfo = memberInfo.GetCollectionInfo();
           if (collectionInfo == null)
             throw new InvalidOperationException($"Collection {memberInfo.ValueType} has no collectionInfo");
-          ReadElementsAsPropertiesOrMembers(memberValue, memberInfo.ValueType, collectionInfo);
+          ReadElementsAsPropertiesOrMembers(memberValue!, memberInfo.ValueType, collectionInfo);
         }
         else
         {
