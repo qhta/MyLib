@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.TestUtilities</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.TestUtilities.Diff">
+            <summary>
+            Difference entity class
+            </summary>
+        </member>
+        <member name="P:Qhta.TestUtilities.Diff.ValuePath">
+            <summary>
+            Path of properties (or indexes)
+            </summary>
+        </member>
+        <member name="P:Qhta.TestUtilities.Diff.ActualValue">
+            <summary>
+            Compared value
+            </summary>
+        </member>
+        <member name="P:Qhta.TestUtilities.Diff.ExpectedValue">
+            <summary>
+            Value to compare
+            </summary>
+        </member>
+        <member name="P:Qhta.TestUtilities.Diff.Reason">
+            <summary>
+            Optional reason (message) of difference
+            </summary>
+        </member>
+        <member name="T:Qhta.TestUtilities.DiffList">
+            <summary>
+            Collection of differences
+            </summary>
+        </member>
+        <member name="T:Qhta.TestUtilities.DeepComparer">
+            <summary>
+            Compares two objects with their properties.
+            </summary>
+        </member>
+        <member name="P:Qhta.TestUtilities.DeepComparer.Diffs">
+            <summary>
+            Result of comparison. Resetted by invoking <see cref="M:Qhta.TestUtilities.DeepComparer.CompareObjects(System.Object,System.Object,System.String)"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.TestUtilities.DeepComparer.CompareObjects(System.Object,System.Object,System.String)">
+            <summary>
+            Compares two objects
+            </summary>
+            <param name="actualValue">Compared value</param>
+            <param name="expectedValue">Value to compare</param>
+            <param name="valueName">Name of compared object (composes value path)</param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.TestUtilities.TestUtils">
+            <summary>
+            This static class contains extension operations to be used for test/debug application.
+            </summary>
+        </member>
+        <member name="M:Qhta.TestUtilities.TestUtils.ThrowError(System.Exception)">
+            <summary>
+            Throws this error or its inner exception
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="M:Qhta.TestUtilities.TestUtils.ToDumpString(System.Object)">
+            <summary>
+            Converts object to string which shows its content.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

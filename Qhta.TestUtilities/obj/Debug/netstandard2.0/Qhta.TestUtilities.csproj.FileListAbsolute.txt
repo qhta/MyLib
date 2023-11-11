@@ -1,0 +1,14 @@
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.deps.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.dll
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.pdb
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.xml
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.dll
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\refint\Qhta.TestUtilities.dll
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.xml
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.pdb
+D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\ref\Qhta.TestUtilities.dll

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.TestUtilities</id>
+    <version>1.0.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>A package of utility functions to help debugging and testing</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TestUtilities.dll" target="lib\net6.0\Qhta.TestUtilities.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TestUtilities.xml" target="lib\net6.0\Qhta.TestUtilities.xml" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.dll" target="lib\netstandard2.0\Qhta.TestUtilities.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.xml" target="lib\netstandard2.0\Qhta.TestUtilities.xml" />
+    <file src="D:\VS\Projects\MyLib\Qhta.TestUtilities\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

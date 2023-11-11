@@ -1,0 +1,12 @@
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.AssemblyInfoInputs.cache
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.AssemblyInfo.cs
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.csproj.CoreCompileInputs.cache
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.csproj.AssemblyReference.cache
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\bin\Debug\net6.0\TestUtilities.deps.json
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\bin\Debug\net6.0\TestUtilities.dll
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\bin\Debug\net6.0\TestUtilities.pdb
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.dll
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\refint\TestUtilities.dll
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\TestUtilities.pdb
+D:\VS\Projects\DocxDocument\ModelGen\TestUtilities\obj\Debug\net6.0\ref\TestUtilities.dll
