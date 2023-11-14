@@ -6,39 +6,39 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Qhta.Xml.Reflection/2.0": {
+      "Qhta.Xml.Reflection/3.0": {
         "dependencies": {
-          "Qhta.Collections": "4.0.0",
-          "Qhta.TextUtils": "3.1.1",
+          "Qhta.Collections": "4.6.0",
+          "Qhta.TextUtils": "3.2.0",
           "Qhta.TypeUtils": "1.3.10.1",
-          "Qhta.Xml": "2.1.0"
+          "Qhta.Xml": "3.0.0"
         },
         "runtime": {
           "Qhta.Xml.Reflection.dll": {}
         }
       },
-      "Qhta.Collections/4.0.0": {
+      "Qhta.Collections/4.6.0": {
         "dependencies": {
-          "Qhta.TextUtils": "3.1.1"
+          "Qhta.TextUtils": "3.2.0"
         },
         "runtime": {
-          "lib/netstandard2.0/Qhta.Collections.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.0.0"
+          "lib/net6.0/Qhta.Collections.dll": {
+            "assemblyVersion": "4.6.0.0",
+            "fileVersion": "4.6.0.0"
           }
         }
       },
-      "Qhta.TextUtils/3.1.1": {
+      "Qhta.TextUtils/3.2.0": {
         "runtime": {
           "lib/net6.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.1.1.0",
-            "fileVersion": "3.1.1.0"
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
           }
         }
       },
       "Qhta.TypeUtils/1.3.10.1": {
         "dependencies": {
-          "Qhta.Collections": "4.0.0"
+          "Qhta.Collections": "4.6.0"
         },
         "runtime": {
           "lib/net6.0/Qhta.TypeUtils.dll": {
@@ -47,40 +47,40 @@
           }
         }
       },
-      "Qhta.Xml/2.1.0": {
+      "Qhta.Xml/3.0.0": {
         "dependencies": {
-          "Qhta.Collections": "4.0.0",
-          "Qhta.TextUtils": "3.1.1",
+          "Qhta.Collections": "4.6.0",
+          "Qhta.TextUtils": "3.2.0",
           "Qhta.TypeUtils": "1.3.10.1"
         },
         "runtime": {
           "lib/net6.0/Qhta.Xml.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.0"
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
           }
         }
       }
     }
   },
   "libraries": {
-    "Qhta.Xml.Reflection/2.0": {
+    "Qhta.Xml.Reflection/3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Qhta.Collections/4.0.0": {
+    "Qhta.Collections/4.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Miz2GAQsHeVKYKxJryzG8AWAQ0ciQRPHX39qJOxhqpp1rn+xz6L1HIW9wSM5PwexIFzWs0F0ut2gaJfiojzw1g==",
-      "path": "qhta.collections/4.0.0",
-      "hashPath": "qhta.collections.4.0.0.nupkg.sha512"
+      "sha512": "sha512-RWgpiVd5BpsQXCjTh02EwGqYd0ba6rZeA3dctWIuSQkPbhwCaU7bEA4O5StypoV9F1DwhBPmONz4RvR0w7LgIA==",
+      "path": "qhta.collections/4.6.0",
+      "hashPath": "qhta.collections.4.6.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.1.1": {
+    "Qhta.TextUtils/3.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RYRqFK3PdythcfgCiN4gm6FqvXBjis9zQjBA8mtN/XaxOjpJzev/nfNdzbBzk6FVod5d0F+i2GWckG+K3x9u0g==",
-      "path": "qhta.textutils/3.1.1",
-      "hashPath": "qhta.textutils.3.1.1.nupkg.sha512"
+      "sha512": "sha512-SE6TMY3sLGm6/ta6UGl9FYwLNEGpkpSU/tiuymb8S5w6fJoZivGS6KC4+sk/YUKYt1kjdvwZYmwZEuR0hCXL0g==",
+      "path": "qhta.textutils/3.2.0",
+      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
     },
     "Qhta.TypeUtils/1.3.10.1": {
       "type": "package",
@@ -89,12 +89,12 @@
       "path": "qhta.typeutils/1.3.10.1",
       "hashPath": "qhta.typeutils.1.3.10.1.nupkg.sha512"
     },
-    "Qhta.Xml/2.1.0": {
+    "Qhta.Xml/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QmrRjUjCKyGpXk6V0kB5gX8+MNxOFrTn6n4134UrJSCoUYXK6/ZvZoDGjEM3RDmuhBIvTo3MbjK9yVL8ojS+Lg==",
-      "path": "qhta.xml/2.1.0",
-      "hashPath": "qhta.xml.2.1.0.nupkg.sha512"
+      "sha512": "sha512-VpCyqJwT6pyDyWz+IPXcYPBXbn9T5swKqo2s0nYUCUPtVBIqteDJU8bvOpFN4QcjIcTjUrMyQoTzhgA0bexivg==",
+      "path": "qhta.xml/3.0.0",
+      "hashPath": "qhta.xml.3.0.0.nupkg.sha512"
     }
   }
 }

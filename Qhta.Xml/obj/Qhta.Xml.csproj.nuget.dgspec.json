@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
-      "version": "2.2.0",
+      "version": "3.0.0",
       "restore": {
         "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj",
         "projectName": "Qhta.Xml",
@@ -53,15 +53,15 @@
           "dependencies": {
             "Qhta.Collections": {
               "target": "Package",
-              "version": "[2.0.0, )"
+              "version": "[4.6.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.2.0, )"
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.10, )"
+              "version": "[1.3.10.1, )"
             }
           },
           "imports": [
@@ -93,15 +93,15 @@
             },
             "Qhta.Collections": {
               "target": "Package",
-              "version": "[2.0.0, )"
+              "version": "[4.6.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.2.0, )"
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.3.10, )"
+              "version": "[1.3.10.1, )"
             }
           },
           "imports": [

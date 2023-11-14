@@ -292,7 +292,7 @@ public class XmlSerializationInfoMapper
                       if (!type.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
                         TryAddMemberAsCollection(typeInfo, memberInfo, null, ++elemCount);
                     }
-                    else if (Options.AcceptAllProperties)
+                    else if (Options.AcceptAllProperties || Options.AcceptDataMembers && memberInfo.GetCustomAttribute<DataMemberAttribute>()!=null)
                     {
                       if (memberType.IsSimple() == true)
                       {

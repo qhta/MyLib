@@ -263,7 +263,16 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// <returns></returns>
   public object? GetValue(object? obj)
   {
-    return Property?.GetValue(obj) ?? Field?.GetValue(obj);
+    if (Property != null)
+    {
+      var getMethod = Property.GetGetMethod();
+      if (getMethod != null)
+        return getMethod.Invoke(obj, new object[0]);
+    }
+    else
+    if (Field != null)
+      return Field?.GetValue(obj);
+    return null;
   }
 
   /// <summary>

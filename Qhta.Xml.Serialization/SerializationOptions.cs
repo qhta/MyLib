@@ -35,9 +35,15 @@ public class SerializationOptions
   public bool IgnoreMissingConstructor { get; set; }
 
   /// <summary>
-  ///   Whether properties not marked with any XmlAttribute are to be serialized.
+  ///   Whether properties not marked with any XmlAttribute/XmlElement attributes are to be serialized.
   /// </summary>
   public bool AcceptAllProperties { get; set; } = true;
+
+  /// <summary>
+  ///   Whether only properties marked with DataMember attribute are to be serialized.
+  ///  XmlAttribute/XmlElement atributes are also recognized.
+  /// </summary>
+  public bool AcceptDataMembers { get; set; } = true;
 
   /// <summary>
   ///   Whether fields are to be serialized along with properties.

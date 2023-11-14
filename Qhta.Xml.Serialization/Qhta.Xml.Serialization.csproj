@@ -33,6 +33,8 @@
     <PackageReference Include="Qhta.Conversion" Version="2.1.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.2.0" />
     <PackageReference Include="Qhta.TypeUtils" Version="1.3.10.1" />
+    <PackageReference Include="Qhta.Xml" Version="3.0.0" />
+    <PackageReference Include="Qhta.Xml.Reflection" Version="3.0.0" />
     <PackageReference Include="System.CodeDom" Version="7.0.0" />
     <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
     <PackageReference Include="System.Security.Permissions" Version="7.0.0" />
@@ -40,11 +42,6 @@
 
   <ItemGroup>
     <Folder Include="docs\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Qhta.Xml.Reflection\Qhta.Xml.Reflection.csproj" />
-    <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 
 </Project>

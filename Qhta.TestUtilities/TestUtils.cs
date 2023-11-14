@@ -19,7 +19,7 @@ public static class TestUtils
   }
 
   /// <summary>
-  /// Converts object to string which shows its content.
+  /// Converts object to a string, which can be used to dump its content in debug.
   /// </summary>
   /// <param name="value"></param>
   /// <returns></returns>
@@ -29,9 +29,39 @@ public static class TestUtils
       return "DbNull";
     if (value is null)
       return null;
+    if (value.GetType().Name == "CompatibilitySettings")
+      Debug.Assert(true);
     if (value is string str)
       return "\"" + str + "\"";
+    if (value is bool vb)
+      return vb.ToString();
+    if (value is Byte bv)
+      return bv.ToString();
+    if (value is SByte sbv)
+      return sbv.ToString();
+    if (value is Int32 vint32)
+      return vint32.ToString();
+    if (value is Int64 vint64)
+      return vint64.ToString();
+    if (value is Int16 vint16)
+      return vint16.ToString();
+    if (value is UInt32 vuint32)
+      return vuint32.ToString();
+    if (value is UInt64 vuint64)
+      return vuint64.ToString();
+    if (value is UInt16 vuint16)
+      return vuint16.ToString();
+    if (value is Single r4)
+      return r4.ToString(CultureInfo.InvariantCulture);
+    if (value is Double r8)
+      return r8.ToString(CultureInfo.InvariantCulture);
+    if (value is Decimal dm)
+      return dm.ToString(CultureInfo.InvariantCulture);
+    if (value is DateTime dt)
+      return dt.ToString("yyyy-MM-ss hh:mm:ss");
     var type = value.GetType();
+    //if (type.Name == "CompatibilitySettings")
+    //  Debug.Assert(true);
     if (type.IsArray)
     {
       var ss = new List<string>();
@@ -45,10 +75,9 @@ public static class TestUtils
         else
           ss.Add("");
       }
-      return type.Name + " { " + string.Join(", ", ss) + " }";
+      return type.Name + "{" + string.Join(", ", ss) + "}";
     }
     else
-    if (type.IsClass)
     {
       var ss = new List<string>();
       foreach (var propInfo in type.GetProperties())
@@ -75,15 +104,14 @@ public static class TestUtils
             ss.Add("");
         }
       }
-      var result = type.Name + " { " + string.Join(", ", ss) + " }";
-      return result;
+      if (ss.Count != 0)
+      {
+        return type.Name + "{" + string.Join(", ", ss) + "}";
+      }
+      else
+      {
+        return type.Name + "{" + value.ToString() + "}";
+      }
     }
-    if (value is Single r4)
-      return r4.ToString(CultureInfo.InvariantCulture);
-    if (value is Double r8)
-      return r8.ToString(CultureInfo.InvariantCulture);
-    if (value is Decimal dm)
-      return dm.ToString(CultureInfo.InvariantCulture);
-    return value.ToString();
   }
 }

@@ -462,10 +462,10 @@ public partial class QXmlSerializer
       SerializationMemberInfo? memberInfo;
       SerializationTypeInfo? currentMemberTypeInfo = null;
       {
-        if (startTag.Name == "ShapeDefaults")
-          Debug.Assert(true);
-        if (startTag.Name == "VmlShapeLayout")
-          Debug.Assert(true);
+        //if (startTag.Name == "ShapeDefaults")
+        //  Debug.Assert(true);
+        //if (startTag.Name == "VmlShapeLayout")
+        //  Debug.Assert(true);
         memberInfo = members.FirstOrDefault(item => item.XmlName == startTag.Name);
         if (memberInfo != null)
         {
@@ -547,8 +547,8 @@ public partial class QXmlSerializer
           }
           else
           {
-            if (startTag.Name == "CompatibilitySetting")
-              Debug.Assert(true);
+            //if (startTag.Name == "CompatibilitySetting")
+            //  Debug.Assert(true);
             if (OnUnknownMember != null)
               OnUnknownMember.Invoke(instance, startTag.ToString());
             else

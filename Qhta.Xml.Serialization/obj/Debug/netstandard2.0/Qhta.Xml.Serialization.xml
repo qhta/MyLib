@@ -2263,7 +2263,13 @@
         </member>
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptAllProperties">
             <summary>
-              Whether properties not marked with any XmlAttribute are to be serialized.
+              Whether properties not marked with any XmlAttribute/XmlElement attributes are to be serialized.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptDataMembers">
+            <summary>
+              Whether only properties marked with DataMember attribute are to be serialized.
+             XmlAttribute/XmlElement atributes are also recognized.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptFields">

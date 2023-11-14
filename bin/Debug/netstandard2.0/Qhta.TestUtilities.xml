@@ -66,7 +66,7 @@
         </member>
         <member name="M:Qhta.TestUtilities.TestUtils.ToDumpString(System.Object)">
             <summary>
-            Converts object to string which shows its content.
+            Converts object to a string, which can be used to dump its content in debug.
             </summary>
             <param name="value"></param>
             <returns></returns>
