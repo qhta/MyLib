@@ -125,6 +125,10 @@ public static class DeepComparer
         }
         return true;
       }
+      if (actualValue is IStructuralEquatable eq1 && expectedValue is IStructuralEquatable eq2)
+      {
+        return eq1.Equals(eq2);
+      }
       else
       {
         var canCheck = false;
