@@ -319,7 +319,7 @@ public partial class QXmlSerializer : IXmlSerializer
   /// </summary>
   /// <param name="xmlReader">Source of serialized data.</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(XmlReader xmlReader) => Deserialize(xmlReader);
+  public object? Deserialize(XmlReader xmlReader) => Deserialize(xmlReader, null);
 
   /// <summary>
   /// Deserialized and object from the System.XmlReader.

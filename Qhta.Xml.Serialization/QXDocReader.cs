@@ -959,7 +959,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   {
     if (CurrentNode is XElement xElement && xElement.NodeType == XmlNodeType.Element)
     {
-      if (xElement.Name.LocalName == tag.Name && xElement.BaseUri == tag.Namespace)
+      if (xElement.Name.LocalName == tag.Name && (xElement.BaseUri == tag.Namespace || xElement.BaseUri==""))
       {
         var aNode = xElement.DescendantNodes().FirstOrDefault();
         if (aNode != null)
