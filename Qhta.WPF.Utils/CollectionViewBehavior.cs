@@ -410,4 +410,90 @@ public partial class CollectionViewBehavior
   }
   #endregion
 
+  #region ShowProgressBar property
+  /// <summary>
+  /// Getter for ShowProgressBar property
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <returns></returns>
+  public static bool GetShowProgressBar(DependencyObject obj)
+  {
+    return (bool)obj.GetValue(ShowProgressBarProperty);
+  }
+
+  /// <summary>
+  /// Setter for ShowProgressBar property
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <param name="value"></param>
+  public static void SetShowProgressBar(DependencyObject obj, bool value)
+  {
+    obj.SetValue(ShowProgressBarProperty, value);
+  }
+
+  /// <summary>
+  /// DependencyProperty as the backing store for ShowProgressBar.
+  /// </summary>
+  public static readonly DependencyProperty ShowProgressBarProperty =
+      DependencyProperty.RegisterAttached("ShowProgressBar", typeof(bool), 
+        typeof(CollectionViewBehavior), new UIPropertyMetadata(false));
+  #endregion
+
+  #region ProgressBarMaximum property
+  /// <summary>
+  /// Getter for ProgressBarMaximum property
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <returns></returns>
+  public static int GetProgressBarMaximum(DependencyObject obj)
+  {
+    return (int)obj.GetValue(ProgressBarMaximumProperty);
+  }
+
+  /// <summary>
+  /// Setter for ProgressBarMaximum property
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <param name="value"></param>
+  public static void SetProgressBarMaximum(DependencyObject obj, int value)
+  {
+    obj.SetValue(ProgressBarMaximumProperty, value);
+  }
+
+  /// <summary>
+  /// DependencyProperty as the backing store for ProgressBarMaximum.
+  /// </summary>
+  public static readonly DependencyProperty ProgressBarMaximumProperty =
+      DependencyProperty.RegisterAttached("ProgressBarMaximum", typeof(int), 
+        typeof(CollectionViewBehavior), new UIPropertyMetadata(100));
+  #endregion
+
+  #region ProgressBarValue property
+  /// <summary>
+  /// Getter for ProgressBarValue property
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <returns></returns>
+  public static int GetProgressBarValue(DependencyObject obj)
+  {
+    return (int)obj.GetValue(ProgressBarValueProperty);
+  }
+
+  /// <summary>
+  /// Setter for ProgressBarValue property
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <param name="value"></param>
+  public static void SetProgressBarValue(DependencyObject obj, int value)
+  {
+    obj.SetValue(ProgressBarValueProperty, value);
+  }
+
+  /// <summary>
+  /// DependencyProperty as the backing store for ProgressBarValue.
+  /// </summary>
+  public static readonly DependencyProperty ProgressBarValueProperty =
+      DependencyProperty.RegisterAttached("ProgressBarValue", typeof(int), 
+        typeof(CollectionViewBehavior), new UIPropertyMetadata(0));
+  #endregion
 }

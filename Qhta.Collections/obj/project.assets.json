@@ -1,6 +1,21 @@
 {
   "version": 3,
   "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "Qhta.TextUtils/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    },
     ".NETStandard,Version=v2.0": {
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
@@ -54,6 +69,21 @@
           }
         }
       }
+    },
+    "net6.0-windows7.0": {
+      "Qhta.TextUtils/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -63,6 +93,7 @@
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -217,20 +248,27 @@
     }
   },
   "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.0": [
+      "Qhta.TextUtils >= 3.2.0"
+    ],
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Qhta.TextUtils >= 3.2.0"
     ],
     "net6.0": [
       "Qhta.TextUtils >= 3.2.0"
+    ],
+    "net6.0-windows7.0": [
+      "Qhta.TextUtils >= 3.2.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\23.1.36\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "4.6.0",
+    "version": "4.7.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
       "projectName": "Qhta.Collections",
@@ -240,16 +278,20 @@
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\23.1.36\\ToolboxNuGetPackages"
       ],
       "configFilePaths": [
         "D:\\VS\\Projects\\NuGet.Config",
         "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
       ],
       "originalTargetFrameworks": [
+        "net6-windows7.0",
         "net6.0",
+        "netcoreapp3.0",
         "netstandard2.0"
       ],
       "sources": {
@@ -257,8 +299,16 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
+        "netcoreapp3.0": {
+          "targetAlias": "netcoreapp3.0",
+          "projectReferences": {}
+        },
         "net6.0": {
           "targetAlias": "net6.0",
+          "projectReferences": {}
+        },
+        "net6.0-windows7.0": {
+          "targetAlias": "net6-windows7.0",
           "projectReferences": {}
         },
         "netstandard2.0": {
@@ -273,6 +323,46 @@
       }
     },
     "frameworks": {
+      "netcoreapp3.0": {
+        "targetAlias": "netcoreapp3.0",
+        "dependencies": {
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.2.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+      },
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
@@ -297,7 +387,33 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+      },
+      "net6.0-windows7.0": {
+        "targetAlias": "net6-windows7.0",
+        "dependencies": {
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.2.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       },
       "netstandard2.0": {
         "targetAlias": "netstandard2.0",
@@ -324,7 +440,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

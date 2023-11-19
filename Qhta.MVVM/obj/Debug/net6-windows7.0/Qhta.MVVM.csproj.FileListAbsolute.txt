@@ -1,0 +1,15 @@
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.MVVM.deps.json
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.MVVM.xml
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\refint\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.xml
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\ref\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6-windows7.0\Qhta.MVVM.csproj.CopyComplete

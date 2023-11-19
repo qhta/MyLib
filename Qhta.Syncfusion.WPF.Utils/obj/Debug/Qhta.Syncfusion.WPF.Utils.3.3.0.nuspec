@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.Syncfusion.WPF.Utils</id>
+    <version>3.3.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <description>A package classes (converters) to use in WPF applications.</description>
+    <repository type="git" commit="b354c01dd5dea364b1b6979d1d4e1e7d7cb71923" />
+    <dependencies>
+      <group targetFramework="net6.0-windows7.0">
+        <dependency id="Qhta.ObservableObjects" version="2.7.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.WPF.Utils" version="3.3.0" exclude="Build,Analyzers" />
+        <dependency id="Syncfusion.Data.WPF" version="23.1.44" exclude="Build,Analyzers" />
+        <dependency id="Syncfusion.SfGrid.WPF" version="23.1.44" exclude="Build,Analyzers" />
+        <dependency id="Syncfusion.SfInput.WPF" version="23.1.44" exclude="Build,Analyzers" />
+        <dependency id="Syncfusion.Shared.WPF" version="23.1.44" exclude="Build,Analyzers" />
+        <dependency id="Syncfusion.Tools.WPF" version="23.1.44" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.Syncfusion.WPF.Utils.dll" target="lib\net6.0-windows7.0\Qhta.Syncfusion.WPF.Utils.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.Syncfusion.WPF.Utils.xml" target="lib\net6.0-windows7.0\Qhta.Syncfusion.WPF.Utils.xml" />
+  </files>
+</package>

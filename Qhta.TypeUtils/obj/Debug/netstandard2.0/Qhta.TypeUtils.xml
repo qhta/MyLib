@@ -790,6 +790,14 @@
             <param name="typeName"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TypeUtils.TypeNaming.GetExpandedName(System.Type,System.String)">
+            <summary>
+            Gets type name with expanded generic arguments.
+            </summary>
+            <param name="aType"></param>
+            <param name="defaultNamespace"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TypeUtils.TypeReflectionByInheritance">
             <summary>
               A static class that provides type extension methods for getting members in order of inheritance.

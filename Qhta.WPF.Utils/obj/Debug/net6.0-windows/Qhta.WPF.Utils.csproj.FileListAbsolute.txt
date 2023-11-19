@@ -56,3 +56,4 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\ObjFilterView
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\ObjFilterView.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\EnumFilterView.g.cs
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\EnumFilterView.baml
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.csproj.CopyComplete

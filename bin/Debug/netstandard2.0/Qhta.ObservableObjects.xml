@@ -319,7 +319,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:Qhta.ObservableObjects.ObservableList`1._items">
+        <member name="F:Qhta.ObservableObjects.ObservableList`1._Items">
             <summary>
             Internal ImmutableList
             </summary>
@@ -1156,6 +1156,22 @@
             <exception cref="T:System.ArgumentNullException">
                 match is null.
             </exception>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableList`1.NotificationDelay">
+            <summary>
+            Delay in collection change notifications (in milliseconds).
+            If it is zero, notifications are sent immediately.
+            If it is greater than zero, notifications are logged for this time 
+            and after this time they are grouped and grouped notifications are sent.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.NotifyCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            If NotificationDelay is greater than zero, then notification is registered
+            to be handled by timer. Otherwise it is handled by base method.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
         </member>
         <member name="T:Qhta.ObservableObjects.ObservableObject">
             <summary>

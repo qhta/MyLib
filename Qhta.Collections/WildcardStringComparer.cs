@@ -7,7 +7,7 @@ namespace Qhta.Collections;
 /// <summary>
 /// String comparer that uses wildcard '*' character in str2, that can be encompassed to a fragment of string.
 /// </summary>
-public class WildcardStringComparer : IEqualityComparer<string>, IComparer<string>
+public class WildcardStringComparer : StringComparer, IEqualityComparer<string>, IComparer<string>
 {
 
   /// <summary>
@@ -30,7 +30,7 @@ public class WildcardStringComparer : IEqualityComparer<string>, IComparer<strin
   public StringComparison Comparison { get; set; }
 
   /// <inheritdoc/>
-  public bool Equals(string? str1, string? str2)
+  public override bool Equals(string? str1, string? str2)
   {
     if (str1 == null || str2 == null)
       return String.Equals(str1, str2, Comparison);
@@ -39,7 +39,7 @@ public class WildcardStringComparer : IEqualityComparer<string>, IComparer<strin
   }
 
   /// <inheritdoc/>
-  public int Compare(string? str1, string? str2)
+  public override int Compare(string? str1, string? str2)
   {
     if (str1 == null || str2 == null)
       return String.Compare(str1, str2, Comparison);
@@ -52,10 +52,8 @@ public class WildcardStringComparer : IEqualityComparer<string>, IComparer<strin
   }
 
   /// <inheritdoc/>
-  public int GetHashCode(string obj)
+  public override int GetHashCode(string obj)
   {
     return obj.GetHashCode();
   }
-
-
 }

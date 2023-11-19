@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;netstandard2.0;net6.0;net6-windows7.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -12,7 +12,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A package with Bidirectional dictionary.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>4.6</Version>
+    <Version>4.7</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 

@@ -13,6 +13,7 @@ namespace Qhta.TypeUtils;
 /// </summary>
 public static class TypeUtils
 {
+
   /// <summary>
   ///   A delegate method for property copying
   /// </summary>

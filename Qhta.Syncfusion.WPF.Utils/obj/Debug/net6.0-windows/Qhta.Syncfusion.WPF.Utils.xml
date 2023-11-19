@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.Syncfusion.WPF.Utils</name>
+    </assembly>
+    <members>
+        <member name="M:Qhta.Syncfusion.WPF.Utils.Converters.SelectedImageConverter.System#Windows#Data#IValueConverter#Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="info">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Qhta.Syncfusion.WPF.Utils.Converters.SelectedImageConverter.System#Windows#Data#IValueConverter#ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="info">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator">
+            <summary>
+            Utility class that helps to autogenerate <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/>.
+            It uses DataGridColumn attributes assigned to properties.
+            </summary>
+        </member>
+        <member name="M:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.#ctor(System.Windows.Controls.Control,System.Type,System.Type)">
+            <summary>
+            Initializing contructor
+            </summary>
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.DataGrid">
+            <summary>
+            Assigned data grid to create columns.
+            </summary>
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.SourceItemsType">
+            <summary>
+            Type of the source collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.ItemType">
+            <summary>
+            ItemType that can be presetted.
+            </summary>
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.IsFilterButtonVisible">
+            <summary>
+            Should creator add filter button to each column header.
+            </summary>
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.ItemProperties">
+            <summary>
+            Public properties declared in ItemType
+            </summary>
+        </member>
+        <member name="M:Qhta.Syncfusion.WPF.Utils.SfDataGridColumnCreator.GenerateColumn(System.Object,System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs)">
+            <summary>
+            Creates <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/> for ItemsSource thas have DataGridColumnAttribute (defined in Qhta.MVVM)
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.EmployeeName">
+            <summary>
+            Gets or sets the employee name.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Designation">
+            <summary>
+            Gets or sets the designation.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Mail">
+            <summary>
+            Gets or sets the mail ID.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Location">
+            <summary>
+            Gets or sets the location.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Trustworthiness">
+            <summary>
+            Gets or sets the Trustworthiness.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Rating">
+            <summary>
+            Gets or sets the rating.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Salary">
+            <summary>
+            Gets or sets the salary.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Address">
+            <summary>
+            Gets or sets the address.
+            </summary>        
+        </member>
+        <member name="P:Qhta.Syncfusion.WPF.Utils.Model.Employee.Gender">
+            <summary>
+            Gets or sets the gender
+            </summary>
+        </member>
+        <member name="M:Qhta.Syncfusion.WPF.Utils.ViewModel.EmployeeViewModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Syncfusion.WPF.Utils.ViewModel.EmployeeViewModel"/> class.
+            </summary>
+        </member>
+    </members>
+</doc>

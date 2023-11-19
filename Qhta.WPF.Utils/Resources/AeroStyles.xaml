@@ -880,7 +880,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <BooleanToVisibilityConverter x:Key="é" />
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}"
       TargetType="{x:Type Button}">
     <Setter Property="Control.Template">
@@ -995,7 +995,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ê" TargetType="{x:Type Thumb}">
+  <Style x:Key="ThumbStyleWE" TargetType="{x:Type Thumb}">
     <Setter Property="Width" Value="8" />
     <Setter Property="Background" Value="#00FFFFFF" />
     <Setter Property="Cursor" Value="SizeWE" />
@@ -1007,7 +1007,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ë" TargetType="{x:Type Thumb}">
+  <Style x:Key="ThumbStyleNS" TargetType="{x:Type Thumb}">
     <Setter Property="Height" Value="8" />
     <Setter Property="Background" Value="#00FFFFFF" />
     <Setter Property="Cursor" Value="SizeNS" />
@@ -1207,8 +1207,8 @@
                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" />
             </theme:DataGridHeaderBorder>
-            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ê}" />
-            <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ê}" />
+            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ThumbStyleWE}" />
+            <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ThumbStyleWE}" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -1232,12 +1232,12 @@
                 <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
                     RecognizesAccessKey="True" />
                 <Control SnapsToDevicePixels="False"
-                    Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=Validation.HasError,Converter={StaticResource é}}"
+                    Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=Validation.HasError,Converter={StaticResource BooleanToVisibilityConverter}}"
                     Template="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=ValidationErrorTemplate}" />
               </StackPanel>
             </theme:DataGridHeaderBorder>
-            <Thumb x:Name="PART_TopHeaderGripper" VerticalAlignment="Top" Style="{StaticResource ë}" />
-            <Thumb x:Name="PART_BottomHeaderGripper" VerticalAlignment="Bottom" Style="{StaticResource ë}" />
+            <Thumb x:Name="PART_TopHeaderGripper" VerticalAlignment="Top" Style="{StaticResource ThumbStyleNS}" />
+            <Thumb x:Name="PART_BottomHeaderGripper" VerticalAlignment="Bottom" Style="{StaticResource ThumbStyleNS}" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -2501,7 +2501,7 @@
     </Setter>
   </Style>
   <MenuScrollingVisibilityConverter x:Key="ĝ" />
-  <Geometry x:Key="Ë">
+  <Geometry x:Key="ThumbStyleNS">
     M 0,0 L 3.5,4 L 7,0 Z
   </Geometry>
   <Geometry x:Key="Ğ">
@@ -2607,7 +2607,7 @@
                   <Binding Path="ViewportHeight" RelativeSource="{RelativeSource TemplatedParent}" />
                 </MultiBinding>
               </UIElement.Visibility>
-              <Path Fill="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}" Data="{StaticResource Ë}" />
+              <Path Fill="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}" Data="{StaticResource ThumbStyleNS}" />
             </RepeatButton>
           </Grid>
         </ControlTemplate>
@@ -4960,14 +4960,14 @@
     </Style.Triggers>
   </Style>
   <JournalEntryListConverter x:Key="È" />
-  <Style x:Key="É" TargetType="{x:Type MenuItem}">
+  <Style x:Key="BooleanToVisibilityConverter" TargetType="{x:Type MenuItem}">
     <Setter Property="HeaderedItemsControl.Header" Value="{Binding Path=Name}" />
     <Setter Property="MenuItem.Command" Value="NavigationCommands.NavigateJournal" />
     <Setter Property="MenuItem.CommandTarget"
         Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}" />
     <Setter Property="MenuItem.CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}" />
   </Style>
-  <Style x:Key="Ê" TargetType="{x:Type MenuItem}">
+  <Style x:Key="ThumbStyleWE" TargetType="{x:Type MenuItem}">
     <Setter Property="Margin" Value="0" />
     <Setter Property="ScrollViewer.PanningMode" Value="Both" />
     <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
@@ -4997,7 +4997,7 @@
               </theme:SystemDropShadowChrome>
             </Popup>
             <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 2 0 0"
-                Fill="#FFFFFFFF" Stroke="#FFAAAAAA" StrokeThickness="1" Data="{StaticResource Ë}" />
+                Fill="#FFFFFFFF" Stroke="#FFAAAAAA" StrokeThickness="1" Data="{StaticResource ThumbStyleNS}" />
           </DockPanel>
           <ControlTemplate.Triggers>
             <Trigger Property="MenuItem.IsSuspendingPopupAnimation" Value="True">
@@ -5135,8 +5135,8 @@
                     Fill="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
                 <Grid Width="10">
                   <Menu Style="{StaticResource Ì}">
-                    <MenuItem x:Name="NavWinMenu" Style="{StaticResource Ê}"
-                        ItemsControl.ItemContainerStyle="{StaticResource É}"
+                    <MenuItem x:Name="NavWinMenu" Style="{StaticResource ThumbStyleWE}"
+                        ItemsControl.ItemContainerStyle="{StaticResource BooleanToVisibilityConverter}"
                         ItemsControl.ItemsSource="{Binding Path=BackStack,Converter={StaticResource È},Mode=OneTime,RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}"
                         MenuItem.IsSubmenuOpen="{Binding Path=(MenuItem.IsSubmenuOpen),Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" />
                   </Menu>
@@ -5311,8 +5311,8 @@
                     Fill="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
                 <Grid Width="10">
                   <Menu Style="{StaticResource Ì}">
-                    <MenuItem x:Name="NavWinMenu" Style="{StaticResource Ê}"
-                        ItemsControl.ItemContainerStyle="{StaticResource É}"
+                    <MenuItem x:Name="NavWinMenu" Style="{StaticResource ThumbStyleWE}"
+                        ItemsControl.ItemContainerStyle="{StaticResource BooleanToVisibilityConverter}"
                         ItemsControl.ItemsSource="{Binding Path=ForwardStack,Converter={StaticResource È},Mode=OneTime,RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}"
                         MenuItem.IsSubmenuOpen="{Binding Path=(MenuItem.IsSubmenuOpen),Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" />
                   </Menu>
@@ -5464,7 +5464,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="à" TargetType="{x:Type TextBox}">
+  <Style x:Key="BooleanToVisibilityConverter" TargetType="{x:Type TextBox}">
     <Style.Triggers>
       <!--<DataTrigger Binding="{Binding Path=(base:AccessibilitySwitches.UseNetFx47CompatibleAccessibilityFeatures)}"
                    Value="false">
@@ -5593,7 +5593,7 @@
       <theme:ListBoxChrome x:Name="Border" Grid.ColumnSpan="2" BorderThickness="{TemplateBinding BorderThickness}"
           BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}"
           RenderMouseOver="{TemplateBinding IsMouseOver}" RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" />
-      <TextBox Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource à}"
+      <TextBox Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource BooleanToVisibilityConverter}"
           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
           TextBoxBase.IsReadOnly="{Binding Path=IsReadOnly,RelativeSource={RelativeSource TemplatedParent}}" />
@@ -6111,7 +6111,7 @@
                   Style="{StaticResource Ž}"
                   ToggleButton.IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" />
               <TextBox x:Name="PART_EditableTextBox" Padding="{TemplateBinding Padding}" Margin="1,1,0,1" MinHeight="18"
-                  Style="{StaticResource à}" Visibility="Collapsed" VerticalAlignment="Center"
+                  Style="{StaticResource BooleanToVisibilityConverter}" Visibility="Collapsed" VerticalAlignment="Center"
                   TextBoxBase.IsReadOnly="{Binding Path=IsReadOnly,RelativeSource={RelativeSource TemplatedParent}}" />
             </Grid>
             <Popup Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" Focusable="False"

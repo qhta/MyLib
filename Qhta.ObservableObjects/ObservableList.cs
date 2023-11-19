@@ -1,12 +1,22 @@
-﻿using System;
+﻿#define ImmutableItems
+#define ThreadingTimer
+using System;
 using System.Collections;
 using System.Collections.Generic;
+#if ImmutableItems
 using System.Collections.Immutable;
+#endif
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+
+#if ThreadingTimer
+using Timer = System.Threading.Timer;
+#else
+using Timer = System.Timers.Timer;
+#endif
 
 namespace Qhta.ObservableObjects
 {
@@ -31,11 +41,19 @@ namespace Qhta.ObservableObjects
     INotifyCollectionChanged, INotifyPropertyChanged
   {
 
+    private bool InNotifyCallback
+    {
+      get;
+      set;
+    }
     /// <summary>
     /// Internal ImmutableList
     /// </summary>
-    protected ImmutableList<T> _items;
-
+#if ImmutableItems
+    protected ImmutableList<T> _Items;
+#else
+    protected List<T> _Items;
+#endif
     #region constructors
 
     /// <summary>
@@ -43,7 +61,11 @@ namespace Qhta.ObservableObjects
     /// </summary>
     public ObservableList()
     {
-      _items = ImmutableList.Create<T>();
+#if ImmutableItems
+      _Items = ImmutableList.Create<T>();
+#else
+      _Items = new List<T>();
+#endif
     }
 
     /// <summary>
@@ -52,7 +74,11 @@ namespace Qhta.ObservableObjects
     /// <param name="items"></param>
     public ObservableList(IEnumerable<T> items)
     {
-      _items = items.ToImmutableList<T>();
+#if ImmutableItems
+      _Items = items.ToImmutableList<T>();
+#else
+      _Items = new List<T>(items);
+#endif
     }
     #endregion
 
@@ -61,12 +87,34 @@ namespace Qhta.ObservableObjects
     /// <summary>
     /// Specifies whether collection size is fixed.
     /// </summary>
-    public bool IsFixedSize { get; set; }
+    public bool IsFixedSize
+    {
+      get
+      {
+          return _IsFixedSize;
+      }
+      set
+      {
+        IsFixedSize = value;
+      }
+    }
+    private bool _IsFixedSize;
 
     /// <summary>
     /// Specifies whether collection is read only.
     /// </summary>
-    public bool IsReadOnly { get; set; }
+    public bool IsReadOnly
+    {
+      get
+      {
+        return _IsReadOnly;
+      }
+      set
+      {
+        _IsReadOnly = value;
+      }
+    }
+    private bool _IsReadOnly;
 
     /// <summary>
     ///   Gets or sets the element at the specified index.
@@ -81,7 +129,7 @@ namespace Qhta.ObservableObjects
       get
       {
         //Debug.WriteLine($"Get({index})" + $" {DateTime.Now.TimeOfDay}");
-        return _items[index];
+        return _Items[index];
       }
       set
       {
@@ -97,8 +145,7 @@ namespace Qhta.ObservableObjects
     {
       get
       {
-        var count = _items.Count;
-        //Debug.WriteLine($"GetCount({count})" + $" {DateTime.Now.TimeOfDay}");
+        var count = _Items.Count;
         return count;
       }
     }
@@ -113,9 +160,15 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"SetItem({index},value)" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var oldItem = _items[index];
-        _items = _items.SetItem(index, value);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem, value, index));
+        var oldItem = _Items[index];
+#if ImmutableItems
+        _Items = _Items.SetItem(index, value);
+#else
+        _Items[index] = value;
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem, value, index));
       }
     }
 
@@ -130,9 +183,15 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Add({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var index = _items.Count;
-        _items = _items.Add(item);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+        var index = _Items.Count;
+#if ImmutableItems
+        _Items = _Items.Add(item);
+#else
+        _Items.Add(item);
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -153,9 +212,27 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var index = _items.Count;
-        _items = _items.AddRange(collection);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        var index = _Items.Count;
+        var list = new List<T>(collection);
+#if ImmutableItems
+        var oldItems = _Items;
+        var newItems = _Items = _Items.AddRange(list);
+#else
+        _Items.AddRange(list);
+#endif
+        //NotifyCollectionChanged(
+        //  this,
+        //  new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+        for (int i = 0; i < list.Count; i++)
+          NotifyCollectionChanged(
+            this,
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, list[i], index++));
+
+        //NotifyCollectionChanged(
+        //  this,
+        //  new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, list, index));
+
         NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -168,7 +245,7 @@ namespace Qhta.ObservableObjects
     /// </returns>
     public ReadOnlyCollection<T>? AsReadOnly()
     {
-      return _items as ReadOnlyCollection<T>;
+      return _Items as ReadOnlyCollection<T>;
     }
 
     /// <summary>
@@ -190,7 +267,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(T item)
     {
-      return _items.BinarySearch(item);
+      return _Items.BinarySearch(item);
     }
 
     /// <summary>
@@ -217,7 +294,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(T item, IComparer<T> comparer)
     {
-      return _items.BinarySearch(item, comparer);
+      return _Items.BinarySearch(item, comparer);
     }
 
     /// <summary>
@@ -251,7 +328,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
     {
-      return _items.BinarySearch(index, count, item, comparer);
+      return _Items.BinarySearch(index, count, item, comparer);
     }
 
     /// <summary>
@@ -262,8 +339,17 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Clear()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Clear();
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        //var _notificationDelay = NotificationDelay;
+        //NotificationDelay = 0;
+#if ImmutableItems
+        _Items = ImmutableList<T>.Empty;
+#else
+        _Items.Clear();
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        //NotificationDelay = _notificationDelay;
       }
     }
 
@@ -276,9 +362,10 @@ namespace Qhta.ObservableObjects
     /// <returns>true if item is found in the list; otherwise, false.</returns>
     public bool Contains(T item)
     {
-      return _items.Contains(item);
+      return _Items.Contains(item);
     }
 
+#if ImmutableItems
     /// <summary>
     ///   Converts the elements in the current list to another type, and returns a list containing the converted elements.
     /// </summary>
@@ -292,8 +379,9 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public ImmutableList<TOutput> ConvertAll<TOutput>(Func<T, TOutput> converter)
     {
-      return _items.ConvertAll(converter);
+      return _Items.ConvertAll(converter);
     }
+#endif
 
     /// <summary>
     ///   Copies a range of elements from the list to a compatible
@@ -320,7 +408,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(int index, T[] array, int arrayIndex, int count)
     {
-      _items.CopyTo(index, array, arrayIndex, count);
+      _Items.CopyTo(index, array, arrayIndex, count);
     }
 
     /// <summary>
@@ -344,7 +432,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(T[] array, int arrayIndex)
     {
-      _items.CopyTo(array, arrayIndex);
+      _Items.CopyTo(array, arrayIndex);
     }
 
     /// <summary>
@@ -364,7 +452,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(T[] array)
     {
-      _items.CopyTo(array);
+      _Items.CopyTo(array);
     }
 
     /// <summary>
@@ -384,7 +472,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public bool Exists(Predicate<T> match)
     {
-      return _items.Exists(match);
+      return _Items.Exists(match);
     }
 
     ///<summary>
@@ -404,9 +492,10 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public T? Find(Predicate<T> match)
     {
-      return _items.Find(match);
+      return _Items.Find(match);
     }
 
+#if ImmutableItems
     ///<summary>
     ///    Retrieves all the elements that match the conditions defined by the specified
     ///    predicate.
@@ -425,8 +514,10 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public ImmutableList<T> FindAll(Predicate<T> match)
     {
-      return _items.FindAll(match);
+      return _Items.FindAll(match);
     }
+#endif
+
     //
     ///<summary>
     ///    Searches for an element that matches the conditions defined by the specified
@@ -458,7 +549,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(int startIndex, int count, Predicate<T> match)
     {
-      return _items.FindIndex(startIndex, count, match);
+      return _Items.FindIndex(startIndex, count, match);
     }
 
 
@@ -487,7 +578,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(int startIndex, Predicate<T> match)
     {
-      return _items.FindIndex(startIndex, match);
+      return _Items.FindIndex(startIndex, match);
     }
 
     ///<summary>
@@ -508,7 +599,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(Predicate<T> match)
     {
-      return _items.FindIndex(match);
+      return _Items.FindIndex(match);
     }
 
     ///<summary>
@@ -528,7 +619,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public T? FindLast(Predicate<T> match)
     {
-      return _items.FindLast(match);
+      return _Items.FindLast(match);
     }
 
     ///<summary>
@@ -561,7 +652,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(int startIndex, int count, Predicate<T> match)
     {
-      return _items.FindLastIndex(startIndex, count, match);
+      return _Items.FindLastIndex(startIndex, count, match);
     }
 
     ///<summary>
@@ -589,7 +680,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(int startIndex, Predicate<T> match)
     {
-      return _items.FindLastIndex(startIndex, match);
+      return _Items.FindLastIndex(startIndex, match);
     }
 
     ///<summary>
@@ -610,7 +701,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(Predicate<T> match)
     {
-      return _items.FindLastIndex(match);
+      return _Items.FindLastIndex(match);
     }
 
     ///<summary>
@@ -629,8 +720,10 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _items.ForEach(action);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        _Items.ForEach(action);
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
     //
@@ -645,14 +738,15 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"GetEnumerator()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        for (int i = 0; i < _items.Count; i++)
+        for (int i = 0; i < _Items.Count; i++)
         {
-          var item = _items[i];
+          var item = _Items[i];
           yield return item;
         }
       }
     }
 
+#if ImmutableItems
     ///<summary>
     ///    Creates a shallow copy of a range of elements in the source list.
     ///</summary>
@@ -673,8 +767,10 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public ImmutableList<T> GetRange(int index, int count)
     {
-      return _items.GetRange(index, count);
+      return _Items.GetRange(index, count);
     }
+#endif
+
     //
     ///<summary>
     ///    Searches for the specified object and returns the zero-based index of the first
@@ -703,7 +799,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int IndexOf(T item, int index, int count)
     {
-      return _items.IndexOf(item, index, count);
+      return _Items.IndexOf(item, index, count);
     }
 
     ///<summary>
@@ -728,7 +824,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int IndexOf(T item, int index)
     {
-      return _items.IndexOf(item, index);
+      return _Items.IndexOf(item, index);
     }
 
     ///<summary>
@@ -745,7 +841,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public int IndexOf(T item)
     {
-      return _items.IndexOf(item);
+      return _Items.IndexOf(item);
     }
 
     ///<summary>
@@ -766,8 +862,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Insert({index},{item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Insert(index, item);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+#if ImmutableItems
+        _Items = _Items.Insert(index, item);
+#else
+        _Items.Insert(index, item);
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -796,8 +898,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"InsertRange({index},{collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.InsertRange(index, collection);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.InsertRange(index, collection);
+#else
+        _Items.InsertRange(index, collection);
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -816,7 +924,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public int LastIndexOf(T item)
     {
-      return _items.LastIndexOf(item);
+      return _Items.LastIndexOf(item);
     }
 
     ///<summary>
@@ -841,7 +949,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int LastIndexOf(T item, int index)
     {
-      return _items.LastIndexOf(item, index);
+      return _Items.LastIndexOf(item, index);
     }
 
     ///<summary>
@@ -871,7 +979,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int LastIndexOf(T item, int index, int count)
     {
-      return _items.LastIndexOf(item, index, count);
+      return _Items.LastIndexOf(item, index, count);
     }
 
     ///<summary>
@@ -890,12 +998,18 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Remove({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        int index = _items.IndexOf(item);
+        int index = _Items.IndexOf(item);
         if (index < 0)
           return false;
 
-        _items = _items.RemoveAt(index);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+#if ImmutableItems
+        _Items = _Items.RemoveAt(index);
+#else
+        _Items.RemoveAt(index);
+#endif
+        NotifyCollectionChanged(
+           this,
+           new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
         NotifyPropertyChanged(nameof(Count));
         return true;
       }
@@ -919,8 +1033,14 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
         var removeList = this.Where(item => match(item)).ToList();
-        _items = _items.RemoveAll(match);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.RemoveAll(match);
+#else
+        _Items.RemoveAll(match);
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         NotifyPropertyChanged(nameof(Count));
         return removeList.Count;
       }
@@ -940,9 +1060,15 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"RemoveAt({index})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var value = _items[index];
-        _items = _items.RemoveAt(index);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
+        var value = _Items[index];
+#if ImmutableItems
+        _Items = _Items.RemoveAt(index);
+#else
+        _Items.RemoveAt(index);
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
         NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -967,13 +1093,19 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"RemoveRange({index},{count})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var count1 = _items.Count - index;
+        var count1 = _Items.Count - index;
         if (count1 < count)
           count = count1;
         var items = new T[count];
-        _items.CopyTo(index, items, 0, count);
-        _items = _items.RemoveRange(index, count);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, items, index));
+        _Items.CopyTo(index, items, 0, count);
+#if ImmutableItems
+        _Items = _Items.RemoveRange(index, count);
+#else
+        _Items.RemoveRange(index, count);
+#endif
+        NotifyCollectionChanged(
+          this,
+          new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, items, index));
         NotifyPropertyChanged(nameof(Count));
       }
     }
@@ -998,8 +1130,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Reverse({index},{count})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Reverse(index, count);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.Reverse(index, count);
+#else
+        _Items.Reverse(index, count);
+#endif
+        NotifyCollectionChanged(
+          this,
+        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1012,8 +1150,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Reverse()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Reverse();
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.Reverse();
+#else
+        _Items.Reverse();
+#endif
+        NotifyCollectionChanged(
+          this,
+        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1036,8 +1180,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Sort({comparison})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Sort(comparison);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.Sort(comparison);
+#else
+        _Items.Sort(comparison);
+#endif
+        NotifyCollectionChanged(
+          this,
+        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1073,8 +1223,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Sort({index},{count},{comparer})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Sort(index, count, comparer);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.Sort(index, count, comparer);
+#else
+        _Items.Sort(index, count, comparer);
+#endif
+        NotifyCollectionChanged(
+          this,
+        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1092,8 +1248,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Sort()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Sort();
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.Sort();
+#else
+        _Items.Sort();
+#endif
+        NotifyCollectionChanged(
+          this,
+        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1119,8 +1281,14 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Sort({comparer})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        _items = _items.Sort(comparer);
-        NotifyCollectionChanged(_items, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+#if ImmutableItems
+        _Items = _Items.Sort(comparer);
+#else
+        _Items.Sort(comparer);
+#endif
+        NotifyCollectionChanged(
+          this,
+        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
       }
     }
 
@@ -1133,7 +1301,7 @@ namespace Qhta.ObservableObjects
     /// </returns>
     public T[] ToArray()
     {
-      return _items.ToArray();
+      return _Items.ToArray();
     }
 
     ///<summary>
@@ -1155,7 +1323,7 @@ namespace Qhta.ObservableObjects
     public bool TrueForAll(Predicate<T> match)
     {
       //Debug.WriteLine($"TrueForAll()" + $" {DateTime.Now.TimeOfDay}");
-      return _items.TrueForAll(match);
+      return _Items.TrueForAll(match);
     }
 
     #endregion
@@ -1172,7 +1340,17 @@ namespace Qhta.ObservableObjects
         this.CopyTo(items, index);
       else
       {
-        (_items as ICollection).CopyTo(array, index);
+#if ImmutableItems
+        var arr = _Items.ToImmutableArray();
+#else
+        var arr = _Items.ToArray();
+#endif
+        foreach (var item in arr)
+        {
+          if (index >= array.Length)
+            break;
+          array.SetValue(item, index++);
+        }
       }
     }
     #endregion
@@ -1230,5 +1408,178 @@ namespace Qhta.ObservableObjects
 
     #endregion
 
+    #region NotificationDelay
+
+    /// <summary>
+    /// Delay in collection change notifications (in milliseconds).
+    /// If it is zero, notifications are sent immediately.
+    /// If it is greater than zero, notifications are logged for this time 
+    /// and after this time they are grouped and grouped notifications are sent.
+    /// </summary>
+    public int NotificationDelay
+    {
+      get
+      {
+        return _NotificationDelay;
+      }
+      set
+      {
+        if (_NotificationDelay != value)
+        {
+          _NotificationDelay = value;
+          SwitchNotificationTimer(value > 0);
+          NotifyPropertyChanged(nameof(NotificationDelay));
+        }
+      }
+    }
+    private int _NotificationDelay;
+
+    private void RegisterNotification(object sender, NotifyCollectionChangedEventArgs args)
+    {
+
+      if (_CollectionChangedArgs != null)
+#if ImmutableItems
+        _CollectionChangedArgs = _CollectionChangedArgs.Add((sender, args));
+#else
+          _CollectionChangedArgs.Add((sender, args));
+#endif
+    }
+
+    //private ImmutableList<NotifyCollectionChangedEventArgs> CollectionChangedArgs
+    //{
+    //  get
+    //  {
+    //    if (_CollectionChangedArgs == null)
+    //      _CollectionChangedArgs = ImmutableList<NotifyCollectionChangedEventArgs>.Empty;
+    //    return _CollectionChangedArgs;
+    //  }
+    //  set => _CollectionChangedArgs = value;
+    //}
+#if ImmutableItems
+    private ImmutableList<(object, NotifyCollectionChangedEventArgs)>? _CollectionChangedArgs;
+#else
+    private List<(object, NotifyCollectionChangedEventArgs)>? _CollectionChangedArgs;
+#endif
+
+    private void SwitchNotificationTimer(bool enable)
+    {
+
+      if (enable)
+      {
+        _PreviousCollectionChangedCount = 0;
+#if ImmutableItems
+        _CollectionChangedArgs = ImmutableList<(object, NotifyCollectionChangedEventArgs)>.Empty;
+#else
+        _CollectionChangedArgs = new List<(object, NotifyCollectionChangedEventArgs)>();
+#endif
+#if ThreadingTimer
+        _NotificationTimer = new Timer(_OnTimer, null, 0, _NotificationDelay);
+#else
+        _NotificationTimer =
+          new System.Timers.Timer{ Interval = _NotificationDelay, AutoReset = true } ;
+        _NotificationTimer.Elapsed += _NotificationTimer_Elapsed;
+        _NotificationTimer.Start();
+#endif
+      }
+      else
+        _DisableTimer = true;
+    }
+
+#if ThreadingTimer
+#else
+    private void _NotificationTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+      _OnTimer(e);
+    }
+#endif
+
+    private Timer? _NotificationTimer;
+    private bool _DisableTimer;
+    private int _PreviousCollectionChangedCount;
+
+    private void _OnTimer(object? state)
+    {
+      if (_CollectionChangedArgs != null)
+      {
+#if ImmutableItems
+        var _argss = _CollectionChangedArgs.ToImmutableArray();
+#else
+        var _argss = _CollectionChangedArgs.ToArray();
+#endif
+        var argss = new List<(object, NotifyCollectionChangedEventArgs)>();
+        for (int i = _PreviousCollectionChangedCount; i < _argss.Count(); i++)
+        {
+          var args = _argss[i];
+          argss.Add(args);
+          _PreviousCollectionChangedCount = i;
+        }
+        NotifyCollectionChangedEvents(argss);
+      }
+      if (_DisableTimer)
+      {
+        _NotificationTimer?.Dispose();
+        _NotificationTimer = null;
+        //_CollectionChangedArgs = null;
+        //_PreviousCollectionChangedCount = 0;
+      }
+      else
+      {
+#if ThreadingTimer
+        _NotificationTimer?.Change(0, _NotificationDelay);
+#else
+#endif
+      }
+    }
+
+    private void NotifyCollectionChangedEvents(IEnumerable<(object, NotifyCollectionChangedEventArgs)> argss)
+    {
+      NotifyCollectionChangedAction? previousAction = null;
+      foreach (var pair in argss)
+      {
+        var args = pair.Item2;
+        switch (args.Action)
+        {
+          //case NotifyCollectionChangedAction.Reset:
+          //  _NotifiedItemsCount = 0;
+          //  base.NotifyCollectionChanged(this, args);
+          //  break;
+          ////  if (previousAction != NotifyCollectionChangedAction.Reset)
+          ////  {
+          ////    Debug.WriteLine($"{args.Action} NewStartingIndex={args.NewStartingIndex} NewItemsCount={args.NewItems?.Count}");
+          ////    HandleCollectionChangedEvent(this, CollectionChanged, args);
+          ////  }
+          ////  break;
+          //case NotifyCollectionChangedAction.Add:
+          //          //  base.NotifyCollectionChanged(this, args);
+          //  break;
+          default:
+            base.NotifyCollectionChanged(this, args);
+            InNotifyCallback = false;
+            break;
+        }
+        previousAction = args.Action;
+      }
+    }
+    #endregion
+
+    /// <summary>
+    /// If NotificationDelay is greater than zero, then notification is registered
+    /// to be handled by timer. Otherwise it is handled by base method.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    public override void NotifyCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+    {
+      InNotifyCallback = true;
+
+      //if (NotificationDelay > 0)
+      //  RegisterNotification(sender, args);
+      //else
+      base.NotifyCollectionChanged(sender, args);
+      InNotifyCallback = false;
+    }
   }
+
+
 }
+

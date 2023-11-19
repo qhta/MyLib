@@ -12,8 +12,9 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="target"></param>
   /// <returns></returns>
-  public static bool? GetShowFilterButton(DependencyObject target)
+  public static bool? GetShowFilterButton(DependencyObject? target)
   {
+    if (target==null) return null;
     if (target is DataGridColumnHeader header)
       return (bool)header.GetValue(ShowFilterButtonProperty);
     var result = target.GetValue(ShowFilterButtonProperty);

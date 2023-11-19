@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package of utility functions to help debugging and testing")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+b354c01dd5dea364b1b6979d1d4e1e7d7cb71923")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.TestUtilities")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.TestUtilities")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

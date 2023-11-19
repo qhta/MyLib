@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 
@@ -68,10 +66,12 @@ namespace Qhta.ObservableObjects
     /// <param name="args"></param>
     public virtual void NotifyCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
-      if (CollectionChanged!=null)
+      if (CollectionChanged != null)
+      {
         HandleCollectionChangedEvent(sender, CollectionChanged, args);
+      }
     }
     #endregion INotifyCollectionChanged
-
   }
 }
+

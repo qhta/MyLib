@@ -675,6 +675,63 @@
             <param name="target"></param>
             <param name="value"></param>
         </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetShowProgressBar(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ShowProgressBar property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetShowProgressBar(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Setter for ShowProgressBar property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ShowProgressBarProperty">
+            <summary>
+            DependencyProperty as the backing store for ShowProgressBar.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetProgressBarMaximum(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ProgressBarMaximum property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetProgressBarMaximum(System.Windows.DependencyObject,System.Int32)">
+            <summary>
+            Setter for ProgressBarMaximum property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ProgressBarMaximumProperty">
+            <summary>
+            DependencyProperty as the backing store for ProgressBarMaximum.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetProgressBarValue(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ProgressBarValue property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetProgressBarValue(System.Windows.DependencyObject,System.Int32)">
+            <summary>
+            Setter for ProgressBarValue property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ProgressBarValueProperty">
+            <summary>
+            DependencyProperty as the backing store for ProgressBarValue.
+            </summary>
+        </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.DisplayRowNumberOffsetProperty">
             <summary>
             Sets the starting value of the row header if enabled.
@@ -1513,7 +1570,7 @@
             It uses DataGridColumn attributes assigned to properties.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.DataGridColumnCreator.#ctor(System.Windows.Controls.DataGrid,System.Type,System.Type)">
+        <member name="M:Qhta.WPF.Utils.DataGridColumnCreator.#ctor(System.Windows.Controls.Control,System.Type,System.Type)">
             <summary>
             Initializing contructor
             </summary>

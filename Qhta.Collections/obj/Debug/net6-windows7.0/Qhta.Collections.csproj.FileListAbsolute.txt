@@ -1,0 +1,14 @@
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.Collections.deps.json
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.Collections.dll
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\bin\Debug\net6-windows7.0\Qhta.Collections.xml
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.dll
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\refint\Qhta.Collections.dll
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.xml
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\Qhta.Collections.pdb
+D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net6-windows7.0\ref\Qhta.Collections.dll

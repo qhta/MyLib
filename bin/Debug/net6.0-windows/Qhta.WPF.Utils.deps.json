@@ -88,18 +88,6 @@
           }
         }
       },
-      "Qhta.ObservableObjects/2.7.0": {
-        "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "assemblyVersion": "2.7.0.0",
-            "fileVersion": "2.7.0.0"
-          }
-        }
-      },
       "Qhta.OrdNumbers/2.3.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.OrdNumbers.dll": {
@@ -645,6 +633,15 @@
             "fileVersion": "4.6.24705.1"
           }
         }
+      },
+      "Qhta.ObservableObjects/2.7.0": {
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Immutable": "7.0.0"
+        },
+        "runtime": {
+          "Qhta.ObservableObjects.dll": {}
+        }
       }
     }
   },
@@ -702,13 +699,6 @@
       "sha512": "sha512-/9msAOY36+rNqvqy8riyCxek/uu3bqFWzHCYPz4emOg/2aYlB1pYPilt5umPTk82+p7VrJGlOLnc06A/DkgGfg==",
       "path": "qhta.mvvm/3.6.1",
       "hashPath": "qhta.mvvm.3.6.1.nupkg.sha512"
-    },
-    "Qhta.ObservableObjects/2.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-KJbl90ggUs80WiIQvot+QZ+ijkC9DVow5DT7sguq6/9Phn9OwF9PweVx5vIvlKFgjR32+2JWNdFTFnqbmLRcVg==",
-      "path": "qhta.observableobjects/2.7.0",
-      "hashPath": "qhta.observableobjects.2.7.0.nupkg.sha512"
     },
     "Qhta.OrdNumbers/2.3.0": {
       "type": "package",
@@ -1136,6 +1126,11 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "Qhta.ObservableObjects/2.7.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

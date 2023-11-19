@@ -4,7 +4,7 @@
                     xmlns:utl="clr-namespace:Qhta.WPF.Utils;assembly=Qhta.WPF.Utils"
                     xmlns:cvt="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
                     x:Class="Qhta.WPF.Utils.CollectionViewBehavior">
-  <BooleanToVisibilityConverter x:Key="é" />
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   <cvt:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />
   <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}"
          Style.TargetType="{x:Type Button}">
@@ -74,60 +74,77 @@
                   Border.BorderThickness="{TemplateBinding Control.BorderThickness}"
                   UIElement.SnapsToDevicePixels="True"
                   Border.Padding="{TemplateBinding Control.Padding}">
-            <ScrollViewer FrameworkElement.Name="DG_ScrollViewer"
-                          UIElement.Focusable="False">
-              <Control.Template>
-                <ControlTemplate ControlTemplate.TargetType="{x:Type ScrollViewer}">
-                  <Grid>
-                    <Grid.RowDefinitions>
-                      <RowDefinition RowDefinition.Height="Auto" />
-                      <RowDefinition RowDefinition.Height="*" />
-                      <RowDefinition RowDefinition.Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition ColumnDefinition.Width="Auto" />
-                      <ColumnDefinition ColumnDefinition.Width="*" />
-                      <ColumnDefinition ColumnDefinition.Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Button ButtonBase.Command="{x:Static DataGrid.SelectAllCommand}"
-                            UIElement.Focusable="False"
-                            FrameworkElement.Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=CellsPanelHorizontalOffset}"
-                            FrameworkElement.Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}}"
-                            UIElement.Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=HeadersVisibility,Converter={x:Static DataGrid.HeadersVisibilityConverter},ConverterParameter={x:Static DataGridHeadersVisibility.All}}" />
-                    <DataGridColumnHeadersPresenter FrameworkElement.Name="PART_ColumnHeadersPresenter"
-                                                    Grid.Column="1"
-                                                    UIElement.Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=HeadersVisibility,Converter={x:Static DataGrid.HeadersVisibilityConverter},ConverterParameter={x:Static DataGridHeadersVisibility.Column}}" />
-                    <ScrollContentPresenter ScrollContentPresenter.Name="PART_ScrollContentPresenter"
-                                            Grid.Row="1"
-                                            Grid.ColumnSpan="2"
-                                            ScrollContentPresenter.CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}" />
-                    <ScrollBar FrameworkElement.Name="PART_VerticalScrollBar"
-                               Grid.Row="1"
-                               Grid.Column="2"
-                               ScrollBar.Orientation="Vertical"
-                               RangeBase.Maximum="{TemplateBinding ScrollViewer.ScrollableHeight}"
-                               ScrollBar.ViewportSize="{TemplateBinding ScrollViewer.ViewportHeight}"
-                               UIElement.Visibility="{TemplateBinding ScrollViewer.ComputedVerticalScrollBarVisibility}"
-                               RangeBase.Value="{Binding Path=VerticalOffset,RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}" />
-                    <Grid Grid.Row="2"
-                          Grid.Column="1">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <ProgressBar Height="8"
+                           Orientation="Horizontal"
+                           Visibility="{Binding Path=(utl:CollectionViewBehavior.ShowProgressBar), 
+                              RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid},
+                              Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Maximum="{Binding Path=(utl:CollectionViewBehavior.ProgressBarMaximum), 
+                              RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
+                           Value="{Binding Path=(utl:CollectionViewBehavior.ProgressBarValue), 
+                              RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
+                           />
+              <ScrollViewer x:Name="DG_ScrollViewer"
+                            Grid.Row="1"
+                            UIElement.Focusable="False">
+                <Control.Template>
+                  <ControlTemplate ControlTemplate.TargetType="{x:Type ScrollViewer}">
+                    <Grid>
+                      <Grid.RowDefinitions>
+                        <RowDefinition RowDefinition.Height="Auto" />
+                        <RowDefinition RowDefinition.Height="*" />
+                        <RowDefinition RowDefinition.Height="Auto" />
+                      </Grid.RowDefinitions>
                       <Grid.ColumnDefinitions>
-                        <ColumnDefinition ColumnDefinition.Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=NonFrozenColumnsViewportHorizontalOffset}" />
+                        <ColumnDefinition ColumnDefinition.Width="Auto" />
                         <ColumnDefinition ColumnDefinition.Width="*" />
+                        <ColumnDefinition ColumnDefinition.Width="Auto" />
                       </Grid.ColumnDefinitions>
-                      <ScrollBar FrameworkElement.Name="PART_HorizontalScrollBar"
-                                 Grid.Column="1"
-                                 ScrollBar.Orientation="Horizontal"
-                                 RangeBase.Maximum="{TemplateBinding ScrollViewer.ScrollableWidth}"
-                                 ScrollBar.ViewportSize="{TemplateBinding ScrollViewer.ViewportWidth}"
-                                 UIElement.Visibility="{TemplateBinding ScrollViewer.ComputedHorizontalScrollBarVisibility}"
-                                 RangeBase.Value="{Binding Path=HorizontalOffset,RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}" />
+                      <Button ButtonBase.Command="{x:Static DataGrid.SelectAllCommand}"
+                              UIElement.Focusable="False"
+                              FrameworkElement.Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=CellsPanelHorizontalOffset}"
+                              FrameworkElement.Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}}"
+                              UIElement.Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=HeadersVisibility,Converter={x:Static DataGrid.HeadersVisibilityConverter},ConverterParameter={x:Static DataGridHeadersVisibility.All}}" />
+                      <DataGridColumnHeadersPresenter FrameworkElement.Name="PART_ColumnHeadersPresenter"
+                                                      Grid.Column="1"
+                                                      UIElement.Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=HeadersVisibility,Converter={x:Static DataGrid.HeadersVisibilityConverter},ConverterParameter={x:Static DataGridHeadersVisibility.Column}}" />
+                      <ScrollContentPresenter ScrollContentPresenter.Name="PART_ScrollContentPresenter"
+                                              Grid.Row="1"
+                                              Grid.ColumnSpan="2"
+                                              ScrollContentPresenter.CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}" />
+                      <ScrollBar FrameworkElement.Name="PART_VerticalScrollBar"
+                                 Grid.Row="1"
+                                 Grid.Column="2"
+                                 ScrollBar.Orientation="Vertical"
+                                 RangeBase.Maximum="{TemplateBinding ScrollViewer.ScrollableHeight}"
+                                 ScrollBar.ViewportSize="{TemplateBinding ScrollViewer.ViewportHeight}"
+                                 UIElement.Visibility="{TemplateBinding ScrollViewer.ComputedVerticalScrollBarVisibility}"
+                                 RangeBase.Value="{Binding Path=VerticalOffset,RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}" />
+                      <Grid Grid.Row="2"
+                            Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition ColumnDefinition.Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},Path=NonFrozenColumnsViewportHorizontalOffset}" />
+                          <ColumnDefinition ColumnDefinition.Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ScrollBar FrameworkElement.Name="PART_HorizontalScrollBar"
+                                   Grid.Column="1"
+                                   ScrollBar.Orientation="Horizontal"
+                                   RangeBase.Maximum="{TemplateBinding ScrollViewer.ScrollableWidth}"
+                                   ScrollBar.ViewportSize="{TemplateBinding ScrollViewer.ViewportWidth}"
+                                   UIElement.Visibility="{TemplateBinding ScrollViewer.ComputedHorizontalScrollBarVisibility}"
+                                   RangeBase.Value="{Binding Path=HorizontalOffset,RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}" />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </ControlTemplate>
-              </Control.Template>
-              <ItemsPresenter UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-            </ScrollViewer>
+                  </ControlTemplate>
+                </Control.Template>
+                <ItemsPresenter UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+              </ScrollViewer>
+            </Grid>
           </Border>
         </ControlTemplate>
       </Setter.Value>
@@ -159,7 +176,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ê"
+  <Style x:Key="ThumbStyleWE"
          Style.TargetType="{x:Type Thumb}">
     <Setter Setter.Property="FrameworkElement.Width"
             Setter.Value="8" />
@@ -176,7 +193,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ë"
+  <Style x:Key="ThumbStyleNS"
          Style.TargetType="{x:Type Thumb}">
     <Setter Setter.Property="FrameworkElement.Height"
             Setter.Value="8" />
@@ -443,7 +460,7 @@
                         BorderBrush="Transparent"
                         Visibility="{Binding Path=Column.(utl:CollectionViewBehavior.ShowFilterButton),
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader},
-                        Converter={StaticResource é}}">
+                        Converter={StaticResource BooleanToVisibilityConverter}}">
                   <Button.Style>
                     <Style TargetType="{x:Type Button}">
                       <EventSetter Event="Click"
@@ -484,10 +501,10 @@
             </theme:DataGridHeaderBorder>
             <Thumb Thumb.Name="PART_LeftHeaderGripper"
                    FrameworkElement.HorizontalAlignment="Left"
-                   FrameworkElement.Style="{StaticResource ê}" />
+                   FrameworkElement.Style="{StaticResource ThumbStyleWE}" />
             <Thumb Thumb.Name="PART_RightHeaderGripper"
                    FrameworkElement.HorizontalAlignment="Right"
-                   FrameworkElement.Style="{StaticResource ê}" />
+                   FrameworkElement.Style="{StaticResource ThumbStyleWE}" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -514,19 +531,21 @@
                                   FrameworkElement.VerticalAlignment="Center"
                                   ContentPresenter.RecognizesAccessKey="True" />
                 <Control UIElement.SnapsToDevicePixels="False"
-                         UIElement.Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=(Validation.HasError),Converter={StaticResource é}}"
+                         UIElement.Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=(Validation.HasError),Converter={StaticResource BooleanToVisibilityConverter}}"
                          Control.Template="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=ValidationErrorTemplate}" />
               </StackPanel>
             </theme:DataGridHeaderBorder>
             <Thumb Thumb.Name="PART_TopHeaderGripper"
                    FrameworkElement.VerticalAlignment="Top"
-                   FrameworkElement.Style="{StaticResource ë}" />
+                   FrameworkElement.Style="{StaticResource ThumbStyleNS}" />
             <Thumb Thumb.Name="PART_BottomHeaderGripper"
                    FrameworkElement.VerticalAlignment="Bottom"
-                   FrameworkElement.Style="{StaticResource ë}" />
+                   FrameworkElement.Style="{StaticResource ThumbStyleNS}" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
 </ResourceDictionary>
+  
+  

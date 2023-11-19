@@ -54,7 +54,7 @@ public static class TypeNaming
       name = GetTypeName(baseType);
       return name + "?";
     }
-    name = type.FullName??"";
+    name = type.FullName ?? "";
     var k = name.IndexOf('`');
     if (k > 0)
     {
@@ -74,7 +74,7 @@ public static class TypeNaming
     return name;
   }
 
-    /// <summary>
+  /// <summary>
   ///   Getting specific type from the name. NetStandard handles NullableTypes
   /// </summary>
   /// <param name="typeName"></param>
@@ -86,7 +86,7 @@ public static class TypeNaming
     if (!TypeNames.TryGetValue1(typeName, out type))
     {
       type = Type.GetType(typeName);
-      if (nullable && type!=null)
+      if (nullable && type != null)
       {
 #if NET6_0_OR_GREATER
         return Type.MakeGenericSignatureType(typeof(Nullable<>), new Type[] { type });
@@ -96,4 +96,32 @@ public static class TypeNaming
     }
     return type;
   }
+
+  /// <summary>
+  /// Gets type name with expanded generic arguments.
+  /// </summary>
+  /// <param name="aType"></param>
+  /// <param name="defaultNamespace"></param>
+  /// <returns></returns>
+  public static string GetExpandedName(this Type aType, string? defaultNamespace = null)
+  {
+    var typeName = aType.Name;
+    if (aType.IsConstructedGenericType)
+    {
+      var ss = new List<string>();
+      foreach (var arg in aType.GetGenericArguments())
+      {
+        ss.Add(arg.GetExpandedName(defaultNamespace?? aType.Namespace));
+      }
+      var k = typeName.IndexOf('`');
+      if (k != -1) typeName = typeName.Substring(0, k);
+      typeName += $"<{String.Join(", ", ss)}>";
+    }
+    if (aType.Namespace!=null && aType.Namespace!="" 
+      && !aType.Namespace.StartsWith("System")
+      && aType.Namespace!=defaultNamespace)
+      typeName = aType.Namespace+ "." + typeName;
+    return typeName;
+  }
+
 }

@@ -11,9 +11,9 @@ public class DataGridColumnCreator
   /// <summary>
   /// Initializing contructor
   /// </summary>
-  public DataGridColumnCreator(DataGrid dataGrid, Type sourceItemsType, Type itemType)
+  public DataGridColumnCreator(Control dataGrid, Type sourceItemsType, Type itemType)
   {
-    DataGrid = dataGrid;
+    _Control = dataGrid;
     SourceItemsType = sourceItemsType;
     ItemType = itemType;
     ItemProperties = itemType.GetProperties().ToList();
@@ -22,11 +22,10 @@ public class DataGridColumnCreator
   /// <summary>
   /// Assigned data grid to create columns.
   /// </summary>
-  public DataGrid DataGrid
-  {
-    get;
-    private set;
-  }
+  public DataGrid? DataGrid => _Control as DataGrid;
+
+  private Control? _Control;
+
   /// <summary>
   /// Type of the source collection.
   /// </summary>
@@ -102,9 +101,9 @@ public class DataGridColumnCreator
           {
             var dataGridColumnDef = new DataGridColumnDef(binding)
             {
-              CanUserReorder = dataGridColumnAttr.CanUserReorder ?? DataGrid.CanUserReorderColumns,
-              CanUserResize = dataGridColumnAttr.CanUserResize ?? DataGrid.CanUserResizeColumns,
-              CanUserSort = dataGridColumnAttr.CanUserSort ?? DataGrid.CanUserSortColumns,
+              CanUserReorder = dataGridColumnAttr.CanUserReorder ?? DataGrid?.CanUserReorderColumns ?? true,
+              CanUserResize = dataGridColumnAttr.CanUserResize ?? DataGrid?.CanUserResizeColumns ?? true,
+              CanUserSort = dataGridColumnAttr.CanUserSort ?? DataGrid?.CanUserSortColumns ?? true,
               ClipboardContentPath = dataGridColumnAttr.ClipboardContentPath,
               DisplayIndex = dataGridColumnAttr.DisplayIndex,
               Header = dataGridColumnAttr.Header ?? oldColumn.Header,

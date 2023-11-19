@@ -367,14 +367,14 @@
     "Qhta.Xml/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VpCyqJwT6pyDyWz+IPXcYPBXbn9T5swKqo2s0nYUCUPtVBIqteDJU8bvOpFN4QcjIcTjUrMyQoTzhgA0bexivg==",
+      "sha512": "sha512-NXn3qWJgN6yTQyeayQ3u4u8VXnMFQxwunUhv4SKITnyfYPntfx8Vs50t4fLJ9BgIj5xsgnIGjg6EMIKxZF53Gg==",
       "path": "qhta.xml/3.0.0",
       "hashPath": "qhta.xml.3.0.0.nupkg.sha512"
     },
     "Qhta.Xml.Reflection/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YTAQcramsgZQND9li0/N1i1MVonm8ApdrUPVHy3gtRr7O89Hy/MoafgTeR6QgQMKywBDfZoBKLKKfuxRJ9261A==",
+      "sha512": "sha512-ZyGsn/vDBA4OqmMLgM8uPa/aB20LymevOMt5O73a59IUHY1xhSy95z+CcwJjSqrcsNHzvuDB12A/ibXFgEFj/w==",
       "path": "qhta.xml.reflection/3.0.0",
       "hashPath": "qhta.xml.reflection.3.0.0.nupkg.sha512"
     },

@@ -2,14 +2,14 @@
 
   <JournalEntryListConverter x:Key="È" />
 
-  <Style x:Key="É" TargetType="{x:Type MenuItem}">
+  <Style x:Key="BooleanToVisibilityConverter" TargetType="{x:Type MenuItem}">
     <Setter Property="HeaderedItemsControl.Header" Value="{Binding Path=Name}" />
     <Setter Property="MenuItem.Command" Value="NavigationCommands.NavigateJournal" />
     <Setter Property="MenuItem.CommandTarget" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}" />
     <Setter Property="MenuItem.CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}" />
   </Style>
 
-  <Style x:Key="Ê" TargetType="{x:Type Button}">
+  <Style x:Key="ThumbStyleWE" TargetType="{x:Type Button}">
     <Setter Property="MinWidth" Value="0" />
     <Setter Property="Margin" Value="0,0,0,0" />
     <Setter Property="IsEnabled" Value="False" />
@@ -89,7 +89,7 @@
                       <Grid />
                     </ItemsPanelTemplate>
                   </ItemsControl.ItemsPanel>
-                  <MenuItem x:Name="NavWinMenu" ItemContainerStyle="{StaticResource É}" ItemsSource="{Binding Path=BackStack,Mode=OneTime,Converter={StaticResource È},RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}" />
+                  <MenuItem x:Name="NavWinMenu" ItemContainerStyle="{StaticResource BooleanToVisibilityConverter}" ItemsSource="{Binding Path=BackStack,Mode=OneTime,Converter={StaticResource È},RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}" />
                 </Menu>
               </Grid>
             </Grid>
@@ -168,7 +168,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="Ë" TargetType="{x:Type Button}">
+  <Style x:Key="ThumbStyleNS" TargetType="{x:Type Button}">
     <Setter Property="MinWidth" Value="0" />
     <Setter Property="Margin" Value="0,0,0,0" />
     <Setter Property="IsEnabled" Value="False" />
@@ -248,7 +248,7 @@
                       <Grid />
                     </ItemsPanelTemplate>
                   </ItemsControl.ItemsPanel>
-                  <MenuItem x:Name="NavWinMenu" ItemContainerStyle="{StaticResource É}" ItemsSource="{Binding Path=ForwardStack,Mode=OneTime,Converter={StaticResource È},RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}" />
+                  <MenuItem x:Name="NavWinMenu" ItemContainerStyle="{StaticResource BooleanToVisibilityConverter}" ItemsSource="{Binding Path=ForwardStack,Mode=OneTime,Converter={StaticResource È},RelativeSource={RelativeSource AncestorType={x:Type NavigationWindow}}}" />
                 </Menu>
               </Grid>
             </Grid>
@@ -354,8 +354,8 @@
             </LinearGradientBrush>
           </Panel.Background>
           <DockPanel LastChildFill="False">
-            <Button Style="{StaticResource Ê}" DockPanel.Dock="left" Width="40" UIElement.IsEnabled="{TemplateBinding NavigationWindow.CanGoBack}" />
-            <Button Style="{StaticResource Ë}" DockPanel.Dock="left" Width="40" UIElement.IsEnabled="{TemplateBinding NavigationWindow.CanGoForward}" />
+            <Button Style="{StaticResource ThumbStyleWE}" DockPanel.Dock="left" Width="40" UIElement.IsEnabled="{TemplateBinding NavigationWindow.CanGoBack}" />
+            <Button Style="{StaticResource ThumbStyleNS}" DockPanel.Dock="left" Width="40" UIElement.IsEnabled="{TemplateBinding NavigationWindow.CanGoForward}" />
           </DockPanel>
         </Grid>
         <Border>
@@ -1248,7 +1248,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <BooleanToVisibilityConverter x:Key="à" />
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}" TargetType="{x:Type Button}">
     <Setter Property="Control.Template">
       <Setter.Value>
@@ -1529,7 +1529,7 @@
             <theme:DataGridHeaderBorder theme:DataGridHeaderBorder.IsSelected="{TemplateBinding DataGridRowHeader.IsRowSelected}" theme:DataGridHeaderBorder.IsHovered="{TemplateBinding IsMouseOver}" theme:DataGridHeaderBorder.IsPressed="{TemplateBinding ButtonBase.IsPressed}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Border.Padding="{TemplateBinding Padding}" theme:DataGridHeaderBorder.Orientation="Horizontal" theme:DataGridHeaderBorder.SeparatorVisibility="{TemplateBinding DataGridRowHeader.SeparatorVisibility}" theme:DataGridHeaderBorder.SeparatorBrush="{TemplateBinding DataGridRowHeader.SeparatorBrush}">
               <StackPanel StackPanel.Orientation="Horizontal">
                 <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" ContentPresenter.RecognizesAccessKey="True" />
-                <Control SnapsToDevicePixels="False" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=Validation.HasError,Converter={StaticResource à}}" Control.Template="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=ValidationErrorTemplate}" />
+                <Control SnapsToDevicePixels="False" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=Validation.HasError,Converter={StaticResource BooleanToVisibilityConverter}}" Control.Template="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},Path=ValidationErrorTemplate}" />
               </StackPanel>
             </theme:DataGridHeaderBorder>
             <Thumb x:Name="PART_TopHeaderGripper" VerticalAlignment="Top" Style="{StaticResource â}" />
@@ -1831,7 +1831,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="é" TargetType="{x:Type ToggleButton}">
+  <Style x:Key="BooleanToVisibilityConverter" TargetType="{x:Type ToggleButton}">
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -1866,7 +1866,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ê" TargetType="{x:Type ToggleButton}">
+  <Style x:Key="ThumbStyleWE" TargetType="{x:Type ToggleButton}">
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -1901,7 +1901,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ë" TargetType="{x:Type ToggleButton}">
+  <Style x:Key="ThumbStyleNS" TargetType="{x:Type ToggleButton}">
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -1959,17 +1959,17 @@
             <Trigger Property="Expander.ExpandDirection" Value="Right">
               <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Right" />
               <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Left" />
-              <Setter Value="{StaticResource ë}" TargetName="HeaderSite" Property="FrameworkElement.Style" />
+              <Setter Value="{StaticResource ThumbStyleNS}" TargetName="HeaderSite" Property="FrameworkElement.Style" />
             </Trigger>
             <Trigger Property="Expander.ExpandDirection" Value="Up">
               <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Top" />
               <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Bottom" />
-              <Setter Value="{StaticResource é}" TargetName="HeaderSite" Property="FrameworkElement.Style" />
+              <Setter Value="{StaticResource BooleanToVisibilityConverter}" TargetName="HeaderSite" Property="FrameworkElement.Style" />
             </Trigger>
             <Trigger Property="Expander.ExpandDirection" Value="Left">
               <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Left" />
               <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Right" />
-              <Setter Value="{StaticResource ê}" TargetName="HeaderSite" Property="FrameworkElement.Style" />
+              <Setter Value="{StaticResource ThumbStyleWE}" TargetName="HeaderSite" Property="FrameworkElement.Style" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Property="Control.Foreground" />

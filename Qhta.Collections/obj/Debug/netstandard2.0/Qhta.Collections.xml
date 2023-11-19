@@ -41,10 +41,23 @@
             Default constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/>
             </summary>
         </member>
+        <member name="M:Qhta.Collections.WildcardSortedStringDictionary`1.#ctor(System.StringComparer)">
+            <summary>
+            Default constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/>
+            </summary>
+        </member>
         <member name="M:Qhta.Collections.WildcardSortedStringDictionary`1.#ctor(System.StringComparison)">
             <summary>
             Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
             </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardSortedStringDictionary`1.TryGetValue(System.String,`0@)">
+            <summary>
+            Founds exact key string or key which is like str and returns value
+            </summary>
+            <param name="str"></param>
+            <param name="value"></param>
+            <returns></returns>             
         </member>
         <member name="T:Qhta.Collections.WildcardStringComparer">
             <summary>
@@ -91,6 +104,11 @@
             Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
             </summary>
         </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary.#ctor(System.StringComparer)">
+            <summary>
+            Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
+            </summary>
+        </member>
         <member name="T:Qhta.Collections.WildcardStringDictionary`1">
             <summary>
             Dictionary of (string, TValue), which can contains wildcard '*' character, that can be encompassed to a fragment of string.
@@ -105,6 +123,19 @@
             <summary>
             Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
             </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary`1.#ctor(System.StringComparer)">
+            <summary>
+            Constructor using <see cref="T:Qhta.Collections.WildcardStringComparer"/> and specifying StringComparison
+            </summary>
+        </member>
+        <member name="M:Qhta.Collections.WildcardStringDictionary`1.TryGetValue(System.String,`0@)">
+            <summary>
+            Founds exact key string or key which is like str and returns value
+            </summary>
+            <param name="str"></param>
+            <param name="value"></param>
+            <returns></returns>             
         </member>
         <member name="T:Qhta.Collections.WildcardStrings">
             <summary>
