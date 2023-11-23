@@ -201,4 +201,7 @@
   <data name="CantParseCompareValue_0" xml:space="preserve">
     <value>Can't convert text to value of {0} type.</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

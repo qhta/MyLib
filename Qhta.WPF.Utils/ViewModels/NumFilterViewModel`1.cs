@@ -10,10 +10,10 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public NumFilterViewModel(PropertyInfo[] propPath, string propName) : base(propPath, propName)
+  public NumFilterViewModel(PropPath propPath, string columnName) : base(propPath, columnName)
   {
     this.PropPath = propPath;
-    this.PropName = propName;
+    this.ColumnName = columnName;
     this.Function = NumPredicateFunction.IsEqual;
   }
 
@@ -24,7 +24,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   public NumFilterViewModel(NumFilterViewModel<T> other) : base(other)
   {
     this.PropPath = other.PropPath;
-    this.PropName = other.PropName;
+    this.ColumnName = other.ColumnName;
     this.Function = other.Function;
   }
 
@@ -139,7 +139,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   /// <returns></returns>
   public override ColumnFilter? CreateFilter()
   {
-    if (Function == null)
+    if (Function == null || PropPath == null)
       return null;
     Func<object?, object?, bool> compareFunction;
     bool shouldParseFilterText = true;

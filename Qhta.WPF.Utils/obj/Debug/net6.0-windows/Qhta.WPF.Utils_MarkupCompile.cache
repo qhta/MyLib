@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 
-25881856526
+25-241297959
 
-92-1502776609
-205-1730361479
-Resources\AeroStyles.xaml;Resources\ClassicStyles.PresentationUI.xaml;Resources\ClassicStyles.xaml;Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\DataGridStyle.xaml;Resources\GridViewStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\ListBoxStyle.xaml;Resources\ListViewStyle.xaml;Resources\MulticolumnTreeViewItemStyle.xaml;Resources\MultiselectListViewItemStyle.xaml;Resources\MultiselectTreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\TreeViewItemStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;Views\BoolFilterView.xaml;Views\ColumnFilterDialog.xaml;Views\EnumFilterView.xaml;Views\NumFilterView.xaml;Views\ObjFilterView.xaml;Views\TextFilterView.xaml;
+97-1177103202
+205-500310868
+Resources\AeroStyles.xaml;Resources\ClassicStyles.PresentationUI.xaml;Resources\ClassicStyles.xaml;Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\DataGridStyle.xaml;Resources\GridViewStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\ListBoxStyle.xaml;Resources\ListViewStyle.xaml;Resources\MulticolumnTreeViewItemStyle.xaml;Resources\MultiselectListViewItemStyle.xaml;Resources\MultiselectTreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\TreeViewItemStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;Views\BoolFilterView.xaml;Views\EnumFilterView.xaml;Views\FilterDialog.xaml;Views\NumFilterView.xaml;Views\ObjFilterView.xaml;Views\TextFilterView.xaml;
 
 False
 

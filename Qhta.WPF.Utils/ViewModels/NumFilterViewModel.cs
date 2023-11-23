@@ -9,7 +9,7 @@ public abstract class NumFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public NumFilterViewModel(PropertyInfo[] propPath, string propName) : base(propPath, propName)
+  public NumFilterViewModel(PropPath propPath, string columnName) : base(propPath, columnName)
   { }
 
   /// <summary>

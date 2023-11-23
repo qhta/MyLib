@@ -293,6 +293,18 @@
             An attribute that annotates a property which should be displayed.
             </summary>
         </member>
+        <member name="T:Qhta.MVVM.FliterAnd">
+            <summary>
+            Implementation of IFilter that is a conjuction of IFilters.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FliterAnd.GetPredicate">
+            <summary>
+            Gets a conjunction of the operands.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.MVVM.FilteredCollection`1">
             <summary>
             Collection of objects that serves as a filter for ObservableList collection.
@@ -400,6 +412,42 @@
             Get/sets is read-only. 
             If is not set explicitily, then checks if the source collection is read-only.
             </summary>
+        </member>
+        <member name="T:Qhta.MVVM.FilterExpr">
+            <summary>
+            Implementation of IFilter that is an expression of IFilters.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.FilterExpr.Operands">
+            <summary>
+            Operands of the expression.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FilterExpr.GetPredicate">
+            <summary>
+            Gets the predicate function basing on the operands.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.MVVM.FilterExpr.Accept(System.Object)">
+            <summary>
+            Evaluates the predicate.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.MVVM.FliterOr">
+            <summary>
+            Implementation of IFilter that is an alternative of IFilters.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FliterOr.GetPredicate">
+            <summary>
+            Gets a conjunction of the operands.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:Qhta.MVVM.ICanExecuteChangedListener">
             <summary>

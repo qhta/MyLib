@@ -1,10 +1,11 @@
-﻿namespace Qhta.WPF.Utils;
+﻿
+namespace Qhta.WPF.Utils;
 
 /// <summary>
 /// CollectionViewSource specialized for a specific item type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class CollectionViewSource<T> : System.Windows.Data.CollectionViewSource, IFilteredCollection<T>
+public class CollectionViewSource<T> : System.Windows.Data.CollectionViewSource, IEnumerable<T>, IFilteredCollection<T>
 {
   /// <summary>
   /// Initializing constructor.
@@ -39,4 +40,18 @@ public class CollectionViewSource<T> : System.Windows.Data.CollectionViewSource,
   /// Implemented IFiltered predicate.
   /// </summary>
   public new IFilter<T>? Filter { get; set; }
+
+  /// <summary>
+  /// Enumerator on source collection
+  /// </summary>
+  /// <returns></returns>
+  public IEnumerator<T> GetEnumerator()
+  {
+    return SourceCollection.GetEnumerator();
+  }
+
+  IEnumerator IEnumerable.GetEnumerator()
+  {
+    return ((IEnumerable)SourceCollection).GetEnumerator();
+  }
 }

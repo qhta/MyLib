@@ -9,8 +9,7 @@ public class ObjFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public ObjFilterViewModel(PropertyInfo[] propPath, string propName): base(propPath, propName)
-    { }
+  public ObjFilterViewModel(PropPath propPath, string columnName): base(propPath, columnName) { }
 
   /// <summary>
   /// Copying constructor.
@@ -84,7 +83,7 @@ public class ObjFilterViewModel : ColumnFilterViewModel
   /// <returns></returns>
   public override ColumnFilter? CreateFilter()
   {
-    if (Function == null)
+    if (Function == null || PropPath == null)
       return null;
     Func<object?, object?, bool> compareFunction; 
     switch (Function)

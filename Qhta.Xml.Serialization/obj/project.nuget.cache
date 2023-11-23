@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0wLcEM1P9hU+U6QYcG34LL+2HLFsM8puAUWKdvU6IDUJ3+qK029+Xz2i4DUUuTJw2TOSLj8misqat/SCH+WobA==",
+  "dgSpecHash": "maW+b5P2cbmmnxFonewCNF+klYlNO4xLGt5xjT6WngGgSA+VGb11CcW2ge5nPXYcXvlCSLN091FBGiATAPdYXg==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\4.6.0\\qhta.collections.4.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.conversion\\2.1.0\\qhta.conversion.2.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.10.1\\qhta.typeutils.1.3.10.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.11\\qhta.typeutils.1.3.11.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.xml\\3.0.0\\qhta.xml.3.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.xml.reflection\\3.0.0\\qhta.xml.reflection.3.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",

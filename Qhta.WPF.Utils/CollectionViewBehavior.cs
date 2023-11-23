@@ -236,7 +236,6 @@ public partial class CollectionViewBehavior
 
   #endregion IsSelectable
 
-
   #region IsFocusable property
 
   /// <summary>

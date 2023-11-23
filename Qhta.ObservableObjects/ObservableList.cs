@@ -95,7 +95,7 @@ namespace Qhta.ObservableObjects
       }
       set
       {
-        IsFixedSize = value;
+        _IsFixedSize = value;
       }
     }
     private bool _IsFixedSize;

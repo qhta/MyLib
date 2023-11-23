@@ -9,7 +9,7 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public BoolFilterViewModel(PropertyInfo[] propPath, string propName): base(propPath, propName)
+  public BoolFilterViewModel(PropPath propPath, string propName): base(propPath, propName)
     { }
 
   /// <summary>
@@ -94,7 +94,7 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   /// <returns></returns>
   public override ColumnFilter? CreateFilter()
   {
-    if (Function == null)
+    if (Function == null || PropPath==null)
       return null;
     Func<object?, object?, bool> compareFunction; 
     switch (Function)

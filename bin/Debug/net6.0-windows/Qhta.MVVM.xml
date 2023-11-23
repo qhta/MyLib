@@ -293,6 +293,18 @@
             An attribute that annotates a property which should be displayed.
             </summary>
         </member>
+        <member name="T:Qhta.MVVM.FliterAnd">
+            <summary>
+            Implementation of IFilter that is a conjuction of IFilters.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FliterAnd.GetPredicate">
+            <summary>
+            Gets a conjunction of the operands.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.MVVM.FilteredCollection`1">
             <summary>
             Collection of objects that serves as a filter for ObservableList collection.
@@ -303,6 +315,20 @@
             Initializing constructor.
             </summary>
             <param name="sourceCollection"></param>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.#ctor(Qhta.ObservableObjects.ObservableList{`0},Qhta.MVVM.IFilter{`0})">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="sourceCollection"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Qhta.MVVM.FilteredCollection`1.#ctor(Qhta.ObservableObjects.ObservableList{`0},Qhta.MVVM.IFilter)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="sourceCollection"></param>
+            <param name="filter"></param>
         </member>
         <member name="P:Qhta.MVVM.FilteredCollection`1.SourceCollection">
             <summary>
@@ -325,7 +351,7 @@
             Otherwise passes the original notification.
             </summary>
             <param name="sender"></param>
-            <param name="e"></param>
+            <param name="args"></param>
         </member>
         <member name="M:Qhta.MVVM.FilteredCollection`1.ApplyFilter">
             <summary>
@@ -386,6 +412,42 @@
             Get/sets is read-only. 
             If is not set explicitily, then checks if the source collection is read-only.
             </summary>
+        </member>
+        <member name="T:Qhta.MVVM.FilterExpr">
+            <summary>
+            Implementation of IFilter that is an expression of IFilters.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.FilterExpr.Operands">
+            <summary>
+            Operands of the expression.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FilterExpr.GetPredicate">
+            <summary>
+            Gets the predicate function basing on the operands.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.MVVM.FilterExpr.Accept(System.Object)">
+            <summary>
+            Evaluates the predicate.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.MVVM.FliterOr">
+            <summary>
+            Implementation of IFilter that is an alternative of IFilters.
+            </summary>
+        </member>
+        <member name="M:Qhta.MVVM.FliterOr.GetPredicate">
+            <summary>
+            Gets a conjunction of the operands.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:Qhta.MVVM.ICanExecuteChangedListener">
             <summary>
@@ -1202,11 +1264,24 @@
             Default constructor.
             </summary>
         </member>
+        <member name="M:Qhta.MVVM.VisibleViewModel`1.#ctor(`0)">
+            <summary>
+            A constructor with a Model.
+            </summary>
+            <param name="model"></param>
+        </member>
         <member name="M:Qhta.MVVM.VisibleViewModel`1.#ctor(Qhta.MVVM.IViewModel)">
             <summary>
             A constructor with a parent ViewModel.
             </summary>
             <param name="parentViewModel"></param>
+        </member>
+        <member name="M:Qhta.MVVM.VisibleViewModel`1.#ctor(Qhta.MVVM.IViewModel,`0)">
+            <summary>
+            A constructor with a parent ViewModel and Model.
+            </summary>
+            <param name="parentViewModel"></param>
+            <param name="model"></param>
         </member>
         <member name="P:Qhta.MVVM.VisibleViewModel`1.ParentViewModel">
             <summary>

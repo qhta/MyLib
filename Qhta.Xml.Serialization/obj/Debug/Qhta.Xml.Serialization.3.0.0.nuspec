@@ -8,12 +8,12 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Flexible implementation of XmlSerializer</description>
-    <repository type="git" commit="b354c01dd5dea364b1b6979d1d4e1e7d7cb71923" />
+    <repository type="git" commit="4a5eaf01b76ecf82ad7cdd29d28a7fbcdbb9966d" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
         <dependency id="System.CodeDom" version="7.0.0" exclude="Build,Analyzers" />
@@ -23,7 +23,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
         <dependency id="System.CodeDom" version="7.0.0" exclude="Build,Analyzers" />

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.ObservableObjects/2.7": {
+      "Qhta.ObservableObjects/2.8": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "System.Collections.Concurrent": "4.3.0",
@@ -197,7 +197,7 @@
     }
   },
   "libraries": {
-    "Qhta.ObservableObjects/2.7": {
+    "Qhta.ObservableObjects/2.8": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

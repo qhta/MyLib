@@ -14,7 +14,7 @@ public partial class CollectionViewBehavior
   /// <returns></returns>
   public static bool? GetShowFilterButton(DependencyObject? target)
   {
-    if (target==null) return null;
+    if (target == null) return null;
     if (target is DataGridColumnHeader header)
       return (bool)header.GetValue(ShowFilterButtonProperty);
     var result = target.GetValue(ShowFilterButtonProperty);
@@ -128,52 +128,17 @@ public partial class CollectionViewBehavior
             var column = args.Source as DataGridColumn;
             if (column != null)
             {
-              var binding = column.GetBinding() as Binding;
-              if (binding != null)
+              if (column.TryGetFilterablePropertyPath(itemType, out var propPath))
               {
-                PropertyInfo? propertyInfo = null;
-                List<PropertyInfo> propPath = new List<PropertyInfo>();
-                var path = binding.Path.Path;
-                var valueType = itemType;
-                if (itemType != null && path != null)
+                var propertyInfo = propPath.LastOrDefault();
+                if (propertyInfo != null)
                 {
-                  var pathStrs = path.Split('.');
-                  foreach (var pathStr in pathStrs)
-                  {
-                    propertyInfo = valueType.GetProperty(pathStr);
-                    if (propertyInfo != null)
-                    {
-                      propPath.Add(propertyInfo);
-                      valueType = propertyInfo.PropertyType;
-                    }
-                  }
-                }
-
-                if (valueType.IsClass && valueType != typeof(string) && column.SortMemberPath != null && itemType != null)
-                {
-                  valueType = itemType;
-                  path = column.SortMemberPath;
-                  var pathStrs = path.Split('.');
-                  propPath.Clear();
-                  foreach (var pathStr in pathStrs)
-                  {
-                    propertyInfo = valueType.GetProperty(pathStr);
-                    if (propertyInfo != null)
-                    {
-                      propPath.Add(propertyInfo);
-                      valueType = propertyInfo.PropertyType;
-                    }
-                  }
-                }
-
-                if (valueType != null && propertyInfo != null)
-                {
-                  var ok = DisplayFilterDialog(column, propPath.ToArray(), button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
+                  var ok = DisplayFilterDialog(itemsControl, column, propPath, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
                     VisualTreeHelperExt.FindAncestor<Window>(button));
                   if (ok)
                   {
                     var viewModel = CollectionViewBehavior.GetColumnFilter(column) as ColumnFilterViewModel;
-                    if (viewModel != null && propertyInfo != null)
+                    if (viewModel != null)
                     {
                       var filter = viewModel.CreateFilter();
                       SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
@@ -208,76 +173,88 @@ public partial class CollectionViewBehavior
   /// Dialog is displayed in specific screen position.
   /// View model is stored in column's attached ColumnFilter property.
   /// </summary>
+  /// <param name="itemsControl">Control with columns. Usually DataGrid</param>
   /// <param name="column"></param>
   /// <param name="propPath"></param>
   /// <param name="position"></param>
   /// <param name="ownerWindow"></param>
-  public virtual bool DisplayFilterDialog(DataGridColumn column, PropertyInfo[] propPath, Point position, Window? ownerWindow)
+  public virtual bool DisplayFilterDialog(ItemsControl itemsControl, DataGridColumn column, PropPath propPath, Point position, Window? ownerWindow)
   {
     var propInfo = propPath.Last();
-    var propName = column.GetHeaderText();
-    if (propName == null)
+    var columnName = column.GetHeaderText();
+    if (columnName == null)
     {
-      propName = CollectionViewBehavior.GetHiddenHeader(column);
-      if (propName == null)
-        propName = propInfo.Name;
+      columnName = GetHiddenHeader(column);
+      if (columnName == null)
+        columnName = propInfo.Name;
     }
-    var dialog = new ColumnFilterDialog();
-    var viewModel = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();
-    if (viewModel == null)
+    var dialog = new FilterDialog();
+    var viewModel = new DataGridFilterViewModel();
+    var filter = (GetColumnFilter(column) as ColumnFilterViewModel)?.CreateCopy();
+    if (filter != null)
+      filter = new GenericColumnFilterViewModel(filter, columnName);
+    else
     {
-      if (!propInfo.PropertyType.IsNullable(out var propType))
-        propType = propInfo.PropertyType;
-      if (propType == typeof(string))
-        viewModel = new TextFilterViewModel(propPath, propName);
-      else
-      if (propType == typeof(bool))
-        viewModel = new BoolFilterViewModel(propPath, propName);
-      else
-      if (propType.IsEnum)
-        viewModel = new EnumFilterViewModel(propType, propPath, propName);
-      else
-      if (propType == typeof(int))
-        viewModel = new NumFilterViewModel<int>(propPath, propName);
-      else
-      if (propType == typeof(uint))
-        viewModel = new NumFilterViewModel<uint>(propPath, propName);
-      else
-      if (propType == typeof(byte))
-        viewModel = new NumFilterViewModel<byte>(propPath, propName);
-      else
-      if (propType == typeof(sbyte))
-        viewModel = new NumFilterViewModel<sbyte>(propPath, propName);
-      else
-      if (propType == typeof(Int16))
-        viewModel = new NumFilterViewModel<Int16>(propPath, propName);
-      else
-      if (propType == typeof(UInt16))
-        viewModel = new NumFilterViewModel<UInt16>(propPath, propName);
-      else
-      if (propType == typeof(Int64))
-        viewModel = new NumFilterViewModel<Int64>(propPath, propName);
-      else
-      if (propType == typeof(UInt64))
-        viewModel = new NumFilterViewModel<UInt64>(propPath, propName);
-      else
-      if (propType == typeof(Single))
-        viewModel = new NumFilterViewModel<Single>(propPath, propName);
-      else
-      if (propType == typeof(Double))
-        viewModel = new NumFilterViewModel<Double>(propPath, propName);
-      else
-      if (propType == typeof(Decimal))
-        viewModel = new NumFilterViewModel<Decimal>(propPath, propName);
-      else
-      if (propType == typeof(DateTime))
-        viewModel = new NumFilterViewModel<DateTime>(propPath, propName);
-      else
-      if (propType == typeof(TimeSpan))
-        viewModel = new NumFilterViewModel<TimeSpan>(propPath, propName);
-      else
-        viewModel = new ObjFilterViewModel(propPath, propName);
-
+      filter = new GenericColumnFilterViewModel(propPath, columnName);
+      //if (!propInfo.PropertyType.IsNullable(out var propType))
+      //  propType = propInfo.PropertyType;
+      //  if (propType == typeof(string))
+      //    filter = new TextFilterViewModel(propPath, propName);
+      //  else
+      //  if (propType == typeof(bool))
+      //    filter = new BoolFilterViewModel(propPath, propName);
+      //  else
+      //  if (propType.IsEnum)
+      //    filter = new EnumFilterViewModel(propType, propPath, propName);
+      //  else
+      //  if (propType == typeof(int))
+      //    filter = new NumFilterViewModel<int>(propPath, propName);
+      //  else
+      //  if (propType == typeof(uint))
+      //    filter = new NumFilterViewModel<uint>(propPath, propName);
+      //  else
+      //  if (propType == typeof(byte))
+      //    filter = new NumFilterViewModel<byte>(propPath, propName);
+      //  else
+      //  if (propType == typeof(sbyte))
+      //    filter = new NumFilterViewModel<sbyte>(propPath, propName);
+      //  else
+      //  if (propType == typeof(Int16))
+      //    filter = new NumFilterViewModel<Int16>(propPath, propName);
+      //  else
+      //  if (propType == typeof(UInt16))
+      //    filter = new NumFilterViewModel<UInt16>(propPath, propName);
+      //  else
+      //  if (propType == typeof(Int64))
+      //    filter = new NumFilterViewModel<Int64>(propPath, propName);
+      //  else
+      //  if (propType == typeof(UInt64))
+      //    filter = new NumFilterViewModel<UInt64>(propPath, propName);
+      //  else
+      //  if (propType == typeof(Single))
+      //    filter = new NumFilterViewModel<Single>(propPath, propName);
+      //  else
+      //  if (propType == typeof(Double))
+      //    filter = new NumFilterViewModel<Double>(propPath, propName);
+      //  else
+      //  if (propType == typeof(Decimal))
+      //    filter = new NumFilterViewModel<Decimal>(propPath, propName);
+      //  else
+      //  if (propType == typeof(DateTime))
+      //    filter = new NumFilterViewModel<DateTime>(propPath, propName);
+      //  else
+      //  if (propType == typeof(TimeSpan))
+      //    filter = new NumFilterViewModel<TimeSpan>(propPath, propName);
+      //  else
+      //    filter = new ObjFilterViewModel(propPath, propName);
+    }
+    viewModel.Filter = filter;
+    viewModel.Column = column;
+    //viewModel.PropName = filter.PropName;
+    if (itemsControl is DataGrid dataGrid)
+    {
+      viewModel.Columns = GetFilteredColumns(dataGrid);
+      viewModel.Column = column;
     }
     dialog.DataContext = viewModel;
     dialog.Left = position.X;
@@ -386,4 +363,37 @@ public partial class CollectionViewBehavior
       new PropertyMetadata(null));
   #endregion
 
+
+  /// <summary>
+  /// Gets a collection of filterable columns of the data grid.
+  /// </summary>
+  /// <param name="dataGrid"></param>
+  /// <returns></returns>
+  public DataGridFilteredColumns? GetFilteredColumns(DataGrid dataGrid)
+  {
+    var itemsSource = dataGrid.ItemsSource;
+    if (itemsSource == null)
+      throw new InvalidOperationException($"ItemsSource property is null in DataGrid");
+    var dataItemType = itemsSource.GetType();
+    if (dataItemType == null)
+      return null;
+    if (dataItemType.IsGenericType)
+      dataItemType = dataItemType.GetGenericArguments().FirstOrDefault();
+    if (dataItemType == null)
+      return null;
+    if (dataItemType.IsArray)
+      dataItemType = dataItemType.GetElementType();
+    else if (dataItemType.IsEnumerable(out var itemType))
+      dataItemType = itemType;
+    if (dataItemType == null)
+      return null;
+    var columns = new DataGridFilteredColumns();
+    foreach (var column in dataGrid.Columns)
+      if (column is DataGridBoundColumn boundColumn)
+      {
+        if (column.TryGetFilterablePropertyPath(dataItemType, out var filterablePropertyPath))
+          columns.Add(new DataGridFilteredColumnInfo(dataItemType, boundColumn));
+      }
+    return columns;
+  }
 }

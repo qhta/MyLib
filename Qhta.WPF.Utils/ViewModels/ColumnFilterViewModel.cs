@@ -1,4 +1,6 @@
-﻿namespace Qhta.WPF.Utils.ViewModels;
+﻿using System.Security.Permissions;
+
+namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
 /// Abstract view model of the filter stored and edited in ColumnFilterDialog.
@@ -6,9 +8,59 @@
 public abstract class ColumnFilterViewModel : ViewModel
 {
   /// <summary>
+  /// Default constructor.
+  /// </summary>
+  public ColumnFilterViewModel()
+  {
+    _Instance = this;
+  }
+
+  /// <summary>
+  /// Initializing constructor.
+  /// </summary>
+  public ColumnFilterViewModel(PropPath propPath, string columnName)
+  {
+    PropPath = propPath;
+    ColumnName = columnName;
+    _Instance = this;
+  }
+
+  /// <summary>
+  /// Copying constructor that copies the data of the view model is needed
+  /// because we need to edit its copy and after Cancel button is pressed
+  /// the previous content remains unchanged.
+  /// </summary>
+  public ColumnFilterViewModel(ColumnFilterViewModel other)
+  {
+    PropPath = other.PropPath;
+    _ColumnName = other.ColumnName;
+    EditOpEnabled = true;
+    DefaultOp = true;
+    _Instance = this;
+  }
+
+  /// <summary>
+  /// Returns specific filter or self.
+  /// </summary>
+  public ColumnFilterViewModel Instance
+  {
+    get { return _Instance; }
+    set
+    {
+      if (_Instance != value)
+      {
+        _Instance = value;
+        NotifyPropertyChanged(nameof(Instance));
+      }
+    }
+  }
+  private ColumnFilterViewModel _Instance;
+
+
+  /// <summary>
   ///  Specifies what to do with a column filter.
   /// </summary>
-  public ColumnFilterOperation Operation
+  public FilterOperation Operation
   {
     get => _Operation;
     set
@@ -20,7 +72,7 @@ public abstract class ColumnFilterViewModel : ViewModel
       }
     }
   }
-  private ColumnFilterOperation _Operation;
+  private FilterOperation _Operation;
 
   /// <summary>
   /// Specifies whether Edit operation is enabled. If not, then Add operation is enabled.
@@ -34,15 +86,15 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// </summary>
   public bool DefaultOp
   {
-    get => Operation == ColumnFilterOperation.Add || Operation == ColumnFilterOperation.Edit;
+    get => Operation == FilterOperation.Add || Operation == FilterOperation.Edit;
     set
     {
       if (value)
       {
         if (EditOpEnabled)
-          Operation = ColumnFilterOperation.Edit;
+          Operation = FilterOperation.Edit;
         else
-          Operation = ColumnFilterOperation.Add;
+          Operation = FilterOperation.Add;
       }
     }
   }
@@ -51,24 +103,24 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// <summary>
   /// Specifies whether Operation is Add.
   /// </summary>
-  public bool AddOp { get => Operation == ColumnFilterOperation.Add; set { if (value) Operation = ColumnFilterOperation.Add; } }
+  public bool AddOp { get => Operation == FilterOperation.Add; set { if (value) Operation = FilterOperation.Add; } }
 
   /// <summary>
   /// Specifies whether Operation is Edit.
   /// </summary>
-  public bool EditOp { get => Operation == ColumnFilterOperation.Edit; set { if (value) Operation = ColumnFilterOperation.Edit; } }
+  public bool EditOp { get => Operation == FilterOperation.Edit; set { if (value) Operation = FilterOperation.Edit; } }
 
   /// <summary>
   ///  Specifies whether Operation is Clear.
   /// </summary>
   public bool ClearOp
   {
-    get => Operation == ColumnFilterOperation.Clear;
+    get => Operation == FilterOperation.Clear;
     set
     {
       if (value)
       {
-        Operation = ColumnFilterOperation.Clear;
+        Operation = FilterOperation.Clear;
         ClearFilter();
       }
     }
@@ -89,7 +141,7 @@ public abstract class ColumnFilterViewModel : ViewModel
   /// Holds info of column binding properties.
   /// As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
   /// </summary>
-  public PropertyInfo[] PropPath
+  public PropPath? PropPath
   {
     get { return _PropPath; }
     set
@@ -101,46 +153,24 @@ public abstract class ColumnFilterViewModel : ViewModel
       }
     }
   }
-  private PropertyInfo[] _PropPath;
+  private PropPath? _PropPath;
 
   /// <summary>
   /// Displayed name of column binding property.
   /// </summary>
-  public string PropName
+  public string? ColumnName
   {
-    get { return _PropName; }
+    get { return _ColumnName; }
     set
     {
-      if (_PropName != value)
+      if (_ColumnName != value)
       {
-        _PropName = value;
-        NotifyPropertyChanged(nameof(PropName));
+        _ColumnName = value;
+        NotifyPropertyChanged(nameof(ColumnName));
       }
     }
   }
-  private string _PropName;
-
-  /// <summary>
-  /// Initializing constructor.
-  /// </summary>
-  public ColumnFilterViewModel(PropertyInfo[] propPath, string propName)
-  {
-    _PropPath = propPath;
-    _PropName = propName;
-  }
-
-  /// <summary>
-  /// Copying constructor that copies the data of the view model is needed
-  /// because we need to edit its copy and after Cancel button is pressed
-  /// the previous content remains unchanged.
-  /// </summary>
-  public ColumnFilterViewModel(ColumnFilterViewModel other)
-  {
-    _PropPath = other.PropPath;
-    _PropName = other.PropName;
-    EditOpEnabled = true;
-    DefaultOp = true;
-  }
+  private string? _ColumnName;
 
   /// <summary>
   /// This method must create a copy of the original instance;

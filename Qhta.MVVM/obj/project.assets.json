@@ -2212,7 +2212,7 @@
     "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\23.1.36\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "3.7.0",
+    "version": "3.8.0",
     "restore": {
       "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",

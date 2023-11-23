@@ -8,16 +8,16 @@ public class ColumnFilter: IFilter
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  /// <param name="propertyPath"></param>
+  /// <param name="propPath"></param>
   /// <param name="compareFunction"></param>
-  public ColumnFilter(PropertyInfo[] propertyPath, Func<object?, object?, bool> compareFunction)
+  public ColumnFilter(PropPath propPath, Func<object?, object?, bool> compareFunction)
   {
-    PropertyPath = propertyPath;
+    PropPath = propPath;
     CompareFunction = compareFunction;
     Predicate = new Predicate<object>(obj =>
       {
         var value = obj;
-        foreach (var propertyInfo in PropertyPath)
+        foreach (var propertyInfo in PropPath)
          value = propertyInfo.GetValue(value, null);
         return CompareFunction(value, OtherValue);
       });
@@ -27,7 +27,7 @@ public class ColumnFilter: IFilter
   /// <summary>
   /// Takes name of the last item of PropertyPath.
   /// </summary>
-  public string PropName => PropertyPath.Last().Name;
+  public string PropName => PropPath.Last().Name;
 
   /// <summary>
   /// Stored info on column binding properties.
@@ -35,7 +35,7 @@ public class ColumnFilter: IFilter
   /// First value is got from the object argument,
   /// next from the previous value.
   /// </summary>
-  public PropertyInfo[] PropertyPath { get; private set; }
+  public PropPath PropPath { get; private set; }
 
   /// <summary>
   /// Storage for other value to compare.

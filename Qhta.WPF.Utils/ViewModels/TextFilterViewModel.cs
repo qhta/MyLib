@@ -9,8 +9,7 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(PropertyInfo[] propPath, string propName) : base(propPath, propName)
-  { }
+  public TextFilterViewModel(PropPath propPath, string columnName) : base(propPath, columnName) { }
 
   /// <summary>
   /// Copying constructor.
@@ -151,7 +150,7 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// <returns></returns>
   public override ColumnFilter? CreateFilter()
   {
-    if (String.IsNullOrEmpty(FilterText) && !IsEmpty && !NotEmpty)
+    if (String.IsNullOrEmpty(FilterText) && !IsEmpty && !NotEmpty || PropPath == null)
       return null;
     Func<object?, object?, bool> compareFunction;
     switch (Function)

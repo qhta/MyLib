@@ -286,6 +286,15 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Starts with.
         /// </summary>
         public static string StartsWith {

@@ -827,12 +827,13 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.DataGridColumn,System.Reflection.PropertyInfo[],System.Windows.Point,System.Windows.Window)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.ItemsControl,System.Windows.Controls.DataGridColumn,Qhta.WPF.Utils.PropPath,System.Windows.Point,System.Windows.Window)">
             <summary>
             Displays a filter dialog for a column bound to the specific property info path.
             Dialog is displayed in specific screen position.
             View model is stored in column's attached ColumnFilter property.
             </summary>
+            <param name="itemsControl">Control with columns. Usually DataGrid</param>
             <param name="column"></param>
             <param name="propPath"></param>
             <param name="position"></param>
@@ -895,6 +896,13 @@
             <summary>
             Helper property to store CollectionFilter property. It can be any object.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilteredColumns(System.Windows.Controls.DataGrid)">
+            <summary>
+            Gets a collection of filterable columns of the data grid.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.InitializeComponent">
             <summary>
@@ -1011,6 +1019,12 @@
             Implemented IFiltered predicate.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewSource`1.GetEnumerator">
+            <summary>
+            Enumerator on source collection
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.WPF.Utils.CollectionView`1">
             <summary>
             Generic version of CollectionView class.
@@ -1107,11 +1121,11 @@
             Prepared filter for a column. Holds property info, other value to compare, compare function and predicate function.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ColumnFilter.#ctor(System.Reflection.PropertyInfo[],System.Func{System.Object,System.Object,System.Boolean})">
+        <member name="M:Qhta.WPF.Utils.ColumnFilter.#ctor(Qhta.WPF.Utils.PropPath,System.Func{System.Object,System.Object,System.Boolean})">
             <summary>
             Initializing constructor.
             </summary>
-            <param name="propertyPath"></param>
+            <param name="propPath"></param>
             <param name="compareFunction"></param>
         </member>
         <member name="P:Qhta.WPF.Utils.ColumnFilter.PropName">
@@ -1119,7 +1133,7 @@
             Takes name of the last item of PropertyPath.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ColumnFilter.PropertyPath">
+        <member name="P:Qhta.WPF.Utils.ColumnFilter.PropPath">
             <summary>
             Stored info on column binding properties.
             Predicate function gets values sequentially.
@@ -1549,6 +1563,11 @@
               Looks up a localized string similar to Regular expression.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.Remove">
+            <summary>
+              Looks up a localized string similar to Remove.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.StartsWith">
             <summary>
               Looks up a localized string similar to Starts with.
@@ -1765,6 +1784,22 @@
             </summary>
             <param name="column"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnUtils.GetBindingBase(System.Windows.Controls.DataGridColumn)">
+            <summary>
+            Gets binding base from DataGridBoundColumn and DataGridComboBoxColumn.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.DataGridColumnUtils.TryGetFilterablePropertyPath(System.Windows.Controls.DataGridColumn,System.Type,Qhta.WPF.Utils.PropPath@)">
+            <summary>
+            Tries to gets a property path to the DataGridColumn.
+            </summary>
+            <param name="column"></param>
+            <param name="itemType"></param>
+            <param name="propPath">created PropPath</param>
+            <returns>true on success </returns>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridContentBoundColumn">
             <summary>
@@ -3111,6 +3146,41 @@
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.WPF.Utils.PropPath">
+            <summary>
+            Holds info of column binding properties.
+            As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.PropPath.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.PropPath.#ctor(System.Type,System.String)">
+            <summary>
+            Creates new PropPath starting from type of dataContext.
+            </summary>
+            <param name="dataContextType"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.PropPath.GetEnumerator">
+            <summary>
+            Enumerator of PropertyInfo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.PropPath.Add(System.Reflection.PropertyInfo)">
+            <summary>
+            Adding propertyInfo to the sequence.
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.PropPath.Clear">
+            <summary>
+            Clears a path.
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.PropUpdateEventArgs">
             <summary>
             CancelEventArgs that holds information on updating a property.
@@ -3842,7 +3912,7 @@
             specific ColumnFilterViewModel of boolean property filter edited in BoolFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -3921,29 +3991,31 @@
             Is boolean defined (is not null)?
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation">
-            <summary>
-            Specifies what to do with a column filter.
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation.Add">
-            <summary>
-            Add a filter to collection filter.
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation.Edit">
-            <summary>
-            Edit a filter and replace the old one in collection filter.
-            </summary>
-        </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.ColumnFilterOperation.Clear">
-            <summary>
-            Clear the filter and remove the old one from collection filter.
-            </summary>
-        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel">
             <summary>
             Abstract view model of the filter stored and edited in ColumnFilterDialog.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel)">
+            <summary>
+            Copying constructor that copies the data of the view model is needed
+            because we need to edit its copy and after Cancel button is pressed
+            the previous content remains unchanged.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.Instance">
+            <summary>
+            Returns specific filter or self.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.Operation">
@@ -3982,21 +4054,9 @@
             As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.PropName">
+        <member name="P:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.ColumnName">
             <summary>
             Displayed name of column binding property.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
-            <summary>
-            Initializing constructor.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel)">
-            <summary>
-            Copying constructor that copies the data of the view model is needed
-            because we need to edit its copy and after Cancel button is pressed
-            the previous content remains unchanged.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel.CreateCopy">
@@ -4016,12 +4076,85 @@
             Clear filter properties.
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo">
+            <summary>
+            Information about filterable column in data grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo.#ctor(System.Type,System.Windows.Controls.DataGridBoundColumn)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="itemType"></param>
+            <param name="column"></param>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo.Column">
+            <summary>
+            Referenced column.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo.ColumnName">
+            <summary>
+            Name of the column to display.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo.PropName">
+            <summary>
+            Name of the property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo.DataType">
+            <summary>
+            Data type of the property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumnInfo.PropPath">
+            <summary>
+            Sequence of PropertyInfo from DataContext object
+            to the filtered property.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.DataGridFilteredColumns">
+            <summary>
+            Information about filterable columns in data grid.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel">
+            <summary>
+            ViewModel for filter of DataGrid
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.Columns">
+            <summary>
+            Information about filterable columns in data grid. 
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.Column">
+            <summary>
+            Column on which filter button was pressed.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.Filter">
+            <summary>
+            Filter to edit.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.DialogResult">
+            <summary>
+            Result of the FilterDialog
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ColumnNames">
+            <summary>
+            Names of columns to select.
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel">
             <summary>
             Specific ColumnFilterViewModel of enum property filter edited in EnumFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(System.Type,System.Reflection.PropertyInfo[],System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(System.Type,Qhta.WPF.Utils.PropPath,System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4115,12 +4248,94 @@
             Is enum defined (is not null)?
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.FilterOperation">
+            <summary>
+            Specifies what to do with a column filter.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.FilterOperation.Add">
+            <summary>
+            Add a filter to collection filter.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.FilterOperation.Edit">
+            <summary>
+            Edit a filter and replace the old one in collection filter.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.FilterOperation.Clear">
+            <summary>
+            Clear the filter and remove the old one from collection filter.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel">
+            <summary>
+            Generic column filter view model that enables user to change data type
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="propPath"></param>
+            <param name="columnName"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnFilter,System.String)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="columnFilter"></param>
+            <param name="columnName"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.ColumnFilterViewModel,System.String)">
+            <summary>
+            Copying constructor that copies the data of the view model is needed
+            because we need to edit its copy and after Cancel button is pressed
+            the previous content remains unchanged.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.DataType">
+            <summary>
+            Data type of selected property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.SpecificFilter">
+            <summary>
+            Specific filter which is changed on dataType change.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateCopy">
+            <summary>
+            Implements abstract CreateCopy
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateCopy(Qhta.WPF.Utils.PropPath,System.String,System.Type)">
+            <summary>
+            Creates a specific dataType Filter.
+            </summary>
+            <param name="propPath"></param>
+            <param name="columnName"></param>
+            <param name="dataType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateFilter">
+            <summary>
+            Creates a specific ColumnFiltere.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.ClearFilter">
+            <summary>
+            Clears the specific filter
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel">
             <summary>
             Abstract base ColumnFilterViewModel of numeric property filter edited in NumFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4137,7 +4352,7 @@
             however internal TryParseFilterText method recognizes only integers, floats, DateTime and TimeSpan.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(System.Reflection.PropertyInfo[],System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4266,7 +4481,7 @@
             View model shown in ObjFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4330,7 +4545,7 @@
             Specific ColumnFilterViewModel of string property filter edited in TextFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(System.Reflection.PropertyInfo[],System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4472,19 +4687,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.Views.ColumnFilterDialog">
-            <summary>
-            Main dialog window for specific filter views.
-            </summary>
-            <summary>
-            ColumnFilterDialog
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.Views.ColumnFilterDialog.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:Qhta.WPF.Utils.Views.EnumFilterView">
             <summary>
             User control for editing EnumFilterViewModel properties.
@@ -4494,6 +4696,19 @@
             </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.Views.EnumFilterView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.Views.FilterDialog">
+            <summary>
+            Interaction logic for FilterDialog.xaml
+            </summary>
+            <summary>
+            FilterDialog
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.Views.FilterDialog.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -4734,6 +4949,36 @@
             </summary>
             <param name="obj"></param>
             <returns></returns>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
         </member>
     </members>
 </doc>
