@@ -39,14 +39,16 @@ public partial class FilterDialog : Window
   private void ColumnSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
   {
     if (DataContext is DataGridFilterViewModel viewModel &&
-      args.AddedItems.Count == 1 && args.AddedItems[0] is DataGridFilteredColumnInfo info)
+      args.AddedItems.Count == 1 && args.AddedItems[0] is FilterableColumnInfo info)
     {
-      var filter = viewModel.Filter;
+      var filter = viewModel.EditedInstance;
       if (filter is GenericColumnFilterViewModel genericFilter)
-      {
         genericFilter.PropPath = info.PropPath;
-        genericFilter.SpecificFilter = genericFilter.CreateCopy();
-      }
     }
+  }
+
+  private void AddButton_Click(object sender, RoutedEventArgs e)
+  {
+
   }
 }

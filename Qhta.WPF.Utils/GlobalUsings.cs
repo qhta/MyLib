@@ -34,6 +34,7 @@ global using Qhta.HtmlUtils;
 global using Qhta.MVVM;
 global using Qhta.ObservableObjects;
 global using Qhta.TypeUtils;
+global using Qhta.WPF.Utils.ViewModels;
 
 global using SelectionChangedEventArgs = System.Windows.Controls.SelectionChangedEventArgs;
 global using ModelVisibility = Qhta.MVVM.Visibility;

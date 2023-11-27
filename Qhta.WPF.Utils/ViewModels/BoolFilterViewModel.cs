@@ -3,20 +3,20 @@
 /// <summary>
 /// specific ColumnFilterViewModel of boolean property filter edited in BoolFilterView.
 /// </summary>
-public class BoolFilterViewModel : ColumnFilterViewModel
+public class BoolFilterViewModel : FilterViewModel
 {
 
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public BoolFilterViewModel(PropPath propPath, string propName): base(propPath, propName)
-    { }
+  public BoolFilterViewModel(PropPath propPath, string propName, IObjectOwner? owner) : base(propPath, propName, owner)
+  { }
 
   /// <summary>
   /// Copying constructor.
   /// </summary>
   /// <returns></returns>
-  public BoolFilterViewModel(BoolFilterViewModel other): base(other)
+  public BoolFilterViewModel(BoolFilterViewModel other) : base(other)
   {
     this.Function = other.Function;
   }
@@ -25,7 +25,7 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   /// Creates a copy of this instance;
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilterViewModel CreateCopy()
+  public override FilterViewModel CreateCopy()
   {
     return new BoolFilterViewModel(this);
   }
@@ -94,9 +94,9 @@ public class BoolFilterViewModel : ColumnFilterViewModel
   /// <returns></returns>
   public override ColumnFilter? CreateFilter()
   {
-    if (Function == null || PropPath==null)
+    if (Function == null || PropPath == null)
       return null;
-    Func<object?, object?, bool> compareFunction; 
+    Func<object?, object?, bool> compareFunction;
     switch (Function)
     {
       case BoolPredicateFunction.IsEmpty:

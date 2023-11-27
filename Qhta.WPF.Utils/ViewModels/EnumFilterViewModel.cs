@@ -3,13 +3,13 @@
 /// <summary>
 /// Specific ColumnFilterViewModel of enum property filter edited in EnumFilterView.
 /// </summary>
-public class EnumFilterViewModel : ColumnFilterViewModel
+public class EnumFilterViewModel : FilterViewModel
 {
 
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public EnumFilterViewModel(Type enumType, PropPath propPath, string columnName) : base(propPath, columnName)
+  public EnumFilterViewModel(Type enumType, PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
   {
     this.EnumType = enumType;
     this.Function = EnumPredicateFunction.IsEqual;
@@ -32,7 +32,7 @@ public class EnumFilterViewModel : ColumnFilterViewModel
   /// Creates a copy of this instance;
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilterViewModel CreateCopy()
+  public override FilterViewModel CreateCopy()
   {
     return new EnumFilterViewModel(this);
   }

@@ -11,21 +11,21 @@ public class CollectionViewFilter: IFilter
   /// Internal storage of column filters. 
   /// The order of filtering can be different than the order of columns.
   /// </summary>
-  public ImmutableDictionary<string, ColumnFilter> Filters { get; private set; }
+  public ImmutableDictionary<string, IFilter> Filters { get; private set; }
 
   /// <summary>
   /// Default constructor. Initialized always true Predicate.
   /// </summary>
   public CollectionViewFilter()
   {
-    Filters = ImmutableDictionary<string, ColumnFilter>.Empty;
+    Filters = ImmutableDictionary<string, IFilter>.Empty;
     Predicate = new Predicate<object>((object item) => true);
   }
 
   /// <summary>
   /// Copyint constructor. Initialized Filters and Predicate
   /// </summary>
-  public CollectionViewFilter(ImmutableDictionary<string, ColumnFilter> filters)
+  public CollectionViewFilter(ImmutableDictionary<string, IFilter> filters)
   {
     Filters = filters;
     Predicate = new Predicate<object>((object item) =>
@@ -80,7 +80,7 @@ public class CollectionViewFilter: IFilter
   /// </summary>
   /// <param name="propName"></param>
   /// <param name="filter"></param>
-  public ImmutableDictionary<string, ColumnFilter> AddFilter(string propName, ColumnFilter filter)
+  public ImmutableDictionary<string, IFilter> AddFilter(string propName, IFilter filter)
   {
     return Filters.Add(propName, filter);
   }
@@ -90,7 +90,7 @@ public class CollectionViewFilter: IFilter
   /// </summary>
   /// <param name="propName"></param>
   /// <param name="filter"></param>
-  public ImmutableDictionary<string, ColumnFilter> ChangeFilter(string propName, ColumnFilter filter)
+  public ImmutableDictionary<string, IFilter> ChangeFilter(string propName, IFilter filter)
   {
     return Filters.SetItem(propName, filter);
   }
@@ -99,7 +99,7 @@ public class CollectionViewFilter: IFilter
   /// Removes a column filter from collection view filter. Returns new instance of Filters.
   /// </summary>
   /// <param name="propName"></param>
-  public ImmutableDictionary<string, ColumnFilter> RemoveFilter(string propName)
+  public ImmutableDictionary<string, IFilter> RemoveFilter(string propName)
   {
     return Filters.Remove(propName);
   }
@@ -109,11 +109,10 @@ public class CollectionViewFilter: IFilter
   /// </summary>
   /// <param name="propName"></param>
   /// <param name="filter"></param>
-  public CollectionViewFilter ApplyFilter(string propName, ColumnFilter? filter)
+  public CollectionViewFilter ApplyFilter(string propName, IFilter? filter)
   {
     if (filter != null)
     {
-      Debug.Assert(propName==filter.PropName);
       if (ContainsFilter(propName))
         return new CollectionViewFilter(ChangeFilter(propName, filter));
       else

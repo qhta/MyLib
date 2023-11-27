@@ -1,33 +1,36 @@
-﻿using System.CodeDom;
-
-namespace Qhta.WPF.Utils.ViewModels;
+﻿namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
 /// Generic column filter view model that enables user to change data type
 /// </summary>
-public class GenericColumnFilterViewModel : ColumnFilterViewModel
+public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
 {
 
   /// <summary>
-  /// Initializing constructor
+  /// Default constructor
   /// </summary>
-  /// <param name="propPath"></param>
-  /// <param name="columnName"></param>
-  public GenericColumnFilterViewModel(PropPath propPath, string columnName) : base(propPath, columnName)
+  public GenericColumnFilterViewModel(IObjectOwner? owner) : base(owner)
   {
     PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
-    SpecificFilter = CreateCopy();
+    SpecificFilter = CreateSpecificFilter();
   }
 
   /// <summary>
   /// Initializing constructor
   /// </summary>
-  /// <param name="columnFilter"></param>
-  /// <param name="columnName"></param>
-  public GenericColumnFilterViewModel(ColumnFilter columnFilter, string columnName) : base(columnFilter.PropPath, columnName)
+  public GenericColumnFilterViewModel(PropPath? propPath, string? columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
   {
     PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
-    SpecificFilter = CreateCopy();
+    SpecificFilter = CreateSpecificFilter();
+  }
+
+  /// <summary>
+  /// Initializing constructor
+  /// </summary>
+  public GenericColumnFilterViewModel(ColumnFilter columnFilter, string columnName, IObjectOwner? owner) : base(columnFilter.PropPath, columnName, owner)
+  {
+    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
+    SpecificFilter = CreateSpecificFilter();
   }
 
   /// <summary>
@@ -35,20 +38,51 @@ public class GenericColumnFilterViewModel : ColumnFilterViewModel
   /// because we need to edit its copy and after Cancel button is pressed
   /// the previous content remains unchanged.
   /// </summary>
-  public GenericColumnFilterViewModel(ColumnFilterViewModel other, string columnName) : base(other)
+  public GenericColumnFilterViewModel(FilterViewModel other, string columnName) : base(other)
   {
+    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
     PropPath = other.PropPath;
     ColumnName = columnName;
-    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
+
   }
+
+  /// <summary>
+  /// Returns specific filter or self. Enables others to change it.
+  /// </summary>
+  public FilterViewModel? SpecificFilter
+  {
+    [DebuggerStepThrough] get { return _SpecificFilter; }
+    set
+    {
+      if (_SpecificFilter != value)
+      {
+        _OldInstance = _SpecificFilter;
+        _SpecificFilter = value;
+        NotifyPropertyChanged(nameof(SpecificFilter));
+      }
+    }
+  }
+
+  private FilterViewModel? _SpecificFilter; 
+  private FilterViewModel? _OldInstance; 
 
 
   private void GenericColumnFilterViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
   {
+    //Debug.WriteLine($"PropertyChanged({e.PropertyName})");
     if (e.PropertyName == nameof(PropPath))
     {
       if (PropPath != null)
-        SpecificFilter = CreateCopy();
+        SpecificFilter = CreateSpecificFilter();
+    }
+    if (e.PropertyName == nameof(Column))
+    {
+      PropPath = Column?.PropPath;
+    }
+    if (e.PropertyName == nameof(SpecificFilter))
+    {
+      //if (Owner!=null)
+      //  Owner.ChangeComponent(_OldInstance, SpecificFilter);
     }
   }
 
@@ -57,112 +91,121 @@ public class GenericColumnFilterViewModel : ColumnFilterViewModel
   /// </summary>
   public Type? DataType
   {
-    get
+    [DebuggerStepThrough] get
     {
       var type = PropPath?.Last().PropertyType;
       return type;
     }
   }
 
-  /// <summary>
-  /// Specific filter which is changed on dataType change.
-  /// </summary>
+  ///// <summary>
+  ///// Specific filter which is changed on dataType change.
+  ///// </summary>
 
-  public ColumnFilterViewModel? SpecificFilter
-  {
-    get { return _SpecificFilter; }
-    set
-    {
-      if (_SpecificFilter != value)
-      {
-        _SpecificFilter = value;
-        NotifyPropertyChanged(nameof(SpecificFilter));
-        if (value!=null)
-          Instance = value;
-      }
-    }
-  }
-  private ColumnFilterViewModel? _SpecificFilter; 
+  //public FilterViewModel? SpecificFilter
+  //{
+  //  get { return _SpecificFilter; }
+  //  set
+  //  {
+  //    if (_SpecificFilter != value)
+  //    {
+  //      _SpecificFilter = value;
+  //      NotifyPropertyChanged(nameof(SpecificFilter));
+  //      if (value != null)
+  //        Instance = value;
+  //    }
+  //  }
+  //}
+  //private FilterViewModel? _SpecificFilter;
 
   /// <summary>
   /// Implements abstract CreateCopy
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilterViewModel CreateCopy()
+  public override FilterViewModel CreateCopy()
   {
-    if (PropPath != null && ColumnName != null)
-      return GenericColumnFilterViewModel.CreateCopy(PropPath, ColumnName, DataType ?? typeof(object));
-    throw new InvalidOperationException($"Cant copy {GetType()} filterViewModel");
+    if (PropPath!=null && ColumnName!=null)
+      return CreateSpecificFilter(PropPath, ColumnName, DataType, Owner);
+    return new GenericColumnFilterViewModel(PropPath, ColumnName, Owner);
+  }
+
+  /// <summary>
+  /// Creates a specific Filter.
+  /// </summary>
+  public FilterViewModel? CreateSpecificFilter()
+  {
+    if (PropPath!=null && ColumnName!=null)
+      return CreateSpecificFilter(PropPath, ColumnName, DataType, this);
+    else
+    if (Column!=null)
+      return CreateSpecificFilter(Column.PropPath!, Column.ColumnName, DataType, this);
+    return null;
   }
 
   /// <summary>
   /// Creates a specific dataType Filter.
   /// </summary>
-  /// <param name="propPath"></param>
-  /// <param name="columnName"></param>
-  /// <param name="dataType"></param>
-  /// <returns></returns>
-  public static ColumnFilterViewModel CreateCopy(PropPath propPath, string columnName, Type dataType)
+  public static FilterViewModel CreateSpecificFilter(PropPath propPath, string columnName, Type? dataType, IObjectOwner? owner)
   {
     if (dataType == typeof(string))
-      return new TextFilterViewModel(propPath, columnName);
+      return new TextFilterViewModel(propPath, columnName, owner);
     else
       if (dataType == typeof(bool))
-      return new BoolFilterViewModel(propPath, columnName);
+      return new BoolFilterViewModel(propPath, columnName, owner);
     else
-      if (dataType.IsEnum == true)
-      return new EnumFilterViewModel(dataType, propPath, columnName);
+      if (dataType?.IsEnum == true)
+      return new EnumFilterViewModel(dataType, propPath, columnName, owner);
     else
       if (dataType == typeof(int))
-      return new NumFilterViewModel<int>(propPath, columnName);
+      return new NumFilterViewModel<int>(propPath, columnName, owner);
     else
       if (dataType == typeof(uint))
-      return new NumFilterViewModel<uint>(propPath, columnName);
+      return new NumFilterViewModel<uint>(propPath, columnName, owner);
     else
       if (dataType == typeof(byte))
-      return new NumFilterViewModel<byte>(propPath, columnName);
+      return new NumFilterViewModel<byte>(propPath, columnName, owner);
     else
       if (dataType == typeof(sbyte))
-      return new NumFilterViewModel<sbyte>(propPath, columnName);
+      return new NumFilterViewModel<sbyte>(propPath, columnName, owner);
     else
       if (dataType == typeof(Int16))
-      return new NumFilterViewModel<Int16>(propPath, columnName);
+      return new NumFilterViewModel<Int16>(propPath, columnName, owner);
     else
       if (dataType == typeof(UInt16))
-      return new NumFilterViewModel<UInt16>(propPath, columnName);
+      return new NumFilterViewModel<UInt16>(propPath, columnName, owner);
     else
       if (dataType == typeof(Int64))
-      return new NumFilterViewModel<Int64>(propPath, columnName);
+      return new NumFilterViewModel<Int64>(propPath, columnName, owner);
     else
       if (dataType == typeof(UInt64))
-      return new NumFilterViewModel<UInt64>(propPath, columnName);
+      return new NumFilterViewModel<UInt64>(propPath, columnName, owner);
     else
       if (dataType == typeof(Single))
-      return new NumFilterViewModel<Single>(propPath, columnName);
+      return new NumFilterViewModel<Single>(propPath, columnName, owner);
     else
       if (dataType == typeof(Double))
-      return new NumFilterViewModel<Double>(propPath, columnName);
+      return new NumFilterViewModel<Double>(propPath, columnName, owner);
     else
       if (dataType == typeof(Decimal))
-      return new NumFilterViewModel<Decimal>(propPath, columnName);
+      return new NumFilterViewModel<Decimal>(propPath, columnName, owner);
     else
       if (dataType == typeof(DateTime))
-      return new NumFilterViewModel<DateTime>(propPath, columnName);
+      return new NumFilterViewModel<DateTime>(propPath, columnName, owner);
     else
       if (dataType == typeof(TimeSpan))
-      return new NumFilterViewModel<TimeSpan>(propPath, columnName);
+      return new NumFilterViewModel<TimeSpan>(propPath, columnName, owner);
     else
-      return new ObjFilterViewModel(propPath, columnName);
+      return new ObjFilterViewModel(propPath, columnName, owner);
   }
 
   /// <summary>
   /// Creates a specific ColumnFiltere.
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilter? CreateFilter()
+  public override IFilter? CreateFilter()
   {
-    if (SpecificFilter != null)
-      return SpecificFilter.CreateFilter();
+    if (SpecificFilter != this)
+      return SpecificFilter?.CreateFilter();
     throw new InvalidOperationException($"Cant create filter in {GetType()}");
   }
 
@@ -171,7 +214,52 @@ public class GenericColumnFilterViewModel : ColumnFilterViewModel
   /// </summary>
   public override void ClearFilter()
   {
-    if (SpecificFilter != null)
-      SpecificFilter.ClearFilter();
+    SpecificFilter?.ClearFilter();
+  }
+
+  /// <summary>
+  /// Returns the Instance component.
+  /// </summary>
+  public object? GetComponent(string propName)
+  {
+    if (propName != nameof(SpecificFilter))
+      throw new InvalidOperationException($"You can get only {nameof(SpecificFilter)} component");
+    return SpecificFilter;
+  }
+
+  /// <summary>
+  /// Changes the Instance component to new instance.
+  /// </summary>
+  public bool ChangeComponent(string propName, object? newComponent)
+  {
+    if (propName != nameof(SpecificFilter))
+      throw new InvalidOperationException($"To change and Instance object an old object mus be equal");
+    if (newComponent is FilterViewModel newFilter)
+      SpecificFilter = newFilter;
+    else
+    if (newComponent == null)
+      SpecificFilter = null;
+    else
+      throw new InvalidOperationException($"New Instance object must be a {nameof(FilterViewModel)}");
+    return true;
+  }
+
+  /// <summary>
+  /// Changes the Instance component to new instance.
+  /// </summary>
+  public bool ChangeComponent(object? oldComponent, object? newComponent)
+  {
+    if (oldComponent != SpecificFilter)
+      throw new InvalidOperationException($"To change and Instance object an old object mus be equal");
+    if (newComponent is FilterViewModel newFilter)
+      SpecificFilter = newFilter;
+    else
+    if (newComponent == null)
+      SpecificFilter = null;
+    else
+      throw new InvalidOperationException($"New Instance object must be a {nameof(FilterViewModel)}");
+    if (Owner!=null)
+        Owner.ChangeComponent(_OldInstance, SpecificFilter);
+    return true;
   }
 }

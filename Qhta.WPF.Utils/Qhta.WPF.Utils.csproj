@@ -46,6 +46,7 @@
     <None Remove="Resources\EmptyFIlter.png" />
     <None Remove="Resources\Filter.png" />
     <None Remove="Resources\Find.png" />
+    <None Remove="Resources\Menu.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +82,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\EmptyFIlter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Filter.png">

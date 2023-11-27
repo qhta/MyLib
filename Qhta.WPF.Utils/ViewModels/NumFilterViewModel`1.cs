@@ -10,7 +10,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public NumFilterViewModel(PropPath propPath, string columnName) : base(propPath, columnName)
+  public NumFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
   {
     this.PropPath = propPath;
     this.ColumnName = columnName;
@@ -32,7 +32,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   /// Creates a copy of this instance;
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilterViewModel CreateCopy()
+  public override FilterViewModel CreateCopy()
   {
     return new NumFilterViewModel<T>(this);
   }

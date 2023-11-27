@@ -62,4 +62,10 @@ public class PropPath : IEnumerable<PropertyInfo>
   /// Clears a path.
   /// </summary>
   public void Clear() => _properties.Clear();
+
+  /// <inheritdoc />
+  public override string? ToString()
+  {
+    return String.Join(".",_properties.Select(item=>item.Name));
+  }
 }

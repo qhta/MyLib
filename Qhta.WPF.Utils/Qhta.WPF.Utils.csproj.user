@@ -7,10 +7,19 @@
     <Compile Update="Views\BoolFilterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CompoundFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\EnumFilterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\FilterDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GenericColumnFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GenericFilterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\NumFilterView.xaml.cs">
@@ -30,10 +39,19 @@
     <Page Update="Views\BoolFilterView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\CompoundFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\EnumFilterView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\FilterDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GenericColumnFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GenericFilterView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\NumFilterView.xaml">

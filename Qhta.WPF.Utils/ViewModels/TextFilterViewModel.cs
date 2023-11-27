@@ -3,13 +3,13 @@
 /// <summary>
 /// Specific ColumnFilterViewModel of string property filter edited in TextFilterView.
 /// </summary>
-public class TextFilterViewModel : ColumnFilterViewModel
+public class TextFilterViewModel : FilterViewModel
 {
 
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(PropPath propPath, string columnName) : base(propPath, columnName) { }
+  public TextFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner) { }
 
   /// <summary>
   /// Copying constructor.
@@ -27,7 +27,7 @@ public class TextFilterViewModel : ColumnFilterViewModel
   /// </summary>
   /// <returns></returns>
   /// <exception cref="NotImplementedException"></exception>
-  public override ColumnFilterViewModel CreateCopy()
+  public override FilterViewModel CreateCopy()
   {
     return new TextFilterViewModel(this);
   }

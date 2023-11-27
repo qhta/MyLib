@@ -3,13 +3,13 @@
 /// <summary>
 /// View model shown in ObjFilterView.
 /// </summary>
-public class ObjFilterViewModel : ColumnFilterViewModel
+public class ObjFilterViewModel : FilterViewModel
 {
 
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public ObjFilterViewModel(PropPath propPath, string columnName): base(propPath, columnName) { }
+  public ObjFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner) { }
 
   /// <summary>
   /// Copying constructor.
@@ -24,7 +24,7 @@ public class ObjFilterViewModel : ColumnFilterViewModel
   /// Creates a copy of this instance;
   /// </summary>
   /// <returns></returns>
-  public override ColumnFilterViewModel CreateCopy()
+  public override FilterViewModel CreateCopy()
   {
     return new ObjFilterViewModel(this);
   }
