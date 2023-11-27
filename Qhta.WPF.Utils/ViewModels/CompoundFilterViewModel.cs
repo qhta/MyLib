@@ -10,7 +10,12 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <param name="owner"></param>
   public CompoundFilterViewModel(IObjectOwner? owner) : base(owner)
   {
+    Items.CollectionChanged += Items_CollectionChanged;
+  }
 
+  private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+  {
+    //Debug.WriteLine($"{e.Action}");
   }
 
   /// <summary>
@@ -43,7 +48,7 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <summary>
   /// Component filters.
   /// </summary>
-  public Collection<FilterViewModel> Items { get; private set; } = new Collection<FilterViewModel>();
+  public ObservableCollection<FilterViewModel> Items { get; private set; } = new ObservableCollection<FilterViewModel>();
 
   /// <inheritdoc/>
   public override FilterViewModel CreateCopy()
@@ -51,7 +56,8 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     var other = new CompoundFilterViewModel(Owner);
     foreach (var item in Items)
     {
-      other.Items.Add(item.CreateCopy());
+      var newItem = item.CreateCopy();
+      other.Items.Add(newItem);
     }
     other.Operation = this.Operation;
     return other;

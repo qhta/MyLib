@@ -29,9 +29,6 @@ public partial class GenericColumnFilterView : UserControl
     if (DataContext is FilterViewModel viewModel &&
       args.AddedItems.Count == 1 && args.AddedItems[0] is FilterableColumnInfo info)
     {
-      //var filter = viewModel.EditedInstance;
-      ////if (filter is GenericColumnFilterViewModel genericFilter)
-      //if (filter != null)
       viewModel.Column = info;
     }
   }

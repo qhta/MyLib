@@ -285,7 +285,6 @@ public abstract class FilterViewModel : ViewModel
       }
       if (op != null)
       {
-        var owner = Owner;
         var compoundFilter = new CompoundFilterViewModel(Owner);
         compoundFilter.Operation = op;
         compoundFilter.Items.Add(this);

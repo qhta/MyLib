@@ -16,11 +16,38 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <ComboBox x:Name="OpSelectionBox"
-              ItemsSource="{Binding Operations}"
-              DisplayMemberPath="Key"
-              SelectedValuePath="Value"
-              SelectedValue="{Binding Operation}" />
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+      <ComboBox x:Name="OpSelectionBox"
+                HorizontalContentAlignment="Center"
+                ItemsSource="{Binding Operations}"
+                DisplayMemberPath="Key"
+                SelectedValuePath="Value"
+                SelectedValue="{Binding Operation}" />
+      <Menu x:Name="MenuButton"
+            Grid.Column="1"
+            Background="Transparent"
+            Margin="5">
+        <MenuItem>
+          <MenuItem.Header>
+            <Image Source="..\Resources\Menu.png" />
+          </MenuItem.Header>
+            <MenuItem Header="{x:Static local:CommonStrings.AddFilter}">
+              <MenuItem Header="{x:Static local:CommonStrings.And}" 
+                        Command="{Binding EditedInstance.AddFilterCommand}"
+                        CommandParameter="{x:Static vm:FilterEditOperation.AddAndAbove}"/>              
+              <MenuItem Header="{x:Static local:CommonStrings.Or}"
+                        Command="{Binding EditedInstance.AddFilterCommand}"
+                        CommandParameter="{x:Static vm:FilterEditOperation.AddOrAbove}"/>              
+            </MenuItem>
+            <MenuItem Header="{x:Static local:CommonStrings.Remove}" />
+        </MenuItem>
+      </Menu>      
+    </Grid>
     <ListView x:Name="MainListView"
               Grid.Row="1"
               Width="Auto"
@@ -45,7 +72,9 @@
           <views:GenericColumnFilterView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:CompoundFilterViewModel}">
+          <Border BorderBrush="Red" BorderThickness="1">
           <views:CompoundFilterView />
+          </Border>
         </DataTemplate>
       </ListView.Resources>
       <ListView.Style>
@@ -62,7 +91,7 @@
           <Setter Property="HorizontalContentAlignment"
                   Value="Stretch" />
           <Setter Property="Margin"
-                  Value="0,0,0,0" />
+                  Value="0" />
           <Setter Property="Background"
                   Value="WhiteSmoke" />
         </Style>
@@ -70,7 +99,7 @@
       <ListView.ItemContainerStyle>
         <Style TargetType="ListViewItem">
           <Setter Property="Margin"
-                  Value="0,0,0,0" />
+                  Value="0" />
           <Setter Property="Background"
                   Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
           <Setter Property="BorderBrush"
