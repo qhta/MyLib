@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Views\BoolFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CompoundFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EnumFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\FilterDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GenericColumnFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GenericFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NumFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ObjFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TextFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Resources\DataGridStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BoolFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CompoundFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EnumFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FilterDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GenericColumnFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GenericFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NumFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ObjFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TextFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

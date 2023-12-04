@@ -7,7 +7,7 @@
   <PropertyGroup>
     <Authors>Yarreck Qhta</Authors>
     <Description>A simple MVVM framework which enables worker threads to invoke UI notification via ObservableObjects.</Description>
-    <Version>3.8</Version>
+    <Version>3.9</Version>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AutoRedirectBindings>true</AutoRedirectBindings>

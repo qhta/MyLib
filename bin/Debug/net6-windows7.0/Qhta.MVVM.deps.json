@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Qhta.MVVM/3.8": {
+      "Qhta.MVVM/3.9": {
         "dependencies": {
           "Qhta.ObservableObjects": "2.7.0"
         },
@@ -149,7 +149,7 @@
     }
   },
   "libraries": {
-    "Qhta.MVVM/3.8": {
+    "Qhta.MVVM/3.9": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

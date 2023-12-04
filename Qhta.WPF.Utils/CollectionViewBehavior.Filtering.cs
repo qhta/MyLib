@@ -364,6 +364,8 @@ public partial class CollectionViewBehavior
     var itemsSource = dataGrid.ItemsSource;
     if (itemsSource == null)
       throw new InvalidOperationException($"ItemsSource property is null in DataGrid");
+    if (itemsSource is ListCollectionView listCollectionView)
+      itemsSource = listCollectionView.SourceCollection;
     var dataItemType = itemsSource.GetType();
     if (dataItemType == null)
       return null;

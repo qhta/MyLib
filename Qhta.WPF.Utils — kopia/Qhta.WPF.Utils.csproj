@@ -1,0 +1,117 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Description>A package classes (converters) to use in WPF applications.</Description>
+    <Authors>Yarreck Qhta</Authors>
+    <Version>3.4</Version>
+    <AutoRedirectBindings>true</AutoRedirectBindings>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MS.Internal\**" />
+    <Compile Remove="Original\**" />
+    <EmbeddedResource Remove="MS.Internal\**" />
+    <EmbeddedResource Remove="Original\**" />
+    <None Remove="MS.Internal\**" />
+    <None Remove="Original\**" />
+    <Page Remove="MS.Internal\**" />
+    <Page Remove="Original\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataGridBehavior.cs" />
+    <Compile Remove="ListCollectionView.cs" />
+    <Compile Remove="ListViewColumnSorter.cs" />
+    <Compile Remove="RelayCommand.cs" />
+    <Compile Remove="WpfWin32Window.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\AddFilter.png" />
+    <None Remove="Resources\ClearFilter.png" />
+    <None Remove="Resources\Delete.png" />
+    <None Remove="Resources\EditFilter.png" />
+    <None Remove="Resources\EmptyFIlter.png" />
+    <None Remove="Resources\Filter.png" />
+    <None Remove="Resources\Find.png" />
+    <None Remove="Resources\Menu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Aero.NormalColors.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Qhta.HtmlUtils" Version="2.1.0" />
+    <PackageReference Include="Qhta.MVVM" Version="3.9.0" />
+    <PackageReference Include="Qhta.OrdNumbers" Version="2.3.0" />
+    <PackageReference Include="Qhta.TextUtils" Version="3.2.0" />
+    <PackageReference Include="Qhta.TypeUtils" Version="1.3.11" />
+    <PackageReference Include="Qhta.WPF.Converters" Version="1.3.1" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\EditFilter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\AddFilter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EmptyFIlter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ClearFilter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CommonStrings.Designer.cs">
+      <DependentUpon>CommonStrings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CommonStrings.resx">
+      <LastGenOutput>CommonStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
+</Project>

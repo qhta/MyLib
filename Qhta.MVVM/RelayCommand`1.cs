@@ -3,24 +3,24 @@
   /// <summary>
   ///  A command which relays its functionality to other objects by invoking delegates.
   /// </summary>
-  public sealed class RelayCommand<ParamType> : Command, IRelayCommand, ICommand
+  public sealed class RelayCommand<ParamType> : Command, IRelayCommand, ICommand where ParamType: class
   {
     /// <summary>
     /// Action to invoke on Execute.
     /// </summary>
-    private readonly Action<ParamType> execute;
+    private readonly Action<ParamType?> execute;
 
     //
     /// <summary>
     ///  Function to invoke on CanExecute.
     /// </summary>
-    private readonly Func<ParamType,bool>? canExecute;
+    private readonly Func<ParamType?,bool>? canExecute;
 
     /// <summary>
     ///  Initializes a new instance with action to execute.
     /// </summary>
     /// <param name="execute">Action to execute.</param>
-    public RelayCommand(Action<ParamType> execute)
+    public RelayCommand(Action<ParamType?> execute)
     {
       this.execute = execute;
     }
@@ -30,7 +30,7 @@
     /// </summary>
     /// <param name="execute">Action to execute.</param>
     /// <param name="canExecute">Function to check if Action can be executed</param>
-    public RelayCommand(Action<ParamType> execute, Func<ParamType, bool> canExecute)
+    public RelayCommand(Action<ParamType?> execute, Func<ParamType?, bool> canExecute)
     {
       this.execute = execute;
       this.canExecute = canExecute;
@@ -47,7 +47,7 @@
         Debug.Assert(true);
       if (parameter != null)
         return canExecute?.Invoke((ParamType)parameter) ?? true;
-      return false;
+      return canExecute?.Invoke(default(ParamType)) ?? true;
     }
 
     /// <summary>
@@ -58,6 +58,8 @@
     {
       if (parameter != null)
         execute((ParamType)parameter);
+      else
+        execute(default(ParamType));
     }
   }
 }

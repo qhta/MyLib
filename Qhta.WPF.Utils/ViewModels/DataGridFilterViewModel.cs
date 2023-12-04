@@ -90,7 +90,7 @@ public class DataGridFilterViewModel: FilterViewModel, IObjectOwner
   /// <inheritdoc/>
   public override IFilter? CreateFilter()
   {
-    throw new NotImplementedException();
+    return EditedInstance?.CreateFilter();
   }
 
   /// <inheritdoc/>
