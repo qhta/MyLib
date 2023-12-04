@@ -11,6 +11,7 @@ public abstract class FilterViewModel : ViewModel
   public FilterViewModel()
   {
     AddFilterCommand = new RelayCommand<object>(AddFilterExecute, AddFilterCanExecute) { Name = "AddFilterCommand" };
+    RemoveFilterCommand = new RelayCommand<object>(RemoveFilterExecute, RemoveFilterCanExecute) { Name = "RemoveFilterCommand" };
   }
 
   /// <summary>
@@ -117,10 +118,31 @@ public abstract class FilterViewModel : ViewModel
   private FilterableColumns? _Columns;
 
   /// <summary>
+  /// Gets a collection of filtered columns in the EditedInstance.
+  /// In the basic implementation a 1-object collection containing edited instance column is returned. 
+  /// </summary>
+  public virtual FilterableColumns? GetFilteredColumns()
+  {
+    if (EditedInstance?.Column!=null)
+    {
+      var result = new FilterableColumns();
+      result.Add(EditedInstance.Column);
+      return result;
+    }
+    return null;
+  }
+
+  #region abstract methods
+  /// <summary>
   /// This method must create a copy of the original instance;
   /// </summary>
   /// <returns></returns>
-  public abstract FilterViewModel CreateCopy();
+  public abstract FilterViewModel? CreateCopy();
+
+  /// <summary>
+  /// Observable property which tells if filter view model can create a filter.
+  /// </summary>
+  public abstract bool CanCreateFilter { get; }
 
   /// <summary>
   /// Creates Predicate basing on current properties.
@@ -132,6 +154,8 @@ public abstract class FilterViewModel : ViewModel
   /// Clear filter properties.
   /// </summary>
   public abstract void ClearFilter();
+
+  #endregion
 
   /// <summary>
   ///  Specifies what to do with a column filter.
@@ -248,7 +272,6 @@ public abstract class FilterViewModel : ViewModel
   }
   private string? _ColumnName;
 
-
   #region AddFilterCommand
 
   /// <summary>
@@ -257,19 +280,20 @@ public abstract class FilterViewModel : ViewModel
   public Command AddFilterCommand { get; private set; }
 
   /// <summary>
-  /// Can always execute.
+  /// In theory can always execute, but must check owner (and parameter).
   /// </summary>
   /// <returns></returns>
-  protected virtual bool AddFilterCanExecute(object parameter)
+  protected virtual bool AddFilterCanExecute(object? parameter)
   {
     return Owner != null && parameter is FilterEditOperation;
   }
 
-
   /// <summary>
-  /// Execute AddFilterCommand
+  /// Creates a new compound filter and adds this to it.
+  /// In current owner changes edited instance to the compound filter.
+  /// Also creates a new generic column filter and adds it to the owner filter as next operand.
   /// </summary>
-  protected virtual void AddFilterExecute(object parameter)
+  protected virtual void AddFilterExecute(object? parameter)
   {
     if (Owner != null && parameter is FilterEditOperation editOp)
     {
@@ -297,5 +321,32 @@ public abstract class FilterViewModel : ViewModel
   }
   #endregion
 
+  #region RemoveFilterCommand
+
+  /// <summary>
+  /// This command removes this filter from owner AND/OR filter.
+  /// </summary>
+  public Command RemoveFilterCommand { get; private set; }
+
+  /// <summary>
+  /// Can execute only if has owner compound filter.
+  /// </summary>
+  /// <returns></returns>
+  protected virtual bool RemoveFilterCanExecute(object? parameter)
+  {
+    return Owner is CompoundFilterViewModel;
+  }
+
+  /// <summary>
+  /// Removes this filter from owner compound filter.
+  /// </summary>
+  protected virtual void RemoveFilterExecute(object? parameter)
+  {
+    if (Owner is CompoundFilterViewModel compoundFilter)
+    {
+      compoundFilter.Items.Remove(this);
+    }
+  }
+  #endregion
 
 }

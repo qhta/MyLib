@@ -62,6 +62,7 @@ public class BoolFilterViewModel : FilterViewModel
     NotifyPropertyChanged(nameof(Function));
     foreach (var enumName in typeof(BoolPredicateFunction).GetEnumNames())
       NotifyPropertyChanged(enumName);
+    NotifyPropertyChanged(nameof(CanCreateFilter));
   }
 
   #region Individual boolean properties for Function used in RadioButton.
@@ -87,6 +88,9 @@ public class BoolFilterViewModel : FilterViewModel
   public bool NotEmpty { get => Function == BoolPredicateFunction.NotEmpty; set { if (value) Function = BoolPredicateFunction.NotEmpty; } }
 
   #endregion
+
+  /// <inheritdoc/>
+  public override bool CanCreateFilter => Function!=null;
 
   /// <summary>
   /// Creates DataGridColumnFilter basing on current properties.

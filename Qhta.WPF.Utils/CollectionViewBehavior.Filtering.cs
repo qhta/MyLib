@@ -180,35 +180,38 @@ public partial class CollectionViewBehavior
   /// <param name="ownerWindow"></param>
   public virtual bool DisplayFilterDialog(ItemsControl itemsControl, DataGridColumn column, PropPath propPath, Point position, Window? ownerWindow)
   {
-    var propInfo = propPath.Last();
-    var columnName = column.GetHeaderText();
-    if (columnName == null)
-    {
-      columnName = GetHiddenHeader(column);
-      if (columnName == null)
-        columnName = propInfo.Name;
-    }
-    var dialog = new FilterDialog();
-    var viewModel = new DataGridFilterViewModel();
-    var editedFilter = (GetColumnFilter(column) as FilterViewModel)?.CreateCopy();
-    if (editedFilter != null)
-      editedFilter = new GenericColumnFilterViewModel(editedFilter, columnName);
-    else
-      editedFilter = new GenericColumnFilterViewModel(propPath, columnName, viewModel);
-    viewModel.EditedInstance = editedFilter;
     if (itemsControl is DataGrid dataGrid)
     {
-      viewModel.Columns = GetFilterableColumns(dataGrid);
-      viewModel.Column = GetFilteredColumn(viewModel.Columns, column);
-    }
-    dialog.DataContext = viewModel;
-    dialog.Left = position.X;
-    dialog.Top = position.Y;
-    dialog.Owner = ownerWindow;
-    if (dialog.ShowDialog() == true)
-    {
-      SetColumnFilter(column, viewModel);
-      return true;
+      var propInfo = propPath.Last();
+      var columnName = column.GetHeaderText();
+      if (columnName == null)
+      {
+        columnName = GetHiddenHeader(column);
+        if (columnName == null)
+          columnName = propInfo.Name;
+      }
+      var dialog = new FilterDialog();
+      var viewModel = new DataGridFilterViewModel(dataGrid);
+      var editedFilter = (GetColumnFilter(column) as FilterViewModel)?.CreateCopy();
+      if (editedFilter != null)
+        editedFilter = new GenericColumnFilterViewModel(editedFilter, columnName);
+      else
+        editedFilter = new GenericColumnFilterViewModel(propPath, columnName, viewModel);
+      viewModel.EditedInstance = editedFilter;
+      //if (itemsControl is DataGrid dataGrid)
+      {
+        viewModel.Columns = GetFilterableColumns(dataGrid);
+        viewModel.Column = GetFilteredColumn(viewModel.Columns, column);
+      }
+      dialog.DataContext = viewModel;
+      dialog.Left = position.X;
+      dialog.Top = position.Y;
+      dialog.Owner = ownerWindow;
+      if (dialog.ShowDialog() == true)
+      {
+        SetColumnFilter(column, viewModel);
+        return true;
+      }
     }
     return false;
   }
@@ -331,7 +334,7 @@ public partial class CollectionViewBehavior
   /// <returns></returns>
   public FilterableColumnInfo? GetFilteredColumn(FilterableColumns? columns, DataGridColumn column)
   {
-    return columns?.FirstOrDefault(item=>item.Column == column);
+    return columns?.FirstOrDefault(item => item.Column == column);
   }
 
   /// <summary>

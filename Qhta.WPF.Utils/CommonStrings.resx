@@ -210,4 +210,10 @@
   <data name="Or" xml:space="preserve">
     <value>Or</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
 </root>

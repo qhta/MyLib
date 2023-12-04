@@ -51,20 +51,35 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// </summary>
   public FilterViewModel? SpecificFilter
   {
-    [DebuggerStepThrough] get { return _SpecificFilter; }
+    [DebuggerStepThrough]
+    get { return _SpecificFilter; }
     set
     {
       if (_SpecificFilter != value)
       {
         _OldInstance = _SpecificFilter;
+        if (_SpecificFilter != null)
+          _SpecificFilter.PropertyChanged -= _SpecificFilter_PropertyChanged;
         _SpecificFilter = value;
+        if (_SpecificFilter != null)
+          _SpecificFilter.PropertyChanged += _SpecificFilter_PropertyChanged;
         NotifyPropertyChanged(nameof(SpecificFilter));
       }
     }
   }
 
-  private FilterViewModel? _SpecificFilter; 
-  private FilterViewModel? _OldInstance; 
+  private void _SpecificFilter_PropertyChanged(object? sender, PropertyChangedEventArgs args)
+  {
+    if (sender != null && args.PropertyName != null)
+    {
+      if (args.PropertyName == nameof(CanCreateFilter))
+
+        NotifyPropertyChanged(sender, args.PropertyName);
+    }
+  }
+
+  private FilterViewModel? _SpecificFilter;
+  private FilterViewModel? _OldInstance;
 
 
   private void GenericColumnFilterViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -91,7 +106,8 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// </summary>
   public Type? DataType
   {
-    [DebuggerStepThrough] get
+    [DebuggerStepThrough]
+    get
     {
       var type = PropPath?.Last().PropertyType;
       return type;
@@ -124,7 +140,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// <returns></returns>
   public override FilterViewModel CreateCopy()
   {
-    if (PropPath!=null && ColumnName!=null)
+    if (PropPath != null && ColumnName != null)
       return CreateSpecificFilter(PropPath, ColumnName, DataType, Owner);
     return new GenericColumnFilterViewModel(PropPath, ColumnName, Owner);
   }
@@ -134,10 +150,10 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// </summary>
   public FilterViewModel? CreateSpecificFilter()
   {
-    if (PropPath!=null && ColumnName!=null)
+    if (PropPath != null && ColumnName != null)
       return CreateSpecificFilter(PropPath, ColumnName, DataType, this);
     else
-    if (Column!=null)
+    if (Column != null)
       return CreateSpecificFilter(Column.PropPath!, Column.ColumnName, DataType, this);
     return null;
   }
@@ -199,7 +215,20 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   }
 
   /// <summary>
-  /// Creates a specific ColumnFiltere.
+  /// Tells if the specific ColumnFilter can create a filter.
+  /// </summary>
+  public override bool CanCreateFilter
+  {
+    get
+    {
+      if (SpecificFilter != this && SpecificFilter != null)
+        return SpecificFilter.CanCreateFilter;
+      return false;
+    }
+  }
+
+  /// <summary>
+  /// Creates a specific ColumnFilter.
   /// </summary>
   /// <returns></returns>
   public override IFilter? CreateFilter()
@@ -258,8 +287,8 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
       SpecificFilter = null;
     else
       throw new InvalidOperationException($"New Instance object must be a {nameof(FilterViewModel)}");
-    if (Owner!=null)
-        Owner.ChangeComponent(_OldInstance, SpecificFilter);
+    if (Owner != null)
+      Owner.ChangeComponent(_OldInstance, SpecificFilter);
     return true;
   }
 }

@@ -6,27 +6,39 @@
         xmlns:local="clr-namespace:Qhta.WPF.Utils"
         xmlns:views="clr-namespace:Qhta.WPF.Utils.Views"
         xmlns:vm="clr-namespace:Qhta.WPF.Utils.ViewModels"
+        x:Name="MainWindow"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type={x:Type vm:DataGridFilterViewModel}}"
-        d:Height="Auto"
+        d:Height="300"
         d:Width="300"
         MinWidth="300"
-        WindowStyle="None"
+        WindowStyle="ToolWindow"
         SizeToContent="WidthAndHeight"
         ShowInTaskbar="False">
-  <Grid Height="Auto"
+  <Grid x:Name="MainGrid"
+        Height="Auto"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <views:GenericFilterView 
-                x:Name="FilterView"
-                Grid.Row="0"
-                DataContext="{Binding EditedInstance}"/>
+    <views:GenericFilterView x:Name="FilterView"
+                             Grid.Row="0"
+                             DataContext="{Binding EditedInstance}"
+                             Grid.ColumnSpan="2"
+                             Margin="0,0,0,30"
+                             Grid.RowSpan="2" />
     <StackPanel Grid.Row="1"
                 Orientation="Horizontal"
-                HorizontalAlignment="Center">
+                HorizontalAlignment="Left"
+                Grid.ColumnSpan="2"
+                Margin="45,0,0,0">
+      <Button x:Name="ApplyButton"
+              Content="{x:Static local:CommonStrings.Apply}"
+              MinWidth="50"
+              Margin="10,5"
+              Command="{Binding ApplyFilterCommand}" />
       <Button x:Name="OkButton"
               Content="{x:Static local:CommonStrings.OK}"
               MinWidth="50"

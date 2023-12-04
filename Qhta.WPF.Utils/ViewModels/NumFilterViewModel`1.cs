@@ -87,6 +87,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
     NotifyPropertyChanged(nameof(Function));
     foreach (var enumName in typeof(NumPredicateFunction).GetEnumNames())
       NotifyPropertyChanged(enumName);
+    NotifyPropertyChanged(nameof(CanCreateFilter));
   }
 
   #region Individual boolean properties for Function used in RadioButton.
@@ -132,6 +133,9 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   public bool NotLess { get => Function == NumPredicateFunction.NotLess; set { if (value) Function = NumPredicateFunction.NotLess; } }
 
   #endregion
+
+  /// <inheritdoc/>
+  public override bool CanCreateFilter => Function!=null;
 
   /// <summary>
   /// Creates DataGridColumnFilter basing on current properties.

@@ -13,9 +13,13 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     Items.CollectionChanged += Items_CollectionChanged;
   }
 
-  private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+  private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
   {
-    //Debug.WriteLine($"{e.Action}");
+    Debug.WriteLine($"{args.Action}");
+    //switch (args.Action)
+    //{
+    //  case NotifyCollectionChangedAction.Add:
+    //}
   }
 
   /// <summary>
@@ -30,6 +34,7 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
       {
         _Operation = value;
         NotifyPropertyChanged(nameof(Operation));
+        NotifyPropertyChanged(nameof(CanCreateFilter));
       }
     }
   }
@@ -57,11 +62,35 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     foreach (var item in Items)
     {
       var newItem = item.CreateCopy();
-      other.Items.Add(newItem);
+      if (newItem != null)
+        other.Items.Add(newItem);
     }
     other.Operation = this.Operation;
     return other;
   }
+
+  /// <summary>
+  /// Gets a collection of filtered columns in the EditedInstance.
+  /// </summary>
+  public override FilterableColumns? GetFilteredColumns()
+  {
+    if (Items.Count == 0) return null;
+
+    var columns = new FilterableColumns();
+    foreach (var item in Items)
+    {
+      var itemColumns = item.GetFilteredColumns();
+      if (itemColumns != null)
+        foreach (var column in itemColumns)
+          if (!columns.Contains(column)) 
+            columns.Add(column);
+    }
+    return columns;
+  }
+
+
+  /// <inheritdoc/>
+  public override bool CanCreateFilter => Operation!=null;
 
   /// <inheritdoc/>
   public override IFilter? CreateFilter()
@@ -105,4 +134,5 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     }
     return false;
   }
+
 }

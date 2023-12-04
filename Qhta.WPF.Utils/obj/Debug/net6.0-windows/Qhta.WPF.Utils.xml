@@ -1467,6 +1467,11 @@
               Looks up a localized string similar to And.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.Apply">
+            <summary>
+              Looks up a localized string similar to Apply.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.Cancel">
             <summary>
               Looks up a localized string similar to Cancel.
@@ -1490,6 +1495,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.ChangeFilter">
             <summary>
               Looks up a localized string similar to Replace filter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.Clear">
+            <summary>
+              Looks up a localized string similar to Clear.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.ClearAllFilters">
@@ -4067,6 +4077,9 @@
             Specifies whether predicate function is NotEmpty.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.CreateFilter">
             <summary>
             Creates DataGridColumnFilter basing on current properties.
@@ -4127,6 +4140,14 @@
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CreateCopy">
             <inheritdoc/>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.GetFilteredColumns">
+            <summary>
+            Gets a collection of filtered columns in the EditedInstance.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CreateFilter">
             <inheritdoc/>
         </member>
@@ -4147,9 +4168,14 @@
             ViewModel for filter of DataGrid
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.#ctor">
+        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.#ctor(System.Windows.Controls.DataGrid)">
             <summary>
-            Default constructor
+            Initializing constructor
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.TargetControl">
+            <summary>
+            Control to which this object is assigned.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.DialogResult">
@@ -4163,7 +4189,10 @@
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.EditedInstance">
-            <inheritdoc/>
+            <summary>
+            This view model is not edited
+            but its component filter is the edited instance.
+            </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.GetComponent(System.String)">
             <summary>
@@ -4183,11 +4212,48 @@
         <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.CreateCopy">
             <inheritdoc/>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.CreateFilter">
             <inheritdoc/>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilter">
             <inheritdoc/>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ApplyFilterCommand">
+            <summary>
+            This command applies the edited instance filter to the owner data grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ApplyFilterCanExecute(System.Object)">
+             <summary>
+            Editable instance must be able to get the filter
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ApplyFilterExecute(System.Object)">
+            <summary>
+            Creates a new compound filter and adds this to it.
+            In current owner changes edited instance to the compound filter.
+            Also creates a new generic column filter and adds it to the owner filter as next operand.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilterCommand">
+            <summary>
+            This command removes this filter from owner AND/OR filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilterCanExecute(System.Object)">
+            <summary>
+            Can execute only if has owner compound filter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilterExecute(System.Object)">
+            <summary>
+            Clears this filter from owner compound filter.
+            </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel">
             <summary>
@@ -4256,6 +4322,9 @@
             <summary>
             Specifies whether predicate function is NotEmpty.
             </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.CreateFilter">
             <summary>
@@ -4412,11 +4481,22 @@
             Info of all filterable columns
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.GetFilteredColumns">
+            <summary>
+            Gets a collection of filtered columns in the EditedInstance.
+            In the basic implementation a 1-object collection containing edited instance column is returned. 
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.CreateCopy">
             <summary>
             This method must create a copy of the original instance;
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.CanCreateFilter">
+            <summary>
+            Observable property which tells if filter view model can create a filter.
+            </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.CreateFilter">
             <summary>
@@ -4477,13 +4557,31 @@
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.AddFilterCanExecute(System.Object)">
             <summary>
-            Can always execute.
+            In theory can always execute, but must check owner (and parameter).
             </summary>
             <returns></returns>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.AddFilterExecute(System.Object)">
             <summary>
-            Execute AddFilterCommand
+            Creates a new compound filter and adds this to it.
+            In current owner changes edited instance to the compound filter.
+            Also creates a new generic column filter and adds it to the owner filter as next operand.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.RemoveFilterCommand">
+            <summary>
+            This command removes this filter from owner AND/OR filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.RemoveFilterCanExecute(System.Object)">
+            <summary>
+            Can execute only if has owner compound filter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.RemoveFilterExecute(System.Object)">
+            <summary>
+            Removes this filter from owner compound filter.
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel">
@@ -4539,9 +4637,14 @@
             Creates a specific dataType Filter.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CanCreateFilter">
+            <summary>
+            Tells if the specific ColumnFilter can create a filter.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateFilter">
             <summary>
-            Creates a specific ColumnFiltere.
+            Creates a specific ColumnFilter.
             </summary>
             <returns></returns>
         </member>
@@ -4703,6 +4806,9 @@
             Specifies whether predicate function is NotLess.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CanCreateFilter">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CreateFilter">
             <summary>
             Creates DataGridColumnFilter basing on current properties.
@@ -4796,6 +4902,9 @@
             <summary>
             Specifies whether predicate function is NotEmpty.
             </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.CreateFilter">
             <summary>
@@ -4900,6 +5009,9 @@
             <summary>
             Specifies whether predicate function is RegExpr.
             </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CreateFilter">
             <summary>

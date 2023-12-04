@@ -62,7 +62,7 @@ public class TextFilterViewModel : FilterViewModel
   /// <summary>
   /// Selected predicate function.
   /// </summary>
-  public TextPredicateFunction Function
+  public TextPredicateFunction? Function
   {
     get { return _Function; }
     set
@@ -74,13 +74,14 @@ public class TextFilterViewModel : FilterViewModel
       }
     }
   }
-  private TextPredicateFunction _Function;
+  private TextPredicateFunction? _Function;
 
   private void NotifyFunctionChanged()
   {
     NotifyPropertyChanged(nameof(Function));
     foreach (var enumName in typeof(TextPredicateFunction).GetEnumNames())
       NotifyPropertyChanged(enumName);
+    NotifyPropertyChanged(nameof(CanCreateFilter));
   }
 
   /// <summary>
@@ -143,6 +144,9 @@ public class TextFilterViewModel : FilterViewModel
   public bool RegExpr { get => Function == TextPredicateFunction.RegExpr; set { if (value) Function = TextPredicateFunction.RegExpr; } }
 
   #endregion
+
+  /// <inheritdoc/>
+  public override bool CanCreateFilter => Function!=null;
 
   /// <summary>
   /// Creates DataGridColumnFilter basing on current properties.
