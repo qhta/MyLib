@@ -503,7 +503,7 @@
         <member name="T:Qhta.WPF.Utils.CollectionViewBehavior">
             <summary>
             Establishes synchronized binding between CollectionView and Collection which has thread-safe operations.
-            Defines many attached properties for Column and ItemsControls (like DataGrid) that help to format DataGridColumns.
+            Defines many attached properties for Column and ItemsControls (like DataGrid) that help to format columns.
             </summary>
             <summary>
             CollectionViewBehavior
@@ -827,13 +827,14 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.ItemsControl,System.Windows.Controls.DataGridColumn,Qhta.WPF.Utils.PropPath,System.Windows.Point,System.Windows.Window)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.ItemsControl,System.Windows.Data.CollectionView,System.Windows.Controls.DataGridColumn,Qhta.WPF.Utils.PropPath,System.Windows.Point,System.Windows.Window)">
             <summary>
             Displays a filter dialog for a column bound to the specific property info path.
             Dialog is displayed in specific screen position.
             View model is stored in column's attached ColumnFilter property.
             </summary>
             <param name="itemsControl">Control with columns. Usually DataGrid</param>
+            <param name="collectionView">Filtered collections</param>
             <param name="column"></param>
             <param name="propPath"></param>
             <param name="position"></param>
@@ -897,6 +898,13 @@
             Helper property to store CollectionFilter property. It can be any object.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.CollectionFilterPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Method invoked on CollectionFilterProperty changed event.
+            </summary>
+            <param name="dependencyObject"></param>
+            <param name="args"></param>
+        </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilteredColumn(Qhta.WPF.Utils.ViewModels.FilterableColumns,System.Windows.Controls.DataGridColumn)">
             <summary>
             Gets filterable column info from FilterableColumns
@@ -905,7 +913,7 @@
             <param name="column"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterableColumns(System.Windows.Controls.DataGrid)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterableColumns(System.Windows.Controls.ItemsControl)">
             <summary>
             Gets a collection of filterable columns of the data grid.
             </summary>
@@ -4111,6 +4119,103 @@
             Is boolean defined (is not null)?
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel">
+            <summary>
+            ViewModel for filter of CollectionView
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.#ctor">
+            <summary>
+            Initializing constructor
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.TargetControl">
+            <summary>
+            ItemsControl to which this object is assigned.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CollectionView">
+            <summary>
+            CollectionView to which this object is assigned.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.DialogResult">
+            <summary>
+            Result of the FilterDialog
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ColumnNames">
+            <summary>
+            Names of columns to select.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.EditedInstance">
+            <summary>
+            This view model is not edited
+            but its component filter is the edited instance.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.GetComponent(System.String)">
+            <summary>
+            Returns the Filter component.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ChangeComponent(System.String,System.Object)">
+            <summary>
+            Changes the Filter component to new instance.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ChangeComponent(System.Object,System.Object)">
+            <summary>
+            Changes the Instance component to new instance.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CreateCopy">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CanCreateFilter">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CreateFilter">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ClearFilter">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ApplyFilterCommand">
+            <summary>
+            This command applies the edited instance filter to the owner data grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ApplyFilterCanExecute(System.Object)">
+             <summary>
+            Editable instance must be able to get the filter
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ApplyFilterExecute(System.Object)">
+            <summary>
+            Creates a new compound filter and adds this to it.
+            In current owner changes edited instance to the compound filter.
+            Also creates a new generic column filter and adds it to the owner filter as next operand.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ClearFilterCommand">
+            <summary>
+            This command removes this filter from owner AND/OR filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ClearFilterCanExecute(System.Object)">
+            <summary>
+            Can execute only if has owner compound filter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ClearFilterExecute(System.Object)">
+            <summary>
+            Clears this filter from owner compound filter.
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel">
             <summary>
             A compound filter which can contain many subfilters and evaluate their and/or aggregate function.
@@ -4162,98 +4267,6 @@
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.ChangeComponent(System.Object,System.Object)">
             <inheritdoc/>
-        </member>
-        <member name="T:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel">
-            <summary>
-            ViewModel for filter of DataGrid
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.#ctor(System.Windows.Controls.DataGrid)">
-            <summary>
-            Initializing constructor
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.TargetControl">
-            <summary>
-            Control to which this object is assigned.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.DialogResult">
-            <summary>
-            Result of the FilterDialog
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ColumnNames">
-            <summary>
-            Names of columns to select.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.EditedInstance">
-            <summary>
-            This view model is not edited
-            but its component filter is the edited instance.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.GetComponent(System.String)">
-            <summary>
-            Returns the Filter component.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ChangeComponent(System.String,System.Object)">
-            <summary>
-            Changes the Filter component to new instance.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ChangeComponent(System.Object,System.Object)">
-            <summary>
-            Changes the Instance component to new instance.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.CreateCopy">
-            <inheritdoc/>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.CanCreateFilter">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.CreateFilter">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilter">
-            <inheritdoc/>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ApplyFilterCommand">
-            <summary>
-            This command applies the edited instance filter to the owner data grid.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ApplyFilterCanExecute(System.Object)">
-             <summary>
-            Editable instance must be able to get the filter
-             </summary>
-             <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ApplyFilterExecute(System.Object)">
-            <summary>
-            Creates a new compound filter and adds this to it.
-            In current owner changes edited instance to the compound filter.
-            Also creates a new generic column filter and adds it to the owner filter as next operand.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilterCommand">
-            <summary>
-            This command removes this filter from owner AND/OR filter.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilterCanExecute(System.Object)">
-            <summary>
-            Can execute only if has owner compound filter.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.DataGridFilterViewModel.ClearFilterExecute(System.Object)">
-            <summary>
-            Clears this filter from owner compound filter.
-            </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel">
             <summary>

@@ -63,6 +63,7 @@ public class BoolFilterViewModel : FilterViewModel
     foreach (var enumName in typeof(BoolPredicateFunction).GetEnumNames())
       NotifyPropertyChanged(enumName);
     NotifyPropertyChanged(nameof(CanCreateFilter));
+    CommandManager.InvalidateRequerySuggested();
   }
 
   #region Individual boolean properties for Function used in RadioButton.

@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Establishes synchronized binding between CollectionView and Collection which has thread-safe operations.
-/// Defines many attached properties for Column and ItemsControls (like DataGrid) that help to format DataGridColumns.
+/// Defines many attached properties for Column and ItemsControls (like DataGrid) that help to format columns.
 /// </summary>
 public partial class CollectionViewBehavior
 {

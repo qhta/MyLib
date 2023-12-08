@@ -12,8 +12,8 @@ TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 
 28-1932731233
 
-107-959373998
-205-500310868
+1071613337831
+205-1924275518
 Resources\AeroStyles.xaml;Resources\ClassicStyles.PresentationUI.xaml;Resources\ClassicStyles.xaml;Resources\ClearButtonStyle.xaml;Resources\ComboBoxStyle.xaml;Resources\DataGridStyle.xaml;Resources\GridViewStyle.xaml;Resources\ImageButtonStyle.xaml;Resources\ListBoxStyle.xaml;Resources\ListViewStyle.xaml;Resources\MulticolumnTreeViewItemStyle.xaml;Resources\MultiselectListViewItemStyle.xaml;Resources\MultiselectTreeViewItemStyle.xaml;Resources\TextBoxAnimationStyle.xaml;Resources\ToggleButtonStyle.xaml;Resources\ToolTipStyle.xaml;Resources\TreeViewItemStyle.xaml;Resources\WpfUtils.Resources.xaml;TimingMessageBox.xaml;Views\BoolFilterView.xaml;Views\CompoundFilterView.xaml;Views\EnumFilterView.xaml;Views\FilterDialog.xaml;Views\GenericColumnFilterView.xaml;Views\GenericFilterView.xaml;Views\NumFilterView.xaml;Views\ObjFilterView.xaml;Views\TextFilterView.xaml;
 
 False

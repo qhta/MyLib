@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A simple MVVM framework which enables worker threads to invoke UI notification vi" +
     "a ObservableObjects.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.9.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.9+a42f5ccab9d57c11ab3aaba0aa1ac899e694911d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.MVVM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.MVVM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.9.0.0")]

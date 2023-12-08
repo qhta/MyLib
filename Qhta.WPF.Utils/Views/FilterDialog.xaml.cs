@@ -38,7 +38,7 @@ public partial class FilterDialog : Window
 
   private void ColumnSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
   {
-    if (DataContext is DataGridFilterViewModel viewModel &&
+    if (DataContext is CollectionViewFilterViewModel viewModel &&
       args.AddedItems.Count == 1 && args.AddedItems[0] is FilterableColumnInfo info)
     {
       var filter = viewModel.EditedInstance;

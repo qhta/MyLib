@@ -73,8 +73,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     if (sender != null && args.PropertyName != null)
     {
       if (args.PropertyName == nameof(CanCreateFilter))
-
-        NotifyPropertyChanged(sender, args.PropertyName);
+        NotifyPropertyChanged(this, args.PropertyName);
     }
   }
 
@@ -82,22 +81,26 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   private FilterViewModel? _OldInstance;
 
 
-  private void GenericColumnFilterViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+  private void GenericColumnFilterViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs args)
   {
     //Debug.WriteLine($"PropertyChanged({e.PropertyName})");
-    if (e.PropertyName == nameof(PropPath))
+    if (args.PropertyName == nameof(PropPath))
     {
       if (PropPath != null)
         SpecificFilter = CreateSpecificFilter();
     }
-    if (e.PropertyName == nameof(Column))
+    if (args.PropertyName == nameof(Column))
     {
       PropPath = Column?.PropPath;
     }
-    if (e.PropertyName == nameof(SpecificFilter))
+    if (args.PropertyName == nameof(SpecificFilter))
     {
       //if (Owner!=null)
       //  Owner.ChangeComponent(_OldInstance, SpecificFilter);
+    }
+    if (args.PropertyName==nameof(CanCreateFilter))
+    {
+      //    NotifyPropertyChanged(this, args.PropertyName);
     }
   }
 

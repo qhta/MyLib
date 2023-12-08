@@ -97,7 +97,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="sender"></param>
   /// <param name="args"></param>
-  public virtual void OnShowFilterButton_Clicked(object sender, RoutedEventArgs args)
+  public static void OnShowFilterButton_Clicked(object sender, RoutedEventArgs args)
   {
     if (sender is Button button)
     {
@@ -112,13 +112,11 @@ public partial class CollectionViewBehavior
         while (itemsSource is CollectionView collectionView)
           itemsSource = collectionView.SourceCollection;
         if (sourceCollectionView == null && filteredCollection == null)
-        {
           sourceCollectionView = itemsControl.Items as CollectionView;
-          if (sourceCollectionView == null)
-          {
-            MessageBox.Show(CommonStrings.CantFilterThisCollection);
-            return;
-          }
+        if (sourceCollectionView == null)
+        {
+          MessageBox.Show(CommonStrings.CantFilterThisCollection);
+          return;
         }
         if (itemsSource != null)
         {
@@ -133,7 +131,7 @@ public partial class CollectionViewBehavior
                 var propertyInfo = propPath.LastOrDefault();
                 if (propertyInfo != null)
                 {
-                  var ok = DisplayFilterDialog(itemsControl, column, propPath, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
+                  var ok = DisplayFilterDialog(itemsControl, sourceCollectionView, column, propPath, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
                     VisualTreeHelperExt.FindAncestor<Window>(button));
                   if (ok)
                   {
@@ -174,44 +172,41 @@ public partial class CollectionViewBehavior
   /// View model is stored in column's attached ColumnFilter property.
   /// </summary>
   /// <param name="itemsControl">Control with columns. Usually DataGrid</param>
+  /// <param name="collectionView">Filtered collections</param>
   /// <param name="column"></param>
   /// <param name="propPath"></param>
   /// <param name="position"></param>
   /// <param name="ownerWindow"></param>
-  public virtual bool DisplayFilterDialog(ItemsControl itemsControl, DataGridColumn column, PropPath propPath, Point position, Window? ownerWindow)
+  public static bool DisplayFilterDialog(ItemsControl itemsControl, CollectionView collectionView, DataGridColumn column, PropPath propPath, Point position, Window? ownerWindow)
   {
-    if (itemsControl is DataGrid dataGrid)
+    var propInfo = propPath.Last();
+    var columnName = column.GetHeaderText();
+    if (columnName == null)
     {
-      var propInfo = propPath.Last();
-      var columnName = column.GetHeaderText();
+      columnName = GetHiddenHeader(column);
       if (columnName == null)
-      {
-        columnName = GetHiddenHeader(column);
-        if (columnName == null)
-          columnName = propInfo.Name;
-      }
-      var dialog = new FilterDialog();
-      var viewModel = new DataGridFilterViewModel(dataGrid);
-      var editedFilter = (GetColumnFilter(column) as FilterViewModel)?.CreateCopy();
-      if (editedFilter != null)
-        editedFilter = new GenericColumnFilterViewModel(editedFilter, columnName);
-      else
-        editedFilter = new GenericColumnFilterViewModel(propPath, columnName, viewModel);
-      viewModel.EditedInstance = editedFilter;
-      //if (itemsControl is DataGrid dataGrid)
-      {
-        viewModel.Columns = GetFilterableColumns(dataGrid);
-        viewModel.Column = GetFilteredColumn(viewModel.Columns, column);
-      }
-      dialog.DataContext = viewModel;
-      dialog.Left = position.X;
-      dialog.Top = position.Y;
-      dialog.Owner = ownerWindow;
-      if (dialog.ShowDialog() == true)
-      {
-        SetColumnFilter(column, viewModel);
-        return true;
-      }
+        columnName = propInfo.Name;
+    }
+    var dialog = new FilterDialog();
+    var viewModel = new CollectionViewFilterViewModel();
+    viewModel.CollectionView = collectionView;
+    viewModel.Columns = GetFilterableColumns(itemsControl);
+    viewModel.Column = GetFilteredColumn(viewModel.Columns, column);
+    var editedFilter = (GetColumnFilter(column) as FilterViewModel)?.CreateCopy();
+    if (editedFilter != null)
+      editedFilter = new GenericColumnFilterViewModel(editedFilter, columnName);
+    else
+      editedFilter = new GenericColumnFilterViewModel(propPath, columnName, viewModel);
+    viewModel.EditedInstance = editedFilter;
+
+    dialog.DataContext = viewModel;
+    dialog.Left = position.X;
+    dialog.Top = position.Y;
+    dialog.Owner = ownerWindow;
+    if (dialog.ShowDialog() == true)
+    {
+      SetColumnFilter(column, viewModel);
+      return true;
     }
     return false;
   }
@@ -308,23 +303,17 @@ public partial class CollectionViewBehavior
       "CollectionFilter",
       typeof(object),
       typeof(CollectionViewBehavior),
-      new PropertyMetadata(null));
+      new PropertyMetadata(null, CollectionFilterPropertyChanged));
   #endregion
 
-
-  ///// <summary>
-  ///// Gets filterable column info from DataGrid
-  ///// </summary>
-  ///// <param name="dataGrid"></param>
-  ///// <param name="column"></param>
-  ///// <returns></returns>
-  //public FilterableColumnInfo? GetFilteredColumn(DataGrid dataGrid, DataGridColumn column)
-  //{
-  //  var dataItemType = GetDataItemType(dataGrid);
-  //  if (dataItemType == null)
-  //    return null;
-  //  return GetFilterableColumnInfo(dataItemType, column);
-  //}
+  /// <summary>
+  /// Method invoked on CollectionFilterProperty changed event.
+  /// </summary>
+  /// <param name="dependencyObject"></param>
+  /// <param name="args"></param>
+  public static void CollectionFilterPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+  {
+  }
 
   /// <summary>
   /// Gets filterable column info from FilterableColumns
@@ -332,7 +321,7 @@ public partial class CollectionViewBehavior
   /// <param name="columns"></param>
   /// <param name="column"></param>
   /// <returns></returns>
-  public FilterableColumnInfo? GetFilteredColumn(FilterableColumns? columns, DataGridColumn column)
+  public static FilterableColumnInfo? GetFilteredColumn(FilterableColumns? columns, DataGridColumn column)
   {
     return columns?.FirstOrDefault(item => item.Column == column);
   }
@@ -340,19 +329,22 @@ public partial class CollectionViewBehavior
   /// <summary>
   /// Gets a collection of filterable columns of the data grid.
   /// </summary>
-  public FilterableColumns? GetFilterableColumns(DataGrid dataGrid)
+  public static FilterableColumns? GetFilterableColumns(ItemsControl itemsControl)
   {
-    var dataItemType = GetDataItemType(dataGrid);
-    if (dataItemType == null)
-      return null;
     var columns = new FilterableColumns();
-    foreach (var column in dataGrid.Columns)
-      if (column is DataGridBoundColumn boundColumn)
-      {
-        var info = GetFilterableColumnInfo(dataItemType, boundColumn);
-        if (info != null)
-          columns.Add(info);
-      }
+    if (itemsControl is DataGrid dataGrid)
+    {
+      var dataItemType = GetDataItemType(dataGrid);
+      if (dataItemType == null)
+        return null;
+      foreach (var column in dataGrid.Columns)
+        if (column is DataGridBoundColumn boundColumn)
+        {
+          var info = GetFilterableColumnInfo(dataItemType, boundColumn);
+          if (info != null)
+            columns.Add(info);
+        }
+    }
     return columns;
   }
 
@@ -362,7 +354,7 @@ public partial class CollectionViewBehavior
   /// <param name="dataGrid"></param>
   /// <returns></returns>
   /// <exception cref="InvalidOperationException"></exception>
-  public Type? GetDataItemType(DataGrid dataGrid)
+  public static Type? GetDataItemType(DataGrid dataGrid)
   {
     var itemsSource = dataGrid.ItemsSource;
     if (itemsSource == null)
@@ -386,7 +378,7 @@ public partial class CollectionViewBehavior
   /// <summary>
   /// Gets filterable column info of the data grid bound column.
   /// </summary>
-  public FilterableColumnInfo? GetFilterableColumnInfo(Type dataItemType, DataGridColumn column)
+  public static FilterableColumnInfo? GetFilterableColumnInfo(Type dataItemType, DataGridColumn column)
   {
     if (column.TryGetFilterablePropertyPath(dataItemType, out var filterablePropertyPath))
     {

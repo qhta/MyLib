@@ -2,24 +2,28 @@
 namespace Qhta.WPF.Utils.ViewModels;
 
 /// <summary>
-/// ViewModel for filter of DataGrid
+/// ViewModel for filter of CollectionView
 /// </summary>
-public class DataGridFilterViewModel : FilterViewModel, IObjectOwner
+public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
 {
   /// <summary>
   /// Initializing constructor
   /// </summary>
-  public DataGridFilterViewModel(DataGrid dataGrid) : base()
+  public CollectionViewFilterViewModel() : base()
   {
-    TargetControl = dataGrid;
     ApplyFilterCommand = new RelayCommand<object>(ApplyFilterExecute, ApplyFilterCanExecute) { Name = "ApplyFilterCommand" };
     ClearFilterCommand = new RelayCommand<object>(ClearFilterExecute, ClearFilterCanExecute) { Name = "ClearFilterCommand" };
   }
 
   /// <summary>
-  /// Control to which this object is assigned.
+  /// ItemsControl to which this object is assigned.
   /// </summary>
-  public DataGrid TargetControl { get; private set; }
+  public ItemsControl? TargetControl { get; set; }
+
+  /// <summary>
+  /// CollectionView to which this object is assigned.
+  /// </summary>
+  public CollectionView? CollectionView { get; set; }
 
   /// <summary>
   /// Result of the FilterDialog
@@ -57,7 +61,7 @@ public class DataGridFilterViewModel : FilterViewModel, IObjectOwner
   {
     if (args.PropertyName==nameof(CanCreateFilter))
     {
-      //ApplyFilterCommand.NotifyCanExecuteChanged();
+      ApplyFilterCommand.NotifyCanExecuteChanged();
       CommandManager.InvalidateRequerySuggested();
     }
   }
@@ -161,7 +165,8 @@ public class DataGridFilterViewModel : FilterViewModel, IObjectOwner
     var filter = EditedInstance?.CreateFilter();
     if (filter != null) 
     {
-      CollectionViewBehavior.SetCollectionFilter(TargetControl, filter);
+      if (CollectionView!=null)
+        CollectionView.Filter = filter.GetPredicate();
     }
   }
   #endregion

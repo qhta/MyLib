@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:Qhta.WPF.Utils.ViewModels"
         x:Name="MainWindow"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type={x:Type vm:DataGridFilterViewModel}}"
+        d:DataContext="{d:DesignInstance Type={x:Type vm:CollectionViewFilterViewModel}}"
         d:Height="300"
         d:Width="300"
         MinWidth="300"

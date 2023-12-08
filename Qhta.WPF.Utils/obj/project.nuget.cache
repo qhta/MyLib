@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "eA3OEfFZ7h30TS6XR+wk3BU+hpIU/3pCIIwF3Nfn5ulYewZZ3tbFBeF5QgUEnh+VQT5BSwXIrXo1XRjpJNi6XA==",
+  "dgSpecHash": "o0Q2HlAfMeeM9Fp2J5AEkN7sX/ixrFX2dd6xEsIFn89tGFI0G1Cp5O+s/D7OOzKbFNiDB5FoILp3z/gPVJWC0g==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
   "expectedPackageFiles": [
@@ -10,8 +10,8 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.htmlutils\\2.1.0\\qhta.htmlutils.2.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.8.0\\qhta.mvvm.3.8.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.7.0\\qhta.observableobjects.2.7.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.9.0\\qhta.mvvm.3.9.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.8.0\\qhta.observableobjects.2.8.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.3.0\\qhta.ordnumbers.2.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.11\\qhta.typeutils.1.3.11.nupkg.sha512",
