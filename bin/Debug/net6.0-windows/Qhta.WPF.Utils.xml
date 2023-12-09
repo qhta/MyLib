@@ -931,6 +931,14 @@
             Gets filterable column info of the data grid bound column.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.MarkFilteredColumns(Qhta.WPF.Utils.ViewModels.FilterableColumns,Qhta.WPF.Utils.ViewModels.FilterableColumns)">
+            <summary>
+            Marks filtered columns with FilterButtonShape.Filled image 
+            and all other filterableColumns with FilterButtonShape.Empty image.
+            </summary>
+            <param name="filterableColumns"></param>
+            <param name="filteredColumns"></param>
+        </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.InitializeComponent">
             <summary>
             InitializeComponent
@@ -4241,6 +4249,18 @@
             <summary>
             Component filters.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.Add(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            Adds a component filter;
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.Remove(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            Removes a component filter;
+            </summary>
+            <param name="item"></param>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CreateCopy">
             <inheritdoc/>

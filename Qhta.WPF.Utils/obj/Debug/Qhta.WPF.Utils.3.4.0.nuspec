@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package classes (converters) to use in WPF applications.</description>
-    <repository type="git" commit="bff218f9d04d15b6639f50ccbe8db100c8e118e0" />
+    <repository type="git" commit="eeb00627e076d8c890c8c47fc6de92f9be947f2f" />
     <dependencies>
       <group targetFramework="net6.0-windows7.0">
         <dependency id="Qhta.HtmlUtils" version="2.1.0" exclude="Build,Analyzers" />

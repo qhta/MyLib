@@ -31,21 +31,25 @@ public class CompoundFilter : IFilter
     get
     {
       if (Operation == BooleanOperation.And)
-        return new Predicate<object>((obj) =>
-        {
-          foreach (var item in Items)
-            if (!item.Accept(obj)) return false;
-          return true;
-        });
+        return AndOperation;
       if (Operation == BooleanOperation.Or)
-        return new Predicate<object>((obj) =>
-        {
-          foreach (var item in Items)
-            if (item.Accept(obj)) return true;
-          return false;
-        });
+        return OrOperation;
       throw new InvalidOperationException($"Compound filter boolean operation not specified");
     }
+  }
+
+  private bool AndOperation(object obj)
+  {
+    foreach (var item in Items)
+      if (!item.Accept(obj)) return false;
+    return true;
+  }
+
+  private bool OrOperation(object obj)
+  {
+    foreach (var item in Items)
+      if (item.Accept(obj)) return true;
+    return false;
   }
 
   /// <summary>

@@ -87,7 +87,10 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     if (args.PropertyName == nameof(PropPath))
     {
       if (PropPath != null)
-        SpecificFilter = CreateSpecificFilter();
+      {
+        if (SpecificFilter?.Column?.PropPath != PropPath)
+          SpecificFilter = CreateSpecificFilter();
+      }
     }
     if (args.PropertyName == nameof(Column))
     {
@@ -143,8 +146,8 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// <returns></returns>
   public override FilterViewModel CreateCopy()
   {
-    if (PropPath != null && ColumnName != null)
-      return CreateSpecificFilter(PropPath, ColumnName, DataType, Owner);
+    //if (PropPath != null && ColumnName != null)
+    //  return CreateSpecificFilter(PropPath, ColumnName, DataType, Owner);
     return new GenericColumnFilterViewModel(PropPath, ColumnName, Owner);
   }
 

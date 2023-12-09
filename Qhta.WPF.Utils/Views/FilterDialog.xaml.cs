@@ -20,19 +20,17 @@ public partial class FilterDialog : Window
 
   private void OkButton_Click(object sender, RoutedEventArgs args)
   {
+    if (DataContext is FilterViewModel filterViewModel)
+      filterViewModel.ClearOp = false;
     DialogResult = true;
     Close();
   }
 
   private void CancelButton_Click(object sender, RoutedEventArgs args)
   {
+    if (DataContext is FilterViewModel filterViewModel)
+      filterViewModel.ClearOp = false;
     DialogResult = false;
-    Close();
-  }
-
-  private void RemoveButton_Click(object sender, RoutedEventArgs args)
-  {
-    //DialogResult = false;
     Close();
   }
 
@@ -47,8 +45,11 @@ public partial class FilterDialog : Window
     }
   }
 
-  private void AddButton_Click(object sender, RoutedEventArgs e)
+  private void ClearButton_Click(object sender, RoutedEventArgs e)
   {
-
+    if (DataContext is FilterViewModel filterViewModel)
+      filterViewModel.ClearOp = true;
+    DialogResult = true;
+    Close();
   }
 }

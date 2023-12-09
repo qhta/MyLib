@@ -126,7 +126,8 @@ public abstract class FilterViewModel : ViewModel
     if (EditedInstance?.Column!=null)
     {
       var result = new FilterableColumns();
-      result.Add(EditedInstance.Column);
+      if (EditedInstance.CanCreateFilter)
+        result.Add(EditedInstance.Column);
       return result;
     }
     return null;
@@ -309,13 +310,12 @@ public abstract class FilterViewModel : ViewModel
       }
       if (op != null)
       {
-        var compoundFilter = new CompoundFilterViewModel(Owner);
-        compoundFilter.Operation = op;
-        compoundFilter.Items.Add(this);
+        var compoundFilter = new CompoundFilterViewModel(Owner) { Operation = op };
+        compoundFilter.Add(this);
         Owner.ChangeComponent(EditedInstance, compoundFilter);
         EditedInstance!.Owner = compoundFilter;
         var nextOp = new GenericColumnFilterViewModel(compoundFilter);
-        compoundFilter.Items.Add(nextOp);
+        compoundFilter.Add(nextOp);
       }
     }
   }
@@ -344,7 +344,7 @@ public abstract class FilterViewModel : ViewModel
   {
     if (Owner is CompoundFilterViewModel compoundFilter)
     {
-      compoundFilter.Items.Remove(this);
+      compoundFilter.Remove(this);
     }
   }
   #endregion

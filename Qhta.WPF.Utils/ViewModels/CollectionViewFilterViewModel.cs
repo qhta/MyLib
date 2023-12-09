@@ -47,10 +47,10 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
     {
       if (_EditedInstance != value)
       {
-        if (_EditedInstance!=null)
+        if (_EditedInstance != null)
           _EditedInstance.PropertyChanged -= _EditedInstance_PropertyChanged;
         _EditedInstance = value;
-        if (_EditedInstance!=null)
+        if (_EditedInstance != null)
           _EditedInstance.PropertyChanged += _EditedInstance_PropertyChanged;
         NotifyPropertyChanged(nameof(EditedInstance));
       }
@@ -59,7 +59,7 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
 
   private void _EditedInstance_PropertyChanged(object? sender, PropertyChangedEventArgs args)
   {
-    if (args.PropertyName==nameof(CanCreateFilter))
+    if (args.PropertyName == nameof(CanCreateFilter))
     {
       ApplyFilterCommand.NotifyCanExecuteChanged();
       CommandManager.InvalidateRequerySuggested();
@@ -122,7 +122,7 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
   {
     get
     {
-      return EditedInstance?.CanCreateFilter==true;
+      return EditedInstance?.CanCreateFilter == true;
     }
   }
 
@@ -135,7 +135,7 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
   /// <inheritdoc/>
   public override void ClearFilter()
   {
-    throw new NotImplementedException();
+    EditedInstance?.ClearFilter();
   }
   #endregion
 
@@ -152,7 +152,7 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
   /// <returns></returns>
   protected virtual bool ApplyFilterCanExecute(object? parameter)
   {
-    return EditedInstance?.CanCreateFilter==true;
+    return EditedInstance?.CanCreateFilter == true;
   }
 
   /// <summary>
@@ -163,10 +163,14 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
   protected virtual void ApplyFilterExecute(object? parameter)
   {
     var filter = EditedInstance?.CreateFilter();
-    if (filter != null) 
+    if (filter != null)
     {
-      if (CollectionView!=null)
+      //if (TargetControl!=null)
+      //  CollectionViewBehavior.SetCollectionFilter(TargetControl, filter);
+      if (CollectionView != null)
+      {
         CollectionView.Filter = filter.GetPredicate();
+      }
     }
   }
   #endregion

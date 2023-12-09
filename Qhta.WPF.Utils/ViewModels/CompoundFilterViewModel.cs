@@ -55,6 +55,27 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// </summary>
   public ObservableCollection<FilterViewModel> Items { get; private set; } = new ObservableCollection<FilterViewModel>();
 
+  /// <summary>
+  /// Adds a component filter;
+  /// </summary>
+  /// <param name="item"></param>
+  public void Add(FilterViewModel item)
+  {
+    Items.Add(item);
+    item.Owner = this;
+    Owner?.ChangeComponent(EditedInstance, this);
+  }
+
+  /// <summary>
+  /// Removes a component filter;
+  /// </summary>
+  /// <param name="item"></param>
+  public bool Remove(FilterViewModel item)
+  {
+    var result = Items.Remove(item);
+    return result;
+  }
+
   /// <inheritdoc/>
   public override FilterViewModel CreateCopy()
   {
@@ -95,15 +116,23 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <inheritdoc/>
   public override IFilter? CreateFilter()
   {
-    if (Operation is not null)
-      return new CompoundFilter((BooleanOperation)Operation);
-    return null;
+    if (Operation == null)
+      return null;
+    var result = new CompoundFilter((BooleanOperation)Operation);
+    foreach(var item in Items)
+    {
+      var itemFilter = item.CreateFilter();
+      Debug.Assert(itemFilter!=null);
+      if (itemFilter != null)
+        result.Items.Add(itemFilter);
+    }
+    return result;
   }
 
   /// <inheritdoc/>
   public override void ClearFilter()
   {
-    throw new NotImplementedException();
+    //throw new NotImplementedException();
   }
 
   /// <inheritdoc/>
