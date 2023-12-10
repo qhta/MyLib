@@ -39,7 +39,6 @@ public class BoolFilterViewModel : FilterViewModel
     Function = null;
   }
 
-
   /// <summary>
   /// Selected predicate function.
   /// </summary>
@@ -55,7 +54,7 @@ public class BoolFilterViewModel : FilterViewModel
       }
     }
   }
-  private BoolPredicateFunction? _Function;
+  private BoolPredicateFunction? _Function = BoolPredicateFunction.IsTrue;
 
   private void NotifyFunctionChanged()
   {

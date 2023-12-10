@@ -14,6 +14,8 @@
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToolTipStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ClearButtonStyle.xaml"/>
     <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ListBoxStyle.xaml" />
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/DataGridStyle.xaml" />
+    <ResourceDictionary Source="/Qhta.WPF.Utils;component/Resources/ToolWindowStyle.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

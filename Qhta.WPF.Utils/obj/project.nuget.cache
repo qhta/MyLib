@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "o0Q2HlAfMeeM9Fp2J5AEkN7sX/ixrFX2dd6xEsIFn89tGFI0G1Cp5O+s/D7OOzKbFNiDB5FoILp3z/gPVJWC0g==",
+  "dgSpecHash": "E7TA+pKgRsIMFm99DTby/j5ZKNg4lgrs2rfUY7jvFB+Jy8gFqtoJkV2HnMr5W8pxdmm2QaR+njwpLZnhrxUlHQ==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
   "expectedPackageFiles": [
@@ -72,7 +72,19 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\wpf.shell.integration.library\\2.0.0\\wpf.shell.integration.library.2.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WPF.Shell.Integration.Library 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WPF.Shell.Integration.Library",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }

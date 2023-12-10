@@ -1568,6 +1568,11 @@
               Looks up a localized string similar to Is equal.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.IsFalse">
+            <summary>
+              Looks up a localized string similar to Is false.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.IsGreater">
             <summary>
               Looks up a localized string similar to Is greater.
@@ -1576,6 +1581,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.IsLess">
             <summary>
               Looks up a localized string similar to Is less.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.IsTrue">
+            <summary>
+              Looks up a localized string similar to Is true.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotEmpty">
@@ -2184,6 +2194,40 @@
             <summary>
             Gets or Sets the <see cref="P:Qhta.WPF.Utils.Template.DataTemplate"/> used to render items matching the <see cref="P:Qhta.WPF.Utils.Template.DataType"/>
             </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.EnumerateExtension">
+            <summary>
+            Markup extension to be used to show localized enum names.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.EnumerateExtension.Type">
+            <summary>
+            Enum type to get names
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumerateExtension.#ctor(System.Type)">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumerateExtension.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Function to provide enum names.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Utils.EnumToStringConverter">
+            <summary>
+            Converter for enum names to localized strings.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumToStringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.WPF.Utils.EnumToStringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.WPF.Utils.EnumValuesProvider">
             <summary>
@@ -3476,6 +3520,16 @@
         <member name="F:Qhta.WPF.Utils.ToolTipBehavior.ActiveToolTipEnabledProperty">
             <summary>
               Dependency property for ActiveToolTipEnabled
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Utils.ToolWindow">
+            <summary>
+            Tool window hides Close button.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ToolWindow.#ctor">
+            <summary>
+            Default constructor
             </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.TreeViewBehavior">

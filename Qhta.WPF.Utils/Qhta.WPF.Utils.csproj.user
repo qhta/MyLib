@@ -36,6 +36,9 @@
     <Page Update="Resources\DataGridStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Resources\ToolWindowStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\BoolFilterView.xaml">
       <SubType>Designer</SubType>
     </Page>

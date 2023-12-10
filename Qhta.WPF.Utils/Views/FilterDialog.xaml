@@ -1,20 +1,21 @@
-﻿<Window x:Class="Qhta.WPF.Utils.Views.FilterDialog"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Qhta.WPF.Utils"
-        xmlns:views="clr-namespace:Qhta.WPF.Utils.Views"
-        xmlns:vm="clr-namespace:Qhta.WPF.Utils.ViewModels"
-        x:Name="MainWindow"
-        mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type={x:Type vm:CollectionViewFilterViewModel}}"
-        d:Height="300"
-        d:Width="300"
-        MinWidth="300"
-        WindowStyle="ToolWindow"
-        SizeToContent="WidthAndHeight"
-        ShowInTaskbar="False">
+﻿<local:ToolWindow x:Class="Qhta.WPF.Utils.Views.FilterDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:Qhta.WPF.Utils"
+                  xmlns:views="clr-namespace:Qhta.WPF.Utils.Views"
+                  xmlns:vm="clr-namespace:Qhta.WPF.Utils.ViewModels"
+                  xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+                  x:Name="MainWindow"
+                  mc:Ignorable="d"
+                  d:DataContext="{d:DesignInstance Type={x:Type vm:CollectionViewFilterViewModel}}"
+                  d:Height="300"
+                  d:Width="300"
+                  MinWidth="300"
+                  SizeToContent="WidthAndHeight"
+                  Style="{StaticResource ToolWindowStyle}"
+                  ShowInTaskbar="False">
   <Grid x:Name="MainGrid"
         Height="Auto"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -55,8 +56,7 @@
               Content="{x:Static local:CommonStrings.ClearAllFilters}"
               MinWidth="50"
               Margin="10,5"
-              Click="ClearButton_Click"/>
+              Click="ClearButton_Click" />
     </StackPanel>
   </Grid>
-
-</Window>
+</local:ToolWindow>

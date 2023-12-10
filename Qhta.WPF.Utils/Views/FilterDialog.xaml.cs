@@ -5,7 +5,7 @@ namespace Qhta.WPF.Utils.Views;
 /// <summary>
 /// Interaction logic for FilterDialog.xaml
 /// </summary>
-public partial class FilterDialog : Window
+public partial class FilterDialog : ToolWindow
 {
   public FilterDialog()
   {

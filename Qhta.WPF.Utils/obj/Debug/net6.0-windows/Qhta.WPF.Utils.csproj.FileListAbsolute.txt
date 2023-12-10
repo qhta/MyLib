@@ -62,3 +62,4 @@ D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\CompoundFilte
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\CompoundFilterView.baml
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\GenericFilterView.g.cs
 D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Views\GenericFilterView.baml
+D:\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Resources\ToolWindowStyle.baml

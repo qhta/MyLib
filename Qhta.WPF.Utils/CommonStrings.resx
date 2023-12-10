@@ -216,4 +216,10 @@
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="IsTrue" xml:space="preserve">
+    <value>Is true</value>
+  </data>
+  <data name="IsFalse" xml:space="preserve">
+    <value>Is false</value>
+  </data>
 </root>

@@ -232,6 +232,15 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is false.
+        /// </summary>
+        public static string IsFalse {
+            get {
+                return ResourceManager.GetString("IsFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is greater.
         /// </summary>
         public static string IsGreater {
@@ -246,6 +255,15 @@ namespace Qhta.WPF.Utils {
         public static string IsLess {
             get {
                 return ResourceManager.GetString("IsLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is true.
+        /// </summary>
+        public static string IsTrue {
+            get {
+                return ResourceManager.GetString("IsTrue", resourceCulture);
             }
         }
         

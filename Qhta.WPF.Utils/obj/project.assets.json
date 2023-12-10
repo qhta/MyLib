@@ -1170,6 +1170,15 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "WPF.Shell.Integration.Library/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net30/Microsoft.Windows.Shell.dll": {}
+        },
+        "runtime": {
+          "lib/net30/Microsoft.Windows.Shell.dll": {}
+        }
       }
     }
   },
@@ -3873,6 +3882,18 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "WPF.Shell.Integration.Library/2.0.0": {
+      "sha512": "2/ogoINcT9NctVs6ESrl4+FXUnneWh6DlxKMbaShLWRtjMhKMrexWe4da9x16c7bboXcTAZ4LR5SUXkxtMHDHQ==",
+      "type": "package",
+      "path": "wpf.shell.integration.library/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net30/Microsoft.Windows.Shell.dll",
+        "wpf.shell.integration.library.2.0.0.nupkg.sha512",
+        "wpf.shell.integration.library.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -3883,7 +3904,8 @@
       "Qhta.TextUtils >= 3.2.0",
       "Qhta.TypeUtils >= 1.3.11",
       "Qhta.WPF.Converters >= 1.3.1",
-      "System.Drawing.Common >= 7.0.0"
+      "System.Drawing.Common >= 7.0.0",
+      "WPF.Shell.Integration.Library >= 2.0.0"
     ]
   },
   "packageFolders": {
@@ -3961,6 +3983,10 @@
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "WPF.Shell.Integration.Library": {
+            "target": "Package",
+            "version": "[2.0.0, )"
           }
         },
         "imports": [
@@ -3985,5 +4011,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WPF.Shell.Integration.Library 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WPF.Shell.Integration.Library",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }
