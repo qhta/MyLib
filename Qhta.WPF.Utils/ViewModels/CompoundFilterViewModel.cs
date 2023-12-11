@@ -10,17 +10,8 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <param name="owner"></param>
   public CompoundFilterViewModel(IObjectOwner? owner) : base(owner)
   {
-    Items.CollectionChanged += Items_CollectionChanged;
   }
 
-  private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
-  {
-    Debug.WriteLine($"{args.Action}");
-    //switch (args.Action)
-    //{
-    //  case NotifyCollectionChangedAction.Add:
-    //}
-  }
 
   /// <summary>
   /// Specifies what to do with compound filters.
@@ -150,17 +141,17 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <inheritdoc/>
   public bool ChangeComponent(object? oldComponent, object? newComponent)
   {
-    if (newComponent is FilterViewModel newFilter)
-    {
-      for (int i = 0; i < Items.Count; i++)
-      {
-        if (Items[i] == oldComponent)
-        {
-          Items[i] = newFilter;
-          return true;
-        }
-      }
-    }
+    //if (newComponent is FilterViewModel newFilter)
+    //{
+    //  for (int i = 0; i < Items.Count; i++)
+    //  {
+    //    if (Items[i] == oldComponent)
+    //    {
+    //      Items[i] = newFilter;
+    //      return true;
+    //    }
+    //  }
+    //}
     return false;
   }
 

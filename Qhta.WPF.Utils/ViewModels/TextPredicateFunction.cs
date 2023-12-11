@@ -31,14 +31,29 @@
     StartsWith,
 
     /// <summary>
+    /// Whether text does not start with specific string?
+    /// </summary>
+    NotStartsWith,
+
+    /// <summary>
     /// Does text end with specific string?
     /// </summary>
     EndsWith,
 
     /// <summary>
+    /// Whether text does not end with specific string?
+    /// </summary>
+    NotEndsWith,
+
+    /// <summary>
     /// Does text contain specific string?
     /// </summary>
     Contains,
+
+    /// <summary>
+    /// Whether text does not contain specific string?
+    /// </summary>
+    NotContains,
 
     /// <summary>
     /// Is regular expression found in text?

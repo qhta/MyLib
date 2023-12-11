@@ -9,7 +9,9 @@ public class TextFilterViewModel : FilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner) { }
+  public TextFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
+  {
+  }
 
   /// <summary>
   /// Copying constructor.
@@ -38,7 +40,7 @@ public class TextFilterViewModel : FilterViewModel
   public override void ClearFilter()
   {
     FilterText = null;
-    Function = 0;
+    Function = null;
     IgnoreCase = false;
   }
 
@@ -74,7 +76,7 @@ public class TextFilterViewModel : FilterViewModel
       }
     }
   }
-  private TextPredicateFunction? _Function;
+  private TextPredicateFunction? _Function = TextPredicateFunction.IsEqual;
 
   private void NotifyFunctionChanged()
   {
@@ -129,14 +131,29 @@ public class TextFilterViewModel : FilterViewModel
   public bool StartsWith { get => Function == TextPredicateFunction.StartsWith; set { if (value) Function = TextPredicateFunction.StartsWith; } }
 
   /// <summary>
+  /// Specifies whether predicate function is NotStartsWith.
+  /// </summary>
+  public bool NotStartsWith { get => Function == TextPredicateFunction.NotStartsWith; set { if (value) Function = TextPredicateFunction.NotStartsWith; } }
+
+  /// <summary>
   /// Specifies whether predicate function is EndsWith.
   /// </summary>
   public bool EndsWith { get => Function == TextPredicateFunction.EndsWith; set { if (value) Function = TextPredicateFunction.EndsWith; } }
 
   /// <summary>
+  /// Specifies whether predicate function is NotEndsWith.
+  /// </summary>
+  public bool NotEndsWith { get => Function == TextPredicateFunction.NotEndsWith; set { if (value) Function = TextPredicateFunction.NotEndsWith; } }
+
+  /// <summary>
   /// Specifies whether predicate function is Contains.
   /// </summary>
   public bool Contains { get => Function == TextPredicateFunction.Contains; set { if (value) Function = TextPredicateFunction.Contains; } }
+
+  /// <summary>
+  /// Specifies whether predicate function is NotContains.
+  /// </summary>
+  public bool NotContains { get => Function == TextPredicateFunction.NotContains; set { if (value) Function = TextPredicateFunction.NotContains; } }
 
   /// <summary>
   /// Specifies whether predicate function is RegExpr.
@@ -146,7 +163,7 @@ public class TextFilterViewModel : FilterViewModel
   #endregion
 
   /// <inheritdoc/>
-  public override bool CanCreateFilter => Function!=null;
+  public override bool CanCreateFilter => Function != null;
 
   /// <summary>
   /// Creates DataGridColumnFilter basing on current properties.
@@ -179,6 +196,15 @@ public class TextFilterViewModel : FilterViewModel
         break;
       case TextPredicateFunction.EndsWith:
         compareFunction = (IgnoreCase) ? EndsWithIgnoreCaseFunction : EndsWithFunction;
+        break;
+      case TextPredicateFunction.NotContains:
+        compareFunction = (IgnoreCase) ? NotContainsIgnoreCaseFunction : NotContainsFunction;
+        break;
+      case TextPredicateFunction.NotStartsWith:
+        compareFunction = (IgnoreCase) ? NotStartsWithIgnoreCaseFunction : NotStartsWithFunction;
+        break;
+      case TextPredicateFunction.NotEndsWith:
+        compareFunction = (IgnoreCase) ? NotEndsWithIgnoreCaseFunction : NotEndsWithFunction;
         break;
       case TextPredicateFunction.RegExpr:
         compareFunction = (IgnoreCase) ? RegExprIgnoreCaseFunction : RegExprFunction;
@@ -272,6 +298,48 @@ public class TextFilterViewModel : FilterViewModel
   {
     if (propValue is string propString && otherValue is string otherString)
       return propString.EndsWith(otherString, StringComparison.CurrentCultureIgnoreCase);
+    return false;
+  }
+
+  private bool NotContainsFunction(object? propValue, object? otherValue)
+  {
+    if (propValue is string propString && otherValue is string otherString)
+      return !propString.Contains(otherString);
+    return false;
+  }
+
+  private bool NotContainsIgnoreCaseFunction(object? propValue, object? otherValue)
+  {
+    if (propValue is string propString && otherValue is string otherString)
+      return !propString.Contains(otherString, StringComparison.CurrentCultureIgnoreCase);
+    return false;
+  }
+
+  private bool NotStartsWithFunction(object? propValue, object? otherValue)
+  {
+    if (propValue is string propString && otherValue is string otherString)
+      return propString.StartsWith(otherString);
+    return false;
+  }
+
+  private bool NotStartsWithIgnoreCaseFunction(object? propValue, object? otherValue)
+  {
+    if (propValue is string propString && otherValue is string otherString)
+      return !propString.StartsWith(otherString, StringComparison.CurrentCultureIgnoreCase);
+    return false;
+  }
+
+  private bool NotEndsWithFunction(object? propValue, object? otherValue)
+  {
+    if (propValue is string propString && otherValue is string otherString)
+      return !propString.EndsWith(otherString);
+    return false;
+  }
+
+  private bool NotEndsWithIgnoreCaseFunction(object? propValue, object? otherValue)
+  {
+    if (propValue is string propString && otherValue is string otherString)
+      return !propString.EndsWith(otherString, StringComparison.CurrentCultureIgnoreCase);
     return false;
   }
 

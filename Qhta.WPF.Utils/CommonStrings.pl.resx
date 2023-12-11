@@ -222,4 +222,13 @@
   <data name="IsFalse" xml:space="preserve">
     <value>Nieprawda</value>
   </data>
+  <data name="NotStartsWith" xml:space="preserve">
+    <value>Nie zaczyna się od</value>
+  </data>
+  <data name="NotEndsWith" xml:space="preserve">
+    <value>Nie kończy się na</value>
+  </data>
+  <data name="NotContains" xml:space="preserve">
+    <value>Nie zawiera</value>
+  </data>
 </root>

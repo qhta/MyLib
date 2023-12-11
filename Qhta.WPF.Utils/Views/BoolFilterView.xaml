@@ -9,34 +9,15 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type={x:Type vm:BoolFilterViewModel}}"
              d:Height="Auto"
-             d:Width="300"
-             MinWidth="300">
+             d:Width="Auto"
+             MinWidth="200">
   <UserControl.Resources>
     <local:EnumToStringConverter x:Key="EnumToStringConverter" />
   </UserControl.Resources>
-  <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-        Margin="0,0,0,10">
-    <!--<Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <StackPanel>
-      <RadioButton GroupName="SelectFunction"
-                   IsChecked="{Binding Path=IsTrue}"
-                   Content="{x:Static local:CommonStrings.True}" />
-      <RadioButton GroupName="SelectFunction"
-                   IsChecked="{Binding Path=IsFalse}"
-                   Content="{x:Static local:CommonStrings.False}" />
-    </StackPanel>
-    <StackPanel Grid.Column="1">
-      <RadioButton GroupName="SelectFunction"
-                   IsChecked="{Binding Path=IsEmpty}"
-                   Content="{x:Static local:CommonStrings.IsEmpty}" />
-      <RadioButton GroupName="SelectFunction"
-                   IsChecked="{Binding Path=NotEmpty}"
-                   Content="{x:Static local:CommonStrings.NotEmpty}" />
-    </StackPanel>-->
-    <ComboBox ItemsSource="{local:Enumerate {x:Type vm:BoolPredicateFunction}}"
+  <Grid x:Name="BoolFilterViewMainGrid"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <ComboBox x:Name="BoolFilterViewFunctionSelector"
+              ItemsSource="{local:Enumerate {x:Type vm:BoolPredicateFunction}}"
               SelectedItem="{Binding Function, Converter={StaticResource EnumToStringConverter}}">
     </ComboBox>
   </Grid>

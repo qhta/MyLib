@@ -9,8 +9,11 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type={x:Type vm:NumFilterViewModel}}"
              d:Height="Auto"
-             d:Width="300"
-             MinWidth="300">
+             d:Width="Auto"
+             MinWidth="200">
+  <UserControl.Resources>
+    <local:EnumToStringConverter x:Key="EnumToStringConverter" />
+  </UserControl.Resources>
   <Grid Height="Auto"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Grid.RowDefinitions>
@@ -18,43 +21,12 @@
       <RowDefinition Height="*"
                      MinHeight="30" />
     </Grid.RowDefinitions>
-    <Grid Grid.Row="0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      <StackPanel>
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=IsEqual}"
-                     Content="{x:Static local:CommonStrings.IsEqual}" />
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=NotEqual}"
-                     Content="{x:Static local:CommonStrings.NotEqual}" />
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=IsEmpty}"
-                     Content="{x:Static local:CommonStrings.IsEmpty}" />
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=NotEmpty}"
-                     Content="{x:Static local:CommonStrings.NotEmpty}" />
-      </StackPanel>
-      <StackPanel Grid.Column="1">
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=IsGreater}"
-                     Content="{x:Static local:CommonStrings.IsGreater}" />
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=NotGreater}"
-                     Content="{x:Static local:CommonStrings.NotGreater}" />
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=IsLess}"
-                     Content="{x:Static local:CommonStrings.IsLess}" />
-        <RadioButton GroupName="SelectFunction"
-                     IsChecked="{Binding Path=NotLess}"
-                     Content="{x:Static local:CommonStrings.NotLess}" />
-      </StackPanel>
-    </Grid>
+    <ComboBox ItemsSource="{local:Enumerate {x:Type vm:NumPredicateFunction}}"
+              SelectedItem="{Binding Function, Converter={StaticResource EnumToStringConverter}}">
+    </ComboBox>    
     <TextBox x:Name="TextBox"
              Grid.Row="1"
-             Margin="4"
+             Margin="0,10,0,10"
              Height="Auto"
              Text="{Binding FilterText}" />
   </Grid>

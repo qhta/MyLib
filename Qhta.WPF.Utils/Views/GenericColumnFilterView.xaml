@@ -9,8 +9,8 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type={x:Type vm:GenericColumnFilterViewModel}}"
              d:Height="Auto"
-             d:Width="300"
-             MinWidth="300">
+             d:Width="Auto"
+             MinWidth="200">
   <UserControl.Resources>
     <ItemsPanelTemplate x:Key="MenuItemPanelTemplate">
       <StackPanel Margin="-20,0,0,0"
@@ -26,14 +26,15 @@
     </Style>
 
   </UserControl.Resources>
-  <Grid Height="Auto"
+  <Grid x:Name="GenericColumnFilterViewMainGrid"
+        Height="Auto"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Grid>
+    <Grid x:Name="GenericColumnFilterViewTopGrid">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="Auto" />
@@ -66,7 +67,8 @@
         </MenuItem>
       </Menu>
     </Grid>
-    <ContentPresenter Grid.Row="1"
+    <ContentPresenter x:Name="GenericColumnFilterViewContentPresenter"
+                      Grid.Row="1"
                       Margin="5"
                       Height="Auto"
                       Content="{Binding SpecificFilter}">

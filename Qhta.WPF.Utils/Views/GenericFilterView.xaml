@@ -9,10 +9,12 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type={x:Type vm:FilterViewModel}}"
              d:Height="Auto"
-             d:Width="300"
-             MinWidth="300">
-  <Grid>
-    <ContentPresenter Margin="0"
+             d:Width="Auto"
+             MinWidth="200">
+  <Grid x:Name="GenericFilterViewMainGrid"
+    Height="Auto">
+    <ContentPresenter x:Name="GenericFilterViewContentPresenter"
+                      Margin="0"
                       Height="Auto"
                       Content="{Binding}">
       <ContentPresenter.Resources>

@@ -268,11 +268,29 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not contains.
+        /// </summary>
+        public static string NotContains {
+            get {
+                return ResourceManager.GetString("NotContains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not empty.
         /// </summary>
         public static string NotEmpty {
             get {
                 return ResourceManager.GetString("NotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not ends with.
+        /// </summary>
+        public static string NotEndsWith {
+            get {
+                return ResourceManager.GetString("NotEndsWith", resourceCulture);
             }
         }
         
@@ -300,6 +318,15 @@ namespace Qhta.WPF.Utils {
         public static string NotLess {
             get {
                 return ResourceManager.GetString("NotLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not starts with.
+        /// </summary>
+        public static string NotStartsWith {
+            get {
+                return ResourceManager.GetString("NotStartsWith", resourceCulture);
             }
         }
         

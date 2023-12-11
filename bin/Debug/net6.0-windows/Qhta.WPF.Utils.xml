@@ -1588,9 +1588,19 @@
               Looks up a localized string similar to Is true.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NotContains">
+            <summary>
+              Looks up a localized string similar to Not contains.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotEmpty">
             <summary>
               Looks up a localized string similar to Not empty.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NotEndsWith">
+            <summary>
+              Looks up a localized string similar to Not ends with.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotEqual">
@@ -1606,6 +1616,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.NotLess">
             <summary>
               Looks up a localized string similar to Not less.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.NotStartsWith">
+            <summary>
+              Looks up a localized string similar to Not starts with.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.NumFilter_parse_error">
@@ -5082,14 +5097,29 @@
             Specifies whether predicate function is StartsWith.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.NotStartsWith">
+            <summary>
+            Specifies whether predicate function is NotStartsWith.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.EndsWith">
             <summary>
             Specifies whether predicate function is EndsWith.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.NotEndsWith">
+            <summary>
+            Specifies whether predicate function is NotEndsWith.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.Contains">
             <summary>
             Specifies whether predicate function is Contains.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.NotContains">
+            <summary>
+            Specifies whether predicate function is NotContains.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.RegExpr">
@@ -5136,14 +5166,29 @@
             Does text start with specific string?
             </summary>
         </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotStartsWith">
+            <summary>
+            Whether text does not start with specific string?
+            </summary>
+        </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.EndsWith">
             <summary>
             Does text end with specific string?
             </summary>
         </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotEndsWith">
+            <summary>
+            Whether text does not end with specific string?
+            </summary>
+        </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.Contains">
             <summary>
             Does text contain specific string?
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.NotContains">
+            <summary>
+            Whether text does not contain specific string?
             </summary>
         </member>
         <member name="F:Qhta.WPF.Utils.ViewModels.TextPredicateFunction.RegExpr">
