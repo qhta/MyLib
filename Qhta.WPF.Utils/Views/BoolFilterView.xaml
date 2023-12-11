@@ -10,6 +10,7 @@
              d:DataContext="{d:DesignInstance Type={x:Type vm:BoolFilterViewModel}}"
              d:Height="Auto"
              d:Width="Auto"
+             Height="Auto"             
              MinWidth="200">
   <UserControl.Resources>
     <local:EnumToStringConverter x:Key="EnumToStringConverter" />

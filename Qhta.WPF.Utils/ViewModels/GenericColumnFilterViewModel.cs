@@ -88,7 +88,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     {
       if (PropPath != null)
       {
-        if (SpecificFilter?.Column?.PropPath != PropPath)
+        //if (SpecificFilter?.Column?.PropPath != PropPath)
           SpecificFilter = CreateSpecificFilter();
       }
     }

@@ -76,7 +76,7 @@ public class TextFilterViewModel : FilterViewModel
       }
     }
   }
-  private TextPredicateFunction? _Function = TextPredicateFunction.IsEqual;
+  private TextPredicateFunction? _Function = TextPredicateFunction.Contains;
 
   private void NotifyFunctionChanged()
   {
