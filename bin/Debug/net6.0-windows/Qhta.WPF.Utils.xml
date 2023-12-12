@@ -4131,6 +4131,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.ClearFilter">
             <summary>
             Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.Function"/> property.
@@ -4250,6 +4255,11 @@
         <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CreateCopy">
             <inheritdoc/>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CanCreateFilter">
             <inheritdoc/>
         </member>
@@ -4334,6 +4344,11 @@
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CreateCopy">
             <inheritdoc/>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.GetFilteredColumns">
             <summary>
             Gets a collection of filtered columns in the EditedInstance.
@@ -4378,6 +4393,11 @@
             Creates a copy of this instance;
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.ClearFilter">
             <summary>
@@ -4595,6 +4615,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.CanCreateFilter">
             <summary>
             Observable property which tells if filter view model can create a filter.
@@ -4729,6 +4754,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateSpecificFilter">
             <summary>
             Creates a specific Filter.
@@ -4851,6 +4881,11 @@
             Creates a copy of this instance;
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.ClearFilter">
             <summary>
@@ -4984,6 +5019,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.ClearFilter">
             <summary>
             Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.Function"/> property.
@@ -5051,6 +5091,11 @@
             </summary>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+            <summary>
+            This method copies properties from the other instance of the same type.
+            </summary>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.ClearFilter">
             <summary>

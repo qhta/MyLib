@@ -82,6 +82,18 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   }
 
   /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is CompoundFilterViewModel otherFilter)
+    {
+      this.Operation = otherFilter.Operation;
+      this.Items = otherFilter.Items;
+    }
+  }
+
+  /// <summary>
   /// Gets a collection of filtered columns in the EditedInstance.
   /// </summary>
   public override FilterableColumns? GetFilteredColumns()
@@ -113,7 +125,6 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     foreach(var item in Items)
     {
       var itemFilter = item.CreateFilter();
-      Debug.Assert(itemFilter!=null);
       if (itemFilter != null)
         result.Items.Add(itemFilter);
     }

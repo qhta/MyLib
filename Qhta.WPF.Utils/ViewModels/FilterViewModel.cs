@@ -86,7 +86,6 @@ public abstract class FilterViewModel : ViewModel
     {
       if (_Column != value)
       {
-        //Debug.WriteLine($"SetColumn({value})");
         _Column = value;
         NotifyPropertyChanged(nameof(Column));
       }
@@ -139,6 +138,11 @@ public abstract class FilterViewModel : ViewModel
   /// </summary>
   /// <returns></returns>
   public abstract FilterViewModel? CreateCopy();
+
+  /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public abstract void CopyFrom(FilterViewModel? other);
 
   /// <summary>
   /// Observable property which tells if filter view model can create a filter.

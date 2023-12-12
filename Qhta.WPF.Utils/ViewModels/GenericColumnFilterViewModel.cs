@@ -29,8 +29,8 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// </summary>
   public GenericColumnFilterViewModel(ColumnFilter columnFilter, string columnName, IObjectOwner? owner) : base(columnFilter.PropPath, columnName, owner)
   {
-    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
     SpecificFilter = CreateSpecificFilter();
+    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
   }
 
   /// <summary>
@@ -40,10 +40,10 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   /// </summary>
   public GenericColumnFilterViewModel(FilterViewModel other, string columnName) : base(other)
   {
-    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
     PropPath = other.PropPath;
     ColumnName = columnName;
-
+    SpecificFilter = CreateSpecificFilter();
+    PropertyChanged += GenericColumnFilterViewModel_PropertyChanged;
   }
 
   /// <summary>
@@ -57,12 +57,15 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     {
       if (_SpecificFilter != value)
       {
-        _OldInstance = _SpecificFilter;
+        var oldInstance = _SpecificFilter;
         if (_SpecificFilter != null)
           _SpecificFilter.PropertyChanged -= _SpecificFilter_PropertyChanged;
         _SpecificFilter = value;
         if (_SpecificFilter != null)
+        {
+          _SpecificFilter.CopyFrom(oldInstance);
           _SpecificFilter.PropertyChanged += _SpecificFilter_PropertyChanged;
+        }
         NotifyPropertyChanged(nameof(SpecificFilter));
       }
     }
@@ -78,7 +81,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   }
 
   private FilterViewModel? _SpecificFilter;
-  private FilterViewModel? _OldInstance;
+  //private FilterViewModel? _OldInstance;
 
 
   private void GenericColumnFilterViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs args)
@@ -88,12 +91,14 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     {
       if (PropPath != null)
       {
-        //if (SpecificFilter?.Column?.PropPath != PropPath)
+        Debug.WriteLine($"GenericColumnFilterViewModel_PropertyChanged(Property={args.PropertyName}, Value={PropPath})");
+        if (SpecificFilter?.Column?.PropPath != PropPath)
           SpecificFilter = CreateSpecificFilter();
       }
     }
     if (args.PropertyName == nameof(Column))
     {
+      Debug.WriteLine($"GenericColumnFilterViewModel_PropertyChanged(Property={args.PropertyName}, Value={Column})");
       PropPath = Column?.PropPath;
     }
     if (args.PropertyName == nameof(SpecificFilter))
@@ -101,7 +106,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
       //if (Owner!=null)
       //  Owner.ChangeComponent(_OldInstance, SpecificFilter);
     }
-    if (args.PropertyName==nameof(CanCreateFilter))
+    if (args.PropertyName == nameof(CanCreateFilter))
     {
       //    NotifyPropertyChanged(this, args.PropertyName);
     }
@@ -152,12 +157,27 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   }
 
   /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is GenericColumnFilterViewModel otherFilter)
+    {
+      this.SpecificFilter = otherFilter.SpecificFilter;
+    }
+  }
+
+  /// <summary>
   /// Creates a specific Filter.
   /// </summary>
   public FilterViewModel? CreateSpecificFilter()
   {
-    if (PropPath != null && ColumnName != null)
+    Debug.WriteLine($"CreateSpecificFilter()");
+    if (PropPath != null)
+    {
+      Debug.Assert(ColumnName!=null);
       return CreateSpecificFilter(PropPath, ColumnName, DataType, this);
+    }
     else
     if (Column != null)
       return CreateSpecificFilter(Column.PropPath!, Column.ColumnName, DataType, this);
@@ -286,6 +306,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
   {
     if (oldComponent != SpecificFilter)
       throw new InvalidOperationException($"To change and Instance object an old object mus be equal");
+    var oldInstance = SpecificFilter;
     if (newComponent is FilterViewModel newFilter)
       SpecificFilter = newFilter;
     else
@@ -294,7 +315,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     else
       throw new InvalidOperationException($"New Instance object must be a {nameof(FilterViewModel)}");
     if (Owner != null)
-      Owner.ChangeComponent(_OldInstance, SpecificFilter);
+      Owner.ChangeComponent(oldInstance, SpecificFilter);
     return true;
   }
 }

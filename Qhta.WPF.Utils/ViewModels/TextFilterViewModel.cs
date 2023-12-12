@@ -11,6 +11,7 @@ public class TextFilterViewModel : FilterViewModel
   /// </summary>
   public TextFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
   {
+    Debug.WriteLine($"CreateTextFilterViewModel(PropPath={propPath})");
   }
 
   /// <summary>
@@ -19,6 +20,7 @@ public class TextFilterViewModel : FilterViewModel
   /// <returns></returns>
   public TextFilterViewModel(TextFilterViewModel other) : base(other)
   {
+    Debug.WriteLine($"CreateTextFilterViewModel(other.PropPath={other.PropPath})");
     this.FilterText = other.FilterText;
     this.Function = other.Function;
     this.IgnoreCase = other.IgnoreCase;
@@ -31,7 +33,21 @@ public class TextFilterViewModel : FilterViewModel
   /// <exception cref="NotImplementedException"></exception>
   public override FilterViewModel CreateCopy()
   {
+    Debug.WriteLine($"TextFilter.CreateCopy(PropPath={PropPath})");
     return new TextFilterViewModel(this);
+  }
+
+  /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is TextFilterViewModel otherFilter)
+    {
+      this.Function = otherFilter.Function;
+      this.IgnoreCase = otherFilter.IgnoreCase;
+      this.FilterText = otherFilter.FilterText;
+    }
   }
 
   /// <summary>
@@ -54,6 +70,7 @@ public class TextFilterViewModel : FilterViewModel
     {
       if (_FilterText != value)
       {
+        Debug.WriteLine($"FilterText={value})");
         _FilterText = value;
         NotifyPropertyChanged(nameof(FilterText));
       }

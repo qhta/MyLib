@@ -117,6 +117,17 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
     return EditedInstance?.CreateCopy();
   }
 
+  /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is CollectionViewFilterViewModel otherFilter)
+    {
+      EditedInstance = otherFilter.EditedInstance;
+    }
+  }
+
   /// <inheritdoc/>
   public override bool CanCreateFilter
   {

@@ -38,6 +38,18 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   }
 
   /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is NumFilterViewModel<T> otherFilter)
+    {
+      this.Function = otherFilter.Function;
+      this.FilterText = otherFilter.FilterText;
+    }
+  }
+
+  /// <summary>
   /// Clears the <see cref="FilterText"/> and <see cref="Function"/> property.
   /// </summary>
   /// <exception cref="NotImplementedException"></exception>

@@ -38,6 +38,18 @@ public class EnumFilterViewModel : FilterViewModel
   }
 
   /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is EnumFilterViewModel otherFilter)
+    {
+      this.Function = otherFilter.Function;
+      this.FilterValue = otherFilter.FilterValue;
+    }
+  }
+
+  /// <summary>
   /// Clears the <see cref="FilterValue"/> and <see cref="Function"/> property.
   /// </summary>
   /// <exception cref="NotImplementedException"></exception>

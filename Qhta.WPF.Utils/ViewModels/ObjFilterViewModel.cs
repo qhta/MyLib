@@ -30,6 +30,17 @@ public class ObjFilterViewModel : FilterViewModel
   }
 
   /// <summary>
+  /// This method copies properties from the other instance of the same type.
+  /// </summary>
+  public override void CopyFrom(FilterViewModel? other)
+  {
+    if (other is ObjFilterViewModel otherFilter)
+    {
+      this.Function = otherFilter.Function;
+    }
+  }
+
+  /// <summary>
   /// Clears the <see cref="Function"/> property.
   /// </summary>
   /// <exception cref="NotImplementedException"></exception>
