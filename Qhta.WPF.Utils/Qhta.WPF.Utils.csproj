@@ -33,13 +33,18 @@
   <ItemGroup>
     <Compile Remove="DataGridBehavior.cs" />
     <Compile Remove="DataGridBehavior.Filtering.cs" />
+    <Compile Remove="DataGridColumnDef.cs" />
     <Compile Remove="ListCollectionView.cs" />
     <Compile Remove="ListViewColumnSorter.cs" />
     <Compile Remove="RelayCommand.cs" />
+    <Compile Remove="ViewModels\FilterableColumnInfo.cs" />
+    <Compile Remove="ViewModels\FilterableColumns.cs" />
+    <Compile Remove="ViewModels\NumFilterViewModel`1.cs" />
     <Compile Remove="WpfWin32Window.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Aa.png" />
     <None Remove="Resources\AddFilter.png" />
     <None Remove="Resources\ClearFilter.png" />
     <None Remove="Resources\Delete.png" />
@@ -83,6 +88,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\EmptyFIlter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Aa.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Menu.png">

@@ -635,6 +635,26 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.ColumnViewInfoProperty">
+            <summary>
+            Specifies a hidden header string for a column. 
+            This header is not displayed, but may be used e.g. in filtering dialog.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetColumnViewInfo(System.Windows.DependencyObject)">
+            <summary>
+            Getter for ColumnViewInfo property.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.SetColumnViewInfo(System.Windows.DependencyObject,Qhta.WPF.Utils.ColumnViewInfo)">
+            <summary>
+            Setter for ColumnViewInfo property
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
         <member name="F:Qhta.WPF.Utils.CollectionViewBehavior.HiddenHeaderProperty">
             <summary>
             Specifies a hidden header string for a column. 
@@ -827,7 +847,7 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.ItemsControl,System.Windows.Data.CollectionView,System.Windows.Controls.DataGridColumn,Qhta.WPF.Utils.PropPath,System.Windows.Point,System.Windows.Window)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.DisplayFilterDialog(System.Windows.Controls.ItemsControl,System.Windows.Data.CollectionView,Qhta.WPF.Utils.ColumnViewInfo,System.Windows.Point,System.Windows.Window)">
             <summary>
             Displays a filter dialog for a column bound to the specific property info path.
             Dialog is displayed in specific screen position.
@@ -836,7 +856,6 @@
             <param name="itemsControl">Control with columns. Usually DataGrid</param>
             <param name="collectionView">Filtered collections</param>
             <param name="column"></param>
-            <param name="propPath"></param>
             <param name="position"></param>
             <param name="ownerWindow"></param>
         </member>
@@ -905,14 +924,6 @@
             <param name="dependencyObject"></param>
             <param name="args"></param>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilteredColumn(Qhta.WPF.Utils.ViewModels.FilterableColumns,System.Windows.Controls.DataGridColumn)">
-            <summary>
-            Gets filterable column info from FilterableColumns
-            </summary>
-            <param name="columns"></param>
-            <param name="column"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterableColumns(System.Windows.Controls.ItemsControl)">
             <summary>
             Gets a collection of filterable columns of the data grid.
@@ -928,10 +939,10 @@
         </member>
         <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.GetFilterableColumnInfo(System.Type,System.Windows.Controls.DataGridColumn)">
             <summary>
-            Gets filterable column info of the data grid bound column.
+            Gets or creates a filterable column info of the data grid bound column.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.MarkFilteredColumns(Qhta.WPF.Utils.ViewModels.FilterableColumns,Qhta.WPF.Utils.ViewModels.FilterableColumns)">
+        <member name="M:Qhta.WPF.Utils.CollectionViewBehavior.MarkFilteredColumns(Qhta.WPF.Utils.ColumnsViewInfo,Qhta.WPF.Utils.ColumnsViewInfo)">
             <summary>
             Marks filtered columns with FilterButtonShape.Filled image 
             and all other filterableColumns with FilterButtonShape.Empty image.
@@ -1235,9 +1246,131 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.Column">
+            <summary>
+            Associated column.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.Binding">
+            <summary>
+            Required binding to data.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.CanUserReorder">
+            <summary>
+            Indicates whether the user can change the column display position by dragging the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.CanUserResize">
+            <summary>
+            Indicates whether the user can adjust the column width by using the mouse.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.CanUserSort">
+            <summary>
+            Indicates whether the user can sort the column by clicking the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.CanUserFind">
+            <summary>
+            Indicates whether the user can search the column for a value provided in FindDialog.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.ShowFindButton">
+            <summary>
+            Indicates whether Find button should be displayed in the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.CanUserFilter">
+            <summary>
+            Indicates whether the user can filter column with a predicate provided in FilterDialog.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.ShowFilterButton">
+            <summary>
+            Indicates whether Filter button should be displayed in the column header.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.ClipboardContentPath">
+            <summary>
+            Specifies the binding path of properties to use when getting or setting cell content for the clipboard.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.DisplayIndex">
+            <summary>
+            Gets or sets the display position of the column relative to the other columns in the DataGrid.
+            Default is -1.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.ColumnViewInfo.Header">
             <summary>
-            Header text to be displayed.
+            Gets or sets the column header.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.HeaderStringFormat">
+            <summary>
+            Gets or sets the format pattern to apply to the content of the column header.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.HeaderTemplate">
+            <summary>
+            Gets or sets the header template to apply to the content of the column header.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.HiddenHeader">
+            <summary>
+            Gets or sets the column hidden header.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.HeaderTooltip">
+            <summary>
+            Gets or sets the column hidden header.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.IsReadOnly">
+            <summary>
+            Gets a value that indicates whether cells in the column can be edited.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.MaxWidth">
+            <summary>
+            Gets or sets the maximum width constraint of the column. Default is PositiveInfinity.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.MinWidth">
+            <summary>
+            Gets or sets the minimum width constraint of the column. Default is 20.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.SortDirection">
+            <summary>
+            Gets or sets the sort direction (ascending or descending) of the column. Default is null;
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.SortMemberPath">
+            <summary>
+            Gets or sets a property name, or a period-delimited hierarchy of property names, 
+            that indicates the member to sort by.
+            Default is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.Visibility">
+            <summary>
+            Gets or sets the visibility of the column. Default is Visible
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.HeaderContextMenu">
+            <summary>
+            Context menu for a column.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColumnViewInfo.PropertyName">
@@ -1248,6 +1381,17 @@
         <member name="P:Qhta.WPF.Utils.ColumnViewInfo.PropertyInfo">
             <summary>
             Property info to bind values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.DataType">
+            <summary>
+            Data type of the property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.PropPath">
+            <summary>
+            Sequence of PropertyInfo from DataContext object
+            to the filtered property.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ColumnViewInfo.IsVisible">
@@ -1266,6 +1410,17 @@
             <summary>
             Actual width of the column. Is changed between 0 and HiddenWidth
             when IsVisible is changed.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ColumnViewInfo.GetHeaderText">
+            <summary>
+            Gets a header text of the column. 
+            Header text can be get from Header or HiddenHeader, or from Column.GetHeader.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ColumnViewInfo.ColumnName">
+            <summary>
+            Name of the column to display.
             </summary>
         </member>
         <member name="E:Qhta.WPF.Utils.ColumnViewInfo.PropertyChanged">
@@ -1743,145 +1898,6 @@
             </summary>
             <param name="sender"></param>
             <param name="args"></param>
-        </member>
-        <member name="T:Qhta.WPF.Utils.DataGridColumnDef">
-            <summary>
-            This data contains full <see cref="T:Qhta.WPF.Utils.DataGridContentBoundColumn"/> definition.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.DataGridColumnDef.#ctor(System.Windows.Data.BindingBase)">
-            <summary>
-            Initializing constructor.
-            </summary>
-            <param name="binding"></param>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Binding">
-            <summary>
-            Required binding to data.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserReorder">
-            <summary>
-            Indicates whether the user can change the column display position by dragging the column header.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserResize">
-            <summary>
-            Indicates whether the user can adjust the column width by using the mouse.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserSort">
-            <summary>
-            Indicates whether the user can sort the column by clicking the column header.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserFind">
-            <summary>
-            Indicates whether the user can search the column for a value provided in FindDialog.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.ShowFindButton">
-            <summary>
-            Indicates whether Find button should be displayed in the column header.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.CanUserFilter">
-            <summary>
-            Indicates whether the user can filter column with a predicate provided in FilterDialog.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.ShowFilterButton">
-            <summary>
-            Indicates whether Filter button should be displayed in the column header.
-            Default is true.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.ClipboardContentPath">
-            <summary>
-            Specifies the binding path of properties to use when getting or setting cell content for the clipboard.
-            Default is null.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.DisplayIndex">
-            <summary>
-            Gets or sets the display position of the column relative to the other columns in the DataGrid.
-            Default is -1.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Header">
-            <summary>
-            Gets or sets the column header.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderStringFormat">
-            <summary>
-            Gets or sets the format pattern to apply to the content of the column header.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderTemplate">
-            <summary>
-            Gets or sets the header template to apply to the content of the column header.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HiddenHeader">
-            <summary>
-            Gets or sets the column hidden header.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderTooltip">
-            <summary>
-            Gets or sets the column hidden header.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.IsReadOnly">
-            <summary>
-            Gets a value that indicates whether cells in the column can be edited.
-            Default is null.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.MaxWidth">
-            <summary>
-            Gets or sets the maximum width constraint of the column. Default is PositiveInfinity.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.MinWidth">
-            <summary>
-            Gets or sets the minimum width constraint of the column. Default is 20.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.SortDirection">
-            <summary>
-            Gets or sets the sort direction (ascending or descending) of the column. Default is null;
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.SortMemberPath">
-            <summary>
-            Gets or sets a property name, or a period-delimited hierarchy of property names, 
-            that indicates the member to sort by.
-            Default is null.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Visibility">
-            <summary>
-            Gets or sets the visibility of the column. Default is Visible
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.Width">
-            <summary>
-            Gets or sets the column width or automatic sizing mode.
-            Default is NaN.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.DataGridColumnDef.HeaderContextMenu">
-            <summary>
-            Context menu for a column.
-            </summary>
         </member>
         <member name="T:Qhta.WPF.Utils.DataGridColumnUtils">
             <summary>
@@ -4114,7 +4130,7 @@
             specific ColumnFilterViewModel of boolean property filter edited in BoolFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4237,6 +4253,11 @@
             but its component filter is the edited instance.
             </summary>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.GetFilteredColumns">
+            <summary>
+            Gets a collection of filtered columns in the EditedInstance. 
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.GetComponent(System.String)">
             <summary>
             Returns the Filter component.
@@ -4260,6 +4281,7 @@
             This method copies properties from the other instance of the same type.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)" -->
         <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CanCreateFilter">
             <inheritdoc/>
         </member>
@@ -4354,6 +4376,7 @@
             Gets a collection of filtered columns in the EditedInstance.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)" -->
         <member name="P:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CanCreateFilter">
             <inheritdoc/>
         </member>
@@ -4377,7 +4400,7 @@
             Specific ColumnFilterViewModel of enum property filter edited in EnumFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(System.Type,Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4479,47 +4502,6 @@
             Is enum defined (is not null)?
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo">
-            <summary>
-            Information about filterable column in data grid.
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo.#ctor(Qhta.WPF.Utils.PropPath,System.String,System.Type,System.Object)">
-            <summary>
-            Initializing constructor
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo.Column">
-            <summary>
-            This instance needed by selector.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo.ColumnName">
-            <summary>
-            Name of the column to display.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo.PropName">
-            <summary>
-            Name of the property.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo.DataType">
-            <summary>
-            Data type of the property.
-            </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterableColumnInfo.PropPath">
-            <summary>
-            Sequence of PropertyInfo from DataContext object
-            to the filtered property.
-            </summary>
-        </member>
-        <member name="T:Qhta.WPF.Utils.ViewModels.FilterableColumns">
-            <summary>
-            Information about filterable columns in data grid.
-            </summary>
-        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.FilterEditOperation">
             <summary>
             Specifies what to do with a column filter inside filter dialog.
@@ -4570,7 +4552,7 @@
             Simple initializing constructor.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4580,6 +4562,11 @@
             Copying constructor that copies the data of the view model is needed
             because we need to edit its copy and after Cancel button is pressed
             the previous content remains unchanged.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.PropPath">
+            <summary>
+            Reference to Column PropPath.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.EditedInstance">
@@ -4666,16 +4653,12 @@
              Specifies whether Operation is Clear.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.PropPath">
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)">
             <summary>
-            Holds info of column binding properties.
-            As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
+            Checks whether the filter contains the specific column.
             </summary>
-        </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.ColumnName">
-            <summary>
-            Displayed name of column binding property.
-            </summary>
+            <param name="column"></param>
+            <returns></returns>
         </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.FilterViewModel.AddFilterCommand">
             <summary>
@@ -4721,17 +4704,12 @@
             Default constructor
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnFilter,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
-            <summary>
-            Initializing constructor
-            </summary>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.FilterViewModel,System.String)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.#ctor(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
             <summary>
             Copying constructor that copies the data of the view model is needed
             because we need to edit its copy and after Cancel button is pressed
@@ -4764,7 +4742,7 @@
             Creates a specific Filter.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateSpecificFilter(Qhta.WPF.Utils.PropPath,System.String,System.Type,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.CreateSpecificFilter(Qhta.WPF.Utils.ColumnViewInfo,System.Type,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Creates a specific dataType Filter.
             </summary>
@@ -4785,6 +4763,7 @@
             Clears the specific filter
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)" -->
         <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.GetComponent(System.String)">
             <summary>
             Returns the Instance component.
@@ -4849,7 +4828,7 @@
             Abstract base ColumnFilterViewModel of numeric property filter edited in NumFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor.
             </summary>
@@ -4859,94 +4838,87 @@
             Copying constructor (empty, just for pass specific class constructor).
             </summary>
         </member>
-        <member name="T:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.NumType">
             <summary>
-            Generic NumFilterViewModel for numeric values filter with a type parameter. Valid types are all comparable values, 
-            however internal TryParseFilterText method recognizes only integers, floats, DateTime and TimeSpan.
+            Num type to compare.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.FilterValue">
             <summary>
-            Initializing constructor.
+            Simple filter value.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.#ctor(Qhta.WPF.Utils.ViewModels.NumFilterViewModel{`0})">
-            <summary>
-            Copying constructor.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CreateCopy">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.CreateCopy">
             <summary>
             Creates a copy of this instance;
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.CopyFrom(Qhta.WPF.Utils.ViewModels.FilterViewModel)">
             <summary>
             This method copies properties from the other instance of the same type.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.ClearFilter">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.ClearFilter">
             <summary>
-            Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.FilterText"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.Function"/> property.
+            Clears the <see cref="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.FilterText"/> and <see cref="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.Function"/> property.
             </summary>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.FilterText">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.FilterText">
             <summary>
             Simple filter text.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.Function">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.Function">
             <summary>
             Selected predicate function.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsEqual">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.IsEqual">
             <summary>
             Specifies whether predicate function is IsEqual.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotEqual">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.NotEqual">
             <summary>
             Specifies whether predicate function is NotEqual.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsEmpty">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.IsEmpty">
             <summary>
             Specifies whether predicate function is IsEmpty.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotEmpty">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.NotEmpty">
             <summary>
             Specifies whether predicate function is NotEmpty.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsGreater">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.IsGreater">
             <summary>
             Specifies whether predicate function is IsGreater.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotGreater">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.NotGreater">
             <summary>
             Specifies whether predicate function is NotGreater.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.IsLess">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.IsLess">
             <summary>
             Specifies whether predicate function is IsLess.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.NotLess">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.NotLess">
             <summary>
             Specifies whether predicate function is NotLess.
             </summary>
         </member>
-        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CanCreateFilter">
+        <member name="P:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.CanCreateFilter">
             <inheritdoc/>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel`1.CreateFilter">
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.CreateFilter">
             <summary>
             Creates DataGridColumnFilter basing on current properties.
             </summary>
@@ -5002,7 +4974,7 @@
             View model shown in ObjFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor.
             </summary>
@@ -5074,7 +5046,7 @@
             Specific ColumnFilterViewModel of string property filter edited in TextFilterView.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(Qhta.WPF.Utils.PropPath,System.String,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.#ctor(Qhta.WPF.Utils.ColumnViewInfo,Qhta.WPF.Utils.ViewModels.IObjectOwner)">
             <summary>
             Initializing constructor.
             </summary>

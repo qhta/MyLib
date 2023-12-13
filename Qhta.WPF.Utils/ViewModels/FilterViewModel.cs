@@ -17,7 +17,7 @@ public abstract class FilterViewModel : ViewModel
   /// <summary>
   /// Simple initializing constructor.
   /// </summary>
-  public FilterViewModel(IObjectOwner? owner): this()
+  public FilterViewModel(IObjectOwner? owner) : this()
   {
     Owner = owner;
   }
@@ -25,10 +25,9 @@ public abstract class FilterViewModel : ViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public FilterViewModel(PropPath? propPath, string? columnName, IObjectOwner? owner) : this(owner)
+  public FilterViewModel(ColumnViewInfo column, IObjectOwner? owner) : this(owner)
   {
-    PropPath = propPath;
-    ColumnName = columnName;
+    Column = column;
   }
 
   /// <summary>
@@ -38,11 +37,15 @@ public abstract class FilterViewModel : ViewModel
   /// </summary>
   public FilterViewModel(FilterViewModel other) : this(other.Owner)
   {
-    PropPath = other.PropPath;
-    ColumnName = other.ColumnName;
+    Column = other.Column;
     EditOpEnabled = true;
     DefaultOp = true;
   }
+
+  /// <summary>
+  /// Reference to Column PropPath.
+  /// </summary>
+  public PropPath? PropPath => Column?.PropPath;
 
   /// <summary>
   /// Returns self. 
@@ -76,7 +79,7 @@ public abstract class FilterViewModel : ViewModel
   /// <summary>
   /// Info of the selected column
   /// </summary>
-  public FilterableColumnInfo? Column
+  public ColumnViewInfo? Column
   {
     get
     {
@@ -91,13 +94,13 @@ public abstract class FilterViewModel : ViewModel
       }
     }
   }
-  private FilterableColumnInfo? _Column;
+  private ColumnViewInfo? _Column;
 
 
   /// <summary>
   /// Info of all filterable columns
   /// </summary>
-  public FilterableColumns? Columns
+  public ColumnsViewInfo? Columns
   {
     get
     {
@@ -114,17 +117,17 @@ public abstract class FilterViewModel : ViewModel
       }
     }
   }
-  private FilterableColumns? _Columns;
+  private ColumnsViewInfo? _Columns;
 
   /// <summary>
   /// Gets a collection of filtered columns in the EditedInstance.
   /// In the basic implementation a 1-object collection containing edited instance column is returned. 
   /// </summary>
-  public virtual FilterableColumns? GetFilteredColumns()
+  public virtual ColumnsViewInfo? GetFilteredColumns()
   {
-    if (EditedInstance?.Column!=null)
+    if (EditedInstance?.Column != null)
     {
-      var result = new FilterableColumns();
+      var result = new ColumnsViewInfo();
       if (EditedInstance.CanCreateFilter)
         result.Add(EditedInstance.Column);
       return result;
@@ -241,41 +244,15 @@ public abstract class FilterViewModel : ViewModel
   }
   #endregion
 
-
   /// <summary>
-  /// Holds info of column binding properties.
-  /// As binding path may complex, it is an array of property info items, which values must be evaluated in cascade.
+  /// Checks whether the filter contains the specific column.
   /// </summary>
-  public PropPath? PropPath
+  /// <param name="column"></param>
+  /// <returns></returns>
+  public virtual bool Contains(ColumnViewInfo column)
   {
-    get { return _PropPath; }
-    set
-    {
-      if (_PropPath != value)
-      {
-        _PropPath = value;
-        NotifyPropertyChanged(nameof(PropPath));
-      }
-    }
+    return (Column == column);
   }
-  private PropPath? _PropPath;
-
-  /// <summary>
-  /// Displayed name of column binding property.
-  /// </summary>
-  public string? ColumnName
-  {
-    get { return _ColumnName; }
-    set
-    {
-      if (_ColumnName != value)
-      {
-        _ColumnName = value;
-        NotifyPropertyChanged(nameof(ColumnName));
-      }
-    }
-  }
-  private string? _ColumnName;
 
   #region AddFilterCommand
 
@@ -318,8 +295,11 @@ public abstract class FilterViewModel : ViewModel
         compoundFilter.Add(this);
         Owner.ChangeComponent(EditedInstance, compoundFilter);
         EditedInstance!.Owner = compoundFilter;
-        var nextOp = new GenericColumnFilterViewModel(compoundFilter);
-        compoundFilter.Add(nextOp);
+        if (Column != null)
+        {
+          var nextOp = new GenericColumnFilterViewModel(Column, compoundFilter);
+          compoundFilter.Add(nextOp);
+        }
       }
     }
   }

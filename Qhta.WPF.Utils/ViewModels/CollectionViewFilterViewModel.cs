@@ -33,7 +33,7 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
   /// <summary>
   /// Names of columns to select.
   /// </summary>
-  public IEnumerable<string>? ColumnNames => Columns?.Select(item => item.ColumnName);
+  public IEnumerable<string>? ColumnNames => Columns?.Select(item => item.ColumnName ?? "??");
 
 
   /// <summary>
@@ -55,6 +55,14 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
         NotifyPropertyChanged(nameof(EditedInstance));
       }
     }
+  }
+
+  /// <summary>
+  /// Gets a collection of filtered columns in the EditedInstance. 
+  /// </summary>
+  public override ColumnsViewInfo? GetFilteredColumns()
+  {
+    return EditedInstance?.GetFilteredColumns();
   }
 
   private void _EditedInstance_PropertyChanged(object? sender, PropertyChangedEventArgs args)
@@ -126,6 +134,12 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
     {
       EditedInstance = otherFilter.EditedInstance;
     }
+  }
+
+  /// <inheritdoc>
+  public override bool Contains(ColumnViewInfo column)
+  {
+    return EditedInstance?.Contains(column) ?? false;
   }
 
   /// <inheritdoc/>

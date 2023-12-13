@@ -728,12 +728,17 @@ public class GridViewBehavior
     var selectedColumns = columnsInfo.Where(item => item.IsVisible).ToList();
     StringWriter text = new StringWriter();
     StringBuilder html = new StringBuilder();
-    var headers = selectedColumns.Select(item => item.Header).ToArray();
+    var headers = selectedColumns.Select(item => item.Header ?? item.HiddenHeader).ToArray();
     text.WriteLine(String.Join("\t", headers));
     html.Append("<table>");
     html.Append("<tr>");
     for (int i = 0; i < headers.Count(); i++)
-      html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i])}</p></td>");
+    {
+      string? hdr = headers[i] as string;
+      if (string.IsNullOrEmpty(hdr))
+        hdr = $"column({i + 1}";
+      html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(hdr)}</p></td>");
+    }
     html.Append("</tr>");
     var collection = listView.ItemsSource.Cast<ISelectable>();
     if (sortDescriptions != null)
@@ -929,14 +934,22 @@ public class GridViewBehavior
     {
       var column = columns[i];
       string? propertyName = null;
+      PropPath? propertyPath = null;
       var binding = column.DisplayMemberBinding;
       if (binding is Binding dataBinding)
+      {
+        propertyPath = new PropPath(itemType, dataBinding.Path.Path);
         propertyName = dataBinding.Path.Path;
+      }
       if (propertyName == null)
         propertyName = GridViewBehavior.GetPropertyName(column);
       if (propertyName != null)
       {
+      if (propertyPath == null)
+        propertyPath = new PropPath(itemType, propertyName);
         var info = new ColumnViewInfo();
+        info.Column = column;
+        info.PropPath = propertyPath;
         info.PropertyName = propertyName;
         string? header = column.Header?.ToString();
         string? header2 = GetColumnHeader(column);

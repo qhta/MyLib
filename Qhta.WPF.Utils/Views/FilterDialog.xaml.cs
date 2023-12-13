@@ -37,11 +37,11 @@ public partial class FilterDialog : ToolWindow
   private void ColumnSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
   {
     if (DataContext is CollectionViewFilterViewModel viewModel &&
-      args.AddedItems.Count == 1 && args.AddedItems[0] is FilterableColumnInfo info)
+      args.AddedItems.Count == 1 && args.AddedItems[0] is ColumnViewInfo info)
     {
       var filter = viewModel.EditedInstance;
       if (filter is GenericColumnFilterViewModel genericFilter)
-        genericFilter.PropPath = info.PropPath;
+        genericFilter.Column = info;
     }
   }
 

@@ -96,11 +96,11 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <summary>
   /// Gets a collection of filtered columns in the EditedInstance.
   /// </summary>
-  public override FilterableColumns? GetFilteredColumns()
+  public override ColumnsViewInfo? GetFilteredColumns()
   {
     if (Items.Count == 0) return null;
 
-    var columns = new FilterableColumns();
+    var columns = new ColumnsViewInfo();
     foreach (var item in Items)
     {
       var itemColumns = item.GetFilteredColumns();
@@ -112,6 +112,14 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     return columns;
   }
 
+  /// <inheritdoc>
+  public override bool Contains(ColumnViewInfo column)
+  {
+    foreach (var item in Items)
+      if (item.Contains(column))
+        return true;
+    return false;
+  }
 
   /// <inheritdoc/>
   public override bool CanCreateFilter => Operation!=null;

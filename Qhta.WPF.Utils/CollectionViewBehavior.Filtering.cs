@@ -126,43 +126,41 @@ public partial class CollectionViewBehavior
             var column = args.Source as DataGridColumn;
             if (column != null)
             {
-              if (column.TryGetFilterablePropertyPath(itemType, out var propPath))
+              var columnInfo = GetFilterableColumnInfo(itemType, column);
+              if (columnInfo != null)
               {
-                var propertyInfo = propPath.LastOrDefault();
-                if (propertyInfo != null)
-                {
-                  var ok = DisplayFilterDialog(itemsControl, sourceCollectionView, column, propPath, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
-                    VisualTreeHelperExt.FindAncestor<Window>(button));
-                  args.Handled = true;
-                  if (ok)
-                  {
-                    //var viewModel = CollectionViewBehavior.GetCollectionFilter(itemsControl) as CollectionViewFilterViewModel;
-                    //if (viewModel != null)
-                    //{
-                    //  var filterableColumns = viewModel.Columns;
-                    //  var filteredColumns = viewModel.GetFilteredColumns();
-                    //  if (filterableColumns!=null && filteredColumns != null)
-                    //  MarkFilteredColumns(filterableColumns, filteredColumns);
+                var ok = DisplayFilterDialog(itemsControl, sourceCollectionView, columnInfo, button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight)),
+                  VisualTreeHelperExt.FindAncestor<Window>(button));
+                args.Handled = true;
+                //if (ok)
+                //{
+                //var viewModel = CollectionViewBehavior.GetCollectionFilter(itemsControl) as CollectionViewFilterViewModel;
+                //if (viewModel != null)
+                //{
+                //  var filterableColumns = viewModel.Columns;
+                //  var filteredColumns = viewModel.GetFilteredColumns();
+                //  if (filterableColumns!=null && filteredColumns != null)
+                //  MarkFilteredColumns(filterableColumns, filteredColumns);
 
-                    //  var filter = viewModel.CreateFilter();
-                    //  SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
-                    //  var collectionViewFilter = GetCollectionFilter(itemsControl) as CollectionViewFilter;
-                    //  if (collectionViewFilter == null)
-                    //  {
-                    //    collectionViewFilter = new CollectionViewFilter();
-                    //    SetCollectionFilter(itemsControl, collectionViewFilter);
-                    //  }
-                    //  if (collectionViewFilter != null)
-                    //    collectionViewFilter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
+                //  var filter = viewModel.CreateFilter();
+                //  SetFilterButtonShape(column, filter != null ? FilterButtonShape.Filled : FilterButtonShape.Empty);
+                //  var collectionViewFilter = GetCollectionFilter(itemsControl) as CollectionViewFilter;
+                //  if (collectionViewFilter == null)
+                //  {
+                //    collectionViewFilter = new CollectionViewFilter();
+                //    SetCollectionFilter(itemsControl, collectionViewFilter);
+                //  }
+                //  if (collectionViewFilter != null)
+                //    collectionViewFilter = collectionViewFilter.ApplyFilter(propertyInfo.Name, filter);
 
-                    //  if (sourceCollectionView != null)
-                    //    sourceCollectionView.Filter = collectionViewFilter?.GetPredicate();
-                    //  else
-                    //  if (filteredCollection != null)
-                    //    filteredCollection.Filter = collectionViewFilter;
-                    //}
-                  }
-                }
+                //  if (sourceCollectionView != null)
+                //    sourceCollectionView.Filter = collectionViewFilter?.GetPredicate();
+                //  else
+                //  if (filteredCollection != null)
+                //    filteredCollection.Filter = collectionViewFilter;
+                //}
+                //}
+                //}
               }
             }
           }
@@ -179,20 +177,17 @@ public partial class CollectionViewBehavior
   /// <param name="itemsControl">Control with columns. Usually DataGrid</param>
   /// <param name="collectionView">Filtered collections</param>
   /// <param name="column"></param>
-  /// <param name="propPath"></param>
   /// <param name="position"></param>
   /// <param name="ownerWindow"></param>
   public static bool DisplayFilterDialog(ItemsControl itemsControl, CollectionView collectionView,
-    DataGridColumn column, PropPath propPath, Point position, Window? ownerWindow)
+    ColumnViewInfo column, Point position, Window? ownerWindow)
   {
+    var propPath = column.PropPath;
+    Debug.Assert(propPath != null);
     var propInfo = propPath.Last();
-    var columnName = column.GetHeaderText();
-    if (columnName == null)
-    {
-      columnName = GetHiddenHeader(column);
-      if (columnName == null)
-        columnName = propInfo.Name;
-    }
+    Debug.Assert(propInfo != null);
+    var columnName = column.ColumnName;
+    Debug.Assert(columnName != null);
     var dialog = new FilterDialog();
     var viewModel = GetCollectionFilter(itemsControl) as CollectionViewFilterViewModel;
     if (viewModel == null)
@@ -202,19 +197,29 @@ public partial class CollectionViewBehavior
     viewModel.TargetControl = itemsControl;
     viewModel.CollectionView = collectionView;
     viewModel.Columns = GetFilterableColumns(itemsControl);
-    viewModel.Column = GetFilteredColumn(viewModel.Columns, column);
-    var columnFilter = (GetColumnFilter(column) as FilterViewModel);
-    if (columnFilter == null)
-      columnFilter = new GenericColumnFilterViewModel(propPath, columnName, viewModel);
+    viewModel.Column = column;//GetFilteredColumn(viewModel.Columns, column)
+    var columnFilter = GetColumnFilter(column) as FilterViewModel;
     if (previousFilter != null)
     {
-      var compoundFilter = previousFilter as CompoundFilterViewModel;
-      if (compoundFilter==null)
-        compoundFilter = new CompoundFilterViewModel(viewModel) { Operation = BooleanOperation.And };
-      if (editedInstance!=null)
-        compoundFilter.Add(editedInstance);
-      compoundFilter.Add(new GenericColumnFilterViewModel(columnFilter, columnName));
-      columnFilter = compoundFilter;
+      if (!previousFilter.Contains(column))
+      {
+        var compoundFilter = previousFilter as CompoundFilterViewModel;
+        if (compoundFilter == null)
+        {
+          compoundFilter = new CompoundFilterViewModel(viewModel) { Operation = BooleanOperation.And };
+          if (editedInstance != null)
+            compoundFilter.Add(editedInstance);
+        }
+        if (columnFilter == null)
+          columnFilter = new GenericColumnFilterViewModel(column, viewModel);
+        compoundFilter.Add(columnFilter);
+        columnFilter = compoundFilter;
+      }
+    }
+    else
+    {
+      if (columnFilter == null)
+        columnFilter = new GenericColumnFilterViewModel(column, viewModel);
     }
     viewModel.EditedInstance = columnFilter;
     dialog.DataContext = viewModel;
@@ -343,22 +348,11 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Gets filterable column info from FilterableColumns
-  /// </summary>
-  /// <param name="columns"></param>
-  /// <param name="column"></param>
-  /// <returns></returns>
-  public static FilterableColumnInfo? GetFilteredColumn(FilterableColumns? columns, DataGridColumn column)
-  {
-    return columns?.FirstOrDefault(item => item.Column == column);
-  }
-
-  /// <summary>
   /// Gets a collection of filterable columns of the data grid.
   /// </summary>
-  public static FilterableColumns? GetFilterableColumns(ItemsControl itemsControl)
+  public static ColumnsViewInfo? GetFilterableColumns(ItemsControl itemsControl)
   {
-    var columns = new FilterableColumns();
+    var columns = new ColumnsViewInfo();
     if (itemsControl is DataGrid dataGrid)
     {
       var dataItemType = GetDataItemType(dataGrid);
@@ -403,25 +397,46 @@ public partial class CollectionViewBehavior
   }
 
   /// <summary>
-  /// Gets filterable column info of the data grid bound column.
+  /// Gets or creates a filterable column info of the data grid bound column.
   /// </summary>
-  public static FilterableColumnInfo? GetFilterableColumnInfo(Type dataItemType, DataGridColumn column)
+  public static ColumnViewInfo? GetFilterableColumnInfo(Type dataItemType, DataGridColumn column)
   {
     if (column.TryGetFilterablePropertyPath(dataItemType, out var filterablePropertyPath))
     {
-      var columnName = column.GetHeaderText();
-      if (columnName == null)
-        columnName = CollectionViewBehavior.GetHiddenHeader(column);
-      if (columnName == null)
-        columnName = "?";
-      //if (column.TryGetFilterablePropertyPath(itemType, out var propPath))
-      //{
-      //  PropName = propPath.Last().Name;
-      //  DataType = propPath.Last().PropertyType;
-      //  PropPath = propPath;
-      //}
-      return new FilterableColumnInfo(filterablePropertyPath, columnName, dataItemType, column);
+      var columnViewInfo = GetColumnViewInfo(column);
+      if (columnViewInfo == null)
+        columnViewInfo = new ColumnViewInfo();
+      if (String.IsNullOrEmpty(columnViewInfo.ColumnName))
+      {
+        var columnName = column.GetHeaderText();
+        if (String.IsNullOrEmpty(columnViewInfo.ColumnName))
+          return null;
+        columnViewInfo.ColumnName = columnName;
+      }
+      if (columnViewInfo.Column == null)
+        columnViewInfo.Column = column;
+      if (columnViewInfo.DataType == null)
+        columnViewInfo.DataType = dataItemType;
+      if (columnViewInfo.PropPath == null)
+        columnViewInfo.PropPath = filterablePropertyPath;
+      SetColumnViewInfo(column, columnViewInfo);
+      return columnViewInfo;
     }
+
+    //if (column.TryGetFilterablePropertyPath(dataItemType, out var filterablePropertyPath))
+    //{
+    //  var columnName = column.GetHeaderText();
+    //  if (columnName == null)
+    //    columnName = CollectionViewBehavior.GetHiddenHeader(column);
+    //  if (columnName == null)
+    //    columnName = "?";
+
+    //  return new ColumnViewInfo{
+    //    PropPath = filterablePropertyPath, 
+    //    ColumnName = columnName, 
+    //    DataType=dataItemType, 
+    //    Column=column };
+    //}
     return null;
   }
 
@@ -431,7 +446,7 @@ public partial class CollectionViewBehavior
   /// </summary>
   /// <param name="filterableColumns"></param>
   /// <param name="filteredColumns"></param>
-  public static void MarkFilteredColumns(FilterableColumns filterableColumns, FilterableColumns? filteredColumns)
+  public static void MarkFilteredColumns(ColumnsViewInfo filterableColumns, ColumnsViewInfo? filteredColumns)
   {
     foreach (var columnInfo in filterableColumns)
     {

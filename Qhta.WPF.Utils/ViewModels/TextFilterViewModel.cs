@@ -9,9 +9,9 @@ public class TextFilterViewModel : FilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public TextFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
+  public TextFilterViewModel(ColumnViewInfo column, IObjectOwner? owner) : base(column, owner)
   {
-    Debug.WriteLine($"CreateTextFilterViewModel(PropPath={propPath})");
+    //Debug.WriteLine($"CreateTextFilterViewModel(Column={column})");
   }
 
   /// <summary>
@@ -20,7 +20,7 @@ public class TextFilterViewModel : FilterViewModel
   /// <returns></returns>
   public TextFilterViewModel(TextFilterViewModel other) : base(other)
   {
-    Debug.WriteLine($"CreateTextFilterViewModel(other.PropPath={other.PropPath})");
+    //Debug.WriteLine($"CreateTextFilterViewModel(other={other})");
     this.FilterText = other.FilterText;
     this.Function = other.Function;
     this.IgnoreCase = other.IgnoreCase;
@@ -33,7 +33,7 @@ public class TextFilterViewModel : FilterViewModel
   /// <exception cref="NotImplementedException"></exception>
   public override FilterViewModel CreateCopy()
   {
-    Debug.WriteLine($"TextFilter.CreateCopy(PropPath={PropPath})");
+    Debug.WriteLine($"TextFilter.CreateCopy()");
     return new TextFilterViewModel(this);
   }
 
@@ -70,7 +70,7 @@ public class TextFilterViewModel : FilterViewModel
     {
       if (_FilterText != value)
       {
-        Debug.WriteLine($"FilterText={value})");
+        //Debug.WriteLine($"FilterText={value}");
         _FilterText = value;
         NotifyPropertyChanged(nameof(FilterText));
       }
@@ -118,7 +118,7 @@ public class TextFilterViewModel : FilterViewModel
       }
     }
   }
-  private bool _IgnoreCase;
+  private bool _IgnoreCase = true;
 
   #region Individual boolean properties for Function used in RadioButton.
 

@@ -19,11 +19,28 @@
         Height="Auto">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />      
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <ComboBox ItemsSource="{local:Enumerate {x:Type vm:TextPredicateFunction}}"
-              SelectedItem="{Binding Function, Converter={StaticResource EnumToStringConverter}}">
-    </ComboBox>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <ComboBox x:Name="TextPredicateSelection"
+                Grid.Column="0"
+                ItemsSource="{local:Enumerate {x:Type vm:TextPredicateFunction}}"
+                SelectedItem="{Binding Function, Converter={StaticResource EnumToStringConverter}}">
+      </ComboBox>
+      <ToggleButton x:Name="IgnoreCaseButton"
+                    Grid.Column="1"
+                    Margin="4"
+                    IsChecked="{Binding IgnoreCase}"
+                    ToolTip="{x:Static local:CommonStrings.IgnoreCase}"
+                    Background="Transparent"
+                    BorderThickness="0">
+        <Image Source="..\Resources\Aa.png" />
+      </ToggleButton>
+    </Grid>
     <TextBox x:Name="TextBox"
              Grid.Row="1"
              Margin="0,5"

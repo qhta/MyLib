@@ -147,12 +147,17 @@ public partial class TreeViewBehavior
 
     StringWriter text = new StringWriter();
     StringBuilder html = new StringBuilder();
-    var headers = columns.Select(item => item.Header).ToArray();
+    var headers = columns.Select(item => item.Header?? item.HiddenHeader).ToArray();
     text.WriteLine(String.Join("\t", headers));
     html.Append("<table>");
     html.Append("<tr>");
     for (int i = 0; i < headers.Count(); i++)
-      html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(headers[i])}</p></td>");
+    {
+      string? hdr = headers[i] as string;
+      if (string.IsNullOrEmpty(hdr))
+        hdr = $"column({i+1}";
+      html.Append($"<td><p>{HtmlUtils.HtmlTextUtils.EncodeHtmlEntities(hdr)}</p></td>");
+    }
     html.Append("</tr>");
 
     int count = WriteCollection(text, html, treeView.ItemsSource.Cast<ISelectable>(), columns);

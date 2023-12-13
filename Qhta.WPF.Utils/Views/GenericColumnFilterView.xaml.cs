@@ -12,11 +12,11 @@ public partial class GenericColumnFilterView : UserControl
   private void ColumnSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
   {
     if (DataContext is GenericColumnFilterViewModel viewModel &&
-      args.AddedItems.Count == 1 && args.AddedItems[0] is FilterableColumnInfo info)
+      args.AddedItems.Count == 1 && args.AddedItems[0] is ColumnViewInfo info)
     {
-      Debug.WriteLine($"ColumnSelectionBox_SelectionChanged");
-      Debug.WriteLine($"OldColumn={viewModel.Column}");
-      Debug.WriteLine($"NewColumn={info}");
+      //Debug.WriteLine($"ColumnSelectionBox_SelectionChanged");
+      //Debug.WriteLine($"OldColumn={viewModel.Column}");
+      //Debug.WriteLine($"NewColumn={info}");
       if (viewModel.Column != info)
       {
         viewModel.Column = info;

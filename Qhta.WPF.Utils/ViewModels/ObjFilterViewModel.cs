@@ -9,7 +9,7 @@ public class ObjFilterViewModel : FilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public ObjFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner) { }
+  public ObjFilterViewModel(ColumnViewInfo column, IObjectOwner? owner) : base(column, owner) { }
 
   /// <summary>
   /// Copying constructor.

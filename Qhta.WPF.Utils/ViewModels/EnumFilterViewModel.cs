@@ -9,9 +9,13 @@ public class EnumFilterViewModel : FilterViewModel
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public EnumFilterViewModel(Type enumType, PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
+  public EnumFilterViewModel(ColumnViewInfo column, IObjectOwner? owner) : base(column, owner)
   {
-    this.EnumType = enumType;
+    var propType = column.PropertyInfo?.PropertyType;
+    Debug.Assert(propType!=null);
+    if (propType.IsNullable(out var baseType))
+      propType = baseType;
+    this.EnumType = propType;
     this.Function = EnumPredicateFunction.IsEqual;
   }
 
@@ -22,8 +26,6 @@ public class EnumFilterViewModel : FilterViewModel
   public EnumFilterViewModel(EnumFilterViewModel other) : base(other)
   {
     this.EnumType = other.EnumType;
-    this.PropPath = other.PropPath;
-    this.ColumnName = other.ColumnName;
     this.FilterValue = other.FilterValue;
     this.Function = other.Function;
   }
@@ -144,7 +146,7 @@ public class EnumFilterViewModel : FilterViewModel
   /// <returns></returns>
   public override ColumnFilter? CreateFilter()
   {
-    if (Function == null || PropPath==null)
+    if (Function == null ||  PropPath==null)
       return null;
     Func<object?, object?, bool> compareFunction;
     bool needsFilterValue = true;

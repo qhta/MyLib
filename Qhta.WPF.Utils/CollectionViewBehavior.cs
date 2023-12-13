@@ -343,6 +343,41 @@ public partial class CollectionViewBehavior
   }
   #endregion
 
+  #region ColumnViewInfo property
+
+  /// <summary>
+  /// Specifies a hidden header string for a column. 
+  /// This header is not displayed, but may be used e.g. in filtering dialog.
+  /// </summary>
+  public static readonly DependencyProperty ColumnViewInfoProperty = DependencyProperty.RegisterAttached(
+      "ColumnViewInfo",
+      typeof(ColumnViewInfo),
+      typeof(CollectionViewBehavior),
+      new PropertyMetadata(null));
+
+  /// <summary>
+  /// Getter for ColumnViewInfo property.
+  /// </summary>
+  /// <param name="target"></param>
+  /// <returns></returns>
+  public static ColumnViewInfo GetColumnViewInfo(DependencyObject target)
+  {
+    return (ColumnViewInfo)target.GetValue(ColumnViewInfoProperty);
+  }
+
+  /// <summary>
+  /// Setter for ColumnViewInfo property
+  /// </summary>
+  /// <param name="target"></param>
+  /// <param name="value"></param>
+  public static void SetColumnViewInfo(DependencyObject target, ColumnViewInfo value)
+  {
+    value.Column = target;
+    target.SetValue(ColumnViewInfoProperty, value);
+  }
+  #endregion
+
+
   #region HiddenHeader property
 
   /// <summary>

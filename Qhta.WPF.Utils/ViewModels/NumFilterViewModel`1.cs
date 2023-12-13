@@ -10,7 +10,7 @@ public class NumFilterViewModel<T> : NumFilterViewModel where T : IComparable<T>
   /// <summary>
   /// Initializing constructor.
   /// </summary>
-  public NumFilterViewModel(PropPath propPath, string columnName, IObjectOwner? owner) : base(propPath, columnName, owner)
+  public NumFilterViewModel(ColumnViewInfo column, IObjectOwner? owner) : base(column, owner)
   {
     this.PropPath = propPath;
     this.ColumnName = columnName;
