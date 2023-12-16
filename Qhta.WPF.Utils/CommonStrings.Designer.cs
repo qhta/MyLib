@@ -61,11 +61,38 @@ namespace Qhta.WPF.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add &quot;and&quot; function.
+        /// </summary>
+        public static string AddAndFunction {
+            get {
+                return ResourceManager.GetString("AddAndFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add filter.
         /// </summary>
         public static string AddFilter {
             get {
                 return ResourceManager.GetString("AddFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add next condition.
+        /// </summary>
+        public static string AddNextCondition {
+            get {
+                return ResourceManager.GetString("AddNextCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add &quot;or&quot; function.
+        /// </summary>
+        public static string AddOrFunction {
+            get {
+                return ResourceManager.GetString("AddOrFunction", resourceCulture);
             }
         }
         
@@ -372,6 +399,15 @@ namespace Qhta.WPF.Utils {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from function.
+        /// </summary>
+        public static string RemoveFromFunction {
+            get {
+                return ResourceManager.GetString("RemoveFromFunction", resourceCulture);
             }
         }
         

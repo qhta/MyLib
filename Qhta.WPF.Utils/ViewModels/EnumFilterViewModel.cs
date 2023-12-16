@@ -103,7 +103,7 @@ public class EnumFilterViewModel : FilterViewModel
       }
     }
   }
-  private EnumPredicateFunction? _Function;
+  private EnumPredicateFunction? _Function = EnumPredicateFunction.IsEqual;
 
   private void NotifyFunctionChanged()
   {
@@ -209,5 +209,14 @@ public class EnumFilterViewModel : FilterViewModel
     return false;
   }
 
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    var str = $"{Column?.PropPath} {Function}";
+    if (Function!=EnumPredicateFunction.IsEmpty && Function!=EnumPredicateFunction.NotEmpty)
+      str +=" \"{FilterText}\"";
+    return str;
+  }
 }
 

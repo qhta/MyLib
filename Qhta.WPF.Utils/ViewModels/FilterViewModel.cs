@@ -249,7 +249,7 @@ public abstract class FilterViewModel : ViewModel
   /// </summary>
   /// <param name="column"></param>
   /// <returns></returns>
-  public virtual bool Contains(ColumnViewInfo column)
+  public virtual bool ContainsColumn(ColumnViewInfo column)
   {
     return (Column == column);
   }
@@ -282,19 +282,19 @@ public abstract class FilterViewModel : ViewModel
       BooleanOperation? op = null;
       switch (editOp)
       {
-        case FilterEditOperation.AddAndAbove:
+        case FilterEditOperation.AddAnd:
           op = BooleanOperation.And;
           break;
-        case FilterEditOperation.AddOrAbove:
+        case FilterEditOperation.AddOr:
           op = BooleanOperation.Or;
           break;
       }
       if (op != null)
       {
-        var compoundFilter = new CompoundFilterViewModel(Owner) { Operation = op };
+        var owner = Owner;
+        var compoundFilter = new CompoundFilterViewModel(owner) { Operation = op };
+        owner.ChangeComponent(EditedInstance, compoundFilter);
         compoundFilter.Add(this);
-        Owner.ChangeComponent(EditedInstance, compoundFilter);
-        EditedInstance!.Owner = compoundFilter;
         if (Column != null)
         {
           var nextOp = new GenericColumnFilterViewModel(Column, compoundFilter);

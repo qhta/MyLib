@@ -33,7 +33,7 @@ public class TextFilterViewModel : FilterViewModel
   /// <exception cref="NotImplementedException"></exception>
   public override FilterViewModel CreateCopy()
   {
-    Debug.WriteLine($"TextFilter.CreateCopy()");
+    //Debug.WriteLine($"TextFilter.CreateCopy()");
     return new TextFilterViewModel(this);
   }
 
@@ -372,6 +372,15 @@ public class TextFilterViewModel : FilterViewModel
     if (propValue is string propString && otherValue is string otherString)
       return Regex.IsMatch(propString, otherString, RegexOptions.IgnoreCase);
     return false;
+  }
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    var str = $"{Column?.PropPath} {Function}";
+    if (Function!=TextPredicateFunction.IsEmpty && Function!=TextPredicateFunction.NotEmpty)
+      str +=$" \"{FilterText}\"";
+    return str;
   }
 
 }

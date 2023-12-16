@@ -8,11 +8,11 @@ public enum FilterEditOperation
   /// <summary>
   /// Add an And filter above this filter and make this filter left operand.
   /// </summary>
-  AddAndAbove,
+  AddAnd,
 
   /// <summary>
   /// Add an And filter above this filter and make this filter left operand.
   /// </summary>
-  AddOrAbove,
+  AddOr,
 
 }

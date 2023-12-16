@@ -66,29 +66,6 @@ public class DataGridColumnCreator
     var itemsControl = sender as ItemsControl;
     if (itemsControl != null)
     {
-      //var items = itemsControl.ItemsSource;
-      //if (items != null)
-      //{
-      //var itemsType = items.GetType();
-      //var sourceItemsType = itemsType;
-      //Type? itemType;
-      //IReadOnlyCollection<PropertyInfo>? itemProperties = null;
-      //if (!itemsType.IsEnumerable(out itemType))
-      //{
-      //  if (items is CollectionView collectionView)
-      //  {
-      //    sourceItemsType = collectionView.SourceCollection.GetType();
-      //    if (!sourceItemsType.IsEnumerable(out itemType))
-      //      itemType = null;
-      //  }
-      //}
-      //if (itemType!=null)
-      //  itemProperties = itemType.GetProperties();
-      //else
-      //  throw new InvalidOperationException($"ItemsSource type \"{sourceItemsType}\" must implement IEnumerable<> interface");
-
-      //if (itemProperties != null)
-      //{
       var prop = ItemProperties.FirstOrDefault(item => item.Name == args.PropertyName);
       if (prop != null)
       {
@@ -117,6 +94,7 @@ public class DataGridColumnCreator
               SortMemberPath = dataGridColumnAttr.SortMemberPath,
               Visibility = (Visibility)dataGridColumnAttr.Visibility,
               Width = dataGridColumnAttr.Width,
+              PropertyInfo = prop,
             };
             if (dataGridColumnAttr.HeaderTemplateResourceKey != null)
             {
@@ -125,33 +103,15 @@ public class DataGridColumnCreator
             }
             else if (dataGridColumnAttr.HeaderResourceKey != null)
             {
-              //var headerControl = new TextBlock();
-              //headerControl.Text = GetResourceString(dataGridColumnAttr.HeaderResourceKey);
-              //if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
-              //  headerControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
-              //else if (dataGridColumnAttr.HeaderTooltip != null)
-              //  headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
-              //dataGridColumnDef.Header = headerControl;
               columnViewInfo.Header = GetResourceString(dataGridColumnAttr.HeaderResourceKey);
             }
 
             if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
             {
-              //var headerControl = new ContentControl();
-              //headerControl.Content = dataGridColumnDef.Header;
-              //if (dataGridColumnAttr.HeaderTooltipResourceKey != null)
-              //  headerControl.ToolTip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
-              //else if (dataGridColumnAttr.HeaderTooltip != null)
-              //  headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
-              //dataGridColumnDef.Header = headerControl;
               columnViewInfo.HeaderTooltip = GetResourceString(dataGridColumnAttr.HeaderTooltipResourceKey);
             }
             else if (dataGridColumnAttr.HeaderTooltip != null)
             {
-              //var headerControl = new ContentControl();
-              //headerControl.Content = dataGridColumnDef.Header;
-              //headerControl.ToolTip = dataGridColumnAttr.HeaderTooltip;
-              //dataGridColumnDef.Header = headerControl;
               columnViewInfo.HeaderTooltip = dataGridColumnAttr.HeaderTooltip;
             }
 

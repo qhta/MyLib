@@ -136,10 +136,10 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
     }
   }
 
-  /// <inheritdoc>
-  public override bool Contains(ColumnViewInfo column)
+  /// <inheritdoc/>
+  public override bool ContainsColumn(ColumnViewInfo column)
   {
-    return EditedInstance?.Contains(column) ?? false;
+    return EditedInstance?.ContainsColumn(column) ?? false;
   }
 
   /// <inheritdoc/>
@@ -225,4 +225,9 @@ public class CollectionViewFilterViewModel : FilterViewModel, IObjectOwner
   }
   #endregion
 
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    return EditedInstance?.ToString() ?? base.ToString();
+  }
 }

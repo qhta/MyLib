@@ -114,7 +114,7 @@ public class NumFilterViewModel : FilterViewModel
       }
     }
   }
-  private NumPredicateFunction? _Function;
+  private NumPredicateFunction? _Function = NumPredicateFunction.IsEqual;
 
   private void NotifyFunctionChanged()
   {
@@ -381,6 +381,16 @@ public class NumFilterViewModel : FilterViewModel
     if (propValue is IComparable value && otherValue is IComparable other)
       return value.CompareTo(other) != -1;
     return false;
+  }
+
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    var str = $"{Column?.PropPath} {Function}";
+    if (Function!=NumPredicateFunction.IsEmpty && Function!=NumPredicateFunction.NotEmpty)
+      str +=$" \"{FilterText}\"";
+    return str;
   }
 }
 

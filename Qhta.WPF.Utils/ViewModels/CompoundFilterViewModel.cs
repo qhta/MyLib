@@ -10,6 +10,7 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <param name="owner"></param>
   public CompoundFilterViewModel(IObjectOwner? owner) : base(owner)
   {
+    AddNextFilterCommand = new RelayCommand<object>(AddNextFilterExecute, AddNextFilterCanExecute) { Name = "AddNextFilterCommand" };
   }
 
 
@@ -71,13 +72,13 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   public override FilterViewModel CreateCopy()
   {
     var other = new CompoundFilterViewModel(Owner);
+    other.Operation = this.Operation;
     foreach (var item in Items)
     {
       var newItem = item.CreateCopy();
       if (newItem != null)
-        other.Items.Add(newItem);
+        other.Add(newItem);
     }
-    other.Operation = this.Operation;
     return other;
   }
 
@@ -106,23 +107,23 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
       var itemColumns = item.GetFilteredColumns();
       if (itemColumns != null)
         foreach (var column in itemColumns)
-          if (!columns.Contains(column)) 
+          if (!columns.Contains(column))
             columns.Add(column);
     }
     return columns;
   }
 
-  /// <inheritdoc>
-  public override bool Contains(ColumnViewInfo column)
+  /// <inheritdoc/>
+  public override bool ContainsColumn(ColumnViewInfo column)
   {
     foreach (var item in Items)
-      if (item.Contains(column))
+      if (item.ContainsColumn(column))
         return true;
     return false;
   }
 
   /// <inheritdoc/>
-  public override bool CanCreateFilter => Operation!=null;
+  public override bool CanCreateFilter => Operation != null;
 
   /// <inheritdoc/>
   public override IFilter? CreateFilter()
@@ -130,7 +131,7 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
     if (Operation == null)
       return null;
     var result = new CompoundFilter((BooleanOperation)Operation);
-    foreach(var item in Items)
+    foreach (var item in Items)
     {
       var itemFilter = item.CreateFilter();
       if (itemFilter != null)
@@ -160,18 +161,55 @@ public class CompoundFilterViewModel : FilterViewModel, IObjectOwner
   /// <inheritdoc/>
   public bool ChangeComponent(object? oldComponent, object? newComponent)
   {
-    //if (newComponent is FilterViewModel newFilter)
-    //{
-    //  for (int i = 0; i < Items.Count; i++)
-    //  {
-    //    if (Items[i] == oldComponent)
-    //    {
-    //      Items[i] = newFilter;
-    //      return true;
-    //    }
-    //  }
-    //}
+    if (newComponent is FilterViewModel newFilter)
+    {
+      for (int i = 0; i < Items.Count; i++)
+      {
+        if (Items[i] == oldComponent)
+        {
+          Items[i] = newFilter;
+          return true;
+        }
+      }
+    }
     return false;
   }
 
+  #region AddNextFilter
+
+  /// <summary>
+  /// This command adds AND/OR filter above this filter.
+  /// </summary>
+  public Command AddNextFilterCommand { get; private set; }
+
+  /// <summary>
+  /// In theory can always execute, but must check owner (and parameter).
+  /// </summary>
+  /// <returns></returns>
+  protected virtual bool AddNextFilterCanExecute(object? parameter)
+  {
+    return true;
+  }
+
+  /// <summary>
+  /// Creates a new compound filter and adds this to it.
+  /// In current owner changes edited instance to the compound filter.
+  /// Also creates a new generic column filter and adds it to the owner filter as next operand.
+  /// </summary>
+  protected virtual void AddNextFilterExecute(object? parameter)
+  {
+
+    if (Column != null)
+    {
+      var nextOp = new GenericColumnFilterViewModel(Column, this);
+      this.Add(nextOp);
+    }
+  }
+  #endregion
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    return $"{Operation}({(String.Join(", ", Items.Select(item=>item.ToString())))})";
+  }
 }

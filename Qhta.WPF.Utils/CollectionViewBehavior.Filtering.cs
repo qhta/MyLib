@@ -190,10 +190,11 @@ public partial class CollectionViewBehavior
     Debug.Assert(columnName != null);
     var dialog = new FilterDialog();
     var viewModel = GetCollectionFilter(itemsControl) as CollectionViewFilterViewModel;
+    FilterViewModel? previousFilter = viewModel?.CreateCopy();
     if (viewModel == null)
       viewModel = new CollectionViewFilterViewModel();
     FilterViewModel? editedInstance = viewModel.EditedInstance;
-    FilterViewModel? previousFilter = editedInstance?.CreateCopy();
+
     viewModel.TargetControl = itemsControl;
     viewModel.CollectionView = collectionView;
     viewModel.Columns = GetFilterableColumns(itemsControl);
@@ -201,7 +202,7 @@ public partial class CollectionViewBehavior
     var columnFilter = GetColumnFilter(column) as FilterViewModel;
     if (previousFilter != null)
     {
-      if (!previousFilter.Contains(column))
+      if (!previousFilter.ContainsColumn(column))
       {
         var compoundFilter = previousFilter as CompoundFilterViewModel;
         if (compoundFilter == null)
@@ -221,7 +222,8 @@ public partial class CollectionViewBehavior
       if (columnFilter == null)
         columnFilter = new GenericColumnFilterViewModel(column, viewModel);
     }
-    viewModel.EditedInstance = columnFilter;
+    if (columnFilter!=null)
+      viewModel.EditedInstance = columnFilter;
     dialog.DataContext = viewModel;
     dialog.Left = position.X;
     dialog.Top = position.Y;

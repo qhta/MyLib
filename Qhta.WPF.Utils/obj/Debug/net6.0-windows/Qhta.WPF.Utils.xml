@@ -1628,9 +1628,24 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.AddAndFunction">
+            <summary>
+              Looks up a localized string similar to Add &quot;and&quot; function.
+            </summary>
+        </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.AddFilter">
             <summary>
               Looks up a localized string similar to Add filter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.AddNextCondition">
+            <summary>
+              Looks up a localized string similar to Add next condition.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.AddOrFunction">
+            <summary>
+              Looks up a localized string similar to Add &quot;or&quot; function.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.And">
@@ -1801,6 +1816,11 @@
         <member name="P:Qhta.WPF.Utils.CommonStrings.Remove">
             <summary>
               Looks up a localized string similar to Remove.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Utils.CommonStrings.RemoveFromFunction">
+            <summary>
+              Looks up a localized string similar to Remove from function.
             </summary>
         </member>
         <member name="P:Qhta.WPF.Utils.CommonStrings.StartsWith">
@@ -4192,6 +4212,9 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.BoolFilterViewModel.ToString">
+            <inheritdoc/>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.BoolPredicateFunction">
             <summary>
             Enumeration of functions used to define boolean predicate.
@@ -4281,7 +4304,9 @@
             This method copies properties from the other instance of the same type.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)" -->
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ContainsColumn(Qhta.WPF.Utils.ColumnViewInfo)">
+            <inheritdoc/>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.CanCreateFilter">
             <inheritdoc/>
         </member>
@@ -4324,6 +4349,9 @@
             <summary>
             Clears this filter from owner compound filter.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CollectionViewFilterViewModel.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel">
             <summary>
@@ -4376,7 +4404,9 @@
             Gets a collection of filtered columns in the EditedInstance.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)" -->
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.ContainsColumn(Qhta.WPF.Utils.ColumnViewInfo)">
+            <inheritdoc/>
+        </member>
         <member name="P:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.CanCreateFilter">
             <inheritdoc/>
         </member>
@@ -4393,6 +4423,27 @@
             <inheritdoc/>
         </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.ChangeComponent(System.Object,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.AddNextFilterCommand">
+            <summary>
+            This command adds AND/OR filter above this filter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.AddNextFilterCanExecute(System.Object)">
+            <summary>
+            In theory can always execute, but must check owner (and parameter).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.AddNextFilterExecute(System.Object)">
+            <summary>
+            Creates a new compound filter and adds this to it.
+            In current owner changes edited instance to the compound filter.
+            Also creates a new generic column filter and adds it to the owner filter as next operand.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.CompoundFilterViewModel.ToString">
             <inheritdoc/>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel">
@@ -4477,6 +4528,9 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.EnumFilterViewModel.ToString">
+            <inheritdoc/>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.EnumPredicateFunction">
             <summary>
             Enumeration of functions used to define enum value predicate.
@@ -4507,12 +4561,12 @@
             Specifies what to do with a column filter inside filter dialog.
             </summary>
         </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.FilterEditOperation.AddAndAbove">
+        <member name="F:Qhta.WPF.Utils.ViewModels.FilterEditOperation.AddAnd">
             <summary>
             Add an And filter above this filter and make this filter left operand.
             </summary>
         </member>
-        <member name="F:Qhta.WPF.Utils.ViewModels.FilterEditOperation.AddOrAbove">
+        <member name="F:Qhta.WPF.Utils.ViewModels.FilterEditOperation.AddOr">
             <summary>
             Add an And filter above this filter and make this filter left operand.
             </summary>
@@ -4653,7 +4707,7 @@
              Specifies whether Operation is Clear.
             </summary>
         </member>
-        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)">
+        <member name="M:Qhta.WPF.Utils.ViewModels.FilterViewModel.ContainsColumn(Qhta.WPF.Utils.ColumnViewInfo)">
             <summary>
             Checks whether the filter contains the specific column.
             </summary>
@@ -4763,7 +4817,9 @@
             Clears the specific filter
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.Contains(Qhta.WPF.Utils.ColumnViewInfo)" -->
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.ContainsColumn(Qhta.WPF.Utils.ColumnViewInfo)">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.GetComponent(System.String)">
             <summary>
             Returns the Instance component.
@@ -4778,6 +4834,9 @@
             <summary>
             Changes the Instance component to new instance.
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.GenericColumnFilterViewModel.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.IObjectOwner">
             <summary>
@@ -4924,6 +4983,9 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.NumFilterViewModel.ToString">
+            <inheritdoc/>
+        </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.NumPredicateFunction">
             <summary>
             Enumeration of functions used to define numeric value predicate.
@@ -5025,6 +5087,9 @@
             Creates DataGridColumnFilter basing on current properties.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.ObjFilterViewModel.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.ObjPredicateFunction">
             <summary>
@@ -5152,6 +5217,9 @@
             Creates DataGridColumnFilter basing on current properties.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Utils.ViewModels.TextFilterViewModel.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.WPF.Utils.ViewModels.TextPredicateFunction">
             <summary>

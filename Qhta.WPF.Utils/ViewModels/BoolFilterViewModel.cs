@@ -157,4 +157,11 @@ public class BoolFilterViewModel : FilterViewModel
     return false;
   }
 
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    var str = $"{Column?.PropPath} {Function}";
+    return str;
+  }
 }

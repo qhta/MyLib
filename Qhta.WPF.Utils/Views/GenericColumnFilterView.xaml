@@ -55,15 +55,14 @@
           <MenuItem.Header>
             <Image Source="..\Resources\Menu.png" />
           </MenuItem.Header>
-            <MenuItem Header="{x:Static local:CommonStrings.AddFilter}">
-              <MenuItem Header="{x:Static local:CommonStrings.And}" 
-                        Command="{Binding EditedInstance.AddFilterCommand}"
-                        CommandParameter="{x:Static vm:FilterEditOperation.AddAndAbove}"/>              
-              <MenuItem Header="{x:Static local:CommonStrings.Or}"
-                        Command="{Binding EditedInstance.AddFilterCommand}"
-                        CommandParameter="{x:Static vm:FilterEditOperation.AddOrAbove}"/>              
-            </MenuItem>
-            <MenuItem Header="{x:Static local:CommonStrings.Remove}" />
+          <MenuItem Header="{x:Static local:CommonStrings.AddAndFunction}"
+                    Command="{Binding EditedInstance.AddFilterCommand}"
+                    CommandParameter="{x:Static vm:FilterEditOperation.AddAnd}" />
+          <MenuItem Header="{x:Static local:CommonStrings.AddOrFunction}"
+                    Command="{Binding EditedInstance.AddFilterCommand}"
+                    CommandParameter="{x:Static vm:FilterEditOperation.AddOr}" />
+          <MenuItem Header="{x:Static local:CommonStrings.Remove}"
+                    Command="{Binding EditedInstance.RemoveFilterCommand}" />
         </MenuItem>
       </Menu>
     </Grid>

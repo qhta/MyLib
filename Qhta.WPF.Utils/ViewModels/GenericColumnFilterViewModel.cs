@@ -52,7 +52,7 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
         _SpecificFilter = value;
         if (_SpecificFilter != null)
         {
-          _SpecificFilter.CopyFrom(oldInstance);
+          _SpecificFilter.Owner = this;
           _SpecificFilter.PropertyChanged += _SpecificFilter_PropertyChanged;
         }
         NotifyPropertyChanged(nameof(SpecificFilter));
@@ -80,14 +80,14 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     {
       if (PropPath != null)
       {
-        Debug.WriteLine($"GenericColumnFilterViewModel_PropertyChanged(Property={args.PropertyName}, Value={PropPath})");
+        //Debug.WriteLine($"GenericColumnFilterViewModel_PropertyChanged(Property={args.PropertyName}, Value={PropPath})");
         if (SpecificFilter?.Column?.PropPath != PropPath)
           SpecificFilter = CreateSpecificFilter();
       }
     }
     if (args.PropertyName == nameof(Column))
     {
-      Debug.WriteLine($"GenericColumnFilterViewModel_PropertyChanged(Property={args.PropertyName}, Value={Column})");
+      //Debug.WriteLine($"GenericColumnFilterViewModel_PropertyChanged(Property={args.PropertyName}, Value={Column})");
     }
     if (args.PropertyName == nameof(SpecificFilter))
     {
@@ -142,7 +142,9 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     //if (PropPath != null && ColumnName != null)
     //  return CreateSpecificFilter(PropPath, ColumnName, DataType, Owner);
     Debug.Assert(Column!=null);
-    return new GenericColumnFilterViewModel(Column,Owner);
+    var result = new GenericColumnFilterViewModel(Column,Owner);
+    result.SpecificFilter = this.SpecificFilter?.CreateCopy();      
+    return result;
   }
 
   /// <summary>
@@ -261,10 +263,10 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     SpecificFilter?.ClearFilter();
   }
 
-  /// <inheritdoc>
-  public override bool Contains(ColumnViewInfo column)
+  /// <inheritdoc/>
+  public override bool ContainsColumn(ColumnViewInfo column)
   {
-    return SpecificFilter?.Contains(column) ?? false;
+    return SpecificFilter?.ContainsColumn(column) ?? false;
   }
 
   /// <summary>
@@ -312,5 +314,11 @@ public class GenericColumnFilterViewModel : FilterViewModel, IObjectOwner
     if (Owner != null)
       Owner.ChangeComponent(oldInstance, SpecificFilter);
     return true;
+  }
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    return SpecificFilter?.ToString() ?? base.ToString();
   }
 }

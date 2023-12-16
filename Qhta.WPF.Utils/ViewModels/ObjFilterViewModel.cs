@@ -126,4 +126,11 @@ public class ObjFilterViewModel : FilterViewModel
     return propValue != null;
   }
 
+
+  /// <inheritdoc/>
+  public override string? ToString()
+  {
+    var str = $"{Column?.PropPath} {Function}";
+    return str;
+  }
 }

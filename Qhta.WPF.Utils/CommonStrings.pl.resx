@@ -231,4 +231,16 @@
   <data name="NotContains" xml:space="preserve">
     <value>Nie zawiera</value>
   </data>
+  <data name="AddAndFunction" xml:space="preserve">
+    <value>Dodaj funkcję "oraz"</value>
+  </data>
+  <data name="AddOrFunction" xml:space="preserve">
+    <value>Dodaj funkcję "lub"</value>
+  </data>
+  <data name="RemoveFromFunction" xml:space="preserve">
+    <value>Usuń z funkcji</value>
+  </data>
+  <data name="AddNextCondition" xml:space="preserve">
+    <value>Dodaj następny warunek</value>
+  </data>
 </root>

@@ -26,7 +26,8 @@
     </ComboBox>    
     <TextBox x:Name="TextBox"
              Grid.Row="1"
-             Margin="0,10,0,10"
+             Margin="0,5"
+             Padding="0,2"
              Height="Auto"
              Text="{Binding FilterText}" />
   </Grid>
