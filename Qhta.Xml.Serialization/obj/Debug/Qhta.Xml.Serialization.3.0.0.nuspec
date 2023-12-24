@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Flexible implementation of XmlSerializer</description>
-    <repository type="git" commit="b473bfee52489b6ce294b4029f119afad98b1d6a" />
+    <repository type="git" commit="910d924b55c3004d80798013f2763beb012be280" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
