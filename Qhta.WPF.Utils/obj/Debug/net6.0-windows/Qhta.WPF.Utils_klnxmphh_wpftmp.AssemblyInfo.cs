@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package classes (converters) to use in WPF applications.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.4.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.4+16d562822abd6dcb917e5097de795d008cc64120")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.WPF.Utils")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.WPF.Utils")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.4.0.0")]

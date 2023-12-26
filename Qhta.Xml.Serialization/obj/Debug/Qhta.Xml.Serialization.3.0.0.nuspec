@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Flexible implementation of XmlSerializer</description>
-    <repository type="git" commit="910d924b55c3004d80798013f2763beb012be280" />
+    <repository type="git" commit="16d562822abd6dcb917e5097de795d008cc64120" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
@@ -16,9 +16,9 @@
         <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
-        <dependency id="System.CodeDom" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="System.CodeDom" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Collections.Specialized" version="4.3.0" exclude="Build,Analyzers" />
-        <dependency id="System.Security.Permissions" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Permissions" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
@@ -26,9 +26,9 @@
         <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
-        <dependency id="System.CodeDom" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="System.CodeDom" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Collections.Specialized" version="4.3.0" exclude="Build,Analyzers" />
-        <dependency id="System.Security.Permissions" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Permissions" version="8.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
