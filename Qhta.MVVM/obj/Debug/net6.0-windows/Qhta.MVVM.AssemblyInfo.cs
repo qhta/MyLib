@@ -14,12 +14,12 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Yarreck Qhta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A simple MVVM framework which enables worker threads to invoke UI notification vi" +
-    "a DispatchedObjects.")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0")]
+    "a ObservableObjects.")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("4.0.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.0+4c5f680217fed12e684ec7a4cb50ce6edc4378f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.MVVM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.MVVM")]
-[assembly: System.Reflection.AssemblyVersionAttribute("2.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("4.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

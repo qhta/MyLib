@@ -3,7 +3,6 @@ D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\TestObservableObjectWpfApp.runtimeconfig.json
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\TestObservableObjectWpfApp.dll
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\TestObservableObjectWpfApp.pdb
-D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\System.Collections.Immutable.dll
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.ObservableObjects.dll
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.WPF.Behaviors.dll
 D:\VS\Projects\MyLib\Qhta.ObservableObjects.Test\TestObservableObjectWpfApp\bin\Debug\net6.0-windows\Qhta.ObservableObjects.pdb

@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Qhta.MVVM/3.9": {
         "dependencies": {
-          "Qhta.ObservableObjects": "2.7.0"
+          "Qhta.ObservableObjects": "2.8.0"
         },
         "runtime": {
           "Qhta.MVVM.dll": {}
@@ -137,7 +137,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "Qhta.ObservableObjects/2.7.0": {
+      "Qhta.ObservableObjects/2.8.0": {
         "dependencies": {
           "System.Collections.Concurrent": "4.3.0",
           "System.Collections.Immutable": "7.0.0"
@@ -280,7 +280,7 @@
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
-    "Qhta.ObservableObjects/2.7.0": {
+    "Qhta.ObservableObjects/2.8.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

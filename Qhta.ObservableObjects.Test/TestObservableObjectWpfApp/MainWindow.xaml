@@ -32,7 +32,7 @@
       <Label HorizontalAlignment="Center"
         Content="{Binding Path=ObservableListTest.Status}"/>
     </Border>
-    
+
     <Border Grid.Column="1" Grid.Row="0"
             Background="LightGray">
       <Button x:Name="StartObservableDictionaryTest"

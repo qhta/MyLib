@@ -36,10 +36,26 @@
             <param name="obj"></param>
             <param name="args"></param>
         </member>
+        <member name="T:Qhta.WPF.Behaviors.CommandManagerBridge">
+            <summary>
+            Listener for CanExecuteChanged event implementation based on WPF <see cref="T:System.Windows.Input.CommandManager"/>.
+            </summary>
+        </member>
+        <member name="E:Qhta.WPF.Behaviors.CommandManagerBridge.CanExecuteChanged">
+            <summary>
+            EventHandler of CanExecuteChanged assigned to <see cref="E:System.Windows.Input.CommandManager.RequerySuggested"/>.
+            </summary>
+        </member>
         <member name="T:Qhta.WPF.Behaviors.DispatcherBridge">
             <summary>
             A class that implements <see cref="T:Qhta.ObservableObjects.IDispatcherBridge"/> in WPF applications
             </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DispatcherBridge.#ctor(System.Windows.Threading.Dispatcher)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="dispatcher"></param>
         </member>
         <member name="M:Qhta.WPF.Behaviors.DispatcherBridge.BeginInvoke(System.Delegate)">
             <summary>

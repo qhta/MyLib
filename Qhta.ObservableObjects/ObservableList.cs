@@ -1369,7 +1369,7 @@ namespace Qhta.ObservableObjects
       }
     }
 
-    int IList.Add(object value)
+    int IList.Add(object? value)
     {
       if (value is T item)
       {
@@ -1380,27 +1380,27 @@ namespace Qhta.ObservableObjects
       return -1;
     }
 
-    bool IList.Contains(object value)
+    bool IList.Contains(object? value)
     {
       if (value is T item)
         return this.Contains(item);
       return false;
     }
 
-    int IList.IndexOf(object value)
+    int IList.IndexOf(object? value)
     {
       if (value is T item)
         return this.IndexOf(item);
       return -1;
     }
 
-    void IList.Insert(int index, object value)
+    void IList.Insert(int index, object? value)
     {
       if (value is T item)
         this.Insert(index, item);
     }
 
-    void IList.Remove(object value)
+    void IList.Remove(object? value)
     {
       if (value is T item)
         this.Remove(item);

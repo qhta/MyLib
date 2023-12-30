@@ -20,6 +20,7 @@ public class TestObservableList : Test
     var testList = new ObservableList<int>();
     //BindingOperations.EnableCollectionSynchronization(testList, testList.LockObject);
     DataContext = testList;
+    testList.PropertyChanged += TestList_PropertyChanged;
     int[] testArray = new int[30];
     int k = 0;
     await Task.Run(() =>
@@ -128,5 +129,16 @@ public class TestObservableList : Test
     });
     Debug.WriteLine($"Exit {Caption}");
 
+  }
+
+  private void TestList_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args)
+  {
+    var status = Status;
+    var k = status.IndexOf('.');
+    if (k >=0)
+      status = status.Substring(0, k);
+    var propInfo = sender!.GetType().GetProperty(args.PropertyName!);
+    var value = propInfo?.GetValue(sender, null);
+    Status = status + $". {args.PropertyName}={value}";
   }
 }

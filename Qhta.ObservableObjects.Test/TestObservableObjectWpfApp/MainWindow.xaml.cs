@@ -12,7 +12,7 @@ public partial class MainWindow : Window
   public MainWindow()
   {
     InitializeComponent();
-    ObservableObject.CommonDispatcher = new DispatcherBridge();
+    ObservableObject.CommonDispatcher = new DispatcherBridge(Dispatcher);
     var tests = new Tests();
     DataContext = tests;
     tests.ObservableListTest = new TestObservableList();

@@ -361,9 +361,8 @@ public partial class CollectionViewBehavior
       if (dataItemType == null)
         return null;
       foreach (var column in dataGrid.Columns)
-        if (column is DataGridBoundColumn boundColumn)
         {
-          var info = GetFilterableColumnInfo(dataItemType, boundColumn);
+          var info = GetFilterableColumnInfo(dataItemType, column);
           if (info != null)
             columns.Add(info);
         }

@@ -320,9 +320,10 @@ namespace Qhta.ObservableObjects
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    public void Add(object key, object value)
+    public void Add(object key, object? value)
     {
-      Add((TKey)key, (TValue)value);
+      if (value!=null)
+        Add((TKey)key, (TValue)value);
     }
 
     /// <summary>
