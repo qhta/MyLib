@@ -213,4 +213,14 @@ public class DataGridColumnAttribute : System.Attribute
   ///// A key to context menu resource that defines functionality of the header.
   ///// </summary>
   //public string? HeaderContextMenuResourceKey {get; set; }
+
+  /// <summary>
+  /// Gets or sets whether CheckBox cell should be checked/unchecked on one click.
+  /// </summary>
+  public bool CheckImmediately { get; set; }
+
+  /// <summary>
+  /// Gets or sets whether property should be update immediately.
+  /// </summary>
+  public bool UpdateImmediately { get; set; }
 }

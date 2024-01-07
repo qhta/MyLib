@@ -9,7 +9,7 @@
       "Qhta.WPF.Utils/3.4": {
         "dependencies": {
           "Qhta.HtmlUtils": "2.1.0",
-          "Qhta.MVVM": "3.9.0",
+          "Qhta.MVVM": "4.1.0",
           "Qhta.OrdNumbers": "2.3.0",
           "Qhta.TextUtils": "3.2.0",
           "Qhta.TypeUtils": "1.3.11",
@@ -76,26 +76,25 @@
           }
         }
       },
-      "Qhta.MVVM/3.9.0": {
+      "Qhta.MVVM/4.1.0": {
         "dependencies": {
-          "Qhta.ObservableObjects": "2.8.0"
+          "Qhta.ObservableObjects": "3.0.0"
         },
         "runtime": {
           "lib/net6.0-windows7.0/Qhta.MVVM.dll": {
-            "assemblyVersion": "3.9.0.0",
-            "fileVersion": "3.9.0.0"
+            "assemblyVersion": "4.1.0.0",
+            "fileVersion": "4.1.0.0"
           }
         }
       },
-      "Qhta.ObservableObjects/2.8.0": {
+      "Qhta.ObservableObjects/3.0.0": {
         "dependencies": {
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Immutable": "7.0.0"
+          "System.Collections.Immutable": "8.0.0"
         },
         "runtime": {
-          "lib/netstandard2.0/Qhta.ObservableObjects.dll": {
-            "assemblyVersion": "2.8.0.0",
-            "fileVersion": "2.8.0.0"
+          "lib/net6.0-windows7.0/Qhta.ObservableObjects.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
           }
         }
       },
@@ -201,14 +200,14 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Collections.Immutable/7.0.0": {
+      "System.Collections.Immutable/8.0.0": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "runtime": {
           "lib/net6.0/System.Collections.Immutable.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
           }
         }
       },
@@ -687,19 +686,19 @@
       "path": "qhta.htmlutils/2.1.0",
       "hashPath": "qhta.htmlutils.2.1.0.nupkg.sha512"
     },
-    "Qhta.MVVM/3.9.0": {
+    "Qhta.MVVM/4.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WjEKTP0v2CMy9wwC0I/nhvwSfBTOPDzgBQZP7gNok8jgch11MUh3OZYo8ig5BSMycRSjONABHajF5H1H1PZ5AQ==",
-      "path": "qhta.mvvm/3.9.0",
-      "hashPath": "qhta.mvvm.3.9.0.nupkg.sha512"
+      "sha512": "sha512-EY9WdF2DXrCOgBzAhfzzi6tKozL8Vn2uEdfj3Wsgv5ErSVSgNSSyysiUiaR5+uz1pQY5M8uSoHlF3zwobZ/U1Q==",
+      "path": "qhta.mvvm/4.1.0",
+      "hashPath": "qhta.mvvm.4.1.0.nupkg.sha512"
     },
-    "Qhta.ObservableObjects/2.8.0": {
+    "Qhta.ObservableObjects/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-60kk+IpANDMQmvhM5RAaCO2fYqWx6KBLgJVeoAEkw5YYCJbMCg0SLKycgjC+26Wys/MwC/B1231ZnQSRvLlzvw==",
-      "path": "qhta.observableobjects/2.8.0",
-      "hashPath": "qhta.observableobjects.2.8.0.nupkg.sha512"
+      "sha512": "sha512-XAhuPaHSVAjqhtEbWS3uv9eG5e27ISiumUYkqiCnmyVSRbRBBW9E/e9z8B3VIb90xIADIuyK80wHNBOOe5f1GA==",
+      "path": "qhta.observableobjects/3.0.0",
+      "hashPath": "qhta.observableobjects.3.0.0.nupkg.sha512"
     },
     "Qhta.OrdNumbers/2.3.0": {
       "type": "package",
@@ -848,12 +847,12 @@
       "path": "system.collections.concurrent/4.3.0",
       "hashPath": "system.collections.concurrent.4.3.0.nupkg.sha512"
     },
-    "System.Collections.Immutable/7.0.0": {
+    "System.Collections.Immutable/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dQPcs0U1IKnBdRDBkrCTi1FoajSTBzLcVTpjO4MBCMC7f4pDOIPzgBoX8JjG7X6uZRJ8EBxsi8+DR1JuwjnzOQ==",
-      "path": "system.collections.immutable/7.0.0",
-      "hashPath": "system.collections.immutable.7.0.0.nupkg.sha512"
+      "sha512": "sha512-AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
+      "path": "system.collections.immutable/8.0.0",
+      "hashPath": "system.collections.immutable.8.0.0.nupkg.sha512"
     },
     "System.Diagnostics.Debug/4.3.0": {
       "type": "package",

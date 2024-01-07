@@ -6,6 +6,7 @@
                     x:Class="Qhta.WPF.Utils.CollectionViewBehavior">
   <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   <cvt:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />
+  
   <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type DataGrid},ResourceId=DataGridSelectAllButtonStyle}"
          Style.TargetType="{x:Type Button}">
     <Setter Setter.Property="Control.Template">
@@ -373,6 +374,26 @@
         <Setter Setter.Property="Control.BorderBrush"
                 Setter.Value="{DynamicResource FocusBorderBrushKey}" />
       </Trigger>
+      <!--<EventTrigger RoutedEvent="MouseDown">
+        <BeginStoryboard>
+          <Storyboard>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsEditing">
+              <DiscreteBooleanKeyFrame Value="True"
+                                       KeyTime="0:0:0" />
+            </BooleanAnimationUsingKeyFrames>
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>-->
+      <!--<Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="IsEditing"
+                Value="True" />
+      </Trigger>-->
+      <!--<Trigger Property="IsMouseOver"
+               Value="false">
+        <Setter Property="IsEditing"
+                Value="False" />
+      </Trigger>-->
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Condition.Property="DataGridCell.IsSelected"

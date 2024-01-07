@@ -1,0 +1,1241 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.ObservableObjects</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.ObservableObjects.IDispatcherBridge">
+            <summary>
+            Interface declaring methods to execute action in application main thread.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.BeginInvoke(System.Delegate)">
+            <summary>
+             Executes the specified delegate asynchronously 
+             on the thread that the System.Windows.Threading.Dispatcher was created on.
+            </summary>
+            <param name="method">The delegate to a method that takes parameters specified in args, which is pushed
+                onto the Dispatcher event queue.
+            </param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.BeginInvoke(System.Delegate,System.Object)">
+            <summary>
+             Executes the specified delegate asynchronously 
+             on the thread that the Dispatcher was created on.
+            </summary>
+            <param name="method">The delegate to a method that takes parameters specified in args, which is pushed
+            onto the Dispatcher event queue.</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.BeginInvoke(System.Delegate,System.Object,System.Object)">
+            <summary>
+             Executes the specified delegate asynchronously 
+             on the thread that the Dispatcher was created on.
+            </summary>
+            <param name="method">The delegate to a method that takes parameters specified in args, which is pushed
+            onto the Dispatcher event queue.</param>
+            <param name="sender">Sender object to pass as the first argument to the given method</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.Invoke(System.Delegate)">
+            <summary>
+            Executes the specified delegate synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="method">A delegate to a method that takes parameters specified in args, which is pushed
+             onto the Dispatcher event queue.</param>
+            <returns>The return value from the delegate being invoked or null if the delegate has no return value</returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.Invoke(System.Delegate,System.Object)">
+            <summary>
+            Executes the specified delegate with the specified arguments synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="method">A delegate to a method that takes parameters specified in args, which is pushed
+             onto the Dispatcher event queue.</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+            <returns>The return value from the delegate being invoked or null if the delegate has no return value</returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.Invoke(System.Delegate,System.Object,System.Object)">
+            <summary>
+            Executes the specified delegate with the specified arguments synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="method">A delegate to a method that takes parameters specified in args, which is pushed
+             onto the Dispatcher event queue.</param>
+            <param name="sender">Sender object to pass as the first argument to the given method</param>
+            <param name="args">An array of objects to pass as arguments to the given method.</param>
+            <returns>The return value from the delegate being invoked or null if the delegate has no return value</returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.Invoke(System.Action)">
+            <summary>
+             Executes the specified System.Action synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="callback">A delegate to invoke through the dispatcher.</param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.IDispatcherBridge.Invoke``1(System.Func{``0})">
+            <summary>
+             Executes the specified System.Func synchronously on the thread the Dispatcher is associated with.
+            </summary>
+            <param name="callback">A delegate to invoke through the dispatcher.</param>
+            <returns>The value returned by callback.</returns>
+        </member>
+        <member name="T:Qhta.ObservableObjects.ObservableCollectionObject">
+            <summary>
+            Base class for all observable collection classes.
+            </summary>
+        </member>
+        <member name="E:Qhta.ObservableObjects.ObservableCollectionObject.CollectionChanged">
+            <summary>
+            Handler for collection changed event.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.HandleCollectionChangedEvent(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventHandler,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Method to handle collection changed event.
+            If a Dispatcher is set, then it is used to begin invoke the action
+            </summary>
+            <param name="sender">Immutable collection which is a result of the operation</param>
+            <param name="notifyCollectionChangedEventHandler"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableCollectionObject.NotifyCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Invokes <see cref="M:Qhta.ObservableObjects.ObservableCollectionObject.HandleCollectionChangedEvent(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventHandler,System.Collections.Specialized.NotifyCollectionChangedEventArgs)"/> handle method.
+            </summary>
+            <param name="sender">Immutable collection which is a result of the operation</param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Qhta.ObservableObjects.ObservableDictionary`2">
+            <summary>
+            Multithread version of Dictionary<typeparamref name="TKey"/>, <typeparamref name="TValue"/> with CollectionChanged notification.
+            It should be used instead of ObservableCollection<typeparamref name="TValue"/> in MVVM architecture model when
+            data source must be a dictionary.
+            To bind it to CollectionView, 
+            <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c> must be invoked. 
+            Instead, it can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Behaviors assembly.
+            Syntax is:
+            <c>xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"</c>
+            <c>bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="F:Qhta.ObservableObjects.ObservableDictionary`2._items">
+            <summary>
+            Internal ImmutableDictionary
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})">
+            <summary>
+            Constructor with initial collection
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.KeyComparer">
+            <summary>
+            Special comparer for TKey type.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.IsFixedSize">
+            <summary>
+            Specifies whether collection size is fixed.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.IsReadOnly">
+            <summary>
+            Specifies whether collection is read only.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Clear">
+            <summary>
+            Removes all the items.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.Count">
+            <summary>
+            Returns the count of items.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2._Count">
+            <summary>
+            Returns the count of items.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.Keys">
+            <summary>
+            Returns the keys collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.Values">
+            <summary>
+            Returns the values collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.Item(`0)">
+            <summary>
+            Indexed access to items.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.GetEnumerator">
+            <summary>
+            Gets enumerator adding it to enumerator list.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Add(`0,`1)">
+            <summary>
+            Adds a value with a specific key.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.AddRange(System.Collections.Generic.IEnumerable{System.ValueTuple{`0,`1}})">
+            <summary>
+              Adds the elements of the specified collection to the end of the ImmutableList.
+            </summary>
+            <param name="collection">
+              The collection whose elements should be added to the end of the list.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+              collection is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.AddRange(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})">
+            <summary>
+              Adds the elements of the specified collection to the end of the ImmutableList.
+            </summary>
+            <param name="collection">
+              The collection whose elements should be added to the end of the list.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+              collection is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.ContainsKey(`0)">
+            <summary>
+            Checks if the dictionary contains the specific key.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.ContainsValue(`1)">
+            <summary>
+            Checks if the dictionary contains the specific value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Remove(`0)">
+            <summary>
+            Removes an item specified by the key.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Checks if the dictionary contains an item specified by the key and returns the value.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Add(System.Object,System.Object)">
+            <summary>
+            Adds an object value with a specified object key.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Contains(System.Object)">
+            <summary>
+            Checks if the dictionary contains an object key.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Remove(System.Object)">
+            <summary>
+            Removes the item with object key.
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableDictionary`2.Item(System.Object)">
+            <summary>
+            Access to object item
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.CopyTo(System.Array,System.Int32)">
+            <summary>
+            Copies items to the array
+            </summary>
+            <param name="array"></param>
+            <param name="index"></param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Adds a key-value pair.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
+            <summary>
+            Copies items to the array
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Removes a key-value pair.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableDictionary`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Checks if the dictionary contains a key-value pair.
+            </summary>
+            <param name="pair"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.ObservableObjects.ObservableList`1">
+            <summary>
+            Multithread version of List<typeparamref name="T"/> with CollectionChanged notification.
+            It should be used instead of ObservableCollection<typeparamref name="T"/> in MVVM architecture model.
+            To bind it to CollectionView, 
+            <c>BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)</c> must be invoked. 
+            Instead, it can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Behaviors assembly.
+            Syntax is:
+            <c>xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"</c>
+            <c>bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"</c>
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:Qhta.ObservableObjects.ObservableList`1._Items">
+            <summary>
+            Internal ImmutableList
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Constructor with initial collection
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableList`1.IsFixedSize">
+            <summary>
+            Specifies whether collection size is fixed.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableList`1.IsReadOnly">
+            <summary>
+            Specifies whether collection is read only.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableList`1.Item(System.Int32)">
+            <summary>
+              Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+            <returns>The element at the specified index.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+              index is less than 0. -or- index is equal to or greater than list count.
+            </exception>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableList`1.Count">
+            <summary>
+              Gets the number of elements contained in the list.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.SetItem(System.Int32,`0)">
+            <summary>
+            Sets an item changing ImmutableList.
+            </summary>
+            <param name="index">Index of the changed item.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Add(`0)">
+            <summary>
+              Adds an object to the end of the ImmutableList.
+            </summary>
+            <param name="item">
+              The object to be added to the end of the list. The value can be null for reference types.
+            </param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+              Adds the elements of the specified collection to the end of the ImmutableList.
+            </summary>
+            <param name="collection">
+              The collection whose elements should be added to the end of the list.
+              The collection itself cannot be null, but it can contain elements that are null,
+              if type T is a reference type.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+              collection is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.AsReadOnly">
+            <summary>
+              Returns a read-only ReadOnlyCollection wrapper for the current collection.
+            </summary>
+            <returns>
+              An object that acts as a read-only wrapper around the current list.
+            </returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.BinarySearch(`0)">
+            <summary>
+              Searches the entire sorted list for an element using
+              the default comparer and returns the zero-based index of the element.
+            </summary>
+            <param name="item">
+              The object to locate. The value can be null for reference types.
+            </param>
+            <returns>
+               The zero-based index of item in the sorted list,
+               if item is found; otherwise, a negative number that is the bitwise complement
+               of the index of the next element that is larger than item or, if there is no
+               larger element, the bitwise complement of list Count.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+               The default comparer cannot find an implementation of the IComparable&lt;T&gt; generic interface 
+               or the IComparable interface for type T.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.BinarySearch(`0,System.Collections.Generic.IComparer{`0})">
+            <summary>
+              Searches the entire sorted list for an element using
+              the specified comparer and returns the zero-based index of the element.
+            </summary>
+            <param name="item">
+              The object to locate. The value can be null for reference types.
+            </param>
+            <param name="comparer">
+              The IComparer&lt;T$gt; implementation to use when comparing
+              elements. -or- null to use the default comparer.
+            </param>
+            <returns>
+             The zero-based index of item in the sorted list,
+              if item is found; otherwise, a negative number that is the bitwise complement
+              of the index of the next element that is larger than item or, if there is no
+              larger element, the bitwise complement of Count.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+              comparer is null, and the default comparer
+              cannot find an implementation of the IComparable&lt;T$gt; generic interface or
+              the IComparable interface for type T.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.BinarySearch(System.Int32,System.Int32,`0,System.Collections.Generic.IComparer{`0})">
+            <summary>
+              Searches a range of elements in the sorted list 
+              for an element using the specified comparer and returns the zero-based index
+              of the element.
+            </summary>
+            <param name="index">The zero-based starting index of the range to search.</param>
+            <param name="count">The length of the range to search.</param>
+            <param name="item">The object to locate. The value can be null for reference types.</param>
+            <param name="comparer">
+              The IComparer implementation to use when comparing
+              elements, or null to use the default comparer.
+            </param>
+            <returns>
+              The zero-based index of item in the sorted list,
+              if item is found; otherwise, a negative number that is the bitwise complement
+              of the index of the next element that is larger than item or, if there is no
+              larger element, the bitwise complement of Count.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+              index is less than 0. -or- count is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+              index and count do not denote a valid range in the list.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+              comparer is null, and the default comparer
+              cannot find an implementation of the IComparable&lt;T$gt; generic interface or
+              the IComparable interface for type T.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Clear">
+            <summary>
+              Removes all elements from the list.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Contains(`0)">
+            <summary>
+              Determines whether an element is in the list.
+            </summary>
+            <param name="item">
+              The object to locate in the list. The value can be null for reference types.
+            </param>
+            <returns>true if item is found in the list; otherwise, false.</returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.ConvertAll``1(System.Func{`0,``0})">
+            <summary>
+              Converts the elements in the current list to another type, and returns a list containing the converted elements.
+            </summary>
+            <typeparam name="TOutput">The type of the elements of the target array.</typeparam>
+            <param name="converter">A delegate that converts each element from one type to another type.</param>
+            <returns>
+              A list of the target type containing the converted elements from the current list.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+              converter is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.CopyTo(System.Int32,`0[],System.Int32,System.Int32)">
+            <summary>
+              Copies a range of elements from the list to a compatible
+              one-dimensional array, starting at the specified index of the target array.
+            </summary>
+            <param name="index">The zero-based index in the source list at which copying begins.</param>
+            <param name="array">
+              The one-dimensional Array that is the destination of the elements copied
+              from list. The Array must have zero-based indexing.
+            </param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+            <param name="count">The number of elements to copy.</param>
+            <exception cref="T:System.ArgumentNullException">
+              array is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+              index is less than 0. -or- arrayIndex is less than 0. -or- count is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+              index is equal to or greater than the Count
+              of the source list. -or- The number of elements
+              from index to the end of the source list is greater
+              than the available space from arrayIndex to the end of the destination array.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.CopyTo(`0[],System.Int32)">
+            <summary>
+              Copies the entire list to a compatible one-dimensional
+              array, starting at the specified index of the target array.
+            </summary>
+            <param name="array">
+              The one-dimensional Array that is the destination of the elements copied
+              from list. The Array must have zero-based indexing.
+            </param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+            <exception cref="T:System.ArgumentNullException">
+              array is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+              arrayIndex is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+              The number of elements in the source list is greater
+              than the available space from arrayIndex to the end of the destination array.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.CopyTo(`0[])">
+            <summary>
+              Copies the entire list to a compatible one-dimensional
+              array, starting at the beginning of the target array.
+            </summary>
+            <param name="array">
+              The one-dimensional Array that is the destination of the elements copied
+              from list. The Array must have zero-based indexing.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+              array is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+              The number of elements in the source list is greater
+              than the number of elements that the destination array can contain.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Exists(System.Predicate{`0})">
+            <summary>
+               Determines whether the list contains elements that
+               match the conditions defined by the specified predicate.
+            </summary>
+            <param name="match">
+               The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+               search for.
+            </param>
+            <returns>
+               true if the list contains one or more elements that
+               match the conditions defined by the specified predicate; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+              match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Find(System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the first occurrence within the entire list.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the element to
+                search for.
+            </param>
+            <returns>
+                The first element that matches the conditions defined by the specified predicate,
+                if found; otherwise, the default value for type T.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindAll(System.Predicate{`0})">
+            <summary>
+                Retrieves all the elements that match the conditions defined by the specified
+                predicate.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+                search for.
+            </param>
+            <returns>
+                A list containing all the elements that match the
+                conditions defined by the specified predicate, if found; otherwise, an empty
+                list.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindIndex(System.Int32,System.Int32,System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the zero-based index of the first occurrence within the
+                range of elements in the list that starts at the
+                specified index and contains the specified number of elements.
+            </summary>
+            <param name="startIndex">
+                The zero-based starting index of the search.
+            </param>
+            <param name="count">
+                The number of elements in the section to search.
+            </param>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+                search for.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of an element that matches the conditions
+                defined by match, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                startIndex is outside the range of valid indexes for the list.
+                -or- count is less than 0. -or- startIndex and count do not specify a valid section
+                in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindIndex(System.Int32,System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the zero-based index of the first occurrence within the
+                range of elements in the list that extends from
+                the specified index to the last element.
+            </summary>
+            <param name="startIndex">
+                The zero-based starting index of the search.
+            </param>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+                search for.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of an element that matches the conditions
+                defined by match, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                startIndex is outside the range of valid indexes for the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindIndex(System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the zero-based index of the first occurrence within the
+                entire list.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the element to
+                search for.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of an element that matches the conditions
+                defined by match, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindLast(System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the last occurrence within the entire list.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the element to
+                search for.
+            </param>
+            <returns>
+                The last element that matches the conditions defined by the specified predicate,
+                if found; otherwise, the default value for type T.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindLastIndex(System.Int32,System.Int32,System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the zero-based index of the last occurrence within the
+                range of elements in the list that contains the
+                specified number of elements and ends at the specified index.
+            </summary>
+            <param name="startIndex">
+                The zero-based starting index of the search.
+            </param>
+            <param name="count">
+                The number of elements in the section to search.
+            </param>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+                search for.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of an element that matches the conditions
+                defined by match, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                startIndex is outside the range of valid indexes for the list.
+                -or- count is less than 0. -or- startIndex and count do not specify a valid section
+                in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindLastIndex(System.Int32,System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the zero-based index of the last occurrence within the
+                range of elements in the list that extends from
+                the first element to the specified index.
+            </summary>
+            <param name="startIndex">
+                The zero-based starting index of the search.
+            </param>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+                search for.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of an element that matches the conditions
+                defined by match, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                startIndex is outside the range of valid indexes for the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.FindLastIndex(System.Predicate{`0})">
+            <summary>
+                Searches for an element that matches the conditions defined by the specified
+                predicate, and returns the zero-based index of the last occurrence within the
+                entire list.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the element to
+                search for.
+            </param>
+            <returns>
+                The last element that matches the conditions defined by the specified predicate,
+                if found; otherwise, the default value for type T.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.ForEach(System.Action{`0})">
+            <summary>
+                Performs the specified action on each element of the list.
+            </summary>
+            <param name="action">
+                The Action&lt;T$gt; delegate to perform on each element of the list.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                action is null.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+                An element in the collection has been modified.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the list.
+            </summary>
+            <returns>
+                A list.Enumerator for the list.
+            </returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.GetRange(System.Int32,System.Int32)">
+            <summary>
+                Creates a shallow copy of a range of elements in the source list.
+            </summary>
+            <param name="index">
+                The zero-based list index at which the range starts.
+            </param>
+            <param name="count">
+                The number of elements in the range.
+            </param>
+            <returns>
+                A shallow copy of a range of elements in the source list.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- count is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                index and count do not denote a valid range of elements in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.IndexOf(`0,System.Int32,System.Int32)">
+            <summary>
+                Searches for the specified object and returns the zero-based index of the first
+                occurrence within the range of elements in the list
+                that starts at the specified index and contains the specified number of elements.
+            </summary>
+            <param name="item">
+                The object to locate in the list. The value can
+                be null for reference types.
+            </param>
+            <param name="index">
+                The zero-based starting index of the search. 0 (zero) is valid in an empty list.
+            </param>
+            <param name="count">
+                The number of elements in the section to search.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of item within the range of elements
+                in the list that starts at index and contains count
+                number of elements, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is outside the range of valid indexes for the list.
+                -or- count is less than 0. -or- index and count do not specify a valid section
+                in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.IndexOf(`0,System.Int32)">
+            <summary>
+                Searches for the specified object and returns the zero-based index of the first
+                occurrence within the range of elements in the list
+                that extends from the specified index to the last element.
+            </summary>
+            <param name="item">
+                The object to locate in the list. The value can
+                be null for reference types.
+            </param>
+            <param name="index">
+                The zero-based starting index of the search. 0 (zero) is valid in an empty list.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of item within the range of elements
+                in the list that extends from index to the last
+                element, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is outside the range of valid indexes for the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.IndexOf(`0)">
+            <summary>
+                Searches for the specified object and returns the zero-based index of the first
+                occurrence within the entire list.
+            </summary>
+            <param name="item">
+                The object to locate in the list. The value can
+                be null for reference types.
+            </param>
+            <returns>
+                The zero-based index of the first occurrence of item within the entire list,
+                if found; otherwise, –1.
+            </returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Insert(System.Int32,`0)">
+            <summary>
+                Inserts an element into the list at the specified
+                index.
+            </summary>
+            <param name="index">
+                The zero-based index at which item should be inserted.
+            </param>
+            <param name="item">
+                The object to insert. The value can be null for reference types.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- index is greater than Count.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.InsertRange(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+                Inserts the elements of a collection into the list
+                at the specified index.
+            </summary>
+            <param name="index">
+                The zero-based index at which the new elements should be inserted.
+            </param>
+            <param name="collection">
+                The collection whose elements should be inserted into the list.
+                The collection itself cannot be null, but it can contain elements that are null,
+                if type T is a reference type.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                collection is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- index is greater than Count.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.LastIndexOf(`0)">
+            <summary>
+                Searches for the specified object and returns the zero-based index of the last
+                occurrence within the entire list.
+            </summary>
+            <param name="item">
+                The object to locate in the list. The value can
+                be null for reference types.
+            </param>
+            <returns>
+                The zero-based index of the last occurrence of item within the entire the list,
+                if found; otherwise, –1.
+            </returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.LastIndexOf(`0,System.Int32)">
+            <summary>
+                Searches for the specified object and returns the zero-based index of the last
+                occurrence within the range of elements in the list
+                that extends from the first element to the specified index.
+            </summary>
+            <param name="item">
+                The object to locate in the list. The value can
+                be null for reference types.
+            </param>
+            <param name="index">
+                The zero-based starting index of the backward search.
+            </param>
+            <returns>
+                The zero-based index of the last occurrence of item within the range of elements
+                in the list that extends from the first element
+                to index, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is outside the range of valid indexes for the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.LastIndexOf(`0,System.Int32,System.Int32)">
+            <summary>
+                Searches for the specified object and returns the zero-based index of the last
+                occurrence within the range of elements in the list
+                that contains the specified number of elements and ends at the specified index.
+            </summary>
+            <param name="item">
+                The object to locate in the list. The value can
+                be null for reference types.
+            </param>
+            <param name="index">
+                The zero-based starting index of the backward search.
+            </param>
+            <param name="count">
+                The number of elements in the section to search.
+            </param>
+            <returns>
+                The zero-based index of the last occurrence of item within the range of elements
+                in the list that contains count number of elements
+                and ends at index, if found; otherwise, –1.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is outside the range of valid indexes for the list.
+                -or- count is less than 0. -or- index and count do not specify a valid section
+                in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Remove(`0)">
+            <summary>
+                Removes the first occurrence of a specific object from the list.
+            </summary>
+            <param name="item">
+                The object to remove from the list. The value can
+                be null for reference types.
+            </param>
+            <returns>
+                true if item is successfully removed; otherwise, false. This method also returns
+                false if item was not found in the list.
+            </returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.RemoveAll(System.Predicate{`0})">
+            <summary>
+                Removes all the elements that match the conditions defined by the specified predicate.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions of the elements to
+                remove.
+            </param>
+            <returns>
+                The number of elements removed from the list .
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.RemoveAt(System.Int32)">
+            <summary>
+                Removes the element at the specified index of the list.
+            </summary>
+            <param name="index">
+                The zero-based index of the element to remove.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- index is equal to or greater than Count.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+                Removes a range of elements from the list.
+            </summary>
+            <param name="index">
+                The zero-based starting index of the range of elements to remove.
+            </param>
+            <param name="count">
+                The number of elements to remove.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- count is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                index and count do not denote a valid range of elements in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Reverse(System.Int32,System.Int32)">
+            <summary>
+                Reverses the order of the elements in the specified range.
+            </summary>
+            <param name="index">
+                The zero-based starting index of the range to reverse.
+            </param>
+            <param name="count">
+                The number of elements in the range to reverse.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- count is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                index and count do not denote a valid range of elements in the list.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Reverse">
+            <summary>
+                Reverses the order of the elements in the entire list.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Sort(System.Comparison{`0})">
+            <summary>
+                Sorts the elements in the entire list using the
+                specified Comparison&lt;T$gt;.
+            </summary>
+            <param name="comparison">
+                The Comparison&lt;T$gt; to use when comparing elements.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                comparison is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                The implementation of comparison caused an error during the sort. For example,
+                comparison might not return 0 when comparing an item with itself.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Sort(System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})">
+            <summary>
+                Sorts the elements in a range of elements in list
+                using the specified comparer.
+            </summary>
+            <param name="index">
+                The zero-based starting index of the range to sort.
+            </param>
+            <param name="count">
+                The length of the range to sort.
+            </param>
+            <param name="comparer">
+                The IComparer&lt;T$gt; implementation to use when comparing
+                elements, or null to use the default comparer.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- count is less than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                index and count do not specify a valid range in the list.
+                -or- The implementation of comparer caused an error during the sort. For example,
+                comparer might not return 0 when comparing an item with itself.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+                comparer is null, and the default comparer
+                cannot find implementation of the IComparable&lt;T$gt; generic interface or the
+                IComparable interface for type T.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Sort">
+            <summary>
+                Sorts the elements in the entire list using the
+                default comparer.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+                The default comparer cannot find
+                an implementation of the IComparable&lt;T$gt; generic interface or the IComparable
+                interface for type T.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.Sort(System.Collections.Generic.IComparer{`0})">
+            <summary>
+                Sorts the elements in the entire list using the
+                specified comparer.
+            </summary>
+            <param name="comparer">
+                The IComparer&lt;T$gt; implementation to use when comparing
+                elements, or null to use the default comparer.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+                comparer is null, and the default comparer
+                cannot find implementation of the IComparable&lt;T$gt; generic interface or the
+                IComparable interface for type T.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                The implementation of comparer caused an error during the sort. For example,
+                comparer might not return 0 when comparing an item with itself.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.ToArray">
+            <summary>
+            Copies the elements of the list to a new array.
+            </summary>
+            <returns>
+            An array containing copies of the elements of the list.
+            </returns>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.TrueForAll(System.Predicate{`0})">
+            <summary>
+                Determines whether every element in the list matches
+                the conditions defined by the specified predicate.
+            </summary>
+            <param name="match">
+                The Predicate&lt;T$gt; delegate that defines the conditions to check against
+                the elements.
+            </param>
+            <returns>
+                true if every element in the list matches the conditions
+                defined by the specified predicate; otherwise, false. If the list has no elements,
+                the return value is true.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                match is null.
+            </exception>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableList`1.NotificationDelay">
+            <summary>
+            Delay in collection change notifications (in milliseconds).
+            If it is zero, notifications are sent immediately.
+            If it is greater than zero, notifications are logged for this time 
+            and after this time they are grouped and grouped notifications are sent.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.NotifyCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            If NotificationDelay is greater than zero, then notification is registered
+            to be handled by timer. Otherwise it is handled by base method.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Qhta.ObservableObjects.ObservableObject">
+            <summary>
+            Class that notifies other objects when its properties are changed.
+            Implements interface <see cref="T:System.ComponentModel.INotifyPropertyChanged"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.CommonDispatcher">
+            <summary>
+            Common static dispatcher for notifying actions.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.Dispatcher">
+            <summary>
+            Individual dispatcher for notifying actions. 
+            If not set, then <see cref="P:Qhta.ObservableObjects.ObservableObject.CommonDispatcher"/> is used.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.CommonBeginInvokeActionEnabled">
+            <summary>
+            Common property that specifies 
+            whether the notification action will be invoked asynchronously (with BeginInvoke)
+            or synchronously (with Invoke).
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.BeginInvokeActionEnabled">
+            <summary>
+            Specifies whether the notification action will be invoked asynchronously (with BeginInvoke)
+            or synchronously (with Invoke). 
+            If not set directly for this instance, than <see cref="P:Qhta.ObservableObjects.ObservableObject.CommonBeginInvokeActionEnabled"/> is used.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.LockObject">
+            <summary>
+            An object used to sychronize access.
+            </summary>
+        </member>
+        <member name="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged">
+            <summary>
+            An event to raise when a property is changed. Can be set by any observer.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableObject.NotifyPropertyChanged(System.String)">
+            <summary>
+            A method to raise the <see cref="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged"/> event.
+            </summary>
+            <param name="propertyName">Name of the changed property</param>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableObject.NotifyPropertyChanged(System.Object,System.String)">
+            <summary>
+            A method to raise the <see cref="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged"/> event.
+            </summary>
+            <param name="propertyName">Name of the changed property</param>
+            <param name="sender">The object, which property was changed.</param>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.IsSynchronized">
+            <summary>
+            Specifies whether the object is synchronized in multithread environment.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.SyncRoot">
+            <summary>
+            Object used to synchronize in multithread environment.
+            </summary>
+        </member>
+    </members>
+</doc>

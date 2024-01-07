@@ -288,6 +288,16 @@
             A key to DataEditingTemplate resource that defines layout of content bound column
             </summary>
         </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.CheckImmediately">
+            <summary>
+            Gets or sets whether CheckBox cell should be checked/unchecked on one click.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.DataGridColumnAttribute.UpdateImmediately">
+            <summary>
+            Gets or sets whether property should be update immediately.
+            </summary>
+        </member>
         <member name="T:Qhta.MVVM.DisplayPropertyAttribute">
             <summary>
             An attribute that annotates a property which should be displayed.

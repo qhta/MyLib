@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rW4N6WkH0gs0aSj7EcBukv+Q8K9Dxzw/lcG+nCKXNA6HdIXSBZWmXBRnv9Hx+EU5qtGBTb/2GWyfaFzOYZojyA==",
+  "dgSpecHash": "REx+S9lyy/kn4Z8ziTjF+eBZ38kPn3Qeq4u4T4HLLdpFh4X6LJbL8zAked973gMbyTa/CiEtQZyWBELYR7GcAg==",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
   "expectedPackageFiles": [
@@ -10,8 +10,8 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.htmlutils\\2.1.0\\qhta.htmlutils.2.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.9.0\\qhta.mvvm.3.9.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\2.8.0\\qhta.observableobjects.2.8.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\4.1.0\\qhta.mvvm.4.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\3.0.0\\qhta.observableobjects.3.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.3.0\\qhta.ordnumbers.2.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.11\\qhta.typeutils.1.3.11.nupkg.sha512",
@@ -33,7 +33,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\8.0.0\\system.collections.immutable.8.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",

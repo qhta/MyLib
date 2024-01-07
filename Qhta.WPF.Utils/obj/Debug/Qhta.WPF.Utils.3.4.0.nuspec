@@ -8,11 +8,11 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package classes (converters) to use in WPF applications.</description>
-    <repository type="git" commit="8d9a516ae95e8090ee82ed438f5ac68adcc99665" />
+    <repository type="git" commit="c844c86fa6851a77723bc5be8987dfdf9b46d5cd" />
     <dependencies>
       <group targetFramework="net6.0-windows7.0">
         <dependency id="Qhta.HtmlUtils" version="2.1.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.MVVM" version="3.9.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.MVVM" version="4.1.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.OrdNumbers" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
