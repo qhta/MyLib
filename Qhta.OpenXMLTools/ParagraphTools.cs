@@ -8,6 +8,11 @@ namespace Qhta.OpenXMLTools;
 public static class ParagraphTools
 {
 
+  public static Paragraph? FindParagraph(string paraId, DX.OpenXmlCompositeElement compositeElement)
+  {
+    return compositeElement.Elements<Paragraph>().FirstOrDefault(p => p.ParagraphId?.Value == paraId);
+  }
+
   public static string GetText(this Paragraph paragraph)
   {
     return String.Join("", paragraph.Elements<Run>().Select(item => item.GetText()));
