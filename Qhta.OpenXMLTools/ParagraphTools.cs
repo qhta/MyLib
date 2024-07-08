@@ -7,8 +7,12 @@ namespace Qhta.OpenXMLTools;
 
 public static class ParagraphTools
 {
+  public static Paragraph? FindParagraph(DXPack.WordprocessingDocument document, string paraId)
+  {
+    return document.MainDocumentPart?.Document?.Body?.Elements<Paragraph>().FirstOrDefault(p => p.ParagraphId?.Value == paraId);
+  }
 
-  public static Paragraph? FindParagraph(string paraId, DX.OpenXmlCompositeElement compositeElement)
+  public static Paragraph? FindParagraph(DX.OpenXmlCompositeElement compositeElement, string paraId)
   {
     return compositeElement.Elements<Paragraph>().FirstOrDefault(p => p.ParagraphId?.Value == paraId);
   }
