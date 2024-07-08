@@ -10,8 +10,7 @@
       "Qhta.OpenXMLTools/1.0.0": {
         "dependencies": {
           "DocumentFormat.OpenXml": "2.20.0",
-          "NETStandard.Library": "2.0.3",
-          "Qhta.OrdNumbers": "2.2.1"
+          "NETStandard.Library": "2.0.3"
         },
         "runtime": {
           "Qhta.OpenXMLTools.dll": {}
@@ -32,14 +31,6 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
-        }
-      },
-      "Qhta.OrdNumbers/2.2.1": {
-        "runtime": {
-          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {
-            "assemblyVersion": "2.2.0.0",
-            "fileVersion": "2.2.0.0"
-          }
         }
       },
       "System.IO.Packaging/4.7.0": {
@@ -78,13 +69,6 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "Qhta.OrdNumbers/2.2.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-+59JlQ6SrZGRGJnaNNTfIpHnQTohTJjAxRS0CYBNzvAy4j+w8XG+L9IAZTVcgPUu2tSdT2BHm+bqU73RShTLCg==",
-      "path": "qhta.ordnumbers/2.2.1",
-      "hashPath": "qhta.ordnumbers.2.2.1.nupkg.sha512"
     },
     "System.IO.Packaging/4.7.0": {
       "type": "package",

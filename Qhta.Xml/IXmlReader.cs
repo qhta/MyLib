@@ -182,16 +182,16 @@ public interface IXmlReader
   ///</summary>
   public string ReadString();
 
-  /////<summary>
-  ///// Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
-  ///// and converts the content to the requested type. Stops at start tags and end tags.
-  /////</summary>
-  //public object ReadContentAs(Type returnType);
+  ///<summary>
+  /// Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
+  /// and converts the content to the requested type. Stops at start tags and end tags.
+  ///</summary>
+  public object ReadContentAs(Type returnType);
 
-  /////<summary>
-  ///// Returns the content of the current element as a string. Moves to the node following the element's end tag.
-  /////</summary>
-  //public string ReadElementContentAsString();
+  ///<summary>
+  /// Returns the content of the current element as a string. Moves to the node following the element's end tag.
+  ///</summary>
+  public string ReadElementContentAsString();
 
   /////<summary>
   ///// Checks local name and namespace of the current element and returns its content as a string. Moves to the node following the element's end tag.

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "lr4QhHNI1D5pL/kQKH7mhhYxOlR5lgQvHH8+kLCqh7bAErnQSQ+zIjrFTgBQk6WzYGXSiBXwC4JUobR7/mEZIA==",
+  "success": true,
+  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.MVVM.Test\\TestMVVMApp\\TestMVVMApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\8.0.0\\system.collections.immutable.8.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\3.0.0\\qhta.observableobjects.3.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

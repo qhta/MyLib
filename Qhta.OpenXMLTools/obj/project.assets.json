@@ -42,15 +42,6 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.OrdNumbers/2.2.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {}
-        }
-      },
       "System.IO.Packaging/4.7.0": {
         "type": "package",
         "compile": {
@@ -235,18 +226,6 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Qhta.OrdNumbers/2.2.1": {
-      "sha512": "+59JlQ6SrZGRGJnaNNTfIpHnQTohTJjAxRS0CYBNzvAy4j+w8XG+L9IAZTVcgPUu2tSdT2BHm+bqU73RShTLCg==",
-      "type": "package",
-      "path": "qhta.ordnumbers/2.2.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Qhta.OrdNumbers.dll",
-        "qhta.ordnumbers.2.2.1.nupkg.sha512",
-        "qhta.ordnumbers.nuspec"
-      ]
-    },
     "System.IO.Packaging/4.7.0": {
       "sha512": "9VV4KAbgRQZ79iEoG40KIeZy38O30oWwewScAST879+oki8g/Wa2HXZQgrhDDxQM4GkP1PnRJll05NMiVPbYAw==",
       "type": "package",
@@ -278,8 +257,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "DocumentFormat.OpenXml >= 2.20.0",
-      "NETStandard.Library >= 2.0.3",
-      "Qhta.OrdNumbers >= 2.2.1"
+      "NETStandard.Library >= 2.0.3"
     ]
   },
   "packageFolders": {
@@ -299,7 +277,6 @@
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "D:\\VS\\Projects\\NuGet.Config",
         "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -308,7 +285,9 @@
         "netstandard2.0"
       ],
       "sources": {
-        "d:\\VS\\Projects\\mylib\\bin": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "D:\\VS\\Projects\\MyLib\\bin": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -321,6 +300,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -336,10 +320,6 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "Qhta.OrdNumbers": {
-            "target": "Package",
-            "version": "[2.2.1, )"
           }
         },
         "imports": [
@@ -353,7 +333,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

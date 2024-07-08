@@ -11,19 +11,6 @@ Classes are:
  * ObservableCollectionObject - an abstract base class for derived collection classes.
  It itself derives from ObservableObject class.
  It implements INotifyCollectionChanged interface by defining CollectionChanged event and a protected HandleCollectionChangedEvent method.
- To bind it to WPF collection view properly, 
-
-         BindingOperator.EnableCollectionSynchronization(itemsCollection, itemsCollection.SyncRoot)
-
-     must be invoked.
- Instead of this explicit invoke in code, proper binding can be assured in XAML using CollectionViewBehavior class from Qhta.WPF.Behaviors assembly.
- First you must define a namespace prefix, like this:
-
-         xmlns:bhv="clr-namespace:Qhta.WPF.Behaviors;assembly=Qhta.WPF.Behaviors"
-
-    Then set-up an attribute in the collection view declaration in XAML:
-
-         bhv:CollectionViewBehavior.EnableCollectionSynchronization="True"
 
 * ObservableList{TValue} - a dispatched version ObservableCollection{TValue}. 
  It derives from ObservableCollectionObject class to notify collection changes.

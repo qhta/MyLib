@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>Enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -14,7 +14,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A package with Xml attributes</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>3.0</Version>
+    <Version>3.1</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 

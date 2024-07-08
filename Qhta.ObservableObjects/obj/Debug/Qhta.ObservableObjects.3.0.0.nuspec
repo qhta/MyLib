@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Classes to use replace ObservableCollection when used in background task.</description>
-    <repository type="git" commit="c844c86fa6851a77723bc5be8987dfdf9b46d5cd" />
+    <repository type="git" commit="e47c2a7786f3b476a1c04d7fdbdcff6482118646" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="System.Collections.Immutable" version="8.0.0" exclude="Build,Analyzers" />

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Qhta.Xml.Serialization.Attributes/1.0.0": {
+        "runtime": {
+          "Qhta.Xml.Serialization.Attributes.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.Xml.Serialization.Attributes/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

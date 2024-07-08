@@ -1,0 +1,455 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0-windows7.0": {
+      "Microsoft.Office.Interop.Access/15.0.4420.1018": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Office.Interop.Access.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Office.Interop.Access.dll": {}
+        }
+      },
+      "Microsoft.Office.Interop.Access.Dao/15.0.4420.1018": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Office.Interop.Access.Dao.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Office.Interop.Access.Dao.dll": {}
+        }
+      },
+      "MicrosoftOfficeCore15/15.0.4420.1017": {
+        "type": "package",
+        "compile": {
+          "lib/Office.dll": {}
+        },
+        "runtime": {
+          "lib/Office.dll": {}
+        }
+      },
+      "System.Configuration.ConfigurationManager/9.0.0-preview.4.24266.19": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.EventLog": "9.0.0-preview.4.24266.19",
+          "System.Security.Cryptography.ProtectedData": "9.0.0-preview.4.24266.19"
+        },
+        "compile": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Data.OleDb/9.0.0-preview.4.24266.19": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "9.0.0-preview.4.24266.19",
+          "System.Diagnostics.PerformanceCounter": "9.0.0-preview.4.24266.19"
+        },
+        "compile": {
+          "lib/net8.0/System.Data.OleDb.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Data.OleDb.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Data.OleDb.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Diagnostics.EventLog/9.0.0-preview.4.24266.19": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          },
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Diagnostics.PerformanceCounter/9.0.0-preview.4.24266.19": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "9.0.0-preview.4.24266.19"
+        },
+        "compile": {
+          "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Security.Cryptography.ProtectedData/9.0.0-preview.4.24266.19": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.Office.Interop.Access/15.0.4420.1018": {
+      "sha512": "toqhe19vn4/HLJrAiCYMSO2NPGSTBjSQ+o9j7gNBnVo//2cDxD61s3Rb0FdOMnPMxX8NTRiNhDju4KOuIE39rA==",
+      "type": "package",
+      "path": "microsoft.office.interop.access/15.0.4420.1018",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/Microsoft.Office.Interop.Access.dll",
+        "lib/netstandard2.0/Microsoft.Office.Interop.Access.dll",
+        "microsoft.office.interop.access.15.0.4420.1018.nupkg.sha512",
+        "microsoft.office.interop.access.nuspec"
+      ]
+    },
+    "Microsoft.Office.Interop.Access.Dao/15.0.4420.1018": {
+      "sha512": "O8RuPdxZGTqyvgGNKl9RVQqNfAzaSeaO6oJ3eBr6x7qeeXmq0JhAnm4S4p9eZWFbbx8txymvqeQjce2VWxhctg==",
+      "type": "package",
+      "path": "microsoft.office.interop.access.dao/15.0.4420.1018",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/Microsoft.Office.Interop.Access.Dao.dll",
+        "lib/netstandard2.0/Microsoft.Office.Interop.Access.Dao.dll",
+        "microsoft.office.interop.access.dao.15.0.4420.1018.nupkg.sha512",
+        "microsoft.office.interop.access.dao.nuspec"
+      ]
+    },
+    "MicrosoftOfficeCore15/15.0.4420.1017": {
+      "sha512": "DGJWnY3B5741NijKse+GzLrwZaTqSOEm0KLTLed4BSBhxAkKdqI+JRSUnlwVFqOEdbenk3+n2iTL9WXAUqQ9mw==",
+      "type": "package",
+      "path": "microsoftofficecore15/15.0.4420.1017",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Office.dll",
+        "microsoftofficecore15.15.0.4420.1017.nupkg.sha512",
+        "microsoftofficecore15.nuspec"
+      ]
+    },
+    "System.Configuration.ConfigurationManager/9.0.0-preview.4.24266.19": {
+      "sha512": "GpzG992A/CwJCvtoMsAySDCgcfKnUvX5d/iUn3nPzUOxABdysxfuDMajegc6r1+Z1OzO4tBZJBSRaXyaB5wLFQ==",
+      "type": "package",
+      "path": "system.configuration.configurationmanager/9.0.0-preview.4.24266.19",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Configuration.ConfigurationManager.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Configuration.ConfigurationManager.targets",
+        "lib/net462/System.Configuration.ConfigurationManager.dll",
+        "lib/net462/System.Configuration.ConfigurationManager.xml",
+        "lib/net8.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net8.0/System.Configuration.ConfigurationManager.xml",
+        "lib/net9.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net9.0/System.Configuration.ConfigurationManager.xml",
+        "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
+        "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
+        "system.configuration.configurationmanager.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.configuration.configurationmanager.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Data.OleDb/9.0.0-preview.4.24266.19": {
+      "sha512": "rjZdGL95y7kZFm0E2YCwIyzQUZw2Ar6jSWNNJMzChn+FaoVQtdZMA5Oe7T6BbCfY6XFa8UF4B8zHkt1BIcHL4g==",
+      "type": "package",
+      "path": "system.data.oledb/9.0.0-preview.4.24266.19",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Data.OleDb.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Data.OleDb.targets",
+        "lib/net462/System.Data.OleDb.dll",
+        "lib/net462/System.Data.OleDb.xml",
+        "lib/net8.0/System.Data.OleDb.dll",
+        "lib/net8.0/System.Data.OleDb.xml",
+        "lib/net9.0/System.Data.OleDb.dll",
+        "lib/net9.0/System.Data.OleDb.xml",
+        "lib/netstandard2.0/System.Data.OleDb.dll",
+        "lib/netstandard2.0/System.Data.OleDb.xml",
+        "runtimes/win/lib/net8.0/System.Data.OleDb.dll",
+        "runtimes/win/lib/net8.0/System.Data.OleDb.xml",
+        "runtimes/win/lib/net9.0/System.Data.OleDb.dll",
+        "runtimes/win/lib/net9.0/System.Data.OleDb.xml",
+        "system.data.oledb.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.data.oledb.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Diagnostics.EventLog/9.0.0-preview.4.24266.19": {
+      "sha512": "qZJgKLg7gGlMgJqcDO4XLgXlwgSIvy1Yu2FA2YpFIiKz6HDOvUs9YtY1+fOzP5IInlXslwOooMvgNsfjo6J25Q==",
+      "type": "package",
+      "path": "system.diagnostics.eventlog/9.0.0-preview.4.24266.19",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Diagnostics.EventLog.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Diagnostics.EventLog.targets",
+        "lib/net462/System.Diagnostics.EventLog.dll",
+        "lib/net462/System.Diagnostics.EventLog.xml",
+        "lib/net8.0/System.Diagnostics.EventLog.dll",
+        "lib/net8.0/System.Diagnostics.EventLog.xml",
+        "lib/net9.0/System.Diagnostics.EventLog.dll",
+        "lib/net9.0/System.Diagnostics.EventLog.xml",
+        "lib/netstandard2.0/System.Diagnostics.EventLog.dll",
+        "lib/netstandard2.0/System.Diagnostics.EventLog.xml",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.xml",
+        "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.Messages.dll",
+        "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.dll",
+        "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.xml",
+        "system.diagnostics.eventlog.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.diagnostics.eventlog.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Diagnostics.PerformanceCounter/9.0.0-preview.4.24266.19": {
+      "sha512": "fYXbSG7QeePjEHcvPo1/jT2II/Pie9Uj+Sld4PEoTnJ3DczL7HQx05Njaa1jVeCpyPGlN8C7QBjRYyBv5DVBBA==",
+      "type": "package",
+      "path": "system.diagnostics.performancecounter/9.0.0-preview.4.24266.19",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Diagnostics.PerformanceCounter.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Diagnostics.PerformanceCounter.targets",
+        "lib/net462/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net462/System.Diagnostics.PerformanceCounter.xml",
+        "lib/net8.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net8.0/System.Diagnostics.PerformanceCounter.xml",
+        "lib/net9.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net9.0/System.Diagnostics.PerformanceCounter.xml",
+        "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.xml",
+        "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.xml",
+        "runtimes/win/lib/net9.0/System.Diagnostics.PerformanceCounter.dll",
+        "runtimes/win/lib/net9.0/System.Diagnostics.PerformanceCounter.xml",
+        "system.diagnostics.performancecounter.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.diagnostics.performancecounter.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Security.Cryptography.ProtectedData/9.0.0-preview.4.24266.19": {
+      "sha512": "akWD5tzPZzh4dmvVdf4IjttPmMebZ5rT9fd3pVPElgS8+Ymhnc0CZpYTrpNxgneOwNcBBUN0oTkj9LbZ7NuDbA==",
+      "type": "package",
+      "path": "system.security.cryptography.protecteddata/9.0.0-preview.4.24266.19",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.ProtectedData.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.ProtectedData.targets",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net462/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net8.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net8.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net9.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net9.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "system.security.cryptography.protecteddata.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.security.cryptography.protecteddata.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0-windows7.0": [
+      "Microsoft.Office.Interop.Access >= 15.0.4420.1018",
+      "Microsoft.Office.Interop.Access.Dao >= 15.0.4420.1018",
+      "MicrosoftOfficeCore15 >= 15.0.4420.1017",
+      "System.Data.OleDb >= 9.0.0-preview.4.24266.19"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\qhta1\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj",
+      "projectName": "Qhta.Access.Dao",
+      "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj",
+      "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
+      "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "D:\\VS\\Projects\\MyLib\\bin": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows",
+        "dependencies": {
+          "Microsoft.Office.Interop.Access": {
+            "target": "Package",
+            "version": "[15.0.4420.1018, )"
+          },
+          "Microsoft.Office.Interop.Access.Dao": {
+            "target": "Package",
+            "version": "[15.0.4420.1018, )"
+          },
+          "MicrosoftOfficeCore15": {
+            "target": "Package",
+            "version": "[15.0.4420.1017, )"
+          },
+          "System.Data.OleDb": {
+            "target": "Package",
+            "version": "[9.0.0-preview.4.24266.19, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MicrosoftOfficeCore15 15.0.4420.1017' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "MicrosoftOfficeCore15",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
+}

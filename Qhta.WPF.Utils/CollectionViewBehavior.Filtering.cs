@@ -14,10 +14,13 @@ public partial class CollectionViewBehavior
   /// <returns></returns>
   public static bool? GetShowFilterButton(DependencyObject? target)
   {
-    if (target == null) return null;
+    bool? result = null;
     if (target is DataGridColumnHeader header)
-      return (bool)header.GetValue(ShowFilterButtonProperty);
-    var result = target.GetValue(ShowFilterButtonProperty);
+      result = (bool?)header.GetValue(ShowFilterButtonProperty);
+    else
+    if (target != null)
+      result = (bool?)target.GetValue(ShowFilterButtonProperty);
+    Debug.WriteLine($"GetShowFilterButton({target}, {result})");
     return (bool?)result;
   }
 
@@ -28,6 +31,7 @@ public partial class CollectionViewBehavior
   /// <param name="value"></param>
   public static void SetShowFilterButton(DependencyObject target, bool value)
   {
+    Debug.WriteLine($"SetShowFilterButton({target}, {value})");
     target.SetValue(ShowFilterButtonProperty, value);
   }
   /// <summary>

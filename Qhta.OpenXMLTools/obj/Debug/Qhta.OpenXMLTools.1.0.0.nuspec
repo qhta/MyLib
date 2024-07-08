@@ -5,10 +5,10 @@
     <version>1.0.0</version>
     <authors>Qhta.OpenXMLTools</authors>
     <description>Package Description</description>
+    <repository type="git" commit="e47c2a7786f3b476a1c04d7fdbdcff6482118646" />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="DocumentFormat.OpenXml" version="2.20.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.OrdNumbers" version="2.2.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

@@ -144,14 +144,14 @@
     "Qhta.Collections/4.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Miz2GAQsHeVKYKxJryzG8AWAQ0ciQRPHX39qJOxhqpp1rn+xz6L1HIW9wSM5PwexIFzWs0F0ut2gaJfiojzw1g==",
+      "sha512": "sha512-vp4uSq+EPe682KlYdo/Dk4Yizzk+sOL3oowLm3TzlAvi7ysAsXTAD6jj7r5hxO7f8WmvsIkkLn8cSQ+DfCSvVw==",
       "path": "qhta.collections/4.0.0",
       "hashPath": "qhta.collections.4.0.0.nupkg.sha512"
     },
     "Qhta.TextUtils/3.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RYRqFK3PdythcfgCiN4gm6FqvXBjis9zQjBA8mtN/XaxOjpJzev/nfNdzbBzk6FVod5d0F+i2GWckG+K3x9u0g==",
+      "sha512": "sha512-eeLbjNYAJbyJb+N3zDFNSkiGyoAUxRV0L2yIBbe+HqWw1OkoINYKFDCg3QQWRlg5IVKUQXV7KHFOXA1NkjnYzQ==",
       "path": "qhta.textutils/3.1.1",
       "hashPath": "qhta.textutils.3.1.1.nupkg.sha512"
     },
@@ -165,7 +165,7 @@
     "Qhta.Xml/2.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QmrRjUjCKyGpXk6V0kB5gX8+MNxOFrTn6n4134UrJSCoUYXK6/ZvZoDGjEM3RDmuhBIvTo3MbjK9yVL8ojS+Lg==",
+      "sha512": "sha512-H8iZlMiDOsXJHeVDzO5+J+acSv+DQT3QgquZGfGStutSEs+yW56uxbiDYnr4Vkwss4L9siTAUxnoL3qdKG6daQ==",
       "path": "qhta.xml/2.1.0",
       "hashPath": "qhta.xml.2.1.0.nupkg.sha512"
     },

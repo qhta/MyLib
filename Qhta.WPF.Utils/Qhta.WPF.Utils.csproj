@@ -11,7 +11,7 @@
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <BaseOutputPath>..\..\MyLib\bin</BaseOutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

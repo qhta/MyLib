@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
-    <PackageReference Include="Qhta.OrdNumbers" Version="2.2.1" />
   </ItemGroup>
 
 </Project>

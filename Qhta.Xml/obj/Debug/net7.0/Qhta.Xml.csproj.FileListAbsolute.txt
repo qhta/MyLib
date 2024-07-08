@@ -1,0 +1,14 @@
+D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.Xml.deps.json
+D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.Xml.dll
+D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.Xml.pdb
+D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.Xml.xml
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.dll
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\refint\Qhta.Xml.dll
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.xml
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\Qhta.Xml.pdb
+D:\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net7.0\ref\Qhta.Xml.dll

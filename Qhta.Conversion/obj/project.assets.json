@@ -206,12 +206,12 @@
           "Qhta.TextUtils": "3.1.1"
         },
         "compile": {
-          "lib/netstandard2.0/Qhta.Collections.dll": {
+          "lib/net6.0/Qhta.Collections.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/Qhta.Collections.dll": {
+          "lib/net6.0/Qhta.Collections.dll": {
             "related": ".xml"
           }
         }
@@ -550,11 +550,13 @@
       ]
     },
     "Qhta.Collections/4.0.0": {
-      "sha512": "Miz2GAQsHeVKYKxJryzG8AWAQ0ciQRPHX39qJOxhqpp1rn+xz6L1HIW9wSM5PwexIFzWs0F0ut2gaJfiojzw1g==",
+      "sha512": "vp4uSq+EPe682KlYdo/Dk4Yizzk+sOL3oowLm3TzlAvi7ysAsXTAD6jj7r5hxO7f8WmvsIkkLn8cSQ+DfCSvVw==",
       "type": "package",
       "path": "qhta.collections/4.0.0",
       "files": [
         ".nupkg.metadata",
+        "lib/net6.0/Qhta.Collections.dll",
+        "lib/net6.0/Qhta.Collections.xml",
         "lib/netstandard2.0/Qhta.Collections.dll",
         "lib/netstandard2.0/Qhta.Collections.xml",
         "qhta.collections.4.0.0.nupkg.sha512",
@@ -563,7 +565,7 @@
       ]
     },
     "Qhta.TextUtils/3.1.1": {
-      "sha512": "RYRqFK3PdythcfgCiN4gm6FqvXBjis9zQjBA8mtN/XaxOjpJzev/nfNdzbBzk6FVod5d0F+i2GWckG+K3x9u0g==",
+      "sha512": "eeLbjNYAJbyJb+N3zDFNSkiGyoAUxRV0L2yIBbe+HqWw1OkoINYKFDCg3QQWRlg5IVKUQXV7KHFOXA1NkjnYzQ==",
       "type": "package",
       "path": "qhta.textutils/3.1.1",
       "files": [
@@ -595,7 +597,7 @@
       ]
     },
     "Qhta.Xml/2.1.0": {
-      "sha512": "QmrRjUjCKyGpXk6V0kB5gX8+MNxOFrTn6n4134UrJSCoUYXK6/ZvZoDGjEM3RDmuhBIvTo3MbjK9yVL8ojS+Lg==",
+      "sha512": "H8iZlMiDOsXJHeVDzO5+J+acSv+DQT3QgquZGfGStutSEs+yW56uxbiDYnr4Vkwss4L9siTAUxnoL3qdKG6daQ==",
       "type": "package",
       "path": "qhta.xml/2.1.0",
       "files": [
@@ -880,7 +882,6 @@
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "D:\\VS\\Projects\\NuGet.Config",
         "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -890,7 +891,9 @@
         "netstandard2.0"
       ],
       "sources": {
-        "d:\\VS\\Projects\\mylib\\bin": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "D:\\VS\\Projects\\MyLib\\bin": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -907,6 +910,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -950,7 +958,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
       },
       "netstandard2.0": {
         "targetAlias": "netstandard2.0",
@@ -993,7 +1001,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

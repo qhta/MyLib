@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Package with behavior classes which can be used in WPF XAML.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.4.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.4+e47c2a7786f3b476a1c04d7fdbdcff6482118646")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.WPF.Behaviors")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.WPF.Behaviors")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.4.0.0")]

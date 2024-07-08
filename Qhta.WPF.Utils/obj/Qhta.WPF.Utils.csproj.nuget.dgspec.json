@@ -1,33 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj": {}
+    "C:\\Users\\qhta1\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj": {}
   },
   "projects": {
-    "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj": {
+    "C:\\Users\\qhta1\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj": {
       "version": "3.4.0",
       "restore": {
-        "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
+        "projectUniqueName": "C:\\Users\\qhta1\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
         "projectName": "Qhta.WPF.Utils",
-        "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
+        "projectPath": "C:\\Users\\qhta1\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\Qhta.WPF.Utils.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
-        "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\obj\\",
+        "outputPath": "C:\\Users\\qhta1\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Utils\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\24.1.41\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\VS\\Projects\\NuGet.Config",
+          "C:\\Users\\qhta1\\OneDrive\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0-windows"
         ],
         "sources": {
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "d:\\VS\\Projects\\mylib\\bin": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -41,6 +40,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -95,7 +99,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,0 +1,92 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj": {}
+  },
+  "projects": {
+    "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj",
+        "projectName": "Qhta.Access.Dao",
+        "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
+        "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\VS\\Projects\\MyLib\\bin": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.Office.Interop.Access": {
+              "target": "Package",
+              "version": "[15.0.4420.1018, )"
+            },
+            "Microsoft.Office.Interop.Access.Dao": {
+              "target": "Package",
+              "version": "[15.0.4420.1018, )"
+            },
+            "MicrosoftOfficeCore15": {
+              "target": "Package",
+              "version": "[15.0.4420.1017, )"
+            },
+            "System.Data.OleDb": {
+              "target": "Package",
+              "version": "[9.0.0-preview.4.24266.19, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

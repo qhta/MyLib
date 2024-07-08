@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.ObservableObjects", "..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj", "{D14629B6-C8BD-4FF3-9E93-D864FDF6BB33}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.WPF.Behaviors", "..\Qhta.WPF.Behaviors\Qhta.WPF.Behaviors.csproj", "{50EBEB6F-A900-4D4C-BB5A-A2E2E4E9E71B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMVVMApp", "TestMVVMApp\TestMVVMApp.csproj", "{4E1838E4-D285-4D1C-91E5-E3068A49D144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestObservableObjectWpfApp", "TestObservableObjectWpfApp\TestObservableObjectWpfApp.csproj", "{4E1838E4-D285-4D1C-91E5-E3068A49D144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.MVVM", "..\Qhta.MVVM\Qhta.MVVM.csproj", "{4C1A12A4-12D5-4CE1-8E36-8AA3E4DE199D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{D14629B6-C8BD-4FF3-9E93-D864FDF6BB33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D14629B6-C8BD-4FF3-9E93-D864FDF6BB33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D14629B6-C8BD-4FF3-9E93-D864FDF6BB33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50EBEB6F-A900-4D4C-BB5A-A2E2E4E9E71B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50EBEB6F-A900-4D4C-BB5A-A2E2E4E9E71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50EBEB6F-A900-4D4C-BB5A-A2E2E4E9E71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50EBEB6F-A900-4D4C-BB5A-A2E2E4E9E71B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E1838E4-D285-4D1C-91E5-E3068A49D144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E1838E4-D285-4D1C-91E5-E3068A49D144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E1838E4-D285-4D1C-91E5-E3068A49D144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E1838E4-D285-4D1C-91E5-E3068A49D144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1A12A4-12D5-4CE1-8E36-8AA3E4DE199D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1A12A4-12D5-4CE1-8E36-8AA3E4DE199D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1A12A4-12D5-4CE1-8E36-8AA3E4DE199D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1A12A4-12D5-4CE1-8E36-8AA3E4DE199D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,12 @@
+D:\VS\Projects\MyLib\Qhta.Access.Dao\bin\Debug\net8.0-windows\Qhta.Access.Dao.deps.json
+D:\VS\Projects\MyLib\Qhta.Access.Dao\bin\Debug\net8.0-windows\Qhta.Access.Dao.dll
+D:\VS\Projects\MyLib\Qhta.Access.Dao\bin\Debug\net8.0-windows\Qhta.Access.Dao.pdb
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.dll
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\refint\Qhta.Access.Dao.dll
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\Qhta.Access.Dao.pdb
+D:\VS\Projects\MyLib\Qhta.Access.Dao\obj\Debug\net8.0-windows\ref\Qhta.Access.Dao.dll

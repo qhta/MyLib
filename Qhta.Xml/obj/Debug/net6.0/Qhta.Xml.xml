@@ -145,6 +145,17 @@
              Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references, and returns the content as a string. Stops at start tags and end tags.
             </summary>
         </member>
+        <member name="M:Qhta.Xml.IXmlReader.ReadContentAs(System.Type)">
+            <summary>
+             Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
+             and converts the content to the requested type. Stops at start tags and end tags.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.IXmlReader.ReadElementContentAsString">
+            <summary>
+             Returns the content of the current element as a string. Moves to the node following the element's end tag.
+            </summary>
+        </member>
         <member name="M:Qhta.Xml.IXmlReader.MoveToFirstAttribute">
             <summary>
              Moves to the first attribute of the current node.

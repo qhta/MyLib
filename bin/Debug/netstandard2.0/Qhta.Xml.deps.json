@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.Xml/3.0": {
+      "Qhta.Xml/3.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.Collections": "4.6.0",
@@ -57,7 +57,7 @@
     }
   },
   "libraries": {
-    "Qhta.Xml/3.0": {
+    "Qhta.Xml/3.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -86,7 +86,7 @@
     "Qhta.TextUtils/3.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SE6TMY3sLGm6/ta6UGl9FYwLNEGpkpSU/tiuymb8S5w6fJoZivGS6KC4+sk/YUKYt1kjdvwZYmwZEuR0hCXL0g==",
+      "sha512": "sha512-AWGMF4cQSeFDbNwT77+5Pcd9y8z+DHY+lKN7W/OHqYN+fSxMpId9f4i7d4ekblICMqEICYT469jyNO0i1c/a+w==",
       "path": "qhta.textutils/3.2.0",
       "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
     },

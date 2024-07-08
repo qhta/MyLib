@@ -1,9 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
-    <Nullable>Enable</Nullable>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Qhta.Xml.Serialization.Attributes</RootNamespace>
+    <Description>A package used to add XML serialization attributes to classes.</Description>
+    <Authors>Yarreck Qhta</Authors>
   </PropertyGroup>
 
 </Project>
