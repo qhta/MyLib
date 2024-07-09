@@ -19,7 +19,7 @@ public static class TableTools
 
   public static string GetText(this TableCell cell)
   {
-    return String.Join("", cell.Elements<Paragraph>().Select(p => p.GetText()));
+    return String.Join("\r\n", cell.Elements<Paragraph>().Select(p => p.GetText()));
   }
 
   public static string? Style(this Table table)
