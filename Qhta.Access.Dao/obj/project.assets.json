@@ -29,11 +29,11 @@
           "lib/Office.dll": {}
         }
       },
-      "System.Configuration.ConfigurationManager/9.0.0-preview.4.24266.19": {
+      "System.Configuration.ConfigurationManager/9.0.0-preview.5.24306.7": {
         "type": "package",
         "dependencies": {
-          "System.Diagnostics.EventLog": "9.0.0-preview.4.24266.19",
-          "System.Security.Cryptography.ProtectedData": "9.0.0-preview.4.24266.19"
+          "System.Diagnostics.EventLog": "9.0.0-preview.5.24306.7",
+          "System.Security.Cryptography.ProtectedData": "9.0.0-preview.5.24306.7"
         },
         "compile": {
           "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
@@ -49,11 +49,11 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Data.OleDb/9.0.0-preview.4.24266.19": {
+      "System.Data.OleDb/9.0.0-preview.5.24306.7": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "9.0.0-preview.4.24266.19",
-          "System.Diagnostics.PerformanceCounter": "9.0.0-preview.4.24266.19"
+          "System.Configuration.ConfigurationManager": "9.0.0-preview.5.24306.7",
+          "System.Diagnostics.PerformanceCounter": "9.0.0-preview.5.24306.7"
         },
         "compile": {
           "lib/net8.0/System.Data.OleDb.dll": {
@@ -75,7 +75,7 @@
           }
         }
       },
-      "System.Diagnostics.EventLog/9.0.0-preview.4.24266.19": {
+      "System.Diagnostics.EventLog/9.0.0-preview.5.24306.7": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Diagnostics.EventLog.dll": {
@@ -101,10 +101,10 @@
           }
         }
       },
-      "System.Diagnostics.PerformanceCounter/9.0.0-preview.4.24266.19": {
+      "System.Diagnostics.PerformanceCounter/9.0.0-preview.5.24306.7": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "9.0.0-preview.4.24266.19"
+          "System.Configuration.ConfigurationManager": "9.0.0-preview.5.24306.7"
         },
         "compile": {
           "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
@@ -126,7 +126,7 @@
           }
         }
       },
-      "System.Security.Cryptography.ProtectedData/9.0.0-preview.4.24266.19": {
+      "System.Security.Cryptography.ProtectedData/9.0.0-preview.5.24306.7": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
@@ -183,10 +183,10 @@
         "microsoftofficecore15.nuspec"
       ]
     },
-    "System.Configuration.ConfigurationManager/9.0.0-preview.4.24266.19": {
-      "sha512": "GpzG992A/CwJCvtoMsAySDCgcfKnUvX5d/iUn3nPzUOxABdysxfuDMajegc6r1+Z1OzO4tBZJBSRaXyaB5wLFQ==",
+    "System.Configuration.ConfigurationManager/9.0.0-preview.5.24306.7": {
+      "sha512": "QKQG0VG4TpGW7i5UvlaHA/9HG/EqwmVa9OokXv54wONWnbm2blYieExHwMTF9252pEtjPtV44qHFqQAUeZcRtg==",
       "type": "package",
-      "path": "system.configuration.configurationmanager/9.0.0-preview.4.24266.19",
+      "path": "system.configuration.configurationmanager/9.0.0-preview.5.24306.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -206,15 +206,15 @@
         "lib/net9.0/System.Configuration.ConfigurationManager.xml",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
-        "system.configuration.configurationmanager.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.configuration.configurationmanager.9.0.0-preview.5.24306.7.nupkg.sha512",
         "system.configuration.configurationmanager.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Data.OleDb/9.0.0-preview.4.24266.19": {
-      "sha512": "rjZdGL95y7kZFm0E2YCwIyzQUZw2Ar6jSWNNJMzChn+FaoVQtdZMA5Oe7T6BbCfY6XFa8UF4B8zHkt1BIcHL4g==",
+    "System.Data.OleDb/9.0.0-preview.5.24306.7": {
+      "sha512": "qLrrx41D+ktWhF66/T7o4wuKoLEoQSUj4HV9wRTc8xU12KInX970spz2shZSj9qtQGER3AvzKKjKhxQ/hEKITQ==",
       "type": "package",
-      "path": "system.data.oledb/9.0.0-preview.4.24266.19",
+      "path": "system.data.oledb/9.0.0-preview.5.24306.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -238,15 +238,15 @@
         "runtimes/win/lib/net8.0/System.Data.OleDb.xml",
         "runtimes/win/lib/net9.0/System.Data.OleDb.dll",
         "runtimes/win/lib/net9.0/System.Data.OleDb.xml",
-        "system.data.oledb.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.data.oledb.9.0.0-preview.5.24306.7.nupkg.sha512",
         "system.data.oledb.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Diagnostics.EventLog/9.0.0-preview.4.24266.19": {
-      "sha512": "qZJgKLg7gGlMgJqcDO4XLgXlwgSIvy1Yu2FA2YpFIiKz6HDOvUs9YtY1+fOzP5IInlXslwOooMvgNsfjo6J25Q==",
+    "System.Diagnostics.EventLog/9.0.0-preview.5.24306.7": {
+      "sha512": "C0PXRc7K0B55FWbdlGyYpz7DoJnW5KFM8qYIBmEjdah8O5B0Qw1by3EjSxp0ol0pPuhpUIPQQCUukxwfBJhNrg==",
       "type": "package",
-      "path": "system.diagnostics.eventlog/9.0.0-preview.4.24266.19",
+      "path": "system.diagnostics.eventlog/9.0.0-preview.5.24306.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -272,15 +272,15 @@
         "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.Messages.dll",
         "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.dll",
         "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.xml",
-        "system.diagnostics.eventlog.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.diagnostics.eventlog.9.0.0-preview.5.24306.7.nupkg.sha512",
         "system.diagnostics.eventlog.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Diagnostics.PerformanceCounter/9.0.0-preview.4.24266.19": {
-      "sha512": "fYXbSG7QeePjEHcvPo1/jT2II/Pie9Uj+Sld4PEoTnJ3DczL7HQx05Njaa1jVeCpyPGlN8C7QBjRYyBv5DVBBA==",
+    "System.Diagnostics.PerformanceCounter/9.0.0-preview.5.24306.7": {
+      "sha512": "hzVCtAIYmD4qB/MQYs2Mi3Xqu3KqLPbPxI0lIzQme9FUgCY3umts8UvypDXXtoMBWTF5Z4EwxuypswtHysrJAQ==",
       "type": "package",
-      "path": "system.diagnostics.performancecounter/9.0.0-preview.4.24266.19",
+      "path": "system.diagnostics.performancecounter/9.0.0-preview.5.24306.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -304,15 +304,15 @@
         "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.xml",
         "runtimes/win/lib/net9.0/System.Diagnostics.PerformanceCounter.dll",
         "runtimes/win/lib/net9.0/System.Diagnostics.PerformanceCounter.xml",
-        "system.diagnostics.performancecounter.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.diagnostics.performancecounter.9.0.0-preview.5.24306.7.nupkg.sha512",
         "system.diagnostics.performancecounter.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Security.Cryptography.ProtectedData/9.0.0-preview.4.24266.19": {
-      "sha512": "akWD5tzPZzh4dmvVdf4IjttPmMebZ5rT9fd3pVPElgS8+Ymhnc0CZpYTrpNxgneOwNcBBUN0oTkj9LbZ7NuDbA==",
+    "System.Security.Cryptography.ProtectedData/9.0.0-preview.5.24306.7": {
+      "sha512": "RwBW44vWNkfVLfouwWwcN/emQm5gI9bcNtZzURf2tSc1SAAVh4lMGcz/Qo4+bQHSrHtoGKX6ujd9PwUrOds5eg==",
       "type": "package",
-      "path": "system.security.cryptography.protecteddata/9.0.0-preview.4.24266.19",
+      "path": "system.security.cryptography.protecteddata/9.0.0-preview.5.24306.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -338,7 +338,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "system.security.cryptography.protecteddata.9.0.0-preview.4.24266.19.nupkg.sha512",
+        "system.security.cryptography.protecteddata.9.0.0-preview.5.24306.7.nupkg.sha512",
         "system.security.cryptography.protecteddata.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -349,7 +349,7 @@
       "Microsoft.Office.Interop.Access >= 15.0.4420.1018",
       "Microsoft.Office.Interop.Access.Dao >= 15.0.4420.1018",
       "MicrosoftOfficeCore15 >= 15.0.4420.1017",
-      "System.Data.OleDb >= 9.0.0-preview.4.24266.19"
+      "System.Data.OleDb >= 9.0.0-preview.5.24306.7"
     ]
   },
   "packageFolders": {
@@ -417,7 +417,7 @@
           },
           "System.Data.OleDb": {
             "target": "Package",
-            "version": "[9.0.0-preview.4.24266.19, )"
+            "version": "[9.0.0-preview.5.24306.7, )"
           }
         },
         "imports": [

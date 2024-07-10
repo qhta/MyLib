@@ -1,17 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "OUYCBGzuvHs=",
+  "dgSpecHash": "/vT+iY1C4Mg=",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Access.Dao\\Qhta.Access.Dao.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.office.interop.access\\15.0.4420.1018\\microsoft.office.interop.access.15.0.4420.1018.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.office.interop.access.dao\\15.0.4420.1018\\microsoft.office.interop.access.dao.15.0.4420.1018.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoftofficecore15\\15.0.4420.1017\\microsoftofficecore15.15.0.4420.1017.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.0-preview.4.24266.19\\system.configuration.configurationmanager.9.0.0-preview.4.24266.19.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.data.oledb\\9.0.0-preview.4.24266.19\\system.data.oledb.9.0.0-preview.4.24266.19.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.0-preview.4.24266.19\\system.diagnostics.eventlog.9.0.0-preview.4.24266.19.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.performancecounter\\9.0.0-preview.4.24266.19\\system.diagnostics.performancecounter.9.0.0-preview.4.24266.19.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.0-preview.4.24266.19\\system.security.cryptography.protecteddata.9.0.0-preview.4.24266.19.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.0-preview.5.24306.7\\system.configuration.configurationmanager.9.0.0-preview.5.24306.7.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.data.oledb\\9.0.0-preview.5.24306.7\\system.data.oledb.9.0.0-preview.5.24306.7.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.0-preview.5.24306.7\\system.diagnostics.eventlog.9.0.0-preview.5.24306.7.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.performancecounter\\9.0.0-preview.5.24306.7\\system.diagnostics.performancecounter.9.0.0-preview.5.24306.7.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.0-preview.5.24306.7\\system.security.cryptography.protecteddata.9.0.0-preview.5.24306.7.nupkg.sha512"
   ],
   "logs": [
     {

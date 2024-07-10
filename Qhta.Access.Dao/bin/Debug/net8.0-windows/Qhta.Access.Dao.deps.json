@@ -11,7 +11,7 @@
           "Microsoft.Office.Interop.Access": "15.0.4420.1018",
           "Microsoft.Office.Interop.Access.Dao": "15.0.4420.1018",
           "MicrosoftOfficeCore15": "15.0.4420.1017",
-          "System.Data.OleDb": "9.0.0-preview.4.24266.19"
+          "System.Data.OleDb": "9.0.0-preview.5.24306.7"
         },
         "runtime": {
           "Qhta.Access.Dao.dll": {}
@@ -41,27 +41,27 @@
           }
         }
       },
-      "System.Configuration.ConfigurationManager/9.0.0-preview.4.24266.19": {
+      "System.Configuration.ConfigurationManager/9.0.0-preview.5.24306.7": {
         "dependencies": {
-          "System.Diagnostics.EventLog": "9.0.0-preview.4.24266.19",
-          "System.Security.Cryptography.ProtectedData": "9.0.0-preview.4.24266.19"
+          "System.Diagnostics.EventLog": "9.0.0-preview.5.24306.7",
+          "System.Security.Cryptography.ProtectedData": "9.0.0-preview.5.24306.7"
         },
         "runtime": {
           "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         }
       },
-      "System.Data.OleDb/9.0.0-preview.4.24266.19": {
+      "System.Data.OleDb/9.0.0-preview.5.24306.7": {
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "9.0.0-preview.4.24266.19",
-          "System.Diagnostics.PerformanceCounter": "9.0.0-preview.4.24266.19"
+          "System.Configuration.ConfigurationManager": "9.0.0-preview.5.24306.7",
+          "System.Diagnostics.PerformanceCounter": "9.0.0-preview.5.24306.7"
         },
         "runtime": {
           "lib/net8.0/System.Data.OleDb.dll": {
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         },
         "runtimeTargets": {
@@ -69,15 +69,15 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         }
       },
-      "System.Diagnostics.EventLog/9.0.0-preview.4.24266.19": {
+      "System.Diagnostics.EventLog/9.0.0-preview.5.24306.7": {
         "runtime": {
           "lib/net8.0/System.Diagnostics.EventLog.dll": {
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         },
         "runtimeTargets": {
@@ -91,18 +91,18 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         }
       },
-      "System.Diagnostics.PerformanceCounter/9.0.0-preview.4.24266.19": {
+      "System.Diagnostics.PerformanceCounter/9.0.0-preview.5.24306.7": {
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "9.0.0-preview.4.24266.19"
+          "System.Configuration.ConfigurationManager": "9.0.0-preview.5.24306.7"
         },
         "runtime": {
           "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         },
         "runtimeTargets": {
@@ -110,15 +110,15 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         }
       },
-      "System.Security.Cryptography.ProtectedData/9.0.0-preview.4.24266.19": {
+      "System.Security.Cryptography.ProtectedData/9.0.0-preview.5.24306.7": {
         "runtime": {
           "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.26619"
+            "fileVersion": "9.0.24.30607"
           }
         }
       }
@@ -151,40 +151,40 @@
       "path": "microsoftofficecore15/15.0.4420.1017",
       "hashPath": "microsoftofficecore15.15.0.4420.1017.nupkg.sha512"
     },
-    "System.Configuration.ConfigurationManager/9.0.0-preview.4.24266.19": {
+    "System.Configuration.ConfigurationManager/9.0.0-preview.5.24306.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GpzG992A/CwJCvtoMsAySDCgcfKnUvX5d/iUn3nPzUOxABdysxfuDMajegc6r1+Z1OzO4tBZJBSRaXyaB5wLFQ==",
-      "path": "system.configuration.configurationmanager/9.0.0-preview.4.24266.19",
-      "hashPath": "system.configuration.configurationmanager.9.0.0-preview.4.24266.19.nupkg.sha512"
+      "sha512": "sha512-QKQG0VG4TpGW7i5UvlaHA/9HG/EqwmVa9OokXv54wONWnbm2blYieExHwMTF9252pEtjPtV44qHFqQAUeZcRtg==",
+      "path": "system.configuration.configurationmanager/9.0.0-preview.5.24306.7",
+      "hashPath": "system.configuration.configurationmanager.9.0.0-preview.5.24306.7.nupkg.sha512"
     },
-    "System.Data.OleDb/9.0.0-preview.4.24266.19": {
+    "System.Data.OleDb/9.0.0-preview.5.24306.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rjZdGL95y7kZFm0E2YCwIyzQUZw2Ar6jSWNNJMzChn+FaoVQtdZMA5Oe7T6BbCfY6XFa8UF4B8zHkt1BIcHL4g==",
-      "path": "system.data.oledb/9.0.0-preview.4.24266.19",
-      "hashPath": "system.data.oledb.9.0.0-preview.4.24266.19.nupkg.sha512"
+      "sha512": "sha512-qLrrx41D+ktWhF66/T7o4wuKoLEoQSUj4HV9wRTc8xU12KInX970spz2shZSj9qtQGER3AvzKKjKhxQ/hEKITQ==",
+      "path": "system.data.oledb/9.0.0-preview.5.24306.7",
+      "hashPath": "system.data.oledb.9.0.0-preview.5.24306.7.nupkg.sha512"
     },
-    "System.Diagnostics.EventLog/9.0.0-preview.4.24266.19": {
+    "System.Diagnostics.EventLog/9.0.0-preview.5.24306.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qZJgKLg7gGlMgJqcDO4XLgXlwgSIvy1Yu2FA2YpFIiKz6HDOvUs9YtY1+fOzP5IInlXslwOooMvgNsfjo6J25Q==",
-      "path": "system.diagnostics.eventlog/9.0.0-preview.4.24266.19",
-      "hashPath": "system.diagnostics.eventlog.9.0.0-preview.4.24266.19.nupkg.sha512"
+      "sha512": "sha512-C0PXRc7K0B55FWbdlGyYpz7DoJnW5KFM8qYIBmEjdah8O5B0Qw1by3EjSxp0ol0pPuhpUIPQQCUukxwfBJhNrg==",
+      "path": "system.diagnostics.eventlog/9.0.0-preview.5.24306.7",
+      "hashPath": "system.diagnostics.eventlog.9.0.0-preview.5.24306.7.nupkg.sha512"
     },
-    "System.Diagnostics.PerformanceCounter/9.0.0-preview.4.24266.19": {
+    "System.Diagnostics.PerformanceCounter/9.0.0-preview.5.24306.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-fYXbSG7QeePjEHcvPo1/jT2II/Pie9Uj+Sld4PEoTnJ3DczL7HQx05Njaa1jVeCpyPGlN8C7QBjRYyBv5DVBBA==",
-      "path": "system.diagnostics.performancecounter/9.0.0-preview.4.24266.19",
-      "hashPath": "system.diagnostics.performancecounter.9.0.0-preview.4.24266.19.nupkg.sha512"
+      "sha512": "sha512-hzVCtAIYmD4qB/MQYs2Mi3Xqu3KqLPbPxI0lIzQme9FUgCY3umts8UvypDXXtoMBWTF5Z4EwxuypswtHysrJAQ==",
+      "path": "system.diagnostics.performancecounter/9.0.0-preview.5.24306.7",
+      "hashPath": "system.diagnostics.performancecounter.9.0.0-preview.5.24306.7.nupkg.sha512"
     },
-    "System.Security.Cryptography.ProtectedData/9.0.0-preview.4.24266.19": {
+    "System.Security.Cryptography.ProtectedData/9.0.0-preview.5.24306.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-akWD5tzPZzh4dmvVdf4IjttPmMebZ5rT9fd3pVPElgS8+Ymhnc0CZpYTrpNxgneOwNcBBUN0oTkj9LbZ7NuDbA==",
-      "path": "system.security.cryptography.protecteddata/9.0.0-preview.4.24266.19",
-      "hashPath": "system.security.cryptography.protecteddata.9.0.0-preview.4.24266.19.nupkg.sha512"
+      "sha512": "sha512-RwBW44vWNkfVLfouwWwcN/emQm5gI9bcNtZzURf2tSc1SAAVh4lMGcz/Qo4+bQHSrHtoGKX6ujd9PwUrOds5eg==",
+      "path": "system.security.cryptography.protecteddata/9.0.0-preview.5.24306.7",
+      "hashPath": "system.security.cryptography.protecteddata.9.0.0-preview.5.24306.7.nupkg.sha512"
     }
   }
 }
