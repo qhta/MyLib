@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.Access.Dao")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23740a4700a73b8c6bea94422d986cf34ae34584")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2cbdb31b793630192e8dec6e598caa0195373034")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.Access.Dao")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.Access.Dao")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
