@@ -1,0 +1,10 @@
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.csproj.AssemblyReference.cache
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.AssemblyInfoInputs.cache
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.AssemblyInfo.cs
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.csproj.CoreCompileInputs.cache
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.deps.json
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.dll
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.pdb
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.dll
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.pdb
