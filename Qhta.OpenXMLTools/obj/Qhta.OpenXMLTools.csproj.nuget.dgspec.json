@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj": {}
+    "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {}
   },
   "projects": {
-    "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj": {
+    "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
-        "projectName": "Qhta.OpenXMLTools",
-        "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
+        "projectUniqueName": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
+        "projectName": "Qhta.OpenXmlTools",
+        "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\obj\\",
         "projectStyle": "PackageReference",

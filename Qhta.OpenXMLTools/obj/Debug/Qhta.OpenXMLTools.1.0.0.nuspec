@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Qhta.OpenXMLTools</id>
+    <id>Qhta.OpenXmlTools</id>
     <version>1.0.0</version>
-    <authors>Qhta.OpenXMLTools</authors>
+    <authors>Qhta.OpenXmlTools</authors>
     <description>Package Description</description>
-    <repository type="git" commit="f6e5da33e8d19fc62b3f6c0f57ca2b23557fa06a" />
+    <repository type="git" commit="25bc4a42ff51d53d0fe7120fb468c1c011298b8e" />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="DocumentFormat.OpenXml" version="3.0.2" exclude="Build,Analyzers" />
@@ -13,6 +13,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\VS\Projects\MyLib\bin\Qhta.OpenXMLTools.dll" target="lib\netstandard2.0\Qhta.OpenXMLTools.dll" />
+    <file src="D:\VS\Projects\MyLib\bin\Qhta.OpenXmlTools.dll" target="lib\netstandard2.0\Qhta.OpenXmlTools.dll" />
   </files>
 </package>

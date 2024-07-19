@@ -52,6 +52,15 @@
           "lib/netstandard2.0/Microsoft.Office.Interop.Word.dll": {}
         }
       },
+      "MicrosoftOfficeCore15/15.0.4420.1017": {
+        "type": "package",
+        "compile": {
+          "lib/Office.dll": {}
+        },
+        "runtime": {
+          "lib/Office.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -152,6 +161,19 @@
             "related": ".xml"
           }
         }
+      },
+      "Qhta.OpenXmlTools/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "DocumentFormat.OpenXml": "3.0.2"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.OpenXmlTools.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.OpenXmlTools.dll": {}
+        }
       }
     }
   },
@@ -230,6 +252,18 @@
         "lib/netstandard2.0/Microsoft.Office.Interop.Word.dll",
         "microsoft.office.interop.word.15.0.4797.1004.nupkg.sha512",
         "microsoft.office.interop.word.nuspec"
+      ]
+    },
+    "MicrosoftOfficeCore15/15.0.4420.1017": {
+      "sha512": "DGJWnY3B5741NijKse+GzLrwZaTqSOEm0KLTLed4BSBhxAkKdqI+JRSUnlwVFqOEdbenk3+n2iTL9WXAUqQ9mw==",
+      "type": "package",
+      "path": "microsoftofficecore15/15.0.4420.1017",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Office.dll",
+        "microsoftofficecore15.15.0.4420.1017.nupkg.sha512",
+        "microsoftofficecore15.nuspec"
       ]
     },
     "NETStandard.Library/2.0.3": {
@@ -530,13 +564,20 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Qhta.OpenXmlTools/1.0.0": {
+      "type": "project",
+      "path": "../Qhta.OpenXMLTools/Qhta.OpenXmlTools.csproj",
+      "msbuildProject": "../Qhta.OpenXMLTools/Qhta.OpenXmlTools.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "DocumentFormat.OpenXml >= 3.0.2",
       "Microsoft.Office.Interop.Word >= 15.0.4797.1004",
+      "MicrosoftOfficeCore15 >= 15.0.4420.1017",
       "NETStandard.Library >= 2.0.3",
+      "Qhta.OpenXmlTools >= 1.0.0",
       "Qhta.TextUtils >= 3.2.0"
     ]
   },
@@ -573,7 +614,11 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {
+              "projectPath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -598,6 +643,10 @@
           "Microsoft.Office.Interop.Word": {
             "target": "Package",
             "version": "[15.0.4797.1004, )"
+          },
+          "MicrosoftOfficeCore15": {
+            "target": "Package",
+            "version": "[15.0.4420.1017, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
@@ -624,5 +673,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MicrosoftOfficeCore15 15.0.4420.1017' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "MicrosoftOfficeCore15",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.0"
+      ]
+    }
+  ]
 }

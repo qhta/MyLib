@@ -1,7 +1,7 @@
 ﻿using Word = Microsoft.Office.Interop.Word;
 
 namespace Qhta.WordInteropOpenXmlConverter;
-public static class LangConverter
+public static class LanguageConverter
 {
   public static string LanguageIdToBcp47Tag(Word.WdLanguageID wdLanguageID)
   {

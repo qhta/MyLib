@@ -7,13 +7,13 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.OpenXMLTools/1.0.0": {
+      "Qhta.OpenXmlTools/1.0.0": {
         "dependencies": {
           "DocumentFormat.OpenXml": "3.0.2",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
-          "Qhta.OpenXMLTools.dll": {}
+          "Qhta.OpenXmlTools.dll": {}
         }
       },
       "DocumentFormat.OpenXml/3.0.2": {
@@ -95,7 +95,7 @@
     }
   },
   "libraries": {
-    "Qhta.OpenXMLTools/1.0.0": {
+    "Qhta.OpenXmlTools/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
