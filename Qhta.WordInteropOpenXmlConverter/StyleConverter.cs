@@ -22,37 +22,36 @@ public class StyleConverter
 {
   public StyleConverter(Word.Document document)
   {
-    var styleTools = new StyleTools(document);
-    BuildInStyleNumbers = styleTools.BuildInStyleNumbers;
-    DefaultStyle = styleTools.GetStyle(WdBuiltinStyle.wdStyleNormal);
+    StyleTools = new StyleTools(document);
+    BuildInStyleNumbers = StyleTools.LocalNameMyBuiltinStyles;
+    DefaultStyle = StyleTools.GetStyle(WdBuiltinStyle.wdStyleNormal);
     defaultFont = DefaultStyle.Font;
     defaultParagraph = DefaultStyle.ParagraphFormat;
   }
 
-  private Dictionary<string, WdBuiltinStyle>? BuildInStyleNumbers { get; set; }
+  private readonly StyleTools StyleTools;
+  private readonly Dictionary<string, MyBuiltinStyle> BuildInStyleNumbers;
   private readonly Word.Style DefaultStyle;
   private readonly Word.Font defaultFont;
   private readonly ParagraphFormat defaultParagraph;
 
   public W.Style ConvertStyle(Word.Style wordStyle)
   {
-
-
-    Debug.Assert(BuildInStyleNumbers != null, "BuiltIn style numbers table required");
-    // Access the font and paragraph properties of the default style
-    
-
     // ReSharper disable once UseObjectOrCollectionInitializer
     var xStyle = new W.Style();
-    xStyle.StyleName = new W.StyleName { Val = wordStyle.NameLocal };
-    if (BuildInStyleNumbers?.TryGetValue(wordStyle.NameLocal, out var builtInStyle) == true)
-    {
-      xStyle.StyleId = builtInStyle.ToString();
-    }
-    else
-    {
-      xStyle.StyleId = wordStyle.NameLocal;
-    }
+
+    #region style id and name
+    var styleId = wordStyle.NameLocal;
+    styleId = StyleTools.StyleNameToId(styleId!);
+    xStyle.StyleId = styleId;
+
+    if (!StyleTools.TryLocalNameToBuiltinName(wordStyle.NameLocal, out var styleName))
+      styleName = wordStyle.NameLocal;
+    if (styleName!= null)
+      xStyle.StyleName = new W.StyleName { Val = styleName };
+    #endregion style id and name
+
+    #region style type
     W.StyleValues styleType = wordStyle.Type switch
     {
       WdStyleType.wdStyleTypeParagraph => W.StyleValues.Paragraph,
@@ -66,6 +65,7 @@ public class StyleConverter
         $"Unsupported style type: {wordStyle.Type}")
     };
     xStyle.Type = new EnumValue<W.StyleValues>(styleType);
+    #endregion style type
 
     if (wordStyle.Hidden)
       xStyle.SemiHidden = new W.SemiHidden();
@@ -83,19 +83,19 @@ public class StyleConverter
     {
       Word.Style baseStyle = (Word.Style)wordStyle.get_BaseStyle();
       if (baseStyle.NameLocal.Length > 0)
-        xStyle.BasedOn = new W.BasedOn { Val = baseStyle.NameLocal };
+        xStyle.BasedOn = new W.BasedOn { Val = StyleTools.StyleNameToId(baseStyle.NameLocal) };
     }
     catch { }
     try
     {
       Word.Style linkStyle = (Word.Style)wordStyle.get_LinkStyle();
-      xStyle.LinkedStyle = new W.LinkedStyle { Val = linkStyle.NameLocal };
+      xStyle.LinkedStyle = new W.LinkedStyle { Val = StyleTools.StyleNameToId(linkStyle.NameLocal) };
     }
     catch { }
     try
     {
       Word.Style nextParagraphStyle = (Word.Style)wordStyle.get_NextParagraphStyle();
-      xStyle.NextParagraphStyle = new W.NextParagraphStyle { Val = nextParagraphStyle.NameLocal };
+      xStyle.NextParagraphStyle = new W.NextParagraphStyle { Val = StyleTools.StyleNameToId(nextParagraphStyle.NameLocal) };
     }
     catch { }
 
@@ -151,21 +151,44 @@ public class StyleConverter
         xRunProps.Caps = new W.Caps();
       if (styleFont.SmallCaps != 0)
         xRunProps.SmallCaps = new W.SmallCaps();
-      if (styleFont.Color != 0)
+      var xColor = new W.Color();
+
+      #region color props
+      var addColor = false;
+      if (styleFont.Color != WdColor.wdColorAutomatic)
       {
-        var color = styleFont.Color;
-        if (color != WdColor.wdColorAutomatic)
-          xRunProps.Color = new W.Color { Val = WordColorToHex(color) };
+        xColor.Val = WordColorToHex(styleFont.Color);
+        addColor = true;
       }
-      else
       if (styleFont.ColorIndex != WdColorIndex.wdAuto)
       {
-        var colorIndex = styleFont.ColorIndex;
-        if (colorIndex != WdColorIndex.wdAuto)
+        xColor.Val = WordColorIndexToHex(styleFont.ColorIndex);
+        addColor = true;
+      }
+      try
+      {
+        var themeColor = styleFont.TextColor.ObjectThemeColor;
+        if (themeColor != WdThemeColorIndex.wdNotThemeColor)
         {
-          xRunProps.Color = new W.Color { Val = WordColorIndexToHex(colorIndex) };
+          xColor.ThemeColor = new EnumValue<W.ThemeColorValues>(WdThemeColorToOpenXmlThemeColor(themeColor));
+          addColor = true;
         }
       }
+      catch { }
+      try
+      {
+        var tintAndShade = styleFont.TextColor.TintAndShade;
+        if (tintAndShade < 0)
+        {
+          xColor.ThemeShade = ConvertTintAndShadeToThemeShade(tintAndShade);
+          addColor = true;
+        }
+      }
+      catch { }
+
+      if (addColor)
+        xRunProps.Color = xColor;
+      #endregion color props
 
       #region lang props
       var langProps = new W.Languages();

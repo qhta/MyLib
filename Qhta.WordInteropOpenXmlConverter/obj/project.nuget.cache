@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OjyvTxLhLH8=",
+  "dgSpecHash": "jqI8zennsXg=",
   "success": true,
   "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.WordInteropOpenXmlConverter\\Qhta.WordInteropOpenXmlConverter.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.office.interop.word\\15.0.4797.1004\\microsoft.office.interop.word.15.0.4797.1004.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.io.packaging\\8.0.0\\system.io.packaging.8.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
