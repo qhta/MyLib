@@ -1,12 +1,95 @@
 ﻿using System;
+
 using DocumentFormat.OpenXml;
+
 using Microsoft.Office.Interop.Word;
+
+using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
+
 using W = DocumentFormat.OpenXml.Wordprocessing;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace Qhta.WordInteropOpenXmlConverter;
 
-static class BorderConverter
+public class BordersConverter()
 {
+  public W.ParagraphBorders? CreateBorders(Word.Borders borders)
+  {
+    W.ParagraphBorders? xBorders = new W.ParagraphBorders();
+    var hasBorders = false;
+
+    try
+    {
+      var border = borders[WdBorderType.wdBorderBottom];
+      if (border.LineStyle != 0)
+      {
+        var xBorder = ConvertBorder<W.BottomBorder>(border);
+        xBorders.Append(xBorder);
+        hasBorders = true;
+      }
+    }
+    catch { }
+    try
+    {
+      var border = borders[WdBorderType.wdBorderTop];
+      var ls = border.LineStyle;
+      var lw = border.LineWidth;
+      if (border.LineStyle != 0)
+      {
+        var xBorder = ConvertBorder<W.TopBorder>(border);
+        xBorders.Append(xBorder);
+        hasBorders = true;
+      }
+    }
+    catch { }
+    try
+    {
+      var border = borders[WdBorderType.wdBorderLeft];
+      if (border.LineStyle != 0)
+      {
+        var xBorder = ConvertBorder<W.LeftBorder>(border);
+        xBorders.Append(xBorder);
+        hasBorders = true;
+      }
+    }
+    catch { }
+    try
+    {
+      var border = borders[WdBorderType.wdBorderRight];
+      if (border.LineStyle != 0)
+      {
+        var xBorder = ConvertBorder<W.RightBorder>(border);
+        xBorders.Append(xBorder);
+        hasBorders = true;
+      }
+    }
+    catch { }
+    if (hasBorders)
+      return xBorders;
+    return null;
+  }
+
+  public BorderType ConvertBorder<BorderType>(Word.Border border) where BorderType : W.BorderType, new()
+  {
+    // ReSharper disable once UseObjectOrCollectionInitializer
+    var xBorder = new BorderType();
+    xBorder.Val = new EnumValue<W.BorderValues>(WdBorderToOpenXmlBorder(border.LineStyle));
+    var xColor = ConvertColor(border.Color, border.ColorIndex);
+    if (xColor != null)
+    {
+      if (xColor.Val != null)
+        xBorder.Color = xColor.Val;
+      if (xColor.ThemeColor != null)
+        xBorder.ThemeColor = xColor.ThemeColor;
+      if (xColor.ThemeShade != null)
+        xBorder.ThemeShade = xColor.ThemeShade;
+      if (xColor.ThemeTint != null)
+        xBorder.ThemeTint = xColor.ThemeTint;
+    }
+    xBorder.Size = WdLineWidthToBorderWidth(border.LineWidth);
+    return xBorder;
+  }
+
   public static UInt32Value? WdLineWidthToBorderWidth(WdLineWidth borderLineWidth)
   {
     return borderLineWidth switch

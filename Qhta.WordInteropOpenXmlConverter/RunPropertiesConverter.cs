@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using DocumentFormat.OpenXml;
 
 using Microsoft.Office.Interop.Word;
 
-using static Qhta.WordInteropOpenXmlConverter.BorderConverter;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
 using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
 using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
@@ -98,45 +96,16 @@ public class RunPropertiesConverter(Word.Style defaultStyle, ThemeTools themeToo
       xRunProps.Caps = new W.Caps();
     if (styleFont.SmallCaps != 0)
       xRunProps.SmallCaps = new W.SmallCaps();
-    var xColor = new W.Color();
 
     #region color props
-
-    var addColor = false;
-    if (styleFont.Color != WdColor.wdColorAutomatic)
-    {
-      xColor.Val = WordColorToHex(styleFont.Color);
-      addColor = true;
-    }
-    if (styleFont.ColorIndex != WdColorIndex.wdAuto)
-    {
-      xColor.Val = WordColorIndexToHex(styleFont.ColorIndex);
-      addColor = true;
-    }
+    Word.ColorFormat? colorFormat = null;
     try
     {
-      var themeColor = styleFont.TextColor.ObjectThemeColor;
-      if (themeColor != WdThemeColorIndex.wdNotThemeColor)
-      {
-        xColor.ThemeColor = new EnumValue<W.ThemeColorValues>(WdThemeColorToOpenXmlThemeColor(themeColor));
-        addColor = true;
-      }
+      colorFormat = styleFont.TextColor;
     }
     catch { }
-    try
-    {
-      var tintAndShade = styleFont.TextColor.TintAndShade;
-      if (tintAndShade < 0)
-      {
-        xColor.ThemeShade = ConvertTintAndShadeToThemeShade(tintAndShade);
-        addColor = true;
-      }
-    }
-    catch { }
-
-    if (addColor)
-      xRunProps.Color = xColor;
-
+    var xColor = ConvertColor(styleFont.Color, styleFont.ColorIndex, colorFormat);
+    xRunProps.Color = xColor;
     #endregion color props
 
     #region lang props
@@ -178,73 +147,12 @@ public class RunPropertiesConverter(Word.Style defaultStyle, ThemeTools themeToo
       xRunProps.Imprint = new W.Imprint();
 
     #region text borders
-
     try
     {
-      var borders = styleFont.Borders;
-      if (borders != null)
-      {
-        try
-        {
-          var border = borders[WdBorderType.wdBorderBottom];
-          if (border != null && border.LineStyle != 0)
-          {
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var xBorder = new W.BottomBorder();
-            xBorder.Val = new EnumValue<W.BorderValues>(WdBorderToOpenXmlBorder(border.LineStyle));
-            xBorder.Color = WordColorToHex(border.Color);
-            xBorder.Size = WdLineWidthToBorderWidth(border.LineWidth);
-            xRunProps.Append(xBorder);
-          }
-        }
-        catch { }
-        try
-        {
-          var border = borders[WdBorderType.wdBorderTop];
-          if (border != null && border.LineStyle != 0)
-          {
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var xBorder = new W.TopBorder();
-            xBorder.Val = new EnumValue<W.BorderValues>(WdBorderToOpenXmlBorder(border.LineStyle));
-            xBorder.Color = WordColorToHex(border.Color);
-            xBorder.Size = WdLineWidthToBorderWidth(border.LineWidth);
-            xRunProps.Append(xBorder);
-          }
-        }
-        catch { }
-        try
-        {
-          var border = borders[WdBorderType.wdBorderLeft];
-          if (border != null && border.LineStyle != 0)
-          {
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var xBorder = new W.LeftBorder();
-            xBorder.Val = new EnumValue<W.BorderValues>(WdBorderToOpenXmlBorder(border.LineStyle));
-            xBorder.Color = WordColorToHex(border.Color);
-            xBorder.Size = WdLineWidthToBorderWidth(border.LineWidth);
-            xRunProps.Append(xBorder);
-          }
-        }
-        catch { }
-        try
-        {
-          var border = borders[WdBorderType.wdBorderRight];
-          if (border != null && border.LineStyle != 0)
-          {
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var xBorder = new W.RightBorder();
-            xBorder.Val = new EnumValue<W.BorderValues>(WdBorderToOpenXmlBorder(border.LineStyle));
-            xBorder.Color = WordColorToHex(border.Color);
-            xBorder.Size = WdLineWidthToBorderWidth(border.LineWidth);
-            xRunProps.Append(xBorder);
-          }
-        }
-        catch { }
-      }
 
-      #endregion text borders
     }
     catch { }
+    #endregion text borders
 
     if (styleFont.Outline != 0)
       xRunProps.Outline = new W.Outline();
