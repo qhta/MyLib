@@ -39,7 +39,7 @@ public class StyleConverter
   private readonly Word.Font defaultFont;
   private readonly ParagraphFormat defaultParagraph;
 
-  public W.Style ConvertStyle(Word.Style wordStyle, W.Numbering? xNumbering)
+  public W.Style ConvertStyle(Word.Style wordStyle)
   {
     // ReSharper disable once UseObjectOrCollectionInitializer
     var xStyle = new W.Style();
@@ -106,7 +106,7 @@ public class StyleConverter
     #region style run properties
     try
     {
-      var xRunProps = new RunPropertiesConverter(defaultStyle, themeTools).CreateRunProperties(wordStyle);
+      var xRunProps = new RunPropertiesConverter(defaultStyle, themeTools).ConvertStyleFont(wordStyle);
       xStyle.StyleRunProperties = xRunProps.ToStyleRunProperties();
     }
     catch { }
@@ -122,18 +122,18 @@ public class StyleConverter
     #endregion paragraph formating
 
 
-    try
-    {
-      if (xNumbering != null)
-      {
-        var abstractNum = new NumberingPropertiesConverter(defaultStyle).CreateNumberingProperties(wordStyle);
-        if (abstractNum != null)
-        {
-          xNumbering.Append(abstractNum);
-        }
-      }
-    }
-    catch { }
+    //try
+    //{
+    //  if (xNumbering != null)
+    //  {
+    //    var abstractNum = new NumberingPropertiesConverter(defaultStyle).CreateNumberingProperties(wordStyle);
+    //    if (abstractNum != null)
+    //    {
+    //      xNumbering.Append(abstractNum);
+    //    }
+    //  }
+    //}
+    //catch { }
     return xStyle;
   }
 

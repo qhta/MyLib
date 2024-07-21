@@ -11,6 +11,8 @@ using W = DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using Qhta.OpenXMLTools;
 
+using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
+
 namespace Qhta.WordInteropOpenXmlConverter;
 
 public static class ColorConverter
@@ -40,13 +42,13 @@ public static class ColorConverter
   {
     var xColor = new W.Color();
     var addColor = false;
-    if (color != WdColor.wdColorAutomatic)
+    if ((int)color != wdUndefined && color != WdColor.wdColorAutomatic)
     {
       xColor.Val = WordColorToHex(color);
       addColor = true;
     }
     else
-    if (colorIndex != WdColorIndex.wdAuto)
+    if ((int)colorIndex != wdUndefined && colorIndex != WdColorIndex.wdAuto)
     {
       xColor.Val = WordColorIndexToHex(colorIndex);
       addColor = true;

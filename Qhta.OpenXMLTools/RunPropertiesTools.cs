@@ -81,7 +81,47 @@ public static class RunPropertiesTools
     if (styleRunProperties.Vanish != null) runProperties.Vanish = (Vanish)styleRunProperties.Vanish.CloneNode(true);
     if (styleRunProperties.VerticalTextAlignment != null) runProperties.VerticalTextAlignment = (VerticalTextAlignment)styleRunProperties.VerticalTextAlignment.CloneNode(true);
     if (styleRunProperties.WebHidden != null) runProperties.WebHidden = (WebHidden)styleRunProperties.WebHidden.CloneNode(true);
-
     return runProperties;
+  }
+
+  public static NumberingSymbolRunProperties ToNumberingSymbolRunProperties(this RunProperties runProperties)
+  {
+    var symbolRunProperties = new NumberingSymbolRunProperties();
+    if (runProperties.Bold != null) symbolRunProperties.Bold = (Bold)runProperties.Bold.CloneNode(true);
+    if (runProperties.BoldComplexScript != null) symbolRunProperties.BoldComplexScript = (BoldComplexScript)runProperties.BoldComplexScript.CloneNode(true);
+    if (runProperties.Border != null) symbolRunProperties.Border = (Border)runProperties.Border.CloneNode(true);
+    if (runProperties.Caps != null) symbolRunProperties.Caps = (Caps)runProperties.Caps.CloneNode(true);
+    if (runProperties.CharacterScale != null) symbolRunProperties.CharacterScale = (CharacterScale)runProperties.CharacterScale.CloneNode(true);
+    if (runProperties.Color != null) symbolRunProperties.Color = (Color)runProperties.Color.CloneNode(true);
+    if (runProperties.DoubleStrike != null) symbolRunProperties.DoubleStrike = (DoubleStrike)runProperties.DoubleStrike.CloneNode(true);
+    if (runProperties.EastAsianLayout != null) symbolRunProperties.EastAsianLayout = (EastAsianLayout)runProperties.EastAsianLayout.CloneNode(true);
+    if (runProperties.Emboss != null) symbolRunProperties.Emboss = (Emboss)runProperties.Emboss.CloneNode(true);
+    if (runProperties.Emphasis != null) symbolRunProperties.Emphasis = (Emphasis)runProperties.Emphasis.CloneNode(true);
+    if (runProperties.FitText != null) symbolRunProperties.FitText = (FitText)runProperties.FitText.CloneNode(true);
+    if (runProperties.FontSize != null) symbolRunProperties.FontSize = (FontSize)runProperties.FontSize.CloneNode(true);
+    if (runProperties.FontSizeComplexScript != null) symbolRunProperties.FontSizeComplexScript = (FontSizeComplexScript)runProperties.FontSizeComplexScript.CloneNode(true);
+    if (runProperties.Imprint != null) symbolRunProperties.Imprint = (Imprint)runProperties.Imprint.CloneNode(true);
+    if (runProperties.Italic != null) symbolRunProperties.Italic = (Italic)runProperties.Italic.CloneNode(true);
+    if (runProperties.ItalicComplexScript != null) symbolRunProperties.ItalicComplexScript = (ItalicComplexScript)runProperties.ItalicComplexScript.CloneNode(true);
+    if (runProperties.Kern != null) symbolRunProperties.Kern = (Kern)runProperties.Kern.CloneNode(true);
+    if (runProperties.Languages != null) symbolRunProperties.Languages = (Languages)runProperties.Languages.CloneNode(true);
+    if (runProperties.NoProof != null) symbolRunProperties.NoProof = (NoProof)runProperties.NoProof.CloneNode(true);
+    if (runProperties.Outline != null) symbolRunProperties.Outline = (Outline)runProperties.Outline.CloneNode(true);
+    if (runProperties.Position != null) symbolRunProperties.Position = (Position)runProperties.Position.CloneNode(true);
+    if (runProperties.RunFonts != null) symbolRunProperties.RunFonts = (RunFonts)runProperties.RunFonts.CloneNode(true);
+    if (runProperties.Shading != null) symbolRunProperties.Shading = (Shading)runProperties.Shading.CloneNode(true);
+    if (runProperties.Shadow != null) symbolRunProperties.Shadow = (Shadow)runProperties.Shadow.CloneNode(true);
+    if (runProperties.SmallCaps != null) symbolRunProperties.SmallCaps = (SmallCaps)runProperties.SmallCaps.CloneNode(true);
+    if (runProperties.SnapToGrid != null) symbolRunProperties.SnapToGrid = (SnapToGrid)runProperties.SnapToGrid.CloneNode(true);
+    if (runProperties.Spacing != null) symbolRunProperties.Spacing = (Spacing)runProperties.Spacing.CloneNode(true);
+    if (runProperties.SpecVanish != null) symbolRunProperties.SpecVanish = (SpecVanish)runProperties.SpecVanish.CloneNode(true);
+    if (runProperties.Strike != null) symbolRunProperties.Strike = (Strike)runProperties.Strike.CloneNode(true);
+    if (runProperties.TextEffect != null) symbolRunProperties.TextEffect = (TextEffect)runProperties.TextEffect.CloneNode(true);
+    if (runProperties.Underline != null) symbolRunProperties.Underline = (Underline)runProperties.Underline.CloneNode(true);
+    if (runProperties.Vanish != null) symbolRunProperties.Vanish = (Vanish)runProperties.Vanish.CloneNode(true);
+    if (runProperties.VerticalTextAlignment != null) symbolRunProperties.VerticalTextAlignment = (VerticalTextAlignment)runProperties.VerticalTextAlignment.CloneNode(true);
+    if (runProperties.WebHidden != null) symbolRunProperties.WebHidden = (WebHidden)runProperties.WebHidden.CloneNode(true);
+
+    return symbolRunProperties;
   }
 }

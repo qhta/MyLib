@@ -36,7 +36,13 @@ public class ListTemplateConverter
       var lCount = ListTemplate.ListLevels.Count;
       if (lCount > 1)
       {
-        Debug.Assert(true);
+        abstractNum.MultiLevelType = new MultiLevelType
+          { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.HybridMultilevel) };
+      }
+      else
+      {
+        abstractNum.MultiLevelType = new MultiLevelType
+          { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.SingleLevel) };
       }
       for (int level = 1; level <= lCount; level++)
       {
@@ -76,26 +82,27 @@ public class ListTemplateConverter
               if (numberFormat[0] == '\uF0B7')
               {
                 numberFormatValues = NumberFormatValues.Bullet;
-                numberFormat = "•";
+                //numberFormat = "•";
               }
               else if (Char.GetUnicodeCategory(numberFormat[0]) == UnicodeCategory.PrivateUse)
               {
                 numberFormatValues = NumberFormatValues.Bullet;
-                numberFormat = "•";
+                //numberFormat = "•";
               }
               else if (numberFormat[0] == '•')
               {
                 numberFormatValues = NumberFormatValues.Bullet;
               }
             }
-            var pictureBullet = wordLevel.PictureBullet;
-            if (pictureBullet != null)
-            {
-              numberFormatValues = NumberFormatValues.Bullet;
-              numberFormat = "•";
-            }
+            //var pictureBullet = wordLevel.PictureBullet;
+            //if (pictureBullet != null)
+            //{
+            //  numberFormatValues = NumberFormatValues.Bullet;
+            //  numberFormat = "•";
+            //}
           }
           catch { }
+
 
           W.LevelJustificationValues levelJustificationValues = wordLevel.Alignment switch
           {
@@ -111,6 +118,15 @@ public class ListTemplateConverter
           xNumberingLevel.NumberingFormat = new NumberingFormat() { Val = numberFormatValues };
           xNumberingLevel.LevelText = new LevelText() { Val = numberFormat };
           xNumberingLevel.LevelJustification = new LevelJustification() { Val = levelJustificationValues };
+
+
+          try
+          {
+            Word.Font font = wordLevel.Font;
+            var xRunProperties = new RunPropertiesConverter().ConvertFont(font);
+            xNumberingLevel.NumberingSymbolRunProperties=xRunProperties.ToNumberingSymbolRunProperties();
+          }
+          catch { }
           abstractNum.Append(xNumberingLevel);
         }
         catch { }
