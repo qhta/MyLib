@@ -22,7 +22,7 @@ namespace Qhta.WordInteropOpenXmlConverter {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Qhta.WordInteropOpenXmlConverter {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Qhta.WordInteropOpenXmlConverter.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace Qhta.WordInteropOpenXmlConverter {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Qhta.WordInteropOpenXmlConverter {
         /// <summary>
         ///   Looks up a localized string similar to Body.
         /// </summary>
-        internal static string Body {
+        public static string Body {
             get {
                 return ResourceManager.GetString("Body", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Qhta.WordInteropOpenXmlConverter {
         /// <summary>
         ///   Looks up a localized string similar to Body CS.
         /// </summary>
-        internal static string Body_CS {
+        public static string Body_CS {
             get {
                 return ResourceManager.GetString("Body CS", resourceCulture);
             }
@@ -81,16 +81,25 @@ namespace Qhta.WordInteropOpenXmlConverter {
         /// <summary>
         ///   Looks up a localized string similar to Body EA.
         /// </summary>
-        internal static string Body_EA {
+        public static string Body_EA {
             get {
                 return ResourceManager.GetString("Body EA", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bullet list.
+        /// </summary>
+        public static string BulletList {
+            get {
+                return ResourceManager.GetString("BulletList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Headings.
         /// </summary>
-        internal static string Headings {
+        public static string Headings {
             get {
                 return ResourceManager.GetString("Headings", resourceCulture);
             }
@@ -99,7 +108,7 @@ namespace Qhta.WordInteropOpenXmlConverter {
         /// <summary>
         ///   Looks up a localized string similar to Headings CS.
         /// </summary>
-        internal static string Headings_CS {
+        public static string Headings_CS {
             get {
                 return ResourceManager.GetString("Headings CS", resourceCulture);
             }
@@ -108,9 +117,27 @@ namespace Qhta.WordInteropOpenXmlConverter {
         /// <summary>
         ///   Looks up a localized string similar to Headings EA.
         /// </summary>
-        internal static string Headings_EA {
+        public static string Headings_EA {
             get {
                 return ResourceManager.GetString("Headings EA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numbering list.
+        /// </summary>
+        public static string NumberingList {
+            get {
+                return ResourceManager.GetString("NumberingList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outline numbering list.
+        /// </summary>
+        public static string OutlineNumberingList {
+            get {
+                return ResourceManager.GetString("OutlineNumberingList", resourceCulture);
             }
         }
     }

@@ -135,4 +135,13 @@
   <data name="Headings EA" xml:space="preserve">
     <value>Headings EA</value>
   </data>
+  <data name="BulletList" xml:space="preserve">
+    <value>Bullet list</value>
+  </data>
+  <data name="NumberingList" xml:space="preserve">
+    <value>Numbering list</value>
+  </data>
+  <data name="OutlineNumberingList" xml:space="preserve">
+    <value>Outline numbering list</value>
+  </data>
 </root>

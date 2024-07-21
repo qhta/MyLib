@@ -213,6 +213,7 @@ public class ParagraphPropertiesConverter(Word.Style defaultStyle)
       }
     }
     catch { }
+
     return xParaProperties;
   }
 }

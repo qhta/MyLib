@@ -115,4 +115,13 @@
   <data name="Headings EA" xml:space="preserve">
     <value>Nagłówki azjatyckie</value>
   </data>
+  <data name="BulletList" xml:space="preserve">
+    <value>Lista wypunktowana</value>
+  </data>
+  <data name="NumberingList" xml:space="preserve">
+    <value>Lista numerowana</value>
+  </data>
+  <data name="OutlineNumberingList" xml:space="preserve">
+    <value>Lista hierarchiczna</value>
+  </data>
 </root>
