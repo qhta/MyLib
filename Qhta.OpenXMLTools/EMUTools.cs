@@ -1,7 +1,7 @@
 ﻿using System;
 using DocumentFormat.OpenXml;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class EMUTools
 {

@@ -1,10 +1,11 @@
-﻿using DocumentFormat.OpenXml.Packaging;
+﻿using System;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Linq;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
-public static class ListTools
+public static class NumberingTools
 {
   public static int? GetNumberingId(this WordprocessingDocument wordDocument, Paragraph paragraph)
   {
@@ -165,5 +166,45 @@ public static class ListTools
       }
     }
     return NumberFormatValues.None;
+  }
+
+  public static string GetListText(this WordprocessingDocument wordDocument, int abstractNumId, int levelNdx)
+  {
+    var level = GetNumberingLevelDef(wordDocument, abstractNumId, levelNdx);
+    if (level != null)
+    {
+      var levelText = level.LevelText?.Val?.Value;
+      if (levelText != null)
+        return levelText;
+    }
+    return "";
+  }
+
+  public static AbstractNum JoinSingleLevelsHybridMultiLevel(Level[] levels)
+  {
+    var abstractNum = new AbstractNum { MultiLevelType = new MultiLevelType{ Val = MultiLevelValues.HybridMultilevel }};
+    var indent0 = 0;
+    for (int lc = 0; lc < levels.Length; lc++)
+    {
+      var level = (Level)levels[lc].CloneNode(true);
+      level.LevelIndex = lc;
+      var paraProps = level.GetFirstChild<ParagraphProperties>();
+      if (paraProps != null)
+      {
+        var ind = paraProps.GetFirstChild<Indentation>();
+        if (ind != null)
+        {
+          if (ind.Left?.Value != null)
+          {
+            var indent = Int32.Parse(ind.Left.Value);
+            var indent1 = indent + indent0;
+            ind.Left = indent1.ToString();
+            indent0 = indent1;
+          }
+        }
+      }
+      abstractNum.Append(level);
+    }
+    return abstractNum;
   }
 }

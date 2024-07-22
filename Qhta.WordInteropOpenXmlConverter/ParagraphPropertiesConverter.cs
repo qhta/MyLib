@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using DocumentFormat.OpenXml;
 using Microsoft.Office.Interop.Word;
+using Qhta.OpenXmlTools;
 using Word = Microsoft.Office.Interop.Word;
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using O = DocumentFormat.OpenXml;
@@ -10,13 +11,45 @@ using static Qhta.WordInteropOpenXmlConverter.BordersConverter;
 
 namespace Qhta.WordInteropOpenXmlConverter;
 
-public class ParagraphPropertiesConverter(Word.Style defaultStyle)
+public class ParagraphPropertiesConverter
 {
-  private readonly Word.ParagraphFormat defaultParagraph = defaultStyle.ParagraphFormat;
+  private readonly Word.ParagraphFormat? defaultParagraph;
 
-  public W.ParagraphProperties CreateParagraphProperties(Word.Style wordStyle)
+  public ParagraphPropertiesConverter()
+  {
+  }
+
+  public ParagraphPropertiesConverter(Word.Style defaultStyle)
+  {
+    defaultParagraph = defaultStyle.ParagraphFormat;
+  }
+
+  public W.StyleParagraphProperties ConvertStyleParagraphFormat(Word.Style wordStyle)
   {
     var paraFormat = wordStyle.ParagraphFormat;
+    var xParaProperties = ConvertParagraphFormat(paraFormat);
+
+    if (wordStyle.NoSpaceBetweenParagraphsOfSameStyle)
+      xParaProperties.ContextualSpacing = new W.ContextualSpacing();
+
+    try
+    {
+      var styleBorders = wordStyle.Borders;
+      if (styleBorders != null)
+      {
+        var bordersConverter = new BordersConverter();
+        var xBorders = bordersConverter.CreateBorders(styleBorders);
+        if (xBorders != null)
+          xParaProperties.ParagraphBorders = xBorders;
+      }
+    }
+    catch { }
+
+    return xParaProperties.ToStyleParagraphProperties();
+  }
+
+  public W.ParagraphProperties ConvertParagraphFormat(Word.ParagraphFormat paraFormat)
+  {
     // ReSharper disable once UseObjectOrCollectionInitializer
     var xParaProperties = new W.ParagraphProperties();
 
@@ -156,8 +189,6 @@ public class ParagraphPropertiesConverter(Word.Style defaultStyle)
     if (addSpacing)
       xParaProperties.SpacingBetweenLines = xSpacing;
 
-    if (wordStyle.NoSpaceBetweenParagraphsOfSameStyle)
-      xParaProperties.ContextualSpacing = new W.ContextualSpacing();
     #endregion paragraph spacing
 
     if (paraFormat.WidowControl != defaultParagraph.WidowControl)
@@ -200,19 +231,6 @@ public class ParagraphPropertiesConverter(Word.Style defaultStyle)
       if (paraFormat.Hyphenation == 0)
         xParaProperties.SuppressAutoHyphens.Val = OnOffValue.FromBoolean(false);
     }
-
-    try
-    {
-      var styleBorders = wordStyle.Borders;
-      if (styleBorders != null)
-      {
-        var bordersConverter = new BordersConverter();
-        var xBorders = bordersConverter.CreateBorders(styleBorders);
-        if (xBorders != null)
-          xParaProperties.ParagraphBorders = xBorders;
-      }
-    }
-    catch { }
 
     return xParaProperties;
   }

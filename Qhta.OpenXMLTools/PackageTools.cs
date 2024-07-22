@@ -10,7 +10,7 @@ using System.Xml.XPath;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class PackageTools
 {

@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class PlainTextTools
 {

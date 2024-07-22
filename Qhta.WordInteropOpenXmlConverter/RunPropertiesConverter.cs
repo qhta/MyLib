@@ -5,7 +5,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 using Microsoft.Office.Interop.Word;
-
+using Qhta.OpenXmlTools;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
 using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
 using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
@@ -34,10 +34,10 @@ public class RunPropertiesConverter
     this.themeTools = themeTools;
   }
 
-  public W.RunProperties ConvertStyleFont(Word.Style wordStyle)
+  public W.StyleRunProperties ConvertStyleFont(Word.Style wordStyle)
   {
     var wordFont = wordStyle.Font;
-    var xRunProps = ConvertFont(wordFont);
+    var xRunProperties = ConvertFont(wordFont);
     #region lang props
 
     var langProps = new W.Languages();
@@ -63,13 +63,13 @@ public class RunPropertiesConverter
     //} catch { }
 
     if (addLangProps)
-      xRunProps.Languages = langProps;
+      xRunProperties.Languages = langProps;
 
     #endregion lang props
 
     if (wordStyle.NoProofing != 0)
-      xRunProps.NoProof = new W.NoProof();
-    return xRunProps;
+      xRunProperties.NoProof = new W.NoProof();
+    return xRunProperties.ToStyleRunProperties();
   }
 
   public W.RunProperties ConvertFont(Word.Font wordFont)

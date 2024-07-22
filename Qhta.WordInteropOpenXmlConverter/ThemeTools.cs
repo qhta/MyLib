@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using DocumentFormat.OpenXml.Wordprocessing;
-
 using Microsoft.Office.Core;
 using Qhta.TextUtils;
 using Word = Microsoft.Office.Interop.Word;

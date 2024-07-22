@@ -11,7 +11,7 @@ using VT = DocumentFormat.OpenXml.VariantTypes;
 using System.Collections;
 using DocumentFormat.OpenXml.VariantTypes;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class OpenXmlElementTools
 {

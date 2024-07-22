@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class BodyTools
 {

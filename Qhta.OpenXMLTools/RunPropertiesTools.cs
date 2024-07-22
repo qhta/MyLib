@@ -1,4 +1,4 @@
-﻿namespace Qhta.OpenXMLTools;
+﻿namespace Qhta.OpenXmlTools;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 public static class RunPropertiesTools

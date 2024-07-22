@@ -7,13 +7,13 @@ using Word = Microsoft.Office.Interop.Word;
 using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
 using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
-using static Qhta.OpenXMLTools.RunTools;
+using static Qhta.OpenXmlTools.RunTools;
 using O = DocumentFormat.OpenXml;
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using System.Collections.Generic;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Qhta.OpenXmlTools;
-using Qhta.OpenXMLTools;
+using Qhta.OpenXmlTools;
 
 #nullable enable
 
@@ -107,7 +107,7 @@ public class StyleConverter
     try
     {
       var xRunProps = new RunPropertiesConverter(defaultStyle, themeTools).ConvertStyleFont(wordStyle);
-      xStyle.StyleRunProperties = xRunProps.ToStyleRunProperties();
+      xStyle.StyleRunProperties = xRunProps;
     }
     catch { }
     #endregion style run properties
@@ -115,8 +115,8 @@ public class StyleConverter
     #region paragraph properties
     try
     {
-      var xParagraphProperties = new ParagraphPropertiesConverter(defaultStyle).CreateParagraphProperties(wordStyle);
-      xStyle.StyleParagraphProperties = xParagraphProperties.ToStyleParagraphProperties();
+      var xParagraphProperties = new ParagraphPropertiesConverter(defaultStyle).ConvertStyleParagraphFormat(wordStyle);
+      xStyle.StyleParagraphProperties = xParagraphProperties;
     }
     catch { }
     #endregion paragraph formating

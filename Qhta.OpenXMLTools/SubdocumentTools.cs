@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class SubdocumentTools
 {

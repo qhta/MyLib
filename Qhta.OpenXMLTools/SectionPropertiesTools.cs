@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Office2013.Word;
 using DocumentFormat.OpenXml;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 public static class SectionPropertiesTools
 {

@@ -7,13 +7,13 @@ using Word = Microsoft.Office.Interop.Word;
 using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
 using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
-using static Qhta.OpenXMLTools.RunTools;
+using static Qhta.OpenXmlTools.RunTools;
 using O = DocumentFormat.OpenXml;
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using System.Collections.Generic;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Qhta.OpenXmlTools;
-using Qhta.OpenXMLTools;
+using Qhta.OpenXmlTools;
 using System.Globalization;
 
 #nullable enable
@@ -30,19 +30,19 @@ public class ListTemplateConverter
 
   public W.AbstractNum ConvertListTemplate(Word.ListTemplate ListTemplate)
   {
-    var abstractNum = new W.AbstractNum();
+    var xAbstractNum = new W.AbstractNum();
     try
     {
       var lCount = ListTemplate.ListLevels.Count;
       if (lCount > 1)
       {
-        abstractNum.MultiLevelType = new MultiLevelType
-          { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.HybridMultilevel) };
+        xAbstractNum.MultiLevelType = new MultiLevelType
+        { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.HybridMultilevel) };
       }
       else
       {
-        abstractNum.MultiLevelType = new MultiLevelType
-          { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.SingleLevel) };
+        xAbstractNum.MultiLevelType = new MultiLevelType
+        { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.SingleLevel) };
       }
       for (int level = 1; level <= lCount; level++)
       {
@@ -79,16 +79,16 @@ public class ListTemplateConverter
           {
             if (numberFormat.Length == 1)
             {
-              if (numberFormat[0] == '\uF0B7')
-              {
-                numberFormatValues = NumberFormatValues.Bullet;
-                //numberFormat = "•";
-              }
-              else if (Char.GetUnicodeCategory(numberFormat[0]) == UnicodeCategory.PrivateUse)
-              {
-                numberFormatValues = NumberFormatValues.Bullet;
-                //numberFormat = "•";
-              }
+              //if (numberFormat[0] == '\uF0B7')
+              //{
+              //  numberFormatValues = NumberFormatValues.Bullet;
+              //  //numberFormat = "•";
+              //}
+              //else if (Char.GetUnicodeCategory(numberFormat[0]) == UnicodeCategory.PrivateUse)
+              //{
+              //  numberFormatValues = NumberFormatValues.Bullet;
+              //  //numberFormat = "•";
+              //}
               numberFormatValues = NumberFormatValues.Bullet;
             }
             //var pictureBullet = wordLevel.PictureBullet;
@@ -121,17 +121,57 @@ public class ListTemplateConverter
           {
             Word.Font font = wordLevel.Font;
             var xRunProperties = new RunPropertiesConverter().ConvertFont(font);
-            xNumberingLevel.NumberingSymbolRunProperties=xRunProperties.ToNumberingSymbolRunProperties();
+            xNumberingLevel.NumberingSymbolRunProperties = xRunProperties.ToNumberingSymbolRunProperties();
           }
           catch { }
-          abstractNum.Append(xNumberingLevel);
+
+          try
+          {
+            var linkedStyle = wordLevel.LinkedStyle;
+            if (linkedStyle != null)
+            {
+              xNumberingLevel.ParagraphStyleIdInLevel = new ParagraphStyleIdInLevel { Val = linkedStyle };
+            }
+          }
+          catch { }
+
+          //Not supported in Office v.15
+          try
+          {
+            var indentation = new Indentation();
+            var addIndentation = false;
+            float leftIndentation = wordLevel.TextPosition;
+            if (leftIndentation != wdUndefined)
+            {
+              indentation.Left = PointsToTwips(leftIndentation).ToString();
+              addIndentation = true;
+            }
+            float hangingIndentation = wordLevel.NumberPosition;
+            if (hangingIndentation != wdUndefined)
+            {
+              indentation.Hanging = PointsToTwips(hangingIndentation).ToString();
+              addIndentation = true;
+            }
+            float tabPosition = wordLevel.TabPosition;
+            if (tabPosition != wdUndefined)
+            {
+              indentation.FirstLine = PointsToTwips(tabPosition).ToString();
+              addIndentation = true;
+            }
+            if (addIndentation)
+            {
+              xNumberingLevel.Append(new ParagraphProperties { Indentation = indentation });
+            }
+          }
+          catch { }
+          xAbstractNum.Append(xNumberingLevel);
         }
         catch { }
       }
     }
     catch { }
 
-    return abstractNum;
+    return xAbstractNum;
   }
 }
 

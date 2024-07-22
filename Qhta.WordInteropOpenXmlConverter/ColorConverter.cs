@@ -9,7 +9,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
-using Qhta.OpenXMLTools;
+using Qhta.OpenXmlTools;
 
 using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
 
