@@ -89,10 +89,7 @@ public class ListTemplateConverter
                 numberFormatValues = NumberFormatValues.Bullet;
                 //numberFormat = "•";
               }
-              else if (numberFormat[0] == '•')
-              {
-                numberFormatValues = NumberFormatValues.Bullet;
-              }
+              numberFormatValues = NumberFormatValues.Bullet;
             }
             //var pictureBullet = wordLevel.PictureBullet;
             //if (pictureBullet != null)
