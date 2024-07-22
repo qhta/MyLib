@@ -1,33 +1,17 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using DocumentFormat.OpenXml;
-using Microsoft.Office.Interop.Word;
-using Word = Microsoft.Office.Interop.Word;
+﻿using DocumentFormat.OpenXml;
+
+using Qhta.OpenXmlTools;
+
 using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
-using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
-using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
-using static Qhta.OpenXmlTools.RunTools;
-using O = DocumentFormat.OpenXml;
+
 using W = DocumentFormat.OpenXml.Wordprocessing;
-using System.Collections.Generic;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Qhta.OpenXmlTools;
-using Qhta.OpenXmlTools;
-using System.Globalization;
-
-#nullable enable
-
+using Word = Microsoft.Office.Interop.Word;
 
 namespace Qhta.WordInteropOpenXmlConverter;
 
 public class ListTemplateConverter
 {
-  public ListTemplateConverter(Word.Document document)
-  {
-  }
-
-
+ 
   public W.AbstractNum ConvertListTemplate(Word.ListTemplate ListTemplate)
   {
     var xAbstractNum = new W.AbstractNum();
@@ -36,13 +20,13 @@ public class ListTemplateConverter
       var lCount = ListTemplate.ListLevels.Count;
       if (lCount > 1)
       {
-        xAbstractNum.MultiLevelType = new MultiLevelType
-        { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.HybridMultilevel) };
+        xAbstractNum.MultiLevelType = new W.MultiLevelType
+        { Val = new EnumValue<W.MultiLevelValues>(W.MultiLevelValues.HybridMultilevel) };
       }
       else
       {
-        xAbstractNum.MultiLevelType = new MultiLevelType
-        { Val = new EnumValue<MultiLevelValues>(W.MultiLevelValues.SingleLevel) };
+        xAbstractNum.MultiLevelType = new W.MultiLevelType
+        { Val = new EnumValue<W.MultiLevelValues>(W.MultiLevelValues.SingleLevel) };
       }
       for (int level = 1; level <= lCount; level++)
       {
@@ -52,27 +36,27 @@ public class ListTemplateConverter
           string numberFormat = wordLevel.NumberFormat;
           W.NumberFormatValues numberFormatValues = wordLevel.NumberStyle switch
           {
-            WdListNumberStyle.wdListNumberStyleArabic => W.NumberFormatValues.Decimal,
-            WdListNumberStyle.wdListNumberStyleUppercaseRoman => W.NumberFormatValues.UpperRoman,
-            WdListNumberStyle.wdListNumberStyleLowercaseRoman => W.NumberFormatValues.LowerRoman,
-            WdListNumberStyle.wdListNumberStyleUppercaseLetter => W.NumberFormatValues.UpperLetter,
-            WdListNumberStyle.wdListNumberStyleLowercaseLetter => W.NumberFormatValues.LowerLetter,
-            WdListNumberStyle.wdListNumberStyleOrdinal => W.NumberFormatValues.Ordinal,
-            WdListNumberStyle.wdListNumberStyleOrdinalText => W.NumberFormatValues.OrdinalText,
-            WdListNumberStyle.wdListNumberStyleArabicFullWidth => W.NumberFormatValues.DecimalFullWidth,
-            WdListNumberStyle.wdListNumberStyleNumberInCircle => W.NumberFormatValues.DecimalEnclosedCircle,
-            WdListNumberStyle.wdListNumberStyleAiueo => W.NumberFormatValues.Aiueo,
-            WdListNumberStyle.wdListNumberStyleIroha => W.NumberFormatValues.Iroha,
-            WdListNumberStyle.wdListNumberStyleGanada => W.NumberFormatValues.Ganada,
-            WdListNumberStyle.wdListNumberStyleChosung => W.NumberFormatValues.Chosung,
-            WdListNumberStyle.wdListNumberStyleHebrew1 => W.NumberFormatValues.Hebrew1,
-            WdListNumberStyle.wdListNumberStyleArabic1 => W.NumberFormatValues.ArabicAbjad,
-            WdListNumberStyle.wdListNumberStyleHebrew2 => W.NumberFormatValues.Hebrew2,
-            WdListNumberStyle.wdListNumberStyleArabic2 => W.NumberFormatValues.ArabicAlpha,
-            WdListNumberStyle.wdListNumberStyleHindiArabic => W.NumberFormatValues.HindiNumbers,
-            WdListNumberStyle.wdListNumberStyleNone => W.NumberFormatValues.None,
-            WdListNumberStyle.wdListNumberStylePictureBullet => W.NumberFormatValues.Bullet,
-            _ => NumberFormatValues.Decimal
+            Word.WdListNumberStyle.wdListNumberStyleArabic => W.NumberFormatValues.Decimal,
+            Word.WdListNumberStyle.wdListNumberStyleUppercaseRoman => W.NumberFormatValues.UpperRoman,
+            Word.WdListNumberStyle.wdListNumberStyleLowercaseRoman => W.NumberFormatValues.LowerRoman,
+            Word.WdListNumberStyle.wdListNumberStyleUppercaseLetter => W.NumberFormatValues.UpperLetter,
+            Word.WdListNumberStyle.wdListNumberStyleLowercaseLetter => W.NumberFormatValues.LowerLetter,
+            Word.WdListNumberStyle.wdListNumberStyleOrdinal => W.NumberFormatValues.Ordinal,
+            Word.WdListNumberStyle.wdListNumberStyleOrdinalText => W.NumberFormatValues.OrdinalText,
+            Word.WdListNumberStyle.wdListNumberStyleArabicFullWidth => W.NumberFormatValues.DecimalFullWidth,
+            Word.WdListNumberStyle.wdListNumberStyleNumberInCircle => W.NumberFormatValues.DecimalEnclosedCircle,
+            Word.WdListNumberStyle.wdListNumberStyleAiueo => W.NumberFormatValues.Aiueo,
+            Word.WdListNumberStyle.wdListNumberStyleIroha => W.NumberFormatValues.Iroha,
+            Word.WdListNumberStyle.wdListNumberStyleGanada => W.NumberFormatValues.Ganada,
+            Word.WdListNumberStyle.wdListNumberStyleChosung => W.NumberFormatValues.Chosung,
+            Word.WdListNumberStyle.wdListNumberStyleHebrew1 => W.NumberFormatValues.Hebrew1,
+            Word.WdListNumberStyle.wdListNumberStyleArabic1 => W.NumberFormatValues.ArabicAbjad,
+            Word.WdListNumberStyle.wdListNumberStyleHebrew2 => W.NumberFormatValues.Hebrew2,
+            Word.WdListNumberStyle.wdListNumberStyleArabic2 => W.NumberFormatValues.ArabicAlpha,
+            Word.WdListNumberStyle.wdListNumberStyleHindiArabic => W.NumberFormatValues.HindiNumbers,
+            Word.WdListNumberStyle.wdListNumberStyleNone => W.NumberFormatValues.None,
+            Word.WdListNumberStyle.wdListNumberStylePictureBullet => W.NumberFormatValues.Bullet,
+            _ => W.NumberFormatValues.Decimal
           };
 
           try
@@ -89,7 +73,7 @@ public class ListTemplateConverter
               //  numberFormatValues = NumberFormatValues.Bullet;
               //  //numberFormat = "•";
               //}
-              numberFormatValues = NumberFormatValues.Bullet;
+              numberFormatValues = W.NumberFormatValues.Bullet;
             }
             //var pictureBullet = wordLevel.PictureBullet;
             //if (pictureBullet != null)
@@ -103,18 +87,18 @@ public class ListTemplateConverter
 
           W.LevelJustificationValues levelJustificationValues = wordLevel.Alignment switch
           {
-            WdListLevelAlignment.wdListLevelAlignLeft => LevelJustificationValues.Left,
-            WdListLevelAlignment.wdListLevelAlignCenter => LevelJustificationValues.Center,
-            WdListLevelAlignment.wdListLevelAlignRight => LevelJustificationValues.Right,
-            _ => LevelJustificationValues.Left
+            Word.WdListLevelAlignment.wdListLevelAlignLeft => W.LevelJustificationValues.Left,
+            Word.WdListLevelAlignment.wdListLevelAlignCenter => W.LevelJustificationValues.Center,
+            Word.WdListLevelAlignment.wdListLevelAlignRight => W.LevelJustificationValues.Right,
+            _ => W.LevelJustificationValues.Left
           };
           // ReSharper disable once UseObjectOrCollectionInitializer
           var xNumberingLevel = new W.Level();
           xNumberingLevel.LevelIndex = wordLevel.Index - 1;
-          xNumberingLevel.StartNumberingValue = new StartNumberingValue() { Val = wordLevel.StartAt };
-          xNumberingLevel.NumberingFormat = new NumberingFormat() { Val = numberFormatValues };
-          xNumberingLevel.LevelText = new LevelText() { Val = numberFormat };
-          xNumberingLevel.LevelJustification = new LevelJustification() { Val = levelJustificationValues };
+          xNumberingLevel.StartNumberingValue = new W.StartNumberingValue { Val = wordLevel.StartAt };
+          xNumberingLevel.NumberingFormat = new W.NumberingFormat { Val = numberFormatValues };
+          xNumberingLevel.LevelText = new W.LevelText { Val = numberFormat };
+          xNumberingLevel.LevelJustification = new W.LevelJustification { Val = levelJustificationValues };
 
 
           try
@@ -130,37 +114,36 @@ public class ListTemplateConverter
             var linkedStyle = wordLevel.LinkedStyle;
             if (linkedStyle != null)
             {
-              xNumberingLevel.ParagraphStyleIdInLevel = new ParagraphStyleIdInLevel { Val = linkedStyle };
+              xNumberingLevel.ParagraphStyleIdInLevel = new W.ParagraphStyleIdInLevel { Val = linkedStyle };
             }
           }
           catch { }
 
-          //Not supported in Office v.15
           try
           {
-            var indentation = new Indentation();
+            var xIndentation = new W.Indentation();
             var addIndentation = false;
             float leftIndentation = wordLevel.TextPosition;
             if (leftIndentation != wdUndefined)
             {
-              indentation.Left = PointsToTwips(leftIndentation).ToString();
+              xIndentation.Left = PointsToTwips(leftIndentation).ToString();
               addIndentation = true;
             }
             float hangingIndentation = wordLevel.NumberPosition;
             if (hangingIndentation != wdUndefined)
             {
-              indentation.Hanging = PointsToTwips(hangingIndentation).ToString();
+              xIndentation.Hanging = PointsToTwips(hangingIndentation).ToString();
               addIndentation = true;
             }
             float tabPosition = wordLevel.TabPosition;
             if (tabPosition != wdUndefined)
             {
-              indentation.FirstLine = PointsToTwips(tabPosition).ToString();
+              xIndentation.FirstLine = PointsToTwips(tabPosition).ToString();
               addIndentation = true;
             }
             if (addIndentation)
             {
-              xNumberingLevel.Append(new ParagraphProperties { Indentation = indentation });
+              xNumberingLevel.Append(new W.ParagraphProperties { Indentation = xIndentation });
             }
           }
           catch { }

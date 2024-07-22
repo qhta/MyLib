@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
-
-using Microsoft.Office.Interop.Word;
 using Qhta.OpenXmlTools;
+using static Microsoft.Office.Interop.Word.WdLanguageID;
+using static Microsoft.Office.Interop.Word.WdUnderline;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
 using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
-using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
+using static Qhta.WordInteropOpenXmlConverter.PropertiesConverter;
 
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
@@ -48,7 +46,7 @@ public class RunPropertiesConverter
       langProps.Val = LanguageIdToBcp47Tag(wordStyle.LanguageID);
       addLangProps = true;
     }
-    if (wordStyle.LanguageIDFarEast != WdLanguageID.wdNoProofing
+    if (wordStyle.LanguageIDFarEast != wdNoProofing
         && wordStyle.LanguageIDFarEast != _defaultStyle?.LanguageIDFarEast)
     {
       langProps.EastAsia = LanguageIdToBcp47Tag(wordStyle.LanguageIDFarEast);
@@ -148,29 +146,30 @@ public class RunPropertiesConverter
     xRunProps.Caps = GetOnOffTypeElement<W.Caps>(wordFont.AllCaps, defaultFont?.AllCaps);
     xRunProps.SmallCaps = GetOnOffTypeElement<W.SmallCaps>(wordFont.SmallCaps, defaultFont?.SmallCaps);
 
-    if ((int)wordFont.Underline != (int)WdConstants.wdUndefined)
+    if ((int)wordFont.Underline != (int)Word.WdConstants.wdUndefined)
     {
       var underline = wordFont.Underline;
       var xUnderline = new W.Underline();
       W.UnderlineValues underlineValue = underline switch
       {
-        WdUnderline.wdUnderlineNone => W.UnderlineValues.None,
-        WdUnderline.wdUnderlineSingle => W.UnderlineValues.Single,
-        WdUnderline.wdUnderlineWords => W.UnderlineValues.Words,
-        WdUnderline.wdUnderlineDouble => W.UnderlineValues.Double,
-        WdUnderline.wdUnderlineDotted => W.UnderlineValues.Dotted,
-        WdUnderline.wdUnderlineThick => W.UnderlineValues.Thick,
-        WdUnderline.wdUnderlineDash => W.UnderlineValues.Dash,
-        WdUnderline.wdUnderlineDotDash => W.UnderlineValues.DotDash,
-        WdUnderline.wdUnderlineDotDotDash => W.UnderlineValues.DotDotDash,
-        WdUnderline.wdUnderlineWavy => W.UnderlineValues.Wave,
-        WdUnderline.wdUnderlineDottedHeavy => W.UnderlineValues.DottedHeavy,
-        WdUnderline.wdUnderlineDashHeavy => W.UnderlineValues.DashedHeavy,
-        WdUnderline.wdUnderlineDotDashHeavy => W.UnderlineValues.DashDotHeavy,
-        WdUnderline.wdUnderlineDotDotDashHeavy => W.UnderlineValues.DashDotDotHeavy,
-        WdUnderline.wdUnderlineWavyHeavy => W.UnderlineValues.WavyHeavy,
+        wdUnderlineNone => W.UnderlineValues.None,
+        wdUnderlineSingle => W.UnderlineValues.Single,
+        wdUnderlineWords => W.UnderlineValues.Words,
+        wdUnderlineDouble => W.UnderlineValues.Double,
+        wdUnderlineDotted => W.UnderlineValues.Dotted,
+        wdUnderlineThick => W.UnderlineValues.Thick,
+        wdUnderlineDash => W.UnderlineValues.Dash,
+        wdUnderlineDotDash => W.UnderlineValues.DotDash,
+        wdUnderlineDotDotDash => W.UnderlineValues.DotDotDash,
+        wdUnderlineWavy => W.UnderlineValues.Wave,
+        wdUnderlineDottedHeavy => W.UnderlineValues.DottedHeavy,
+        wdUnderlineDashHeavy => W.UnderlineValues.DashedHeavy,
+        wdUnderlineDotDashHeavy => W.UnderlineValues.DashDotHeavy,
+        wdUnderlineDotDotDashHeavy => W.UnderlineValues.DashDotDotHeavy,
+        wdUnderlineWavyHeavy => W.UnderlineValues.WavyHeavy,
         _ => throw new ArgumentOutOfRangeException(nameof(underline), underline, null)
       };
+      xUnderline.Val = new EnumValue<W.UnderlineValues>(underlineValue);
       xRunProps.Underline = xUnderline;
     }
 
@@ -209,66 +208,5 @@ public class RunPropertiesConverter
       throw;
     }
     return xRunProps;
-  }
-
-  private String? NotEmptyString(string value)
-  {
-    if (!string.IsNullOrEmpty(value))
-      return value;
-    return null;
-  }
-
-  private XType? GetOnOffTypeElement<XType>(int wordValue, int? defaultValue) where XType : W.OnOffType, new()
-  {
-    if (wordValue != wdUndefined && wordValue != defaultValue)
-      return new XType { Val = OnOffValue.FromBoolean(wordValue != 0) };
-    return null;
-  }
-
-  private XType? GetStringValTypeElement<XType>(int wordValue, int? defaultValue) where XType : OpenXmlLeafElement, new()
-  {
-    if (wordValue != wdUndefined && wordValue != defaultValue)
-    {
-      var valProperty = typeof(XType).GetProperty("Val");
-      var element = new XType();
-      var valStr = wordValue.ToString();
-      valProperty?.SetValue(element, valStr);
-      return element;
-    }
-    return null;
-  }
-
-  private XType? GetIntValTypeElement<XType>(float wordValue, float? defaultValue) where XType : OpenXmlLeafElement, new()
-  {
-    if (wordValue != wdUndefined && wordValue != defaultValue)
-    {
-      var valProperty = typeof(XType).GetProperty("Val");
-      var element = new XType();
-      valProperty?.SetValue(element, new Int32Value((int)wordValue));
-      return element;
-    }
-    return null;
-  }
-
-  private XType? GetFontSizeTypeElement<XType>(float wordValue, float? defaultValue) where XType : OpenXmlLeafElement, new()
-  {
-    if (wordValue != wdUndefined && wordValue != defaultValue)
-    {
-      var valProperty = typeof(XType).GetProperty("Val");
-      var element = new XType();
-      valProperty?.SetValue(element, new Int32Value(FontSizeToHps(wordValue)));
-      return element;
-    }
-    return null;
-  }
-
-  private W.VerticalTextAlignment? GetVerticalTextAlignment(W.VerticalPositionValues positionValues, int wordValue, int? defaultValue)
-  {
-    if (wordValue != wdUndefined && wordValue != defaultValue)
-    {
-      var element = new W.VerticalTextAlignment { Val = positionValues };
-      return element;
-    }
-    return null;
   }
 }

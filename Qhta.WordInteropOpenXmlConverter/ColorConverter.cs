@@ -1,40 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using DocumentFormat.OpenXml.Wordprocessing;
 
-using Microsoft.Office.Interop.Word;
+using DocumentFormat.OpenXml;
 
-using Word = Microsoft.Office.Interop.Word;
+using static Microsoft.Office.Interop.Word.WdThemeColorIndex;
+using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
 
 using W = DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml;
-using Qhta.OpenXmlTools;
-
-using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace Qhta.WordInteropOpenXmlConverter;
 
 public static class ColorConverter
 {
-  public static Dictionary<WdThemeColorIndex, string> ThemeColorIndexToHex = new Dictionary<WdThemeColorIndex, string>
+  public static Dictionary<Word.WdThemeColorIndex, string> ThemeColorIndexToHex = new()
   {
-    {WdThemeColorIndex.wdThemeColorMainDark1, "000000"},
-    {WdThemeColorIndex.wdThemeColorMainLight1, "FFFFFF"},
-    {WdThemeColorIndex.wdThemeColorMainDark2, "0E2841"},
-    {WdThemeColorIndex.wdThemeColorMainLight2, "E8E8E8"},
-    {WdThemeColorIndex.wdThemeColorAccent1, "156082"},
-    {WdThemeColorIndex.wdThemeColorAccent2, "E97132"},
-    {WdThemeColorIndex.wdThemeColorAccent3, "196B24"},
-    {WdThemeColorIndex.wdThemeColorAccent4, "0F9ED5"},
-    {WdThemeColorIndex.wdThemeColorAccent5, "A02B93"},
-    {WdThemeColorIndex.wdThemeColorAccent6, "4EA72E"},
-    {WdThemeColorIndex.wdThemeColorHyperlink, "467886"},
-    {WdThemeColorIndex.wdThemeColorHyperlinkFollowed, "800080"},
-    {WdThemeColorIndex.wdThemeColorBackground1, "F2F2F2"},
-    {WdThemeColorIndex.wdThemeColorText1, "000000"},
-    {WdThemeColorIndex.wdThemeColorBackground2, "D9D9D9"},
-    {WdThemeColorIndex.wdThemeColorText2, "000000"}
+    {wdThemeColorMainDark1, "000000"},
+    {wdThemeColorMainLight1, "FFFFFF"},
+    {wdThemeColorMainDark2, "0E2841"},
+    {wdThemeColorMainLight2, "E8E8E8"},
+    {wdThemeColorAccent1, "156082"},
+    {wdThemeColorAccent2, "E97132"},
+    {wdThemeColorAccent3, "196B24"},
+    {wdThemeColorAccent4, "0F9ED5"},
+    {wdThemeColorAccent5, "A02B93"},
+    {wdThemeColorAccent6, "4EA72E"},
+    {wdThemeColorHyperlink, "467886"},
+    {wdThemeColorHyperlinkFollowed, "800080"},
+    {wdThemeColorBackground1, "F2F2F2"},
+    {wdThemeColorText1, "000000"},
+    {wdThemeColorBackground2, "D9D9D9"},
+    {wdThemeColorText2, "000000"}
   };
 
 
@@ -42,13 +38,13 @@ public static class ColorConverter
   {
     var xColor = new W.Color();
     var addColor = false;
-    if ((int)color != wdUndefined && color != WdColor.wdColorAutomatic)
+    if ((int)color != wdUndefined && color != Word.WdColor.wdColorAutomatic)
     {
       xColor.Val = WordColorToHex(color);
       addColor = true;
     }
     else
-    if ((int)colorIndex != wdUndefined && colorIndex != WdColorIndex.wdAuto)
+    if ((int)colorIndex != wdUndefined && colorIndex != Word.WdColorIndex.wdAuto)
     {
       xColor.Val = WordColorIndexToHex(colorIndex);
       addColor = true;
@@ -58,7 +54,7 @@ public static class ColorConverter
       try
       {
         var themeColor = colorFormat.ObjectThemeColor;
-        if (themeColor != WdThemeColorIndex.wdNotThemeColor)
+        if (themeColor != wdNotThemeColor)
         {
           xColor.ThemeColor = new EnumValue<W.ThemeColorValues>(WdThemeColorToOpenXmlThemeColor(themeColor));
           addColor = true;
@@ -160,28 +156,28 @@ public static class ColorConverter
     }
   }
 
-  private static ThemeColorValues WdThemeColorToOpenXmlThemeColor(WdThemeColorIndex themeColor)
+  private static W.ThemeColorValues WdThemeColorToOpenXmlThemeColor(Word.WdThemeColorIndex themeColor)
   {
     return themeColor switch
     {
-      WdThemeColorIndex.wdNotThemeColor => ThemeColorValues.None,
-      WdThemeColorIndex.wdThemeColorMainDark1 => ThemeColorValues.Dark1,
-      WdThemeColorIndex.wdThemeColorMainLight1 => ThemeColorValues.Light1,
-      WdThemeColorIndex.wdThemeColorMainDark2 => ThemeColorValues.Dark2,
-      WdThemeColorIndex.wdThemeColorMainLight2 => ThemeColorValues.Light2,
-      WdThemeColorIndex.wdThemeColorAccent1 => ThemeColorValues.Accent1,
-      WdThemeColorIndex.wdThemeColorAccent2 => ThemeColorValues.Accent2,
-      WdThemeColorIndex.wdThemeColorAccent3 => ThemeColorValues.Accent3,
-      WdThemeColorIndex.wdThemeColorAccent4 => ThemeColorValues.Accent4,
-      WdThemeColorIndex.wdThemeColorAccent5 => ThemeColorValues.Accent5,
-      WdThemeColorIndex.wdThemeColorAccent6 => ThemeColorValues.Accent6,
-      WdThemeColorIndex.wdThemeColorHyperlink => ThemeColorValues.Hyperlink,
-      WdThemeColorIndex.wdThemeColorHyperlinkFollowed => ThemeColorValues.FollowedHyperlink,
-      WdThemeColorIndex.wdThemeColorBackground1 => ThemeColorValues.Background1,
-      WdThemeColorIndex.wdThemeColorText1 => ThemeColorValues.Text1,
-      WdThemeColorIndex.wdThemeColorBackground2 => ThemeColorValues.Background2,
-      WdThemeColorIndex.wdThemeColorText2 => ThemeColorValues.Text2,
-      _ => ThemeColorValues.None
+      wdNotThemeColor => W.ThemeColorValues.None,
+      wdThemeColorMainDark1 => W.ThemeColorValues.Dark1,
+      wdThemeColorMainLight1 => W.ThemeColorValues.Light1,
+      wdThemeColorMainDark2 => W.ThemeColorValues.Dark2,
+      wdThemeColorMainLight2 => W.ThemeColorValues.Light2,
+      wdThemeColorAccent1 => W.ThemeColorValues.Accent1,
+      wdThemeColorAccent2 => W.ThemeColorValues.Accent2,
+      wdThemeColorAccent3 => W.ThemeColorValues.Accent3,
+      wdThemeColorAccent4 => W.ThemeColorValues.Accent4,
+      wdThemeColorAccent5 => W.ThemeColorValues.Accent5,
+      wdThemeColorAccent6 => W.ThemeColorValues.Accent6,
+      wdThemeColorHyperlink => W.ThemeColorValues.Hyperlink,
+      wdThemeColorHyperlinkFollowed => W.ThemeColorValues.FollowedHyperlink,
+      wdThemeColorBackground1 => W.ThemeColorValues.Background1,
+      wdThemeColorText1 => W.ThemeColorValues.Text1,
+      wdThemeColorBackground2 => W.ThemeColorValues.Background2,
+      wdThemeColorText2 => W.ThemeColorValues.Text2,
+      _ => W.ThemeColorValues.None
     };
   }
 

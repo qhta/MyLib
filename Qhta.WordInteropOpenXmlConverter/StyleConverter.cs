@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
+
 using DocumentFormat.OpenXml;
-using Microsoft.Office.Interop.Word;
-using Word = Microsoft.Office.Interop.Word;
-using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
-using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
-using static Qhta.WordInteropOpenXmlConverter.LanguageConverter;
-using static Qhta.OpenXmlTools.RunTools;
-using O = DocumentFormat.OpenXml;
+
+using static Microsoft.Office.Interop.Word.WdStyleType;
+
 using W = DocumentFormat.OpenXml.Wordprocessing;
-using System.Collections.Generic;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Qhta.OpenXmlTools;
-using Qhta.OpenXmlTools;
+using Word = Microsoft.Office.Interop.Word;
+
 
 #nullable enable
 
@@ -25,19 +18,13 @@ public class StyleConverter
   public StyleConverter(Word.Document document)
   {
     styleTools = new StyleTools(document);
-    buildInStyleNumbers = styleTools.LocalNameMyBuiltinStyles;
     defaultStyle = styleTools.GetStyle(Word.WdBuiltinStyle.wdStyleNormal);
-    defaultFont = defaultStyle.Font;
-    defaultParagraph = defaultStyle.ParagraphFormat;
     themeTools = new ThemeTools(document);
   }
 
   private readonly StyleTools styleTools;
   private readonly ThemeTools themeTools;
-  private readonly Dictionary<string, MyBuiltinStyle> buildInStyleNumbers;
   private readonly Word.Style defaultStyle;
-  private readonly Word.Font defaultFont;
-  private readonly ParagraphFormat defaultParagraph;
 
   public W.Style ConvertStyle(Word.Style wordStyle)
   {
@@ -58,12 +45,12 @@ public class StyleConverter
     #region style type
     W.StyleValues styleType = wordStyle.Type switch
     {
-      WdStyleType.wdStyleTypeParagraph => W.StyleValues.Paragraph,
-      WdStyleType.wdStyleTypeCharacter => W.StyleValues.Character,
-      WdStyleType.wdStyleTypeTable => W.StyleValues.Table,
-      WdStyleType.wdStyleTypeList => W.StyleValues.Numbering,
-      WdStyleType.wdStyleTypeParagraphOnly => W.StyleValues.Paragraph,
-      WdStyleType.wdStyleTypeLinked => W.StyleValues.Paragraph,
+      wdStyleTypeParagraph => W.StyleValues.Paragraph,
+      wdStyleTypeCharacter => W.StyleValues.Character,
+      wdStyleTypeTable => W.StyleValues.Table,
+      wdStyleTypeList => W.StyleValues.Numbering,
+      wdStyleTypeParagraphOnly => W.StyleValues.Paragraph,
+      wdStyleTypeLinked => W.StyleValues.Paragraph,
       _ => throw new ArgumentOutOfRangeException(nameof(wordStyle.Type),
         // ReSharper disable once LocalizableElement
         $"Unsupported style type: {wordStyle.Type}")
@@ -122,18 +109,6 @@ public class StyleConverter
     #endregion paragraph formating
 
 
-    //try
-    //{
-    //  if (xNumbering != null)
-    //  {
-    //    var abstractNum = new NumberingPropertiesConverter(defaultStyle).CreateNumberingProperties(wordStyle);
-    //    if (abstractNum != null)
-    //    {
-    //      xNumbering.Append(abstractNum);
-    //    }
-    //  }
-    //}
-    //catch { }
     return xStyle;
   }
 

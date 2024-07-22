@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Qhta.WordInteropOpenXmlConverter;
+﻿namespace Qhta.WordInteropOpenXmlConverter;
 
 public static class NumberConverter
 {

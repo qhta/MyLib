@@ -1,9 +1,8 @@
 ﻿using System;
 
 using DocumentFormat.OpenXml;
-
-using Microsoft.Office.Interop.Word;
-
+using static Microsoft.Office.Interop.Word.WdLineStyle;
+using static Microsoft.Office.Interop.Word.WdLineWidth;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
 
 using W = DocumentFormat.OpenXml.Wordprocessing;
@@ -20,7 +19,7 @@ public class BordersConverter()
 
     try
     {
-      var border = borders[WdBorderType.wdBorderBottom];
+      var border = borders[Word.WdBorderType.wdBorderBottom];
       if (border.LineStyle != 0)
       {
         var xBorder = ConvertBorder<W.BottomBorder>(border);
@@ -31,7 +30,7 @@ public class BordersConverter()
     catch { }
     try
     {
-      var border = borders[WdBorderType.wdBorderTop];
+      var border = borders[Word.WdBorderType.wdBorderTop];
       var ls = border.LineStyle;
       var lw = border.LineWidth;
       if (border.LineStyle != 0)
@@ -44,7 +43,7 @@ public class BordersConverter()
     catch { }
     try
     {
-      var border = borders[WdBorderType.wdBorderLeft];
+      var border = borders[Word.WdBorderType.wdBorderLeft];
       if (border.LineStyle != 0)
       {
         var xBorder = ConvertBorder<W.LeftBorder>(border);
@@ -55,7 +54,7 @@ public class BordersConverter()
     catch { }
     try
     {
-      var border = borders[WdBorderType.wdBorderRight];
+      var border = borders[Word.WdBorderType.wdBorderRight];
       if (border.LineStyle != 0)
       {
         var xBorder = ConvertBorder<W.RightBorder>(border);
@@ -90,52 +89,52 @@ public class BordersConverter()
     return xBorder;
   }
 
-  public static UInt32Value? WdLineWidthToBorderWidth(WdLineWidth borderLineWidth)
+  public static UInt32Value? WdLineWidthToBorderWidth(Word.WdLineWidth borderLineWidth)
   {
     return borderLineWidth switch
     {
-      WdLineWidth.wdLineWidth025pt => 12U, // Closest to 0.25 pt
-      WdLineWidth.wdLineWidth050pt => 24U, // Closest to 0.50 pt
-      WdLineWidth.wdLineWidth075pt => 36U, // Closest to 0.75 pt
-      WdLineWidth.wdLineWidth100pt => 48U, // Closest to 1.00 pt
-      WdLineWidth.wdLineWidth150pt => 72U, // Closest to 1.50 pt
-      WdLineWidth.wdLineWidth225pt => 108U, // Closest to 2.25 pt
-      WdLineWidth.wdLineWidth300pt => 144U, // Closest to 3.00 pt
-      WdLineWidth.wdLineWidth450pt => 216U, // Closest to 4.50 pt
-      WdLineWidth.wdLineWidth600pt => 288U, // Closest to 6.00 pt
+      wdLineWidth025pt => 12U, // Closest to 0.25 pt
+      wdLineWidth050pt => 24U, // Closest to 0.50 pt
+      wdLineWidth075pt => 36U, // Closest to 0.75 pt
+      wdLineWidth100pt => 48U, // Closest to 1.00 pt
+      wdLineWidth150pt => 72U, // Closest to 1.50 pt
+      wdLineWidth225pt => 108U, // Closest to 2.25 pt
+      wdLineWidth300pt => 144U, // Closest to 3.00 pt
+      wdLineWidth450pt => 216U, // Closest to 4.50 pt
+      wdLineWidth600pt => 288U, // Closest to 6.00 pt
       _ => null // Add more mappings as needed or return a default value
     };
   }
 
-  public static W.BorderValues WdBorderToOpenXmlBorder(WdLineStyle borderLineStyle)
+  public static W.BorderValues WdBorderToOpenXmlBorder(Word.WdLineStyle borderLineStyle)
   {
     return borderLineStyle switch
     {
-      WdLineStyle.wdLineStyleNone => W.BorderValues.Nil,
-      WdLineStyle.wdLineStyleSingle => W.BorderValues.Single,
-      WdLineStyle.wdLineStyleDot => W.BorderValues.Dotted,
-      WdLineStyle.wdLineStyleDashSmallGap => W.BorderValues.DashSmallGap,
-      WdLineStyle.wdLineStyleDashLargeGap => W.BorderValues.Dashed,
-      WdLineStyle.wdLineStyleDashDot => W.BorderValues.DotDash,
-      WdLineStyle.wdLineStyleDashDotDot => W.BorderValues.DotDotDash,
-      WdLineStyle.wdLineStyleDouble => W.BorderValues.Double,
-      WdLineStyle.wdLineStyleTriple => W.BorderValues.Triple,
-      WdLineStyle.wdLineStyleThinThickSmallGap => W.BorderValues.ThinThickThinSmallGap,
-      WdLineStyle.wdLineStyleThickThinSmallGap => W.BorderValues.ThinThickThinSmallGap,
-      WdLineStyle.wdLineStyleThinThickThinSmallGap => W.BorderValues.ThinThickThinSmallGap,
-      WdLineStyle.wdLineStyleThinThickMedGap => W.BorderValues.ThinThickMediumGap,
-      WdLineStyle.wdLineStyleThickThinMedGap => W.BorderValues.ThinThickMediumGap,
-      WdLineStyle.wdLineStyleThinThickThinMedGap => W.BorderValues.ThinThickThinMediumGap,
-      WdLineStyle.wdLineStyleThinThickLargeGap => W.BorderValues.ThickThinLargeGap,
-      WdLineStyle.wdLineStyleThickThinLargeGap => W.BorderValues.ThickThinLargeGap,
-      WdLineStyle.wdLineStyleThinThickThinLargeGap => W.BorderValues.ThinThickThinLargeGap,
-      WdLineStyle.wdLineStyleSingleWavy => W.BorderValues.Wave,
-      WdLineStyle.wdLineStyleDoubleWavy => W.BorderValues.DoubleWave,
-      WdLineStyle.wdLineStyleDashDotStroked => W.BorderValues.DashDotStroked,
-      WdLineStyle.wdLineStyleEmboss3D => W.BorderValues.ThreeDEmboss,
-      WdLineStyle.wdLineStyleEngrave3D => W.BorderValues.ThreeDEngrave,
-      WdLineStyle.wdLineStyleOutset => W.BorderValues.Outset,
-      WdLineStyle.wdLineStyleInset => W.BorderValues.Inset,
+      wdLineStyleNone => W.BorderValues.Nil,
+      wdLineStyleSingle => W.BorderValues.Single,
+      wdLineStyleDot => W.BorderValues.Dotted,
+      wdLineStyleDashSmallGap => W.BorderValues.DashSmallGap,
+      wdLineStyleDashLargeGap => W.BorderValues.Dashed,
+      wdLineStyleDashDot => W.BorderValues.DotDash,
+      wdLineStyleDashDotDot => W.BorderValues.DotDotDash,
+      wdLineStyleDouble => W.BorderValues.Double,
+      wdLineStyleTriple => W.BorderValues.Triple,
+      wdLineStyleThinThickSmallGap => W.BorderValues.ThinThickThinSmallGap,
+      wdLineStyleThickThinSmallGap => W.BorderValues.ThinThickThinSmallGap,
+      wdLineStyleThinThickThinSmallGap => W.BorderValues.ThinThickThinSmallGap,
+      wdLineStyleThinThickMedGap => W.BorderValues.ThinThickMediumGap,
+      wdLineStyleThickThinMedGap => W.BorderValues.ThinThickMediumGap,
+      wdLineStyleThinThickThinMedGap => W.BorderValues.ThinThickThinMediumGap,
+      wdLineStyleThinThickLargeGap => W.BorderValues.ThickThinLargeGap,
+      wdLineStyleThickThinLargeGap => W.BorderValues.ThickThinLargeGap,
+      wdLineStyleThinThickThinLargeGap => W.BorderValues.ThinThickThinLargeGap,
+      wdLineStyleSingleWavy => W.BorderValues.Wave,
+      wdLineStyleDoubleWavy => W.BorderValues.DoubleWave,
+      wdLineStyleDashDotStroked => W.BorderValues.DashDotStroked,
+      wdLineStyleEmboss3D => W.BorderValues.ThreeDEmboss,
+      wdLineStyleEngrave3D => W.BorderValues.ThreeDEngrave,
+      wdLineStyleOutset => W.BorderValues.Outset,
+      wdLineStyleInset => W.BorderValues.Inset,
       _ => throw new ArgumentOutOfRangeException(nameof(borderLineStyle), borderLineStyle, null)
     };
   }
