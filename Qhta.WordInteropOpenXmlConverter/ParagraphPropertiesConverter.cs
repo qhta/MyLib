@@ -40,9 +40,9 @@ public class ParagraphPropertiesConverter
       if (styleBorders != null)
       {
         var bordersConverter = new BordersConverter();
-        var xBorders = bordersConverter.CreateBorders(styleBorders);
-        if (xBorders != null)
-          xParaProperties.ParagraphBorders = xBorders;
+        var borderList = bordersConverter.CreateBordersList(styleBorders);
+        if (borderList != null)
+          xParaProperties.ParagraphBorders = borderList.ToParagraphBorders();
       }
     }
     catch { }

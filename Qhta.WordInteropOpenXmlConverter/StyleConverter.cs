@@ -108,7 +108,14 @@ public class StyleConverter
     catch { }
     #endregion paragraph formating
 
-
+    #region table properties
+    try
+    {
+      var xTableProperties = new TablePropertiesConverter(defaultStyle).ConvertTableProperties(wordStyle);
+      xStyle.StyleTableProperties = xTableProperties;
+    }
+    catch { }
+    #endregion table properties
     return xStyle;
   }
 

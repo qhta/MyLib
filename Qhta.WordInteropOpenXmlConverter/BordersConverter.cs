@@ -1,65 +1,131 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using DocumentFormat.OpenXml;
 using static Microsoft.Office.Interop.Word.WdLineStyle;
 using static Microsoft.Office.Interop.Word.WdLineWidth;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
+using static Qhta.WordInteropOpenXmlConverter.NumberConverter;
 
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace Qhta.WordInteropOpenXmlConverter;
 
-public class BordersConverter()
+public class BordersConverter
 {
-  public W.ParagraphBorders? CreateBorders(Word.Borders borders)
+  public List<W.BorderType>? CreateBordersList(Word.Borders borders)
   {
-    W.ParagraphBorders? xBorders = new W.ParagraphBorders();
+    List<W.BorderType> xBorders = new();
     var hasBorders = false;
 
     try
     {
       var border = borders[Word.WdBorderType.wdBorderBottom];
-      if (border.LineStyle != 0)
+      if (border!=null)
       {
         var xBorder = ConvertBorder<W.BottomBorder>(border);
-        xBorders.Append(xBorder);
-        hasBorders = true;
+        if (xBorder!=null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
       }
     }
     catch { }
     try
     {
       var border = borders[Word.WdBorderType.wdBorderTop];
-      var ls = border.LineStyle;
-      var lw = border.LineWidth;
-      if (border.LineStyle != 0)
+      if (border!=null)
       {
         var xBorder = ConvertBorder<W.TopBorder>(border);
-        xBorders.Append(xBorder);
-        hasBorders = true;
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
       }
     }
     catch { }
     try
     {
       var border = borders[Word.WdBorderType.wdBorderLeft];
-      if (border.LineStyle != 0)
+      if (border!=null)
       {
         var xBorder = ConvertBorder<W.LeftBorder>(border);
-        xBorders.Append(xBorder);
-        hasBorders = true;
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
       }
     }
     catch { }
     try
     {
       var border = borders[Word.WdBorderType.wdBorderRight];
-      if (border.LineStyle != 0)
+      if (border!=null)
       {
         var xBorder = ConvertBorder<W.RightBorder>(border);
-        xBorders.Append(xBorder);
-        hasBorders = true;
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
+      }
+    }
+    catch { }
+    try
+    {
+      var border = borders[Word.WdBorderType.wdBorderHorizontal];
+      if (border != null)
+      {
+        var xBorder = ConvertBorder<W.InsideHorizontalBorder>(border);
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
+      }
+    }
+    catch { }
+    try
+    {
+      var border = borders[Word.WdBorderType.wdBorderVertical];
+      if (border != null)
+      {
+        var xBorder = ConvertBorder<W.InsideVerticalBorder>(border);
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
+      }
+    }
+    catch { }
+    try
+    {
+      var border = borders[Word.WdBorderType.wdBorderDiagonalDown];
+      if (border != null)
+      {
+        var xBorder = ConvertBorder<W.TopLeftToBottomRightCellBorder>(border);
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
+      }
+    } catch { }
+    try
+    {
+      var border = borders[Word.WdBorderType.wdBorderDiagonalUp];
+      if (border != null)
+      {
+        var xBorder = ConvertBorder<W.TopRightToBottomLeftCellBorder>(border);
+        if (xBorder != null)
+        {
+          xBorders.Add(xBorder);
+          hasBorders = true;
+        }
       }
     }
     catch { }
@@ -68,11 +134,14 @@ public class BordersConverter()
     return null;
   }
 
-  public BorderType ConvertBorder<BorderType>(Word.Border border) where BorderType : W.BorderType, new()
+  public BorderType? ConvertBorder<BorderType>(Word.Border border) where BorderType : W.BorderType, new()
   {
     // ReSharper disable once UseObjectOrCollectionInitializer
     var xBorder = new BorderType();
-    xBorder.Val = new EnumValue<W.BorderValues>(WdBorderToOpenXmlBorder(border.LineStyle));
+    var borderValue = WdBorderToOpenXmlBorder(border.LineStyle);
+    if (borderValue==null)
+      return null;
+    xBorder.Val = new EnumValue<W.BorderValues>(borderValue);
     var xColor = ConvertColor(border.Color, border.ColorIndex);
     if (xColor != null)
     {
@@ -106,8 +175,10 @@ public class BordersConverter()
     };
   }
 
-  public static W.BorderValues WdBorderToOpenXmlBorder(Word.WdLineStyle borderLineStyle)
+  public static W.BorderValues? WdBorderToOpenXmlBorder(Word.WdLineStyle borderLineStyle)
   {
+    if ((int)borderLineStyle == wdUndefined)
+      return null;
     return borderLineStyle switch
     {
       wdLineStyleNone => W.BorderValues.Nil,
