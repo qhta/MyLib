@@ -28,7 +28,7 @@ public class StyleConverter
   private readonly ThemeTools themeTools;
   private readonly Word.Style defaultStyle;
 
-  public W.Style ConvertStyle(Word.Style wordStyle)
+  public W.Style ConvertStyle(Word.Style wordStyle, bool convertProperties = true)
   {
     // ReSharper disable once UseObjectOrCollectionInitializer
     var xStyle = new W.Style();
@@ -93,32 +93,35 @@ public class StyleConverter
     }
     catch (COMException) { }
 
-    #region style run properties
-    try
+    if (convertProperties)
     {
-      var xRunProps = new RunPropertiesConverter(defaultStyle, themeTools).ConvertStyleFont(wordStyle);
-      xStyle.StyleRunProperties = xRunProps;
-    }
-    catch (COMException) { }
-    #endregion style run properties
+      #region style run properties
+      try
+      {
+        var xRunProps = new RunPropertiesConverter(defaultStyle, themeTools).ConvertStyleFont(wordStyle);
+        xStyle.StyleRunProperties = xRunProps;
+      }
+      catch (COMException) { }
+      #endregion style run properties
 
-    #region paragraph properties
-    try
-    {
-      var xParagraphProperties = new ParagraphPropertiesConverter(defaultStyle).ConvertStyleParagraphFormat(wordStyle);
-      xStyle.StyleParagraphProperties = xParagraphProperties;
-    }
-    catch (COMException) { }
-    #endregion paragraph properties
+      #region paragraph properties
+      try
+      {
+        var xParagraphProperties = new ParagraphPropertiesConverter(defaultStyle).ConvertStyleParagraphFormat(wordStyle);
+        xStyle.StyleParagraphProperties = xParagraphProperties;
+      }
+      catch (COMException) { }
+      #endregion paragraph properties
 
-    #region table properties
-    try
-    {
-      var xTableProperties = new TablePropertiesConverter(defaultStyle).ConvertTableProperties(wordStyle);
-      xStyle.StyleTableProperties = xTableProperties;
+      #region table properties
+      try
+      {
+        var xTableProperties = new TablePropertiesConverter(defaultStyle).ConvertTableProperties(wordStyle);
+        xStyle.StyleTableProperties = xTableProperties;
+      }
+      catch (COMException) { }
+      #endregion table properties
     }
-    catch (COMException) { }
-    #endregion table properties
     return xStyle;
   }
 
