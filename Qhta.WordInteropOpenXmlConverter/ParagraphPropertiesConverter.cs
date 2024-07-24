@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 using DocumentFormat.OpenXml;
 
@@ -45,7 +46,7 @@ public class ParagraphPropertiesConverter
           xParaProperties.ParagraphBorders = borderList.ToParagraphBorders();
       }
     }
-    catch { }
+    catch (COMException) { }
 
     return xParaProperties.ToStyleParagraphProperties();
   }
@@ -212,8 +213,8 @@ public class ParagraphPropertiesConverter
     #endregion paragraph spacing
 
     xParaProperties.WidowControl = GetOnOffTypeElement<W.WidowControl>(paraFormat.WidowControl, defaultParagraph?.WidowControl);
-    xParaProperties.KeepNext = GetIntValTypeElement<W.KeepNext>(paraFormat.KeepWithNext, defaultParagraph?.KeepWithNext);
-    xParaProperties.KeepLines = GetIntValTypeElement<W.KeepLines>(paraFormat.KeepTogether, defaultParagraph?.KeepTogether);
+    xParaProperties.KeepNext = GetOnOffTypeElement<W.KeepNext>(paraFormat.KeepWithNext, defaultParagraph?.KeepWithNext);
+    xParaProperties.KeepLines = GetOnOffTypeElement<W.KeepLines>(paraFormat.KeepTogether, defaultParagraph?.KeepTogether);
     xParaProperties.PageBreakBefore = GetOnOffTypeElement<W.PageBreakBefore>(paraFormat.PageBreakBefore, defaultParagraph?.PageBreakBefore);
     xParaProperties.SuppressLineNumbers = GetOnOffTypeElement<W.SuppressLineNumbers>(paraFormat.NoLineNumber, defaultParagraph?.NoLineNumber);
     xParaProperties.SuppressAutoHyphens = GetOnOffTypeElement<W.SuppressAutoHyphens>(paraFormat.Hyphenation, defaultParagraph?.Hyphenation);

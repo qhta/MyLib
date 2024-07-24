@@ -17,7 +17,7 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static XType? GetOnOffTypeElement<XType>(int wordValue, int? defaultValue) where XType : W.OnOffType, new()
+  public static XType? GetOnOffTypeElement<XType>(int wordValue, int? defaultValue = null) where XType : W.OnOffType, new()
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
       return new XType { Val = OnOffValue.FromBoolean(wordValue != 0) };
@@ -31,7 +31,7 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static XType? GetStringValTypeElement<XType>(int wordValue, int? defaultValue) where XType : OpenXmlLeafElement, new()
+  public static XType? GetStringValTypeElement<XType>(int wordValue, int? defaultValue = null) where XType : OpenXmlLeafElement, new()
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {
@@ -44,7 +44,7 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static int? GetTwipsValue(float wordValue, float? defaultValue)
+  public static int? GetTwipsValue(float wordValue, float? defaultValue = null)
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {
@@ -54,7 +54,7 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static int? GetCharsNumber(float wordValue, float? defaultValue)
+  public static int? GetCharsNumber(float wordValue, float? defaultValue = null)
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {
@@ -64,7 +64,7 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static int? GetLinesNumber(float wordValue, float? defaultValue)
+  public static int? GetLinesNumber(float wordValue, float? defaultValue = null)
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {
@@ -74,7 +74,7 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static XType? GetIntValTypeElement<XType>(float wordValue, float? defaultValue) where XType : OpenXmlLeafElement, new()
+  public static XType? GetIntValTypeElement<XType>(float wordValue, float? defaultValue = null) where XType : OpenXmlLeafElement, new()
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {
@@ -86,19 +86,22 @@ public static class PropertiesConverter
     return null;
   }
 
-  public static XType? GetFontSizeTypeElement<XType>(float wordValue, float? defaultValue) where XType : OpenXmlLeafElement, new()
+  public static XType? GetFontSizeTypeElement<XType>(float wordValue, float? defaultValue = null) where XType : OpenXmlLeafElement, new()
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {
       var valProperty = typeof(XType).GetProperty("Val");
       var element = new XType();
-      valProperty?.SetValue(element, new Int32Value(FontSizeToHps(wordValue)));
+      if (valProperty.PropertyType == typeof(StringValue))
+        valProperty?.SetValue(element, new StringValue(FontSizeToHps(wordValue).ToString()));
+      else
+        valProperty?.SetValue(element, new UInt32Value((uint)FontSizeToHps(wordValue)));
       return element;
     }
     return null;
   }
 
-  public static W.VerticalTextAlignment? GetVerticalTextAlignment(W.VerticalPositionValues positionValues, int wordValue, int? defaultValue)
+  public static W.VerticalTextAlignment? GetVerticalTextAlignment(W.VerticalPositionValues positionValues, int wordValue, int? defaultValue = null)
   {
     if (wordValue != wdUndefined && wordValue != defaultValue)
     {

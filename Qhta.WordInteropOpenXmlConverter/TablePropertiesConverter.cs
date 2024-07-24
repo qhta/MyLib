@@ -55,7 +55,25 @@ public class TablePropertiesConverter
         var leftIndent = PointsToTwips(tableStyle.LeftIndent);
         xTableProperties.TableIndentation = new W.TableIndentation { Width = leftIndent, Type = W.TableWidthUnitValues.Dxa };
       }
+      if (tableStyle.Spacing != 0)
+      {
+        var spacing = PointsToTwips(tableStyle.Spacing);
+        xTableProperties.TableCellSpacing = new W.TableCellSpacing { Width = spacing.ToString(), Type = W.TableWidthUnitValues.Dxa };
+      }
 
+      if (tableStyle.RowStripe>0)
+      {
+        xTableProperties.TableStyleRowBandSize = new W.TableStyleRowBandSize { Val = tableStyle.RowStripe };
+      }
+
+      if (tableStyle.ColumnStripe>0)
+      {
+        xTableProperties.TableStyleColumnBandSize = new W.TableStyleColumnBandSize { Val = tableStyle.ColumnStripe };
+      }
+
+      var cellMargins = CreateCellMargins(tableStyle);
+      if (cellMargins != null)
+        xTableProperties.TableCellMarginDefault = cellMargins;
       //var allowBreakAcrossPage = tableStyle.AllowBreakAcrossPage;
       //var allowPageBreaks = tableStyle.AllowPageBreaks;
       var borderList = new BordersConverter().CreateBordersList(tableStyle.Borders);
@@ -63,5 +81,38 @@ public class TablePropertiesConverter
         xTableProperties.TableBorders = borderList.ToTableBorders();
     }
     return xTableProperties;
+  }
+
+  private W.TableCellMarginDefault? CreateCellMargins(Word.TableStyle tableStyle)
+  {
+    var cellMargins = new W.TableCellMarginDefault();
+    var hasCellMargins = false;
+    var leftMargin = GetTwipsValue(tableStyle.LeftPadding);
+    if (leftMargin != null)
+    {
+      cellMargins.StartMargin = new W.StartMargin { Width = leftMargin.ToString(), Type = W.TableWidthUnitValues.Dxa };
+      hasCellMargins = true;
+    }
+    var rightMargin = GetTwipsValue(tableStyle.RightPadding);
+    if (rightMargin != null)
+    {
+      cellMargins.EndMargin = new W.EndMargin { Width = rightMargin.ToString(), Type = W.TableWidthUnitValues.Dxa };
+      hasCellMargins = true;
+    }
+    var topMargin = GetTwipsValue(tableStyle.TopPadding);
+    if (topMargin != null)
+    {
+      cellMargins.TopMargin = new W.TopMargin { Width = topMargin.ToString(), Type = W.TableWidthUnitValues.Dxa };
+      hasCellMargins = true;
+    }
+    var bottomMargin = GetTwipsValue(tableStyle.BottomPadding);
+    if (bottomMargin != null)
+    {
+      cellMargins.BottomMargin = new W.BottomMargin { Width = bottomMargin.ToString(), Type = W.TableWidthUnitValues.Dxa };
+      hasCellMargins = true;
+    }
+    if (!hasCellMargins)
+      return null;
+    return cellMargins;
   }
 }

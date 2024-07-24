@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+
 using DocumentFormat.OpenXml;
+
 using Qhta.OpenXmlTools;
+
 using static Microsoft.Office.Interop.Word.WdLanguageID;
 using static Microsoft.Office.Interop.Word.WdUnderline;
 using static Qhta.WordInteropOpenXmlConverter.ColorConverter;
@@ -58,7 +62,7 @@ public class RunPropertiesConverter
     //{
     //  if (wordStyle.LanguageIDOther != WdLanguageID.wdNoProofing)
     //    langProps.Bidi = LanguageIdToBcp47Tag(wordStyle.LanguageIDOther);
-    //} catch { }
+    //} catch (COMException) { }
 
     if (addLangProps)
       xRunProperties.Languages = langProps;
@@ -146,7 +150,7 @@ public class RunPropertiesConverter
     xRunProps.Caps = GetOnOffTypeElement<W.Caps>(wordFont.AllCaps, defaultFont?.AllCaps);
     xRunProps.SmallCaps = GetOnOffTypeElement<W.SmallCaps>(wordFont.SmallCaps, defaultFont?.SmallCaps);
 
-    if ((int)wordFont.Underline != (int)Word.WdConstants.wdUndefined)
+    if ((int)wordFont.Underline != (int)Word.WdConstants.wdUndefined && wordFont.Underline != defaultFont?.Underline)
     {
       var underline = wordFont.Underline;
       var xUnderline = new W.Underline();
@@ -174,13 +178,14 @@ public class RunPropertiesConverter
     }
 
     #region color props
-    Word.ColorFormat? colorFormat = null;
-    try
-    {
-      colorFormat = wordFont.TextColor;
-    }
-    catch { }
-    var xColor = ConvertColor(wordFont.Color, wordFont.ColorIndex, colorFormat);
+    //// Not implemented in Office15
+    //Word.ColorFormat? colorFormat = null;
+    //try
+    //{
+    //  colorFormat = wordFont.TextColor;
+    //}
+    //catch (COMException) { }
+    var xColor = ConvertColor(wordFont.Color, wordFont.ColorIndex, null);
     if (xColor != null)
       xRunProps.Color = xColor;
     #endregion color props

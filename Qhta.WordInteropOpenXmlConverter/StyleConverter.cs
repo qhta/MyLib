@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 using DocumentFormat.OpenXml;
 
@@ -33,6 +35,7 @@ public class StyleConverter
 
     #region style id and name
     var styleId = wordStyle.NameLocal;
+    Debug.WriteLine($"Converting style \"{styleId}\"");
     styleId = StyleTools.StyleNameToId(styleId!);
     xStyle.StyleId = styleId;
 
@@ -69,26 +72,26 @@ public class StyleConverter
       if (wordStyle.AutomaticallyUpdate)
         xStyle.AutoRedefine = new W.AutoRedefine();
     }
-    catch { }
+    catch (COMException) { }
     try
     {
       Word.Style baseStyle = (Word.Style)wordStyle.get_BaseStyle();
       if (baseStyle.NameLocal.Length > 0)
         xStyle.BasedOn = new W.BasedOn { Val = StyleTools.StyleNameToId(baseStyle.NameLocal) };
     }
-    catch { }
+    catch (COMException) { }
     try
     {
       Word.Style linkStyle = (Word.Style)wordStyle.get_LinkStyle();
       xStyle.LinkedStyle = new W.LinkedStyle { Val = StyleTools.StyleNameToId(linkStyle.NameLocal) };
     }
-    catch { }
+    catch (COMException) { }
     try
     {
       Word.Style nextParagraphStyle = (Word.Style)wordStyle.get_NextParagraphStyle();
       xStyle.NextParagraphStyle = new W.NextParagraphStyle { Val = StyleTools.StyleNameToId(nextParagraphStyle.NameLocal) };
     }
-    catch { }
+    catch (COMException) { }
 
     #region style run properties
     try
@@ -96,7 +99,7 @@ public class StyleConverter
       var xRunProps = new RunPropertiesConverter(defaultStyle, themeTools).ConvertStyleFont(wordStyle);
       xStyle.StyleRunProperties = xRunProps;
     }
-    catch { }
+    catch (COMException) { }
     #endregion style run properties
 
     #region paragraph properties
@@ -105,8 +108,8 @@ public class StyleConverter
       var xParagraphProperties = new ParagraphPropertiesConverter(defaultStyle).ConvertStyleParagraphFormat(wordStyle);
       xStyle.StyleParagraphProperties = xParagraphProperties;
     }
-    catch { }
-    #endregion paragraph formating
+    catch (COMException) { }
+    #endregion paragraph properties
 
     #region table properties
     try
@@ -114,7 +117,7 @@ public class StyleConverter
       var xTableProperties = new TablePropertiesConverter(defaultStyle).ConvertTableProperties(wordStyle);
       xStyle.StyleTableProperties = xTableProperties;
     }
-    catch { }
+    catch (COMException) { }
     #endregion table properties
     return xStyle;
   }

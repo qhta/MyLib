@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml;
+using System.Runtime.InteropServices;
 
 using Qhta.OpenXmlTools;
 
@@ -82,7 +83,7 @@ public class ListTemplateConverter
             //  numberFormat = "•";
             //}
           }
-          catch { }
+          catch (COMException) { }
 
 
           W.LevelJustificationValues levelJustificationValues = wordLevel.Alignment switch
@@ -107,7 +108,7 @@ public class ListTemplateConverter
             var xRunProperties = new RunPropertiesConverter().ConvertFont(font);
             xNumberingLevel.NumberingSymbolRunProperties = xRunProperties.ToNumberingSymbolRunProperties();
           }
-          catch { }
+          catch (COMException) { }
 
           try
           {
@@ -117,7 +118,7 @@ public class ListTemplateConverter
               xNumberingLevel.ParagraphStyleIdInLevel = new W.ParagraphStyleIdInLevel { Val = linkedStyle };
             }
           }
-          catch { }
+          catch (COMException) { }
 
           try
           {
@@ -146,13 +147,13 @@ public class ListTemplateConverter
               xNumberingLevel.Append(new W.ParagraphProperties { Indentation = xIndentation });
             }
           }
-          catch { }
+          catch (COMException) { }
           xAbstractNum.Append(xNumberingLevel);
         }
-        catch { }
+        catch (COMException) { }
       }
     }
-    catch { }
+    catch (COMException) { }
 
     return xAbstractNum;
   }

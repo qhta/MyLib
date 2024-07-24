@@ -1322,7 +1322,7 @@ namespace Qhta.WordInteropOpenXmlConverter
     public static string StyleNameToId(string styleName)
     {
       var chars = styleName.TitleCase().ToCharArray().ToList();
-      chars.RemoveAll(c => !(c<='\x7f' && (Char.IsLetterOrDigit(c))|| c=='_'));
+      chars.RemoveAll(c => !(c<='\x7f' && Char.IsLetterOrDigit(c) || c=='-'));
       return new string(chars.ToArray());
     }
 

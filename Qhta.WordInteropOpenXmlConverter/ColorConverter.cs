@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 using DocumentFormat.OpenXml;
 
@@ -74,7 +75,7 @@ public static class ColorConverter
             addColor = true;
           }
         }
-      } catch { }
+      } catch (COMException) { }
     }
 
     if (addColor)
