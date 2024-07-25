@@ -2,8 +2,16 @@
 
 namespace Qhta.OpenXmlTools;
 
+/// <summary>
+/// Tools for working with OpenXml Wordprocessing ParagraphProperties element.
+/// </summary>
 public static class ParagraphPropertiesTools
 {
+  /// <summary>
+  /// Convert a <see cref="ParagraphProperties"/> element to a <see cref="StyleParagraphProperties"/> element.
+  /// </summary>
+  /// <param name="paragraphProperties">source properties</param>
+  /// <returns>new style paragraph properties with cloned source elements</returns>
   public static StyleParagraphProperties ToStyleParagraphProperties(this ParagraphProperties paragraphProperties)
   {
     var styleParagraphProperties = new StyleParagraphProperties();

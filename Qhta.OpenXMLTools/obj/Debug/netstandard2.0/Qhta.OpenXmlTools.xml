@@ -1,0 +1,3104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.OpenXmlTools</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.OpenXmlTools.BodyTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Body element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
+            <summary>
+            Get the SectionProperties element of the Body element.
+            </summary>
+            <param name="body">Element to browse</param>
+            <returns>SectionProperties element or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSections(DocumentFormat.OpenXml.Wordprocessing.Body)">
+            <summary>
+            Get the collection of <see cref="T:Qhta.OpenXmlTools.SectionRange"/> element of the Body element.
+            Each element of the collection contains a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.SectionProperties"/> element
+            and the start and end elements of the section which refers to the first and last paragraphs
+            (or other OpenXmlElements) of the section.
+            </summary>
+            <param name="body">Element to browse</param>
+            <returns>Observable collection of section range elements</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.BordersTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Borders element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BordersTools.ToOpenXmlBorders``1(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.Wordprocessing.BorderType})">
+            <summary>
+            Convert a list of <see cref="T:DocumentFormat.OpenXml.Wordprocessing.BorderType"/> elements
+            to a typed OpenXml borders element.
+            </summary>
+            <param name="borderList">Enumeration of source <see cref="T:DocumentFormat.OpenXml.Wordprocessing.BorderType"/> elements</param>
+            <typeparam name="OpenXmlElementType">Target OpenXml element type. It must be a composite element</typeparam>
+            <returns>New <typeparamref name="OpenXmlElementType"/> element</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.EMUTools">
+            <summary>
+            Tools for working with OpenXml EMU values.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.EMUTools.ToMM(DocumentFormat.OpenXml.Int32Value,System.Int32)">
+            <summary>
+            Convert an integer value in EMU to millimeters.
+            </summary>
+            <param name="x">Source integer value</param>
+            <param name="precision">Number of decimal digits to round to (default 0)</param>
+            <returns>Double result</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.EMUTools.ToMM(DocumentFormat.OpenXml.UInt32Value,System.Int32)">
+            <summary>
+            Convert an unsigned integer value in EMU to millimeters.
+            </summary>
+            <param name="x">Source integer value</param>
+            <param name="precision">Number of decimal digits to round to (default 0)</param>
+            <returns>Double result</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.EMUTools.ToStringMM(DocumentFormat.OpenXml.Int32Value,System.Int32)">
+            <summary>
+            Convert an integer value in EMU to millimeters string with "mm" suffix.
+            </summary>
+            <param name="x">Source integer value</param>
+            <param name="precision">Number of decimal digits to round to (default 0)</param>
+            <returns>String result in invariant culture format</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.EMUTools.ToStringMM(DocumentFormat.OpenXml.UInt32Value,System.Int32)">
+            <summary>
+            Convert an unsigned integer value in EMU to millimeters string with "mm" suffix.
+            </summary>
+            <param name="x">Source integer value</param>
+            <param name="precision">Number of decimal digits to round to (default 0)</param>
+            <returns>String result in invariant culture format</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.EndnoteTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Endnotes element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.EndnoteTools.Init(DocumentFormat.OpenXml.Wordprocessing.Endnotes)">
+            <summary>
+            Initialize the Endnotes element with the default separator and continuation separator.
+            </summary>
+            <param name="endnotes"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.FootnoteTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Footnotes element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnoteTools.Init(DocumentFormat.OpenXml.Wordprocessing.Footnotes)">
+            <summary>
+            Initialize the Footnotes element with the default separator and continuation separator.
+            </summary>
+            <param name="endnotes"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.NumberingTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Numbering elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering instance id of the paragraph.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer numbering instance id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the abstract numbering definition id of the paragraph.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer abstract numbering id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
+            <summary>
+            Get the abstract numbering definition id of the numbering instance id.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the numbering instance belongs.</param>
+            <param name="numId">Numbering instance id</param>
+            <returns>Integer abstract numbering id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering level of the paragraph.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer numbering level (from 0 to 9) or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering properties of the paragraph or of the paragraph style.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Numbering properties or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+            <summary>
+            Get the numbering level of the numbering properties.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the numbering properties element belongs.</param>
+            <param name="numPr">Numbering properties element</param>
+            <returns>Integer numbering level (from 0 to 8) or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevelDef(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
+            <summary>
+            Get the numbering level definition of the abstract numbering id and the level index.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document</param>
+            <param name="abstractNumId">Abstract numbering definition id</param>
+            <param name="levelNdx">level index</param>
+            <returns>Level definition or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetOutlineLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+             Get the outline level of the paragraph.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer outline level (from 0 to 8) or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetListType(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
+            <summary>
+            Get the list type of the abstract numbering id.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
+            <param name="abstractNumId">id of the abstract numbering</param>
+            <returns><see cref="T:DocumentFormat.OpenXml.Wordprocessing.NumberFormatValues"/> enum value or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetListText(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
+            <summary>
+            Get the list text of the abstract numbering id and the level index.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
+            <param name="abstractNumId">id of the abstract numbering</param>
+            <param name="levelNdx">level index</param>
+            <returns>Level text or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.JoinSingleLevelsHybridMultiLevel(DocumentFormat.OpenXml.Wordprocessing.Level[])">
+            <summary>
+            Create a new hybrid multilevel abstract numbering definition from an array a single level abstract numbering definition.
+            </summary>
+            <param name="levels">Array of source levels. Should be single element elements</param>
+            <returns>Joined hybrid multilevel abstract numbering definition element containing source elements</returns>
+            <remarks>
+            Subsequent levels are additionally indented by the left indent of the previous level.
+            </remarks>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.OpenXmlElementTools">
+            <summary>
+            Tools for working with OpenXml elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetDocumentPart(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
+            </summary>
+            <param name="xmlElement">Checked source element</param>
+            <returns>Returned document part or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetParentDocument(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Recursively get the parent document of the OpenXmlElement.
+            </summary>
+            <param name="xmlElement">Checked source element</param>
+            <returns>Returned document part or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetBlobData(DocumentFormat.OpenXml.VariantTypes.VTBlob)">
+            <summary>
+            Get byte array from the VTBlob element.
+            </summary>
+            <param name="blob">Source blob element</param>
+            <returns>byte array or null</returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+            <remarks>
+            Blob must be encoded in base64 with the first 4 bytes representing the length of the data.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.CreateBlob(System.Byte[])">
+            <summary>
+            Create a VTBlob element from a byte array.
+            Result is encoded in base64 with the first 4 bytes representing the length of the data.
+            </summary>
+            <param name="data">Source byte array</param>
+            <returns>VTBlob result</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetOBlobData(DocumentFormat.OpenXml.VariantTypes.VTOBlob)">
+            <summary>
+            Get byte array from the VTOBlob element.
+            </summary>
+            <param name="blob">Source blob element</param>
+            <returns>byte array or null</returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+            <remarks>
+            Blob must be encoded in base64 with the first 4 bytes representing the length of the data.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.CreateOBlob(System.Byte[])">
+            <summary>
+            Create a VTOBlob element from a byte array.
+            Result is encoded in base64 with the first 4 bytes representing the length of the data.
+            </summary>
+            <param name="data">Source byte array</param>
+            <returns>VTOBlob result</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementStringValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the string value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>string value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementStringValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Set the text content of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c> to the string value.
+            </summary>
+            <typeparam name="ElementType">Type of the element</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">string value to set</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementIntValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the integer value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementIntValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+            <summary>
+            Set the text content of the first child element of the specified type  of the <c>OpenXmlLeafTextElement</c> to the integer value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">integer value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementIntVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the integer <c>Val</c> value of the first child element of the specified type of the <c>OpenXmlLeafElement</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementIntVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>Val</c> property of the first child element of the specified type  of the <c>OpenXmlLeafElement</c> to the integer value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">integer value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstNonNegativeShortTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the short integer <c>Val</c> value of the first child element of the specified type of the <c>NonNegativeShortType</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstNonNegativeShortTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int16})">
+            <summary>
+            Set the short integer <c>Val</c> value of the first child element of the specified type of the <c>NonNegativeShortType</c> element.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">integer value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementUShortVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the short unsigned integer <c>Val</c> value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementUShortVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.UInt16})">
+            <summary>
+            Set the short unsigned integer <c>Val</c> value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c> element.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">integer value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstTwipsMeasureTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the integer <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstTwipsMeasureTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+             <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the integer value.
+             </summary>
+             <typeparam name="ElementType">element to set</typeparam>
+             <param name="xmlElement">element to set</param>
+             <param name="value">integer value (or null)</param>
+             <remarks>
+             If the value is null, the existing element is removed.
+             </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstUnsignedInt7TypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the byte <c>Val</c> property of the first child element of the specified type of the <c>UnsignedInt7Type</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstUnsignedInt7TypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Byte})">
+             <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>UnsignedInt7Type</c> element to the byte value.
+             </summary>
+             <typeparam name="ElementType">element to set</typeparam>
+             <param name="xmlElement">element to set</param>
+             <param name="value">integer value (or null)</param>
+             <remarks>
+             If the value is null, the existing element is removed.
+             </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstStringTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the string <c>Val</c> property of the first child element of the specified type of the <c>StringType</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>string value or null</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstStringTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>StringType</c> element to the string value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">string value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstString253TypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the string <c>Val</c> property of the first child element of the specified type of the <c>String253Type</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>string value or null</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstString253TypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>String253Type</c> element to the string value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">string value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementBoolValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the boolean value of the first child element of the specified type of the <c>OpenXmlLeadTextElement</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>boolean value or null (on parse error)</result>
+            <remarks>
+              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementBoolValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
+            <summary>
+            Set the text content of the first child element of the specified type of the <c>OpenXmlLeadTextElement</c> to the bool value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">bool value (or null)</param>
+            <remarks>
+            If the value is null, the text content is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the boolean value of the first child element of the specified type of the <c>OnOffType</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>boolean value or null (on parse error)</result>
+            <remarks>
+              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
+            <summary>
+            Set the text content of the first child element of the specified type of the <c>OnOffType</c> to the bool value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">bool value (or null)</param>
+            <remarks>
+            If the value is null, the text content is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffValuesElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Val</c> property of the first child element of the specified type of the <c>Office2010.Word.OnOffType</c> as the <c>OnOffValues</c> value.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>boolean value or null (on parse error)</result>
+            <remarks>
+              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffValuesElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{DocumentFormat.OpenXml.Office2010.Word.OnOffValues})">
+            <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>Office2010.Word.OnOffType</c> to the <c>OnOffValues</c> value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">bool value (or null)</param>
+            <remarks>
+            If the value is null, the text content is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffValueElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Val</c> property of the first child element of the specified type of the <c>Office2013.Word.OnOffType</c> as the <c>OnOffValue</c> value.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>boolean value or null (on parse error)</result>
+            <remarks>
+              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffValueElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,DocumentFormat.OpenXml.OnOffValue)">
+            <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>Office2013.Word.OnOffType</c> to the <c>OnOffValue</c> value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">bool value (or null)</param>
+            <remarks>
+            If the value is null, the text content is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstEmptyTypeElementAsBoolean``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the boolean value indicating that a child <c>EmptyType</c> element exists.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>boolean value (true or false)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstEmptyTypeElementAsBoolean``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
+            <summary>
+            Appends or removes a child <c>EmptyType</c> element depending on boolean value. 
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">bool value (or null)</param>
+            <remarks>
+            If the value is null, nothing is changed.
+            If the value is true and the element of the specified type is not in the collection, it is added.
+            If the value is false and the element of the specified type is in the collection, it is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElement``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get first element of the specified type from the <c>OpenXmlCompositeElement</c>. 
+            </summary>
+            <param name="xmlElement"></param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElement``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,``0)">
+            <summary>
+            Set first element of the specified type in the <c>OpenXmlCompositeElement</c>. 
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+            <remarks>
+            If the value is null and the element of the specified type is already in the collection, it is removed.
+            If the value equals existing element, nothing is changed.
+            Otherwise, the existing element is removed and the new element is added.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a string.
+            </summary>
+            <param name="xmlElement"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as a string.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementHexIntVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a hex integer.
+            </summary>
+            <param name="xmlElement"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementHexIntVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as a hex integer.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetAllElements``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Set all elements of the first specified type element in the <c>OpenXmlCompositeElement</c>.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Val</c> value of the first specified type element from the <c>OpenXmlCompositeElement</c>.
+            </summary>
+            <param name="xmlElement"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement,``1)">
+            <summary>
+            Set the value of the first specified type element in the <c>OpenXmlCompositeElement</c>.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetValValue``1(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Get the <c>Val</c> property of the specified type int the <c>OpenXmlLeafElement</c>.
+            </summary>
+            <typeparam name="ValType"></typeparam>
+            <param name="xmlElement"></param>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetValValue``1(DocumentFormat.OpenXml.OpenXmlElement,``0)">
+            <summary>
+            Set the <c>Val</c> property of the specified type int the <c>OpenXmlLeafElement</c>.
+            </summary>
+            <typeparam name="ValType"></typeparam>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstRelationshipElementId``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Id</c> property of the first specified type from the <c>OpenXmlLeafElement</c>.
+            </summary>
+            <typeparam name="ElementType"></typeparam>
+            <param name="xmlElement"></param>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstRelationshipElementId``1(DocumentFormat.OpenXml.OpenXmlElement,System.String)">
+            <summary>
+            Set the <c>Id</c> property of the first specified type in the <c>OpenXmlLeafElement</c>.
+            </summary>
+            <typeparam name="ElementType"></typeparam>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetVectorData(DocumentFormat.OpenXml.VariantTypes.VTVector)">
+            <summary>
+            Get the object array from the VTArray element.
+            </summary>
+            <param name="vector">source vector</param>
+            <returns>array of objects</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetVariantValue(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Get the value of the VTVariant element.
+            </summary>
+            <param name="element">Source element</param>
+            <returns>simple type result</returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.CreateVariant(System.Object,System.String)">
+            <summary>
+            Create variant element from the value.
+            </summary>
+            <param name="value">value to set </param>
+            <param name="format">format of the value</param>
+            <returns></returns>
+            <exception cref="T:System.IO.InvalidDataException">When the value cannot be converter to variant type</exception>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.PackageTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Package elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.CreatePackageFromWordOpenXML(System.String,System.String,System.String)">
+            <summary>
+            Create a package from a Word OpenXml string.
+            </summary>
+            <param name="wordOpenXml"></param>
+            <param name="filePath"></param>
+            <param name="relDirectoryRoot"></param>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.PackageTools.subdocumentRelType">
+            <summary>
+            Uri of the subdocument relationship type.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.RecreateSubdocumentRelationships(DocumentFormat.OpenXml.Wordprocessing.Document,System.String)">
+            <summary>
+            Recreate subdocument relationships in the document.
+            </summary>
+            <param name="doc">document which contains relationships</param>
+            <param name="docxPath">new path for subdocuments</param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.ParagraphPropertiesTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing ParagraphProperties element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.ToStyleParagraphProperties(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Convert a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties"/> element to a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.StyleParagraphProperties"/> element.
+            </summary>
+            <param name="paragraphProperties">source properties</param>
+            <returns>new style paragraph properties with cloned source elements</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.ParagraphTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Paragraph element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.FindParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
+            <summary>
+            Find a paragraph in the document by the paragraph id.
+            </summary>
+            <param name="document">document to browse</param>
+            <param name="paraId">id of the paragraph</param>
+            <returns>found paragraph or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.FindParagraph(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Find a paragraph in the composite element by the paragraph id.
+            </summary>
+            <param name="compositeElement">element to browse</param>
+            <param name="paraId">id of the paragraph</param>
+            <returns>found paragraph or nul</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the text of the paragraph run elements.
+            </summary>
+            <param name="paragraph">source paragraph</param>
+            <returns>joined text</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.StyleId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the style id of the paragraph.
+            </summary>
+            <param name="paragraph">source paragraph</param>
+            <returns>style id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsHeading(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Check if the paragraph is a heading using an outline level.
+            </summary>
+            <param name="paragraph">Checked paragraph</param>
+            <returns>true if the paragraph outline level is not base text level</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsHeading(System.String,System.String)">
+            <summary>
+            Check if the paragraph is a heading using the style name.
+            </summary>
+            <param name="styleName">style name to check</param>
+            <param name="headingName">heading name string (preceding a number)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.OutlineLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the outline level of the paragraph.
+            </summary>
+            <param name="paragraph">paragraph to check</param>
+            <returns>number of paragraph outline level</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.PlainTextTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing plain text element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PlainTextTools.GetPlainText(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the plain text from a composite element. Joins the text of the run elements.
+            </summary>
+            <param name="element">source element</param>
+            <returns>joined string</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PlainTextTools.GetPlainText(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Get the plain text from a run element. Joins the text of the run items which are not field codes.
+            </summary>
+            <param name="element">source element</param>
+            <returns>joined string</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.RunPropertiesTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing RunProperties element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunPropertiesTools.ToStyleRunProperties(DocumentFormat.OpenXml.Wordprocessing.RunProperties)">
+            <summary>
+            Converts a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.RunProperties"/> element to a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.StyleRunProperties"/> element.
+            </summary>
+            <param name="runProperties">source properties to convert</param>
+            <returns>target properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunPropertiesTools.ToRunProperties(DocumentFormat.OpenXml.Wordprocessing.StyleRunProperties)">
+            <summary>
+            Converts a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.StyleRunProperties"/> element to a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.RunProperties"/> element.
+            </summary>
+            <param name="styleRunProperties">source properties to convert</param>
+            <returns>target properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunPropertiesTools.ToNumberingSymbolRunProperties(DocumentFormat.OpenXml.Wordprocessing.RunProperties)">
+            <summary>
+            Converts a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.RunProperties"/> element to a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.NumberingSymbolRunProperties"/> element.
+            </summary>
+            <param name="runProperties">source properties to convert</param>
+            <returns>target properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunPropertiesTools.ToRunProperties(DocumentFormat.OpenXml.Wordprocessing.NumberingSymbolRunProperties)">
+            <summary>
+            Converts a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.NumberingSymbolRunProperties"/> element to a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.RunProperties"/> element.
+            </summary>
+            <param name="styleRunProperties">source properties to convert</param>
+            <returns>target properties</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SectionPropertiesTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing SectionProperties element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetHeaderReferences(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get all <c>HeaderReference</c> elements from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetFooterReferences(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get all <c>FooterReference</c> elements from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetFootnoteProperties(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>FootnoteProperties</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetEndnoteProperties(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>EndnoteProperties</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetSectionType(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>SectionType</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageSize(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>PageSize</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>PageMargin</c> from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPaperSource(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>PaperSource</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageBorders(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>PageBorders</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetLineNumberType(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>LineNumberType</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageNumberType(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>PageNumberType</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetColumns(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>columns</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetFormProtection(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>FormProtection</c> from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetVerticalTextAlignmentOnPage(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>VerticalTextAlignmentOnPage</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.IsNoEndnote(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>NoEndnote</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.IsTitlePage(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>TitlePage</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetTextDirection(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>TextDirection</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetBiDi(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>BiDi</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetGutterOnRight(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>GutterOnRight</c> value from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetDocGrid(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>DocGrid</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPrinterSettingsReference(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>PrinterSettingsReference</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetFootnoteColumns(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>FootnoteColumns</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetSectionPropertiesChange(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the first <c>SectionPropertiesChange</c> element from the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetHeaderReferences(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.Wordprocessing.HeaderReference})">
+            <summary>
+            Set all <c>HeaderReference</c> elements in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetFooterReferences(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.Wordprocessing.FooterReference})">
+            <summary>
+             Set all <c>FooterReference</c> elements in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetFootnoteProperties(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+            <summary>
+            Set <c>FootnoteProperties</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetEndnoteProperties(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.EndnoteProperties)">
+            <summary>
+            Set <c>EndnoteProperties</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetSectionType(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.SectionMarkValues})">
+            <summary>
+            Set <c>SectionType</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPageSize(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.PageSize)">
+            <summary>
+            Set <c>PageSize</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.PageMargin)">
+            <summary>
+            Set <c>PageMargin</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPaperSource(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.PaperSource)">
+            <summary>
+            Set <c>PaperSource</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPageBorders(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.PageBorders)">
+            <summary>
+            Set <c>PageBorders</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetLineNumberType(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.LineNumberType)">
+            <summary>
+            Set <c>LineNumberType</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPageNumberType(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.PageNumberType)">
+            <summary>
+            Set <c>PageNumberType</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetColumns(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.Columns)">
+            <summary>
+            Set <c>Columns</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetFormProtection(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Boolean})">
+            <summary>
+            Set <c>FormProtection</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetVerticalTextAlignmentOnPage(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.VerticalJustificationValues})">
+            <summary>
+            Set <c>VerticalTextAlignmentOnPage</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetNoEndnote(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Boolean})">
+            <summary>
+            Set <c>NoEndnote</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetTitlePage(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Boolean})">
+            <summary>
+            Set <c>TitlePage</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetTextDirection(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TextDirectionValues})">
+            <summary>
+            Set <c>TextDirection</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetBiDi(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Boolean})">
+            <summary>
+            Set <c>BiDi</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetGutterOnRight(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Boolean})">
+            <summary>
+            Set <c>GutterOnRight</c> value in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetDocGrid(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.DocGrid)">
+            <summary>
+            Set <c>DocGrid</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPrinterSettingsReference(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.PrinterSettingsReference)">
+            <summary>
+            Set <c>PrinterSettingsReference</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetFootnoteColumns(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Office2013.Word.FootnoteColumns)">
+            <summary>
+            Set <c>FootnoteColumns</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetSectionPropertiesChange(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.Wordprocessing.SectionPropertiesChange)">
+            <summary>
+            Set <c>SectionPropertiesChange</c> element in the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetBody(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Recursively get the parent <c>Body</c> element of the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SectionRange">
+            <summary>
+            Class to represent a range of elements in a Word section of the document.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.SectionRange.Start">
+            <summary>
+            First element in the range.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.SectionRange.End">
+            <summary>
+            Last element in the range.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.SectionRange.SectionProperties">
+            <summary>
+            Section properties of the range.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.SectionRange.Elements">
+            <summary>
+            Gets the elements of the specified type in the range.
+            If the start element is not initialized, it will return an empty list.
+            If the end element is not initialized, it will return all elements from the start to the end of the section.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SettingsTools">
+            <summary>
+            Tools for working with the Settings element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetBordersDoNotSurroundHeader(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>BordersDoNotSurroundHeader</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDrawingGridHorizontalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DrawingGridHorizontalSpacing</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetPersistentDocumentId(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DocumentProtection</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetView(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>View</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetZoom(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>Zoom</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetRemovePersonalInformation(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>RemovePersonalInformation</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetRemoveDateAndTime(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>RemoveDateAndTime</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotDisplayPageBoundaries(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotDisplayPageBoundaries</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDisplayBackgroundShape(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DisplayBackgroundShape</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetPrintPostScriptOverText(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>PrintPostScriptOverText</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetPrintFractionalCharacterWidth(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>PrintFractionalCharacterWidth</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetPrintFormsData(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>PrintFormsData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetEmbedTrueTypeFonts(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>EmbedTrueTypeFonts</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetEmbedSystemFonts(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>EmbedSystemFonts</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSaveSubsetFonts(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SaveSubsetFonts</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSaveFormsData(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SaveFormsData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetMirrorMargins(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>MirrorMargins</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAlignBorderAndEdges(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>AlignBordersAndEdges</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetBordersDoNotSurroundFooter(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>BordersDoNotSurroundFooter</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetGutterAtTop(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotSuppressParagraphBorders</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetHideSpellingErrors(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>HideSpellingErrors</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetHideGrammaticalErrors(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>HideGrammaticalErrors</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetActiveWritingStyle(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ActiveWritingStyle</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetProofState(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ProofState</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetFormsDesign(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>FormsDesign</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAttachedTemplate(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>AttachedTemplate</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetLinkStyles(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>LinkStyles</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetStylePaneFormatFilter(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>StylePaneFormatFilter</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetStylePaneSortMethods(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>StylePaneSortMethod</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDocumentType(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DocumentType</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetMailMerge(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>MailMerge</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetRevisionView(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetTrackRevisions(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>TrackRevisions</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotTrackMoves(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotTrackMoves</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotTrackFormatting(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotTrackFormatting</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDocumentProtection(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DocumentProtection</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAutoFormatOverride(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>AutoFormatOverride</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetStyleLockThemesPart(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>StyleLockTheme</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetStyleLockStylesPart(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>StyleLockQFSet</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDefaultTabStop(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DefaultTabStop</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAutoHyphenation(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>AutoHyphenation</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetConsecutiveHyphenLimit(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ConsecutiveHyphenLimit</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetHyphenationZone(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>HyphenationZone</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotHyphenateCaps(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotHyphenateCaps</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetShowEnvelope(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotLeaveBackslashAlone</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSummaryLength(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SummaryLength</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetClickAndTypeStyle(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ClickAndTypeStyle</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDefaultTableStyle(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DefaultTableStyle</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetEvenAndOddHeaders(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>EvenAndOddHeaders</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetBookFoldReversePrinting(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>BookFoldPrintingSheets</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetBookFoldPrinting(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>BookFoldPrinting</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetBookFoldPrintingSheets(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>BookFoldPrintingSheets</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetWriteProtection(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>WriteProtection</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDrawingGridVerticalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DrawingGridVerticalSpacing</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDisplayHorizontalDrawingGrid(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DisplayHorizontalDrawingGrid</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDisplayVerticalDrawingGrid(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DisplayVerticalDrawingGrid</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotUseMarginsForDrawingGridOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotUseMarginsForDrawingGridOrigin</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDrawingGridHorizontalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotShadeFormData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDrawingGridVerticalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DrawingGridVerticalOrigin</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotShadeFormData(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotShadeFormData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetNoPunctuationKerning(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>NoPunctuationKerning</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetCharacterSpacingControl(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>CharacterSpacingControl</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetPrintTwoOnOne(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>PrintTwoOnOne</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetStrictFirstAndLastChars(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>StrictFirstAndLastChars</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetNoLineBreaksAfterKinsoku(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>NoLineBreaksAfterKinsoku</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetNoLineBreaksBeforeKinsoku(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>NoLineBreaksBeforeKinsoku</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSavePreviewPicture(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SavePreviewPicture</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotValidateAgainstSchema(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSaveInvalidXml(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SaveInvalidXml</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetIgnoreMixedContent(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>IgnoreMixedContent</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAlwaysShowPlaceholderText(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+              Get the <c>AlwaysShowPlaceholderText</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotDemarcateInvalidXml(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotDemarcateInvalidXml</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSaveXmlDataOnly(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SaveXmlDataOnly</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetUseXsltWhenSaving(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>UseXsltWhenSaving</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSaveThroughXslt(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SaveThroughXslt</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetShowXmlTags(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ShowXmlTags</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAlwaysMergeEmptyNamespace(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>AlwaysMergeEmptyNamespace</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetUpdateFieldsOnOpen(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>UpdateFieldsOnOpen</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetHeaderShapeDefaults(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>HeaderShapeDefaults</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetFootnoteDocumentWideProperties(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>FootnoteDocumentWideProperties</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetEndnoteDocumentWideProperties(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>EndnoteDocumentWideProperties</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetCompatibility(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>Compatibility</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDocumentVariables(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DocumentVariables</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetRsids(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>Rsids</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetMathProperties(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>MathProperties</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetUICompatibleWith97To2003(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>UICompatibleWith97To2003</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetAttachedSchema(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>AttachedSchema</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetThemeFontLanguages(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ThemeFontLang</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetColorSchemeMapping(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+             Get the <c>ColorSchemeMapping</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotIncludeSubdocsInStats(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+             Get the <c>DoNotIncludeSubdocsInStats</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDoNotAutoCompressPictures(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DoNotAutoCompressPictures</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetForceUpgrade(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ForceUpgrade</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetCaptions(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>Captions</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetReadModeInkLockDown(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ReadModeInkLockDown</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSchemaLibrary(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>SchemaLibrary</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetShapeDefaults(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ShapeDefaults</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDecimalSymbol(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DecimalSymbol</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetListSeparator(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ListSeparator</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDocumentId(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DocumentId</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDiscardImageEditingData(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DiscardImageEditingData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDefaultImageDpi(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>DefaultImageDpi</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetConflictMode(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ConflictMode</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetChartTrackingRefBased(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Get the <c>ChartTrackingRefBased</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetBordersDoNotSurroundHeader(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>BordersDoNotSurroundHeader</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridHorizontalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>DrawingGridHorizontalSpacing</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPersistentDocumentId(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>DocumentProtection</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetView(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.ViewValues})">
+            <summary>
+            Set the <c>View</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetZoom(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.Zoom)">
+            <summary>
+            Set the <c>Zoom</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetRemovePersonalInformation(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>RemovePersonalInformation</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetRemoveDateAndTime(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>RemoveDateAndTime</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotDisplayPageBoundaries(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotDisplayPageBoundaries</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDisplayBackgroundShape(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DisplayBackgroundShape</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPrintPostScriptOverText(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>PrintPostScriptOverText</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPrintFractionalCharacterWidth(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>PrintFractionalCharacterWidth</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPrintFormsData(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>PrintFormsData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetEmbedTrueTypeFonts(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>EmbedTrueTypeFonts</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetEmbedSystemFonts(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>EmbedSystemFonts</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSaveSubsetFonts(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>SaveSubsetFonts</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSaveFormsData(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>SaveFormsData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetMirrorMargins(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>MirrorMargins</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAlignBorderAndEdges(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>AlignBordersAndEdges</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetBordersDoNotSurroundFooter(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>BordersDoNotSurroundFooter</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetGutterAtTop(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotSuppressParagraphBorders</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetHideSpellingErrors(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>HideSpellingErrors</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetHideGrammaticalErrors(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>HideGrammaticalErrors</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetActiveWritingStyle(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.ActiveWritingStyle)">
+            <summary>
+            Set the <c>ActiveWritingStyle</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetProofState(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.ProofState)">
+            <summary>
+            Set the <c>ProofState</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetFormsDesign(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>FormsDesign</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAttachedTemplate(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>AttachedTemplate</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetLinkStyles(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>LinkStyles</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetStylePaneFormatFilter(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.StylePaneFormatFilter)">
+            <summary>
+            Set the <c>StylePaneFormatFilter</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetStylePaneSortMethods(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>StylePaneSortMethod</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDocumentType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>DocumentType</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetMailMerge(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.MailMerge)">
+            <summary>
+            Set the <c>MailMerge</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetRevisionView(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.RevisionView)">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetTrackRevisions(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>TrackRevisions</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotTrackMoves(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotTrackMoves</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotTrackFormatting(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotTrackFormatting</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDocumentProtection(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.DocumentProtection)">
+            <summary>
+            Set the <c>DocumentProtection</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAutoFormatOverride(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>AutoFormatOverride</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetStyleLockThemesPart(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>StyleLockTheme</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetStyleLockStylesPart(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>StyleLockQFSet</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDefaultTabStop(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int16})">
+            <summary>
+            Set the <c>DefaultTabStop</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAutoHyphenation(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>AutoHyphenation</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetConsecutiveHyphenLimit(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.UInt16})">
+            <summary>
+            Set the <c>ConsecutiveHyphenLimit</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetHyphenationZone(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>HyphenationZone</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotHyphenateCaps(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotHyphenateCaps</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetShowEnvelope(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotLeaveBackslashAlone</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSummaryLength(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>SummaryLength</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetClickAndTypeStyle(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>ClickAndTypeStyle</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDefaultTableStyle(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>DefaultTableStyle</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetEvenAndOddHeaders(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>EvenAndOddHeaders</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetBookFoldReversePrinting(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>BookFoldPrintingSheets</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetBookFoldPrinting(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>BookFoldPrinting</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetBookFoldPrintingSheets(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int16})">
+            <summary>
+            Set the <c>BookFoldPrintingSheets</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetWriteProtection(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.WriteProtection)">
+            <summary>
+            Set the <c>WriteProtection</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridVerticalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>DrawingGridVerticalSpacing</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDisplayHorizontalDrawingGrid(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Byte})">
+            <summary>
+            Set the <c>DisplayHorizontalDrawingGrid</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDisplayVerticalDrawingGrid(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Byte})">
+            <summary>
+            Set the <c>DisplayVerticalDrawingGrid</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotUseMarginsForDrawingGridOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotUseMarginsForDrawingGridOrigin</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridHorizontalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>DoNotShadeFormData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridVerticalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>DrawingGridVerticalOrigin</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotShadeFormData(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotShadeFormData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetNoPunctuationKerning(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>NoPunctuationKerning</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetCharacterSpacingControl(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.CharacterSpacingValues})">
+            <summary>
+            Set the <c>CharacterSpacingControl</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPrintTwoOnOne(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>PrintTwoOnOne</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetStrictFirstAndLastChars(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>StrictFirstAndLastChars</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetNoLineBreaksAfterKinsoku(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.NoLineBreaksAfterKinsoku)">
+            <summary>
+            Set the <c>NoLineBreaksAfterKinsoku</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetNoLineBreaksBeforeKinsoku(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.NoLineBreaksBeforeKinsoku)">
+            <summary>
+            Set the <c>NoLineBreaksBeforeKinsoku</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSavePreviewPicture(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>SavePreviewPicture</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotValidateAgainstSchema(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSaveInvalidXml(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>SaveInvalidXml</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetIgnoreMixedContent(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>IgnoreMixedContent</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAlwaysShowPlaceholderText(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+              Set the <c>AlwaysShowPlaceholderText</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotDemarcateInvalidXml(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotDemarcateInvalidXml</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSaveXmlDataOnly(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>SaveXmlDataOnly</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetUseXsltWhenSaving(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>UseXsltWhenSaving</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSaveThroughXslt(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.SaveThroughXslt)">
+            <summary>
+            Set the <c>SaveThroughXslt</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetShowXmlTags(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>ShowXmlTags</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAlwaysMergeEmptyNamespace(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>AlwaysMergeEmptyNamespace</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetUpdateFieldsOnOpen(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>UpdateFieldsOnOpen</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetHeaderShapeDefaults(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.HeaderShapeDefaults)">
+            <summary>
+            Set the <c>HeaderShapeDefaults</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetFootnoteDocumentWideProperties(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.FootnoteDocumentWideProperties)">
+            <summary>
+            Set the <c>FootnoteDocumentWideProperties</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetEndnoteDocumentWideProperties(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.EndnoteDocumentWideProperties)">
+            <summary>
+            Set the <c>EndnoteDocumentWideProperties</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetCompatibility(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.Compatibility)">
+            <summary>
+            Set the <c>Compatibility</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDocumentVariables(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.DocumentVariables)">
+            <summary>
+            Set the <c>DocumentVariables</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetRsids(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.Rsids)">
+            <summary>
+            Set the <c>Rsids</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetMathProperties(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Set the <c>MathProperties</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetUICompatibleWith97To2003(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.UICompatibleWith97To2003)">
+            <summary>
+            Set the <c>UICompatibleWith97To2003</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetAttachedSchema(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>AttachedSchema</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetThemeFontLanguages(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.ThemeFontLanguages)">
+            <summary>
+            Set the <c>ThemeFontLang</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetColorSchemeMapping(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.ColorSchemeMapping)">
+            <summary>
+             Set the <c>ColorSchemeMapping</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotIncludeSubdocsInStats(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+             Set the <c>DoNotIncludeSubdocsInStats</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDoNotAutoCompressPictures(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>DoNotAutoCompressPictures</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetForceUpgrade(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Boolean})">
+            <summary>
+            Set the <c>ForceUpgrade</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetCaptions(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.Captions)">
+            <summary>
+            Set the <c>Captions</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetReadModeInkLockDown(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.ReadModeInkLockDown)">
+            <summary>
+            Set the <c>ReadModeInkLockDown</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetSchemaLibrary(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.CustomXmlSchemaReferences.SchemaLibrary)">
+            <summary>
+            Set the <c>SchemaLibrary</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetShapeDefaults(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.Wordprocessing.ShapeDefaults)">
+            <summary>
+            Set the <c>ShapeDefaults</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDecimalSymbol(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>DecimalSymbol</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetListSeparator(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Set the <c>ListSeparator</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDocumentId(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>DocumentId</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDiscardImageEditingData(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{DocumentFormat.OpenXml.Office2010.Word.OnOffValues})">
+            <summary>
+            Set the <c>DiscardImageEditingData</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDefaultImageDpi(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+            <summary>
+            Set the <c>DefaultImageDpi</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetConflictMode(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{DocumentFormat.OpenXml.Office2010.Word.OnOffValues})">
+            <summary>
+            Set the <c>ConflictMode</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetChartTrackingRefBased(DocumentFormat.OpenXml.Wordprocessing.Settings,DocumentFormat.OpenXml.OnOffValue)">
+            <summary>
+            Set the <c>ChartTrackingRefBased</c> setting value.
+            </summary>
+            <param name="settings"></param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetDocument(DocumentFormat.OpenXml.Wordprocessing.Settings)">
+            <summary>
+            Gets the <c>WordprocessingDocument</c> from the <c>Settings</c> object.
+            </summary>
+            <param name="settings"></param>
+            <result>wordprocessing document</result>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.StyleTools">
+            <summary>
+            Tools for working with styles in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StyleTools.StyleNameToId(System.String)">
+            <summary>
+            Converts a style name to a valid style ID.
+            </summary>
+            <param name="styleName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SubdocumentTools">
+            <summary>
+            Tools for working with subdocuments in OpenXml documents.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SubdocumentTools.SubdocRefRelPair">
+            <summary>
+            Pair of a subdocument reference and its external relationship.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SubdocumentTools.SubdocRefRelPair.Ref">
+            <summary>
+            Subdocument reference.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SubdocumentTools.SubdocRefRelPair.Rel">
+            <summary>
+            External relationship.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SubdocumentTools.SubdocRefRelPair.#ctor(DocumentFormat.OpenXml.Wordprocessing.SubDocumentReference,DocumentFormat.OpenXml.Packaging.ExternalRelationship)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="ref"></param>
+            <param name="rel"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SubdocumentTools.GetSubDocumentRelationships(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Gets the external relationships that are subdocuments.
+            </summary>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SubdocumentTools.GetSubDocumentReferences(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Gets the subdocument references in the main document part.
+            </summary>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SubdocumentTools.GetSubDocuments(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Gets the subdocument references and their external relationships.
+            </summary>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TablePropertiesTools">
+            <summary>
+            Tools for working with table properties in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TablePropertiesTools.ToStyleTableProperties(DocumentFormat.OpenXml.Wordprocessing.TableProperties)">
+            <summary>
+            Converts a <c>TableProperties</c> object to a <c>StyleTableProperties</c> object.
+            </summary>
+            <param name="tableProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TableTools">
+            <summary>
+            Tools for working with tables in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Gets the text of all paragraph in the table.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.Style(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Gets the style name of the table.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.WdBuiltinStyle">
+            <summary>Specifies a built-in Microsoft Word style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTocHeading">
+            <summary>TOC Heading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBibliography">
+            <summary>Bibliography.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBookTitle">
+            <summary>Book title.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseReference">
+            <summary>Intense Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtleReference">
+            <summary>Subtle Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseEmphasis">
+            <summary>Intense Emphasis.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtleEmphasis">
+            <summary>Subtle Emphasis.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseQuote">
+            <summary>Intense Quote.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleQuote">
+            <summary>Quote.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListParagraph">
+            <summary>List Paragraph.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList1Accent1">
+            <summary>Medium List 1 Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading2Accent1">
+            <summary>Medium Shading 2 Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading1Accent1">
+            <summary>Medium List 1 Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightGridAccent1">
+            <summary>Light Grid Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightListAccent1">
+            <summary>Light List Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightShadingAccent1">
+            <summary>Light Shading Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulGrid">
+            <summary>Colorful Grid.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulList">
+            <summary>Colorful List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulShading">
+            <summary>Colorful Shading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableDarkList">
+            <summary>Dark List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid3">
+            <summary>Medium Grid 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid2">
+            <summary>Medium Grid 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid1">
+            <summary>Medium Grid 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList2">
+            <summary>Medium List 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList1">
+            <summary>Medium List 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading2">
+            <summary>Medium Shading 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading1">
+            <summary>Medium Shading 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightGrid">
+            <summary>Light Grid.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightList">
+            <summary>Light List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightShading">
+            <summary>Light Shading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalObject">
+            <summary>Normal (applied to an object).</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalTable">
+            <summary>Normal (applied within a table).</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlVar">
+            <summary>HTML Variable.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlTt">
+            <summary>HTML Typewriter.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlSamp">
+            <summary>HTML Sample.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlPre">
+            <summary>HTML Preformatted.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlKbd">
+            <summary>HTML Keyboard.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlDfn">
+            <summary>HTML Definition.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlCode">
+            <summary>HTML Code.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlCite">
+            <summary>HTML City.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlAddress">
+            <summary>HTML Address.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlAcronym">
+            <summary>HTML Acronym.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlNormal">
+            <summary>Normal (Web).</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePlainText">
+            <summary>Plain Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNavPane">
+            <summary>Document Map.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEmphasis">
+            <summary>Emphasis.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleStrong">
+            <summary>Strong.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHyperlinkFollowed">
+            <summary>Followed Hyperlink.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHyperlink">
+            <summary>Hyperlink.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBlockQuotation">
+            <summary>Block Quotation.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent3">
+            <summary>Body Text Indent 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent2">
+            <summary>Body Text Indent 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText3">
+            <summary>Body Text 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText2">
+            <summary>Body Text 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNoteHeading">
+            <summary>Note Heading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent2">
+            <summary>Body Text First Indent 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent">
+            <summary>Body Text First Indent.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDate">
+            <summary>Date.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSalutation">
+            <summary>Salutation.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtitle">
+            <summary>Subtitle.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMessageHeader">
+            <summary>Message Header.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue5">
+            <summary>List Continue 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue4">
+            <summary>List Continue 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue3">
+            <summary>List Continue 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue2">
+            <summary>List Continue 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue">
+            <summary>List Continue.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent">
+            <summary>Body Text Indent.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText">
+            <summary>Body Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDefaultParagraphFont">
+            <summary>Default Paragraph Font.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSignature">
+            <summary>Signature.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleClosing">
+            <summary>Closing.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTitle">
+            <summary>Title.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber5">
+            <summary>List Number 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber4">
+            <summary>List Number 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber3">
+            <summary>List Number 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber2">
+            <summary>List Number 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet5">
+            <summary>List Bullet 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet4">
+            <summary>List Bullet 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet3">
+            <summary>List Bullet 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet2">
+            <summary>List Bullet 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList5">
+            <summary>List 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList4">
+            <summary>List 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList3">
+            <summary>List 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList2">
+            <summary>List 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber">
+            <summary>List Number.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet">
+            <summary>List Bullet.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList">
+            <summary>List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOAHeading">
+            <summary>TOA Heading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMacroText">
+            <summary>Macro Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfAuthorities">
+            <summary>Table of Authorities.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteText">
+            <summary>Endnote Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteReference">
+            <summary>Endnote Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePageNumber">
+            <summary>Page Number.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleLineNumber">
+            <summary>Line Number.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentReference">
+            <summary>Comment Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteReference">
+            <summary>Footnote Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEnvelopeReturn">
+            <summary>Envelope Return.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEnvelopeAddress">
+            <summary>Envelope Address.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfFigures">
+            <summary>Table of Figures.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCaption">
+            <summary>Caption.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndexHeading">
+            <summary>Index Heading</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFooter">
+            <summary>Footer.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeader">
+            <summary>Header.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentText">
+            <summary>Comment Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteText">
+            <summary>Footnote Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalIndent">
+            <summary>Normal Indent.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC9">
+            <summary>TOC 9.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC8">
+            <summary>TOC 8.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC7">
+            <summary>TOC 7.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC6">
+            <summary>TOC 6.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC5">
+            <summary>TOC 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC4">
+            <summary>TOC 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC3">
+            <summary>TOC 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC2">
+            <summary>TOC 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC1">
+            <summary>TOC 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex9">
+            <summary>Index 9.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex8">
+            <summary>Index8.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex7">
+            <summary>Index 7.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex6">
+            <summary>Index 6.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex5">
+            <summary>Index 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex4">
+            <summary>Index 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex3">
+            <summary>Index 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex2">
+            <summary>Index 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex1">
+            <summary>Index 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading9">
+            <summary>Heading 9.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading8">
+            <summary>Heading 8.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading7">
+            <summary>Heading 7.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading6">
+            <summary>Heading 6.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading5">
+            <summary>Heading 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading4">
+            <summary>Heading 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading3">
+            <summary>Heading 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading2">
+            <summary>Heading 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading1">
+            <summary>Heading 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormal">
+            <summary>Normal.</summary>
+        </member>
+    </members>
+</doc>

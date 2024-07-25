@@ -5,14 +5,20 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-
 namespace Qhta.OpenXmlTools;
 
+/// <summary>
+/// Tools for working with OpenXml Wordprocessing Package elements.
+/// </summary>
 public static class PackageTools
 {
 
+  /// <summary>
+  /// Create a package from a Word OpenXml string.
+  /// </summary>
+  /// <param name="wordOpenXml"></param>
+  /// <param name="filePath"></param>
+  /// <param name="relDirectoryRoot"></param>
   public static void CreatePackageFromWordOpenXML(string wordOpenXml, string filePath, string relDirectoryRoot)
   {
     var xmlFileName = Path.ChangeExtension(filePath, ".xml");
@@ -24,7 +30,7 @@ public static class PackageTools
 
     string packageXmlns = "http://schemas.microsoft.com/office/2006/xmlPackage";
 
-    using (Package newPkg = System.IO.Packaging.ZipPackage.Open(filePath, FileMode.Create))
+    using (Package newPkg = Package.Open(filePath, FileMode.Create))
     {
       XPathDocument xpDocument = new XPathDocument(new StringReader(wordOpenXml));
       XPathNavigator xpNavigator = xpDocument.CreateNavigator();
@@ -35,14 +41,17 @@ public static class PackageTools
       XPathNodeIterator pkgPartIterator = xpNavigator.Select("//pkg:part", nsManager);
       while (pkgPartIterator.MoveNext())
       {
-        var partName = pkgPartIterator.Current.GetAttribute("name", packageXmlns);
+        var partName = pkgPartIterator.Current?.GetAttribute("name", packageXmlns);
+        if (partName is null) continue;
         Uri partUri = new Uri(partName, UriKind.Relative);
-        var partType = pkgPartIterator.Current.GetAttribute("contentType", packageXmlns);
+        var partType = pkgPartIterator.Current?.GetAttribute("contentType", packageXmlns);
+        if (partType is null) continue;
         PackagePart pkgPart = newPkg.CreatePart(partUri, partType);
 
-        string strInnerXml = pkgPartIterator.Current.InnerXml
+        var strInnerXml = pkgPartIterator.Current?.InnerXml
           .Replace("<pkg:xmlData xmlns:pkg=\"" + packageXmlns + "\">", "")
           .Replace("</pkg:xmlData>", "");
+        if (strInnerXml is null) continue;
         byte[] buffer = Encoding.UTF8.GetBytes(strInnerXml);
         var pkgStream = pkgPart.GetStream();
         byte[] xmlPreamble = Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n");
@@ -50,28 +59,31 @@ public static class PackageTools
         pkgStream.Write(buffer, 0, buffer.Length);
       }
     }
-    using (var docx = DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(filePath, true))
+    using (var docx = DXPack.WordprocessingDocument.Open(filePath, true))
     {
-      if (docx.MainDocumentPart?.Document is not null)
-        PackageTools.RecreateSubdocumentRels(docx.MainDocumentPart.Document, relDirectoryRoot);
+      if (docx.MainDocumentPart?.Document is not null) docx.MainDocumentPart.Document.RecreateSubdocumentRelationships(relDirectoryRoot);
     }
   }
 
+  /// <summary>
+  /// Uri of the subdocument relationship type.
+  /// </summary>
   public const string subdocumentRelType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/subDocument";
 
-  private struct RelPar
+  private struct RelPar(DXPack.ExternalRelationship relationship, DXW.Paragraph paragraph)
   {
-    public ExternalRelationship Rel;
-    public Paragraph Par;
-    public RelPar(ExternalRelationship rel, Paragraph par)
-    {
-      Rel = rel;
-      Par = par;
-    }
+    public readonly DXPack.ExternalRelationship Relationship = relationship;
+    public readonly DXW.Paragraph Paragraph = paragraph;
   }
-  public static void RecreateSubdocumentRels(this Document doc, string docxPath)
+
+  /// <summary>
+  /// Recreate subdocument relationships in the document.
+  /// </summary>
+  /// <param name="doc">document which contains relationships</param>
+  /// <param name="docxPath">new path for subdocuments</param>
+  public static void RecreateSubdocumentRelationships(this DXW.Document doc, string docxPath)
   {
-    var fieldCodes = doc.Descendants<FieldCode>().ToList();
+    var fieldCodes = doc.Descendants<DXW.FieldCode>().ToList();
     var addedRels = new List<RelPar>();
     foreach (var fieldCode in fieldCodes)
     {
@@ -92,10 +104,10 @@ public static class PackageTools
           //Debug.WriteLine(targetFileName);
           if (targetFileName.EndsWith(".docx", StringComparison.InvariantCultureIgnoreCase))
           {
-            var fieldParagraph = fieldCode.Ancestors<Paragraph>().LastOrDefault();
+            var fieldParagraph = fieldCode.Ancestors<DXW.Paragraph>().LastOrDefault();
             if (fieldParagraph != null)
             {
-              var targetPath = Path.GetDirectoryName(targetFileName);
+              var targetPath = Path.GetDirectoryName(targetFileName) ?? "";
               //Debug.WriteLine(docxPath);
               if (targetPath.StartsWith(docxPath, StringComparison.CurrentCultureIgnoreCase))
               {
@@ -118,10 +130,10 @@ public static class PackageTools
       }
     }
 
-    foreach (var relpar in addedRels)
+    foreach (var pair in addedRels)
     {
-      relpar.Par.InsertBeforeSelf<SubDocumentReference>(new SubDocumentReference { Id = relpar.Rel.Id });
-      relpar.Par.Remove();
+      pair.Paragraph.InsertBeforeSelf(new DXW.SubDocumentReference { Id = pair.Relationship.Id });
+      pair.Paragraph.Remove();
     }
   }
 }

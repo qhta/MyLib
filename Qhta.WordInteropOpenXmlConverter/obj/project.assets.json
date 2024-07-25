@@ -162,11 +162,12 @@
           }
         }
       },
-      "Qhta.OpenXmlTools/1.0.0": {
+      "Qhta.OpenXmlTools/2.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "DocumentFormat.OpenXml": "3.0.2"
+          "DocumentFormat.OpenXml": "3.0.2",
+          "Qhta.TextUtils": "3.2.0"
         },
         "compile": {
           "bin/placeholder/Qhta.OpenXmlTools.dll": {}
@@ -565,7 +566,7 @@
         "version.txt"
       ]
     },
-    "Qhta.OpenXmlTools/1.0.0": {
+    "Qhta.OpenXmlTools/2.0.0": {
       "type": "project",
       "path": "../Qhta.OpenXMLTools/Qhta.OpenXmlTools.csproj",
       "msbuildProject": "../Qhta.OpenXMLTools/Qhta.OpenXmlTools.csproj"
@@ -577,7 +578,7 @@
       "Microsoft.Office.Interop.Word >= 15.0.4797.1004",
       "MicrosoftOfficeCore15 >= 15.0.4420.1017",
       "NETStandard.Library >= 2.0.3",
-      "Qhta.OpenXmlTools >= 1.0.0",
+      "Qhta.OpenXmlTools >= 2.0.0",
       "Qhta.TextUtils >= 3.2.0"
     ]
   },

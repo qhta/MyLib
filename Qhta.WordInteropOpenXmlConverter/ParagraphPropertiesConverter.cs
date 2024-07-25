@@ -43,7 +43,7 @@ public class ParagraphPropertiesConverter
         var bordersConverter = new BordersConverter();
         var borderList = bordersConverter.CreateBordersList(styleBorders);
         if (borderList != null)
-          xParaProperties.ParagraphBorders = borderList.ToParagraphBorders();
+          xParaProperties.ParagraphBorders = borderList.ToOpenXmlBorders<W.ParagraphBorders>();
       }
     }
     catch (COMException) { }

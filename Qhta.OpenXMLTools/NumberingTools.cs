@@ -5,8 +5,17 @@ using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
+/// <summary>
+/// Tools for working with OpenXml Wordprocessing Numbering elements.
+/// </summary>
 public static class NumberingTools
 {
+  /// <summary>
+  /// Get the numbering instance id of the paragraph.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+  /// <param name="paragraph">Source paragraph element</param>
+  /// <returns>Integer numbering instance id or null</returns>
   public static int? GetNumberingId(this WordprocessingDocument wordDocument, Paragraph paragraph)
   {
     var numPr = GetNumberingProperties(wordDocument, paragraph);
@@ -19,6 +28,12 @@ public static class NumberingTools
     return null;
   }
 
+  /// <summary>
+  /// Get the abstract numbering definition id of the paragraph.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+  /// <param name="paragraph">Source paragraph element</param>
+  /// <returns>Integer abstract numbering id or null</returns>
   public static int? GetAbstractNumberingId(this WordprocessingDocument wordDocument, Paragraph paragraph)
   {
     var numPr = GetNumberingProperties(wordDocument, paragraph);
@@ -41,6 +56,12 @@ public static class NumberingTools
     return null;
   }
 
+  /// <summary>
+  /// Get the abstract numbering definition id of the numbering instance id.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the numbering instance belongs.</param>
+  /// <param name="numId">Numbering instance id</param>
+  /// <returns>Integer abstract numbering id or null</returns>
   public static int? GetAbstractNumberingId(this WordprocessingDocument wordDocument, int numId)
   {
     var numbering = wordDocument.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?.Elements<NumberingInstance>()
@@ -54,7 +75,13 @@ public static class NumberingTools
     return null;
   }
 
-  public static int GetNumberingLevel(this WordprocessingDocument wordDocument, Paragraph paragraph)
+  /// <summary>
+  /// Get the numbering level of the paragraph.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+  /// <param name="paragraph">Source paragraph element</param>
+  /// <returns>Integer numbering level (from 0 to 9) or null</returns>
+  public static int? GetNumberingLevel(this WordprocessingDocument wordDocument, Paragraph paragraph)
   {
     var numPr = GetNumberingProperties(wordDocument, paragraph);
     if (numPr != null)
@@ -62,41 +89,49 @@ public static class NumberingTools
       var val = GetNumberingLevel(wordDocument, numPr);
       return val;
     }
-    return 0;
+    return null;
   }
 
+  /// <summary>
+  /// Get the numbering properties of the paragraph or of the paragraph style.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+  /// <param name="paragraph">Source paragraph element</param>
+  /// <returns>Numbering properties or null</returns>
   public static NumberingProperties? GetNumberingProperties(this WordprocessingDocument wordDocument, Paragraph paragraph)
   {
     var numPr = paragraph?.ParagraphProperties?.NumberingProperties;
     if (numPr != null)
-    {
       return numPr;
-    }
-    else
+
+    var styleId = paragraph?.ParagraphProperties?.ParagraphStyleId?.Val?.Value;
+    if (styleId != null)
     {
-      var styleId = paragraph?.ParagraphProperties?.ParagraphStyleId?.Val?.Value;
-      if (styleId != null)
+      var styleDef = wordDocument.MainDocumentPart?.StyleDefinitionsPart?.Styles?.Elements<Style>()
+        .FirstOrDefault(item => item.StyleId == styleId);
+      if (styleDef != null)
       {
-        var styleDef = wordDocument.MainDocumentPart?.StyleDefinitionsPart?.Styles?.Elements<Style>()
-          .FirstOrDefault(item => item.StyleId == styleId);
-        if (styleDef != null)
+        numPr = styleDef.StyleParagraphProperties?.NumberingProperties;
+        if (numPr != null)
         {
-          numPr = styleDef.StyleParagraphProperties?.NumberingProperties;
-          if (numPr != null)
-          {
-            return numPr;
-          }
+          return numPr;
         }
       }
     }
     return null;
   }
 
-  public static int GetNumberingLevel(this WordprocessingDocument wordDocument, NumberingProperties numPr)
+  /// <summary>
+  /// Get the numbering level of the numbering properties.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the numbering properties element belongs.</param>
+  /// <param name="numPr">Numbering properties element</param>
+  /// <returns>Integer numbering level (from 0 to 8) or null</returns>
+  public static int? GetNumberingLevel(this WordprocessingDocument wordDocument, NumberingProperties numPr)
   {
     int? numLevel = numPr.NumberingLevelReference?.Val?.Value;
     if (numLevel != null)
-      return (int)numLevel + 1;
+      return (int)numLevel;
     int? numId = numPr.NumberingId?.Val?.Value;
     if (numId != null)
     {
@@ -111,13 +146,20 @@ public static class NumberingTools
         {
           numLevel = abstractNumbering.Elements<Level>().FirstOrDefault()?.LevelIndex?.Value;
           if (numLevel != null)
-            return (int)numLevel + 1;
+            return (int)numLevel;
         }
       }
     }
-    return 0;
+    return null;
   }
 
+  /// <summary>
+  /// Get the numbering level definition of the abstract numbering id and the level index.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document</param>
+  /// <param name="abstractNumId">Abstract numbering definition id</param>
+  /// <param name="levelNdx">level index</param>
+  /// <returns>Level definition or null</returns>
   public static Level? GetNumberingLevelDef(this WordprocessingDocument wordDocument, int abstractNumId, int levelNdx)
   {
     var numbering = wordDocument.MainDocumentPart?.NumberingDefinitionsPart?.Numbering;
@@ -129,7 +171,13 @@ public static class NumberingTools
     return level;
   }
 
-  public static int GetOutlineLevel(this WordprocessingDocument wordDocument, Paragraph paragraph)
+  /// <summary>
+  ///  Get the outline level of the paragraph.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+  /// <param name="paragraph">Source paragraph element</param>
+  /// <returns>Integer outline level (from 0 to 8) or null</returns>
+  public static int? GetOutlineLevel(this WordprocessingDocument wordDocument, Paragraph paragraph)
   {
     var styleId = paragraph?.ParagraphProperties?.ParagraphStyleId?.Val?.Value;
     if (styleId != null)
@@ -142,22 +190,28 @@ public static class NumberingTools
         if (styleName != null && styleName.StartsWith("heading ") && char.IsDigit(styleName.Last()))
         {
           var val = (int)(styleName.Last() - '0');
-          if (val >= 1 && val <= 9)
+          if (val is >= 0 and <= 8)
             return val;
         }
       }
     }
-    return 0;
+    return null;
   }
 
-  public static NumberFormatValues GetListType(this WordprocessingDocument wordDocument, int abstractNumId)
+  /// <summary>
+  /// Get the list type of the abstract numbering id.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
+  /// <param name="abstractNumId">id of the abstract numbering</param>
+  /// <returns><see cref="NumberFormatValues"/> enum value or null</returns>
+  public static NumberFormatValues? GetListType(this WordprocessingDocument wordDocument, int abstractNumId)
   {
     var numbering = wordDocument.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?.Elements<NumberingInstance>()
       .FirstOrDefault(item => item.NumberID?.Value == abstractNumId);
     if (numbering != null)
     {
       var abstractNum = wordDocument.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?.Elements<AbstractNum>()
-        .FirstOrDefault(abstNum => abstNum.AbstractNumberId?.Value == abstractNumId);
+        .FirstOrDefault(aNum => aNum.AbstractNumberId?.Value == abstractNumId);
       if (abstractNum != null)
       {
         var numFmtValues = abstractNum.GetFirstChild<Level>()?.NumberingFormat?.Val?.Value;
@@ -165,10 +219,17 @@ public static class NumberingTools
           return (NumberFormatValues)numFmtValues;
       }
     }
-    return NumberFormatValues.None;
+    return null;
   }
 
-  public static string GetListText(this WordprocessingDocument wordDocument, int abstractNumId, int levelNdx)
+  /// <summary>
+  /// Get the list text of the abstract numbering id and the level index.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
+  /// <param name="abstractNumId">id of the abstract numbering</param>
+  /// <param name="levelNdx">level index</param>
+  /// <returns>Level text or null</returns>
+  public static string? GetListText(this WordprocessingDocument wordDocument, int abstractNumId, int levelNdx)
   {
     var level = GetNumberingLevelDef(wordDocument, abstractNumId, levelNdx);
     if (level != null)
@@ -177,9 +238,17 @@ public static class NumberingTools
       if (levelText != null)
         return levelText;
     }
-    return "";
+    return null;
   }
 
+  /// <summary>
+  /// Create a new hybrid multilevel abstract numbering definition from an array a single level abstract numbering definition.
+  /// </summary>
+  /// <param name="levels">Array of source levels. Should be single element elements</param>
+  /// <returns>Joined hybrid multilevel abstract numbering definition element containing source elements</returns>
+  /// <remarks>
+  /// Subsequent levels are additionally indented by the left indent of the previous level.
+  /// </remarks>
   public static AbstractNum JoinSingleLevelsHybridMultiLevel(Level[] levels)
   {
     var abstractNum = new AbstractNum { MultiLevelType = new MultiLevelType{ Val = MultiLevelValues.HybridMultilevel }};

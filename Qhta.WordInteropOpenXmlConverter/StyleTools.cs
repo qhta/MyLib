@@ -1319,13 +1319,6 @@ namespace Qhta.WordInteropOpenXmlConverter
       return false;
     }
 
-    public static string StyleNameToId(string styleName)
-    {
-      var chars = styleName.TitleCase().ToCharArray().ToList();
-      chars.RemoveAll(c => !(c<='\x7f' && Char.IsLetterOrDigit(c) || c=='-'));
-      return new string(chars.ToArray());
-    }
-
     public Word.Document ActiveDocument { get; private set; }
 
     public StyleTools(Word.Document activeDocument)

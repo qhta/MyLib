@@ -119,6 +119,7 @@
   </resheader>
   <data name="Body" xml:space="preserve">
     <value>Body</value>
+    <comment>Body style</comment>
   </data>
   <data name="Headings" xml:space="preserve">
     <value>Headings</value>

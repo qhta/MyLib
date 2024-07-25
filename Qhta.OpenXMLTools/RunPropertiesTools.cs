@@ -1,8 +1,17 @@
-﻿namespace Qhta.OpenXmlTools;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
+namespace Qhta.OpenXmlTools;
+
+/// <summary>
+/// Tools for working with OpenXml Wordprocessing RunProperties element.
+/// </summary>
 public static class RunPropertiesTools
 {
+  /// <summary>
+  /// Converts a <see cref="RunProperties"/> element to a <see cref="StyleRunProperties"/> element.
+  /// </summary>
+  /// <param name="runProperties">source properties to convert</param>
+  /// <returns>target properties</returns>
   public static StyleRunProperties ToStyleRunProperties(this RunProperties runProperties)
   {
     var styleRunProperties = new StyleRunProperties();
@@ -44,6 +53,11 @@ public static class RunPropertiesTools
     return styleRunProperties;
   }
 
+  /// <summary>
+  /// Converts a <see cref="StyleRunProperties"/> element to a <see cref="RunProperties"/> element.
+  /// </summary>
+  /// <param name="styleRunProperties">source properties to convert</param>
+  /// <returns>target properties</returns>
   public static RunProperties ToRunProperties(this StyleRunProperties styleRunProperties)
   {
     var runProperties = new RunProperties();
@@ -84,6 +98,11 @@ public static class RunPropertiesTools
     return runProperties;
   }
 
+  /// <summary>
+  /// Converts a <see cref="RunProperties"/> element to a <see cref="NumberingSymbolRunProperties"/> element.
+  /// </summary>
+  /// <param name="runProperties">source properties to convert</param>
+  /// <returns>target properties</returns>
   public static NumberingSymbolRunProperties ToNumberingSymbolRunProperties(this RunProperties runProperties)
   {
     var symbolRunProperties = new NumberingSymbolRunProperties();
@@ -124,4 +143,50 @@ public static class RunPropertiesTools
 
     return symbolRunProperties;
   }
+
+  /// <summary>
+  /// Converts a <see cref="NumberingSymbolRunProperties"/> element to a <see cref="RunProperties"/> element.
+  /// </summary>
+  /// <param name="styleRunProperties">source properties to convert</param>
+  /// <returns>target properties</returns>
+  public static RunProperties ToRunProperties(this NumberingSymbolRunProperties styleRunProperties)
+  {
+    var runProperties = new RunProperties();
+    if (styleRunProperties.Bold != null) runProperties.Bold = (Bold)styleRunProperties.Bold.CloneNode(true);
+    if (styleRunProperties.BoldComplexScript != null) runProperties.BoldComplexScript = (BoldComplexScript)styleRunProperties.BoldComplexScript.CloneNode(true);
+    if (styleRunProperties.Border != null) runProperties.Border = (Border)styleRunProperties.Border.CloneNode(true);
+    if (styleRunProperties.Caps != null) runProperties.Caps = (Caps)styleRunProperties.Caps.CloneNode(true);
+    if (styleRunProperties.CharacterScale != null) runProperties.CharacterScale = (CharacterScale)styleRunProperties.CharacterScale.CloneNode(true);
+    if (styleRunProperties.Color != null) runProperties.Color = (Color)styleRunProperties.Color.CloneNode(true);
+    if (styleRunProperties.DoubleStrike != null) runProperties.DoubleStrike = (DoubleStrike)styleRunProperties.DoubleStrike.CloneNode(true);
+    if (styleRunProperties.EastAsianLayout != null) runProperties.EastAsianLayout = (EastAsianLayout)styleRunProperties.EastAsianLayout.CloneNode(true);
+    if (styleRunProperties.Emboss != null) runProperties.Emboss = (Emboss)styleRunProperties.Emboss.CloneNode(true);
+    if (styleRunProperties.Emphasis != null) runProperties.Emphasis = (Emphasis)styleRunProperties.Emphasis.CloneNode(true);
+    if (styleRunProperties.FitText != null) runProperties.FitText = (FitText)styleRunProperties.FitText.CloneNode(true);
+    if (styleRunProperties.FontSize != null) runProperties.FontSize = (FontSize)styleRunProperties.FontSize.CloneNode(true);
+    if (styleRunProperties.FontSizeComplexScript != null) runProperties.FontSizeComplexScript = (FontSizeComplexScript)styleRunProperties.FontSizeComplexScript.CloneNode(true);
+    if (styleRunProperties.Imprint != null) runProperties.Imprint = (Imprint)styleRunProperties.Imprint.CloneNode(true);
+    if (styleRunProperties.Italic != null) runProperties.Italic = (Italic)styleRunProperties.Italic.CloneNode(true);
+    if (styleRunProperties.ItalicComplexScript != null) runProperties.ItalicComplexScript = (ItalicComplexScript)styleRunProperties.ItalicComplexScript.CloneNode(true);
+    if (styleRunProperties.Kern != null) runProperties.Kern = (Kern)styleRunProperties.Kern.CloneNode(true);
+    if (styleRunProperties.Languages != null) runProperties.Languages = (Languages)styleRunProperties.Languages.CloneNode(true);
+    if (styleRunProperties.NoProof != null) runProperties.NoProof = (NoProof)styleRunProperties.NoProof.CloneNode(true);
+    if (styleRunProperties.Outline != null) runProperties.Outline = (Outline)styleRunProperties.Outline.CloneNode(true);
+    if (styleRunProperties.Position != null) runProperties.Position = (Position)styleRunProperties.Position.CloneNode(true);
+    if (styleRunProperties.RunFonts != null) runProperties.RunFonts = (RunFonts)styleRunProperties.RunFonts.CloneNode(true);
+    if (styleRunProperties.Shading != null) runProperties.Shading = (Shading)styleRunProperties.Shading.CloneNode(true);
+    if (styleRunProperties.Shadow != null) runProperties.Shadow = (Shadow)styleRunProperties.Shadow.CloneNode(true);
+    if (styleRunProperties.SmallCaps != null) runProperties.SmallCaps = (SmallCaps)styleRunProperties.SmallCaps.CloneNode(true);
+    if (styleRunProperties.SnapToGrid != null) runProperties.SnapToGrid = (SnapToGrid)styleRunProperties.SnapToGrid.CloneNode(true);
+    if (styleRunProperties.Spacing != null) runProperties.Spacing = (Spacing)styleRunProperties.Spacing.CloneNode(true);
+    if (styleRunProperties.SpecVanish != null) runProperties.SpecVanish = (SpecVanish)styleRunProperties.SpecVanish.CloneNode(true);
+    if (styleRunProperties.Strike != null) runProperties.Strike = (Strike)styleRunProperties.Strike.CloneNode(true);
+    if (styleRunProperties.TextEffect != null) runProperties.TextEffect = (TextEffect)styleRunProperties.TextEffect.CloneNode(true);
+    if (styleRunProperties.Underline != null) runProperties.Underline = (Underline)styleRunProperties.Underline.CloneNode(true);
+    if (styleRunProperties.Vanish != null) runProperties.Vanish = (Vanish)styleRunProperties.Vanish.CloneNode(true);
+    if (styleRunProperties.VerticalTextAlignment != null) runProperties.VerticalTextAlignment = (VerticalTextAlignment)styleRunProperties.VerticalTextAlignment.CloneNode(true);
+    if (styleRunProperties.WebHidden != null) runProperties.WebHidden = (WebHidden)styleRunProperties.WebHidden.CloneNode(true);
+    return runProperties;
+  }
+
 }

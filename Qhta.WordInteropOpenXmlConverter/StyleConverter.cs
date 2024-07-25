@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using DocumentFormat.OpenXml;
 
 using static Microsoft.Office.Interop.Word.WdStyleType;
-
+using static Qhta.OpenXmlTools.StyleTools;
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -36,7 +36,7 @@ public class StyleConverter
     #region style id and name
     var styleId = wordStyle.NameLocal;
     Debug.WriteLine($"Converting style \"{styleId}\"");
-    styleId = StyleTools.StyleNameToId(styleId!);
+    styleId = StyleNameToId(styleId!);
     xStyle.StyleId = styleId;
 
     if (!styleTools.TryLocalNameToBuiltinName(wordStyle.NameLocal, out var styleName))
@@ -77,19 +77,19 @@ public class StyleConverter
     {
       Word.Style baseStyle = (Word.Style)wordStyle.get_BaseStyle();
       if (baseStyle.NameLocal.Length > 0)
-        xStyle.BasedOn = new W.BasedOn { Val = StyleTools.StyleNameToId(baseStyle.NameLocal) };
+        xStyle.BasedOn = new W.BasedOn { Val = StyleNameToId(baseStyle.NameLocal) };
     }
     catch (COMException) { }
     try
     {
       Word.Style linkStyle = (Word.Style)wordStyle.get_LinkStyle();
-      xStyle.LinkedStyle = new W.LinkedStyle { Val = StyleTools.StyleNameToId(linkStyle.NameLocal) };
+      xStyle.LinkedStyle = new W.LinkedStyle { Val = StyleNameToId(linkStyle.NameLocal) };
     }
     catch (COMException) { }
     try
     {
       Word.Style nextParagraphStyle = (Word.Style)wordStyle.get_NextParagraphStyle();
-      xStyle.NextParagraphStyle = new W.NextParagraphStyle { Val = StyleTools.StyleNameToId(nextParagraphStyle.NameLocal) };
+      xStyle.NextParagraphStyle = new W.NextParagraphStyle { Val = StyleNameToId(nextParagraphStyle.NameLocal) };
     }
     catch (COMException) { }
 

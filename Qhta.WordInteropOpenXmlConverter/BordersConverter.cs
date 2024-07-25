@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 
 using static Microsoft.Office.Interop.Word.WdLineStyle;
 using static Microsoft.Office.Interop.Word.WdLineWidth;

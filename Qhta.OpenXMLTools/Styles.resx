@@ -1,0 +1,1507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="wdStyleOutlineList2">
+    <value>1 / 1.1 / 1.1.1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleOutlineList1">
+    <value>1 / a / i</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleOutlineList3">
+    <value>Article / Section</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleBalloonText">
+    <value>Balloon Text</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleBibliography">
+    <value>Bibliography</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBlockText">
+    <value>Block Text</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleBodyText">
+    <value>Body Text</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyText2">
+    <value>Body Text 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyText3">
+    <value>Body Text 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyTextFirstIndent">
+    <value>Body Text First Indent</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyTextFirstIndent2">
+    <value>Body Text First Indent 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyTextIndent">
+    <value>Body Text Indent</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyTextIndent2">
+    <value>Body Text Indent 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBodyTextIndent3">
+    <value>Body Text Indent 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleBookTitle">
+    <value>Book Title</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleCaption">
+    <value>Caption</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleClosing">
+    <value>Closing</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleColorfulGrid">
+    <value>Colorful Grid</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulGridAccent1">
+    <value>Colorful Grid - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulGridAccent2">
+    <value>Colorful Grid - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulGridAccent3">
+    <value>Colorful Grid - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulGridAccent4">
+    <value>Colorful Grid - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulGridAccent5">
+    <value>Colorful Grid - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulGridAccent6">
+    <value>Colorful Grid - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulList">
+    <value>Colorful List</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulListAccent1">
+    <value>Colorful List - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulListAccent2">
+    <value>Colorful List - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulListAccent3">
+    <value>Colorful List - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulListAccent4">
+    <value>Colorful List - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulListAccent5">
+    <value>Colorful List - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulListAccent6">
+    <value>Colorful List - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShading">
+    <value>Colorful Shading</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShadingAccent1">
+    <value>Colorful Shading - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShadingAccent2">
+    <value>Colorful Shading - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShadingAccent3">
+    <value>Colorful Shading - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShadingAccent4">
+    <value>Colorful Shading - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShadingAccent5">
+    <value>Colorful Shading - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleColorfulShadingAccent6">
+    <value>Colorful Shading - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleAnnotationReference">
+    <value>Comment Reference</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleAnnotationSubject">
+    <value>Comment Subject</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleAnnotationText">
+    <value>Comment Text</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkList">
+    <value>Dark List</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkListAccent1">
+    <value>Dark List - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkListAccent2">
+    <value>Dark List - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkListAccent3">
+    <value>Dark List - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkListAccent4">
+    <value>Dark List - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkListAccent5">
+    <value>Dark List - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDarkListAccent6">
+    <value>Dark List - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleDate">
+    <value>Date</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleDefaultParagraphFont">
+    <value>Default Paragraph Font</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleDocumentMap">
+    <value>Document Map</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleE-mailSignature">
+    <value>E-mail Signature</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleEmphasis">
+    <value>Emphasis</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleEndnoteReference">
+    <value>Endnote Reference</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleEndnoteText">
+    <value>Endnote Text</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleEnvelopeAddress">
+    <value>Envelope Address</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleEnvelopeReturn">
+    <value>Envelope Return</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleFollowedhyperlink">
+    <value>FollowedHyperlink</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleFooter">
+    <value>Footer</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleFootnoteReference">
+    <value>Footnote Reference</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleFootnoteText">
+    <value>Footnote Text</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleGridTable1Light">
+    <value>Grid Table 1 Light</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable1LightAccent1">
+    <value>Grid Table 1 Light - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable1LightAccent2">
+    <value>Grid Table 1 Light - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable1LightAccent3">
+    <value>Grid Table 1 Light - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable1LightAccent4">
+    <value>Grid Table 1 Light - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable1LightAccent5">
+    <value>Grid Table 1 Light - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable1LightAccent6">
+    <value>Grid Table 1 Light - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2">
+    <value>Grid Table 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2Accent1">
+    <value>Grid Table 2 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2Accent2">
+    <value>Grid Table 2 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2Accent3">
+    <value>Grid Table 2 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2Accent4">
+    <value>Grid Table 2 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2Accent5">
+    <value>Grid Table 2 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable2Accent6">
+    <value>Grid Table 2 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3">
+    <value>Grid Table 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3Accent1">
+    <value>Grid Table 3 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3Accent2">
+    <value>Grid Table 3 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3Accent3">
+    <value>Grid Table 3 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3Accent4">
+    <value>Grid Table 3 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3Accent5">
+    <value>Grid Table 3 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable3Accent6">
+    <value>Grid Table 3 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4">
+    <value>Grid Table 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4Accent1">
+    <value>Grid Table 4 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4Accent2">
+    <value>Grid Table 4 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4Accent3">
+    <value>Grid Table 4 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4Accent4">
+    <value>Grid Table 4 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4Accent5">
+    <value>Grid Table 4 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable4Accent6">
+    <value>Grid Table 4 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5Dark">
+    <value>Grid Table 5 Dark</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5DarkAccent1">
+    <value>Grid Table 5 Dark - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5DarkAccent2">
+    <value>Grid Table 5 Dark - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5DarkAccent3">
+    <value>Grid Table 5 Dark - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5DarkAccent4">
+    <value>Grid Table 5 Dark - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5DarkAccent5">
+    <value>Grid Table 5 Dark - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable5DarkAccent6">
+    <value>Grid Table 5 Dark - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6Colorful">
+    <value>Grid Table 6 Colorful</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6ColorfulAccent1">
+    <value>Grid Table 6 Colorful - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6ColorfulAccent2">
+    <value>Grid Table 6 Colorful - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6ColorfulAccent3">
+    <value>Grid Table 6 Colorful - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6ColorfulAccent4">
+    <value>Grid Table 6 Colorful - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6ColorfulAccent5">
+    <value>Grid Table 6 Colorful - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable6ColorfulAccent6">
+    <value>Grid Table 6 Colorful - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7Colorful">
+    <value>Grid Table 7 Colorful</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7ColorfulAccent1">
+    <value>Grid Table 7 Colorful - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7ColorfulAccent2">
+    <value>Grid Table 7 Colorful - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7ColorfulAccent3">
+    <value>Grid Table 7 Colorful - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7ColorfulAccent4">
+    <value>Grid Table 7 Colorful - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7ColorfulAccent5">
+    <value>Grid Table 7 Colorful - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTable7ColorfulAccent6">
+    <value>Grid Table 7 Colorful - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHashtag">
+    <value>Hashtag</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHeader">
+    <value>Header</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading1">
+    <value>Heading 1</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading2">
+    <value>Heading 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading3">
+    <value>Heading 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading4">
+    <value>Heading 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading5">
+    <value>Heading 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading6">
+    <value>Heading 6</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading7">
+    <value>Heading 7</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading8">
+    <value>Heading 8</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHeading9">
+    <value>Heading 9</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHtmlAcronym">
+    <value>HTML Acronym</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHtmlAddress">
+    <value>HTML Address</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHtmlCite">
+    <value>HTML Cite</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHtmlCode">
+    <value>HTML Code</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleHtmlDefinition">
+    <value>HTML Definition</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHtmlKeyboard">
+    <value>HTML Keyboard</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHtmlPreformatted">
+    <value>HTML Preformatted</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHtmlSample">
+    <value>HTML Sample</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHtmlTypewriter">
+    <value>HTML Typewriter</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHtmlVariable">
+    <value>HTML Variable</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleHyperlink">
+    <value>Hyperlink</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex1">
+    <value>Index 1</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex2">
+    <value>Index 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex3">
+    <value>Index 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex4">
+    <value>Index 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex5">
+    <value>Index 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex6">
+    <value>Index 6</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex7">
+    <value>Index 7</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex8">
+    <value>Index 8</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndex9">
+    <value>Index 9</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIndexHeading">
+    <value>Index Heading</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIntenseEmphasis">
+    <value>Intense Emphasis</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIntenseQuote">
+    <value>Intense Quote</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleIntenseReference">
+    <value>Intense Reference</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleLightGrid">
+    <value>Light Grid</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightGridAccent1">
+    <value>Light Grid - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightGridAccent2">
+    <value>Light Grid - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightGridAccent3">
+    <value>Light Grid - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightGridAccent4">
+    <value>Light Grid - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightGridAccent5">
+    <value>Light Grid - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightGridAccent6">
+    <value>Light Grid - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightList">
+    <value>Light List</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightListAccent1">
+    <value>Light List - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightListAccent2">
+    <value>Light List - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightListAccent3">
+    <value>Light List - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightListAccent4">
+    <value>Light List - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightListAccent5">
+    <value>Light List - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightListAccent6">
+    <value>Light List - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShading">
+    <value>Light Shading</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShadingAccent1">
+    <value>Light Shading - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShadingAccent2">
+    <value>Light Shading - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShadingAccent3">
+    <value>Light Shading - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShadingAccent4">
+    <value>Light Shading - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShadingAccent5">
+    <value>Light Shading - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLightShadingAccent6">
+    <value>Light Shading - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleLineNumber">
+    <value>Line Number</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleList">
+    <value>List</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleList2">
+    <value>List 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleList3">
+    <value>List 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleList4">
+    <value>List 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleList5">
+    <value>List 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListBullet">
+    <value>List Bullet</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListBullet2">
+    <value>List Bullet 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListBullet3">
+    <value>List Bullet 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListBullet4">
+    <value>List Bullet 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListBullet5">
+    <value>List Bullet 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListContinue">
+    <value>List Continue</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListContinue2">
+    <value>List Continue 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListContinue3">
+    <value>List Continue 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListContinue4">
+    <value>List Continue 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListContinue5">
+    <value>List Continue 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListNumber">
+    <value>List Number</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListNumber2">
+    <value>List Number 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListNumber3">
+    <value>List Number 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListNumber4">
+    <value>List Number 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListNumber5">
+    <value>List Number 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListParagraph">
+    <value>List Paragraph</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleListTable1Light">
+    <value>List Table 1 Light</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable1LightAccent1">
+    <value>List Table 1 Light - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable1LightAccent2">
+    <value>List Table 1 Light - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable1LightAccent3">
+    <value>List Table 1 Light - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable1LightAccent4">
+    <value>List Table 1 Light - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable1LightAccent5">
+    <value>List Table 1 Light - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable1LightAccent6">
+    <value>List Table 1 Light - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2">
+    <value>List Table 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2Accent1">
+    <value>List Table 2 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2Accent2">
+    <value>List Table 2 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2Accent3">
+    <value>List Table 2 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2Accent4">
+    <value>List Table 2 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2Accent5">
+    <value>List Table 2 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable2Accent6">
+    <value>List Table 2 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3">
+    <value>List Table 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3Accent1">
+    <value>List Table 3 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3Accent2">
+    <value>List Table 3 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3Accent3">
+    <value>List Table 3 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3Accent4">
+    <value>List Table 3 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3Accent5">
+    <value>List Table 3 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable3Accent6">
+    <value>List Table 3 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4">
+    <value>List Table 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4Accent1">
+    <value>List Table 4 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4Accent2">
+    <value>List Table 4 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4Accent3">
+    <value>List Table 4 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4Accent4">
+    <value>List Table 4 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4Accent5">
+    <value>List Table 4 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable4Accent6">
+    <value>List Table 4 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5Dark">
+    <value>List Table 5 Dark</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5DarkAccent1">
+    <value>List Table 5 Dark - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5DarkAccent2">
+    <value>List Table 5 Dark - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5DarkAccent3">
+    <value>List Table 5 Dark - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5DarkAccent4">
+    <value>List Table 5 Dark - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5DarkAccent5">
+    <value>List Table 5 Dark - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable5DarkAccent6">
+    <value>List Table 5 Dark - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6Colorful">
+    <value>List Table 6 Colorful</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6ColorfulAccent1">
+    <value>List Table 6 Colorful - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6ColorfulAccent2">
+    <value>List Table 6 Colorful - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6ColorfulAccent3">
+    <value>List Table 6 Colorful - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6ColorfulAccent4">
+    <value>List Table 6 Colorful - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6ColorfulAccent5">
+    <value>List Table 6 Colorful - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable6ColorfulAccent6">
+    <value>List Table 6 Colorful - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7Colorful">
+    <value>List Table 7 Colorful</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7ColorfulAccent1">
+    <value>List Table 7 Colorful - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7ColorfulAccent2">
+    <value>List Table 7 Colorful - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7ColorfulAccent3">
+    <value>List Table 7 Colorful - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7ColorfulAccent4">
+    <value>List Table 7 Colorful - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7ColorfulAccent5">
+    <value>List Table 7 Colorful - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleListTable7ColorfulAccent6">
+    <value>List Table 7 Colorful - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMacro">
+    <value>Macro Text</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1">
+    <value>Medium Grid 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1Accent1">
+    <value>Medium Grid 1 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1Accent2">
+    <value>Medium Grid 1 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1Accent3">
+    <value>Medium Grid 1 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1Accent4">
+    <value>Medium Grid 1 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1Accent5">
+    <value>Medium Grid 1 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid1Accent6">
+    <value>Medium Grid 1 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2">
+    <value>Medium Grid 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2Accent1">
+    <value>Medium Grid 2 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2Accent2">
+    <value>Medium Grid 2 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2Accent3">
+    <value>Medium Grid 2 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2Accent4">
+    <value>Medium Grid 2 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2Accent5">
+    <value>Medium Grid 2 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid2Accent6">
+    <value>Medium Grid 2 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3">
+    <value>Medium Grid 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3Accent1">
+    <value>Medium Grid 3 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3Accent2">
+    <value>Medium Grid 3 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3Accent3">
+    <value>Medium Grid 3 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3Accent4">
+    <value>Medium Grid 3 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3Accent5">
+    <value>Medium Grid 3 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumGrid3Accent6">
+    <value>Medium Grid 3 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1">
+    <value>Medium List 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1Accent1">
+    <value>Medium List 1 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1Accent2">
+    <value>Medium List 1 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1Accent3">
+    <value>Medium List 1 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1Accent4">
+    <value>Medium List 1 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1Accent5">
+    <value>Medium List 1 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList1Accent6">
+    <value>Medium List 1 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2">
+    <value>Medium List 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2Accent1">
+    <value>Medium List 2 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2Accent2">
+    <value>Medium List 2 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2Accent3">
+    <value>Medium List 2 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2Accent4">
+    <value>Medium List 2 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2Accent5">
+    <value>Medium List 2 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumList2Accent6">
+    <value>Medium List 2 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1">
+    <value>Medium Shading 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1Accent1">
+    <value>Medium Shading 1 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1Accent2">
+    <value>Medium Shading 1 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1Accent3">
+    <value>Medium Shading 1 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1Accent4">
+    <value>Medium Shading 1 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1Accent5">
+    <value>Medium Shading 1 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading1Accent6">
+    <value>Medium Shading 1 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2">
+    <value>Medium Shading 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2Accent1">
+    <value>Medium Shading 2 - Accent 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2Accent2">
+    <value>Medium Shading 2 - Accent 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2Accent3">
+    <value>Medium Shading 2 - Accent 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2Accent4">
+    <value>Medium Shading 2 - Accent 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2Accent5">
+    <value>Medium Shading 2 - Accent 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMediumShading2Accent6">
+    <value>Medium Shading 2 - Accent 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMention">
+    <value>Mention</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleMessageHeader">
+    <value>Message Header</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleNoList">
+    <value>No List</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleNoSpacing">
+    <value>No Spacing</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleNormal">
+    <value>Normal</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleNormalweb">
+    <value>Normal (Web)</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleNormalIndent">
+    <value>Normal Indent</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleNoteHeading">
+    <value>Note Heading</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStylePageNumber">
+    <value>Page Number</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStylePlaceholderText">
+    <value>Placeholder Text</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStylePlainTable1">
+    <value>Plain Table 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStylePlainTable2">
+    <value>Plain Table 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStylePlainTable3">
+    <value>Plain Table 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStylePlainTable4">
+    <value>Plain Table 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStylePlainTable5">
+    <value>Plain Table 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStylePlainText">
+    <value>Plain Text</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleQuote">
+    <value>Quote</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleSalutation">
+    <value>Salutation</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleSignature">
+    <value>Signature</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleSmartHyperlink">
+    <value>Smart Hyperlink</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleSmartLink">
+    <value>SmartLink</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleStrong">
+    <value>Strong</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleSubtitle">
+    <value>Subtitle</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleSubtleEmphasis">
+    <value>Subtle Emphasis</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleSubtleReference">
+    <value>Subtle Reference</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTable3dEffects1">
+    <value>Table 3D effects 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTable3dEffects2">
+    <value>Table 3D effects 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTable3dEffects3">
+    <value>Table 3D effects 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableClassic1">
+    <value>Table Classic 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableClassic2">
+    <value>Table Classic 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableClassic3">
+    <value>Table Classic 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableClassic4">
+    <value>Table Classic 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColorful1">
+    <value>Table Colorful 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColorful2">
+    <value>Table Colorful 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColorful3">
+    <value>Table Colorful 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColumns1">
+    <value>Table Columns 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColumns2">
+    <value>Table Columns 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColumns3">
+    <value>Table Columns 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColumns4">
+    <value>Table Columns 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableColumns5">
+    <value>Table Columns 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableContemporary">
+    <value>Table Contemporary</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableElegant">
+    <value>Table Elegant</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid">
+    <value>Table Grid</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid1">
+    <value>Table Grid 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid2">
+    <value>Table Grid 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid3">
+    <value>Table Grid 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid4">
+    <value>Table Grid 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid5">
+    <value>Table Grid 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid6">
+    <value>Table Grid 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid7">
+    <value>Table Grid 7</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableGrid8">
+    <value>Table Grid 8</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleGridTableLight">
+    <value>Table Grid Light</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList1">
+    <value>Table List 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList2">
+    <value>Table List 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList3">
+    <value>Table List 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList4">
+    <value>Table List 4</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList5">
+    <value>Table List 5</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList6">
+    <value>Table List 6</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList7">
+    <value>Table List 7</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableList8">
+    <value>Table List 8</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleNormalTable">
+    <value>Table Normal</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTableOfAuthorities">
+    <value>Table of Authorities</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTableOfFigures">
+    <value>Table of Figures</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTableProfessional">
+    <value>Table Professional</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableSimple1">
+    <value>Table Simple 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableSimple2">
+    <value>Table Simple 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableSimple3">
+    <value>Table Simple 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableSubtle1">
+    <value>Table Subtle 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableSubtle2">
+    <value>Table Subtle 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableTheme">
+    <value>Table Theme</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableWeb1">
+    <value>Table Web 1</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableWeb2">
+    <value>Table Web 2</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTableWeb3">
+    <value>Table Web 3</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+  <data name="wdStyleTitle">
+    <value>Title</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOAHeading">
+    <value>TOA Heading</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC1">
+    <value>TOC 1</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC2">
+    <value>TOC 2</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC3">
+    <value>TOC 3</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC4">
+    <value>TOC 4</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC5">
+    <value>TOC 5</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC6">
+    <value>TOC 6</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC7">
+    <value>TOC 7</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC8">
+    <value>TOC 8</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTOC9">
+    <value>TOC 9</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleTocHeading">
+    <value>TOC Heading</value>
+    <comment>Built-in style</comment>
+  </data>
+  <data name="wdStyleUnresolvedMention">
+    <value>Unresolved Mention</value>
+    <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
+  </data>
+</root>

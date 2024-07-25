@@ -78,7 +78,7 @@ public class TablePropertiesConverter
       //var allowPageBreaks = tableStyle.AllowPageBreaks;
       var borderList = new BordersConverter().CreateBordersList(tableStyle.Borders);
       if (borderList != null)
-        xTableProperties.TableBorders = borderList.ToTableBorders();
+        xTableProperties.TableBorders = borderList.ToOpenXmlBorders<W.TableBorders>();
     }
     return xTableProperties;
   }

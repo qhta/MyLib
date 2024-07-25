@@ -2,14 +2,23 @@
 
 namespace Qhta.OpenXmlTools;
 
+/// <summary>
+/// Tools for working with OpenXml Wordprocessing Endnotes element.
+/// </summary>
 public static class EndnoteTools
 {
 
+  /// <summary>
+  /// Initialize the Endnotes element with the default separator and continuation separator.
+  /// </summary>
+  /// <param name="endnotes"></param>
   public static void Init(this Endnotes endnotes)
   {
-    var item_1 = new DXW.Endnote();
-    item_1.Id=-1;
-    item_1.Type = FootnoteEndnoteValues.Separator;
+    var item_1 = new DXW.Endnote
+    {
+      Id = -1,
+      Type = FootnoteEndnoteValues.Separator
+    };
     var p_1 = new DXW.Paragraph();
     item_1.AppendChild(p_1);
     var r_1 = new DXW.Run();
@@ -18,9 +27,11 @@ public static class EndnoteTools
     r_1.AppendChild(s_1);
     endnotes.AppendChild(item_1);
 
-    var item0 = new DXW.Endnote();
-    item0.Id=0;
-    item0.Type = FootnoteEndnoteValues.ContinuationSeparator;
+    var item0 = new DXW.Endnote
+    {
+      Id = 0,
+      Type = FootnoteEndnoteValues.ContinuationSeparator
+    };
     var p0 = new DXW.Paragraph();
     item0.AppendChild(p0);
     var r0 = new DXW.Run();
