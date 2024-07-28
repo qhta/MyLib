@@ -5,6 +5,9 @@ using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
+/// <summary>
+/// Tools for working with OpenXml Wordprocessing Run element.
+/// </summary>
 public static class RunTools
 {
   //public static AnnotationReferenceMark GetAnnotationReferenceMark (this Run run) { return run.Elements<AnnotationReferenceMark>().FirstOrDefault();} 
@@ -41,6 +44,11 @@ public static class RunTools
   //public static CommentReference GetCommentReference (this Run run) { return run.Elements<CommentReference>().FirstOrDefault();} 
   //public static Drawing GetDrawing (this Run run) { return run.Elements<Drawing>().FirstOrDefault();} 
 
+  /// <summary>
+  /// Get the joined text of the run.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
   public static string GetText(this Run run)
   {
     return String.Join("", run.Elements<TextType>().Select(item => item.Text));

@@ -2604,6 +2604,1887 @@
             <param name="settings"></param>
             <result>wordprocessing document</result>
         </member>
+        <member name="T:Qhta.OpenXmlTools.Styles">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleAnnotationReference">
+            <summary>
+              Looks up a localized string similar to Comment Reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleAnnotationSubject">
+            <summary>
+              Looks up a localized string similar to Comment Subject.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleAnnotationText">
+            <summary>
+              Looks up a localized string similar to Comment Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBalloonText">
+            <summary>
+              Looks up a localized string similar to Balloon Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBibliography">
+            <summary>
+              Looks up a localized string similar to Bibliography.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBlockText">
+            <summary>
+              Looks up a localized string similar to Block Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyText">
+            <summary>
+              Looks up a localized string similar to Body Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyText2">
+            <summary>
+              Looks up a localized string similar to Body Text 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyText3">
+            <summary>
+              Looks up a localized string similar to Body Text 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyTextFirstIndent">
+            <summary>
+              Looks up a localized string similar to Body Text First Indent.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyTextFirstIndent2">
+            <summary>
+              Looks up a localized string similar to Body Text First Indent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyTextIndent">
+            <summary>
+              Looks up a localized string similar to Body Text Indent.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyTextIndent2">
+            <summary>
+              Looks up a localized string similar to Body Text Indent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBodyTextIndent3">
+            <summary>
+              Looks up a localized string similar to Body Text Indent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleBookTitle">
+            <summary>
+              Looks up a localized string similar to Book Title.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleCaption">
+            <summary>
+              Looks up a localized string similar to Caption.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleClosing">
+            <summary>
+              Looks up a localized string similar to Closing.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGrid">
+            <summary>
+              Looks up a localized string similar to Colorful Grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGridAccent1">
+            <summary>
+              Looks up a localized string similar to Colorful Grid - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGridAccent2">
+            <summary>
+              Looks up a localized string similar to Colorful Grid - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGridAccent3">
+            <summary>
+              Looks up a localized string similar to Colorful Grid - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGridAccent4">
+            <summary>
+              Looks up a localized string similar to Colorful Grid - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGridAccent5">
+            <summary>
+              Looks up a localized string similar to Colorful Grid - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulGridAccent6">
+            <summary>
+              Looks up a localized string similar to Colorful Grid - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulList">
+            <summary>
+              Looks up a localized string similar to Colorful List.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulListAccent1">
+            <summary>
+              Looks up a localized string similar to Colorful List - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulListAccent2">
+            <summary>
+              Looks up a localized string similar to Colorful List - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulListAccent3">
+            <summary>
+              Looks up a localized string similar to Colorful List - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulListAccent4">
+            <summary>
+              Looks up a localized string similar to Colorful List - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulListAccent5">
+            <summary>
+              Looks up a localized string similar to Colorful List - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulListAccent6">
+            <summary>
+              Looks up a localized string similar to Colorful List - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShading">
+            <summary>
+              Looks up a localized string similar to Colorful Shading.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShadingAccent1">
+            <summary>
+              Looks up a localized string similar to Colorful Shading - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShadingAccent2">
+            <summary>
+              Looks up a localized string similar to Colorful Shading - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShadingAccent3">
+            <summary>
+              Looks up a localized string similar to Colorful Shading - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShadingAccent4">
+            <summary>
+              Looks up a localized string similar to Colorful Shading - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShadingAccent5">
+            <summary>
+              Looks up a localized string similar to Colorful Shading - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleColorfulShadingAccent6">
+            <summary>
+              Looks up a localized string similar to Colorful Shading - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkList">
+            <summary>
+              Looks up a localized string similar to Dark List.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkListAccent1">
+            <summary>
+              Looks up a localized string similar to Dark List - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkListAccent2">
+            <summary>
+              Looks up a localized string similar to Dark List - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkListAccent3">
+            <summary>
+              Looks up a localized string similar to Dark List - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkListAccent4">
+            <summary>
+              Looks up a localized string similar to Dark List - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkListAccent5">
+            <summary>
+              Looks up a localized string similar to Dark List - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDarkListAccent6">
+            <summary>
+              Looks up a localized string similar to Dark List - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDate">
+            <summary>
+              Looks up a localized string similar to Date.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDefaultParagraphFont">
+            <summary>
+              Looks up a localized string similar to Default Paragraph Font.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleDocumentMap">
+            <summary>
+              Looks up a localized string similar to Document Map.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleE_mailSignature">
+            <summary>
+              Looks up a localized string similar to E-mail Signature.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleEmphasis">
+            <summary>
+              Looks up a localized string similar to Emphasis.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleEndnoteReference">
+            <summary>
+              Looks up a localized string similar to Endnote Reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleEndnoteText">
+            <summary>
+              Looks up a localized string similar to Endnote Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleEnvelopeAddress">
+            <summary>
+              Looks up a localized string similar to Envelope Address.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleEnvelopeReturn">
+            <summary>
+              Looks up a localized string similar to Envelope Return.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleFollowedhyperlink">
+            <summary>
+              Looks up a localized string similar to FollowedHyperlink.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleFooter">
+            <summary>
+              Looks up a localized string similar to Footer.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleFootnoteReference">
+            <summary>
+              Looks up a localized string similar to Footnote Reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleFootnoteText">
+            <summary>
+              Looks up a localized string similar to Footnote Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1Light">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1LightAccent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1LightAccent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1LightAccent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1LightAccent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1LightAccent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable1LightAccent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 1 Light - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2">
+            <summary>
+              Looks up a localized string similar to Grid Table 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2Accent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 2 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2Accent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 2 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2Accent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 2 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2Accent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 2 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2Accent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 2 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable2Accent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 2 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3">
+            <summary>
+              Looks up a localized string similar to Grid Table 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3Accent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 3 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3Accent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 3 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3Accent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 3 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3Accent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 3 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3Accent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 3 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable3Accent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 3 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4">
+            <summary>
+              Looks up a localized string similar to Grid Table 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4Accent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 4 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4Accent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 4 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4Accent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 4 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4Accent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 4 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4Accent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 4 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable4Accent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 4 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5Dark">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5DarkAccent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5DarkAccent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5DarkAccent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5DarkAccent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5DarkAccent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable5DarkAccent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 5 Dark - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6Colorful">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6ColorfulAccent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6ColorfulAccent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6ColorfulAccent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6ColorfulAccent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6ColorfulAccent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable6ColorfulAccent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 6 Colorful - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7Colorful">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7ColorfulAccent1">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7ColorfulAccent2">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7ColorfulAccent3">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7ColorfulAccent4">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7ColorfulAccent5">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTable7ColorfulAccent6">
+            <summary>
+              Looks up a localized string similar to Grid Table 7 Colorful - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleGridTableLight">
+            <summary>
+              Looks up a localized string similar to Table Grid Light.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHashtag">
+            <summary>
+              Looks up a localized string similar to Hashtag.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeader">
+            <summary>
+              Looks up a localized string similar to Header.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading1">
+            <summary>
+              Looks up a localized string similar to Heading 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading2">
+            <summary>
+              Looks up a localized string similar to Heading 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading3">
+            <summary>
+              Looks up a localized string similar to Heading 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading4">
+            <summary>
+              Looks up a localized string similar to Heading 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading5">
+            <summary>
+              Looks up a localized string similar to Heading 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading6">
+            <summary>
+              Looks up a localized string similar to Heading 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading7">
+            <summary>
+              Looks up a localized string similar to Heading 7.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading8">
+            <summary>
+              Looks up a localized string similar to Heading 8.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHeading9">
+            <summary>
+              Looks up a localized string similar to Heading 9.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlAcronym">
+            <summary>
+              Looks up a localized string similar to HTML Acronym.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlAddress">
+            <summary>
+              Looks up a localized string similar to HTML Address.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlCite">
+            <summary>
+              Looks up a localized string similar to HTML Cite.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlCode">
+            <summary>
+              Looks up a localized string similar to HTML Code.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlDefinition">
+            <summary>
+              Looks up a localized string similar to HTML Definition.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlKeyboard">
+            <summary>
+              Looks up a localized string similar to HTML Keyboard.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlPreformatted">
+            <summary>
+              Looks up a localized string similar to HTML Preformatted.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlSample">
+            <summary>
+              Looks up a localized string similar to HTML Sample.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlTypewriter">
+            <summary>
+              Looks up a localized string similar to HTML Typewriter.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHtmlVariable">
+            <summary>
+              Looks up a localized string similar to HTML Variable.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleHyperlink">
+            <summary>
+              Looks up a localized string similar to Hyperlink.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex1">
+            <summary>
+              Looks up a localized string similar to Index 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex2">
+            <summary>
+              Looks up a localized string similar to Index 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex3">
+            <summary>
+              Looks up a localized string similar to Index 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex4">
+            <summary>
+              Looks up a localized string similar to Index 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex5">
+            <summary>
+              Looks up a localized string similar to Index 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex6">
+            <summary>
+              Looks up a localized string similar to Index 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex7">
+            <summary>
+              Looks up a localized string similar to Index 7.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex8">
+            <summary>
+              Looks up a localized string similar to Index 8.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndex9">
+            <summary>
+              Looks up a localized string similar to Index 9.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIndexHeading">
+            <summary>
+              Looks up a localized string similar to Index Heading.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIntenseEmphasis">
+            <summary>
+              Looks up a localized string similar to Intense Emphasis.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIntenseQuote">
+            <summary>
+              Looks up a localized string similar to Intense Quote.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleIntenseReference">
+            <summary>
+              Looks up a localized string similar to Intense Reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGrid">
+            <summary>
+              Looks up a localized string similar to Light Grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGridAccent1">
+            <summary>
+              Looks up a localized string similar to Light Grid - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGridAccent2">
+            <summary>
+              Looks up a localized string similar to Light Grid - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGridAccent3">
+            <summary>
+              Looks up a localized string similar to Light Grid - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGridAccent4">
+            <summary>
+              Looks up a localized string similar to Light Grid - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGridAccent5">
+            <summary>
+              Looks up a localized string similar to Light Grid - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightGridAccent6">
+            <summary>
+              Looks up a localized string similar to Light Grid - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightList">
+            <summary>
+              Looks up a localized string similar to Light List.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightListAccent1">
+            <summary>
+              Looks up a localized string similar to Light List - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightListAccent2">
+            <summary>
+              Looks up a localized string similar to Light List - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightListAccent3">
+            <summary>
+              Looks up a localized string similar to Light List - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightListAccent4">
+            <summary>
+              Looks up a localized string similar to Light List - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightListAccent5">
+            <summary>
+              Looks up a localized string similar to Light List - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightListAccent6">
+            <summary>
+              Looks up a localized string similar to Light List - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShading">
+            <summary>
+              Looks up a localized string similar to Light Shading.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShadingAccent1">
+            <summary>
+              Looks up a localized string similar to Light Shading - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShadingAccent2">
+            <summary>
+              Looks up a localized string similar to Light Shading - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShadingAccent3">
+            <summary>
+              Looks up a localized string similar to Light Shading - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShadingAccent4">
+            <summary>
+              Looks up a localized string similar to Light Shading - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShadingAccent5">
+            <summary>
+              Looks up a localized string similar to Light Shading - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLightShadingAccent6">
+            <summary>
+              Looks up a localized string similar to Light Shading - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleLineNumber">
+            <summary>
+              Looks up a localized string similar to Line Number.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleList">
+            <summary>
+              Looks up a localized string similar to List.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleList2">
+            <summary>
+              Looks up a localized string similar to List 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleList3">
+            <summary>
+              Looks up a localized string similar to List 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleList4">
+            <summary>
+              Looks up a localized string similar to List 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleList5">
+            <summary>
+              Looks up a localized string similar to List 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListBullet">
+            <summary>
+              Looks up a localized string similar to List Bullet.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListBullet2">
+            <summary>
+              Looks up a localized string similar to List Bullet 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListBullet3">
+            <summary>
+              Looks up a localized string similar to List Bullet 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListBullet4">
+            <summary>
+              Looks up a localized string similar to List Bullet 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListBullet5">
+            <summary>
+              Looks up a localized string similar to List Bullet 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListContinue">
+            <summary>
+              Looks up a localized string similar to List Continue.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListContinue2">
+            <summary>
+              Looks up a localized string similar to List Continue 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListContinue3">
+            <summary>
+              Looks up a localized string similar to List Continue 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListContinue4">
+            <summary>
+              Looks up a localized string similar to List Continue 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListContinue5">
+            <summary>
+              Looks up a localized string similar to List Continue 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListNumber">
+            <summary>
+              Looks up a localized string similar to List Number.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListNumber2">
+            <summary>
+              Looks up a localized string similar to List Number 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListNumber3">
+            <summary>
+              Looks up a localized string similar to List Number 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListNumber4">
+            <summary>
+              Looks up a localized string similar to List Number 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListNumber5">
+            <summary>
+              Looks up a localized string similar to List Number 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListParagraph">
+            <summary>
+              Looks up a localized string similar to List Paragraph.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1Light">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1LightAccent1">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1LightAccent2">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1LightAccent3">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1LightAccent4">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1LightAccent5">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable1LightAccent6">
+            <summary>
+              Looks up a localized string similar to List Table 1 Light - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2">
+            <summary>
+              Looks up a localized string similar to List Table 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2Accent1">
+            <summary>
+              Looks up a localized string similar to List Table 2 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2Accent2">
+            <summary>
+              Looks up a localized string similar to List Table 2 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2Accent3">
+            <summary>
+              Looks up a localized string similar to List Table 2 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2Accent4">
+            <summary>
+              Looks up a localized string similar to List Table 2 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2Accent5">
+            <summary>
+              Looks up a localized string similar to List Table 2 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable2Accent6">
+            <summary>
+              Looks up a localized string similar to List Table 2 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3">
+            <summary>
+              Looks up a localized string similar to List Table 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3Accent1">
+            <summary>
+              Looks up a localized string similar to List Table 3 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3Accent2">
+            <summary>
+              Looks up a localized string similar to List Table 3 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3Accent3">
+            <summary>
+              Looks up a localized string similar to List Table 3 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3Accent4">
+            <summary>
+              Looks up a localized string similar to List Table 3 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3Accent5">
+            <summary>
+              Looks up a localized string similar to List Table 3 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable3Accent6">
+            <summary>
+              Looks up a localized string similar to List Table 3 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4">
+            <summary>
+              Looks up a localized string similar to List Table 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4Accent1">
+            <summary>
+              Looks up a localized string similar to List Table 4 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4Accent2">
+            <summary>
+              Looks up a localized string similar to List Table 4 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4Accent3">
+            <summary>
+              Looks up a localized string similar to List Table 4 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4Accent4">
+            <summary>
+              Looks up a localized string similar to List Table 4 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4Accent5">
+            <summary>
+              Looks up a localized string similar to List Table 4 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable4Accent6">
+            <summary>
+              Looks up a localized string similar to List Table 4 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5Dark">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5DarkAccent1">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5DarkAccent2">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5DarkAccent3">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5DarkAccent4">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5DarkAccent5">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable5DarkAccent6">
+            <summary>
+              Looks up a localized string similar to List Table 5 Dark - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6Colorful">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6ColorfulAccent1">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6ColorfulAccent2">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6ColorfulAccent3">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6ColorfulAccent4">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6ColorfulAccent5">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable6ColorfulAccent6">
+            <summary>
+              Looks up a localized string similar to List Table 6 Colorful - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7Colorful">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7ColorfulAccent1">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7ColorfulAccent2">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7ColorfulAccent3">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7ColorfulAccent4">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7ColorfulAccent5">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleListTable7ColorfulAccent6">
+            <summary>
+              Looks up a localized string similar to List Table 7 Colorful - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMacro">
+            <summary>
+              Looks up a localized string similar to Macro Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1Accent1">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1Accent2">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1Accent3">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1Accent4">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1Accent5">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid1Accent6">
+            <summary>
+              Looks up a localized string similar to Medium Grid 1 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2Accent1">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2Accent2">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2Accent3">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2Accent4">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2Accent5">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid2Accent6">
+            <summary>
+              Looks up a localized string similar to Medium Grid 2 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3Accent1">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3Accent2">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3Accent3">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3Accent4">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3Accent5">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumGrid3Accent6">
+            <summary>
+              Looks up a localized string similar to Medium Grid 3 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1">
+            <summary>
+              Looks up a localized string similar to Medium List 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1Accent1">
+            <summary>
+              Looks up a localized string similar to Medium List 1 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1Accent2">
+            <summary>
+              Looks up a localized string similar to Medium List 1 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1Accent3">
+            <summary>
+              Looks up a localized string similar to Medium List 1 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1Accent4">
+            <summary>
+              Looks up a localized string similar to Medium List 1 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1Accent5">
+            <summary>
+              Looks up a localized string similar to Medium List 1 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList1Accent6">
+            <summary>
+              Looks up a localized string similar to Medium List 1 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2">
+            <summary>
+              Looks up a localized string similar to Medium List 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2Accent1">
+            <summary>
+              Looks up a localized string similar to Medium List 2 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2Accent2">
+            <summary>
+              Looks up a localized string similar to Medium List 2 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2Accent3">
+            <summary>
+              Looks up a localized string similar to Medium List 2 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2Accent4">
+            <summary>
+              Looks up a localized string similar to Medium List 2 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2Accent5">
+            <summary>
+              Looks up a localized string similar to Medium List 2 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumList2Accent6">
+            <summary>
+              Looks up a localized string similar to Medium List 2 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1Accent1">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1Accent2">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1Accent3">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1Accent4">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1Accent5">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading1Accent6">
+            <summary>
+              Looks up a localized string similar to Medium Shading 1 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2Accent1">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2 - Accent 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2Accent2">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2 - Accent 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2Accent3">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2 - Accent 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2Accent4">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2 - Accent 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2Accent5">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2 - Accent 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMediumShading2Accent6">
+            <summary>
+              Looks up a localized string similar to Medium Shading 2 - Accent 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMention">
+            <summary>
+              Looks up a localized string similar to Mention.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleMessageHeader">
+            <summary>
+              Looks up a localized string similar to Message Header.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNoList">
+            <summary>
+              Looks up a localized string similar to No List.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNormal">
+            <summary>
+              Looks up a localized string similar to Normal.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNormalIndent">
+            <summary>
+              Looks up a localized string similar to Normal Indent.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNormalTable">
+            <summary>
+              Looks up a localized string similar to Table Normal.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNormalweb">
+            <summary>
+              Looks up a localized string similar to Normal (Web).
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNoSpacing">
+            <summary>
+              Looks up a localized string similar to No Spacing.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleNoteHeading">
+            <summary>
+              Looks up a localized string similar to Note Heading.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleOutlineList1">
+            <summary>
+              Looks up a localized string similar to 1 / a / i.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleOutlineList2">
+            <summary>
+              Looks up a localized string similar to 1 / 1.1 / 1.1.1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleOutlineList3">
+            <summary>
+              Looks up a localized string similar to Article / Section.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePageNumber">
+            <summary>
+              Looks up a localized string similar to Page Number.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlaceholderText">
+            <summary>
+              Looks up a localized string similar to Placeholder Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlainTable1">
+            <summary>
+              Looks up a localized string similar to Plain Table 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlainTable2">
+            <summary>
+              Looks up a localized string similar to Plain Table 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlainTable3">
+            <summary>
+              Looks up a localized string similar to Plain Table 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlainTable4">
+            <summary>
+              Looks up a localized string similar to Plain Table 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlainTable5">
+            <summary>
+              Looks up a localized string similar to Plain Table 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStylePlainText">
+            <summary>
+              Looks up a localized string similar to Plain Text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleQuote">
+            <summary>
+              Looks up a localized string similar to Quote.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSalutation">
+            <summary>
+              Looks up a localized string similar to Salutation.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSignature">
+            <summary>
+              Looks up a localized string similar to Signature.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSmartHyperlink">
+            <summary>
+              Looks up a localized string similar to Smart Hyperlink.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSmartLink">
+            <summary>
+              Looks up a localized string similar to SmartLink.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleStrong">
+            <summary>
+              Looks up a localized string similar to Strong.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSubtitle">
+            <summary>
+              Looks up a localized string similar to Subtitle.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSubtleEmphasis">
+            <summary>
+              Looks up a localized string similar to Subtle Emphasis.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleSubtleReference">
+            <summary>
+              Looks up a localized string similar to Subtle Reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTable3dEffects1">
+            <summary>
+              Looks up a localized string similar to Table 3D effects 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTable3dEffects2">
+            <summary>
+              Looks up a localized string similar to Table 3D effects 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTable3dEffects3">
+            <summary>
+              Looks up a localized string similar to Table 3D effects 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableClassic1">
+            <summary>
+              Looks up a localized string similar to Table Classic 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableClassic2">
+            <summary>
+              Looks up a localized string similar to Table Classic 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableClassic3">
+            <summary>
+              Looks up a localized string similar to Table Classic 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableClassic4">
+            <summary>
+              Looks up a localized string similar to Table Classic 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColorful1">
+            <summary>
+              Looks up a localized string similar to Table Colorful 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColorful2">
+            <summary>
+              Looks up a localized string similar to Table Colorful 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColorful3">
+            <summary>
+              Looks up a localized string similar to Table Colorful 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColumns1">
+            <summary>
+              Looks up a localized string similar to Table Columns 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColumns2">
+            <summary>
+              Looks up a localized string similar to Table Columns 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColumns3">
+            <summary>
+              Looks up a localized string similar to Table Columns 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColumns4">
+            <summary>
+              Looks up a localized string similar to Table Columns 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableColumns5">
+            <summary>
+              Looks up a localized string similar to Table Columns 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableContemporary">
+            <summary>
+              Looks up a localized string similar to Table Contemporary.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableElegant">
+            <summary>
+              Looks up a localized string similar to Table Elegant.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid">
+            <summary>
+              Looks up a localized string similar to Table Grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid1">
+            <summary>
+              Looks up a localized string similar to Table Grid 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid2">
+            <summary>
+              Looks up a localized string similar to Table Grid 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid3">
+            <summary>
+              Looks up a localized string similar to Table Grid 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid4">
+            <summary>
+              Looks up a localized string similar to Table Grid 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid5">
+            <summary>
+              Looks up a localized string similar to Table Grid 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid6">
+            <summary>
+              Looks up a localized string similar to Table Grid 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid7">
+            <summary>
+              Looks up a localized string similar to Table Grid 7.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableGrid8">
+            <summary>
+              Looks up a localized string similar to Table Grid 8.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList1">
+            <summary>
+              Looks up a localized string similar to Table List 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList2">
+            <summary>
+              Looks up a localized string similar to Table List 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList3">
+            <summary>
+              Looks up a localized string similar to Table List 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList4">
+            <summary>
+              Looks up a localized string similar to Table List 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList5">
+            <summary>
+              Looks up a localized string similar to Table List 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList6">
+            <summary>
+              Looks up a localized string similar to Table List 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList7">
+            <summary>
+              Looks up a localized string similar to Table List 7.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableList8">
+            <summary>
+              Looks up a localized string similar to Table List 8.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableOfAuthorities">
+            <summary>
+              Looks up a localized string similar to Table of Authorities.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableOfFigures">
+            <summary>
+              Looks up a localized string similar to Table of Figures.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableProfessional">
+            <summary>
+              Looks up a localized string similar to Table Professional.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableSimple1">
+            <summary>
+              Looks up a localized string similar to Table Simple 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableSimple2">
+            <summary>
+              Looks up a localized string similar to Table Simple 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableSimple3">
+            <summary>
+              Looks up a localized string similar to Table Simple 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableSubtle1">
+            <summary>
+              Looks up a localized string similar to Table Subtle 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableSubtle2">
+            <summary>
+              Looks up a localized string similar to Table Subtle 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableTheme">
+            <summary>
+              Looks up a localized string similar to Table Theme.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableWeb1">
+            <summary>
+              Looks up a localized string similar to Table Web 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableWeb2">
+            <summary>
+              Looks up a localized string similar to Table Web 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTableWeb3">
+            <summary>
+              Looks up a localized string similar to Table Web 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTitle">
+            <summary>
+              Looks up a localized string similar to Title.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOAHeading">
+            <summary>
+              Looks up a localized string similar to TOA Heading.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC1">
+            <summary>
+              Looks up a localized string similar to TOC 1.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC2">
+            <summary>
+              Looks up a localized string similar to TOC 2.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC3">
+            <summary>
+              Looks up a localized string similar to TOC 3.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC4">
+            <summary>
+              Looks up a localized string similar to TOC 4.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC5">
+            <summary>
+              Looks up a localized string similar to TOC 5.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC6">
+            <summary>
+              Looks up a localized string similar to TOC 6.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC7">
+            <summary>
+              Looks up a localized string similar to TOC 7.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC8">
+            <summary>
+              Looks up a localized string similar to TOC 8.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTOC9">
+            <summary>
+              Looks up a localized string similar to TOC 9.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleTocHeading">
+            <summary>
+              Looks up a localized string similar to TOC Heading.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Styles.wdStyleUnresolvedMention">
+            <summary>
+              Looks up a localized string similar to Unresolved Mention.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.StyleTools">
             <summary>
             Tools for working with styles in OpenXml documents.

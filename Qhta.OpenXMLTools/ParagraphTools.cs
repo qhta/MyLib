@@ -51,20 +51,26 @@ public static class ParagraphTools
     return paragraph.ParagraphProperties?.ParagraphStyleId?.Val;
   }
 
-  /// <summary>
-  /// Check if the paragraph is a heading using an outline level.
-  /// </summary>
-  /// <param name="paragraph">Checked paragraph</param>
-  /// <returns>true if the paragraph outline level is not base text level</returns>
-  public static bool IsHeading(this Paragraph paragraph)
-  {
-    var outlineLevel = paragraph.OutlineLevel();
-    if (outlineLevel != null)
-    {
-      return outlineLevel <= 8;
-    }
-    return false;
-  }
+  //public static Style? Style(this Paragraph paragraph)
+  //{
+  //  var styleId = paragraph.StyleId();
+  //  return styleId == null ? null : StyleTools.GetStyle(paragraph.GetDocumentPart().styleId);
+  //}
+  //public static string? StyleName(this Paragraph paragraph)
+  //{
+  //  return paragraph.StyleId();
+  //}
+  ///// <summary>
+  ///// Check if the paragraph is a heading using its style name.
+  ///// </summary>
+  ///// <param name="paragraph">Checked paragraph</param>
+  ///// <returns>true if the paragraph outline level is not base text level</returns>
+  //public static bool IsHeading(this Paragraph paragraph)
+  //{
+  //  var styleId = paragraph.StyleId();
+
+  //  return false;
+  //}
 
   /// <summary>
   /// Check if the paragraph is a heading using the style name.

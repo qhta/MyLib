@@ -56,95 +56,6 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Get byte array from the VTBlob element.
-  /// </summary>
-  /// <param name="blob">Source blob element</param>
-  /// <returns>byte array or null</returns>
-  /// <exception cref="InvalidDataException"></exception>
-  /// <remarks>
-  /// Blob must be encoded in base64 with the first 4 bytes representing the length of the data.
-  /// </remarks>
-  public static byte[]? GetBlobData(DXVT.VTBlob? blob)
-  {
-    if (blob == null)
-      return null;
-    if (String.IsNullOrEmpty(blob.InnerText))
-      return null;
-    var bytes = Convert.FromBase64String(blob.InnerText);
-    if (bytes.Length >= 4)
-    {
-      var countBytes = new byte[4];
-      Array.Copy(bytes, 0, countBytes, 0, countBytes.Length);
-      var count = BitConverter.ToInt32(countBytes, 0);
-      if (count == bytes.Length - 4)
-      {
-        var dataBytes = new byte[count];
-        Array.Copy(bytes, 4, dataBytes, 0, dataBytes.Length);
-        return dataBytes;
-      }
-    }
-    throw new InvalidDataException("Non-conformed VTBlob data");
-  }
-
-  /// <summary>
-  /// Create a VTBlob element from a byte array.
-  /// Result is encoded in base64 with the first 4 bytes representing the length of the data.
-  /// </summary>
-  /// <param name="data">Source byte array</param>
-  /// <returns>VTBlob result</returns>
-  public static DXVT.VTBlob CreateBlob(byte[] data)
-  {
-    var dataBytes = new byte[data.Length + 4];
-    Array.Copy(data, 0, dataBytes, 4, data.Length);
-    var countBytes = BitConverter.GetBytes(data.Length);
-    Array.Copy(countBytes, 0, dataBytes, 0, 4);
-    return new DXVT.VTBlob(Convert.ToBase64String(dataBytes));
-  }
-
-  /// <summary>
-  /// Get byte array from the VTOBlob element.
-  /// </summary>
-  /// <param name="blob">Source blob element</param>
-  /// <returns>byte array or null</returns>
-  /// <exception cref="InvalidDataException"></exception>
-  /// <remarks>
-  /// Blob must be encoded in base64 with the first 4 bytes representing the length of the data.
-  /// </remarks>
-  public static byte[] GetOBlobData(this DXVT.VTOBlob blob)
-  {
-    var bytes = Convert.FromBase64String(blob.InnerText);
-    if (bytes.Length >= 4)
-    {
-      var countBytes = new byte[4];
-      Array.Copy(bytes, 0, countBytes, 0, countBytes.Length);
-      var count = BitConverter.ToInt32(countBytes, 0);
-      if (count == bytes.Length - 4)
-      {
-        var dataBytes = new byte[count];
-        Array.Copy(bytes, 4, dataBytes, 0, dataBytes.Length);
-        return dataBytes;
-      }
-    }
-    throw new InvalidDataException("Non-conformed VTOBlob data");
-  }
-
-
-  /// <summary>
-  /// Create a VTOBlob element from a byte array.
-  /// Result is encoded in base64 with the first 4 bytes representing the length of the data.
-  /// </summary>
-  /// <param name="data">Source byte array</param>
-  /// <returns>VTOBlob result</returns>
-  public static DXVT.VTBlob CreateOBlob(byte[] data)
-  {
-    var dataBytes = new byte[data.Length + 4];
-    Array.Copy(data, 0, dataBytes, 4, data.Length);
-    var countBytes = BitConverter.GetBytes(data.Length);
-    Array.Copy(countBytes, 0, dataBytes, 0, 4);
-    return new DXVT.VTBlob(Convert.ToBase64String(dataBytes));
-  }
-
-  /// <summary>
   /// Get the string value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
   /// </summary>
   /// <param name="xmlElement">checked element</param>
@@ -1012,259 +923,106 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Get the object array from the VTArray element.
+  /// Get the <c>VTBlob</c> value of the first child element of the specified type of the <c>OpenXmlCompositeElement</c>.
   /// </summary>
-  /// <param name="vector">source vector</param>
-  /// <returns>array of objects</returns>
-  public static object[]? GetVectorData(this DXVT.VTVector? vector)
+  /// <param name="xmlElement">checked element</param>
+  /// <result>value or null</result>
+  public static DXVT.VTBlob? GetFirstElementVTBlobValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DX.OpenXmlCompositeElement
   {
-    if (vector == null)
+    var vtBlobProperty = typeof(ElementType).GetProperty("VTBlob");
+    if (vtBlobProperty == null)
+      throw new InvalidDataException($"Property VTBlob not found in {typeof(ElementType)}");
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (element == null)
       return null;
-    var variants = new List<Object>();
-    foreach (var element in vector.Elements())
+    return (DXVT.VTBlob?)vtBlobProperty.GetValue(element);
+  }
+
+  /// <summary>
+  /// Set the content of the first child element of the specified type of the <c>OpenXmlCompositeElement</c> to the <c>VTBlob</c> value.
+  /// </summary>
+  /// <typeparam name="ElementType">Type of the element</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">value to set</param>
+  /// <remarks>
+  /// If the value is null, the existing element is removed.
+  /// </remarks>
+  public static void SetFirstElementVTBlobValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement, DXVT.VTBlob? value)
+    where ElementType : DX.OpenXmlCompositeElement, new()
+  {
+    var vtBlobProperty = typeof(ElementType).GetProperty("VTBlob");
+    if (vtBlobProperty == null)
+      throw new InvalidDataException($"Property VTBlob not found in {typeof(ElementType)}");
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value != null)
     {
-      if (element is DXVT.Variant variant)
+      if (element != null)
       {
-        var item = variant.Elements().FirstOrDefault();
-        if (item != null)
-        {
-          var varItem = GetVariantValue(item);
-          if (varItem != null)
-            variants.Add(varItem);
-        }
+        var val = (DXVT.VTBlob?)vtBlobProperty.GetValue(element);
+        if (val != value)
+          vtBlobProperty.SetValue(element, value);
       }
       else
       {
-        var varItem = GetVariantValue(element);
-        if (varItem != null)
-          variants.Add(varItem);
+        var newElement = new ElementType();
+        vtBlobProperty.SetValue(newElement, value);
+        xmlElement.Append(newElement);
       }
     }
-    return variants.ToArray();
+    else
+      element?.Remove();
   }
 
   /// <summary>
-  /// Get the value of the VTVariant element.
+  /// Get the <c>VTVector</c> value of the first child element of the specified type of the <c>OpenXmlCompositeElement</c>.
   /// </summary>
-  /// <param name="element">Source element</param>
-  /// <returns>simple type result</returns>
-  /// <exception cref="InvalidDataException"></exception>
-  public static object? GetVariantValue(this DX.OpenXmlElement? element)
+  /// <param name="xmlElement">checked element</param>
+  /// <result>value or null</result>
+  public static DXVT.VTVector? GetFirstElementVTVectorValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DX.OpenXmlCompositeElement
   {
-    if (element is DXVT.Variant variant)
-      return GetVariantValue(variant.InnerVariant);
-    if (element is DXVT.VTBool vbool)
-      return bool.Parse(vbool.InnerText);
-    if (element is DXVT.VTLPSTR lpStr)
-      return lpStr.InnerText;
-    if (element is DXVT.VTLPWSTR lpwStr)
-      return lpwStr.InnerText;
-    if (element is DXVT.VTBString bStr)
-      return bStr.InnerText;
-    if (element is DXVT.VTInteger vint)
-      return Int32.Parse(vint.InnerText);
-    if (element is DXVT.VTUnsignedInteger vuint)
-      return Int32.Parse(vuint.InnerText);
-    if (element is DXVT.VTInt32 i4)
-      return Int32.Parse(i4.InnerText);
-    if (element is DXVT.VTInt64 i8)
-      return Int64.Parse(i8.InnerText);
-    if (element is DXVT.VTUnsignedInt32 ui4)
-      return UInt32.Parse(ui4.InnerText);
-    if (element is DXVT.VTUnsignedInt64 ui8)
-      return UInt64.Parse(ui8.InnerText);
-    if (element is DXVT.VTByte vb)
-      return SByte.Parse(vb.InnerText);
-    if (element is DXVT.VTUnsignedByte ub)
-      return Byte.Parse(ub.InnerText);
-    if (element is DXVT.VTShort vsh)
-      return Int16.Parse(vsh.InnerText);
-    if (element is DXVT.VTUnsignedShort ush)
-      return UInt16.Parse(ush.InnerText);
-    if (element is DXVT.VTDate vdate)
-      return DateTime.Parse(vdate.InnerText);
-    if (element is DXVT.VTFileTime vtime)
-      return DateTime.Parse(vtime.InnerText);
-    if (element is DXVT.VTFloat vfloat)
-      return Single.Parse(vfloat.InnerText, CultureInfo.InvariantCulture);
-    if (element is DXVT.VTDouble vdouble)
-      return Double.Parse(vdouble.InnerText, CultureInfo.InvariantCulture);
-    if (element is DXVT.VTCurrency vcurrency)
-      return Decimal.Parse(vcurrency.InnerText, CultureInfo.InvariantCulture);
-    if (element is DXVT.VTDecimal vdecimal)
-      return Decimal.Parse(vdecimal.InnerText, CultureInfo.InvariantCulture);
-    if (element is DXVT.VTNull)
+    var VTVectorProperty = typeof(ElementType).GetProperty("VTVector");
+    if (VTVectorProperty == null)
+      throw new InvalidDataException($"Property VTVector not found in {typeof(ElementType)}");
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (element == null)
       return null;
-    if (element is DXVT.VTEmpty)
-      return new Object();
-    if (element is DXVT.VTError vError)
-      return Int32.Parse(vError.InnerText, NumberStyles.AllowHexSpecifier);
-    if (element is DXVT.VTClassId vClsId)
-      return Guid.Parse(vClsId.InnerText);
-
-    if (element is DXVT.VTBlob vBlob)
-      return GetBlobData(vBlob);
-    if (element is DXVT.VTOBlob oBlob)
-      return oBlob.GetOBlobData();
-    if (element is DXVT.VTStreamData vStream)
-      return vStream;
-    if (element is DXVT.VTOStreamData oStream)
-      return oStream;
-    if (element is DXVT.VTVStreamData vvStream)
-      return vvStream;
-    if (element is DXVT.VTStorage vStorage)
-      return vStorage;
-    if (element is DXVT.VTOStorage oStorage)
-      return oStorage;
-
-    if (element is DXVT.VTArray vArray)
-      return vArray;
-    if (element is DXVT.VTVector vVector)
-      return vVector;
-
-    throw new InvalidDataException($"Variant type{element?.GetType()} not recognized");
+    return (DXVT.VTVector?)VTVectorProperty.GetValue(element);
   }
-
-  //private static byte[]? GetData(OpenXmlLeafElement? data)
-  //{
-  //  if (data == null)
-  //    return null;
-  //  if (String.IsNullOrEmpty(data.InnerText))
-  //    return null;
-  //  var bytes = Convert.FromBase64String(data.InnerText);
-  //  return bytes;
-  //}
-
-  //private static byte[]? GetVTOStreamData(VariantTypes.VTOStreamData? data)
-  //{
-  //  if (data == null)
-  //    return null;
-  //  if (String.IsNullOrEmpty(data.InnerText))
-  //    return null;
-  //  var bytes = Convert.FromBase64String(data.InnerText);
-  //  return bytes;
-  //}
-
-  //private static (Guid, byte[])? GetVTVStreamData(VariantTypes.VTVStreamData? data)
-  //{
-  //  if (data == null)
-  //    return null;
-  //  if (String.IsNullOrEmpty(data.InnerText))
-  //    return null;
-  //  var bytes = Convert.FromBase64String(data.InnerText);
-  //  Guid guid;
-  //  if (data.Version?.Value != null)
-  //    guid = Guid.Parse(data.Version.Value);
-  //  return (guid, bytes);
-  //}
-
-  //private static int[]? ReadVTArrayBounds(string? str)
-  //{
-  //  if (str == null)
-  //    return null;
-  //  var ss = str.Split(',');
-  //  var result = new int[ss.Length];
-  //  for (int i = 0; i < ss.Length; i++)
-  //    result[i] = Convert.ToInt32(ss[i]);
-  //  return result;
-  //}
-
-  //private static System.Array? GetVTArray(VariantTypes.VTArray? vArray)
-  //{
-  //  if (vArray == null)
-  //    return null;
-  //  if (vArray.BaseType == null)
-  //    throw new InvalidDataException($"Unknown VTArray base type");
-  //  var baseType = DM.VariantTypeMapping.ArrayBaseTypeToType[vArray.BaseType];
-  //  var lBounds = ReadVTArrayBounds(vArray.LowerBounds?.InnerText);
-  //  var uBounds = ReadVTArrayBounds(vArray.UpperBounds?.InnerText);
-  //  if (lBounds == null || uBounds == null || lBounds.Length != uBounds.Length)
-  //    throw new InvalidDataException($"Non-comformed VTArray bounds");
-  //  var lengths = new int[uBounds.Length];
-  //  for (int i = 0; i < lengths.Length; i++)
-  //    lengths[i] = uBounds[i] - lBounds[i] + 1;
-  //  var array = System.Array.CreateInstance(baseType, lengths, lBounds);
-  //  int index = 0;
-  //  foreach (var itemElement in vArray.Elements())
-  //  {
-  //    var item = GetVariantValue(itemElement);
-  //    array.SetValue(item, index++);
-  //  }
-  //  return array;
-  //}
-
-  //private static ICollection? ReadVTVector(VariantTypes.VTVector? vVector)
-  //{
-  //  if (vVector == null)
-  //    return null;
-  //  if (vVector.BaseType == null)
-  //    throw new InvalidDataException($"Unknown VTVector base type");
-  //  var baseType = DM.VariantTypeMapping.VectorBaseTypeToType[vVector.BaseType];
-  //  var vectorType = typeof(List<>).MakeGenericType(new Type[] { baseType });
-  //  var vector = vectorType.GetConstructor(new Type[0])?.Invoke(new object[0]);
-  //  foreach (var itemElement in vVector.Elements())
-  //  {
-  //    var item = GetVariantValue(itemElement);
-  //    vectorType.GetMethod("Add")?.Invoke(vector, new object[] { item });
-  //  }
-  //  return vector as ICollection;
-  //}
-
-  //public static Guid? GetGuidAttribute(this OpenXmlElement element, string attrName)
-  //{
-  //}
 
   /// <summary>
-  /// Create variant element from the value.
+  /// Set the content of the first child element of the specified type of the <c>OpenXmlCompositeElement</c> to the <c>VTVector</c> value.
   /// </summary>
-  /// <param name="value">value to set </param>
-  /// <param name="format">format of the value</param>
-  /// <returns></returns>
-  /// <exception cref="InvalidDataException">When the value cannot be converter to variant type</exception>
-  public static DX.OpenXmlElement CreateVariant(object? value, string? format = null)
+  /// <typeparam name="ElementType">Type of the element</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">value to set</param>
+  /// <remarks>
+  /// If the value is null, the existing element is removed.
+  /// </remarks>
+  public static void SetFirstElementVTVectorValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement, DXVT.VTVector? value)
+    where ElementType : DX.OpenXmlCompositeElement, new()
   {
-    if (value == null)
-      return new DXVT.VTNull();
-    if (format == "error")
-      return new DXVT.VTError(((Int32)value).ToString("X8"));
-    if (format == "cy")
-      return new DXVT.VTCurrency(((decimal)value).ToString("F", CultureInfo.InvariantCulture));
-
-    if (value is DXVT.Variant variant)
-      return new DXVT.Variant { InnerVariant = variant };
-    if (value is bool boolValue)
-      return new DXVT.VTBool(boolValue.ToString().ToLowerInvariant());
-    if (value is string str)
-      return new DXVT.VTLPSTR(str);
-    if (value is Int32 int32value)
-      return new DXVT.VTInt32(int32value.ToString());
-    if (value is Int64 int64value)
-      return new DXVT.VTInt64(int64value.ToString());
-    if (value is UInt32 uint32value)
-      return new DXVT.VTUnsignedInt32(uint32value.ToString());
-    if (value is UInt64 uint64value)
-      return new DXVT.VTUnsignedInt64(uint64value.ToString());
-    if (value is SByte int8value)
-      return new DXVT.VTByte(int8value.ToString());
-    if (value is byte uint8value)
-      return new DXVT.VTUnsignedByte(uint8value.ToString());
-    if (value is Int16 int16value)
-      return new DXVT.VTShort(int16value.ToString());
-    if (value is UInt16 uint16value)
-      return new DXVT.VTShort(uint16value.ToString());
-    if (value is DateTime datetimeValue)
-      return new DXVT.VTFileTime(datetimeValue.ToUniversalTime().ToString("s") + "Z");
-    if (value is float floatValue)
-      return new DXVT.VTFloat(floatValue.ToString(CultureInfo.InvariantCulture));
-    if (value is double doubleValue)
-      return new DXVT.VTDouble(doubleValue.ToString(CultureInfo.InvariantCulture));
-    if (value is decimal decimalValue)
-      return new DXVT.VTDecimal(decimalValue.ToString(CultureInfo.InvariantCulture));
-
-    if (value is Guid guidValue)
-      return new DXVT.VTClassId(guidValue.ToString("B").ToUpperInvariant());
-
-    throw new InvalidDataException($"Value of type {value.GetType()} cannot be converted to VT.VariantType");
+    var VTVectorProperty = typeof(ElementType).GetProperty("VTVector");
+    if (VTVectorProperty == null)
+      throw new InvalidDataException($"Property VTVector not found in {typeof(ElementType)}");
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value != null)
+    {
+      if (element != null)
+      {
+        var val = (DXVT.VTVector?)VTVectorProperty.GetValue(element);
+        if (val != value)
+          VTVectorProperty.SetValue(element, value);
+      }
+      else
+      {
+        var newElement = new ElementType();
+        VTVectorProperty.SetValue(newElement, value);
+        xmlElement.Append(newElement);
+      }
+    }
+    else
+      element?.Remove();
   }
-
 }
