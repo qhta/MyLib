@@ -45,6 +45,13 @@
             Tools for working with core properties of a document.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.Count(DocumentFormat.OpenXml.Packaging.IPackageProperties)">
+            <summary>
+            Get the count of all the core properties.
+            </summary>
+            <param name="coreProperties"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetNames(DocumentFormat.OpenXml.Packaging.IPackageProperties)">
             <summary>
             Get the names of all the core properties.
@@ -80,6 +87,13 @@
             <summary>
             Tools for working with custom file properties of a document.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Count(DocumentFormat.OpenXml.CustomProperties.Properties)">
+            <summary>
+            Get the count of all the custom file properties properties.
+            </summary>
+            <param name="customFileProperties"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CustomFileProperties.GetNames(DocumentFormat.OpenXml.CustomProperties.Properties)">
             <summary>
@@ -123,6 +137,11 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
+        <member name="P:Qhta.OpenXmlTools.DocumentProperties.WordDoc">
+            <summary>
+            Holds the WordprocessingDocument object.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.DocumentProperties.CoreProperties">
             <summary>
             Holds the core properties of the document.
@@ -137,6 +156,12 @@
             <summary>
             Holds the custom properties of the document.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentProperties.Count">
+            <summary>
+            Get the count of all the document properties.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetNames">
             <summary>
@@ -155,6 +180,14 @@
             Gets the value of a document property.
             </summary>
             <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentProperties.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the value of a document property.
+            </summary>
+            <param name="propertyName"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentPropertyKind">
@@ -262,6 +295,13 @@
             <summary>
             Tools for working with extended file properties of a document.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties)">
+            <summary>
+            Get the count of all the extended file properties.
+            </summary>
+            <param name="extendedFileProperties"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties)">
             <summary>
@@ -4868,6 +4908,31 @@
             <param name="vArray"></param>
             <returns></returns>
             <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.VTVariantTools.ArrayBaseTypeToType">
+            <summary>
+            Dictionary mapping the <c>ArrayBaseValues</c> to the data type.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.VTVariantTools.TypeToArrayBaseType">
+            <summary>
+            Dictionary mapping data type to the <c>ArrayBaseValues</c>.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.VTVariantTools.ArrayBaseTypeToVTType">
+            <summary>
+            Dictionary mapping the <c>ArrayBaseValues</c> to the Variant type.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.VTVariantTools.VectorBaseTypeToType">
+            <summary>
+            Dictionary mapping the <c>VectorBaseValues</c> type to the data type.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.VTVariantTools.VTTypeToType">
+            <summary>
+            Dictionary mapping the variant type to the data type.
+            </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTVector)">
             <summary>

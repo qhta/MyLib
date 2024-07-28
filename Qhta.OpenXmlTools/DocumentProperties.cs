@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Manages the properties of a document in a uniform way.
@@ -12,10 +14,16 @@ public class DocumentProperties
   /// <param name="wordDoc"></param>
   public DocumentProperties(DXPack.WordprocessingDocument wordDoc)
   {
+    WordDoc = wordDoc;
     CoreProperties = wordDoc.PackageProperties;
     ExtendedProperties = wordDoc.ExtendedFilePropertiesPart?.Properties;
     CustomProperties = wordDoc.CustomFilePropertiesPart?.Properties;
   }
+
+  /// <summary>
+  /// Holds the WordprocessingDocument object.
+  /// </summary>
+  public DXPack.WordprocessingDocument WordDoc { get; private set; }
 
   /// <summary>
   /// Holds the core properties of the document.
@@ -33,6 +41,20 @@ public class DocumentProperties
   /// Holds the custom properties of the document.
   /// </summary>
   public DXCP.Properties? CustomProperties { get; private set; }
+
+  /// <summary>
+  /// Get the count of all the document properties.
+  /// </summary>
+  /// <returns></returns>
+  public int Count()
+  {
+    int count = CoreProperties.Count();
+    if (ExtendedProperties != null)
+      count += ExtendedProperties.Count();
+    if (CustomProperties != null)
+      count += CustomProperties.Count();
+    return count;
+  }
 
   /// <summary>
   /// Get the names of all the document properties.
@@ -61,7 +83,10 @@ public class DocumentProperties
     if (ExtendedProperties != null && ExtendedProperties.GetNames().Contains(propName))
       return ExtendedProperties.GetType(propName);
     if (CustomProperties != null)
-      return CustomProperties.GetType(propName);
+    {
+      var vType = CustomProperties.GetType(propName);
+      return VTVariantTools.VTTypeToType.TryGetValue(vType, out var aType) ? aType : vType;
+    }
     throw new ArgumentException("Property name not found.", nameof(propName));
   }
 
@@ -79,5 +104,41 @@ public class DocumentProperties
     if (CustomProperties != null)
       return CustomProperties.GetValue(propertyName);
     return null;
+  }
+
+  /// <summary>
+  /// Sets the value of a document property.
+  /// </summary>
+  /// <param name="propertyName"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public void SetValue(string propertyName, object? value)
+  {
+    if (CoreProperties.GetNames().Contains(propertyName))
+      CoreProperties.SetValue(propertyName, value);
+    else
+    {
+      if (ExtendedProperties == null)
+      {
+        var extendedFilePropertiesPart = WordDoc.AddExtendedFilePropertiesPart();
+        var appProperties = new DocumentFormat.OpenXml.ExtendedProperties.Properties();
+        extendedFilePropertiesPart.Properties = appProperties;
+        ExtendedProperties = appProperties;
+      }
+      if (ExtendedProperties.GetNames().Contains(propertyName))
+        ExtendedProperties.SetValue(propertyName, value);
+
+      else
+      {
+        if (CustomProperties == null)
+        {
+          var customFilePropertiesPart = WordDoc.AddCustomFilePropertiesPart();
+          var customProperties = new DocumentFormat.OpenXml.CustomProperties.Properties();
+          customFilePropertiesPart.Properties = customProperties;
+          CustomProperties = customProperties;
+        }
+        CustomProperties.SetValue(propertyName, value);
+      }
+    }
   }
 }

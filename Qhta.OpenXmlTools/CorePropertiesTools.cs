@@ -8,6 +8,17 @@ namespace Qhta.OpenXmlTools;
 public static class CorePropertiesTools
 {
   /// <summary>
+  /// Get the count of all the core properties.
+  /// </summary>
+  /// <param name="coreProperties"></param>
+  /// <returns></returns>
+#pragma warning disable OOXML0001
+  public static int Count(this DXPack.IPackageProperties coreProperties)
+ #pragma warning restore OOXML0001
+    => PropTypes.Count;
+
+
+  /// <summary>
   /// Get the names of all the core properties.
   /// </summary>
   /// <param name="coreProperties"></param>
@@ -146,22 +157,22 @@ public static class CorePropertiesTools
 
   private static readonly Dictionary<string, Type> PropTypes = new()
   {
-    { "Category ", typeof(String) },
-    { "ContentStatus ", typeof(String) },
-    { "ContentType ", typeof(String) },
-    { "Created ", typeof(DateTime) },
-    { "Creator ", typeof(String) },
-    { "Description ", typeof(String) },
-    { "Identifier ", typeof(String) },
-    { "Keywords ", typeof(String) },
-    { "Language ", typeof(String) },
-    { "LastModifiedBy ", typeof(String) },
-    { "LastPrinted ", typeof(DateTime) },
-    { "Modified ", typeof(DateTime) },
-    { "Revision ", typeof(String) },
-    { "Subject ", typeof(String) },
-    { "Title ", typeof(String) },
-    { "Version ", typeof(String) },
+    {"Category", typeof(String) },
+    {"ContentStatus", typeof(String) },
+    {"ContentType", typeof(String) },
+    {"Created", typeof(DateTime) },
+    {"Creator", typeof(String) },
+    {"Description", typeof(String) },
+    {"Identifier", typeof(String) },
+    {"Keywords", typeof(String) },
+    {"Language", typeof(String) },
+    {"LastModifiedBy", typeof(String) },
+    {"LastPrinted", typeof(DateTime) },
+    {"Modified", typeof(DateTime) },
+    {"Revision", typeof(String) },
+    {"Subject", typeof(String) },
+    {"Title", typeof(String) },
+    {"Version", typeof(String) },
   };
 
 }

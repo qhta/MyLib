@@ -3,6 +3,7 @@ using System.Reflection;
 
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.VariantTypes;
 using DocumentFormat.OpenXml.Wordprocessing;
 
@@ -82,11 +83,13 @@ public class PropertiesTest
       Console.WriteLine("No custom file properties found");
     }
     else
+    {
       foreach (var customProperty in customProperties.Elements<DXCP.CustomDocumentProperty>())
       {
         var value = customProperty.FirstChild.GetVariantValue();
         Console.WriteLine($"{customProperty.Name}: {value.AsString()}");
       }
+    }
     Console.WriteLine();
   }
 
@@ -94,10 +97,11 @@ public class PropertiesTest
   {
     Console.WriteLine("Document properties read test:");
     var documentProperties = wordDoc.GetDocumentProperties();
-
-    foreach (var propName in documentProperties.GetNames())
+    var propNames = documentProperties.GetNames().ToArray();
+    foreach (var propName in propNames)
     {
-      Console.WriteLine($"{propName}: {documentProperties.GetValue(propName)}");
+      var value = documentProperties.GetValue(propName);
+      Console.WriteLine($"{propName}: {value}");
     }
     Console.WriteLine();
   }
@@ -112,12 +116,14 @@ public class PropertiesTest
       CorePropertiesDirectWriteTest(wordDoc);
       ExtendedFilePropertiesDirectWriteTest(wordDoc);
       CustomFilePropertiesDirectWriteTest(wordDoc);
+      DocumentPropertiesWriteTest(wordDoc);
     }
     using (var wordDoc = WordprocessingDocument.Open(filename, false))
     {
       CorePropertiesDirectReadTest(wordDoc);
       ExtendedFilePropertiesDirectReadTest(wordDoc);
       CustomFilePropertiesDirectReadTest(wordDoc);
+      DocumentPropertiesReadTest(wordDoc);
     }
   }
 
@@ -135,7 +141,7 @@ public class PropertiesTest
       if (property.PropertyType == typeof(string))
       {
         property.SetValue(coreProperties, value);
-        Console.WriteLine($"{property.Name}: {property.GetValue(coreProperties)}");
+        Console.WriteLine($"writing {property.Name}: {property.GetValue(coreProperties)}");
       }
     }
     Console.WriteLine();
@@ -173,7 +179,7 @@ public class PropertiesTest
           var valueText = value.ToString();
           element!.Text = valueText!;
           property.SetValue(appProperties, element);
-          Console.WriteLine($"{property.Name}: {value.AsString()}");
+          Console.WriteLine($"writing {property.Name}: {value.AsString()}");
         }
       }
     }
@@ -207,13 +213,26 @@ public class PropertiesTest
         };
         customProperty.AppendChild(dataInstance);
         customProperties.AppendChild(customProperty);
-        Console.WriteLine($"{propertyType.Name}: {value.AsString()}");
+        Console.WriteLine($"writing {propertyType.Name}: {value.AsString()}");
       }
     }
-
     Console.WriteLine();
   }
 
+
+  public void DocumentPropertiesWriteTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Document properties write test:");
+    var documentProperties = wordDoc.GetDocumentProperties();
+    foreach (var propName in documentProperties.GetNames())
+    {
+      var type = documentProperties.GetType(propName);
+      var value = CreateNewPropertyValue(propName, type);
+      Console.WriteLine($"writing {propName}: {value}");
+      documentProperties.SetValue(propName, value);
+    }
+    Console.WriteLine();
+  }
 
   private object? CreateNewPropertyValue(string propertyName, Type propertyType)
   {

@@ -8,6 +8,16 @@ namespace Qhta.OpenXmlTools;
 public static class ExtendedFilePropertiesTools
 {
   /// <summary>
+  /// Get the count of all the extended file properties.
+  /// </summary>
+  /// <param name="extendedFileProperties"></param>
+  /// <returns></returns>
+#pragma warning disable OOXML0001
+  public static int Count(this DXEP.Properties extendedFileProperties)
+#pragma warning restore OOXML0001
+    => PropTypes.Count;
+
+  /// <summary>
   /// Get the names of all the extended file properties.
   /// </summary>
   /// <param name="extendedFileProperties"></param>
@@ -126,7 +136,7 @@ public static class ExtendedFilePropertiesTools
         extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>((DXVT.VTBlob?)value);
         break;
       case "DocumentSecurity":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.DocumentSecurity>((string?)value);
+        extendedFileProperties.SetFirstElementIntValue<DXEP.DocumentSecurity>((int?)value);
         break;
       case "HeadingPairs":
         extendedFileProperties.SetFirstElementVTVectorValue<DXEP.HeadingPairs>((DXVT.VTVector?)value);
@@ -193,33 +203,33 @@ public static class ExtendedFilePropertiesTools
 
   private static readonly Dictionary<string, Type> PropTypes = new()
   {
-    { "Application ", typeof(String) },
-    { "ApplicationVersion ", typeof(String) },
-    { "Characters ", typeof(int) },
-    { "CharactersWithSpaces ", typeof(int) },
-    { "Company ", typeof(String) },
-    { "DigitalSignature ", typeof(DXVT.VTBlob) },
-    { "DocumentSecurity ", typeof(String) },
-    { "HeadingPairs ", typeof(DXVT.VTVector) },
-    { "HiddenSlides ", typeof(int) },
-    { "HyperlinkBase ", typeof(String) },
-    { "HyperlinkList ", typeof(Object) },
-    { "HyperlinksChanged ", typeof(Boolean) },
-    { "Lines ", typeof(int) },
-    { "LinksUpToDate ", typeof(Boolean) },
-    { "Manager ", typeof(String) },
-    { "MultimediaClips ", typeof(int) },
-    { "Notes ", typeof(int) },
-    { "Pages ", typeof(int) },
-    { "Paragraphs ", typeof(int) },
-    { "PresentationFormat ", typeof(String) },
-    { "ScaleCrop ", typeof(Boolean) },
-    { "SharedDocument ", typeof(Boolean) },
-    { "Slides ", typeof(int) },
-    { "Template ", typeof(String) },
-    { "TitlesOfParts ", typeof(Object) },
-    { "TotalTime ", typeof(int) },
-    { "Words ", typeof(int) },
+    {"Application", typeof(String) },
+    {"ApplicationVersion", typeof(String) },
+    {"Characters", typeof(int) },
+    {"CharactersWithSpaces", typeof(int) },
+    {"Company", typeof(String) },
+    {"DigitalSignature", typeof(DXVT.VTBlob) },
+    {"DocumentSecurity", typeof(int) },
+    {"HeadingPairs", typeof(DXVT.VTVector) },
+    {"HiddenSlides", typeof(int) },
+    {"HyperlinkBase", typeof(String) },
+    {"HyperlinkList", typeof(DXVT.VTVector) },
+    {"HyperlinksChanged", typeof(Boolean) },
+    {"Lines", typeof(int) },
+    {"LinksUpToDate", typeof(Boolean) },
+    {"Manager", typeof(String) },
+    {"MultimediaClips", typeof(int) },
+    {"Notes", typeof(int) },
+    {"Pages", typeof(int) },
+    {"Paragraphs", typeof(int) },
+    {"PresentationFormat", typeof(String) },
+    {"ScaleCrop", typeof(Boolean) },
+    {"SharedDocument", typeof(Boolean) },
+    {"Slides", typeof(int) },
+    {"Template", typeof(String) },
+    {"TitlesOfParts", typeof(DXVT.VTVector) },
+    {"TotalTime", typeof(int) },
+    {"Words", typeof(int) },
   };
 
 }

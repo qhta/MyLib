@@ -8,6 +8,16 @@ namespace Qhta.OpenXmlTools;
 public static class CustomFileProperties
 {
   /// <summary>
+  /// Get the count of all the custom file properties properties.
+  /// </summary>
+  /// <param name="customFileProperties"></param>
+  /// <returns></returns>
+#pragma warning disable OOXML0001
+  public static int Count(this DXCP.Properties customFileProperties)
+#pragma warning restore OOXML0001
+    => customFileProperties.Elements<DXCP.CustomDocumentProperty>().Count();
+
+  /// <summary>
   /// Get the names of all the custom file properties.
   /// </summary>
   /// <param name="customFileProperties"></param>
@@ -37,14 +47,14 @@ public static class CustomFileProperties
   /// <param name="customFileProperties"></param>
   /// <param name="propertyName"></param>
   /// <returns></returns>
-  public static object? GetValue (this DXCP.Properties customFileProperties, string propertyName)
-  { 
+  public static object? GetValue(this DXCP.Properties customFileProperties, string propertyName)
+  {
     var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
     if (property != null)
     {
       var value = property.FirstChild;
       if (value != null)
-        value.GetVariantValue();
+        return value.GetVariantValue();
     }
     return null;
   }
@@ -57,26 +67,27 @@ public static class CustomFileProperties
   /// <param name="value"></param>
   public static void SetValue(this DXCP.Properties customFileProperties, string propertyName, object? value)
   {
-      var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
-      if (property != null)
-      {
-        property.FirstChild?.Remove();
-        if (value !=null)
-        {
-          var element = VTVariantTools.CreateVariant(value);
-          property.AddChild(element);
-        }
-        else
-        {
-          customFileProperties.RemoveChild(property);
-        }
-      }
+    var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
+    if (property != null)
+    {
+      property.FirstChild?.Remove();
       if (value != null)
       {
         var element = VTVariantTools.CreateVariant(value);
-        property = new DXCP.CustomDocumentProperty(element);
-        customFileProperties.AppendChild(property);
+        property.AddChild(element);
       }
+      else
+      {
+        customFileProperties.RemoveChild(property);
+      }
+    }
+    else
+    if (value != null)
+    {
+      var element = VTVariantTools.CreateVariant(value);
+      property = new DXCP.CustomDocumentProperty(element) { Name = propertyName };
+      customFileProperties.AppendChild(property);
+    }
   }
 
 

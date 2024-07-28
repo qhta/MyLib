@@ -19,7 +19,8 @@ public static class VTVariantTools
   {
     if (element == null)
       return null;
-    switch (element.GetType().Name)
+    var typeName = element.GetType().Name;
+    switch (typeName)
     {
       case "VTNull":
         return null;
@@ -98,7 +99,7 @@ public static class VTVariantTools
         }
         throw new InvalidDataException($"Variant type {element.LocalName} in GetVariantValue not supported");
     }
-    throw new InvalidDataException($"Variant type {element?.GetType()} in GetVariantValue not supported");
+    throw new InvalidDataException($"Variant type {typeName} in GetVariantValue not supported");
   }
 
   /// <summary>
@@ -336,7 +337,10 @@ public static class VTVariantTools
     return array;
   }
 
-  private static readonly Dictionary<DXVT.ArrayBaseValues, Type> ArrayBaseTypeToType = new()
+  /// <summary>
+  /// Dictionary mapping the <c>ArrayBaseValues</c> to the data type.
+  /// </summary>
+  public static readonly Dictionary<DXVT.ArrayBaseValues, Type> ArrayBaseTypeToType = new()
   {
     { DXVT.ArrayBaseValues.Bool, typeof(bool) },
     { DXVT.ArrayBaseValues.Bstr, typeof(string) },
@@ -357,7 +361,10 @@ public static class VTVariantTools
     { DXVT.ArrayBaseValues.Variant, typeof(object) },
   };
 
-  private static readonly Dictionary<Type, DXVT.ArrayBaseValues> TypeToArrayBaseType = new()
+  /// <summary>
+  /// Dictionary mapping data type to the <c>ArrayBaseValues</c>.
+  /// </summary>
+  public static readonly Dictionary<Type, DXVT.ArrayBaseValues> TypeToArrayBaseType = new()
   {
     { typeof(bool), DXVT.ArrayBaseValues.Bool },
     { typeof(byte), DXVT.ArrayBaseValues.OneByteUnsignedInteger },
@@ -376,7 +383,10 @@ public static class VTVariantTools
     { typeof(ushort), DXVT.ArrayBaseValues.TwoBytesUnsignedInteger },
   };
 
-  private static readonly Dictionary<DXVT.ArrayBaseValues, Type> ArrayBaseTypeToVTType = new()
+  /// <summary>
+  /// Dictionary mapping the <c>ArrayBaseValues</c> to the Variant type.
+  /// </summary>
+  public static readonly Dictionary<DXVT.ArrayBaseValues, Type> ArrayBaseTypeToVTType = new()
   {
     { DXVT.ArrayBaseValues.Bool, typeof(DXVT.VTBool) },
     { DXVT.ArrayBaseValues.Bstr, typeof(DXVT.VTBString) },
@@ -396,6 +406,72 @@ public static class VTVariantTools
     { DXVT.ArrayBaseValues.UnsignedInteger, typeof(DXVT.VTUnsignedInt64) },
     { DXVT.ArrayBaseValues.Variant, typeof(DXVT.Variant) },
   };
+
+  /// <summary>
+  /// Dictionary mapping the <c>VectorBaseValues</c> type to the data type.
+  /// </summary>
+  public static readonly Dictionary<DXVT.VectorBaseValues, Type> VectorBaseTypeToType = new()
+  {
+    { DXVT.VectorBaseValues.Bool, typeof(bool) },
+    { DXVT.VectorBaseValues.Bstr, typeof(string) },
+    { DXVT.VectorBaseValues.ClassId, typeof(Guid)},
+    { DXVT.VectorBaseValues.ClipboardData, typeof(object) },
+    { DXVT.VectorBaseValues.Currency, typeof(string) },
+    { DXVT.VectorBaseValues.Date, typeof(DateTime) },
+    { DXVT.VectorBaseValues.EightBytesReal, typeof(double) },
+    { DXVT.VectorBaseValues.Error, typeof(string) },
+    { DXVT.VectorBaseValues.FourBytesReal, typeof(float) },
+    { DXVT.VectorBaseValues.FourBytesSignedInteger, typeof(int) },
+    { DXVT.VectorBaseValues.FourBytesUnsignedInteger, typeof(uint) },
+    { DXVT.VectorBaseValues.Lpstr, typeof(string) },
+    { DXVT.VectorBaseValues.Lpwstr, typeof(string) },
+    { DXVT.VectorBaseValues.OneByteSignedInteger, typeof(sbyte) },
+    { DXVT.VectorBaseValues.OneByteUnsignedInteger, typeof(byte) },
+    { DXVT.VectorBaseValues.TwoBytesSignedInteger, typeof(short) },
+    { DXVT.VectorBaseValues.TwoBytesUnsignedInteger, typeof(ushort) },
+    { DXVT.VectorBaseValues.Variant, typeof(object) },
+  };
+
+
+  /// <summary>
+  /// Dictionary mapping the variant type to the data type.
+  /// </summary>
+  public static readonly Dictionary<Type, Type> VTTypeToType = new()
+  {
+    { typeof(DXVT.VTBool), typeof(bool)},
+    { typeof(DXVT.VTLPSTR), typeof(string)},
+    { typeof(DXVT.VTLPWSTR), typeof(string)},
+    { typeof(DXVT.VTBString), typeof(string)},
+    { typeof(DXVT.VTInteger), typeof(int)},
+    { typeof(DXVT.VTUnsignedInteger), typeof(uint)},
+    { typeof(DXVT.VTInt32), typeof(int)},
+    { typeof(DXVT.VTInt64), typeof(long)},
+    { typeof(DXVT.VTUnsignedInt32), typeof(uint)},
+    { typeof(DXVT.VTUnsignedInt64), typeof(ulong)},
+    { typeof(DXVT.VTByte), typeof(sbyte)},
+    { typeof(DXVT.VTUnsignedByte), typeof(byte)},
+    { typeof(DXVT.VTShort), typeof(short)},
+    { typeof(DXVT.VTUnsignedShort), typeof(ushort)},
+    { typeof(DXVT.VTDate), typeof(DateTime)},
+    { typeof(DXVT.VTFileTime), typeof(DateTime)},
+    { typeof(DXVT.VTFloat), typeof(float)},
+    { typeof(DXVT.VTDouble), typeof(double)},
+    { typeof(DXVT.VTCurrency), typeof(decimal)},
+    { typeof(DXVT.VTDecimal), typeof(decimal)},
+    { typeof(DXVT.VTError), typeof(int)},
+    { typeof(DXVT.VTClassId), typeof(Guid)},
+    { typeof(DXVT.VTBlob), typeof(byte[])},
+    { typeof(DXVT.VTOBlob), typeof(byte[])},
+    { typeof(DXVT.VTStreamData), typeof(byte[])},
+    { typeof(DXVT.VTOStreamData), typeof(byte[])},
+    { typeof(DXVT.VTVStreamData), typeof(byte[])},
+    { typeof(DXVT.VTStorage), typeof(byte[])},
+    { typeof(DXVT.VTOStorage), typeof(byte[])},
+    { typeof(DXVT.VTArray), typeof(Array)},
+    { typeof(DXVT.VTVector), typeof(Array)},
+    { typeof(DXVT.Variant), typeof(object)},
+  };
+
 
 
   /// <summary>
@@ -422,29 +498,6 @@ public static class VTVariantTools
     }
     return array;
   }
-
-  private static readonly Dictionary<DXVT.VectorBaseValues, Type> VectorBaseTypeToType = new()
-  {
-    { DXVT.VectorBaseValues.Bool, typeof(bool) },
-    { DXVT.VectorBaseValues.Bstr, typeof(string) },
-    { DXVT.VectorBaseValues.ClassId, typeof(Guid)},
-    { DXVT.VectorBaseValues.ClipboardData, typeof(object) },
-    { DXVT.VectorBaseValues.Currency, typeof(string) },
-    { DXVT.VectorBaseValues.Date, typeof(DateTime) },
-    { DXVT.VectorBaseValues.EightBytesReal, typeof(double) },
-    { DXVT.VectorBaseValues.Error, typeof(string) },
-    { DXVT.VectorBaseValues.FourBytesReal, typeof(float) },
-    { DXVT.VectorBaseValues.FourBytesSignedInteger, typeof(int) },
-    { DXVT.VectorBaseValues.FourBytesUnsignedInteger, typeof(uint) },
-    { DXVT.VectorBaseValues.Lpstr, typeof(string) },
-    { DXVT.VectorBaseValues.Lpwstr, typeof(string) },
-    { DXVT.VectorBaseValues.OneByteSignedInteger, typeof(sbyte) },
-    { DXVT.VectorBaseValues.OneByteUnsignedInteger, typeof(byte) },
-    { DXVT.VectorBaseValues.TwoBytesSignedInteger, typeof(short) },
-    { DXVT.VectorBaseValues.TwoBytesUnsignedInteger, typeof(ushort) },
-    { DXVT.VectorBaseValues.Variant, typeof(object) },
-  };
-
 
   /// <summary>
   /// Get byte array from the VTBlob element.
