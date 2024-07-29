@@ -11,19 +11,31 @@ public static class ExtendedFilePropertiesTools
   /// Get the count of all the extended file properties.
   /// </summary>
   /// <param name="extendedFileProperties"></param>
+  /// <param name="all">specifies if all property names should be counted or non-empty ones</param>
   /// <returns></returns>
-#pragma warning disable OOXML0001
-  public static int Count(this DXEP.Properties extendedFileProperties)
-#pragma warning restore OOXML0001
-    => PropTypes.Count;
+  public static int Count(this DXEP.Properties extendedFileProperties, bool all = false)
+  {
+    if (all)
+      return PropTypes.Count;
+    foreach (var prop in PropTypes.Where(item => extendedFileProperties.GetValue(item.Key) != null).ToArray())
+      Debug.WriteLine($"{prop.Key} = {extendedFileProperties.GetValue(prop.Key)}");
+
+    Debug.WriteLine("Count: " + PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null));
+    return PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null);
+  }
 
   /// <summary>
   /// Get the names of all the extended file properties.
   /// </summary>
   /// <param name="extendedFileProperties"></param>
+  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public static string[] GetNames(this DXEP.Properties extendedFileProperties) 
-    => PropTypes.Select(item=>item.Key.Trim()).ToArray();
+  public static string[] GetNames(this DXEP.Properties extendedFileProperties, bool all = false)
+  {
+    if (all)
+      return PropTypes.Keys.ToArray();
+    return PropTypes.Where(item => extendedFileProperties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
+  }
 
   /// <summary>
   /// Get the type of property with its name.
@@ -51,7 +63,7 @@ public static class ExtendedFilePropertiesTools
        case "Application":
          return extendedFileProperties.GetFirstElementStringValue<DXEP.Application>();
       case "ApplicationVersion":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.ApplicationVersion>();
+        return extendedFileProperties.GetFirstElementDecimalValue<DXEP.ApplicationVersion>();
       case "Characters":
          return extendedFileProperties.GetFirstElementIntValue<DXEP.Characters>(); 
        case "CharactersWithSpaces":
@@ -121,7 +133,7 @@ public static class ExtendedFilePropertiesTools
         extendedFileProperties.SetFirstElementStringValue<DXEP.Application>((string?)value);
         break;
       case "ApplicationVersion":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.ApplicationVersion>((string?)value);
+        extendedFileProperties.SetFirstElementDecimalValue<DXEP.ApplicationVersion>((decimal?)value);
         break;
       case "Characters":
         extendedFileProperties.SetFirstElementIntValue<DXEP.Characters>((int?)value);
@@ -204,7 +216,7 @@ public static class ExtendedFilePropertiesTools
   private static readonly Dictionary<string, Type> PropTypes = new()
   {
     {"Application", typeof(String) },
-    {"ApplicationVersion", typeof(String) },
+    {"ApplicationVersion", typeof(Decimal) },
     {"Characters", typeof(int) },
     {"CharactersWithSpaces", typeof(int) },
     {"Company", typeof(String) },
@@ -214,17 +226,17 @@ public static class ExtendedFilePropertiesTools
     {"HiddenSlides", typeof(int) },
     {"HyperlinkBase", typeof(String) },
     {"HyperlinkList", typeof(DXVT.VTVector) },
-    {"HyperlinksChanged", typeof(Boolean) },
+    {"HyperlinksChanged", typeof(bool) },
     {"Lines", typeof(int) },
-    {"LinksUpToDate", typeof(Boolean) },
+    {"LinksUpToDate", typeof(bool) },
     {"Manager", typeof(String) },
     {"MultimediaClips", typeof(int) },
     {"Notes", typeof(int) },
     {"Pages", typeof(int) },
     {"Paragraphs", typeof(int) },
     {"PresentationFormat", typeof(String) },
-    {"ScaleCrop", typeof(Boolean) },
-    {"SharedDocument", typeof(Boolean) },
+    {"ScaleCrop", typeof(bool) },
+    {"SharedDocument", typeof(bool) },
     {"Slides", typeof(int) },
     {"Template", typeof(String) },
     {"TitlesOfParts", typeof(DXVT.VTVector) },

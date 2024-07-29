@@ -45,18 +45,20 @@
             Tools for working with core properties of a document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.Count(DocumentFormat.OpenXml.Packaging.IPackageProperties)">
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.Count(DocumentFormat.OpenXml.Packaging.IPackageProperties,System.Boolean)">
             <summary>
             Get the count of all the core properties.
             </summary>
             <param name="coreProperties"></param>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetNames(DocumentFormat.OpenXml.Packaging.IPackageProperties)">
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetNames(DocumentFormat.OpenXml.Packaging.IPackageProperties,System.Boolean)">
             <summary>
             Get the names of all the core properties.
             </summary>
             <param name="coreProperties"></param>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetType(DocumentFormat.OpenXml.Packaging.IPackageProperties,System.String)">
@@ -157,16 +159,18 @@
             Holds the custom properties of the document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentProperties.Count">
+        <member name="M:Qhta.OpenXmlTools.DocumentProperties.Count(System.Boolean)">
             <summary>
             Get the count of all the document properties.
             </summary>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetNames">
+        <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetNames(System.Boolean)">
             <summary>
             Get the names of all the document properties.
             </summary>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetType(System.String)">
@@ -296,18 +300,20 @@
             Tools for working with extended file properties of a document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.Boolean)">
             <summary>
             Get the count of all the extended file properties.
             </summary>
             <param name="extendedFileProperties"></param>
+            <param name="all">specifies if all property names should be counted or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.Boolean)">
             <summary>
             Get the names of all the extended file properties.
             </summary>
             <param name="extendedFileProperties"></param>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetType(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
@@ -772,6 +778,24 @@
             </summary>
             <param name="xmlElement"></param>
             <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementDecimalValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the fixed point real number value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>decimal value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementDecimalValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Decimal})">
+            <summary>
+            Set the text content of the first child element of the specified type  of the <c>OpenXmlLeafTextElement</c> to the fixed point real value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">integer value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetAllElements``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Collections.Generic.IEnumerable{``0})">
             <summary>

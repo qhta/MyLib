@@ -63,9 +63,9 @@ public static class VTVariantTools
       case "VTDouble":
         return Double.Parse(((DXVT.VTDouble)element).InnerText, CultureInfo.InvariantCulture);
       case "VTCurrency":
-        return Decimal.Parse(((DXVT.VTCurrency)element).InnerText, CultureInfo.InvariantCulture);
+        return Decimal.Parse(((DXVT.VTCurrency)element).InnerText.Replace(",", "."), CultureInfo.InvariantCulture);
       case "VTDecimal":
-        return Decimal.Parse(((DXVT.VTDecimal)element).InnerText, CultureInfo.InvariantCulture);
+        return Decimal.Parse(((DXVT.VTDecimal)element).InnerText.Replace(",","."), CultureInfo.InvariantCulture);
       case "VTError":
         return Int32.Parse(((DXVT.VTError)element).InnerText, NumberStyles.AllowHexSpecifier);
       case "VTClassId":

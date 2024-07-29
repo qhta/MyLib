@@ -1,15 +1,8 @@
-﻿using System.Globalization;
-using System.Reflection;
-
-using DocumentFormat.OpenXml;
+﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.VariantTypes;
 using DocumentFormat.OpenXml.Wordprocessing;
-
-using Qhta.OpenXmlTools;
-
-using static Qhta.OpenXmlToolsTest.TestTools;
 
 namespace Qhta.OpenXmlToolsTest;
 public class PropertiesTest
@@ -26,85 +19,6 @@ public class PropertiesTest
     }
   }
 
-  public void CorePropertiesDirectReadTest(WordprocessingDocument wordDoc)
-  {
-    Console.WriteLine("Core properties read test:");
-    var coreProperties = wordDoc.GetCoreProperties();
-#pragma warning disable OOXML0001
-    foreach (var property in typeof(IPackageProperties).GetProperties())
-#pragma warning restore OOXML0001
-    {
-      var value = property.GetValue(coreProperties);
-      Console.WriteLine($"{property.Name}: {value.AsString()}");
-    }
-    Console.WriteLine();
-  }
-
-  public void ExtendedFilePropertiesDirectReadTest(WordprocessingDocument wordDoc)
-  {
-    Console.WriteLine("Extended file properties read test:");
-    var appProperties = wordDoc.GetExtendedFileProperties();
-    if (appProperties == null)
-    {
-      Console.WriteLine("No extended file properties found");
-    }
-    else
-      foreach (var property in typeof(DocumentFormat.OpenXml.ExtendedProperties.Properties)
-                 .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-      {
-        if (property.CanRead && property.CanWrite && !property.Name.EndsWith("Part"))
-        {
-          // var element = appProperties.Elements().FirstOrDefault(item => item.LocalName == property.Name);
-          object? element = property.GetValue(appProperties);
-          object? value = null;
-          if (element is OpenXmlLeafTextElement textElement)
-          {
-            if (intProperties.Contains(property.Name))
-              value = int.Parse(textElement.InnerText);
-            else if (boolProperties.Contains(property.Name))
-              value = bool.Parse(textElement.InnerText);
-            else
-              value = textElement.InnerText;
-          }
-          else if (element is OpenXmlCompositeElement compositeElement)
-            value = compositeElement.FirstChild.GetVariantValue();
-          Console.WriteLine($"{property.Name}: {value.AsString()}");
-        }
-      }
-    Console.WriteLine();
-  }
-
-  public void CustomFilePropertiesDirectReadTest(WordprocessingDocument wordDoc)
-  {
-    Console.WriteLine("Custom file properties read test:");
-    var customProperties = wordDoc.GetCustomFileProperties();
-    if (customProperties == null)
-    {
-      Console.WriteLine("No custom file properties found");
-    }
-    else
-    {
-      foreach (var customProperty in customProperties.Elements<DXCP.CustomDocumentProperty>())
-      {
-        var value = customProperty.FirstChild.GetVariantValue();
-        Console.WriteLine($"{customProperty.Name}: {value.AsString()}");
-      }
-    }
-    Console.WriteLine();
-  }
-
-  public void DocumentPropertiesReadTest(WordprocessingDocument wordDoc)
-  {
-    Console.WriteLine("Document properties read test:");
-    var documentProperties = wordDoc.GetDocumentProperties();
-    var propNames = documentProperties.GetNames().ToArray();
-    foreach (var propName in propNames)
-    {
-      var value = documentProperties.GetValue(propName);
-      Console.WriteLine($"{propName}: {value}");
-    }
-    Console.WriteLine();
-  }
 
   public void DocumentPropertiesWriteTest(string filename)
   {
@@ -126,6 +40,99 @@ public class PropertiesTest
       DocumentPropertiesReadTest(wordDoc);
     }
   }
+
+  public void CorePropertiesDirectReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Core properties read test:");
+    var coreProperties = wordDoc.GetCoreProperties();
+
+    var count = coreProperties.Count();
+    Console.WriteLine($"Core properties count = {count}");
+
+#pragma warning disable OOXML0001
+    foreach (var property in typeof(IPackageProperties).GetProperties())
+#pragma warning restore OOXML0001
+    {
+      var value = property.GetValue(coreProperties);
+      Console.WriteLine($"{property.Name}: {value.AsString()}");
+    }
+    Console.WriteLine();
+  }
+
+  public void ExtendedFilePropertiesDirectReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Extended file properties read test:");
+    var appProperties = wordDoc.GetExtendedFileProperties();
+    if (appProperties == null)
+    {
+      Console.WriteLine("No extended file properties found");
+    }
+    else
+    {
+      var count = appProperties.Count();
+      Console.WriteLine($"Extended file properties count = {count}");
+      foreach (var property in typeof(DXEP.Properties)
+                 .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+      {
+        if (property.CanRead && property.CanWrite && !property.Name.EndsWith("Part"))
+        {
+          // var element = appProperties.Elements().FirstOrDefault(item => item.LocalName == property.Name);
+          object? element = property.GetValue(appProperties);
+          object? value = null;
+          if (element is OpenXmlLeafTextElement textElement)
+          {
+            if (intProperties.Contains(property.Name))
+              value = int.Parse(textElement.InnerText);
+            else if (boolProperties.Contains(property.Name))
+              value = bool.Parse(textElement.InnerText);
+            else
+              value = textElement.InnerText;
+          }
+          else if (element is OpenXmlCompositeElement compositeElement)
+            value = compositeElement.FirstChild.GetVariantValue();
+          Console.WriteLine($"{property.Name}: {value.AsString()}");
+        }
+      }
+    }
+    Console.WriteLine();
+  }
+
+  public void CustomFilePropertiesDirectReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Custom file properties read test:");
+    var customProperties = wordDoc.GetCustomFileProperties();
+    if (customProperties == null)
+    {
+      Console.WriteLine("No custom file properties found");
+    }
+    else
+    {
+      var count = customProperties.Count();
+      Console.WriteLine($"Custom file properties count = {count}");
+      foreach (var customProperty in customProperties.Elements<DXCP.CustomDocumentProperty>())
+      {
+        var value = customProperty.FirstChild.GetVariantValue();
+        Console.WriteLine($"{customProperty.Name}: {value.AsString()}");
+      }
+    }
+    Console.WriteLine();
+  }
+
+  public void DocumentPropertiesReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Document properties read test:");
+    var documentProperties = wordDoc.GetDocumentProperties();
+    var count = documentProperties.Count();
+    Console.WriteLine($"Document properties count = {count}");
+    var propNames = documentProperties.GetNames().ToArray();
+    foreach (var propName in propNames)
+    {
+      var value = documentProperties.GetValue(propName);
+      Console.WriteLine($"{propName}: {value}");
+    }
+    Console.WriteLine();
+  }
+
 
   public void CorePropertiesDirectWriteTest(WordprocessingDocument wordDoc)
   {
@@ -201,19 +208,20 @@ public class PropertiesTest
     foreach (var data in vtTestData)
     {
       var propertyType = data.Key;
+      var propName = propertyType.Name.Substring(2);
       var value = data.Value;
       OpenXmlElement? dataInstance = CreateVariantElement(propertyType, value);
       if (dataInstance != null)
       {
         var customProperty = new DocumentFormat.OpenXml.CustomProperties.CustomDocumentProperty
         {
-          Name = propertyType.Name.Substring(2),
+          Name = propName,
           FormatId = "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}",
           PropertyId = propId++
         };
         customProperty.AppendChild(dataInstance);
         customProperties.AppendChild(customProperty);
-        Console.WriteLine($"writing {propertyType.Name}: {value.AsString()}");
+        Console.WriteLine($"writing {propName}: {value.AsString()}");
       }
     }
     Console.WriteLine();
@@ -231,6 +239,19 @@ public class PropertiesTest
       Console.WriteLine($"writing {propName}: {value}");
       documentProperties.SetValue(propName, value);
     }
+    foreach (var data in vtTestData)
+    {
+
+      var propertyType = data.Key;
+      var propName = propertyType.Name.Substring(2) + "_new";
+      var value = data.Value;
+      OpenXmlElement? dataInstance = CreateVariantElement(propertyType, value);
+      if (dataInstance != null)
+      {
+        documentProperties.SetValue(propName, value);
+        Console.WriteLine($"writing {propName}: {value.AsString()}");
+      }
+    }
     Console.WriteLine();
   }
 
@@ -246,6 +267,8 @@ public class PropertiesTest
       return 100_000;
     if (propertyType == typeof(bool))
       return true;
+    if (propertyType == typeof(decimal))
+      return 1.2m;
     return null;
   }
 

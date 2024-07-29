@@ -11,22 +11,32 @@ public static class CorePropertiesTools
   /// Get the count of all the core properties.
   /// </summary>
   /// <param name="coreProperties"></param>
+  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static int Count(this DXPack.IPackageProperties coreProperties)
- #pragma warning restore OOXML0001
-    => PropTypes.Count;
+  public static int Count(this DXPack.IPackageProperties coreProperties, bool all = false)
+#pragma warning restore OOXML0001
+  {
+    if (all)
+      return PropTypes.Count;
+    return PropTypes.Count(item => coreProperties.GetValue(item.Key) != null);
+  }
 
 
   /// <summary>
   /// Get the names of all the core properties.
   /// </summary>
   /// <param name="coreProperties"></param>
+  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static string[] GetNames(this DXPack.IPackageProperties coreProperties) 
+  public static string[] GetNames(this DXPack.IPackageProperties coreProperties, bool all = false)
 #pragma warning restore OOXML0001
-    => PropTypes.Select(item=>item.Key.Trim()).ToArray();
+  {
+    if (all)
+      return PropTypes.Keys.ToArray();
+    return PropTypes.Where(item => coreProperties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
+  }
 
   /// <summary>
   /// Get the type of property with its name.
@@ -50,10 +60,10 @@ public static class CorePropertiesTools
   /// <param name="propertyName"></param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static object? GetValue (this DXPack.IPackageProperties coreProperties, string propertyName)
+  public static object? GetValue(this DXPack.IPackageProperties coreProperties, string propertyName)
 #pragma warning restore OOXML0001
   {
-    switch(propertyName)
+    switch (propertyName)
     {
       case "Title":
         return coreProperties.Title;
@@ -87,7 +97,7 @@ public static class CorePropertiesTools
         return coreProperties.Language;
       case "Identifier":
         return coreProperties.Identifier;
-      default :
+      default:
         return null;
     }
   }
@@ -138,7 +148,7 @@ public static class CorePropertiesTools
         coreProperties.LastModifiedBy = (string?)value;
         break;
       case "Revision":
-        coreProperties.Revision = (string?)value;
+        coreProperties.Revision = value?.ToString();
         break;
       case "Version":
         coreProperties.Version = (string?)value;
@@ -169,7 +179,7 @@ public static class CorePropertiesTools
     {"LastModifiedBy", typeof(String) },
     {"LastPrinted", typeof(DateTime) },
     {"Modified", typeof(DateTime) },
-    {"Revision", typeof(String) },
+    {"Revision", typeof(int) },
     {"Subject", typeof(String) },
     {"Title", typeof(String) },
     {"Version", typeof(String) },

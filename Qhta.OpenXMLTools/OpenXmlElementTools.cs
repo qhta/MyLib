@@ -795,6 +795,49 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
+  /// Get the fixed point real number value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
+  /// </summary>
+  /// <param name="xmlElement">checked element</param>
+  /// <result>decimal value or null (on parse error)</result>
+  public static decimal? GetFirstElementDecimalValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DX.OpenXmlLeafTextElement
+  {
+    var text = xmlElement.Elements<ElementType>().FirstOrDefault()?.Text;
+    if (text == null)
+      return null;
+    if (decimal.TryParse(text, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var val))
+      return val;
+    return null;
+  }
+
+  /// <summary>
+  /// Set the text content of the first child element of the specified type  of the <c>OpenXmlLeafTextElement</c> to the fixed point real value.
+  /// </summary>
+  /// <typeparam name="ElementType">element to set</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">integer value (or null)</param>
+  /// <remarks>
+  /// If the value is null, the existing element is removed.
+  /// </remarks>
+  public static void SetFirstElementDecimalValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement, decimal? value)
+    where ElementType : DX.OpenXmlLeafTextElement, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value != null)
+    {
+      var val = ((decimal)value).ToString(CultureInfo.InvariantCulture);
+      if (element != null)
+      {
+        if (element.Text != val)
+          element.Text = val;
+      }
+      else
+        xmlElement.Append(new ElementType { Text = val });
+    }
+    else
+      element?.Remove();
+  }
+  /// <summary>
   /// Set all elements of the first specified type element in the <c>OpenXmlCompositeElement</c>.
   /// </summary>
   /// <param name="xmlElement"></param>

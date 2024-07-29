@@ -45,12 +45,13 @@ public class DocumentProperties
   /// <summary>
   /// Get the count of all the document properties.
   /// </summary>
+  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public int Count()
+  public int Count(bool all = false)
   {
-    int count = CoreProperties.Count();
+    int count = CoreProperties.Count(all);
     if (ExtendedProperties != null)
-      count += ExtendedProperties.Count();
+      count += ExtendedProperties.Count(all);
     if (CustomProperties != null)
       count += CustomProperties.Count();
     return count;
@@ -59,13 +60,14 @@ public class DocumentProperties
   /// <summary>
   /// Get the names of all the document properties.
   /// </summary>
+  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public string[] GetNames()
+  public string[] GetNames(bool all = false)
   {
     List<string> names = new();
-    names.AddRange(CoreProperties.GetNames());
+    names.AddRange(CoreProperties.GetNames(all));
     if (ExtendedProperties != null)
-      names.AddRange(ExtendedProperties.GetNames());
+      names.AddRange(ExtendedProperties.GetNames(all));
     if (CustomProperties != null)
       names.AddRange(CustomProperties.GetNames());
     return names.ToArray();
