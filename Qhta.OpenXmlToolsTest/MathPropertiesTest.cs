@@ -60,29 +60,29 @@ public class MathPropertiesTest
 
   public void DocumentMathPropertiesWriteTest(WordprocessingDocument wordDoc)
   {
-    //Console.WriteLine("Math properties write test:");
-    //var MathProperties = wordDoc.GetMathProperties();
-    //foreach (var propName in MathProperties.GetNames(true))
-    //{
-    //  var propType = MathProperties.GetType(propName);
-    //  var value = TestTools.CreateNewPropertyValue(propName, propType);
-    //  if (propName == "RemovePersonalInformation" 
-    //      || propName == "HideSpellingErrors" || propName == "HideGrammaticalErrors"
-    //      || propName == "SaveFormsData" 
-    //      || propName == "TrackRevisions"
-    //      || propName == "DoNotTrackMoves" || propName == "DoNotTrackFormatting" || propName == "DoNotTrackComments"
-    //      || propName == "UpdateFieldsOnOpen"
-    //      )
-    //    value = false;
-    //  else if (propName == "AttachedTemplate")
-    //    value = @"file:///C:\Users\qhta1\AppData\Roaming\Microsoft\Templates\ECMA.dotx";
-    //  if (value != null)
-    //  {
-    //    MathProperties.SetValue(propName, value);
-    //    Console.WriteLine($"writing {propName}: {value.AsString()}");
-    //  }
-    //}
-    //Console.WriteLine();
+    Console.WriteLine("Math properties write test:");
+    var MathProperties = wordDoc.GetMathProperties();
+    foreach (var propName in MathProperties.GetNames(true))
+    {
+      var propType = MathProperties.GetType(propName);
+      var value = TestTools.CreateNewPropertyValue(propName, propType);
+      //if (propName == "RemovePersonalInformation"
+      //    || propName == "HideSpellingErrors" || propName == "HideGrammaticalErrors"
+      //    || propName == "SaveFormsData"
+      //    || propName == "TrackRevisions"
+      //    || propName == "DoNotTrackMoves" || propName == "DoNotTrackFormatting" || propName == "DoNotTrackComments"
+      //    || propName == "UpdateFieldsOnOpen"
+      //    )
+      //  value = false;
+      //else if (propName == "AttachedTemplate")
+      //  value = @"file:///C:\Users\qhta1\AppData\Roaming\Microsoft\Templates\ECMA.dotx";
+      if (value != null)
+      {
+        MathProperties.SetValue(propName, value);
+        Console.WriteLine($"writing {propName}: {value.AsString()}");
+      }
+    }
+    Console.WriteLine();
   }
 
 

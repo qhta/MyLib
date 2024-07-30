@@ -469,30 +469,39 @@
             <param name="propertyName"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetValue(DocumentFormat.OpenXml.Math.MathProperties,System.String,System.Object)">
+            <summary>
+            Sets the value of a <c>MathProperties</c> property.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetBreakBinary(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>BreakBinary</c> setting value.
+            Get the <c>BreakBinary</c> property value.
             </summary>
             <param name="properties"></param>
             <result>result value</result>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetBreakBinarySubtraction(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>BreakBinarySubtraction</c> setting value.
+            Get the <c>BreakBinarySubtraction</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetDefaultJustification(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-             Get the <c>DefaultJustification</c> setting value.
+             Get the <c>DefaultJustification</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetDisplayDefaults(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>DisplayDefaults</c> setting value.
+            Get the <c>DisplayDefaults</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
@@ -504,82 +513,194 @@
             <param name="properties"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetIntegralLimitLocations(DocumentFormat.OpenXml.Math.MathProperties)">
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetIntegralLimitLocation(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>IntegralLimitLocations</c> setting value.
+            Get the <c>IntegralLimitLocations</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetIntraSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>IntraSpacing</c> setting value.
+            Get the <c>IntraSpacing</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetLeftMargin(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>LeftMargin</c> setting value.
+            Get the <c>LeftMargin</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetMathFont(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>MathFont</c> setting value.
+            Get the <c>MathFont</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetNaryLimitLocation(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>NaryLimitLocation</c> setting value.
+            Get the <c>NaryLimitLocation</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetPostSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>PostSpacing</c> setting value.
+            Get the <c>PostSpacing</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetPreSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>PreSpacing</c> setting value.
+            Get the <c>PreSpacing</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetRightMargin(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>RightMargin</c> setting value.
+            Get the <c>RightMargin</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetSmallFraction(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>SmallFraction</c> setting value.
+            Get the <c>SmallFraction</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetWrapIndent(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>WrapIndent</c> setting value.
+            Get the <c>WrapIndent</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetWrapRight(DocumentFormat.OpenXml.Math.MathProperties)">
             <summary>
-            Get the <c>WrapRight</c> setting value.
+            Get the <c>WrapRight</c> property value.
             </summary>
             <param name="properties"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetBreakBinary(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.BreakBinaryOperatorValues})">
+            <summary>
+            Set <c>BreakBinary</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetBreakBinarySubtraction(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.BreakBinarySubtractionValues})">
+            <summary>
+            Set <c>BreakBinarySubtraction</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetDefaultJustification(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.JustificationValues})">
+            <summary>
+            Set <c>DefaultJustification</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetDisplayDefaults(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.BooleanValues})">
+            <summary>
+            Set <c>DisplayDefaults</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetInterSpacing(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetIntegralLimitLocation(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.LimitLocationValues})">
+            <summary>
+            Set <c>IntegralLimitLocation</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetIntraSpacing(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set <c>IntraSpacing</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetLeftMargin(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set <c>LeftMargin</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetMathFont(DocumentFormat.OpenXml.Math.MathProperties,System.String)">
+            <summary>
+            Set <c>MathFont</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetNaryLimitLocation(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.LimitLocationValues})">
+            <summary>
+            Set <c>NaryLimitLocation</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetPostSpacing(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set <c>PostSpacing</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetPreSpacing(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set <c>PreSpacing</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetRightMargin(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set <c>RightMargin</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetSmallFraction(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.BooleanValues})">
+            <summary>
+            Set <c>SmallFraction</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetWrapIndent(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{Qhta.OpenXmlTools.Twips})">
+            <summary>
+            Set <c>WrapIndent</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.SetWrapRight(DocumentFormat.OpenXml.Math.MathProperties,System.Nullable{DocumentFormat.OpenXml.Math.BooleanValues})">
+            <summary>
+            Set <c>WrapRight</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>

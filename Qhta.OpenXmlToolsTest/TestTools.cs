@@ -24,6 +24,10 @@ public static class TestTools
       return 1.2m;
     if (propertyType == typeof(Twips))
       return new Twips(144000);
+    if (propertyType == typeof(DXM.BooleanValues))
+      return DXM.BooleanValues.On;
+    if (propertyType.GetInterface("IEnumValue") != null)
+      return propertyType.GetProperties(BindingFlags.Public | BindingFlags.Static).ToArray()[1].GetValue(null);
     return null;
   }
 
