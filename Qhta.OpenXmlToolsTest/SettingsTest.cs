@@ -57,13 +57,13 @@ public class SettingsTest
   public void DocumentSettingsReadTest(WordprocessingDocument wordDoc)
   {
     Console.WriteLine("Document settings read test:");
-    var documentSettings = wordDoc.MainDocumentPart?.DocumentSettingsPart?.Settings;
-    
-    if (documentSettings == null)
+    if (!wordDoc.HasSettings())
     {
       Console.WriteLine("No document settings found");
       return;
     }
+
+    var documentSettings = wordDoc.GetSettings();
     var count = documentSettings.Count();
     Console.WriteLine($"Document settings count = {count}");
     var propNames = documentSettings.GetNames().ToArray();
@@ -81,13 +81,23 @@ public class SettingsTest
 
   public void DocumentSettingsWriteTest(WordprocessingDocument wordDoc)
   {
-    Console.WriteLine("Core properties write test:");
+    Console.WriteLine("Document settings write test:");
     var settings = wordDoc.GetSettings();
     foreach (var propName in settings.GetNames(true))
     {
       var propType = settings.GetType(propName);
       var value = CreateNewPropertyValue(propName, propType);
-      if (value!=null)
+      if (propName == "RemovePersonalInformation" 
+          || propName == "HideSpellingErrors" || propName == "HideGrammaticalErrors"
+          || propName == "SaveFormsData" 
+          || propName == "TrackRevisions"
+          || propName == "DoNotTrackMoves" || propName == "DoNotTrackFormatting" || propName == "DoNotTrackComments"
+          || propName == "UpdateFieldsOnOpen"
+          )
+        value = false;
+      else if (propName == "AttachedTemplate")
+        value = @"file:///C:\Users\qhta1\AppData\Roaming\Microsoft\Templates\ECMA.dotx";
+      if (value != null)
       {
         settings.SetValue(propName, value);
         Console.WriteLine($"writing {propName}: {value.AsString()}");
@@ -96,32 +106,6 @@ public class SettingsTest
     Console.WriteLine();
   }
 
-  //public void DocumentSettingsWriteTest(WordprocessingDocument wordDoc)
-  //{
-  //  Console.WriteLine("Document properties write test:");
-  //  var documentSettings = wordDoc.GetDocumentSettings();
-  //  foreach (var propName in documentSettings.GetNames())
-  //  {
-  //    var type = documentSettings.GetType(propName);
-  //    var value = CreateNewPropertyValue(propName, type);
-  //    Console.WriteLine($"writing {propName}: {value}");
-  //    documentSettings.SetValue(propName, value);
-  //  }
-  //  foreach (var data in vtTestData)
-  //  {
-
-  //    var propertyType = data.Key;
-  //    var propName = propertyType.Name.Substring(2) + "_new";
-  //    var value = data.Value;
-  //    OpenXmlElement? dataInstance = CreateVariantElement(propertyType, value);
-  //    if (dataInstance != null)
-  //    {
-  //      documentSettings.SetValue(propName, value);
-  //      Console.WriteLine($"writing {propName}: {value.AsString()}");
-  //    }
-  //  }
-  //  Console.WriteLine();
-  //}
 
   private object? CreateNewPropertyValue(string propertyName, Type propertyType)
   {

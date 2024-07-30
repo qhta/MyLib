@@ -144,21 +144,6 @@
             Holds the WordprocessingDocument object.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.DocumentProperties.CoreProperties">
-            <summary>
-            Holds the core properties of the document.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.DocumentProperties.ExtendedProperties">
-            <summary>
-            Holds the extended properties of the document.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.DocumentProperties.CustomProperties">
-            <summary>
-            Holds the custom properties of the document.
-            </summary>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentProperties.Count(System.Boolean)">
             <summary>
             Get the count of all the document properties.
@@ -219,25 +204,48 @@
             A collection of tools for working with OpenXml documents.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasCoreProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Checks if the document has core properties.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetCoreProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Gets the core properties of the document.
+            Gets the core properties of the document. If the document does not have core properties, they are created.
             </summary>
             <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Checks if the document has extended file properties.
+            </summary>
+            <param name="wordDoc"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Gets the extended file properties of the document.
+            Gets the extended file properties of the document. If the document does not have extended file properties,
+            they are created.
             </summary>
             <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Gets the custom file properties of the document.
+            Checks if the document has custom file properties.
             </summary>
             <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the custom file properties of the document. If the document does not have custom file properties,
+            they are created.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetDocumentProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
@@ -929,6 +937,22 @@
             <param name="xmlElement"></param>
             <param name="value"></param>
             <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRelationshipValue(DocumentFormat.OpenXml.OpenXmlPartRootElement,System.String,System.String)">
+            <summary>
+            Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+            </summary>
+            <param name="rootElement"></param>
+            <param name="relationshipType"></param>
+            <param name="rId"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetRelationshipValue(DocumentFormat.OpenXml.OpenXmlPartRootElement,System.String,System.String)">
+            <summary>
+            Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+            </summary>
+            <param name="rootElement"></param>
+            <param name="relationshipType"></param>
+            <param name="value"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementVTBlobValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>

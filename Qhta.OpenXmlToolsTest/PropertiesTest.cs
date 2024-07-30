@@ -1,6 +1,5 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.VariantTypes;
 using DocumentFormat.OpenXml.Wordprocessing;
 
@@ -26,7 +25,7 @@ public class PropertiesTest
     {
       var mainDocumentPart = wordDoc.AddMainDocumentPart();
       var document = mainDocumentPart.Document = new Document();
-      var body = document.Body = new Body();
+      document.Body = new Body();
       CorePropertiesDirectWriteTest(wordDoc);
       ExtendedFilePropertiesDirectWriteTest(wordDoc);
       CustomFilePropertiesDirectWriteTest(wordDoc);
@@ -62,13 +61,13 @@ public class PropertiesTest
   public void ExtendedFilePropertiesDirectReadTest(WordprocessingDocument wordDoc)
   {
     Console.WriteLine("Extended file properties read test:");
-    var appProperties = wordDoc.GetExtendedFileProperties();
-    if (appProperties == null)
+    if (!wordDoc.HasExtendedFileProperties())
     {
       Console.WriteLine("No extended file properties found");
     }
     else
     {
+      var appProperties = wordDoc.GetExtendedFileProperties();
       var count = appProperties.Count();
       Console.WriteLine($"Extended file properties count = {count}");
       foreach (var property in typeof(DXEP.Properties)
@@ -100,13 +99,13 @@ public class PropertiesTest
   public void CustomFilePropertiesDirectReadTest(WordprocessingDocument wordDoc)
   {
     Console.WriteLine("Custom file properties read test:");
-    var customProperties = wordDoc.GetCustomFileProperties();
-    if (customProperties == null)
+    if (!wordDoc.HasCustomFileProperties())
     {
       Console.WriteLine("No custom file properties found");
     }
     else
     {
+      var customProperties = wordDoc.GetCustomFileProperties();
       var count = customProperties.Count();
       Console.WriteLine($"Custom file properties count = {count}");
       foreach (var customProperty in customProperties.Elements<DXCP.CustomDocumentProperty>())

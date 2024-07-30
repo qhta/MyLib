@@ -14,6 +14,9 @@ namespace Qhta.OpenXmlTools;
 public static class SettingsTools
 {
 
+  private const string AttachedRelationshipType = 
+    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/attachedTemplate";
+
   /// <summary>
   /// Checks if the document has settings.
   /// </summary>
@@ -709,7 +712,10 @@ public static class SettingsTools
   public static string? GetAttachedTemplate(this Settings settings)
   {
 
-    return settings.GetFirstRelationshipElementId<AttachedTemplate>();
+    var rId = settings.GetFirstRelationshipElementId<AttachedTemplate>();
+    if (rId != null)
+      return settings.GetRelationshipValue(AttachedRelationshipType, rId);
+    return null;
   }
 
   /// <summary>
@@ -1818,7 +1824,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAttachedTemplate(this Settings settings, string? value)
   {
-    settings.SetFirstRelationshipElementId<AttachedTemplate>(value);
+    settings.SetRelationshipValue(AttachedRelationshipType, value);
   }
 
   /// <summary>

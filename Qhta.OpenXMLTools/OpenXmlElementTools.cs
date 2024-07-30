@@ -2,6 +2,8 @@
 using System.IO;
 
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -1046,6 +1048,76 @@ public static class OpenXmlElementTools
       element = new ElementType();
       element.Id = value;
       xmlElement.Append(element);
+    }
+  }
+
+  /// <summary>
+  /// Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+  /// </summary>
+  /// <param name="rootElement"></param>
+  /// <param name="relationshipType"></param>
+  /// <param name="rId"></param>
+  public static string? GetRelationshipValue(this DX.OpenXmlPartRootElement rootElement, string relationshipType, string rId)
+  {
+    OpenXmlPart part = rootElement.OpenXmlPart!;
+    var externalRelationships = part.ExternalRelationships.ToList();
+    var externalRelationship = externalRelationships
+      .FirstOrDefault(r => r.RelationshipType == relationshipType && r.Id == rId);
+    if (externalRelationship != null)
+    {
+      return externalRelationship.Uri.ToString();
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+  /// </summary>
+  /// <param name="rootElement"></param>
+  /// <param name="relationshipType"></param>
+  /// <param name="value"></param>
+  public static void SetRelationshipValue(this DX.OpenXmlPartRootElement rootElement, string relationshipType, string? value)
+  {
+    OpenXmlPart part = rootElement.OpenXmlPart!;
+    if (value != null)
+    {
+      var uri = new Uri(value);
+      string? rId = null;
+
+      var externalRelationships = part.ExternalRelationships.ToList();
+      var externalRelationship = externalRelationships
+        .FirstOrDefault(r => r.RelationshipType == relationshipType);
+      if (externalRelationship != null)
+      {
+        if (externalRelationship.Uri.ToString() == uri.ToString())
+          rId = externalRelationship.Id;
+        else
+        {
+          part.DeleteExternalRelationship(externalRelationship);
+          externalRelationships.Remove(externalRelationship);
+        }
+      }
+      if (rId == null)
+      {
+        for (int i = 1; ; i++)
+        {
+          rId = $"rId{i}";
+          if (externalRelationships.FirstOrDefault(r => r.Id == rId) == null)
+            break;
+        }
+        part.AddExternalRelationship(relationshipType, uri, rId);
+      }
+      rootElement.SetFirstRelationshipElementId<AttachedTemplate>(rId);
+    }
+    else
+    {
+      var externalRelationships = part.ExternalRelationships.ToList();
+      var externalRelationship = externalRelationships.FirstOrDefault(r => r.RelationshipType == relationshipType);
+      if (externalRelationship != null)
+      {
+        part.DeleteExternalRelationship(externalRelationship);
+        externalRelationships.Remove(externalRelationship);
+      }
     }
   }
 

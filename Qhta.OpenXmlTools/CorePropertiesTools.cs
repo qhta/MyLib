@@ -7,6 +7,7 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class CorePropertiesTools
 {
+
   /// <summary>
   /// Get the count of all the core properties.
   /// </summary>
