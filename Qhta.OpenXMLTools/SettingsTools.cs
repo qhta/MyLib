@@ -347,7 +347,7 @@ public static class SettingsTools
       case "LinkStyles": settings.SetLinkStyles((bool?)value); break;
       case "StylePaneFormatFilter": settings.SetStylePaneFormatFilter((StylePaneFormatFilter?)value); break;
       case "StylePaneSortMethods": settings.SetStylePaneSortMethods((string?)value); break;
-      case "DocumentType": settings.SetDocumentType((string?)value); break;
+      case "DocumentType": settings.SetDocumentType((DocumentTypeValues?)value); break;
       case "MailMerge": settings.SetMailMerge((MailMerge?)value); break;
       case "RevisionView": settings.SetRevisionView((RevisionView?)value); break;
       case "TrackRevisions": settings.SetTrackRevisions((bool?)value); break;
@@ -467,7 +467,7 @@ public static class SettingsTools
   public static ViewValues? GetView(this Settings settings)
   {
 
-    return settings.GetFirstElementEnumVal<View, ViewValues>();
+    return settings.GetFirstEnumTypeElementVal<View, ViewValues>();
   }
 
   /// <summary>
@@ -742,7 +742,7 @@ public static class SettingsTools
   public static string? GetStylePaneSortMethods(this Settings settings)
   {
 
-    return settings.GetFirstElementVal<StylePaneSortMethods>();
+    return settings.GetFirstElementStringVal<StylePaneSortMethods>();
   }
 
   /// <summary>
@@ -750,10 +750,10 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>result value</result>
-  public static string? GetDocumentType(this Settings settings)
+  public static DocumentTypeValues? GetDocumentType(this Settings settings)
   {
 
-    return settings.GetFirstElementVal<DocumentType>();
+    return settings.GetFirstEnumTypeElementVal<DocumentType, DocumentTypeValues>();
   }
 
   /// <summary>
@@ -1105,7 +1105,7 @@ public static class SettingsTools
   public static CharacterSpacingValues? GetCharacterSpacingControl(this Settings settings)
   {
 
-    return settings.GetFirstElementEnumVal<CharacterSpacingControl, CharacterSpacingValues>();
+    return settings.GetFirstEnumTypeElementVal<CharacterSpacingControl, CharacterSpacingValues>();
   }
 
   /// <summary>
@@ -1380,7 +1380,7 @@ public static class SettingsTools
   public static string? GetAttachedSchema(this Settings settings)
   {
 
-    return settings.GetFirstElementVal<AttachedSchema>();
+    return settings.GetFirstElementStringVal<AttachedSchema>();
   }
 
   /// <summary>
@@ -1848,7 +1848,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStylePaneSortMethods(this Settings settings, string? value)
   {
-    settings.SetFirstElementVal<StylePaneSortMethods>(value);
+    settings.SetFirstElementStringVal<StylePaneSortMethods>(value);
   }
 
   /// <summary>
@@ -1856,9 +1856,9 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <param name="value">value to set</param>
-  public static void SetDocumentType(this Settings settings, string? value)
+  public static void SetDocumentType(this Settings settings, DocumentTypeValues? value)
   {
-    settings.SetFirstElementVal<DocumentType>(value);
+    settings.SetFirstEnumTypeElementVal<DocumentType, DocumentTypeValues>(value);
   }
 
   /// <summary>
@@ -2428,7 +2428,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAttachedSchema(this Settings settings, string? value)
   {
-    settings.SetFirstElementVal<AttachedSchema>(value);
+    settings.SetFirstElementStringVal<AttachedSchema>(value);
   }
 
   /// <summary>
@@ -2634,7 +2634,7 @@ public static class SettingsTools
     { "LinkStyles", typeof(bool) },
     { "StylePaneFormatFilter", typeof(StylePaneFormatFilter) },
     { "StylePaneSortMethods", typeof(string) },
-    { "DocumentType", typeof(string) },
+    { "DocumentType", typeof(DocumentTypeValues) },
     { "MailMerge", typeof(MailMerge) },
     { "RevisionView", typeof(RevisionView) },
     { "TrackRevisions", typeof(bool) },

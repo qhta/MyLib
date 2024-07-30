@@ -191,7 +191,7 @@ public static class OpenXmlElementTools
       else
       {
         var newElement = new ElementType();
-        valProperty.SetValue(newElement, value);
+        valProperty.SetValue(newElement, new Int32Value(value.Value));
         xmlElement.Append(newElement);
       }
     }
@@ -730,7 +730,7 @@ public static class OpenXmlElementTools
   /// Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a string.
   /// </summary>
   /// <param name="xmlElement"></param>
-  public static string? GetFirstElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+  public static string? GetFirstElementStringVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DX.OpenXmlElement, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
@@ -746,7 +746,31 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <param name="xmlElement"></param>
   /// <param name="value"></param>
-  public static void SetFirstElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, string? value)
+  public static void SetFirstElementStringVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, string? value)
+    where ElementType : DX.OpenXmlElement, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (element != null)
+    {
+      if (value == null)
+        element.Remove();
+      else
+        SetValValue(element, value);
+    }
+    else if (value != null)
+    {
+      element = new ElementType();
+      SetValValue(element, new StringValue(value));
+      xmlElement.Append(element);
+    }
+  }
+
+  /// <summary>
+  /// Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as an object.
+  /// </summary>
+  /// <param name="xmlElement"></param>
+  /// <param name="value"></param>
+  public static void SetFirstElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, object? value)
     where ElementType : DX.OpenXmlElement, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
@@ -764,7 +788,6 @@ public static class OpenXmlElementTools
       xmlElement.Append(element);
     }
   }
-
 
   /// <summary>
   /// Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a hex integer.
@@ -789,10 +812,10 @@ public static class OpenXmlElementTools
   /// <param name="xmlElement"></param>
   /// <param name="value"></param>
   public static void SetFirstElementHexIntVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, int? value)
-    where ElementType : DX.OpenXmlElement, new()
+    where ElementType : DX.OpenXmlLeafElement, new()
   {
     if (value != null)
-      SetFirstElementVal<ElementType>(xmlElement, value.Value.ToString("X8"));
+      SetFirstElementVal<ElementType>(xmlElement, new HexBinaryValue(((int)value).ToString("X8")));
     else
       SetFirstElementVal<ElementType>(xmlElement, null);
   }
@@ -824,9 +847,9 @@ public static class OpenXmlElementTools
     where ElementType : DX.OpenXmlElement, new()
   {
     if (value != null)
-      SetFirstElementVal<ElementType>(xmlElement, value.Value.ToString("B"));
+      SetFirstElementStringVal<ElementType>(xmlElement, value.Value.ToString("B"));
     else
-      SetFirstElementVal<ElementType>(xmlElement, null);
+      SetFirstElementStringVal<ElementType>(xmlElement, null);
   }
   /// <summary>
   /// Get the fixed point real number value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
@@ -887,10 +910,10 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Get the <c>Val</c> value of the first specified type element from the <c>OpenXmlCompositeElement</c>.
+  /// Get the <c>Val</c> value of the first specified type element of type <c>IEnumValueFactory</c> from the <c>OpenXmlCompositeElement</c>.
   /// </summary>
   /// <param name="xmlElement"></param>
-  public static ElementValuesType? GetFirstElementEnumVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement)
+  public static ElementValuesType? GetFirstEnumTypeElementVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DX.OpenXmlElement, new()
     where ElementValuesType : struct, IEnumValue, IEnumValueFactory<ElementValuesType>
   {
@@ -901,6 +924,32 @@ public static class OpenXmlElementTools
       return GetValValue<DX.EnumValue<ElementValuesType>>(element)?.Value;
     }
     return null;
+  }
+
+
+  /// <summary>
+  /// Set the value of the first specified type element of type <c>IEnumValueFactory</c>  in the <c>OpenXmlCompositeElement</c>.
+  /// </summary>
+  /// <param name="xmlElement"></param>
+  /// <param name="value"></param>
+  public static void SetFirstEnumTypeElementVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement, ElementValuesType? value)
+    where ElementType : DX.OpenXmlElement, new()
+    where ElementValuesType : struct, IEnumValue, IEnumValueFactory<ElementValuesType>
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (element != null)
+    {
+      if (value == null)
+        element.Remove();
+      else
+        SetValValue(element, value);
+    }
+    else if (value != null)
+    {
+      element = new ElementType();
+      SetValValue(element, new DX.EnumValue<ElementValuesType>(value));
+      xmlElement.Append(element);
+    }
   }
 
   /// <summary>

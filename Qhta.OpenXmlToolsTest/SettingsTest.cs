@@ -20,23 +20,17 @@ public class SettingsTest
 
   public void SettingsWriteTest(string filename)
   {
-    //using (var wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document))
-    //{
-    //  var mainDocumentPart = wordDoc.AddMainDocumentPart();
-    //  var document = mainDocumentPart.Document = new Document();
-    //  var body = document.Body = new Body();
-    //  SettingsDirectWriteTest(wordDoc);
-    //  ExtendedFileSettingsDirectWriteTest(wordDoc);
-    //  CustomFileSettingsDirectWriteTest(wordDoc);
-    //  DocumentSettingsWriteTest(wordDoc);
-    //}
-    //using (var wordDoc = WordprocessingDocument.Open(filename, false))
-    //{
-    //  SettingsDirectReadTest(wordDoc);
-    //  ExtendedFileSettingsDirectReadTest(wordDoc);
-    //  CustomFileSettingsDirectReadTest(wordDoc);
-    //  DocumentSettingsReadTest(wordDoc);
-    //}
+    using (var wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document))
+    {
+      var mainDocumentPart = wordDoc.AddMainDocumentPart();
+      var document = mainDocumentPart.Document = new Document();
+      document.Body = new Body();
+      DocumentSettingsWriteTest(wordDoc);
+    }
+    using (var wordDoc = WordprocessingDocument.Open(filename, false))
+    {
+      DocumentSettingsReadTest(wordDoc);
+    }
   }
 
   public void DocumentSettingsDirectReadTest(WordprocessingDocument wordDoc)
@@ -85,7 +79,7 @@ public class SettingsTest
   }
 
 
-  public void SettingWriteTest(WordprocessingDocument wordDoc)
+  public void DocumentSettingsWriteTest(WordprocessingDocument wordDoc)
   {
     Console.WriteLine("Core properties write test:");
     var settings = wordDoc.GetSettings();

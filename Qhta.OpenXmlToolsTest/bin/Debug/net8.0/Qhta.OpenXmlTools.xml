@@ -805,15 +805,22 @@
             Otherwise, the existing element is removed and the new element is added.
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementStringVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a string.
             </summary>
             <param name="xmlElement"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementStringVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
             <summary>
             Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as a string.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Object)">
+            <summary>
+            Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as an object.
             </summary>
             <param name="xmlElement"></param>
             <param name="value"></param>
@@ -869,11 +876,18 @@
             <param name="xmlElement"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementEnumVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstEnumTypeElementVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
-            Get the <c>Val</c> value of the first specified type element from the <c>OpenXmlCompositeElement</c>.
+            Get the <c>Val</c> value of the first specified type element of type <c>IEnumValueFactory</c> from the <c>OpenXmlCompositeElement</c>.
             </summary>
             <param name="xmlElement"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstEnumTypeElementVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{``1})">
+            <summary>
+            Set the value of the first specified type element of type <c>IEnumValueFactory</c>  in the <c>OpenXmlCompositeElement</c>.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement,``1)">
             <summary>
@@ -2460,7 +2474,7 @@
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDocumentType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDocumentType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.DocumentTypeValues})">
             <summary>
             Set the <c>DocumentType</c> setting value.
             </summary>
