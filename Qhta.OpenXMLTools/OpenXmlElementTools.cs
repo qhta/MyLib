@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 
+using DocumentFormat.OpenXml;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -8,6 +10,7 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class OpenXmlElementTools
 {
+
   /// <summary>
   /// Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
   /// </summary>
@@ -733,7 +736,7 @@ public static class OpenXmlElementTools
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
     {
-      return element.GetValValue<string>();
+      return element.GetValValue<DX.StringValue>()?.Value;
     }
     return null;
   }
@@ -767,13 +770,13 @@ public static class OpenXmlElementTools
   /// Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a hex integer.
   /// </summary>
   /// <param name="xmlElement"></param>
-  public static int? GetFirstElementHexIntVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+  public static HexInt? GetFirstElementHexIntVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DX.OpenXmlElement, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
     {
-      var val = element.GetValValue<string>();
+      var val = element.GetValValue<HexBinaryValue>()?.Value;
       if (val != null)
         return int.Parse(val, NumberStyles.HexNumber);
     }
@@ -794,6 +797,37 @@ public static class OpenXmlElementTools
       SetFirstElementVal<ElementType>(xmlElement, null);
   }
 
+
+  /// <summary>
+  /// Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a Guid value.
+  /// </summary>
+  /// <param name="xmlElement"></param>
+  public static Guid? GetFirstElementGuidVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DX.OpenXmlElement, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (element != null)
+    {
+      var val = element.GetValValue<StringValue>()?.Value;
+      if (val != null)
+        return Guid.Parse(val);
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as a Guid value.
+  /// </summary>
+  /// <param name="xmlElement"></param>
+  /// <param name="value"></param>
+  public static void SetFirstElementGuidVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, Guid? value)
+    where ElementType : DX.OpenXmlElement, new()
+  {
+    if (value != null)
+      SetFirstElementVal<ElementType>(xmlElement, value.Value.ToString("B"));
+    else
+      SetFirstElementVal<ElementType>(xmlElement, null);
+  }
   /// <summary>
   /// Get the fixed point real number value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
   /// </summary>
@@ -856,14 +890,15 @@ public static class OpenXmlElementTools
   /// Get the <c>Val</c> value of the first specified type element from the <c>OpenXmlCompositeElement</c>.
   /// </summary>
   /// <param name="xmlElement"></param>
-  public static ElementValuesType? GetFirstElementVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement)
+  public static ElementValuesType? GetFirstElementEnumVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DX.OpenXmlElement, new()
-    where ElementValuesType : struct
+    where ElementValuesType : struct, IEnumValue, IEnumValueFactory<ElementValuesType>
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
     {
-      return GetValValue<ElementValuesType>(element);
+      ;
+      return GetValValue<DX.EnumValue<ElementValuesType>>(element)?.Value;
     }
     return null;
   }
@@ -1068,4 +1103,5 @@ public static class OpenXmlElementTools
     else
       element?.Remove();
   }
+
 }

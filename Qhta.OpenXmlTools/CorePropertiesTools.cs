@@ -50,7 +50,7 @@ public static class CorePropertiesTools
   {
     if (PropTypes.TryGetValue(propertyName, out var type))
       return type;
-    throw new ArgumentException("Property name not found.", nameof(propertyName));
+    throw new ArgumentException($"Property {propertyName} not found");
   }
 
   /// <summary>

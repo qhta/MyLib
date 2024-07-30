@@ -80,9 +80,9 @@ public class DocumentProperties
   /// <returns></returns>
   public Type GetType(string propName)
   {
-    if (CoreProperties.GetNames().Contains(propName))
+    if (CoreProperties.GetNames(true).Contains(propName))
       return CoreProperties.GetType(propName);
-    if (ExtendedProperties != null && ExtendedProperties.GetNames().Contains(propName))
+    if (ExtendedProperties != null && ExtendedProperties.GetNames(true).Contains(propName))
       return ExtendedProperties.GetType(propName);
     if (CustomProperties != null)
     {
@@ -99,9 +99,9 @@ public class DocumentProperties
   /// <returns></returns>
   public object? GetValue(string propertyName)
   {
-    if (CoreProperties.GetNames().Contains(propertyName))
+    if (CoreProperties.GetNames(true).Contains(propertyName))
       return CoreProperties.GetValue(propertyName);
-    if (ExtendedProperties != null && ExtendedProperties.GetNames().Contains(propertyName))
+    if (ExtendedProperties != null && ExtendedProperties.GetNames(true).Contains(propertyName))
       return ExtendedProperties.GetValue(propertyName);
     if (CustomProperties != null)
       return CustomProperties.GetValue(propertyName);
@@ -116,7 +116,7 @@ public class DocumentProperties
   /// <returns></returns>
   public void SetValue(string propertyName, object? value)
   {
-    if (CoreProperties.GetNames().Contains(propertyName))
+    if (CoreProperties.GetNames(true).Contains(propertyName))
       CoreProperties.SetValue(propertyName, value);
     else
     {
@@ -127,7 +127,7 @@ public class DocumentProperties
         extendedFilePropertiesPart.Properties = appProperties;
         ExtendedProperties = appProperties;
       }
-      if (ExtendedProperties.GetNames().Contains(propertyName))
+      if (ExtendedProperties.GetNames(true).Contains(propertyName))
         ExtendedProperties.SetValue(propertyName, value);
 
       else

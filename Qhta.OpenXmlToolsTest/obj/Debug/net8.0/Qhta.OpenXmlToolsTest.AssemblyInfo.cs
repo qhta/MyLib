@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.OpenXmlToolsTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bcf0da30ccf8a3f7ba3ae28f304a87cf2355ca15")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10a1532b1ea5364c92eb20fb0edcb929814c822e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.OpenXmlToolsTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.OpenXmlToolsTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

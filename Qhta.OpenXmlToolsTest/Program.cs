@@ -4,9 +4,12 @@ internal class Program
 {
   static void Main(string[] args)
   {
-    var test = new PropertiesTest();
-    test.DocumentPropertiesReadTest("Test.docx");
-    test.DocumentPropertiesWriteTest("WriteTest.docx");
+    var propertiesTest = new PropertiesTest();
+    propertiesTest.DocumentPropertiesReadTest("Test.docx");
+    propertiesTest.DocumentPropertiesWriteTest("WriteTest.docx");
+    //var settingsTest = new SettingsTest();
+    //settingsTest.SettingsReadTest("Test.docx");
+    //settingsTest.SettingsWriteTest("WriteTest.docx");
   }
 
 }

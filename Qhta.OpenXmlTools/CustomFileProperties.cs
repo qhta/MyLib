@@ -8,7 +8,7 @@ namespace Qhta.OpenXmlTools;
 public static class CustomFileProperties
 {
   /// <summary>
-  /// Get the count of all the custom file properties properties.
+  /// Get the count of all the custom file properties.
   /// </summary>
   /// <param name="customFileProperties"></param>
   /// <returns></returns>
@@ -38,7 +38,7 @@ public static class CustomFileProperties
       .FirstOrDefault(item => item.Name?.Value == propertyName);
     if (property != null)
       return property.FirstChild?.GetType() ?? typeof(object);
-    throw new ArgumentException("Property name not found.", nameof(propertyName));
+    throw new ArgumentException($"Property {propertyName} not found");
   }
 
   /// <summary>

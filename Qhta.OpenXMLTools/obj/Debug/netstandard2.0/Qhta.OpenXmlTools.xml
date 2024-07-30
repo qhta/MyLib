@@ -92,7 +92,7 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Count(DocumentFormat.OpenXml.CustomProperties.Properties)">
             <summary>
-            Get the count of all the custom file properties properties.
+            Get the count of all the custom file properties.
             </summary>
             <param name="customFileProperties"></param>
             <returns></returns>
@@ -350,6 +350,58 @@
             Initialize the Footnotes element with the default separator and continuation separator.
             </summary>
             <param name="endnotes"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.HexInt">
+            <summary>
+            Represents a hexadecimal integer.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.HexInt.Value">
+            <summary>
+            Stored value.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct with the integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct with the string value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.op_Implicit(System.Int32)~Qhta.OpenXmlTools.HexInt">
+            <summary>
+            Converts the integer to the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.op_Implicit(Qhta.OpenXmlTools.HexInt)~System.Int32">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct to the integer.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.op_Implicit(System.String)~System.Nullable{Qhta.OpenXmlTools.HexInt}">
+            <summary>
+            Converts the string value to the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.op_Implicit(System.Nullable{Qhta.OpenXmlTools.HexInt})~System.String">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct to the string.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexInt.ToString">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct to the string.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>
@@ -779,6 +831,19 @@
             <param name="xmlElement"></param>
             <param name="value"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementGuidVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <c>Val</c> property value of the first specified type element of the <c>OpenXmlCompositeElement</c> as a Guid value.
+            </summary>
+            <param name="xmlElement"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementGuidVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Guid})">
+            <summary>
+            Set the <c>Val</c> property value of the first specified type element in the <c>OpenXmlCompositeElement</c> as a Guid value.
+            </summary>
+            <param name="xmlElement"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementDecimalValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get the fixed point real number value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
@@ -804,7 +869,7 @@
             <param name="xmlElement"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementEnumVal``2(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get the <c>Val</c> value of the first specified type element from the <c>OpenXmlCompositeElement</c>.
             </summary>
@@ -992,6 +1057,18 @@
             </summary>
             <param name="element">source element</param>
             <returns>joined string</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.RsidsTools">
+            <summary>
+            Tools for working with <c>Rsids</c> of a document.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RsidsTools.ToArray(DocumentFormat.OpenXml.Wordprocessing.Rsids)">
+            <summary>
+            Get all the <c>Rsids</c> as an array of <see cref="T:Qhta.OpenXmlTools.HexInt"/> values (including <c>RsidRoot</c>).
+            </summary>
+            <param name="rsids"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.RunPropertiesTools">
             <summary>
@@ -1403,6 +1480,61 @@
             <summary>
             Tools for working with the Settings element.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.HasSettings(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Checks if the document has settings.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetSettings(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Returns the settings of the document. If the settings are not found, they are created.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.Count(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Boolean)">
+            <summary>
+            Get the count of all the settings properties.
+            </summary>
+            <param name="settings"></param>
+            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Boolean)">
+            <summary>
+            Get the names of all the settings properties.
+            </summary>
+            <param name="settings"></param>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Get the type of property with its name.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetValue(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Gets the value of a settings property.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetValue(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String,System.Object)">
+            <summary>
+            Sets the value of a settings property.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.SettingsTools.GetBordersDoNotSurroundHeader(DocumentFormat.OpenXml.Wordprocessing.Settings)">
             <summary>
@@ -2139,7 +2271,7 @@
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPersistentDocumentId(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetPersistentDocumentId(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Guid})">
             <summary>
             Set the <c>DocumentProtection</c> setting value.
             </summary>

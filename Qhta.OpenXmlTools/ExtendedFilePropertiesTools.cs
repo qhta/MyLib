@@ -17,10 +17,6 @@ public static class ExtendedFilePropertiesTools
   {
     if (all)
       return PropTypes.Count;
-    foreach (var prop in PropTypes.Where(item => extendedFileProperties.GetValue(item.Key) != null).ToArray())
-      Debug.WriteLine($"{prop.Key} = {extendedFileProperties.GetValue(prop.Key)}");
-
-    Debug.WriteLine("Count: " + PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null));
     return PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null);
   }
 
@@ -47,7 +43,7 @@ public static class ExtendedFilePropertiesTools
   {
     if (PropTypes.TryGetValue(propertyName, out var type))
       return type;
-    throw new ArgumentException("Property name not found.", nameof(propertyName));
+    throw new ArgumentException($"Property {propertyName} not found");
   }
 
   /// <summary>
