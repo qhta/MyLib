@@ -1,7 +1,5 @@
-﻿using System.Text;
-using DocumentFormat.OpenXml;
+﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.VariantTypes;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlToolsTest;
@@ -86,7 +84,7 @@ public class SettingsTest
     foreach (var propName in settings.GetNames(true))
     {
       var propType = settings.GetType(propName);
-      var value = CreateNewPropertyValue(propName, propType);
+      var value = TestTools.CreateNewPropertyValue(propName, propType);
       if (propName == "RemovePersonalInformation" 
           || propName == "HideSpellingErrors" || propName == "HideGrammaticalErrors"
           || propName == "SaveFormsData" 
@@ -107,77 +105,4 @@ public class SettingsTest
   }
 
 
-  private object? CreateNewPropertyValue(string propertyName, Type propertyType)
-  {
-    if (propertyType.Name.StartsWith("Nullable"))
-      propertyType = propertyType.GenericTypeArguments[0];
-    if (propertyType == typeof(string))
-      return propertyName + "_string";
-    if (propertyType == typeof(DateTime))
-      return DateTime.Now;
-    if (propertyType == typeof(int))
-      return 100_000;
-    if (propertyType == typeof(bool))
-      return true;
-    if (propertyType == typeof(decimal))
-      return 1.2m;
-    return null;
-  }
-
-  private static readonly string[] intSettings = new string[]
-  {
-    "Characters", "CharactersWithSpaces","Lines", "Pages", "Paragraphs",
-    "Revision", "TotalTime", "Words", "Slides", "HiddenSlides", "MMClips", "MultimediaClips", "Notes" , "DocumentSecurity",
-  };
-
-  private static readonly string[] boolSettings = new string[]
-  {
-    "ScaleCrop", "LinksUpToDate", "SharedDoc", "HyperlinksChanged", "SharedDocument"
-  };
-
-  private OpenXmlElement? CreateVariantElement(Type propertyType, object value)
-  {
-    OpenXmlElement? dataInstance = VTVariantTools.CreateVariant(propertyType, value);
-    return dataInstance;
-  }
-
-  private static readonly Dictionary<Type, object> vtTestData = new()
-  {
-    { typeof(VTLPWSTR), "Gżegżółka" },
-    { typeof(VTInt32), 100_000 },
-    { typeof(VTBool), true },
-    { typeof(VTFileTime), DateTime.Now },
-    { typeof(VTDecimal), 123.45m},
-    { typeof(VTDouble), 123.45e123d},
-    { typeof(VTFloat), 123.45e25f},
-    { typeof(VTByte), (sbyte)-128},
-    { typeof(VTUnsignedByte), (byte)255},
-    { typeof(VTShort), Int16.MinValue},
-    { typeof(VTUnsignedShort),UInt16.MaxValue},
-    { typeof(VTUnsignedInt32), UInt32.MaxValue},
-    { typeof(VTInt64), Int64.MinValue},
-    { typeof(VTUnsignedInt64), UInt64.MaxValue},
-    { typeof(VTVector), new object[] { "Test1", 123, true } },
-    //{ typeof(VTArray), new string[] { "Test1", "Test2", "Test3" } },
-
-    //{ typeof(VTLPSTR), "Long String" },
-    //{ typeof(VTBString), "Binary_String\t" },
-    //{ typeof(VTStreamData), "StreamData" },
-    //{ typeof(VTOStreamData), "OStreamData" },
-    //{ typeof(VTVStreamData), "VStreamData" },
-
-
-    //{ typeof(VTNull), null },
-    //{ typeof(VTEmpty), null },
-    //{ typeof(VTError), "Error" },
-    //{ typeof(VTStream), "Stream" },
-    //{ typeof(VTOStream), "OStream" },
-    //{ typeof(VTVStream), "VStream" },
-    //{ typeof(VTVStreams), "VStreams" },
-    //{ typeof(VTStorage), "Storage" },
-    //{ typeof(VTVStorage), "VStorage" },
-    //{ typeof(VTVStorages), "VStorages" },
-    //{ typeof(VTVersionedStream), "VersionedStream" },
-    //{ typeof(VTVersionedStreams), "VersionedStreams
-  };
 }

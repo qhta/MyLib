@@ -1,6 +1,32 @@
 ﻿namespace Qhta.OpenXmlToolsTest;
 public static class TestTools
 {
+
+  /// <summary>
+  /// Creates a new property value.
+  /// </summary>
+  /// <param name="propertyName"></param>
+  /// <param name="propertyType"></param>
+  /// <returns></returns>
+  public static object? CreateNewPropertyValue(string propertyName, Type propertyType)
+  {
+    if (propertyType.Name.StartsWith("Nullable"))
+      propertyType = propertyType.GenericTypeArguments[0];
+    if (propertyType == typeof(string))
+      return propertyName + "_string";
+    if (propertyType == typeof(DateTime))
+      return DateTime.Now;
+    if (propertyType == typeof(int))
+      return 100_000;
+    if (propertyType == typeof(bool))
+      return true;
+    if (propertyType == typeof(decimal))
+      return 1.2m;
+    if (propertyType == typeof(Twips))
+      return new Twips(144000);
+    return null;
+  }
+
   /// <summary>
   /// Converts the object to a string.
   /// </summary>
@@ -11,6 +37,8 @@ public static class TestTools
   {
     if (value is DXW.Rsids rsids)
       return AsString(rsids, indent);
+    if (value is DX.IEnumValue enumValue)
+      return enumValue.Value;
     if (value is DX.OpenXmlLeafElement leafElement)
       return AsString(leafElement, indent);
     if (value is DX.OpenXmlCompositeElement compositeElement)

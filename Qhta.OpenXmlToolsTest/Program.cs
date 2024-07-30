@@ -7,9 +7,12 @@ internal class Program
     //var propertiesTest = new PropertiesTest();
     //propertiesTest.DocumentPropertiesReadTest("Test.docx");
     //propertiesTest.DocumentPropertiesWriteTest("WriteTest.docx");
-    var settingsTest = new SettingsTest();
-    settingsTest.SettingsReadTest("Test.docx");
-    settingsTest.SettingsWriteTest("WriteTest.docx");
+    //var settingsTest = new SettingsTest();
+    //settingsTest.SettingsReadTest("Test.docx");
+    //settingsTest.SettingsWriteTest("WriteTest.docx");
+    var mathPropertiesTest = new MathPropertiesTest();
+    mathPropertiesTest.MathPropertiesReadTest("Test.docx");
+    mathPropertiesTest.MathPropertiesWriteTest("WriteTest.docx");
   }
 
 }

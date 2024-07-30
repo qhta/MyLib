@@ -411,6 +411,176 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.MathPropertiesTools">
+            <summary>
+            Tools for working with math properties
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.HasMathProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Check if the document has math properties
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>True if the document has math properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetMathProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the math properties from the document. If the document does not have math properties, the properties are created.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>True if the document has math properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.Count(DocumentFormat.OpenXml.Math.MathProperties,System.Boolean)">
+            <summary>
+            Get the count of all the properties.
+            </summary>
+            <param name="properties"></param>
+            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetNames(DocumentFormat.OpenXml.Math.MathProperties,System.Boolean)">
+            <summary>
+            Get the names of all the properties.
+            </summary>
+            <param name="properties"></param>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetType(DocumentFormat.OpenXml.Math.MathProperties,System.String)">
+            <summary>
+            Get the type of property with its name.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetDocument(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Gets the <c>WordprocessingDocument</c> from the <c>MathProperties</c> object.
+            </summary>
+            <param name="properties"></param>
+            <result>wordprocessing document</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetValue(DocumentFormat.OpenXml.Math.MathProperties,System.String)">
+            <summary>
+            Gets the value of a <c>MathProperties</c> property.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetBreakBinary(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>BreakBinary</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <result>result value</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetBreakBinarySubtraction(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>BreakBinarySubtraction</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetDefaultJustification(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+             Get the <c>DefaultJustification</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetDisplayDefaults(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>DisplayDefaults</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetInterSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get 
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetIntegralLimitLocations(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>IntegralLimitLocations</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetIntraSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>IntraSpacing</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetLeftMargin(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>LeftMargin</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetMathFont(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>MathFont</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetNaryLimitLocation(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>NaryLimitLocation</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetPostSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>PostSpacing</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetPreSpacing(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>PreSpacing</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetRightMargin(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>RightMargin</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetSmallFraction(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>SmallFraction</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetWrapIndent(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>WrapIndent</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetWrapRight(DocumentFormat.OpenXml.Math.MathProperties)">
+            <summary>
+            Get the <c>WrapRight</c> setting value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Numbering elements.
@@ -619,14 +789,32 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstTwipsMeasureTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
-            Get the integer <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
+            Get the <see cref="T:Qhta.OpenXmlTools.Twips"/> <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
             </summary>
             <param name="xmlElement">checked element</param>
             <result>integer value or null (on parse error)</result>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstTwipsMeasureTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstTwipsMeasureTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{Qhta.OpenXmlTools.Twips})">
              <summary>
-            Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the integer value.
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the <see cref="T:Qhta.OpenXmlTools.Twips"/> value.
+             </summary>
+             <typeparam name="ElementType">element to set</typeparam>
+             <param name="xmlElement">element to set</param>
+             <param name="value">integer value (or null)</param>
+             <remarks>
+             If the value is null, the existing element is removed.
+             </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstTwipsMeasureMathTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the <see cref="T:Qhta.OpenXmlTools.Twips"/> <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>integer value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstTwipsMeasureMathTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{Qhta.OpenXmlTools.Twips})">
+             <summary>
+            Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the <see cref="T:Qhta.OpenXmlTools.Twips"/> value.
              </summary>
              <typeparam name="ElementType">element to set</typeparam>
              <param name="xmlElement">element to set</param>
@@ -710,7 +898,7 @@
             If the value is null, the text content is removed.
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get the boolean value of the first child element of the specified type of the <c>OnOffType</c>.
             </summary>
@@ -720,9 +908,30 @@
               boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
             <summary>
             Set the text content of the first child element of the specified type of the <c>OnOffType</c> to the bool value.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">bool value (or null)</param>
+            <remarks>
+            If the value is null, the text content is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffMathTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the boolean value of the first child element of the specified type of the <c>Math.OnOffType</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>boolean value or null (on parse error)</result>
+            <remarks>
+              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffMathTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{DocumentFormat.OpenXml.Math.BooleanValues})">
+            <summary>
+            Set the text content of the first child element of the specified type of the <c>Math.OnOffType</c> to the bool value.
             </summary>
             <typeparam name="ElementType">element to set</typeparam>
             <param name="xmlElement">element to set</param>
@@ -2302,7 +2511,7 @@
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridHorizontalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridHorizontalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{Qhta.OpenXmlTools.Twips})">
             <summary>
             Set the <c>DrawingGridHorizontalSpacing</c> setting value.
             </summary>
@@ -2589,7 +2798,7 @@
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetHyphenationZone(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetHyphenationZone(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{Qhta.OpenXmlTools.Twips})">
             <summary>
             Set the <c>HyphenationZone</c> setting value.
             </summary>
@@ -2666,7 +2875,7 @@
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridVerticalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridVerticalSpacing(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{Qhta.OpenXmlTools.Twips})">
             <summary>
             Set the <c>DrawingGridVerticalSpacing</c> setting value.
             </summary>
@@ -2694,14 +2903,14 @@
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridHorizontalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridHorizontalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{Qhta.OpenXmlTools.Twips})">
             <summary>
             Set the <c>DoNotShadeFormData</c> setting value.
             </summary>
             <param name="settings"></param>
             <param name="value">value to set</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridVerticalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.SetDrawingGridVerticalOrigin(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Nullable{Qhta.OpenXmlTools.Twips})">
             <summary>
             Set the <c>DrawingGridVerticalOrigin</c> setting value.
             </summary>
@@ -5007,6 +5216,70 @@
             Gets the style name of the table.
             </summary>
             <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.Twips">
+            <summary>
+            Represents a twips measure integer.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Twips.Value">
+            <summary>
+            Stored value.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct with the integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct with the string value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.op_Implicit(System.Nullable{System.Int32})~System.Nullable{Qhta.OpenXmlTools.Twips}">
+            <summary>
+            Converts the integer to the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.op_Implicit(System.Nullable{Qhta.OpenXmlTools.Twips})~System.Nullable{System.Int32}">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct to the integer.
+            </summary>
+            <param name="Twips"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.op_Implicit(System.Nullable{System.UInt32})~System.Nullable{Qhta.OpenXmlTools.Twips}">
+            <summary>
+            Converts the unsigned integer to the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.op_Implicit(System.Nullable{Qhta.OpenXmlTools.Twips})~System.Nullable{System.UInt32}">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct to the unsigned integer.
+            </summary>
+            <param name="Twips"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.op_Implicit(System.String)~System.Nullable{Qhta.OpenXmlTools.Twips}">
+            <summary>
+            Converts the string value to the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.op_Implicit(System.Nullable{Qhta.OpenXmlTools.Twips})~System.String">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct to the string.
+            </summary>
+            <param name="Twips"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Twips.ToString">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.Twips"/> struct to the string.
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.VTVariantTools">

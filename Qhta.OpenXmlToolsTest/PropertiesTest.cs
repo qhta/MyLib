@@ -141,7 +141,7 @@ public class PropertiesTest
     foreach (var property in typeof(IPackageProperties).GetProperties())
 #pragma warning restore OOXML0001
     {
-      var value = CreateNewPropertyValue(property.Name, property.PropertyType);
+      var value = TestTools.CreateNewPropertyValue(property.Name, property.PropertyType);
       if (property.Name == "Revision")
         value = "1";
       if (property.PropertyType == typeof(string))
@@ -157,12 +157,6 @@ public class PropertiesTest
   {
     Console.WriteLine("Extended file properties write test:");
     var appProperties = wordDoc.GetExtendedFileProperties();
-    if (appProperties == null)
-    {
-      var extendedFilePropertiesPart = wordDoc.AddExtendedFilePropertiesPart();
-      appProperties = new DocumentFormat.OpenXml.ExtendedProperties.Properties();
-      extendedFilePropertiesPart.Properties = appProperties;
-    }
     foreach (var property in typeof(DocumentFormat.OpenXml.ExtendedProperties.Properties)
                .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
     {
@@ -172,7 +166,7 @@ public class PropertiesTest
         if (propertyType.BaseType == typeof(OpenXmlLeafTextElement))
         {
           var element = Activator.CreateInstance(propertyType) as OpenXmlLeafTextElement;
-          var value = CreateNewPropertyValue(property.Name, typeof(string));
+          var value = TestTools.CreateNewPropertyValue(property.Name, typeof(string));
           if (property.Name == "ApplicationVersion")
             value = "1.0";
           else if (intProperties.Contains(property.Name))
@@ -197,12 +191,6 @@ public class PropertiesTest
   {
     Console.WriteLine("Custom file properties write test:");
     var customProperties = wordDoc.GetCustomFileProperties();
-    if (customProperties == null)
-    {
-      var customFilePropertiesPart = wordDoc.AddCustomFilePropertiesPart();
-      customProperties = new DocumentFormat.OpenXml.CustomProperties.Properties();
-      customFilePropertiesPart.Properties = customProperties;
-    }
     var propId = 2;
     foreach (var data in vtTestData)
     {
@@ -234,8 +222,8 @@ public class PropertiesTest
     foreach (var propName in documentProperties.GetNames(true))
     {
       var type = documentProperties.GetType(propName);
-      var value = CreateNewPropertyValue(propName, type);
-      Console.WriteLine($"writing {propName}: {value}");
+      var value = TestTools.CreateNewPropertyValue(propName, type);
+      Console.WriteLine($"writing {propName}: {value.AsString()}");
       documentProperties.SetValue(propName, value);
     }
     foreach (var data in vtTestData)
@@ -254,33 +242,16 @@ public class PropertiesTest
     Console.WriteLine();
   }
 
-  private object? CreateNewPropertyValue(string propertyName, Type propertyType)
-  {
-    if (propertyType.Name.StartsWith("Nullable"))
-      propertyType = propertyType.GenericTypeArguments[0];
-    if (propertyType == typeof(string))
-      return propertyName + "_string";
-    if (propertyType == typeof(DateTime))
-      return DateTime.Now;
-    if (propertyType == typeof(int))
-      return 100_000;
-    if (propertyType == typeof(bool))
-      return true;
-    if (propertyType == typeof(decimal))
-      return 1.2m;
-    return null;
-  }
-
-  private static readonly string[] intProperties = new string[]
-  {
+  private static readonly string[] intProperties =
+  [
     "Characters", "CharactersWithSpaces","Lines", "Pages", "Paragraphs",
-    "Revision", "TotalTime", "Words", "Slides", "HiddenSlides", "MMClips", "MultimediaClips", "Notes" , "DocumentSecurity",
-  };
+    "Revision", "TotalTime", "Words", "Slides", "HiddenSlides", "MMClips", "MultimediaClips", "Notes" , "DocumentSecurity"
+  ];
 
-  private static readonly string[] boolProperties = new string[]
-  {
+  private static readonly string[] boolProperties =
+  [
     "ScaleCrop", "LinksUpToDate", "SharedDoc", "HyperlinksChanged", "SharedDocument"
-  };
+  ];
 
   private OpenXmlElement? CreateVariantElement(Type propertyType, object value)
   {

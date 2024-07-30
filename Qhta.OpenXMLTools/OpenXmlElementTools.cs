@@ -1,10 +1,6 @@
 ﻿using System;
 using System.IO;
 
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -193,7 +189,7 @@ public static class OpenXmlElementTools
       else
       {
         var newElement = new ElementType();
-        valProperty.SetValue(newElement, new Int32Value(value.Value));
+        valProperty.SetValue(newElement, new DX.Int32Value(value.Value));
         xmlElement.Append(newElement);
       }
     }
@@ -295,11 +291,11 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Get the integer <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
+  /// Get the <see cref="Twips"/> <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
   /// </summary>
   /// <param name="xmlElement">checked element</param>
   /// <result>integer value or null (on parse error)</result>
-  public static int? GetFirstTwipsMeasureTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+  public static Twips? GetFirstTwipsMeasureTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DXW.TwipsMeasureType
   {
     var text = xmlElement.Elements<ElementType>().FirstOrDefault()?.Val;
@@ -311,7 +307,7 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  ///Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the integer value.
+  ///Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the <see cref="Twips"/> value.
   /// </summary>
   /// <typeparam name="ElementType">element to set</typeparam>
   /// <param name="xmlElement">element to set</param>
@@ -319,13 +315,13 @@ public static class OpenXmlElementTools
   /// <remarks>
   /// If the value is null, the existing element is removed.
   /// </remarks>
-  public static void SetFirstTwipsMeasureTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, int? value)
+  public static void SetFirstTwipsMeasureTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, Twips? value)
     where ElementType : DXW.TwipsMeasureType, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
-    if (value != null)
+    if (value is not null)
     {
-      var val = ((int)value).ToString();
+      var val = ((int?)value).ToString();
       if (element != null)
       {
         if (element.Val != val)
@@ -339,6 +335,49 @@ public static class OpenXmlElementTools
   }
 
 
+  /// <summary>
+  /// Get the <see cref="Twips"/> <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element.
+  /// </summary>
+  /// <param name="xmlElement">checked element</param>
+  /// <result>integer value or null (on parse error)</result>
+  public static Twips? GetFirstTwipsMeasureMathTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DXM.TwipsMeasureType
+  {
+    var text = xmlElement.Elements<ElementType>().FirstOrDefault()?.Val;
+    if (text == null)
+      return null;
+    if (int.TryParse(text, out var val))
+      return val;
+    return null;
+  }
+
+  /// <summary>
+  ///Set the <c>Val</c> property of the first child element of the specified type of the <c>TwipsMeasureType</c> element to the <see cref="Twips"/> value.
+  /// </summary>
+  /// <typeparam name="ElementType">element to set</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">integer value (or null)</param>
+  /// <remarks>
+  /// If the value is null, the existing element is removed.
+  /// </remarks>
+  public static void SetFirstTwipsMeasureMathTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, Twips? value)
+    where ElementType : DXM.TwipsMeasureType, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value is not null)
+    {
+      var val = (uint?)value;
+      if (element?.Val != null)
+      {
+        if (element.Val != val)
+          element.Val = val;
+      }
+      else
+        xmlElement.Append(new ElementType { Val = val });
+    }
+    else
+      element?.Remove();
+  }
   /// <summary>
   /// Get the byte <c>Val</c> property of the first child element of the specified type of the <c>UnsignedInt7Type</c> element.
   /// </summary>
@@ -518,7 +557,7 @@ public static class OpenXmlElementTools
   /// <remarks>
   ///   boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
   /// </remarks>
-  public static bool? GetFirstOnOffElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+  public static bool? GetFirstOnOffTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DXW.OnOffType
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
@@ -537,7 +576,7 @@ public static class OpenXmlElementTools
   /// <remarks>
   /// If the value is null, the text content is removed.
   /// </remarks>
-  public static void SetFirstOnOffElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, bool? value)
+  public static void SetFirstOnOffTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, bool? value)
     where ElementType : DXW.OnOffType, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
@@ -555,6 +594,50 @@ public static class OpenXmlElementTools
       element?.Remove();
   }
 
+  /// <summary>
+  /// Get the boolean value of the first child element of the specified type of the <c>Math.OnOffType</c>.
+  /// </summary>
+  /// <param name="xmlElement">checked element</param>
+  /// <result>boolean value or null (on parse error)</result>
+  /// <remarks>
+  ///   boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+  /// </remarks>
+  public static DXM.BooleanValues? GetFirstOnOffMathTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DXM.OnOffType
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (element == null)
+      return null;
+    var value = element.Val?.Value;
+    return value;
+  }
+
+  /// <summary>
+  /// Set the text content of the first child element of the specified type of the <c>Math.OnOffType</c> to the bool value.
+  /// </summary>
+  /// <typeparam name="ElementType">element to set</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">bool value (or null)</param>
+  /// <remarks>
+  /// If the value is null, the text content is removed.
+  /// </remarks>
+  public static void SetFirstOnOffMathTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, DXM.BooleanValues? value)
+    where ElementType : DXM.OnOffType, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value != null)
+    {
+      if (element != null)
+      {
+        if (element.Val?.Value != value)
+          element.Val = value;
+      }
+      else
+        xmlElement.Append(new ElementType { Val = value });
+    }
+    else
+      element?.Remove();
+  }
   /// <summary>
   /// Get the <c>Val</c> property of the first child element of the specified type of the <c>Office2010.Word.OnOffType</c> as the <c>OnOffValues</c> value.
   /// </summary>
@@ -762,7 +845,7 @@ public static class OpenXmlElementTools
     else if (value != null)
     {
       element = new ElementType();
-      SetValValue(element, new StringValue(value));
+      SetValValue(element, new DX.StringValue(value));
       xmlElement.Append(element);
     }
   }
@@ -801,7 +884,7 @@ public static class OpenXmlElementTools
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
     {
-      var val = element.GetValValue<HexBinaryValue>()?.Value;
+      var val = element.GetValValue<DX.HexBinaryValue>()?.Value;
       if (val != null)
         return int.Parse(val, NumberStyles.HexNumber);
     }
@@ -817,7 +900,7 @@ public static class OpenXmlElementTools
     where ElementType : DX.OpenXmlLeafElement, new()
   {
     if (value != null)
-      SetFirstElementVal<ElementType>(xmlElement, new HexBinaryValue(((int)value).ToString("X8")));
+      SetFirstElementVal<ElementType>(xmlElement, new DX.HexBinaryValue(((int)value).ToString("X8")));
     else
       SetFirstElementVal<ElementType>(xmlElement, null);
   }
@@ -833,7 +916,7 @@ public static class OpenXmlElementTools
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
     {
-      var val = element.GetValValue<StringValue>()?.Value;
+      var val = element.GetValValue<DX.StringValue>()?.Value;
       if (val != null)
         return Guid.Parse(val);
     }
@@ -917,7 +1000,7 @@ public static class OpenXmlElementTools
   /// <param name="xmlElement"></param>
   public static ElementValuesType? GetFirstEnumTypeElementVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DX.OpenXmlElement, new()
-    where ElementValuesType : struct, IEnumValue, IEnumValueFactory<ElementValuesType>
+    where ElementValuesType : struct, DX.IEnumValue, DX.IEnumValueFactory<ElementValuesType>
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
@@ -936,7 +1019,7 @@ public static class OpenXmlElementTools
   /// <param name="value"></param>
   public static void SetFirstEnumTypeElementVal<ElementType, ElementValuesType>(this DX.OpenXmlCompositeElement xmlElement, ElementValuesType? value)
     where ElementType : DX.OpenXmlElement, new()
-    where ElementValuesType : struct, IEnumValue, IEnumValueFactory<ElementValuesType>
+    where ElementValuesType : struct, DX.IEnumValue, DX.IEnumValueFactory<ElementValuesType>
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
     if (element != null)
@@ -1059,7 +1142,7 @@ public static class OpenXmlElementTools
   /// <param name="rId"></param>
   public static string? GetRelationshipValue(this DX.OpenXmlPartRootElement rootElement, string relationshipType, string rId)
   {
-    OpenXmlPart part = rootElement.OpenXmlPart!;
+    DXPack.OpenXmlPart part = rootElement.OpenXmlPart!;
     var externalRelationships = part.ExternalRelationships.ToList();
     var externalRelationship = externalRelationships
       .FirstOrDefault(r => r.RelationshipType == relationshipType && r.Id == rId);
@@ -1078,7 +1161,7 @@ public static class OpenXmlElementTools
   /// <param name="value"></param>
   public static void SetRelationshipValue(this DX.OpenXmlPartRootElement rootElement, string relationshipType, string? value)
   {
-    OpenXmlPart part = rootElement.OpenXmlPart!;
+    DXPack.OpenXmlPart part = rootElement.OpenXmlPart!;
     if (value != null)
     {
       var uri = new Uri(value);
@@ -1107,7 +1190,7 @@ public static class OpenXmlElementTools
         }
         part.AddExternalRelationship(relationshipType, uri, rId);
       }
-      rootElement.SetFirstRelationshipElementId<AttachedTemplate>(rId);
+      rootElement.SetFirstRelationshipElementId<DXW.AttachedTemplate>(rId);
     }
     else
     {

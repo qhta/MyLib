@@ -98,212 +98,109 @@ public static class SettingsTools
   {
     switch (propertyName)
     {
-      case "BordersDoNotSurroundHeader":
-        return settings.GetBordersDoNotSurroundHeader();
-      case "DrawingGridHorizontalSpacing":
-        return settings.GetDrawingGridHorizontalSpacing();
-      case "PersistentDocumentId":
-        return settings.GetPersistentDocumentId();
-      case "View":
-        return settings.GetView();
-      case "Zoom":
-        return settings.GetZoom();
-      case "RemovePersonalInformation":
-        return settings.GetRemovePersonalInformation();
-      case "RemoveDateAndTime":
-        return settings.GetRemoveDateAndTime();
-      case "DoNotDisplayPageBoundaries":
-        return settings.GetDoNotDisplayPageBoundaries();
-      case "DisplayBackgroundShape":
-        return settings.GetDisplayBackgroundShape();
-      case "PrintPostScriptOverText":
-        return settings.GetPrintPostScriptOverText();
-      case "PrintFractionalCharacterWidth":
-        return settings.GetPrintFractionalCharacterWidth();
-      case "PrintFormsData":
-        return settings.GetPrintFormsData();
-      case "EmbedTrueTypeFonts":
-        return settings.GetEmbedTrueTypeFonts();
-      case "EmbedSystemFonts":
-        return settings.GetEmbedSystemFonts();
-      case "SaveSubsetFonts":
-        return settings.GetSaveSubsetFonts();
-      case "SaveFormsData":
-        return settings.GetSaveFormsData();
-      case "MirrorMargins":
-        return settings.GetMirrorMargins();
-      case "AlignBorderAndEdges":
-        return settings.GetAlignBorderAndEdges();
-      case "BordersDoNotSurroundFooter":
-        return settings.GetBordersDoNotSurroundFooter();
-      case "GutterAtTop":
-        return settings.GetGutterAtTop();
-      case "HideSpellingErrors":
-        return settings.GetHideSpellingErrors();
-      case "HideGrammaticalErrors":
-        return settings.GetHideGrammaticalErrors();
-      case "ActiveWritingStyle":
-        return settings.GetActiveWritingStyle();
-      case "ProofState":
-        return settings.GetProofState();
-      case "FormsDesign":
-        return settings.GetFormsDesign();
-      case "AttachedTemplate":
-        return settings.GetAttachedTemplate();
-      case "LinkStyles":
-        return settings.GetLinkStyles();
-      case "StylePaneFormatFilter":
-        return settings.GetStylePaneFormatFilter();
-      case "StylePaneSortMethods":
-        return settings.GetStylePaneSortMethods();
-      case "DocumentType":
-        return settings.GetDocumentType();
-      case "MailMerge":
-        return settings.GetMailMerge();
-      case "RevisionView":
-        return settings.GetRevisionView();
-      case "TrackRevisions":
-        return settings.GetTrackRevisions();
-      case "DoNotTrackMoves":
-        return settings.GetDoNotTrackMoves();
-      case "DoNotTrackFormatting":
-        return settings.GetDoNotTrackFormatting();
-      case "DocumentProtection":
-        return settings.GetDocumentProtection();
-      case "AutoFormatOverride":
-        return settings.GetAutoFormatOverride();
-      case "StyleLockThemesPart":
-        return settings.GetStyleLockThemesPart();
-      case "StyleLockStylesPart":
-        return settings.GetStyleLockStylesPart();
-      case "DefaultTabStop":
-        return settings.GetDefaultTabStop();
-      case "AutoHyphenation":
-        return settings.GetAutoHyphenation();
-      case "ConsecutiveHyphenLimit":
-        return settings.GetConsecutiveHyphenLimit();
-      case "HyphenationZone":
-        return settings.GetHyphenationZone();
-      case "DoNotHyphenateCaps":
-        return settings.GetDoNotHyphenateCaps();
-      case "ShowEnvelope":
-        return settings.GetShowEnvelope();
-      case "SummaryLength":
-        return settings.GetSummaryLength();
-      case "ClickAndTypeStyle":
-        return settings.GetClickAndTypeStyle();
-      case "DefaultTableStyle":
-        return settings.GetDefaultTableStyle();
-      case "EvenAndOddHeaders":
-        return settings.GetEvenAndOddHeaders();
-      case "BookFoldReversePrinting":
-        return settings.GetBookFoldReversePrinting();
-      case "BookFoldPrinting":
-        return settings.GetBookFoldPrinting();
-      case "BookFoldPrintingSheets":
-        return settings.GetBookFoldPrintingSheets();
-      case "WriteProtection":
-        return settings.GetWriteProtection();
-      case "DrawingGridVerticalSpacing":
-        return settings.GetDrawingGridVerticalSpacing();
-      case "DisplayHorizontalDrawingGrid":
-        return settings.GetDisplayHorizontalDrawingGrid();
-      case "DisplayVerticalDrawingGrid":
-        return settings.GetDisplayVerticalDrawingGrid();
-      case "DoNotUseMarginsForDrawingGridOrigin":
-        return settings.GetDoNotUseMarginsForDrawingGridOrigin();
-      case "DrawingGridHorizontalOrigin":
-        return settings.GetDrawingGridHorizontalOrigin();
-      case "DrawingGridVerticalOrigin":
-        return settings.GetDrawingGridVerticalOrigin();
-      case "DoNotShadeFormData":
-        return settings.GetDoNotShadeFormData();
-      case "NoPunctuationKerning":
-        return settings.GetNoPunctuationKerning();
-      case "CharacterSpacingControl":
-        return settings.GetCharacterSpacingControl();
-      case "PrintTwoOnOne":
-        return settings.GetPrintTwoOnOne();
-      case "StrictFirstAndLastChars":
-        return settings.GetStrictFirstAndLastChars();
-      case "NoLineBreaksAfterKinsoku":
-        return settings.GetNoLineBreaksAfterKinsoku();
-      case "NoLineBreaksBeforeKinsoku":
-        return settings.GetNoLineBreaksBeforeKinsoku();
-      case "SavePreviewPicture":
-        return settings.GetSavePreviewPicture();
-      case "DoNotValidateAgainstSchema":
-        return settings.GetDoNotValidateAgainstSchema();
-      case "SaveInvalidXml":
-        return settings.GetSaveInvalidXml();
-      case "IgnoreMixedContent":
-        return settings.GetIgnoreMixedContent();
-      case "AlwaysShowPlaceholderText":
-        return settings.GetAlwaysShowPlaceholderText();
-      case "DoNotDemarcateInvalidXml":
-        return settings.GetDoNotDemarcateInvalidXml();
-      case "SaveXmlDataOnly":
-        return settings.GetSaveXmlDataOnly();
-      case "UseXsltWhenSaving":
-        return settings.GetUseXsltWhenSaving();
-      case "SaveThroughXslt":
-        return settings.GetSaveThroughXslt();
-      case "ShowXmlTags":
-        return settings.GetShowXmlTags();
-      case "AlwaysMergeEmptyNamespace":
-        return settings.GetAlwaysMergeEmptyNamespace();
-      case "UpdateFieldsOnOpen":
-        return settings.GetUpdateFieldsOnOpen();
-      case "HeaderShapeDefaults":
-        return settings.GetHeaderShapeDefaults();
-      case "FootnoteDocumentWideProperties":
-        return settings.GetFootnoteDocumentWideProperties();
-      case "EndnoteDocumentWideProperties":
-        return settings.GetEndnoteDocumentWideProperties();
-      case "Compatibility":
-        return settings.GetCompatibility();
-      case "DocumentVariables":
-        return settings.GetDocumentVariables();
-      case "Rsids":
-        return settings.GetRsids();
-      case "MathProperties":
-        return settings.GetMathProperties();
-      case "UICompatibleWith97To2003":
-        return settings.GetUICompatibleWith97To2003();
-      case "AttachedSchema":
-        return settings.GetAttachedSchema();
-      case "ThemeFontLanguages":
-        return settings.GetThemeFontLanguages();
-      case "ColorSchemeMapping":
-        return settings.GetColorSchemeMapping();
-      case "DoNotIncludeSubdocsInStats":
-        return settings.GetDoNotIncludeSubdocsInStats();
-      case "DoNotAutoCompressPictures":
-        return settings.GetDoNotAutoCompressPictures();
-      case "ForceUpgrade":
-        return settings.GetForceUpgrade();
-      case "Captions":
-        return settings.GetCaptions();
-      case "ReadModeInkLockDown":
-        return settings.GetReadModeInkLockDown();
-      case "SchemaLibrary":
-        return settings.GetSchemaLibrary();
-      case "ShapeDefaults":
-        return settings.GetShapeDefaults();
-      case "DecimalSymbol":
-        return settings.GetDecimalSymbol();
-      case "ListSeparator":
-        return settings.GetListSeparator();
-      case "DocumentId":
-        return settings.GetDocumentId();
-      case "DiscardImageEditingData":
-        return settings.GetDiscardImageEditingData();
-      case "DefaultImageDpi":
-        return settings.GetDefaultImageDpi();
-      case "ConflictMode":
-        return settings.GetConflictMode();
-      case "ChartTrackingRefBased":
-        return settings.GetChartTrackingRefBased();
+      case "BordersDoNotSurroundHeader": return settings.GetBordersDoNotSurroundHeader();
+      case "DrawingGridHorizontalSpacing": return settings.GetDrawingGridHorizontalSpacing();
+      case "PersistentDocumentId": return settings.GetPersistentDocumentId();
+      case "View": return settings.GetView();
+      case "Zoom": return settings.GetZoom();
+      case "RemovePersonalInformation": return settings.GetRemovePersonalInformation();
+      case "RemoveDateAndTime": return settings.GetRemoveDateAndTime();
+      case "DoNotDisplayPageBoundaries": return settings.GetDoNotDisplayPageBoundaries();
+      case "DisplayBackgroundShape": return settings.GetDisplayBackgroundShape();
+      case "PrintPostScriptOverText": return settings.GetPrintPostScriptOverText();
+      case "PrintFractionalCharacterWidth": return settings.GetPrintFractionalCharacterWidth();
+      case "PrintFormsData": return settings.GetPrintFormsData();
+      case "EmbedTrueTypeFonts": return settings.GetEmbedTrueTypeFonts();
+      case "EmbedSystemFonts": return settings.GetEmbedSystemFonts();
+      case "SaveSubsetFonts": return settings.GetSaveSubsetFonts();
+      case "SaveFormsData": return settings.GetSaveFormsData();
+      case "MirrorMargins": return settings.GetMirrorMargins();
+      case "AlignBorderAndEdges": return settings.GetAlignBorderAndEdges();
+      case "BordersDoNotSurroundFooter": return settings.GetBordersDoNotSurroundFooter();
+      case "GutterAtTop": return settings.GetGutterAtTop();
+      case "HideSpellingErrors": return settings.GetHideSpellingErrors();
+      case "HideGrammaticalErrors": return settings.GetHideGrammaticalErrors();
+      case "ActiveWritingStyle": return settings.GetActiveWritingStyle();
+      case "ProofState": return settings.GetProofState();
+      case "FormsDesign": return settings.GetFormsDesign();
+      case "AttachedTemplate": return settings.GetAttachedTemplate();
+      case "LinkStyles": return settings.GetLinkStyles();
+      case "StylePaneFormatFilter": return settings.GetStylePaneFormatFilter();
+      case "StylePaneSortMethods": return settings.GetStylePaneSortMethods();
+      case "DocumentType": return settings.GetDocumentType();
+      case "MailMerge": return settings.GetMailMerge();
+      case "RevisionView": return settings.GetRevisionView();
+      case "TrackRevisions": return settings.GetTrackRevisions();
+      case "DoNotTrackMoves": return settings.GetDoNotTrackMoves();
+      case "DoNotTrackFormatting": return settings.GetDoNotTrackFormatting();
+      case "DocumentProtection": return settings.GetDocumentProtection();
+      case "AutoFormatOverride": return settings.GetAutoFormatOverride();
+      case "StyleLockThemesPart": return settings.GetStyleLockThemesPart();
+      case "StyleLockStylesPart": return settings.GetStyleLockStylesPart();
+      case "DefaultTabStop": return settings.GetDefaultTabStop();
+      case "AutoHyphenation": return settings.GetAutoHyphenation();
+      case "ConsecutiveHyphenLimit": return settings.GetConsecutiveHyphenLimit();
+      case "HyphenationZone": return settings.GetHyphenationZone();
+      case "DoNotHyphenateCaps": return settings.GetDoNotHyphenateCaps();
+      case "ShowEnvelope": return settings.GetShowEnvelope();
+      case "SummaryLength": return settings.GetSummaryLength();
+      case "ClickAndTypeStyle": return settings.GetClickAndTypeStyle();
+      case "DefaultTableStyle": return settings.GetDefaultTableStyle();
+      case "EvenAndOddHeaders": return settings.GetEvenAndOddHeaders();
+      case "BookFoldReversePrinting": return settings.GetBookFoldReversePrinting();
+      case "BookFoldPrinting": return settings.GetBookFoldPrinting();
+      case "BookFoldPrintingSheets": return settings.GetBookFoldPrintingSheets();
+      case "WriteProtection": return settings.GetWriteProtection();
+      case "DrawingGridVerticalSpacing": return settings.GetDrawingGridVerticalSpacing();
+      case "DisplayHorizontalDrawingGrid": return settings.GetDisplayHorizontalDrawingGrid();
+      case "DisplayVerticalDrawingGrid": return settings.GetDisplayVerticalDrawingGrid();
+      case "DoNotUseMarginsForDrawingGridOrigin": return settings.GetDoNotUseMarginsForDrawingGridOrigin();
+      case "DrawingGridHorizontalOrigin": return settings.GetDrawingGridHorizontalOrigin();
+      case "DrawingGridVerticalOrigin": return settings.GetDrawingGridVerticalOrigin();
+      case "DoNotShadeFormData": return settings.GetDoNotShadeFormData();
+      case "NoPunctuationKerning": return settings.GetNoPunctuationKerning();
+      case "CharacterSpacingControl": return settings.GetCharacterSpacingControl();
+      case "PrintTwoOnOne": return settings.GetPrintTwoOnOne();
+      case "StrictFirstAndLastChars": return settings.GetStrictFirstAndLastChars();
+      case "NoLineBreaksAfterKinsoku": return settings.GetNoLineBreaksAfterKinsoku();
+      case "NoLineBreaksBeforeKinsoku": return settings.GetNoLineBreaksBeforeKinsoku();
+      case "SavePreviewPicture": return settings.GetSavePreviewPicture();
+      case "DoNotValidateAgainstSchema": return settings.GetDoNotValidateAgainstSchema();
+      case "SaveInvalidXml": return settings.GetSaveInvalidXml();
+      case "IgnoreMixedContent": return settings.GetIgnoreMixedContent();
+      case "AlwaysShowPlaceholderText": return settings.GetAlwaysShowPlaceholderText();
+      case "DoNotDemarcateInvalidXml": return settings.GetDoNotDemarcateInvalidXml();
+      case "SaveXmlDataOnly": return settings.GetSaveXmlDataOnly();
+      case "UseXsltWhenSaving": return settings.GetUseXsltWhenSaving();
+      case "SaveThroughXslt": return settings.GetSaveThroughXslt();
+      case "ShowXmlTags": return settings.GetShowXmlTags();
+      case "AlwaysMergeEmptyNamespace": return settings.GetAlwaysMergeEmptyNamespace();
+      case "UpdateFieldsOnOpen": return settings.GetUpdateFieldsOnOpen();
+      case "HeaderShapeDefaults": return settings.GetHeaderShapeDefaults();
+      case "FootnoteDocumentWideProperties": return settings.GetFootnoteDocumentWideProperties();
+      case "EndnoteDocumentWideProperties": return settings.GetEndnoteDocumentWideProperties();
+      case "Compatibility": return settings.GetCompatibility();
+      case "DocumentVariables": return settings.GetDocumentVariables();
+      case "Rsids": return settings.GetRsids();
+      case "MathProperties": return settings.GetMathProperties();
+      case "UICompatibleWith97To2003": return settings.GetUICompatibleWith97To2003();
+      case "AttachedSchema": return settings.GetAttachedSchema();
+      case "ThemeFontLanguages": return settings.GetThemeFontLanguages();
+      case "ColorSchemeMapping": return settings.GetColorSchemeMapping();
+      case "DoNotIncludeSubdocsInStats": return settings.GetDoNotIncludeSubdocsInStats();
+      case "DoNotAutoCompressPictures": return settings.GetDoNotAutoCompressPictures();
+      case "ForceUpgrade": return settings.GetForceUpgrade();
+      case "Captions": return settings.GetCaptions();
+      case "ReadModeInkLockDown": return settings.GetReadModeInkLockDown();
+      case "SchemaLibrary": return settings.GetSchemaLibrary();
+      case "ShapeDefaults": return settings.GetShapeDefaults();
+      case "DecimalSymbol": return settings.GetDecimalSymbol();
+      case "ListSeparator": return settings.GetListSeparator();
+      case "DocumentId": return settings.GetDocumentId();
+      case "DiscardImageEditingData": return settings.GetDiscardImageEditingData();
+      case "DefaultImageDpi": return settings.GetDefaultImageDpi();
+      case "ConflictMode": return settings.GetConflictMode();
+      case "ChartTrackingRefBased": return settings.GetChartTrackingRefBased();
     }
     throw new ArgumentException($"Property {propertyName} not found");
   }
@@ -319,10 +216,8 @@ public static class SettingsTools
   {
     switch (propertyName)
     {
-      case "BordersDoNotSurroundHeader":
-        settings.SetBordersDoNotSurroundHeader((bool?)value);
-        return;
-      case "DrawingGridHorizontalSpacing": settings.SetDrawingGridHorizontalSpacing((int?)value); break;
+      case "BordersDoNotSurroundHeader": settings.SetBordersDoNotSurroundHeader((bool?)value); break;
+      case "DrawingGridHorizontalSpacing": settings.SetDrawingGridHorizontalSpacing((Twips?)value); break;
       case "PersistentDocumentId": settings.SetPersistentDocumentId((Guid?)value); break;
       case "View": settings.SetView((ViewValues?)value); break;
       case "Zoom": settings.SetZoom((Zoom?)value); break;
@@ -363,7 +258,7 @@ public static class SettingsTools
       case "DefaultTabStop": settings.SetDefaultTabStop((short?)value); break;
       case "AutoHyphenation": settings.SetAutoHyphenation((bool?)value); break;
       case "ConsecutiveHyphenLimit": settings.SetConsecutiveHyphenLimit((ushort?)value); break;
-      case "HyphenationZone": settings.SetHyphenationZone((int?)value); break;
+      case "HyphenationZone": settings.SetHyphenationZone((Twips?)value); break;
       case "DoNotHyphenateCaps": settings.SetDoNotHyphenateCaps((bool?)value); break;
       case "ShowEnvelope": settings.SetShowEnvelope((bool?)value); break;
       case "SummaryLength": settings.SetSummaryLength((int?)value); break;
@@ -374,12 +269,12 @@ public static class SettingsTools
       case "BookFoldPrinting": settings.SetBookFoldPrinting((bool?)value); break;
       case "BookFoldPrintingSheets": settings.SetBookFoldPrintingSheets((short?)value); break;
       case "WriteProtection": settings.SetWriteProtection((WriteProtection?)value); break;
-      case "DrawingGridVerticalSpacing": settings.SetDrawingGridVerticalSpacing((int?)value); break;
+      case "DrawingGridVerticalSpacing": settings.SetDrawingGridVerticalSpacing((Twips?)value); break;
       case "DisplayHorizontalDrawingGrid": settings.SetDisplayHorizontalDrawingGrid((byte?)value); break;
       case "DisplayVerticalDrawingGrid": settings.SetDisplayVerticalDrawingGrid((byte?)value); break;
       case "DoNotUseMarginsForDrawingGridOrigin": settings.SetDoNotUseMarginsForDrawingGridOrigin((bool?)value); break;
-      case "DrawingGridHorizontalOrigin": settings.SetDrawingGridHorizontalOrigin((int?)value); break;
-      case "DrawingGridVerticalOrigin": settings.SetDrawingGridVerticalOrigin((int?)value); break;
+      case "DrawingGridHorizontalOrigin": settings.SetDrawingGridHorizontalOrigin((Twips?)value); break;
+      case "DrawingGridVerticalOrigin": settings.SetDrawingGridVerticalOrigin((Twips?)value); break;
       case "DoNotShadeFormData": settings.SetDoNotShadeFormData((bool?)value); break;
       case "NoPunctuationKerning": settings.SetNoPunctuationKerning((bool?)value); break;
       case "CharacterSpacingControl": settings.SetCharacterSpacingControl((CharacterSpacingValues?)value); break;
@@ -437,7 +332,7 @@ public static class SettingsTools
   public static bool? GetBordersDoNotSurroundHeader(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<BordersDoNotSurroundHeader>();
+    return settings.GetFirstOnOffTypeElementVal<BordersDoNotSurroundHeader>();
   }
 
   /// <summary>
@@ -445,7 +340,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>result value</result>
-  public static int? GetDrawingGridHorizontalSpacing(this Settings settings)
+  public static Twips? GetDrawingGridHorizontalSpacing(this Settings settings)
   {
 
     return settings.GetFirstTwipsMeasureTypeElementVal<DrawingGridHorizontalSpacing>();
@@ -492,7 +387,7 @@ public static class SettingsTools
   public static bool? GetRemovePersonalInformation(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<RemovePersonalInformation>();
+    return settings.GetFirstOnOffTypeElementVal<RemovePersonalInformation>();
   }
 
   /// <summary>
@@ -503,7 +398,7 @@ public static class SettingsTools
   public static bool? GetRemoveDateAndTime(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<RemoveDateAndTime>();
+    return settings.GetFirstOnOffTypeElementVal<RemoveDateAndTime>();
   }
 
   /// <summary>
@@ -514,7 +409,7 @@ public static class SettingsTools
   public static bool? GetDoNotDisplayPageBoundaries(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotDisplayPageBoundaries>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotDisplayPageBoundaries>();
   }
 
   /// <summary>
@@ -525,7 +420,7 @@ public static class SettingsTools
   public static bool? GetDisplayBackgroundShape(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DisplayBackgroundShape>();
+    return settings.GetFirstOnOffTypeElementVal<DisplayBackgroundShape>();
   }
 
   /// <summary>
@@ -536,7 +431,7 @@ public static class SettingsTools
   public static bool? GetPrintPostScriptOverText(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<PrintPostScriptOverText>();
+    return settings.GetFirstOnOffTypeElementVal<PrintPostScriptOverText>();
   }
 
   /// <summary>
@@ -547,7 +442,7 @@ public static class SettingsTools
   public static bool? GetPrintFractionalCharacterWidth(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<PrintFractionalCharacterWidth>();
+    return settings.GetFirstOnOffTypeElementVal<PrintFractionalCharacterWidth>();
   }
 
   /// <summary>
@@ -558,7 +453,7 @@ public static class SettingsTools
   public static bool? GetPrintFormsData(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<PrintFormsData>();
+    return settings.GetFirstOnOffTypeElementVal<PrintFormsData>();
   }
 
   /// <summary>
@@ -569,7 +464,7 @@ public static class SettingsTools
   public static bool? GetEmbedTrueTypeFonts(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<EmbedTrueTypeFonts>();
+    return settings.GetFirstOnOffTypeElementVal<EmbedTrueTypeFonts>();
   }
 
   /// <summary>
@@ -580,7 +475,7 @@ public static class SettingsTools
   public static bool? GetEmbedSystemFonts(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<EmbedSystemFonts>();
+    return settings.GetFirstOnOffTypeElementVal<EmbedSystemFonts>();
   }
 
   /// <summary>
@@ -591,7 +486,7 @@ public static class SettingsTools
   public static bool? GetSaveSubsetFonts(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<SaveSubsetFonts>();
+    return settings.GetFirstOnOffTypeElementVal<SaveSubsetFonts>();
   }
 
   /// <summary>
@@ -602,7 +497,7 @@ public static class SettingsTools
   public static bool? GetSaveFormsData(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<SaveFormsData>();
+    return settings.GetFirstOnOffTypeElementVal<SaveFormsData>();
   }
 
   /// <summary>
@@ -613,7 +508,7 @@ public static class SettingsTools
   public static bool? GetMirrorMargins(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<MirrorMargins>();
+    return settings.GetFirstOnOffTypeElementVal<MirrorMargins>();
   }
 
   /// <summary>
@@ -624,7 +519,7 @@ public static class SettingsTools
   public static bool? GetAlignBorderAndEdges(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<AlignBorderAndEdges>();
+    return settings.GetFirstOnOffTypeElementVal<AlignBorderAndEdges>();
   }
 
   /// <summary>
@@ -635,7 +530,7 @@ public static class SettingsTools
   public static bool? GetBordersDoNotSurroundFooter(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<BordersDoNotSurroundFooter>();
+    return settings.GetFirstOnOffTypeElementVal<BordersDoNotSurroundFooter>();
   }
 
   /// <summary>
@@ -646,7 +541,7 @@ public static class SettingsTools
   public static bool? GetGutterAtTop(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<GutterAtTop>();
+    return settings.GetFirstOnOffTypeElementVal<GutterAtTop>();
   }
 
   /// <summary>
@@ -657,7 +552,7 @@ public static class SettingsTools
   public static bool? GetHideSpellingErrors(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<HideSpellingErrors>();
+    return settings.GetFirstOnOffTypeElementVal<HideSpellingErrors>();
   }
 
   /// <summary>
@@ -668,7 +563,7 @@ public static class SettingsTools
   public static bool? GetHideGrammaticalErrors(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<HideGrammaticalErrors>();
+    return settings.GetFirstOnOffTypeElementVal<HideGrammaticalErrors>();
   }
 
   /// <summary>
@@ -701,7 +596,7 @@ public static class SettingsTools
   public static bool? GetFormsDesign(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<FormsDesign>();
+    return settings.GetFirstOnOffTypeElementVal<FormsDesign>();
   }
 
   /// <summary>
@@ -726,7 +621,7 @@ public static class SettingsTools
   public static bool? GetLinkStyles(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<LinkStyles>();
+    return settings.GetFirstOnOffTypeElementVal<LinkStyles>();
   }
 
   /// <summary>
@@ -792,7 +687,7 @@ public static class SettingsTools
   public static bool? GetTrackRevisions(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<TrackRevisions>();
+    return settings.GetFirstOnOffTypeElementVal<TrackRevisions>();
   }
 
   /// <summary>
@@ -803,7 +698,7 @@ public static class SettingsTools
   public static bool? GetDoNotTrackMoves(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotTrackMoves>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotTrackMoves>();
   }
 
   /// <summary>
@@ -814,7 +709,7 @@ public static class SettingsTools
   public static bool? GetDoNotTrackFormatting(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotTrackFormatting>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotTrackFormatting>();
   }
 
   /// <summary>
@@ -836,7 +731,7 @@ public static class SettingsTools
   public static bool? GetAutoFormatOverride(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<AutoFormatOverride>();
+    return settings.GetFirstOnOffTypeElementVal<AutoFormatOverride>();
   }
 
   /// <summary>
@@ -847,7 +742,7 @@ public static class SettingsTools
   public static bool? GetStyleLockThemesPart(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<StyleLockThemesPart>();
+    return settings.GetFirstOnOffTypeElementVal<StyleLockThemesPart>();
   }
 
   /// <summary>
@@ -858,7 +753,7 @@ public static class SettingsTools
   public static bool? GetStyleLockStylesPart(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<StyleLockStylesPart>();
+    return settings.GetFirstOnOffTypeElementVal<StyleLockStylesPart>();
   }
 
   /// <summary>
@@ -880,7 +775,7 @@ public static class SettingsTools
   public static bool? GetAutoHyphenation(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<AutoHyphenation>();
+    return settings.GetFirstOnOffTypeElementVal<AutoHyphenation>();
   }
 
   /// <summary>
@@ -899,7 +794,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>result value</result>
-  public static int? GetHyphenationZone(this Settings settings)
+  public static Twips? GetHyphenationZone(this Settings settings)
   {
 
     return settings.GetFirstTwipsMeasureTypeElementVal<HyphenationZone>();
@@ -913,7 +808,7 @@ public static class SettingsTools
   public static bool? GetDoNotHyphenateCaps(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotHyphenateCaps>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotHyphenateCaps>();
   }
 
   /// <summary>
@@ -924,7 +819,7 @@ public static class SettingsTools
   public static bool? GetShowEnvelope(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<ShowEnvelope>();
+    return settings.GetFirstOnOffTypeElementVal<ShowEnvelope>();
   }
 
   /// <summary>
@@ -968,7 +863,7 @@ public static class SettingsTools
   public static bool? GetEvenAndOddHeaders(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<EvenAndOddHeaders>();
+    return settings.GetFirstOnOffTypeElementVal<EvenAndOddHeaders>();
   }
 
   /// <summary>
@@ -979,7 +874,7 @@ public static class SettingsTools
   public static bool? GetBookFoldReversePrinting(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<BookFoldReversePrinting>();
+    return settings.GetFirstOnOffTypeElementVal<BookFoldReversePrinting>();
   }
 
   /// <summary>
@@ -990,7 +885,7 @@ public static class SettingsTools
   public static bool? GetBookFoldPrinting(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<BookFoldPrinting>();
+    return settings.GetFirstOnOffTypeElementVal<BookFoldPrinting>();
   }
 
   /// <summary>
@@ -1020,7 +915,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>result value</result>
-  public static int? GetDrawingGridVerticalSpacing(this Settings settings)
+  public static Twips? GetDrawingGridVerticalSpacing(this Settings settings)
   {
 
     return settings.GetFirstTwipsMeasureTypeElementVal<DrawingGridVerticalSpacing>();
@@ -1056,7 +951,7 @@ public static class SettingsTools
   public static bool? GetDoNotUseMarginsForDrawingGridOrigin(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotUseMarginsForDrawingGridOrigin>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotUseMarginsForDrawingGridOrigin>();
   }
 
   /// <summary>
@@ -1064,7 +959,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>result value</result>
-  public static int? GetDrawingGridHorizontalOrigin(this Settings settings)
+  public static Twips? GetDrawingGridHorizontalOrigin(this Settings settings)
   {
 
     return settings.GetFirstTwipsMeasureTypeElementVal<DrawingGridHorizontalOrigin>();
@@ -1075,7 +970,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>result value</result>
-  public static int? GetDrawingGridVerticalOrigin(this Settings settings)
+  public static Twips? GetDrawingGridVerticalOrigin(this Settings settings)
   {
 
     return settings.GetFirstTwipsMeasureTypeElementVal<DrawingGridVerticalOrigin>();
@@ -1089,7 +984,7 @@ public static class SettingsTools
   public static bool? GetDoNotShadeFormData(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotShadeFormData>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotShadeFormData>();
   }
 
   /// <summary>
@@ -1100,7 +995,7 @@ public static class SettingsTools
   public static bool? GetNoPunctuationKerning(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<NoPunctuationKerning>();
+    return settings.GetFirstOnOffTypeElementVal<NoPunctuationKerning>();
   }
 
   /// <summary>
@@ -1122,7 +1017,7 @@ public static class SettingsTools
   public static bool? GetPrintTwoOnOne(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<PrintTwoOnOne>();
+    return settings.GetFirstOnOffTypeElementVal<PrintTwoOnOne>();
   }
 
   /// <summary>
@@ -1133,7 +1028,7 @@ public static class SettingsTools
   public static bool? GetStrictFirstAndLastChars(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<StrictFirstAndLastChars>();
+    return settings.GetFirstOnOffTypeElementVal<StrictFirstAndLastChars>();
   }
 
   /// <summary>
@@ -1166,7 +1061,7 @@ public static class SettingsTools
   public static bool? GetSavePreviewPicture(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<SavePreviewPicture>();
+    return settings.GetFirstOnOffTypeElementVal<SavePreviewPicture>();
   }
 
   /// <summary>
@@ -1177,7 +1072,7 @@ public static class SettingsTools
   public static bool? GetDoNotValidateAgainstSchema(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotValidateAgainstSchema>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotValidateAgainstSchema>();
   }
 
   /// <summary>
@@ -1188,7 +1083,7 @@ public static class SettingsTools
   public static bool? GetSaveInvalidXml(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<SaveInvalidXml>();
+    return settings.GetFirstOnOffTypeElementVal<SaveInvalidXml>();
   }
 
   /// <summary>
@@ -1199,7 +1094,7 @@ public static class SettingsTools
   public static bool? GetIgnoreMixedContent(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<IgnoreMixedContent>();
+    return settings.GetFirstOnOffTypeElementVal<IgnoreMixedContent>();
   }
 
   /// <summary>
@@ -1210,7 +1105,7 @@ public static class SettingsTools
   public static bool? GetAlwaysShowPlaceholderText(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<AlwaysShowPlaceholderText>();
+    return settings.GetFirstOnOffTypeElementVal<AlwaysShowPlaceholderText>();
   }
 
   /// <summary>
@@ -1221,7 +1116,7 @@ public static class SettingsTools
   public static bool? GetDoNotDemarcateInvalidXml(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotDemarcateInvalidXml>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotDemarcateInvalidXml>();
   }
 
   /// <summary>
@@ -1232,7 +1127,7 @@ public static class SettingsTools
   public static bool? GetSaveXmlDataOnly(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<SaveXmlDataOnly>();
+    return settings.GetFirstOnOffTypeElementVal<SaveXmlDataOnly>();
   }
 
   /// <summary>
@@ -1243,7 +1138,7 @@ public static class SettingsTools
   public static bool? GetUseXsltWhenSaving(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<UseXsltWhenSaving>();
+    return settings.GetFirstOnOffTypeElementVal<UseXsltWhenSaving>();
   }
 
   /// <summary>
@@ -1265,7 +1160,7 @@ public static class SettingsTools
   public static bool? GetShowXmlTags(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<ShowXmlTags>();
+    return settings.GetFirstOnOffTypeElementVal<ShowXmlTags>();
   }
 
   /// <summary>
@@ -1276,7 +1171,7 @@ public static class SettingsTools
   public static bool? GetAlwaysMergeEmptyNamespace(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<AlwaysMergeEmptyNamespace>();
+    return settings.GetFirstOnOffTypeElementVal<AlwaysMergeEmptyNamespace>();
   }
 
   /// <summary>
@@ -1287,7 +1182,7 @@ public static class SettingsTools
   public static bool? GetUpdateFieldsOnOpen(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<UpdateFieldsOnOpen>();
+    return settings.GetFirstOnOffTypeElementVal<UpdateFieldsOnOpen>();
   }
 
   /// <summary>
@@ -1363,7 +1258,6 @@ public static class SettingsTools
   /// <result>result value</result>
   public static MathProperties? GetMathProperties(this Settings settings)
   {
-
     return settings.GetFirstElement<MathProperties>();
   }
 
@@ -1419,7 +1313,7 @@ public static class SettingsTools
   public static bool? GetDoNotIncludeSubdocsInStats(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotIncludeSubdocsInStats>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotIncludeSubdocsInStats>();
   }
 
   /// <summary>
@@ -1430,7 +1324,7 @@ public static class SettingsTools
   public static bool? GetDoNotAutoCompressPictures(this Settings settings)
   {
 
-    return settings.GetFirstOnOffElementVal<DoNotAutoCompressPictures>();
+    return settings.GetFirstOnOffTypeElementVal<DoNotAutoCompressPictures>();
   }
 
   /// <summary>
@@ -1574,7 +1468,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBordersDoNotSurroundHeader(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<BordersDoNotSurroundHeader>(value);
+    settings.SetFirstOnOffTypeElementVal<BordersDoNotSurroundHeader>(value);
   }
 
   /// <summary>
@@ -1582,7 +1476,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <param name="value">value to set</param>
-  public static void SetDrawingGridHorizontalSpacing(this Settings settings, int? value)
+  public static void SetDrawingGridHorizontalSpacing(this Settings settings, Twips? value)
   {
     settings.SetFirstTwipsMeasureTypeElementVal<DrawingGridHorizontalSpacing>(value);
   }
@@ -1624,7 +1518,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetRemovePersonalInformation(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<RemovePersonalInformation>(value);
+    settings.SetFirstOnOffTypeElementVal<RemovePersonalInformation>(value);
   }
 
   /// <summary>
@@ -1634,7 +1528,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetRemoveDateAndTime(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<RemoveDateAndTime>(value);
+    settings.SetFirstOnOffTypeElementVal<RemoveDateAndTime>(value);
   }
 
   /// <summary>
@@ -1644,7 +1538,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotDisplayPageBoundaries(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotDisplayPageBoundaries>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotDisplayPageBoundaries>(value);
   }
 
   /// <summary>
@@ -1654,7 +1548,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDisplayBackgroundShape(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DisplayBackgroundShape>(value);
+    settings.SetFirstOnOffTypeElementVal<DisplayBackgroundShape>(value);
   }
 
   /// <summary>
@@ -1664,7 +1558,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintPostScriptOverText(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<PrintPostScriptOverText>(value);
+    settings.SetFirstOnOffTypeElementVal<PrintPostScriptOverText>(value);
   }
 
   /// <summary>
@@ -1674,7 +1568,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintFractionalCharacterWidth(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<PrintFractionalCharacterWidth>(value);
+    settings.SetFirstOnOffTypeElementVal<PrintFractionalCharacterWidth>(value);
   }
 
   /// <summary>
@@ -1684,7 +1578,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintFormsData(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<PrintFormsData>(value);
+    settings.SetFirstOnOffTypeElementVal<PrintFormsData>(value);
   }
 
   /// <summary>
@@ -1694,7 +1588,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetEmbedTrueTypeFonts(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<EmbedTrueTypeFonts>(value);
+    settings.SetFirstOnOffTypeElementVal<EmbedTrueTypeFonts>(value);
   }
 
   /// <summary>
@@ -1704,7 +1598,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetEmbedSystemFonts(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<EmbedSystemFonts>(value);
+    settings.SetFirstOnOffTypeElementVal<EmbedSystemFonts>(value);
   }
 
   /// <summary>
@@ -1714,7 +1608,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveSubsetFonts(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<SaveSubsetFonts>(value);
+    settings.SetFirstOnOffTypeElementVal<SaveSubsetFonts>(value);
   }
 
   /// <summary>
@@ -1724,7 +1618,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveFormsData(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<SaveFormsData>(value);
+    settings.SetFirstOnOffTypeElementVal<SaveFormsData>(value);
   }
 
   /// <summary>
@@ -1734,7 +1628,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetMirrorMargins(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<MirrorMargins>(value);
+    settings.SetFirstOnOffTypeElementVal<MirrorMargins>(value);
   }
 
   /// <summary>
@@ -1744,7 +1638,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAlignBorderAndEdges(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<AlignBorderAndEdges>(value);
+    settings.SetFirstOnOffTypeElementVal<AlignBorderAndEdges>(value);
   }
 
   /// <summary>
@@ -1754,7 +1648,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBordersDoNotSurroundFooter(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<BordersDoNotSurroundFooter>(value);
+    settings.SetFirstOnOffTypeElementVal<BordersDoNotSurroundFooter>(value);
   }
 
   /// <summary>
@@ -1764,7 +1658,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetGutterAtTop(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<GutterAtTop>(value);
+    settings.SetFirstOnOffTypeElementVal<GutterAtTop>(value);
   }
 
   /// <summary>
@@ -1774,7 +1668,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetHideSpellingErrors(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<HideSpellingErrors>(value);
+    settings.SetFirstOnOffTypeElementVal<HideSpellingErrors>(value);
   }
 
   /// <summary>
@@ -1784,7 +1678,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetHideGrammaticalErrors(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<HideGrammaticalErrors>(value);
+    settings.SetFirstOnOffTypeElementVal<HideGrammaticalErrors>(value);
   }
 
   /// <summary>
@@ -1814,7 +1708,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetFormsDesign(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<FormsDesign>(value);
+    settings.SetFirstOnOffTypeElementVal<FormsDesign>(value);
   }
 
   /// <summary>
@@ -1834,7 +1728,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetLinkStyles(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<LinkStyles>(value);
+    settings.SetFirstOnOffTypeElementVal<LinkStyles>(value);
   }
 
   /// <summary>
@@ -1894,7 +1788,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetTrackRevisions(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<TrackRevisions>(value);
+    settings.SetFirstOnOffTypeElementVal<TrackRevisions>(value);
   }
 
   /// <summary>
@@ -1904,7 +1798,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotTrackMoves(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotTrackMoves>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotTrackMoves>(value);
   }
 
   /// <summary>
@@ -1914,7 +1808,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotTrackFormatting(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotTrackFormatting>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotTrackFormatting>(value);
   }
 
   /// <summary>
@@ -1934,7 +1828,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAutoFormatOverride(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<AutoFormatOverride>(value);
+    settings.SetFirstOnOffTypeElementVal<AutoFormatOverride>(value);
   }
 
   /// <summary>
@@ -1944,7 +1838,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStyleLockThemesPart(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<StyleLockThemesPart>(value);
+    settings.SetFirstOnOffTypeElementVal<StyleLockThemesPart>(value);
   }
 
   /// <summary>
@@ -1954,7 +1848,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStyleLockStylesPart(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<StyleLockStylesPart>(value);
+    settings.SetFirstOnOffTypeElementVal<StyleLockStylesPart>(value);
   }
 
   /// <summary>
@@ -1974,7 +1868,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAutoHyphenation(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<AutoHyphenation>(value);
+    settings.SetFirstOnOffTypeElementVal<AutoHyphenation>(value);
   }
 
   /// <summary>
@@ -1992,7 +1886,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <param name="value">value to set</param>
-  public static void SetHyphenationZone(this Settings settings, int? value)
+  public static void SetHyphenationZone(this Settings settings, Twips? value)
   {
     settings.SetFirstTwipsMeasureTypeElementVal<HyphenationZone>(value);
   }
@@ -2004,7 +1898,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotHyphenateCaps(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotHyphenateCaps>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotHyphenateCaps>(value);
   }
 
   /// <summary>
@@ -2014,7 +1908,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetShowEnvelope(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<ShowEnvelope>(value);
+    settings.SetFirstOnOffTypeElementVal<ShowEnvelope>(value);
   }
 
   /// <summary>
@@ -2054,7 +1948,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetEvenAndOddHeaders(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<EvenAndOddHeaders>(value);
+    settings.SetFirstOnOffTypeElementVal<EvenAndOddHeaders>(value);
   }
 
   /// <summary>
@@ -2064,7 +1958,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBookFoldReversePrinting(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<BookFoldReversePrinting>(value);
+    settings.SetFirstOnOffTypeElementVal<BookFoldReversePrinting>(value);
   }
 
   /// <summary>
@@ -2074,7 +1968,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBookFoldPrinting(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<BookFoldPrinting>(value);
+    settings.SetFirstOnOffTypeElementVal<BookFoldPrinting>(value);
   }
 
   /// <summary>
@@ -2102,7 +1996,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <param name="value">value to set</param>
-  public static void SetDrawingGridVerticalSpacing(this Settings settings, int? value)
+  public static void SetDrawingGridVerticalSpacing(this Settings settings, Twips? value)
   {
     settings.SetFirstTwipsMeasureTypeElementVal<DrawingGridVerticalSpacing>(value);
   }
@@ -2134,7 +2028,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotUseMarginsForDrawingGridOrigin(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotUseMarginsForDrawingGridOrigin>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotUseMarginsForDrawingGridOrigin>(value);
   }
 
   /// <summary>
@@ -2142,7 +2036,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <param name="value">value to set</param>
-  public static void SetDrawingGridHorizontalOrigin(this Settings settings, int? value)
+  public static void SetDrawingGridHorizontalOrigin(this Settings settings, Twips? value)
   {
     settings.SetFirstTwipsMeasureTypeElementVal<DrawingGridHorizontalOrigin>(value);
   }
@@ -2152,7 +2046,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <param name="value">value to set</param>
-  public static void SetDrawingGridVerticalOrigin(this Settings settings, int? value)
+  public static void SetDrawingGridVerticalOrigin(this Settings settings, Twips? value)
   {
     settings.SetFirstTwipsMeasureTypeElementVal<DrawingGridVerticalOrigin>(value);
   }
@@ -2164,7 +2058,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotShadeFormData(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotShadeFormData>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotShadeFormData>(value);
   }
 
   /// <summary>
@@ -2174,7 +2068,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetNoPunctuationKerning(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<NoPunctuationKerning>(value);
+    settings.SetFirstOnOffTypeElementVal<NoPunctuationKerning>(value);
   }
 
   /// <summary>
@@ -2194,7 +2088,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintTwoOnOne(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<PrintTwoOnOne>(value);
+    settings.SetFirstOnOffTypeElementVal<PrintTwoOnOne>(value);
   }
 
   /// <summary>
@@ -2204,7 +2098,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStrictFirstAndLastChars(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<StrictFirstAndLastChars>(value);
+    settings.SetFirstOnOffTypeElementVal<StrictFirstAndLastChars>(value);
   }
 
   /// <summary>
@@ -2234,7 +2128,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSavePreviewPicture(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<SavePreviewPicture>(value);
+    settings.SetFirstOnOffTypeElementVal<SavePreviewPicture>(value);
   }
 
   /// <summary>
@@ -2244,7 +2138,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotValidateAgainstSchema(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotValidateAgainstSchema>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotValidateAgainstSchema>(value);
   }
 
   /// <summary>
@@ -2254,7 +2148,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveInvalidXml(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<SaveInvalidXml>(value);
+    settings.SetFirstOnOffTypeElementVal<SaveInvalidXml>(value);
   }
 
   /// <summary>
@@ -2264,7 +2158,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetIgnoreMixedContent(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<IgnoreMixedContent>(value);
+    settings.SetFirstOnOffTypeElementVal<IgnoreMixedContent>(value);
   }
 
   /// <summary>
@@ -2274,7 +2168,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAlwaysShowPlaceholderText(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<AlwaysShowPlaceholderText>(value);
+    settings.SetFirstOnOffTypeElementVal<AlwaysShowPlaceholderText>(value);
   }
 
   /// <summary>
@@ -2284,7 +2178,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotDemarcateInvalidXml(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotDemarcateInvalidXml>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotDemarcateInvalidXml>(value);
   }
 
   /// <summary>
@@ -2294,7 +2188,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveXmlDataOnly(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<SaveXmlDataOnly>(value);
+    settings.SetFirstOnOffTypeElementVal<SaveXmlDataOnly>(value);
   }
 
   /// <summary>
@@ -2304,7 +2198,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetUseXsltWhenSaving(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<UseXsltWhenSaving>(value);
+    settings.SetFirstOnOffTypeElementVal<UseXsltWhenSaving>(value);
   }
 
   /// <summary>
@@ -2324,7 +2218,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetShowXmlTags(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<ShowXmlTags>(value);
+    settings.SetFirstOnOffTypeElementVal<ShowXmlTags>(value);
   }
 
   /// <summary>
@@ -2334,7 +2228,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAlwaysMergeEmptyNamespace(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<AlwaysMergeEmptyNamespace>(value);
+    settings.SetFirstOnOffTypeElementVal<AlwaysMergeEmptyNamespace>(value);
   }
 
   /// <summary>
@@ -2344,7 +2238,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetUpdateFieldsOnOpen(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<UpdateFieldsOnOpen>(value);
+    settings.SetFirstOnOffTypeElementVal<UpdateFieldsOnOpen>(value);
   }
 
   /// <summary>
@@ -2464,7 +2358,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotIncludeSubdocsInStats(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotIncludeSubdocsInStats>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotIncludeSubdocsInStats>(value);
   }
 
   /// <summary>
@@ -2474,7 +2368,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotAutoCompressPictures(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffElementVal<DoNotAutoCompressPictures>(value);
+    settings.SetFirstOnOffTypeElementVal<DoNotAutoCompressPictures>(value);
   }
 
   /// <summary>
@@ -2612,7 +2506,7 @@ public static class SettingsTools
   private static readonly Dictionary<string, Type> PropTypes = new()
   {
     { "BordersDoNotSurroundHeader", typeof(bool) },
-    { "DrawingGridHorizontalSpacing", typeof(int) },
+    { "DrawingGridHorizontalSpacing", typeof(Twips) },
     { "PersistentDocumentId", typeof(Guid) },
     { "View", typeof(ViewValues) },
     { "Zoom", typeof(Zoom) },
@@ -2653,7 +2547,7 @@ public static class SettingsTools
     { "DefaultTabStop", typeof(short) },
     { "AutoHyphenation", typeof(bool) },
     { "ConsecutiveHyphenLimit", typeof(ushort) },
-    { "HyphenationZone", typeof(int) },
+    { "HyphenationZone", typeof(Twips) },
     { "DoNotHyphenateCaps", typeof(bool) },
     { "ShowEnvelope", typeof(bool) },
     { "SummaryLength", typeof(int) },
@@ -2664,12 +2558,12 @@ public static class SettingsTools
     { "BookFoldPrinting", typeof(bool) },
     { "BookFoldPrintingSheets", typeof(short) },
     { "WriteProtection", typeof(WriteProtection) },
-    { "DrawingGridVerticalSpacing", typeof(int) },
+    { "DrawingGridVerticalSpacing", typeof(Twips) },
     { "DisplayHorizontalDrawingGrid", typeof(byte) },
     { "DisplayVerticalDrawingGrid", typeof(byte) },
     { "DoNotUseMarginsForDrawingGridOrigin", typeof(bool) },
-    { "DrawingGridHorizontalOrigin", typeof(int) },
-    { "DrawingGridVerticalOrigin", typeof(int) },
+    { "DrawingGridHorizontalOrigin", typeof(Twips) },
+    { "DrawingGridVerticalOrigin", typeof(Twips) },
     { "DoNotShadeFormData", typeof(bool) },
     { "NoPunctuationKerning", typeof(bool) },
     { "CharacterSpacingControl", typeof(CharacterSpacingValues) },
