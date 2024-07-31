@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CompatibilitySettingsTest12.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CompatibilitySettingsTest15.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Test.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

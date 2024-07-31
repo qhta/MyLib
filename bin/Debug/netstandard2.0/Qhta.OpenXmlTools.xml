@@ -40,6 +40,105 @@
             <typeparam name="OpenXmlElementType">Target OpenXml element type. It must be a composite element</typeparam>
             <returns>New <typeparamref name="OpenXmlElementType"/> element</returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.CompatibilityTools">
+            <summary>
+            Tools for working with math properties
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.HasCompatibilitySettings(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Check if the document has math properties
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>True if the document has math properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetCompatibilitySettings(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the math properties from the document. If the document does not have math properties, the properties are created.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>True if the document has math properties</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.Count(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.Boolean)">
+            <summary>
+            Get the count of all the properties.
+            </summary>
+            <param name="properties"></param>
+            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.Boolean)">
+            <summary>
+            Get the names of all the properties.
+            </summary>
+            <param name="properties"></param>
+            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.String)">
+            <summary>
+            Get the type of property with its name.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetDocument(DocumentFormat.OpenXml.Wordprocessing.Compatibility)">
+            <summary>
+            Gets the <c>WordprocessingDocument</c> from the <c>Compatibility</c> object.
+            </summary>
+            <param name="properties"></param>
+            <result>wordprocessing document</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetValue(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.String)">
+            <summary>
+            Gets the value of a <c>Compatibility</c> property.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.SetValue(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.String,System.Object)">
+            <summary>
+            Sets the value of a <c>Compatibility</c> property.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetCompatibilitySettingBoolVal(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.String)">
+            <summary>
+            Gets the <c>CompatibilitySetting</c> <c>Val</c> property bool value.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetCompatibilityMode(DocumentFormat.OpenXml.Wordprocessing.Compatibility)">
+            <summary>
+            Gets the <c>CompatibilityMode</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.SetCompatibilitySettingBoolVal(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            sets the <c>CompatibilitySetting</c> <c>Val</c> property bool value.
+            </summary>
+            <param name="properties"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.SetCompatibilityMode(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.Nullable{System.Int32})">
+            <summary>
+            Sets the <c>CompatibilityMode</c> property value.
+            </summary>
+            <param name="properties"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.CorePropertiesTools">
             <summary>
             Tools for working with core properties of a document.

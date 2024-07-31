@@ -24,3 +24,5 @@ D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\obj\Debug\net8.0\Qhta.OpenXmlToolsTes
 D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\obj\Debug\net8.0\Qhta.Ope.1F55D414.Up2Date
 D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\Test.docx
 D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\obj\Debug\net8.0\Qhta.OpenXmlToolsTest.sourcelink.json
+D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\CompatibilitySettingsTest12.docx
+D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\CompatibilitySettingsTest15.docx

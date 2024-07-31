@@ -9,10 +9,14 @@ internal class Program
     //propertiesTest.DocumentPropertiesWriteTest("WriteTest.docx");
     //var settingsTest = new SettingsTest();
     //settingsTest.SettingsReadTest("Test.docx");
-    //settingsTest.SettingsWriteTest("WriteTest.docx");
-    var mathPropertiesTest = new MathPropertiesTest();
-    mathPropertiesTest.MathPropertiesReadTest("Test.docx");
-    mathPropertiesTest.MathPropertiesWriteTest("WriteTest.docx");
+    ////settingsTest.SettingsWriteTest("WriteTest.docx");
+    //var mathPropertiesTest = new MathPropertiesTest();
+    //mathPropertiesTest.MathPropertiesReadTest("Test.docx");
+    //mathPropertiesTest.MathPropertiesWriteTest("WriteTest.docx");
+    var compatibilitySettingsTest = new CompatibilitySettingsTest();
+    compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest12.docx");
+    compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest15.docx");
+    compatibilitySettingsTest.CompatibilitySettingsWriteTest("WriteTest.docx");
   }
 
 }
