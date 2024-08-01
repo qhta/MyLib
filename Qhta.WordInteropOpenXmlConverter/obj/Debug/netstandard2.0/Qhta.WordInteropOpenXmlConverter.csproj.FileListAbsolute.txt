@@ -18,3 +18,5 @@ D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\p
 D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\pl\Qhta.WordInteropOpenXmlConverter.resources.dll
 D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\pl\Qhta.OpenXmlTools.resources.dll
 D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.OpenXmlTools.xml
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.sourcelink.json
+D:\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\BuiltInStyleProbes.docx

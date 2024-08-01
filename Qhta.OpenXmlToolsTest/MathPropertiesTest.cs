@@ -62,7 +62,7 @@ public class MathPropertiesTest
   {
     Console.WriteLine("Math properties write test:");
     var MathProperties = wordDoc.GetMathProperties();
-    foreach (var propName in MathProperties.GetNames(true))
+    foreach (var propName in MathProperties.GetNames(ItemFilter.All))
     {
       var propType = MathProperties.GetType(propName);
       var value = TestTools.CreateNewPropertyValue(propName, propType);

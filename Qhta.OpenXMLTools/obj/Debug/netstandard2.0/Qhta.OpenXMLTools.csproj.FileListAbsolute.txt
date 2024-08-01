@@ -27,3 +27,4 @@ D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTool
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.xml
 D:\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.pdb
 D:\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.sourcelink.json
+D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\BuiltInStyleProbes.docx

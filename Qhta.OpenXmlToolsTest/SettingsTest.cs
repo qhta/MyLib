@@ -81,7 +81,7 @@ public class SettingsTest
   {
     Console.WriteLine("Document settings write test:");
     var settings = wordDoc.GetSettings();
-    foreach (var propName in settings.GetNames(true))
+    foreach (var propName in settings.GetNames(ItemFilter.All))
     {
       var propType = settings.GetType(propName);
       var value = TestTools.CreateNewPropertyValue(propName, propType);

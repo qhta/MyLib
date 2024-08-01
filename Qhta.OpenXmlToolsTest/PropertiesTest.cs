@@ -219,7 +219,7 @@ public class PropertiesTest
   {
     Console.WriteLine("Document properties write test:");
     var documentProperties = wordDoc.GetDocumentProperties();
-    foreach (var propName in documentProperties.GetNames(true))
+    foreach (var propName in documentProperties.GetNames(ItemFilter.All))
     {
       var type = documentProperties.GetType(propName);
       var value = TestTools.CreateNewPropertyValue(propName, type);

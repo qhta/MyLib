@@ -34,12 +34,7 @@ public static class SettingsTools
   /// <returns></returns>
   public static Settings GetSettings(this DXPack.WordprocessingDocument wordDoc)
   {
-    var mainDocumentPart = wordDoc.MainDocumentPart;
-    if (mainDocumentPart == null)
-    {
-      mainDocumentPart = wordDoc.AddMainDocumentPart();
-      mainDocumentPart.Document = new Document();
-    }
+    var mainDocumentPart = wordDoc.GetMainDocumentPart();
     var documentSettingsPart = mainDocumentPart.DocumentSettingsPart;
     if (documentSettingsPart == null)
     {
@@ -50,27 +45,27 @@ public static class SettingsTools
   }
 
   /// <summary>
-  /// Get the count of all the settings properties.
+  /// Get the count of the settings properties.
   /// </summary>
   /// <param name="settings"></param>
-  /// <param name="all">specifies if all property names should be counted or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be counted or non-empty ones</param>
   /// <returns></returns>
-  public static int Count(this Settings settings, bool all = false)
+  public static int Count(this Settings settings, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Count;
     return PropTypes.Count(item => settings.GetValue(item.Key) != null);
   }
 
   /// <summary>
-  /// Get the names of all the settings properties.
+  /// Get the names of the settings properties.
   /// </summary>
   /// <param name="settings"></param>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public static string[] GetNames(this Settings settings, bool all = false)
+  public static string[] GetNames(this Settings settings, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Keys.ToArray();
     return PropTypes.Where(item => settings.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
   }

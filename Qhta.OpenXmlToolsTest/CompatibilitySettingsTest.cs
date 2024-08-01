@@ -61,7 +61,7 @@ public class CompatibilitySettingsTest
   {
     Console.WriteLine("Compatibility settings write test:");
     var compatibilitySettings = wordDoc.GetCompatibilitySettings();
-    foreach (var propName in compatibilitySettings.GetNames(true))
+    foreach (var propName in compatibilitySettings.GetNames(ItemFilter.All))
     {
       var propType = compatibilitySettings.GetType(propName);
       var value = TestTools.CreateNewPropertyValue(propName, propType);

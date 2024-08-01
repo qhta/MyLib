@@ -8,7 +8,40 @@ namespace Qhta.OpenXmlTools;
 public static class CustomFileProperties
 {
   /// <summary>
-  /// Get the count of all the custom file properties.
+  /// Checks if the document has custom file properties.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static bool HasCustomFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  {
+    return wordDoc.CustomFilePropertiesPart?.Properties != null;
+  }
+
+  /// <summary>
+  /// Gets the custom file properties of the document. If the document does not have custom file properties,
+  /// they are created.
+  /// </summary>
+  /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+  /// <returns></returns>
+  public static DXCP.Properties GetCustomFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  {
+    var part = wordDoc.CustomFilePropertiesPart;
+    if (part == null)
+    {
+      part = wordDoc.AddCustomFilePropertiesPart();
+    }
+    var properties = part.Properties;
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    if (properties == null)
+    {
+      properties = new DXCP.Properties();
+      part.Properties = properties;
+    }
+    return properties;
+  }
+
+  /// <summary>
+  /// Get the count of the custom file properties.
   /// </summary>
   /// <param name="customFileProperties"></param>
   /// <returns></returns>
@@ -18,7 +51,7 @@ public static class CustomFileProperties
     => customFileProperties.Elements<DXCP.CustomDocumentProperty>().Count();
 
   /// <summary>
-  /// Get the names of all the custom file properties.
+  /// Get the names of the custom file properties.
   /// </summary>
   /// <param name="customFileProperties"></param>
   /// <returns></returns>
@@ -60,7 +93,7 @@ public static class CustomFileProperties
   }
 
   /// <summary>
-  /// Sets the value of an custom file property.
+  /// Sets the value of a custom file property.
   /// </summary>
   /// <param name="customFileProperties"></param>
   /// <param name="propertyName"></param>

@@ -1,20 +1,21 @@
 ﻿using System;
-using Qhta.TextUtils;
+
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Wordprocessing;
+
+using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 /// <summary>
-/// Tools for working with math properties
+/// Tools for working with compatibility settings
 /// </summary>
 public static class CompatibilityTools
 {
   /// <summary>
-  /// Check if the document has math properties
+  /// Check if the document has compatibility settings
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
-  /// <returns>True if the document has math properties</returns>
+  /// <returns>True if the document has compatibility settings</returns>
   public static bool HasCompatibilitySettings(this DXPack.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.DocumentSettingsPart?.Settings?
@@ -22,10 +23,10 @@ public static class CompatibilityTools
   }
 
   /// <summary>
-  /// Gets the math properties from the document. If the document does not have math properties, the properties are created.
+  /// Gets the compatibility settings from the document. If the document does not have compatibility settings, they are created.
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
-  /// <returns>True if the document has math properties</returns>
+  /// <returns>The instance of the compatibility settings</returns>
   public static DXW.Compatibility GetCompatibilitySettings(this DXPack.WordprocessingDocument wordDoc)
   {
     var settings = wordDoc.GetSettings();
@@ -40,27 +41,27 @@ public static class CompatibilityTools
 
 
   /// <summary>
-  /// Get the count of all the properties.
+  /// Get the count of the compatibility settings.
   /// </summary>
   /// <param name="properties"></param>
-  /// <param name="all">specifies if all property names should be counted or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be counted or non-empty ones</param>
   /// <returns></returns>
-  public static int Count(this DXW.Compatibility properties, bool all = false)
+  public static int Count(this DXW.Compatibility properties, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropNamesToElementNames.Count;
     return properties.Elements().Count();
   }
 
   /// <summary>
-  /// Get the names of all the properties.
+  /// Get the names of the compatibility settings.
   /// </summary>
   /// <param name="properties"></param>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public static string[] GetNames(this DXW.Compatibility properties, bool all = false)
+  public static string[] GetNames(this DXW.Compatibility properties, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropNamesToElementNames.Keys.ToArray();
     return properties.Elements<OpenXmlElement>().Select
       (x => (x is CompatibilitySetting compatibilitySetting) ? GetPropName(compatibilitySetting.Name!.ToString()!) : GetPropName(x.LocalName)).ToArray();

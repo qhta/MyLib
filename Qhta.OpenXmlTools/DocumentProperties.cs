@@ -27,32 +27,32 @@ public class DocumentProperties
   DXCP.Properties CustomProperties => WordDoc.GetCustomFileProperties();
 
   /// <summary>
-  /// Get the count of all the document properties.
+  /// Get the count of the document properties.
   /// </summary>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public int Count(bool all = false)
+  public int Count(ItemFilter filter = ItemFilter.Defined)
   {
     int count = 0;
     if (WordDoc.HasCoreProperties())
-      count+= WordDoc.GetCoreProperties().Count(all);
+      count+= WordDoc.GetCoreProperties().Count(filter);
     if (WordDoc.HasExtendedFileProperties())
-      count += WordDoc.GetExtendedFileProperties().Count(all);
+      count += WordDoc.GetExtendedFileProperties().Count(filter);
     if (WordDoc.HasCustomFileProperties())
       count += WordDoc.GetCustomFileProperties().Count();
     return count;
   }
 
   /// <summary>
-  /// Get the names of all the document properties.
+  /// Get the names of the document properties.
   /// </summary>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public string[] GetNames(bool all = false)
+  public string[] GetNames(ItemFilter filter = ItemFilter.Defined)
   {
     List<string> names = new();
-    names.AddRange(WordDoc.GetCoreProperties().GetNames(all));
-    names.AddRange(WordDoc.GetExtendedFileProperties().GetNames(all));
+    names.AddRange(WordDoc.GetCoreProperties().GetNames(filter));
+    names.AddRange(WordDoc.GetExtendedFileProperties().GetNames(filter));
     if (WordDoc.HasCustomFileProperties())
       names.AddRange(WordDoc.GetCustomFileProperties().GetNames());
     return names.ToArray();
@@ -65,9 +65,9 @@ public class DocumentProperties
   /// <returns></returns>
   public Type GetType(string propName)
   {
-    if (CoreProperties.GetNames(true).Contains(propName))
+    if (CoreProperties.GetNames(ItemFilter.All).Contains(propName))
       return CoreProperties.GetType(propName);
-    if (ExtendedProperties.GetNames(true).Contains(propName))
+    if (ExtendedProperties.GetNames(ItemFilter.All).Contains(propName))
       return ExtendedProperties.GetType(propName);
     var vType = CustomProperties.GetType(propName);
     return VTVariantTools.VTTypeToType.TryGetValue(vType, out var aType) ? aType : vType;
@@ -80,9 +80,9 @@ public class DocumentProperties
   /// <returns></returns>
   public object? GetValue(string propertyName)
   {
-    if (CoreProperties.GetNames(true).Contains(propertyName))
+    if (CoreProperties.GetNames(ItemFilter.All).Contains(propertyName))
       return CoreProperties.GetValue(propertyName);
-    if (ExtendedProperties.GetNames(true).Contains(propertyName))
+    if (ExtendedProperties.GetNames(ItemFilter.All).Contains(propertyName))
       return ExtendedProperties.GetValue(propertyName);
     return CustomProperties.GetValue(propertyName);
   }
@@ -95,11 +95,11 @@ public class DocumentProperties
   /// <returns></returns>
   public void SetValue(string propertyName, object? value)
   {
-    if (CoreProperties.GetNames(true).Contains(propertyName))
+    if (CoreProperties.GetNames(ItemFilter.All).Contains(propertyName))
       CoreProperties.SetValue(propertyName, value);
     else
     {
-      if (ExtendedProperties.GetNames(true).Contains(propertyName))
+      if (ExtendedProperties.GetNames(ItemFilter.All).Contains(propertyName))
         ExtendedProperties.SetValue(propertyName, value);
 
       else

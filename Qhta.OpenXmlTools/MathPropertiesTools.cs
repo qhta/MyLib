@@ -24,7 +24,7 @@ public static class MathPropertiesTools
   /// Gets the math properties from the document. If the document does not have math properties, the properties are created.
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
-  /// <returns>True if the document has math properties</returns>
+  /// <returns>The instance of the math properties</returns>
   public static DXM.MathProperties GetMathProperties(this DXPack.WordprocessingDocument wordDoc)
   {
     var settings = wordDoc.GetSettings();
@@ -39,27 +39,27 @@ public static class MathPropertiesTools
 
 
   /// <summary>
-  /// Get the count of all the properties.
+  /// Get the count of the properties.
   /// </summary>
   /// <param name="properties"></param>
-  /// <param name="all">specifies if all property names should be counted or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be counted or non-empty ones</param>
   /// <returns></returns>
-  public static int Count(this DXM.MathProperties properties, bool all = false)
+  public static int Count(this DXM.MathProperties properties, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Count;
     return PropTypes.Count(item => properties.GetValue(item.Key) != null);
   }
 
   /// <summary>
-  /// Get the names of all the properties.
+  /// Get the names of the properties.
   /// </summary>
   /// <param name="properties"></param>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public static string[] GetNames(this DXM.MathProperties properties, bool all = false)
+  public static string[] GetNames(this DXM.MathProperties properties, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Keys.ToArray();
     return PropTypes.Where(item => properties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
   }

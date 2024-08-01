@@ -7,28 +7,62 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class ExtendedFilePropertiesTools
 {
+
   /// <summary>
-  /// Get the count of all the extended file properties.
+  /// Checks if the document has extended file properties.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static bool HasExtendedFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  {
+    return wordDoc.ExtendedFilePropertiesPart?.Properties != null;
+  }
+
+  /// <summary>
+  /// Gets the extended file properties of the document. If the document does not have extended file properties,
+  /// they are created.
+  /// </summary>
+  /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+  /// <returns></returns>
+  public static DXEP.Properties GetExtendedFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  {
+    var part = wordDoc.ExtendedFilePropertiesPart;
+    if (part == null)
+    {
+      part = wordDoc.AddExtendedFilePropertiesPart();
+    }
+    var properties = part.Properties;
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    if (properties == null)
+    {
+      properties = new DXEP.Properties();
+      part.Properties = properties;
+    }
+    return properties;
+  }
+
+  /// <summary>
+  /// Get the count of the extended file properties.
   /// </summary>
   /// <param name="extendedFileProperties"></param>
-  /// <param name="all">specifies if all property names should be counted or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be counted or non-empty ones</param>
   /// <returns></returns>
-  public static int Count(this DXEP.Properties extendedFileProperties, bool all = false)
+  public static int Count(this DXEP.Properties extendedFileProperties, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Count;
     return PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null);
   }
 
   /// <summary>
-  /// Get the names of all the extended file properties.
+  /// Get the names of the extended file properties.
   /// </summary>
   /// <param name="extendedFileProperties"></param>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
-  public static string[] GetNames(this DXEP.Properties extendedFileProperties, bool all = false)
+  public static string[] GetNames(this DXEP.Properties extendedFileProperties, ItemFilter filter = ItemFilter.Defined)
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Keys.ToArray();
     return PropTypes.Where(item => extendedFileProperties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
   }

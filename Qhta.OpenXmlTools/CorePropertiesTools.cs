@@ -7,34 +7,53 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class CorePropertiesTools
 {
+  /// <summary>
+  /// Checks if the document has core properties.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static bool HasCoreProperties(this DXPack.WordprocessingDocument wordDoc)
+  {
+    return wordDoc.CoreFilePropertiesPart != null;
+  }
 
   /// <summary>
-  /// Get the count of all the core properties.
+  /// Gets the core properties of the document. If the document does not have core properties, they are created.
+  /// </summary>
+  /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+  /// <returns></returns>
+  public static DXPack.IPackageProperties GetCoreProperties(this DXPack.WordprocessingDocument wordDoc)
+  {
+    return wordDoc.PackageProperties;
+  }
+
+  /// <summary>
+  /// Get the count of the core properties.
   /// </summary>
   /// <param name="coreProperties"></param>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static int Count(this DXPack.IPackageProperties coreProperties, bool all = false)
+  public static int Count(this DXPack.IPackageProperties coreProperties, ItemFilter filter = ItemFilter.Defined)
 #pragma warning restore OOXML0001
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Count;
     return PropTypes.Count(item => coreProperties.GetValue(item.Key) != null);
   }
 
 
   /// <summary>
-  /// Get the names of all the core properties.
+  /// Get the names of the core properties.
   /// </summary>
   /// <param name="coreProperties"></param>
-  /// <param name="all">specifies if all property names should be listed or non-empty ones</param>
+  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static string[] GetNames(this DXPack.IPackageProperties coreProperties, bool all = false)
+  public static string[] GetNames(this DXPack.IPackageProperties coreProperties, ItemFilter filter = ItemFilter.Defined)
 #pragma warning restore OOXML0001
   {
-    if (all)
+    if (filter == ItemFilter.All)
       return PropTypes.Keys.ToArray();
     return PropTypes.Where(item => coreProperties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
   }

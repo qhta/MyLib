@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using DocumentFormat.OpenXml;
 
 using static Microsoft.Office.Interop.Word.WdStyleType;
-using static Qhta.OpenXmlTools.StyleTools;
+using static Qhta.OpenXmlTools.StylesTools;
 using W = DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -19,12 +19,12 @@ public class StyleConverter
 {
   public StyleConverter(Word.Document document)
   {
-    styleTools = new StyleTools(document);
+    styleTools = new StylesTools(document);
     defaultStyle = styleTools.GetStyle(Word.WdBuiltinStyle.wdStyleNormal);
     themeTools = new ThemeTools(document);
   }
 
-  private readonly StyleTools styleTools;
+  private readonly StylesTools styleTools;
   private readonly ThemeTools themeTools;
   private readonly Word.Style defaultStyle;
 

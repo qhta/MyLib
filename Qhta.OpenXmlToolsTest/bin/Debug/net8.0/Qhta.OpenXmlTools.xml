@@ -42,37 +42,37 @@
         </member>
         <member name="T:Qhta.OpenXmlTools.CompatibilityTools">
             <summary>
-            Tools for working with math properties
+            Tools for working with compatibility settings
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.CompatibilityTools.HasCompatibilitySettings(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Check if the document has math properties
+            Check if the document has compatibility settings
             </summary>
             <param name="wordDoc">The WordprocessingDocument</param>
-            <returns>True if the document has math properties</returns>
+            <returns>True if the document has compatibility settings</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetCompatibilitySettings(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Gets the math properties from the document. If the document does not have math properties, the properties are created.
+            Gets the compatibility settings from the document. If the document does not have compatibility settings, they are created.
             </summary>
             <param name="wordDoc">The WordprocessingDocument</param>
-            <returns>True if the document has math properties</returns>
+            <returns>The instance of the compatibility settings</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.Count(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.Count(DocumentFormat.OpenXml.Wordprocessing.Compatibility,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the count of all the properties.
+            Get the count of the compatibility settings.
             </summary>
             <param name="properties"></param>
-            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <param name="filter">specifies if all property names should be counted or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Compatibility,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the names of all the properties.
+            Get the names of the compatibility settings.
             </summary>
             <param name="properties"></param>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CompatibilityTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Compatibility,System.String)">
@@ -144,20 +144,34 @@
             Tools for working with core properties of a document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.Count(DocumentFormat.OpenXml.Packaging.IPackageProperties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.HasCoreProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Get the count of all the core properties.
+            Checks if the document has core properties.
             </summary>
-            <param name="coreProperties"></param>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="wordDoc"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetNames(DocumentFormat.OpenXml.Packaging.IPackageProperties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetCoreProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Get the names of all the core properties.
+            Gets the core properties of the document. If the document does not have core properties, they are created.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.Count(DocumentFormat.OpenXml.Packaging.IPackageProperties,Qhta.OpenXmlTools.ItemFilter)">
+            <summary>
+            Get the count of the core properties.
             </summary>
             <param name="coreProperties"></param>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetNames(DocumentFormat.OpenXml.Packaging.IPackageProperties,Qhta.OpenXmlTools.ItemFilter)">
+            <summary>
+            Get the names of the core properties.
+            </summary>
+            <param name="coreProperties"></param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CorePropertiesTools.GetType(DocumentFormat.OpenXml.Packaging.IPackageProperties,System.String)">
@@ -189,16 +203,31 @@
             Tools for working with custom file properties of a document.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.HasCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Checks if the document has custom file properties.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.GetCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the custom file properties of the document. If the document does not have custom file properties,
+            they are created.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Count(DocumentFormat.OpenXml.CustomProperties.Properties)">
             <summary>
-            Get the count of all the custom file properties.
+            Get the count of the custom file properties.
             </summary>
             <param name="customFileProperties"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CustomFileProperties.GetNames(DocumentFormat.OpenXml.CustomProperties.Properties)">
             <summary>
-            Get the names of all the custom file properties.
+            Get the names of the custom file properties.
             </summary>
             <param name="customFileProperties"></param>
             <returns></returns>
@@ -221,7 +250,7 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.CustomFileProperties.SetValue(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.Object)">
             <summary>
-            Sets the value of an custom file property.
+            Sets the value of a custom file property.
             </summary>
             <param name="customFileProperties"></param>
             <param name="propertyName"></param>
@@ -243,18 +272,18 @@
             Holds the WordprocessingDocument object.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentProperties.Count(System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.DocumentProperties.Count(Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the count of all the document properties.
+            Get the count of the document properties.
             </summary>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetNames(System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetNames(Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the names of all the document properties.
+            Get the names of the document properties.
             </summary>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentProperties.GetType(System.String)">
@@ -303,53 +332,23 @@
             A collection of tools for working with OpenXml documents.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasCoreProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Checks if the document has core properties.
-            </summary>
-            <param name="wordDoc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetCoreProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Gets the core properties of the document. If the document does not have core properties, they are created.
-            </summary>
-            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Checks if the document has extended file properties.
-            </summary>
-            <param name="wordDoc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Gets the extended file properties of the document. If the document does not have extended file properties,
-            they are created.
-            </summary>
-            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Checks if the document has custom file properties.
-            </summary>
-            <param name="wordDoc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetCustomFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Gets the custom file properties of the document. If the document does not have custom file properties,
-            they are created.
-            </summary>
-            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetDocumentProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Gets all the properties of the document to manage them in a uniform way.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasMainDocumentPart(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Checks if the document has a <c>MainDocumentPart</c>.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetMainDocumentPart(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the <c>MainDocumentPart</c> of the document. If the document does not have a <c>MainDocumentPart</c>, it is created with an empty <c>Document</c> element.
             </summary>
             <param name="wordDoc"></param>
             <returns></returns>
@@ -407,20 +406,35 @@
             Tools for working with extended file properties of a document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.HasExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Get the count of all the extended file properties.
+            Checks if the document has extended file properties.
             </summary>
-            <param name="extendedFileProperties"></param>
-            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <param name="wordDoc"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Get the names of all the extended file properties.
+            Gets the extended file properties of the document. If the document does not have extended file properties,
+            they are created.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties,Qhta.OpenXmlTools.ItemFilter)">
+            <summary>
+            Get the count of the extended file properties.
             </summary>
             <param name="extendedFileProperties"></param>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be counted or non-empty ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties,Qhta.OpenXmlTools.ItemFilter)">
+            <summary>
+            Get the names of the extended file properties.
+            </summary>
+            <param name="extendedFileProperties"></param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetType(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
@@ -510,6 +524,26 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.ItemFilter">
+            <summary>
+            Specifies which items to count or get.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.ItemFilter.Defined">
+            <summary>
+            Count or get only defined items.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.ItemFilter.All">
+            <summary>
+            Count or get all items.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.ItemFilter.BuiltIn">
+            <summary>
+            Count or get only built-in items.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.MathPropertiesTools">
             <summary>
             Tools for working with math properties
@@ -527,22 +561,22 @@
             Gets the math properties from the document. If the document does not have math properties, the properties are created.
             </summary>
             <param name="wordDoc">The WordprocessingDocument</param>
-            <returns>True if the document has math properties</returns>
+            <returns>The instance of the math properties</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.Count(DocumentFormat.OpenXml.Math.MathProperties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.Count(DocumentFormat.OpenXml.Math.MathProperties,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the count of all the properties.
+            Get the count of the properties.
             </summary>
             <param name="properties"></param>
-            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <param name="filter">specifies if all property names should be counted or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetNames(DocumentFormat.OpenXml.Math.MathProperties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetNames(DocumentFormat.OpenXml.Math.MathProperties,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the names of all the properties.
+            Get the names of the properties.
             </summary>
             <param name="properties"></param>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.MathPropertiesTools.GetType(DocumentFormat.OpenXml.Math.MathProperties,System.String)">
@@ -1962,20 +1996,20 @@
             <param name="wordDoc"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.Count(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.Count(DocumentFormat.OpenXml.Wordprocessing.Settings,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the count of all the settings properties.
+            Get the count of the settings properties.
             </summary>
             <param name="settings"></param>
-            <param name="all">specifies if all property names should be counted or non-empty ones</param>
+            <param name="filter">specifies if all property names should be counted or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Settings,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Settings,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
-            Get the names of all the settings properties.
+            Get the names of the settings properties.
             </summary>
             <param name="settings"></param>
-            <param name="all">specifies if all property names should be listed or non-empty ones</param>
+            <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.SettingsTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
@@ -5333,31 +5367,92 @@
               Looks up a localized string similar to Unresolved Mention.
             </summary>
         </member>
-        <member name="T:Qhta.OpenXmlTools.StyleTools">
+        <member name="T:Qhta.OpenXmlTools.StylesTools">
             <summary>
             Tools for working with styles in OpenXml documents.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StyleTools.StyleNameToId(System.String)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleNameToId(System.String)">
             <summary>
             Converts a style name to a valid style ID.
             </summary>
             <param name="styleName">Name to convert</param>
             <returns>Style normalized ID</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StyleTools.IsHeading(System.String)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.IsHeading(System.String)">
             <summary>
             Checks if the style name starts with "Heading".
             </summary>
             <param name="styleName">Name to check</param>
             <returns>true or false</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StyleTools.IsHeading(DocumentFormat.OpenXml.Wordprocessing.Style)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.IsHeading(DocumentFormat.OpenXml.Wordprocessing.Styles,System.String)">
+            <summary>
+            Checks if the style name starts with "Heading".
+            </summary>
+            <param name="styles"></param>
+            <param name="styleName">Name to check</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.IsHeading(DocumentFormat.OpenXml.Wordprocessing.Style)">
             <summary>
             Checks if the style is a heading style.
             </summary>
             <param name="style">Style to check</param>
             <returns>true or false</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.HasStyles(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Check if the document has styles defined
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>True if the document has styles defined</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetStyles(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the styles from the document. If the document does not have styles element, it is created
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>Instance of the styles element</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.Count(DocumentFormat.OpenXml.Wordprocessing.Styles,Qhta.OpenXmlTools.ItemFilter)">
+            <summary>
+            Get the count of the style definitions.
+            </summary>
+            <param name="styles"></param>
+            <param name="filter">specifies if all style names should be counted or only the defined ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetNames(DocumentFormat.OpenXml.Wordprocessing.Styles,Qhta.OpenXmlTools.ItemFilter)">
+            <summary>
+            Get the names of the style definitions.
+            </summary>
+            <param name="styles"></param>
+            <param name="filter">specifies if all style names should be counted or only the defined ones</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Styles,System.String)">
+            <summary>
+            Get the type of the style with its name.
+            </summary>
+            <param name="styles"></param>
+            <param name="styleName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetStyle(DocumentFormat.OpenXml.Wordprocessing.Styles,System.String)">
+            <summary>
+            Get the style definition with its name.
+            </summary>
+            <param name="styles"></param>
+            <param name="styleName"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetBuildInStylesCount">
+            <summary>
+            Gets the builtin styles count.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SubdocumentTools">
             <summary>
@@ -5727,409 +5822,28 @@
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.WdBuiltinStyle">
+            <summary>Specifies builtin styles as defined in OpenXml</summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.WdStyleType">
             <summary>Specifies a built-in Microsoft Word style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTocHeading">
-            <summary>TOC Heading.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdStyleType.Paragraph">
+            <summary>Paragraph style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBibliography">
-            <summary>Bibliography.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdStyleType.Character">
+            <summary>Body character style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBookTitle">
-            <summary>Book title.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdStyleType.Table">
+            <summary>Table style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseReference">
-            <summary>Intense Reference.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdStyleType.Numbering">
+            <summary>List style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtleReference">
-            <summary>Subtle Reference.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdStyleType.ParagraphOnly">
+            <summary>Reserved for internal use.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseEmphasis">
-            <summary>Intense Emphasis.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtleEmphasis">
-            <summary>Subtle Emphasis.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseQuote">
-            <summary>Intense Quote.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleQuote">
-            <summary>Quote.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListParagraph">
-            <summary>List Paragraph.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList1Accent1">
-            <summary>Medium List 1 Accent 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading2Accent1">
-            <summary>Medium Shading 2 Accent 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading1Accent1">
-            <summary>Medium List 1 Accent 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightGridAccent1">
-            <summary>Light Grid Accent 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightListAccent1">
-            <summary>Light List Accent 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightShadingAccent1">
-            <summary>Light Shading Accent 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulGrid">
-            <summary>Colorful Grid.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulList">
-            <summary>Colorful List.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulShading">
-            <summary>Colorful Shading.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableDarkList">
-            <summary>Dark List.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid3">
-            <summary>Medium Grid 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid2">
-            <summary>Medium Grid 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid1">
-            <summary>Medium Grid 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList2">
-            <summary>Medium List 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList1">
-            <summary>Medium List 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading2">
-            <summary>Medium Shading 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading1">
-            <summary>Medium Shading 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightGrid">
-            <summary>Light Grid.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightList">
-            <summary>Light List.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightShading">
-            <summary>Light Shading.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalObject">
-            <summary>Normal (applied to an object).</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalTable">
-            <summary>Normal (applied within a table).</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlVar">
-            <summary>HTML Variable.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlTt">
-            <summary>HTML Typewriter.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlSamp">
-            <summary>HTML Sample.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlPre">
-            <summary>HTML Preformatted.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlKbd">
-            <summary>HTML Keyboard.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlDfn">
-            <summary>HTML Definition.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlCode">
-            <summary>HTML Code.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlCite">
-            <summary>HTML City.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlAddress">
-            <summary>HTML Address.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlAcronym">
-            <summary>HTML Acronym.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlNormal">
-            <summary>Normal (Web).</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePlainText">
-            <summary>Plain Text.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNavPane">
-            <summary>Document Map.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEmphasis">
-            <summary>Emphasis.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleStrong">
-            <summary>Strong.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHyperlinkFollowed">
-            <summary>Followed Hyperlink.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHyperlink">
-            <summary>Hyperlink.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBlockQuotation">
-            <summary>Block Quotation.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent3">
-            <summary>Body Text Indent 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent2">
-            <summary>Body Text Indent 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText3">
-            <summary>Body Text 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText2">
-            <summary>Body Text 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNoteHeading">
-            <summary>Note Heading.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent2">
-            <summary>Body Text First Indent 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent">
-            <summary>Body Text First Indent.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDate">
-            <summary>Date.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSalutation">
-            <summary>Salutation.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtitle">
-            <summary>Subtitle.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMessageHeader">
-            <summary>Message Header.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue5">
-            <summary>List Continue 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue4">
-            <summary>List Continue 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue3">
-            <summary>List Continue 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue2">
-            <summary>List Continue 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue">
-            <summary>List Continue.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent">
-            <summary>Body Text Indent.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText">
-            <summary>Body Text.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDefaultParagraphFont">
-            <summary>Default Paragraph Font.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSignature">
-            <summary>Signature.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleClosing">
-            <summary>Closing.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTitle">
-            <summary>Title.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber5">
-            <summary>List Number 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber4">
-            <summary>List Number 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber3">
-            <summary>List Number 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber2">
-            <summary>List Number 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet5">
-            <summary>List Bullet 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet4">
-            <summary>List Bullet 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet3">
-            <summary>List Bullet 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet2">
-            <summary>List Bullet 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList5">
-            <summary>List 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList4">
-            <summary>List 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList3">
-            <summary>List 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList2">
-            <summary>List 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber">
-            <summary>List Number.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet">
-            <summary>List Bullet.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList">
-            <summary>List.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOAHeading">
-            <summary>TOA Heading.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMacroText">
-            <summary>Macro Text.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfAuthorities">
-            <summary>Table of Authorities.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteText">
-            <summary>Endnote Text.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteReference">
-            <summary>Endnote Reference.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePageNumber">
-            <summary>Page Number.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleLineNumber">
-            <summary>Line Number.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentReference">
-            <summary>Comment Reference.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteReference">
-            <summary>Footnote Reference.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEnvelopeReturn">
-            <summary>Envelope Return.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEnvelopeAddress">
-            <summary>Envelope Address.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfFigures">
-            <summary>Table of Figures.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCaption">
-            <summary>Caption.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndexHeading">
-            <summary>Index Heading</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFooter">
-            <summary>Footer.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeader">
-            <summary>Header.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentText">
-            <summary>Comment Text.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteText">
-            <summary>Footnote Text.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalIndent">
-            <summary>Normal Indent.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC9">
-            <summary>TOC 9.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC8">
-            <summary>TOC 8.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC7">
-            <summary>TOC 7.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC6">
-            <summary>TOC 6.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC5">
-            <summary>TOC 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC4">
-            <summary>TOC 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC3">
-            <summary>TOC 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC2">
-            <summary>TOC 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC1">
-            <summary>TOC 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex9">
-            <summary>Index 9.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex8">
-            <summary>Index8.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex7">
-            <summary>Index 7.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex6">
-            <summary>Index 6.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex5">
-            <summary>Index 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex4">
-            <summary>Index 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex3">
-            <summary>Index 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex2">
-            <summary>Index 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex1">
-            <summary>Index 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading9">
-            <summary>Heading 9.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading8">
-            <summary>Heading 8.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading7">
-            <summary>Heading 7.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading6">
-            <summary>Heading 6.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading5">
-            <summary>Heading 5.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading4">
-            <summary>Heading 4.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading3">
-            <summary>Heading 3.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading2">
-            <summary>Heading 2.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading1">
-            <summary>Heading 1.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormal">
-            <summary>Normal.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdStyleType.Linked">
+            <summary>Reserved for internal use.</summary>
         </member>
     </members>
 </doc>

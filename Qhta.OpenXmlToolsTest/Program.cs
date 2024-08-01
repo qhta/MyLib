@@ -13,10 +13,12 @@ internal class Program
     //var mathPropertiesTest = new MathPropertiesTest();
     //mathPropertiesTest.MathPropertiesReadTest("Test.docx");
     //mathPropertiesTest.MathPropertiesWriteTest("WriteTest.docx");
-    var compatibilitySettingsTest = new CompatibilitySettingsTest();
-    compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest12.docx");
-    compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest15.docx");
-    compatibilitySettingsTest.CompatibilitySettingsWriteTest("WriteTest.docx");
+    //var compatibilitySettingsTest = new CompatibilitySettingsTest();
+    //compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest12.docx");
+    //compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest15.docx");
+    //compatibilitySettingsTest.CompatibilitySettingsWriteTest("WriteTest.docx");
+    var stylesTest = new StylesTest();
+    stylesTest.StylesReadTest("Test.docx");
   }
 
 }
