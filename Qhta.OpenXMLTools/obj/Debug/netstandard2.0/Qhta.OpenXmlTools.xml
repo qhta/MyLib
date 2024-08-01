@@ -5446,12 +5446,29 @@
             <param name="styles"></param>
             <param name="styleName"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.SetStyle(DocumentFormat.OpenXml.Wordprocessing.Styles,DocumentFormat.OpenXml.Wordprocessing.Style)">
+            <summary>
+            Set the style definition. If the style with the same name exists, it is replaced.
+            Otherwise, the new style is added.
+            </summary>
+            <param name="styles"></param>
+            <param name="aStyle">Style to set</param>
+            <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.GetBuildInStylesCount">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleValuesToStyleType(DocumentFormat.OpenXml.Wordprocessing.StyleValues)">
             <summary>
-            Gets the builtin styles count.
+            Converts a style value to a style type.
             </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.WdStyleType)">
+            <summary>
+            Converts a style type to a style value.
+            </summary>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SubdocumentTools">

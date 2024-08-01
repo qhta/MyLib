@@ -18,7 +18,8 @@ internal class Program
     //compatibilitySettingsTest.CompatibilitySettingsReadTest("CompatibilitySettingsTest15.docx");
     //compatibilitySettingsTest.CompatibilitySettingsWriteTest("WriteTest.docx");
     var stylesTest = new StylesTest();
-    stylesTest.StylesReadTest("Test.docx");
+    //stylesTest.StylesReadTest("Test.docx");
+    stylesTest.StylesWriteTest("Test.docx", "WriteTest.docx");
   }
 
 }

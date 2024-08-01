@@ -17,16 +17,17 @@ public class StylesTest
     }
   }
 
-  public void StylesWriteTest(string filename)
+  public void StylesWriteTest(string sourceFilename, string filename)
   {
+    using (var sourceDoc = WordprocessingDocument.Open(sourceFilename, false))
     using (var wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document))
     {
-      Styles(wordDoc);
+      StylesWriteTest(sourceDoc, wordDoc);
     }
-    using (var wordDoc = WordprocessingDocument.Open(filename, false))
-    {
-      StylesReadTest(wordDoc);
-    }
+    //using (var wordDoc = WordprocessingDocument.Open(filename, false))
+    //{
+    //  StylesReadTest(wordDoc);
+    //}
   }
   public void StylesNamesTest(WordprocessingDocument wordDoc)
   {
@@ -46,7 +47,7 @@ public class StylesTest
       var styleType = styles.GetType(styleName);
       var styleTypeStr = styleType.ToString();
       if (styleTypeStr.Length < 12)
-        styleTypeStr += new string(' ',12 - styleTypeStr.Length);
+        styleTypeStr += new string(' ', 12 - styleTypeStr.Length);
       var isHeading = styles.IsHeading(styleName);
       Console.WriteLine($" {styleTypeStr}\t{styleName}\t\t{(isHeading ? "It is heading" : "")}");
     }
@@ -60,7 +61,7 @@ public class StylesTest
       if (styleTypeStr.Length < 12)
         styleTypeStr += new string(' ', 12 - styleTypeStr.Length);
       var isHeading = styles.IsHeading(styleName);
-      Console.WriteLine($" {styleTypeStr}\t{styleName}\t\t{(isHeading ? "It is heading" :"")}");
+      Console.WriteLine($" {styleTypeStr}\t{styleName}\t\t{(isHeading ? "It is heading" : "")}");
     }
     Console.WriteLine();
   }
@@ -81,29 +82,35 @@ public class StylesTest
     foreach (var styleName in styleNames)
     {
       var style = styles.GetStyle(styleName);
-      Console.WriteLine($"{styleName}:\r\n{style.AsString(1)}");
+      if (style == null)
+        Console.WriteLine($"{styleName} not found");
+      else
+        Console.WriteLine($"{styleName}:\r\n{style.AsString(1)}");
     }
     Console.WriteLine();
   }
 
 
-  public void Styles(WordprocessingDocument wordDoc)
+  public void StylesWriteTest(WordprocessingDocument sourceDoc, WordprocessingDocument targetDoc)
   {
-    //Console.WriteLine("Styles write test:");
-    //var styles = wordDoc.GetStyles();
-    //foreach (var propName in styles.GetNames(ItemFilter.All))
-    //{
-    //  var propType = styles.GetType(propName);
-    //  var value = TestTools.CreateNewPropertyValue(propName, propType);
-    //  if (propName == "CompatibilityMode")
-    //    value = 15;
-    //  if (value != null)
-    //  {
-    //    styles.SetValue(propName, value);
-    //    Console.WriteLine($"writing {propName}: {value.AsString()}");
-    //  }
-    //}
-    //Console.WriteLine();
+    Console.WriteLine("Styles write test:");
+    var sourceStyles = sourceDoc.GetStyles();
+    var targetStyles = targetDoc.GetStyles();
+    foreach (var styleName in sourceStyles.GetNames(ItemFilter.All))
+    {
+      if (styleName.StartsWith("1"))
+        Debug.Assert(true);
+      var sourceStyle = sourceStyles.GetStyle(styleName);
+      if (sourceStyle == null)
+        Console.WriteLine($"{styleName} not found");
+      else
+      {
+        Console.WriteLine($"{styleName} copied");
+        var targetStyle = (Style)sourceStyle.CloneNode(true);
+        targetStyles.SetStyle(targetStyle);
+      }
+    }
+    Console.WriteLine();
   }
 
 }
