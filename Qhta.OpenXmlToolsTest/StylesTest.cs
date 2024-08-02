@@ -98,17 +98,12 @@ public class StylesTest
     var targetStyles = targetDoc.GetStyles();
     foreach (var styleName in sourceStyles.GetNames(ItemFilter.All))
     {
-      if (styleName.StartsWith("1"))
-        Debug.Assert(true);
       var sourceStyle = sourceStyles.GetStyle(styleName);
       if (sourceStyle == null)
-        Console.WriteLine($"{styleName} not found");
-      else
-      {
-        Console.WriteLine($"{styleName} copied");
-        var targetStyle = (Style)sourceStyle.CloneNode(true);
-        targetStyles.SetStyle(targetStyle);
-      }
+        throw new Exception($"Source style \"{styleName}\" not found");
+      Console.WriteLine($"{styleName} copied");
+      var targetStyle = (Style)sourceStyle.CloneNode(true);
+      targetStyles.SetStyle(targetStyle);
     }
     Console.WriteLine();
   }
