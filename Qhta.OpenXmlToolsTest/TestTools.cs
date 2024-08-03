@@ -34,27 +34,53 @@ public static class TestTools
   /// <summary>
   /// Converts the object to a string.
   /// </summary>
-  /// <param name="value"></param>
-  /// <param name="indent"></param>
+  /// <param name="value">value to convert</param>
+  /// <param name="indent">indent size (spaces = indent*2) to put before</param>
+  /// <param name="shortForm">shorted form (in composite elements)</param>
   /// <returns></returns>
-  public static string AsString(this object? value, int indent =0)
+  public static string AsString(this object? value, int indent = 0, bool shortForm = false)
   {
+    if (value is Twips twips)
+      return twips.Value.ToString();
+    if (value is HexInt)
+      return ((HexInt)value).Value.ToString("X8");
     if (value is DXW.Rsids rsids)
-      return AsString(rsids, indent);
+      return AsString(rsids, indent, shortForm);
     if (value is DX.IEnumValue enumValue)
       return enumValue.Value;
     if (value is DX.OpenXmlLeafElement leafElement)
-      return AsString(leafElement, indent);
+      return AsString(leafElement, indent, shortForm);
     if (value is DX.OpenXmlCompositeElement compositeElement)
-      return AsString(compositeElement, indent);
+      return AsString(compositeElement, indent, shortForm);
     if (value is string[] strArray)
-      return "[" + string.Join(", ", strArray) +"]";
+      return "[" + string.Join(", ", strArray) + "]";
     if (value is object[] objArray)
-      return "{" + string.Join(", ", objArray.Select(item=>item.AsString())) + "}";
+      return "{" + string.Join(", ", objArray.Select(item => item.AsString())) + "}";
     if (value is null)
       return string.Empty;
     if (value is string str)
-      return "\""+str+"\"";
+      return "\"" + str + "\"";
+    var properties = value.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+    if (properties.Length > 0)
+    {
+      var indentStr = new string(' ', indent * 2);
+      var propValuesList = new List<string>();
+      foreach (var prop in properties)
+      {
+        if (prop.GetIndexParameters().Length > 0)
+          continue;
+        var propValue = prop.GetValue(value);
+        if (propValue != null)
+        {
+          var propValStr = propValue.AsString(indent + 1, shortForm);
+          if (propValStr.Contains("\n"))
+            propValuesList.Add($"{indentStr}{prop.Name}:\r\n{propValStr}");
+          else
+            propValuesList.Add($"{indentStr}{prop.Name}: {propValStr}");
+        }
+      }
+      return $"{value.GetType().Name}\r\n{{\r\n{string.Join("\r\n", propValuesList)}\r\n{new string(' ', (indent-1) * 2)}}}";
+    }
     return value?.ToString() ?? string.Empty;
   }
 
@@ -62,9 +88,10 @@ public static class TestTools
   /// Converts the <c>OpenXmlLeafElement</c> to a string.
   /// </summary>
   /// <param name="element"></param>
-  /// <param name="indent"></param> 
+  /// <param name="indent"></param>
+  /// <param name="shortForm"></param>
   /// <returns></returns>
-  public static string AsString(this DX.OpenXmlLeafElement element, int indent = 0)
+  public static string AsString(this DX.OpenXmlLeafElement element, int indent = 0, bool shortForm = false)
   {
     var indentStr = new string(' ', indent * 2);
     if (element.HasAttributes)
@@ -88,9 +115,10 @@ public static class TestTools
   /// Converts the <c>OpenXmlCompositeElement</c> to a string.
   /// </summary>
   /// <param name="element"></param>
-  /// <param name="indent"></param> 
+  /// <param name="indent"></param>
+  /// <param name="shortForm"></param>
   /// <returns></returns>
-  public static string AsString(this DX.OpenXmlCompositeElement element, int indent = 0)
+  public static string AsString(this DX.OpenXmlCompositeElement element, int indent = 0, bool shortForm = false)
   {
     var indentStr = new string(' ', indent * 2);
     if (element.HasAttributes)
@@ -98,43 +126,44 @@ public static class TestTools
       var sl = new List<string>();
       foreach (var attr in element.GetAttributes())
         sl.Add($"{attr.LocalName}=\"{attr.Value}\"");
-
-      if (element.HasChildren)
-      {
-        var cl = new List<string>();
-        foreach (var child in element.Elements())
-          cl.Add(child.AsString(indent+1));
-        return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
-      }
-      else
-      {
-        return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} />";
-      }
-    }
-    else
-    {
+      if (shortForm)
+        return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} >...";
       if (element.HasChildren)
       {
         var cl = new List<string>();
         foreach (var child in element.Elements())
           cl.Add(child.AsString(indent + 1));
-        return $"{indentStr}<{element.Prefix}:{element.LocalName}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
+        return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
       }
-      else
-      {
-        return $"{indentStr}<{element.Prefix}:{element.LocalName} />";
-      }
+      return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} />";
     }
+    if (element.HasChildren)
+    {
+      if (shortForm)
+        return $"{indentStr}<{element.Prefix}:{element.LocalName} >...";
+      var cl = new List<string>();
+      foreach (var child in element.Elements())
+        cl.Add(child.AsString(indent + 1));
+      return $"{indentStr}<{element.Prefix}:{element.LocalName}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
+    }
+    return $"{indentStr}<{element.Prefix}:{element.LocalName} />";
   }
 
   /// <summary>
   /// Converts the <c>Rsids</c> to a string.
   /// </summary>
   /// <param name="element"></param>
-  /// <param name="indent"></param> 
+  /// <param name="indent"></param>
+  /// <param name="shortForm"></param>
   /// <returns></returns>
-  public static string AsString(this DXW.Rsids element, int indent = 0)
+  public static string AsString(this DXW.Rsids element, int indent = 0, bool shortForm = false)
   {
-    return "{"+string.Join(", ", element.ToArray())+"}";
+    var items = element.ToArray();
+    if (shortForm)
+      items = items.Take(10).ToArray();
+    var str = string.Join(", ", items);
+    if (items.Length < element.Count())
+      str += ", ...";
+    return "{" + str + "}";
   }
 }

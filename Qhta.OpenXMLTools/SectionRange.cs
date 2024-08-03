@@ -27,39 +27,36 @@ public class SectionRange
   /// If the start element is not initialized, it will return an empty list.
   /// If the end element is not initialized, it will return all elements from the start to the end of the section.
   /// </summary>
-  public IEnumerable<OpenXmlElement> Elements
+  public IEnumerable<OpenXmlElement> GetElements()
   {
-    get
+    List<OpenXmlElement> result = new List<OpenXmlElement>();
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    if (Start != null)
     {
-      List<OpenXmlElement> result = new List<OpenXmlElement>();
-      // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-      if (Start != null)
+      var element = Start;
+      while (element != null)
       {
-        var element = Start;
-        while (element != null)
+        if (element == SectionProperties)
+          break;
+        if (element.Elements().Count() == 1)
         {
-          if (element == SectionProperties)
+          var firstChild = element.Elements().First();
+          if (firstChild == SectionProperties)
             break;
-          if (element.Elements().Count() == 1)
+          if (firstChild.Elements().Count() == 1)
           {
-            var firstChild = element.Elements().First();
+            firstChild = firstChild.Elements().First();
             if (firstChild == SectionProperties)
               break;
-            if (firstChild.Elements().Count() == 1)
-            {
-              firstChild = firstChild.Elements().First();
-              if (firstChild == SectionProperties)
-                break;
-            }
           }
-          result.Add(element);
-          if (element != End)
-            element = element.NextSibling();
-          else
-            break;
         }
+        result.Add(element);
+        if (element != End)
+          element = element.NextSibling();
+        else
+          break;
       }
-      return result;
     }
+    return result;
   }
 }

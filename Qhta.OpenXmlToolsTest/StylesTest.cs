@@ -24,10 +24,10 @@ public class StylesTest
     {
       StylesWriteTest(sourceDoc, wordDoc);
     }
-    //using (var wordDoc = WordprocessingDocument.Open(filename, false))
-    //{
-    //  StylesReadTest(wordDoc);
-    //}
+    using (var wordDoc = WordprocessingDocument.Open(filename, false))
+    {
+      StylesReadTest(wordDoc);
+    }
   }
   public void StylesNamesTest(WordprocessingDocument wordDoc)
   {

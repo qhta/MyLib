@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;

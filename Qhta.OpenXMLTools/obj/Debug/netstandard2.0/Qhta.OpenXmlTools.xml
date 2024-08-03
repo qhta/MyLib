@@ -4,28 +4,6 @@
         <name>Qhta.OpenXmlTools</name>
     </assembly>
     <members>
-        <member name="T:Qhta.OpenXmlTools.BodyTools">
-            <summary>
-            Tools for working with OpenXml Wordprocessing Body element.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
-            <summary>
-            Get the SectionProperties element of the Body element.
-            </summary>
-            <param name="body">Element to browse</param>
-            <returns>SectionProperties element or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSections(DocumentFormat.OpenXml.Wordprocessing.Body)">
-            <summary>
-            Get the collection of <see cref="T:Qhta.OpenXmlTools.SectionRange"/> element of the Body element.
-            Each element of the collection contains a <see cref="T:DocumentFormat.OpenXml.Wordprocessing.SectionProperties"/> element
-            and the start and end elements of the section which refers to the first and last paragraphs
-            (or other OpenXmlElements) of the section.
-            </summary>
-            <param name="body">Element to browse</param>
-            <returns>Observable collection of section range elements</returns>
-        </member>
         <member name="T:Qhta.OpenXmlTools.BordersTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Borders element.
@@ -349,6 +327,20 @@
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetMainDocumentPart(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Gets the <c>MainDocumentPart</c> of the document. If the document does not have a <c>MainDocumentPart</c>, it is created with an empty <c>Document</c> element.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.HasBody(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Checks if the document has a <c>Body</c> element.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetBody(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the <c>Body</c> element of the document. If the document does not have a <c>Body</c>, it is created.
             </summary>
             <param name="wordDoc"></param>
             <returns></returns>
@@ -1970,12 +1962,45 @@
             Section properties of the range.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.SectionRange.Elements">
+        <member name="M:Qhta.OpenXmlTools.SectionRange.GetElements">
             <summary>
             Gets the elements of the specified type in the range.
             If the start element is not initialized, it will return an empty list.
             If the end element is not initialized, it will return all elements from the start to the end of the section.
             </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SectionsTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing sections.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionsTools.HasSectionProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Check if the document has section properties defined.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>True if the document has more than one section properties defined</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionsTools.GetSectionProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets all the sections properties from the document.
+            </summary>
+            <param name="wordDoc">The WordprocessingDocument</param>
+            <returns>Instance of the sections element</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionsTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
+            <summary>
+            Gets the section properties from the document body. If the body does not have a section properties element, it is created.
+            </summary>
+            <param name="body">Body of the WordprocessingDocument</param>
+            <returns>Instance of the sections element</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionsTools.GetSectionRanges(DocumentFormat.OpenXml.Wordprocessing.Body)">
+            <summary>
+            Gets all the section ranges from the document body.
+            </summary>
+            <param name="body">Body of the WordprocessingDocument</param>
+            <returns>Instance of the sections element</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SettingsTools">
             <summary>

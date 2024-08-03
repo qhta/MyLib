@@ -42,4 +42,37 @@ public static class DocumentTools
     }
     return mainDocumentPart;
   }
+
+  /// <summary>
+  /// Checks if the document has a <c>Body</c> element.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static bool HasBody(this DXPack.WordprocessingDocument wordDoc)
+  {
+    return wordDoc.MainDocumentPart?.Document?.Body != null;
+  }
+
+
+  /// <summary>
+  /// Gets the <c>Body</c> element of the document. If the document does not have a <c>Body</c>, it is created.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static DXW.Body GetBody(this DXPack.WordprocessingDocument wordDoc)
+  {
+    var mainDocumentPart = wordDoc.MainDocumentPart;
+    if (mainDocumentPart == null)
+    {
+      mainDocumentPart = wordDoc.AddMainDocumentPart();
+      mainDocumentPart.Document = new DXW.Document();
+    }
+    var body = mainDocumentPart.Document.Body;
+    if (body == null)
+    {
+      body = new DXW.Body();
+      mainDocumentPart.Document!.Body = body;
+    }
+    return body;
+  }
 }
