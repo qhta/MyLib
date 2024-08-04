@@ -120,18 +120,17 @@ public class BodyTest
     Console.WriteLine("Body range element types and subtypes count test:");
 
     var range = wordDoc.GetBody().GetRange();
-    var typeInfo = GetTypeInfo(range);
-    foreach (var info in typeInfo)
+    var typeInfos = GetTypeInfos(range);
+    PrintTypeInfo(typeInfos,0);
+  }
+
+  private void PrintTypeInfo(IEnumerable<MyTypeInfo> typeInfos, int indent)
+  {
+    var indentStr = new string(' ', indent * 2);
+    foreach (var info in typeInfos)
     {
-      Console.WriteLine($"{info.TypeName} count = {info.Count}");
-      foreach (var subInfo in info.Subtypes)
-      {
-        Console.WriteLine($"  {subInfo.TypeName} count = {subInfo.Count}");
-        foreach (var subSubInfo in subInfo.Subtypes)
-        {
-          Console.WriteLine($"    {subSubInfo.TypeName} count = {subSubInfo.Count}");
-        }
-      }
+      Console.WriteLine($"{indentStr}{info.TypeName} count = {info.Count}");
+      PrintTypeInfo(info.Subtypes, indent+1);
     }
   }
 
@@ -142,7 +141,7 @@ public class BodyTest
     public List<MyTypeInfo> Subtypes { get; init; } = new();
   }
 
-  private List<MyTypeInfo> GetTypeInfo(Range range)
+  private List<MyTypeInfo> GetTypeInfos(Range range)
   {
     var elements = range.GetElements().GroupBy(e => e.Prefix+":"+e.LocalName)
           .ToDictionary(e => e.Key, e => e.ToArray())
@@ -158,7 +157,7 @@ public class BodyTest
         if (element is DX.OpenXmlCompositeElement compositeElement && element.HasChildren)
         {
           var elementRange = compositeElement.GetRange();
-          var typeInfo = GetTypeInfo(elementRange);
+          var typeInfo = GetTypeInfos(elementRange);
           foreach (var subTypeInfo in typeInfo)
           {
             var subTypeName = subTypeInfo.TypeName;
