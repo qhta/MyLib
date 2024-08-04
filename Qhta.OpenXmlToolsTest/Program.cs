@@ -20,8 +20,10 @@ internal class Program
     //var stylesTest = new StylesTest();
     //stylesTest.StylesReadTest("Test.docx");
     //stylesTest.StylesWriteTest("Test.docx", "WriteTest.docx");
-    var sectionsTest = new SectionsTest();
-    sectionsTest.SectionsReadTest("Test.docx");
+    //var sectionsTest = new SectionsTest();
+    //sectionsTest.SectionsReadTest("Test.docx");
+    var bodyTest = new BodyTest();
+    bodyTest.BodyReadTest("Test.docx");
   }
 
 }

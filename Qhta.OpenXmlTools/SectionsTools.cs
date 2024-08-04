@@ -57,18 +57,12 @@ public static class SectionsTools
     DX.OpenXmlElement? prevElement = null;
     foreach (var sectPr in sectionProperties)
     {
-      var range = new SectionRange { SectionProperties = sectPr };
-      prevElement ??= body.First();
-      range.Start = prevElement;
-      if (sectPr.Parent is ParagraphProperties parentParaProps)
-      {
-        range.End = parentParaProps.Parent!;
-      }
-      else
-      {
-        range.End = sectPr;
-      }
-      prevElement = range.End.NextSibling();
+      var startElement = prevElement ?? body.First();
+      var endElement = sectPr.Parent is ParagraphProperties parentParaProps
+        ? parentParaProps.Parent!
+        : sectPr;
+      var range = new SectionRange(sectPr, startElement, endElement);
+      prevElement = endElement.NextSibling();
       result.Add(range);
     }
     return result.ToArray();

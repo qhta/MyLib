@@ -1445,6 +1445,14 @@
             If the value is null, the existing element is removed.
             </remarks>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRange(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the <c>Range</c> element from any composite element.
+            </summary>
+            <param name="xmlElement"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PackageTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Package elements.
@@ -1550,6 +1558,46 @@
             </summary>
             <param name="element">source element</param>
             <returns>joined string</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.Range">
+            <summary>
+            Class to represent a range of elements in a Word document.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.#ctor(DocumentFormat.OpenXml.OpenXmlElement,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Class to represent a range of elements in a Word document.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Range.Start">
+            <summary>
+            First element in the range.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Range.End">
+            <summary>
+            Last element in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetElements">
+            <summary>
+            Gets all the elements in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetElements``1">
+            <summary>
+            Gets elements of the specified type in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetParagraphs">
+            <summary>
+            Gets paragraphs in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetTables">
+            <summary>
+            Gets all tables in the range.
+            </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.RsidsTools">
             <summary>
@@ -1947,26 +1995,14 @@
             Class to represent a range of elements in a Word section of the document.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.SectionRange.Start">
+        <member name="M:Qhta.OpenXmlTools.SectionRange.#ctor(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,DocumentFormat.OpenXml.OpenXmlElement,DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
-            First element in the range.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.SectionRange.End">
-            <summary>
-            Last element in the range.
+            Class to represent a range of elements in a Word section of the document.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.SectionRange.SectionProperties">
             <summary>
             Section properties of the range.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.SectionRange.GetElements">
-            <summary>
-            Gets the elements of the specified type in the range.
-            If the start element is not initialized, it will return an empty list.
-            If the end element is not initialized, it will return all elements from the start to the end of the section.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.SectionsTools">

@@ -3,6 +3,37 @@
   "WorkspaceRootPath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88CD0527-8546-4499-B7F6-6F702F4E13DA}|..\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltoolstest\\bodytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\openxmlelementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:openxmlelementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\sectionrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:sectionrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\sectionstools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:sectionstools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\documenttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:documenttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\itemfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:itemfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\mathpropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:mathpropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{88CD0527-8546-4499-B7F6-6F702F4E13DA}|..\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltoolstest\\testtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -10,18 +41,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{88CD0527-8546-4499-B7F6-6F702F4E13DA}|..\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltoolstest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\sectionstools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:sectionstools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\sectionrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:sectionrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\documenttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:documenttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\stylestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,35 +58,7 @@
       "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:wdstyletype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\mathpropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:mathpropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\documentpropertykind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:documentpropertykind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\SourceServer\\ddcf153d4002b876f17ee4b230683d5cc9dfcef279042ffb6f311421895e0e5a\\Qhta.OpenXmlTools\\StylesTools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\qhta.openxmltools.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:qhta.openxmltools.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\documentproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:documentproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\compatibilitytools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:compatibilitytools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\corepropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:corepropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\itemfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:itemfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{88CD0527-8546-4499-B7F6-6F702F4E13DA}|..\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltoolstest\\settingstest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -86,24 +77,8 @@
       "AbsoluteMoniker": "D:0:0:{88CD0527-8546-4499-B7F6-6F702F4E13DA}|..\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltoolstest\\mathpropertiestest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\customfileproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:customfileproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\extendedfilepropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:extendedfilepropertiestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\openxmlelementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:openxmlelementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\twips.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:twips.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\hexint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:hexint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\rsidstools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -112,14 +87,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\vtvarianttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:vtvarianttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|d:\\vs\\projects\\mylib\\qhta.openxmltools\\endnotestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3844DA9-94BA-4934-91FE-BF020B9491AC}|Qhta.OpenXmlTools.csproj|solutionrelative:endnotestools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -139,49 +106,110 @@
         },
         {
           "DockedWidth": 646,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SectionRange.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SectionRange.cs",
-              "RelativeDocumentMoniker": "SectionRange.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SectionRange.cs",
-              "RelativeToolTip": "SectionRange.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAowD0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T23:33:07.586Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
+              "Title": "ItemFilter.cs",
+              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\ItemFilter.cs",
+              "RelativeDocumentMoniker": "ItemFilter.cs",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\ItemFilter.cs",
+              "RelativeToolTip": "ItemFilter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-03T11:53:58.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MathPropertiesTools.cs",
+              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\MathPropertiesTools.cs",
+              "RelativeDocumentMoniker": "MathPropertiesTools.cs",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\MathPropertiesTools.cs",
+              "RelativeToolTip": "MathPropertiesTools.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-03T11:50:48.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "SectionsTest.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\SectionsTest.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\SectionsTest.cs",
               "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\SectionsTest.cs",
               "RelativeToolTip": "..\\Qhta.OpenXmlToolsTest\\SectionsTest.cs",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAAEoAAABBAAAA",
+              "ViewState": "AQIAADUAAAAAAAAAAIAwwIsAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-03T10:42:35.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Range.cs",
+              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Range.cs",
+              "RelativeDocumentMoniker": "Range.cs",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Range.cs",
+              "RelativeToolTip": "Range.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-03T07:36:15.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SectionRange.cs",
+              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SectionRange.cs",
+              "RelativeDocumentMoniker": "SectionRange.cs",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SectionRange.cs",
+              "RelativeToolTip": "SectionRange.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-02T23:33:07.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BodyTest.cs",
+              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\BodyTest.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\BodyTest.cs",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\BodyTest.cs",
+              "RelativeToolTip": "..\\Qhta.OpenXmlToolsTest\\BodyTest.cs",
+              "ViewState": "AQIAAIIAAAAAAAAAAAAgwJIAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-02T19:20:04.084Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SectionsTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SectionsTools.cs",
               "RelativeDocumentMoniker": "SectionsTools.cs",
               "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SectionsTools.cs",
               "RelativeToolTip": "SectionsTools.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAwwEkAAAAAAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAgwD8AAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-02T18:57:42.725Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "StylesTools.cs",
               "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\SourceServer\\ddcf153d4002b876f17ee4b230683d5cc9dfcef279042ffb6f311421895e0e5a\\Qhta.OpenXmlTools\\StylesTools.cs",
               "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\SourceServer\\ddcf153d4002b876f17ee4b230683d5cc9dfcef279042ffb6f311421895e0e5a\\Qhta.OpenXmlTools\\StylesTools.cs [Read Only]",
@@ -192,30 +220,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Qhta.OpenXmlTools",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj",
-              "RelativeDocumentMoniker": "Qhta.OpenXmlTools.csproj",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj",
-              "RelativeToolTip": "Qhta.OpenXmlTools.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-08-01T13:24:41.735Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ItemFilter.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\ItemFilter.cs",
-              "RelativeDocumentMoniker": "ItemFilter.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\ItemFilter.cs",
-              "RelativeToolTip": "ItemFilter.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T12:28:18.971Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "WdStyleType.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\WdStyleType.cs",
               "RelativeDocumentMoniker": "WdStyleType.cs",
@@ -227,7 +232,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "WdBuiltinStyle.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\WdBuiltinStyle.cs",
               "RelativeDocumentMoniker": "WdBuiltinStyle.cs",
@@ -239,7 +244,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "StylesTest.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\StylesTest.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\StylesTest.cs",
@@ -251,7 +256,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "StylesTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\StylesTools.cs",
               "RelativeDocumentMoniker": "StylesTools.cs",
@@ -263,7 +268,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 17,
               "Title": "CompatibilitySettingsTest.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\CompatibilitySettingsTest.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\CompatibilitySettingsTest.cs",
@@ -275,19 +280,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CompatibilityTools.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\CompatibilityTools.cs",
-              "RelativeDocumentMoniker": "CompatibilityTools.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\CompatibilityTools.cs",
-              "RelativeToolTip": "CompatibilityTools.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAArwDYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T16:19:22.293Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 20,
               "Title": "MathPropertiesTest.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\MathPropertiesTest.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\MathPropertiesTest.cs",
@@ -299,7 +292,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 21,
               "Title": "Twips.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Twips.cs",
               "RelativeDocumentMoniker": "Twips.cs",
@@ -311,31 +304,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "MathPropertiesTools.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\MathPropertiesTools.cs",
-              "RelativeDocumentMoniker": "MathPropertiesTools.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\MathPropertiesTools.cs",
-              "RelativeToolTip": "MathPropertiesTools.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T12:52:25.706Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "HexInt.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\HexInt.cs",
-              "RelativeDocumentMoniker": "HexInt.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\HexInt.cs",
-              "RelativeToolTip": "HexInt.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T08:10:29.686Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 22,
               "Title": "RsidsTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\RsidsTools.cs",
               "RelativeDocumentMoniker": "RsidsTools.cs",
@@ -347,7 +316,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 18,
               "Title": "PropertiesTest.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\PropertiesTest.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\PropertiesTest.cs",
@@ -359,7 +328,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 19,
               "Title": "SettingsTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\SettingsTools.cs",
               "RelativeDocumentMoniker": "SettingsTools.cs",
@@ -371,7 +340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 16,
               "Title": "SettingsTest.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\SettingsTest.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\SettingsTest.cs",
@@ -383,44 +352,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "GlobalUsings.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\GlobalUsings.cs",
-              "RelativeDocumentMoniker": "GlobalUsings.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\GlobalUsings.cs",
-              "RelativeToolTip": "GlobalUsings.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T16:57:27.385Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "TestTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\TestTools.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\TestTools.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\TestTools.cs*",
-              "RelativeToolTip": "..\\Qhta.OpenXmlToolsTest\\TestTools.cs*",
-              "ViewState": "AQIAAHYAAAAAAAAAAIAwwIAAAAAAAAAA",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\TestTools.cs",
+              "RelativeToolTip": "..\\Qhta.OpenXmlToolsTest\\TestTools.cs",
+              "ViewState": "AQIAAJMAAAAAAAAAAAAAALUAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-27T16:51:01.995Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "EndnotesTools.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\EndnotesTools.cs",
-              "RelativeDocumentMoniker": "EndnotesTools.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\EndnotesTools.cs",
-              "RelativeToolTip": "EndnotesTools.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T14:03:44.102Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 23,
               "Title": "VTVariantTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\VTVariantTools.cs",
               "RelativeDocumentMoniker": "VTVariantTools.cs",
@@ -432,76 +377,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "CustomFileProperties.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\CustomFileProperties.cs",
-              "RelativeDocumentMoniker": "CustomFileProperties.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\CustomFileProperties.cs",
-              "RelativeToolTip": "CustomFileProperties.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T13:06:17.51Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 2,
               "Title": "OpenXmlElementTools.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\OpenXmlElementTools.cs",
               "RelativeDocumentMoniker": "OpenXmlElementTools.cs",
               "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\OpenXmlElementTools.cs",
               "RelativeToolTip": "OpenXmlElementTools.cs",
-              "ViewState": "AQIAAMwDAAAAAAAAAAArwOgDAAAjAAAA",
+              "ViewState": "AQIAAAIFAAAAAAAAAAAowCQFAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T12:41:01.524Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "ExtendedFilePropertiesTools.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\ExtendedFilePropertiesTools.cs",
-              "RelativeDocumentMoniker": "ExtendedFilePropertiesTools.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\ExtendedFilePropertiesTools.cs",
-              "RelativeToolTip": "ExtendedFilePropertiesTools.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T12:25:51.302Z",
+              "WhenOpened": "2024-07-26T12:41:01.524Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DocumentPropertyKind.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\DocumentPropertyKind.cs",
-              "RelativeDocumentMoniker": "DocumentPropertyKind.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\DocumentPropertyKind.cs",
-              "RelativeToolTip": "DocumentPropertyKind.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAABLAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T11:43:30.732Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "DocumentProperties.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\DocumentProperties.cs",
-              "RelativeDocumentMoniker": "DocumentProperties.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\DocumentProperties.cs",
-              "RelativeToolTip": "DocumentProperties.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAUwEMAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T08:03:05.132Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "CorePropertiesTools.cs",
-              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\CorePropertiesTools.cs",
-              "RelativeDocumentMoniker": "CorePropertiesTools.cs",
-              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\CorePropertiesTools.cs",
-              "RelativeToolTip": "CorePropertiesTools.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC4AAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T07:48:09.647Z"
             },
             {
               "$type": "Document",
@@ -511,19 +396,20 @@
               "RelativeDocumentMoniker": "DocumentTools.cs",
               "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\DocumentTools.cs",
               "RelativeToolTip": "DocumentTools.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAAlwEsAAAAPAAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAgwE4AAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-26T07:13:16.741Z"
+              "WhenOpened": "2024-07-26T07:13:16.741Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\Program.cs",
               "RelativeDocumentMoniker": "..\\Qhta.OpenXmlToolsTest\\Program.cs",
               "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\Program.cs",
               "RelativeToolTip": "..\\Qhta.OpenXmlToolsTest\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAcAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-26T07:04:34.236Z",
               "EditorCaption": ""

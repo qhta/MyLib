@@ -36,22 +36,22 @@ public static class TestTools
   /// </summary>
   /// <param name="value">value to convert</param>
   /// <param name="indent">indent size (spaces = indent*2) to put before</param>
-  /// <param name="shortForm">shorted form (in composite elements)</param>
+  /// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
   /// <returns></returns>
-  public static string AsString(this object? value, int indent = 0, bool shortForm = false)
+  public static string AsString(this object? value, int indent = 0, int depthLimit = int.MaxValue)
   {
     if (value is Twips twips)
       return twips.Value.ToString();
     if (value is HexInt)
       return ((HexInt)value).Value.ToString("X8");
     if (value is DXW.Rsids rsids)
-      return AsString(rsids, indent, shortForm);
+      return AsString(rsids, indent, depthLimit);
     if (value is DX.IEnumValue enumValue)
       return enumValue.Value;
     if (value is DX.OpenXmlLeafElement leafElement)
-      return AsString(leafElement, indent, shortForm);
+      return AsString(leafElement, indent, depthLimit);
     if (value is DX.OpenXmlCompositeElement compositeElement)
-      return AsString(compositeElement, indent, shortForm);
+      return AsString(compositeElement, indent, depthLimit);
     if (value is string[] strArray)
       return "[" + string.Join(", ", strArray) + "]";
     if (value is object[] objArray)
@@ -72,7 +72,7 @@ public static class TestTools
         var propValue = prop.GetValue(value);
         if (propValue != null)
         {
-          var propValStr = propValue.AsString(indent + 1, shortForm);
+          var propValStr = propValue.AsString(indent + 1, depthLimit-1);
           if (propValStr.Contains("\n"))
             propValuesList.Add($"{indentStr}{prop.Name}:\r\n{propValStr}");
           else
@@ -89,9 +89,9 @@ public static class TestTools
   /// </summary>
   /// <param name="element"></param>
   /// <param name="indent"></param>
-  /// <param name="shortForm"></param>
+  /// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
   /// <returns></returns>
-  public static string AsString(this DX.OpenXmlLeafElement element, int indent = 0, bool shortForm = false)
+  public static string AsString(this DX.OpenXmlLeafElement element, int indent = 0, int depthLimit = int.MaxValue)
   {
     var indentStr = new string(' ', indent * 2);
     if (element.HasAttributes)
@@ -116,9 +116,9 @@ public static class TestTools
   /// </summary>
   /// <param name="element"></param>
   /// <param name="indent"></param>
-  /// <param name="shortForm"></param>
+  /// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
   /// <returns></returns>
-  public static string AsString(this DX.OpenXmlCompositeElement element, int indent = 0, bool shortForm = false)
+  public static string AsString(this DX.OpenXmlCompositeElement element, int indent = 0, int depthLimit = int.MaxValue)
   {
     var indentStr = new string(' ', indent * 2);
     if (element.HasAttributes)
@@ -126,24 +126,24 @@ public static class TestTools
       var sl = new List<string>();
       foreach (var attr in element.GetAttributes())
         sl.Add($"{attr.LocalName}=\"{attr.Value}\"");
-      if (shortForm)
+      if (depthLimit <= 0)
         return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} >...";
       if (element.HasChildren)
       {
         var cl = new List<string>();
         foreach (var child in element.Elements())
-          cl.Add(child.AsString(indent + 1));
+          cl.Add(child.AsString(indent + 1, depthLimit-1));
         return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
       }
       return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} />";
     }
     if (element.HasChildren)
     {
-      if (shortForm)
+      if (depthLimit <= 0)
         return $"{indentStr}<{element.Prefix}:{element.LocalName} >...";
       var cl = new List<string>();
       foreach (var child in element.Elements())
-        cl.Add(child.AsString(indent + 1));
+        cl.Add(child.AsString(indent + 1, depthLimit-1));
       return $"{indentStr}<{element.Prefix}:{element.LocalName}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
     }
     return $"{indentStr}<{element.Prefix}:{element.LocalName} />";
@@ -154,16 +154,30 @@ public static class TestTools
   /// </summary>
   /// <param name="element"></param>
   /// <param name="indent"></param>
-  /// <param name="shortForm"></param>
+  /// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
   /// <returns></returns>
-  public static string AsString(this DXW.Rsids element, int indent = 0, bool shortForm = false)
+  public static string AsString(this DXW.Rsids element, int indent = 0, int depthLimit = int.MaxValue)
   {
     var items = element.ToArray();
-    if (shortForm)
-      items = items.Take(10).ToArray();
     var str = string.Join(", ", items);
     if (items.Length < element.Count())
       str += ", ...";
     return "{" + str + "}";
   }
+
+  ///// <summary>
+  ///// Converts the <c>Run</c> to a string.
+  ///// </summary>
+  ///// <param name="element"></param>
+  ///// <param name="indent"></param>
+  ///// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
+  ///// <returns></returns>
+  //public static string AsString(this DXW.Run element, int indent = 0, int depthLimit = int.MaxValue)
+  //{
+  //  var items = element.ToArray();
+  //  var str = string.Join(", ", items);
+  //  if (items.Length < element.Count())
+  //    str += ", ...";
+  //  return "{" + str + "}";
+  //}
 }

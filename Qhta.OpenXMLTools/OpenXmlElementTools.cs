@@ -1308,4 +1308,16 @@ public static class OpenXmlElementTools
       element?.Remove();
   }
 
+  /// <summary>
+  /// Gets the <c>Range</c> element from any composite element.
+  /// </summary>
+  /// <param name="xmlElement"></param>
+  /// <returns></returns>
+  /// <exception cref="InvalidDataException"></exception>
+  public static Range GetRange(this DX.OpenXmlElement xmlElement)
+  {
+    // ReSharper disable once MergeIntoPattern
+    var result = new Range (xmlElement.FirstChild, xmlElement.LastChild);
+    return result;
+  }
 }

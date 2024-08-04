@@ -1,4 +1,6 @@
-﻿namespace Qhta.OpenXmlTools;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+
+namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// A collection of tools for working with OpenXml documents.

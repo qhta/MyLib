@@ -10,9 +10,12 @@ public class SectionsTest
   {
     using (var wordDoc = WordprocessingDocument.Open(filename, false))
     {
-      DocSectionPropertiesReadTest(wordDoc);
-      BodySectionPropertiesReadTest(wordDoc);
-      BodySectionRangesReadTest(wordDoc);
+      //DocSectionPropertiesReadTest(wordDoc);
+      //BodySectionPropertiesReadTest(wordDoc);
+      //BodySectionRangesReadTest(wordDoc);
+      //BodyFirstSectionRangeReadTest(wordDoc);
+      //BodyLastSectionRangeReadTest(wordDoc);
+      BodyLongestSectionRangeReadTest(wordDoc);
     }
   }
 
@@ -72,7 +75,69 @@ public class SectionsTest
     Console.WriteLine($"Sections ranges count = {count}");
     foreach (var section in sectionRanges)
     {
-      Console.WriteLine($"{section}:\r\n{section.AsString(1, true)}");
+      Console.WriteLine($"{section}:\r\n{section.AsString(1, 0)}");
+    }
+    Console.WriteLine();
+  }
+
+  public void BodyFirstSectionRangeReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Body first section range read test:");
+    if (!wordDoc.HasSectionProperties())
+    {
+      Console.WriteLine("No section properties found");
+      return;
+    }
+
+    var sectionRange = wordDoc.GetBody().GetSectionRanges().First();
+    var elements = sectionRange.GetElements();
+    var count = elements.Count();
+    Console.WriteLine($"Section range elements count = {count}");
+    foreach (var element in elements)
+    {
+      Console.WriteLine($"{element.AsString(1, 0)}");
+    }
+    Console.WriteLine();
+  }
+
+  public void BodyLastSectionRangeReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Body last section range read test:");
+    if (!wordDoc.HasSectionProperties())
+    {
+      Console.WriteLine("No section properties found");
+      return;
+    }
+
+    var sectionRange = wordDoc.GetBody().GetSectionRanges().Last();
+    var elements = sectionRange.GetElements();
+    var count = elements.Count();
+    Console.WriteLine($"Section range elements count = {count}");
+    foreach (var element in elements)
+    {
+      Console.WriteLine($"{element.AsString(1, 0)}");
+    }
+    Console.WriteLine();
+  }
+
+
+  public void BodyLongestSectionRangeReadTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Body last longest range read test:");
+    if (!wordDoc.HasSectionProperties())
+    {
+      Console.WriteLine("No section properties found");
+      return;
+    }
+
+    var sectionRanges = wordDoc.GetBody().GetSectionRanges();
+    var sectionRange = sectionRanges.OrderByDescending(r => r.GetElements().Count()).First();
+    var elements = sectionRange.GetElements();
+    var count = elements.Count();
+    Console.WriteLine($"Section range elements count = {count}");
+    foreach (var element in elements)
+    {
+      Console.WriteLine($"{element.AsString(1, 0)}");
     }
     Console.WriteLine();
   }
