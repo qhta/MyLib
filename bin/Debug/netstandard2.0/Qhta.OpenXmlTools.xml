@@ -5476,6 +5476,19 @@
             <param name="wordDoc">The WordprocessingDocument</param>
             <returns>Instance of the styles element</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetBuildInStylesCount">
+            <summary>
+            Get the count of the known styles definitions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetBuiltInStyleName(System.Int32)">
+            <summary>
+            Get the name of the known style definitions.
+            </summary>
+            <param name="sc">Number of the style</param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.StylesTools.Count(DocumentFormat.OpenXml.Wordprocessing.Styles,Qhta.OpenXmlTools.ItemFilter)">
             <summary>
             Get the count of the style definitions.

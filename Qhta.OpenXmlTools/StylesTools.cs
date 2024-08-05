@@ -82,6 +82,20 @@ public static class StylesTools
     return styleDefinitionsPart.Styles ?? (styleDefinitionsPart.Styles = new DXW.Styles());
   }
 
+  /// <summary>
+  /// Get the count of the known styles definitions.
+  /// </summary>
+  /// <returns></returns>
+  public static int GetBuildInStylesCount()
+  => KnownStyles.Count;
+
+  /// <summary>
+  /// Get the name of the known style definitions.
+  /// </summary>
+  /// <param name="sc">Number of the style</param>
+  /// <returns></returns>
+  public static string GetBuiltInStyleName(int sc)
+    => KnownStyles.Values.ElementAt(sc).Name;
 
   /// <summary>
   /// Get the count of the style definitions.
