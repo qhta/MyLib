@@ -16,44 +16,39 @@ public static class OpenXmlElementTools
   /// <returns>Returned document part or null</returns>
   public static DXPack.OpenXmlPart? GetDocumentPart(this DX.OpenXmlElement? xmlElement)
   {
-    if (xmlElement == null)
+    var rootElement = GetRootElement(xmlElement);
+    if (rootElement != null)
     {
-      return null;
+      return rootElement.OpenXmlPart;
     }
-
-    if (xmlElement is DXW.Document document)
-    {
-      return document.MainDocumentPart;
-    }
-
-    if (xmlElement is DXW.Header header)
-    {
-      return header.HeaderPart;
-    }
-
-    if (xmlElement is DXW.Footer footer)
-    {
-      return footer.FooterPart;
-    }
-
-    return GetDocumentPart(xmlElement.Parent);
+    return null;
   }
 
   /// <summary>
-  /// Recursively get the parent document of the OpenXmlElement.
+  /// Get the <c>WordprocessingDocument</c> of the OpenXmlElement. 
   /// </summary>
   /// <param name="xmlElement">Checked source element</param>
   /// <returns>Returned document part or null</returns>
-  public static DXW.Document? GetParentDocument(DX.OpenXmlElement? xmlElement)
+  public static DXPack.WordprocessingDocument? GetWordprocessingDocument(this DX.OpenXmlElement? xmlElement)
   {
-    while (xmlElement is not DXW.Document)
-    {
-      if (xmlElement?.Parent == null)
-        return null;
-      xmlElement = xmlElement.Parent;
-    }
+    var part = GetDocumentPart(xmlElement);
+    return part?.OpenXmlPackage as DXPack.WordprocessingDocument;
+  }
 
-    return xmlElement as DXW.Document;
+  /// <summary>
+  /// Recursively get the root element of the OpenXmlElement.
+  /// </summary>
+  /// <param name="xmlElement">Checked source element</param>
+  /// <returns>Returned document part or null</returns>
+  public static DX.OpenXmlPartRootElement? GetRootElement(this DX.OpenXmlElement? xmlElement)
+  {
+    if (xmlElement?.Parent is DX.OpenXmlPartRootElement rootElement)
+    {
+      return rootElement;
+    }
+    if (xmlElement?.Parent != null)
+      return xmlElement.Parent.GetRootElement();
+    return null;
   }
 
   /// <summary>
@@ -1317,7 +1312,7 @@ public static class OpenXmlElementTools
   public static Range GetRange(this DX.OpenXmlElement xmlElement)
   {
     // ReSharper disable once MergeIntoPattern
-    var result = new Range (xmlElement.FirstChild, xmlElement.LastChild);
+    var result = new Range(xmlElement.FirstChild, xmlElement.LastChild);
     return result;
   }
 }

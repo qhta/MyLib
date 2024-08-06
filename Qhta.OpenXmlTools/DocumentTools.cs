@@ -77,4 +77,14 @@ public static class DocumentTools
     }
     return body;
   }
+
+  /// <summary>
+  /// Gets the <see cref="Range"/> of the <c>Body</c> element of the document. If the document does not have a <c>Body</c>, it is created.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static Range GetRange(this DXPack.WordprocessingDocument wordDoc)
+  {
+    return wordDoc.GetBody().GetRange();
+  }
 }

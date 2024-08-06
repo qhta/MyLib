@@ -35,10 +35,12 @@ public static class ParagraphTools
   /// Get the text of the paragraph run elements.
   /// </summary>
   /// <param name="paragraph">source paragraph</param>
+  /// <param name="options"></param>
   /// <returns>joined text</returns>
-  public static string GetText(this Paragraph paragraph)
+  public static string GetText(this Paragraph paragraph, GetTextOptions? options)
   {
-    return String.Join("", paragraph.Elements<Run>().Select(item => item.GetText()));
+    options ??= GetTextOptions.Default;
+    return String.Join("", paragraph.Elements<Run>().Select(item => item.GetText(options)));
   }
 
   /// <summary>
@@ -51,11 +53,29 @@ public static class ParagraphTools
     return paragraph.ParagraphProperties?.ParagraphStyleId?.Val;
   }
 
-  //public static Style? Style(this Paragraph paragraph)
-  //{
-  //  var styleId = paragraph.StyleId();
-  //  return styleId == null ? null : StyleTools.GetStyle(paragraph.GetDocumentPart().styleId);
-  //}
+  /// <summary>
+  /// Get the style of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static Style? GetStyle(this Paragraph paragraph)
+  {
+    var styleId = paragraph.StyleId();
+    if (styleId != null)
+    {
+      var wordDoc = paragraph.GetWordprocessingDocument();
+      if (wordDoc != null)
+      {
+        var stylePart = wordDoc.MainDocumentPart?.StyleDefinitionsPart;
+        if (stylePart != null)
+        {
+          return stylePart.Styles?.Elements<Style>().FirstOrDefault(s => s.StyleId == styleId);
+        }
+      }
+    }
+    return null;
+  }
+
   //public static string? StyleName(this Paragraph paragraph)
   //{
   //  return paragraph.StyleId();

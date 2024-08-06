@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Text;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -20,13 +20,69 @@ public static class TableTools
   //}
 
   /// <summary>
-  /// Gets the text of all paragraph in the table.
+  /// Gets the text of all rows in the table.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetText(this Table table, GetTextOptions? options)
+  {
+    options ??= GetTextOptions.Default;
+    StringBuilder sb = new();
+    foreach (var element in table.Elements())
+    {
+      if (element is TableRow row)
+      {
+        sb.Append(options.TableRowStartTag);
+        sb.Append(row.GetText(options));
+        sb.Append(options.TableRowEndTag);
+      }
+    }
+    return sb.ToString();
+  }
+
+  /// <summary>
+  /// Gets the text of all cells in the table row.
+  /// </summary>
+  /// <param name="row"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetText(this TableRow row, GetTextOptions? options)
+  {
+    options ??= GetTextOptions.Default;
+    StringBuilder sb = new();
+    foreach (var element in row.Elements())
+    {
+      if (element is TableCell cell)
+      {
+        sb.Append(options.TableCellStartTag);
+        sb.Append(cell.GetText(options));
+        sb.Append(options.TableCellEndTag);
+      }
+    }
+    return sb.ToString();
+  }
+
+  /// <summary>
+  /// Gets the text of all paragraph in the table cell.
   /// </summary>
   /// <param name="cell"></param>
+  /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this TableCell cell)
+  public static string GetText(this TableCell cell, GetTextOptions? options)
   {
-    return String.Join("\r\n", cell.Elements<Paragraph>().Select(p => p.GetText()));
+    options ??= GetTextOptions.Default;
+    StringBuilder sb = new ();
+    foreach (var element in cell.Elements())
+    {
+      if (element is Paragraph paragraph)
+      {
+        sb.Append (options.ParagraphStartTag);
+        sb.Append(paragraph.GetText(options));
+        sb.Append(options.ParagraphEndTag);
+      }
+    }
+    return sb.ToString();
   }
 
   /// <summary>

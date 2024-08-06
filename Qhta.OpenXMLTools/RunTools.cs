@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
+
 using DocumentFormat.OpenXml.Wordprocessing;
 
 
@@ -45,12 +48,82 @@ public static class RunTools
   //public static Drawing GetDrawing (this Run run) { return run.Elements<Drawing>().FirstOrDefault();} 
 
   /// <summary>
-  /// Get the joined text of the run.
+  /// Get the text content of the run.
   /// </summary>
   /// <param name="run"></param>
+  /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this Run run)
+  public static string GetText(this Run run, GetTextOptions? options)
   {
-    return String.Join("", run.Elements<TextType>().Select(item => item.Text));
+    options ??= GetTextOptions.Default;
+    StringBuilder sb = new();
+    foreach (var element in run.Elements())
+    {
+      if (element is Text text)
+      {
+        sb.Append(text.Text);
+      }
+      else if (element is Break @break)
+      {
+        if (@break.Type?.Value == BreakValues.Page)
+          sb.Append(options.BreakPageTag);
+        else if (@break.Type?.Value == BreakValues.Column)
+          sb.Append(options.BreakColumnTag);
+        else if (@break.Type?.Value == BreakValues.TextWrapping)
+          sb.Append(options.BreakLineTag);
+      }
+      else if (element is TabChar)
+      {
+        sb.Append(options.TabTag);
+      }
+      else if (element is FieldChar fieldChar)
+      {
+        if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
+        {
+          sb.Append(options.FieldStartTag);
+        }
+        else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate && options.IncludeFieldFormula)
+        {
+          sb.Append(options.FieldResultTag);
+        }
+        else if (fieldChar.FieldCharType?.Value == FieldCharValues.End && options.IncludeFieldFormula)
+        {
+          sb.Append(options.FieldEndTag);
+        }
+      }
+      else if (element is FieldCode fieldCode && options.IncludeFieldFormula)                     
+      {
+        sb.Append(fieldCode.Text);
+      }
+      else if (element is SymbolChar symbolChar)
+      {
+        if (int.TryParse(symbolChar.Char!.Value, out var symbolVal))
+        {
+          sb.Append((char)symbolVal);
+        }
+      }
+      else if (element is PositionalTab)
+      {
+        sb.Append(options.TabTag);
+      }
+      else if (element is Ruby ruby)
+      {
+        sb.Append(ruby.GetPlainText());
+      }
+      else if (element is FootnoteReference footnoteReference)
+      {
+        sb.Append (options.FootnoteRefStart + footnoteReference.Id+options.FootnoteRefEnd);
+      }
+      else if (element is EndnoteReference endnoteReference)
+      {
+        sb.Append(options.EndnoteRefStart + endnoteReference.Id + options.EndnoteRefEnd);
+      }
+      else if (element is CommentReference commentReference)
+      {
+        sb.Append(options.CommentRefStart + commentReference.Id + options.CommentRefEnd);
+      }
+    }
+
+    return sb.ToString();
   }
 }

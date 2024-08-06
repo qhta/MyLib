@@ -1,4 +1,7 @@
-﻿using DocumentFormat.OpenXml;
+﻿using System.Text;
+
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -22,7 +25,7 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// </summary>
   public OpenXmlElement[] GetElements()
   {
-    List<OpenXmlElement> result = new ();
+    List<OpenXmlElement> result = new();
     var element = Start;
     while (element != null)
     {
@@ -59,7 +62,7 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// </summary>
   public DXW.Paragraph[] GetParagraphs()
   {
-    List<DXW.Paragraph> result = new ();
+    List<DXW.Paragraph> result = new();
     var element = Start;
     while (element != null)
     {
@@ -88,5 +91,28 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
       element = element.NextSibling();
     }
     return result.ToArray();
+  }
+
+  /// <summary>
+  /// Get the text content of the run.
+  /// </summary>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public string GetText(GetTextOptions? options = null)
+  {
+    options ??= GetTextOptions.Default;
+    StringBuilder sb = new();
+    var element = Start;
+    while (element != null)
+    {
+      if (element is Paragraph paragraph)
+      {
+        sb.Append(options.ParagraphStartTag);
+        sb.Append(paragraph.GetText(options));
+        sb.Append(options.ParagraphEndTag);
+      }
+      element = element.NextSibling();
+    }
+    return sb.ToString();
   }
 }

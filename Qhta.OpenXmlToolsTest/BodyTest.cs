@@ -1,4 +1,6 @@
-﻿using Range = Qhta.OpenXmlTools.Range;
+﻿using DocumentFormat.OpenXml.Packaging;
+
+using Range = Qhta.OpenXmlTools.Range;
 
 namespace Qhta.OpenXmlToolsTest;
 
@@ -15,7 +17,8 @@ public class BodyTest
       //BodyRangeTablesReadTest(wordDoc);
       //BodyRangeStdBlocksReadTest(wordDoc);
       //BodyRangeElementTypesCountTest(wordDoc);
-      BodyRangeElementTypesAndSubtypesCountTest(wordDoc);
+      //BodyRangeElementTypesAndSubtypesCountTest(wordDoc);
+      BodyReadTextTest(wordDoc);
     }
   }
 
@@ -212,6 +215,16 @@ public class BodyTest
     }
     info = null!;
     return false;
+  }
+
+  public void BodyReadTextTest(WordprocessingDocument wordDoc)
+  {
+    Console.WriteLine("Body read text test:");
+    var wordBody = wordDoc.GetBody();
+    var wordText = wordBody.GetRange().GetText();
+    Console.WriteLine($"Word text length = {wordText.Length}");
+    Console.WriteLine(wordText);
+
   }
 
   //public void BodyWriteTest(WordprocessingDocument sourceDoc, WordprocessingDocument targetDoc)
