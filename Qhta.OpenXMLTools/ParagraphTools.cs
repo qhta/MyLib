@@ -9,6 +9,18 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class ParagraphTools
 {
+
+  /// <summary>
+  /// Gets the integer identifier of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static int? GetParagraphId(this DXW.Paragraph paragraph)
+  {
+    var val = paragraph.ParagraphId?.Value;
+    return val == null ? null : int.Parse(val, NumberStyles.HexNumber);
+  }
+
   /// <summary>
   /// Find a paragraph in the document by the paragraph id.
   /// </summary>
@@ -40,7 +52,10 @@ public static class ParagraphTools
   public static string GetText(this Paragraph paragraph, GetTextOptions? options)
   {
     options ??= GetTextOptions.Default;
-    return String.Join("", paragraph.Elements<Run>().Select(item => item.GetText(options)));
+    var result = String.Join("", paragraph.Elements<Run>().Select(item => item.GetText(options)));
+    if (options.IncludeParagraphNumbering)
+      result = paragraph.GetNumberingString(options) + result;
+    return result;
   }
 
   /// <summary>
@@ -76,31 +91,15 @@ public static class ParagraphTools
     return null;
   }
 
-  //public static string? StyleName(this Paragraph paragraph)
-  //{
-  //  return paragraph.StyleId();
-  //}
-  ///// <summary>
-  ///// Check if the paragraph is a heading using its style name.
-  ///// </summary>
-  ///// <param name="paragraph">Checked paragraph</param>
-  ///// <returns>true if the paragraph outline level is not base text level</returns>
-  //public static bool IsHeading(this Paragraph paragraph)
-  //{
-  //  var styleId = paragraph.StyleId();
-
-  //  return false;
-  //}
-
   /// <summary>
-  /// Check if the paragraph is a heading using the style name.
+  /// Check if the paragraph is a heading.
   /// </summary>
-  /// <param name="styleName">style name to check</param>
-  /// <param name="headingName">heading name string (preceding a number)</param>
+  /// <param name="paragraph">source paragraph</param>
   /// <returns></returns>
-  private static bool IsHeading(string styleName, string headingName)
+  private static bool IsHeading(this Paragraph paragraph)
   {
-    return styleName.StartsWith(headingName) && Char.IsDigit(styleName[headingName.Length]);
+    var style = paragraph.GetStyle();
+    return style?.IsHeading() ?? false;
   }
 
   /// <summary>
@@ -112,4 +111,5 @@ public static class ParagraphTools
   {
     return paragraph.ParagraphProperties?.OutlineLevel?.Val?.Value;
   }
+
 }

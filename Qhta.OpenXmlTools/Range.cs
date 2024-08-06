@@ -111,6 +111,14 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
         sb.Append(paragraph.GetText(options));
         sb.Append(options.ParagraphEndTag);
       }
+      if (element is Table table)
+      {
+        sb.Append(options.TableStartTag);
+        sb.Append(table.GetText(options));
+        sb.Append(options.TableEndTag);
+      }
+      if (element == End)
+        break;
       element = element.NextSibling();
     }
     return sb.ToString();

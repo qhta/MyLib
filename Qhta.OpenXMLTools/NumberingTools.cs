@@ -10,15 +10,93 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class NumberingTools
 {
+  private static readonly Dictionary<(int docId, int numId), NumberingList> NumberingListsForDocument = new();
+  private static readonly Dictionary<int, NumberingList> NumberingListsForParagraphs = new();
+
+  /// <summary>
+  /// Get the numbering string of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string? GetNumberingString(this Paragraph paragraph, GetTextOptions? options = null)
+  {
+    var numberingList = paragraph.GetNumberingList();
+    if (numberingList != null)
+    {
+      return numberingList.GetNumberingString(paragraph, options);
+    }
+    return null;
+  }
+  /// <summary>
+  /// Get the numbering list of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static NumberingList? GetNumberingList(this Paragraph paragraph)
+  {
+    var paraId = paragraph.GetParagraphId() ?? 0;
+    if (NumberingListsForParagraphs.TryGetValue(paraId, out var numberingList))
+      return numberingList;
+    var numberingInstance = paragraph.GetNumberingInstance();
+    if (numberingInstance != null)
+    {
+      var docId = paragraph.GetWordprocessingDocument()?.GetDocumentId() ?? 0;
+      var numId = numberingInstance.NumberID?.Value ?? 0;
+      var key = (docId, numId);
+      if (!NumberingListsForDocument.TryGetValue(key, out numberingList))
+      {
+        numberingList = new NumberingList(numberingInstance);
+        NumberingListsForDocument.Add(key, numberingList);
+        NumberingListsForParagraphs.Add(paraId, numberingList);
+      }
+      numberingList.Add(paragraph); return numberingList;
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Get the numbering instance of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static NumberingInstance? GetNumberingInstance(this Paragraph paragraph)
+  {
+    var numberingId = paragraph.ParagraphProperties?.NumberingProperties?.NumberingId?.Val?.Value;
+    if (numberingId != null)
+    {
+      var wordDoc = paragraph.GetWordprocessingDocument();
+      if (wordDoc != null)
+      {
+        var numberingPart = wordDoc.MainDocumentPart?.NumberingDefinitionsPart;
+        if (numberingPart != null)
+        {
+          return numberingPart.Numbering?.Elements<NumberingInstance>().FirstOrDefault(n => n.NumberID?.Value == numberingId);
+        }
+      }
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Get the abstract numbering of the numbering instance
+  /// </summary>
+  /// <param name="numInstance"></param>
+  /// <returns></returns>
+  public static AbstractNum? GetAbstractNum(this NumberingInstance numInstance)
+  {
+    var numbering = numInstance.Ancestors<Numbering>().FirstOrDefault();
+    return numbering?.Elements<AbstractNum>().FirstOrDefault(n => n.AbstractNumberId?.Value == numInstance.AbstractNumId?.Val?.Value);
+  }
+
   /// <summary>
   /// Get the numbering instance id of the paragraph.
   /// </summary>
-  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
   /// <param name="paragraph">Source paragraph element</param>
   /// <returns>Integer numbering instance id or null</returns>
-  public static int? GetNumberingId(this WordprocessingDocument wordDocument, Paragraph paragraph)
+  public static int? GetNumberingId(Paragraph paragraph)
   {
-    var numPr = GetNumberingProperties(wordDocument, paragraph);
+    var numPr = GetNumberingProperties(paragraph);
     if (numPr != null)
     {
       var val = numPr.NumberingId?.Val?.Value;
@@ -31,12 +109,14 @@ public static class NumberingTools
   /// <summary>
   /// Get the abstract numbering definition id of the paragraph.
   /// </summary>
-  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
   /// <param name="paragraph">Source paragraph element</param>
   /// <returns>Integer abstract numbering id or null</returns>
-  public static int? GetAbstractNumberingId(this WordprocessingDocument wordDocument, Paragraph paragraph)
+  public static int? GetAbstractNumberingId(Paragraph paragraph)
   {
-    var numPr = GetNumberingProperties(wordDocument, paragraph);
+    var wordDocument = paragraph.GetWordprocessingDocument();
+    if (wordDocument == null)
+      return null;
+    var numPr = GetNumberingProperties(paragraph);
     if (numPr != null)
     {
       var val = numPr.NumberingId?.Val?.Value;
@@ -78,15 +158,14 @@ public static class NumberingTools
   /// <summary>
   /// Get the numbering level of the paragraph.
   /// </summary>
-  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
   /// <param name="paragraph">Source paragraph element</param>
   /// <returns>Integer numbering level (from 0 to 9) or null</returns>
-  public static int? GetNumberingLevel(this WordprocessingDocument wordDocument, Paragraph paragraph)
+  public static int? GetNumberingLevel(this Paragraph paragraph)
   {
-    var numPr = GetNumberingProperties(wordDocument, paragraph);
+    var numPr = GetNumberingProperties(paragraph);
     if (numPr != null)
     {
-      var val = GetNumberingLevel(wordDocument, numPr);
+      var val = GetNumberingLevel(numPr);
       return val;
     }
     return null;
@@ -95,10 +174,9 @@ public static class NumberingTools
   /// <summary>
   /// Get the numbering properties of the paragraph or of the paragraph style.
   /// </summary>
-  /// <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
   /// <param name="paragraph">Source paragraph element</param>
   /// <returns>Numbering properties or null</returns>
-  public static NumberingProperties? GetNumberingProperties(this WordprocessingDocument wordDocument, Paragraph paragraph)
+  public static NumberingProperties? GetNumberingProperties(this DXW.Paragraph paragraph)
   {
     var numPr = paragraph?.ParagraphProperties?.NumberingProperties;
     if (numPr != null)
@@ -107,6 +185,9 @@ public static class NumberingTools
     var styleId = paragraph?.ParagraphProperties?.ParagraphStyleId?.Val?.Value;
     if (styleId != null)
     {
+      var wordDocument = paragraph.GetWordprocessingDocument();
+      if (wordDocument == null)
+        return null;
       var styleDef = wordDocument.MainDocumentPart?.StyleDefinitionsPart?.Styles?.Elements<Style>()
         .FirstOrDefault(item => item.StyleId == styleId);
       if (styleDef != null)
@@ -124,10 +205,9 @@ public static class NumberingTools
   /// <summary>
   /// Get the numbering level of the numbering properties.
   /// </summary>
-  /// <param name="wordDocument">Source Wordprocessing document to which the numbering properties element belongs.</param>
   /// <param name="numPr">Numbering properties element</param>
   /// <returns>Integer numbering level (from 0 to 8) or null</returns>
-  public static int? GetNumberingLevel(this WordprocessingDocument wordDocument, NumberingProperties numPr)
+  public static int? GetNumberingLevel(this DXW.NumberingProperties numPr)
   {
     int? numLevel = numPr.NumberingLevelReference?.Val?.Value;
     if (numLevel != null)
@@ -135,7 +215,9 @@ public static class NumberingTools
     int? numId = numPr.NumberingId?.Val?.Value;
     if (numId != null)
     {
-      var numbering = wordDocument.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?.Elements<NumberingInstance>()
+      var wordDocument = numPr.GetWordprocessingDocument();
+      if (wordDocument == null)
+        return null; var numbering = wordDocument.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?.Elements<NumberingInstance>()
         .FirstOrDefault(item => item.NumberID?.Value == numId);
       if (numbering != null)
       {
@@ -167,7 +249,7 @@ public static class NumberingTools
       return null;
     var level = numbering.ChildElements.OfType<AbstractNum>()
       .FirstOrDefault(item => item.AbstractNumberId?.Value == abstractNumId)?
-      .Elements<Level>().FirstOrDefault(item => item.LevelIndex?.Value == levelNdx-1);
+      .Elements<Level>().FirstOrDefault(item => item.LevelIndex?.Value == levelNdx - 1);
     return level;
   }
 
@@ -251,7 +333,7 @@ public static class NumberingTools
   /// </remarks>
   public static AbstractNum JoinSingleLevelsHybridMultiLevel(Level[] levels)
   {
-    var abstractNum = new AbstractNum { MultiLevelType = new MultiLevelType{ Val = MultiLevelValues.HybridMultilevel }};
+    var abstractNum = new AbstractNum { MultiLevelType = new MultiLevelType { Val = MultiLevelValues.HybridMultilevel } };
     var indent0 = 0;
     for (int lc = 0; lc < levels.Length; lc++)
     {

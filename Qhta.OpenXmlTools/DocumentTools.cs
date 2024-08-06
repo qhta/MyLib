@@ -1,12 +1,22 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// A collection of tools for working with OpenXml documents.
 /// </summary>
 public static class DocumentTools
 {
+
+
+  /// <summary>
+  /// Gets the integer identifier of the document.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static int? GetDocumentId(this DXPack.WordprocessingDocument wordDoc)
+  {
+    var docSettings = wordDoc.GetSettings();
+    return docSettings.GetDocumentId();
+  }
 
   /// <summary>
   /// Gets all the properties of the document to manage them in a uniform way.
@@ -87,4 +97,5 @@ public static class DocumentTools
   {
     return wordDoc.GetBody().GetRange();
   }
+
 }

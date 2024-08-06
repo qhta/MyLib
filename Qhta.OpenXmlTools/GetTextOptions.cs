@@ -71,7 +71,6 @@ public record GetTextOptions
   /// </summary>
   public string EndnoteRefEnd { get; set; } = "]";
 
-
   /// <summary>
   /// Tag to start a comment reference.
   /// </summary>
@@ -90,7 +89,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to end a table.
   /// </summary>
-  public string TableEndTag { get; set; } = "</table>";
+  public string TableEndTag { get; set; } = "</table>\r\n";
 
   /// <summary>
   /// Tag to start a table row.
@@ -100,7 +99,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to end a table row.
   /// </summary>
-  public string TableRowEndTag { get; set; } = "</tr>";
+  public string TableRowEndTag { get; set; } = "</tr>\r\n";
 
   /// <summary>
   /// Tag to start a table cell.
@@ -110,7 +109,12 @@ public record GetTextOptions
   /// <summary>
   /// Tag to end a table cell.
   /// </summary>
-  public string TableCellEndTag { get; set; } = "</td>";
+  public string TableCellEndTag { get; set; } = "</td>\r\n";
+
+  /// <summary>
+  /// Include paragraph numbering string at the beginning of paragraph text.
+  /// </summary>
+  public bool IncludeParagraphNumbering { get; set; } = true;
 
   /// <summary>
   /// Tag to start a paragraph.

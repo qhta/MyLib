@@ -310,6 +310,13 @@
             A collection of tools for working with OpenXml documents.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetDocumentId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the integer identifier of the document.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetDocumentProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Gets all the properties of the document to manage them in a uniform way.
@@ -579,6 +586,11 @@
         <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableCellEndTag">
             <summary>
             Tag to end a table cell.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IncludeParagraphNumbering">
+            <summary>
+            Include paragraph numbering string at the beginning of paragraph text.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.GetTextOptions.ParagraphStartTag">
@@ -954,24 +966,81 @@
             <param name="properties"></param>
             <param name="value"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.NumberingList">
+            <summary>
+            Class to represent a collection of numbered paragraphs in OpenXml document.
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingList.#ctor(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Class to represent a collection of numbered paragraphs in OpenXml document.
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.NumberingList.Instance">
+            <summary>
+            OpenXml numbering instance.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.NumberingList.AbstractNum">
+            <summary>
+            Abstract numbering definition.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingList.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Method to get the numbering string of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Numbering elements.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Get the numbering string of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingList(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering list of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingInstance(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering instance of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNum(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Get the abstract numbering of the numbering instance
+            </summary>
+            <param name="numInstance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the numbering instance id of the paragraph.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer numbering instance id or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the abstract numbering definition id of the paragraph.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer abstract numbering id or null</returns>
         </member>
@@ -983,27 +1052,24 @@
             <param name="numId">Numbering instance id</param>
             <returns>Integer abstract numbering id or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the numbering level of the paragraph.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer numbering level (from 0 to 9) or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the numbering properties of the paragraph or of the paragraph style.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Numbering properties or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
             <summary>
             Get the numbering level of the numbering properties.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the numbering properties element belongs.</param>
             <param name="numPr">Numbering properties element</param>
             <returns>Integer numbering level (from 0 to 8) or null</returns>
         </member>
@@ -1629,6 +1695,13 @@
             Tools for working with OpenXml Wordprocessing Paragraph element.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetParagraphId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the integer identifier of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.FindParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
             <summary>
             Find a paragraph in the document by the paragraph id.
@@ -1667,12 +1740,11 @@
             <param name="paragraph"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsHeading(System.String,System.String)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsHeading(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
-            Check if the paragraph is a heading using the style name.
+            Check if the paragraph is a heading.
             </summary>
-            <param name="styleName">style name to check</param>
-            <param name="headingName">heading name string (preceding a number)</param>
+            <param name="paragraph">source paragraph</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.OutlineLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
