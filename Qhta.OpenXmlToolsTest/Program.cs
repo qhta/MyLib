@@ -23,7 +23,7 @@ internal class Program
     //var sectionsTest = new SectionsTest();
     //sectionsTest.SectionsReadTest("Test.docx");
     var bodyTest = new BodyTest();
-    bodyTest.BodyReadTest("Test.docx");
+    bodyTest.BodyReadTest("Introduction.docx");
   }
 
 }

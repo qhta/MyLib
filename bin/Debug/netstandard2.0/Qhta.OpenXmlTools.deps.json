@@ -9,9 +9,9 @@
     ".NETStandard,Version=v2.0/": {
       "Qhta.OpenXmlTools/2.0": {
         "dependencies": {
-          "DocumentFormat.OpenXml": "3.0.2",
+          "DocumentFormat.OpenXml": "3.1.0",
           "NETStandard.Library": "2.0.3",
-          "Qhta.TextUtils": "3.2.0"
+          "Qhta.TextUtils": "3.3.0"
         },
         "runtime": {
           "Qhta.OpenXmlTools.dll": {}
@@ -22,25 +22,25 @@
           }
         }
       },
-      "DocumentFormat.OpenXml/3.0.2": {
+      "DocumentFormat.OpenXml/3.1.0": {
         "dependencies": {
-          "DocumentFormat.OpenXml.Framework": "3.0.2"
+          "DocumentFormat.OpenXml.Framework": "3.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
-            "assemblyVersion": "3.0.2.0",
-            "fileVersion": "3.0.2.0"
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
           }
         }
       },
-      "DocumentFormat.OpenXml.Framework/3.0.2": {
+      "DocumentFormat.OpenXml.Framework/3.1.0": {
         "dependencies": {
           "System.IO.Packaging": "8.0.0"
         },
         "runtime": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.Framework.dll": {
-            "assemblyVersion": "3.0.2.0",
-            "fileVersion": "3.0.2.0"
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
           }
         }
       },
@@ -50,11 +50,11 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "Qhta.TextUtils/3.2.0": {
+      "Qhta.TextUtils/3.3.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.2.0.0",
-            "fileVersion": "3.2.0.0"
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.0.0"
           }
         }
       },
@@ -114,19 +114,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DocumentFormat.OpenXml/3.0.2": {
+    "DocumentFormat.OpenXml/3.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gqjP/BxKWgwAWwPAN+RpKaMOiidPM07F+mAxiiW184/MnkHnkk12Qo7cRB0wuq4kOZUrUzQ9EUO966hUy/wKBw==",
-      "path": "documentformat.openxml/3.0.2",
-      "hashPath": "documentformat.openxml.3.0.2.nupkg.sha512"
+      "sha512": "sha512-J+GtIzVJpj6Wbhc2sYqmXEqAi2LYgWkU5LdVE/vCtNRr8WHDLHRL0lTbSlvTeLzSI5Ws6AC6TPuJR68/3wsa4A==",
+      "path": "documentformat.openxml/3.1.0",
+      "hashPath": "documentformat.openxml.3.1.0.nupkg.sha512"
     },
-    "DocumentFormat.OpenXml.Framework/3.0.2": {
+    "DocumentFormat.OpenXml.Framework/3.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ILRCJu2dUJDv27ZCQDftD7AZSuBgKg+ZSUF9dg2dk8qcIED7oM42y/cvZIm0mev80nj2QMzpxthX87+AebzHug==",
-      "path": "documentformat.openxml.framework/3.0.2",
-      "hashPath": "documentformat.openxml.framework.3.0.2.nupkg.sha512"
+      "sha512": "sha512-yz78IAteV+/jdpmQRlBIfhsmYfDYqgPSyPUsyT7KnfDlTTvqY6Zf5inMjTSwe2bnN8wv9dLD0C2sAkActXIy/A==",
+      "path": "documentformat.openxml.framework/3.1.0",
+      "hashPath": "documentformat.openxml.framework.3.1.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -142,12 +142,12 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.2.0": {
+    "Qhta.TextUtils/3.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AWGMF4cQSeFDbNwT77+5Pcd9y8z+DHY+lKN7W/OHqYN+fSxMpId9f4i7d4ekblICMqEICYT469jyNO0i1c/a+w==",
-      "path": "qhta.textutils/3.2.0",
-      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
+      "sha512": "sha512-TA2HyTfwMafF0DRkVst3pFUcXrXM41E5L6bxWozSaBYFsSwVFaI4Jn9HPYL+elo5S57J8UaW65VX2J4eQSVE6A==",
+      "path": "qhta.textutils/3.3.0",
+      "hashPath": "qhta.textutils.3.3.0.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

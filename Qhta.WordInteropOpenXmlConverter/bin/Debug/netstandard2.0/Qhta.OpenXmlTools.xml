@@ -310,6 +310,13 @@
             A collection of tools for working with OpenXml documents.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetDocumentId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the integer identifier of the document.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetDocumentProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Gets all the properties of the document to manage them in a uniform way.
@@ -341,6 +348,13 @@
         <member name="M:Qhta.OpenXmlTools.DocumentTools.GetBody(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Gets the <c>Body</c> element of the document. If the document does not have a <c>Body</c>, it is created.
+            </summary>
+            <param name="wordDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentTools.GetRange(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Gets the <see cref="T:Qhta.OpenXmlTools.Range"/> of the <c>Body</c> element of the document. If the document does not have a <c>Body</c>, it is created.
             </summary>
             <param name="wordDoc"></param>
             <returns></returns>
@@ -463,6 +477,181 @@
             Initialize the Footnotes element with the default separator and continuation separator.
             </summary>
             <param name="endnotes"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.GetTextOptions">
+            <summary>
+            Options for getting text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.Default">
+            <summary>
+            Default options.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.NewLine">
+            <summary>
+            Tag to mark a new line.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TabTag">
+            <summary>
+            Tag to mark a tab character.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.BreakPageTag">
+            <summary>
+            Tag to mark a page break.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.BreakColumnTag">
+            <summary>
+            Tag to mark a column break.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.BreakLineTag">
+            <summary>
+            Tag to mark a line break.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IncludeFieldFormula">
+            <summary>
+            Include formula command text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.FieldStartTag">
+            <summary>
+            Tag to start a field formula.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.FieldResultTag">
+            <summary>
+            Tag to separate a field formula command from result.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.FieldEndTag">
+            <summary>
+            Tag to end a field formula.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.FootnoteRefStart">
+            <summary>
+            Tag to start a footnote reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.FootnoteRefEnd">
+            <summary>
+            Tag to end a footnote reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.EndnoteRefStart">
+            <summary>
+            Tag to start an endnote reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.EndnoteRefEnd">
+            <summary>
+            Tag to end an end note reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.CommentRefStart">
+            <summary>
+            Tag to start a comment reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.CommentRefEnd">
+            <summary>
+            Tag to end a comment reference.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableStartTag">
+            <summary>
+            Tag to start a table.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableEndTag">
+            <summary>
+            Tag to end a table.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableRowStartTag">
+            <summary>
+            Tag to start a table row.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableRowEndTag">
+            <summary>
+            Tag to end a table row.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableCellStartTag">
+            <summary>
+            Tag to start a table cell.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableCellEndTag">
+            <summary>
+            Tag to end a table cell.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableInSeparateLine">
+            <summary>
+            Put a table in a separate line
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableRowInSeparateLine">
+            <summary>
+            Put a table row in a separate line
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableCellInSeparateLine">
+            <summary>
+            Put a table cell in a separate line
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IndentTableContent">
+            <summary>
+            Should table content be indented.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.Indent">
+            <summary>
+            Indent unit string.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IndentLevel">
+            <summary>
+            The number of indent unit string to insert.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IncludeParagraphNumbering">
+            <summary>
+            Include paragraph numbering string at the beginning of paragraph text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IndentNumberingLists">
+            <summary>
+            Should numbered list be indented on each level.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.NumberingStartTag">
+            <summary>
+            Tag to start a paragraph numbering.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.NumberingEndTag">
+            <summary>
+            Tag to end a paragraph numbering.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.ParagraphStartTag">
+            <summary>
+            Tag to start a paragraph.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.ParagraphEndTag">
+            <summary>
+            Tag to end a paragraph.
+            </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.HexInt">
             <summary>
@@ -827,24 +1016,89 @@
             <param name="properties"></param>
             <param name="value"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.NumberingList">
+            <summary>
+            Class to represent a collection of numbered paragraphs in OpenXml document.
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingList.#ctor(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Class to represent a collection of numbered paragraphs in OpenXml document.
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.NumberingList.Instance">
+            <summary>
+            OpenXml numbering instance.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.NumberingList.AbstractNum">
+            <summary>
+            Abstract numbering definition.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingList.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Method to get the numbering string of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingList.ToRoman(System.Int32)">
+            <summary>
+            Converts a number to a Roman numeral.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Numbering elements.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Get the numbering string of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingList(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering list of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingInstance(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering instance of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNum(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Get the abstract numbering of the numbering instance
+            </summary>
+            <param name="numInstance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the numbering instance id of the paragraph.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer numbering instance id or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the abstract numbering definition id of the paragraph.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer abstract numbering id or null</returns>
         </member>
@@ -856,27 +1110,24 @@
             <param name="numId">Numbering instance id</param>
             <returns>Integer abstract numbering id or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the numbering level of the paragraph.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer numbering level (from 0 to 9) or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the numbering properties of the paragraph or of the paragraph style.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
             <param name="paragraph">Source paragraph element</param>
             <returns>Numbering properties or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
             <summary>
             Get the numbering level of the numbering properties.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the numbering properties element belongs.</param>
             <param name="numPr">Numbering properties element</param>
             <returns>Integer numbering level (from 0 to 8) or null</returns>
         </member>
@@ -936,9 +1187,16 @@
             <param name="xmlElement">Checked source element</param>
             <returns>Returned document part or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetParentDocument(DocumentFormat.OpenXml.OpenXmlElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetWordprocessingDocument(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
-            Recursively get the parent document of the OpenXmlElement.
+            Get the <c>WordprocessingDocument</c> of the OpenXmlElement. 
+            </summary>
+            <param name="xmlElement">Checked source element</param>
+            <returns>Returned document part or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRootElement(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Recursively get the root element of the OpenXmlElement.
             </summary>
             <param name="xmlElement">Checked source element</param>
             <returns>Returned document part or null</returns>
@@ -1495,6 +1753,13 @@
             Tools for working with OpenXml Wordprocessing Paragraph element.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetParagraphId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the integer identifier of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.FindParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
             <summary>
             Find a paragraph in the document by the paragraph id.
@@ -1511,11 +1776,12 @@
             <param name="paraId">id of the paragraph</param>
             <returns>found paragraph or nul</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
             Get the text of the paragraph run elements.
             </summary>
             <param name="paragraph">source paragraph</param>
+            <param name="options"></param>
             <returns>joined text</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.StyleId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
@@ -1525,12 +1791,18 @@
             <param name="paragraph">source paragraph</param>
             <returns>style id or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsHeading(System.String,System.String)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetStyle(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
-            Check if the paragraph is a heading using the style name.
+            Get the style of the paragraph.
             </summary>
-            <param name="styleName">style name to check</param>
-            <param name="headingName">heading name string (preceding a number)</param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsHeading(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Check if the paragraph is a heading.
+            </summary>
+            <param name="paragraph">source paragraph</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.OutlineLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
@@ -1599,6 +1871,13 @@
             Gets all tables in the range.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetText(Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Get the text content of the run.
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.RsidsTools">
             <summary>
             Tools for working with <c>Rsids</c> of a document.
@@ -1649,11 +1928,12 @@
             Tools for working with OpenXml Wordprocessing Run element.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.RunTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Run)">
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
-            Get the joined text of the run.
+            Get the text content of the run.
             </summary>
             <param name="run"></param>
+            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SectionPropertiesTools">
@@ -5538,7 +5818,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.WdStyleType)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.WStyleType)">
             <summary>
             Converts a style type to a style value.
             </summary>
@@ -5610,11 +5890,28 @@
             Tools for working with tables in OpenXml documents.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
-            Gets the text of all paragraph in the table.
+            Gets the text of all rows in the table.
+            </summary>
+            <param name="table"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableRow,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Gets the text of all cells in the table row.
+            </summary>
+            <param name="row"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Gets the text of all paragraph in the table cell.
             </summary>
             <param name="cell"></param>
+            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.Style(DocumentFormat.OpenXml.Wordprocessing.Table)">
@@ -5622,6 +5919,55 @@
             Gets the style name of the table.
             </summary>
             <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TestTools">
+            <summary>
+            Methods to help with testing.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.CreateNewPropertyValue(System.String,System.Type)">
+            <summary>
+            Creates a new property value.
+            </summary>
+            <param name="propertyName"></param>
+            <param name="propertyType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.AsString(System.Object,System.Int32,System.Int32)">
+            <summary>
+            Converts the object to a string.
+            </summary>
+            <param name="value">value to convert</param>
+            <param name="indent">indent size (spaces = indent*2) to put before</param>
+            <param name="depthLimit">limit of internal elements levels (in composite elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.AsString(DocumentFormat.OpenXml.OpenXmlLeafElement,System.Int32,System.Int32)">
+            <summary>
+            Converts the <c>OpenXmlLeafElement</c> to a string.
+            </summary>
+            <param name="element"></param>
+            <param name="indent"></param>
+            <param name="depthLimit">limit of internal elements levels (in composite elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.AsString(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Int32,System.Int32)">
+            <summary>
+            Converts the <c>OpenXmlCompositeElement</c> to a string.
+            </summary>
+            <param name="element"></param>
+            <param name="indent"></param>
+            <param name="depthLimit">limit of internal elements levels (in composite elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.AsString(DocumentFormat.OpenXml.Wordprocessing.Rsids,System.Int32,System.Int32)">
+            <summary>
+            Converts the <c>Rsids</c> to a string.
+            </summary>
+            <param name="element"></param>
+            <param name="indent"></param>
+            <param name="depthLimit">limit of internal elements levels (in composite elements</param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.Twips">
@@ -5912,28 +6258,28 @@
             <param name="format"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.WdBuiltinStyle">
+        <member name="T:Qhta.OpenXmlTools.WBuiltinStyle">
             <summary>Specifies builtin styles as defined in OpenXml</summary>
         </member>
-        <member name="T:Qhta.OpenXmlTools.WdStyleType">
+        <member name="T:Qhta.OpenXmlTools.WStyleType">
             <summary>Specifies a built-in Microsoft Word style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdStyleType.Paragraph">
+        <member name="F:Qhta.OpenXmlTools.WStyleType.Paragraph">
             <summary>Paragraph style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdStyleType.Character">
+        <member name="F:Qhta.OpenXmlTools.WStyleType.Character">
             <summary>Body character style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdStyleType.Table">
+        <member name="F:Qhta.OpenXmlTools.WStyleType.Table">
             <summary>Table style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdStyleType.Numbering">
+        <member name="F:Qhta.OpenXmlTools.WStyleType.Numbering">
             <summary>List style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdStyleType.ParagraphOnly">
+        <member name="F:Qhta.OpenXmlTools.WStyleType.ParagraphOnly">
             <summary>Reserved for internal use.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WdStyleType.Linked">
+        <member name="F:Qhta.OpenXmlTools.WStyleType.Linked">
             <summary>Reserved for internal use.</summary>
         </member>
     </members>

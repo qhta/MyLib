@@ -14,3 +14,4 @@ D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\refint\Qhta.TextUtils.dll
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.xml
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.pdb
 D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\ref\Qhta.TextUtils.dll
+D:\VS\Projects\MyLib\Qhta.TextUtils\obj\Debug\net6.0\Qhta.TextUtils.sourcelink.json

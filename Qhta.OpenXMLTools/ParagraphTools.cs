@@ -49,7 +49,7 @@ public static class ParagraphTools
   /// <param name="paragraph">source paragraph</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  public static string GetText(this Paragraph paragraph, GetTextOptions? options)
+  public static string GetText(this Paragraph paragraph, GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
     var result = String.Join("", paragraph.Elements<Run>().Select(item => item.GetText(options)));
@@ -96,7 +96,7 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="paragraph">source paragraph</param>
   /// <returns></returns>
-  private static bool IsHeading(this Paragraph paragraph)
+  public static bool IsHeading(this Paragraph paragraph)
   {
     var style = paragraph.GetStyle();
     return style?.IsHeading() ?? false;

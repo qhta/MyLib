@@ -101,26 +101,30 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   public string GetText(GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
-    StringBuilder sb = new();
+    List<string> sl = new();
     var element = Start;
     while (element != null)
     {
       if (element is Paragraph paragraph)
       {
-        sb.Append(options.ParagraphStartTag);
-        sb.Append(paragraph.GetText(options));
-        sb.Append(options.ParagraphEndTag);
+        sl.Add(options.ParagraphStartTag);
+        sl.Add(paragraph.GetText(options));
+        sl.Add(options.ParagraphEndTag);
       }
       if (element is Table table)
       {
-        sb.Append(options.TableStartTag);
-        sb.Append(table.GetText(options));
-        sb.Append(options.TableEndTag);
+        if (options.TableInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine)==false)
+          sl.Add(options.NewLine);
+        sl.Add(options.TableStartTag);
+        sl.Add(table.GetText(options));
+        if (options.TableInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) == false)
+          sl.Add(options.NewLine);
+        sl.Add(options.TableEndTag);
       }
       if (element == End)
         break;
       element = element.NextSibling();
     }
-    return sb.ToString();
+    return string.Join("",sl);
   }
 }

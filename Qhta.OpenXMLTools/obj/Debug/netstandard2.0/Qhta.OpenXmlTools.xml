@@ -488,6 +488,11 @@
             Default options.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.NewLine">
+            <summary>
+            Tag to mark a new line.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.GetTextOptions.TabTag">
             <summary>
             Tag to mark a tab character.
@@ -588,9 +593,54 @@
             Tag to end a table cell.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableInSeparateLine">
+            <summary>
+            Put a table in a separate line
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableRowInSeparateLine">
+            <summary>
+            Put a table row in a separate line
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.TableCellInSeparateLine">
+            <summary>
+            Put a table cell in a separate line
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IndentTableContent">
+            <summary>
+            Should table content be indented.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.Indent">
+            <summary>
+            Indent unit string.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IndentLevel">
+            <summary>
+            The number of indent unit string to insert.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.GetTextOptions.IncludeParagraphNumbering">
             <summary>
             Include paragraph numbering string at the beginning of paragraph text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.IndentNumberingLists">
+            <summary>
+            Should numbered list be indented on each level.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.NumberingStartTag">
+            <summary>
+            Tag to start a paragraph numbering.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GetTextOptions.NumberingEndTag">
+            <summary>
+            Tag to end a paragraph numbering.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.GetTextOptions.ParagraphStartTag">
@@ -995,6 +1045,14 @@
             <param name="paragraph"></param>
             <param name="options"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingList.ToRoman(System.Int32)">
+            <summary>
+            Converts a number to a Roman numeral.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
         </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>

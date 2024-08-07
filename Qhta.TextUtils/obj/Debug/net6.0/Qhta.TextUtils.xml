@@ -610,6 +610,14 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.TextUtils.StringUtils.Duplicate(System.String,System.Int32)">
+            <summary>
+            Creates a string by repeating the original string a specified number of times.
+            </summary>
+            <param name="str"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.TextUtils.CharEquivalence">
             <summary>
             Equivalence of Unicode chars.

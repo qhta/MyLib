@@ -1,6 +1,6 @@
-﻿using System;
-using System.Text;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+
+using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -28,17 +28,31 @@ public static class TableTools
   public static string GetText(this Table table, GetTextOptions? options)
   {
     options ??= GetTextOptions.Default;
-    StringBuilder sb = new();
+    List<string> sl = new();
+    var indentLevel = options.IndentLevel;
+    string indentStr = "";
+    if (options.IndentTableContent && options.TableRowInSeparateLine)
+    {
+      options.IndentLevel++;
+      indentStr = options.Indent.Duplicate(options.IndentLevel) ?? "";
+    }
     foreach (var element in table.Elements())
     {
       if (element is TableRow row)
       {
-        sb.Append(options.TableRowStartTag);
-        sb.Append(row.GetText(options));
-        sb.Append(options.TableRowEndTag);
+        if (options.TableRowInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+          sl.Add(options.NewLine);
+        sl.Add(indentStr);
+        sl.Add(options.TableRowStartTag);
+        sl.Add(row.GetText(options));
+        if (options.TableRowInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+          sl.Add(options.NewLine);
+        sl.Add(indentStr);
+        sl.Add(options.TableRowEndTag);
       }
     }
-    return sb.ToString();
+    options.IndentLevel = indentLevel;
+    return string.Join("", sl);
   }
 
   /// <summary>
@@ -50,17 +64,31 @@ public static class TableTools
   public static string GetText(this TableRow row, GetTextOptions? options)
   {
     options ??= GetTextOptions.Default;
-    StringBuilder sb = new();
+    List<string> sl = new();
+    var indentLevel = options.IndentLevel;
+    string indentStr = "";
+    if (options.IndentTableContent && options.TableRowInSeparateLine)
+    {
+      options.IndentLevel++;
+      indentStr = options.Indent.Duplicate(options.IndentLevel) ?? "";
+    }
     foreach (var element in row.Elements())
     {
       if (element is TableCell cell)
       {
-        sb.Append(options.TableCellStartTag);
-        sb.Append(cell.GetText(options));
-        sb.Append(options.TableCellEndTag);
+        if (options.TableCellInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+          sl.Add(options.NewLine);
+        sl.Add(indentStr);
+        sl.Add(options.TableCellStartTag);
+        sl.Add(cell.GetText(options));
+        if (options.TableCellInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true) 
+          sl.Add(options.NewLine);
+        sl.Add(indentStr); 
+        sl.Add(options.TableCellEndTag);
       }
     }
-    return sb.ToString();
+    options.IndentLevel = indentLevel;
+    return string.Join("", sl);
   }
 
   /// <summary>
@@ -72,17 +100,28 @@ public static class TableTools
   public static string GetText(this TableCell cell, GetTextOptions? options)
   {
     options ??= GetTextOptions.Default;
-    StringBuilder sb = new ();
+    List<string> sl = new();
+    var indentLevel = options.IndentLevel;
+    string indentStr = "";
+    if (options.IndentTableContent && options.TableRowInSeparateLine)
+    {
+      options.IndentLevel++;
+      indentStr = options.Indent.Duplicate(options.IndentLevel) ?? "";
+    }
     foreach (var element in cell.Elements())
     {
       if (element is Paragraph paragraph)
       {
-        sb.Append (options.ParagraphStartTag);
-        sb.Append(paragraph.GetText(options));
-        sb.Append(options.ParagraphEndTag);
+        sl.Add(indentStr); 
+        sl.Add(options.ParagraphStartTag);
+        sl.Add(indentStr); 
+        sl.Add(paragraph.GetText(options));
+        sl.Add(indentStr);
+        sl.Add(options.ParagraphEndTag);
       }
     }
-    return sb.ToString();
+    options.IndentLevel = indentLevel;
+    return string.Join("", sl);
   }
 
   /// <summary>

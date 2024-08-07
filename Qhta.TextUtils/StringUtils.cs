@@ -1161,4 +1161,20 @@ public static class StringUtils
         return new string(c, 1);
     }
   }
+
+  /// <summary>
+  /// Creates a string by repeating the original string a specified number of times.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="count"></param>
+  /// <returns></returns>
+  public static string? Duplicate(this string? str, int count)
+  {
+    if (str == null)
+      return null;
+    var sb = new StringBuilder(str.Length * count);
+    for (int i = 0; i < count; i++)
+      sb.Append(str);
+    return sb.ToString();
+  }
 }

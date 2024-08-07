@@ -11,6 +11,11 @@ public record GetTextOptions
   public static GetTextOptions Default { get; set; } = new GetTextOptions();
 
   /// <summary>
+  /// Tag to mark a new line.
+  /// </summary>
+  public string NewLine { get; set; } = "\r\n";
+
+  /// <summary>
   /// Tag to mark a tab character.
   /// </summary>
   public string TabTag { get; set; } = "\t";
@@ -89,7 +94,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to end a table.
   /// </summary>
-  public string TableEndTag { get; set; } = "</table>\r\n";
+  public string TableEndTag { get; set; } = "</table>";
 
   /// <summary>
   /// Tag to start a table row.
@@ -99,7 +104,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to end a table row.
   /// </summary>
-  public string TableRowEndTag { get; set; } = "</tr>\r\n";
+  public string TableRowEndTag { get; set; } = "</tr>";
 
   /// <summary>
   /// Tag to start a table cell.
@@ -109,12 +114,57 @@ public record GetTextOptions
   /// <summary>
   /// Tag to end a table cell.
   /// </summary>
-  public string TableCellEndTag { get; set; } = "</td>\r\n";
+  public string TableCellEndTag { get; set; } = "</td>";
+
+  /// <summary>
+  /// Put a table in a separate line
+  /// </summary>
+  public bool TableInSeparateLine { get; set; } = true;
+
+  /// <summary>
+  /// Put a table row in a separate line
+  /// </summary>
+  public bool TableRowInSeparateLine { get; set; } = true;
+
+  /// <summary>
+  /// Put a table cell in a separate line
+  /// </summary>
+  public bool TableCellInSeparateLine { get; set; } = true;
+  
+  /// <summary>
+  /// Should table content be indented.
+  /// </summary>
+  public bool IndentTableContent { get; set; } = true;
+
+  /// <summary>
+  /// Indent unit string.
+  /// </summary>
+  public string Indent { get; set; } = "  ";
+
+  /// <summary>
+  /// The number of indent unit string to insert.
+  /// </summary>
+  public int IndentLevel { get; set; } = 0;
 
   /// <summary>
   /// Include paragraph numbering string at the beginning of paragraph text.
   /// </summary>
   public bool IncludeParagraphNumbering { get; set; } = true;
+
+  /// <summary>
+  /// Should numbered list be indented on each level.
+  /// </summary>
+  public bool IndentNumberingLists { get; set; } = true;
+
+  /// <summary>
+  /// Tag to start a paragraph numbering.
+  /// </summary>
+  public string NumberingStartTag { get; set; } = "";
+
+  /// <summary>
+  /// Tag to end a paragraph numbering.
+  /// </summary>
+  public string NumberingEndTag { get; set; } = "\t";
 
   /// <summary>
   /// Tag to start a paragraph.

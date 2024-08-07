@@ -27,3 +27,4 @@ D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\obj\Debug\net8.0\Qhta.OpenXmlToolsTes
 D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\CompatibilitySettingsTest12.docx
 D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\CompatibilitySettingsTest15.docx
 D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\BuiltInStyleProbes.docx
+D:\VS\Projects\MyLib\Qhta.OpenXmlToolsTest\bin\Debug\net8.0\Introduction.docx
