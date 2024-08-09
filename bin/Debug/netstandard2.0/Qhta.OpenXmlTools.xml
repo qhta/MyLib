@@ -407,6 +407,26 @@
             </summary>
             <param name="endnotes"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.AppType">
+            <summary>
+            Filter for extended file properties by their application type.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.All">
+            <summary>
+            Applies to all applications.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.Word">
+            <summary>
+            Applies to Word documents.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.Presentation">
+            <summary>
+            Applies to presentations document.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ExtendedFilePropertiesTools">
             <summary>
             Tools for working with extended file properties of a document.
@@ -449,6 +469,23 @@
             </summary>
             <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.IsVolatile(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+            <summary>
+            Check if the property is volatile.
+            </summary>
+            <param name="extendedFileProperties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.AppliesToApplication(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String,Qhta.OpenXmlTools.AppType)">
+            <summary>
+            Check if the property is volatile.
+            </summary>
+            <param name="extendedFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="appType"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetValue(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
@@ -5968,6 +6005,14 @@
             <param name="element"></param>
             <param name="indent"></param>
             <param name="depthLimit">limit of internal elements levels (in composite elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.FromString(System.String,System.Type)">
+            <summary>
+            Converts the object form a string.
+            </summary>
+            <param name="value">value to convert</param>
+            <param name="targetType"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.Twips">

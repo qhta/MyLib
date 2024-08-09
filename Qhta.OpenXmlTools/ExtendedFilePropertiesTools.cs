@@ -3,6 +3,25 @@
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
+/// Filter for extended file properties by their application type.
+/// </summary>
+public enum AppType
+{
+  /// <summary>
+  /// Applies to all applications.
+  /// </summary>
+  All = 3,
+  /// <summary>
+  /// Applies to Word documents.
+  /// </summary>
+  Word = 1,
+  /// <summary>
+  /// Applies to presentations document.
+  /// </summary>
+  Presentation = 2,
+}
+
+/// <summary>
 /// Tools for working with extended file properties of a document.
 /// </summary>
 public static class ExtendedFilePropertiesTools
@@ -26,11 +45,7 @@ public static class ExtendedFilePropertiesTools
   /// <returns></returns>
   public static DXEP.Properties GetExtendedFileProperties(this DXPack.WordprocessingDocument wordDoc)
   {
-    var part = wordDoc.ExtendedFilePropertiesPart;
-    if (part == null)
-    {
-      part = wordDoc.AddExtendedFilePropertiesPart();
-    }
+    var part = wordDoc.ExtendedFilePropertiesPart ?? wordDoc.AddExtendedFilePropertiesPart();
     var properties = part.Properties;
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
     if (properties == null)
@@ -75,8 +90,35 @@ public static class ExtendedFilePropertiesTools
   /// <returns></returns>
   public static Type GetType(this DXEP.Properties extendedFileProperties, string propertyName)
   {
-    if (PropTypes.TryGetValue(propertyName, out var type))
-      return type;
+    if (PropTypes.TryGetValue(propertyName, out var info))
+      return info.type;
+    throw new ArgumentException($"Property {propertyName} not found");
+  }
+
+  /// <summary>
+  /// Check if the property is volatile.
+  /// </summary>
+  /// <param name="extendedFileProperties"></param>
+  /// <param name="propertyName"></param>
+  /// <returns></returns>
+  public static bool IsVolatile(this DXEP.Properties extendedFileProperties, string propertyName)
+  {
+    if (PropTypes.TryGetValue(propertyName, out var info))
+      return info.isVolatile;
+    throw new ArgumentException($"Property {propertyName} not found");
+  }
+
+  /// <summary>
+  /// Check if the property is volatile.
+  /// </summary>
+  /// <param name="extendedFileProperties"></param>
+  /// <param name="propertyName"></param>
+  /// <param name="appType"></param>
+  /// <returns></returns>
+  public static bool AppliesToApplication(this DXEP.Properties extendedFileProperties, string propertyName, AppType appType)
+  {
+    if (PropTypes.TryGetValue(propertyName, out var info))
+      return (info.appType & appType)!=0;
     throw new ArgumentException($"Property {propertyName} not found");
   }
 
@@ -243,35 +285,39 @@ public static class ExtendedFilePropertiesTools
     }
   }
 
-  private static readonly Dictionary<string, Type> PropTypes = new()
+  private static readonly Dictionary<string, (Type type, bool isVolatile, AppType appType)> PropTypes = new()
   {
-    {"Application", typeof(String) },
-    {"ApplicationVersion", typeof(Decimal) },
-    {"Characters", typeof(int) },
-    {"CharactersWithSpaces", typeof(int) },
-    {"Company", typeof(String) },
-    {"DigitalSignature", typeof(DXVT.VTBlob) },
-    {"DocumentSecurity", typeof(int) },
-    {"HeadingPairs", typeof(DXVT.VTVector) },
-    {"HiddenSlides", typeof(int) },
-    {"HyperlinkBase", typeof(String) },
-    {"HyperlinkList", typeof(DXVT.VTVector) },
-    {"HyperlinksChanged", typeof(bool) },
-    {"Lines", typeof(int) },
-    {"LinksUpToDate", typeof(bool) },
-    {"Manager", typeof(String) },
-    {"MultimediaClips", typeof(int) },
-    {"Notes", typeof(int) },
-    {"Pages", typeof(int) },
-    {"Paragraphs", typeof(int) },
-    {"PresentationFormat", typeof(String) },
-    {"ScaleCrop", typeof(bool) },
-    {"SharedDocument", typeof(bool) },
-    {"Slides", typeof(int) },
-    {"Template", typeof(String) },
-    {"TitlesOfParts", typeof(DXVT.VTVector) },
-    {"TotalTime", typeof(int) },
-    {"Words", typeof(int) },
+    {"Application", (typeof(String), false, AppType.All) },
+    {"ApplicationVersion", (typeof(Decimal), false, AppType.All) },
+    {"Company", (typeof(String), false, AppType.All) },
+    {"Manager", (typeof(String), false, AppType.All) },
+    {"SharedDocument", (typeof(bool), false, AppType.All) },
+    {"DigitalSignature", (typeof(DXVT.VTBlob), false, AppType.All) },
+    {"DocumentSecurity", (typeof(int), false, AppType.All) },
+
+    {"HyperlinkBase", (typeof(String), false, AppType.All) },
+    {"HyperlinkList", (typeof(DXVT.VTVector), false, AppType.All) },
+    {"HyperlinksChanged", (typeof(bool), false, AppType.All) },
+    {"LinksUpToDate", (typeof(bool), false, AppType.All) },
+
+    {"ScaleCrop", (typeof(bool), false, AppType.All) },
+    {"Template", (typeof(String), false, AppType.All) },
+    {"HeadingPairs", (typeof(DXVT.VTVector), false, AppType.All) },
+    {"TitlesOfParts", (typeof(DXVT.VTVector), false, AppType.All) },
+    {"PresentationFormat", (typeof(String), false, AppType.Presentation) },
+
+    {"TotalTime", (typeof(int), true, AppType.All) },
+    {"Words", (typeof(int), true, AppType.All) },
+    {"Pages", (typeof(int), true, AppType.Word) },
+    {"Paragraphs", (typeof(int), true, AppType.Word) },
+    {"Lines", (typeof(int), true, AppType.All) },
+    {"Characters", (typeof(int), true, AppType.All) },
+    {"CharactersWithSpaces", (typeof(int), true, AppType.All) },
+    {"Slides", (typeof(int), true, AppType.Presentation) },
+    {"HiddenSlides", (typeof(int), true, AppType.Presentation) },
+    {"Notes", (typeof(int), true, AppType.Presentation) },
+    {"MultimediaClips", (typeof(int), true, AppType.All) },
+
   };
 
 }

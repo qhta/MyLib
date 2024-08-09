@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DocumentFormat.OpenXml.Wordprocessing;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -48,8 +50,8 @@ public static class TestTools
   {
     if (value is Twips twips)
       return twips.Value.ToString();
-    if (value is HexInt)
-      return ((HexInt)value).Value.ToString("X8");
+    if (value is HexInt hexInt)
+      return hexInt.Value.ToString("X8");
     if (value is DXW.Rsids rsids)
       return AsString(rsids, indent, depthLimit);
     if (value is DX.IEnumValue enumValue)
@@ -65,7 +67,13 @@ public static class TestTools
     if (value is null)
       return string.Empty;
     if (value is string str)
-      return "\"" + str + "\"";
+      return str;
+    if (value is DateTime dateTime)
+      return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+    if (IntegerTypes.Contains(value.GetType()))
+      return value.ToString();
+    if (DecimalTypes.Contains(value.GetType()))
+      return Convert.ToDecimal(value).ToString("F", CultureInfo.InvariantCulture);
     var properties = value.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
     if (properties.Length > 0)
     {
@@ -78,14 +86,15 @@ public static class TestTools
         var propValue = prop.GetValue(value);
         if (propValue != null)
         {
-          var propValStr = propValue.AsString(indent + 1, depthLimit-1);
+          var propValStr = propValue.AsString(indent + 1, depthLimit - 1);
           if (propValStr.Contains("\n"))
             propValuesList.Add($"{indentStr}{prop.Name}:\r\n{propValStr}");
           else
             propValuesList.Add($"{indentStr}{prop.Name}: {propValStr}");
         }
       }
-      return $"{value.GetType().Name}\r\n{{\r\n{string.Join("\r\n", propValuesList)}\r\n{new string(' ', (indent-1) * 2)}}}";
+      var indentStr1 = indent > 1 ? new string(' ', (indent - 1) * 2) : string.Empty;
+      return $"{value.GetType().Name}\r\n{{\r\n{string.Join("\r\n", propValuesList)}\r\n{indentStr1}}}";
     }
     return value?.ToString() ?? string.Empty;
   }
@@ -138,7 +147,7 @@ public static class TestTools
       {
         var cl = new List<string>();
         foreach (var child in element.Elements())
-          cl.Add(child.AsString(indent + 1, depthLimit-1));
+          cl.Add(child.AsString(indent + 1, depthLimit - 1));
         return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
       }
       return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} />";
@@ -149,7 +158,7 @@ public static class TestTools
         return $"{indentStr}<{element.Prefix}:{element.LocalName} >...";
       var cl = new List<string>();
       foreach (var child in element.Elements())
-        cl.Add(child.AsString(indent + 1, depthLimit-1));
+        cl.Add(child.AsString(indent + 1, depthLimit - 1));
       return $"{indentStr}<{element.Prefix}:{element.LocalName}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
     }
     return $"{indentStr}<{element.Prefix}:{element.LocalName} />";
@@ -171,19 +180,104 @@ public static class TestTools
     return "{" + str + "}";
   }
 
-  ///// <summary>
-  ///// Converts the <c>Run</c> to a string.
-  ///// </summary>
-  ///// <param name="element"></param>
-  ///// <param name="indent"></param>
-  ///// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
-  ///// <returns></returns>
-  //public static string AsString(this DXW.Run element, int indent = 0, int depthLimit = int.MaxValue)
-  //{
-  //  var items = element.ToArray();
-  //  var str = string.Join(", ", items);
-  //  if (items.Length < element.Count())
-  //    str += ", ...";
-  //  return "{" + str + "}";
-  //}
+  /// <summary>
+  /// Converts the object form a string.
+  /// </summary>
+  /// <param name="value">value to convert</param>
+  /// <param name="targetType"></param>
+  /// <returns></returns>
+  public static object? FromString(this string? value, Type targetType)
+  {
+    if (value == null)
+      return null;
+    value = value.Trim();
+    if (targetType == typeof(Twips))
+      return new Twips(value);
+    if (targetType == typeof(HexInt))
+      return new HexInt(value);
+
+
+    if (targetType == typeof(DXW.Rsids))
+    {
+      var rsids = new DXW.Rsids();
+      value = value.Trim('{', '}').Trim();
+      var items = value.Split([','], StringSplitOptions.RemoveEmptyEntries);
+      for (int i = 0; i < items.Length; i++)
+      {
+        string item = items[i].Trim();
+        if (i == 0)
+          rsids.RsidRoot = new DXW.RsidRoot { Val = new DX.HexBinaryValue(item) };
+        else
+          rsids.Append(new DXW.Rsid { Val = new DX.HexBinaryValue(item) });
+      };
+    }
+    if (targetType.ImplementsInterfaces(typeof(DX.IEnumValue)))
+    {
+      Type genericTypeDefinition = typeof(DX.IEnumValueFactory<>);
+
+      Type[] typeArguments = { targetType };
+      Type constructedType = genericTypeDefinition.MakeGenericType(typeArguments);
+      var createMethod = constructedType.GetMethod("Create");
+      var enumValue = createMethod!.Invoke(null, [value]);
+      return enumValue;
+    }
+    if (targetType.ImplementsInterfaces(typeof(DX.OpenXmlLeafElement)))
+    {
+      var leafElement = (DX.OpenXmlLeafElement)Activator.CreateInstance(targetType);
+      var valProperty = targetType.GetProperty("Val");
+      if (valProperty != null)
+        valProperty.SetValue(leafElement, value.FromString(valProperty.PropertyType));
+    }
+    if (targetType.ImplementsInterfaces(typeof(DX.OpenXmlCompositeElement)))
+      throw new NotSupportedException($"{targetType} not supported in FromString");
+    if (targetType == typeof(string[]))
+    {
+      value = value.Trim('{', '}').Trim();
+      var items = value.Split([','], StringSplitOptions.RemoveEmptyEntries);
+      var strArray = new string[items.Length];
+      for (int i = 0; i < items.Length; i++)
+      {
+        string item = items[i].Trim();
+        strArray[i] = item;
+      }
+      return strArray;
+    }
+    if (targetType == typeof(object[]))
+    {
+      value = value.Trim('{', '}').Trim();
+      var items = value.Split([','], StringSplitOptions.RemoveEmptyEntries);
+      var objArray = new object[items.Length];
+      for (int i = 0; i < items.Length; i++)
+      {
+        string item = items[i].Trim();
+        objArray[i] = item;
+      }
+      return objArray;
+    }
+    if (targetType == typeof(string))
+      return value;
+    if (targetType == typeof(DateTime))
+      return DateTime.Parse(value);
+    if (IntegerTypes.Contains(targetType))
+      return Convert.ChangeType(value, targetType);
+    if (DecimalTypes.Contains(targetType))
+    {
+      var decimalValue = Decimal.Parse(value, CultureInfo.InvariantCulture);
+      return Convert.ChangeType(decimalValue, targetType);
+    }
+    return value;
+
+  }
+
+  private static readonly List<Type> IntegerTypes =
+  [
+    typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong)
+  ];
+
+  private static readonly List<Type> DecimalTypes =
+  [
+    typeof(float), typeof(double), typeof(decimal)
+  ];
+
+  private static bool ImplementsInterfaces(this Type type, Type interfaceType) => Array.Exists(type.GetInterfaces(), t => t == interfaceType);
 }
