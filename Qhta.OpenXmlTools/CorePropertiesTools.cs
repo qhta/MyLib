@@ -187,22 +187,22 @@ public static class CorePropertiesTools
 
   private static readonly Dictionary<string, Type> PropTypes = new()
   {
+    {"Title", typeof(String) },
+    {"Description", typeof(String) },
+    {"Creator", typeof(String) },
+    {"Created", typeof(DateTime) },
+    {"LastModifiedBy", typeof(String) },
+    {"Modified", typeof(DateTime) },
+    {"LastPrinted", typeof(DateTime) },
+    {"Subject", typeof(String) },
     {"Category", typeof(String) },
     {"ContentStatus", typeof(String) },
     {"ContentType", typeof(String) },
-    {"Created", typeof(DateTime) },
-    {"Creator", typeof(String) },
-    {"Description", typeof(String) },
-    {"Identifier", typeof(String) },
     {"Keywords", typeof(String) },
     {"Language", typeof(String) },
-    {"LastModifiedBy", typeof(String) },
-    {"LastPrinted", typeof(DateTime) },
-    {"Modified", typeof(DateTime) },
-    {"Revision", typeof(int) },
-    {"Subject", typeof(String) },
-    {"Title", typeof(String) },
+    {"Identifier", typeof(String) },
     {"Version", typeof(String) },
+    {"Revision", typeof(int) },
   };
 
 }
