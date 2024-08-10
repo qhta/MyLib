@@ -254,10 +254,8 @@ public static class VTVariantTools
   /// <param name="array"></param>
   /// <returns></returns>
   /// <exception cref="InvalidDataException"></exception>
-  public static DXVT.VTArray? CreateVTArray(this Array? array)
+  public static DXVT.VTArray CreateVTArray(this Array array)
   {
-    if (array == null)
-      return null;
     // Get the type of the array
     Type arrayType = array.GetType();
 
@@ -596,7 +594,7 @@ public static class VTVariantTools
   /// <returns>variant with the specified value</returns>
   /// <exception cref="InvalidDataException">When the value cannot be converter to variant type</exception>
 
-  public static DX.OpenXmlElement? CreateVariant(Type variantType, object? value, string? format = null)
+  public static DX.OpenXmlElement CreateVariant(Type variantType, object? value, string? format = null)
   {
     switch (variantType.Name)
     {
@@ -668,7 +666,7 @@ public static class VTVariantTools
       case "VTOStorage":
         return new DXVT.VTOStorage(value.ToString());
       case "VTArray":
-        return CreateVTArray(value as Array);
+        return CreateVTArray((Array)value);
       case "VTVector":
         var vector = new DXVT.VTVector
         {

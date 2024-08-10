@@ -135,6 +135,8 @@ public static class TestTools
   /// <returns></returns>
   public static string AsString(this DX.OpenXmlCompositeElement element, int indent = 0, int depthLimit = int.MaxValue)
   {
+    if (element is DXVT.VTVector vector && depthLimit == 0)
+      return String.Join(", ", vector.ChildElements.Select(item => item.AsString()));
     var indentStr = new string(' ', indent * 2);
     if (element.HasAttributes)
     {

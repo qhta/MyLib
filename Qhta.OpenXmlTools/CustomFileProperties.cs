@@ -120,11 +120,58 @@ public static class CustomFileProperties
       var element = VTVariantTools.CreateVariant(value);
       var pid = 2;
       if (customFileProperties.Any())
-        pid = (customFileProperties.Elements<DXCP.CustomDocumentProperty>().Max(item => item.PropertyId)?? 1) + 1;
+        pid = (customFileProperties.Elements<DXCP.CustomDocumentProperty>().Max(item => item.PropertyId) ?? 1) + 1;
       property = new DXCP.CustomDocumentProperty(element) { FormatId = "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}", PropertyId = pid, Name = propertyName };
       customFileProperties.Append(property);
     }
   }
 
+  /// <summary>
+  /// Add the new custom file property.
+  /// </summary>
+  /// <param name="customFileProperties"></param>
+  /// <param name="propertyName"></param>
+  /// <param name="propertyType"></param>
+  /// <param name="value"></param>
+  /// <returns>true if the addition was successful, false if the property with the same name already exists</returns>
+  public static bool Add(this DXCP.Properties customFileProperties, string propertyName, Type propertyType, object? value)
+  {
+    var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
+    if (property != null)
+      throw new ArgumentException($"Property {propertyName} already exists");
 
+    var element = VTVariantTools.CreateVariant(propertyType, value);
+    var pid = 2;
+    if (customFileProperties.Any())
+      pid = (customFileProperties.Elements<DXCP.CustomDocumentProperty>().Max(item => item.PropertyId) ?? 1) + 1;
+    property = new DXCP.CustomDocumentProperty(element) { FormatId = "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}", PropertyId = pid, Name = propertyName };
+    customFileProperties.Append(property);
+    return true;
+
+  }
+
+  /// <summary>
+  /// Removes a custom file property.
+  /// </summary>
+  /// <param name="customFileProperties"></param>
+  /// <param name="propertyName"></param>
+  /// <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+  public static bool Remove(this DXCP.Properties customFileProperties, string propertyName)
+  {
+    var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
+    if (property == null)
+      throw new ArgumentException($"Property {propertyName} does not exist");
+
+    property.Remove();
+    return true;
+  }
+
+  /// <summary>
+  /// Removes all custom file properties.
+  /// </summary>
+  /// <param name="customFileProperties"></param>
+  public static void Clear(this DXCP.Properties customFileProperties)
+  {
+    customFileProperties.RemoveAllChildren();
+  }
 }

@@ -234,6 +234,30 @@
             <param name="propertyName"></param>
             <param name="value"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Add(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.Type,System.Object)">
+            <summary>
+            Add the new custom file property.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="propertyType"></param>
+            <param name="value"></param>
+            <returns>true if the addition was successful, false if the property with the same name already exists</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Remove(DocumentFormat.OpenXml.CustomProperties.Properties,System.String)">
+            <summary>
+            Removes a custom file property.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Clear(DocumentFormat.OpenXml.CustomProperties.Properties)">
+            <summary>
+            Removes all custom file properties.
+            </summary>
+            <param name="customFileProperties"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.DocumentProperties">
             <summary>
             Manages the properties of a document in a uniform way.

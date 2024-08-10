@@ -148,17 +148,17 @@ public static class ExtendedFilePropertiesTools
        case "Company":
          return extendedFileProperties.GetFirstElementStringValue<DXEP.Company>();
       case "DigitalSignature":
-         return extendedFileProperties.GetFirstElementVTBlobValue<DXEP.DigitalSignature>();
+         return extendedFileProperties.GetFirstElementVTBlobValue<DXEP.DigitalSignature>()?.ToString();
       case "DocumentSecurity":
          return extendedFileProperties.GetFirstElementStringValue<DXEP.DocumentSecurity>();
       case "HeadingPairs":
         return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HeadingPairs>();
       case "HiddenSlides":
-         return extendedFileProperties.GetFirstElementIntValue<DXEP.HiddenSlides>(); ;
+         return extendedFileProperties.GetFirstElementIntValue<DXEP.HiddenSlides>();
       case "HyperlinkBase":
         return extendedFileProperties.GetFirstElementStringValue<DXEP.HyperlinkBase>();
       case "HyperlinkList":
-        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HyperlinkList>();
+        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HyperlinkList>()?.AsString(0,0);
       case "HyperlinksChanged":
          return extendedFileProperties.GetFirstElementBoolValue<DXEP.HyperlinksChanged>();
       case "Lines":
@@ -222,7 +222,13 @@ public static class ExtendedFilePropertiesTools
         extendedFileProperties.SetFirstElementStringValue<DXEP.Company>((string?)value);
         break;
       case "DigitalSignature":
-        extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>((DXVT.VTBlob?)value);
+        if (value is string stringValue)
+        {
+          DXVT.VTBlob blob = new(stringValue);
+          extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(blob);
+        }
+        else
+          extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(null);
         break;
       case "DocumentSecurity":
         extendedFileProperties.SetFirstElementIntValue<DXEP.DocumentSecurity>((int?)value);
@@ -297,11 +303,11 @@ public static class ExtendedFilePropertiesTools
     {"Company", (typeof(String), false, AppType.All) },
     {"Manager", (typeof(String), false, AppType.All) },
     {"SharedDocument", (typeof(bool), false, AppType.All) },
-    {"DigitalSignature", (typeof(DXVT.VTBlob), false, AppType.All) },
+    {"DigitalSignature", (typeof(String), false, AppType.All) },
     {"DocumentSecurity", (typeof(int), false, AppType.All) },
 
     {"HyperlinkBase", (typeof(String), false, AppType.All) },
-    {"HyperlinkList", (typeof(DXVT.VTVector), false, AppType.All) },
+    {"HyperlinkList", (typeof(String), false, AppType.All) },
     {"HyperlinksChanged", (typeof(bool), false, AppType.All) },
     {"LinksUpToDate", (typeof(bool), false, AppType.All) },
 
