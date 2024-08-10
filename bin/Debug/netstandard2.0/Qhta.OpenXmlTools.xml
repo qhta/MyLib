@@ -412,9 +412,9 @@
             Filter for extended file properties by their application type.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.AppType.All">
+        <member name="F:Qhta.OpenXmlTools.AppType.None">
             <summary>
-            Applies to all applications.
+            Applies to no application.
             </summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.AppType.Word">
@@ -425,6 +425,11 @@
         <member name="F:Qhta.OpenXmlTools.AppType.Presentation">
             <summary>
             Applies to presentations document.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.All">
+            <summary>
+            Applies to all applications.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.ExtendedFilePropertiesTools">

@@ -5,12 +5,13 @@ namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Filter for extended file properties by their application type.
 /// </summary>
+[Flags]
 public enum AppType
 {
   /// <summary>
-  /// Applies to all applications.
+  /// Applies to no application.
   /// </summary>
-  All = 3,
+  None = 0,
   /// <summary>
   /// Applies to Word documents.
   /// </summary>
@@ -19,6 +20,10 @@ public enum AppType
   /// Applies to presentations document.
   /// </summary>
   Presentation = 2,
+  /// <summary>
+  /// Applies to all applications.
+  /// </summary>
+  All = 3,
 }
 
 /// <summary>
@@ -302,8 +307,8 @@ public static class ExtendedFilePropertiesTools
 
     {"ScaleCrop", (typeof(bool), false, AppType.All) },
     {"Template", (typeof(String), false, AppType.All) },
-    {"HeadingPairs", (typeof(DXVT.VTVector), false, AppType.All) },
-    {"TitlesOfParts", (typeof(DXVT.VTVector), false, AppType.All) },
+    {"HeadingPairs", (typeof(DXVT.VTVector), false, AppType.None) },
+    {"TitlesOfParts", (typeof(DXVT.VTVector), false, AppType.None) },
     {"PresentationFormat", (typeof(String), false, AppType.Presentation) },
 
     {"TotalTime", (typeof(int), true, AppType.All) },
