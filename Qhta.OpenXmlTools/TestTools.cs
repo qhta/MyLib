@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml.Wordprocessing;
-
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -20,6 +18,8 @@ public static class TestTools
   {
     if (propertyType.Name.StartsWith("Nullable"))
       propertyType = propertyType.GenericTypeArguments[0];
+    if (propertyName == "ApplicationVersion")
+      return "1.0";
     if (propertyType == typeof(string))
       return propertyName + "_string";
     if (propertyType == typeof(DateTime))

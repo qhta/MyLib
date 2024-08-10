@@ -135,7 +135,7 @@ public static class ExtendedFilePropertiesTools
        case "Application":
          return extendedFileProperties.GetFirstElementStringValue<DXEP.Application>();
       case "ApplicationVersion":
-        return extendedFileProperties.GetFirstElementDecimalValue<DXEP.ApplicationVersion>();
+        return extendedFileProperties.GetFirstElementStringValue<DXEP.ApplicationVersion>();
       case "Characters":
          return extendedFileProperties.GetFirstElementIntValue<DXEP.Characters>(); 
        case "CharactersWithSpaces":
@@ -205,7 +205,7 @@ public static class ExtendedFilePropertiesTools
         extendedFileProperties.SetFirstElementStringValue<DXEP.Application>((string?)value);
         break;
       case "ApplicationVersion":
-        extendedFileProperties.SetFirstElementDecimalValue<DXEP.ApplicationVersion>((decimal?)value);
+        extendedFileProperties.SetFirstElementStringValue<DXEP.ApplicationVersion>((string?)value);
         break;
       case "Characters":
         extendedFileProperties.SetFirstElementIntValue<DXEP.Characters>((int?)value);
@@ -288,7 +288,7 @@ public static class ExtendedFilePropertiesTools
   private static readonly Dictionary<string, (Type type, bool isVolatile, AppType appType)> PropTypes = new()
   {
     {"Application", (typeof(String), false, AppType.All) },
-    {"ApplicationVersion", (typeof(Decimal), false, AppType.All) },
+    {"ApplicationVersion", (typeof(String), false, AppType.All) },
     {"Company", (typeof(String), false, AppType.All) },
     {"Manager", (typeof(String), false, AppType.All) },
     {"SharedDocument", (typeof(bool), false, AppType.All) },
