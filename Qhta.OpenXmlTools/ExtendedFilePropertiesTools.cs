@@ -312,16 +312,16 @@ public static class ExtendedFilePropertiesTools
     {"PresentationFormat", (typeof(String), false, AppType.Presentation) },
 
     {"TotalTime", (typeof(int), true, AppType.All) },
-    {"Words", (typeof(int), true, AppType.All) },
     {"Pages", (typeof(int), true, AppType.Word) },
     {"Paragraphs", (typeof(int), true, AppType.Word) },
     {"Lines", (typeof(int), true, AppType.All) },
+    {"Words", (typeof(int), true, AppType.All) },
     {"Characters", (typeof(int), true, AppType.All) },
     {"CharactersWithSpaces", (typeof(int), true, AppType.All) },
     {"Slides", (typeof(int), true, AppType.Presentation) },
     {"HiddenSlides", (typeof(int), true, AppType.Presentation) },
     {"Notes", (typeof(int), true, AppType.Presentation) },
-    {"MultimediaClips", (typeof(int), true, AppType.All) },
+    {"MultimediaClips", (typeof(int), true, AppType.Presentation) },
 
   };
 
