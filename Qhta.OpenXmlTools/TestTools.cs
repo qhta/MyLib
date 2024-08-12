@@ -70,6 +70,8 @@ public static class TestTools
       return str;
     if (value is DateTime dateTime)
       return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+    if (value is Boolean vBoolean)
+      return vBoolean.ToString().ToLowerInvariant();
     if (IntegerTypes.Contains(value.GetType()))
       return value.ToString();
     if (DecimalTypes.Contains(value.GetType()))
@@ -260,6 +262,23 @@ public static class TestTools
       return value;
     if (targetType == typeof(DateTime))
       return DateTime.Parse(value);
+    if (targetType == typeof(Boolean))
+      switch (value.ToLowerInvariant())
+      {
+        case "true":
+        case "on":
+        case "yes":
+        case "1":
+          return true;
+        case "false":
+        case "off":
+        case "no":
+        case "0":
+          return false;
+
+        default:
+          throw new FormatException($"Cannot convert {value} to Boolean");
+      }
     if (IntegerTypes.Contains(targetType))
       return Convert.ChangeType(value, targetType);
     if (DecimalTypes.Contains(targetType))

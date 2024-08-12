@@ -18,6 +18,9 @@
             <typeparam name="OpenXmlElementType">Target OpenXml element type. It must be a composite element</typeparam>
             <returns>New <typeparamref name="OpenXmlElementType"/> element</returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.BuiltinStyles">
+            <summary>Specifies builtin styles as defined in OpenXml</summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.CompatibilityTools">
             <summary>
             Tools for working with compatibility settings
@@ -250,6 +253,24 @@
             </summary>
             <param name="customFileProperties"></param>
             <param name="propertyName"></param>
+            <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Rename(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.String)">
+            <summary>
+            Renames a custom file property.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="newName"></param>
+            <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.ChangeType(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.Type)">
+            <summary>
+            Changes a custom file property type.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="newType"></param>
             <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Clear(DocumentFormat.OpenXml.CustomProperties.Properties)">
@@ -5884,12 +5905,33 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.WStyleType)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.StyleTypes)">
             <summary>
             Converts a style type to a style value.
             </summary>
             <param name="type"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.StyleTypes">
+            <summary>Specifies a built-in Microsoft Word style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleTypes.Paragraph">
+            <summary>Paragraph style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleTypes.Character">
+            <summary>Body character style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleTypes.Table">
+            <summary>Table style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleTypes.Numbering">
+            <summary>List style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleTypes.ParagraphOnly">
+            <summary>Reserved for internal use.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleTypes.Linked">
+            <summary>Reserved for internal use.</summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.SubdocumentTools">
             <summary>
@@ -6108,6 +6150,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.VariantTypes">
+            <summary>
+            Enumeration of the OpenXMl variant types.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.VTVariantTools">
             <summary>
             Tools for working with variant types.
@@ -6273,7 +6320,7 @@
             <param name="data">Source byte array</param>
             <returns>VTOBlob result</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVariant(System.Type,System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVariant(Qhta.OpenXmlTools.VariantTypes,System.Object,System.String)">
             <summary>
             Create variant element from the value.
             </summary>
@@ -6282,6 +6329,16 @@
             <param name="format">optional format of the value</param>
             <returns>variant with the specified value</returns>
             <exception cref="T:System.IO.InvalidDataException">When the value cannot be converter to variant type</exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVariant(System.Type,System.Object,System.String)">
+            <summary>
+            Create variant element from the value.
+            </summary>
+            <param name="valueType"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
         </member>
         <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVariant(System.Object,System.String)">
             <summary>
@@ -6331,30 +6388,6 @@
             <param name="value"></param>
             <param name="format"></param>
             <returns></returns>
-        </member>
-        <member name="T:Qhta.OpenXmlTools.WBuiltinStyle">
-            <summary>Specifies builtin styles as defined in OpenXml</summary>
-        </member>
-        <member name="T:Qhta.OpenXmlTools.WStyleType">
-            <summary>Specifies a built-in Microsoft Word style.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Paragraph">
-            <summary>Paragraph style.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Character">
-            <summary>Body character style.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Table">
-            <summary>Table style.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Numbering">
-            <summary>List style.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.ParagraphOnly">
-            <summary>Reserved for internal use.</summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Linked">
-            <summary>Reserved for internal use.</summary>
         </member>
     </members>
 </doc>

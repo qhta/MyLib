@@ -1,7 +1,7 @@
 ﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>Specifies builtin styles as defined in OpenXml</summary>
-public enum WBuiltinStyle
+public enum BuiltinStyles
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   Normal,

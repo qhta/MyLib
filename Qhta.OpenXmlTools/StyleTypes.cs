@@ -1,7 +1,7 @@
 ﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>Specifies a built-in Microsoft Word style.</summary>
-public enum WStyleType
+public enum StyleTypes
 {
   /// <summary>Paragraph style.</summary>
   Paragraph = 1,

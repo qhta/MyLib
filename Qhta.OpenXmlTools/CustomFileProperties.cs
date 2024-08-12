@@ -69,9 +69,13 @@ public static class CustomFileProperties
   {
     var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>()
       .FirstOrDefault(item => item.Name?.Value == propertyName);
-    if (property != null)
-      return property.FirstChild?.GetType() ?? typeof(object);
-    throw new ArgumentException($"Property {propertyName} not found");
+    if (property == null)
+      throw new ArgumentException($"Property {propertyName} not found");
+    var type = property.FirstChild?.GetType();
+    if (type == null)
+      return typeof(object);
+    return VTVariantTools.VTTypeToType[type];
+
   }
 
   /// <summary>
@@ -87,7 +91,14 @@ public static class CustomFileProperties
     {
       var value = property.FirstChild;
       if (value != null)
-        return value.GetVariantValue();
+        try
+        {
+          return value.GetVariantValue();
+        }
+        catch
+        {
+          return null;
+        }
     }
     return null;
   }
@@ -134,11 +145,11 @@ public static class CustomFileProperties
   /// <param name="propertyType"></param>
   /// <param name="value"></param>
   /// <returns>true if the addition was successful, false if the property with the same name already exists</returns>
-  public static bool Add(this DXCP.Properties customFileProperties, string propertyName, Type propertyType, object? value)
+  public static bool Add(this DXCP.Properties customFileProperties, string propertyName, Type propertyType, object? value = null)
   {
     var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
     if (property != null)
-      throw new ArgumentException($"Property {propertyName} already exists");
+      return false;
 
     var element = VTVariantTools.CreateVariant(propertyType, value);
     var pid = 2;
@@ -160,9 +171,47 @@ public static class CustomFileProperties
   {
     var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
     if (property == null)
-      throw new ArgumentException($"Property {propertyName} does not exist");
+      return false;
 
     property.Remove();
+    return true;
+  }
+
+  /// <summary>
+  /// Renames a custom file property.
+  /// </summary>
+  /// <param name="customFileProperties"></param>
+  /// <param name="propertyName"></param>
+  /// <param name="newName"></param>
+  /// <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+  public static bool Rename(this DXCP.Properties customFileProperties, string propertyName, string newName)
+  {
+    var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
+    if (property == null)
+      return false;
+
+    property.Name = newName;
+    return true;
+  }
+
+
+  /// <summary>
+  /// Changes a custom file property type.
+  /// </summary>
+  /// <param name="customFileProperties"></param>
+  /// <param name="propertyName"></param>
+  /// <param name="newType"></param>
+  /// <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+  public static bool ChangeType(this DXCP.Properties customFileProperties, string propertyName, Type newType)
+  {
+    var property = customFileProperties.Elements<DXCP.CustomDocumentProperty>().FirstOrDefault(item => item.Name?.Value == propertyName);
+    if (property == null)
+      return false;
+
+    var value = property.FirstChild?.GetVariantValue();
+    var element = VTVariantTools.CreateVariant(newType, value);
+    property.FirstChild?.Remove();
+    property.AddChild(element);
     return true;
   }
 
