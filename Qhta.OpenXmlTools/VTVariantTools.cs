@@ -438,6 +438,7 @@ public static class VTVariantTools
   /// </summary>
   public static readonly Dictionary<Type, Type> VTTypeToType = new()
   {
+    { typeof(DXVT.VTNull), typeof(object)},
     { typeof(DXVT.VTBool), typeof(bool)},
     { typeof(DXVT.VTLPSTR), typeof(string)},
     { typeof(DXVT.VTLPWSTR), typeof(string)},
