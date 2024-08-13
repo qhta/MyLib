@@ -6,7 +6,7 @@ namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Tools for working with variant types.
 /// </summary>
-public static class VTVariantTools
+public static class VariantTools
 {
 
   /// <summary>
@@ -821,6 +821,54 @@ public static class VTVariantTools
     throw new InvalidDataException($"Value of type {value.GetType()} cannot be converted to VT.VariantType");
   }
 
+
+  /// <summary>
+  /// Validate string for a variant of the specified type
+  /// </summary>
+  /// <param name="valueType"></param>
+  /// <param name="value"></param>
+  /// <param name="format"></param>
+  /// <returns></returns>
+  /// <exception cref="InvalidDataException"></exception>
+  public static bool ValidateVariantString(Type valueType, string value, string? format = null)
+  {
+    switch (valueType.Name)
+    {
+      case nameof(Boolean):
+        return ((string[])["true", "false", "on", "off", "1", "0"]).Contains(value.ToLowerInvariant());
+      case nameof(String):
+        return true;
+      case nameof(Int32):
+        return Int32.TryParse(value, out _);
+      case nameof(UInt32):
+        return UInt32.TryParse(value, out _);
+      case nameof(Int64):
+        return Int64.TryParse(value, out _);
+      case nameof(UInt64):
+        return UInt64.TryParse(value, out _);
+      case nameof(SByte):
+        return SByte.TryParse(value, out _);
+      case nameof(Byte):
+        return Byte.TryParse(value, out _);
+      case nameof(Int16):
+        return Int16.TryParse(value, out _);
+      case nameof(UInt16):
+        return UInt16.TryParse(value, out _);
+      case nameof(DateTime):
+        return DateTime.TryParse(value, out _);
+      case nameof(Single):
+        return Single.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _);
+      case nameof(Double):
+        return Double.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _);
+      case nameof(Decimal):
+        return Decimal.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _);
+      case nameof(Guid):
+        return Guid.TryParse(value, out _);
+    }
+
+    throw new InvalidDataException($"Value type {valueType} not supported in VariantTools.ValidateVariantString");
+  }
+
   /// <summary>
   /// Convert integer value to string with the specified format.
   /// If the format is null, the default format is used.
@@ -889,6 +937,7 @@ public static class VTVariantTools
     var decimalValue2 = Convert.ToDecimal(value);
     return decimalValue2.ToString(format ?? "F", CultureInfo.CurrentCulture);
   }
+
   /// <summary>
   /// Convert DateTime value to string with the specified format.
   /// If the format is not specified, the <c>"yyyy-MM-ddTHH:mm:sszzz"</c> format is used.
@@ -898,6 +947,21 @@ public static class VTVariantTools
   /// <param name="format"></param>
   /// <returns></returns>
   public static string? DateTimeToString(object value, string? format)
+  {
+    if (value is DateTime dateTimeValue)
+      return dateTimeValue.ToString("yyyy-MM-ddTHH:mm:sszzz");
+    return null;
+  }
+
+  /// <summary>
+  /// Convert DateTime value to string with the specified format.
+  /// If the format is not specified, the <c>"yyyy-MM-ddTHH:mm:sszzz"</c> format is used.
+  /// if the value is not DateTime, returns null.
+  /// </summary>
+  /// <param name="value"></param>
+  /// <param name="format"></param>
+  /// <returns></returns>
+  public static string? BooleanToString(object value, string? format)
   {
     if (value is DateTime dateTimeValue)
       return dateTimeValue.ToString("yyyy-MM-ddTHH:mm:sszzz");

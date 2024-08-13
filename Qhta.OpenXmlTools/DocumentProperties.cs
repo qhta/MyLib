@@ -70,7 +70,7 @@ public class DocumentProperties
     if (ExtendedProperties.GetNames(ItemFilter.All).Contains(propName))
       return ExtendedProperties.GetType(propName);
     var vType = CustomProperties.GetType(propName);
-    return VTVariantTools.VTTypeToType.TryGetValue(vType, out var aType) ? aType : vType;
+    return VariantTools.VTTypeToType.TryGetValue(vType, out var aType) ? aType : vType;
   }
 
   /// <summary>
