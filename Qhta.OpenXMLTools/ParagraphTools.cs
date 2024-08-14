@@ -44,6 +44,18 @@ public static class ParagraphTools
   }
 
   /// <summary>
+  /// Get the <c>ParagraphProperties</c> element of the paragraph. If it is null, create a new one.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static ParagraphProperties GetProperties(this Paragraph paragraph)
+  {
+    if (paragraph.ParagraphProperties == null)
+      paragraph.ParagraphProperties = new ParagraphProperties();
+    return paragraph.ParagraphProperties;
+  }
+
+  /// <summary>
   /// Get the text of the paragraph run elements.
   /// </summary>
   /// <param name="paragraph">source paragraph</param>

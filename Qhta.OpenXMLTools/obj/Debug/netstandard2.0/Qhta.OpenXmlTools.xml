@@ -1863,6 +1863,13 @@
             <param name="paraId">id of the paragraph</param>
             <returns>found paragraph or nul</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the <c>ParagraphProperties</c> element of the paragraph. If it is null, create a new one.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
             Get the text of the paragraph run elements.
@@ -2014,6 +2021,13 @@
             <summary>
             Tools for working with OpenXml Wordprocessing Run element.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetProperties(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Get the <c>RunProperties</c> element of the run. If it is null, create a new one.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
@@ -2405,6 +2419,97 @@
             <param name="body">Body of the WordprocessingDocument</param>
             <returns>Instance of the sections element</returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.SettingCategories">
+            <summary>
+            Settings
+            categories.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Automation">
+            <summary>
+            Settings applied to automation and evaluation.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Compatibility">
+            <summary>
+            Compatibility properties.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.CustomXml">
+            <summary>
+            Settings applied to the custom Xml
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Hyphenation">
+            <summary>
+            Settings applied to the text hyphenation
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Identification">
+            <summary>
+            Identifying the document
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Layout">
+            <summary>
+            Settings applied to the layout and view of the document
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Load">
+            <summary>
+            Settings applied to the document load operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.MailMerge">
+            <summary>
+            Settings applied to the mail-merge operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Print">
+            <summary>
+            Settings applied to the document print operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Proofing">
+            <summary>
+            Settings applied to the document proofing operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Revisions">
+            <summary>
+            Settings applied to the revision operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Save">
+            <summary>
+            Settings applied to the document save operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Security">
+            <summary>
+            Settings applied to the document security
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Styles">
+            <summary>
+            Settings applied to the document styles
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Theming">
+            <summary>
+            Settings applied to the document theme
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.Tracking">
+            <summary>
+            Settings applied to the change tracking
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategories.UI">
+            <summary>
+            Settings applied to the user interface
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.SettingsTools">
             <summary>
             Tools for working with the Settings element.
@@ -2443,6 +2548,22 @@
         <member name="M:Qhta.OpenXmlTools.SettingsTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
             <summary>
             Get the type of property with its name.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetCategory(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Get the category of property with its name.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetInfo(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Get the info of property with its name.
             </summary>
             <param name="settings"></param>
             <param name="propertyName"></param>

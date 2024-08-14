@@ -48,6 +48,18 @@ public static class RunTools
   //public static Drawing GetDrawing (this Run run) { return run.Elements<Drawing>().FirstOrDefault();} 
 
   /// <summary>
+  /// Get the <c>RunProperties</c> element of the run. If it is null, create a new one.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static RunProperties GetProperties(this Run run)
+  {
+    if (run.RunProperties == null)
+      run.RunProperties = new RunProperties();
+    return run.RunProperties;
+  }
+
+  /// <summary>
   /// Get the text content of the run.
   /// </summary>
   /// <param name="run"></param>

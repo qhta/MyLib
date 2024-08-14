@@ -255,7 +255,7 @@ public class PropertiesTest
 
   private OpenXmlElement? CreateVariantElement(Type propertyType, object value)
   {
-    OpenXmlElement? dataInstance = VTVariantTools.CreateVariant(propertyType, value);
+    OpenXmlElement? dataInstance = VariantTools.CreateVariant(propertyType, value);
     return dataInstance;
   }
 

@@ -14,7 +14,7 @@ namespace Qhta.OpenXmlTools;
 public static class SettingsTools
 {
 
-  private const string AttachedRelationshipType = 
+  private const string AttachedRelationshipType =
     "http://schemas.openxmlformats.org/officeDocument/2006/relationships/attachedTemplate";
 
   /// <summary>
@@ -53,8 +53,8 @@ public static class SettingsTools
   public static int Count(this Settings settings, ItemFilter filter = ItemFilter.Defined)
   {
     if (filter == ItemFilter.All)
-      return PropTypes.Count;
-    return PropTypes.Count(item => settings.GetValue(item.Key) != null);
+      return PropDefs.Count;
+    return PropDefs.Count(item => settings.GetValue(item.Key) != null);
   }
 
   /// <summary>
@@ -66,8 +66,8 @@ public static class SettingsTools
   public static string[] GetNames(this Settings settings, ItemFilter filter = ItemFilter.Defined)
   {
     if (filter == ItemFilter.All)
-      return PropTypes.Keys.ToArray();
-    return PropTypes.Where(item => settings.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
+      return PropDefs.Keys.ToArray();
+    return PropDefs.Where(item => settings.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
   }
 
   /// <summary>
@@ -78,8 +78,34 @@ public static class SettingsTools
   /// <returns></returns>
   public static Type GetType(this Settings settings, string propertyName)
   {
-    if (PropTypes.TryGetValue(propertyName, out var type))
-      return type;
+    if (PropDefs.TryGetValue(propertyName, out var info))
+      return info.type;
+    throw new ArgumentException($"Property {propertyName} not found");
+  }
+
+  /// <summary>
+  /// Get the category of property with its name.
+  /// </summary>
+  /// <param name="settings"></param>
+  /// <param name="propertyName"></param>
+  /// <returns></returns>
+  public static SettingCategories GetCategory(this Settings settings, string propertyName)
+  {
+    if (PropDefs.TryGetValue(propertyName, out var info))
+      return info.category;
+    throw new ArgumentException($"Property {propertyName} not found");
+  }
+
+  /// <summary>
+  /// Get the info of property with its name.
+  /// </summary>
+  /// <param name="settings"></param>
+  /// <param name="propertyName"></param>
+  /// <returns></returns>
+  public static (Type, SettingCategories) GetInfo(this Settings settings, string propertyName)
+  {
+    if (PropDefs.TryGetValue(propertyName, out var info))
+      return info;
     throw new ArgumentException($"Property {propertyName} not found");
   }
 
@@ -2498,111 +2524,111 @@ public static class SettingsTools
     return settings.DocumentSettingsPart?.OpenXmlPackage as DXPack.WordprocessingDocument;
   }
 
-  private static readonly Dictionary<string, Type> PropTypes = new()
+  private static readonly Dictionary<string, (Type type, SettingCategories category)> PropDefs = new()
   {
-    { "BordersDoNotSurroundHeader", typeof(bool) },
-    { "DrawingGridHorizontalSpacing", typeof(Twips) },
-    { "PersistentDocumentId", typeof(Guid) },
-    { "View", typeof(ViewValues) },
-    { "Zoom", typeof(Zoom) },
-    { "RemovePersonalInformation", typeof(bool) },
-    { "RemoveDateAndTime", typeof(bool) },
-    { "DoNotDisplayPageBoundaries", typeof(bool) },
-    { "DisplayBackgroundShape", typeof(bool) },
-    { "PrintPostScriptOverText", typeof(bool) },
-    { "PrintFractionalCharacterWidth", typeof(bool) },
-    { "PrintFormsData", typeof(bool) },
-    { "EmbedTrueTypeFonts", typeof(bool) },
-    { "EmbedSystemFonts", typeof(bool) },
-    { "SaveSubsetFonts", typeof(bool) },
-    { "SaveFormsData", typeof(bool) },
-    { "MirrorMargins", typeof(bool) },
-    { "AlignBorderAndEdges", typeof(bool) },
-    { "BordersDoNotSurroundFooter", typeof(bool) },
-    { "GutterAtTop", typeof(bool) },
-    { "HideSpellingErrors", typeof(bool) },
-    { "HideGrammaticalErrors", typeof(bool) },
-    { "ActiveWritingStyle", typeof(ActiveWritingStyle) },
-    { "ProofState", typeof(ProofState) },
-    { "FormsDesign", typeof(bool) },
-    { "AttachedTemplate", typeof(string) },
-    { "LinkStyles", typeof(bool) },
-    { "StylePaneFormatFilter", typeof(StylePaneFormatFilter) },
-    { "StylePaneSortMethods", typeof(string) },
-    { "DocumentType", typeof(DocumentTypeValues) },
-    { "MailMerge", typeof(MailMerge) },
-    { "RevisionView", typeof(RevisionView) },
-    { "TrackRevisions", typeof(bool) },
-    { "DoNotTrackMoves", typeof(bool) },
-    { "DoNotTrackFormatting", typeof(bool) },
-    { "DocumentProtection", typeof(DocumentProtection) },
-    { "AutoFormatOverride", typeof(bool) },
-    { "StyleLockThemesPart", typeof(bool) },
-    { "StyleLockStylesPart", typeof(bool) },
-    { "DefaultTabStop", typeof(short) },
-    { "AutoHyphenation", typeof(bool) },
-    { "ConsecutiveHyphenLimit", typeof(ushort) },
-    { "HyphenationZone", typeof(Twips) },
-    { "DoNotHyphenateCaps", typeof(bool) },
-    { "ShowEnvelope", typeof(bool) },
-    { "SummaryLength", typeof(int) },
-    { "ClickAndTypeStyle", typeof(string) },
-    { "DefaultTableStyle", typeof(string) },
-    { "EvenAndOddHeaders", typeof(bool) },
-    { "BookFoldReversePrinting", typeof(bool) },
-    { "BookFoldPrinting", typeof(bool) },
-    { "BookFoldPrintingSheets", typeof(short) },
-    { "WriteProtection", typeof(WriteProtection) },
-    { "DrawingGridVerticalSpacing", typeof(Twips) },
-    { "DisplayHorizontalDrawingGrid", typeof(byte) },
-    { "DisplayVerticalDrawingGrid", typeof(byte) },
-    { "DoNotUseMarginsForDrawingGridOrigin", typeof(bool) },
-    { "DrawingGridHorizontalOrigin", typeof(Twips) },
-    { "DrawingGridVerticalOrigin", typeof(Twips) },
-    { "DoNotShadeFormData", typeof(bool) },
-    { "NoPunctuationKerning", typeof(bool) },
-    { "CharacterSpacingControl", typeof(CharacterSpacingValues) },
-    { "PrintTwoOnOne", typeof(bool) },
-    { "StrictFirstAndLastChars", typeof(bool) },
-    { "NoLineBreaksAfterKinsoku", typeof(NoLineBreaksAfterKinsoku) },
-    { "NoLineBreaksBeforeKinsoku", typeof(NoLineBreaksBeforeKinsoku) },
-    { "SavePreviewPicture", typeof(bool) },
-    { "DoNotValidateAgainstSchema", typeof(bool) },
-    { "SaveInvalidXml", typeof(bool) },
-    { "IgnoreMixedContent", typeof(bool) },
-    { "AlwaysShowPlaceholderText", typeof(bool) },
-    { "DoNotDemarcateInvalidXml", typeof(bool) },
-    { "SaveXmlDataOnly", typeof(bool) },
-    { "UseXsltWhenSaving", typeof(bool) },
-    { "SaveThroughXslt", typeof(SaveThroughXslt) },
-    { "ShowXmlTags", typeof(bool) },
-    { "AlwaysMergeEmptyNamespace", typeof(bool) },
-    { "UpdateFieldsOnOpen", typeof(bool) },
-    { "HeaderShapeDefaults", typeof(HeaderShapeDefaults) },
-    { "FootnoteDocumentWideProperties", typeof(FootnoteDocumentWideProperties) },
-    { "EndnoteDocumentWideProperties", typeof(EndnoteDocumentWideProperties) },
-    { "Compatibility", typeof(Compatibility) },
-    { "DocumentVariables", typeof(DocumentVariables) },
-    { "Rsids", typeof(Rsids) },
-    { "MathProperties", typeof(MathProperties) },
-    { "UICompatibleWith97To2003", typeof(UICompatibleWith97To2003) },
-    { "AttachedSchema", typeof(string) },
-    { "ThemeFontLanguages", typeof(ThemeFontLanguages) },
-    { "ColorSchemeMapping", typeof(ColorSchemeMapping) },
-    { "DoNotIncludeSubdocsInStats", typeof(bool) },
-    { "DoNotAutoCompressPictures", typeof(bool) },
-    { "ForceUpgrade", typeof(bool) },
-    { "Captions", typeof(Captions) },
-    { "ReadModeInkLockDown", typeof(ReadModeInkLockDown) },
-    { "SchemaLibrary", typeof(SchemaLibrary) },
-    { "ShapeDefaults", typeof(ShapeDefaults) },
-    { "DecimalSymbol", typeof(string) },
-    { "ListSeparator", typeof(string) },
-    { "DocumentId", typeof(int) },
-    { "DiscardImageEditingData", typeof(DXO10W.OnOffValues) },
-    { "DefaultImageDpi", typeof(int) },
-    { "ConflictMode", typeof(DXO10W.OnOffValues) },
-    { "ChartTrackingRefBased", typeof(DX.OnOffValue) },
+    {  "ActiveWritingStyle", (typeof(ActiveWritingStyle), SettingCategories.Proofing) },
+    {  "AlignBorderAndEdges", (typeof(bool), SettingCategories.Layout) },
+    {  "AlwaysMergeEmptyNamespace", (typeof(bool), SettingCategories.CustomXml) },
+    {  "AlwaysShowPlaceholderText", (typeof(bool), SettingCategories.CustomXml) },
+    {  "AttachedSchema", (typeof(string), SettingCategories.CustomXml) },
+    {  "AttachedTemplate", (typeof(string), SettingCategories.Layout) },
+    {  "AutoFormatOverride", (typeof(bool), SettingCategories.Security) },
+    {  "AutoHyphenation", (typeof(bool), SettingCategories.Hyphenation) },
+    {  "BookFoldPrinting", (typeof(bool), SettingCategories.Print) },
+    {  "BookFoldPrintingSheets", (typeof(short), SettingCategories.Print) },
+    {  "BookFoldReversePrinting", (typeof(bool), SettingCategories.Print) },
+    {  "BordersDoNotSurroundFooter", (typeof(bool), SettingCategories.Layout) },
+    {  "BordersDoNotSurroundHeader", (typeof(bool), SettingCategories.Layout) },
+    {  "Captions", (typeof(Captions), SettingCategories.Automation) },
+    {  "CharacterSpacingControl", (typeof(CharacterSpacingValues), SettingCategories.Layout) },
+    {  "ChartTrackingRefBased", (typeof(DX.OnOffValue), SettingCategories.Tracking) },
+    {  "ClickAndTypeStyle", (typeof(string), SettingCategories.Automation) },
+    {  "ColorSchemeMapping", (typeof(ColorSchemeMapping), SettingCategories.Theming) },
+    {  "Compatibility", (typeof(Compatibility), SettingCategories.Compatibility) },
+    {  "ConflictMode", (typeof(DXO10W.OnOffValues), SettingCategories.Load) },
+    {  "ConsecutiveHyphenLimit", (typeof(ushort), SettingCategories.Hyphenation) },
+    {  "DecimalSymbol", (typeof(string), SettingCategories.Automation) },
+    {  "DefaultImageDpi", (typeof(int), SettingCategories.Layout) },
+    {  "DefaultTableStyle", (typeof(string), SettingCategories.Layout) },
+    {  "DefaultTabStop", (typeof(short), SettingCategories.Layout) },
+    {  "DiscardImageEditingData", (typeof(DXO10W.OnOffValues), SettingCategories.Save) },
+    {  "DisplayBackgroundShape", (typeof(bool), SettingCategories.Layout) },
+    {  "DisplayHorizontalDrawingGrid", (typeof(byte), SettingCategories.Layout) },
+    {  "DisplayVerticalDrawingGrid", (typeof(byte), SettingCategories.Layout) },
+    {  "DocumentId", (typeof(int), SettingCategories.Identification) },
+    {  "DocumentProtection", (typeof(DocumentProtection), SettingCategories.Security) },
+    {  "DocumentType", (typeof(string), SettingCategories.Identification) },
+    {  "DocumentVariables", (typeof(DocumentVariables), SettingCategories.Automation) },
+    {  "DoNotAutoCompressPictures", (typeof(bool), SettingCategories.Save) },
+    {  "DoNotDemarcateInvalidXml", (typeof(bool), SettingCategories.CustomXml) },
+    {  "DoNotDisplayPageBoundaries", (typeof(bool), SettingCategories.Layout) },
+    {  "DoNotHyphenateCaps", (typeof(bool), SettingCategories.Hyphenation) },
+    {  "DoNotIncludeSubdocsInStats", (typeof(bool), SettingCategories.Automation) },
+    {  "DoNotShadeFormData", (typeof(bool), SettingCategories.Layout) },
+    {  "DoNotTrackFormatting", (typeof(bool), SettingCategories.Tracking) },
+    {  "DoNotTrackMoves", (typeof(bool), SettingCategories.Tracking) },
+    {  "DoNotUseMarginsForDrawingGridOrigin", (typeof(bool), SettingCategories.Tracking) },
+    {  "DoNotValidateAgainstSchema", (typeof(bool), SettingCategories.CustomXml) },
+    {  "DrawingGridHorizontalOrigin", (typeof(int), SettingCategories.Layout) },
+    {  "DrawingGridHorizontalSpacing", (typeof(int), SettingCategories.Layout) },
+    {  "DrawingGridVerticalOrigin", (typeof(int), SettingCategories.Layout) },
+    {  "DrawingGridVerticalSpacing", (typeof(int), SettingCategories.Layout) },
+    {  "EmbedSystemFonts", (typeof(bool), SettingCategories.Save) },
+    {  "EmbedTrueTypeFonts", (typeof(bool), SettingCategories.Save) },
+    {  "EndnoteDocumentWideProperties", (typeof(EndnoteDocumentWideProperties), SettingCategories.Layout) },
+    {  "EvenAndOddHeaders", (typeof(bool), SettingCategories.Layout) },
+    {  "FootnoteDocumentWideProperties", (typeof(FootnoteDocumentWideProperties), SettingCategories.Layout) },
+    {  "ForceUpgrade", (typeof(bool), SettingCategories.Load) },
+    {  "FormsDesign", (typeof(bool), SettingCategories.Load) },
+    {  "GutterAtTop", (typeof(bool), SettingCategories.Print) },
+    {  "HeaderShapeDefaults", (typeof(HeaderShapeDefaults), SettingCategories.Layout) },
+    {  "HideGrammaticalErrors", (typeof(bool), SettingCategories.Proofing) },
+    {  "HideSpellingErrors", (typeof(bool), SettingCategories.Proofing) },
+    {  "HyphenationZone", (typeof(int), SettingCategories.Hyphenation) },
+    {  "IgnoreMixedContent", (typeof(bool), SettingCategories.CustomXml) },
+    {  "LinkStyles", (typeof(bool), SettingCategories.Load) },
+    {  "ListSeparator", (typeof(string), SettingCategories.Automation) },
+    {  "MailMerge", (typeof(MailMerge), SettingCategories.MailMerge) },
+    {  "MathProperties", (typeof(MathProperties), SettingCategories.Layout) },
+    {  "MirrorMargins", (typeof(bool), SettingCategories.Layout) },
+    {  "NoLineBreaksAfterKinsoku", (typeof(NoLineBreaksAfterKinsoku), SettingCategories.Layout) },
+    {  "NoLineBreaksBeforeKinsoku", (typeof(NoLineBreaksBeforeKinsoku), SettingCategories.Layout) },
+    {  "NoPunctuationKerning", (typeof(bool), SettingCategories.Layout) },
+    {  "PersistentDocumentId", (typeof(Guid), SettingCategories.Identification) },
+    {  "PrintFormsData", (typeof(bool), SettingCategories.Print) },
+    {  "PrintFractionalCharacterWidth", (typeof(bool), SettingCategories.Print) },
+    {  "PrintPostScriptOverText", (typeof(bool), SettingCategories.Print) },
+    {  "PrintTwoOnOne", (typeof(bool), SettingCategories.Print) },
+    {  "ProofState", (typeof(ProofState), SettingCategories.Proofing) },
+    {  "ReadModeInkLockDown", (typeof(ReadModeInkLockDown), SettingCategories.Layout) },
+    {  "RemoveDateAndTime", (typeof(bool), SettingCategories.Security) },
+    {  "RemovePersonalInformation", (typeof(bool), SettingCategories.Security) },
+    {  "RevisionView", (typeof(RevisionView), SettingCategories.Revisions) },
+    {  "Rsids", (typeof(Rsids), SettingCategories.Revisions) },
+    {  "SaveFormsData", (typeof(bool), SettingCategories.Save) },
+    {  "SaveInvalidXml", (typeof(bool), SettingCategories.Save) },
+    {  "SavePreviewPicture", (typeof(bool), SettingCategories.Save) },
+    {  "SaveSubsetFonts", (typeof(bool), SettingCategories.Save) },
+    {  "SaveThroughXslt", (typeof(SaveThroughXslt), SettingCategories.Save) },
+    {  "SaveXmlDataOnly", (typeof(bool), SettingCategories.Save) },
+    {  "SchemaLibrary", (typeof(SchemaLibrary), SettingCategories.CustomXml) },
+    {  "ShapeDefaults", (typeof(ShapeDefaults), SettingCategories.Layout) },
+    {  "ShowEnvelope", (typeof(bool), SettingCategories.MailMerge) },
+    {  "ShowXmlTags", (typeof(bool), SettingCategories.CustomXml) },
+    {  "StrictFirstAndLastChars", (typeof(bool), SettingCategories.Layout) },
+    {  "StyleLockStylesPart", (typeof(bool), SettingCategories.Styles) },
+    {  "StyleLockThemesPart", (typeof(bool), SettingCategories.Styles) },
+    {  "StylePaneFormatFilter", (typeof(StylePaneFormatFilter), SettingCategories.Styles) },
+    {  "StylePaneSortMethods", (typeof(string), SettingCategories.Styles) },
+    {  "SummaryLength", (typeof(int), SettingCategories.Automation) },
+    {  "ThemeFontLanguages", (typeof(ThemeFontLanguages), SettingCategories.Theming) },
+    {  "TrackRevisions", (typeof(bool), SettingCategories.Tracking) },
+    {  "UICompatibleWith97To2003", (typeof(UICompatibleWith97To2003), SettingCategories.UI) },
+    {  "UpdateFieldsOnOpen", (typeof(bool), SettingCategories.Load) },
+    {  "UseXsltWhenSaving", (typeof(bool), SettingCategories.Save) },
+    {  "View", (typeof(ViewValues), SettingCategories.Layout) },
+    {  "WriteProtection", (typeof(WriteProtection), SettingCategories.Security) },
+    {  "Zoom", (typeof(Zoom), SettingCategories.Layout) },
 
   };
 }
