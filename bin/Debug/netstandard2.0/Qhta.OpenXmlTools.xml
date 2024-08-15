@@ -4,6 +4,21 @@
         <name>Qhta.OpenXmlTools</name>
     </assembly>
     <members>
+        <member name="T:Qhta.OpenXmlTools.BookmarkTools">
+            <summary>
+            Tools for working with bookmarks
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BookmarkTools.GetBookmarkStart(DocumentFormat.OpenXml.Wordprocessing.BookmarkEnd,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the bookmark start element that corresponds to the specified bookmark end element
+            </summary>
+            <param name="bookmarkEnd"></param>
+            <param name="searchFromElement">searches from this element backward</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.BordersTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Borders element.
