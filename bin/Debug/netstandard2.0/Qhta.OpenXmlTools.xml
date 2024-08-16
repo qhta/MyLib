@@ -2052,6 +2052,27 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsBold(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run properties contain a <c>Bold</c> or <c>BoldComplexScript</c> element and returns the value of the <c>Val</c> attribute.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsItalic(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run properties contain a <c>Italic</c> or <c>ItalicComplexScript</c> element and returns the value of the <c>Val</c> attribute.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsUnderline(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run properties contain a <c>Underline</c> element and checks if the value of the <c>Val</c> attribute is not <c>None</c>.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.SectionPropertiesTools">
             <summary>
             Tools for working with OpenXml Wordprocessing SectionProperties element.
@@ -2434,93 +2455,93 @@
             <param name="body">Body of the WordprocessingDocument</param>
             <returns>Instance of the sections element</returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.SettingCategories">
+        <member name="T:Qhta.OpenXmlTools.SettingCategory">
             <summary>
             Settings
             categories.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Automation">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Automation">
             <summary>
             Settings applied to automation and evaluation.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Compatibility">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Compatibility">
             <summary>
             Compatibility properties.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.CustomXml">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.CustomXml">
             <summary>
             Settings applied to the custom Xml
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Hyphenation">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Hyphenation">
             <summary>
             Settings applied to the text hyphenation
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Identification">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Identification">
             <summary>
             Identifying the document
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Layout">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Layout">
             <summary>
             Settings applied to the layout and view of the document
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Load">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Load">
             <summary>
             Settings applied to the document load operations
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.MailMerge">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.MailMerge">
             <summary>
             Settings applied to the mail-merge operations
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Print">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Printing">
             <summary>
             Settings applied to the document print operations
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Proofing">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Proofing">
             <summary>
             Settings applied to the document proofing operations
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Revisions">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Revisions">
             <summary>
             Settings applied to the revision operations
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Save">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Save">
             <summary>
             Settings applied to the document save operations
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Security">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Security">
             <summary>
             Settings applied to the document security
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Styles">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Styles">
             <summary>
             Settings applied to the document styles
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Theming">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Theming">
             <summary>
             Settings applied to the document theme
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.Tracking">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Tracking">
             <summary>
             Settings applied to the change tracking
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.SettingCategories.UI">
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.UI">
             <summary>
             Settings applied to the user interface
             </summary>
@@ -6041,32 +6062,32 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.StyleTypes)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.StyleType)">
             <summary>
             Converts a style type to a style value.
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.StyleTypes">
+        <member name="T:Qhta.OpenXmlTools.StyleType">
             <summary>Specifies a built-in Microsoft Word style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.StyleTypes.Paragraph">
+        <member name="F:Qhta.OpenXmlTools.StyleType.Paragraph">
             <summary>Paragraph style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.StyleTypes.Character">
+        <member name="F:Qhta.OpenXmlTools.StyleType.Character">
             <summary>Body character style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.StyleTypes.Table">
+        <member name="F:Qhta.OpenXmlTools.StyleType.Table">
             <summary>Table style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.StyleTypes.Numbering">
+        <member name="F:Qhta.OpenXmlTools.StyleType.Numbering">
             <summary>List style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.StyleTypes.ParagraphOnly">
+        <member name="F:Qhta.OpenXmlTools.StyleType.ParagraphOnly">
             <summary>Reserved for internal use.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.StyleTypes.Linked">
+        <member name="F:Qhta.OpenXmlTools.StyleType.Linked">
             <summary>Reserved for internal use.</summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.SubdocumentTools">
@@ -6451,7 +6472,7 @@
             <param name="data">Source byte array</param>
             <returns>VTOBlob result</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateVariant(Qhta.OpenXmlTools.VariantTypes,System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateVariant(Qhta.OpenXmlTools.VariantType,System.Object,System.String)">
             <summary>
             Create variant element from the value.
             </summary>
@@ -6540,7 +6561,7 @@
             <param name="format"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.VariantTypes">
+        <member name="T:Qhta.OpenXmlTools.VariantType">
             <summary>
             Enumeration of the OpenXMl variant types.
             </summary>

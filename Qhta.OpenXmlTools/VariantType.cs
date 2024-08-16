@@ -2,7 +2,7 @@
 /// <summary>
 /// Enumeration of the OpenXMl variant types.
 /// </summary>
-public enum VariantTypes
+public enum VariantType
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   VTNull,

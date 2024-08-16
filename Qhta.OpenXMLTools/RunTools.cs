@@ -138,4 +138,59 @@ public static class RunTools
 
     return sb.ToString();
   }
+
+  /// <summary>
+  /// Checks if the run properties contain a <c>Bold</c> or <c>BoldComplexScript</c> element and returns the value of the <c>Val</c> attribute.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static bool IsBold(this DXW.Run run)
+  {
+    var bold = run.GetProperties().Bold;
+    if (bold != null)
+    {
+      return bold.Val?.Value ?? true;
+    }
+    var boldCS = run.GetProperties().BoldComplexScript;
+    if (boldCS != null)
+    {
+      return boldCS.Val?.Value ?? true;
+    }
+    return false;
+  }
+
+  /// <summary>
+  /// Checks if the run properties contain a <c>Italic</c> or <c>ItalicComplexScript</c> element and returns the value of the <c>Val</c> attribute.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static bool IsItalic(this DXW.Run run)
+  {
+    var italic = run.GetProperties().Italic;
+    if (italic != null)
+    {
+      return italic.Val?.Value ?? true;
+    }
+    var italicCS = run.GetProperties().ItalicComplexScript;
+    if (italicCS != null)
+    {
+      return italicCS.Val?.Value ?? true;
+    }
+    return false;
+  }
+
+  /// <summary>
+  /// Checks if the run properties contain a <c>Underline</c> element and checks if the value of the <c>Val</c> attribute is not <c>None</c>.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static bool IsUnderline(this DXW.Run run)
+  {
+    var underline = run.GetProperties().Underline;
+    if (underline != null)
+    {
+      return underline.Val?.Value != UnderlineValues.None;
+    }
+    return false;
+  }
 }

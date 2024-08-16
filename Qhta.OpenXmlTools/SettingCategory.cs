@@ -4,7 +4,7 @@
 /// Settings
 /// categories.
 /// </summary>
-public enum SettingCategories
+public enum SettingCategory
 {
   /// <summary>
   /// Settings applied to automation and evaluation.
@@ -49,7 +49,7 @@ public enum SettingCategories
   /// <summary>
   /// Settings applied to the document print operations
   /// </summary>
-  Print,
+  Printing,
 
   /// <summary>
   /// Settings applied to the document proofing operations
