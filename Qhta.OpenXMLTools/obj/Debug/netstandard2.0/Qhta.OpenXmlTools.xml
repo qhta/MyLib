@@ -365,6 +365,31 @@
             Custom property.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.DocumentSecurity">
+            <summary>
+            Encoding for the <c>DocumentSecurity</c>> property
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.PasswordProtected">
+            <summary>
+            Document is password protected
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.ReadOnlyRecommended">
+            <summary>
+             Document is recommended to be opened as read-only
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.ReadOnlyForced">
+            <summary>
+             Document is recommended to be opened as read-only
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.LockedForAnnotation">
+            <summary>
+             Document is locked for annotation
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.DocumentTools">
             <summary>
             A collection of tools for working with OpenXml documents.

@@ -123,7 +123,7 @@ public static class ExtendedFilePropertiesTools
   public static bool AppliesToApplication(this DXEP.Properties extendedFileProperties, string propertyName, AppType appType)
   {
     if (PropTypes.TryGetValue(propertyName, out var info))
-      return (info.appType & appType)!=0;
+      return (info.appType & appType) != 0;
     throw new ArgumentException($"Property {propertyName} not found");
   }
 
@@ -133,40 +133,43 @@ public static class ExtendedFilePropertiesTools
   /// <param name="extendedFileProperties"></param>
   /// <param name="propertyName"></param>
   /// <returns></returns>
-  public static object? GetValue (this DXEP.Properties extendedFileProperties, string propertyName)
+  public static object? GetValue(this DXEP.Properties extendedFileProperties, string propertyName)
   {
-    switch(propertyName)
+    switch (propertyName)
     {
-       case "Application":
-         return extendedFileProperties.GetFirstElementStringValue<DXEP.Application>();
+      case "Application":
+        return extendedFileProperties.GetFirstElementStringValue<DXEP.Application>();
       case "ApplicationVersion":
         return extendedFileProperties.GetFirstElementStringValue<DXEP.ApplicationVersion>();
       case "Characters":
-         return extendedFileProperties.GetFirstElementIntValue<DXEP.Characters>(); 
-       case "CharactersWithSpaces":
-         return extendedFileProperties.GetFirstElementIntValue<DXEP.CharactersWithSpaces>();
-       case "Company":
-         return extendedFileProperties.GetFirstElementStringValue<DXEP.Company>();
+        return extendedFileProperties.GetFirstElementIntValue<DXEP.Characters>();
+      case "CharactersWithSpaces":
+        return extendedFileProperties.GetFirstElementIntValue<DXEP.CharactersWithSpaces>();
+      case "Company":
+        return extendedFileProperties.GetFirstElementStringValue<DXEP.Company>();
       case "DigitalSignature":
-         return extendedFileProperties.GetFirstElementVTBlobValue<DXEP.DigitalSignature>()?.ToString();
+        return extendedFileProperties.GetFirstElementVTBlobValue<DXEP.DigitalSignature>()?.ToString();
       case "DocumentSecurity":
-         return extendedFileProperties.GetFirstElementStringValue<DXEP.DocumentSecurity>();
+        var val = extendedFileProperties.GetFirstElementIntValue<DXEP.DocumentSecurity>();
+        if (val is not null)
+          return Enum.ToObject(typeof(DocumentSecurity), val);
+        return null;
       case "HeadingPairs":
         return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HeadingPairs>();
       case "HiddenSlides":
-         return extendedFileProperties.GetFirstElementIntValue<DXEP.HiddenSlides>();
+        return extendedFileProperties.GetFirstElementIntValue<DXEP.HiddenSlides>();
       case "HyperlinkBase":
         return extendedFileProperties.GetFirstElementStringValue<DXEP.HyperlinkBase>();
       case "HyperlinkList":
-        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HyperlinkList>()?.AsString(0,0);
+        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HyperlinkList>()?.AsString(0, 0);
       case "HyperlinksChanged":
-         return extendedFileProperties.GetFirstElementBoolValue<DXEP.HyperlinksChanged>();
+        return extendedFileProperties.GetFirstElementBoolValue<DXEP.HyperlinksChanged>();
       case "Lines":
         return extendedFileProperties.GetFirstElementIntValue<DXEP.Lines>();
       case "LinksUpToDate":
         return extendedFileProperties.GetFirstElementBoolValue<DXEP.LinksUpToDate>();
       case "Manager":
-         return extendedFileProperties.GetFirstElementStringValue<DXEP.Manager>();
+        return extendedFileProperties.GetFirstElementStringValue<DXEP.Manager>();
       case "MultimediaClips":
         return extendedFileProperties.GetFirstElementIntValue<DXEP.MultimediaClips>();
       case "Notes":
@@ -176,22 +179,22 @@ public static class ExtendedFilePropertiesTools
       case "Paragraphs":
         return extendedFileProperties.GetFirstElementIntValue<DXEP.Paragraphs>();
       case "PresentationFormat":
-         return extendedFileProperties.GetFirstElementStringValue<DXEP.PresentationFormat>();
+        return extendedFileProperties.GetFirstElementStringValue<DXEP.PresentationFormat>();
       case "ScaleCrop":
         return extendedFileProperties.GetFirstElementBoolValue<DXEP.ScaleCrop>();
       case "SharedDocument":
         return extendedFileProperties.GetFirstElementBoolValue<DXEP.SharedDocument>();
       case "Slides":
-         return extendedFileProperties.GetFirstElementIntValue<DXEP.Slides>();
+        return extendedFileProperties.GetFirstElementIntValue<DXEP.Slides>();
       case "Template":
-         return extendedFileProperties.GetFirstElementStringValue<DXEP.Template>();
+        return extendedFileProperties.GetFirstElementStringValue<DXEP.Template>();
       case "TitlesOfParts":
         return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.TitlesOfParts>();
       case "TotalTime":
-         return extendedFileProperties.GetFirstElementIntValue<DXEP.TotalTime>();
+        return extendedFileProperties.GetFirstElementIntValue<DXEP.TotalTime>();
       case "Words":
         return extendedFileProperties.GetFirstElementIntValue<DXEP.Words>();
-      default :
+      default:
         return null;
     }
   }
@@ -231,6 +234,8 @@ public static class ExtendedFilePropertiesTools
           extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(null);
         break;
       case "DocumentSecurity":
+        if (value is DocumentSecurity documentSecurity)
+          value = Convert.ChangeType(documentSecurity, typeof(int));
         extendedFileProperties.SetFirstElementIntValue<DXEP.DocumentSecurity>((int?)value);
         break;
       case "HeadingPairs":
@@ -304,7 +309,7 @@ public static class ExtendedFilePropertiesTools
     {"Manager", (typeof(String), false, AppType.All) },
     {"SharedDocument", (typeof(bool), false, AppType.All) },
     {"DigitalSignature", (typeof(String), false, AppType.All) },
-    {"DocumentSecurity", (typeof(int), false, AppType.All) },
+    {"DocumentSecurity", (typeof(DocumentSecurity), false, AppType.All) },
 
     {"HyperlinkBase", (typeof(String), false, AppType.All) },
     {"HyperlinkList", (typeof(String), false, AppType.All) },
