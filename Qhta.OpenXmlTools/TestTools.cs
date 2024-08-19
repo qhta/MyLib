@@ -87,15 +87,25 @@ public static class TestTools
       {
         if (prop.GetIndexParameters().Length > 0)
           continue;
-        var propValue = prop.GetValue(value);
-        if (propValue != null)
+        if (value==null)
+          continue;
+        try
         {
-          var propValStr = propValue.AsString(indent + 1, depthLimit - 1);
-          if (propValStr.Contains("\n"))
-            propValuesList.Add($"{indentStr}{prop.Name}:\r\n{propValStr}");
-          else
-            propValuesList.Add($"{indentStr}{prop.Name}: {propValStr}");
+          var propValue = prop.GetValue(value);
+          if (propValue != null)
+          {
+            var propValStr = propValue.AsString(indent + 1, depthLimit - 1);
+            if (propValStr.Contains("\n"))
+              propValuesList.Add($"{indentStr}{prop.Name}:\r\n{propValStr}");
+            else
+              propValuesList.Add($"{indentStr}{prop.Name}: {propValStr}");
+          }
         }
+        catch (Exception ex)
+        {
+          continue;
+        }
+
       }
       var indentStr1 = indent > 1 ? new string(' ', (indent - 1) * 2) : string.Empty;
       return $"{valueType.Name}\r\n{{\r\n{string.Join("\r\n", propValuesList)}\r\n{indentStr1}}}";
