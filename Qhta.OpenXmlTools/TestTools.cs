@@ -72,11 +72,13 @@ public static class TestTools
       return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
     if (value is Boolean vBoolean)
       return vBoolean.ToString().ToLowerInvariant();
-    if (IntegerTypes.Contains(value.GetType()))
+
+    var valueType = value.GetType();
+    if (IntegerTypes.Contains(valueType))
       return value.ToString();
-    if (DecimalTypes.Contains(value.GetType()))
+    if (DecimalTypes.Contains(valueType))
       return Convert.ToDecimal(value).ToString("F", CultureInfo.InvariantCulture);
-    var properties = value.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+    var properties = valueType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
     if (properties.Length > 0)
     {
       var indentStr = new string(' ', indent * 2);
@@ -96,7 +98,18 @@ public static class TestTools
         }
       }
       var indentStr1 = indent > 1 ? new string(' ', (indent - 1) * 2) : string.Empty;
-      return $"{value.GetType().Name}\r\n{{\r\n{string.Join("\r\n", propValuesList)}\r\n{indentStr1}}}";
+      return $"{valueType.Name}\r\n{{\r\n{string.Join("\r\n", propValuesList)}\r\n{indentStr1}}}";
+    }
+    if (valueType.IsEnum && valueType.GetCustomAttributes(typeof(FlagsAttribute), false).Any())
+    {
+      var enumValues = Enum.GetValues(valueType);
+      var selectedValues = new List<string>();
+      foreach (var enumValue1 in enumValues)
+      {
+        if ((Convert.ToInt32(value) & Convert.ToInt32(enumValue1)) != 0)
+          selectedValues.Add(enumValue1.ToString());
+      }
+      return string.Join("+", selectedValues);
     }
     return value?.ToString() ?? string.Empty;
   }
