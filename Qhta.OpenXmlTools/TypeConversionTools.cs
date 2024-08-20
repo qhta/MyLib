@@ -18,18 +18,18 @@ public static class TypeConversionTools
     if (openXmlType.Name == "EnumValue`1")
     {
       var type = openXmlType.GenericTypeArguments[0];
-      Debug.WriteLine($"ToSystemType({openXmlType}->{type.Name})");
+     //Debug.WriteLine($"ToSystemType({openXmlType}->{type.Name})");
       return type;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
     {
       var type = typeof(Boolean);
-      Debug.WriteLine($"ToSystemType({openXmlType}->{type.Name})");
+     //Debug.WriteLine($"ToSystemType({openXmlType}->{type.Name})");
       return type;
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
-      Debug.WriteLine($"ToSystemType({openXmlType}->{info.targetType.Name})");
+     //Debug.WriteLine($"ToSystemType({openXmlType}->{info.targetType.Name})");
       return info.targetType;
     }
     return openXmlType;
@@ -51,19 +51,19 @@ public static class TypeConversionTools
     if (openXmlType.Name == "EnumValue`1")
     {
       var type = openXmlType.GenericTypeArguments[0];
-      Debug.WriteLine($"ToSystemValue({openXmlType}->{type.Name})");
+     //Debug.WriteLine($"ToSystemValue({openXmlType}->{type.Name})");
       return type;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
     {
       var result = OnOffTypeToBoolean(openXmlValue);
-      Debug.WriteLine($"ToSystemType({openXmlType}->{result})");
+     //Debug.WriteLine($"ToSystemType({openXmlType}->{result})");
       return result;
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
       var targetValue = info.toSystemValueMethod(openXmlValue);
-      Debug.WriteLine($"ToSystemValue({openXmlValue}->{targetValue})");
+     //Debug.WriteLine($"ToSystemValue({openXmlValue}->{targetValue})");
       return targetValue;
     }
     return openXmlValue;
@@ -85,7 +85,7 @@ public static class TypeConversionTools
     if (openXmlType.Name == "EnumValue`1")
     {
       var type = openXmlType.GenericTypeArguments[0];
-      Debug.WriteLine($"ToSystemValue({openXmlType}->{type.Name})");
+     //Debug.WriteLine($"ToSystemValue({openXmlType}->{type.Name})");
       return type;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
@@ -93,13 +93,13 @@ public static class TypeConversionTools
       MethodInfo methodInfo = typeof(TypeConversionTools).GetMethod("BooleanToOnOffType", BindingFlags.Static | BindingFlags.NonPublic)!;
       MethodInfo genericMethod = methodInfo.MakeGenericMethod(openXmlType);
       var result = genericMethod.Invoke(null, [systemValue]);
-      Debug.WriteLine($"ToSystemType({openXmlType}->{result})");
+     //Debug.WriteLine($"ToSystemType({openXmlType}->{result})");
       return result;
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
       var targetValue = info.toSystemValueMethod(systemValue);
-      Debug.WriteLine($"ToSystemValue({systemValue}->{targetValue})");
+     //Debug.WriteLine($"ToSystemValue({systemValue}->{targetValue})");
       return targetValue;
     }
     return systemValue;
@@ -119,8 +119,11 @@ public static class TypeConversionTools
     { typeof(DX.UInt16Value), (typeof(UInt16), UInt16ValueToUInt16, UInt16ToUInt16Value) },
     { typeof(DX.UInt32Value), (typeof(UInt32), UInt32ValueToUInt32, UInt32ToUInt32Value) },
     { typeof(DX.UInt64Value), (typeof(UInt64), UInt64ValueToUInt64, UInt64ToUInt64Value) },
-    { typeof(DX.OnOffValue), (typeof(Boolean), OnOffValueToBoolean, BooleanToBooleanValue) },
+    { typeof(DX.OnOffValue), (typeof(Boolean), OnOffValueToBoolean, BooleanToOnOffValue) },
     { typeof(DXO10W.OnOffValues), (typeof(Boolean?), OnOffValuesToBoolean, BooleanToOnOffValues) },
+    { typeof(DX.HexBinaryValue), (typeof(String), HexBinaryValueToString, StringToHexBinaryValue) },
+    { typeof(DX.Base64BinaryValue), (typeof(String), Base64BinaryValueToString, StringToBase64BinaryValue) },
+
   };
 
   private static object? BooleanValueToBoolean(object? value)
@@ -406,5 +409,41 @@ public static class TypeConversionTools
         return DXO10W.OnOffValues.Zero;
     }
     throw new ArgumentException("Value is not a Boolean", nameof(value));
+  }
+
+  private static object? HexBinaryValueToString(object? value)
+  {
+    if (value is DX.HexBinaryValue hexBinaryValue)
+    {
+      return hexBinaryValue.Value;
+    }
+    throw new ArgumentException("Value is not a HexBinaryValue", nameof(value));
+  }
+
+  private static object? StringToHexBinaryValue(object? value)
+  {
+    if (value is String stringValue)
+    {
+      return new DX.HexBinaryValue(stringValue);
+    }
+    throw new ArgumentException("Value is not a String", nameof(value));
+  }
+
+  private static object? Base64BinaryValueToString(object? value)
+  {
+    if (value is DX.Base64BinaryValue base64BinaryValue)
+    {
+      return base64BinaryValue.Value;
+    }
+    throw new ArgumentException("Value is not a Base64BinaryValue", nameof(value));
+  }
+
+  private static object? StringToBase64BinaryValue(object? value)
+  {
+    if (value is String stringValue)
+    {
+      return new DX.Base64BinaryValue(stringValue);
+    }
+    throw new ArgumentException("Value is not a String", nameof(value));
   }
 }
