@@ -101,7 +101,9 @@ public static class TestTools
               propValuesList.Add($"{indentStr}{prop.Name}: {propValStr}");
           }
         }
+#pragma warning disable CS0168 // Variable is declared but never used
         catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
         {
           continue;
         }

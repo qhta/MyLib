@@ -6332,6 +6332,37 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TypeConversionTools">
+            <summary>
+            Tools for converting OpenXml element types and their values.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeConversionTools.ToSystemType(System.Type)">
+            <summary>
+            Converts an OpenXml type to a system type.
+            If conversion is not possible, the original type is returned.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeConversionTools.ToSystemValue(System.Object,System.Type)">
+            <summary>
+            Converts an OpenXml type value to a system type value.
+            If conversion is not possible, the original value is returned.
+            </summary>
+            <param name="openXmlType"></param>
+            <param name="openXmlValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeConversionTools.ToOpenXmlValue(System.Object,System.Type)">
+            <summary>
+            Converts a system type value to an OpenXml type value.
+            If conversion is not possible, the original value is returned.
+            </summary>
+            <param name="openXmlType"></param>
+            <param name="systemValue"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.VariantTools">
             <summary>
             Tools for working with variant types.
