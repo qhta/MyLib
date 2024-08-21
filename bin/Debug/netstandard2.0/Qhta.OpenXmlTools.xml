@@ -1972,6 +1972,18 @@
             <param name="element">source element</param>
             <returns>joined string</returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.PropertiesTools">
+            <summary>
+            Methods for working with properties.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PropertiesTools.IsObsolete(System.Reflection.PropertyInfo)">
+            <summary>
+            Determines if a property is obsolete.
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.Range">
             <summary>
             Class to represent a range of elements in a Word document.
