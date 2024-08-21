@@ -18,18 +18,15 @@ public static class TypeConversionTools
     if (openXmlType.Name == "EnumValue`1")
     {
       var type = openXmlType.GenericTypeArguments[0];
-     //Debug.WriteLine($"ToSystemType({openXmlType}->{type.Name})");
       return type;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
     {
       var type = typeof(Boolean);
-     //Debug.WriteLine($"ToSystemType({openXmlType}->{type.Name})");
       return type;
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
-     //Debug.WriteLine($"ToSystemType({openXmlType}->{info.targetType.Name})");
       return info.targetType;
     }
     return openXmlType;
@@ -50,20 +47,17 @@ public static class TypeConversionTools
       return null;
     if (openXmlType.Name == "EnumValue`1")
     {
-      var type = openXmlType.GenericTypeArguments[0];
-     //Debug.WriteLine($"ToSystemValue({openXmlType}->{type.Name})");
-      return type;
+      var result = openXmlValue;
+      return result;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
     {
       var result = OnOffTypeToBoolean(openXmlValue);
-     //Debug.WriteLine($"ToSystemType({openXmlType}->{result})");
       return result;
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
       var targetValue = info.toSystemValueMethod(openXmlValue);
-     //Debug.WriteLine($"ToSystemValue({openXmlValue}->{targetValue})");
       return targetValue;
     }
     return openXmlValue;
@@ -84,22 +78,25 @@ public static class TypeConversionTools
       return null;
     if (openXmlType.Name == "EnumValue`1")
     {
-      var type = openXmlType.GenericTypeArguments[0];
-     //Debug.WriteLine($"ToSystemValue({openXmlType}->{type.Name})");
-      return type;
+      var value = systemValue as String;
+      if (value == null)
+        return null;
+      var prop = openXmlType.GenericTypeArguments[0].GetProperty(value);
+
+      var propValue = prop!.GetValue(null);
+      var result = Activator.CreateInstance(openXmlType, propValue);
+      return result;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
     {
       MethodInfo methodInfo = typeof(TypeConversionTools).GetMethod("BooleanToOnOffType", BindingFlags.Static | BindingFlags.NonPublic)!;
       MethodInfo genericMethod = methodInfo.MakeGenericMethod(openXmlType);
       var result = genericMethod.Invoke(null, [systemValue]);
-     //Debug.WriteLine($"ToSystemType({openXmlType}->{result})");
       return result;
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
-      var targetValue = info.toSystemValueMethod(systemValue);
-     //Debug.WriteLine($"ToSystemValue({systemValue}->{targetValue})");
+      var targetValue = info.toOpenXmlValueMethod(systemValue);
       return targetValue;
     }
     return systemValue;

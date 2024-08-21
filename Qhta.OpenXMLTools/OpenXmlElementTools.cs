@@ -10,6 +10,19 @@ public static class OpenXmlElementTools
 {
 
   /// <summary>
+  /// Checks if the element is empty.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsEmpty(this DX.OpenXmlElement? element)
+  {
+    if (element == null)
+      return true;
+    var result = element.ChildElements.Count == 0 && !element.HasAttributes;
+    return result;
+  }
+
+  /// <summary>
   /// Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
   /// </summary>
   /// <param name="xmlElement">Checked source element</param>

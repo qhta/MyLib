@@ -1307,6 +1307,13 @@
             Tools for working with OpenXml elements.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsEmpty(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Checks if the element is empty.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetDocumentPart(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
