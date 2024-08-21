@@ -47,8 +47,20 @@ public static class TypeConversionTools
       return null;
     if (openXmlType.Name == "EnumValue`1")
     {
-      var result = openXmlValue;
-      return result;
+      var value = openXmlValue.ToString();
+      if (value == null)
+        return null;
+      var props = openXmlType.GenericTypeArguments[0].GetProperties();
+      foreach (var prop in props)
+      {
+        var propValue = prop.GetValue(null);
+        if (propValue is DX.IEnumValue enumValue)
+        {
+          if (enumValue.Value == value)
+            return prop.Name;
+        }
+      }
+      return value;
     }
     if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
     {
