@@ -1,0 +1,1129 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.WPF.Converters</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.WPF.Converters.AddingConverter">
+            <summary>
+            Arithmetic converter that adds a double parameter to the double value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.AddingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Adds a double parameter to the double value.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.AppendingConverter">
+            <summary>
+            Appending converter that adds a string parameter to the string value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.AppendingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Adds a double parameter to the double value.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.ArithmeticConverter">
+            <summary>
+            Abstract ArithmeticConverter. Convert method is abstract.
+            ConvertBack method is unimplemented.
+            Converter has double <see cref="P:Qhta.WPF.Converters.ArithmeticConverter.Param"/> dependency property.
+            It is initialized to NaN value and can be declared in XAML code.
+            Other option is to declare ConverterParameter in Binding.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Converters.ArithmeticConverter.ParamProperty">
+            <summary>
+            Static dependency property of double parameter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.ArithmeticConverter.Param">
+            <summary>
+            Dependency property of double parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ArithmeticConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Abstract method to implement an arithmetic operation.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ArithmeticConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert back unimplemented method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ArithmeticConverter.TryGetValue(System.Object,System.Double@)">
+            <summary>
+            A method to convert an object parameter to double.
+            </summary>
+            <param name="parameter"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.BitTestConverter">
+            <summary>
+            One way converter to convert a specific bitset to bool.
+            It return true value when a bitset value equals int mask,
+            otherwise it returns false.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Converters.BitTestConverter.MaskProperty">
+            <summary>
+            Static mask property to test a bitset value
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.BitTestConverter.Mask">
+            <summary>
+            Mask property to test a bitset value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts bitset value to bool.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an array of object to bool.
+            </summary>
+            <param name="values"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts bool to bitset value. Not implemented.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts bool to an array of values. Not implemented.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.ConvertArguments(System.Object,System.Object,System.Int32@,System.Int32@)">
+            <summary>
+            A method to convert an object to int value.
+            The object value can be an enum or any integer type.
+            </summary>
+            <param name="value"></param>
+            <param name="parameter"></param>
+            <param name="val"></param>
+            <param name="mask"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.GetEnumValues(System.Type)">
+            <summary>
+            Helper method to get enum type values as string-int dictionary.
+            </summary>
+            <param name="enumType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BitTestConverter.ConvertParameterArgument(System.Object,System.Collections.Generic.Dictionary{System.String,System.Int32},System.Int32@)">
+            <summary>
+            Helper method to convert an object parameter to int mask
+            eventually using string-int dictionary.
+            </summary>
+            <param name="parameter"></param>
+            <param name="dictionary"></param>
+            <param name="mask"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.BoolToVisibilityConverter">
+            <summary>
+            One way value converter bool to Visibility (Visible, Collapsed).
+            Parameter can be a string consisting of two Visiblity values divided by comma.
+            First value is assigned when true, second when false.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BoolToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts true to Visible, false to Collapsed.
+            Parameter can be a string consisting of two Visiblity values divided by comma.
+            First value is assigned when true, second when false.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BoolToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented convert back method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.CamelStringConverter">
+            <summary>
+            String value converter between "camel string" and "CamelString".
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.CamelStringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert from "camel string" to "CamelString".
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.CamelStringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert from "CamelString" to "camel string".
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.ColorConverter">
+            <summary>
+            Converts a color to string or brush.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a color to string or brush.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts from string to color.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.ColorDictionary">
+            <summary>
+            Dictionary of Colors indexed by string names.
+            Used in <see cref="T:Qhta.WPF.Converters.ValidityBrushConverter"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.ColorToSolidColorBrushConverter">
+            <summary>
+            One-way color to brush converter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ColorToSolidColorBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts color to brush.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ColorToSolidColorBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.DashStyleConverter">
+            <summary>
+            Type Converter to convert between <see cref="T:System.Windows.Media.DashStyle"/> and string or other type.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Checks if source type is string or context can convert from source type.
+            </summary>
+            <param name="context"></param>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Checks if context can convert to destination .
+            </summary>
+            <param name="context"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Converts from source type.
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            Converts to destination type
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+            <exception cref="T:System.NotSupportedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.DashStyleUtils">
+            <summary>
+            Helper methods to convert dash style to string.
+            Used in <see cref="T:Qhta.WPF.Converters.DashStyleConverter"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleUtils.CanSerializeToString(System.Windows.Media.DashStyle)">
+            <summary>
+            Checks if a dash style can be serialized.
+            </summary>
+            <param name="style"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleUtils.ConvertToString(System.Windows.Media.DashStyle,System.String,System.IFormatProvider)">
+            <summary>
+            Checks if a dash style can be converter do string.
+            </summary>
+            <param name="style"></param>
+            <param name="format"></param>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DashStyleUtils.Parse(System.String,System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            Checks if a string can be parsed to dash style.
+            </summary>
+            <param name="value"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.DecimalValueConverter">
+            <summary>
+            Converts a decimal value to string and back.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DecimalValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            If value is string and target type is decimal then it converts string to decimal.
+            If value is decimal and target type is string then it converts decimal to string.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DecimalValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            If value is string and target type is decimal then it converts string to decimal.
+            if value is decimal and target type is string then it converts decimal to string.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.DividingConverter">
+            <summary>
+            Arithmetic converter that divides a double value by the double parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DividingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Divides a double value by the double parameter.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.DoubleValueConverter">
+            <summary>
+            Converts a double value to string and back.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DoubleValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            If value is string and target type is double then it converts string to double.
+            If value is double and target type is string then it converts double to string.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.DoubleValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            If value is string and target type is double then it converts string to double.
+            if value is double and target type is string then it converts double to string.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.EnumValue">
+            <summary>
+            An object that replaces the enumeration value for displaying national names in selection lists.
+            Used in <see cref="T:Qhta.WPF.Converters.EnumValueConverter"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.EnumValue.Value">
+            <summary>
+            Value (converted to int).
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.EnumValue.Name">
+            <summary>
+            A name for conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValue.ToString">
+            <summary>
+            Returns a name for conversion.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.EnumValueConverter">
+            <summary>
+            Enumerated value converter.
+            Converts an enumerated value to a numeric value according to the given list of values.
+            Allows you to display a list of values in national languages.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.EnumValueConverter.EnumValues">
+            <summary>
+            Enumerated values. They can be set in the XAML file.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.EnumValueConverter.EnumType">
+            <summary>
+            Enumeration type. Specifies a list of enumerated values.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion - same as reverse conversion.
+            Conversion direction recognized by the <c>targetType</c> parameter
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Backward conversion - same as direct conversion.
+            Conversion direction recognized by the <c>targetType</c> parameter
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValueConverter.ConvertToEnum(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert a string, boolean, or number to an enumeration.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValueConverter.Cast``1(System.Object)">
+            <summary>
+            Auxiliary procedure to cast to the selected type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="o"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValueConverter.ConvertFromEnum(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converting an enumerated value to a numeric value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumValueConverter.InitEnumValues">
+            <summary>
+            Initialization of a list of values from an enumeration type.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.EqualityComparingConverter">
+            <summary>
+            One-way comparing converter. It compares a value to the parameter and returns a boolean value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EqualityComparingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Compares a value to the parameter and returns a boolean value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EqualityComparingConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.IconEnabledConverter">
+            <summary>
+            One-way converter that changes Image basing on bool value.
+            If value is false (not enabled) than Overlay is added to the Image.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IconEnabledConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            If value is false (not enabled) than Overlay is added to the Image.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IconEnabledConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.WPF.Converters.IconEnabledConverter.Image">
+            <summary>
+            Modified Image.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.IconEnabledConverter.Overlay">
+            <summary>
+            Overlay added to Image.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.IndexingConverter">
+            <summary>
+            One-way multi-value converter that invokes an indexing property from the first value item.
+            The second value item is an index.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IndexingConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Invokes an indexing property from the first value item.
+            The second value item is an index.
+            </summary>
+            <param name="values"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IndexingConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.IndirectPropertyConverter">
+            <summary>
+             Multi-value converter with two bindings. First binding returns an instance object.
+             Second binding returns a property name. Converter gets a value from this property found in the instance object.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IndirectPropertyConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Gets data from the property which name is returned by the second value. Property is searched in the first value.
+            </summary>
+            <param name="values"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.IndirectPropertyConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented convert back method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.InverseValueConverter">
+            <summary>
+            Converts a double value to one over value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.InverseValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.InverseValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Reverse conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.InverseValueConverter.DoConvert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Internal convert method.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.MeasureUtils">
+            <summary>
+            Helper class to measure string width.
+            Used in <see cref="T:Qhta.WPF.Converters.StringsWidthConverter"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.MeasureUtils.TextWidth(System.String)">
+            <summary>
+            Gets text width in pixels.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.MeasureUtils.ShapeMeasure(System.Windows.Controls.TextBlock)">
+            <summary>
+            Gets text width and height.
+            </summary>
+            <param name="tb"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.MultiObjectConverter">
+            <summary>
+            One-way multi-value converter that clones value objects.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.MultiObjectConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Clones values.
+            </summary>
+            <param name="values"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.MultiObjectConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.MultiplyingConverter">
+            <summary>
+            Arithmetic converter that multiplies a double value by the double parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.MultiplyingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Multiplies a double value by the double parameter.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.NegateBoolConverter">
+            <summary>
+            Converts a true value to false and false to true value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NegateBoolConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NegateBoolConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Reverse conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NegateBoolConverter.DoConvert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Internal convert method.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.NegateValueConverter">
+            <summary>
+            Converts a numeric value to a negate numeric value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NegateValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NegateValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Reverse conversion.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NegateValueConverter.DoConvert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Internal convert method.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.NotNullToVisibilityConverter">
+            <summary>
+            One way converter that checks if the value is not null and converts it to Visibility (Visible, Collapsed).
+            Parameter can be a string consisting of two Visiblity values divided by comma.
+            First value is assigned when true, second when false.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NotNullToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts NotNull to Visible, Null to Collapsed.
+            Parameter can be a string consisting of two Visiblity values divided by comma.
+            First value is assigned when true, second when false.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NotNullToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented convert back method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.NullableIntConverter">
+            <summary>
+            Int value converter that converts null string to null int.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NullableIntConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NullableIntConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Backward conversion
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.NumericValueConverter">
+            <summary>
+            Converts value of any type to numeric value.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.NumericValueConverter.Culture">
+            <summary>
+            Culture dependency property.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Converters.NumericValueConverter.CultureProperty">
+            <summary>
+            static culture dependency property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.NumericValueConverter.Format">
+            <summary>
+            Format dependency property.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Converters.NumericValueConverter.FormatProperty">
+            <summary>
+            static format dependency property.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NumericValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.NumericValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Backward conversion
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.RowToIndexConverter">
+            <summary>
+            One-way converter from DataGridRow index to integer+1.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.RowToIndexConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts from DataGridRow index to integer+1.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.RowToIndexConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.SafeCollectionConverter">
+            <summary>
+            One-way converter that safely converts collection to an array.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.SafeCollectionConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Safely converts collection to an array.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.SafeCollectionConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.String2ObjectConverter">
+            <summary>
+            One-way converter that gets a value from a dictionary.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.String2ObjectConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Direct conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.String2ObjectConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Returns a value.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Qhta.WPF.Converters.String2ObjectConverter.Dictionary">
+            <summary>
+            A dictionary of string to object.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.String2ObjectDictionary">
+            <summary>
+            A dictionary that maps strings to objects.
+            Used in <see cref="T:Qhta.WPF.Converters.String2ObjectConverter"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.StringConverter">
+            <summary>
+            Abstract StringConverter. Convert method is abstract.
+            ConvertBack method is unimplemented.
+            Converter has string <see cref="P:Qhta.WPF.Converters.StringConverter.Param"/> dependency property.
+            It can be declared in XAML code.
+            Other option is to declare ConverterParameter in Binding.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Converters.StringConverter.ParamProperty">
+            <summary>
+            Static dependency property of double parameter.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.StringConverter.Param">
+            <summary>
+            Dependency property of double parameter.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Abstract method to implement an arithmetic operation.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert back unimplemented method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringConverter.TryGetValue(System.Object,System.String@)">
+            <summary>
+            A method to convert an object parameter to string.
+            </summary>
+            <param name="parameter"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.StringFormatConverter">
+            <summary>
+            One-way converter that converts a value using parameter as format.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringFormatConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value using parameter as format.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringFormatConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an array of values using parameter as format.
+            </summary>
+            <param name="values"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringFormatConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringFormatConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="F:Qhta.WPF.Converters.StringFormatConverter.FormatProperty">
+            <summary>
+            Static format dependency property.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.StringFormatConverter.Format">
+            <summary>
+            Dependency property.
+            </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.StringsWidthConverter">
+            <summary>
+            One-way converter thar gets a pixel width of the string.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringsWidthConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Gets a string text width.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.StringsWidthConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.SubtractingConverter">
+            <summary>
+            Arithmetic converter that subtract a double parameter from the double value.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.SubtractingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Subtracts a double parameter from the double value.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.WPF.Converters.TypeNameConverter">
+            <summary>
+            One-way converter that gets a type name.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.TypeNameConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Gets a type name.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.TypeNameConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.WPF.Converters.ValidityBrushConverter">
+            <summary>
+            One-way converter that gets a color from string-to-color dictionary
+            and converts it to solid brush.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ValidityBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+             Gets a color from string-to-color dictionary and converts it to solid brush.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ValidityBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented backward conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="P:Qhta.WPF.Converters.ValidityBrushConverter.ColorDictionary">
+            <summary>
+            String to color dictionary. Index is "True" or "False".
+            </summary>
+        </member>
+    </members>
+</doc>

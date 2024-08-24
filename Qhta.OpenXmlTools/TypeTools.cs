@@ -3,10 +3,50 @@
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
-/// Tools for converting OpenXml element types and their values.
+/// Tools for OpenXml element types and their values.
 /// </summary>
-public static class TypeConversionTools
+public static class TypeTools
 {
+
+  /// <summary>
+  /// Gets the properties of the OpenXml type (except for the framework properties).
+  /// </summary>
+  /// <param name="openXmlType"></param>
+  /// <returns></returns>
+  public static IEnumerable<PropertyInfo> GetOpenXmlProperties(this Type openXmlType)
+  {
+    return openXmlType.GetProperties().Where(p => !IsFrameworkProperty(p));
+  }
+
+  private static bool IsFrameworkProperty(PropertyInfo property)
+  {
+    return FrameworkPropNames.Contains(property.Name);
+  }
+
+  private static readonly string[] FrameworkPropNames = new[]
+  {
+    "ChildElements",
+    "ExtendedAttributes",
+    "Features",
+    "FirstChild",
+    "HasAttributes",
+    "HasChildren",
+    "InnerText",
+    "InnerXml",
+    "LastChild",
+    "LocalName",
+    "MCAttributes",
+    "NamespaceDeclarations",
+    "NamespaceUri",
+    "OpenXmlElementContext",
+    "OuterXml",
+    "Parent",
+    "Prefix",
+    "XmlQualifiedName",
+    "XName",
+    "Xml",
+  };
+
   /// <summary>
   /// Converts an OpenXml type to a system type.
   /// If conversion is not possible, the original type is returned.
@@ -20,14 +60,13 @@ public static class TypeConversionTools
       var type = openXmlType.GenericTypeArguments[0];
       return type;
     }
-    if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
-    {
-      var type = typeof(Boolean);
-      return type;
-    }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
       return info.targetType;
+    }
+    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
+    {
+      return info2.targetType;
     }
     return openXmlType;
   }
@@ -62,16 +101,18 @@ public static class TypeConversionTools
       }
       return value;
     }
-    if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
-    {
-      var result = OnOffTypeToBoolean(openXmlValue);
-      return result;
-    }
+
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
       var targetValue = info.toSystemValueMethod(openXmlValue);
       return targetValue;
     }
+    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
+    {
+      var targetValue = info2.toSystemValueMethod(openXmlValue);
+      return targetValue;
+    }
+
     return openXmlValue;
   }
 
@@ -99,16 +140,14 @@ public static class TypeConversionTools
       var result = Activator.CreateInstance(openXmlType, propValue);
       return result;
     }
-    if (openXmlType.IsSubclassOf(typeof(DXO10W.OnOffType)))
-    {
-      MethodInfo methodInfo = typeof(TypeConversionTools).GetMethod("BooleanToOnOffType", BindingFlags.Static | BindingFlags.NonPublic)!;
-      MethodInfo genericMethod = methodInfo.MakeGenericMethod(openXmlType);
-      var result = genericMethod.Invoke(null, [systemValue]);
-      return result;
-    }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
       var targetValue = info.toOpenXmlValueMethod(systemValue);
+      return targetValue;
+    }
+    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
+    {
+      var targetValue = info2.toOpenXmlValueMethod(openXmlType, systemValue);
       return targetValue;
     }
     return systemValue;
@@ -129,11 +168,22 @@ public static class TypeConversionTools
     { typeof(DX.UInt32Value), (typeof(UInt32), UInt32ValueToUInt32, UInt32ToUInt32Value) },
     { typeof(DX.UInt64Value), (typeof(UInt64), UInt64ValueToUInt64, UInt64ToUInt64Value) },
     { typeof(DX.OnOffValue), (typeof(Boolean), OnOffValueToBoolean, BooleanToOnOffValue) },
+    { typeof(DXW.OnOffOnlyValues), (typeof(Boolean), OnOffOnlyValuesToBoolean, BooleanToOnOffOnlyValues) },
     { typeof(DXO10W.OnOffValues), (typeof(Boolean?), OnOffValuesToBoolean, BooleanToOnOffValues) },
     { typeof(DX.HexBinaryValue), (typeof(String), HexBinaryValueToString, StringToHexBinaryValue) },
     { typeof(DX.Base64BinaryValue), (typeof(String), Base64BinaryValueToString, StringToBase64BinaryValue) },
 
   };
+
+  private static readonly
+    Dictionary<Type, (Type targetType, Func<object?, object?> toSystemValueMethod, Func<Type, object?, object?> toOpenXmlValueMethod)> OpenXmlTypesToSystemTypes2 = new()
+    {
+      { typeof(DXW.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
+      { typeof(DXW.OnOffOnlyType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
+      { typeof(DXO10W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
+      { typeof(DXO13W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
+      { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType) }
+    };
 
   private static object? BooleanValueToBoolean(object? value)
   {
@@ -143,7 +193,7 @@ public static class TypeConversionTools
     {
       return booleanValue.Value;
     }
-    throw new ArgumentException("Value is not a BooleanValue", nameof(value));
+    throw new ArgumentException("Value is not of BooleanValue type", nameof(value));
   }
 
   private static object? BooleanToBooleanValue(object? value)
@@ -154,7 +204,7 @@ public static class TypeConversionTools
     {
       return new DX.BooleanValue(booleanValue);
     }
-    throw new ArgumentException("Value is not a Boolean", nameof(value));
+    throw new ArgumentException("Value is not of Boolean type", nameof(value));
   }
 
   private static object? ByteValueToByte(object? value)
@@ -163,7 +213,7 @@ public static class TypeConversionTools
     {
       return booleanValue.Value;
     }
-    throw new ArgumentException("Value is not a ByteValue", nameof(value));
+    throw new ArgumentException("Value is not of ByteValue type", nameof(value));
   }
 
   private static object? ByteToByteValue(object? value)
@@ -172,7 +222,7 @@ public static class TypeConversionTools
     {
       return new DX.ByteValue(byteValue);
     }
-    throw new ArgumentException("Value is not a Byte", nameof(value));
+    throw new ArgumentException("Value is not of Byte type", nameof(value));
   }
 
   private static object? DateTimeValueToDateTime(object? value)
@@ -181,7 +231,7 @@ public static class TypeConversionTools
     {
       return dateTimeValue.Value;
     }
-    throw new ArgumentException("Value is not a DateTimeValue", nameof(value));
+    throw new ArgumentException("Value is not of DateTimeValue type", nameof(value));
   }
 
   private static object? DateTimeToDateTimeValue(object? value)
@@ -190,7 +240,7 @@ public static class TypeConversionTools
     {
       return new DX.DateTimeValue(dateTimeValue);
     }
-    throw new ArgumentException("Value is not a DateTime", nameof(value));
+    throw new ArgumentException("Value is not of DateTime type", nameof(value));
   }
 
   private static object? DecimalValueToDecimal(object? value)
@@ -199,7 +249,7 @@ public static class TypeConversionTools
     {
       return decimalValue.Value;
     }
-    throw new ArgumentException("Value is not a DecimalValue", nameof(value));
+    throw new ArgumentException("Value is not of DecimalValue type", nameof(value));
   }
 
   private static object? DecimalToDecimalValue(object? value)
@@ -208,7 +258,7 @@ public static class TypeConversionTools
     {
       return new DX.DecimalValue(decimalValue);
     }
-    throw new ArgumentException("Value is not a Decimal", nameof(value));
+    throw new ArgumentException("Value is not of Decimal type", nameof(value));
   }
 
   private static object? DoubleValueToDouble(object? value)
@@ -217,7 +267,7 @@ public static class TypeConversionTools
     {
       return doubleValue.Value;
     }
-    throw new ArgumentException("Value is not a DoubleValue", nameof(value));
+    throw new ArgumentException("Value is not of DoubleValue type", nameof(value));
   }
 
   private static object? DoubleToDoubleValue(object? value)
@@ -226,7 +276,7 @@ public static class TypeConversionTools
     {
       return new DX.DoubleValue(doubleValue);
     }
-    throw new ArgumentException("Value is not a Double", nameof(value));
+    throw new ArgumentException("Value is not of Double type", nameof(value));
   }
 
   private static object? Int16ValueToInt16(object? value)
@@ -235,7 +285,7 @@ public static class TypeConversionTools
     {
       return int16Value.Value;
     }
-    throw new ArgumentException("Value is not a Int16Value", nameof(value));
+    throw new ArgumentException("Value is not of Int16Value type", nameof(value));
   }
 
   private static object? Int16ToInt16Value(object? value)
@@ -244,7 +294,7 @@ public static class TypeConversionTools
     {
       return new DX.Int16Value(int16Value);
     }
-    throw new ArgumentException("Value is not a Int16", nameof(value));
+    throw new ArgumentException("Value is not of Int16 type", nameof(value));
   }
 
   private static object? Int32ValueToInt32(object? value)
@@ -253,7 +303,7 @@ public static class TypeConversionTools
     {
       return int32Value.Value;
     }
-    throw new ArgumentException("Value is not a Int32Value", nameof(value));
+    throw new ArgumentException("Value is not of Int32Value type", nameof(value));
   }
 
   private static object? Int32ToInt32Value(object? value)
@@ -262,7 +312,7 @@ public static class TypeConversionTools
     {
       return new DX.Int32Value(int32Value);
     }
-    throw new ArgumentException("Value is not a Int32", nameof(value));
+    throw new ArgumentException("Value is not of Int32 type", nameof(value));
   }
 
   private static object? Int64ValueToInt64(object? value)
@@ -271,7 +321,7 @@ public static class TypeConversionTools
     {
       return int64Value.Value;
     }
-    throw new ArgumentException("Value is not a Int64Value", nameof(value));
+    throw new ArgumentException("Value is not of Int64Value type", nameof(value));
   }
 
   private static object? Int64ToInt64Value(object? value)
@@ -280,7 +330,7 @@ public static class TypeConversionTools
     {
       return new DX.Int64Value(int64Value);
     }
-    throw new ArgumentException("Value is not a Int64", nameof(value));
+    throw new ArgumentException("Value is not of Int64 type", nameof(value));
   }
 
   private static object? StringValueToString(object? value)
@@ -289,7 +339,7 @@ public static class TypeConversionTools
     {
       return stringValue.Value!;
     }
-    throw new ArgumentException("Value is not a StringValue", nameof(value));
+    throw new ArgumentException("Value is not of StringValue type", nameof(value));
   }
 
   private static object? StringToStringValue(object? value)
@@ -298,7 +348,7 @@ public static class TypeConversionTools
     {
       return new DX.StringValue(stringValue);
     }
-    throw new ArgumentException("Value is not a String", nameof(value));
+    throw new ArgumentException("Value is not of String type", nameof(value));
   }
 
   private static object? UInt16ValueToUInt16(object? value)
@@ -307,7 +357,7 @@ public static class TypeConversionTools
     {
       return uint16Value.Value;
     }
-    throw new ArgumentException("Value is not a UInt16Value", nameof(value));
+    throw new ArgumentException("Value is not of UInt16Value type", nameof(value));
   }
 
   private static object? UInt16ToUInt16Value(object? value)
@@ -316,7 +366,7 @@ public static class TypeConversionTools
     {
       return new DX.UInt16Value(uint16Value);
     }
-    throw new ArgumentException("Value is not a UInt16", nameof(value));
+    throw new ArgumentException("Value is not of UInt16 type", nameof(value));
   }
 
   private static object? UInt32ValueToUInt32(object? value)
@@ -325,7 +375,7 @@ public static class TypeConversionTools
     {
       return uint32Value.Value;
     }
-    throw new ArgumentException("Value is not a UInt32Value", nameof(value));
+    throw new ArgumentException("Value is not of UInt32Value type", nameof(value));
   }
 
   private static object? UInt32ToUInt32Value(object? value)
@@ -334,7 +384,7 @@ public static class TypeConversionTools
     {
       return new DX.UInt32Value(uint32Value);
     }
-    throw new ArgumentException("Value is not a UInt32", nameof(value));
+    throw new ArgumentException("Value is not of UInt32 type", nameof(value));
   }
 
   private static object? UInt64ValueToUInt64(object? value)
@@ -343,7 +393,7 @@ public static class TypeConversionTools
     {
       return uint64Value.Value;
     }
-    throw new ArgumentException("Value is not a UInt64Value", nameof(value));
+    throw new ArgumentException("Value is not of UInt64Value type", nameof(value));
   }
 
   private static object? UInt64ToUInt64Value(object? value)
@@ -352,7 +402,7 @@ public static class TypeConversionTools
     {
       return new DX.UInt64Value(uint64Value);
     }
-    throw new ArgumentException("Value is not a UInt64", nameof(value));
+    throw new ArgumentException("Value is not of UInt64 type", nameof(value));
   }
 
   private static object? OnOffValueToBoolean(object? value)
@@ -361,7 +411,7 @@ public static class TypeConversionTools
     {
       return onOffValue.Value;
     }
-    throw new ArgumentException("Value is not a OnOffValue", nameof(value));
+    throw new ArgumentException("Value is not of OnOffValue type", nameof(value));
   }
 
   private static object? BooleanToOnOffValue(object? value)
@@ -370,30 +420,93 @@ public static class TypeConversionTools
     {
       return new DX.OnOffValue(booleanValue);
     }
-    throw new ArgumentException("Value is not a Boolean", nameof(value));
+    throw new ArgumentException("Value is not of Boolean type", nameof(value));
+  }
+
+  private static object? OnOffOnlyValuesToBoolean(object? value)
+  {
+    if (value is DXW.OnOffOnlyValues offOnlyValue)
+    {
+      if (offOnlyValue == DXW.OnOffOnlyValues.On)
+        return true;
+      if (offOnlyValue == DXW.OnOffOnlyValues.Off)
+        return false;
+      return null;
+    }
+    throw new ArgumentException("Value is not of OnOffOnlyValues type", nameof(value));
+  }
+
+  private static object? BooleanToOnOffOnlyValues(object? value)
+  {
+    if (value is Boolean booleanValue)
+    {
+      if (booleanValue)
+        return DXW.OnOffOnlyValues.On;
+      if (!booleanValue)
+        return DXW.OnOffOnlyValues.Off;
+    }
+    return null;
   }
 
   private static object? OnOffTypeToBoolean(object? value)
   {
-    if (value is DXO10W.OnOffType onOffType)
+    if (value is DXW.OnOffType onOffTypeValue)
     {
-      var val = onOffType.Val?.Value;
+      var val = onOffTypeValue.Val?.Value;
+      return val;
+    }
+    if (value is DXO10W.OnOffType onOffTypeValue2)
+    {
+      var val = onOffTypeValue2.Val?.Value;
       if (val == DXO10W.OnOffValues.One || val == DXO10W.OnOffValues.True)
         return true;
       if (val == DXO10W.OnOffValues.Zero || val == DXO10W.OnOffValues.False)
         return false;
       return null;
     }
-    throw new ArgumentException("Value is not a OnOffType", nameof(value));
+    throw new ArgumentException("Value type if invalid to convert to boolean", nameof(value));
   }
 
-  private static object? BooleanToOnOffType<T>(object? value) where T : DXO10W.OnOffType, new()
+  private static object? BooleanToOnOffType(Type targetType, object? value)
   {
-    if (value is Boolean booleanValue)
+    var booleanValue = (bool?)value;
+    if (targetType.IsSubclassOf(typeof(DXW.OnOffType)))
     {
-      return new T { Val = (DXO10W.OnOffValues)BooleanToOnOffValues(booleanValue) };
+      var result = Activator.CreateInstance(targetType) as DXW.OnOffType;
+      if (booleanValue!=null)
+        result!.Val = new DX.OnOffValue(booleanValue);
+      return result;
     }
-    throw new ArgumentException("Value is not a Boolean", nameof(value));
+
+    if (targetType.IsSubclassOf(typeof(DXW.OnOffOnlyType)))
+    {
+      var result = Activator.CreateInstance(targetType) as DXW.OnOffOnlyType;
+      if (booleanValue == true)
+        result!.Val = DXW.OnOffOnlyValues.On;
+      if (booleanValue == false)
+        result!.Val = DXW.OnOffOnlyValues.Off;
+      return result;
+    }
+
+    if (targetType.IsSubclassOf(typeof(DXO10W.OnOffType)))
+    {
+      var result = Activator.CreateInstance(targetType) as DXO10W.OnOffType;
+      if (booleanValue == true)
+        result!.Val = DXO10W.OnOffValues.One;
+      if (booleanValue == false)
+        result!.Val = DXO10W.OnOffValues.Zero;
+      return result;
+    }
+
+    if (targetType.IsSubclassOf(typeof(DXO13W.OnOffType)))
+    {
+      var result = Activator.CreateInstance(targetType) as DXO13W.OnOffType;
+      if (booleanValue!=null)
+        result!.Val = new DX.OnOffValue(booleanValue);
+      return result;
+    }
+
+    throw new ArgumentException("TargetType is invalid to convert from boolean", nameof(targetType));
   }
 
   private static object? OnOffValuesToBoolean(object? value)
@@ -405,19 +518,19 @@ public static class TypeConversionTools
       if (onOffValues == DXO10W.OnOffValues.Zero || onOffValues == DXO10W.OnOffValues.False)
         return false;
     }
-    throw new ArgumentException("Value is not a OnOffValues", nameof(value));
+    throw new ArgumentException("Value is not of OnOffValues type", nameof(value));
   }
 
-  private static object BooleanToOnOffValues(object? value)
+  private static object? BooleanToOnOffValues(object? value)
   {
     if (value is Boolean booleanValue)
     {
-      if (booleanValue == true)
+      if (booleanValue)
         return DXO10W.OnOffValues.One;
-      if (booleanValue == false)
+      if (!booleanValue)
         return DXO10W.OnOffValues.Zero;
     }
-    throw new ArgumentException("Value is not a Boolean", nameof(value));
+    throw new ArgumentException("Value is not of Boolean type", nameof(value));
   }
 
   private static object? HexBinaryValueToString(object? value)
@@ -426,7 +539,7 @@ public static class TypeConversionTools
     {
       return hexBinaryValue.Value;
     }
-    throw new ArgumentException("Value is not a HexBinaryValue", nameof(value));
+    throw new ArgumentException("Value is not of HexBinaryValue type", nameof(value));
   }
 
   private static object? StringToHexBinaryValue(object? value)
@@ -435,7 +548,7 @@ public static class TypeConversionTools
     {
       return new DX.HexBinaryValue(stringValue);
     }
-    throw new ArgumentException("Value is not a String", nameof(value));
+    throw new ArgumentException("Value is not of String type", nameof(value));
   }
 
   private static object? Base64BinaryValueToString(object? value)
@@ -444,7 +557,7 @@ public static class TypeConversionTools
     {
       return base64BinaryValue.Value;
     }
-    throw new ArgumentException("Value is not a Base64BinaryValue", nameof(value));
+    throw new ArgumentException("Value is not of Base64BinaryValue type", nameof(value));
   }
 
   private static object? StringToBase64BinaryValue(object? value)
@@ -453,6 +566,35 @@ public static class TypeConversionTools
     {
       return new DX.Base64BinaryValue(stringValue);
     }
-    throw new ArgumentException("Value is not a String", nameof(value));
+    throw new ArgumentException("Value is not of String type", nameof(value));
+  }
+
+  private static object? LongHexNumberTypeToHexInt(object? value)
+  {
+    if (value is DXW.LongHexNumberType longHexNumber)
+    {
+      var val = longHexNumber.Val?.Value;
+      if (val != null)
+        return new HexInt(val);
+      return null;
+    }
+    throw new ArgumentException("Value is not of LongHexNumberType type", nameof(value));
+  }
+
+  private static object? HexIntToLongHexNumberType(Type type, object? value) //where T : DXW.LongHexNumberType, new()
+  {
+    if (value is HexInt hexIntValue)
+    {
+      var result = Activator.CreateInstance(type) as DXW.LongHexNumberType;
+      result!.Val = new DX.HexBinaryValue(hexIntValue.ToString());
+      return result;
+    }
+    if (value is string stringValue)
+    {
+      var result = Activator.CreateInstance(type) as DXW.LongHexNumberType;
+      result!.Val = new DX.HexBinaryValue(stringValue);
+      return result;
+    }
+    throw new ArgumentException("Value is not an HexInt nor string", nameof(value));
   }
 }

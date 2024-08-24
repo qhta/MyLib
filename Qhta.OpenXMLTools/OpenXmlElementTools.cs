@@ -23,6 +23,20 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
+  /// Get child elements (without properties) of the OpenXmlElement.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static IEnumerable<DX.OpenXmlElement> GetMembers(this DX.OpenXmlCompositeElement element)
+  {
+    foreach (var child in element.ChildElements)
+    {
+      if (!child.GetType().Name.EndsWith("Properties"))
+        yield return child;
+    }
+  }
+
+  /// <summary>
   /// Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
   /// </summary>
   /// <param name="xmlElement">Checked source element</param>

@@ -1314,6 +1314,13 @@
             <param name="element"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetMembers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get child elements (without properties) of the OpenXmlElement.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetDocumentPart(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
@@ -6351,12 +6358,19 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.TypeConversionTools">
+        <member name="T:Qhta.OpenXmlTools.TypeTools">
             <summary>
-            Tools for converting OpenXml element types and their values.
+            Tools for OpenXml element types and their values.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TypeConversionTools.ToSystemType(System.Type)">
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetOpenXmlProperties(System.Type)">
+            <summary>
+            Gets the properties of the OpenXml type (except for the framework properties).
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemType(System.Type)">
             <summary>
             Converts an OpenXml type to a system type.
             If conversion is not possible, the original type is returned.
@@ -6364,7 +6378,7 @@
             <param name="openXmlType"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TypeConversionTools.ToSystemValue(System.Object,System.Type)">
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemValue(System.Object,System.Type)">
             <summary>
             Converts an OpenXml type value to a system type value.
             If conversion is not possible, the original value is returned.
@@ -6373,7 +6387,7 @@
             <param name="openXmlValue"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TypeConversionTools.ToOpenXmlValue(System.Object,System.Type)">
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToOpenXmlValue(System.Object,System.Type)">
             <summary>
             Converts a system type value to an OpenXml type value.
             If conversion is not possible, the original value is returned.

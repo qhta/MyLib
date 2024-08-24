@@ -12,3 +12,4 @@ D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-wi
 D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.xml
 D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.pdb
 D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\ref\Qhta.WPF.Converters.dll
+D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.sourcelink.json
