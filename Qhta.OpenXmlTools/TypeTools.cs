@@ -112,8 +112,24 @@ public static class TypeTools
       var targetValue = info2.toSystemValueMethod(openXmlValue);
       return targetValue;
     }
-
     return openXmlValue;
+  }
+
+  /// <summary>
+  /// Updates the OpenXml value with the system value.
+  /// If conversion is not possible, the false value is returned.
+  /// </summary>
+  /// <param name="openXmlElement">OpenXmlElement</param>
+  /// <param name="systemValue"></param>
+  public static bool UpdateFromSystemValue(this DX.OpenXmlElement openXmlElement, object? systemValue)
+  {
+    var openXmlType = openXmlElement.GetType();
+    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
+    {
+      info2.updateValueMethod(openXmlElement, systemValue);
+      return true;
+    }
+    return false;
   }
 
   /// <summary>
@@ -176,13 +192,13 @@ public static class TypeTools
   };
 
   private static readonly
-    Dictionary<Type, (Type targetType, Func<object?, object?> toSystemValueMethod, Func<Type, object?, object?> toOpenXmlValueMethod)> OpenXmlTypesToSystemTypes2 = new()
+    Dictionary<Type, (Type targetType, Func<object?, object?> toSystemValueMethod, Func<Type, object?, object?> toOpenXmlValueMethod, Action<DX.OpenXmlElement, object?> updateValueMethod)> OpenXmlTypesToSystemTypes2 = new()
     {
-      { typeof(DXW.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
-      { typeof(DXW.OnOffOnlyType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
-      { typeof(DXO10W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
-      { typeof(DXO13W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType) },
-      { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType) }
+      { typeof(DXW.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXW.OnOffOnlyType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXO10W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXO13W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType, UpdateLongHexNumberType) }
     };
 
   private static object? BooleanValueToBoolean(object? value)
@@ -509,6 +525,49 @@ public static class TypeTools
     throw new ArgumentException("TargetType is invalid to convert from boolean", nameof(targetType));
   }
 
+  private static void UpdateOnOffType(DX.OpenXmlElement openXmlElement, object? value)
+  {
+    var booleanValue = (bool?)value;
+    if (openXmlElement is DXW.OnOffType onOffType)
+    {
+      if (booleanValue != null)
+        onOffType.Val = new DX.OnOffValue(booleanValue);
+      else
+        onOffType.Val = null;
+    }
+    else
+    if (openXmlElement is DXW.OnOffOnlyType onOffOnlyType)
+    {
+      if (booleanValue == true)
+        onOffOnlyType.Val = DXW.OnOffOnlyValues.On;
+      else
+      if (booleanValue == false)
+        onOffOnlyType.Val = DXW.OnOffOnlyValues.Off;
+      else
+        onOffOnlyType.Val = null;
+    }
+    else
+    if (openXmlElement is DXO10W.OnOffType onOffType2)
+    {
+      if (booleanValue == true)
+        onOffType2.Val = DXO10W.OnOffValues.One;
+      if (booleanValue == false)
+        onOffType2.Val = DXO10W.OnOffValues.Zero;
+      else
+        onOffType2.Val = null;
+    }
+    else
+    if (openXmlElement is DXO13W.OnOffType onOffType3)
+    {
+      if (booleanValue != null)
+        onOffType3.Val = new DX.OnOffValue(booleanValue);
+      else
+        onOffType3.Val = null;
+    }
+    else
+      throw new ArgumentException("Object cannot update from boolean", nameof(openXmlElement));
+  }
+
   private static object? OnOffValuesToBoolean(object? value)
   {
     if (value is DXO10W.OnOffValues onOffValues)
@@ -596,5 +655,25 @@ public static class TypeTools
       return result;
     }
     throw new ArgumentException("Value is not an HexInt nor string", nameof(value));
+  }
+
+  private static void UpdateLongHexNumberType(DX.OpenXmlElement openXmlElement, object? value)
+  {
+    if (openXmlElement is DXW.LongHexNumberType longHexNumber)
+    {
+      if (value is HexInt hexIntValue)
+      {
+        longHexNumber.Val = new DX.HexBinaryValue(hexIntValue.ToString());
+      }
+      else
+      if (value is string stringValue)
+      {
+        longHexNumber.Val = new DX.HexBinaryValue(stringValue);
+      }
+      else
+        throw new ArgumentException("Value is not an HexInt nor string", nameof(value));
+    }
+    else
+      throw new ArgumentException("Object is not of LongHexNumberType type", nameof(openXmlElement));
   }
 }

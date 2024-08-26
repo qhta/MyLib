@@ -6387,6 +6387,14 @@
             <param name="openXmlValue"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.UpdateFromSystemValue(DocumentFormat.OpenXml.OpenXmlElement,System.Object)">
+            <summary>
+            Updates the OpenXml value with the system value.
+            If conversion is not possible, the false value is returned.
+            </summary>
+            <param name="openXmlElement">OpenXmlElement</param>
+            <param name="systemValue"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TypeTools.ToOpenXmlValue(System.Object,System.Type)">
             <summary>
             Converts a system type value to an OpenXml type value.
