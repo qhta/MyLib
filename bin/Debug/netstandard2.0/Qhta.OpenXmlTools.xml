@@ -6404,6 +6404,13 @@
             <param name="systemValue"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetMemberTypes(System.Type)">
+            <summary>
+            Gets the acceptable member types of the OpenXml type.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.VariantTools">
             <summary>
             Tools for working with variant types.

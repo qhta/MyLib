@@ -676,4 +676,30 @@ public static class TypeTools
     else
       throw new ArgumentException("Object is not of LongHexNumberType type", nameof(openXmlElement));
   }
+
+  /// <summary>
+  /// Gets the acceptable member types of the OpenXml type.
+  /// </summary>
+  /// <param name="openXmlType"></param>
+  /// <returns></returns>
+  public static Type[] GetMemberTypes(this Type openXmlType)
+  {
+    if (MemberTypes.TryGetValue(openXmlType, out var types))
+    {
+      return types;
+    }
+    return [];
+  }
+
+  private static readonly Dictionary<Type, Type[]> MemberTypes = new()
+  {
+    { typeof(DXW.Body), [typeof(DXW.Paragraph), typeof(DXW.Table)] },
+    { typeof(DXW.Paragraph), [typeof(DXW.Run), typeof(DXW.Break), typeof(DXW.TabChar), typeof(DXW.Text)] },
+    { typeof(DXW.Table), [typeof(DXW.TableRow)] },
+    { typeof(DXW.TableRow), [typeof(DXW.TableCell)] },
+    { typeof(DXW.TableCell), [typeof(DXW.Paragraph)] },
+    { typeof(DXW.Run), [typeof(DXW.Text)] },
+    { typeof(DXW.Rsids), [typeof(DXW.Rsid)] }
+  };
+
 }
