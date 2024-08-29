@@ -12,4 +12,5 @@ D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\refint\Qhta.MVVM.dll
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.xml
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.pdb
 D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\ref\Qhta.MVVM.dll
-D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.csproj.CopyComplete
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.sourcelink.json
+D:\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net6.0\Qhta.MVVM.csproj.Up2Date

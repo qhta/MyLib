@@ -80,7 +80,7 @@ public static class TypeTools
   /// <returns></returns>
   public static object? ToSystemValue(this object? openXmlValue, Type? openXmlType)
   {
-    if (openXmlType == null)
+    if (openXmlType == null || openXmlType==typeof(object))
       return openXmlValue;
     if (openXmlValue == null)
       return null;
@@ -141,7 +141,7 @@ public static class TypeTools
   /// <returns></returns>
   public static object? ToOpenXmlValue(this object? systemValue, Type? openXmlType)
   {
-    if (openXmlType == null)
+    if (openXmlType == null || openXmlType == typeof(object))
       return systemValue;
     if (systemValue == null)
       return null;
