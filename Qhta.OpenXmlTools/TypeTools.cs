@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DocumentFormat.OpenXml;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -243,7 +245,14 @@ public static class TypeTools
       { typeof(DXW.OnOffOnlyType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
       { typeof(DXO10W.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
       { typeof(DXO13W.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType, UpdateLongHexNumberType) }
+      { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType, UpdateLongHexNumberType) },
+      { typeof(DXW.StringType), (typeof(String), StringTypeToString, StringToStringType, UpdateStringType) },
+      { typeof(DXW.String255Type), (typeof(String), StringTypeToString, StringToStringType, UpdateStringType) },
+      { typeof(DXW.String253Type), (typeof(String), StringTypeToString, StringToStringType, UpdateStringType) },
+      { typeof(DXW.DecimalNumberType), (typeof(int), DecimalNumberTypeToInt, IntToDecimalNumberType, UpdateDecimalType) },
+      { typeof(DXW.UnsignedDecimalNumberType), (typeof(int), DecimalNumberTypeToInt, IntToDecimalNumberType, UpdateDecimalType) },
+      { typeof(DXW.UnsignedDecimalNumberMax3Type), (typeof(int), DecimalNumberTypeToInt, IntToDecimalNumberType, UpdateDecimalType) },
+      { typeof(DXW.UnsignedInt7Type), (typeof(int), DecimalNumberTypeToInt, IntToDecimalNumberType, UpdateDecimalType) },
     };
 
   private static object? BooleanValueToBoolean(object? value)
@@ -721,6 +730,218 @@ public static class TypeTools
     else
       throw new ArgumentException("Object is not of LongHexNumberType type", nameof(openXmlElement));
   }
+
+  private static object? StringTypeToString(object? value)
+  {
+    if (value is DXW.StringType stringValue)
+    {
+      var val = stringValue.Val?.Value;
+      return val;
+    }
+    if (value is DXW.String255Type string255Value)
+    {
+      var val = string255Value.Val?.Value;
+      return val;
+    }
+    if (value is DXW.String253Type string253Value)
+    {
+      var val = string253Value.Val?.Value;
+      return val;
+    }
+    throw new ArgumentException("Value is not of any StringType", nameof(value));
+  }
+
+  private static object? StringToStringType(Type targetType, object? value) //where T : DXW.StringType, new()
+  {
+    if (value is string stringValue)
+    {
+      if (targetType.BaseType == typeof(DXW.StringType))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.StringType;
+        result!.Val = new DX.StringValue(stringValue);
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.String255Type))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.String255Type;
+        result!.Val = new DX.StringValue(stringValue);
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.String253Type))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.String253Type;
+        result!.Val = new DX.StringValue(stringValue);
+        return result;
+      }
+      throw new ArgumentException("TargetType is not of any StringType", nameof(targetType));
+    }
+    throw new ArgumentException("Value is not a string", nameof(value));
+  }
+
+  private static void UpdateStringType(DX.OpenXmlElement openXmlElement, object? value)
+  {
+    if (value is string stringValue)
+    {
+      if (openXmlElement is DXW.StringType stringType)
+      {
+        stringType.Val = new DX.StringValue(stringValue);
+      }
+      else
+      if (openXmlElement is DXW.String255Type string255Type)
+      {
+        string255Type.Val = new DX.StringValue(stringValue);
+      }
+      else
+      if (openXmlElement is DXW.String253Type string253Type)
+      {
+        string253Type.Val = new DX.StringValue(stringValue);
+      }
+      else
+        throw new ArgumentException("Element is not of any StringType", nameof(openXmlElement));
+    }
+    throw new ArgumentException("Value is not a string", nameof(value));
+  }
+
+  private static object? DecimalNumberTypeToInt(object? value)
+  {
+    if (value is DXW.DecimalNumberType decimalNumberType)
+    {
+      var val = decimalNumberType.Val?.Value;
+      return val;
+    }
+    if (value is DXW.UnsignedDecimalNumberType unsignedDecimalNumber)
+    {
+      var val = unsignedDecimalNumber.Val?.Value;
+      return val;
+    }
+    if (value is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3)
+    {
+      var val = unsignedDecimalNumberMax3.Val?.Value;
+      return val;
+    }
+    if (value is DXW.UnsignedInt7Type unsignedInt7)
+    {
+      var val = unsignedInt7.Val?.Value;
+      return val;
+    }
+    throw new ArgumentException("Value is not of any DecimalNumber type", nameof(value));
+  }
+
+  private static object? IntToDecimalNumberType(Type targetType, object? value) //where T : DXW.DecimalNumberType, new()
+  {
+    if (value is int intValue)
+    {
+      if (targetType.BaseType == typeof(DXW.DecimalNumberType))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.DecimalNumberType;
+        result!.Val = new DX.Int32Value(intValue);
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.UnsignedDecimalNumberType))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.UnsignedDecimalNumberType;
+        result!.Val = new DX.UInt32Value(Convert.ToUInt32(intValue));
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.UnsignedDecimalNumberMax3Type))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.UnsignedDecimalNumberMax3Type;
+        result!.Val = new DX.Int32Value(intValue);
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.UnsignedInt7Type))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.UnsignedInt7Type;
+        result!.Val = new DX.Int32Value(intValue);
+        return result;
+      }
+      throw new ArgumentException("TargetType is not of any DecimalNumber", nameof(targetType));
+    }
+    if (value is uint uintValue)
+    {
+      if (targetType.BaseType == typeof(DXW.DecimalNumberType))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.DecimalNumberType;
+        result!.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.UnsignedDecimalNumberType))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.UnsignedDecimalNumberType;
+        result!.Val = new DX.UInt32Value(uintValue);
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.UnsignedDecimalNumberMax3Type))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.UnsignedDecimalNumberMax3Type;
+        result!.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+        return result;
+      }
+      if (targetType.BaseType == typeof(DXW.UnsignedInt7Type))
+      {
+        var result = Activator.CreateInstance(targetType) as DXW.UnsignedInt7Type;
+        result!.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+        return result;
+      }
+      throw new ArgumentException("TargetType is not of any DecimalNumber", nameof(targetType));
+    }
+    throw new ArgumentException("Value is not an int", nameof(value));
+  }
+
+  private static void UpdateDecimalType(DX.OpenXmlElement openXmlElement, object? value)
+  {
+    if (value is int intValue)
+    {
+      if (openXmlElement is DXW.DecimalNumberType decimalNumberType)
+      {
+        decimalNumberType.Val = new DX.Int32Value(intValue);
+      }
+      else
+      if (openXmlElement is DXW.UnsignedDecimalNumberType unsignedDecimalNumberType)
+      {
+        unsignedDecimalNumberType.Val = new DX.UInt32Value(Convert.ToUInt32(intValue));
+      }
+      else
+      if (openXmlElement is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3Type)
+      {
+        unsignedDecimalNumberMax3Type.Val = new DX.Int32Value(intValue);
+      }
+      else
+      if (openXmlElement is DXW.UnsignedInt7Type unsignedInt7Type)
+      {
+        unsignedInt7Type.Val = new DX.Int32Value(intValue);
+      }
+      else
+        throw new ArgumentException("Element is not of any DecimalNumber", nameof(openXmlElement));
+    }
+    else
+    if (value is uint uintValue)
+    {
+      if (openXmlElement is DXW.DecimalNumberType decimalNumberType)
+      {
+        decimalNumberType.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+      }
+      else
+      if (openXmlElement is DXW.UnsignedDecimalNumberType unsignedDecimalNumberType)
+      {
+        unsignedDecimalNumberType.Val = new DX.UInt32Value(uintValue);
+      }
+      else
+      if (openXmlElement is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3Type)
+      {
+        unsignedDecimalNumberMax3Type.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+      }
+      else
+      if (openXmlElement is DXW.UnsignedInt7Type unsignedInt7Type)
+      {
+        unsignedInt7Type.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+      }
+      else
+        throw new ArgumentException("Element is not of any DecimalNumber", nameof(openXmlElement));
+    }
+    throw new ArgumentException("Value is not an int", nameof(value));
+  }
+
 
   /// <summary>
   /// Check whether the OpenXml type can contain members.
