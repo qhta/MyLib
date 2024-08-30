@@ -145,6 +145,7 @@ public static class TypeTools
       return systemValue;
     if (systemValue == null)
       return null;
+    
     if (openXmlType.Name == "EnumValue`1")
     {
       var value = systemValue as String;
@@ -194,10 +195,10 @@ public static class TypeTools
   private static readonly
     Dictionary<Type, (Type targetType, Func<object?, object?> toSystemValueMethod, Func<Type, object?, object?> toOpenXmlValueMethod, Action<DX.OpenXmlElement, object?> updateValueMethod)> OpenXmlTypesToSystemTypes2 = new()
     {
-      { typeof(DXW.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXW.OnOffOnlyType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXO10W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXO13W.OnOffType), (typeof(HexInt), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXW.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXW.OnOffOnlyType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXO10W.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXO13W.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
       { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType, UpdateLongHexNumberType) }
     };
 
@@ -675,6 +676,16 @@ public static class TypeTools
     }
     else
       throw new ArgumentException("Object is not of LongHexNumberType type", nameof(openXmlElement));
+  }
+
+  /// <summary>
+  /// Check whether the OpenXml type can contain members.
+  /// </summary>
+  /// <param name="openXmlType"></param>
+  /// <returns></returns>
+  public static bool IsContainer(this Type openXmlType)
+  {
+    return MemberTypes.ContainsKey(openXmlType);
   }
 
   /// <summary>
