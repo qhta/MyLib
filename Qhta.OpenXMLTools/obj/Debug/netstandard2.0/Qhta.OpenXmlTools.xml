@@ -6370,6 +6370,20 @@
             <param name="openXmlType"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.IsOpenXmlEnum(System.Type)">
+            <summary>
+            Checks whether the openXmlType is an OpenXml enum.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetOpenXmlEnumValues(System.Type)">
+            <summary>
+            Checks whether the openXmlType is an OpenXml enum.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemType(System.Type)">
             <summary>
             Converts an OpenXml type to a system type.

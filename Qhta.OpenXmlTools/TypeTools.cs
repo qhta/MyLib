@@ -48,6 +48,34 @@ public static class TypeTools
   };
 
   /// <summary>
+  /// Checks whether the openXmlType is an OpenXml enum.
+  /// </summary>
+  /// <param name="openXmlType"></param>
+  /// <returns></returns>
+  public static bool IsOpenXmlEnum(this Type openXmlType)
+  {
+    if (openXmlType.IsGenericType && openXmlType.GetGenericTypeDefinition() == typeof(DX.EnumValue<>))
+      return true;
+    if (openXmlType.BaseType == typeof(DX.OpenXmlLeafElement))
+    {
+      var properties = openXmlType.GetOpenXmlProperties().ToArray();
+      if (properties.Count() == 1 && properties.First().Name == "Val")
+        return IsOpenXmlEnum(properties.First().PropertyType);
+    }
+    return openXmlType.GetInterfaces().Contains(typeof(DX.IEnumValue));
+  }
+
+  /// <summary>
+  /// Checks whether the openXmlType is an OpenXml enum.
+  /// </summary>
+  /// <param name="openXmlType"></param>
+  /// <returns></returns>
+  public static PropertyInfo[] GetOpenXmlEnumValues(this Type openXmlType)
+  {
+    return openXmlType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public);
+  }
+
+  /// <summary>
   /// Converts an OpenXml type to a system type.
   /// If conversion is not possible, the original type is returned.
   /// </summary>
@@ -59,6 +87,12 @@ public static class TypeTools
     {
       var type = openXmlType.GenericTypeArguments[0];
       return type;
+    }
+    if (openXmlType.BaseType == typeof(DX.OpenXmlLeafElement))
+    {
+      var properties = openXmlType.GetOpenXmlProperties().ToArray();
+      if (properties.Count() == 1 && properties.First().Name == "Val")
+        return ToSystemType(properties.First().PropertyType);
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
@@ -80,7 +114,7 @@ public static class TypeTools
   /// <returns></returns>
   public static object? ToSystemValue(this object? openXmlValue, Type? openXmlType)
   {
-    if (openXmlType == null || openXmlType==typeof(object))
+    if (openXmlType == null || openXmlType == typeof(object))
       return openXmlValue;
     if (openXmlValue == null)
       return null;
@@ -145,7 +179,6 @@ public static class TypeTools
       return systemValue;
     if (systemValue == null)
       return null;
-    
     if (openXmlType.Name == "EnumValue`1")
     {
       var value = systemValue as String;
@@ -156,6 +189,17 @@ public static class TypeTools
       var propValue = prop!.GetValue(null);
       var result = Activator.CreateInstance(openXmlType, propValue);
       return result;
+    }
+    if (openXmlType.BaseType == typeof(DX.OpenXmlLeafElement))
+    {
+      var properties = openXmlType.GetOpenXmlProperties().ToArray();
+      if (properties.Count() == 1 && properties.First().Name == "Val")
+      {
+        var val = ToOpenXmlValue(systemValue, properties.First().PropertyType);
+        var result = Activator.CreateInstance(openXmlType) as DX.OpenXmlLeafElement;
+        properties.First().SetValue(result, val);
+        return result;
+      }
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
@@ -490,7 +534,7 @@ public static class TypeTools
     if (targetType.IsSubclassOf(typeof(DXW.OnOffType)))
     {
       var result = Activator.CreateInstance(targetType) as DXW.OnOffType;
-      if (booleanValue!=null)
+      if (booleanValue != null)
         result!.Val = new DX.OnOffValue(booleanValue);
       return result;
     }
@@ -518,7 +562,7 @@ public static class TypeTools
     if (targetType.IsSubclassOf(typeof(DXO13W.OnOffType)))
     {
       var result = Activator.CreateInstance(targetType) as DXO13W.OnOffType;
-      if (booleanValue!=null)
+      if (booleanValue != null)
         result!.Val = new DX.OnOffValue(booleanValue);
       return result;
     }
