@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DocumentFormat.OpenXml.Office.CoverPageProps;
 
 namespace Qhta.OpenXmlTools;
 
@@ -37,6 +34,34 @@ public static class BookmarkTools
     if (searchFromElement.Parent == null)
       return null;
     return GetBookmarkStart(bookmarkEnd, searchFromElement.Parent);
+  }
 
+  /// <summary>
+  /// Gets the bookmark end element that corresponds to the specified bookmark start element
+  /// </summary>
+  /// <param name="bookmarkStart"></param>
+  /// <param name="searchFromElement">searches from this element backward</param>
+  /// <returns></returns>
+  /// <exception cref="ArgumentNullException"></exception>
+  /// <exception cref="ArgumentException"></exception>
+  public static DXW.BookmarkEnd? GetBookmarkEnd(this DXW.BookmarkStart bookmarkStart, DX.OpenXmlElement? searchFromElement = null)
+  {
+    if (bookmarkStart == null)
+      throw new ArgumentNullException(nameof(bookmarkStart));
+    string? Id = bookmarkStart.Id?.Value;
+    if (Id == null)
+      return null;
+    if (searchFromElement == null)
+      searchFromElement = bookmarkStart;
+    var element = searchFromElement.PreviousSibling();
+    while (element != null)
+    {
+      if (element is DXW.BookmarkEnd bookmarkEnd && bookmarkStart.Id?.Value == Id)
+        return bookmarkEnd;
+      element = element.PreviousSibling();
+    }
+    if (searchFromElement.Parent == null)
+      return null;
+    return GetBookmarkEnd(bookmarkStart, searchFromElement.Parent);
   }
 }

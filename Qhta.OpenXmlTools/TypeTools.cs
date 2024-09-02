@@ -523,7 +523,7 @@ public static class TypeTools
     if (value is DXW.OnOffType onOffTypeValue)
     {
       var val = onOffTypeValue.Val?.Value;
-      return val;
+      return val != false;
     }
     if (value is DXO10W.OnOffType onOffTypeValue2)
     {
@@ -950,7 +950,8 @@ public static class TypeTools
   /// <returns></returns>
   public static bool IsContainer(this Type openXmlType)
   {
-    return MemberTypes.ContainsKey(openXmlType);
+    //return MemberTypes.ContainsKey(openXmlType);
+    return typeof(OpenXmlCompositeElement).IsAssignableFrom(openXmlType) && GetMemberTypes(openXmlType).Any();
   }
 
   /// <summary>
@@ -959,15 +960,50 @@ public static class TypeTools
   /// <param name="openXmlType"></param>
   /// <returns></returns>
   public static Type[] GetMemberTypes(this Type openXmlType)
+  //{
+  //  if (MemberTypes.TryGetValue(openXmlType, out var types))
+  //  {
+  //    return types;
+  //  }
+  //  return [];
+  //}
+
+  //public static List<Type> GetAllowedMemberClasses(Type openXmlType)
   {
-    if (MemberTypes.TryGetValue(openXmlType, out var types))
+    //if (!typeof(OpenXmlCompositeElement).IsAssignableFrom(openXmlType))
+    //{
+    //  throw new ArgumentException("Type must be a subclass of OpenXmlCompositeElement", nameof(openXmlType));
+    //}
+
+    var openXmlPropertyClasses = new List<Type>();
+    var openXmlMemberClasses = new List<Type>();
+
+    // Get properties that are OpenXmlElement or derived types
+    var properties = openXmlType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+      .Where(p => typeof(OpenXmlElement).IsAssignableFrom(p.PropertyType));
+
+    foreach (var property in properties)
     {
-      return types;
+      openXmlPropertyClasses.Add(property.PropertyType);
     }
-    return [];
+
+    // Get child element types from the ChildElements property
+    var childElementInfo = openXmlType.GetProperty("ChildElements", BindingFlags.Public | BindingFlags.Instance);
+    if (childElementInfo != null)
+    {
+      var childElementTypes = childElementInfo.PropertyType.GenericTypeArguments;
+      foreach (var childElementType in childElementTypes)
+      {
+        if (!openXmlPropertyClasses.Contains(childElementType))
+        {
+          openXmlMemberClasses.Add(childElementType);
+        }
+      }
+    }
+    return openXmlMemberClasses.Distinct().ToArray();
   }
 
-  private static readonly Dictionary<Type, Type[]> MemberTypes = new()
+private static readonly Dictionary<Type, Type[]> MemberTypes = new()
   {
     { typeof(DXW.Body), [typeof(DXW.Paragraph), typeof(DXW.Table)] },
     { typeof(DXW.Paragraph), [typeof(DXW.Run), typeof(DXW.Break), typeof(DXW.TabChar), typeof(DXW.Text)] },

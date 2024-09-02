@@ -19,6 +19,16 @@
             <exception cref="T:System.ArgumentNullException"></exception>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
+        <member name="M:Qhta.OpenXmlTools.BookmarkTools.GetBookmarkEnd(DocumentFormat.OpenXml.Wordprocessing.BookmarkStart,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the bookmark end element that corresponds to the specified bookmark start element
+            </summary>
+            <param name="bookmarkStart"></param>
+            <param name="searchFromElement">searches from this element backward</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.BordersTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Borders element.
