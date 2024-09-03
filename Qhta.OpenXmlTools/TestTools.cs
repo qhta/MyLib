@@ -46,16 +46,24 @@ public static class TestTools
   /// <param name="indent">indent size (spaces = indent*2) to put before</param>
   /// <param name="depthLimit">limit of internal elements levels (in composite elements</param>
   /// <returns></returns>
-  public static string AsString(this object? value, int indent = 0, int depthLimit = int.MaxValue)
+  public static string? AsString(this object? value, int indent = 0, int depthLimit = int.MaxValue)
   {
+    if (value == null)
+      return null;
+    var sourceType = value.GetType();
     if (value is Twips twips)
       return twips.Value.ToString();
     if (value is HexInt hexInt)
       return hexInt.Value.ToString("X8");
     if (value is DXW.Rsids rsids)
       return AsString(rsids, indent, depthLimit);
-    if (value is DX.IEnumValue enumValue)
-      return enumValue.Value;
+    if (sourceType.IsOpenXmlEnum())
+    {
+      var props = sourceType.GetOpenXmlProperties();
+      var prop = props.FirstOrDefault(p => p.GetValue(null)?.Equals(value) == true);
+      return prop?.Name;
+    }
+
     if (value is DX.OpenXmlLeafElement leafElement)
       return AsString(leafElement, indent, depthLimit);
     if (value is DX.OpenXmlCompositeElement compositeElement)
@@ -64,8 +72,6 @@ public static class TestTools
       return "[" + string.Join(", ", strArray) + "]";
     if (value is object[] objArray)
       return "{" + string.Join(", ", objArray.Select(item => item.AsString())) + "}";
-    if (value is null)
-      return string.Empty;
     if (value is string str)
       return str;
     if (value is DateTime dateTime)
@@ -94,7 +100,7 @@ public static class TestTools
           var propValue = prop.GetValue(value);
           if (propValue != null)
           {
-            var propValStr = propValue.AsString(indent + 1, depthLimit - 1);
+            var propValStr = propValue.AsString(indent + 1, depthLimit - 1) ?? String.Empty;
             if (propValStr.Contains("\n"))
               propValuesList.Add($"{indentStr}{prop.Name}:\r\n{propValStr}");
             else
@@ -123,7 +129,7 @@ public static class TestTools
       }
       return string.Join("+", selectedValues);
     }
-    return value?.ToString() ?? string.Empty;
+    return value?.ToString();
   }
 
   /// <summary>
@@ -176,7 +182,7 @@ public static class TestTools
       {
         var cl = new List<string>();
         foreach (var child in element.Elements())
-          cl.Add(child.AsString(indent + 1, depthLimit - 1));
+          cl.Add(child.AsString(indent + 1, depthLimit - 1) ?? String.Empty);
         return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
       }
       return $"{indentStr}<{element.Prefix}:{element.LocalName} {string.Join(" ", sl)} />";
@@ -187,7 +193,7 @@ public static class TestTools
         return $"{indentStr}<{element.Prefix}:{element.LocalName} >...";
       var cl = new List<string>();
       foreach (var child in element.Elements())
-        cl.Add(child.AsString(indent + 1, depthLimit - 1));
+        cl.Add(child.AsString(indent + 1, depthLimit - 1) ?? String.Empty);
       return $"{indentStr}<{element.Prefix}:{element.LocalName}>\r\n{string.Join("\r\n", cl)}\r\n{indentStr}</{element.Prefix}:{element.LocalName}>";
     }
     return $"{indentStr}<{element.Prefix}:{element.LocalName} />";
@@ -240,16 +246,24 @@ public static class TestTools
           rsids.Append(new DXW.Rsid { Val = new DX.HexBinaryValue(item) });
       };
     }
-    if (targetType.ImplementsInterfaces(typeof(DX.IEnumValue)))
-    {
-      Type genericTypeDefinition = typeof(DX.IEnumValueFactory<>);
+    //if (targetType.ImplementsInterfaces(typeof(DX.IEnumValue)))
+    //{
+    //  Type genericTypeDefinition = typeof(DX.IEnumValueFactory<>);
 
-      Type[] typeArguments = { targetType };
-      Type constructedType = genericTypeDefinition.MakeGenericType(typeArguments);
-      var createMethod = constructedType.GetMethod("Create");
-      var enumValue = createMethod!.Invoke(null, [value]);
-      return enumValue;
+    //  Type[] typeArguments = { targetType };
+    //  Type constructedType = genericTypeDefinition.MakeGenericType(typeArguments);
+    //  var createMethod = constructedType.GetMethod("Create");
+    //  var enumValue = createMethod!.Invoke(null, [value]);
+    //  return enumValue;
+    //}
+
+    if (targetType.IsOpenXmlEnum())
+    {
+      var props = targetType.GetOpenXmlProperties();
+      var result = props.FirstOrDefault(p => p.Name == value)?.GetValue(null);
+      return result;
     }
+
     if (targetType.ImplementsInterfaces(typeof(DX.OpenXmlLeafElement)))
     {
       var leafElement = (DX.OpenXmlLeafElement)Activator.CreateInstance(targetType);

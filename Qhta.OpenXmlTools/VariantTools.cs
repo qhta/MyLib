@@ -830,12 +830,12 @@ public static class VariantTools
   /// <param name="format"></param>
   /// <returns></returns>
   /// <exception cref="InvalidDataException"></exception>
-  public static bool ValidateVariantString(Type valueType, string value, string? format = null)
+  public static bool ValidateVariantString(Type valueType, string? value, string? format = null)
   {
     switch (valueType.Name)
     {
       case nameof(Boolean):
-        return ((string[])["true", "false", "on", "off", "1", "0"]).Contains(value.ToLowerInvariant());
+        return ((string[])["true", "false", "on", "off", "1", "0"]).Contains(value?.ToLowerInvariant());
       case nameof(String):
         return true;
       case nameof(Int32):
