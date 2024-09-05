@@ -56,8 +56,6 @@ public static class TypeTools
   /// <returns></returns>
   public static bool IsOpenXmlEnum(this Type openXmlType)
   {
-    if (openXmlType.Name.StartsWith("Displaced"))
-      Debug.Assert(true);
     if (openXmlType.IsGenericType && openXmlType.GetGenericTypeDefinition() == typeof(DX.EnumValue<>))
       return true;
     if (openXmlType.BaseType == typeof(DX.OpenXmlLeafElement))
