@@ -221,6 +221,7 @@ public static class TypeTools
     { typeof(DX.BooleanValue), (typeof(Boolean), BooleanValueToBoolean, BooleanToBooleanValue) },
     { typeof(DX.ByteValue), (typeof(Byte), ByteValueToByte, ByteToByteValue) },
     { typeof(DX.DateTimeValue), (typeof(DateTime), DateTimeValueToDateTime, DateTimeToDateTimeValue) },
+    { typeof(DX.IntegerValue), (typeof(Int64), IntegerValueToInt64, Int64ToIntegerValue) },
     { typeof(DX.DecimalValue), (typeof(Decimal), DecimalValueToDecimal, DecimalToDecimalValue) },
     { typeof(DX.DoubleValue), (typeof(Double), DoubleValueToDouble, DoubleToDoubleValue) },
     { typeof(DX.Int16Value), (typeof(Int16), Int16ValueToInt16, Int16ToInt16Value) },
@@ -311,6 +312,24 @@ public static class TypeTools
       return new DX.DateTimeValue(dateTimeValue);
     }
     throw new ArgumentException("Value is not of DateTime type", nameof(value));
+  }
+
+  private static object? IntegerValueToInt64(object? value)
+  {
+    if (value is DX.IntegerValue integerValue)
+    {
+      return integerValue.Value;
+    }
+    throw new ArgumentException("Value is not of IntegerValue type", nameof(value));
+  }
+
+  private static object? Int64ToIntegerValue(object? value)
+  {
+    if (value is Int64 integerValue)
+    {
+      return new DX.IntegerValue(integerValue);
+    }
+    throw new ArgumentException("Value is not of Int64 type", nameof(value));
   }
 
   private static object? DecimalValueToDecimal(object? value)
@@ -975,6 +994,9 @@ public static class TypeTools
     //  throw new ArgumentException("Type must be a subclass of OpenXmlCompositeElement", nameof(openXmlType));
     //}
 
+    if (openXmlType == typeof(DXW.Rsids))
+      return [typeof(DXW.Rsid)];
+
     var openXmlPropertyClasses = new List<Type>();
     var openXmlMemberClasses = new List<Type>();
 
@@ -1003,7 +1025,7 @@ public static class TypeTools
     return openXmlMemberClasses.Distinct().ToArray();
   }
 
-private static readonly Dictionary<Type, Type[]> MemberTypes = new()
+  private static readonly Dictionary<Type, Type[]> MemberTypes = new()
   {
     { typeof(DXW.Body), [typeof(DXW.Paragraph), typeof(DXW.Table)] },
     { typeof(DXW.Paragraph), [typeof(DXW.Run), typeof(DXW.Break), typeof(DXW.TabChar), typeof(DXW.Text)] },
