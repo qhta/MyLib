@@ -1370,6 +1370,24 @@
             If the value is null, the existing element is removed.
             </remarks>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementStringTypeValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the string value of the first child element of the specified type of the <c>StringType</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>string value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementStringTypeValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Set the value of the first child element of the specified type of the <c>StringType</c> to the string value.
+            </summary>
+            <typeparam name="ElementType">Type of the element</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">string value to set</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementIntValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get the integer value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
@@ -1736,6 +1754,24 @@
             </summary>
             <typeparam name="ElementType">element to set</typeparam>
             <param name="xmlElement">element to set</param>
+            <param name="value">decimal value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementDecimalNumberValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the integer value of the first child element of the specified type of the <c>DecimalNumberType</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>decimal value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementDecimalNumberValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+            <summary>
+            Set the value of the first child element of the specified type  of the <c>DecimalNumberType</c> to integer val.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
             <param name="value">integer value (or null)</param>
             <remarks>
             If the value is null, the existing element is removed.
@@ -1804,7 +1840,7 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRelationshipValue(DocumentFormat.OpenXml.OpenXmlPartRootElement,System.String,System.String)">
             <summary>
-            Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+            Get the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c>
             </summary>
             <param name="rootElement"></param>
             <param name="relationshipType"></param>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 
+using DocumentFormat.OpenXml.Wordprocessing;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -115,6 +117,45 @@ public static class OpenXmlElementTools
       }
       else
         xmlElement.Append(new ElementType { Text = val });
+    }
+    else
+      element?.Remove();
+  }
+
+  /// <summary>
+  /// Get the string value of the first child element of the specified type of the <c>StringType</c>.
+  /// </summary>
+  /// <param name="xmlElement">checked element</param>
+  /// <result>string value or null (on parse error)</result>
+  public static string? GetFirstElementStringTypeValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DXW.StringType
+  {
+    var text = xmlElement.Elements<ElementType>().FirstOrDefault()?.Val?.Value;
+    return text;
+  }
+
+  /// <summary>
+  /// Set the value of the first child element of the specified type of the <c>StringType</c> to the string value.
+  /// </summary>
+  /// <typeparam name="ElementType">Type of the element</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">string value to set</param>
+  /// <remarks>
+  /// If the value is null, the existing element is removed.
+  /// </remarks>
+  public static void SetFirstElementStringTypeValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement, string? value)
+    where ElementType : DXW.StringType, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value != null)
+    {
+      if (element?.Val?.Value != value)
+      {
+        if (element != null)
+          element.Val = value;
+        else
+          xmlElement.Append(new ElementType { Val = value });
+      }
     }
     else
       element?.Remove();
@@ -958,6 +999,7 @@ public static class OpenXmlElementTools
     else
       SetFirstElementStringVal<ElementType>(xmlElement, null);
   }
+
   /// <summary>
   /// Get the fixed point real number value of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c>.
   /// </summary>
@@ -979,7 +1021,7 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <typeparam name="ElementType">element to set</typeparam>
   /// <param name="xmlElement">element to set</param>
-  /// <param name="value">integer value (or null)</param>
+  /// <param name="value">decimal value (or null)</param>
   /// <remarks>
   /// If the value is null, the existing element is removed.
   /// </remarks>
@@ -1001,6 +1043,45 @@ public static class OpenXmlElementTools
     else
       element?.Remove();
   }
+  /// <summary>
+  /// Get the integer value of the first child element of the specified type of the <c>DecimalNumberType</c>.
+  /// </summary>
+  /// <param name="xmlElement">checked element</param>
+  /// <result>decimal value or null (on parse error)</result>
+  public static int? GetFirstElementDecimalNumberValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+    where ElementType : DXW.DecimalNumberType
+  {
+    var val = xmlElement.Elements<ElementType>().FirstOrDefault()?.Val?.Value;
+    return val;
+  }
+
+  /// <summary>
+  /// Set the value of the first child element of the specified type  of the <c>DecimalNumberType</c> to integer val.
+  /// </summary>
+  /// <typeparam name="ElementType">element to set</typeparam>
+  /// <param name="xmlElement">element to set</param>
+  /// <param name="value">integer value (or null)</param>
+  /// <remarks>
+  /// If the value is null, the existing element is removed.
+  /// </remarks>
+  public static void SetFirstElementDecimalNumberValue<ElementType>(this DX.OpenXmlCompositeElement xmlElement, int? value)
+    where ElementType : DXW.DecimalNumberType, new()
+  {
+    var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+    if (value != null)
+    {
+      if (element != null)
+      {
+        if (element.Val?.Value != value)
+          element.Val = new DX.Int32Value(value);
+      }
+      else
+        xmlElement.Append(new ElementType { Val = new DX.Int32Value(value) });
+    }
+    else
+      element?.Remove();
+  }
+
   /// <summary>
   /// Set all elements of the first specified type element in the <c>OpenXmlCompositeElement</c>.
   /// </summary>
@@ -1157,7 +1238,7 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+  /// Get the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c>
   /// </summary>
   /// <param name="rootElement"></param>
   /// <param name="relationshipType"></param>
@@ -1225,6 +1306,44 @@ public static class OpenXmlElementTools
       }
     }
   }
+
+  ///// <summary>
+  ///// Get the DocPartReference value of the <c>OpenXmlCompositeElement</c>.
+  ///// </summary>
+  ///// <param name="xmlElement"></param>
+  //public static string? GetFirstElementDocPartReference<ElementType, ChildType>(this DX.OpenXmlCompositeElement xmlElement)
+  //  where ElementType : DX.OpenXmlCompositeElement
+  //{
+  //  var element = xmlElement.Elements<ChildType>().FirstOrDefault();
+  //  if (element == null)
+  //    return null;
+  //  var value = element.DocPartReference?.Val?.Value;
+  //  return value;
+  //}
+
+  ///// <summary>
+  ///// Set the DocPartReference value of the <c>OpenXmlCompositeElement</c> to the specified value.
+  ///// </summary>
+  ///// <param name="xmlElement"></param>
+  ///// <param name="value"></param>
+  //public static void SetFirstElementDocPartReference<ElementType, ChildType>(this DX.OpenXmlCompositeElement xmlElement, string? value)
+  //  where ElementType : DX.OpenXmlCompositeElement
+  //  where ChildType : DX.OpenXmlElement
+  //{
+  //  var element = xmlElement.Elements<DXW.SdtPlaceholder>().FirstOrDefault();
+  //  if (value != null)
+  //  {
+  //    if (element != null)
+  //    {
+  //      if (element.DocPartReference?.Val?.Value != value)
+  //        element.DocPartReference = new DXW.DocPartReference { Val = new DX.StringValue(value) };
+  //    }
+  //    else
+  //      xmlElement.Append(new DXW.DocPartReference { Val = new DX.StringValue(value) });
+  //  }
+  //  else
+  //    element?.Remove();
+  //}
 
   /// <summary>
   /// Get the <c>VTBlob</c> value of the first child element of the specified type of the <c>OpenXmlCompositeElement</c>.
