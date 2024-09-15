@@ -790,6 +790,58 @@
             Tag to end a paragraph.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.HexByte">
+            <summary>
+            Represents HexByte integer value.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.HexByte.Value">
+            <summary>
+            Stored value.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct with the integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct with the string value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(System.Int32)~Qhta.OpenXmlTools.HexByte">
+            <summary>
+            Converts the integer to the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(Qhta.OpenXmlTools.HexByte)~System.Int32">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct to the integer.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(System.String)~System.Nullable{Qhta.OpenXmlTools.HexByte}">
+            <summary>
+            Converts the string value to the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(System.Nullable{Qhta.OpenXmlTools.HexByte})~System.String">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct to the string.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.ToString">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct to the string.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.HexInt">
             <summary>
             Represents a hexadecimal integer.
@@ -839,6 +891,58 @@
         <member name="M:Qhta.OpenXmlTools.HexInt.ToString">
             <summary>
             Converts the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct to the string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.HexRGB">
+            <summary>
+            Represents RGB integer color code.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.HexRGB.Value">
+            <summary>
+            Stored value.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct with the integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct with the string value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(System.Int32)~Qhta.OpenXmlTools.HexRGB">
+            <summary>
+            Converts the integer to the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(Qhta.OpenXmlTools.HexRGB)~System.Int32">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct to the integer.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(System.String)~System.Nullable{Qhta.OpenXmlTools.HexRGB}">
+            <summary>
+            Converts the string value to the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(System.Nullable{Qhta.OpenXmlTools.HexRGB})~System.String">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct to the string.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.ToString">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct to the string.
             </summary>
             <returns></returns>
         </member>
@@ -6430,12 +6534,13 @@
             <param name="openXmlType"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemType(System.Type)">
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemType(System.Type,System.String)">
             <summary>
             Converts an OpenXml type to a system type.
             If conversion is not possible, the original type is returned.
             </summary>
             <param name="openXmlType"></param>
+            <param name="propertyName">Used when the input type is not sufficient to determine output type</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemValue(System.Object,System.Type)">

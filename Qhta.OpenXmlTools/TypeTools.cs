@@ -82,9 +82,18 @@ public static class TypeTools
   /// If conversion is not possible, the original type is returned.
   /// </summary>
   /// <param name="openXmlType"></param>
+  /// <param name="propertyName">Used when the input type is not sufficient to determine output type</param>
   /// <returns></returns>
-  public static Type ToSystemType(this Type openXmlType)
+  public static Type ToSystemType(this Type openXmlType, string? propertyName)
   {
+    var propName = propertyName ?? "";
+      Debug.WriteLine($"TypeTools.ToSystemType({openXmlType}, {propertyName})");
+    if (openXmlType==typeof(DX.HexBinaryValue) && propName.StartsWith("Rsid"))
+      return typeof(HexInt);
+    if (openXmlType == typeof(DX.StringValue) && propName.EndsWith("Color.Val"))
+      return typeof(HexRGB);
+    if (openXmlType == typeof(DX.StringValue) && (propName.EndsWith("ThemeTint") || propName.EndsWith("ThemeShade")))
+      return typeof(HexByte);
     if (openXmlType.Name == "EnumValue`1")
     {
       var type = openXmlType.GenericTypeArguments[0];
@@ -94,7 +103,7 @@ public static class TypeTools
     {
       var properties = openXmlType.GetOpenXmlProperties().ToArray();
       if (properties.Count() == 1 && properties.First().Name == "Val")
-        return ToSystemType(properties.First().PropertyType);
+        return ToSystemType(properties.First().PropertyType, propertyName);
     }
     if (OpenXmlTypesToSystemTypes.TryGetValue(openXmlType, out var info))
     {
