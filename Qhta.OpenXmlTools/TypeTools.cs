@@ -87,7 +87,7 @@ public static class TypeTools
   public static Type ToSystemType(this Type openXmlType, string? propertyName)
   {
     var propName = propertyName ?? "";
-      Debug.WriteLine($"TypeTools.ToSystemType({openXmlType}, {propertyName})");
+    //  Debug.WriteLine($"TypeTools.ToSystemType({openXmlType}, {propertyName})");
     if (openXmlType==typeof(DX.HexBinaryValue) && propName.StartsWith("Rsid"))
       return typeof(HexInt);
     if (openXmlType == typeof(DX.StringValue) && propName.EndsWith("Color.Val"))
