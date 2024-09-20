@@ -58,6 +58,8 @@ public static class TypeTools
   {
     if (openXmlType.IsGenericType && openXmlType.GetGenericTypeDefinition() == typeof(DX.EnumValue<>))
       return true;
+    if (openXmlType.BaseType == null)
+      return false;
     if (openXmlType.BaseType == typeof(DX.OpenXmlLeafElement))
     {
       var properties = openXmlType.GetOpenXmlProperties().ToArray();
@@ -86,6 +88,8 @@ public static class TypeTools
   /// <returns></returns>
   public static Type ToSystemType(this Type openXmlType, string? propertyName)
   {
+    if (openXmlType == typeof(object))
+      return openXmlType;
     var propName = propertyName ?? "";
     //  Debug.WriteLine($"TypeTools.ToSystemType({openXmlType}, {propertyName})");
     if (openXmlType==typeof(DX.HexBinaryValue) && propName.StartsWith("Rsid"))
@@ -109,6 +113,8 @@ public static class TypeTools
     {
       return info.targetType;
     }
+    if (openXmlType.BaseType == null)
+      return openXmlType;
     if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
     {
       return info2.targetType;
@@ -152,6 +158,8 @@ public static class TypeTools
       var targetValue = info.toSystemValueMethod(openXmlValue);
       return targetValue;
     }
+    if (openXmlType.BaseType == null)
+      return openXmlValue;
     if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
     {
       var targetValue = info2.toSystemValueMethod(openXmlValue);

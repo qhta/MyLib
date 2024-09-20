@@ -19,6 +19,8 @@ public static class OpenXmlElementTools
     if (element == null)
       return true;
     var result = element.ChildElements.Count == 0 && !element.HasAttributes;
+    //if (element is DXW.DocumentProtection)
+    //  Debug.WriteLine($"DocumentProtection.IsEmpty={result}");
     return result;
   }
 

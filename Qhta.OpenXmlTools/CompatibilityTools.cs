@@ -77,7 +77,7 @@ public static class CompatibilityTools
   {
     if (propertyName == "CompatibilityMode")
       return typeof(int);
-    return typeof(bool);
+    return typeof(bool?);
   }
 
   /// <summary>
