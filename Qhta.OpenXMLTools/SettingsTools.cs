@@ -353,7 +353,7 @@ public static class SettingsTools
   public static bool? GetBordersDoNotSurroundHeader(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<BordersDoNotSurroundHeader>();
+    return settings.GetOnOffTypeElement<BordersDoNotSurroundHeader>();
   }
 
   /// <summary>
@@ -408,7 +408,7 @@ public static class SettingsTools
   public static bool? GetRemovePersonalInformation(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<RemovePersonalInformation>();
+    return settings.GetOnOffTypeElement<RemovePersonalInformation>();
   }
 
   /// <summary>
@@ -419,7 +419,7 @@ public static class SettingsTools
   public static bool? GetRemoveDateAndTime(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<RemoveDateAndTime>();
+    return settings.GetOnOffTypeElement<RemoveDateAndTime>();
   }
 
   /// <summary>
@@ -430,7 +430,7 @@ public static class SettingsTools
   public static bool? GetDoNotDisplayPageBoundaries(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotDisplayPageBoundaries>();
+    return settings.GetOnOffTypeElement<DoNotDisplayPageBoundaries>();
   }
 
   /// <summary>
@@ -441,7 +441,7 @@ public static class SettingsTools
   public static bool? GetDisplayBackgroundShape(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DisplayBackgroundShape>();
+    return settings.GetOnOffTypeElement<DisplayBackgroundShape>();
   }
 
   /// <summary>
@@ -452,7 +452,7 @@ public static class SettingsTools
   public static bool? GetPrintPostScriptOverText(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<PrintPostScriptOverText>();
+    return settings.GetOnOffTypeElement<PrintPostScriptOverText>();
   }
 
   /// <summary>
@@ -463,7 +463,7 @@ public static class SettingsTools
   public static bool? GetPrintFractionalCharacterWidth(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<PrintFractionalCharacterWidth>();
+    return settings.GetOnOffTypeElement<PrintFractionalCharacterWidth>();
   }
 
   /// <summary>
@@ -474,7 +474,7 @@ public static class SettingsTools
   public static bool? GetPrintFormsData(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<PrintFormsData>();
+    return settings.GetOnOffTypeElement<PrintFormsData>();
   }
 
   /// <summary>
@@ -485,7 +485,7 @@ public static class SettingsTools
   public static bool? GetEmbedTrueTypeFonts(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<EmbedTrueTypeFonts>();
+    return settings.GetOnOffTypeElement<EmbedTrueTypeFonts>();
   }
 
   /// <summary>
@@ -496,7 +496,7 @@ public static class SettingsTools
   public static bool? GetEmbedSystemFonts(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<EmbedSystemFonts>();
+    return settings.GetOnOffTypeElement<EmbedSystemFonts>();
   }
 
   /// <summary>
@@ -507,7 +507,7 @@ public static class SettingsTools
   public static bool? GetSaveSubsetFonts(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<SaveSubsetFonts>();
+    return settings.GetOnOffTypeElement<SaveSubsetFonts>();
   }
 
   /// <summary>
@@ -518,7 +518,7 @@ public static class SettingsTools
   public static bool? GetSaveFormsData(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<SaveFormsData>();
+    return settings.GetOnOffTypeElement<SaveFormsData>();
   }
 
   /// <summary>
@@ -529,7 +529,7 @@ public static class SettingsTools
   public static bool? GetMirrorMargins(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<MirrorMargins>();
+    return settings.GetOnOffTypeElement<MirrorMargins>();
   }
 
   /// <summary>
@@ -540,7 +540,7 @@ public static class SettingsTools
   public static bool? GetAlignBorderAndEdges(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<AlignBorderAndEdges>();
+    return settings.GetOnOffTypeElement<AlignBorderAndEdges>();
   }
 
   /// <summary>
@@ -551,7 +551,7 @@ public static class SettingsTools
   public static bool? GetBordersDoNotSurroundFooter(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<BordersDoNotSurroundFooter>();
+    return settings.GetOnOffTypeElement<BordersDoNotSurroundFooter>();
   }
 
   /// <summary>
@@ -562,7 +562,7 @@ public static class SettingsTools
   public static bool? GetGutterAtTop(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<GutterAtTop>();
+    return settings.GetOnOffTypeElement<GutterAtTop>();
   }
 
   /// <summary>
@@ -573,7 +573,7 @@ public static class SettingsTools
   public static bool? GetHideSpellingErrors(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<HideSpellingErrors>();
+    return settings.GetOnOffTypeElement<HideSpellingErrors>();
   }
 
   /// <summary>
@@ -584,7 +584,7 @@ public static class SettingsTools
   public static bool? GetHideGrammaticalErrors(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<HideGrammaticalErrors>();
+    return settings.GetOnOffTypeElement<HideGrammaticalErrors>();
   }
 
   /// <summary>
@@ -617,7 +617,7 @@ public static class SettingsTools
   public static bool? GetFormsDesign(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<FormsDesign>();
+    return settings.GetOnOffTypeElement<FormsDesign>();
   }
 
   /// <summary>
@@ -642,7 +642,7 @@ public static class SettingsTools
   public static bool? GetLinkStyles(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<LinkStyles>();
+    return settings.GetOnOffTypeElement<LinkStyles>();
   }
 
   /// <summary>
@@ -708,7 +708,7 @@ public static class SettingsTools
   public static bool? GetTrackRevisions(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<TrackRevisions>();
+    return settings.GetOnOffTypeElement<TrackRevisions>();
   }
 
   /// <summary>
@@ -719,7 +719,7 @@ public static class SettingsTools
   public static bool? GetDoNotTrackMoves(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotTrackMoves>();
+    return settings.GetOnOffTypeElement<DoNotTrackMoves>();
   }
 
   /// <summary>
@@ -730,7 +730,7 @@ public static class SettingsTools
   public static bool? GetDoNotTrackFormatting(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotTrackFormatting>();
+    return settings.GetOnOffTypeElement<DoNotTrackFormatting>();
   }
 
   /// <summary>
@@ -752,7 +752,7 @@ public static class SettingsTools
   public static bool? GetAutoFormatOverride(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<AutoFormatOverride>();
+    return settings.GetOnOffTypeElement<AutoFormatOverride>();
   }
 
   /// <summary>
@@ -763,7 +763,7 @@ public static class SettingsTools
   public static bool? GetStyleLockThemesPart(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<StyleLockThemesPart>();
+    return settings.GetOnOffTypeElement<StyleLockThemesPart>();
   }
 
   /// <summary>
@@ -774,7 +774,7 @@ public static class SettingsTools
   public static bool? GetStyleLockStylesPart(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<StyleLockStylesPart>();
+    return settings.GetOnOffTypeElement<StyleLockStylesPart>();
   }
 
   /// <summary>
@@ -796,7 +796,7 @@ public static class SettingsTools
   public static bool? GetAutoHyphenation(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<AutoHyphenation>();
+    return settings.GetOnOffTypeElement<AutoHyphenation>();
   }
 
   /// <summary>
@@ -829,7 +829,7 @@ public static class SettingsTools
   public static bool? GetDoNotHyphenateCaps(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotHyphenateCaps>();
+    return settings.GetOnOffTypeElement<DoNotHyphenateCaps>();
   }
 
   /// <summary>
@@ -840,7 +840,7 @@ public static class SettingsTools
   public static bool? GetShowEnvelope(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<ShowEnvelope>();
+    return settings.GetOnOffTypeElement<ShowEnvelope>();
   }
 
   /// <summary>
@@ -884,7 +884,7 @@ public static class SettingsTools
   public static bool? GetEvenAndOddHeaders(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<EvenAndOddHeaders>();
+    return settings.GetOnOffTypeElement<EvenAndOddHeaders>();
   }
 
   /// <summary>
@@ -895,7 +895,7 @@ public static class SettingsTools
   public static bool? GetBookFoldReversePrinting(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<BookFoldReversePrinting>();
+    return settings.GetOnOffTypeElement<BookFoldReversePrinting>();
   }
 
   /// <summary>
@@ -906,7 +906,7 @@ public static class SettingsTools
   public static bool? GetBookFoldPrinting(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<BookFoldPrinting>();
+    return settings.GetOnOffTypeElement<BookFoldPrinting>();
   }
 
   /// <summary>
@@ -972,7 +972,7 @@ public static class SettingsTools
   public static bool? GetDoNotUseMarginsForDrawingGridOrigin(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotUseMarginsForDrawingGridOrigin>();
+    return settings.GetOnOffTypeElement<DoNotUseMarginsForDrawingGridOrigin>();
   }
 
   /// <summary>
@@ -1005,7 +1005,7 @@ public static class SettingsTools
   public static bool? GetDoNotShadeFormData(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotShadeFormData>();
+    return settings.GetOnOffTypeElement<DoNotShadeFormData>();
   }
 
   /// <summary>
@@ -1016,7 +1016,7 @@ public static class SettingsTools
   public static bool? GetNoPunctuationKerning(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<NoPunctuationKerning>();
+    return settings.GetOnOffTypeElement<NoPunctuationKerning>();
   }
 
   /// <summary>
@@ -1038,7 +1038,7 @@ public static class SettingsTools
   public static bool? GetPrintTwoOnOne(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<PrintTwoOnOne>();
+    return settings.GetOnOffTypeElement<PrintTwoOnOne>();
   }
 
   /// <summary>
@@ -1049,7 +1049,7 @@ public static class SettingsTools
   public static bool? GetStrictFirstAndLastChars(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<StrictFirstAndLastChars>();
+    return settings.GetOnOffTypeElement<StrictFirstAndLastChars>();
   }
 
   /// <summary>
@@ -1082,7 +1082,7 @@ public static class SettingsTools
   public static bool? GetSavePreviewPicture(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<SavePreviewPicture>();
+    return settings.GetOnOffTypeElement<SavePreviewPicture>();
   }
 
   /// <summary>
@@ -1093,7 +1093,7 @@ public static class SettingsTools
   public static bool? GetDoNotValidateAgainstSchema(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotValidateAgainstSchema>();
+    return settings.GetOnOffTypeElement<DoNotValidateAgainstSchema>();
   }
 
   /// <summary>
@@ -1104,7 +1104,7 @@ public static class SettingsTools
   public static bool? GetSaveInvalidXml(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<SaveInvalidXml>();
+    return settings.GetOnOffTypeElement<SaveInvalidXml>();
   }
 
   /// <summary>
@@ -1115,7 +1115,7 @@ public static class SettingsTools
   public static bool? GetIgnoreMixedContent(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<IgnoreMixedContent>();
+    return settings.GetOnOffTypeElement<IgnoreMixedContent>();
   }
 
   /// <summary>
@@ -1126,7 +1126,7 @@ public static class SettingsTools
   public static bool? GetAlwaysShowPlaceholderText(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<AlwaysShowPlaceholderText>();
+    return settings.GetOnOffTypeElement<AlwaysShowPlaceholderText>();
   }
 
   /// <summary>
@@ -1137,7 +1137,7 @@ public static class SettingsTools
   public static bool? GetDoNotDemarcateInvalidXml(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotDemarcateInvalidXml>();
+    return settings.GetOnOffTypeElement<DoNotDemarcateInvalidXml>();
   }
 
   /// <summary>
@@ -1148,7 +1148,7 @@ public static class SettingsTools
   public static bool? GetSaveXmlDataOnly(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<SaveXmlDataOnly>();
+    return settings.GetOnOffTypeElement<SaveXmlDataOnly>();
   }
 
   /// <summary>
@@ -1159,7 +1159,7 @@ public static class SettingsTools
   public static bool? GetUseXsltWhenSaving(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<UseXsltWhenSaving>();
+    return settings.GetOnOffTypeElement<UseXsltWhenSaving>();
   }
 
   /// <summary>
@@ -1181,7 +1181,7 @@ public static class SettingsTools
   public static bool? GetShowXmlTags(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<ShowXmlTags>();
+    return settings.GetOnOffTypeElement<ShowXmlTags>();
   }
 
   /// <summary>
@@ -1192,7 +1192,7 @@ public static class SettingsTools
   public static bool? GetAlwaysMergeEmptyNamespace(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<AlwaysMergeEmptyNamespace>();
+    return settings.GetOnOffTypeElement<AlwaysMergeEmptyNamespace>();
   }
 
   /// <summary>
@@ -1203,7 +1203,7 @@ public static class SettingsTools
   public static bool? GetUpdateFieldsOnOpen(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<UpdateFieldsOnOpen>();
+    return settings.GetOnOffTypeElement<UpdateFieldsOnOpen>();
   }
 
   /// <summary>
@@ -1334,7 +1334,7 @@ public static class SettingsTools
   public static bool? GetDoNotIncludeSubdocsInStats(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotIncludeSubdocsInStats>();
+    return settings.GetOnOffTypeElement<DoNotIncludeSubdocsInStats>();
   }
 
   /// <summary>
@@ -1345,7 +1345,7 @@ public static class SettingsTools
   public static bool? GetDoNotAutoCompressPictures(this Settings settings)
   {
 
-    return settings.GetFirstOnOffTypeElementVal<DoNotAutoCompressPictures>();
+    return settings.GetOnOffTypeElement<DoNotAutoCompressPictures>();
   }
 
   /// <summary>
@@ -1489,7 +1489,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBordersDoNotSurroundHeader(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<BordersDoNotSurroundHeader>(value);
+    settings.SetOnOffTypeElement<BordersDoNotSurroundHeader>(value);
   }
 
   /// <summary>
@@ -1539,7 +1539,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetRemovePersonalInformation(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<RemovePersonalInformation>(value);
+    settings.SetOnOffTypeElement<RemovePersonalInformation>(value);
   }
 
   /// <summary>
@@ -1549,7 +1549,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetRemoveDateAndTime(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<RemoveDateAndTime>(value);
+    settings.SetOnOffTypeElement<RemoveDateAndTime>(value);
   }
 
   /// <summary>
@@ -1559,7 +1559,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotDisplayPageBoundaries(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotDisplayPageBoundaries>(value);
+    settings.SetOnOffTypeElement<DoNotDisplayPageBoundaries>(value);
   }
 
   /// <summary>
@@ -1569,7 +1569,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDisplayBackgroundShape(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DisplayBackgroundShape>(value);
+    settings.SetOnOffTypeElement<DisplayBackgroundShape>(value);
   }
 
   /// <summary>
@@ -1579,7 +1579,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintPostScriptOverText(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<PrintPostScriptOverText>(value);
+    settings.SetOnOffTypeElement<PrintPostScriptOverText>(value);
   }
 
   /// <summary>
@@ -1589,7 +1589,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintFractionalCharacterWidth(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<PrintFractionalCharacterWidth>(value);
+    settings.SetOnOffTypeElement<PrintFractionalCharacterWidth>(value);
   }
 
   /// <summary>
@@ -1599,7 +1599,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintFormsData(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<PrintFormsData>(value);
+    settings.SetOnOffTypeElement<PrintFormsData>(value);
   }
 
   /// <summary>
@@ -1609,7 +1609,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetEmbedTrueTypeFonts(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<EmbedTrueTypeFonts>(value);
+    settings.SetOnOffTypeElement<EmbedTrueTypeFonts>(value);
   }
 
   /// <summary>
@@ -1619,7 +1619,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetEmbedSystemFonts(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<EmbedSystemFonts>(value);
+    settings.SetOnOffTypeElement<EmbedSystemFonts>(value);
   }
 
   /// <summary>
@@ -1629,7 +1629,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveSubsetFonts(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<SaveSubsetFonts>(value);
+    settings.SetOnOffTypeElement<SaveSubsetFonts>(value);
   }
 
   /// <summary>
@@ -1639,7 +1639,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveFormsData(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<SaveFormsData>(value);
+    settings.SetOnOffTypeElement<SaveFormsData>(value);
   }
 
   /// <summary>
@@ -1649,7 +1649,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetMirrorMargins(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<MirrorMargins>(value);
+    settings.SetOnOffTypeElement<MirrorMargins>(value);
   }
 
   /// <summary>
@@ -1659,7 +1659,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAlignBorderAndEdges(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<AlignBorderAndEdges>(value);
+    settings.SetOnOffTypeElement<AlignBorderAndEdges>(value);
   }
 
   /// <summary>
@@ -1669,7 +1669,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBordersDoNotSurroundFooter(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<BordersDoNotSurroundFooter>(value);
+    settings.SetOnOffTypeElement<BordersDoNotSurroundFooter>(value);
   }
 
   /// <summary>
@@ -1679,7 +1679,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetGutterAtTop(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<GutterAtTop>(value);
+    settings.SetOnOffTypeElement<GutterAtTop>(value);
   }
 
   /// <summary>
@@ -1689,7 +1689,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetHideSpellingErrors(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<HideSpellingErrors>(value);
+    settings.SetOnOffTypeElement<HideSpellingErrors>(value);
   }
 
   /// <summary>
@@ -1699,7 +1699,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetHideGrammaticalErrors(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<HideGrammaticalErrors>(value);
+    settings.SetOnOffTypeElement<HideGrammaticalErrors>(value);
   }
 
   /// <summary>
@@ -1729,7 +1729,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetFormsDesign(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<FormsDesign>(value);
+    settings.SetOnOffTypeElement<FormsDesign>(value);
   }
 
   /// <summary>
@@ -1749,7 +1749,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetLinkStyles(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<LinkStyles>(value);
+    settings.SetOnOffTypeElement<LinkStyles>(value);
   }
 
   /// <summary>
@@ -1809,7 +1809,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetTrackRevisions(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<TrackRevisions>(value);
+    settings.SetOnOffTypeElement<TrackRevisions>(value);
   }
 
   /// <summary>
@@ -1819,7 +1819,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotTrackMoves(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotTrackMoves>(value);
+    settings.SetOnOffTypeElement<DoNotTrackMoves>(value);
   }
 
   /// <summary>
@@ -1829,7 +1829,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotTrackFormatting(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotTrackFormatting>(value);
+    settings.SetOnOffTypeElement<DoNotTrackFormatting>(value);
   }
 
   /// <summary>
@@ -1849,7 +1849,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAutoFormatOverride(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<AutoFormatOverride>(value);
+    settings.SetOnOffTypeElement<AutoFormatOverride>(value);
   }
 
   /// <summary>
@@ -1859,7 +1859,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStyleLockThemesPart(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<StyleLockThemesPart>(value);
+    settings.SetOnOffTypeElement<StyleLockThemesPart>(value);
   }
 
   /// <summary>
@@ -1869,7 +1869,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStyleLockStylesPart(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<StyleLockStylesPart>(value);
+    settings.SetOnOffTypeElement<StyleLockStylesPart>(value);
   }
 
   /// <summary>
@@ -1889,7 +1889,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAutoHyphenation(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<AutoHyphenation>(value);
+    settings.SetOnOffTypeElement<AutoHyphenation>(value);
   }
 
   /// <summary>
@@ -1919,7 +1919,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotHyphenateCaps(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotHyphenateCaps>(value);
+    settings.SetOnOffTypeElement<DoNotHyphenateCaps>(value);
   }
 
   /// <summary>
@@ -1929,7 +1929,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetShowEnvelope(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<ShowEnvelope>(value);
+    settings.SetOnOffTypeElement<ShowEnvelope>(value);
   }
 
   /// <summary>
@@ -1969,7 +1969,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetEvenAndOddHeaders(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<EvenAndOddHeaders>(value);
+    settings.SetOnOffTypeElement<EvenAndOddHeaders>(value);
   }
 
   /// <summary>
@@ -1979,7 +1979,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBookFoldReversePrinting(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<BookFoldReversePrinting>(value);
+    settings.SetOnOffTypeElement<BookFoldReversePrinting>(value);
   }
 
   /// <summary>
@@ -1989,7 +1989,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetBookFoldPrinting(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<BookFoldPrinting>(value);
+    settings.SetOnOffTypeElement<BookFoldPrinting>(value);
   }
 
   /// <summary>
@@ -2049,7 +2049,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotUseMarginsForDrawingGridOrigin(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotUseMarginsForDrawingGridOrigin>(value);
+    settings.SetOnOffTypeElement<DoNotUseMarginsForDrawingGridOrigin>(value);
   }
 
   /// <summary>
@@ -2079,7 +2079,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotShadeFormData(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotShadeFormData>(value);
+    settings.SetOnOffTypeElement<DoNotShadeFormData>(value);
   }
 
   /// <summary>
@@ -2089,7 +2089,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetNoPunctuationKerning(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<NoPunctuationKerning>(value);
+    settings.SetOnOffTypeElement<NoPunctuationKerning>(value);
   }
 
   /// <summary>
@@ -2109,7 +2109,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetPrintTwoOnOne(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<PrintTwoOnOne>(value);
+    settings.SetOnOffTypeElement<PrintTwoOnOne>(value);
   }
 
   /// <summary>
@@ -2119,7 +2119,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetStrictFirstAndLastChars(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<StrictFirstAndLastChars>(value);
+    settings.SetOnOffTypeElement<StrictFirstAndLastChars>(value);
   }
 
   /// <summary>
@@ -2149,7 +2149,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSavePreviewPicture(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<SavePreviewPicture>(value);
+    settings.SetOnOffTypeElement<SavePreviewPicture>(value);
   }
 
   /// <summary>
@@ -2159,7 +2159,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotValidateAgainstSchema(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotValidateAgainstSchema>(value);
+    settings.SetOnOffTypeElement<DoNotValidateAgainstSchema>(value);
   }
 
   /// <summary>
@@ -2169,7 +2169,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveInvalidXml(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<SaveInvalidXml>(value);
+    settings.SetOnOffTypeElement<SaveInvalidXml>(value);
   }
 
   /// <summary>
@@ -2179,7 +2179,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetIgnoreMixedContent(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<IgnoreMixedContent>(value);
+    settings.SetOnOffTypeElement<IgnoreMixedContent>(value);
   }
 
   /// <summary>
@@ -2189,7 +2189,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAlwaysShowPlaceholderText(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<AlwaysShowPlaceholderText>(value);
+    settings.SetOnOffTypeElement<AlwaysShowPlaceholderText>(value);
   }
 
   /// <summary>
@@ -2199,7 +2199,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotDemarcateInvalidXml(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotDemarcateInvalidXml>(value);
+    settings.SetOnOffTypeElement<DoNotDemarcateInvalidXml>(value);
   }
 
   /// <summary>
@@ -2209,7 +2209,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetSaveXmlDataOnly(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<SaveXmlDataOnly>(value);
+    settings.SetOnOffTypeElement<SaveXmlDataOnly>(value);
   }
 
   /// <summary>
@@ -2219,7 +2219,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetUseXsltWhenSaving(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<UseXsltWhenSaving>(value);
+    settings.SetOnOffTypeElement<UseXsltWhenSaving>(value);
   }
 
   /// <summary>
@@ -2239,7 +2239,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetShowXmlTags(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<ShowXmlTags>(value);
+    settings.SetOnOffTypeElement<ShowXmlTags>(value);
   }
 
   /// <summary>
@@ -2249,7 +2249,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetAlwaysMergeEmptyNamespace(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<AlwaysMergeEmptyNamespace>(value);
+    settings.SetOnOffTypeElement<AlwaysMergeEmptyNamespace>(value);
   }
 
   /// <summary>
@@ -2259,7 +2259,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetUpdateFieldsOnOpen(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<UpdateFieldsOnOpen>(value);
+    settings.SetOnOffTypeElement<UpdateFieldsOnOpen>(value);
   }
 
   /// <summary>
@@ -2379,7 +2379,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotIncludeSubdocsInStats(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotIncludeSubdocsInStats>(value);
+    settings.SetOnOffTypeElement<DoNotIncludeSubdocsInStats>(value);
   }
 
   /// <summary>
@@ -2389,7 +2389,7 @@ public static class SettingsTools
   /// <param name="value">value to set</param>
   public static void SetDoNotAutoCompressPictures(this Settings settings, bool? value)
   {
-    settings.SetFirstOnOffTypeElementVal<DoNotAutoCompressPictures>(value);
+    settings.SetOnOffTypeElement<DoNotAutoCompressPictures>(value);
   }
 
   /// <summary>
@@ -2629,6 +2629,5 @@ public static class SettingsTools
     {  "View", (typeof(ViewValues), SettingCategory.Layout) },
     {  "WriteProtection", (typeof(WriteProtection), SettingCategory.Security) },
     {  "Zoom", (typeof(Zoom), SettingCategory.Layout) },
-
   };
 }

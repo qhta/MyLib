@@ -49,7 +49,7 @@ public static class CompatibilityTools
   public static int Count(this DXW.Compatibility properties, ItemFilter filter = ItemFilter.Defined)
   {
     if (filter == ItemFilter.All)
-      return PropNamesToElementNames.Count;
+      return PropDefs.Count;
     return properties.Elements().Count();
   }
 
@@ -62,7 +62,7 @@ public static class CompatibilityTools
   public static string[] GetNames(this DXW.Compatibility properties, ItemFilter filter = ItemFilter.Defined)
   {
     if (filter == ItemFilter.All)
-      return PropNamesToElementNames.Keys.ToArray();
+      return PropDefs.Keys.ToArray();
     return properties.Elements<OpenXmlElement>().Select
       (x => (x is CompatibilitySetting compatibilitySetting) ? GetPropName(compatibilitySetting.Name!.ToString()!) : GetPropName(x.LocalName)).ToArray();
   }
@@ -117,7 +117,8 @@ public static class CompatibilityTools
   {
     switch (propertyName)
     {
-      case "CompatibilityMode": properties.SetCompatibilityMode((int?)value);
+      case "CompatibilityMode":
+        properties.SetCompatibilityMode((int?)value);
         break;
       default:
         properties.SetCompatibilitySettingBoolVal(propertyName, (bool?)value);
@@ -215,11 +216,14 @@ public static class CompatibilityTools
       }
       else if (value != null)
       {
-        if (PropNamesToElements.TryGetValue(propertyName, out var elementType))
+        if (PropDefs.TryGetValue(propertyName, out var propDef))
         {
-          element2 = Activator.CreateInstance(elementType) as DXW.OnOffType;
-          element2!.Val = value;
-          properties.Append(element2);
+          element2 = Activator.CreateInstance(propDef.type) as DXW.OnOffType;
+          if (element2 != null)
+          {
+            element2.Val = value;
+            properties.Append(element2);
+          }
         }
         else
           throw new ArgumentException($"Property {propertyName} not found in CompatibilityTools");
@@ -259,237 +263,94 @@ public static class CompatibilityTools
 
   private static string GetElementName(string propName)
   {
-    if (PropNamesToElementNames.TryGetValue(propName, out var elementName))
-      return elementName;
+    if (PropDefs.TryGetValue(propName, out var propDef))
+      return propDef.tag;
     return propName.ToLowerFirst();
   }
 
   private static string GetPropName(string elementName)
   {
-    if (ElementNamesToPropNames.TryGetValue(elementName, out var propName))
-      return propName;
-    return elementName.ToUpperFirst();
+    foreach (var kvp in PropDefs)
+      if (kvp.Value.tag == elementName)
+        return kvp.Key;
+    return elementName;
   }
-  private static readonly Dictionary<string, string> PropNamesToElementNames = new()
-  {
-    { "CompatibilityMode", "compatibilityMode" },
-    { "AdjustLineHeightInTable", "adjustLineHeightInTable" },
-    { "AlignTablesRowByRow", "alignTablesRowByRow" },
-    { "AllowHyphenationAtTrackBottom", "allowHyphenationAtTrackBottom" },
-    { "AllowSpaceOfSameStyleInTable", "allowSpaceOfSameStyleInTable" },
-    { "ApplyBreakingRules", "applyBreakingRules" },
-    { "AutofitToFirstFixedWidthCell", "autofitToFirstFixedWidthCell" },
-    { "AutoSpaceLikeWord95", "autoSpaceLikeWord95" },
-    { "BalanceSingleByteDoubleByteWidth", "balanceSingleByteDoubleByteWidth" },
-    { "CachedColumnBalance", "cachedColBalance" },
-    { "ConvertMailMergeEscape", "convMailMergeEsc" },
-    { "DifferentiateMultirowTableHeaders", "differentiateMultirowTableHeaders" },
-    { "DisplayHangulFixedWidth", "displayHangulFixedWidth" },
-    { "DoNotAutofitConstrainedTables", "doNotAutofitConstrainedTables" },
-    { "DoNotBreakConstrainedForcedTable", "doNotBreakConstrainedForcedTable" },
-    { "DoNotBreakWrappedTables", "doNotBreakWrappedTables" },
-    { "DoNotExpandShiftReturn", "doNotExpandShiftReturn" },
-    { "DoNotFlipMirrorIndents", "doNotFlipMirrorIndents" },
-    { "DoNotLeaveBackslashAlone", "doNotLeaveBackslashAlone" },
-    { "DoNotSnapToGridInCell", "doNotSnapToGridInCell" },
-    { "DoNotSuppressIndentation", "doNotSuppressIndentation" },
-    { "DoNotSuppressParagraphBorders", "doNotSuppressParagraphBorders" },
-    { "DoNotUseEastAsianBreakRules", "doNotUseEastAsianBreakRules" },
-    { "DoNotUseHTMLParagraphAutoSpacing", "doNotUseHTMLParagraphAutoSpacing" },
-    { "DoNotUseIndentAsNumberingTabStop", "doNotUseIndentAsNumberingTabStop" },
-    { "DoNotVerticallyAlignCellWithShape", "doNotVertAlignCellWithSp" },
-    { "DoNotVerticallyAlignInTextBox", "doNotVertAlignInTxbx" },
-    { "DoNotWrapTextWithPunctuation", "doNotWrapTextWithPunct" },
-    { "EnableOpenTypeFeatures", "enableOpenTypeFeatures" },
-    { "FootnoteLayoutLikeWord8", "footnoteLayoutLikeWW8" },
-    { "ForgetLastTabAlignment", "forgetLastTabAlignment" },
-    { "GrowAutofit", "growAutofit" },
-    { "LayoutRawTableWidth", "layoutRawTableWidth" },
-    { "LayoutTableRowsApart", "layoutTableRowsApart" },
-    { "LineWrapLikeWord6", "lineWrapLikeWord6" },
-    { "MacWordSmallCaps", "mwSmallCaps" },
-    { "NoColumnBalance", "noColumnBalance" },
-    { "NoExtraLineSpacing", "noExtraLineSpacing" },
-    { "NoLeading", "noLeading" },
-    { "NoSpaceRaiseLower", "noSpaceRaiseLower" },
-    { "NoTabHangIndent", "noTabHangInd" },
-    { "OverrideTableStyleFontSizeAndJustification", "overrideTableStyleFontSizeAndJustification" },
-    { "PrintBodyTextBeforeHeader", "printBodyTextBeforeHeader" },
-    { "PrintColorBlackWhite", "printColBlack" },
-    { "SelectFieldWithFirstOrLastChar", "selectFldWithFirstOrLastChar" },
-    { "ShapeLayoutLikeWord8", "shapeLayoutLikeWW8" },
-    { "ShowBreaksInFrames", "showBreaksInFrames" },
-    { "SpaceForUnderline", "spaceForUL" },
-    { "SpacingInWholePoints", "spacingInWholePoints" },
-    { "SplitPageBreakAndParagraphMark", "splitPgBreakAndParaMark" },
-    { "SubFontBySize", "subFontBySize" },
-    { "SuppressBottomSpacing", "suppressBottomSpacing" },
-    { "SuppressSpacingAtTopOfPage", "suppressSpacingAtTopOfPage" },
-    { "SuppressSpacingBeforeAfterPageBreak", "suppressSpBfAfterPgBrk" },
-    { "SuppressTopSpacing", "suppressTopSpacing" },
-    { "SuppressTopSpacingWordPerfect", "suppressTopSpacingWP" },
-    { "SwapBordersFacingPages", "swapBordersFacingPages" },
-    { "TruncateFontHeightsLikeWordPerfect", "truncateFontHeightsLikeWP6" },
-    { "UnderlineTrailingSpaces", "ulTrailSpace" },
-    { "UnderlineTabInNumberingList", "underlineTabInNumList" },
-    { "UseAltKinsokuLineBreakRules", "useAltKinsokuLineBreakRules" },
-    { "UseAnsiKerningPairs", "useAnsiKerningPairs" },
-    { "UseFarEastLayout", "useFELayout" },
-    { "UseNormalStyleForList", "useNormalStyleForList" },
-    { "UsePrinterMetrics", "usePrinterMetrics" },
-    { "UseSingleBorderForContiguousCells", "useSingleBorderforContiguousCells" },
-    { "UseWord2002TableStyleRules", "useWord2002TableStyleRules" },
-    { "UseWord2013TrackBottomHyphenation", "useWord2013TrackBottomHyphenation" },
-    { "UseWord97LineBreakRules", "useWord97LineBreakRules" },
-    { "WordPerfectJustification", "wpJustification" },
-    { "WordPerfectSpaceWidth", "wpSpaceWidth" },
-    { "WrapTrailSpaces", "wrapTrailSpaces" },
-  };
 
-  private static readonly Dictionary<string, string> ElementNamesToPropNames = new()
+  private static readonly Dictionary<string, (Type type, string tag, int version)> PropDefs = new()
   {
-    { "compatibilityMode", "CompatibilityMode" },
-    { "adjustLineHeightInTable", "AdjustLineHeightInTable" },
-    { "alignTablesRowByRow", "AlignTablesRowByRow" },
-    { "allowHyphenationAtTrackBottom", "AllowHyphenationAtTrackBottom" },
-    { "allowSpaceOfSameStyleInTable", "AllowSpaceOfSameStyleInTable" },
-    { "applyBreakingRules", "ApplyBreakingRules" },
-    { "autofitToFirstFixedWidthCell", "AutofitToFirstFixedWidthCell" },
-    { "autoSpaceLikeWord95", "AutoSpaceLikeWord95" },
-    { "balanceSingleByteDoubleByteWidth", "BalanceSingleByteDoubleByteWidth" },
-    { "cachedColBalance", "CachedColumnBalance" },
-    { "convMailMergeEsc", "ConvertMailMergeEscape" },
-    { "differentiateMultirowTableHeaders", "DifferentiateMultirowTableHeaders" },
-    { "displayHangulFixedWidth", "DisplayHangulFixedWidth" },
-    { "doNotAutofitConstrainedTables", "DoNotAutofitConstrainedTables" },
-    { "doNotBreakConstrainedForcedTable", "DoNotBreakConstrainedForcedTable" },
-    { "doNotBreakWrappedTables", "DoNotBreakWrappedTables" },
-    { "doNotExpandShiftReturn", "DoNotExpandShiftReturn" },
-    { "doNotFlipMirrorIndents", "DoNotFlipMirrorIndents" },
-    { "doNotLeaveBackslashAlone", "DoNotLeaveBackslashAlone" },
-    { "doNotSnapToGridInCell", "DoNotSnapToGridInCell" },
-    { "doNotSuppressIndentation", "DoNotSuppressIndentation" },
-    { "doNotSuppressParagraphBorders", "DoNotSuppressParagraphBorders" },
-    { "doNotUseEastAsianBreakRules", "DoNotUseEastAsianBreakRules" },
-    { "doNotUseHTMLParagraphAutoSpacing", "DoNotUseHTMLParagraphAutoSpacing" },
-    { "doNotUseIndentAsNumberingTabStop", "DoNotUseIndentAsNumberingTabStop" },
-    { "doNotVertAlignCellWithSp", "DoNotVerticallyAlignCellWithShape" },
-    { "doNotVertAlignInTxbx", "DoNotVerticallyAlignInTextBox" },
-    { "doNotWrapTextWithPunct", "DoNotWrapTextWithPunctuation" },
-    { "enableOpenTypeFeatures", "EnableOpenTypeFeatures" },
-    { "footnoteLayoutLikeWW8", "FootnoteLayoutLikeWord8" },
-    { "forgetLastTabAlignment", "ForgetLastTabAlignment" },
-    { "growAutofit", "GrowAutofit" },
-    { "layoutRawTableWidth", "LayoutRawTableWidth" },
-    { "layoutTableRowsApart", "LayoutTableRowsApart" },
-    { "lineWrapLikeWord6", "LineWrapLikeWord6" },
-    { "mwSmallCaps", "MacWordSmallCaps" },
-    { "noColumnBalance", "NoColumnBalance" },
-    { "noExtraLineSpacing", "NoExtraLineSpacing" },
-    { "noLeading", "NoLeading" },
-    { "noSpaceRaiseLower", "NoSpaceRaiseLower" },
-    { "noTabHangInd", "NoTabHangIndent" },
-    { "overrideTableStyleFontSizeAndJustification", "OverrideTableStyleFontSizeAndJustification" },
-    { "printBodyTextBeforeHeader", "PrintBodyTextBeforeHeader" },
-    { "printColBlack", "PrintColorBlackWhite" },
-    { "selectFldWithFirstOrLastChar", "SelectFieldWithFirstOrLastChar" },
-    { "shapeLayoutLikeWW8", "ShapeLayoutLikeWord8" },
-    { "showBreaksInFrames", "ShowBreaksInFrames" },
-    { "spaceForUL", "SpaceForUnderline" },
-    { "spacingInWholePoints", "SpacingInWholePoints" },
-    { "splitPgBreakAndParaMark", "SplitPageBreakAndParagraphMark" },
-    { "subFontBySize", "SubFontBySize" },
-    { "suppressBottomSpacing", "SuppressBottomSpacing" },
-    { "suppressSpacingAtTopOfPage", "SuppressSpacingAtTopOfPage" },
-    { "suppressSpBfAfterPgBrk", "SuppressSpacingBeforeAfterPageBreak" },
-    { "suppressTopSpacing", "SuppressTopSpacing" },
-    { "suppressTopSpacingWP", "SuppressTopSpacingWordPerfect" },
-    { "swapBordersFacingPages", "SwapBordersFacingPages" },
-    { "truncateFontHeightsLikeWP6", "TruncateFontHeightsLikeWordPerfect" },
-    { "ulTrailSpace", "UnderlineTrailingSpaces" },
-    { "underlineTabInNumList", "UnderlineTabInNumberingList" },
-    { "useAltKinsokuLineBreakRules", "UseAltKinsokuLineBreakRules" },
-    { "useAnsiKerningPairs", "UseAnsiKerningPairs" },
-    { "useFELayout", "UseFarEastLayout" },
-    { "useNormalStyleForList", "UseNormalStyleForList" },
-    { "usePrinterMetrics", "UsePrinterMetrics" },
-    { "useSingleBorderforContiguousCells", "UseSingleBorderForContiguousCells" },
-    { "useWord2002TableStyleRules", "UseWord2002TableStyleRules" },
-    { "useWord2013TrackBottomHyphenation", "UseWord2013TrackBottomHyphenation" },
-    { "useWord97LineBreakRules", "UseWord97LineBreakRules" },
-    { "wpJustification", "WordPerfectJustification" },
-    { "wpSpaceWidth", "WordPerfectSpaceWidth" },
-    { "wrapTrailSpaces", "WrapTrailSpaces" },
-  };
-
-  private static readonly Dictionary<string, Type> PropNamesToElements = new()
-  {
-    { "AdjustLineHeightInTable", typeof(AdjustLineHeightInTable) },
-    { "AlignTablesRowByRow", typeof(AlignTablesRowByRow) },
-    { "AllowSpaceOfSameStyleInTable", typeof(AllowSpaceOfSameStyleInTable) },
-    { "ApplyBreakingRules", typeof(ApplyBreakingRules) },
-    { "AutofitToFirstFixedWidthCell", typeof(AutofitToFirstFixedWidthCell) },
-    { "AutoSpaceLikeWord95", typeof(AutoSpaceLikeWord95) },
-    { "BalanceSingleByteDoubleByteWidth", typeof(BalanceSingleByteDoubleByteWidth) },
-    { "CachedColumnBalance", typeof(CachedColumnBalance) },
-    { "ConvertMailMergeEscape", typeof(ConvertMailMergeEscape) },
-    { "DisplayHangulFixedWidth", typeof(DisplayHangulFixedWidth) },
-    { "DoNotAutofitConstrainedTables", typeof(DoNotAutofitConstrainedTables) },
-    { "DoNotBreakConstrainedForcedTable", typeof(DoNotBreakConstrainedForcedTable) },
-    { "DoNotBreakWrappedTables", typeof(DoNotBreakWrappedTables) },
-    { "DoNotExpandShiftReturn", typeof(DoNotExpandShiftReturn) },
-    { "DoNotLeaveBackslashAlone", typeof(DoNotLeaveBackslashAlone) },
-    { "DoNotSnapToGridInCell", typeof(DoNotSnapToGridInCell) },
-    { "DoNotSuppressIndentation", typeof(DoNotSuppressIndentation) },
-    { "DoNotSuppressParagraphBorders", typeof(DoNotSuppressParagraphBorders) },
-    { "DoNotUseEastAsianBreakRules", typeof(DoNotUseEastAsianBreakRules) },
-    { "DoNotUseHTMLParagraphAutoSpacing", typeof(DoNotUseHTMLParagraphAutoSpacing) },
-    { "DoNotUseIndentAsNumberingTabStop", typeof(DoNotUseIndentAsNumberingTabStop) },
-    { "DoNotVerticallyAlignCellWithShape", typeof(DoNotVerticallyAlignCellWithShape) },
-    { "DoNotVerticallyAlignInTextBox", typeof(DoNotVerticallyAlignInTextBox) },
-    { "DoNotWrapTextWithPunctuation", typeof(DoNotWrapTextWithPunctuation) },
-    { "FootnoteLayoutLikeWord8", typeof(FootnoteLayoutLikeWord8) },
-    { "ForgetLastTabAlignment", typeof(ForgetLastTabAlignment) },
-    { "GrowAutofit", typeof(GrowAutofit) },
-    { "LayoutRawTableWidth", typeof(LayoutRawTableWidth) },
-    { "LayoutTableRowsApart", typeof(LayoutTableRowsApart) },
-    { "LineWrapLikeWord6", typeof(LineWrapLikeWord6) },
-    { "MacWordSmallCaps", typeof(MacWordSmallCaps) },
-    { "NoColumnBalance", typeof(NoColumnBalance) },
-    { "NoExtraLineSpacing", typeof(NoExtraLineSpacing) },
-    { "NoLeading", typeof(NoLeading) },
-    { "NoSpaceRaiseLower", typeof(NoSpaceRaiseLower) },
-    { "NoTabHangIndent", typeof(NoTabHangIndent) },
-    { "PrintBodyTextBeforeHeader", typeof(PrintBodyTextBeforeHeader) },
-    { "PrintColorBlackWhite", typeof(PrintColorBlackWhite) },
-    { "SelectFieldWithFirstOrLastChar", typeof(SelectFieldWithFirstOrLastChar) },
-    { "ShapeLayoutLikeWord8", typeof(ShapeLayoutLikeWord8) },
-    { "ShowBreaksInFrames", typeof(ShowBreaksInFrames) },
-    { "SpaceForUnderline", typeof(SpaceForUnderline) },
-    { "SpacingInWholePoints", typeof(SpacingInWholePoints) },
-    { "SplitPageBreakAndParagraphMark", typeof(SplitPageBreakAndParagraphMark) },
-    { "SubFontBySize", typeof(SubFontBySize) },
-    { "SuppressBottomSpacing", typeof(SuppressBottomSpacing) },
-    { "SuppressSpacingAtTopOfPage", typeof(SuppressSpacingAtTopOfPage) },
-    { "SuppressSpacingBeforeAfterPageBreak", typeof(SuppressSpacingBeforeAfterPageBreak) },
-    { "SuppressTopSpacing", typeof(SuppressTopSpacing) },
-    { "SuppressTopSpacingWordPerfect", typeof(SuppressTopSpacingWordPerfect) },
-    { "SwapBordersFacingPages", typeof(SwapBordersFacingPages) },
-    { "TruncateFontHeightsLikeWordPerfect", typeof(TruncateFontHeightsLikeWordPerfect) },
-    { "UnderlineTrailingSpaces", typeof(UnderlineTrailingSpaces) },
-    { "UnderlineTabInNumberingList", typeof(UnderlineTabInNumberingList) },
-    { "UseAltKinsokuLineBreakRules", typeof(UseAltKinsokuLineBreakRules) },
-    { "UseAnsiKerningPairs", typeof(UseAnsiKerningPairs) },
-    { "UseFarEastLayout", typeof(UseFarEastLayout) },
-    { "UseNormalStyleForList", typeof(UseNormalStyleForList) },
-    { "UsePrinterMetrics", typeof(UsePrinterMetrics) },
-    { "UseSingleBorderForContiguousCells", typeof(UseSingleBorderForContiguousCells) },
-    { "UseWord2002TableStyleRules", typeof(UseWord2002TableStyleRules) },
-    { "UseWord97LineBreakRules", typeof(UseWord97LineBreakRules) },
-    { "WordPerfectJustification", typeof(WordPerfectJustification) },
-    { "WordPerfectSpaceWidth", typeof(WordPerfectSpaceWidth) },
-    { "WrapTrailSpaces", typeof(WrapTrailSpaces) },
-
+    { "CompatibilityMode", (typeof(int), "compatibilityMode", 1)},
+    { "AdjustLineHeightInTable", (typeof(AdjustLineHeightInTable), "adjustLineHeightInTable", 0)},
+    { "AlignTablesRowByRow", (typeof(AlignTablesRowByRow), "alignTablesRowByRow", 0)},
+    { "AllowHyphenationAtTrackBottom", (typeof(DXW.CompatibilitySetting), "allowHyphenationAtTrackBottom", 1)},
+    { "AllowSpaceOfSameStyleInTable", (typeof(AllowSpaceOfSameStyleInTable), "allowSpaceOfSameStyleInTable", 0)},
+    { "AllowTextAfterFloatingTableBreak", (typeof(DXW.CompatibilitySetting), "allowTextAfterFloatingTableBreak",1)},
+    { "ApplyBreakingRules", (typeof(ApplyBreakingRules), "applyBreakingRules", 0)},
+    { "AutofitToFirstFixedWidthCell", (typeof(AutofitToFirstFixedWidthCell), "autofitToFirstFixedWidthCell", 0)},
+    { "AutoSpaceLikeWord95", (typeof(AutoSpaceLikeWord95), "autoSpaceLikeWord95", 0)},
+    { "BalanceSingleByteDoubleByteWidth", (typeof(BalanceSingleByteDoubleByteWidth), "balanceSingleByteDoubleByteWidth", 0)},
+    { "CachedColumnBalance", (typeof(CachedColumnBalance), "cachedColBalance", 0)},
+    { "ConvertMailMergeEscape", (typeof(ConvertMailMergeEscape), "convMailMergeEsc", 0)},
+    { "DifferentiateMultirowTableHeaders", (typeof(DXW.CompatibilitySetting), "differentiateMultirowTableHeaders", 1)},
+    { "DisplayHangulFixedWidth", (typeof(DisplayHangulFixedWidth), "displayHangulFixedWidth", 0)},
+    { "DoNotAutofitConstrainedTables", (typeof(DoNotAutofitConstrainedTables), "doNotAutofitConstrainedTables", 0)},
+    { "DoNotBreakConstrainedForcedTable", (typeof(DoNotBreakConstrainedForcedTable), "doNotBreakConstrainedForcedTable", 0)},
+    { "DoNotBreakWrappedTables", (typeof(DoNotBreakWrappedTables), "doNotBreakWrappedTables", 0)},
+    { "DoNotExpandShiftReturn", (typeof(DoNotExpandShiftReturn), "doNotExpandShiftReturn", 0)},
+    { "DoNotFlipMirrorIndents", (typeof(DXW.CompatibilitySetting), "doNotFlipMirrorIndents", 1)},
+    { "DoNotLeaveBackslashAlone", (typeof(DoNotLeaveBackslashAlone), "doNotLeaveBackslashAlone", 0)},
+    { "DoNotSnapToGridInCell", (typeof(DoNotSnapToGridInCell), "doNotSnapToGridInCell", 0)},
+    { "DoNotSuppressIndentation", (typeof(DoNotSuppressIndentation), "doNotSuppressIndentation", 0)},
+    { "DoNotSuppressParagraphBorders", (typeof(DoNotSuppressParagraphBorders), "doNotSuppressParagraphBorders", 0)},
+    { "DoNotUseEastAsianBreakRules", (typeof(DoNotUseEastAsianBreakRules), "doNotUseEastAsianBreakRules", 0)},
+    { "DoNotUseHTMLParagraphAutoSpacing", (typeof(DoNotUseHTMLParagraphAutoSpacing), "doNotUseHTMLParagraphAutoSpacing", 0)},
+    { "DoNotUseIndentAsNumberingTabStop", (typeof(DoNotUseIndentAsNumberingTabStop), "doNotUseIndentAsNumberingTabStop", 0)},
+    { "DoNotVerticallyAlignCellWithShape", (typeof(DoNotVerticallyAlignCellWithShape), "doNotVertAlignCellWithSp", 0)},
+    { "DoNotVerticallyAlignInTextBox", (typeof(DoNotVerticallyAlignInTextBox), "doNotVertAlignInTxbx", 0)},
+    { "DoNotWrapTextWithPunctuation", (typeof(DoNotWrapTextWithPunctuation), "doNotWrapTextWithPunct", 0)},
+    { "EnableOpenTypeFeatures", (typeof(DXW.CompatibilitySetting), "enableOpenTypeFeatures", 1)},
+    { "FootnoteLayoutLikeWord8", (typeof(FootnoteLayoutLikeWord8), "footnoteLayoutLikeWW8", 0)},
+    { "ForgetLastTabAlignment", (typeof(ForgetLastTabAlignment), "forgetLastTabAlignment", 0)},
+    { "GrowAutofit", (typeof(GrowAutofit), "growAutofit", 0)},
+    { "LayoutRawTableWidth", (typeof(LayoutRawTableWidth), "layoutRawTableWidth", 0)},
+    { "LayoutTableRowsApart", (typeof(LayoutTableRowsApart), "layoutTableRowsApart", 0)},
+    { "LineWrapLikeWord6", (typeof(LineWrapLikeWord6), "lineWrapLikeWord6", 0)},
+    { "MacWordSmallCaps", (typeof(MacWordSmallCaps), "mwSmallCaps", 0)},
+    { "NoColumnBalance", (typeof(NoColumnBalance), "noColumnBalance", 0)},
+    { "NoExtraLineSpacing", (typeof(NoExtraLineSpacing), "noExtraLineSpacing", 0)},
+    { "NoLeading", (typeof(NoLeading), "noLeading", 0)},
+    { "NoSpaceRaiseLower", (typeof(NoSpaceRaiseLower), "noSpaceRaiseLower", 0)},
+    { "NoTabHangIndent", (typeof(NoTabHangIndent), "noTabHangInd", 0)},
+    { "OverrideTableStyleFontSizeAndJustification", (typeof(DXW.CompatibilitySetting), "overrideTableStyleFontSizeAndJustification", 1)},
+    { "PrintBodyTextBeforeHeader", (typeof(PrintBodyTextBeforeHeader), "printBodyTextBeforeHeader", 0)},
+    { "PrintColorBlackWhite", (typeof(PrintColorBlackWhite), "printColBlack", 0)},
+    { "SelectFieldWithFirstOrLastChar", (typeof(SelectFieldWithFirstOrLastChar), "selectFldWithFirstOrLastChar", 0)},
+    { "ShapeLayoutLikeWord8", (typeof(ShapeLayoutLikeWord8), "shapeLayoutLikeWW8", 0)},
+    { "ShowBreaksInFrames", (typeof(ShowBreaksInFrames), "showBreaksInFrames", 0)},
+    { "SpaceForUnderline", (typeof(SpaceForUnderline), "spaceForUL", 0)},
+    { "SpacingInWholePoints", (typeof(SpacingInWholePoints), "spacingInWholePoints", 0)},
+    { "SplitPageBreakAndParagraphMark", (typeof(SplitPageBreakAndParagraphMark), "splitPgBreakAndParaMark", 0)},
+    { "SubFontBySize", (typeof(SubFontBySize), "subFontBySize", 0)},
+    { "SuppressBottomSpacing", (typeof(SuppressBottomSpacing), "suppressBottomSpacing", 0)},
+    { "SuppressSpacingAtTopOfPage", (typeof(SuppressSpacingAtTopOfPage), "suppressSpacingAtTopOfPage", 0)},
+    { "SuppressSpacingBeforeAfterPageBreak", (typeof(SuppressSpacingBeforeAfterPageBreak), "suppressSpBfAfterPgBrk", 0)},
+    { "SuppressTopSpacing", (typeof(SuppressTopSpacing), "suppressTopSpacing", 0)},
+    { "SuppressTopSpacingWordPerfect", (typeof(SuppressTopSpacingWordPerfect), "suppressTopSpacingWP", 0)},
+    { "SwapBordersFacingPages", (typeof(SwapBordersFacingPages), "swapBordersFacingPages", 0)},
+    { "TruncateFontHeightsLikeWordPerfect", (typeof(TruncateFontHeightsLikeWordPerfect), "truncateFontHeightsLikeWP6", 0)},
+    { "UnderlineTrailingSpaces", (typeof(UnderlineTrailingSpaces), "ulTrailSpace", 0)},
+    { "UnderlineTabInNumberingList", (typeof(UnderlineTabInNumberingList), "underlineTabInNumList", 0)},
+    { "UseAltKinsokuLineBreakRules", (typeof(UseAltKinsokuLineBreakRules), "useAltKinsokuLineBreakRules", 0)},
+    { "UseAnsiKerningPairs", (typeof(UseAnsiKerningPairs), "useAnsiKerningPairs", 0)},
+    { "UseFarEastLayout", (typeof(UseFarEastLayout), "useFELayout", 0)},
+    { "UseNormalStyleForList", (typeof(UseNormalStyleForList), "useNormalStyleForList", 0)},
+    { "UsePrinterMetrics", (typeof(UsePrinterMetrics), "usePrinterMetrics", 0)},
+    { "UseSingleBorderForContiguousCells", (typeof(UseSingleBorderForContiguousCells), "useSingleBorderForContiguousCells", 0)},
+    { "UseWord2002TableStyleRules", (typeof(UseWord2002TableStyleRules), "useWord2002TableStyleRules", 0)},
+    { "UseWord2013TrackBottomHyphenation", (typeof(DXW.CompatibilitySetting), "useWord2013TrackBottomHyphenation", 1)},
+    { "UseWord97LineBreakRules", (typeof(UseWord97LineBreakRules), "useWord97LineBreakRules", 0)},
+    { "WordPerfectJustification", (typeof(WordPerfectJustification), "wpJustification", 0)},
+    { "WordPerfectSpaceWidth", (typeof(WordPerfectSpaceWidth), "wpSpaceWidth", 0)},
+    { "WrapTrailSpaces", (typeof(WrapTrailSpaces), "wrapTrailSpaces", 0)},
   };
 
 }

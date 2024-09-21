@@ -248,8 +248,8 @@ public static class TypeTools
     { typeof(DX.UInt16Value), (typeof(UInt16), UInt16ValueToUInt16, UInt16ToUInt16Value) },
     { typeof(DX.UInt32Value), (typeof(UInt32), UInt32ValueToUInt32, UInt32ToUInt32Value) },
     { typeof(DX.UInt64Value), (typeof(UInt64), UInt64ValueToUInt64, UInt64ToUInt64Value) },
-    { typeof(DX.OnOffValue), (typeof(Boolean), OnOffValueToBoolean, BooleanToOnOffValue) },
-    { typeof(DXW.OnOffOnlyValues), (typeof(Boolean), OnOffOnlyValuesToBoolean, BooleanToOnOffOnlyValues) },
+    { typeof(DX.OnOffValue), (typeof(Boolean?), OnOffValueToBoolean, BooleanToOnOffValue) },
+    { typeof(DXW.OnOffOnlyValues), (typeof(Boolean?), OnOffOnlyValuesToBoolean, BooleanToOnOffOnlyValues) },
     { typeof(DXO10W.OnOffValues), (typeof(Boolean?), OnOffValuesToBoolean, BooleanToOnOffValues) },
     { typeof(DX.HexBinaryValue), (typeof(String), HexBinaryValueToString, StringToHexBinaryValue) },
     { typeof(DX.Base64BinaryValue), (typeof(String), Base64BinaryValueToString, StringToBase64BinaryValue) },
@@ -259,10 +259,10 @@ public static class TypeTools
   private static readonly
     Dictionary<Type, (Type targetType, Func<object?, object?> toSystemValueMethod, Func<Type, object?, object?> toOpenXmlValueMethod, Action<DX.OpenXmlElement, object?> updateValueMethod)> OpenXmlTypesToSystemTypes2 = new()
     {
-      { typeof(DXW.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXW.OnOffOnlyType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXO10W.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
-      { typeof(DXO13W.OnOffType), (typeof(Boolean), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXW.OnOffType), (typeof(Boolean?), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXW.OnOffOnlyType), (typeof(Boolean?), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXO10W.OnOffType), (typeof(Boolean?), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
+      { typeof(DXO13W.OnOffType), (typeof(Boolean?), OnOffTypeToBoolean, BooleanToOnOffType, UpdateOnOffType) },
       { typeof(DXW.LongHexNumberType), (typeof(HexInt), LongHexNumberTypeToHexInt, HexIntToLongHexNumberType, UpdateLongHexNumberType) },
       { typeof(DXW.StringType), (typeof(String), StringTypeToString, StringToStringType, UpdateStringType) },
       { typeof(DXW.String255Type), (typeof(String), StringTypeToString, StringToStringType, UpdateStringType) },

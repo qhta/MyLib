@@ -1675,26 +1675,26 @@
             If the value is null, the text content is removed.
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetOnOffTypeElement``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
-            Get the boolean value of the first child element of the specified type of the <c>OnOffType</c>.
+            Get the boolean value according to existence of the element of the specified type of the <c>OnOffType</c> in the composite element.
+            If the element exists in the composite element and the <c>Val</c> property is <c>true</c>> or is empty. the result is true.
+            Otherwise, the result is false.
             </summary>
+            <typeparam name="ElementType">type of element to get</typeparam>
             <param name="xmlElement">checked element</param>
-            <result>boolean value or null (on parse error)</result>
-            <remarks>
-              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
-            </remarks>
+            <result>boolean value (not null)</result>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetOnOffTypeElement``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
             <summary>
-            Set the text content of the first child element of the specified type of the <c>OnOffType</c> to the bool value.
+            Set the existence of the element of the specified type of the <c>OnOffType</c> in the composite element according to the bool value.
+            If the value is true, the element is added without the <c>Val</c> property.
+            If the value is false, the element is added with the <c>Val</c> property set to <c>false</c>.
+            if the value is null, the element is removed.
             </summary>
-            <typeparam name="ElementType">element to set</typeparam>
+            <typeparam name="ElementType">type of element to set</typeparam>
             <param name="xmlElement">element to set</param>
             <param name="value">bool value (or null)</param>
-            <remarks>
-            If the value is null, the text content is removed.
-            </remarks>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffMathTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>

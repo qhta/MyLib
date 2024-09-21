@@ -373,7 +373,7 @@ public static class SectionPropertiesTools
   /// <param name="value"></param>
   public static void SetFormProtection(this SectionProperties sectionProperties, bool? value)
   {
-    sectionProperties.SetFirstOnOffTypeElementVal<FormProtection>(value);
+    sectionProperties.SetOnOffTypeElement<FormProtection>(value);
   }
 
   /// <summary>
@@ -393,7 +393,7 @@ public static class SectionPropertiesTools
   /// <param name="value"></param>
   public static void SetNoEndnote(this SectionProperties sectionProperties, bool? value)
   {
-    sectionProperties.SetFirstOnOffTypeElementVal<NoEndnote>(value);
+    sectionProperties.SetOnOffTypeElement<NoEndnote>(value);
   }
 
   /// <summary>
@@ -403,7 +403,7 @@ public static class SectionPropertiesTools
   /// <param name="value"></param>
   public static void SetTitlePage(this SectionProperties sectionProperties, bool? value)
   {
-    sectionProperties.SetFirstOnOffTypeElementVal<TitlePage>(value);
+    sectionProperties.SetOnOffTypeElement<TitlePage>(value);
   }
 
   /// <summary>
@@ -423,7 +423,7 @@ public static class SectionPropertiesTools
   /// <param name="value"></param>
   public static void SetBiDi(this SectionProperties sectionProperties, bool? value)
   {
-    sectionProperties.SetFirstOnOffTypeElementVal<BiDi>(value);
+    sectionProperties.SetOnOffTypeElement<BiDi>(value);
   }
 
   /// <summary>
@@ -433,7 +433,7 @@ public static class SectionPropertiesTools
   /// <param name="value"></param>
   public static void SetGutterOnRight(this SectionProperties sectionProperties, bool? value)
   {
-    sectionProperties.SetFirstOnOffTypeElementVal<GutterOnRight>(value);
+    sectionProperties.SetOnOffTypeElement<GutterOnRight>(value);
   }
 
   /// <summary>

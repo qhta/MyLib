@@ -612,46 +612,99 @@ public static class OpenXmlElementTools
   }
 
 
+  ///// <summary>
+  ///// Get the boolean value of the first child element of the specified type of the <c>OnOffType</c>.
+  ///// </summary>
+  ///// <param name="xmlElement">checked element</param>
+  ///// <result>boolean value or null (on parse error)</result>
+  ///// <remarks>
+  /////   boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
+  ///// </remarks>
+  //public static bool? GetFirstOnOffTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+  //  where ElementType : DXW.OnOffType
+  //{
+  //  var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+  //  if (element == null)
+  //    return null;
+  //  var value = element.Val?.Value;
+  //  return value;
+  //}
+
+  ///// <summary>
+  ///// Set the val property of the first child element of the specified type of the <c>OnOffType</c> to the bool value.
+  ///// </summary>
+  ///// <typeparam name="ElementType">element to set</typeparam>
+  ///// <param name="xmlElement">element to set</param>
+  ///// <param name="value">bool value (or null)</param>
+  ///// <remarks>
+  ///// If the value is null, the text content is removed.
+  ///// </remarks>
+  //public static void SetFirstOnOffTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, bool? value)
+  //  where ElementType : DXW.OnOffType, new()
+  //{
+  //  var element = xmlElement.Elements<ElementType>().FirstOrDefault();
+  //  if (value != null)
+  //  {
+  //    if (element != null)
+  //    {
+  //      if (element.Val?.Value != value)
+  //        element.Val = value;
+  //    }
+  //    else
+  //      xmlElement.Append(new ElementType { Val = value });
+  //  }
+  //  else
+  //    element?.Remove();
+  //}
+
   /// <summary>
-  /// Get the boolean value of the first child element of the specified type of the <c>OnOffType</c>.
+  /// Get the boolean value according to existence of the element of the specified type of the <c>OnOffType</c> in the composite element.
+  /// If the element exists in the composite element and the <c>Val</c> property is <c>true</c>> or is empty. the result is true.
+  /// Otherwise, the result is false.
   /// </summary>
+  /// <typeparam name="ElementType">type of element to get</typeparam>
   /// <param name="xmlElement">checked element</param>
-  /// <result>boolean value or null (on parse error)</result>
-  /// <remarks>
-  ///   boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
-  /// </remarks>
-  public static bool? GetFirstOnOffTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
+  /// <result>boolean value (not null)</result>
+  public static bool? GetOnOffTypeElement<ElementType>(this DX.OpenXmlCompositeElement xmlElement)
     where ElementType : DXW.OnOffType
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
-    if (element == null)
-      return null;
-    var value = element.Val?.Value;
-    return value;
+    if (element != null)
+    {
+      var value = element.Val?.Value;
+      if (value != null || value == true)
+        return true;
+    }
+    return false;
   }
 
   /// <summary>
-  /// Set the text content of the first child element of the specified type of the <c>OnOffType</c> to the bool value.
+  /// Set the existence of the element of the specified type of the <c>OnOffType</c> in the composite element according to the bool value.
+  /// If the value is true, the element is added without the <c>Val</c> property.
+  /// If the value is false, the element is added with the <c>Val</c> property set to <c>false</c>.
+  /// if the value is null, the element is removed.
   /// </summary>
-  /// <typeparam name="ElementType">element to set</typeparam>
+  /// <typeparam name="ElementType">type of element to set</typeparam>
   /// <param name="xmlElement">element to set</param>
   /// <param name="value">bool value (or null)</param>
-  /// <remarks>
-  /// If the value is null, the text content is removed.
-  /// </remarks>
-  public static void SetFirstOnOffTypeElementVal<ElementType>(this DX.OpenXmlCompositeElement xmlElement, bool? value)
+  public static void SetOnOffTypeElement<ElementType>(this DX.OpenXmlCompositeElement xmlElement, bool? value)
     where ElementType : DXW.OnOffType, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
-    if (value != null)
+    if (value == true)
     {
       if (element != null)
-      {
-        if (element.Val?.Value != value)
-          element.Val = value;
-      }
+        element.Val = null;
       else
-        xmlElement.Append(new ElementType { Val = value });
+        xmlElement.Append(new ElementType());
+    }
+    else
+    if (value == false)
+    {
+      if (element != null)
+        element.Val = false;
+      else
+        xmlElement.Append(new ElementType{Val = false});
     }
     else
       element?.Remove();
