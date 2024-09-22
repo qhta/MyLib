@@ -17,7 +17,8 @@ public static class TypeTools
   /// <returns></returns>
   public static IEnumerable<PropertyInfo> GetOpenXmlProperties(this Type openXmlType)
   {
-    return openXmlType.GetProperties().Where(p => !IsFrameworkProperty(p));
+    var result = openXmlType.GetProperties().Where(p => !IsFrameworkProperty(p)).ToList();
+    return result;
   }
 
   private static bool IsFrameworkProperty(PropertyInfo property)
@@ -986,8 +987,7 @@ public static class TypeTools
   /// <returns></returns>
   public static bool IsContainer(this Type openXmlType)
   {
-    //return MemberTypes.ContainsKey(openXmlType);
-    return typeof(OpenXmlCompositeElement).IsAssignableFrom(openXmlType) && GetMemberTypes(openXmlType).Any();
+    return MemberTypes.ContainsKey(openXmlType);
   }
 
   /// <summary>
@@ -996,21 +996,8 @@ public static class TypeTools
   /// <param name="openXmlType"></param>
   /// <returns></returns>
   public static Type[] GetMemberTypes(this Type openXmlType)
-  //{
-  //  if (MemberTypes.TryGetValue(openXmlType, out var types))
-  //  {
-  //    return types;
-  //  }
-  //  return [];
-  //}
-
-  //public static List<Type> GetAllowedMemberClasses(Type openXmlType)
   {
-    //if (!typeof(OpenXmlCompositeElement).IsAssignableFrom(openXmlType))
-    //{
-    //  throw new ArgumentException("Type must be a subclass of OpenXmlCompositeElement", nameof(openXmlType));
-    //}
-
+  
     if (openXmlType == typeof(DXW.Rsids))
       return [typeof(DXW.Rsid)];
 
@@ -1050,6 +1037,7 @@ public static class TypeTools
     { typeof(DXW.TableRow), [typeof(DXW.TableCell)] },
     { typeof(DXW.TableCell), [typeof(DXW.Paragraph)] },
     { typeof(DXW.Run), [typeof(DXW.Text)] },
+    { typeof(DXW.Compatibility), [typeof(DXW.CompatibilitySetting)]},
     { typeof(DXW.Rsids), [typeof(DXW.Rsid)] }
   };
 
