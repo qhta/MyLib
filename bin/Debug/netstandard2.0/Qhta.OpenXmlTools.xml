@@ -6576,7 +6576,7 @@
             <param name="openXmlType"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TypeTools.GetMemberTypes(System.Type)">
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetAllowedMemberTypes(System.Type)">
             <summary>
             Gets the acceptable member types of the OpenXml type.
             </summary>

@@ -995,38 +995,35 @@ public static class TypeTools
   /// </summary>
   /// <param name="openXmlType"></param>
   /// <returns></returns>
-  public static Type[] GetMemberTypes(this Type openXmlType)
+  public static Type[] GetAllowedMemberTypes(this Type openXmlType)
   {
-  
-    if (openXmlType == typeof(DXW.Rsids))
-      return [typeof(DXW.Rsid)];
+    if (MemberTypes.TryGetValue(openXmlType, out var memberTypes))
+      return memberTypes;
+    return [];
+    //if (openXmlType == typeof(DXW.Rsids))
+    //  return [typeof(DXW.Rsid)];
 
-    var openXmlPropertyClasses = new List<Type>();
-    var openXmlMemberClasses = new List<Type>();
+    //var openXmlMemberTypes = new List<Type>();
 
-    // Get properties that are OpenXmlElement or derived types
-    var properties = openXmlType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-      .Where(p => typeof(OpenXmlElement).IsAssignableFrom(p.PropertyType));
+    //// Get properties that are OpenXmlElement or derived types
+    //var openXmlPropertyTypes = openXmlType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+    //  .Where(p => typeof(OpenXmlElement).IsAssignableFrom(p.PropertyType)).Select(p=>p.PropertyType).Distinct().ToList();
 
-    foreach (var property in properties)
-    {
-      openXmlPropertyClasses.Add(property.PropertyType);
-    }
 
-    // Get child element types from the ChildElements property
-    var childElementInfo = openXmlType.GetProperty("ChildElements", BindingFlags.Public | BindingFlags.Instance);
-    if (childElementInfo != null)
-    {
-      var childElementTypes = childElementInfo.PropertyType.GenericTypeArguments;
-      foreach (var childElementType in childElementTypes)
-      {
-        if (!openXmlPropertyClasses.Contains(childElementType))
-        {
-          openXmlMemberClasses.Add(childElementType);
-        }
-      }
-    }
-    return openXmlMemberClasses.Distinct().ToArray();
+    //// Get child element types from the ChildElements property
+    //var childElementInfo = openXmlType.GetProperty("ChildElements", BindingFlags.Public | BindingFlags.Instance);
+    //if (childElementInfo != null)
+    //{
+    //  var childElementTypes = childElementInfo.PropertyType.GenericTypeArguments;
+    //  foreach (var childElementType in childElementTypes)
+    //  {
+    //    if (!openXmlPropertyTypes.Contains(childElementType))
+    //    {
+    //      openXmlMemberTypes.Add(childElementType);
+    //    }
+    //  }
+    //}
+    //return openXmlMemberTypes.Distinct().ToArray();
   }
 
   private static readonly Dictionary<Type, Type[]> MemberTypes = new()
