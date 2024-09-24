@@ -10,6 +10,30 @@ public static class OpenXmlElementTools
 {
 
   /// <summary>
+  /// Checks if the element is one of the specified types.
+  /// </summary>
+  /// <param name="element">Checked element</param>
+  /// <param name="types">
+  /// A set of element types to move the end position of the specified range until one of them is found in the document.
+  /// It must be one of the DocumentFormat.OpenXml.OpenXmlElement types.
+  /// It must not be an empty array.
+  /// </param>
+  /// <returns></returns>
+  public static bool HasType(this DX.OpenXmlElement element, Type[] types)
+  {
+    if (types.Contains(element.GetType()))
+      return true;
+    var baseType = element.GetType().BaseType;
+    while (baseType != null)
+    {
+      if (types.Contains(baseType))
+        return true;
+      baseType = baseType.BaseType;
+    }
+    return false;
+  }
+
+  /// <summary>
   /// Checks if the element is empty.
   /// </summary>
   /// <param name="element"></param>

@@ -9,7 +9,6 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class TypeTools
 {
-
   /// <summary>
   /// Gets the properties of the OpenXml type (except for the framework properties).
   /// </summary>
