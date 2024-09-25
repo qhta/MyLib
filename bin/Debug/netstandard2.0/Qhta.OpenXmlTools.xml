@@ -1421,6 +1421,30 @@
             Tools for working with OpenXml elements.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsType(DocumentFormat.OpenXml.OpenXmlElement,System.Type)">
+            <summary>
+            Checks if the element is the specified type.
+            </summary>
+            <param name="element">Checked element</param>
+            <param name="type">
+            Specified type to check the element.
+            It must be one of the DocumentFormat.OpenXml.OpenXmlElement type.
+            It must not be an empty array.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.HasType(DocumentFormat.OpenXml.OpenXmlElement,System.Type[])">
+            <summary>
+            Checks if the element is one of the specified types.
+            </summary>
+            <param name="element">Checked element</param>
+            <param name="types">
+            A set of element types to check the element.
+            It must be one of the DocumentFormat.OpenXml.OpenXmlElement types.
+            It must not be an empty array.
+            </param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsEmpty(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Checks if the element is empty.

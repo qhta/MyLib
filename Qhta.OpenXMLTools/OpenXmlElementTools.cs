@@ -8,13 +8,36 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class OpenXmlElementTools
 {
+  /// <summary>
+  /// Checks if the element is the specified type.
+  /// </summary>
+  /// <param name="element">Checked element</param>
+  /// <param name="type">
+  /// Specified type to check the element.
+  /// It must be one of the DocumentFormat.OpenXml.OpenXmlElement type.
+  /// It must not be an empty array.
+  /// </param>
+  /// <returns></returns>
+  public static bool IsType(this DX.OpenXmlElement element, Type type)
+  {
+    if (type == element.GetType())
+      return true;
+    var baseType = element.GetType().BaseType;
+    while (baseType != null)
+    {
+      if (type == baseType)
+        return true;
+      baseType = baseType.BaseType;
+    }
+    return false;
+  }
 
   /// <summary>
   /// Checks if the element is one of the specified types.
   /// </summary>
   /// <param name="element">Checked element</param>
   /// <param name="types">
-  /// A set of element types to move the end position of the specified range until one of them is found in the document.
+  /// A set of element types to check the element.
   /// It must be one of the DocumentFormat.OpenXml.OpenXmlElement types.
   /// It must not be an empty array.
   /// </param>
