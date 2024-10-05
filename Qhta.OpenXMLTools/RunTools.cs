@@ -65,7 +65,7 @@ public static class RunTools
   /// <param name="run"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this Run run, GetTextOptions? options)
+  public static string GetText(this Run run, GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
     StringBuilder sb = new();
@@ -103,7 +103,7 @@ public static class RunTools
           sb.Append(options.FieldEndTag);
         }
       }
-      else if (element is FieldCode fieldCode && options.IncludeFieldFormula)                     
+      else if (element is FieldCode fieldCode && options.IncludeFieldFormula)
       {
         sb.Append(fieldCode.Text);
       }
@@ -137,6 +137,103 @@ public static class RunTools
     }
 
     return sb.ToString();
+  }
+
+  /// <summary>
+  /// Set the text content of the run.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <param name="value"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static void SetText(this Run run, string? value, GetTextOptions? options = null)
+  {
+    options ??= GetTextOptions.Default;
+    var runProperties = run.GetProperties();
+    run.RemoveAllChildren();
+    run.AppendChild(runProperties);
+    if (value == null)
+      return;
+    var sb = new StringBuilder();
+    for (int i=0; i<value.Length; i++)
+    {
+      if (value.HasSubstringAt(i,options.BreakPageTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new Break() { Type = BreakValues.Page });
+      }
+      else if (value.HasSubstringAt(i, options.BreakColumnTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new Break() { Type = BreakValues.Column });
+      }
+      else if (value.HasSubstringAt(i, options.BreakLineTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new Break() { Type = BreakValues.TextWrapping });
+      }
+      else if (value.HasSubstringAt(i, options.TabTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new TabChar());
+      }
+      else if (value.HasSubstringAt(i, options.FieldStartTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.Begin });
+      }
+      else if (value.HasSubstringAt(i, options.FieldResultTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.Separate });
+      }
+      else if (value.HasSubstringAt(i, options.FieldEndTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.End });
+      }
+      else if (value.HasSubstringAt(i, options.FootnoteRefStart))
+      {
+        TryAppend(run, sb);
+        var footnoteReference = new FootnoteReference();
+        if (int.TryParse(value.Substring(i + 1, value.IndexOf(options.FootnoteRefEnd, i + 1) - i - 1), out var id))
+          footnoteReference.Id = id;
+        run.AppendChild(footnoteReference);
+        i = value.IndexOf(options.FootnoteRefEnd, i + 1);
+      }
+      else if (value.HasSubstringAt(i, options.EndnoteRefStart))
+      {
+        TryAppend(run, sb);
+        var endnoteReference = new EndnoteReference();
+        if (int.TryParse(value.Substring(i + 1, value.IndexOf(options.EndnoteRefEnd, i + 1) - i - 1), out var id))
+          endnoteReference.Id = id;
+        run.AppendChild(endnoteReference);
+        i = value.IndexOf(options.EndnoteRefEnd, i + 1);
+      }
+      else if (value.HasSubstringAt(i, options.CommentRefStart))
+      {
+        TryAppend(run, sb);
+        var commentReference = new CommentReference();
+        commentReference.Id = value.Substring(i + 1, value.IndexOf(options.CommentRefEnd, i + 1) - i - 1);
+        run.AppendChild(commentReference);
+        i = value.IndexOf(options.CommentRefEnd, i + 1);
+      }
+      else
+      {
+        sb.Append(value[i]);
+      }
+    }
+    TryAppend(run, sb);
+  }
+
+  private static void TryAppend(this Run run, StringBuilder sb)
+  {
+    var s = sb.ToString();
+    if (!string.IsNullOrEmpty(s))
+    {
+      run.AppendChild(new Text(s));
+      sb.Clear();
+    }
   }
 
   /// <summary>

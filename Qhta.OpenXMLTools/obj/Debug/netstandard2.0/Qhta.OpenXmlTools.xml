@@ -2277,6 +2277,15 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Run,System.String,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Set the text content of the run.
+            </summary>
+            <param name="run"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.IsBold(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>
             Checks if the run properties contain a <c>Bold</c> or <c>BoldComplexScript</c> element and returns the value of the <c>Val</c> attribute.
@@ -4295,6 +4304,20 @@
             </summary>
             <param name="settings"></param>
             <result>wordprocessing document</result>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.StringTools">
+            <summary>
+            Extending methods for strings.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringTools.HasSubstringAt(System.String,System.Int32,System.String)">
+            <summary>
+            Checks if a string has a substring at a given position.
+            </summary>
+            <param name="s"></param>
+            <param name="pos"></param>
+            <param name="substring"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.Styles">
             <summary>
