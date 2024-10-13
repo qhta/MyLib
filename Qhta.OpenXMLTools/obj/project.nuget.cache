@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZbU6oXWpSJ8=",
+  "dgSpecHash": "MJ8Zn+jxS6s=",
   "success": true,
-  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj",
+  "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml\\3.1.0\\documentformat.openxml.3.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml.framework\\3.1.0\\documentformat.openxml.framework.3.1.0.nupkg.sha512",

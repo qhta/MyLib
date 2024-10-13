@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Mpe1+CrPeDo=",
+  "success": true,
+  "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

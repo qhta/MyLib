@@ -11,10 +11,10 @@
           "Qhta.HtmlUtils": "2.1.0",
           "Qhta.MVVM": "4.1.0",
           "Qhta.OrdNumbers": "2.3.0",
-          "Qhta.TextUtils": "3.2.0",
+          "Qhta.TextUtils": "3.3.0",
           "Qhta.TypeUtils": "1.3.11",
-          "Qhta.WPF.Converters": "1.3.1",
-          "System.Drawing.Common": "8.0.0"
+          "Qhta.WPF.Converters": "1.3.2",
+          "System.Drawing.Common": "8.0.8"
         },
         "runtime": {
           "Qhta.WPF.Utils.dll": {}
@@ -106,11 +106,11 @@
           }
         }
       },
-      "Qhta.TextUtils/3.2.0": {
+      "Qhta.TextUtils/3.3.0": {
         "runtime": {
           "lib/net6.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.2.0.0",
-            "fileVersion": "3.2.0.0"
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.0.0"
           }
         }
       },
@@ -125,15 +125,15 @@
           }
         }
       },
-      "Qhta.WPF.Converters/1.3.1": {
+      "Qhta.WPF.Converters/1.3.2": {
         "dependencies": {
-          "Qhta.TextUtils": "3.2.0",
+          "Qhta.TextUtils": "3.3.0",
           "Qhta.TypeUtils": "1.3.11"
         },
         "runtime": {
           "lib/net6.0-windows7.0/Qhta.WPF.Converters.dll": {
-            "assemblyVersion": "1.3.1.0",
-            "fileVersion": "1.3.1.0"
+            "assemblyVersion": "1.3.2.0",
+            "fileVersion": "1.3.2.0"
           }
         }
       },
@@ -234,14 +234,14 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Drawing.Common/8.0.0": {
+      "System.Drawing.Common/8.0.8": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "8.0.0"
         },
         "runtime": {
           "lib/net6.0/System.Drawing.Common.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53105"
+            "fileVersion": "8.0.824.36606"
           }
         }
       },
@@ -675,7 +675,7 @@
     "Qhta.Collections/2.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hSRcjgHW2Vfq2v7i+smLsa6wo2NMP82StXNYIiGYHPj6IcylOAupz1tOTa05PrWutnHVfaKUEO+XdA0+zgEtnA==",
+      "sha512": "sha512-VMddBExgPXLQ6XEoSZu2uQzs/T0RyycOx8R9qOJeq+2DjphmRFbQJMU+8EyIu0a9iOmJJ3XZBXXSxSROxng3cw==",
       "path": "qhta.collections/2.0.0",
       "hashPath": "qhta.collections.2.0.0.nupkg.sha512"
     },
@@ -689,14 +689,14 @@
     "Qhta.MVVM/4.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EY9WdF2DXrCOgBzAhfzzi6tKozL8Vn2uEdfj3Wsgv5ErSVSgNSSyysiUiaR5+uz1pQY5M8uSoHlF3zwobZ/U1Q==",
+      "sha512": "sha512-f5urBB0wEcqtlzQUaQw9eH4Ln6Q3RPGkhqixPeNG1AYPjHUyhHDfC0HSbtoZjetzQyVGvx0y/6QtcgFPDKyG4g==",
       "path": "qhta.mvvm/4.1.0",
       "hashPath": "qhta.mvvm.4.1.0.nupkg.sha512"
     },
     "Qhta.ObservableObjects/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XAhuPaHSVAjqhtEbWS3uv9eG5e27ISiumUYkqiCnmyVSRbRBBW9E/e9z8B3VIb90xIADIuyK80wHNBOOe5f1GA==",
+      "sha512": "sha512-zo5rEzSr/KE2onFM3qM1qgihPtiLl0a4JSlxBer4KD5tB5A48pCngtltHRL+NZBsb1tt11a6VPbluYam75o6gQ==",
       "path": "qhta.observableobjects/3.0.0",
       "hashPath": "qhta.observableobjects.3.0.0.nupkg.sha512"
     },
@@ -707,12 +707,12 @@
       "path": "qhta.ordnumbers/2.3.0",
       "hashPath": "qhta.ordnumbers.2.3.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.2.0": {
+    "Qhta.TextUtils/3.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SE6TMY3sLGm6/ta6UGl9FYwLNEGpkpSU/tiuymb8S5w6fJoZivGS6KC4+sk/YUKYt1kjdvwZYmwZEuR0hCXL0g==",
-      "path": "qhta.textutils/3.2.0",
-      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
+      "sha512": "sha512-TA2HyTfwMafF0DRkVst3pFUcXrXM41E5L6bxWozSaBYFsSwVFaI4Jn9HPYL+elo5S57J8UaW65VX2J4eQSVE6A==",
+      "path": "qhta.textutils/3.3.0",
+      "hashPath": "qhta.textutils.3.3.0.nupkg.sha512"
     },
     "Qhta.TypeUtils/1.3.11": {
       "type": "package",
@@ -721,12 +721,12 @@
       "path": "qhta.typeutils/1.3.11",
       "hashPath": "qhta.typeutils.1.3.11.nupkg.sha512"
     },
-    "Qhta.WPF.Converters/1.3.1": {
+    "Qhta.WPF.Converters/1.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Q3TUnTD3JBxb/RFl9yHu/WA4NYl/VY1gzXCheBbC5wSbF61fQNPMBAKl7iFjirRPNH0CGfULuSIVDy0rZyF/dg==",
-      "path": "qhta.wpf.converters/1.3.1",
-      "hashPath": "qhta.wpf.converters.1.3.1.nupkg.sha512"
+      "sha512": "sha512-KtUW+r+UmmHEzPCQHiZpFrhUGlm613sjdID00iNzvaJfyHDyoGP+/QJYgc3ghzspiayJdKFpeK/fwGV2Cu4d7w==",
+      "path": "qhta.wpf.converters/1.3.2",
+      "hashPath": "qhta.wpf.converters.1.3.2.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
@@ -875,12 +875,12 @@
       "path": "system.diagnostics.tracing/4.3.0",
       "hashPath": "system.diagnostics.tracing.4.3.0.nupkg.sha512"
     },
-    "System.Drawing.Common/8.0.0": {
+    "System.Drawing.Common/8.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JkbHJjtI/dWc5dfmEdJlbe3VwgZqCkZRtfuWFh5GOv0f+gGCfBtzMpIVkmdkj2AObO9y+oiOi81UGwH3aBYuqA==",
-      "path": "system.drawing.common/8.0.0",
-      "hashPath": "system.drawing.common.8.0.0.nupkg.sha512"
+      "sha512": "sha512-4ZM1wvLjz9nVVExsfPAaSl/qOvU+QNedJL5rQ+2Wbow+iGeyO0e7XN07707rMBgaffEeeLrCZBwC0oHUuvRdPw==",
+      "path": "system.drawing.common/8.0.8",
+      "hashPath": "system.drawing.common.8.0.8.nupkg.sha512"
     },
     "System.Globalization/4.3.0": {
       "type": "package",

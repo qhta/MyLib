@@ -181,6 +181,26 @@ public static class SectionPropertiesTools
     return sectionProperties.Elements<TextDirection>().FirstOrDefault()?.Val?.Value;
   }
 
+  /// <summary>
+  /// Get the first <c>TitlePage</c> value from the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static bool? GetTitlePage(this SectionProperties sectionProperties)
+  {
+    return sectionProperties.Elements<TitlePage>().FirstOrDefault()?.Val?.Value;
+  }
+
+
+  /// <summary>
+  /// Get the first <c>NoEndnote</c> value from the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static bool? GetNoEndnote(this SectionProperties sectionProperties)
+  {
+    return sectionProperties.Elements<NoEndnote>().FirstOrDefault()?.Val?.Value;
+  }
 
   /// <summary>
   /// Get the first <c>BiDi</c> value from the section properties.

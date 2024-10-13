@@ -7,7 +7,7 @@ namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Class to represent a range of elements in a Word section of the document.
 /// </summary>
-public class SectionRange(SectionProperties sectionProperties, OpenXmlElement start, OpenXmlElement end): Range(start, end)
+public class SectionRange(SectionProperties sectionProperties, OpenXmlElement? start = null, OpenXmlElement? end = null): Range(start, end)
 {
   /// <summary>
   /// Section properties of the range.

@@ -4,6 +4,50 @@
         <name>Qhta.OpenXmlTools</name>
     </assembly>
     <members>
+        <member name="T:Qhta.OpenXmlTools.BodyTools">
+            <summary>
+            Extension methods for the Body class.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
+            <summary>
+            Gets the section properties of the body.
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSections(DocumentFormat.OpenXml.Wordprocessing.Body)">
+            <summary>
+            Gets all the sections
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.BookmarkTools">
+            <summary>
+            Tools for working with bookmarks
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BookmarkTools.GetBookmarkStart(DocumentFormat.OpenXml.Wordprocessing.BookmarkEnd,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the bookmark start element that corresponds to the specified bookmark end element
+            </summary>
+            <param name="bookmarkEnd"></param>
+            <param name="searchFromElement">searches from this element backward</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.BookmarkTools.GetBookmarkEnd(DocumentFormat.OpenXml.Wordprocessing.BookmarkStart,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the bookmark end element that corresponds to the specified bookmark start element
+            </summary>
+            <param name="bookmarkStart"></param>
+            <param name="searchFromElement">searches from this element backward</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.BordersTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Borders element.
@@ -17,6 +61,9 @@
             <param name="borderList">Enumeration of source <see cref="T:DocumentFormat.OpenXml.Wordprocessing.BorderType"/> elements</param>
             <typeparam name="OpenXmlElementType">Target OpenXml element type. It must be a composite element</typeparam>
             <returns>New <typeparamref name="OpenXmlElementType"/> element</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.BuiltinStyles">
+            <summary>Specifies builtin styles as defined in OpenXml</summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.CompatibilityTools">
             <summary>
@@ -234,6 +281,48 @@
             <param name="propertyName"></param>
             <param name="value"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Add(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.Type,System.Object)">
+            <summary>
+            Add the new custom file property.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="propertyType"></param>
+            <param name="value"></param>
+            <returns>true if the addition was successful, false if the property with the same name already exists</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Remove(DocumentFormat.OpenXml.CustomProperties.Properties,System.String)">
+            <summary>
+            Removes a custom file property.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Rename(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.String)">
+            <summary>
+            Renames a custom file property.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="newName"></param>
+            <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.ChangeType(DocumentFormat.OpenXml.CustomProperties.Properties,System.String,System.Type)">
+            <summary>
+            Changes a custom file property type.
+            </summary>
+            <param name="customFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="newType"></param>
+            <returns>true if the addition was successful, false if the property with the given name does not exist</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CustomFileProperties.Clear(DocumentFormat.OpenXml.CustomProperties.Properties)">
+            <summary>
+            Removes all custom file properties.
+            </summary>
+            <param name="customFileProperties"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.DocumentProperties">
             <summary>
             Manages the properties of a document in a uniform way.
@@ -303,6 +392,31 @@
         <member name="F:Qhta.OpenXmlTools.DocumentPropertyKind.Custom">
             <summary>
             Custom property.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.DocumentSecurity">
+            <summary>
+            Encoding for the <c>DocumentSecurity</c>> property
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.PasswordProtected">
+            <summary>
+            Document is password protected
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.ReadOnlyRecommended">
+            <summary>
+             Document is recommended to be opened as read-only
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.ReadOnlyForced">
+            <summary>
+             Document is recommended to be opened as read-only
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentSecurity.LockedForAnnotation">
+            <summary>
+             Document is locked for annotation
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentTools">
@@ -407,6 +521,31 @@
             </summary>
             <param name="endnotes"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.AppType">
+            <summary>
+            Filter for extended file properties by their application type.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.None">
+            <summary>
+            Applies to no application.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.Word">
+            <summary>
+            Applies to Word documents.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.Presentation">
+            <summary>
+            Applies to presentations document.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AppType.All">
+            <summary>
+            Applies to all applications.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ExtendedFilePropertiesTools">
             <summary>
             Tools for working with extended file properties of a document.
@@ -449,6 +588,23 @@
             </summary>
             <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.IsVolatile(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+            <summary>
+            Check if the property is volatile.
+            </summary>
+            <param name="extendedFileProperties"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.AppliesToApplication(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String,Qhta.OpenXmlTools.AppType)">
+            <summary>
+            Check if the property is volatile.
+            </summary>
+            <param name="extendedFileProperties"></param>
+            <param name="propertyName"></param>
+            <param name="appType"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetValue(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
@@ -653,6 +809,58 @@
             Tag to end a paragraph.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.HexByte">
+            <summary>
+            Represents HexByte integer value.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.HexByte.Value">
+            <summary>
+            Stored value.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct with the integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct with the string value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(System.Int32)~Qhta.OpenXmlTools.HexByte">
+            <summary>
+            Converts the integer to the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(Qhta.OpenXmlTools.HexByte)~System.Int32">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct to the integer.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(System.String)~System.Nullable{Qhta.OpenXmlTools.HexByte}">
+            <summary>
+            Converts the string value to the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.op_Implicit(System.Nullable{Qhta.OpenXmlTools.HexByte})~System.String">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct to the string.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexByte.ToString">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexByte"/> struct to the string.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.HexInt">
             <summary>
             Represents a hexadecimal integer.
@@ -702,6 +910,58 @@
         <member name="M:Qhta.OpenXmlTools.HexInt.ToString">
             <summary>
             Converts the <see cref="T:Qhta.OpenXmlTools.HexInt"/> struct to the string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.HexRGB">
+            <summary>
+            Represents RGB integer color code.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.HexRGB.Value">
+            <summary>
+            Stored value.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct with the integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct with the string value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(System.Int32)~Qhta.OpenXmlTools.HexRGB">
+            <summary>
+            Converts the integer to the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(Qhta.OpenXmlTools.HexRGB)~System.Int32">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct to the integer.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(System.String)~System.Nullable{Qhta.OpenXmlTools.HexRGB}">
+            <summary>
+            Converts the string value to the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.op_Implicit(System.Nullable{Qhta.OpenXmlTools.HexRGB})~System.String">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct to the string.
+            </summary>
+            <param name="hexInt"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HexRGB.ToString">
+            <summary>
+            Converts the <see cref="T:Qhta.OpenXmlTools.HexRGB"/> struct to the string.
             </summary>
             <returns></returns>
         </member>
@@ -1180,6 +1440,44 @@
             Tools for working with OpenXml elements.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsType(DocumentFormat.OpenXml.OpenXmlElement,System.Type)">
+            <summary>
+            Checks if the element is the specified type.
+            </summary>
+            <param name="element">Checked element</param>
+            <param name="type">
+            Specified type to check the element.
+            It must be one of the DocumentFormat.OpenXml.OpenXmlElement type.
+            It must not be an empty array.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.HasType(DocumentFormat.OpenXml.OpenXmlElement,System.Type[])">
+            <summary>
+            Checks if the element is one of the specified types.
+            </summary>
+            <param name="element">Checked element</param>
+            <param name="types">
+            A set of element types to check the element.
+            It must be one of the DocumentFormat.OpenXml.OpenXmlElement types.
+            It must not be an empty array.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsEmpty(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Checks if the element is empty.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetMembers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get child elements (without properties) of the OpenXmlElement.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetDocumentPart(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
@@ -1211,6 +1509,24 @@
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementStringValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
             <summary>
             Set the text content of the first child element of the specified type of the <c>OpenXmlLeafTextElement</c> to the string value.
+            </summary>
+            <typeparam name="ElementType">Type of the element</typeparam>
+            <param name="xmlElement">element to set</param>
+            <param name="value">string value to set</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementStringTypeValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the string value of the first child element of the specified type of the <c>StringType</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>string value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementStringTypeValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Set the value of the first child element of the specified type of the <c>StringType</c> to the string value.
             </summary>
             <typeparam name="ElementType">Type of the element</typeparam>
             <param name="xmlElement">element to set</param>
@@ -1402,26 +1718,26 @@
             If the value is null, the text content is removed.
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetOnOffTypeElement``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
-            Get the boolean value of the first child element of the specified type of the <c>OnOffType</c>.
+            Get the boolean value according to existence of the element of the specified type of the <c>OnOffType</c> in the composite element.
+            If the element exists in the composite element and the <c>Val</c> property is <c>true</c>> or is empty. the result is true.
+            Otherwise, the result is false.
             </summary>
+            <typeparam name="ElementType">type of element to get</typeparam>
             <param name="xmlElement">checked element</param>
-            <result>boolean value or null (on parse error)</result>
-            <remarks>
-              boolean value can be "true" or "false" (case-insensitive) or "1" or "0".
-            </remarks>
+            <result>boolean value (not null)</result>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstOnOffTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetOnOffTypeElement``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Boolean})">
             <summary>
-            Set the text content of the first child element of the specified type of the <c>OnOffType</c> to the bool value.
+            Set the existence of the element of the specified type of the <c>OnOffType</c> in the composite element according to the bool value.
+            If the value is true, the element is added without the <c>Val</c> property.
+            If the value is false, the element is added with the <c>Val</c> property set to <c>false</c>.
+            if the value is null, the element is removed.
             </summary>
-            <typeparam name="ElementType">element to set</typeparam>
+            <typeparam name="ElementType">type of element to set</typeparam>
             <param name="xmlElement">element to set</param>
             <param name="value">bool value (or null)</param>
-            <remarks>
-            If the value is null, the text content is removed.
-            </remarks>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstOnOffMathTypeElementVal``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
@@ -1585,6 +1901,24 @@
             </summary>
             <typeparam name="ElementType">element to set</typeparam>
             <param name="xmlElement">element to set</param>
+            <param name="value">decimal value (or null)</param>
+            <remarks>
+            If the value is null, the existing element is removed.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetFirstElementDecimalNumberValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get the integer value of the first child element of the specified type of the <c>DecimalNumberType</c>.
+            </summary>
+            <param name="xmlElement">checked element</param>
+            <result>decimal value or null (on parse error)</result>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetFirstElementDecimalNumberValue``1(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+            <summary>
+            Set the value of the first child element of the specified type  of the <c>DecimalNumberType</c> to integer val.
+            </summary>
+            <typeparam name="ElementType">element to set</typeparam>
+            <param name="xmlElement">element to set</param>
             <param name="value">integer value (or null)</param>
             <remarks>
             If the value is null, the existing element is removed.
@@ -1653,7 +1987,7 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRelationshipValue(DocumentFormat.OpenXml.OpenXmlPartRootElement,System.String,System.String)">
             <summary>
-            Set the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c> to the specified value.
+            Get the relationship of the specified by <c>relationshipType</c> in the <c>OpenXmlPartRootElement</c>
             </summary>
             <param name="rootElement"></param>
             <param name="relationshipType"></param>
@@ -1776,6 +2110,13 @@
             <param name="paraId">id of the paragraph</param>
             <returns>found paragraph or nul</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the <c>ParagraphProperties</c> element of the paragraph. If it is null, create a new one.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
             Get the text of the paragraph run elements.
@@ -1830,6 +2171,18 @@
             </summary>
             <param name="element">source element</param>
             <returns>joined string</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.PropertiesTools">
+            <summary>
+            Methods for working with properties.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PropertiesTools.IsObsolete(System.Reflection.PropertyInfo)">
+            <summary>
+            Determines if a property is obsolete.
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.Range">
             <summary>
@@ -1928,12 +2281,49 @@
             Tools for working with OpenXml Wordprocessing Run element.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetProperties(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Get the <c>RunProperties</c> element of the run. If it is null, create a new one.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
             Get the text content of the run.
             </summary>
             <param name="run"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Run,System.String,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Set the text content of the run.
+            </summary>
+            <param name="run"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsBold(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run properties contain a <c>Bold</c> or <c>BoldComplexScript</c> element and returns the value of the <c>Val</c> attribute.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsItalic(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run properties contain a <c>Italic</c> or <c>ItalicComplexScript</c> element and returns the value of the <c>Val</c> attribute.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsUnderline(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run properties contain a <c>Underline</c> element and checks if the value of the <c>Val</c> attribute is not <c>None</c>.
+            </summary>
+            <param name="run"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SectionPropertiesTools">
@@ -2318,6 +2708,97 @@
             <param name="body">Body of the WordprocessingDocument</param>
             <returns>Instance of the sections element</returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.SettingCategory">
+            <summary>
+            Settings
+            categories.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Automation">
+            <summary>
+            Settings applied to automation and evaluation.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Compatibility">
+            <summary>
+            Compatibility properties.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.CustomXml">
+            <summary>
+            Settings applied to the custom Xml
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Hyphenation">
+            <summary>
+            Settings applied to the text hyphenation
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Identification">
+            <summary>
+            Identifying the document
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Layout">
+            <summary>
+            Settings applied to the layout and view of the document
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Load">
+            <summary>
+            Settings applied to the document load operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.MailMerge">
+            <summary>
+            Settings applied to the mail-merge operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Printing">
+            <summary>
+            Settings applied to the document print operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Proofing">
+            <summary>
+            Settings applied to the document proofing operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Revisions">
+            <summary>
+            Settings applied to the revision operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Save">
+            <summary>
+            Settings applied to the document save operations
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Security">
+            <summary>
+            Settings applied to the document security
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Styles">
+            <summary>
+            Settings applied to the document styles
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Theming">
+            <summary>
+            Settings applied to the document theme
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.Tracking">
+            <summary>
+            Settings applied to the change tracking
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.SettingCategory.UI">
+            <summary>
+            Settings applied to the user interface
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.SettingsTools">
             <summary>
             Tools for working with the Settings element.
@@ -2356,6 +2837,22 @@
         <member name="M:Qhta.OpenXmlTools.SettingsTools.GetType(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
             <summary>
             Get the type of property with its name.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetCategory(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Get the category of property with its name.
+            </summary>
+            <param name="settings"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SettingsTools.GetInfo(DocumentFormat.OpenXml.Wordprocessing.Settings,System.String)">
+            <summary>
+            Get the info of property with its name.
             </summary>
             <param name="settings"></param>
             <param name="propertyName"></param>
@@ -3826,6 +4323,20 @@
             </summary>
             <param name="settings"></param>
             <result>wordprocessing document</result>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.StringTools">
+            <summary>
+            Extending methods for strings.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringTools.HasSubstringAt(System.String,System.Int32,System.String)">
+            <summary>
+            Checks if a string has a substring at a given position.
+            </summary>
+            <param name="s"></param>
+            <param name="pos"></param>
+            <param name="substring"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.Styles">
             <summary>
@@ -5818,12 +6329,33 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.WStyleType)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.StyleTypeToStyleValues(Qhta.OpenXmlTools.StyleType)">
             <summary>
             Converts a style type to a style value.
             </summary>
             <param name="type"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.StyleType">
+            <summary>Specifies a built-in Microsoft Word style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleType.Paragraph">
+            <summary>Paragraph style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleType.Character">
+            <summary>Body character style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleType.Table">
+            <summary>Table style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleType.Numbering">
+            <summary>List style.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleType.ParagraphOnly">
+            <summary>Reserved for internal use.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.StyleType.Linked">
+            <summary>Reserved for internal use.</summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.SubdocumentTools">
             <summary>
@@ -5970,6 +6502,14 @@
             <param name="depthLimit">limit of internal elements levels (in composite elements</param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TestTools.FromString(System.String,System.Type)">
+            <summary>
+            Converts the object form a string.
+            </summary>
+            <param name="value">value to convert</param>
+            <param name="targetType"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.Twips">
             <summary>
             Represents a twips measure integer.
@@ -6034,12 +6574,87 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.VTVariantTools">
+        <member name="T:Qhta.OpenXmlTools.TypeTools">
+            <summary>
+            Tools for OpenXml element types and their values.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetOpenXmlProperties(System.Type)">
+            <summary>
+            Gets the properties of the OpenXml type (except for the framework properties).
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.IsOpenXmlEnum(System.Type)">
+            <summary>
+            Checks whether the openXmlType is an OpenXml enum.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetOpenXmlEnumValues(System.Type)">
+            <summary>
+            Checks whether the openXmlType is an OpenXml enum.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemType(System.Type,System.String)">
+            <summary>
+            Converts an OpenXml type to a system type.
+            If conversion is not possible, the original type is returned.
+            </summary>
+            <param name="openXmlType"></param>
+            <param name="propertyName">Used when the input type is not sufficient to determine output type</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToSystemValue(System.Object,System.Type)">
+            <summary>
+            Converts an OpenXml type value to a system type value.
+            If conversion is not possible, the original value is returned.
+            </summary>
+            <param name="openXmlType"></param>
+            <param name="openXmlValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.UpdateFromSystemValue(DocumentFormat.OpenXml.OpenXmlElement,System.Object)">
+            <summary>
+            Updates the OpenXml value with the system value.
+            If conversion is not possible, the false value is returned.
+            </summary>
+            <param name="openXmlElement">OpenXmlElement</param>
+            <param name="systemValue"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToOpenXmlValue(System.Object,System.Type)">
+            <summary>
+            Converts a system type value to an OpenXml type value.
+            If conversion is not possible, the original value is returned.
+            </summary>
+            <param name="openXmlType"></param>
+            <param name="systemValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.IsContainer(System.Type)">
+            <summary>
+            Check whether the OpenXml type can contain members.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.GetAllowedMemberTypes(System.Type)">
+            <summary>
+            Gets the acceptable member types of the OpenXml type.
+            </summary>
+            <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.VariantTools">
             <summary>
             Tools for working with variant types.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetVariantValue(DocumentFormat.OpenXml.OpenXmlElement)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetVariantValue(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Get the value of the VTVariant element.
             </summary>
@@ -6047,7 +6662,7 @@
             <returns>simple type result</returns>
             <exception cref="T:System.IO.InvalidDataException"></exception>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.DecodeBstr(System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.DecodeBstr(System.String)">
             <summary>
             Decodes the BSTR string
             </summary>
@@ -6062,7 +6677,7 @@
             [Example: The string literal _x0008_ would be stored as _x005F_x0008_. end example]
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.EncodeBstr(System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.EncodeBstr(System.String)">
             <summary>
             Decodes the BSTR string
             </summary>
@@ -6077,42 +6692,42 @@
             [Example: The string literal _x0008_ would be stored as _x005F_x0008_. end example]
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTStreamData)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTStreamData)">
             <summary>
             Get byte array from the <c>VTStreamData</c> element.
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTOStreamData)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTOStreamData)">
             <summary>
             Get byte array from the <c>VTOStreamData</c> element.
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTVStreamData)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTVStreamData)">
             <summary>
             Get byte array from the <c>VTVStreamData</c> element.
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTStorage)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTStorage)">
             <summary>
             Get byte array from the <c>VTStorage</c> element.
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTOStorage)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTOStorage)">
             <summary>
             Get byte array from the <c>VTOStorage</c> element.
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVTArray(System.Array)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateVTArray(System.Array)">
             <summary>
             Creates the <c>VTArray</c> element from the array data.
             </summary>
@@ -6120,7 +6735,7 @@
             <returns></returns>
             <exception cref="T:System.IO.InvalidDataException"></exception>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTArray)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTArray)">
             <summary>
             Get the array from the <c>VTArray</c> element.
             </summary>
@@ -6128,32 +6743,32 @@
             <returns></returns>
             <exception cref="T:System.IO.InvalidDataException"></exception>
         </member>
-        <member name="F:Qhta.OpenXmlTools.VTVariantTools.ArrayBaseTypeToType">
+        <member name="F:Qhta.OpenXmlTools.VariantTools.ArrayBaseTypeToType">
             <summary>
             Dictionary mapping the <c>ArrayBaseValues</c> to the data type.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.VTVariantTools.TypeToArrayBaseType">
+        <member name="F:Qhta.OpenXmlTools.VariantTools.TypeToArrayBaseType">
             <summary>
             Dictionary mapping data type to the <c>ArrayBaseValues</c>.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.VTVariantTools.ArrayBaseTypeToVTType">
+        <member name="F:Qhta.OpenXmlTools.VariantTools.ArrayBaseTypeToVTType">
             <summary>
             Dictionary mapping the <c>ArrayBaseValues</c> to the Variant type.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.VTVariantTools.VectorBaseTypeToType">
+        <member name="F:Qhta.OpenXmlTools.VariantTools.VectorBaseTypeToType">
             <summary>
             Dictionary mapping the <c>VectorBaseValues</c> type to the data type.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.VTVariantTools.VTTypeToType">
+        <member name="F:Qhta.OpenXmlTools.VariantTools.VTTypeToType">
             <summary>
             Dictionary mapping the variant type to the data type.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTVector)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTVector)">
             <summary>
             Get the array from the <c>VTVector</c> element.
             </summary>
@@ -6161,7 +6776,7 @@
             <returns></returns>
             <exception cref="T:System.IO.InvalidDataException"></exception>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTBlob)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTBlob)">
             <summary>
             Get byte array from the VTBlob element.
             </summary>
@@ -6172,7 +6787,7 @@
             Blob must be encoded in base64 with the first 4 bytes representing the length of the data.
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateBlob(System.Byte[])">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateBlob(System.Byte[])">
             <summary>
             Create a VTBlob element from a byte array.
             Result is encoded in base64 with the first 4 bytes representing the length of the data.
@@ -6180,7 +6795,7 @@
             <param name="data">Source byte array</param>
             <returns>VTBlob result</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTOBlob)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.GetData(DocumentFormat.OpenXml.VariantTypes.VTOBlob)">
             <summary>
             Get byte array from the VTOBlob element.
             </summary>
@@ -6191,7 +6806,7 @@
             Blob must be encoded in base64 with the first 4 bytes representing the length of the data.
             </remarks>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateOBlob(System.Byte[])">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateOBlob(System.Byte[])">
             <summary>
             Create a VTOBlob element from a byte array.
             Result is encoded in base64 with the first 4 bytes representing the length of the data.
@@ -6199,7 +6814,7 @@
             <param name="data">Source byte array</param>
             <returns>VTOBlob result</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVariant(System.Type,System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateVariant(Qhta.OpenXmlTools.VariantType,System.Object,System.String)">
             <summary>
             Create variant element from the value.
             </summary>
@@ -6209,7 +6824,17 @@
             <returns>variant with the specified value</returns>
             <exception cref="T:System.IO.InvalidDataException">When the value cannot be converter to variant type</exception>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.CreateVariant(System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateVariant(System.Type,System.Object,System.String)">
+            <summary>
+            Create variant element from the value.
+            </summary>
+            <param name="valueType"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.VariantTools.CreateVariant(System.Object,System.String)">
             <summary>
             Create variant element from the value.
             </summary>
@@ -6218,7 +6843,17 @@
             <returns>variant with the specified value</returns>
             <exception cref="T:System.IO.InvalidDataException">When the value cannot be converter to variant type</exception>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.IntegerToString(System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.ValidateVariantString(System.Type,System.String,System.String)">
+            <summary>
+            Validate string for a variant of the specified type
+            </summary>
+            <param name="valueType"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.VariantTools.IntegerToString(System.Object,System.String)">
             <summary>
             Convert integer value to string with the specified format.
             If the format is null, the default format is used.
@@ -6228,7 +6863,7 @@
             <param name="format"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.FloatToString(System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.FloatToString(System.Object,System.String)">
             <summary>
             Convert float, double or decimal value to string with the specified format with the invariant culture.
             If the format is null, the default format is used.
@@ -6238,7 +6873,7 @@
             <param name="format"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.DecimalToString(System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.DecimalToString(System.Object,System.String)">
             <summary>
             Convert float, double or decimal value to string with the specified format with the current culture.
             If the format is null, the <c>F</c> format is used.
@@ -6248,7 +6883,7 @@
             <param name="format"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.VTVariantTools.DateTimeToString(System.Object,System.String)">
+        <member name="M:Qhta.OpenXmlTools.VariantTools.DateTimeToString(System.Object,System.String)">
             <summary>
             Convert DateTime value to string with the specified format.
             If the format is not specified, the <c>"yyyy-MM-ddTHH:mm:sszzz"</c> format is used.
@@ -6258,29 +6893,540 @@
             <param name="format"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.WBuiltinStyle">
-            <summary>Specifies builtin styles as defined in OpenXml</summary>
+        <member name="M:Qhta.OpenXmlTools.VariantTools.BooleanToString(System.Object,System.String)">
+            <summary>
+            Convert DateTime value to string with the specified format.
+            If the format is not specified, the <c>"yyyy-MM-ddTHH:mm:sszzz"</c> format is used.
+            if the value is not DateTime, returns null.
+            </summary>
+            <param name="value"></param>
+            <param name="format"></param>
+            <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.WStyleType">
+        <member name="T:Qhta.OpenXmlTools.VariantType">
+            <summary>
+            Enumeration of the OpenXMl variant types.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.WdBuiltinStyle">
             <summary>Specifies a built-in Microsoft Word style.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Paragraph">
-            <summary>Paragraph style.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTocHeading">
+            <summary>TOC Heading.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Character">
-            <summary>Body character style.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBibliography">
+            <summary>Bibliography.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Table">
-            <summary>Table style.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBookTitle">
+            <summary>Book title.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Numbering">
-            <summary>List style.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseReference">
+            <summary>Intense Reference.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.ParagraphOnly">
-            <summary>Reserved for internal use.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtleReference">
+            <summary>Subtle Reference.</summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.WStyleType.Linked">
-            <summary>Reserved for internal use.</summary>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseEmphasis">
+            <summary>Intense Emphasis.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtleEmphasis">
+            <summary>Subtle Emphasis.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIntenseQuote">
+            <summary>Intense Quote.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleQuote">
+            <summary>Quote.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListParagraph">
+            <summary>List Paragraph.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList1Accent1">
+            <summary>Medium List 1 Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading2Accent1">
+            <summary>Medium Shading 2 Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading1Accent1">
+            <summary>Medium List 1 Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightGridAccent1">
+            <summary>Light Grid Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightListAccent1">
+            <summary>Light List Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightShadingAccent1">
+            <summary>Light Shading Accent 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulGrid">
+            <summary>Colorful Grid.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulList">
+            <summary>Colorful List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableColorfulShading">
+            <summary>Colorful Shading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableDarkList">
+            <summary>Dark List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid3">
+            <summary>Medium Grid 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid2">
+            <summary>Medium Grid 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumGrid1">
+            <summary>Medium Grid 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList2">
+            <summary>Medium List 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumList1">
+            <summary>Medium List 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading2">
+            <summary>Medium Shading 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableMediumShading1">
+            <summary>Medium Shading 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightGrid">
+            <summary>Light Grid.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightList">
+            <summary>Light List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableLightShading">
+            <summary>Light Shading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalObject">
+            <summary>Normal (applied to an object).</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalTable">
+            <summary>Normal (applied within a table).</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlVar">
+            <summary>HTML Variable.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlTt">
+            <summary>HTML Typewriter.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlSamp">
+            <summary>HTML Sample.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlPre">
+            <summary>HTML Preformatted.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlKbd">
+            <summary>HTML Keyboard.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlDfn">
+            <summary>HTML Definition.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlCode">
+            <summary>HTML Code.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlCite">
+            <summary>HTML City.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlAddress">
+            <summary>HTML Address.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlAcronym">
+            <summary>HTML Acronym.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHtmlNormal">
+            <summary>Normal (Web).</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePlainText">
+            <summary>Plain Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNavPane">
+            <summary>Document Map.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEmphasis">
+            <summary>Emphasis.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleStrong">
+            <summary>Strong.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHyperlinkFollowed">
+            <summary>Followed Hyperlink.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHyperlink">
+            <summary>Hyperlink.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBlockQuotation">
+            <summary>Block Quotation.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent3">
+            <summary>Body Text Indent 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent2">
+            <summary>Body Text Indent 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText3">
+            <summary>Body Text 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText2">
+            <summary>Body Text 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNoteHeading">
+            <summary>Note Heading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent2">
+            <summary>Body Text First Indent 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent">
+            <summary>Body Text First Indent.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDate">
+            <summary>Date.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSalutation">
+            <summary>Salutation.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSubtitle">
+            <summary>Subtitle.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMessageHeader">
+            <summary>Message Header.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue5">
+            <summary>List Continue 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue4">
+            <summary>List Continue 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue3">
+            <summary>List Continue 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue2">
+            <summary>List Continue 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListContinue">
+            <summary>List Continue.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent">
+            <summary>Body Text Indent.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText">
+            <summary>Body Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDefaultParagraphFont">
+            <summary>Default Paragraph Font.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleSignature">
+            <summary>Signature.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleClosing">
+            <summary>Closing.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTitle">
+            <summary>Title.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber5">
+            <summary>List Number 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber4">
+            <summary>List Number 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber3">
+            <summary>List Number 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber2">
+            <summary>List Number 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet5">
+            <summary>List Bullet 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet4">
+            <summary>List Bullet 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet3">
+            <summary>List Bullet 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet2">
+            <summary>List Bullet 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList5">
+            <summary>List 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList4">
+            <summary>List 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList3">
+            <summary>List 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList2">
+            <summary>List 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListNumber">
+            <summary>List Number.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleListBullet">
+            <summary>List Bullet.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleList">
+            <summary>List.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOAHeading">
+            <summary>TOA Heading.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMacroText">
+            <summary>Macro Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfAuthorities">
+            <summary>Table of Authorities.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteText">
+            <summary>Endnote Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteReference">
+            <summary>Endnote Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePageNumber">
+            <summary>Page Number.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleLineNumber">
+            <summary>Line Number.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentReference">
+            <summary>Comment Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteReference">
+            <summary>Footnote Reference.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEnvelopeReturn">
+            <summary>Envelope Return.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEnvelopeAddress">
+            <summary>Envelope Address.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfFigures">
+            <summary>Table of Figures.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCaption">
+            <summary>Caption.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndexHeading">
+            <summary>Index Heading</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFooter">
+            <summary>Footer.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeader">
+            <summary>Header.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentText">
+            <summary>Comment Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteText">
+            <summary>Footnote Text.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalIndent">
+            <summary>Normal Indent.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC9">
+            <summary>TOC 9.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC8">
+            <summary>TOC 8.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC7">
+            <summary>TOC 7.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC6">
+            <summary>TOC 6.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC5">
+            <summary>TOC 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC4">
+            <summary>TOC 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC3">
+            <summary>TOC 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC2">
+            <summary>TOC 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTOC1">
+            <summary>TOC 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex9">
+            <summary>Index 9.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex8">
+            <summary>Index8.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex7">
+            <summary>Index 7.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex6">
+            <summary>Index 6.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex5">
+            <summary>Index 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex4">
+            <summary>Index 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex3">
+            <summary>Index 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex2">
+            <summary>Index 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleIndex1">
+            <summary>Index 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading9">
+            <summary>Heading 9.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading8">
+            <summary>Heading 8.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading7">
+            <summary>Heading 7.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading6">
+            <summary>Heading 6.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading5">
+            <summary>Heading 5.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading4">
+            <summary>Heading 4.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading3">
+            <summary>Heading 3.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading2">
+            <summary>Heading 2.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleHeading1">
+            <summary>Heading 1.</summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormal">
+            <summary>Normal.</summary>
+        </member>
+        <member name="T:Qhta.OpenXMLTools.ListTools">
+            <summary>
+            Extension methods for the numbering list.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the numbering id of the paragraph.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the abstract numbering id of the paragraph.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
+            <summary>
+            Gets the abstract numbering id of the numbering id.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="numId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the numbering level of the paragraph.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetNumberingProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the numbering level of the paragraph.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetNumberingLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+            <summary>
+            Gets the numbering level of the numbering properties.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="numPr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetNumberingLevelDef(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
+            <summary>
+            Gets the numbering level definition.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="abstractNumId"></param>
+            <param name="levelNdx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetOutlineLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the outline level of the paragraph.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ListTools.GetListType(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
+            <summary>
+            Gets the list type of the abstract numbering id.
+            </summary>
+            <param name="wordDocument"></param>
+            <param name="abstractNumId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXMLTools.PackageTools">
+            <summary>
+            Tools for creating packages from Word Open XML.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.PackageTools.CreatePackageFromWordOpenXML(System.String,System.String,System.String)">
+            <summary>
+            Creates a package from a Word Open XML string.
+            </summary>
+            <param name="wordOpenXml"></param>
+            <param name="filePath"></param>
+            <param name="relDirectoryRoot"></param>
+        </member>
+        <member name="F:Qhta.OpenXMLTools.PackageTools.subdocumentRelType">
+            <summary>
+            Constant for the subdocument relationship type.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.PackageTools.RecreateSubdocumentRels(DocumentFormat.OpenXml.Wordprocessing.Document,System.String)">
+            <summary>
+            Recreates the subdocument relationships in the document using the specified path.
+            </summary>
+            <param name="doc"></param>
+            <param name="docxPath"></param>
+        </member>
+        <member name="T:Qhta.OpenXMLTools.ParagraphTools">
+            <summary>
+            Extension methods for the paragraph.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXMLTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Gets the text of the all the runs in the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

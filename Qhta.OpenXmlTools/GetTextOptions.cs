@@ -18,23 +18,27 @@ public record GetTextOptions
   /// <summary>
   /// Tag to mark a tab character.
   /// </summary>
-  public string TabTag { get; set; } = "\t";
+  public string TabTag { get; set; } = "\u0009";
 
   /// <summary>
   /// Tag to mark a page break.
   /// </summary>
-  public string BreakPageTag { get; set; } = "\f";
+  public string BreakPageTag { get; set; } = "\u000B";
 
   /// <summary>
   /// Tag to mark a column break.
   /// </summary>
-
-  public string BreakColumnTag { get; set; } = "\n";
+  public string BreakColumnTag { get; set; } = "\u000C";
 
   /// <summary>
   /// Tag to mark a line break.
   /// </summary>
-  public string BreakLineTag { get; set; } = "\r";
+  public string BreakLineTag { get; set; } = "\u000A";
+
+  /// <summary>
+  /// Tag to mark a carriage return.
+  /// </summary>
+  public string CarriageReturnTag { get; set; } = "\u000D";
 
   /// <summary>
   /// Include formula command text.

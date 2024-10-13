@@ -358,4 +358,24 @@ public static class NumberingTools
     }
     return abstractNum;
   }
+
+  ///// <summary>
+  ///// Get the line numbering restart value.
+  ///// </summary>
+  ///// <param name="lineNumberType"></param>
+  ///// <returns></returns>
+  //public static LineNumberRestartValues? GetLineNumberRestart(this LineNumberType lineNumberType)
+  //{
+  //  return lineNumberType.Restart?.Value;
+  //}
+
+  ///// <summary>
+  ///// Set <c>TextDirection</c> value in the section properties.
+  ///// </summary>
+  ///// <param name="lineNumberType"></param>
+  ///// <param name="value"></param>
+  //public static void SetLineNumberRestart(this LineNumberType lineNumberType, LineNumberRestartValues? value)
+  //{
+  //  lineNumberType.Restart = (value is not null) ? new DX.EnumValue<LineNumberRestartValues>(value) : null;
+  //}
 }

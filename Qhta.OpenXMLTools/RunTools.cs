@@ -88,6 +88,10 @@ public static class RunTools
       {
         sb.Append(options.TabTag);
       }
+      else if (element is CarriageReturn)
+      {
+        sb.Append(options.CarriageReturnTag);
+      }
       else if (element is FieldChar fieldChar)
       {
         if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
@@ -176,6 +180,11 @@ public static class RunTools
       {
         TryAppend(run, sb);
         run.AppendChild(new TabChar());
+      }
+      else if (value.HasSubstringAt(i, options.CarriageReturnTag))
+      {
+        TryAppend(run, sb);
+        run.AppendChild(new CarriageReturn());
       }
       else if (value.HasSubstringAt(i, options.FieldStartTag))
       {

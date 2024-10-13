@@ -131,7 +131,10 @@
           "Qhta.TextUtils": "3.3.0"
         },
         "runtime": {
-          "Qhta.OpenXmlTools.dll": {}
+          "Qhta.OpenXmlTools.dll": {
+            "assemblyVersion": "2.0.0",
+            "fileVersion": "2.0.0.0"
+          }
         },
         "resources": {
           "pl/Qhta.OpenXmlTools.resources.dll": {
