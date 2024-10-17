@@ -2229,7 +2229,7 @@
             <param name="paraId">id of the paragraph</param>
             <returns>found paragraph or nul</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetParagraphProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the <c>ParagraphProperties</c> element of the paragraph. If it is null, create a new one.
             </summary>
@@ -2734,7 +2734,7 @@
             Tools for working with OpenXml Wordprocessing Run element.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.RunTools.GetProperties(DocumentFormat.OpenXml.Wordprocessing.Run)">
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetRunProperties(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>
             Get the <c>RunProperties</c> element of the run. If it is null, create a new one.
             </summary>

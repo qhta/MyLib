@@ -8,7 +8,7 @@ namespace Qhta.TypeUtils;
 /// <summary>
 ///   A static class that provides type extension methods for getting members in order of inheritance.
 /// </summary>
-public static class TypeReflectionByInheritance
+public static partial class TypeUtils
 {
   #region GetMembers
 
@@ -17,9 +17,11 @@ public static class TypeReflectionByInheritance
   ///   The members are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MemberInfo[] GetMembersByInheritance(this Type aType)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
+  public static MemberInfo[] GetMembersByInheritance(this Type aType, Type? untilType=null)
   {
-    return GetMembersByInheritance(aType, BindingFlags.Public | BindingFlags.Instance);
+    return GetMembersByInheritance(aType, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -28,13 +30,16 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then members are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MemberInfo[] GetMembersByInheritance(this Type aType, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="flags">Binding flags to filter the properties</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
+  public static MemberInfo[] GetMembersByInheritance(this Type aType, BindingFlags flags, Type? untilType = null)
   {
     if ((flags & BindingFlags.DeclaredOnly) != 0)
       return aType.GetMembers(flags);
 
     var bType = aType.BaseType;
-    if (bType != null)
+    if (bType != null && bType!=untilType)
     {
       var inheritedMembers = GetMembersByInheritance(bType, flags);
       var declaredMembers = aType.GetMembers(flags | BindingFlags.DeclaredOnly);
@@ -52,10 +57,9 @@ public static class TypeReflectionByInheritance
             break;
           }
         }
-        // jeśli składowa była zdefiniowana w klasie nadrzędnej,
-        // a w danej klasie jest redefiniowana, to nadpisuje
-        // deklarację z klasy nadrzędnej - nie ważne czy jest
-        // redefiniowana przez override czy przez new
+        // If a member was defined in a superclass and is redefined in that class,
+        // it overwrites the declaration in the superclass
+        // - regardless of whether it is redefined via override or new.
         if (foundAt >= 0)
           aList[foundAt] = declaredMember;
         else
@@ -67,9 +71,9 @@ public static class TypeReflectionByInheritance
     {
       var interfaces = aType.GetInterfaces();
       var aList = new List<MemberInfo>();
-      foreach (var bIntf in interfaces)
+      foreach (var intf in interfaces)
       {
-        var inheritedMembers = GetMembersByInheritance(bIntf, flags);
+        var inheritedMembers = GetMembersByInheritance(intf, flags);
         aList.AddRange(inheritedMembers);
       }
 
@@ -87,7 +91,7 @@ public static class TypeReflectionByInheritance
           }
         }
         if (foundAt >= 0)
-          aList[foundAt] = declaredMember; // override czy new - bez znaczenia
+          aList[foundAt] = declaredMember; // override or new - doesn't matter
         else
           aList.Add(declaredMember);
       }
@@ -105,9 +109,11 @@ public static class TypeReflectionByInheritance
   ///   The methods are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MethodInfo[] GetMethodsByInheritance(this Type aType)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
+  public static MethodInfo[] GetMethodsByInheritance(this Type aType, Type? untilType = null)
   {
-    return GetMethodsByInheritance(aType, BindingFlags.Public | BindingFlags.Instance);
+    return GetMethodsByInheritance(aType, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -116,9 +122,12 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MethodInfo[] GetMethodsByInheritance(this Type aType, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="flags">Binding flags to filter the properties</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
+  public static MethodInfo[] GetMethodsByInheritance(this Type aType, BindingFlags flags, Type? untilType = null)
   {
-    var memberInfo = GetMembersByInheritance(aType, flags);
+    var memberInfo = GetMembersByInheritance(aType, flags, untilType);
     var methodInfos = memberInfo.OfType<MethodInfo>().ToList();
     for (var i = methodInfos.Count - 1; i > 0; i--)
     {
@@ -176,9 +185,12 @@ public static class TypeReflectionByInheritance
   ///   The methods are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="methodName">Name of the method to search for</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
+  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, Type? untilType = null)
   {
-    return GetMethodByInheritance(aType, methodName, BindingFlags.Public | BindingFlags.Instance);
+    return GetMethodByInheritance(aType, methodName, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -187,9 +199,13 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="methodName">Name of the method to search for</param>
+  /// <param name="flags">Binding flags to filter the properties</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
+  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, BindingFlags flags, Type? untilType = null)
   {
-    var methodInfos = GetMethodsByInheritance(aType, flags);
+    var methodInfos = GetMethodsByInheritance(aType, flags, untilType);
     return methodInfos.FirstOrDefault(item => item.Name == methodName);
   }
 
@@ -198,9 +214,13 @@ public static class TypeReflectionByInheritance
   ///   The methods are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, Type[] types)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="methodName">Name of the method to search for</param>
+  /// <param name="paramTypes">Array of the types of the parameters (can be empty)</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, Type[] paramTypes, Type? untilType = null)
   {
-    return GetMethodByInheritance(aType, methodName, BindingFlags.Public | BindingFlags.Instance, types);
+    return GetMethodByInheritance(aType, methodName, BindingFlags.Public | BindingFlags.Instance, paramTypes, untilType);
   }
 
   /// <summary>
@@ -209,18 +229,23 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, BindingFlags flags, Type[] types)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="methodName">Name of the method to search for</param>
+  /// <param name="flags">Binding flags to filter the properties</param>
+  /// <param name="paramTypes">Array of the types of the parameters (can be empty)</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static MethodInfo? GetMethodByInheritance(this Type aType, string methodName, BindingFlags flags, Type[] paramTypes, Type? untilType=null)
   {
-    var methodInfos = GetMethodsByInheritance(aType, flags);
+    var methodInfos = GetMethodsByInheritance(aType, flags, untilType);
     var methods = methodInfos.Where(item => item.Name == methodName);
     foreach (var methodInfo in methods)
     {
       var paramInfos = methodInfo.GetParameters();
-      if (paramInfos.Length != types.Length)
+      if (paramInfos.Length != paramTypes.Length)
         continue;
       var paramsOK = true;
       for (var i = 0; i < paramInfos.Length; i++)
-        if (paramInfos[i].ParameterType != types[i])
+        if (paramInfos[i].ParameterType != paramTypes[i])
         {
           paramsOK = false;
           break;
@@ -240,9 +265,11 @@ public static class TypeReflectionByInheritance
   ///   The properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static PropertyInfo[] GetPropertiesByInheritance(this Type aType)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static PropertyInfo[] GetPropertiesByInheritance(this Type aType, Type? untilType = null)
   {
-    return GetPropertiesByInheritance(aType, BindingFlags.Public | BindingFlags.Instance);
+    return GetPropertiesByInheritance(aType, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -251,9 +278,12 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static PropertyInfo[] GetPropertiesByInheritance(this Type aType, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="flags">Binding flags to filter the properties</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static PropertyInfo[] GetPropertiesByInheritance(this Type aType, BindingFlags flags, Type? untilType = null)
   {
-    var memberInfo = GetMembersByInheritance(aType, flags);
+    var memberInfo = GetMembersByInheritance(aType, flags, untilType);
     var propInfos = memberInfo.OfType<PropertyInfo>().ToList();
     for (var i = propInfos.Count - 1; i > 0; i--)
     {
@@ -290,9 +320,12 @@ public static class TypeReflectionByInheritance
   ///   The properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static PropertyInfo? GetPropertyByInheritance(this Type aType, string propertyName)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="propertyName">Name of the property to search for</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static PropertyInfo? GetPropertyByInheritance(this Type aType, string propertyName, Type? untilType = null)
   {
-    return GetPropertyByInheritance(aType, propertyName, BindingFlags.Public | BindingFlags.Instance);
+    return GetPropertyByInheritance(aType, propertyName, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -301,9 +334,13 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static PropertyInfo? GetPropertyByInheritance(this Type aType, string propertyName, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="propertyName">Name of the property to search for</param>
+  /// <param name="flags">Binding flags to filter the properties</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static PropertyInfo? GetPropertyByInheritance(this Type aType, string propertyName, BindingFlags flags, Type? untilType = null)
   {
-    var propInfos = GetPropertiesByInheritance(aType, flags);
+    var propInfos = GetPropertiesByInheritance(aType, flags, untilType);
     return propInfos.FirstOrDefault(item => item.Name == propertyName);
   }
 
@@ -316,9 +353,11 @@ public static class TypeReflectionByInheritance
   ///   The properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static FieldInfo[] GetFieldsByInheritance(this Type aType)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static FieldInfo[] GetFieldsByInheritance(this Type aType, Type? untilType = null)
   {
-    return GetFieldsByInheritance(aType, BindingFlags.Public | BindingFlags.Instance);
+    return GetFieldsByInheritance(aType, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -327,9 +366,12 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static FieldInfo[] GetFieldsByInheritance(this Type aType, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="flags">Binding flags to filter the fields</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static FieldInfo[] GetFieldsByInheritance(this Type aType, BindingFlags flags, Type? untilType = null)
   {
-    var memberInfo = GetMembersByInheritance(aType, flags);
+    var memberInfo = GetMembersByInheritance(aType, flags, untilType);
     var propInfos = memberInfo.OfType<FieldInfo>().ToList();
     for (var i = propInfos.Count - 1; i > 0; i--)
     {
@@ -359,9 +401,12 @@ public static class TypeReflectionByInheritance
   ///   The properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static FieldInfo? GetFieldByInheritance(this Type aType, string fieldName)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="fieldName">Name of the field to search for</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static FieldInfo? GetFieldByInheritance(this Type aType, string fieldName, Type? untilType = null)
   {
-    return GetFieldByInheritance(aType, fieldName, BindingFlags.Public | BindingFlags.Instance);
+    return GetFieldByInheritance(aType, fieldName, BindingFlags.Public | BindingFlags.Instance, untilType);
   }
 
   /// <summary>
@@ -370,7 +415,11 @@ public static class TypeReflectionByInheritance
   ///   <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
   /// </summary>
-  public static FieldInfo? GetFieldByInheritance(this Type aType, string fieldName, BindingFlags flags)
+  /// <param name="aType">Type to get fields from</param>
+  /// <param name="fieldName">Name of the field to search for</param>
+  /// <param name="flags">Binding flags to filter the fields</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
+  public static FieldInfo? GetFieldByInheritance(this Type aType, string fieldName, BindingFlags flags, Type? untilType = null)
   {
     var propInfos = GetFieldsByInheritance(aType, flags);
     return propInfos.FirstOrDefault(item => item.Name == fieldName);
@@ -389,16 +438,17 @@ public static class TypeReflectionByInheritance
   /// <param name="aType">A type which attributes are searched</param>
   /// <param name="inherit">Search in superclasses?</param>
   /// <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
   /// <returns>A table of attributes</returns>
-  public static object[] GetCustomAttibutesByInheritance(this Type aType, bool inherit, bool inheritedFirst = false)
+  public static object[] GetCustomAttributesByInheritance(this Type aType, bool inherit, bool inheritedFirst = false, Type? untilType = null)
   {
     if (!inherit)
       return aType.GetCustomAttributes(inherit);
 
     var bType = aType.BaseType;
-    if (bType != null)
+    if (bType != null && bType!=untilType)
     {
-      var inheritedAttributes = bType.GetCustomAttibutesByInheritance(inherit, inheritedFirst);
+      var inheritedAttributes = bType.GetCustomAttributesByInheritance(inherit, inheritedFirst, untilType);
       object[] declaredAttributes = aType.GetCustomAttributes(false);
       var aList = new List<object>();
       if (inheritedFirst)
@@ -427,17 +477,18 @@ public static class TypeReflectionByInheritance
   /// <param name="aType">A type which attributes are searched</param>
   /// <param name="inherit">Search in superclasses?</param>
   /// <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+  /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
   /// <returns>A table of attributes</returns>
-  public static object[] GetCustomAttibutesByInheritance<TAttribute>(this Type aType, bool inherit, bool inheritedFirst = false)
+  public static object[] GetCustomAttributesByInheritance<TAttribute>(this Type aType, bool inherit, bool inheritedFirst = false, Type? untilType = null)
     where TAttribute : Attribute
   {
     if (!inherit)
       return aType.GetCustomAttributes(typeof(TAttribute), inherit);
 
     var bType = aType.BaseType;
-    if (bType != null)
+    if (bType != null && bType!=untilType)
     {
-      var inheritedAttributes = bType.GetCustomAttibutesByInheritance<TAttribute>(inherit);
+      var inheritedAttributes = bType.GetCustomAttributesByInheritance<TAttribute>(inherit, inheritedFirst, untilType);
       object[] declaredAttributes = aType.GetCustomAttributes(typeof(TAttribute), false);
       var aList = new List<object>();
       if (inheritedFirst)

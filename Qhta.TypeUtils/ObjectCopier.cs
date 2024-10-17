@@ -25,7 +25,7 @@ public static class ObjectCopier
     // Don't serialize a null object, simply return the default for that object
     if (ReferenceEquals(source, null)) return default;
 
-    if (!typeof(T).IsSerializable) throw new ArgumentException($"The type {typeof(T).Name} must be serializable.", "source");
+//    if (!typeof(T).IsSerializable) throw new ArgumentException($"The type {typeof(T).Name} must be serializable.", "source");
 #pragma warning disable SYSLIB0011
     IFormatter formatter = new BinaryFormatter();
     Stream stream = new MemoryStream();

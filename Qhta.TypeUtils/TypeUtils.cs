@@ -11,7 +11,7 @@ namespace Qhta.TypeUtils;
 /// <summary>
 ///   Helper functions that operate on types and supplement <c>System.Reflection</c> library.
 /// </summary>
-public static class TypeUtils
+public static partial class TypeUtils
 {
 
   /// <summary>

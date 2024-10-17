@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations.Schema;
+using Qhta.TypeUtils;
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -35,7 +36,10 @@ public static class TestTools
     if (propertyType == typeof(DXM.BooleanValues))
       return DXM.BooleanValues.On;
     if (propertyType.GetInterface("IEnumValue") != null)
+    {
+      Debug.WriteLine($"CreateNewPropertyValue PropertyType={propertyType.Name}");
       return propertyType.GetProperties(BindingFlags.Public | BindingFlags.Static).ToArray()[1].GetValue(null);
+    }
     return null;
   }
 
@@ -51,6 +55,9 @@ public static class TestTools
     if (value == null)
       return null;
     var sourceType = value.GetType();
+    Debug.WriteLine($"AsString {sourceType.Name} {value}");
+    if (sourceType.Name== "RelayCommand`1")
+      Debug.Assert(true);
     if (value is Twips twips)
       return twips.Value.ToString();
     if (value is HexInt hexInt)
@@ -83,8 +90,13 @@ public static class TestTools
     if (IntegerTypes.Contains(valueType))
       return value.ToString();
     if (DecimalTypes.Contains(valueType))
+    {
+      if (value is double doubleValue && Double.IsNaN(doubleValue))
+        return null;
       return Convert.ToDecimal(value).ToString("F", CultureInfo.InvariantCulture);
-    var properties = valueType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+    }
+    var properties = valueType.GetPropertiesByInheritance()
+      .Where(p => p.CanWrite && p.GetCustomAttribute<NotMappedAttribute>()==null).ToArray();
     if (properties.Length > 0)
     {
       var indentStr = new string(' ', indent * 2);
@@ -93,10 +105,11 @@ public static class TestTools
       {
         if (prop.GetIndexParameters().Length > 0)
           continue;
-        if (value==null)
+        if (value == null)
           continue;
         try
         {
+          Debug.WriteLine($"Getting property {prop.Name} from {value}");
           var propValue = prop.GetValue(value);
           if (propValue != null)
           {

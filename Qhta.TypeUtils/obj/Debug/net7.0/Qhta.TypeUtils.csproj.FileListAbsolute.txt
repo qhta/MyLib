@@ -12,3 +12,14 @@ D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\refint\Qhta.TypeUtils.dll
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.xml
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.pdb
 D:\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\ref\Qhta.TypeUtils.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\refint\Qhta.TypeUtils.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\Qhta.TypeUtils.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net7.0\ref\Qhta.TypeUtils.dll

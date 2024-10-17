@@ -48,7 +48,7 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static ParagraphProperties GetProperties(this Paragraph paragraph)
+  public static ParagraphProperties GetParagraphProperties(this Paragraph paragraph)
   {
     if (paragraph.ParagraphProperties == null)
       paragraph.ParagraphProperties = new ParagraphProperties();

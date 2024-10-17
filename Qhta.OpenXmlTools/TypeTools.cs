@@ -999,30 +999,6 @@ public static class TypeTools
     if (MemberTypes.TryGetValue(openXmlType, out var memberTypes))
       return memberTypes;
     return [];
-    //if (openXmlType == typeof(DXW.Rsids))
-    //  return [typeof(DXW.Rsid)];
-
-    //var openXmlMemberTypes = new List<Type>();
-
-    //// Get properties that are OpenXmlElement or derived types
-    //var openXmlPropertyTypes = openXmlType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-    //  .Where(p => typeof(OpenXmlElement).IsAssignableFrom(p.PropertyType)).Select(p=>p.PropertyType).Distinct().ToList();
-
-
-    //// Get child element types from the ChildElements property
-    //var childElementInfo = openXmlType.GetProperty("ChildElements", BindingFlags.Public | BindingFlags.Instance);
-    //if (childElementInfo != null)
-    //{
-    //  var childElementTypes = childElementInfo.PropertyType.GenericTypeArguments;
-    //  foreach (var childElementType in childElementTypes)
-    //  {
-    //    if (!openXmlPropertyTypes.Contains(childElementType))
-    //    {
-    //      openXmlMemberTypes.Add(childElementType);
-    //    }
-    //  }
-    //}
-    //return openXmlMemberTypes.Distinct().ToArray();
   }
 
   private static readonly Dictionary<Type, Type[]> MemberTypes = new()

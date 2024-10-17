@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Qhta.TypeUtils;
 
 /// <summary>
-///   A class that helps using <see cref="System.ComponentModel.TypeConverter"/> to change an object type in the runtime.
+///   A class that helps to use <see cref="System.ComponentModel.TypeConverter"/> to change an object type in the runtime.
 /// </summary>
 public class DynamicTypeConverter
 {

@@ -52,7 +52,7 @@ public static class RunTools
   /// </summary>
   /// <param name="run"></param>
   /// <returns></returns>
-  public static RunProperties GetProperties(this Run run)
+  public static RunProperties GetRunProperties(this Run run)
   {
     if (run.RunProperties == null)
       run.RunProperties = new RunProperties();
@@ -153,7 +153,7 @@ public static class RunTools
   public static void SetText(this Run run, string? value, GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
-    var runProperties = run.GetProperties();
+    var runProperties = run.GetRunProperties();
     run.RemoveAllChildren();
     run.AppendChild(runProperties);
     if (value == null)
@@ -252,12 +252,12 @@ public static class RunTools
   /// <returns></returns>
   public static bool IsBold(this DXW.Run run)
   {
-    var bold = run.GetProperties().Bold;
+    var bold = run.GetRunProperties().Bold;
     if (bold != null)
     {
       return bold.Val?.Value ?? true;
     }
-    var boldCS = run.GetProperties().BoldComplexScript;
+    var boldCS = run.GetRunProperties().BoldComplexScript;
     if (boldCS != null)
     {
       return boldCS.Val?.Value ?? true;
@@ -272,12 +272,12 @@ public static class RunTools
   /// <returns></returns>
   public static bool IsItalic(this DXW.Run run)
   {
-    var italic = run.GetProperties().Italic;
+    var italic = run.GetRunProperties().Italic;
     if (italic != null)
     {
       return italic.Val?.Value ?? true;
     }
-    var italicCS = run.GetProperties().ItalicComplexScript;
+    var italicCS = run.GetRunProperties().ItalicComplexScript;
     if (italicCS != null)
     {
       return italicCS.Val?.Value ?? true;
@@ -292,7 +292,7 @@ public static class RunTools
   /// <returns></returns>
   public static bool IsUnderline(this DXW.Run run)
   {
-    var underline = run.GetProperties().Underline;
+    var underline = run.GetRunProperties().Underline;
     if (underline != null)
     {
       return underline.Val?.Value != UnderlineValues.None;

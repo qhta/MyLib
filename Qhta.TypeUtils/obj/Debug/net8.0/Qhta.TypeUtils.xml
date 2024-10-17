@@ -6,7 +6,7 @@
     <members>
         <member name="T:Qhta.TypeUtils.DynamicTypeConverter">
             <summary>
-              A class that helps using <see cref="T:System.ComponentModel.TypeConverter"/> to change an object type in the runtime.
+              A class that helps to use <see cref="T:System.ComponentModel.TypeConverter"/> to change an object type in the runtime.
             </summary>
         </member>
         <member name="M:Qhta.TypeUtils.DynamicTypeConverter.#ctor(System.ComponentModel.TypeConverter,System.Type)">
@@ -798,132 +798,185 @@
             <param name="defaultNamespace"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.TypeUtils.TypeReflectionByInheritance">
+        <member name="T:Qhta.TypeUtils.TypeUtils">
             <summary>
               A static class that provides type extension methods for getting members in order of inheritance.
             </summary>
+            <summary>
+              Helper functions that operate on types and supplement <c>System.Reflection</c> library.
+            </summary>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMembersByInheritance(System.Type)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMembersByInheritance(System.Type,System.Type)">
             <summary>
               Replacement for a <c>Type.GetMembers</c> method.
               The members are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMembersByInheritance(System.Type,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMembersByInheritance(System.Type,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetMembers</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then members are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="flags">Binding flags to filter the properties</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodsByInheritance(System.Type)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMethodsByInheritance(System.Type,System.Type)">
             <summary>
               Replacement for a <c>Type.GetMethods</c> method.
               The methods are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodsByInheritance(System.Type,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMethodsByInheritance(System.Type,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetMethods(BindingFlags)</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="flags">Binding flags to filter the properties</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMethodByInheritance(System.Type,System.String,System.Type)">
             <summary>
               Replacement for a <c>Type.GetMethod(string)</c> method.
               The methods are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="methodName">Name of the method to search for</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMethodByInheritance(System.Type,System.String,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetMethod(string, BindingFlags)</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="methodName">Name of the method to search for</param>
+            <param name="flags">Binding flags to filter the properties</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String,System.Type[])">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMethodByInheritance(System.Type,System.String,System.Type[],System.Type)">
             <summary>
               Replacement for a <c>Type.GetMethod(string, Type[])</c> method.
               The methods are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="methodName">Name of the method to search for</param>
+            <param name="paramTypes">Array of the types of the parameters (can be empty)</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetMethodByInheritance(System.Type,System.String,System.Reflection.BindingFlags,System.Type[])">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetMethodByInheritance(System.Type,System.String,System.Reflection.BindingFlags,System.Type[],System.Type)">
             <summary>
               Replacement for a <c>Type.GetMethod(string, BindingFlags, Type[])</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then methods are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="methodName">Name of the method to search for</param>
+            <param name="flags">Binding flags to filter the properties</param>
+            <param name="paramTypes">Array of the types of the parameters (can be empty)</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertiesByInheritance(System.Type)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetPropertiesByInheritance(System.Type,System.Type)">
             <summary>
               Replacement for a <c>Type.GetProperties</c> method.
               The properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertiesByInheritance(System.Type,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetPropertiesByInheritance(System.Type,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetProperties(BindingFlags)</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="flags">Binding flags to filter the properties</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertyByInheritance(System.Type,System.String)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetPropertyByInheritance(System.Type,System.String,System.Type)">
             <summary>
               Replacement for a <c>Type.GetProperty(string)</c> method.
               The properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="propertyName">Name of the property to search for</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetPropertyByInheritance(System.Type,System.String,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetPropertyByInheritance(System.Type,System.String,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetProperty(string, BindingFlags)</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="propertyName">Name of the property to search for</param>
+            <param name="flags">Binding flags to filter the properties</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldsByInheritance(System.Type)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetFieldsByInheritance(System.Type,System.Type)">
             <summary>
               Replacement for a <c>Type.GetFields</c> method.
               The properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldsByInheritance(System.Type,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetFieldsByInheritance(System.Type,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetFields(BindingFlags)</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="flags">Binding flags to filter the fields</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldByInheritance(System.Type,System.String)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetFieldByInheritance(System.Type,System.String,System.Type)">
             <summary>
               Replacement for a <c>Type.GetField(string)</c> method.
               The properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="fieldName">Name of the field to search for</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetFieldByInheritance(System.Type,System.String,System.Reflection.BindingFlags)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetFieldByInheritance(System.Type,System.String,System.Reflection.BindingFlags,System.Type)">
             <summary>
               Replacement for a <c>Type.GetField(string, BindingFlags)</c> method in case
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then properties are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
             </summary>
+            <param name="aType">Type to get fields from</param>
+            <param name="fieldName">Name of the field to search for</param>
+            <param name="flags">Binding flags to filter the fields</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetCustomAttibutesByInheritance(System.Type,System.Boolean,System.Boolean)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetCustomAttributesByInheritance(System.Type,System.Boolean,System.Boolean,System.Type)">
             <summary>
               Replacement for a <c>Type.GetCustomAttributes</c> method in case
               when an <paramref name="inherit" /> parameter is set for <c>true</c>
@@ -933,9 +986,10 @@
             <param name="aType">A type which attributes are searched</param>
             <param name="inherit">Search in superclasses?</param>
             <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
             <returns>A table of attributes</returns>
         </member>
-        <member name="M:Qhta.TypeUtils.TypeReflectionByInheritance.GetCustomAttibutesByInheritance``1(System.Type,System.Boolean,System.Boolean)">
+        <member name="M:Qhta.TypeUtils.TypeUtils.GetCustomAttributesByInheritance``1(System.Type,System.Boolean,System.Boolean,System.Type)">
             <summary>
               Replacement for a <c>Type.GetCustomAttributes</c> method in case
               when an <paramref name="inherit" /> parameter is set for <c>true</c>
@@ -947,12 +1001,8 @@
             <param name="aType">A type which attributes are searched</param>
             <param name="inherit">Search in superclasses?</param>
             <param name="inheritedFirst">Should inherited attributes be ordered first?</param>
+            <param name="untilType">The deepest type in inheritance hierarchy to search in</param>
             <returns>A table of attributes</returns>
-        </member>
-        <member name="T:Qhta.TypeUtils.TypeUtils">
-            <summary>
-              Helper functions that operate on types and supplement <c>System.Reflection</c> library.
-            </summary>
         </member>
         <member name="T:Qhta.TypeUtils.TypeUtils.CopyPropertyMethod">
             <summary>
