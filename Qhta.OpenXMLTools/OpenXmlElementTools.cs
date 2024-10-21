@@ -751,7 +751,7 @@ public static class OpenXmlElementTools
       if (element != null)
         element.Val = false;
       else
-        xmlElement.Append(new ElementType{Val = false});
+        xmlElement.Append(new ElementType { Val = false });
     }
     else
       element?.Remove();
@@ -1235,7 +1235,7 @@ public static class OpenXmlElementTools
     else if (value != null)
     {
       element = new ElementType();
-      SetValValue(element, new DX.EnumValue<ElementValuesType>(value));
+      SetValValue(element, value);
       xmlElement.Append(element);
     }
   }
@@ -1290,7 +1290,9 @@ public static class OpenXmlElementTools
     var valProperty = xmlElement.GetType().GetProperty("Val");
     if (valProperty == null)
       throw new InvalidDataException($"Property Val not found in {xmlElement.GetType()}");
-    valProperty.SetValue(xmlElement, value);
+    var enumValue = typeof(ValType).GetConstructor(Type.EmptyTypes)?.Invoke(null);
+    typeof(ValType).GetProperty("Val")?.SetValue(enumValue, value);
+    valProperty.SetValue(xmlElement, enumValue);
   }
 
   /// <summary>

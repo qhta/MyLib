@@ -12,3 +12,14 @@ D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.Observ
 D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.pdb
 D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\ref\Qhta.ObservableObjects.dll
 D:\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\refint\Qhta.ObservableObjects.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\Qhta.ObservableObjects.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net6.0-windows\ref\Qhta.ObservableObjects.dll

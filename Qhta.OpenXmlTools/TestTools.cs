@@ -56,8 +56,6 @@ public static class TestTools
       return null;
     var sourceType = value.GetType();
     Debug.WriteLine($"AsString {sourceType.Name} {value}");
-    if (sourceType.Name== "RelayCommand`1")
-      Debug.Assert(true);
     if (value is Twips twips)
       return twips.Value.ToString();
     if (value is HexInt hexInt)
@@ -66,7 +64,7 @@ public static class TestTools
       return AsString(rsids, indent, depthLimit);
     if (sourceType.IsOpenXmlEnum())
     {
-      var props = sourceType.GetOpenXmlProperties();
+      var props = sourceType.GetProperties(BindingFlags.Static | BindingFlags.Public);
       var prop = props.FirstOrDefault(p => p.GetValue(null)?.Equals(value) == true);
       return prop?.Name;
     }
@@ -238,6 +236,7 @@ public static class TestTools
   {
     if (value == null)
       return null;
+    targetType = Nullable.GetUnderlyingType(targetType) ?? targetType;
     value = value.Trim();
     if (targetType == typeof(Twips))
       return new Twips(value);

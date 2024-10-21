@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Classes to use replace ObservableCollection when used in background task.</description>
-    <repository type="git" commit="e47c2a7786f3b476a1c04d7fdbdcff6482118646" />
+    <repository type="git" commit="5f0cdb2cba855ac7301d40935f93e9bf1725aba0" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="System.Collections.Immutable" version="8.0.0" exclude="Build,Analyzers" />
@@ -33,6 +33,6 @@
     <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.ObservableObjects.xml" target="lib\net7.0\Qhta.ObservableObjects.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0-windows\Qhta.ObservableObjects.dll" target="lib\net7.0-windows7.0\Qhta.ObservableObjects.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0-windows\Qhta.ObservableObjects.xml" target="lib\net7.0-windows7.0\Qhta.ObservableObjects.xml" />
-    <file src="D:\VS\Projects\MyLib\Qhta.ObservableObjects\docs\readme.md" target="\readme.md" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\docs\readme.md" target="\readme.md" />
   </files>
 </package>
