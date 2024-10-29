@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package of functions to supplement System.Text.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.3+bc214b51a8e079929a86b9fe65bae121ff57150f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.3+f4574afdb6ddb64604c8d0a425ea3bf4972b3f52")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.TextUtils")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.TextUtils")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.3.0.0")]

@@ -188,3 +188,4 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\refint\Qht
 D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\ref\Qhta.WPF.Utils.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Utils\obj\Debug\net6.0-windows\Qhta.WPF.Utils.sourcelink.json

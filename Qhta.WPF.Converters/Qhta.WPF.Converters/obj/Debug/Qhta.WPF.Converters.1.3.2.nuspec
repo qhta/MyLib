@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package of WPF Converters.</description>
-    <repository type="git" commit="a20e36ef2f0bc612e6d1d8380101699fe67faa11" />
+    <repository type="git" commit="f4574afdb6ddb64604c8d0a425ea3bf4972b3f52" />
     <dependencies>
       <group targetFramework="net6.0-windows7.0">
         <dependency id="Qhta.TextUtils" version="3.1.1" exclude="Build,Analyzers" />
@@ -42,6 +42,6 @@
     <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0-windows\Qhta.WPF.Converters.xml" target="lib\net7.0-windows7.0\Qhta.WPF.Converters.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.WPF.Converters.dll" target="lib\net8.0-windows7.0\Qhta.WPF.Converters.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.WPF.Converters.xml" target="lib\net8.0-windows7.0\Qhta.WPF.Converters.xml" />
-    <file src="D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\docs\readme.md" target="\readme.md" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\docs\readme.md" target="\readme.md" />
   </files>
 </package>

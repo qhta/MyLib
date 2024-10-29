@@ -13,3 +13,14 @@ D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-wi
 D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.pdb
 D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\ref\Qhta.WPF.Converters.dll
 D:\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\refint\Qhta.WPF.Converters.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\Qhta.WPF.Converters.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net7.0-windows\ref\Qhta.WPF.Converters.dll
