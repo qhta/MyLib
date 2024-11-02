@@ -7,6 +7,25 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class BodyTools
 {
+
+  /// <summary>
+  /// Gets the last <c>SectionProperties</c> element of the <c>Body</c> element of the document.
+  /// If the document does not have a <c>SectionProperties</c>, it can be created.
+  /// </summary>
+  /// <param name="body"></param>
+  /// <param name="create">Option to create a <c>SectionProperties</c>, if it does not exist.</param>
+  /// <returns></returns>
+  public static DXW.SectionProperties? GetLastSectionProperties(this DXW.Body body, bool create = false)
+  {
+    var sectionProperties = body.Elements<DXW.SectionProperties>().LastOrDefault();
+    if (sectionProperties == null && create)
+    {
+      sectionProperties = new DXW.SectionProperties();
+      body.AppendChild(sectionProperties);
+    }
+    return sectionProperties;
+  }
+
   /// <summary>
   /// Gets the section properties of the body.
   /// </summary>
@@ -48,4 +67,5 @@ public static class BodyTools
     }
     return sections;
   }
+
 }

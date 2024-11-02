@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Linq;
 
-namespace Qhta.OpenXMLTools;
+namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Extension methods for the numbering list.

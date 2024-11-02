@@ -25,7 +25,7 @@ public static class TableTools
   /// <param name="table"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this Table table, GetTextOptions? options)
+  public static string GetText(this Table table, GetTextOptions? options=null)
   {
     options ??= GetTextOptions.Default;
     List<string> sl = new();
@@ -44,7 +44,9 @@ public static class TableTools
           sl.Add(options.NewLine);
         sl.Add(indentStr);
         sl.Add(options.TableRowStartTag);
-        sl.Add(row.GetText(options));
+        var aText = row.GetText(options);
+        if (aText != null)
+          sl.Add(aText);
         if (options.TableRowInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
           sl.Add(options.NewLine);
         sl.Add(indentStr);
@@ -61,7 +63,7 @@ public static class TableTools
   /// <param name="row"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this TableRow row, GetTextOptions? options)
+  public static string? GetText(this TableRow row, GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
     List<string> sl = new();
@@ -80,10 +82,12 @@ public static class TableTools
           sl.Add(options.NewLine);
         sl.Add(indentStr);
         sl.Add(options.TableCellStartTag);
-        sl.Add(cell.GetText(options));
-        if (options.TableCellInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true) 
+        var aText = cell.GetText(options);
+        if (aText != null)
+          sl.Add(aText);
+        if (options.TableCellInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
           sl.Add(options.NewLine);
-        sl.Add(indentStr); 
+        sl.Add(indentStr);
         sl.Add(options.TableCellEndTag);
       }
     }
@@ -97,7 +101,7 @@ public static class TableTools
   /// <param name="cell"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this TableCell cell, GetTextOptions? options)
+  public static string? GetText(this TableCell cell, GetTextOptions? options=null)
   {
     options ??= GetTextOptions.Default;
     List<string> sl = new();
@@ -112,9 +116,9 @@ public static class TableTools
     {
       if (element is Paragraph paragraph)
       {
-        sl.Add(indentStr); 
+        sl.Add(indentStr);
         sl.Add(options.ParagraphStartTag);
-        sl.Add(indentStr); 
+        sl.Add(indentStr);
         sl.Add(paragraph.GetText(options));
         sl.Add(indentStr);
         sl.Add(options.ParagraphEndTag);

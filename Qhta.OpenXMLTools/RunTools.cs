@@ -204,28 +204,59 @@ public static class RunTools
       else if (value.HasSubstringAt(i, options.FootnoteRefStart))
       {
         TryAppend(run, sb);
-        var footnoteReference = new FootnoteReference();
-        if (int.TryParse(value.Substring(i + 1, value.IndexOf(options.FootnoteRefEnd, i + 1) - i - 1), out var id))
-          footnoteReference.Id = id;
-        run.AppendChild(footnoteReference);
-        i = value.IndexOf(options.FootnoteRefEnd, i + 1);
+        var l = options.FootnoteRefStart.Length;
+        var k = value.IndexOf(options.FootnoteRefEnd, i + l);
+        if (k>0 && int.TryParse(value.Substring(i+l, k - i - l), out var id))
+        {
+          var footnoteReference = new FootnoteReference
+          {
+            Id = id
+          };
+          run.AppendChild(footnoteReference);
+          i = k;
+        }
+        else
+        {
+          sb.Append(value[i]);
+        }
       }
       else if (value.HasSubstringAt(i, options.EndnoteRefStart))
       {
         TryAppend(run, sb);
-        var endnoteReference = new EndnoteReference();
-        if (int.TryParse(value.Substring(i + 1, value.IndexOf(options.EndnoteRefEnd, i + 1) - i - 1), out var id))
-          endnoteReference.Id = id;
-        run.AppendChild(endnoteReference);
-        i = value.IndexOf(options.EndnoteRefEnd, i + 1);
+        var l = options.EndnoteRefStart.Length;
+        var k = value.IndexOf(options.EndnoteRefEnd, i + l);
+        if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
+        {
+          var endnoteReference = new EndnoteReference
+          {
+            Id = id
+          };
+          run.AppendChild(endnoteReference);
+          i = k;
+        }
+        else
+        {
+          sb.Append(value[i]);
+        }
       }
       else if (value.HasSubstringAt(i, options.CommentRefStart))
       {
         TryAppend(run, sb);
-        var commentReference = new CommentReference();
-        commentReference.Id = value.Substring(i + 1, value.IndexOf(options.CommentRefEnd, i + 1) - i - 1);
-        run.AppendChild(commentReference);
-        i = value.IndexOf(options.CommentRefEnd, i + 1);
+        var l = options.CommentRefStart.Length;
+        var k = value.IndexOf(options.CommentRefEnd, i + l);
+        if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
+        {
+          var commentReference = new CommentReference()
+          {
+            Id = id.ToString()
+          };
+          run.AppendChild(commentReference);
+          i = k;
+        }
+        else
+        {
+          sb.Append(value[i]);
+        }
       }
       else
       {
@@ -298,5 +329,18 @@ public static class RunTools
       return underline.Val?.Value != UnderlineValues.None;
     }
     return false;
+  }
+
+  /// <summary>
+  /// Checks if the run is empty.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsEmpty(this DXW.Run? element)
+  {
+    if (element == null)
+      return true;
+    var text = element.GetText();
+    return string.IsNullOrEmpty(text);
   }
 }

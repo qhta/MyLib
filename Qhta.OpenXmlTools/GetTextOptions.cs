@@ -63,7 +63,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to start a footnote reference.
   /// </summary>
-  public string FootnoteRefStart { get; set; } = "[";
+  public string FootnoteRefStart { get; set; } = "[FootnoteRef ";
 
   /// <summary>
   /// Tag to end a footnote reference.
@@ -73,7 +73,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to start an endnote reference.
   /// </summary>
-  public string EndnoteRefStart { get; set; } = "[";
+  public string EndnoteRefStart { get; set; } = "[EndnoteRef";
 
   /// <summary>
   /// Tag to end an end note reference.
@@ -83,7 +83,7 @@ public record GetTextOptions
   /// <summary>
   /// Tag to start a comment reference.
   /// </summary>
-  public string CommentRefStart { get; set; } = "[";
+  public string CommentRefStart { get; set; } = "[CommentRef";
 
   /// <summary>
   /// Tag to end a comment reference.
@@ -153,12 +153,12 @@ public record GetTextOptions
   /// <summary>
   /// Include paragraph numbering string at the beginning of paragraph text.
   /// </summary>
-  public bool IncludeParagraphNumbering { get; set; } = true;
+  public bool IncludeParagraphNumbering { get; set; } = false;
 
   /// <summary>
   /// Should numbered list be indented on each level.
   /// </summary>
-  public bool IndentNumberingLists { get; set; } = true;
+  public bool IndentNumberingLists { get; set; } = false;
 
   /// <summary>
   /// Tag to start a paragraph numbering.

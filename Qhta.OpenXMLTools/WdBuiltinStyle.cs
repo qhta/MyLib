@@ -139,7 +139,7 @@ public enum WdBuiltinStyle
   wdStyleBodyTextIndent = -68,
   /// <summary>Body Text.</summary>
   wdStyleBodyText = -67,
-  /// <summary>Default Paragraph Font.</summary>
+  /// <summary>Default Paragraph HighAnsiFont.</summary>
   wdStyleDefaultParagraphFont = -66,
   /// <summary>Signature.</summary>
   wdStyleSignature = -65,

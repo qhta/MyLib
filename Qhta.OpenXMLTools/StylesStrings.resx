@@ -209,7 +209,7 @@
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleDefaultParagraphFont">
-    <value>Default Paragraph Font</value>
+    <value>Default Paragraph HighAnsiFont</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleDocumentMap">

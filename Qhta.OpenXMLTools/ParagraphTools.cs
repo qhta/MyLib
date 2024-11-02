@@ -71,13 +71,43 @@ public static class ParagraphTools
   }
 
   /// <summary>
+  /// Set the text of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="text"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static void SetText(this Paragraph paragraph, string? text, GetTextOptions? options = null)
+  {
+    options ??= GetTextOptions.Default;
+    var paraProperties = paragraph.GetParagraphProperties();
+    paragraph.RemoveAllChildren();
+    paragraph.AppendChild(paraProperties);
+    var run = new Run();
+    run.SetText(text, options);
+    paragraph.AppendChild(run);
+  }
+
+  /// <summary>
   /// Get the style id of the paragraph.
   /// </summary>
   /// <param name="paragraph">source paragraph</param>
   /// <returns>style id or null</returns>
-  public static string? StyleId(this Paragraph paragraph)
+  public static string? GetStyleId(this Paragraph paragraph)
   {
     return paragraph.ParagraphProperties?.ParagraphStyleId?.Val;
+  }
+
+  /// <summary>
+  /// Set the style id of the paragraph.
+  /// </summary>
+  /// <param name="paragraph">source paragraph</param>
+  /// <param name="styleId">style id or null</param>
+  public static void SetStyleId(this Paragraph paragraph, string styleId)
+  {
+    if (paragraph.ParagraphProperties == null)
+      paragraph.ParagraphProperties = new ParagraphProperties();
+    paragraph.ParagraphProperties.ParagraphStyleId = new ParagraphStyleId { Val = styleId };
   }
 
   /// <summary>
@@ -87,7 +117,7 @@ public static class ParagraphTools
   /// <returns></returns>
   public static Style? GetStyle(this Paragraph paragraph)
   {
-    var styleId = paragraph.StyleId();
+    var styleId = paragraph.GetStyleId();
     if (styleId != null)
     {
       var wordDoc = paragraph.GetWordprocessingDocument();
@@ -116,12 +146,58 @@ public static class ParagraphTools
 
   /// <summary>
   /// Get the outline level of the paragraph.
+  /// Outline level is counted rom 0 to 9,
+  /// where 9 specifically indicates that there is no outline level specifically applied to this paragraph.
   /// </summary>
   /// <param name="paragraph">paragraph to check</param>
   /// <returns>number of paragraph outline level</returns>
   public static int? OutlineLevel(this Paragraph paragraph)
   {
-    return paragraph.ParagraphProperties?.OutlineLevel?.Val?.Value;
+    var result = paragraph.ParagraphProperties?.OutlineLevel?.Val?.Value;
+    if (result == null)
+    {
+      var style = paragraph.GetStyle();
+      result = style?.HeadingLevel();
+      if (result != null)
+        result--;
+      else
+        result = 9;
+    }
+    return result;
   }
 
+  /// <summary>
+  /// Get the heading level of the paragraph.
+  /// Heading level is counted from 1 to 9 (outline level + 1).
+  /// If a paragraph is not a heading then the return value is null.
+  /// </summary>
+  /// <param name="paragraph">paragraph to check</param>
+  /// <returns>number of paragraph heading level (or null)</returns>
+  public static int? HeadingLevel(this Paragraph paragraph)
+  {
+    var result = paragraph.ParagraphProperties?.OutlineLevel?.Val?.Value;
+    if (result == 9)
+      result = null;
+    if (result!=null)
+      return result+1;
+    if (result == null)
+    {
+      var style = paragraph.GetStyle();
+      result = style?.HeadingLevel();
+    }
+    return result;
+  }
+
+  /// <summary>
+  /// Checks if the paragraph is empty.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsEmpty(this DXW.Paragraph? element)
+  {
+    if (element == null)
+      return true;
+    var text = element.GetText();
+    return string.IsNullOrEmpty(text);
+  }
 }

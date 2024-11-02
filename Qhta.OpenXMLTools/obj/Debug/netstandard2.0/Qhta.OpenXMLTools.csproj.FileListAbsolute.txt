@@ -29,8 +29,6 @@ D:\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTool
 D:\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.xml
 D:\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.csproj.AssemblyReference.cache
-D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.Styles.resources
-D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.Styles.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.csproj.GenerateResource.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.GeneratedMSBuildEditorConfig.editorconfig
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\Qhta.OpenXmlTools.AssemblyInfoInputs.cache
@@ -47,3 +45,5 @@ D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.OpenXmlTools.pdb
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.OpenXmlTools.xml
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\pl\Qhta.OpenXmlTools.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\pl\Qhta.OpenXmlTools.resources.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.StylesStrings.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.StylesStrings.pl.resources

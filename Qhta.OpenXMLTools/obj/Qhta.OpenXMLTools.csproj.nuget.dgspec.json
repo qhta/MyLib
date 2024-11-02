@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj": {}
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {}
   },
   "projects": {
-    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj": {
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {
       "version": "2.0.0",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj",
+        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
         "projectName": "Qhta.OpenXmlTools",
-        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\Qhta.OpenXmlTools.csproj",
+        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
-        "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlTools\\obj\\",
+        "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

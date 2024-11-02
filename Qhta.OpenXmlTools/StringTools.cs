@@ -12,5 +12,6 @@ public static class StringTools
   /// <param name="pos"></param>
   /// <param name="substring"></param>
   /// <returns></returns>
-  public static bool HasSubstringAt(this string s, int pos, string substring) => s.Substring(pos, substring.Length).Equals(substring);
+  public static bool HasSubstringAt(this string s, int pos, string substring) => 
+    (pos>=0 && pos+substring.Length<=s.Length) && s.Substring(pos, substring.Length).Equals(substring);
 }

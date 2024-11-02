@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml.XPath;
 
 namespace Qhta.OpenXmlTools;
 
@@ -57,6 +58,37 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
+  /// Gets the text of the element.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string? GetText(this DX.OpenXmlElement? element, GetTextOptions? options=null)
+  {
+    if (element == null)
+      return null;
+    string? result = null;
+    if (element is DXW.Run run)
+      result = run.GetText();
+    else if (element is DXW.Paragraph paragraph)
+      result = paragraph.GetText();
+    else if (element is DXW.Hyperlink hyperlink)
+      result = hyperlink.GetText();
+    else if (element is DX.OpenXmlCompositeElement compositeElement)
+    {
+      var sb = new System.Text.StringBuilder();
+      foreach (var item in compositeElement.Elements())
+      {
+        var text = item.GetText(options);
+        sb.Append(text);
+      }
+      result = sb.ToString();
+    }
+
+    return result;
+  }
+
+  /// <summary>
   /// Checks if the element is empty.
   /// </summary>
   /// <param name="element"></param>
@@ -65,9 +97,16 @@ public static class OpenXmlElementTools
   {
     if (element == null)
       return true;
-    var result = element.ChildElements.Count == 0 && !element.HasAttributes;
-    //if (element is DXW.DocumentProtection)
-    //  Debug.WriteLine($"DocumentProtection.IsEmpty={result}");
+    bool result;
+    if (element is DXW.Run run)
+      result = run.IsEmpty();
+    else if (element is DXW.Paragraph paragraph)
+      result = paragraph.IsEmpty();
+    else if (element is DXW.Hyperlink hyperlink)
+      result = hyperlink.IsEmpty();
+    else
+      result = element.ChildElements.Count == 0 && !element.HasAttributes;
+
     return result;
   }
 
@@ -1562,5 +1601,15 @@ public static class OpenXmlElementTools
     // ReSharper disable once MergeIntoPattern
     var result = new Range(xmlElement.FirstChild, xmlElement.LastChild);
     return result;
+  }
+
+  /// <summary>
+  /// Gets the root <c>MainDocumentPart</c> of the <c>OpenXmlElement</c>.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static DXPack.MainDocumentPart? GetMainDocumentPart(this DX.OpenXmlElement element)
+  {
+    return element.Ancestors<DXW.Document>().FirstOrDefault()?.MainDocumentPart;
   }
 }

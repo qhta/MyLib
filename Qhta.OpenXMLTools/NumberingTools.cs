@@ -14,7 +14,68 @@ public static class NumberingTools
   private static readonly Dictionary<int, NumberingList> NumberingListsForParagraphs = new();
 
   /// <summary>
+  /// Gets the numbering string from a string.
+  /// Numbering string is the first sequence of digits, periods or letters ended with a space or tab.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string? GetNumberingString(this string str)
+  {
+    var text = str.Trim();
+    var isNumberingString = false;
+    var k = text.IndexOfAny([' ', '\t']);
+    if (k > 0)
+    {
+      isNumberingString = true;
+      text = text.Substring(0, k);
+      var wasPeriod = true;
+      var wasLetter = false;
+      foreach (var ch in text)
+      {
+        var isLetter = char.IsLetter(ch);
+        var isPeriod = ch == '.';
+        if (isLetter)
+        {
+          if (wasLetter)
+          {
+            isNumberingString = false;
+            break;
+          }
+        }
+        else
+        if (char.IsDigit(ch))
+        {
+          if (wasLetter)
+          {
+            isNumberingString = false;
+            break;
+          }
+        }
+        else if (isPeriod)
+        {
+          if (wasPeriod)
+          {
+            isNumberingString = false;
+            break;
+          }
+        }
+        else
+        {
+          isNumberingString = false;
+          break;
+        }
+        wasLetter = isLetter;
+        wasPeriod = isPeriod;
+      }
+    }
+    return isNumberingString ? text : null;
+  }
+  /// <summary>
   /// Get the numbering string of the paragraph.
+  /// If the paragraph is numbered, the string is taken from the numbering list.
+  /// If the paragraph is not numbered, the string is taken from the paragraph text.
+  /// First sequence of digits, periods or letters is returned.
+  /// Only single periods and single letters are allowed.
   /// </summary>
   /// <param name="paragraph"></param>
   /// <param name="options"></param>
@@ -26,8 +87,10 @@ public static class NumberingTools
     {
       return numberingList.GetNumberingString(paragraph, options);
     }
-    return null;
+    var text = paragraph.GetText(options);
+    return GetNumberingString(text);
   }
+
   /// <summary>
   /// Get the numbering list of the paragraph.
   /// </summary>
@@ -50,7 +113,8 @@ public static class NumberingTools
         NumberingListsForDocument.Add(key, numberingList);
         NumberingListsForParagraphs.Add(paraId, numberingList);
       }
-      numberingList.Add(paragraph); return numberingList;
+      numberingList.Add(paragraph); 
+      return numberingList;
     }
     return null;
   }
@@ -200,6 +264,17 @@ public static class NumberingTools
       }
     }
     return null;
+  }
+
+  /// <summary>
+  /// Get the numbering properties of the paragraph or of the paragraph style.
+  /// </summary>
+  /// <param name="paragraph">Source paragraph element</param>
+  /// <param name="numPr">Numbering properties or null</param>
+  public static void SetNumberingProperties(this DXW.Paragraph paragraph, NumberingProperties numPr)
+  {
+    var paraProps = paragraph.GetParagraphProperties();
+    paraProps.NumberingProperties = numPr;
   }
 
   /// <summary>

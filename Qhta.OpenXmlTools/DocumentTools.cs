@@ -3,7 +3,7 @@
 /// <summary>
 /// A collection of tools for working with OpenXml documents.
 /// </summary>
-public static class DocumentTools
+public static partial class DocumentTools
 {
 
 
@@ -86,6 +86,41 @@ public static class DocumentTools
       mainDocumentPart.Document!.Body = body;
     }
     return body;
+  }
+
+  /// <summary>
+  /// Gets all the <c>Header</c> elements of the document.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static IEnumerable<DXW.Header> GetHeaders(this DXPack.WordprocessingDocument wordDoc)
+  {
+    var mainDocumentPart = wordDoc.MainDocumentPart;
+    if (mainDocumentPart == null)
+    {
+      mainDocumentPart = wordDoc.AddMainDocumentPart();
+      mainDocumentPart.Document = new DXW.Document();
+    }
+    var headers = mainDocumentPart.HeaderParts.Select(part => part.Header);
+    return headers;
+  }
+
+
+  /// <summary>
+  /// Gets all the <c>Footer</c> elements of the document.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <returns></returns>
+  public static IEnumerable<DXW.Footer> GetFooters(this DXPack.WordprocessingDocument wordDoc)
+  {
+    var mainDocumentPart = wordDoc.MainDocumentPart;
+    if (mainDocumentPart == null)
+    {
+      mainDocumentPart = wordDoc.AddMainDocumentPart();
+      mainDocumentPart.Document = new DXW.Document();
+    }
+    var footers = mainDocumentPart.FooterParts.Select(part => part.Footer);
+    return footers;
   }
 
   /// <summary>

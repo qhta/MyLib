@@ -22,14 +22,14 @@ namespace Qhta.OpenXmlTools {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Styles {
+    public class StylesStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Styles() {
+        internal StylesStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Qhta.OpenXmlTools {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Qhta.OpenXmlTools.Styles", typeof(Styles).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Qhta.OpenXmlTools.StylesStrings", typeof(StylesStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -475,7 +475,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default Paragraph Font.
+        ///   Looks up a localized string similar to Default Paragraph HighAnsiFont.
         /// </summary>
         public static string wdStyleDefaultParagraphFont {
             get {
