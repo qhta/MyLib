@@ -385,6 +385,37 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="paragraph"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="run"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairBulletContainedParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Detect paragraphs that contain a bullet and enter a new new paragraph with bullet numbering.
+            replace the bullet with a corresponding unicode character.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeWhitespace(System.String)">
             <summary>
             Replaces all the whitespaces with a single space.
@@ -1687,6 +1718,13 @@
             </summary>
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer abstract numbering id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingDefinitions(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Get the numbering element from the word document's numbering definition part.
+            If the numbering definition part is not found, it is created.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document.</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
             <summary>
@@ -5367,6 +5405,13 @@
             <param name="s"></param>
             <param name="pos"></param>
             <param name="substring"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringTools.ReplaceSymbolEncoding(System.String)">
+            <summary>
+            Replace characters in a string with a code between F000 and F0DD to corresponding unicode characters according to symbol encoding.
+            </summary>
+            <param name="str"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.StylesStrings">

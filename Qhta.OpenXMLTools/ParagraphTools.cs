@@ -197,7 +197,10 @@ public static class ParagraphTools
   {
     if (element == null)
       return true;
+    if (element.Elements().Any(e => e is not DXW.RunProperties and not DXW.Run))
+      return false;
     var text = element.GetText();
-    return string.IsNullOrEmpty(text);
+    var result = string.IsNullOrEmpty(text);
+    return result;
   }
 }

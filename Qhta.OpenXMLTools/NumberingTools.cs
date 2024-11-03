@@ -200,6 +200,23 @@ public static class NumberingTools
     return null;
   }
 
+
+  /// <summary>
+  /// Get the numbering element from the word document's numbering definition part.
+  /// If the numbering definition part is not found, it is created.
+  /// </summary>
+  /// <param name="wordDocument">Source Wordprocessing document.</param>
+  public static DXW.Numbering GetNumberingDefinitions(this WordprocessingDocument wordDocument)
+  {
+    var mainDocumentPart = wordDocument.GetMainDocumentPart();
+    var numberingDefinitionsPart = mainDocumentPart.NumberingDefinitionsPart;
+    if (numberingDefinitionsPart == null)
+    {
+      numberingDefinitionsPart = mainDocumentPart.AddNewPart<DXPack.NumberingDefinitionsPart>();
+    }
+    return numberingDefinitionsPart.Numbering;
+  }
+
   /// <summary>
   /// Get the abstract numbering definition id of the numbering instance id.
   /// </summary>

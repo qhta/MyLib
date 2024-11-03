@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml.Drawing;
-
 using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
@@ -22,6 +20,8 @@ public class DocumentCleaner
     RemoveEmptyParagraphs(wordDoc);
     RemoveFalseHeadersAndFooters(wordDoc);
     ResetHeadingsFormat(wordDoc);
+    ReplaceSymbolEncoding(wordDoc);
+    RepairBulletContainedParagraph(wordDoc);
   }
 
   /// <summary>
@@ -44,12 +44,6 @@ public class DocumentCleaner
   /// <param name="body"></param>
   public void TrimParagraphs(DX.OpenXmlCompositeElement body)
   {
-    //if (body is DXW.Header header)
-    //{
-    //  var aText = header.GetText();
-    //  if (aText!.StartsWith("17. WordprocessingML Reference Material"))
-    //    Debug.Assert(true);
-    //}
     var paragraphs = body.Descendants<DXW.Paragraph>().ToList();
     foreach (var paragraph in paragraphs)
       TrimParagraph(paragraph);
@@ -272,6 +266,185 @@ public class DocumentCleaner
     }
   }
 
+  /// <summary>
+  /// Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void ReplaceSymbolEncoding(DXPack.WordprocessingDocument wordDoc)
+  {
+    var body = wordDoc.GetBody();
+    ReplaceSymbolEncoding(body);
+    foreach (var header in wordDoc.GetHeaders())
+      ReplaceSymbolEncoding(header);
+    foreach (var footer in wordDoc.GetFooters())
+      ReplaceSymbolEncoding(footer);
+  }
+
+
+  /// <summary>
+  /// Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+  /// </summary>
+  /// <param name="body"></param>
+  public void ReplaceSymbolEncoding(DX.OpenXmlCompositeElement body)
+  {
+    foreach (var paragraph in body.Descendants<DXW.Paragraph>())
+    {
+      ReplaceSymbolEncoding(paragraph);
+    }
+  }
+
+  /// <summary>
+  /// Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  public void ReplaceSymbolEncoding(DXW.Paragraph paragraph)
+  {
+    foreach (var run in paragraph.Descendants<DXW.Run>())
+    {
+      ReplaceSymbolEncoding(run);
+    }
+  }
+
+  /// <summary>
+  /// Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+  /// </summary>
+  /// <param name="run"></param>
+  public void ReplaceSymbolEncoding(DXW.Run run)
+  {
+    foreach (var text in run.Elements<DXW.Text>())
+    {
+      text.Text = text.Text.ReplaceSymbolEncoding();
+    }
+  }
+
+  /// <summary>
+  /// Detect paragraphs that contain a bullet and enter a new new paragraph with bullet numbering.
+  /// replace the bullet with a corresponding unicode character.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void RepairBulletContainedParagraph(DXPack.WordprocessingDocument wordDoc)
+  {
+    var defaultParagraphProperties = GetMostFrequentNumberingParagraphProperties(wordDoc);
+    if (defaultParagraphProperties == null)
+    {
+      var abstractNumbering = wordDoc.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?
+        .Elements<DXW.AbstractNum>().FirstOrDefault(a=>a.MultiLevelType?.Val?.Value==DXW.MultiLevelValues.HybridMultilevel 
+                                                       && a.Elements<DXW.Level>().FirstOrDefault(l => l.LevelText?.Val?.Value== "•")!=null);
+      if (abstractNumbering != null)
+      {
+        var numbering = wordDoc.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?
+          .Elements<DXW.NumberingInstance>().FirstOrDefault(n => n.AbstractNumId?.Val?.Value == abstractNumbering.AbstractNumberId?.Value);
+        if (numbering != null)
+        {
+          defaultParagraphProperties = new DXW.ParagraphProperties
+            { NumberingProperties = new DXW.NumberingProperties
+            {
+              NumberingLevelReference = new DXW.NumberingLevelReference{ Val = 0},
+              NumberingId = new DXW.NumberingId { Val = numbering.NumberID }
+            }
+            };
+        }
+      }
+    }
+    var paragraphs = wordDoc.GetBody().Descendants<DXW.Paragraph>().ToList();
+    for (int i = 0; i < paragraphs.Count; i++)
+    {
+      var paragraph = paragraphs[i];
+      foreach (var run in paragraph.Elements<DXW.Run>())
+      {
+        var text = run.GetText();
+        if (text.Contains("•"))
+        {
+          var textItem = run.Descendants<DXW.Text>().FirstOrDefault(t => t.Text.TrimStart().StartsWith("•"));
+          if (textItem == null)
+            continue;
+          textItem.Text = text.Replace("•", "");
+          var newParagraphProperties = GetNearbyNumberingParagraphProperties(paragraph) 
+                                       ?? (DXW.ParagraphProperties?)defaultParagraphProperties?.CloneNode(true);
+          if (run.PreviousSibling() != null && run.PreviousSibling() is not DXW.ParagraphProperties)
+          {
+            var newParagraph = new DXW.Paragraph();
+            newParagraph.ParagraphProperties = newParagraphProperties;
+            var tailItems = new List<DX.OpenXmlElement>();
+            tailItems.Add(run);
+            var siblingItem = run.NextSibling();
+            while (siblingItem != null)
+            {
+              tailItems.Add(siblingItem);
+              siblingItem = siblingItem.NextSibling();
+            }
+            foreach (var item in tailItems)
+            {
+              item.Remove();
+              newParagraph.Append(item);
+            }
+            TrimParagraph(paragraph);
+            var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
+            if (priorParagraph != null && priorParagraph.ParagraphProperties?.NumberingProperties!=null)
+              paragraph.ParagraphProperties = (DXW.ParagraphProperties)priorParagraph.ParagraphProperties.CloneNode(true);
+            TrimParagraph(newParagraph);
+            paragraph.InsertAfterSelf(newParagraph);
+            paragraphs.Insert(i + 1, newParagraph);
+          }
+          else // if it is the first run in the paragraph then do not create a new paragraph.
+          {
+            paragraph.ParagraphProperties = newParagraphProperties;
+            TrimParagraph(paragraph);
+            i--;
+          }
+        }
+      }
+    }
+  }
+
+  private DXW.ParagraphProperties? GetMostFrequentNumberingParagraphProperties(DXPack.WordprocessingDocument wordDoc)
+  {
+    Dictionary<int, int> numberingFrequency = new();
+    Dictionary<int, DXW.ParagraphProperties> numberingPropertiesIndex = new();
+    foreach (var paragraph in wordDoc.GetBody().Descendants<DXW.Paragraph>())
+    {
+      var paragraphProperties = paragraph.ParagraphProperties;
+      if (paragraphProperties != null)
+      {
+        var numberingProperties = paragraphProperties.NumberingProperties;
+        if (numberingProperties != null)
+        {
+          var numberingLevel = numberingProperties.NumberingLevelReference?.Val;
+          if (numberingLevel== null || numberingLevel!=0)
+            continue;
+          var numberingId = numberingProperties.NumberingId?.Val;
+          if (numberingId == null)
+            continue;
+          if (numberingFrequency.ContainsKey(numberingId))
+            numberingFrequency[numberingId]++;
+          else
+          {
+            numberingPropertiesIndex[numberingId] = paragraphProperties;
+            numberingFrequency[numberingId] = 1;
+          }
+        }
+      }
+    }
+    if (numberingFrequency.Count == 0)
+      return null;
+    var mostFrequentNumberingId = numberingFrequency.OrderByDescending(kvp => kvp.Value).First().Key;
+    return (DXW.ParagraphProperties)numberingPropertiesIndex[mostFrequentNumberingId].CloneNode(true); ;
+  }
+
+  private DXW.ParagraphProperties? GetNearbyNumberingParagraphProperties(DXW.Paragraph paragraph)
+  {
+    var paragraphProperties = paragraph.ParagraphProperties;
+    if (paragraphProperties != null && paragraphProperties.NumberingProperties != null)
+      return (DXW.ParagraphProperties)paragraphProperties.CloneNode(true);
+    paragraphProperties = (paragraph.PreviousSibling() as DXW.Paragraph)?.ParagraphProperties;
+    if (paragraphProperties != null && paragraphProperties.NumberingProperties != null)
+      return (DXW.ParagraphProperties)paragraphProperties.CloneNode(true);
+    paragraphProperties = (paragraph.NextSibling() as DXW.Paragraph)?.ParagraphProperties;
+    if (paragraphProperties != null && paragraphProperties.NumberingProperties != null)
+      return (DXW.ParagraphProperties)paragraphProperties.CloneNode(true);
+    return null;
+  }
+
   private bool IsNumber(string str)
   {
     return str.ToCharArray().All(char.IsDigit);
@@ -338,9 +511,10 @@ public class DocumentCleaner
     var numStr = str.GetNumberingString();
     if (numStr != null)
     {
-      if (str.Length > numStr.Length && str[numStr.Length-1]== '.')
-        str = str.Remove(numStr.Length - 1,1);
+      if (str.Length > numStr.Length && str[numStr.Length - 1] == '.')
+        str = str.Remove(numStr.Length - 1, 1);
     }
     return str;
   }
+
 }
