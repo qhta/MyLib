@@ -28,6 +28,21 @@ public static class HyperlinkTools
   }
 
   /// <summary>
+  /// Set the text of the hyperlink.
+  /// </summary>
+  /// <param name="hyperlink"></param>
+  /// <param name="text"></param>
+  /// <param name="options"></param>
+  public static void SetText(this DXW.Hyperlink hyperlink, string text, GetTextOptions? options = null)
+  {
+    options ??= GetTextOptions.Default;
+    hyperlink.RemoveAllChildren();
+    var run = new DXW.Run();
+    run.SetText(text, options);
+    hyperlink.AppendChild(run);
+  }
+
+  /// <summary>
   /// Checks if the hyperlink is empty.
   /// </summary>
   /// <param name="element"></param>
@@ -38,5 +53,55 @@ public static class HyperlinkTools
       return true;
     var text = element.GetText();
     return string.IsNullOrEmpty(text);
+  }
+
+  /// <summary>
+  /// Get the reference relationship of the hyperlink.
+  /// </summary>
+  /// <param name="hyperlink"></param>
+  /// <returns></returns>
+  public static DXPack.ReferenceRelationship? GetRel(this DXW.Hyperlink hyperlink)
+  {
+    var relId = hyperlink.Id?.Value;
+    if (relId != null)
+    {
+      var docPart = hyperlink.GetDocumentPart();
+      if (docPart != null)
+      {
+        var rel = docPart.GetReferenceRelationship(relId);
+        return rel;
+      }
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Try to trim hyperlink text.
+  /// </summary>
+  /// <param name="hyperlink"></param>
+  /// <returns></returns>
+  public static bool TryTrim(this DXW.Hyperlink hyperlink)
+  {
+    var done = false;
+    var hyperlinkText = hyperlink.GetText();
+    var hyperlinkTextTrimmed = hyperlinkText.TrimEnd();
+    if (hyperlinkText != hyperlinkTextTrimmed)
+    {
+      if (hyperlinkTextTrimmed == "")
+      {
+        hyperlink.Remove();
+      }
+      else
+      if (hyperlink.PreviousSibling() is DXW.Hyperlink previousHyperlink && previousHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
+      {
+        var previousHyperlinkText = previousHyperlink.GetText();
+        previousHyperlinkText += hyperlinkTextTrimmed;
+        previousHyperlink.SetText(previousHyperlinkText);
+      }
+      else
+        hyperlink.SetText(hyperlinkTextTrimmed);
+      done = true;
+    }
+    return done;
   }
 }

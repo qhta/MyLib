@@ -115,7 +115,7 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static IEnumerable<DX.OpenXmlElement> GetMembers(this DX.OpenXmlCompositeElement element)
+  public static IEnumerable<DX.OpenXmlElement> MemberElements(this DX.OpenXmlCompositeElement element)
   {
     foreach (var child in element.ChildElements)
     {

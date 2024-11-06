@@ -128,7 +128,7 @@ public static class RunTools
       }
       else if (element is FootnoteReference footnoteReference)
       {
-        sb.Append (options.FootnoteRefStart + footnoteReference.Id+options.FootnoteRefEnd);
+        sb.Append(options.FootnoteRefStart + footnoteReference.Id + options.FootnoteRefEnd);
       }
       else if (element is EndnoteReference endnoteReference)
       {
@@ -159,9 +159,9 @@ public static class RunTools
     if (value == null)
       return;
     var sb = new StringBuilder();
-    for (int i=0; i<value.Length; i++)
+    for (int i = 0; i < value.Length; i++)
     {
-      if (value.HasSubstringAt(i,options.BreakPageTag))
+      if (value.HasSubstringAt(i, options.BreakPageTag))
       {
         TryAppend(run, sb);
         run.AppendChild(new Break() { Type = BreakValues.Page });
@@ -206,7 +206,7 @@ public static class RunTools
         TryAppend(run, sb);
         var l = options.FootnoteRefStart.Length;
         var k = value.IndexOf(options.FootnoteRefEnd, i + l);
-        if (k>0 && int.TryParse(value.Substring(i+l, k - i - l), out var id))
+        if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
         {
           var footnoteReference = new FootnoteReference
           {
@@ -340,7 +340,87 @@ public static class RunTools
   {
     if (element == null)
       return true;
-    var text = element.GetText();
-    return string.IsNullOrEmpty(text);
+    foreach (var e in element.MemberElements())
+    {
+      if (e is DXW.Text runText)
+      {
+        if (!runText.IsEmpty())
+          return false;
+      }
+      else
+      if (e is DXW.TabChar or DXW.LastRenderedPageBreak)
+      {
+        // ignore
+      }
+      else
+        return false;
+    }
+    return true;
+  }
+
+  /// <summary>
+  /// Checks if the run text is empty.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsEmpty(this DXW.Text? element)
+  {
+    if (element == null)
+      return true;
+    return element.Text.Trim()=="";
+  }
+
+
+  /// <summary>
+  /// Try to trim run text.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static bool TryTrim(this DXW.Run run)
+  {
+    bool done = false;
+    var lastElement = run.MemberElements().LastOrDefault();
+    while (lastElement != null)
+    {
+      var previousElement = lastElement.PreviousSibling();
+      if (lastElement is DXW.BookmarkEnd)
+      {
+        // ignore
+      }
+      else
+      if (lastElement is DXW.LastRenderedPageBreak)
+      {
+        lastElement.Remove();
+      }
+      if (lastElement is DXW.TabChar)
+      {
+        lastElement.Remove();
+        done = true;
+      }
+      else
+      if (lastElement is DXW.Text runText)
+      {
+        var text = runText.Text;
+        var trimmedText = text.TrimEnd();
+        if (trimmedText == "")
+        {
+          runText.Remove();
+          done = true;
+        }
+
+        if (text != trimmedText)
+        {
+          runText.Text = trimmedText;
+          done = true;
+        }
+        else
+        {
+          break;
+        }
+      }
+
+      lastElement = previousElement;
+    }
+    return done;
   }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXmlTools</name>
+        <name>Qhta.OpenXMLTools</name>
     </assembly>
     <members>
         <member name="T:Qhta.OpenXmlTools.BodyTools">
@@ -331,111 +331,6 @@
             Removes all custom file properties.
             </summary>
             <param name="customFileProperties"></param>
-        </member>
-        <member name="T:Qhta.OpenXmlTools.DocumentCleaner">
-            <summary>
-            A collection of tools for cleaning OpenXml document.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CleanDocument(System.String)">
-            <summary>
-            Cleans the document using all the methods available.
-            </summary>
-            <param name="fileName"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Trims all the paragraphs in the document removing starting and ending whitespaces.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Removes all the empty paragraphs from the document.
-            </summary>
-            <param name="body"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Trims the paragraph removing starting and ending whitespaces.
-            </summary>
-            <param name="paragraph"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Removes all the empty paragraphs from the document.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Removes all the empty paragraphs from the document.
-            </summary>
-            <param name="body"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveFalseHeadersAndFooters(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Removes paragraphs that are same as headers or footers but are contained in body.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ResetHeadingsFormat(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Resets format of heading paragraphs.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
-            </summary>
-            <param name="body"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
-            </summary>
-            <param name="paragraph"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Wordprocessing.Run)">
-            <summary>
-            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
-            </summary>
-            <param name="run"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairBulletContainedParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Detect paragraphs that contain a bullet and enter a new new paragraph with bullet numbering.
-            replace the bullet with a corresponding unicode character.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeWhitespace(System.String)">
-            <summary>
-            Replaces all the whitespaces with a single space.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CleanWhitespace(System.String)">
-            <summary>
-            Removes all the whitespaces.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryRemoveNumberingDot(System.String)">
-            <summary>
-            Removes a dot that ends the numbering string.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentProperties">
             <summary>
@@ -1225,11 +1120,33 @@
             <param name="options"></param>
             <returns>joined text</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Hyperlink,System.String,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Set the text of the hyperlink.
+            </summary>
+            <param name="hyperlink"></param>
+            <param name="text"></param>
+            <param name="options"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.HyperlinkTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
             <summary>
             Checks if the hyperlink is empty.
             </summary>
             <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.GetRel(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
+            <summary>
+            Get the reference relationship of the hyperlink.
+            </summary>
+            <param name="hyperlink"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.TryTrim(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
+            <summary>
+            Try to trim hyperlink text.
+            </summary>
+            <param name="hyperlink"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.ItemFilter">
@@ -1806,6 +1723,266 @@
             Subsequent levels are additionally indented by the left indent of the previous level.
             </remarks>
         </member>
+        <member name="T:Qhta.OpenXmlTools.OpenXmlCleaner">
+            <summary>
+            A collection of tools for cleaning OpenXml document.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.OpenXmlCleaner.VerboseLevel">
+            <summary>
+            Determines the level of verbosity of the cleaner.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.CleanDocument(System.String)">
+            <summary>
+            Cleans the document using all the methods available.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TrimParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Trims all the paragraphs in the document removing starting and ending whitespaces.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TrimParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Removes all the empty paragraphs from the document.
+            </summary>
+            <param name="body"></param>
+            <returns>count of trimmed paragraphs</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryTrimParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Trims the paragraph removing ending whitespaces.
+            </summary>
+            <param name="paragraph"></param>
+            <returns>true if the trimming was successful, false if it was not needed.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Removes all the empty paragraphs from the document.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Removes all the empty paragraphs from the document.
+            </summary>
+            <param name="body"></param>
+            <returns>count of removed paragraphs</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.FixLongWords(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Insert an optional hyphens into long words, especially URL's.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.FixLongWords(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Insert an optional hyphens into long words, especially URL's.
+            </summary>
+            <param name="body"></param>
+            <returns>count of fixed paragraphs</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryFixLongWords(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Insert an optional hyphens into long words, especially URL's.
+            </summary>
+            <param name="paragraph"></param>
+            <returns>true if the fixing was successful, false if it was not needed.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryFixLongWords(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
+            <summary>
+            Insert an optional hyphens into long words, especially URL's.
+            </summary>
+            <param name="hyperlink"></param>
+            <returns>true if the fixing was successful, false if it was not needed.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryFixLongWords(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Insert an optional hyphens into long words, especially URL's.
+            </summary>
+            <param name="run"></param>
+            <returns>true if the fixing was successful, false if it was not needed.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.RemoveFakeHeadersAndFooters(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Removes paragraphs that are same as headers or footers but are contained in body.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ResetHeadingsFormat(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Resets format of heading paragraphs.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ResetParagraphFormat(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Reset paragraph format by removing all the properties except the style id.
+            </summary>
+            <param name="paragraph"></param>
+            <returns>true if any properties were removed</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="body"></param>
+            <returns>count of replaced symbols</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="paragraph"></param>
+            <returns> count of replaced symbols</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
+            </summary>
+            <param name="run"></param>
+            <returns> count of replaced symbols</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.RepairBulletContainedParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Detect paragraphs that contain a bullet and enter a new new paragraph with bullet numbering.
+            replace the bullet with a corresponding unicode character.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.FixInternalTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Find multi-column rows in tables and make them internal tables.
+            Pseudo-tables are tables that are created by using tabs and spaces.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryFixInternalTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Find multi-column rows in tables and make them internal tables.
+            Pseudo-tables are tables that are created by using tabs and spaces.
+            </summary>
+            <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.JoinSiblingTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Joins sibling tables that have the same number of columns.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.FixDividedTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Fix page-divided tables.
+            Page-divided table is (usually long) table that have been split across consecutive pages
+            so that the headings of the table are repeated on each page.
+            Sometimes there are no repeating headings but the table is divided.
+            After <see cref="M:Qhta.OpenXmlTools.OpenXmlCleaner.JoinSiblingTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)"/> it should be a single table.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.FixTableWithRepeatedHeaders(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32@,System.Int32@)">
+            <summary>
+            Check if the table has first (heading) row repeated in the middle of the table.
+            These repeating heading rows should be removed.
+            Then the last row of the first part of the table
+            should be joined with the first row of the second part.
+            </summary>
+            <param name="table"></param>
+            <param name="removedRepeatedHeadings">count of removed repeated headings</param>
+            <param name="joinedRows">count of joined rows</param>
+            <returns>true when a table was divided</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.FixTableWithWithDividedRows(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32@)">
+            <summary>
+            If the table does not have repeating headings, it can still be divided.
+            We must check if two adjacent rows should be joined.
+            </summary>
+            <param name="table"></param>
+            <param name="joinedRows">count of joined rows</param>
+            <returns>true when a table was divided</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryJoinDividedRows(DocumentFormat.OpenXml.Wordprocessing.TableRow,DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Try to join two rows in page-divided table.
+            Page-divided table is (usually long) table that have been split across consecutive pages
+            so that the headings of the table are repeated on each page.
+            The repeating heading rows has been removed.
+            Now we try to join the last row of the first part of the table
+            with the first row of the second part.
+            </summary>
+            <param name="upperRow">Upper table row.</param>
+            <param name="lowerRow">Lower table row.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ShouldBeJoined(DocumentFormat.OpenXml.Wordprocessing.TableRow,DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Check if two sibling rows in a table should be joined.
+            First check if the number of cells in the rows are the same.
+            Then check the corresponding cells.
+            </summary>
+            <param name="upperRow">Upper table row.</param>
+            <param name="lowerRow">Lower table row.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.ShouldBeJoined(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Check if two corresponding cells in sibling table rows should be joined.
+            Check the last paragraph in the upper cell and the first paragraph in the lower cell.
+            Returns 2 if the cells should definitely be joined.
+            Returns 1 if the cells should rather be joined.
+            Returns -1 if the cells should rather not be joined,
+            Returns -2 if the cells should definitely not be joined.
+            Returns 0 if the algorithm can't tell. 
+            </summary>
+            <param name="upperCell">Upper table row.</param>
+            <param name="lowerCell">Lower table row.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.GetSentences(System.String)">
+            <summary>
+            Get the list of sentences from the string.
+            Sentences are separated by '.', '!', '?' or ':'
+            followed by a space (or standing at the end of the string).
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.JoinDividedCells(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Join two corresponding cells in possibly divided row.
+            Last paragraph in the upper cell and the first paragraph in the lower cell should be joined.
+            If it is not possible to join the cells then return false.
+            </summary>
+            <param name="upperCell">Cell taken from the upper table row.</param>
+            <param name="lowerCell">Cell taken from the lower table row.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.NormalizeWhitespace(System.String)">
+            <summary>
+            Replaces all the whitespaces with a single space.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.CleanWhitespace(System.String)">
+            <summary>
+            Removes all the whitespaces.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCleaner.TryRemoveNumbering(System.String)">
+            <summary>
+            Removes a numbering from the string (if it begins the string).
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.OpenXmlElementTools">
             <summary>
             Tools for working with OpenXml elements.
@@ -1850,7 +2027,7 @@
             <param name="element"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetMembers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.MemberElements(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get child elements (without properties) of the OpenXmlElement.
             </summary>
@@ -2985,6 +3162,19 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.RelationshipTools">
+            <summary>
+            Contains tools for working with OpenXml Relationship elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RelationshipTools.IsEqual(DocumentFormat.OpenXml.Packaging.ReferenceRelationship,DocumentFormat.OpenXml.Packaging.ReferenceRelationship)">
+            <summary>
+            Checks if the relationship is equal to another relationship.
+            </summary>
+            <param name="thisRelationship"></param>
+            <param name="otherRelationship"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.RsidsTools">
             <summary>
             Tools for working with <c>Rsids</c> of a document.
@@ -3360,6 +3550,20 @@
             Checks if the run is empty.
             </summary>
             <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.Text)">
+            <summary>
+            Checks if the run text is empty.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.TryTrim(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Try to trim run text.
+            </summary>
+            <param name="run"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SectionPropertiesChangeTools">
@@ -7582,6 +7786,44 @@
             Gets the style name of the table.
             </summary>
             <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetTableProperties(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Gets the table properties of the table.
+            If the <c>TableProperties</c> element is null, creates a new one.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetTableGrid(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Gets the table grid  of the table.
+            If the <c>TableGrid</c> element is null, creates a new one.
+            </summary>
+            <param name="table"/>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.MemberElements(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Return all elements that are not <c>TableCellProperties</c>
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.GridColumn)">
+            <summary>
+            Gets the width of the table grid column (in twips).
+            </summary>
+            <param name="gridColumn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.GridColumn,System.Nullable{System.Int32})">
+            <summary>
+            Sets the width of the table grid column (in twips).
+            </summary>
+            <param name="gridColumn"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TestTools">

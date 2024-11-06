@@ -123,6 +123,12 @@ public static class TableTools
         sl.Add(indentStr);
         sl.Add(options.ParagraphEndTag);
       }
+      else
+      {
+        var aText = element.GetText(options);
+        if (aText != null)
+          sl.Add(aText);
+      }
     }
     options.IndentLevel = indentLevel;
     return string.Join("", sl);
@@ -137,4 +143,62 @@ public static class TableTools
   {
     return table.Elements<TableProperties>().FirstOrDefault()?.TableStyle?.Val?.Value;
   }
+
+  /// <summary>
+  /// Gets the table properties of the table.
+  /// If the <c>TableProperties</c> element is null, creates a new one.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static TableProperties GetTableProperties(this Table table)
+  {
+    var tableProperties = table.Elements<TableProperties>().FirstOrDefault();
+    if (tableProperties == null)
+    {
+      tableProperties = new TableProperties();
+      table.AddChild(tableProperties);
+    }
+    return tableProperties;
+  }
+
+  /// <summary>
+  /// Gets the table grid  of the table.
+  /// If the <c>TableGrid</c> element is null, creates a new one.
+  /// </summary>
+  /// <param name="table"/>
+  /// <returns></returns>
+  public static TableGrid GetTableGrid(this Table table)
+  {
+    var tableGrid = table.Elements<TableGrid>().FirstOrDefault();
+    if (tableGrid == null)
+    {
+      tableGrid = new TableGrid();
+      table.AppendChild(tableGrid);
+    }
+    return tableGrid;
+  }
+
+  /// <summary>
+  /// Return all elements that are not <c>TableCellProperties</c>
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static IEnumerable<DX.OpenXmlElement> MemberElements(this DXW.TableCell cell)
+    => cell.Elements().Where(e => e is not TableCellProperties);
+
+  /// <summary>
+  /// Gets the width of the table grid column (in twips).
+  /// </summary>
+  /// <param name="gridColumn"></param>
+  /// <returns></returns>
+  public static int? GetWidth
+    (this GridColumn gridColumn) => gridColumn.Width?.Value != null ? int.Parse(gridColumn.Width.Value) : null;
+
+  /// <summary>
+  /// Sets the width of the table grid column (in twips).
+  /// </summary>
+  /// <param name="gridColumn"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static void SetWidth(this GridColumn gridColumn, int? value) => gridColumn.Width = value.ToString();
 }

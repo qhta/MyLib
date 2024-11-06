@@ -64,7 +64,7 @@ public static class ParagraphTools
   public static string GetText(this Paragraph paragraph, GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
-    var result = String.Join("", paragraph.Elements<Run>().Select(item => item.GetText(options)));
+    var result = String.Join("", paragraph.Elements().Select(item => item.GetText(options)));
     if (options.IncludeParagraphNumbering)
       result = paragraph.GetNumberingString(options) + result;
     return result;
@@ -178,8 +178,8 @@ public static class ParagraphTools
     var result = paragraph.ParagraphProperties?.OutlineLevel?.Val?.Value;
     if (result == 9)
       result = null;
-    if (result!=null)
-      return result+1;
+    if (result != null)
+      return result + 1;
     if (result == null)
     {
       var style = paragraph.GetStyle();
@@ -197,10 +197,17 @@ public static class ParagraphTools
   {
     if (element == null)
       return true;
-    if (element.Elements().Any(e => e is not DXW.RunProperties and not DXW.Run))
-      return false;
-    var text = element.GetText();
-    var result = string.IsNullOrEmpty(text);
-    return result;
+    foreach (var e in element.MemberElements())
+    {
+      if (e is DXW.Run run)
+      {
+        if (!run.IsEmpty())
+          return false;
+      }
+      else
+        return false;
+    }
+    return true;
   }
+
 }
