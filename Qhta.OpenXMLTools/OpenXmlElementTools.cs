@@ -63,7 +63,7 @@ public static class OpenXmlElementTools
   /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string? GetText(this DX.OpenXmlElement? element, GetTextOptions? options=null)
+  public static string? GetText(this DX.OpenXmlElement? element, GetTextOptions? options = null)
   {
     if (element == null)
       return null;
@@ -74,6 +74,8 @@ public static class OpenXmlElementTools
       result = paragraph.GetText();
     else if (element is DXW.Hyperlink hyperlink)
       result = hyperlink.GetText();
+    else if (element is DX.OpenXmlLeafTextElement textElement)
+      result = textElement.Text;
     else if (element is DX.OpenXmlCompositeElement compositeElement)
     {
       var sb = new System.Text.StringBuilder();
@@ -1612,4 +1614,78 @@ public static class OpenXmlElementTools
   {
     return element.Ancestors<DXW.Document>().FirstOrDefault()?.MainDocumentPart;
   }
+
+  /// <summary>
+  /// Checks if the <c>OpenXmlElement</c> is equal the other element.
+  /// </summary>
+  /// <param name="thisElement"></param>
+  /// <param name="otherElement"></param>
+  /// <returns></returns>
+  public static bool IsEqual(this DX.OpenXmlElement thisElement, DX.OpenXmlElement otherElement)
+  {
+    if (thisElement.GetType() != otherElement.GetType())
+      return false;
+    if (thisElement is DX.OpenXmlLeafTextElement thisTextElement && otherElement is DX.OpenXmlLeafTextElement otherTextElement)
+    {
+      if (thisTextElement.Text != otherTextElement.Text)
+        return false;
+    }
+    if (!thisElement.HasEqualAttributes(otherElement))
+      return false;
+    if (!thisElement.HasEqualChildren(otherElement))
+      return false;
+    return true;
+  }
+
+
+  /// <summary>
+  /// Checks if the <c>OpenXmlElement</c> has the same attributes as the other element.
+  /// "rsid*" and "*Id" attributes are ignored.
+  /// </summary>
+  /// <param name="thisElement"></param>
+  /// <param name="otherElement"></param>
+  /// <returns></returns>
+  public static bool HasEqualAttributes(this DX.OpenXmlElement thisElement, DX.OpenXmlElement otherElement)
+  {
+    var thisAttributes = thisElement.GetAttributes().Where(a => a.LocalName.StartsWith("rsid") && !a.LocalName.EndsWith("Id")).ToList();
+    var otherAttributes = otherElement.GetAttributes().Where(a => a.LocalName.StartsWith("rsid") && !a.LocalName.EndsWith("Id")).ToList();
+    if (thisAttributes.Count() != otherAttributes.Count)
+      return false;
+    thisAttributes.Sort((a, b) => string.Compare(a.Prefix + ':' + a.LocalName, a.Prefix + ':' + b.LocalName, StringComparison.Ordinal));
+    otherAttributes.Sort((a, b) => string.Compare(a.Prefix + ':' + a.LocalName, a.Prefix + ':' + b.LocalName, StringComparison.Ordinal));
+    for (int i = 0; i < thisAttributes.Count; i++)
+    {
+      var thisAttribute = thisAttributes[i];
+      var otherAttribute = otherAttributes[i];
+      if (thisAttribute.Prefix != otherAttribute.Prefix || thisAttribute.LocalName != otherAttribute.LocalName || thisAttribute.Value != otherAttribute.Value)
+        return false;
+    }
+    return true;
+  }
+
+
+  /// <summary>
+  /// Checks if the <c>OpenXmlElement</c> has the same children as the other element.
+  /// </summary>
+  /// <param name="thisElement"></param>
+  /// <param name="otherElement"></param>
+  /// <returns></returns>
+  public static bool HasEqualChildren(this DX.OpenXmlElement thisElement, DX.OpenXmlElement otherElement)
+  {
+    var thisChildren = thisElement.Elements().ToList();
+    var otherChildren = otherElement.Elements().ToList();
+    if (thisChildren.Count() != otherChildren.Count)
+      return false;
+    thisChildren.Sort((a, b) => string.Compare(a.Prefix + ':' + a.LocalName, a.Prefix + ':' + b.LocalName, StringComparison.Ordinal));
+    otherChildren.Sort((a, b) => string.Compare(a.Prefix + ':' + a.LocalName, a.Prefix + ':' + b.LocalName, StringComparison.Ordinal));
+    for (int i = 0; i < thisChildren.Count; i++)
+    {
+      var thisChild = thisChildren[i];
+      var otherChild = otherChildren[i];
+      if (thisChild.Prefix != otherChild.Prefix || thisChild.LocalName != otherChild.LocalName || !thisChild.IsEqual(otherChild))
+        return false;
+    }
+    return true;
+  }
+
 }

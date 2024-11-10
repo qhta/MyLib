@@ -5,6 +5,20 @@
 /// </summary>
 public static class StringTools
 {
+
+  /// <summary>
+  /// Get the number of non-whitespace characters at the beginning of the string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static int LeftIndentLength(this string str)
+  {
+    int index = 0;
+    while (index < str.Length && char.IsWhiteSpace(str[index]))
+      index++;
+    return index;
+  }
+
   /// <summary>
   /// Checks if a string has a substring at a given position.
   /// </summary>
@@ -15,6 +29,119 @@ public static class StringTools
   public static bool HasSubstringAt(this string s, int pos, string substring) =>
     (pos >= 0 && pos + substring.Length <= s.Length) && s.Substring(pos, substring.Length).Equals(substring);
 
+
+  /// <summary>
+  /// Determines if a string consists of digits only.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static bool IsNumber(this string str)
+  {
+    return str.ToCharArray().All(char.IsDigit);
+  }
+
+  /// <summary>
+  /// Replaces all the whitespaces with a single space.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string NormalizeWhitespaces(this string str)
+  {
+    var chars = str.ToList();
+    var wasChar = false;
+    for (int i = 0; i < chars.Count; i++)
+    {
+      if (char.IsWhiteSpace(chars[i]))
+      {
+        if (wasChar)
+        {
+          chars.RemoveAt(i);
+          i--;
+        }
+        else
+        {
+          chars[i] = ' ';
+          wasChar = true;
+        }
+      }
+      else
+        wasChar = false;
+    }
+    return new string(chars.ToArray());
+  }
+
+  /// <summary>
+  /// Removes all the whitespaces.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string RemoveWhitespaces(this string str)
+  {
+    var chars = str.ToList();
+    for (int i = 0; i < chars.Count; i++)
+    {
+      if (char.IsWhiteSpace(chars[i]))
+      {
+        chars.RemoveAt(i);
+        i--;
+      }
+    }
+    return new string(chars.ToArray());
+  }
+
+
+  /// <summary>
+  /// Insert a soft hyphen character into long words in a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string FixLongWords(this string str)
+  {
+    var newTextValue = str;
+    var words = str.Split(' ');
+    foreach (var word in words)
+    {
+      if (word.Length > 30)
+      {
+        var newWord = FixLongWord(word);
+        newTextValue = newTextValue.Replace(word, newWord);
+      }
+    }
+    return newTextValue;
+  }
+
+  private static string FixLongWord(string word)
+  {
+    var chars = word.ToList();
+    for (int i = 10; i < chars.Count - 10; i++)
+    {
+      if (chars[i] == '/' && char.IsLetter(chars[i + 1]))
+        chars.Insert(i + 1, '\u00AD');
+      else if (char.IsUpper(chars[i]) && char.IsLower(chars[i - 1]))
+        chars.Insert(i, '\u00AD');
+    }
+    return new string(chars.ToArray());
+  }
+
+  /// <summary>
+  /// Removes a numbering from the string (if it begins the string).
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="result"></param>
+  /// <returns></returns>
+  public static bool TryRemoveNumbering(this string str, out string result)
+  {
+    var numStr = str.GetNumberingString();
+    if (numStr != null)
+    {
+      //if (str.Length > numStr.Length && str[numStr.Length - 1] == '.')
+      //  str = str.Remove(numStr.Length - 1, 1);
+      result = str.Substring(numStr.Length).TrimStart();
+      return true;
+    }
+    result = str;
+    return false;
+  }
 
   /// <summary>
   /// Replace characters in a string with a code between F000 and F0DD to corresponding unicode characters according to symbol encoding.

@@ -138,25 +138,7 @@ public class RunPropertiesBridge
       var runFonts = BaseElement.GetFirstChild<DXW.RunFonts>();
       if (runFonts!=null)
       {
-        if (runFonts.HighAnsi != null)
-          return runFonts.HighAnsi;
-        if (runFonts.HighAnsiTheme != null)
-        {
-          var themeFontValues = runFonts.HighAnsiTheme.Value;
-          var fontScheme = BaseElement.GetMainDocumentPart()?.ThemePart?.Theme?.ThemeElements?.FontScheme;
-          if (fontScheme != null)
-          {
-            var themeFont = fontScheme.MinorFont?.LatinFont ?? fontScheme.MajorFont?.LatinFont;
-            if (themeFont != null)
-            {
-              var themeFontName = themeFont.Typeface;
-              if (themeFontName != null)
-              {
-                return themeFontName;
-              }
-            }
-          }
-        }
+        return runFonts.GetHighAnsiFontName();
       }
       return null;
     }
@@ -182,25 +164,7 @@ public class RunPropertiesBridge
       var runFonts = BaseElement.GetFirstChild<DXW.RunFonts>();
       if (runFonts != null)
       {
-        if (runFonts.ComplexScript != null)
-          return runFonts.ComplexScript;
-        if (runFonts.ComplexScriptTheme != null)
-        {
-          var themeFontValues = runFonts.ComplexScriptTheme.Value;
-          var fontScheme = BaseElement.GetMainDocumentPart()?.ThemePart?.Theme?.ThemeElements?.FontScheme;
-          if (fontScheme != null)
-          {
-            var themeFont = fontScheme.MinorFont?.ComplexScriptFont ?? fontScheme.MajorFont?.ComplexScriptFont;
-            if (themeFont != null)
-            {
-              var themeFontName = themeFont.Typeface;
-              if (themeFontName != null)
-              {
-                return themeFontName;
-              }
-            }
-          }
-        }
+        return runFonts.GetComplexScriptFontName();
       }
       return null;
     }
@@ -226,25 +190,7 @@ public class RunPropertiesBridge
       var runFonts = BaseElement.GetFirstChild<DXW.RunFonts>();
       if (runFonts != null)
       {
-        if (runFonts.EastAsia != null)
-          return runFonts.EastAsia;
-        if (runFonts.EastAsiaTheme != null)
-        {
-          var themeFontValues = runFonts.EastAsiaTheme.Value;
-          var fontScheme = BaseElement.GetMainDocumentPart()?.ThemePart?.Theme?.ThemeElements?.FontScheme;
-          if (fontScheme != null)
-          {
-            var themeFont = fontScheme.MinorFont?.EastAsianFont ?? fontScheme.MajorFont?.EastAsianFont;
-            if (themeFont != null)
-            {
-              var themeFontName = themeFont.Typeface;
-              if (themeFontName != null)
-              {
-                return themeFontName;
-              }
-            }
-          }
-        }
+        return runFonts.GetEastAsiaFontName();
       }
       return null;
     }
