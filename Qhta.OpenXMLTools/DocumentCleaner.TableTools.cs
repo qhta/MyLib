@@ -366,6 +366,9 @@ public partial class DocumentCleaner
   /// <param name="lowerCell">Lower table row.</param>
   private int ShouldBeJoined(DXW.TableCell upperCell, DXW.TableCell lowerCell)
   {
+    if (upperCell.TableCellProperties?.TableCellBorders?.BottomBorder?.Val?.Value == DXW.BorderValues.Nil 
+        && lowerCell.TableCellProperties?.TableCellBorders?.TopBorder?.Val?.Value == DXW.BorderValues.Nil)
+      return -2;
     var upperPara = upperCell.Elements<DXW.Paragraph>().LastOrDefault();
     var lowerPara = lowerCell.Elements<DXW.Paragraph>().FirstOrDefault();
     if (upperPara == null || lowerPara == null)

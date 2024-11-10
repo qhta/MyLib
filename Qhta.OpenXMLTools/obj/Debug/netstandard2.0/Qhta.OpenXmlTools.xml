@@ -1231,6 +1231,26 @@
             Tag to end a paragraph.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.GridColumnTools">
+            <summary>
+            Tools for working with grid columns in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GridColumnTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.GridColumn)">
+            <summary>
+            Gets the width of the table grid column (in twips).
+            </summary>
+            <param name="gridColumn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GridColumnTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.GridColumn,System.Nullable{System.Int32})">
+            <summary>
+            Sets the width of the table grid column (in twips).
+            </summary>
+            <param name="gridColumn"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.HexByte">
             <summary>
             Represents HexByte integer value.
@@ -8627,6 +8647,45 @@
             <param name="mainDocumentPart"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TableCellPropertiesTools">
+            <summary>
+            Tools for working with table cell properties in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellPropertiesTools.GetBorders(DocumentFormat.OpenXml.Wordprocessing.TableCellProperties)">
+            <summary>
+            Gets the cell borders. If the cell properties do not contain a <c>TableCellBorders</c> element, a new one is created.
+            </summary>
+            <param name="cellProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TableCellTools">
+            <summary>
+            Tools for working with table cells in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Gets the text of all paragraph in the table cell.
+            </summary>
+            <param name="cell"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.MemberElements(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Return all elements that are not <c>TableCellProperties</c>
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetTableCellProperties(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Get the <c>TableCellProperties</c> element of the cell. If it does not exist, it will be created.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TablePropertiesTools">
             <summary>
             Tools for working with table properties in OpenXml documents.
@@ -8660,14 +8719,6 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.GetTextOptions)">
-            <summary>
-            Gets the text of all paragraph in the table cell.
-            </summary>
-            <param name="cell"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.Style(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Gets the style name of the table.
@@ -8689,28 +8740,6 @@
             If the <c>TableGrid</c> element is null, creates a new one.
             </summary>
             <param name="table"/>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.MemberElements(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Return all elements that are not <c>TableCellProperties</c>
-            </summary>
-            <param name="cell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.GridColumn)">
-            <summary>
-            Gets the width of the table grid column (in twips).
-            </summary>
-            <param name="gridColumn"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.GridColumn,System.Nullable{System.Int32})">
-            <summary>
-            Sets the width of the table grid column (in twips).
-            </summary>
-            <param name="gridColumn"></param>
-            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TestTools">

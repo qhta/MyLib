@@ -487,6 +487,18 @@ public static class RunTools
         }
       }
     }
+    if (run.NextSibling() is DXW.Run nextRun)
+    {
+      var text = run.GetText();
+      if (text.StartsWith("/word"))
+        Debug.Assert(true);
+      var nextText = nextRun.GetText();
+      if (text.TrimEnd()==text && !text.EndsWith("-") && nextText.TrimStart() == text && !nextText.StartsWith("-"))
+      {
+        run.AppendChild(new DXW.SoftHyphen());
+        done = true;
+      }
+    }
     return done;
   }
 

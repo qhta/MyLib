@@ -90,9 +90,13 @@ public static class OpenXmlCompositeElementTools
       var nextRun = run.NextSibling() as DXW.Run;
       if (nextRun == null)
         continue;
+      var runText = run.GetText();
+      var nextRunText = nextRun.GetText();
+      //if (runText.StartsWith("/word/comments"))
+      //  Debug.Assert(true);
       var runProps = run.RunProperties;
       var nextRunProps = nextRun.RunProperties;
-      if (runProps == null && nextRunProps != null)
+      if (runProps == null && nextRunProps == null)
       {
         foreach (var item in nextRun.MemberElements().ToList())
         {
@@ -100,9 +104,11 @@ public static class OpenXmlCompositeElementTools
           run.AppendChild(item);
         }
         nextRun.Remove();
+        runList.Remove(nextRun);
+        i--;
         count++;
-        i++;
       }
+      else
       if (runProps != null && nextRunProps != null)
       {
         if (runProps.IsEqual(nextRunProps))
@@ -113,11 +119,11 @@ public static class OpenXmlCompositeElementTools
             run.AppendChild(item);
           }
           nextRun.Remove();
+          runList.Remove(nextRun);
+          i--;
           count++;
-          i++;
         }
       }
-      count++;
     }
     return count;
   }
