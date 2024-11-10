@@ -333,6 +333,9 @@ public partial class DocumentCleaner
     for (int i = 0; i < paragraphs.Count; i++)
     {
       var paragraph = paragraphs[i];
+      var paraText = paragraph.GetText();
+      if (paraText.Contains("Video (\u00a715.2.17)"))
+        Debug.Assert(true);
       foreach (var run in paragraph.Elements<DXW.Run>())
       {
         var text = run.GetText();
@@ -345,7 +348,8 @@ public partial class DocumentCleaner
           count++;
           var newParagraphProperties = GetNearbyNumberingParagraphProperties(paragraph)
                                        ?? (DXW.ParagraphProperties?)defaultParagraphProperties?.CloneNode(true);
-          if (run.PreviousSibling() != null && run.PreviousSibling() is not DXW.ParagraphProperties)
+          var prevSibling = run.PreviousSibling();
+          if (prevSibling != null && prevSibling is not DXW.ParagraphProperties && !String.IsNullOrEmpty((prevSibling as DXW.Run)?.GetText()))
           {
             var newParagraph = new DXW.Paragraph();
             newParagraph.ParagraphProperties = newParagraphProperties;
@@ -362,19 +366,44 @@ public partial class DocumentCleaner
               item.Remove();
               newParagraph.Append(item);
             }
-            paragraph.Trim();
-            var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
-            if (priorParagraph != null && priorParagraph.ParagraphProperties?.NumberingProperties != null)
-              paragraph.ParagraphProperties =
-                (DXW.ParagraphProperties)priorParagraph.ParagraphProperties.CloneNode(true);
-            newParagraph.Trim();
-            paragraph.InsertAfterSelf(newParagraph);
-            paragraphs.Insert(i + 1, newParagraph);
+            paragraph.TrimEnd();
+            newParagraph.TrimStart();
+            newParagraph.TrimEnd();
+            if (paragraph.IsEmpty())
+            {
+              newParagraphProperties?.Remove();
+              paragraph.ParagraphProperties = newParagraphProperties;
+              var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
+              var after = priorParagraph?.ParagraphProperties?.SpacingBetweenLines?.After;
+              if (after != null)
+                paragraph.GetParagraphProperties().GetSpacingBetweenLines().After = after;
+              foreach (var item in newParagraph.MemberElements())
+              {
+                item.Remove();
+                paragraph.AppendChild(item);
+              }
+            }
+            else
+            {
+              var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
+              if (priorParagraph != null && priorParagraph.ParagraphProperties?.NumberingProperties != null)
+                paragraph.ParagraphProperties =
+                  (DXW.ParagraphProperties)priorParagraph.ParagraphProperties.CloneNode(true);
+              newParagraph.TrimEnd();
+              paragraph.InsertAfterSelf(newParagraph);
+              paragraphs.Insert(i + 1, newParagraph);
+              //if (paragraph.IsEmpty())
+              //{
+              //  paragraph.Remove();
+              //  paragraphs.RemoveAt(i);
+              //  i--;
+              //}
+            }
           }
           else // if it is the first run in the paragraph then do not create a new paragraph.
           {
             paragraph.ParagraphProperties = newParagraphProperties;
-            paragraph.Trim();
+            paragraph.TrimEnd();
             i--;
           }
         }
@@ -449,7 +478,7 @@ public partial class DocumentCleaner
             // if the paragraph contains an XML tag but not in the beginning, split it to a new paragraph.
             //Console.WriteLine(text);
             var newParagraph = paragraph.SplitAt(k);
-            paragraph.Trim();
+            paragraph.TrimEnd();
             if (newParagraph != null)
             {
               var spacing = paragraph.GetParagraphProperties().GetSpacingBetweenLines();

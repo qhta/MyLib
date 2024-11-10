@@ -39,7 +39,7 @@ public static class OpenXmlCompositeElementTools
     var paragraphs = element.Descendants<DXW.Paragraph>().ToList();
     var count = 0;
     foreach (var paragraph in paragraphs)
-      if (paragraph.Trim())
+      if (paragraph.TrimEnd())
         count++;
     return count;
   }

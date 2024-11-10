@@ -1442,12 +1442,19 @@
             <param name="hyperlink"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.TryTrim(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
+        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.TrimStart(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
             <summary>
-            Try to trim hyperlink text.
+            Trim hyperlink text removing leading white spaces.
             </summary>
             <param name="hyperlink"></param>
-            <returns></returns>
+            <returns>true if trimmed</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.TrimEnd(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
+            <summary>
+            Trim hyperlink text removing trailing white spaces.
+            </summary>
+            <param name="hyperlink"></param>
+            <returns>true if trimmed</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.IndentationTools">
             <summary>
@@ -3225,9 +3232,16 @@
             <param name="element"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.Trim(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.TrimStart(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
-            Trims the paragraph removing ending whitespaces.
+            Trims the paragraph removing leading whitespaces.
+            </summary>
+            <param name="paragraph"></param>
+            <returns>true if the trimming was successful, false if it was not needed.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.TrimEnd(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Trims the paragraph removing trailing whitespaces.
             </summary>
             <param name="paragraph"></param>
             <returns>true if the trimming was successful, false if it was not needed.</returns>
@@ -4305,12 +4319,19 @@
             <param name="element"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.RunTools.TryTrim(DocumentFormat.OpenXml.Wordprocessing.Run)">
+        <member name="M:Qhta.OpenXmlTools.RunTools.TrimStart(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>
-            Try to trim run text.
+            Trim run text removing leading whitespaces
             </summary>
             <param name="run"></param>
-            <returns></returns>
+            <returns>True is trimmed</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.TrimEnd(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Trim run text removing trailing whitespaces
+            </summary>
+            <param name="run"></param>
+            <returns>True is trimmed</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.TryResetFormat(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>

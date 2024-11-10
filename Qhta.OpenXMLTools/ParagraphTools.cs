@@ -212,28 +212,65 @@ public static class ParagraphTools
   }
 
   /// <summary>
-  /// Trims the paragraph removing ending whitespaces.
+  /// Trims the paragraph removing leading whitespaces.
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns>true if the trimming was successful, false if it was not needed.</returns>
-  public static bool Trim(this DXW.Paragraph paragraph)
+  public static bool TrimStart(this DXW.Paragraph paragraph)
   {
-    //var paraText = paragraph.GetText();
-    //if (paraText.StartsWith("1. Scope"))
-    //  Debug.Assert(true);
+    bool done = false;
+    var firstElement = paragraph.MemberElements().FirstOrDefault();
+    while (firstElement != null)
+    {
+      var nextElement = firstElement.NextSibling();
+      if (firstElement is DXW.BookmarkStart || firstElement is DXW.BookmarkEnd)
+      {
+        // ignore;
+      }
+      else
+      if (firstElement is DXW.Run run)
+      {
+        if (run.TrimStart())
+        {
+          done = true;
+          if (run.IsEmpty())
+            run.Remove();
+          else
+            break;
+        }
+        else
+          break;
+      }
+      else if (firstElement is DXW.Hyperlink hyperlink)
+      {
+        if (!hyperlink.TrimStart())
+          break;
+      }
+      firstElement = nextElement;
+    }
+    return done;
+  }
+
+  /// <summary>
+  /// Trims the paragraph removing trailing whitespaces.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns>true if the trimming was successful, false if it was not needed.</returns>
+  public static bool TrimEnd(this DXW.Paragraph paragraph)
+  {
     bool done = false;
     var lastElement = paragraph.MemberElements().LastOrDefault();
     while (lastElement != null)
     {
       var previousElement = lastElement.PreviousSibling();
-      if (lastElement is DXW.BookmarkEnd)
+      if (lastElement is DXW.BookmarkEnd || lastElement is DXW.BookmarkStart)
       {
         // ignore;
       }
       else
       if (lastElement is DXW.Run run)
       {
-        if (run.TryTrim())
+        if (run.TrimEnd())
         {
           done = true;
           if (run.IsEmpty())
@@ -246,7 +283,7 @@ public static class ParagraphTools
       }
       else if (lastElement is DXW.Hyperlink hyperlink)
       {
-        if (!hyperlink.TryTrim())
+        if (!hyperlink.TrimEnd())
           break;
       }
       lastElement = previousElement;

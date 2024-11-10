@@ -382,18 +382,71 @@ public static class RunTools
   }
 
   /// <summary>
-  /// Try to trim run text.
+  /// Trim run text removing leading whitespaces
   /// </summary>
   /// <param name="run"></param>
-  /// <returns></returns>
-  public static bool TryTrim(this DXW.Run run)
+  /// <returns>True is trimmed</returns>
+  public static bool TrimStart(this DXW.Run run)
+  {
+    bool done = false;
+    var firstElement = run.MemberElements().FirstOrDefault();
+    while (firstElement != null)
+    {
+      var previousElement = firstElement.NextSibling();
+      if (firstElement is DXW.BookmarkStart || firstElement is DXW.BookmarkEnd)
+      {
+        // ignore
+      }
+      else
+      if (firstElement is DXW.LastRenderedPageBreak)
+      {
+        firstElement.Remove();
+      }
+      if (firstElement is DXW.TabChar)
+      {
+        firstElement.Remove();
+        done = true;
+      }
+      else
+      if (firstElement is DXW.Text runText)
+      {
+        var text = runText.Text;
+        var trimmedText = text.TrimStart();
+        if (trimmedText == "")
+        {
+          runText.Remove();
+          done = true;
+        }
+
+        if (text != trimmedText)
+        {
+          runText.Text = trimmedText;
+          done = true;
+        }
+        else
+        {
+          break;
+        }
+      }
+
+      firstElement = previousElement;
+    }
+    return done;
+  }
+
+  /// <summary>
+  /// Trim run text removing trailing whitespaces
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns>True is trimmed</returns>
+  public static bool TrimEnd(this DXW.Run run)
   {
     bool done = false;
     var lastElement = run.MemberElements().LastOrDefault();
     while (lastElement != null)
     {
       var previousElement = lastElement.PreviousSibling();
-      if (lastElement is DXW.BookmarkEnd)
+      if (lastElement is DXW.BookmarkEnd || lastElement is DXW.BookmarkStart)
       {
         // ignore
       }
