@@ -76,43 +76,171 @@ public static class ParagraphPropertiesTools
   }
 
   /// <summary>
-  /// Get <c>AdjustRightIndent</c> element or create a new one.
+  /// Get <c>KeepLines</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.AdjustRightIndent GetAdjustRightIndent(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetKeepLines(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.AdjustRightIndent ??= new AdjustRightIndent();
+    return paragraphProperties.KeepLines != null && paragraphProperties.KeepLines.Val?.Value != false;
   }
 
   /// <summary>
-  /// Get <c>AutoSpaceDE</c> element or create a new one.
+  /// Set <c>KeepLines</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
   /// <returns></returns>
-  public static DXW.AutoSpaceDE GetAutoSpaceDE(this DXW.ParagraphProperties paragraphProperties)
+  public static void SetKeepLines(this DXW.ParagraphProperties paragraphProperties, bool value)
   {
-    return paragraphProperties.AutoSpaceDE ??= new AutoSpaceDE();
+    paragraphProperties.KeepLines = value ? new KeepLines() : null;
   }
 
   /// <summary>
-  /// Get <c>AutoSpaceDN</c> element or create a new one.
+  /// Get <c>KeepNext</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.AutoSpaceDN GetAutoSpaceDN(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetKeepNext(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.AutoSpaceDN ??= new AutoSpaceDN();
+    return paragraphProperties.KeepNext != null && paragraphProperties.KeepNext.Val?.Value != false;
   }
 
   /// <summary>
-  /// Get <c>ContextualSpacing</c> element or create a new one.
+  /// Set <c>KeepNext</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetKeepNext(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.KeepNext = value ? new KeepNext() : null;
+  }
+
+  /// <summary>
+  /// Get <c>Kinsoku</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.ContextualSpacing GetContextualSpacing(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetKinsoku(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.ContextualSpacing ??= new ContextualSpacing();
+    return paragraphProperties.Kinsoku != null && paragraphProperties.Kinsoku.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>Kinsoku</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetKinsoku(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.Kinsoku = value ? new Kinsoku() : null;
+  }
+
+  /// <summary>
+  /// Get <c>MirrorIndents</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetMirrorIndents(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.MirrorIndents != null && paragraphProperties.MirrorIndents.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>MirrorIndents</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetMirrorIndents(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.MirrorIndents = value ? new MirrorIndents() : null;
+  }
+
+  /// <summary>
+  /// Get <c>AdjustRightIndent</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetAdjustRightIndent(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.AdjustRightIndent != null && paragraphProperties.AdjustRightIndent.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>AdjustRightIndent</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetAdjustRightIndent(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.AdjustRightIndent = value ? new AdjustRightIndent() : null;
+  }
+
+  /// <summary>
+  /// Get <c>AutoSpaceDE</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetAutoSpaceDE(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.AutoSpaceDE != null && paragraphProperties.AutoSpaceDE.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>AutoSpaceDE</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetAutoSpaceDE(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.AutoSpaceDE = value ? new AutoSpaceDE() : null;
+  }
+
+  /// <summary>
+  /// Get <c>AutoSpaceDN</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetAutoSpaceDN(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.AutoSpaceDN != null && paragraphProperties.AutoSpaceDN.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>AutoSpaceDN</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetAutoSpaceDN(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.AutoSpaceDN = value ? new AutoSpaceDN() : null;
+  }
+
+  /// <summary>
+  /// Get <c>ContextualSpacing</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetContextualSpacing(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.ContextualSpacing != null && paragraphProperties.ContextualSpacing.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>ContextualSpacing</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetContextualSpacing(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.ContextualSpacing = value ? new ContextualSpacing() : null;
   }
 
   /// <summary>
@@ -145,47 +273,6 @@ public static class ParagraphPropertiesTools
     return paragraphProperties.Justification ??= new Justification();
   }
 
-
-  /// <summary>
-  /// Get <c>KeepLines</c> element or create a new one.
-  /// </summary>
-  /// <param name="paragraphProperties">Paragraph properties to process</param>
-  /// <returns></returns>
-  public static DXW.KeepLines GetKeepLines(this DXW.ParagraphProperties paragraphProperties)
-  {
-    return paragraphProperties.KeepLines ??= new KeepLines();
-  }
-
-  /// <summary>
-  /// Get <c>KeepNext</c> element or create a new one.
-  /// </summary>
-  /// <param name="paragraphProperties">Paragraph properties to process</param>
-  /// <returns></returns>
-  public static DXW.KeepNext GetKeepNext(this DXW.ParagraphProperties paragraphProperties)
-  {
-    return paragraphProperties.KeepNext ??= new KeepNext();
-  }
-
-  /// <summary>
-  /// Get <c>Kinsoku</c> element or create a new one.
-  /// </summary>
-  /// <param name="paragraphProperties">Paragraph properties to process</param>
-  /// <returns></returns>
-  public static DXW.Kinsoku GetKinsoku(this DXW.ParagraphProperties paragraphProperties)
-  {
-    return paragraphProperties.Kinsoku ??= new Kinsoku();
-  }
-
-  /// <summary>
-  /// Get <c>MirrorIndents</c> element or create a new one.
-  /// </summary>
-  /// <param name="paragraphProperties">Paragraph properties to process</param>
-  /// <returns></returns>
-  public static DXW.MirrorIndents GetMirrorIndents(this DXW.ParagraphProperties paragraphProperties)
-  {
-    return paragraphProperties.MirrorIndents ??= new MirrorIndents();
-  }
-
   /// <summary>
   /// Get <c>NumberingProperties</c> element or create a new one.
   /// </summary>
@@ -207,25 +294,46 @@ public static class ParagraphPropertiesTools
   }
 
   /// <summary>
-  /// Get <c>OverflowPunctuation</c> element or create a new one.
+  /// Get <c>OverflowPunctuation</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.OverflowPunctuation GetOverflowPunctuation(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetOverflowPunctuation(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.OverflowPunctuation ??= new OverflowPunctuation();
+    return paragraphProperties.OverflowPunctuation != null && paragraphProperties.OverflowPunctuation.Val?.Value != false;
   }
 
   /// <summary>
-  /// Get <c>PageBreakBefore</c> element or create a new one.
+  /// Set <c>OverflowPunctuation</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetOverflowPunctuation(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.OverflowPunctuation = value ? new OverflowPunctuation() : null;
+  }
+
+  /// <summary>
+  /// Get <c>PageBreakBefore</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.PageBreakBefore GetPageBreakBefore(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetPageBreakBefore(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.PageBreakBefore ??= new PageBreakBefore();
+    return paragraphProperties.PageBreakBefore != null && paragraphProperties.PageBreakBefore.Val?.Value != false;
   }
 
+  /// <summary>
+  /// Set <c>PageBreakBefore</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetPageBreakBefore(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.PageBreakBefore = value ? new PageBreakBefore() : null;
+  }
   /// <summary>
   /// Get <c>ParagraphBorders</c> element or create a new one.
   /// </summary>
@@ -255,35 +363,68 @@ public static class ParagraphPropertiesTools
   {
     return paragraphProperties.SpacingBetweenLines ??= new SpacingBetweenLines();
   }
-  
+
   /// <summary>
-  /// Get <c>SuppressAutoHyphens</c> element or create a new one.
+  /// Get <c>SuppressAutoHyphens</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.SuppressAutoHyphens GetSuppressAutoHyphens(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetSuppressAutoHyphens(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.SuppressAutoHyphens ??= new SuppressAutoHyphens();
+    return paragraphProperties.SuppressAutoHyphens != null && paragraphProperties.SuppressAutoHyphens.Val?.Value != false;
   }
 
   /// <summary>
-  /// Get <c>SuppressLineNumbers</c> element or create a new one.
+  /// Set <c>SuppressAutoHyphens</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
   /// <returns></returns>
-  public static DXW.SuppressLineNumbers GetSuppressLineNumbers(this DXW.ParagraphProperties paragraphProperties)
+  public static void SetSuppressAutoHyphens(this DXW.ParagraphProperties paragraphProperties, bool value)
   {
-    return paragraphProperties.SuppressLineNumbers ??= new SuppressLineNumbers();
+    paragraphProperties.SuppressAutoHyphens = value ? new SuppressAutoHyphens() : null;
   }
 
   /// <summary>
-  /// Get <c>SuppressOverlap</c> element or create a new one.
+  /// Get <c>SuppressLineNumbers</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.SuppressOverlap GetSuppressOverlap(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetSuppressLineNumbers(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.SuppressOverlap ??= new SuppressOverlap();
+    return paragraphProperties.SuppressLineNumbers != null && paragraphProperties.SuppressLineNumbers.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>SuppressLineNumbers</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetSuppressLineNumbers(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.SuppressLineNumbers = value ? new SuppressLineNumbers() : null;
+  }
+
+  /// <summary>
+  /// Get <c>SuppressOverlap</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetSuppressOverlap(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.SuppressOverlap != null && paragraphProperties.SuppressOverlap.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>SuppressOverlap</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetSuppressOverlap(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.SuppressOverlap = value ? new SuppressOverlap() : null;
   }
 
   /// <summary>
@@ -297,63 +438,132 @@ public static class ParagraphPropertiesTools
   }
 
   /// <summary>
-  /// Get <c>TextAlignment</c> element or create a new one.
+  /// Get <c>TextAlignment</c> enumeration attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.TextAlignment GetTextAlignment(this DXW.ParagraphProperties paragraphProperties)
+  public static DXW.VerticalTextAlignmentValues? GetTextAlignment(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.TextAlignment ??= new TextAlignment();
+    return paragraphProperties.TextAlignment?.Val?.Value;
   }
 
   /// <summary>
-  /// Get <c>TextBoxTightWrap</c> element or create a new one.
+  /// Set <c>TextAlignment</c> enumeration attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
   /// <returns></returns>
-  public static DXW.TextBoxTightWrap GetTextBoxTightWrap(this DXW.ParagraphProperties paragraphProperties)
+  public static void SetTextAlignment(this DXW.ParagraphProperties paragraphProperties, DXW.VerticalTextAlignmentValues? value)
   {
-    return paragraphProperties.TextBoxTightWrap ??= new TextBoxTightWrap();
+    paragraphProperties.TextAlignment =
+      value != null ? new TextAlignment { Val = new DX.EnumValue<VerticalTextAlignmentValues>(value) } : null;
   }
 
   /// <summary>
-  /// Get <c>TextDirection</c> element or create a new one.
+  /// Get <c>TextBoxTightWrap</c> enumeration attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.TextDirection GetTextDirection(this DXW.ParagraphProperties paragraphProperties)
+  public static DXW.TextBoxTightWrapValues? GetTextBoxTightWrap(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.TextDirection ??= new TextDirection();
+    return paragraphProperties.TextBoxTightWrap?.Val?.Value;
   }
 
   /// <summary>
-  /// Get <c>TopLinePunctuation</c> element or create a new one.
+  /// Set <c>TextBoxTightWrap</c> enumeration attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
   /// <returns></returns>
-  public static DXW.TopLinePunctuation GetTopLinePunctuation(this DXW.ParagraphProperties paragraphProperties)
+  public static void SetTextBoxTightWrap(this DXW.ParagraphProperties paragraphProperties, DXW.TextBoxTightWrapValues? value)
   {
-    return paragraphProperties.TopLinePunctuation ??= new TopLinePunctuation();
+    paragraphProperties.TextBoxTightWrap =
+      value != null ? new TextBoxTightWrap { Val = new DX.EnumValue<TextBoxTightWrapValues>(value) } : null;
   }
 
   /// <summary>
-  /// Get <c>WidowControl</c> element or create a new one.
+  /// Get <c>TextDirection</c> enumeration attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.WidowControl GetWidowControl(this DXW.ParagraphProperties paragraphProperties)
+  public static DXW.TextDirectionValues? GetTextDirection(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.WidowControl ??= new WidowControl();
+    return paragraphProperties.TextDirection?.Val?.Value;
   }
 
   /// <summary>
-  /// Get <c>WordWrap</c> element or create a new one.
+  /// Set <c>TextDirection</c> enumeration attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetTextDirection(this DXW.ParagraphProperties paragraphProperties, DXW.TextDirectionValues? value)
+  {
+    paragraphProperties.TextDirection = 
+      value!=null ? new TextDirection { Val = new DX.EnumValue<DXW.TextDirectionValues>(value) } : null;
+  }
+
+  /// <summary>
+  /// Get <c>TopLinePunctuation</c> boolean attribute value
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.WordWrap GetWordWrap(this DXW.ParagraphProperties paragraphProperties)
+  public static bool GetTopLinePunctuation(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.WordWrap ??= new WordWrap();
+    return paragraphProperties.TopLinePunctuation != null && paragraphProperties.TopLinePunctuation.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>TopLinePunctuation</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetTopLinePunctuation(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.TopLinePunctuation = value ? new TopLinePunctuation() : null;
+  }
+
+  /// <summary>
+  /// Get <c>WidowControl</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetWidowControl(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.WidowControl != null && paragraphProperties.WidowControl.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>WidowControl</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetWidowControl(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.WidowControl = value ? new WidowControl() : null;
+  }
+
+  /// <summary>
+  /// Get <c>WordWrap</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <returns></returns>
+  public static bool GetWordWrap(this DXW.ParagraphProperties paragraphProperties)
+  {
+    return paragraphProperties.WordWrap != null && paragraphProperties.WordWrap.Val?.Value != false;
+  }
+
+  /// <summary>
+  /// Set <c>WordWrap</c> boolean attribute value
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">attribute value</param>
+  /// <returns></returns>
+  public static void SetWordWrap(this DXW.ParagraphProperties paragraphProperties, bool value)
+  {
+    paragraphProperties.WordWrap = value ? new WordWrap() : null;
   }
 
 }

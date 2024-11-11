@@ -461,14 +461,12 @@
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixInternalTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Find multi-column rows in tables and make them internal tables.
-            Pseudo-tables are tables that are created by using tabs and spaces.
             </summary>
             <param name="wordDoc"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixInternalTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Find multi-column rows in tables and make them internal tables.
-            Pseudo-tables are tables that are created by using tabs and spaces.
             </summary>
             <param name="table"></param>
         </member>
@@ -560,6 +558,24 @@
             </summary>
             <param name="upperCell">Cell taken from the upper table row.</param>
             <param name="lowerCell">Cell taken from the lower table row.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FormatTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Format all tables in the document.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFormatTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Keep short tables on the same page.
+            </summary>
+            <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryLimitWidth(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Keep short tables on the same page.
+            </summary>
+            <param name="table"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentFormatter">
             <summary>
@@ -2931,32 +2947,124 @@
             <param name="paragraphProperties">source properties</param>
             <returns>new style paragraph properties with cloned source elements</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetAdjustRightIndent(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetKeepLines(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>AdjustRightIndent</c> element or create a new one.
+            Get <c>KeepLines</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetKeepLines(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>KeepLines</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetKeepNext(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>KeepNext</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetKeepNext(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>KeepNext</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetKinsoku(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>Kinsoku</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetKinsoku(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>Kinsoku</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetMirrorIndents(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>MirrorIndents</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetMirrorIndents(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>MirrorIndents</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetAdjustRightIndent(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>AdjustRightIndent</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetAdjustRightIndent(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>AdjustRightIndent</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetAutoSpaceDE(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>AutoSpaceDE</c> element or create a new one.
+            Get <c>AutoSpaceDE</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetAutoSpaceDE(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>AutoSpaceDE</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetAutoSpaceDN(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>AutoSpaceDN</c> element or create a new one.
+            Get <c>AutoSpaceDN</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetContextualSpacing(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetAutoSpaceDN(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
             <summary>
-            Get <c>ContextualSpacing</c> element or create a new one.
+            Set <c>AutoSpaceDN</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetContextualSpacing(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>ContextualSpacing</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetContextualSpacing(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>ContextualSpacing</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetFrameProperties(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
@@ -2980,34 +3088,6 @@
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetKeepLines(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
-            <summary>
-            Get <c>KeepLines</c> element or create a new one.
-            </summary>
-            <param name="paragraphProperties">Paragraph properties to process</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetKeepNext(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
-            <summary>
-            Get <c>KeepNext</c> element or create a new one.
-            </summary>
-            <param name="paragraphProperties">Paragraph properties to process</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetKinsoku(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
-            <summary>
-            Get <c>Kinsoku</c> element or create a new one.
-            </summary>
-            <param name="paragraphProperties">Paragraph properties to process</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetMirrorIndents(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
-            <summary>
-            Get <c>MirrorIndents</c> element or create a new one.
-            </summary>
-            <param name="paragraphProperties">Paragraph properties to process</param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
             Get <c>NumberingProperties</c> element or create a new one.
@@ -3024,16 +3104,32 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetOverflowPunctuation(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>OverflowPunctuation</c> element or create a new one.
+            Get <c>OverflowPunctuation</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetPageBreakBefore(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetOverflowPunctuation(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
             <summary>
-            Get <c>PageBreakBefore</c> element or create a new one.
+            Set <c>OverflowPunctuation</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetPageBreakBefore(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>PageBreakBefore</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetPageBreakBefore(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>PageBreakBefore</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetParagraphBorders(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
@@ -3059,23 +3155,47 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetSuppressAutoHyphens(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>SuppressAutoHyphens</c> element or create a new one.
+            Get <c>SuppressAutoHyphens</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetSuppressAutoHyphens(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>SuppressAutoHyphens</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetSuppressLineNumbers(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>SuppressLineNumbers</c> element or create a new one.
+            Get <c>SuppressLineNumbers</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetSuppressOverlap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetSuppressLineNumbers(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
             <summary>
-            Get <c>SuppressOverlap</c> element or create a new one.
+            Set <c>SuppressLineNumbers</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetSuppressOverlap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>SuppressOverlap</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetSuppressOverlap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>SuppressOverlap</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetTabs(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
@@ -3087,44 +3207,92 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetTextAlignment(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>TextAlignment</c> element or create a new one.
+            Get <c>TextAlignment</c> enumeration attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetTextAlignment(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.VerticalTextAlignmentValues})">
+            <summary>
+            Set <c>TextAlignment</c> enumeration attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetTextBoxTightWrap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>TextBoxTightWrap</c> element or create a new one.
+            Get <c>TextBoxTightWrap</c> enumeration attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetTextBoxTightWrap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TextBoxTightWrapValues})">
+            <summary>
+            Set <c>TextBoxTightWrap</c> enumeration attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetTextDirection(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>TextDirection</c> element or create a new one.
+            Get <c>TextDirection</c> enumeration attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetTextDirection(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TextDirectionValues})">
+            <summary>
+            Set <c>TextDirection</c> enumeration attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetTopLinePunctuation(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>TopLinePunctuation</c> element or create a new one.
+            Get <c>TopLinePunctuation</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetTopLinePunctuation(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>TopLinePunctuation</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetWidowControl(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
-            Get <c>WidowControl</c> element or create a new one.
+            Get <c>WidowControl</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetWordWrap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetWidowControl(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
             <summary>
-            Get <c>WordWrap</c> element or create a new one.
+            Set <c>WidowControl</c> boolean attribute value
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetWordWrap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>WordWrap</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetWordWrap(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Boolean)">
+            <summary>
+            Set <c>WordWrap</c> boolean attribute value
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">attribute value</param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.ParagraphTools">
@@ -3326,6 +3494,12 @@
             Get the indentation of the paragraph. If it is not defined, return null.
             </summary>
             <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the section properties of the paragraph.
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
@@ -8707,6 +8881,13 @@
             <param name="cell"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetKeepWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Boolean)">
+            <summary>
+            Sets the keep with next property for last paragraph in the cell.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TablePropertiesTools">
             <summary>
             Tools for working with table properties in OpenXml documents.
@@ -8718,6 +8899,18 @@
             </summary>
             <param name="tableProperties"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TableRowTools">
+            <summary>
+            Tools for working with table rows in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.SetKeepWithNext(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Boolean)">
+            <summary>
+            Sets the keep with next property for all cells in the row.
+            </summary>
+            <param name="row"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.TableTools">
             <summary>
@@ -8762,6 +8955,68 @@
             </summary>
             <param name="table"/>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.TryKeepOnPage(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32)">
+            <summary>
+            Try to keep the table on the same page.
+            It is done by setting the first rows to be kept with next on the same page.
+            Last row is newer kept with next.
+            </summary>
+            <param name="table"></param>
+            <param name="rowLimit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.LimitWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.UInt64)">
+            <summary>
+            Try to limit table width.
+            </summary>
+            <param name="table"></param>
+            <param name="widthLimit"></param>
+            <returns>true if limit was set, false if the current table width is less then limit</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Get the section properties of the table.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TableWidthDxaNilTypeTools">
+            <summary>
+            Tools for working with table width types in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableWidthDxaNilTypeTools.GetValue(DocumentFormat.OpenXml.Wordprocessing.TableWidthDxaNilType)">
+            <summary>
+            Gets the value of the table width.
+            </summary>
+            <param name="tableWidth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableWidthDxaNilTypeTools.SetValue(DocumentFormat.OpenXml.Wordprocessing.TableWidthDxaNilType,System.Nullable{System.Int32})">
+            <summary>
+            Sets the value of the table width.
+            </summary>
+            <param name="tableWidth"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TableWidthTypeTools">
+            <summary>
+            Tools for working with table width types in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableWidthTypeTools.GetValue(DocumentFormat.OpenXml.Wordprocessing.TableWidthType)">
+            <summary>
+            Gets the value of the table width.
+            </summary>
+            <param name="tableWidth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableWidthTypeTools.SetValue(DocumentFormat.OpenXml.Wordprocessing.TableWidthType,System.Nullable{System.Int32})">
+            <summary>
+            Sets the value of the table width.
+            </summary>
+            <param name="tableWidth"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.TestTools">
             <summary>

@@ -37,6 +37,7 @@ public partial class DocumentCleaner
     JoinAdjacentRuns(wordDoc);
     FixLongWords(wordDoc);
     RepairXmlExamples(wordDoc);
+    FormatTables(wordDoc);
   }
 
   /// <summary>

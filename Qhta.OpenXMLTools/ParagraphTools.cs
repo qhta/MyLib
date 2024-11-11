@@ -529,4 +529,36 @@ public static class ParagraphTools
     }
     return indentation;
   }
+
+  /// <summary>
+  /// Get the section properties of the paragraph.
+  /// </summary>
+  /// <returns></returns>
+  public static DXW.SectionProperties? GetSectionProperties(this Paragraph paragraph)
+  {
+    var parent = paragraph.Parent;
+    DX.OpenXmlElement? element = paragraph;
+    while (parent != null && parent is not DXW.Body)
+    {
+      element = parent;
+      parent = element.Parent;
+    }
+    if (parent is DXW.Body body && element is DXW.Paragraph topParagraph)
+    {
+      var nextElement = topParagraph.NextSibling();
+      do
+      {
+        if (nextElement is DXW.SectionProperties sectionProperties)
+          return sectionProperties;
+        if (nextElement is DXW.Paragraph nextParagraph)
+        {
+          var sectionProperties1 = nextParagraph.ParagraphProperties?.SectionProperties;
+          if (sectionProperties1 != null)
+            return sectionProperties1;
+        }
+        nextElement = nextElement?.NextSibling();
+      } while (nextElement!=null);
+    }
+    return null;
+  }
 }

@@ -74,4 +74,17 @@ public static class TableCellTools
     return cellProperties;
   }
 
+  /// <summary>
+  /// Sets the keep with next property for last paragraph in the cell.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="value"></param>
+  public static void SetKeepWithNext(this DXW.TableCell cell, bool value)
+  {
+    var paragraph = cell.Elements<DXW.Paragraph>().LastOrDefault();
+    if (paragraph != null)
+    {
+      paragraph.GetParagraphProperties().SetKeepNext(value);
+    }
+  }
 }

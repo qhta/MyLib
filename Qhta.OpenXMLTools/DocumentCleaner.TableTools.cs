@@ -9,7 +9,6 @@ public partial class DocumentCleaner
 {
   /// <summary>
   /// Find multi-column rows in tables and make them internal tables.
-  /// Pseudo-tables are tables that are created by using tabs and spaces.
   /// </summary>
   /// <param name="wordDoc"></param>
   public void FixInternalTables(DXPack.WordprocessingDocument wordDoc)
@@ -30,7 +29,6 @@ public partial class DocumentCleaner
 
   /// <summary>
   /// Find multi-column rows in tables and make them internal tables.
-  /// Pseudo-tables are tables that are created by using tabs and spaces.
   /// </summary>
   /// <param name="table"></param>
   public bool TryFixInternalTable(DXW.Table table)
@@ -258,15 +256,15 @@ public partial class DocumentCleaner
       i--;
       done = true;
       removedRepeatedHeadings++;
-      if (i < 1 || i >= tableRows.Count-1)
+      if (i < 1 || i >= tableRows.Count - 1)
         continue;
 
       var priorRow = tableRows[i];
-      var nextRow = tableRows[i+1];
+      var nextRow = tableRows[i + 1];
       if (TryJoinDividedRows(priorRow, nextRow))
       {
         nextRow.Remove();
-        tableRows.RemoveAt(i+1);
+        tableRows.RemoveAt(i + 1);
         joinedRows++;
         i--;
       }
@@ -366,7 +364,7 @@ public partial class DocumentCleaner
   /// <param name="lowerCell">Lower table row.</param>
   private int ShouldBeJoined(DXW.TableCell upperCell, DXW.TableCell lowerCell)
   {
-    if (upperCell.TableCellProperties?.TableCellBorders?.BottomBorder?.Val?.Value == DXW.BorderValues.Nil 
+    if (upperCell.TableCellProperties?.TableCellBorders?.BottomBorder?.Val?.Value == DXW.BorderValues.Nil
         && lowerCell.TableCellProperties?.TableCellBorders?.TopBorder?.Val?.Value == DXW.BorderValues.Nil)
       return -2;
     var upperPara = upperCell.Elements<DXW.Paragraph>().LastOrDefault();
@@ -429,7 +427,7 @@ public partial class DocumentCleaner
     var sentences = new List<string>();
     var k = 0;
     str = str.Trim();
-    while (k>=0 && k < str.Length)
+    while (k >= 0 && k < str.Length)
     {
       k = str.IndexOfAny(['.', '!', '?', ':'], k);
       if (k == -1)
@@ -529,4 +527,66 @@ public partial class DocumentCleaner
     return true;
   }
 
+  /// <summary>
+  /// Format all tables in the document.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void FormatTables(DXPack.WordprocessingDocument wordDoc)
+  {
+    if (VerboseLevel > 0)
+      Console.WriteLine("\nFormatting tables");
+    var body = wordDoc.GetBody();
+    var formatted = 0;
+    var limited = 0;
+    var tables = body.Descendants<DXW.Table>().ToList();
+    foreach (var table in tables)
+    {
+      if (TryFormatTable(table))
+        formatted++;
+      if (TryLimitWidth(table))
+        limited++;
+    }
+    if (VerboseLevel > 0)
+    {
+      Console.WriteLine($"  {formatted} tables formatted");
+      Console.WriteLine($"  {limited} tables width limited");
+    }
+  }
+
+  /// <summary>
+  /// Keep short tables on the same page.
+  /// </summary>
+  /// <param name="table"></param>
+  public bool TryFormatTable(DXW.Table table)
+  {
+    // ReSharper disable once ReplaceWithSingleAssignment.False
+    var done = false;
+    if (table.TryKeepOnPage(5))
+      done = true;
+    return done;
+  }
+
+  /// <summary>
+  /// Keep short tables on the same page.
+  /// </summary>
+  /// <param name="table"></param>
+  public bool TryLimitWidth(DXW.Table table)
+  {
+    var done = false;
+    var sectionProperties = table.GetSectionProperties();
+    if (sectionProperties != null)
+    {
+      var widthLimit = sectionProperties.GetPageSize()?.Width?.Value ?? 0;
+      widthLimit -= sectionProperties.GetPageMargin()?.Left?.Value ?? 0;
+      widthLimit -= sectionProperties.GetPageMargin()?.Right?.Value ?? 0;
+
+      if (widthLimit > 0)
+      {
+        if (table.LimitWidth((uint)widthLimit))
+          done = true;
+      }
+    }
+
+    return done;
+  }
 }

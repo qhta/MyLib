@@ -9,15 +9,6 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class TableTools
 {
-  //public static Table? FindParagraph(DXPack.WordprocessingDocument document, string paraId)
-  //{
-  //  return document.MainDocumentPart?.Document?.Body?.Elements<Paragraph>().FirstOrDefault(p => p.ParagraphId?.Value == paraId);
-  //}
-
-  //public static Table? FindParagraph(DX.OpenXmlCompositeElement compositeElement, string paraId)
-  //{
-  //  return compositeElement.Elements<Paragraph>().FirstOrDefault(p => p.ParagraphId?.Value == paraId);
-  //}
 
   /// <summary>
   /// Gets the text of all rows in the table.
@@ -25,7 +16,7 @@ public static class TableTools
   /// <param name="table"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this Table table, GetTextOptions? options=null)
+  public static string GetText(this Table table, GetTextOptions? options = null)
   {
     options ??= GetTextOptions.Default;
     List<string> sl = new();
@@ -140,4 +131,114 @@ public static class TableTools
     return tableGrid;
   }
 
+  /// <summary>
+  /// Try to keep the table on the same page.
+  /// It is done by setting the first rows to be kept with next on the same page.
+  /// Last row is newer kept with next.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="rowLimit"></param>
+  /// <returns></returns>
+  public static bool TryKeepOnPage(this Table table, int rowLimit)
+  {
+    var rows = table.Elements<TableRow>().ToList();
+    var rowNumber = 0;
+    foreach (var row in rows)
+    {
+      rowNumber++;
+      row.SetKeepWithNext(rowNumber < rowLimit && rowNumber < rows.Count);
+    }
+    return rows.Count <= rowLimit + 1;
+  }
+
+  /// <summary>
+  /// Try to limit table width.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="widthLimit"></param>
+  /// <returns>true if limit was set, false if the current table width is less then limit</returns>
+  public static bool LimitWidth(this Table table, ulong widthLimit)
+  {
+    var tableGrid = table.GetTableGrid();
+    var gridColumns = tableGrid.Elements<GridColumn>().ToList();
+    ulong totalWidth = 0;
+    foreach (var gridColumn in gridColumns)
+    {
+      var width = gridColumn.GetWidth();
+      if (width != null)
+        totalWidth += (uint)width;
+      else
+        return false;
+    }
+
+    var tableProperties = table.GetTableProperties();
+    var tableIndent = tableProperties.TableIndentation;
+    if (tableIndent?.Type?.Value == TableWidthUnitValues.Dxa)
+    {
+      var indent = tableIndent.Width!;
+      if (indent < 0)
+      {
+        tableIndent.Width = 0;
+      }
+    }
+    if (tableProperties.TableCellMarginDefault!=null)
+      Debug.Assert(true);
+    var tableLeftMargin = tableProperties.TableCellMarginDefault?.TableCellLeftMargin;
+    if (tableLeftMargin?.Type?.Value == TableWidthValues.Dxa)
+    {
+      var margin = tableLeftMargin.GetValue();
+      if (margin != null)
+      {
+        totalWidth -= (ulong)margin;
+      }
+    }
+    var tableRightMargin = tableProperties.TableCellMarginDefault?.TableCellRightMargin;
+    if (tableRightMargin?.Type?.Value == TableWidthValues.Dxa)
+    {
+      var margin = tableRightMargin.GetValue();
+      if (margin != null)
+      {
+        totalWidth -= (ulong)margin;
+      }
+    }
+
+    if (totalWidth <= widthLimit)
+      return false;
+
+    var ratio = (double)widthLimit / totalWidth;
+    totalWidth = (ulong)(ratio* totalWidth);
+    tableProperties.TableWidth = new TableWidth{ Width = totalWidth.ToString(), Type = TableWidthUnitValues.Dxa};
+    foreach (var column in gridColumns)
+    {
+      var width = column.GetWidth();
+      if (width != null)
+        column.SetWidth((int)((int)width * ratio));
+    }
+    return true;
+  }
+
+
+  /// <summary>
+  /// Get the section properties of the table.
+  /// </summary>
+  /// <returns></returns>
+  public static DXW.SectionProperties? GetSectionProperties(this Table table)
+  {
+    var parent = table.Parent;
+    DX.OpenXmlElement? element = table;
+    while (parent != null && parent is not DXW.Body)
+    {
+      element = parent;
+      parent = element.Parent;
+    }
+    if (parent is DXW.Body && element is DXW.Table topTable)
+    {
+      element = topTable.NextSibling<DXW.Paragraph>();
+    }
+    if (parent is DXW.Body && element is DXW.Paragraph topParagraph)
+    {
+      return topParagraph.GetSectionProperties();
+    }
+    return null;
+  }
 }

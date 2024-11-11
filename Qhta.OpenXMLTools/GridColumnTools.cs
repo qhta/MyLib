@@ -7,7 +7,6 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class GridColumnTools
 {
-
   /// <summary>
   /// Gets the width of the table grid column (in twips).
   /// </summary>
