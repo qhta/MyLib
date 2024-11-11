@@ -175,39 +175,42 @@ public static class TableTools
     var tableIndent = tableProperties.TableIndentation;
     if (tableIndent?.Type?.Value == TableWidthUnitValues.Dxa)
     {
-      var indent = tableIndent.Width!;
+      var indent = (int?)tableIndent.Width!;
       if (indent < 0)
       {
         tableIndent.Width = 0;
       }
-    }
-    if (tableProperties.TableCellMarginDefault!=null)
-      Debug.Assert(true);
-    var tableLeftMargin = tableProperties.TableCellMarginDefault?.TableCellLeftMargin;
-    if (tableLeftMargin?.Type?.Value == TableWidthValues.Dxa)
-    {
-      var margin = tableLeftMargin.GetValue();
-      if (margin != null)
+      else if (indent > 0)
       {
-        totalWidth -= (ulong)margin;
+        widthLimit -= (ulong)indent;
       }
     }
-    var tableRightMargin = tableProperties.TableCellMarginDefault?.TableCellRightMargin;
-    if (tableRightMargin?.Type?.Value == TableWidthValues.Dxa)
-    {
-      var margin = tableRightMargin.GetValue();
-      if (margin != null)
-      {
-        totalWidth -= (ulong)margin;
-      }
-    }
+
+    //var tableLeftMargin = tableProperties.TableCellMarginDefault?.TableCellLeftMargin;
+    //if (tableLeftMargin?.Type?.Value == TableWidthValues.Dxa)
+    //{
+    //  var margin = tableLeftMargin.GetValue();
+    //  if (margin != null)
+    //  {
+    //    widthLimit -= (ulong)margin;
+    //  }
+    //}
+    //var tableRightMargin = tableProperties.TableCellMarginDefault?.TableCellRightMargin;
+    //if (tableRightMargin?.Type?.Value == TableWidthValues.Dxa)
+    //{
+    //  var margin = tableRightMargin.GetValue();
+    //  if (margin != null)
+    //  {
+    //    widthLimit -= (ulong)margin;
+    //  }
+    //}
 
     if (totalWidth <= widthLimit)
       return false;
 
     var ratio = (double)widthLimit / totalWidth;
-    totalWidth = (ulong)(ratio* totalWidth);
-    tableProperties.TableWidth = new TableWidth{ Width = totalWidth.ToString(), Type = TableWidthUnitValues.Dxa};
+    //totalWidth = (ulong)(ratio* totalWidth);
+    tableProperties.TableWidth = new TableWidth{ Width = widthLimit.ToString(), Type = TableWidthUnitValues.Dxa};
     foreach (var column in gridColumns)
     {
       var width = column.GetWidth();
@@ -217,6 +220,21 @@ public static class TableTools
     return true;
   }
 
+
+  /// <summary>
+  /// Set the height of all rows in the table to auto.
+  /// </summary>
+  /// <param name="table"></param>
+  public static int ClearRowsHeight(this DXW.Table table)
+  {
+    int count = 0;
+    foreach (var row in table.Elements<DXW.TableRow>())
+    {
+      row.GetTableRowProperties().SetTableRowHeight(0, DXW.HeightRuleValues.Auto);
+      count++;
+    }
+    return count;
+  }
 
   /// <summary>
   /// Get the section properties of the table.

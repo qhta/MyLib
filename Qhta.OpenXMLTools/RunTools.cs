@@ -475,6 +475,7 @@ public static class RunTools
         {
           runText.Text = trimmedText;
           done = true;
+          break;
         }
         else
         {

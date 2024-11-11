@@ -538,6 +538,7 @@ public partial class DocumentCleaner
     var body = wordDoc.GetBody();
     var formatted = 0;
     var limited = 0;
+    var rowsCleared = 0;
     var tables = body.Descendants<DXW.Table>().ToList();
     foreach (var table in tables)
     {
@@ -545,11 +546,13 @@ public partial class DocumentCleaner
         formatted++;
       if (TryLimitWidth(table))
         limited++;
+      rowsCleared += SetRowsHeightAuto(table);
     }
     if (VerboseLevel > 0)
     {
       Console.WriteLine($"  {formatted} tables formatted");
       Console.WriteLine($"  {limited} tables width limited");
+      Console.WriteLine($"  {rowsCleared} rows height cleared");
     }
   }
 
@@ -586,7 +589,16 @@ public partial class DocumentCleaner
           done = true;
       }
     }
+    return done;
+  }
 
+  /// <summary>
+  /// Set the height of all rows in the table to auto.
+  /// </summary>
+  /// <param name="table"></param>
+  public int SetRowsHeightAuto(DXW.Table table)
+  {
+    var done = table.ClearRowsHeight();
     return done;
   }
 }

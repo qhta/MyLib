@@ -73,18 +73,32 @@ public static class TableCellTools
     }
     return cellProperties;
   }
-
+  
   /// <summary>
-  /// Sets the keep with next property for last paragraph in the cell.
+  /// Sets the keep with next property for the last property in the cell.
   /// </summary>
   /// <param name="cell"></param>
   /// <param name="value"></param>
   public static void SetKeepWithNext(this DXW.TableCell cell, bool value)
   {
-    var paragraph = cell.Elements<DXW.Paragraph>().LastOrDefault();
-    if (paragraph != null)
+    var lastParagraph = cell.Elements<DXW.Paragraph>().LastOrDefault();
+    if (lastParagraph!=null)
     {
-      paragraph.GetParagraphProperties().SetKeepNext(value);
+      lastParagraph.GetParagraphProperties().SetKeepNext(value);
     }
+  }
+
+  /// <summary>
+  /// Determines if the cell contains a long text or non text elements.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static bool IsLong(this DXW.TableCell cell)
+  {
+    var members = cell.MemberElements().ToList();
+    var isLong = members.Any(e => e is not DXW.Paragraph)
+                 || members.Count(e => e is DXW.Paragraph) > 1
+                 || members.Any(p => p.GetText()?.Length > 500);
+    return isLong;
   }
 }

@@ -577,6 +577,12 @@
             </summary>
             <param name="table"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SetRowsHeightAuto(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Set the height of all rows in the table to auto.
+            </summary>
+            <param name="table"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.DocumentFormatter">
             <summary>
             A composite tool for formatting a Wordprocessing document.
@@ -8883,10 +8889,17 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.SetKeepWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Boolean)">
             <summary>
-            Sets the keep with next property for last paragraph in the cell.
+            Sets the keep with next property for the last property in the cell.
             </summary>
             <param name="cell"></param>
             <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.IsLong(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Determines if the cell contains a long text or non text elements.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TablePropertiesTools">
             <summary>
@@ -8900,6 +8913,42 @@
             <param name="tableProperties"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TableRowPropertiesTools">
+            <summary>
+            Tools for working with table row properties in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.GetTableRowHeight(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties)">
+            <summary>
+            Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, a new one is created.
+            </summary>
+            <param name="tableRowProperties">Table row properties to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.SetTableRowHeight(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties,System.Nullable{System.Int32},DocumentFormat.OpenXml.Wordprocessing.HeightRuleValues)">
+            <summary>
+            Sets the row height.
+            </summary>
+            <param name="tableRowProperties">Table row properties to set</param>
+            <param name="value">value to set</param>
+            <param name="rule">rule to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.GetCanSplit(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties)">
+            <summary>
+            Get <c>CanSplit</c> boolean attribute value
+            </summary>
+            <param name="tableRowProperties">Table row properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.SetCanSplit(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties,System.Boolean)">
+            <summary>
+            Set <c>CanSplit</c> boolean attribute value
+            </summary>
+            <param name="tableRowProperties">Table row properties to process</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TableRowTools">
             <summary>
             Tools for working with table rows in OpenXml documents.
@@ -8909,8 +8958,15 @@
             <summary>
             Sets the keep with next property for all cells in the row.
             </summary>
-            <param name="row"></param>
-            <param name="value"></param>
+            <param name="row">Table row to set</param>
+            <param name="value">value to set</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.GetTableRowProperties(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Get the <c>TableRowProperties</c> element of the row. If it does not exist, it will be created.
+            </summary>
+            <param name="row">Table row to examine</param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TableTools">
             <summary>
@@ -8973,6 +9029,12 @@
             <param name="table"></param>
             <param name="widthLimit"></param>
             <returns>true if limit was set, false if the current table width is less then limit</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.ClearRowsHeight(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Set the height of all rows in the table to auto.
+            </summary>
+            <param name="table"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>

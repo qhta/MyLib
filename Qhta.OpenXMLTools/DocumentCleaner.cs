@@ -49,16 +49,16 @@ public partial class DocumentCleaner
     if (VerboseLevel > 0)
       Console.WriteLine("\nRemoving proofing errors");
     var body = wordDoc.GetBody();
-    var count = body.TrimParagraphs();
+    var count = body.RemoveProofErrors();
     var headers = wordDoc.GetHeaders().ToList();
     foreach (var header in headers)
     {
-      count += header.TrimParagraphs();
+      count += header.RemoveProofErrors();
     }
     var footers = wordDoc.GetFooters().ToList();
     foreach (var footer in wordDoc.GetFooters())
     {
-      count += footer.TrimParagraphs();
+      count += footer.RemoveProofErrors();
     }
     if (VerboseLevel > 0)
       Console.WriteLine($" {count} error tags removed.");
@@ -450,7 +450,7 @@ public partial class DocumentCleaner
       if (text.Contains("Target=\"http://www.ecma-international.org/\""))
         Debug.Assert((true));
 
-      if (text[indent] != '<')
+      if (indent<text.Length && text[indent] != '<')
       { // if the paragraph does not start with an XML tag, append its content to the previous paragraph.
         var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
         if (priorParagraph != null && priorParagraph.GetText().Trim().StartsWith("<"))

@@ -283,7 +283,9 @@ public static class ParagraphTools
       }
       else if (lastElement is DXW.Hyperlink hyperlink)
       {
-        if (!hyperlink.TrimEnd())
+        if (hyperlink.TrimEnd())
+          done = true;
+        else
           break;
       }
       lastElement = previousElement;
