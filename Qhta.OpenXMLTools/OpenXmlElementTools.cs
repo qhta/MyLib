@@ -106,9 +106,16 @@ public static class OpenXmlElementTools
       result = paragraph.IsEmpty();
     else if (element is DXW.Hyperlink hyperlink)
       result = hyperlink.IsEmpty();
+    else if (element is DXW.Table table)
+      result = table.IsEmpty();
     else
-      result = element.ChildElements.Count == 0 && !element.HasAttributes;
-
+    {
+      if (element is DX.OpenXmlCompositeElement compositeElement)
+        return !(compositeElement.MemberElements().Any(e=>!e.IsEmpty()));
+      else if (element is DX.OpenXmlLeafTextElement textElement)
+        return string.IsNullOrEmpty(textElement.Text);
+      return !element.HasAttributes;
+    }
     return result;
   }
 

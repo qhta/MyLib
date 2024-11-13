@@ -7,6 +7,7 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public partial class DocumentCleaner
 {
+
   /// <summary>
   /// Find multi-column rows in tables and make them internal tables.
   /// </summary>
@@ -173,6 +174,21 @@ public partial class DocumentCleaner
     if (!afterTableParaAdded)
       mergeCell.AppendChild(new DXW.Paragraph());
     return true;
+  }
+
+  /// <summary>
+  /// Find tables that have invalid columns and fix them.
+  /// Such tables have rows filled with empty cells.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void FixTablesWithInvalidColumns(DXPack.WordprocessingDocument wordDoc)
+  {
+    if (VerboseLevel > 0)
+      Console.WriteLine("\nFixing tables with invalid columns");
+    var body = wordDoc.GetBody();
+    var count = body.FixTablesWithInvalidColumns();
+    if (VerboseLevel > 0)
+      Console.WriteLine($"  {count} tables fixed");
   }
 
   /// <summary>

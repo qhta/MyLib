@@ -1,6 +1,10 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using System;
+
+using DocumentFormat.OpenXml.Drawing.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;
+using Qhta.TypeUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -134,7 +138,7 @@ public static class TableTools
   /// <summary>
   /// Try to keep the table on the same page.
   /// It is done by setting the first rows to be kept with next on the same page.
-  /// Last row is newer kept with next.
+  /// Last row is never kept with next.
   /// </summary>
   /// <param name="table"></param>
   /// <param name="rowLimit"></param>
@@ -143,12 +147,15 @@ public static class TableTools
   {
     var rows = table.Elements<TableRow>().ToList();
     var rowNumber = 0;
+    var keepAll = rows.Count <= rowLimit;
+    if (keepAll)
+      rowLimit = rows.Count - 1;
     foreach (var row in rows)
     {
       rowNumber++;
-      row.SetKeepWithNext(rowNumber < rowLimit && rowNumber < rows.Count);
+      row.SetKeepWithNext(rowNumber <= rowLimit);
     }
-    return rows.Count <= rowLimit + 1;
+    return true;
   }
 
   /// <summary>
@@ -186,40 +193,47 @@ public static class TableTools
       }
     }
 
-    //var tableLeftMargin = tableProperties.TableCellMarginDefault?.TableCellLeftMargin;
-    //if (tableLeftMargin?.Type?.Value == TableWidthValues.Dxa)
-    //{
-    //  var margin = tableLeftMargin.GetValue();
-    //  if (margin != null)
-    //  {
-    //    widthLimit -= (ulong)margin;
-    //  }
-    //}
-    //var tableRightMargin = tableProperties.TableCellMarginDefault?.TableCellRightMargin;
-    //if (tableRightMargin?.Type?.Value == TableWidthValues.Dxa)
-    //{
-    //  var margin = tableRightMargin.GetValue();
-    //  if (margin != null)
-    //  {
-    //    widthLimit -= (ulong)margin;
-    //  }
-    //}
-
     if (totalWidth <= widthLimit)
       return false;
 
     var ratio = (double)widthLimit / totalWidth;
-    //totalWidth = (ulong)(ratio* totalWidth);
-    tableProperties.TableWidth = new TableWidth{ Width = widthLimit.ToString(), Type = TableWidthUnitValues.Dxa};
+    tableProperties.TableWidth = new TableWidth { Width = widthLimit.ToString(), Type = TableWidthUnitValues.Dxa };
+    int columIndex = 0;
+    var newColumnWidths = new List<int>();
     foreach (var column in gridColumns)
     {
       var width = column.GetWidth();
       if (width != null)
-        column.SetWidth((int)((int)width * ratio));
+      {
+        var newWidth = (int)(ratio * (uint)width);
+        newColumnWidths.Add(newWidth);
+        column.SetWidth(newWidth);
+        table.SetColumnCellsWidth(columIndex, newWidth);
+        columIndex++;
+      }
     }
+    Debug.WriteLine(String.Join("; ", newColumnWidths.Select(item => item.ToString())));
     return true;
   }
 
+  /// <summary>
+  /// Set the width of all cells in the column.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="columnIndex"></param>
+  /// <param name="width"></param>
+  public static void SetColumnCellsWidth(this DXW.Table table, int columnIndex, int width)
+  {
+    var rows = table.Elements<TableRow>().ToList();
+    foreach (var row in rows)
+    {
+      var cell = row.GetCell(columnIndex);
+      if (cell != null)
+      {
+        cell.SetWidth(width);
+      }
+    }
+  }
 
   /// <summary>
   /// Set the height of all rows in the table to auto.
@@ -259,4 +273,141 @@ public static class TableTools
     }
     return null;
   }
+
+  /// <summary>
+  /// Check if the table has invalid columns and fix them.
+  /// Only tables which have borders are considered.
+  /// Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
+  /// If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
+  /// If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
+  /// If it is possible, we merge these cells and remove the higher column in a table grid.
+  /// The lower column width is increased by the width of the higher column.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static bool TryFixInvalidColumns(this DXW.Table table)
+  {
+    var done = false;
+    var columns = table.GetTableGrid().Elements<GridColumn>().ToList();
+    var columnsCount = columns.Count();
+    var columnUsage = new List<int>(new int[columnsCount]);
+    var rows = table.Elements<DXW.TableRow>().ToList();
+    foreach (var row in rows)
+    {
+      var filledCellsCount = 0;
+      for (int columnNdx = 0; columnNdx < columnsCount; columnNdx++)
+      {
+        var cell = row.GetCell(columnNdx);
+        if (cell != null && !cell.IsEmpty())
+        {
+          filledCellsCount++;
+          columnUsage[columnNdx]++;
+        }
+
+      }
+      if (filledCellsCount == columnsCount)
+      {
+        return false;
+      }
+    }
+    for (int columnNdx = 0; columnNdx < columnUsage.Count; columnNdx++)
+    {
+      if (columnUsage[columnNdx] == 0)
+      {
+        foreach (var row in rows)
+        {
+          // Remove column from row
+          var cell = row.GetCell(columnNdx);
+          if (cell != null)
+          {
+            cell.Remove();
+          }
+          else
+          {
+            cell = row.GetMergedCell(columnNdx);
+            if (cell != null)
+            {
+              cell.SetGridSpan(cell.GetGridSpan() - 1);
+            }
+          }
+        }
+        var column = table.GetTableGrid().Elements<DXW.GridColumn>().ElementAt(columnNdx);
+        column.Remove();
+        columnsCount--;
+        columnUsage.RemoveAt(columnNdx);
+        columnNdx--;
+        done = true;
+      }
+      else if (columnUsage[columnNdx] < rows.Count)
+      {
+        for (int rowNdx = 0; rowNdx < rows.Count; rowNdx++)
+        {
+          var row = rows[rowNdx];
+          row.JoinsCellWithNext(columnNdx);
+        }
+        var column1 = columns[columnNdx];
+        if (columnNdx < columns.Count-1)
+        {
+          var column2 = columns[columnNdx + 1];
+          column1.SetWidth(column1.GetWidth() + column2.GetWidth());
+          if (column2.Parent!=null)
+            column2.Remove();
+          columnsCount--;
+          columnUsage.RemoveAt(columnNdx);
+          columnNdx--;
+        }
+        done = true;
+      }
+    }
+    return done;
+  }
+
+/// <summary>
+/// Checks if the paragraph is empty.
+/// </summary>
+/// <param name="element"></param>
+/// <returns></returns>
+public static bool IsEmpty(this DXW.Table? element)
+{
+  if (element == null)
+    return true;
+  foreach (var row in element.Elements<TableRow>())
+  {
+    if (!row.IsEmpty())
+      return false;
+  }
+  return true;
+}
+
+/// <summary>
+/// Get the left margin of TableCellMarginDefault.LeftMargin.
+/// </summary>
+/// <param name="table"></param>
+/// <returns></returns>
+public static int GetLeftMargin(this DXW.Table table)
+{
+  var tableProperties = table.GetTableProperties();
+  var tableCellMarginDefault = tableProperties.TableCellMarginDefault;
+  if (tableCellMarginDefault?.TableCellLeftMargin?.Type?.Value == TableWidthValues.Dxa)
+  {
+    return (int?)tableCellMarginDefault?.TableCellLeftMargin?.Width?.Value ?? 0;
+  }
+  return 0;
+}
+
+/// <summary>
+/// Get the right margin of TableCellMarginDefault.LeftMargin.
+/// </summary>
+/// <param name="table"></param>
+/// <returns></returns>
+public static int GetRightMargin(this DXW.Table table)
+{
+  var tableProperties = table.GetTableProperties();
+  var tableCellMarginDefault = tableProperties.TableCellMarginDefault;
+  if (tableCellMarginDefault?.TableCellRightMargin?.Type?.Value == TableWidthValues.Dxa)
+  {
+    return (int?)tableCellMarginDefault?.TableCellRightMargin?.Width?.Value ?? 0;
+  }
+  return 0;
+}
 }

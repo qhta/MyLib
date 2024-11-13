@@ -470,6 +470,13 @@
             </summary>
             <param name="table"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Find tables that have invalid columns and fix them.
+            Such tables have rows filled with empty cells.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Joins adjacent tables that have the same number of columns.
@@ -2258,6 +2265,14 @@
             </summary>
             <param name="element">Processed element</param>
             <returns>number of joins</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find tables that have invalid columns and fix them.
+            Such tables have rows filled with empty cells.
+            </summary>
+            <param name="element">Processed element</param>
+            <returns>number of tables fixed</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.JoinAdjacentTables(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
@@ -8853,12 +8868,17 @@
             Tools for working with table cell properties in OpenXml documents.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableCellPropertiesTools.GetBorders(DocumentFormat.OpenXml.Wordprocessing.TableCellProperties)">
+        <member name="M:Qhta.OpenXmlTools.TableCellPropertiesTools.GetTableCellBorders(DocumentFormat.OpenXml.Wordprocessing.TableCellProperties)">
             <summary>
             Gets the cell borders. If the cell properties do not contain a <c>TableCellBorders</c> element, a new one is created.
             </summary>
             <param name="cellProperties"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.WhichParagraphs">
+            <summary>
+            Options for selecting paragraphs in a cell.
+            </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.TableCellTools">
             <summary>
@@ -8887,18 +8907,84 @@
             <param name="cell"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetKeepWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetKeepWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Boolean,Qhta.OpenXmlTools.WhichParagraphs)">
             <summary>
-            Sets the keep with next property for the last property in the cell.
+            Sets the keep with next property for the paragraphs in the cell.
             </summary>
             <param name="cell"></param>
-            <param name="value"></param>
+            <param name="value">value to set</param>
+            <param name="mode">specifies which paragraphs to set</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.IsLong(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
             <summary>
             Determines if the cell contains a long text or non text elements.
             </summary>
             <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Returns the width of the cell.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Nullable{System.Int32})">
+            <summary>
+            Sets the width of the cell.
+            If value is null, the width element is removed.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetGridSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Returns the number of columns merged in the cell.
+            If the cell is not spanned, the returned value is 1.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetGridSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Int32)">
+            <summary>
+            Sets the number of columns merged in the cell.
+            if value is 1 or less, the grid span element is removed.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetLeftBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Returns the left border of the cell.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetLeftBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.BorderType)">
+            <summary>
+            Sets the left border of the cell.
+            If set value has a parent, its clone is used.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetRightBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Returns the right border of the cell.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetRightBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.BorderType)">
+            <summary>
+            Sets the right border of the cell.
+            If set value has a parent, its clone is used.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TablePropertiesTools">
@@ -8934,16 +9020,16 @@
             <param name="rule">rule to set</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.GetCanSplit(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties)">
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.GetCantSplit(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties)">
             <summary>
-            Get <c>CanSplit</c> boolean attribute value
+            Get <c>CantSplit</c> boolean attribute value
             </summary>
             <param name="tableRowProperties">Table row properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.SetCanSplit(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties,System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.SetCantSplit(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties,System.Boolean)">
             <summary>
-            Set <c>CanSplit</c> boolean attribute value
+            Set <c>CantSplit</c> boolean attribute value
             </summary>
             <param name="tableRowProperties">Table row properties to process</param>
             <param name="value">attribute value</param>
@@ -8966,6 +9052,39 @@
             Get the <c>TableRowProperties</c> element of the row. If it does not exist, it will be created.
             </summary>
             <param name="row">Table row to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Checks if the paragraph is empty.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.GetCell(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32)">
+            <summary>
+            Get row cell by column index. If the cell in this columnIndex is merged, the null is returned.
+            Also, if the column index is out of range, the null is returned.
+            </summary>
+            <param name="row"></param>
+            <param name="columnIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.GetMergedCell(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32)">
+            <summary>
+            Get row cell by column index. If the cell in this columnIndex is merged, the first cell in merge is returned.
+            If the column index is out of range, the null is returned.
+            </summary>
+            <param name="row"></param>
+            <param name="columnIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.JoinsCellWithNext(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32)">
+            <summary>
+            Join the cell in a row with the next cell.
+            </summary>
+            <param name="row"></param>
+            <param name="columnIndex"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TableTools">
@@ -9016,7 +9135,7 @@
             <summary>
             Try to keep the table on the same page.
             It is done by setting the first rows to be kept with next on the same page.
-            Last row is newer kept with next.
+            Last row is never kept with next.
             </summary>
             <param name="table"></param>
             <param name="rowLimit"></param>
@@ -9030,6 +9149,14 @@
             <param name="widthLimit"></param>
             <returns>true if limit was set, false if the current table width is less then limit</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetColumnCellsWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32,System.Int32)">
+            <summary>
+            Set the width of all cells in the column.
+            </summary>
+            <param name="table"></param>
+            <param name="columnIndex"></param>
+            <param name="width"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.ClearRowsHeight(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Set the height of all rows in the table to auto.
@@ -9040,6 +9167,40 @@
             <summary>
             Get the section properties of the table.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.TryFixInvalidColumns(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Check if the table has invalid columns and fix them.
+            Only tables which have borders are considered.
+            Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
+            If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
+            If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
+            If it is possible, we merge these cells and remove the higher column in a table grid.
+            The lower column width is increased by the width of the higher column.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Checks if the paragraph is empty.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetLeftMargin(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Get the left margin of TableCellMarginDefault.LeftMargin.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetRightMargin(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Get the right margin of TableCellMarginDefault.LeftMargin.
+            </summary>
+            <param name="table"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.TableWidthDxaNilTypeTools">

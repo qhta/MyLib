@@ -12,7 +12,7 @@ public static class TableCellPropertiesTools
   /// </summary>
   /// <param name="cellProperties"></param>
   /// <returns></returns>
-  public static TableCellBorders GetBorders(this TableCellProperties cellProperties)
+  public static TableCellBorders GetTableCellBorders(this TableCellProperties cellProperties)
   {
     var borders = cellProperties.TableCellBorders;
     if (borders == null)

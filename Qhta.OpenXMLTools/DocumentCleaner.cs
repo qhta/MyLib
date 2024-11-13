@@ -32,6 +32,7 @@ public partial class DocumentCleaner
     ReplaceSymbolEncoding(wordDoc);
     RepairBulletContainingParagraph(wordDoc);
     FixInternalTables(wordDoc);
+    FixTablesWithInvalidColumns(wordDoc);
     JoinAdjacentTables(wordDoc);
     FixDividedTables(wordDoc);
     JoinAdjacentRuns(wordDoc);

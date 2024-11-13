@@ -39,46 +39,38 @@ public static class TableRowPropertiesTools
   }
 
   /// <summary>
-  /// Get <c>CanSplit</c> boolean attribute value
+  /// Get <c>CantSplit</c> boolean attribute value
   /// </summary>
   /// <param name="tableRowProperties">Table row properties to process</param>
   /// <returns></returns>
-  public static bool GetCanSplit(this DXW.TableRowProperties tableRowProperties)
+  public static bool GetCantSplit(this DXW.TableRowProperties tableRowProperties)
   {
     var canSplit = tableRowProperties.Elements<DXW.CantSplit>().FirstOrDefault();
     if (canSplit == null)
-    {
       return false;
-    }
-    if (canSplit.Val?.Value == OnOffOnlyValues.Off)
-      return false;
-    return true;       ;
+    return true; ;
   }
 
   /// <summary>
-  /// Set <c>CanSplit</c> boolean attribute value
+  /// Set <c>CantSplit</c> boolean attribute value
   /// </summary>
   /// <param name="tableRowProperties">Table row properties to process</param>
   /// <param name="value">attribute value</param>
   /// <returns></returns>
-  public static void SetCanSplit(this DXW.TableRowProperties tableRowProperties, bool value)
+  public static void SetCantSplit(this DXW.TableRowProperties tableRowProperties, bool value)
   {
-    var canSplit = tableRowProperties.Elements<DXW.CantSplit>().FirstOrDefault();
-    if (canSplit!=null)
+    var cantSplit = tableRowProperties.Elements<DXW.CantSplit>().FirstOrDefault();
+    if (cantSplit != null)
     {
       if (value)
-        canSplit.Val = OnOffOnlyValues.On;
+        cantSplit.Val = null;
       else
-        canSplit.Val = OnOffOnlyValues.Off;
+        cantSplit.Remove();
     }
     else
     {
-      canSplit = new DXW.CantSplit();
       if (value)
-        canSplit.Val = OnOffOnlyValues.On;
-      else
-        canSplit.Val = OnOffOnlyValues.Off;
-      tableRowProperties.Append(canSplit);
+        tableRowProperties.Append(new DXW.CantSplit());
     }
   }
 }

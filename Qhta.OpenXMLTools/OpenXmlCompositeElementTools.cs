@@ -129,6 +129,26 @@ public static class OpenXmlCompositeElementTools
   }
 
   /// <summary>
+  /// Find tables that have invalid columns and fix them.
+  /// Such tables have rows filled with empty cells.
+  /// </summary>
+  /// <param name="element">Processed element</param>
+  /// <returns>number of tables fixed</returns>
+  public static int FixTablesWithInvalidColumns(this DX.OpenXmlCompositeElement element)
+  {
+    var count = 0;
+    var tables = element.Descendants<DXW.Table>().ToList();
+    for (int i = 0; i < tables.Count; i++)
+    {
+      var table = tables[i];
+
+      if (table.TryFixInvalidColumns())
+        count++;
+    }
+    return count;
+  }
+
+  /// <summary>
   /// Joins adjacent tables that have the same number of columns.
   /// </summary>
   /// <param name="element">Processed element</param>
