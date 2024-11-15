@@ -1,9 +1,44 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXmlTools</name>
+        <name>Qhta.OpenXMLTools</name>
     </assembly>
     <members>
+        <member name="T:Qhta.OpenXmlTools.AbstractNumTools">
+            <summary>
+            A collection of tools for working with AbstractNum elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AbstractNumTools.GetAbstractNumId(DocumentFormat.OpenXml.Wordprocessing.AbstractNum)">
+            <summary>
+            Get the abstract number ID of the abstract number.
+            </summary>
+            <param name="abstractNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AbstractNumTools.SetAbstractNumId(DocumentFormat.OpenXml.Wordprocessing.AbstractNum,System.Nullable{System.Int32})">
+            <summary>
+            Set the abstract number ID of the abstract number.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="abstractNum"></param>
+            <param name="abstractNumId"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AbstractNumTools.GetMultiLevelType(DocumentFormat.OpenXml.Wordprocessing.AbstractNum)">
+            <summary>
+            Get the multi-level type of the abstract number.
+            </summary>
+            <param name="abstractNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AbstractNumTools.SetMultiLevelType(DocumentFormat.OpenXml.Wordprocessing.AbstractNum,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.MultiLevelValues})">
+            <summary>
+            Set the multi-level type of the abstract number.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="abstractNum"></param>
+            <param name="multiLevelType"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.BodyTools">
             <summary>
             Extension methods for the Body class.
@@ -427,12 +462,6 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairBulletContainingParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairXmlExamples(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Find paragraphs that have the font of XML examples and track XML start and end tags.
@@ -457,6 +486,12 @@
             </summary>
             <param name="paragraph"></param>
             <param name="indent"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairBulletContainingParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
+            </summary>
+            <param name="wordDoc"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixInternalTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -573,6 +608,12 @@
             <param name="wordDoc"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFormatTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Keep short tables on the same page.
+            </summary>
+            <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryLimitLeftIndent(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Keep short tables on the same page.
             </summary>
@@ -1969,6 +2010,297 @@
             <param name="properties"></param>
             <param name="value"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.NumberingExtraTools">
+            <summary>
+            Tools for working with OpenXml Wordprocessing Numbering elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingString(System.String)">
+            <summary>
+            Gets the numbering string from a string.
+            Numbering string is the first sequence of digits, periods or letters ended with a space or tab.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
+            <summary>
+            Get the numbering string of the paragraph.
+            If the paragraph is numbered, the string is taken from the numbering list.
+            If the paragraph is not numbered, the string is taken from the paragraph text.
+            First sequence of digits, periods or letters is returned.
+            Only single periods and single letters are allowed.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingList(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering list of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingInstance(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering instance of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetAbstractNum(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Get the abstract numbering of the numbering instance
+            </summary>
+            <param name="numInstance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering instance id of the paragraph.
+            </summary>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer numbering instance id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the abstract numbering definition id of the paragraph.
+            </summary>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer abstract numbering id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingDefinitions(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Get the numbering element from the word document's numbering definition part.
+            If the numbering definition part is not found, it is created.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetBulletedNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Char,System.Int32)">
+            <summary>
+            Get numbering instance which is assigned to abstract numbering level with bullet.
+            If there is no such numbering instance, it is created.
+            </summary>
+            <param name="document"></param>
+            <param name="bullet">symbol to compare with numbering text</param>
+            <param name="level">minimal level that is checked</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetAbstractNumId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
+            <summary>
+            Get the abstract numbering definition id of the numbering instance id.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the numbering instance belongs.</param>
+            <param name="numId">Numbering instance id</param>
+            <returns>Integer abstract numbering id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetAbstractNum(DocumentFormat.OpenXml.Wordprocessing.Numbering,System.Int32)">
+            <summary>
+            Get the abstract numbering definition with an id.
+            </summary>
+            <param name="numbering">Numbering element to which the abstract numbering belongs.</param>
+            <param name="numId">Numbering instance id</param>
+            <returns>Integer abstract numbering id or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering level of the paragraph.
+            </summary>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer numbering level (from 0 to 9) or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the numbering properties of the paragraph or of the paragraph style.
+            </summary>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Numbering properties or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.SetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+            <summary>
+            Get the numbering properties of the paragraph or of the paragraph style.
+            </summary>
+            <param name="paragraph">Source paragraph element</param>
+            <param name="numPr">Numbering properties or null</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+            <summary>
+            Get the numbering level of the numbering properties.
+            </summary>
+            <param name="numPr">Numbering properties element</param>
+            <returns>Integer numbering level (from 0 to 8) or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingLevelDef(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
+            <summary>
+            Get the numbering level definition of the abstract numbering id and the level index.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document</param>
+            <param name="abstractNumId">Abstract numbering definition id</param>
+            <param name="levelNdx">level index</param>
+            <returns>Level definition or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetLevelIndex(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Get the numbering level definition of the level definition.
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.SetLevelIndex(DocumentFormat.OpenXml.Wordprocessing.Level,System.Nullable{System.Int32})">
+            <summary>
+            Set the numbering level definition of the level definition.
+            </summary>
+            <param name="level"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetOutlineLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+             Get the outline level of the paragraph.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
+            <param name="paragraph">Source paragraph element</param>
+            <returns>Integer outline level (from 0 to 8) or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetListType(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
+            <summary>
+            Get the list type of the abstract numbering id.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
+            <param name="abstractNumId">id of the abstract numbering</param>
+            <returns><see cref="T:DocumentFormat.OpenXml.Wordprocessing.NumberFormatValues"/> enum value or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetListText(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
+            <summary>
+            Get the list text of the abstract numbering id and the level index.
+            </summary>
+            <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
+            <param name="abstractNumId">id of the abstract numbering</param>
+            <param name="levelNdx">level index</param>
+            <returns>Level text or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.JoinSingleLevelsHybridMultiLevel(DocumentFormat.OpenXml.Wordprocessing.Level[])">
+            <summary>
+            Create a new hybrid multilevel abstract numbering definition from an array a single level abstract numbering definition.
+            </summary>
+            <param name="levels">Array of source levels. Should be single element elements</param>
+            <returns>Joined hybrid multilevel abstract numbering definition element containing source elements</returns>
+            <remarks>
+            Subsequent levels are additionally indented by the left indent of the previous level.
+            </remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsBulleted(DocumentFormat.OpenXml.Wordprocessing.AbstractNum)">
+            <summary>
+            Check if the abstract numbering definition is bulleted.
+            </summary>
+            <param name="abstractNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsBulleted(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Check if the abstract numbering level is bulleted.
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingStatistics(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Get statistics of abstract numbering used in paragraphs. If the run does not contain font information, return default properties statistic.
+            </summary>
+            <param name="element">composite element to examine</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindMostFrequentBulletedAbstractNumbering(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find and return the most frequent bulleted abstract numbering.
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingInstanceStatistics(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Nullable{System.Int32})">
+            <summary>
+            Get statistics of numbering instances used in paragraphs. If the run does not contain font information, return default properties statistic.
+            </summary>
+            <param name="element">composite element to examine</param>
+            <param name="abstractNumId">optional abstract numbering Id to filter statistics</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsNumbered(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Check if the paragraph is numbered.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindPreviousNumberedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Find the previous paragraph that is numbered.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindNextNumberedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Find the next paragraph that is numbered.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsBulleted(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Check if the paragraph is bulleted.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindPreviousBulletedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Find the previous paragraph that is bulleted.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindNextBulletedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Find the next paragraph that is numbered.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.NumberingInstanceTools">
+            <summary>
+            A collection of tools for working with NumberingInstance elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingInstanceTools.GetNumberingId(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Get the numbering ID of the numbering instance.
+            </summary>
+            <param name="numberingInstance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingInstanceTools.SetNumberingId(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance,System.Nullable{System.Int32})">
+            <summary>
+            Set the numbering ID of the numbering instance.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="numberingInstance"></param>
+            <param name="numberingId"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingInstanceTools.GetAbstractNumId(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
+            <summary>
+            Get the abstract number ID of the numbering instance.
+            </summary>
+            <param name="numberingInstance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingInstanceTools.SetAbstractNumId(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance,System.Nullable{System.Int32})">
+            <summary>
+            Set the abstract number ID of the numbering instance.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="numberingInstance"></param>
+            <param name="abstractNumId"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.NumberingList">
             <summary>
             Class to represent a collection of numbered paragraphs in OpenXml document.
@@ -2007,152 +2339,59 @@
             <returns></returns>
             <exception cref="T:System.ArgumentOutOfRangeException"></exception>
         </member>
+        <member name="T:Qhta.OpenXmlTools.NumberingPropertiesTools">
+            <summary>
+            A collection of tools for working with <c>NumberingProperties</c> element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingPropertiesTools.GetNumberingLevelReference(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+            <summary>
+            Get the numbering level reference of the numbering properties.
+            </summary>
+            <param name="numberingProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingPropertiesTools.SetNumberingLevelReference(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the numbering level reference  of the numbering properties.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="numberingProperties"></param>
+            <param name="level"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.NumberingTools">
             <summary>
-            Tools for working with OpenXml Wordprocessing Numbering elements.
+            A collection of tools for working with <c>Numbering</c> element.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingString(System.String)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNewAbstractNumId(DocumentFormat.OpenXml.Wordprocessing.Numbering)">
             <summary>
-            Gets the numbering string from a string.
-            Numbering string is the first sequence of digits, periods or letters ended with a space or tab.
+            Get the new abstract number ID unique of all the abstract numbering elements.
             </summary>
-            <param name="str"></param>
+            <param name="numbering">Element to examine</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetDefaultBulletedAbstractNumbering(DocumentFormat.OpenXml.Wordprocessing.Numbering)">
             <summary>
-            Get the numbering string of the paragraph.
-            If the paragraph is numbered, the string is taken from the numbering list.
-            If the paragraph is not numbered, the string is taken from the paragraph text.
-            First sequence of digits, periods or letters is returned.
-            Only single periods and single letters are allowed.
+            Get or create bulleted abstract numbering.
             </summary>
-            <param name="paragraph"></param>
-            <param name="options"></param>
+            <param name="numbering">Element to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingList(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNewNumberingInstanceId(DocumentFormat.OpenXml.Wordprocessing.Numbering)">
             <summary>
-            Get the numbering list of the paragraph.
+            Get the new numbering instance ID unique of all the numbering instance elements.
             </summary>
-            <param name="paragraph"></param>
+            <param name="numbering">Element to examine</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingInstance(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingInstance(DocumentFormat.OpenXml.Wordprocessing.Numbering,System.Int32)">
             <summary>
-            Get the numbering instance of the paragraph.
+            Get or create numbering instance for an abstract numbering.
             </summary>
-            <param name="paragraph"></param>
+            <param name="numbering">Element to process</param>
+            <param name="abstractNumId">Abstract numbering id</param>
             <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNum(DocumentFormat.OpenXml.Wordprocessing.NumberingInstance)">
-            <summary>
-            Get the abstract numbering of the numbering instance
-            </summary>
-            <param name="numInstance"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Get the numbering instance id of the paragraph.
-            </summary>
-            <param name="paragraph">Source paragraph element</param>
-            <returns>Integer numbering instance id or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Get the abstract numbering definition id of the paragraph.
-            </summary>
-            <param name="paragraph">Source paragraph element</param>
-            <returns>Integer abstract numbering id or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingDefinitions(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Get the numbering element from the word document's numbering definition part.
-            If the numbering definition part is not found, it is created.
-            </summary>
-            <param name="wordDocument">Source Wordprocessing document.</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetAbstractNumberingId(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
-            <summary>
-            Get the abstract numbering definition id of the numbering instance id.
-            </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the numbering instance belongs.</param>
-            <param name="numId">Numbering instance id</param>
-            <returns>Integer abstract numbering id or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Get the numbering level of the paragraph.
-            </summary>
-            <param name="paragraph">Source paragraph element</param>
-            <returns>Integer numbering level (from 0 to 9) or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Get the numbering properties of the paragraph or of the paragraph style.
-            </summary>
-            <param name="paragraph">Source paragraph element</param>
-            <returns>Numbering properties or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.SetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
-            <summary>
-            Get the numbering properties of the paragraph or of the paragraph style.
-            </summary>
-            <param name="paragraph">Source paragraph element</param>
-            <param name="numPr">Numbering properties or null</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevel(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
-            <summary>
-            Get the numbering level of the numbering properties.
-            </summary>
-            <param name="numPr">Numbering properties element</param>
-            <returns>Integer numbering level (from 0 to 8) or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetNumberingLevelDef(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
-            <summary>
-            Get the numbering level definition of the abstract numbering id and the level index.
-            </summary>
-            <param name="wordDocument">Source Wordprocessing document</param>
-            <param name="abstractNumId">Abstract numbering definition id</param>
-            <param name="levelNdx">level index</param>
-            <returns>Level definition or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetOutlineLevel(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-             Get the outline level of the paragraph.
-            </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the paragraph belongs.</param>
-            <param name="paragraph">Source paragraph element</param>
-            <returns>Integer outline level (from 0 to 8) or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetListType(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32)">
-            <summary>
-            Get the list type of the abstract numbering id.
-            </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
-            <param name="abstractNumId">id of the abstract numbering</param>
-            <returns><see cref="T:DocumentFormat.OpenXml.Wordprocessing.NumberFormatValues"/> enum value or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.GetListText(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Int32,System.Int32)">
-            <summary>
-            Get the list text of the abstract numbering id and the level index.
-            </summary>
-            <param name="wordDocument">Source Wordprocessing document to which the abstract numbering belongs.</param>
-            <param name="abstractNumId">id of the abstract numbering</param>
-            <param name="levelNdx">level index</param>
-            <returns>Level text or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingTools.JoinSingleLevelsHybridMultiLevel(DocumentFormat.OpenXml.Wordprocessing.Level[])">
-            <summary>
-            Create a new hybrid multilevel abstract numbering definition from an array a single level abstract numbering definition.
-            </summary>
-            <param name="levels">Array of source levels. Should be single element elements</param>
-            <returns>Joined hybrid multilevel abstract numbering definition element containing source elements</returns>
-            <remarks>
-            Subsequent levels are additionally indented by the left indent of the previous level.
-            </remarks>
         </member>
         <member name="T:Qhta.OpenXmlTools.ObjectStatistics">
             <summary>
@@ -3095,6 +3334,15 @@
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetFrameProperties(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,DocumentFormat.OpenXml.Wordprocessing.FrameProperties)">
+            <summary>
+            Set <c>FrameProperties</c> element.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetIndentation(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
             <summary>
             Get <c>Indentation</c> element or create a new one.
@@ -3102,11 +3350,29 @@
             <param name="paragraphProperties">Paragraph properties to process</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetJustification(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetIndentation(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,DocumentFormat.OpenXml.Wordprocessing.Indentation)">
             <summary>
-            Get <c>Justification</c> element or create a new one.
+            Set <c>Indentation</c> element.
+            If value to set is null, the element will be removed.
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">Value to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetJustification(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get <c>JustificationValues</c> enumeration attribute value.
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetJustification(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.JustificationValues})">
+            <summary>
+            Set <c>JustificationValues</c> enumeration attribute value.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="value">Value to set</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
@@ -3114,6 +3380,15 @@
             Get <c>NumberingProperties</c> element or create a new one.
             </summary>
             <param name="paragraphProperties">Paragraph properties to process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetNumbering(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set <c>NumberingProperties</c> element.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to process</param>
+            <param name="numberingInstanceId">Value to set</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetOutlineLevel(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
@@ -8999,6 +9274,13 @@
             <param name="tableProperties"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TablePropertiesTools.GetTableCellMarginDefault(DocumentFormat.OpenXml.Wordprocessing.TableProperties)">
+            <summary>
+            Get the default table cell margins of the table properties.
+            </summary>
+            <param name="tableProperties"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TableRowPropertiesTools">
             <summary>
             Tools for working with table row properties in OpenXml documents.
@@ -9079,7 +9361,7 @@
             <param name="columnIndex"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableRowTools.JoinsCellWithNext(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32)">
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.JoinCellWithNext(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32)">
             <summary>
             Join the cell in a row with the next cell.
             </summary>
@@ -9141,6 +9423,13 @@
             <param name="rowLimit"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.TryLimitLeftIndent(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Try to limit left indent to zero.
+            </summary>
+            <param name="table"></param>
+            <returns>true if indent was less than zero</returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.LimitWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.UInt64)">
             <summary>
             Try to limit table width.
@@ -9194,6 +9483,14 @@
             Get the left margin of TableCellMarginDefault.LeftMargin.
             </summary>
             <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetLeftMargin(DocumentFormat.OpenXml.Wordprocessing.Table,System.Nullable{System.Int32})">
+            <summary>
+            Set the left margin of TableCellMarginDefault.LeftMargin.
+            </summary>
+            <param name="table"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.GetRightMargin(DocumentFormat.OpenXml.Wordprocessing.Table)">
@@ -9479,6 +9776,13 @@
             Gets the properties of the OpenXml type (except for the framework properties).
             </summary>
             <param name="openXmlType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.ToEnumValue``1(``0)">
+            <summary>
+            Converts an enum value to an EnumValue.
+            </summary>
+            <param name="enumInstance"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TypeTools.IsOpenXmlEnum(System.Type)">

@@ -48,8 +48,10 @@ public class ObjectStatistics<T>: Dictionary<T, ulong>
   /// If two objects have the same count, the first one is returned.
   /// </summary>
   /// <returns></returns>
-  public T MostFrequent()
+  public T? MostFrequent()
   {
+    if (Count == 0)
+      return default;
     return this.OrderByDescending(x => x.Value).First().Key;
   }
 

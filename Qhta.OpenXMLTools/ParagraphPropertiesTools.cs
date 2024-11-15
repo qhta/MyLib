@@ -254,6 +254,25 @@ public static class ParagraphPropertiesTools
   }
 
   /// <summary>
+  /// Set <c>FrameProperties</c> element.
+  /// If value to set is null, the element will be removed.
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static void SetFrameProperties(this DXW.ParagraphProperties paragraphProperties, DXW.FrameProperties? value)
+  {
+    var frameProperties = paragraphProperties.FrameProperties;
+    if (value == null)
+    {
+      if (frameProperties != null)
+        frameProperties.Remove();
+      return;
+    }
+    paragraphProperties.FrameProperties = value;
+  }
+
+  /// <summary>
   /// Get <c>Indentation</c> element or create a new one.
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
@@ -264,13 +283,56 @@ public static class ParagraphPropertiesTools
   }
 
   /// <summary>
-  /// Get <c>Justification</c> element or create a new one.
+  /// Set <c>Indentation</c> element.
+  /// If value to set is null, the element will be removed.
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">Value to set</param>
+  /// <returns></returns>
+  public static void SetIndentation(this DXW.ParagraphProperties paragraphProperties, DXW.Indentation? value)
+  {
+    var Indentation = paragraphProperties.Indentation;
+    if (value == null)
+    {
+      if (Indentation != null)
+        Indentation.Remove();
+      return;
+    }
+    paragraphProperties.Indentation = value;
+  }
+
+  /// <summary>
+  /// Get <c>JustificationValues</c> enumeration attribute value.
   /// </summary>
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <returns></returns>
-  public static DXW.Justification GetJustification(this DXW.ParagraphProperties paragraphProperties)
+  public static DXW.JustificationValues? GetJustification(this DXW.ParagraphProperties paragraphProperties)
   {
-    return paragraphProperties.Justification ??= new Justification();
+    return paragraphProperties.Justification?.Val?.Value;
+  }
+
+  /// <summary>
+  /// Set <c>JustificationValues</c> enumeration attribute value.
+  /// If value to set is null, the element will be removed.
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="value">Value to set</param>
+  /// <returns></returns>
+  public static void GetJustification(this DXW.ParagraphProperties paragraphProperties, DXW.JustificationValues? value)
+  {
+    var justification = paragraphProperties.Justification;
+    if (value == null)
+    {
+      if (justification != null)
+        justification.Remove();
+      return;
+    }
+    if (justification == null)
+    {
+      justification = new Justification();
+      paragraphProperties.Append(justification);
+    }
+    justification.Val = value;
   }
 
   /// <summary>
@@ -281,6 +343,31 @@ public static class ParagraphPropertiesTools
   public static DXW.NumberingProperties GetNumberingProperties(this DXW.ParagraphProperties paragraphProperties)
   {
     return paragraphProperties.NumberingProperties ??= new NumberingProperties();
+  }
+
+  /// <summary>
+  /// Set <c>NumberingProperties</c> element.
+  /// If value to set is null, the element will be removed.
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to process</param>
+  /// <param name="numberingInstanceId">Value to set</param>
+  /// <returns></returns>
+  public static void SetNumbering(this DXW.ParagraphProperties paragraphProperties,int? numberingInstanceId)
+  {
+    var numberingProperties = paragraphProperties.NumberingProperties;
+    if (numberingInstanceId == null)
+    {
+      if (numberingProperties != null)
+        numberingProperties.Remove();
+      return;
+    }
+    if (numberingProperties == null)
+    {
+      numberingProperties = new NumberingProperties();
+      paragraphProperties.Append(numberingProperties);
+    }
+    int id = (int)numberingInstanceId;
+    numberingProperties.NumberingId = new NumberingId { Val = id };
   }
 
   /// <summary>

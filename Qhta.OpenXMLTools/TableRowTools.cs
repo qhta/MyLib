@@ -128,7 +128,7 @@ public static class TableRowTools
   /// <param name="row"></param>
   /// <param name="columnIndex"></param>
   /// <returns></returns>
-  public static bool JoinsCellWithNext(this DXW.TableRow row, int columnIndex)
+  public static bool JoinCellWithNext(this DXW.TableRow row, int columnIndex)
   {
     var cell1 = row.GetCell(columnIndex);
     var cell2 = row.GetCell(columnIndex + 1);

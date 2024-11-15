@@ -553,6 +553,7 @@ public partial class DocumentCleaner
       Console.WriteLine("\nFormatting tables");
     var body = wordDoc.GetBody();
     var formatted = 0;
+    var indented = 0;
     var limited = 0;
     var rowsCleared = 0;
     var tables = body.Descendants<DXW.Table>().ToList();
@@ -560,6 +561,8 @@ public partial class DocumentCleaner
     {
       if (TryFormatTable(table))
         formatted++;
+      if (TryLimitLeftIndent(table))
+        indented++;
       if (TryLimitWidth(table))
         limited++;
       rowsCleared += SetRowsHeightAuto(table);
@@ -567,6 +570,7 @@ public partial class DocumentCleaner
     if (VerboseLevel > 0)
     {
       Console.WriteLine($"  {formatted} tables formatted");
+      Console.WriteLine($"  {indented} tables negative indent set to zero");
       Console.WriteLine($"  {limited} tables width limited");
       Console.WriteLine($"  {rowsCleared} rows height cleared");
     }
@@ -582,6 +586,16 @@ public partial class DocumentCleaner
     var done = false;
     if (table.TryKeepOnPage(5))
       done = true;
+    return done;
+  }
+
+  /// <summary>
+  /// Keep short tables on the same page.
+  /// </summary>
+  /// <param name="table"></param>
+  public bool TryLimitLeftIndent(DXW.Table table)
+  {
+    bool done = table.TryLimitLeftIndent();
     return done;
   }
 

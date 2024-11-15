@@ -297,123 +297,6 @@ public partial class DocumentCleaner
 
 
 
-  /// <summary>
-  /// Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
-  /// </summary>
-  /// <param name="wordDoc"></param>
-  public void RepairBulletContainingParagraph(DXPack.WordprocessingDocument wordDoc)
-  {
-    if (VerboseLevel > 0)
-      Console.WriteLine("\nRepairing paragraphs that contain bullet");
-    var defaultParagraphProperties = GetMostFrequentNumberingParagraphProperties(wordDoc);
-    if (defaultParagraphProperties == null)
-    {
-      var abstractNumbering = wordDoc.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?
-        .Elements<DXW.AbstractNum>().FirstOrDefault(a =>
-          a.MultiLevelType?.Val?.Value == DXW.MultiLevelValues.HybridMultilevel
-          && a.Elements<DXW.Level>().FirstOrDefault(l => l.LevelText?.Val?.Value == "•") != null);
-      if (abstractNumbering != null)
-      {
-        var numbering = wordDoc.MainDocumentPart?.NumberingDefinitionsPart?.Numbering?
-          .Elements<DXW.NumberingInstance>()
-          .FirstOrDefault(n => n.AbstractNumId?.Val?.Value == abstractNumbering.AbstractNumberId?.Value);
-        if (numbering != null)
-        {
-          defaultParagraphProperties = new DXW.ParagraphProperties
-          {
-            NumberingProperties = new DXW.NumberingProperties
-            {
-              NumberingLevelReference = new DXW.NumberingLevelReference { Val = 0 },
-              NumberingId = new DXW.NumberingId { Val = numbering.NumberID }
-            }
-          };
-        }
-      }
-    }
-    int count = 0;
-    var paragraphs = wordDoc.GetBody().Descendants<DXW.Paragraph>().ToList();
-    for (int i = 0; i < paragraphs.Count; i++)
-    {
-      var paragraph = paragraphs[i];
-      var paraText = paragraph.GetText();
-      if (paraText.Contains("Video (\u00a715.2.17)"))
-        Debug.Assert(true);
-      foreach (var run in paragraph.Elements<DXW.Run>())
-      {
-        var text = run.GetText();
-        if (text.Contains("•"))
-        {
-          var textItem = run.Descendants<DXW.Text>().FirstOrDefault(t => t.Text.TrimStart().StartsWith("•"));
-          if (textItem == null)
-            continue;
-          textItem.Text = text.Replace("•", "");
-          count++;
-          var newParagraphProperties = GetNearbyNumberingParagraphProperties(paragraph)
-                                       ?? (DXW.ParagraphProperties?)defaultParagraphProperties?.CloneNode(true);
-          var prevSibling = run.PreviousSibling();
-          if (prevSibling != null && prevSibling is not DXW.ParagraphProperties && !String.IsNullOrEmpty((prevSibling as DXW.Run)?.GetText()))
-          {
-            var newParagraph = new DXW.Paragraph();
-            newParagraph.ParagraphProperties = newParagraphProperties;
-            var tailItems = new List<DX.OpenXmlElement>();
-            tailItems.Add(run);
-            var siblingItem = run.NextSibling();
-            while (siblingItem != null)
-            {
-              tailItems.Add(siblingItem);
-              siblingItem = siblingItem.NextSibling();
-            }
-            foreach (var item in tailItems)
-            {
-              item.Remove();
-              newParagraph.Append(item);
-            }
-            paragraph.TrimEnd();
-            newParagraph.TrimStart();
-            newParagraph.TrimEnd();
-            if (paragraph.IsEmpty())
-            {
-              newParagraphProperties?.Remove();
-              paragraph.ParagraphProperties = newParagraphProperties;
-              var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
-              var after = priorParagraph?.ParagraphProperties?.SpacingBetweenLines?.After;
-              if (after != null)
-                paragraph.GetParagraphProperties().GetSpacingBetweenLines().After = after;
-              foreach (var item in newParagraph.MemberElements())
-              {
-                item.Remove();
-                paragraph.AppendChild(item);
-              }
-            }
-            else
-            {
-              var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
-              if (priorParagraph != null && priorParagraph.ParagraphProperties?.NumberingProperties != null)
-                paragraph.ParagraphProperties =
-                  (DXW.ParagraphProperties)priorParagraph.ParagraphProperties.CloneNode(true);
-              newParagraph.TrimEnd();
-              paragraph.InsertAfterSelf(newParagraph);
-              paragraphs.Insert(i + 1, newParagraph);
-              //if (paragraph.IsEmpty())
-              //{
-              //  paragraph.Remove();
-              //  paragraphs.RemoveAt(i);
-              //  i--;
-              //}
-            }
-          }
-          else // if it is the first run in the paragraph then do not create a new paragraph.
-          {
-            paragraph.ParagraphProperties = newParagraphProperties;
-            paragraph.TrimEnd();
-            i--;
-          }
-        }
-      }
-    }
-    if (VerboseLevel > 0)
-      Console.WriteLine($"  {count} bullet containing paragraphs changed to list items");
-  }
 
 
   /// <summary>
@@ -451,7 +334,7 @@ public partial class DocumentCleaner
       if (text.Contains("Target=\"http://www.ecma-international.org/\""))
         Debug.Assert((true));
 
-      if (indent<text.Length && text[indent] != '<')
+      if (indent < text.Length && text[indent] != '<')
       { // if the paragraph does not start with an XML tag, append its content to the previous paragraph.
         var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
         if (priorParagraph != null && priorParagraph.GetText().Trim().StartsWith("<"))

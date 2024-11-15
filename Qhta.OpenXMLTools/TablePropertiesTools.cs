@@ -32,4 +32,13 @@ public static class TablePropertiesTools
   }
 
 
+  /// <summary>
+  /// Get the default table cell margins of the table properties.
+  /// </summary>
+  /// <param name="tableProperties"></param>
+  /// <returns></returns>
+  public static DXW.TableCellMarginDefault GetTableCellMarginDefault(this DXW.TableProperties tableProperties)
+  {
+    return tableProperties.TableCellMarginDefault ??= new DXW.TableCellMarginDefault();
+  }
 }

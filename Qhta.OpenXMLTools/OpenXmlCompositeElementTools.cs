@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -141,7 +138,20 @@ public static class OpenXmlCompositeElementTools
     for (int i = 0; i < tables.Count; i++)
     {
       var table = tables[i];
-
+      if (table.Elements<DXW.TableRow>().Count() <= 3)
+        continue;
+      var firstRow = table.GetFirstChild<DXW.TableRow>();
+      var firstCell = firstRow?.GetFirstChild<DXW.TableCell>();
+      var borders = firstCell?.TableCellProperties?.GetFirstChild<DXW.TableCellBorders>();
+      if (borders == null)
+        continue;
+      if (borders.LeftBorder?.Val?.Value == BorderValues.Nil)
+        continue;
+      var nextRow = firstRow?.NextSibling() as DXW.TableRow;
+      firstCell = nextRow?.GetFirstChild<DXW.TableCell>();
+      var firstParagraph = firstCell?.GetFirstChild<DXW.Paragraph>();
+      if (firstParagraph != null)
+        Debug.WriteLine($"{i + 1}: {firstParagraph.GetText()}");
       if (table.TryFixInvalidColumns())
         count++;
     }
@@ -184,5 +194,5 @@ public static class OpenXmlCompositeElementTools
     }
     return count;
   }
-
+  
 }

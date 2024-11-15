@@ -159,6 +159,32 @@ public static class TableTools
   }
 
   /// <summary>
+  /// Try to limit left indent to zero.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns>true if indent was less than zero</returns>
+  public static bool TryLimitLeftIndent(this Table table)
+  {
+    var tableProperties = table.GetTableProperties();
+    var tableIndent = tableProperties.TableIndentation;
+    if (tableIndent?.Type?.Value == TableWidthUnitValues.Dxa)
+    {
+      var indent = (int?)tableIndent.Width!;
+      if (indent < 0)
+      {
+        if (table.GetLeftMargin() == -indent)
+        {
+          table.SetLeftMargin(0);
+        }
+        tableIndent.Width = 0;
+
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// <summary>
   /// Try to limit table width.
   /// </summary>
   /// <param name="table"></param>
@@ -199,20 +225,20 @@ public static class TableTools
     var ratio = (double)widthLimit / totalWidth;
     tableProperties.TableWidth = new TableWidth { Width = widthLimit.ToString(), Type = TableWidthUnitValues.Dxa };
     int columIndex = 0;
-    var newColumnWidths = new List<int>();
+    //var newColumnWidths = new List<int>();
     foreach (var column in gridColumns)
     {
       var width = column.GetWidth();
       if (width != null)
       {
         var newWidth = (int)(ratio * (uint)width);
-        newColumnWidths.Add(newWidth);
+        //newColumnWidths.Add(newWidth);
         column.SetWidth(newWidth);
         table.SetColumnCellsWidth(columIndex, newWidth);
         columIndex++;
       }
     }
-    Debug.WriteLine(String.Join("; ", newColumnWidths.Select(item => item.ToString())));
+    //Debug.WriteLine(String.Join("; ", newColumnWidths.Select(item => item.ToString())));
     return true;
   }
 
@@ -270,6 +296,12 @@ public static class TableTools
     if (parent is DXW.Body && element is DXW.Paragraph topParagraph)
     {
       return topParagraph.GetSectionProperties();
+    }
+    if (parent is DXW.Body body)
+    {
+      element = body.Elements<DXW.SectionProperties>().LastOrDefault();
+      if (element != null)
+        return (DXW.SectionProperties)element;
     }
     return null;
   }
@@ -335,7 +367,7 @@ public static class TableTools
         column.Remove();
         columnsCount--;
         columnUsage.RemoveAt(columnNdx);
-        columnNdx--;
+        //columnNdx--;
         done = true;
       }
       else if (columnUsage[columnNdx] < rows.Count)
@@ -343,18 +375,18 @@ public static class TableTools
         for (int rowNdx = 0; rowNdx < rows.Count; rowNdx++)
         {
           var row = rows[rowNdx];
-          row.JoinsCellWithNext(columnNdx);
+          row.JoinCellWithNext(columnNdx);
         }
         var column1 = columns[columnNdx];
-        if (columnNdx < columns.Count-1)
+        if (columnNdx < columns.Count - 1)
         {
           var column2 = columns[columnNdx + 1];
           column1.SetWidth(column1.GetWidth() + column2.GetWidth());
-          if (column2.Parent!=null)
+          if (column2.Parent != null)
             column2.Remove();
           columnsCount--;
           columnUsage.RemoveAt(columnNdx);
-          columnNdx--;
+          //columnNdx--;
         }
         done = true;
       }
@@ -362,52 +394,79 @@ public static class TableTools
     return done;
   }
 
-/// <summary>
-/// Checks if the paragraph is empty.
-/// </summary>
-/// <param name="element"></param>
-/// <returns></returns>
-public static bool IsEmpty(this DXW.Table? element)
-{
-  if (element == null)
+  /// <summary>
+  /// Checks if the paragraph is empty.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsEmpty(this DXW.Table? element)
+  {
+    if (element == null)
+      return true;
+    foreach (var row in element.Elements<TableRow>())
+    {
+      if (!row.IsEmpty())
+        return false;
+    }
     return true;
-  foreach (var row in element.Elements<TableRow>())
-  {
-    if (!row.IsEmpty())
-      return false;
   }
-  return true;
-}
 
-/// <summary>
-/// Get the left margin of TableCellMarginDefault.LeftMargin.
-/// </summary>
-/// <param name="table"></param>
-/// <returns></returns>
-public static int GetLeftMargin(this DXW.Table table)
-{
-  var tableProperties = table.GetTableProperties();
-  var tableCellMarginDefault = tableProperties.TableCellMarginDefault;
-  if (tableCellMarginDefault?.TableCellLeftMargin?.Type?.Value == TableWidthValues.Dxa)
+  /// <summary>
+  /// Get the left margin of TableCellMarginDefault.LeftMargin.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static int? GetLeftMargin(this DXW.Table table)
   {
-    return (int?)tableCellMarginDefault?.TableCellLeftMargin?.Width?.Value ?? 0;
+    var tableProperties = table.GetTableProperties();
+    var tableCellMarginDefault = tableProperties.TableCellMarginDefault;
+    if (tableCellMarginDefault?.TableCellLeftMargin?.Type?.Value == TableWidthValues.Dxa)
+    {
+      return (int?)tableCellMarginDefault?.TableCellLeftMargin?.Width?.Value ?? 0;
+    }
+    return null;
   }
-  return 0;
-}
 
-/// <summary>
-/// Get the right margin of TableCellMarginDefault.LeftMargin.
-/// </summary>
-/// <param name="table"></param>
-/// <returns></returns>
-public static int GetRightMargin(this DXW.Table table)
-{
-  var tableProperties = table.GetTableProperties();
-  var tableCellMarginDefault = tableProperties.TableCellMarginDefault;
-  if (tableCellMarginDefault?.TableCellRightMargin?.Type?.Value == TableWidthValues.Dxa)
+  /// <summary>
+  /// Set the left margin of TableCellMarginDefault.LeftMargin.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static void SetLeftMargin(this DXW.Table table, int? value)
   {
-    return (int?)tableCellMarginDefault?.TableCellRightMargin?.Width?.Value ?? 0;
+    var tableProperties = table.GetTableProperties();
+    var tableCellMarginDefault = tableProperties.GetTableCellMarginDefault();
+    var element = tableCellMarginDefault.TableCellLeftMargin;
+    if (value == null)
+    {
+      if (element != null)
+        element.Remove();
+      return;
+    }
+    if (element == null)
+    {
+      element = new TableCellLeftMargin();
+      tableCellMarginDefault.TableCellLeftMargin = element;
+    }
+    element.Type = TableWidthValues.Dxa;
+    element.Width = new DX.Int16Value{ Value = (short)value };
   }
-  return 0;
-}
+
+
+  /// <summary>
+  /// Get the right margin of TableCellMarginDefault.LeftMargin.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static int? GetRightMargin(this DXW.Table table)
+  {
+    var tableProperties = table.GetTableProperties();
+    var tableCellMarginDefault = tableProperties.TableCellMarginDefault;
+    if (tableCellMarginDefault?.TableCellRightMargin?.Type?.Value == TableWidthValues.Dxa)
+    {
+      return (int?)tableCellMarginDefault?.TableCellRightMargin?.Width?.Value ?? 0;
+    }
+    return null;
+  }
 }

@@ -50,6 +50,17 @@ public static class TypeTools
   };
 
   /// <summary>
+  /// Converts an enum value to an EnumValue.
+  /// </summary>
+  /// <param name="enumInstance"></param>
+  /// <returns></returns>
+  public static DX.EnumValue<T>? ToEnumValue<T>(this T enumInstance) where T: struct, DX.IEnumValue, DX.IEnumValueFactory<T>
+  {
+    return new DX.EnumValue<T>(enumInstance);
+  }
+
+
+  /// <summary>
   /// Checks whether the openXmlType is an OpenXml enum.
   /// </summary>
   /// <param name="openXmlType"></param>
