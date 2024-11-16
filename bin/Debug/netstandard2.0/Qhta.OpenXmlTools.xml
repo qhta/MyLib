@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXMLTools</name>
+        <name>Qhta.OpenXmlTools</name>
     </assembly>
     <members>
         <member name="T:Qhta.OpenXmlTools.AbstractNumTools">
@@ -628,6 +628,12 @@
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SetRowsHeightAuto(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Set the height of all rows in the table to auto.
+            </summary>
+            <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SetUniformCellMargins(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Set the cell margins to uniform values
             </summary>
             <param name="table"></param>
         </member>
@@ -9138,6 +9144,22 @@
             <param name="mainDocumentPart"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TableCellMarginDefaultTools">
+            <summary>
+            Contains tools for working with TableCellMarginDefault elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellMarginDefaultTools.SetMargins(DocumentFormat.OpenXml.Wordprocessing.TableCellMarginDefault,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Sets the default margins for the table cell.
+            If the value is null, the margin is not set.
+            </summary>
+            <param name="margin"></param>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="bottom"></param>
+            <param name="right"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TableCellPropertiesTools">
             <summary>
             Tools for working with table cell properties in OpenXml documents.
@@ -9451,6 +9473,17 @@
             Set the height of all rows in the table to auto.
             </summary>
             <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetUniformCellMargins(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set the height of all rows in the table to auto.
+            </summary>
+            <param name="table">Table to process</param>
+            <param name="left">Left cell margin (in twips)</param>
+            <param name="top">Top cell margin (in twips)</param>
+            <param name="right">Right cell margin (in twips)</param>
+            <param name="bottom">Bottom cell margin (in twips)</param>
+            <returns>Number of cell affected</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>

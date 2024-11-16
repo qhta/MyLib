@@ -138,14 +138,17 @@ public static class OpenXmlCompositeElementTools
     for (int i = 0; i < tables.Count; i++)
     {
       var table = tables[i];
-      if (table.Elements<DXW.TableRow>().Count() <= 3)
-        continue;
+      //if (table.Elements<DXW.TableRow>().Count() <= 3)
+      //  continue;
       var firstRow = table.GetFirstChild<DXW.TableRow>();
       var firstCell = firstRow?.GetFirstChild<DXW.TableCell>();
       var borders = firstCell?.TableCellProperties?.GetFirstChild<DXW.TableCellBorders>();
       if (borders == null)
         continue;
       if (borders.LeftBorder?.Val?.Value == BorderValues.Nil)
+        continue;
+      var shading = firstCell?.TableCellProperties?.GetFirstChild<DXW.Shading>();
+      if (shading == null || shading.Fill!="C0C0C0")
         continue;
       var nextRow = firstRow?.NextSibling() as DXW.TableRow;
       firstCell = nextRow?.GetFirstChild<DXW.TableCell>();

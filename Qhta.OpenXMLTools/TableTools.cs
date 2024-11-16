@@ -277,6 +277,47 @@ public static class TableTools
   }
 
   /// <summary>
+  /// Set the height of all rows in the table to auto.
+  /// </summary>
+  /// <param name="table">Table to process</param>
+  /// <param name="left">Left cell margin (in twips)</param>
+  /// <param name="top">Top cell margin (in twips)</param>
+  /// <param name="right">Right cell margin (in twips)</param>
+  /// <param name="bottom">Bottom cell margin (in twips)</param>
+  /// <returns>Number of cell affected</returns>
+  public static int SetUniformCellMargins(this DXW.Table table, int left, int top, int right, int bottom)
+  {
+    int count = 0;
+    var tableCellMarginDefault = table.GetTableProperties().GetTableCellMarginDefault();
+    tableCellMarginDefault.SetMargins(left, top, right, bottom);
+    foreach (var row in table.Elements<DXW.TableRow>())
+    {
+      foreach (var cell in row.Elements<TableCell>())
+      {
+        var done = false;
+        var cellProperties = cell.GetTableCellProperties();
+        if (cellProperties.TableCellMargin != null)
+        {
+          cellProperties.TableCellMargin = null;
+          done = true;
+        }
+        foreach (var paragraph in cell.Elements<DXW.Paragraph>())
+        {
+          var paragraphProperties = paragraph.GetParagraphProperties();
+          if (paragraphProperties.Indentation != null)
+          {
+            paragraphProperties.Indentation = null;
+            done = true;
+          }
+        }
+        if (done)
+          count++;
+      }
+    }
+    return count;
+  }
+
+  /// <summary>
   /// Get the section properties of the table.
   /// </summary>
   /// <returns></returns>

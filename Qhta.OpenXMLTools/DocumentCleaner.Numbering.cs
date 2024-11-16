@@ -86,6 +86,8 @@ public partial class DocumentCleaner
             foreach (var item in tailItems)
             {
               item.Remove();
+              if (item is DXW.Run runItem && newParagraph.IsEmpty())
+                runItem.TrimStart();
               newParagraph.Append(item);
             }
             paragraph.TrimEnd();
@@ -125,6 +127,7 @@ public partial class DocumentCleaner
           else // if it is the first run in the paragraph then do not create a new paragraph.
           {
             paragraph.ParagraphProperties = numberingParagraphProperties;
+            paragraph.TrimStart();
             paragraph.TrimEnd();
             i--;
           }

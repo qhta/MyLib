@@ -119,6 +119,8 @@ public static class TableRowTools
         }
       }
     }
+    if (columnIndex < 0 || columnIndex >= cells.Count)
+      return null;
     return cells[columnIndex];
   }
 

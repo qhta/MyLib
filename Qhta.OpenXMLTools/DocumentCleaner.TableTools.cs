@@ -556,6 +556,7 @@ public partial class DocumentCleaner
     var indented = 0;
     var limited = 0;
     var rowsCleared = 0;
+    var cellMarginsSet = 0;
     var tables = body.Descendants<DXW.Table>().ToList();
     foreach (var table in tables)
     {
@@ -566,6 +567,7 @@ public partial class DocumentCleaner
       if (TryLimitWidth(table))
         limited++;
       rowsCleared += SetRowsHeightAuto(table);
+      cellMarginsSet += SetUniformCellMargins(table);
     }
     if (VerboseLevel > 0)
     {
@@ -573,6 +575,8 @@ public partial class DocumentCleaner
       Console.WriteLine($"  {indented} tables negative indent set to zero");
       Console.WriteLine($"  {limited} tables width limited");
       Console.WriteLine($"  {rowsCleared} rows height cleared");
+      Console.WriteLine($"  {cellMarginsSet} cells margins uniformed");
+
     }
   }
 
@@ -583,9 +587,7 @@ public partial class DocumentCleaner
   public bool TryFormatTable(DXW.Table table)
   {
     // ReSharper disable once ReplaceWithSingleAssignment.False
-    var done = false;
-    if (table.TryKeepOnPage(5))
-      done = true;
+    var done = table.TryKeepOnPage(5);
     return done;
   }
 
@@ -629,6 +631,16 @@ public partial class DocumentCleaner
   public int SetRowsHeightAuto(DXW.Table table)
   {
     var done = table.ClearRowsHeight();
+    return done;
+  }
+
+  /// <summary>
+  /// Set the cell margins to uniform values
+  /// </summary>
+  /// <param name="table"></param>
+  public int SetUniformCellMargins(DXW.Table table)
+  {
+    var done = table.SetUniformCellMargins(75,50,75,50);
     return done;
   }
 }
