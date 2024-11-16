@@ -30,7 +30,7 @@ public partial class DocumentCleaner
     RemoveFakeHeadersAndFooters(wordDoc);
     ResetHeadingsFormat(wordDoc);
     ReplaceSymbolEncoding(wordDoc);
-    RepairBulletContainingParagraph(wordDoc);
+    FixParagraphNumbering(wordDoc);
     FixInternalTables(wordDoc);
     FixTablesWithInvalidColumns(wordDoc);
     JoinAdjacentTables(wordDoc);
@@ -38,6 +38,9 @@ public partial class DocumentCleaner
     JoinAdjacentRuns(wordDoc);
     FixLongWords(wordDoc);
     RepairXmlExamples(wordDoc);
+    JoinDividedSentences(wordDoc);
+    JoinParagraphsInFirstColumn(wordDoc);
+    BreakParagraphsBefore(wordDoc, "Namespace:");
     FormatTables(wordDoc);
   }
 
@@ -252,6 +255,65 @@ public partial class DocumentCleaner
     }
     if (VerboseLevel > 0)
       Console.WriteLine($"  {removed} paragraphs removed");
+  }
+
+  /// <summary>
+  /// Join sentences that are divided into multiple paragraphs.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void JoinDividedSentences(DXPack.WordprocessingDocument wordDoc)
+  {
+    if (VerboseLevel > 0)
+      Console.WriteLine("\nJoining divided sentences");
+    var body = wordDoc.GetBody();
+    var count = JoinDividedSentences(body);
+    foreach (var header in wordDoc.GetHeaders().ToList())
+      count += JoinDividedSentences(header);
+    foreach (var footer in wordDoc.GetFooters().ToList())
+      count += JoinDividedSentences(footer);
+    if (VerboseLevel > 0)
+      Console.WriteLine($"  {count} sentences joined");
+  }
+
+  /// <summary>
+  /// Join sentences divided between adjacent paragraphs.
+  /// </summary>
+  /// <param name="element">Processed element</param>
+  /// <returns>number of joins</returns>
+  public int JoinDividedSentences(DX.OpenXmlCompositeElement element)
+  {
+    int count = 0;
+    var paragraphs = element.Descendants<DXW.Paragraph>().ToList();
+    for (int paraNdx = 0; paraNdx < paragraphs.Count; paraNdx++)
+    {
+      var para = paragraphs[paraNdx];
+      var font = para.GetFont(null);
+      if (font == ExampleFont)
+        continue;
+      var priorPara = para.PreviousSibling() as DXW.Paragraph;
+      var paraText = para.GetText().Trim();
+      if (paraText == "end note]" || paraText == "end example]" || paraText == "the results are:")
+        continue;
+      if (priorPara == null)
+        continue;
+      font = priorPara.GetFont(null);
+      if (font == ExampleFont)
+        continue;
+      var priorParaText = priorPara.GetText().Trim();
+      var priorSentences = priorParaText.GetSentences();
+      var lastSentence = priorSentences.LastOrDefault() ?? priorParaText;
+
+      var lastChar = lastSentence.LastOrDefault();
+      if (char.IsUpper(lastSentence.FirstOrDefault()) && !".!?:".Contains(lastChar) &&
+          char.IsLower(paraText.FirstOrDefault()))
+      {
+        Debug.WriteLine($"Join \"{priorParaText}\" & \"{paraText}\"");
+        priorPara.JoinNextParagraph(para);
+        para.Remove();
+        count++;
+      }
+    }
+    return count;
   }
 
   /// <summary>

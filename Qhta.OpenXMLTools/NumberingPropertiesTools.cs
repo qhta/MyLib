@@ -6,6 +6,27 @@
 public static class NumberingPropertiesTools
 {
   /// <summary>
+  /// Get the numbering id of the numbering properties.
+  /// </summary>
+  /// <param name="numberingProperties"></param>
+  /// <returns></returns>
+  public static int? GetNumberingId(this DXW.NumberingProperties numberingProperties)
+  {
+    return numberingProperties.NumberingId?.Val?.Value;
+  }
+
+  /// <summary>
+  /// Set the numbering id of the numbering properties.
+  /// If value to set is null, the element will be removed.
+  /// </summary>
+  /// <param name="numberingProperties"></param>
+  /// <param name="id"></param>
+  public static void SetNumberingId(this DXW.NumberingProperties numberingProperties, int? id)
+  {
+    numberingProperties.NumberingId = id == null ? null : new DXW.NumberingId { Val = new DX.Int32Value(id) };
+  }
+
+  /// <summary>
   /// Get the numbering level reference of the numbering properties.
   /// </summary>
   /// <param name="numberingProperties"></param>

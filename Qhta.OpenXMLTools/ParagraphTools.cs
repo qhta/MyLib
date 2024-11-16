@@ -563,4 +563,67 @@ public static class ParagraphTools
     }
     return null;
   }
+
+
+  /// <summary>
+  /// Join next paragraph to the paragraph. Insert space before the next paragraph.
+  /// </summary>
+  /// <param name="para"></param>
+  /// <param name="nextPara"></param>
+  public static void JoinNextParagraph(this DXW.Paragraph para, DXW.Paragraph nextPara)
+  {
+    var lastText = para.Elements<DXW.Run>().LastOrDefault()?.Elements<DXW.Text>().LastOrDefault();
+    if (lastText != null)
+      lastText.Text = lastText.Text + " ";
+    foreach (var item in nextPara.MemberElements().ToList())
+    {
+      item.Remove();
+      para.AppendChild(item);
+    }
+  }
+
+  /// <summary>
+  /// Break the paragraph before the specified text.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static bool BreakBefore(this DXW.Paragraph paragraph, string str)
+  {
+    var done = false;
+    foreach (var run in paragraph.Elements<DXW.Run>())
+    {
+      if (run.PreviousSibling() == null || run.NextSibling() == null)
+        continue;
+      var runText = run.GetText();
+      var index = runText.IndexOf(str);
+      if (index >= 0)
+      {
+        var newParagraph = new DXW.Paragraph();
+        newParagraph.ParagraphProperties = paragraph.ParagraphProperties?.CloneNode(true) as DXW.ParagraphProperties;
+        DX.OpenXmlElement? element = run;
+        if (index > 0)
+        {
+          var newRun = run.SplitAt(index);
+          newParagraph.AppendChild(newRun);
+          element = run.NextSibling();
+        }
+        while (element != null)
+        {
+          var nextElement = element.NextSibling();
+          element.Remove();
+          newParagraph.AppendChild(element);
+          element = nextElement;
+        }
+        paragraph.InsertAfterSelf(newParagraph);
+        paragraph.TrimEnd();
+        newParagraph.TrimStart();
+        done = true;
+        var paraText = paragraph.GetText();
+        var nextText = newParagraph.GetText();
+        break;
+      }
+    }
+    return done;
+  }
 }

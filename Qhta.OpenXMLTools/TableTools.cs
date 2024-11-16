@@ -436,6 +436,36 @@ public static class TableTools
   }
 
   /// <summary>
+  /// Browse through cells in the first column and try to join paragraphs in the cells.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns>Number of joined cells</returns>
+  public static int TryJoinFirstColumnParagraphs(this DXW.Table table)
+  {
+    var joinedCells = 0;
+    var rows = table.Elements<DXW.TableRow>().ToList();
+    foreach (var row in rows)
+    {
+      var cell = row.GetCell(0);
+      if (cell == null)
+        continue;
+      var para = cell.Elements<DXW.Paragraph>().FirstOrDefault();
+      if (para == null)
+        continue;
+      var nextPara = para.NextSibling() as DXW.Paragraph;
+      while (nextPara != null)
+      {
+        para.JoinNextParagraph(nextPara);
+        var nextPara1 = nextPara.NextSibling() as DXW.Paragraph;
+        nextPara.Remove();
+        nextPara = nextPara1;
+        joinedCells++;
+      }
+    }
+    return joinedCells;
+  }
+
+  /// <summary>
   /// Checks if the paragraph is empty.
   /// </summary>
   /// <param name="element"></param>

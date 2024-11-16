@@ -16,7 +16,9 @@ public static class NumberingExtraTools
 
   /// <summary>
   /// Gets the numbering string from a string.
-  /// Numbering string is the first sequence of digits, periods or letters ended with a space or tab.
+  /// Numbering string is the first sequence of digits, periods or letters followed with a space or tab.
+  /// Numbering string may be ended with a closing parenthesis.
+  /// Numbering string should be valid.
   /// </summary>
   /// <param name="str"></param>
   /// <returns></returns>
@@ -60,6 +62,11 @@ public static class NumberingExtraTools
             break;
           }
         }
+        else if (ch == ')')
+        {
+          isNumberingString = true;
+          break;
+        }
         else
         {
           isNumberingString = false;
@@ -69,7 +76,75 @@ public static class NumberingExtraTools
         wasPeriod = isPeriod;
       }
     }
+    if (isNumberingString)
+      if (!IsValidNumbering(text))
+        isNumberingString = false;
     return isNumberingString ? text : null;
+  }
+
+  /// <summary>
+  /// Determines if the string is a valid numbering string.
+  /// String is trimmed and final closing parenthesis (if exists) is removed before checking.
+  /// First string is divided to parts by periods.
+  /// Then each part is checked if it is a valid numbering part.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
+  public static bool IsValidNumbering(string text)
+  {
+    text = text.Trim();
+    if (text.EndsWith(")"))
+      text = text.Substring(0, text.Length - 1);
+    else if (text.EndsWith("."))
+      text = text.Substring(0, text.Length - 1);
+    if (text.Length == 0)
+      return false;
+    var segments = text.Split('.');
+    foreach (var part in segments)
+    {
+      if (!IsValidNumberingSegment(part))
+        return false;
+    }
+    return true;
+  }
+
+  /// <summary>
+  /// Determines if the string is a valid numbering segment.
+  /// To be valid, the segment should contain only digits, letters.
+  /// It may be a single letter or a valid roman number sequence of digits.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
+  public static bool IsValidNumberingSegment(string text)
+  {
+    var firstChar = text.FirstOrDefault();
+    if (char.IsDigit(firstChar))
+    {
+      foreach (var ch in text)
+      {
+        if (!char.IsDigit(ch))
+          return false;
+      }
+      return true;
+    }
+    else if (char.IsLetter(firstChar))
+    {
+      foreach (var ch in text)
+      {
+        if (!char.IsLetter(ch))
+          return false;
+      }
+      if (text.Length == 1)
+        return true;
+      text = text.ToUpper();
+      foreach (var ch in text)
+        if (!("IVXLCM".Contains(ch)))
+          return false;
+      if (RomanNumeralConverter.FromRoman(text, 0) == null)
+        return false;
+      return true;
+    }
+    return false;
   }
   /// <summary>
   /// Get the numbering string of the paragraph.
@@ -206,10 +281,9 @@ public static class NumberingExtraTools
   /// Get the numbering element from the word document's numbering definition part.
   /// If the numbering definition part is not found, it is created.
   /// </summary>
-  /// <param name="wordDocument">Source Wordprocessing document.</param>
-  public static DXW.Numbering GetNumberingDefinitions(this WordprocessingDocument wordDocument)
+  /// <param name="mainDocumentPart">Main part of the Wordprocessing document.</param>
+  public static DXW.Numbering GetNumberingDefinitions(this MainDocumentPart mainDocumentPart)
   {
-    var mainDocumentPart = wordDocument.GetMainDocumentPart();
     var numberingDefinitionsPart = mainDocumentPart.NumberingDefinitionsPart;
     if (numberingDefinitionsPart == null)
     {
@@ -222,13 +296,13 @@ public static class NumberingExtraTools
   /// Get numbering instance which is assigned to abstract numbering level with bullet.
   /// If there is no such numbering instance, it is created.
   /// </summary>
-  /// <param name="document"></param>
+  /// <param name="mainDocumentPart"></param>
   /// <param name="bullet">symbol to compare with numbering text</param>
   /// <param name="level">minimal level that is checked</param>
   /// <returns></returns>
-  public static DXW.NumberingInstance? GetBulletedNumbering(this WordprocessingDocument document, char bullet, int level)
+  public static DXW.NumberingInstance? GetBulletedNumbering(this MainDocumentPart mainDocumentPart, char bullet, int level)
   {
-    var numbering = document.GetNumberingDefinitions();
+    var numbering = mainDocumentPart.GetNumberingDefinitions();
     var abstractNums = numbering.Elements<DXW.AbstractNum>()
       .Where(absNum => absNum.Elements<Level>().Any(lvl => lvl.GetLevelIndex() >= level)).ToList();
     foreach (var absNum in abstractNums)
@@ -325,6 +399,42 @@ public static class NumberingExtraTools
       }
     }
     return null;
+  }
+
+  /// <summary>
+  /// Set the numbering of the paragraph.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="abstractNum"></param>
+  /// <param name="level"></param>
+  public static void SetNumbering(this DXW.Paragraph paragraph, DXW.AbstractNum abstractNum, DXW.Level level)
+  {
+    var paraProps = paragraph.GetParagraphProperties();
+    var numbering = paragraph.GetMainDocumentPart()?.GetNumberingDefinitions();
+    if (numbering == null)
+      return;
+    var previousNumberingParagraph = paragraph.GetPreviousNumberedParagraph();
+    var previousAbstractNumId = previousNumberingParagraph?.GetAbstractNumberingId();
+    if (previousAbstractNumId == abstractNum.AbstractNumberId?.Value)
+    {
+      var previousNumberingProperties = previousNumberingParagraph?.GetNumberingProperties();
+      var newNumberingProperties = (DXW.NumberingProperties)previousNumberingProperties!.CloneNode(true);
+      newNumberingProperties.NumberingLevelReference = new NumberingLevelReference { Val = level.LevelIndex };
+      paraProps.NumberingProperties = newNumberingProperties;
+    }
+    else
+    {
+      var newNumberingProperties = paraProps.NumberingProperties;
+      if (newNumberingProperties == null)
+      {
+        newNumberingProperties = new NumberingProperties();
+        var numberingInstance = numbering.GetNumberingInstance(abstractNum.AbstractNumberId!);
+        newNumberingProperties.SetNumberingId(numberingInstance.NumberID!.Value);
+      }
+      newNumberingProperties.NumberingLevelReference = new NumberingLevelReference { Val = level.GetLevelIndex() };
+      paraProps.NumberingProperties = newNumberingProperties;
+    }
+
   }
 
   /// <summary>
@@ -543,25 +653,6 @@ public static class NumberingExtraTools
   }
 
   /// <summary>
-  /// Check if the abstract numbering level is bulleted.
-  /// </summary>
-  /// <param name="level"></param>
-  /// <returns></returns>
-  public static bool IsBulleted(this Level level)
-  {
-    var numFmt = level.GetFirstChild<NumberingFormat>();
-    if (numFmt != null)
-    {
-      var val = numFmt.Val?.Value;
-      if (val != null)
-      {
-        return val == NumberFormatValues.Bullet;
-      }
-    }
-    return false;
-  }
-
-  /// <summary>
   /// Get statistics of abstract numbering used in paragraphs. If the run does not contain font information, return default properties statistic.
   /// </summary>
   /// <param name="element">composite element to examine</param>
@@ -647,7 +738,7 @@ public static class NumberingExtraTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static DXW.Paragraph? FindPreviousNumberedParagraph(this DXW.Paragraph paragraph)
+  public static DXW.Paragraph? GetPreviousNumberedParagraph(this DXW.Paragraph paragraph)
   {
     DX.OpenXmlElement? element = paragraph;
     while (element != null)
@@ -669,7 +760,7 @@ public static class NumberingExtraTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static DXW.Paragraph? FindNextNumberedParagraph(this DXW.Paragraph paragraph)
+  public static DXW.Paragraph? GetNextNumberedParagraph(this DXW.Paragraph paragraph)
   {
     DX.OpenXmlElement? element = paragraph;
     while (element != null)
@@ -722,7 +813,7 @@ public static class NumberingExtraTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static DXW.Paragraph? FindPreviousBulletedParagraph(this DXW.Paragraph paragraph)
+  public static DXW.Paragraph? GetPreviousBulletedParagraph(this DXW.Paragraph paragraph)
   {
     DX.OpenXmlElement? element = paragraph;
     while (element != null)
@@ -744,7 +835,7 @@ public static class NumberingExtraTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static DXW.Paragraph? FindNextBulletedParagraph(this DXW.Paragraph paragraph)
+  public static DXW.Paragraph? GetNextBulletedParagraph(this DXW.Paragraph paragraph)
   {
     DX.OpenXmlElement? element = paragraph;
     while (element != null)

@@ -416,8 +416,8 @@ public partial class DocumentCleaner
     if (upperTextEndsWithSentenceEndMark)
       return 0;
 
-    var upperSentences = GetSentences(upperText);
-    var lowerSentences = GetSentences(lowerText);
+    var upperSentences = upperText.GetSentences();
+    var lowerSentences = lowerText.GetSentences();
 
     // If the last paragraph in the upper cell and the first paragraph in the lower cell
     // both do not contain any sentence than it is rather not possible that the cells were created by division.
@@ -431,41 +431,6 @@ public partial class DocumentCleaner
     return 0;
   }
 
-  /// <summary>
-  /// Get the list of sentences from the string.
-  /// Sentences are separated by '.', '!', '?' or ':'
-  /// followed by a space (or standing at the end of the string).
-  /// </summary>
-  /// <param name="str"></param>
-  /// <returns></returns>
-  private List<string> GetSentences(string str)
-  {
-    var sentences = new List<string>();
-    var k = 0;
-    str = str.Trim();
-    while (k >= 0 && k < str.Length)
-    {
-      k = str.IndexOfAny(['.', '!', '?', ':'], k);
-      if (k == -1)
-        break;
-      if (k == str.Length - 1)
-      {
-        var s1 = str.Substring(k + 1).TrimStart();
-        sentences.Add(s1);
-        break;
-      }
-      if (k + 1 < str.Length && str[k + 1] == ' ')
-
-      {
-        var s1 = str.Substring(0, k + 1);
-        sentences.Add(s1);
-        str = str.Substring(k + 1).TrimStart();
-      }
-      else
-        k = k + 1;
-    }
-    return sentences;
-  }
 
   /// <summary>
   /// Join two corresponding cells in possibly divided row.
@@ -541,6 +506,35 @@ public partial class DocumentCleaner
       upperCell.AppendChild(paragraph);
     }
     return true;
+  }
+
+  /// <summary>
+  /// Browse through the document and join paragraphs in the first column of tables.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void JoinParagraphsInFirstColumn(DXPack.WordprocessingDocument wordDoc)
+  {
+    if (VerboseLevel > 0)
+      Console.WriteLine("\nJoin paragraphs in first column");
+    var body = wordDoc.GetBody();
+    var count = body.JoinParagraphsInFirstColumn();
+    if (VerboseLevel > 0)
+      Console.WriteLine($"  {count} cells fixed");
+  }
+
+  /// <summary>
+  /// Browse paragraphs and break them before the specified string.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <param name="str">string to break paragraphs before</param>
+  public void BreakParagraphsBefore(DXPack.WordprocessingDocument wordDoc, string str)
+  {
+    if (VerboseLevel > 0)
+      Console.WriteLine($"\nBreak paragraphs before \"{str}\"");
+    var body = wordDoc.GetBody();
+    var count = body.BreakParagraphsBefore(str);
+    if (VerboseLevel > 0)
+      Console.WriteLine($"  {count} paragraphs broken");
   }
 
   /// <summary>

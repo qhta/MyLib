@@ -144,6 +144,42 @@ public static class StringTools
   }
 
   /// <summary>
+  /// Get the list of sentences from the string.
+  /// Sentences are separated by '.', '!', '?' or ':'
+  /// followed by a space (or standing at the end of the string).
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static List<string> GetSentences(this string str)
+  {
+    var sentences = new List<string>();
+    var k = 0;
+    str = str.Trim();
+    while (k >= 0 && k < str.Length)
+    {
+      k = str.IndexOfAny(['.', '!', '?', ':'], k);
+      if (k == -1)
+        break;
+      if (k == str.Length - 1)
+      {
+        var s1 = str.Substring(k + 1).TrimStart();
+        sentences.Add(s1);
+        break;
+      }
+      if (k + 1 < str.Length && str[k + 1] == ' ')
+
+      {
+        var s1 = str.Substring(0, k + 1);
+        sentences.Add(s1);
+        str = str.Substring(k + 1).TrimStart();
+      }
+      else
+        k = k + 1;
+    }
+    return sentences;
+  }
+
+  /// <summary>
   /// Replace characters in a string with a code between F000 and F0DD to corresponding unicode characters according to symbol encoding.
   /// </summary>
   /// <param name="str"></param>

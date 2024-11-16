@@ -450,6 +450,19 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedSentences(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Join sentences that are divided into multiple paragraphs.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedSentences(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Join sentences divided between adjacent paragraphs.
+            </summary>
+            <param name="element">Processed element</param>
+            <returns>number of joins</returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ResetHeadingsFormat(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Resets format of heading paragraphs.
@@ -487,7 +500,7 @@
             <param name="paragraph"></param>
             <param name="indent"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairBulletContainingParagraph(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
             </summary>
@@ -583,15 +596,6 @@
             <param name="upperCell">Upper table row.</param>
             <param name="lowerCell">Lower table row.</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.GetSentences(System.String)">
-            <summary>
-            Get the list of sentences from the string.
-            Sentences are separated by '.', '!', '?' or ':'
-            followed by a space (or standing at the end of the string).
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedCells(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.TableCell)">
             <summary>
             Join two corresponding cells in possibly divided row.
@@ -600,6 +604,19 @@
             </summary>
             <param name="upperCell">Cell taken from the upper table row.</param>
             <param name="lowerCell">Cell taken from the lower table row.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinParagraphsInFirstColumn(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Browse through the document and join paragraphs in the first column of tables.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.BreakParagraphsBefore(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
+            <summary>
+            Browse paragraphs and break them before the specified string.
+            </summary>
+            <param name="wordDoc"></param>
+            <param name="str">string to break paragraphs before</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FormatTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -1647,6 +1664,61 @@
             Count or get only built-in items.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.LevelTools">
+            <summary>
+            Contains tools for working with numbering levels.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsBulleted(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Determines if the level format is bulleted.
+            </summary>
+            <param name="level">Level to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsDecimal(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Determines if the level format is decimal.
+            </summary>
+            <param name="level">Level to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsLowerLetter(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Determines if the level format is lower letter.
+            </summary>
+            <param name="level">Level to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsUpperLetter(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Determines if the level format is upper letter.
+            </summary>
+            <param name="level">Level to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsLowerRoman(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Determines if the level format is lower roman.
+            </summary>
+            <param name="level">Level to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsUpperRoman(DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Determines if the level format is upper roman.
+            </summary>
+            <param name="level">Level to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.LevelTools.IsCompatibleWith(DocumentFormat.OpenXml.Wordprocessing.Level,System.String)">
+            <summary>
+            Determines if the level formatting is compatible with the numbering string.
+            </summary>
+            <param name="level"></param>
+            <param name="numberingString"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ListTools">
             <summary>
             Extension methods for the numbering list.
@@ -2024,9 +2096,30 @@
         <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingString(System.String)">
             <summary>
             Gets the numbering string from a string.
-            Numbering string is the first sequence of digits, periods or letters ended with a space or tab.
+            Numbering string is the first sequence of digits, periods or letters followed with a space or tab.
+            Numbering string may be ended with a closing parenthesis.
+            Numbering string should be valid.
             </summary>
             <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsValidNumbering(System.String)">
+            <summary>
+            Determines if the string is a valid numbering string.
+            String is trimmed and final closing parenthesis (if exists) is removed before checking.
+            First string is divided to parts by periods.
+            Then each part is checked if it is a valid numbering part.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsValidNumberingSegment(System.String)">
+            <summary>
+            Determines if the string is a valid numbering segment.
+            To be valid, the segment should contain only digits, letters.
+            It may be a single letter or a valid roman number sequence of digits.
+            </summary>
+            <param name="text"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingString(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.GetTextOptions)">
@@ -2076,19 +2169,19 @@
             <param name="paragraph">Source paragraph element</param>
             <returns>Integer abstract numbering id or null</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingDefinitions(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingDefinitions(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
             <summary>
             Get the numbering element from the word document's numbering definition part.
             If the numbering definition part is not found, it is created.
             </summary>
-            <param name="wordDocument">Source Wordprocessing document.</param>
+            <param name="mainDocumentPart">Main part of the Wordprocessing document.</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetBulletedNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Char,System.Int32)">
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetBulletedNumbering(DocumentFormat.OpenXml.Packaging.MainDocumentPart,System.Char,System.Int32)">
             <summary>
             Get numbering instance which is assigned to abstract numbering level with bullet.
             If there is no such numbering instance, it is created.
             </summary>
-            <param name="document"></param>
+            <param name="mainDocumentPart"></param>
             <param name="bullet">symbol to compare with numbering text</param>
             <param name="level">minimal level that is checked</param>
             <returns></returns>
@@ -2122,6 +2215,14 @@
             </summary>
             <param name="paragraph">Source paragraph element</param>
             <returns>Numbering properties or null</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.SetNumbering(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.Wordprocessing.AbstractNum,DocumentFormat.OpenXml.Wordprocessing.Level)">
+            <summary>
+            Set the numbering of the paragraph.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="abstractNum"></param>
+            <param name="level"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.SetNumberingProperties(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
             <summary>
@@ -2203,13 +2304,6 @@
             <param name="abstractNum"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.IsBulleted(DocumentFormat.OpenXml.Wordprocessing.Level)">
-            <summary>
-            Check if the abstract numbering level is bulleted.
-            </summary>
-            <param name="level"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNumberingStatistics(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get statistics of abstract numbering used in paragraphs. If the run does not contain font information, return default properties statistic.
@@ -2237,14 +2331,14 @@
             <param name="paragraph"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindPreviousNumberedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetPreviousNumberedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Find the previous paragraph that is numbered.
             </summary>
             <param name="paragraph"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindNextNumberedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNextNumberedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Find the next paragraph that is numbered.
             </summary>
@@ -2258,14 +2352,14 @@
             <param name="paragraph"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindPreviousBulletedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetPreviousBulletedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Find the previous paragraph that is bulleted.
             </summary>
             <param name="paragraph"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.FindNextBulletedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.NumberingExtraTools.GetNextBulletedParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Find the next paragraph that is numbered.
             </summary>
@@ -2349,6 +2443,21 @@
             <summary>
             A collection of tools for working with <c>NumberingProperties</c> element.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingPropertiesTools.GetNumberingId(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
+            <summary>
+            Get the numbering id of the numbering properties.
+            </summary>
+            <param name="numberingProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.NumberingPropertiesTools.SetNumberingId(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the numbering id of the numbering properties.
+            If value to set is null, the element will be removed.
+            </summary>
+            <param name="numberingProperties"></param>
+            <param name="id"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.NumberingPropertiesTools.GetNumberingLevelReference(DocumentFormat.OpenXml.Wordprocessing.NumberingProperties)">
             <summary>
@@ -2519,12 +2628,46 @@
             <param name="element">Processed element</param>
             <returns>number of tables fixed</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.JoinParagraphsInFirstColumn(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find tables that have invalid columns and fix them.
+            Such tables have rows filled with empty cells.
+            </summary>
+            <param name="body">Processed body</param>
+            <returns>number of cells fixed</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.BreakParagraphsBefore(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.String)">
+            <summary>
+            Browse paragraphs and break them before the specified string.
+            </summary>
+            <param name="body">Processed body</param>
+            <param name="str">string to break paragraphs before</param>
+            <returns>Number of broken paragraphs</returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.JoinAdjacentTables(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Joins adjacent tables that have the same number of columns.
             </summary>
             <param name="element">Processed element</param>
             <returns>number of joins</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.FixParagraphsWithBullets(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Fix paragraphs with bullets.
+            If the paragraph starts with a bullet, the bullet is removed and the paragraph is bulleted.
+            If the paragraph contains a bullet inside text, the paragraph is divided and new paragraph is bulleted.
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.FixParagraphsWithNumbers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Fix paragraphs with numbering.
+            Numbering is a digit or a sequence of digits, a letter or two letters followed by a dot or closing parenthesis.
+            If the paragraph starts with a numbering, the numbering is removed and the paragraph is numbered.
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.OpenXmlElementTools">
             <summary>
@@ -3804,6 +3947,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.JoinNextParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Join next paragraph to the paragraph. Insert space before the next paragraph.
+            </summary>
+            <param name="para"></param>
+            <param name="nextPara"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.BreakBefore(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.String)">
+            <summary>
+            Break the paragraph before the specified text.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
             <summary>
             Tools for working with OpenXml Wordprocessing plain text element.
@@ -4228,6 +4386,46 @@
             <param name="thisRelationship"></param>
             <param name="otherRelationship"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.UpperLower">
+            <summary>
+            Required upper or lower case numbering.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.UpperLower.Upper">
+            <summary>
+            Requires upper case numbering.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.UpperLower.Lower">
+            <summary>
+            Requires lower case numbering.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.RomanNumeralConverter">
+            <summary>
+            Converts Roman numerals to integers and vice versa.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RomanNumeralConverter.FromRoman(System.String,Qhta.OpenXmlTools.UpperLower)">
+            <summary>
+            Converts a Roman numeral to an integer.
+            If conversion is impossible, returns null.
+            </summary>
+            <param name="roman">converted string (without spaces)</param>
+            <param name="caseRequirement">Upper/lower case requirement. To no requirement set to 0</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RomanNumeralConverter.ToRoman(System.Int32,Qhta.OpenXmlTools.UpperLower)">
+            <summary>
+            Converts an integer to a Roman numeral.
+            If conversion is impossible, returns null.
+            </summary>
+            <param name="number">Number to convert</param>
+            <param name="caseRequirement">Upper/lower case requirement. To no requirement set to 0</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
         </member>
         <member name="T:Qhta.OpenXmlTools.RsidsTools">
             <summary>
@@ -7015,6 +7213,15 @@
             <param name="result"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.StringTools.GetSentences(System.String)">
+            <summary>
+            Get the list of sentences from the string.
+            Sentences are separated by '.', '!', '?' or ':'
+            followed by a space (or standing at the end of the string).
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.StringTools.ReplaceSymbolEncoding(System.String)">
             <summary>
             Replace characters in a string with a code between F000 and F0DD to corresponding unicode characters according to symbol encoding.
@@ -9503,6 +9710,13 @@
             </summary>
             <param name="table"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.TryJoinFirstColumnParagraphs(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Browse through cells in the first column and try to join paragraphs in the cells.
+            </summary>
+            <param name="table"></param>
+            <returns>Number of joined cells</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
