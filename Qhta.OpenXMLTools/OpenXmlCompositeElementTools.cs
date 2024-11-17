@@ -211,8 +211,8 @@ public static class OpenXmlCompositeElementTools
       var paraText = paragraph.GetText();
       if (paraText.Contains(str))
       {
-        paragraph.BreakBefore(str);
-        count++;
+        if (paragraph.BreakBefore(str))
+          count++;
       }
     }
     return count;

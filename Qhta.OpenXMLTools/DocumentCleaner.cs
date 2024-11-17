@@ -41,6 +41,8 @@ public partial class DocumentCleaner
     JoinDividedSentences(wordDoc);
     JoinParagraphsInFirstColumn(wordDoc);
     BreakParagraphsBefore(wordDoc, "Namespace:");
+    BreakParagraphsBefore(wordDoc, "end note]");
+    BreakParagraphsBefore(wordDoc, "end example]");
     FormatTables(wordDoc);
   }
 

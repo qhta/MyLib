@@ -474,9 +474,10 @@ public static class ParagraphTools
           while (nextSibling != null)
           {
             newParagraph ??= NewParagraph(paragraph);
+            var nextSibling1 = nextSibling.NextSibling();
             nextSibling.Remove();
             newParagraph.AppendChild(nextSibling);
-            nextSibling = nextSibling.NextSibling();
+            nextSibling = nextSibling1;
           }
           break;
         }
@@ -559,7 +560,7 @@ public static class ParagraphTools
             return sectionProperties1;
         }
         nextElement = nextElement?.NextSibling();
-      } while (nextElement!=null);
+      } while (nextElement != null);
     }
     return null;
   }
@@ -591,39 +592,27 @@ public static class ParagraphTools
   public static bool BreakBefore(this DXW.Paragraph paragraph, string str)
   {
     var done = false;
-    foreach (var run in paragraph.Elements<DXW.Run>())
+    var paraText = paragraph.GetText().Trim();
+    var index = paraText.IndexOf(str);
+    while (index > 0 && index < paraText.Length - str.Length)
     {
-      if (run.PreviousSibling() == null || run.NextSibling() == null)
-        continue;
-      var runText = run.GetText();
-      var index = runText.IndexOf(str);
-      if (index >= 0)
-      {
-        var newParagraph = new DXW.Paragraph();
-        newParagraph.ParagraphProperties = paragraph.ParagraphProperties?.CloneNode(true) as DXW.ParagraphProperties;
-        DX.OpenXmlElement? element = run;
-        if (index > 0)
-        {
-          var newRun = run.SplitAt(index);
-          newParagraph.AppendChild(newRun);
-          element = run.NextSibling();
-        }
-        while (element != null)
-        {
-          var nextElement = element.NextSibling();
-          element.Remove();
-          newParagraph.AppendChild(element);
-          element = nextElement;
-        }
-        paragraph.InsertAfterSelf(newParagraph);
-        paragraph.TrimEnd();
-        newParagraph.TrimStart();
-        done = true;
-        var paraText = paragraph.GetText();
-        var nextText = newParagraph.GetText();
+      var newParagraph = paragraph.SplitAt(index);
+      if (newParagraph == null)
         break;
-      }
+      paragraph.TrimEnd();
+      newParagraph.TrimStart();
+      paraText = paragraph.GetText();
+      var newText = newParagraph.GetText();
+      paragraph.InsertAfterSelf(newParagraph);
+      Debug.WriteLine($"Break \"{paraText}\" & \"{newText}\"");
+      done = true;
+      paragraph = newParagraph;
+      if (paragraph.GetText().Trim() == "")
+        paragraph.Remove();
+      paraText = newText;
+      index = paraText.IndexOf(str);
     }
     return done;
   }
+
 }

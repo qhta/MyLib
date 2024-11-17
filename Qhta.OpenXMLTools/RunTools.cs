@@ -717,9 +717,10 @@ public static class RunTools
           while (nextSibling != null)
           {
             newRun ??= NewRun(run);
+            var nextSibling1 = nextSibling.NextSibling();
             nextSibling.Remove();
             newRun.AppendChild(nextSibling);
-            nextSibling = nextSibling.NextSibling();
+            nextSibling = nextSibling1;
           }
           break;
         }
