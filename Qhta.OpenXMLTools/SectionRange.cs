@@ -30,12 +30,12 @@ public class SectionRange(SectionProperties sectionProperties, OpenXmlElement? s
   //    {
   //      if (element == SectionProperties)
   //        break;
-  //      if (element.Elements().Count() == 1)
+  //      if (element.Elements().RowsCount() == 1)
   //      {
   //        var firstChild = element.Elements().First();
   //        if (firstChild == SectionProperties)
   //          break;
-  //        if (firstChild.Elements().Count() == 1)
+  //        if (firstChild.Elements().RowsCount() == 1)
   //        {
   //          firstChild = firstChild.Elements().First();
   //          if (firstChild == SectionProperties)

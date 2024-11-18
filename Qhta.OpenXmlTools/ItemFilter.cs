@@ -6,15 +6,15 @@
 public enum ItemFilter
 {
   /// <summary>
-  /// Count or get only defined items.
+  /// RowsCount or get only defined items.
   /// </summary>
   Defined,
   /// <summary>
-  /// Count or get all items.
+  /// RowsCount or get all items.
   /// </summary>
   All,
   /// <summary>
-  /// Count or get only built-in items.
+  /// RowsCount or get only built-in items.
   /// </summary>
   BuiltIn,
 }

@@ -9,6 +9,7 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class OpenXmlElementTools
 {
+
   /// <summary>
   /// Checks if the element is the specified type.
   /// </summary>
@@ -108,10 +109,14 @@ public static class OpenXmlElementTools
       result = hyperlink.IsEmpty();
     else if (element is DXW.Table table)
       result = table.IsEmpty();
+    else if (element is DXW.TableRow tableRow)
+      result = tableRow.IsEmpty();
+    //else if (element is DXW.TableCell tableCell)
+    //  result = tableCell.IsEmpty();
     else
     {
       if (element is DX.OpenXmlCompositeElement compositeElement)
-        return !(compositeElement.MemberElements().Any(e=>!e.IsEmpty()));
+        return !(compositeElement.MemberElements().Any(e => !e.IsEmpty()));
       else if (element is DX.OpenXmlLeafTextElement textElement)
         return string.IsNullOrEmpty(textElement.Text);
       return !element.HasAttributes;

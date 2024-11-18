@@ -26,15 +26,15 @@ public partial class DocumentCleaner
     using var wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
     RemoveProofErrors(wordDoc);
     TrimParagraphs(wordDoc);
-    RemoveEmptyParagraphs(wordDoc);
+    RemoveEmptyParagraphs(wordDoc, true);
     RemoveFakeHeadersAndFooters(wordDoc);
     ResetHeadingsFormat(wordDoc);
     ReplaceSymbolEncoding(wordDoc);
     FixParagraphNumbering(wordDoc);
     FixInternalTables(wordDoc);
-    FixTablesWithInvalidColumns(wordDoc);
     JoinAdjacentTables(wordDoc);
     FixDividedTables(wordDoc);
+    FixTablesWithInvalidColumns(wordDoc);
     JoinAdjacentRuns(wordDoc);
     FixLongWords(wordDoc);
     RepairXmlExamples(wordDoc);
@@ -99,73 +99,25 @@ public partial class DocumentCleaner
   /// Removes all the empty paragraphs from the document.
   /// </summary>
   /// <param name="wordDoc"></param>
-  public void RemoveEmptyParagraphs(DXPack.WordprocessingDocument wordDoc)
+  /// <param name="descendants">should remove in descendants or at elements</param>
+  public void RemoveEmptyParagraphs(DXPack.WordprocessingDocument wordDoc, bool descendants)
   {
     if (VerboseLevel > 0)
       Console.WriteLine("\nRemoving empty paragraphs");
     var body = wordDoc.GetBody();
-    var count = RemoveEmptyParagraphs(body);
+    var count = body.RemoveEmptyParagraphs(descendants);
     var headers = wordDoc.GetHeaders().ToList();
     foreach (var header in headers)
     {
-      count += RemoveEmptyParagraphs(header);
+      count += header.RemoveEmptyParagraphs(descendants);
     }
     var footers = wordDoc.GetFooters().ToList();
     foreach (var footer in wordDoc.GetFooters())
     {
-      count += RemoveEmptyParagraphs(footer);
+      count += footer.RemoveEmptyParagraphs(descendants);
     }
     if (VerboseLevel > 0)
       Console.WriteLine($" {count} paragraphs removed.");
-  }
-
-  /// <summary>
-  /// Removes all the empty paragraphs from the document.
-  /// </summary>
-  /// <param name="body"></param>
-  /// <returns>count of removed paragraphs</returns>
-  public int RemoveEmptyParagraphs(DX.OpenXmlCompositeElement body)
-  {
-    var removed = 0;
-    var emptyParagraphs = body.Descendants<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList();
-    foreach (var paragraph in emptyParagraphs)
-    {
-      if (paragraph.Ancestors<DXW.Table>().Any())
-      {
-        if (paragraph.Parent is DXW.TableCell tableCell)
-        {
-          if (tableCell.Elements<DXW.Paragraph>().Count() > 1)
-          {
-            if (paragraph.PreviousSibling() is DXW.Table && paragraph.NextSibling() == null)
-            {
-              Debug.Assert(true);
-              // Do not remove the last paragraph in the table cell when the table is the previous sibling.
-            }
-            else
-            {
-              paragraph.Remove();
-              removed++;
-            }
-          }
-          else
-          {
-            Debug.Assert(true);
-            // Do not remove the single paragraph in the table cell.
-          }
-        }
-        else
-        {
-          Debug.Assert(true);
-          // Do not remove the paragraph when it is not in a table cell.
-        }
-      }
-      else
-      {
-        paragraph.Remove();
-        removed++;
-      }
-    }
-    return removed;
   }
 
   /// <summary>
@@ -247,12 +199,16 @@ public partial class DocumentCleaner
     foreach (var paragraph in paragraphs)
     {
       var str = paragraph.GetText();
-      str.TryRemoveNumbering(out var s);
-      s = s.RemoveWhitespaces();
-      if (headers.Contains(s))
+      var ss = str.Split('\t');
+      foreach (var s in ss)
       {
-        paragraph.Remove();
-        removed++;
+        s.TryRemoveNumbering(out var s1);
+        if (headers.Contains(s1))
+        {
+          paragraph.Remove();
+          removed++;
+          break;
+        }
       }
     }
     if (VerboseLevel > 0)
@@ -422,7 +378,7 @@ public partial class DocumentCleaner
         var k = text.IndexOf("<", indent + 1);
         if (k != -1)
         {
-          if (k > 0 && k < text.Length - 1 && (text[k + 1] == '/' || char.IsLetter(text[k + 1])))
+          if (k > 0 && k < text.Length - 1 && (text[k+1] == '/' && text[k-1] == ' ' || char.IsLetter(text[k+1])))
           {
             // if the paragraph contains an XML tag but not in the beginning, split it to a new paragraph.
             //Console.WriteLine(text);
@@ -430,6 +386,11 @@ public partial class DocumentCleaner
             paragraph.TrimEnd();
             if (newParagraph != null)
             {
+              var firstRun = newParagraph.Elements<DXW.Run>().FirstOrDefault();
+              if (firstRun != null)
+              {
+                firstRun.SetText(new String(' ', indent)+firstRun.GetText());
+              }
               var spacing = paragraph.GetParagraphProperties().GetSpacingBetweenLines();
               spacing.After = "8";
               paragraph.InsertAfterSelf(newParagraph);

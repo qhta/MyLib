@@ -1,6 +1,5 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml.Drawing.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;
@@ -13,6 +12,16 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class TableTools
 {
+
+  /// <summary>
+  /// Get the <c>TableRow</c> elements of the table.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static IEnumerable<DXW.TableRow> GetRows(this DXW.Table table)
+  {
+    return table.Elements<DXW.TableRow>();
+  }
 
   /// <summary>
   /// Gets the text of all rows in the table.
@@ -119,7 +128,28 @@ public static class TableTools
   }
 
   /// <summary>
-  /// Gets the table grid  of the table.
+  /// Sets the table properties of the table.
+  /// If the value to set is null, removes the <c>TableProperties</c> element.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="value">Value to set</param>
+  /// <returns></returns>
+  public static void SetTableProperties(this Table table, TableProperties? value)
+  {
+    var tableProperties = table.Elements<TableProperties>().FirstOrDefault();
+    if (tableProperties != null)
+      tableProperties.Remove();
+    if (value != null)
+    {
+      if (value.Parent== null)
+        table.AddChild(value);
+      else
+        table.AddChild(value.CloneNode((true)));
+    }
+  }
+
+  /// <summary>
+  /// Gets the table grid of the table.
   /// If the <c>TableGrid</c> element is null, creates a new one.
   /// </summary>
   /// <param name="table"/>
@@ -133,6 +163,27 @@ public static class TableTools
       table.AppendChild(tableGrid);
     }
     return tableGrid;
+  }
+
+  /// <summary>
+  /// Sets the table grid of the table.
+  /// If the value to set is null, removes the <c>TableGrid</c> element.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="value">Value to set</param>
+  /// <returns></returns>
+  public static void SetTableGrid(this Table table, TableGrid? value)
+  {
+    var tableGrid = table.Elements<TableGrid>().FirstOrDefault();
+    if (tableGrid != null)
+      tableGrid.Remove();
+    if (value != null)
+    {
+      if (value.Parent == null)
+        table.AddChild(value);
+      else
+        table.AddChild(value.CloneNode((true)));
+    }
   }
 
   /// <summary>
@@ -348,94 +399,6 @@ public static class TableTools
   }
 
   /// <summary>
-  /// Check if the table has invalid columns and fix them.
-  /// Only tables which have borders are considered.
-  /// Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
-  /// If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
-  /// If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
-  /// If it is possible, we merge these cells and remove the higher column in a table grid.
-  /// The lower column width is increased by the width of the higher column.
-  /// </summary>
-  /// <param name="table"></param>
-  /// <returns></returns>
-  public static bool TryFixInvalidColumns(this DXW.Table table)
-  {
-    var done = false;
-    var columns = table.GetTableGrid().Elements<GridColumn>().ToList();
-    var columnsCount = columns.Count();
-    var columnUsage = new List<int>(new int[columnsCount]);
-    var rows = table.Elements<DXW.TableRow>().ToList();
-    foreach (var row in rows)
-    {
-      var filledCellsCount = 0;
-      for (int columnNdx = 0; columnNdx < columnsCount; columnNdx++)
-      {
-        var cell = row.GetCell(columnNdx);
-        if (cell != null && !cell.IsEmpty())
-        {
-          filledCellsCount++;
-          columnUsage[columnNdx]++;
-        }
-
-      }
-      if (filledCellsCount == columnsCount)
-      {
-        return false;
-      }
-    }
-    for (int columnNdx = 0; columnNdx < columnUsage.Count; columnNdx++)
-    {
-      if (columnUsage[columnNdx] == 0)
-      {
-        foreach (var row in rows)
-        {
-          // Remove column from row
-          var cell = row.GetCell(columnNdx);
-          if (cell != null)
-          {
-            cell.Remove();
-          }
-          else
-          {
-            cell = row.GetMergedCell(columnNdx);
-            if (cell != null)
-            {
-              cell.SetGridSpan(cell.GetGridSpan() - 1);
-            }
-          }
-        }
-        var column = table.GetTableGrid().Elements<DXW.GridColumn>().ElementAt(columnNdx);
-        column.Remove();
-        columnsCount--;
-        columnUsage.RemoveAt(columnNdx);
-        //columnNdx--;
-        done = true;
-      }
-      else if (columnUsage[columnNdx] < rows.Count)
-      {
-        for (int rowNdx = 0; rowNdx < rows.Count; rowNdx++)
-        {
-          var row = rows[rowNdx];
-          row.JoinCellWithNext(columnNdx);
-        }
-        var column1 = columns[columnNdx];
-        if (columnNdx < columns.Count - 1)
-        {
-          var column2 = columns[columnNdx + 1];
-          column1.SetWidth(column1.GetWidth() + column2.GetWidth());
-          if (column2.Parent != null)
-            column2.Remove();
-          columnsCount--;
-          columnUsage.RemoveAt(columnNdx);
-          //columnNdx--;
-        }
-        done = true;
-      }
-    }
-    return done;
-  }
-
-  /// <summary>
   /// Browse through cells in the first column and try to join paragraphs in the cells.
   /// </summary>
   /// <param name="table"></param>
@@ -521,7 +484,7 @@ public static class TableTools
       tableCellMarginDefault.TableCellLeftMargin = element;
     }
     element.Type = TableWidthValues.Dxa;
-    element.Width = new DX.Int16Value{ Value = (short)value };
+    element.Width = new DX.Int16Value { Value = (short)value };
   }
 
 
@@ -539,5 +502,17 @@ public static class TableTools
       return (int?)tableCellMarginDefault?.TableCellRightMargin?.Width?.Value ?? 0;
     }
     return null;
+  }
+
+  /// <summary>
+  /// Get the table look element of the table properties.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static DXW.TableLook? GetTableLook(this DXW.Table table)
+  {
+    var tableProperties = table.GetTableProperties();
+    var tableLook = tableProperties.TableLook;
+    return tableLook;
   }
 }

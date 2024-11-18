@@ -41,4 +41,5 @@ public static class TablePropertiesTools
   {
     return tableProperties.TableCellMarginDefault ??= new DXW.TableCellMarginDefault();
   }
+
 }

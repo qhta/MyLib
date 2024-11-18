@@ -25,4 +25,14 @@ public static class BordersTools
     }
     return bordersElement;
   }
+
+  /// <summary>
+  /// Determines whether the border is visible.
+  /// </summary>
+  /// <param name="border"></param>
+  /// <returns></returns>
+  public static bool IsVisible(this BorderType? border)
+  {
+    return border!= null && border.Val?.Value != BorderValues.Nil;
+  }
 }

@@ -12,6 +12,58 @@ public static class OpenXmlCompositeElementTools
 {
 
   /// <summary>
+  /// Removes all the empty paragraphs from the document.
+  /// </summary>
+  /// <param name="body"></param>
+  /// <param name="descendants">should remove in descendants or at elements</param>
+  /// <returns>count of removed paragraphs</returns>
+  public static int RemoveEmptyParagraphs(this DX.OpenXmlCompositeElement body, bool descendants)
+  {
+    var removed = 0;
+    var emptyParagraphs = descendants 
+      ? body.Descendants<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList()
+      : body.Elements<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList(); 
+    foreach (var paragraph in emptyParagraphs)
+    {
+      if (paragraph.Ancestors<DXW.Table>().Any())
+      {
+        if (paragraph.Parent is DXW.TableCell tableCell)
+        {
+          if (tableCell.Elements<DXW.Paragraph>().Count() > 1)
+          {
+            if (paragraph.PreviousSibling() is DXW.Table && paragraph.NextSibling() == null)
+            {
+              Debug.Assert(true);
+              // Do not remove the last paragraph in the table cell when the table is the previous sibling.
+            }
+            else
+            {
+              paragraph.Remove();
+              removed++;
+            }
+          }
+          else
+          {
+            Debug.Assert(true);
+            // Do not remove the single paragraph in the table cell.
+          }
+        }
+        else
+        {
+          Debug.Assert(true);
+          // Do not remove the paragraph when it is not in a table cell.
+        }
+      }
+      else
+      {
+        paragraph.Remove();
+        removed++;
+      }
+    }
+    return removed;
+  }
+
+  /// <summary>
   /// Removes all <c>ProofError</c> and <c>ProofState</c> members from the element.
   /// </summary>
   /// <param name="element">Processed element</param>
@@ -127,40 +179,6 @@ public static class OpenXmlCompositeElementTools
     return count;
   }
 
-  /// <summary>
-  /// Find tables that have invalid columns and fix them.
-  /// Such tables have rows filled with empty cells.
-  /// </summary>
-  /// <param name="element">Processed element</param>
-  /// <returns>number of tables fixed</returns>
-  public static int FixTablesWithInvalidColumns(this DX.OpenXmlCompositeElement element)
-  {
-    var count = 0;
-    var tables = element.Descendants<DXW.Table>().ToList();
-    foreach (var table in tables)
-    {
-      //if (table.Elements<DXW.TableRow>().Count() <= 3)
-      //  continue;
-      var firstRow = table.GetFirstChild<DXW.TableRow>();
-      var firstCell = firstRow?.GetFirstChild<DXW.TableCell>();
-      var borders = firstCell?.TableCellProperties?.GetFirstChild<DXW.TableCellBorders>();
-      if (borders == null)
-        continue;
-      if (borders.LeftBorder?.Val?.Value == BorderValues.Nil)
-        continue;
-      var shading = firstCell?.TableCellProperties?.GetFirstChild<DXW.Shading>();
-      if (shading == null || shading.Fill != "C0C0C0")
-        continue;
-      //var nextRow = firstRow?.NextSibling() as DXW.TableRow;
-      //firstCell = nextRow?.GetFirstChild<DXW.TableCell>();
-      //var firstParagraph = firstCell?.GetFirstChild<DXW.Paragraph>();
-      //if (firstParagraph != null)
-      //  Debug.WriteLine($"{i + 1}: {firstParagraph.GetText()}");
-      if (table.TryFixInvalidColumns())
-        count++;
-    }
-    return count;
-  }
 
   /// <summary>
   /// Find tables that have invalid columns and fix them.
@@ -174,7 +192,7 @@ public static class OpenXmlCompositeElementTools
     var tables = body.Descendants<DXW.Table>().ToList();
     foreach (var table in tables)
     {
-      //if (table.Elements<DXW.TableRow>().Count() <= 3)
+      //if (table.Elements<DXW.TableRow>().RowsCount() <= 3)
       //  continue;
       var firstRow = table.GetFirstChild<DXW.TableRow>();
       var firstCell = firstRow?.GetFirstChild<DXW.TableCell>();
@@ -230,7 +248,8 @@ public static class OpenXmlCompositeElementTools
     for (int i = 0; i < tables.Count; i++)
     {
       var table = tables[i];
-      var nextTable = table.NextSibling() as DXW.Table;
+      var nextElement = table.NextSibling();
+      var nextTable = nextElement as DXW.Table;
       if (nextTable == null)
         continue;
 
@@ -246,7 +265,7 @@ public static class OpenXmlCompositeElementTools
       {
         row.Remove();
         table.AppendChild(row);
-        var newTableRows = table.Elements<DXW.TableRow>().ToList();
+        //var newTableRows = table.Elements<DXW.TableRow>().ToList();
       }
       nextTable.Remove();
       i--;

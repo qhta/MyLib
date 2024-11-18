@@ -106,6 +106,13 @@
             <typeparam name="OpenXmlElementType">Target OpenXml element type. It must be a composite element</typeparam>
             <returns>New <typeparamref name="OpenXmlElementType"/> element</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.BordersTools.IsVisible(DocumentFormat.OpenXml.Wordprocessing.BorderType)">
+            <summary>
+            Determines whether the border is visible.
+            </summary>
+            <param name="border"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.BuiltinStyles">
             <summary>Specifies builtin styles as defined in OpenXml</summary>
         </member>
@@ -419,18 +426,12 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Boolean)">
             <summary>
             Removes all the empty paragraphs from the document.
             </summary>
             <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Removes all the empty paragraphs from the document.
-            </summary>
-            <param name="body"></param>
-            <returns>count of removed paragraphs</returns>
+            <param name="descendants">should remove in descendants or at elements</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentRuns(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -514,9 +515,127 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixInternalTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
-            Find multi-column rows in tables and make them internal tables.
+            If a table has rows with different number of cells than try to convert these rows to internal tables.
+            We assume that the number of rows in the table is greater than 2.
+            We also assume that the merged column is the second column.
             </summary>
             <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixEmptyCellHeaders(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Check if the table has heading rows and try to fix them.
+            Heading row is a row that is shaded and bordered
+            Heading rows need to be fixed if they have empty cells.
+            Fixing heading rows means joining empty cells with next non-empty cells.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixEmptyCellRows(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Check if the table has rows with empty cells and try to fix them.
+            Fixing rows means joining empty cells with next non-empty cells.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.IsHeadingRow(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Check if the row is a heading row.
+            Heading row is a row that has at least one cell shaded and bordered.
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixRowWithEmptyCells(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Try to fix row if the row has empty cells.
+            These empty cells are joined with next non-empty cells.
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinEmptyCellWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Try to join empty emptyCell with the next non-empty cell.
+            Join is possible if the next cell is not empty and
+            there is no border between empty cell and non-empty cell.
+            </summary>
+            <param name="emptyCell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinEmptyCellWithPrevious(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Try to join empty emptyCell with the previous non-empty cell.
+            Join is possible if the previous cell is not empty and
+            there is no border between empty cell and non-empty cell.
+            </summary>
+            <param name="emptyCell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryRemoveEmptyColumns(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Check it the table has empty columns and remove them.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.DocumentCleaner.RowGroup">
+            <summary>
+            Helper record for grouping rows by the number of cells.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.StartIndex">
+            <summary>
+            Start of the group (row index).
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.RowsCount">
+            <summary>
+            RowsCount of the group;
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.CellsCount">
+            <summary>
+            CellsCount of the group.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.FirstNonEmptyColumn">
+            <summary>
+            First non-empty column in the group.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.LastNonEmptyColumn">
+            <summary>
+            Last non-empty column in the group.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.Rows">
+            <summary>
+            List of rows in the group.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.InternalTable">
+            <summary>
+            Internal table created from the group.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.GetRowGroups(System.Collections.Generic.Dictionary{DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32})">
+            <summary>
+            Helper method for grouping rows by the number of cells.
+            </summary>
+            <param name="rowsCellsCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryToCreateInternalTable(Qhta.OpenXmlTools.DocumentCleaner.RowGroup)">
+            <summary>
+            Helper method for creating internal table.
+            If the rowGroup has empty columns from the left or from the right
+            then we can create an internal table.
+            The internal table has non-empty columns copied from the original table.
+            </summary>
+            <param name="rowGroup"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -524,6 +643,27 @@
             Such tables have rows filled with empty cells.
             </summary>
             <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find tables that have invalid columns and fix them.
+            Such tables have rows filled with empty cells.
+            </summary>
+            <param name="body">Processed body</param>
+            <returns>number of tables fixed</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixInvalidColumns(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Check if the table has invalid columns and fix them.
+            Only tables which have borders are considered.
+            Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
+            If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
+            If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
+            If it is possible, we merge these cells and remove the higher column in a table grid.
+            The lower column width is increased by the width of the higher column.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -1651,17 +1791,17 @@
         </member>
         <member name="F:Qhta.OpenXmlTools.ItemFilter.Defined">
             <summary>
-            Count or get only defined items.
+            RowsCount or get only defined items.
             </summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.ItemFilter.All">
             <summary>
-            Count or get all items.
+            RowsCount or get all items.
             </summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.ItemFilter.BuiltIn">
             <summary>
-            Count or get only built-in items.
+            RowsCount or get only built-in items.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.LevelTools">
@@ -2585,6 +2725,14 @@
             Contains tools for working with OpenXml composite elements.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.RemoveEmptyParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Boolean)">
+            <summary>
+            Removes all the empty paragraphs from the document.
+            </summary>
+            <param name="body"></param>
+            <param name="descendants">should remove in descendants or at elements</param>
+            <returns>count of removed paragraphs</returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.RemoveProofErrors(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Removes all <c>ProofError</c> and <c>ProofState</c> members from the element.
@@ -2619,14 +2767,6 @@
             </summary>
             <param name="element">Processed element</param>
             <returns>number of joins</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find tables that have invalid columns and fix them.
-            Such tables have rows filled with empty cells.
-            </summary>
-            <param name="element">Processed element</param>
-            <returns>number of tables fixed</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.JoinParagraphsInFirstColumn(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
@@ -9389,6 +9529,13 @@
             Tools for working with table cells in OpenXml documents.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetMembers(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Get all the member elements of the cell (except <c>TableCellProperties</c>).
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
             Gets the text of all paragraph in the table cell.
@@ -9442,7 +9589,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetGridSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
             <summary>
             Returns the number of columns merged in the cell.
             If the cell is not spanned, the returned value is 1.
@@ -9450,7 +9597,7 @@
             <param name="cell"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetGridSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Int32)">
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Int32)">
             <summary>
             Sets the number of columns merged in the cell.
             if value is 1 or less, the grid span element is removed.
@@ -9491,6 +9638,85 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TableExtraTools">
+            <summary>
+            Extra tools for working with tables in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetNonEmptyColumns(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.Wordprocessing.TableRow})">
+            <summary>
+            Find the first and the last non-empty column in the group of rows.
+            </summary>
+            <param name="rows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetNonEmptyColumns(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Find the first and the last non-empty cell in the row.
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetCellsInColumn(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32)">
+            <summary>
+            Get the cells in the selected column from the table.
+            </summary>
+            <param name="table"></param>
+            <param name="columnNdx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetCellsInColumn(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.Wordprocessing.TableRow},System.Int32)">
+            <summary>
+            Get the cells in the selected column from the group of rows.
+            </summary>
+            <param name="rows"></param>
+            <param name="columnNdx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.AreMerged(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.Wordprocessing.TableCell})">
+            <summary>
+            Check if the cells in the cellColumn are merged.
+            True if the first cell has VerticalMerge element
+            and additionally first VerticalMerge element has value of Restart.
+            </summary>
+            <param name="cellColumn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetNewTableGrid(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Gets the new table grid of the table by evaluating all columns in the table.
+            </summary>
+            <param name="table"/>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetColumnsCount(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Evaluate the column count in the row.
+            </summary>
+            <param name="aRow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableExtraTools.GetColumnWith(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32)">
+            <summary>
+            Evaluate the width of the specific column in the table.
+            Only cells which are not spanned are taken into account.
+            </summary>
+            <param name="aTable"></param>
+            <param name="columnNdx">column index</param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TableGridTools">
+            <summary>
+            Tools for working with table grid columns in OpenXml documents.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableGridTools.GetColumns(DocumentFormat.OpenXml.Wordprocessing.TableGrid)">
+            <summary>
+            Gets columns from the table grid.
+            </summary>
+            <param name="tableGrid"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TablePropertiesTools">
             <summary>
             Tools for working with table properties in OpenXml documents.
@@ -9517,14 +9743,15 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.GetTableRowHeight(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties)">
             <summary>
-            Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, a new one is created.
+            Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, null is returned.
             </summary>
             <param name="tableRowProperties">Table row properties to examine</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.SetTableRowHeight(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties,System.Nullable{System.Int32},DocumentFormat.OpenXml.Wordprocessing.HeightRuleValues)">
+        <member name="M:Qhta.OpenXmlTools.TableRowPropertiesTools.SetTableRowHeight(DocumentFormat.OpenXml.Wordprocessing.TableRowProperties,System.Nullable{System.Int32},System.Nullable{DocumentFormat.OpenXml.Wordprocessing.HeightRuleValues})">
             <summary>
             Sets the row height.
+            If value to set is null, the height is removed.
             </summary>
             <param name="tableRowProperties">Table row properties to set</param>
             <param name="value">value to set</param>
@@ -9550,6 +9777,30 @@
             <summary>
             Tools for working with table rows in OpenXml documents.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.GetCells(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Get the <c>TableCell</c> elements of the row.
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.GetHeight(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
+            <summary>
+            Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, null is returned.
+            </summary>
+            <param name="tableRow">Table row to examine</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableRowTools.SetHeight(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Nullable{System.Int32},System.Nullable{DocumentFormat.OpenXml.Wordprocessing.HeightRuleValues})">
+            <summary>
+            Sets the row height.
+            If value to set is null, the height is removed.
+            </summary>
+            <param name="tableRow">Table row to set</param>
+            <param name="value">value to set</param>
+            <param name="rule">rule to set</param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableRowTools.SetKeepWithNext(DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Boolean)">
             <summary>
@@ -9603,6 +9854,13 @@
             Tools for working with tables in OpenXml documents.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetRows(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Get the <c>TableRow</c> elements of the table.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.GetTextOptions)">
             <summary>
             Gets the text of all rows in the table.
@@ -9634,12 +9892,30 @@
             <param name="table"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetTableProperties(DocumentFormat.OpenXml.Wordprocessing.Table,DocumentFormat.OpenXml.Wordprocessing.TableProperties)">
+            <summary>
+            Sets the table properties of the table.
+            If the value to set is null, removes the <c>TableProperties</c> element.
+            </summary>
+            <param name="table"></param>
+            <param name="value">Value to set</param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.GetTableGrid(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
-            Gets the table grid  of the table.
+            Gets the table grid of the table.
             If the <c>TableGrid</c> element is null, creates a new one.
             </summary>
             <param name="table"/>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetTableGrid(DocumentFormat.OpenXml.Wordprocessing.Table,DocumentFormat.OpenXml.Wordprocessing.TableGrid)">
+            <summary>
+            Sets the table grid of the table.
+            If the value to set is null, removes the <c>TableGrid</c> element.
+            </summary>
+            <param name="table"></param>
+            <param name="value">Value to set</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.TryKeepOnPage(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32)">
@@ -9698,19 +9974,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.TryFixInvalidColumns(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Check if the table has invalid columns and fix them.
-            Only tables which have borders are considered.
-            Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
-            If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
-            If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
-            If it is possible, we merge these cells and remove the higher column in a table grid.
-            The lower column width is increased by the width of the higher column.
-            </summary>
-            <param name="table"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.TryJoinFirstColumnParagraphs(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Browse through cells in the first column and try to join paragraphs in the cells.
@@ -9743,6 +10006,13 @@
         <member name="M:Qhta.OpenXmlTools.TableTools.GetRightMargin(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
             Get the right margin of TableCellMarginDefault.LeftMargin.
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetTableLook(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Get the table look element of the table properties.
             </summary>
             <param name="table"></param>
             <returns></returns>

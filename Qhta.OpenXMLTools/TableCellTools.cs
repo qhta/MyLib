@@ -24,6 +24,20 @@ public static class TableCellTools
 {
 
   /// <summary>
+  /// Get all the member elements of the cell (except <c>TableCellProperties</c>).
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static IEnumerable<DX.OpenXmlElement> GetMembers(this DX.OpenXmlElement cell)
+  {
+    foreach (var element in cell.Elements())
+    {
+      if (element is not DXW.TableCellProperties)
+        yield return element;
+    }
+  }
+
+  /// <summary>
   /// Gets the text of all paragraph in the table cell.
   /// </summary>
   /// <param name="cell"></param>
@@ -195,7 +209,7 @@ public static class TableCellTools
   /// </summary>
   /// <param name="cell"></param>
   /// <returns></returns>
-  public static int GetGridSpan(this DXW.TableCell cell)
+  public static int GetSpan(this DXW.TableCell cell)
   {
     return cell.TableCellProperties?.GridSpan?.Val?.Value ?? 1;
   }
@@ -207,7 +221,7 @@ public static class TableCellTools
   /// <param name="cell"></param>
   /// <param name="value"></param>
   /// <returns></returns>
-  public static void SetGridSpan(this DXW.TableCell cell, int value)
+  public static void SetSpan(this DXW.TableCell cell, int value)
   {
     var gridSpan = cell.TableCellProperties?.GridSpan;
     if (value <= 1)
@@ -317,4 +331,5 @@ public static class TableCellTools
       cell.GetTableCellProperties().GetTableCellBorders().Append(value);
     }
   }
+
 }

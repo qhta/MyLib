@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -7,7 +9,7 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public partial class DocumentCleaner
 {
-
+  private bool stop = false;
   /// <summary>
   /// Find multi-column rows in tables and make them internal tables.
   /// </summary>
@@ -19,8 +21,12 @@ public partial class DocumentCleaner
     var body = wordDoc.GetBody();
     var count = 0;
     var tables = body.Descendants<DXW.Table>().ToList();
-    foreach (var table in tables)
+    for (int i = 0; i < tables.Count; i++)
     {
+      var table = tables[i];
+      Console.WriteLine($"  Checking table {i + 1}");
+      if (i + 1 == 694)
+        stop = true;
       if (TryFixInternalTable(table))
         count++;
     }
@@ -29,152 +35,387 @@ public partial class DocumentCleaner
   }
 
   /// <summary>
-  /// Find multi-column rows in tables and make them internal tables.
+  /// If a table has rows with different number of cells than try to convert these rows to internal tables.
+  /// We assume that the number of rows in the table is greater than 2.
+  /// We also assume that the merged column is the second column.
   /// </summary>
   /// <param name="table"></param>
   public bool TryFixInternalTable(DXW.Table table)
   {
-    DXW.TableGrid tableGrid = table.GetTableGrid();
-    var gridColumns = tableGrid.Elements<DXW.GridColumn>().ToList();
-    if (gridColumns.Count < 2)
+    //if (stop)
+    //  Debug.Assert(true);
+    var tableGrid = table.GetTableGrid();
+    var tableGridColumns = tableGrid.GetColumns().ToList();
+    if (tableGridColumns.Count <= 2)
       return false;
-    var tableRows = table.Elements<DXW.TableRow>().ToList();
-    if (tableRows.Count < 2)
+    if (table.Elements<DXW.TableRow>().Count() <= 2)
       return false;
-    var firstRow = tableRows[0];
-    var firstRowCells = firstRow.Elements<DXW.TableCell>().ToList();
-    if (firstRowCells.Count == gridColumns.Count)
+
+    var emptyCellHeadersFixed = TryFixEmptyCellHeaders(table);
+    if (emptyCellHeadersFixed)
+      Debug.Assert(true);
+    var done = false;
+    var rowsList = table.GetRows().ToList();
+    var rowsCellsCount = rowsList.ToDictionary(r => r, r => r.GetCells().Count());
+    var maxColumns = rowsCellsCount.Values.Max();
+    var uniformRows = rowsCellsCount.Count(r => r.Value == maxColumns);
+    if (uniformRows == rowsCellsCount.Count)
       return false;
-    var multiColumnRows = new List<DXW.TableRow>();
-    var firstMultiColumnRow = -1;
-    var lastMultiColumnRow = -1;
-    for (int i = 1; i < tableRows.Count; i++)
+
+    //var rowGroupings = rowsCellsCount.GroupBy(item => item.Value,
+    //  item => rowsList.IndexOf(item.Key));
+    var rowGroups = GetRowGroups(rowsCellsCount);
+
+    if (rowGroups.Count() <= 1)
+      return false;
+
+    for (var rowGroupNdx = 0; rowGroupNdx < rowGroups.Count; rowGroupNdx++)
     {
-      var row = tableRows[i];
-      var cells = row.Elements<DXW.TableCell>().ToList();
-      if (cells.Count == gridColumns.Count)
+      var rowGroup = rowGroups[rowGroupNdx];
+      if (rowGroup.CellsCount == maxColumns)
       {
-        if (firstMultiColumnRow < 0)
-          firstMultiColumnRow = i;
-        multiColumnRows.Add(row);
+        if (TryToCreateInternalTable(rowGroup))
+        {
+          done = true;
+          if (rowGroupNdx > 0)
+          {
+            var previousGroup = rowGroups[rowGroupNdx - 1];
+            foreach (var previousRow in previousGroup.Rows)
+            {
+              var mergedCell = previousRow.GetMergedCell(rowGroup.FirstNonEmptyColumn);
+              if (mergedCell != null)
+              {
+                mergedCell.SetSpan(0);
+              }
+              if (previousRow == previousGroup.Rows.Last())
+              {
+                if (mergedCell != null)
+                {
+                  mergedCell.Append(rowGroup.InternalTable!);
+                  mergedCell.Append(new DXW.Paragraph());
+                }
+              }
+            }
+            foreach (var row in rowGroup.Rows)
+            {
+              row.Remove();
+            }
+          }
+        }
       }
       else
       {
-        if (lastMultiColumnRow < 0)
-          lastMultiColumnRow = i;
-        else
+
+      }
+    }
+
+    if (done)
+    {
+      table.SetTableGrid(table.GetNewTableGrid());
+    }
+
+    return done;
+  }
+
+  /// <summary>
+  /// Check if the table has heading rows and try to fix them.
+  /// Heading row is a row that is shaded and bordered
+  /// Heading rows need to be fixed if they have empty cells.
+  /// Fixing heading rows means joining empty cells with next non-empty cells.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public bool TryFixEmptyCellHeaders(DXW.Table table)
+  {
+    bool done = false;
+    var columns = table.GetTableGrid().GetColumns().ToList();
+    if (columns.Count <= 1)
+      return false;
+    foreach (var row in table.Elements<DXW.TableRow>())
+    {
+      if (IsHeadingRow(row))
+        if (TryFixRowWithEmptyCells(row))
+          done = true;
+    }
+    return done;
+  }
+  /// <summary>
+  /// Check if the table has rows with empty cells and try to fix them.
+  /// Fixing rows means joining empty cells with next non-empty cells.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public bool TryFixEmptyCellRows(DXW.Table table)
+  {
+    bool done = false;
+    var columns = table.GetTableGrid().GetColumns().ToList();
+    if (columns.Count <= 1)
+      return false;
+    foreach (var row in table.Elements<DXW.TableRow>())
+    {
+      if (TryFixRowWithEmptyCells(row))
+        done = true;
+    }
+    return done;
+  }
+
+  /// <summary>
+  /// Check if the row is a heading row.
+  /// Heading row is a row that has at least one cell shaded and bordered.
+  /// </summary>
+  /// <param name="row"></param>
+  /// <returns></returns>
+  public bool IsHeadingRow(DXW.TableRow row)
+  {
+    foreach (var cell in row.Elements<DXW.TableCell>())
+    {
+      var shading = cell.TableCellProperties?.Shading;
+      var borders = cell.TableCellProperties?.TableCellBorders;
+      if (shading != null && borders != null)
+        return true;
+    }
+    return false;
+  }
+
+  /// <summary>
+  /// Try to fix row if the row has empty cells.
+  /// These empty cells are joined with next non-empty cells.
+  /// </summary>
+  /// <param name="row"></param>
+  /// <returns></returns>
+  public bool TryFixRowWithEmptyCells(DXW.TableRow row)
+  {
+    bool done = false;
+    var cells = row.GetCells().ToList();
+    for (int i = 0; i < cells.Count; i++)
+    {
+      var cell = cells[i];
+      if (cell.IsEmpty())
+      {
+        if (TryJoinEmptyCellWithNext(cell) || TryJoinEmptyCellWithPrevious(cell))
         {
-          break;
+          cell.Remove();
+          done = true;
         }
       }
     }
-    if (multiColumnRows.Count == 0)
+    return done;
+  }
+
+  /// <summary>
+  /// Try to join empty emptyCell with the next non-empty cell.
+  /// Join is possible if the next cell is not empty and
+  /// there is no border between empty cell and non-empty cell.
+  /// </summary>
+  /// <param name="emptyCell"></param>
+  /// <returns></returns>
+  public bool TryJoinEmptyCellWithNext(DXW.TableCell emptyCell)
+  {
+    var nextCell = emptyCell.NextSibling() as DXW.TableCell;
+    if (nextCell == null)
       return false;
-    if (firstMultiColumnRow < 0)
+    if (nextCell.IsEmpty())
       return false;
-
-    var firstNonEmptyColumn = -1;
-    var lastNonEmptyColumn = -1;
-    foreach (var row in multiColumnRows)
-    {
-      var cells = row.Elements<DXW.TableCell>().ToList();
-      for (int i = 0; i < cells.Count; i++)
-      {
-        var cellText = cells[i].GetText();
-        if (!String.IsNullOrWhiteSpace(cellText))
-        {
-          if (lastNonEmptyColumn < 0)
-            firstNonEmptyColumn = i;
-          lastNonEmptyColumn = i;
-        }
-      }
-    }
-    if (firstNonEmptyColumn < 0)
+    if (emptyCell.GetRightBorder().IsVisible() || !nextCell.GetLeftBorder().IsVisible())
       return false;
-
-    var internalTable = new DXW.Table();
-    var internalTableGrid = internalTable.GetTableGrid();
-    for (int i = firstNonEmptyColumn; i <= lastNonEmptyColumn; i++)
-    {
-      internalTableGrid.AppendChild(gridColumns[i].CloneNode((true)));
-    }
-
-    foreach (var row in multiColumnRows)
-    {
-      row.Remove();
-      tableRows.Remove(row);
-      for (int i = lastNonEmptyColumn + 1; i < row.Elements<DXW.TableCell>().Count(); i++)
-      {
-        row.Elements<DXW.TableCell>().ElementAt(i).Remove();
-      }
-      for (int i = 0; i < firstNonEmptyColumn; i++)
-      {
-        row.Elements<DXW.TableCell>().ElementAt(0).Remove();
-      }
-      internalTable.AppendChild(row);
-    }
-
-    var tableGridList = tableGrid.Elements<DXW.GridColumn>().ToList();
-    var mergeColumnNdx = (firstNonEmptyColumn < firstRowCells.Count) ? firstNonEmptyColumn : firstRowCells.Count - 1;
-    var mergeColumn = tableGridList[mergeColumnNdx];
-    if (firstNonEmptyColumn > 0)
-    {
-      var indent = tableGridList[firstNonEmptyColumn - 1].GetWidth();
-      if (indent != null)
-      {
-        internalTable.GetTableProperties().TableIndentation = new DXW.TableIndentation { Width = indent, Type = DXW.TableWidthUnitValues.Dxa };
-      }
-    }
-    for (int i = tableGridList.Count - 1; i >= firstNonEmptyColumn; i--)
-    {
-      mergeColumn.SetWidth(mergeColumn.GetWidth() + tableGridList[i].GetWidth());
-      tableGridList[i].Remove();
-      tableGridList.Remove(tableGridList[i]);
-    }
-
-    var mergeRowNdx = firstMultiColumnRow - 1;
-    var mergeRow = tableRows[mergeRowNdx];
-    var mergeRowCells = mergeRow.Elements<DXW.TableCell>().ToList();
-    var mergeCell = mergeRowCells[mergeColumnNdx];
-    mergeCell.AppendChild(internalTable);
-    var afterTableParaAdded = false;
-    var nextRow = mergeRow.NextSibling<DXW.TableRow>();
-    if (nextRow != null)
-    {
-      var nextRowCells = nextRow.Elements<DXW.TableCell>().ToList();
-      nextRow.Remove();
-      tableRows.Remove(nextRow);
-      var nextRowText = nextRow.GetText();
-      int j = 0;
-      for (int i = 0; i < nextRowCells.Count; i++)
-      {
-        var nextRowCell = nextRowCells[i];
-        var mergeRowCell = mergeRowCells[j];
-        var vMerge = mergeRowCell.TableCellProperties?.VerticalMerge;
-        if (vMerge != null)
-          vMerge.Remove();
-        var nextCellText = nextRowCell.GetText();
-        var nextCellContent = nextRowCell.MemberElements().ToList();
-        if (!(nextCellContent.Count == 1 && nextCellContent[0] is DXW.Paragraph paragraph && paragraph.IsEmpty()))
-        {
-          for (int k = 0; k < nextCellContent.Count; k++)
-          {
-            var nextCellContentItem = nextCellContent[k];
-            nextCellContentItem.Remove();
-            nextCellContent.Remove(nextCellContentItem);
-            mergeRowCell.AppendChild(nextCellContentItem);
-            if (nextCellContentItem is DXW.Paragraph && j == mergeColumnNdx)
-              afterTableParaAdded = true;
-          }
-        }
-        if (j < mergeRowCells.Count - 1)
-          j++;
-      }
-    }
-    if (!afterTableParaAdded)
-      mergeCell.AppendChild(new DXW.Paragraph());
+    nextCell.SetLeftBorder(emptyCell.GetLeftBorder());
+    nextCell.SetWidth(nextCell.GetWidth() + emptyCell.GetWidth());
+    nextCell.SetSpan(nextCell.GetSpan() + 1);
+    emptyCell.Remove();
     return true;
   }
+  /// <summary>
+  /// Try to join empty emptyCell with the previous non-empty cell.
+  /// Join is possible if the previous cell is not empty and
+  /// there is no border between empty cell and non-empty cell.
+  /// </summary>
+  /// <param name="emptyCell"></param>
+  /// <returns></returns>
+  public bool TryJoinEmptyCellWithPrevious(DXW.TableCell emptyCell)
+  {
+    var previousCell = emptyCell.PreviousSibling() as DXW.TableCell;
+    if (previousCell == null)
+      return false;
+    if (previousCell.IsEmpty())
+      return false;
+    if (emptyCell.GetLeftBorder().IsVisible() || !previousCell.GetRightBorder().IsVisible())
+      return false;
+    previousCell.SetRightBorder(emptyCell.GetRightBorder());
+    previousCell.SetWidth(previousCell.GetWidth() + emptyCell.GetWidth());
+    previousCell.SetSpan(previousCell.GetSpan() + 1);
+    emptyCell.Remove();
+    return true;
+  }
+
+  /// <summary>
+  /// Check it the table has empty columns and remove them.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public bool TryRemoveEmptyColumns(DXW.Table table)
+  {
+    var done = false;
+    var columns = table.GetTableGrid().GetColumns().ToList();
+    for (int columnNdx = columns.Count - 1; columnNdx >= 0; columnNdx--)
+    {
+      var columnCells = table.GetCellsInColumn(columnNdx);
+      if (columnCells.All(c => c.IsEmpty() && c.GetSpan() > 1))
+      {
+        var column = columns[columnNdx];
+        column.Remove();
+        done = true;
+        if (columnNdx > 0)
+        {
+          var previousColumn = columns[columnNdx - 1];
+          previousColumn.SetWidth(previousColumn.GetWidth() + column.GetWidth());
+          var previousColumnCells = table.GetCellsInColumn(columnNdx - 1);
+          previousColumnCells.ForEach(c => c.SetSpan(c.GetSpan() - 1));
+        }
+      }
+    }
+    return done;
+  }
+
+  /// <summary>
+  /// Helper record for grouping rows by the number of cells.
+  /// </summary>
+  public record RowGroup
+  {
+    /// <summary>
+    /// Start of the group (row index).
+    /// </summary>
+    public int StartIndex;
+
+    /// <summary>
+    /// RowsCount of the group;
+    /// </summary>
+    public int RowsCount;
+
+    /// <summary>
+    /// CellsCount of the group.
+    /// </summary>
+    public int CellsCount;
+
+    /// <summary>
+    /// First non-empty column in the group.
+    /// </summary>
+    public int FirstNonEmptyColumn;
+
+    /// <summary>
+    /// Last non-empty column in the group.
+    /// </summary>
+    public int LastNonEmptyColumn;
+
+    /// <summary>
+    /// List of rows in the group.
+    /// </summary>
+    public List<DXW.TableRow> Rows = new();
+
+    /// <summary>
+    /// Internal table created from the group.
+    /// </summary>
+    public DXW.Table? InternalTable;
+  }
+
+  /// <summary>
+  /// Helper method for grouping rows by the number of cells.
+  /// </summary>
+  /// <param name="rowsCellsCount"></param>
+  /// <returns></returns>
+  private List<RowGroup> GetRowGroups(Dictionary<DXW.TableRow, int> rowsCellsCount)
+  {
+    var rowsList = rowsCellsCount.Keys.ToList();
+    var rowGroups = new List<RowGroup>();
+    var rowGroup = new RowGroup();
+    foreach (var row in rowsCellsCount)
+    {
+      if (rowGroup.RowsCount == 0)
+      {
+        rowGroup.StartIndex = rowsList.IndexOf(row.Key);
+        rowGroup.RowsCount = 1;
+        rowGroup.CellsCount = row.Value;
+        rowGroup.Rows.Add(row.Key);
+      }
+      else if (row.Value == rowGroup.CellsCount)
+      {
+        rowGroup.RowsCount++;
+        rowGroup.Rows.Add(row.Key);
+      }
+      else
+      {
+        rowGroups.Add(rowGroup);
+        rowGroup = new RowGroup();
+        rowGroup.StartIndex = rowsList.IndexOf(row.Key);
+        rowGroup.RowsCount = 1;
+        rowGroup.CellsCount = row.Value;
+        rowGroup.Rows.Add(row.Key);
+      }
+    }
+    if (rowGroup.RowsCount > 0)
+      rowGroups.Add(rowGroup);
+    return rowGroups;
+  }
+
+  /// <summary>
+  /// Helper method for creating internal table.
+  /// If the rowGroup has empty columns from the left or from the right
+  /// then we can create an internal table.
+  /// The internal table has non-empty columns copied from the original table.
+  /// </summary>
+  /// <param name="rowGroup"></param>
+  /// <returns></returns>
+  private bool TryToCreateInternalTable(RowGroup rowGroup)
+  {
+    var done = false;
+    (int firstNonEmptyColumn, int lastNonEmptyColumn) = (rowGroup.Rows).GetNonEmptyColumns();
+    rowGroup.FirstNonEmptyColumn = firstNonEmptyColumn;
+    rowGroup.LastNonEmptyColumn = lastNonEmptyColumn;
+    if (firstNonEmptyColumn > 0 || lastNonEmptyColumn < rowGroup.CellsCount - 1)
+    {
+      if (rowGroup.Rows.First().Parent is DXW.Table parentTable)
+      {
+        var internalTable = new DXW.Table();
+        done = true;
+        var tableGrid = parentTable.GetTableGrid();
+        var tableGridColumns = tableGrid.GetColumns().ToList();
+        var internalTableGrid = internalTable.GetTableGrid();
+        for (int i = firstNonEmptyColumn; i <= lastNonEmptyColumn; i++)
+        {
+          internalTableGrid.AppendChild(tableGridColumns[i].CloneNode((true)));
+        }
+        foreach (var row in rowGroup.Rows)
+        {
+          var newRow = new DXW.TableRow();
+          newRow.TableRowProperties = row.TableRowProperties?.CloneNode(true) as DXW.TableRowProperties;
+          var cells = row.GetCells().ToList();
+          for (int i = firstNonEmptyColumn; i <= lastNonEmptyColumn; i++)
+          {
+            var cell = cells[i];
+            var newCell = cell.CloneNode(true) as DXW.TableCell;
+            newRow.AppendChild(newCell);
+          }
+          internalTable.AppendChild(newRow);
+        }
+        if (firstNonEmptyColumn > 0)
+        {
+          var indentColumnNdx = firstNonEmptyColumn - 1;
+          var indentColumnCells = rowGroup.Rows.GetCellsInColumn(indentColumnNdx);
+          if (indentColumnCells.AreMerged())
+          {
+            var indent = tableGridColumns[indentColumnNdx].GetWidth();
+            if (indent != null)
+            {
+              internalTable.GetTableProperties().TableIndentation = new DXW.TableIndentation
+              { Width = indent, Type = DXW.TableWidthUnitValues.Dxa };
+            }
+          }
+        }
+        rowGroup.InternalTable = internalTable;
+      }
+    }
+    return done;
+  }
+
 
   /// <summary>
   /// Find tables that have invalid columns and fix them.
@@ -186,10 +427,135 @@ public partial class DocumentCleaner
     if (VerboseLevel > 0)
       Console.WriteLine("\nFixing tables with invalid columns");
     var body = wordDoc.GetBody();
-    var count = body.FixTablesWithInvalidColumns();
+    var count = FixTablesWithInvalidColumns(body);
     if (VerboseLevel > 0)
       Console.WriteLine($"  {count} tables fixed");
   }
+
+  /// <summary>
+  /// Find tables that have invalid columns and fix them.
+  /// Such tables have rows filled with empty cells.
+  /// </summary>
+  /// <param name="body">Processed body</param>
+  /// <returns>number of tables fixed</returns>
+  public int FixTablesWithInvalidColumns(DX.OpenXmlCompositeElement body)
+  {
+    var count = 0;
+    var tables = body.Descendants<DXW.Table>().ToList();
+    foreach (var table in tables)
+    {
+      //if (table.Elements<DXW.TableRow>().RowsCount() <= 3)
+      //  continue;
+      var firstRow = table.GetFirstChild<DXW.TableRow>();
+      var firstCell = firstRow?.GetFirstChild<DXW.TableCell>();
+      var borders = firstCell?.TableCellProperties?.GetFirstChild<DXW.TableCellBorders>();
+      if (borders == null)
+        continue;
+      if (borders.LeftBorder?.Val?.Value == DXW.BorderValues.Nil)
+        continue;
+      var shading = firstCell?.TableCellProperties?.GetFirstChild<DXW.Shading>();
+      if (shading == null || shading.Fill != "C0C0C0")
+        continue;
+      //var nextRow = firstRow?.NextSibling() as DXW.TableRow;
+      //firstCell = nextRow?.GetFirstChild<DXW.TableCell>();
+      //var firstParagraph = firstCell?.GetFirstChild<DXW.Paragraph>();
+      //if (firstParagraph != null)
+      //  Debug.WriteLine($"{i + 1}: {firstParagraph.GetText()}");
+      if (TryFixInvalidColumns(table))
+        count++;
+    }
+    return count;
+  }
+
+
+  /// <summary>
+  /// Check if the table has invalid columns and fix them.
+  /// Only tables which have borders are considered.
+  /// Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
+  /// If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
+  /// If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
+  /// If it is possible, we merge these cells and remove the higher column in a table grid.
+  /// The lower column width is increased by the width of the higher column.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public bool TryFixInvalidColumns(DXW.Table table)
+  {
+    var done = false;
+    var columns = table.GetTableGrid().Elements<DXW.GridColumn>().ToList();
+    var columnsCount = columns.Count();
+    var columnUsage = new List<int>(new int[columnsCount]);
+    var rows = table.Elements<DXW.TableRow>().ToList();
+    foreach (var row in rows)
+    {
+      var filledCellsCount = 0;
+      for (int columnNdx = 0; columnNdx < columnsCount; columnNdx++)
+      {
+        var cell = row.GetCell(columnNdx);
+        if (cell != null && !cell.IsEmpty())
+        {
+          filledCellsCount++;
+          columnUsage[columnNdx]++;
+        }
+
+      }
+      if (filledCellsCount == columnsCount)
+      {
+        return false;
+      }
+    }
+    for (int columnNdx = 0; columnNdx < columnUsage.Count; columnNdx++)
+    {
+      if (columnUsage[columnNdx] == 0)
+      {
+        foreach (var row in rows)
+        {
+          // Remove column from row
+          var cell = row.GetCell(columnNdx);
+          if (cell != null)
+          {
+            cell.Remove();
+          }
+          else
+          {
+            cell = row.GetMergedCell(columnNdx);
+            if (cell != null)
+            {
+              cell.SetSpan(cell.GetSpan() - 1);
+            }
+          }
+        }
+        var column = table.GetTableGrid().Elements<DXW.GridColumn>().ElementAt(columnNdx);
+        column.Remove();
+        columnsCount--;
+        columnUsage.RemoveAt(columnNdx);
+        //columnNdx--;
+        done = true;
+      }
+      else if (columnUsage[columnNdx] < rows.Count)
+      {
+        for (int rowNdx = 0; rowNdx < rows.Count; rowNdx++)
+        {
+          var row = rows[rowNdx];
+          row.JoinCellWithNext(columnNdx);
+        }
+        var column1 = columns[columnNdx];
+        if (columnNdx < columns.Count - 1)
+        {
+          var column2 = columns[columnNdx + 1];
+          column1.SetWidth(column1.GetWidth() + column2.GetWidth());
+          if (column2.Parent != null)
+            column2.Remove();
+          columnsCount--;
+          columnUsage.RemoveAt(columnNdx);
+          //columnNdx--;
+        }
+        done = true;
+      }
+    }
+    return done;
+  }
+
 
   /// <summary>
   /// Joins adjacent tables that have the same number of columns.
@@ -223,18 +589,26 @@ public partial class DocumentCleaner
     int joinedRows = 0;
     foreach (var table in wordDoc.GetBody().Descendants<DXW.Table>())
     {
-      if (FixTableWithRepeatedHeaders(table, out var removed, out var joined))
+      var openXmlComparableSimpleValue = table.GetTableLook()?.FirstRow;
+      if (openXmlComparableSimpleValue != null && openXmlComparableSimpleValue == true)
       {
-        fixedTables++;
-        removedRows += removed;
-        joinedRows += joined;
+        if (FixTableWithRepeatedHeaders(table, out var removed, out var joined))
+        {
+          fixedTables++;
+          removedRows += removed;
+          joinedRows += joined;
+        }
       }
-      else if (FixTableWithWithDividedRows(table, out joined))
+      else
       {
-        fixedTables++;
-        joinedRows += joined;
+        if (FixTableWithWithDividedRows(table, out var joined))
+        {
+          fixedTables++;
+          joinedRows += joined;
+        }
       }
     }
+
     if (VerboseLevel > 0)
     {
       Console.WriteLine($"  {fixedTables} tables fixed");
@@ -441,69 +815,78 @@ public partial class DocumentCleaner
   /// <param name="lowerCell">Cell taken from the lower table row.</param>
   public bool JoinDividedCells(DXW.TableCell upperCell, DXW.TableCell lowerCell)
   {
-    var upperPara = upperCell.Elements<DXW.Paragraph>().LastOrDefault();
-    var lowerPara = lowerCell.Elements<DXW.Paragraph>().FirstOrDefault();
-    if (upperPara == null || lowerPara == null)
-      return false;
-    if (lowerPara.IsEmpty())
+    var upperPara = upperCell.GetMembers().LastOrDefault() as DXW.Paragraph;
+    var lowerPara = lowerCell.GetMembers().FirstOrDefault() as DXW.Paragraph;
+    if (upperPara != null && lowerPara != null)
     {
-      return true;
-    }
-    var lastElement = upperPara.MemberElements().LastOrDefault();
-    var firstElement = lowerPara.MemberElements().FirstOrDefault();
-    if (lastElement == null || firstElement == null)
-      return true;
-    if (lastElement is DXW.Hyperlink lastHyperlink && firstElement is DXW.Hyperlink firstHyperlink)
-    {
-      if (lastHyperlink.GetRel().IsEqual(firstHyperlink.GetRel()))
+      if (!lowerPara.IsEmpty())
       {
-        lastHyperlink.SetText(lastHyperlink.GetText() + firstHyperlink.GetText());
-        firstHyperlink.Remove();
-      }
-      foreach (var item in lowerPara.MemberElements().ToList())
-      {
-        item.Remove();
-        upperPara.AppendChild(item);
-      }
-      lowerPara.Remove();
-    }
-    else
-    {
-      var upperText = upperPara.GetText();
-      var lowerText = lowerPara.GetText();
-      if (char.IsLower(lowerText.FirstOrDefault()))
-      {
-        if (!upperText.EndsWith(" ") && !lowerText.StartsWith(" "))
+        var lastElement = upperPara.MemberElements().LastOrDefault();
+        var firstElement = lowerPara.MemberElements().FirstOrDefault();
+        if (lastElement == null || firstElement == null)
+          return true;
+        if (lastElement is DXW.Hyperlink lastHyperlink && firstElement is DXW.Hyperlink firstHyperlink)
         {
-          upperPara.AppendChild(new DXW.Run(new DXW.Text(" ")));
+          if (lastHyperlink.GetRel().IsEqual(firstHyperlink.GetRel()))
+          {
+            lastHyperlink.SetText(lastHyperlink.GetText() + firstHyperlink.GetText());
+            firstHyperlink.Remove();
+          }
+          foreach (var item in lowerPara.MemberElements().ToList())
+          {
+            item.Remove();
+            upperPara.AppendChild(item);
+          }
+          lowerPara.Remove();
         }
-        foreach (var item in lowerPara.MemberElements().ToList())
+        else
         {
-          item.Remove();
-          upperPara.AppendChild(item);
+          var upperText = upperPara.GetText();
+          var lowerText = lowerPara.GetText();
+          if (char.IsLower(lowerText.FirstOrDefault()))
+          {
+            if (!upperText.EndsWith(" ") && !lowerText.StartsWith(" "))
+            {
+              upperPara.AppendChild(new DXW.Run(new DXW.Text(" ")));
+            }
+            foreach (var item in lowerPara.MemberElements().ToList())
+            {
+              item.Remove();
+              upperPara.AppendChild(item);
+            }
+            lowerPara.Remove();
+          }
+          else
+          {
+            if (!upperText.EndsWith(" ") && !lowerText.StartsWith(" "))
+            {
+              upperPara.AppendChild(new DXW.Run(new DXW.Text(" ")));
+            }
+            upperPara.AppendChild(new DXW.Run(new DXW.Text(" ")));
+            foreach (var item in lowerPara.MemberElements().ToList())
+            {
+              item.Remove();
+              upperPara.AppendChild(item);
+            }
+            lowerPara.Remove();
+          }
         }
-        lowerPara.Remove();
       }
       else
       {
-        if (!upperText.EndsWith(" ") && !lowerText.StartsWith(" "))
-        {
-          upperPara.AppendChild(new DXW.Run(new DXW.Text(" ")));
-        }
-        upperPara.AppendChild(new DXW.Run(new DXW.Text(" ")));
-        foreach (var item in lowerPara.MemberElements().ToList())
-        {
-          item.Remove();
-          upperPara.AppendChild(item);
-        }
         lowerPara.Remove();
+        upperCell.Append(lowerPara);
       }
     }
-    var restOfParagraphs = lowerCell.Elements<DXW.Paragraph>().ToList();
-    foreach (var paragraph in restOfParagraphs)
+
+    var tailingMembers = lowerCell.GetMembers().ToList();
+    foreach (var member in tailingMembers)
     {
-      paragraph.Remove();
-      upperCell.AppendChild(paragraph);
+      if (member != lowerPara)
+      {
+        member.Remove();
+        upperCell.Append(member);
+      }
     }
     return true;
   }
@@ -634,7 +1017,7 @@ public partial class DocumentCleaner
   /// <param name="table"></param>
   public int SetUniformCellMargins(DXW.Table table)
   {
-    var done = table.SetUniformCellMargins(75,50,75,50);
+    var done = table.SetUniformCellMargins(75, 50, 75, 50);
     return done;
   }
 }

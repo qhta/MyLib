@@ -1,10 +1,48 @@
-﻿namespace Qhta.OpenXmlTools;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+
+namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Tools for working with table rows in OpenXml documents.
 /// </summary>
 public static class TableRowTools
 {
+  /// <summary>
+  /// Get the <c>TableCell</c> elements of the row.
+  /// </summary>
+  /// <param name="row"></param>
+  /// <returns></returns>
+  public static IEnumerable<DXW.TableCell> GetCells(this DXW.TableRow row)
+  {
+    return row.Elements<DXW.TableCell>();
+  }
+
+  /// <summary>
+  /// Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, null is returned.
+  /// </summary>
+  /// <param name="tableRow">Table row to examine</param>
+  /// <returns></returns>
+  public static TableRowHeight? GetHeight(this TableRow tableRow)
+  {
+    var tableRowProperties = tableRow.TableRowProperties;
+    var rowHeight = tableRowProperties?.Elements<TableRowHeight>().FirstOrDefault();
+    return rowHeight;
+  }
+
+  /// <summary>
+  /// Sets the row height.
+  /// If value to set is null, the height is removed.
+  /// </summary>
+  /// <param name="tableRow">Table row to set</param>
+  /// <param name="value">value to set</param>
+  /// <param name="rule">rule to set</param>
+  /// <returns></returns>
+  public static void SetHeight(this TableRow tableRow, int? value, DXW.HeightRuleValues? rule = null)
+  {
+    var tableRowProperties = tableRow.GetTableRowProperties();
+    tableRowProperties.SetTableRowHeight(value, rule);
+  }
+
   /// <summary>
   /// Sets the keep with next property for all cells in the row.
   /// </summary>
@@ -82,7 +120,7 @@ public static class TableRowTools
     for (int cellIndex = 0; cellIndex <= cells.Count - 1; cellIndex++)
     {
       var cell = cells[cellIndex];
-      var gridSpan = cell.GetGridSpan();
+      var gridSpan = cell.GetSpan();
       if (gridSpan > 1)
       {
         for (int i = 1; i <= gridSpan - 1; i++)
@@ -110,13 +148,14 @@ public static class TableRowTools
     for (int cellIndex = 0; cellIndex <= cells.Count - 1; cellIndex++)
     {
       var cell = cells[cellIndex];
-      var gridSpan = cell.GetGridSpan();
+      var gridSpan = cell.GetSpan();
       if (gridSpan > 1)
       {
         for (int i = 1; i <= gridSpan - 1; i++)
         {
           cells.Insert(cellIndex + 1, cell);
         }
+        cellIndex += gridSpan - 1;
       }
     }
     if (columnIndex < 0 || columnIndex >= cells.Count)
@@ -138,7 +177,7 @@ public static class TableRowTools
     {
       if (cell1 != null)
       {
-        cell2.SetGridSpan(1);
+        cell2.SetSpan(1);
         cell2.SetWidth(cell1.GetWidth() + cell2.GetWidth());
         cell2.SetLeftBorder(cell1.GetLeftBorder());
         cell1.Remove();
@@ -154,7 +193,7 @@ public static class TableRowTools
         cell2.Remove();
       }
       else
-        cell1.SetGridSpan(1);
+        cell1.SetSpan(1);
       return true;
     }
     return false;
