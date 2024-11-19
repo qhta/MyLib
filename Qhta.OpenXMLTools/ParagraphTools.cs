@@ -615,4 +615,14 @@ public static class ParagraphTools
     return done;
   }
 
+  /// <summary>
+  /// Set the paragraph justification.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="value"></param>
+  public static void SetJustification(this DXW.Paragraph paragraph, JustificationValues value)
+  {
+    var paragraphProperties = paragraph.GetParagraphProperties();
+    paragraphProperties.Justification = new Justification { Val = value };
+  }
 }

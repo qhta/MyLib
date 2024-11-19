@@ -31,10 +31,11 @@ public partial class DocumentCleaner
     ResetHeadingsFormat(wordDoc);
     ReplaceSymbolEncoding(wordDoc);
     FixParagraphNumbering(wordDoc);
+    FixTablesWithEmptyCells(wordDoc);
     FixInternalTables(wordDoc);
     JoinAdjacentTables(wordDoc);
     FixDividedTables(wordDoc);
-    FixTablesWithInvalidColumns(wordDoc);
+
     JoinAdjacentRuns(wordDoc);
     FixLongWords(wordDoc);
     RepairXmlExamples(wordDoc);

@@ -131,14 +131,17 @@ public partial class DocumentCleaner
     var columns = table.GetTableGrid().GetColumns().ToList();
     if (columns.Count <= 1)
       return false;
-    foreach (var row in table.Elements<DXW.TableRow>())
+    foreach (var row in table.GetRows().ToList())
     {
       if (IsHeadingRow(row))
         if (TryFixRowWithEmptyCells(row))
+        {
           done = true;
+        }
     }
     return done;
   }
+
   /// <summary>
   /// Check if the table has rows with empty cells and try to fix them.
   /// Fixing rows means joining empty cells with next non-empty cells.
@@ -151,11 +154,13 @@ public partial class DocumentCleaner
     var columns = table.GetTableGrid().GetColumns().ToList();
     if (columns.Count <= 1)
       return false;
-    foreach (var row in table.Elements<DXW.TableRow>())
+    foreach (var row in table.GetRows().ToList())
     {
       if (TryFixRowWithEmptyCells(row))
         done = true;
     }
+    if (done)
+      TryRemoveEmptyColumns(table);
     return done;
   }
 
@@ -194,7 +199,6 @@ public partial class DocumentCleaner
       {
         if (TryJoinEmptyCellWithNext(cell) || TryJoinEmptyCellWithPrevious(cell))
         {
-          cell.Remove();
           done = true;
         }
       }
@@ -216,11 +220,12 @@ public partial class DocumentCleaner
       return false;
     if (nextCell.IsEmpty())
       return false;
-    if (emptyCell.GetRightBorder().IsVisible() || !nextCell.GetLeftBorder().IsVisible())
+    if (emptyCell.GetRightBorder().IsVisible() || nextCell.GetLeftBorder().IsVisible())
       return false;
     nextCell.SetLeftBorder(emptyCell.GetLeftBorder());
     nextCell.SetWidth(nextCell.GetWidth() + emptyCell.GetWidth());
     nextCell.SetSpan(nextCell.GetSpan() + 1);
+    nextCell.SetJustification(DXW.JustificationValues.Center);
     emptyCell.Remove();
     return true;
   }
@@ -238,7 +243,7 @@ public partial class DocumentCleaner
       return false;
     if (previousCell.IsEmpty())
       return false;
-    if (emptyCell.GetLeftBorder().IsVisible() || !previousCell.GetRightBorder().IsVisible())
+    if (emptyCell.GetLeftBorder().IsVisible() || previousCell.GetRightBorder().IsVisible())
       return false;
     previousCell.SetRightBorder(emptyCell.GetRightBorder());
     previousCell.SetWidth(previousCell.GetWidth() + emptyCell.GetWidth());
@@ -416,146 +421,199 @@ public partial class DocumentCleaner
     return done;
   }
 
-
   /// <summary>
-  /// Find tables that have invalid columns and fix them.
-  /// Such tables have rows filled with empty cells.
+  /// Find tables that have empty cells and fix them.
   /// </summary>
   /// <param name="wordDoc"></param>
-  public void FixTablesWithInvalidColumns(DXPack.WordprocessingDocument wordDoc)
+  public void FixTablesWithEmptyCells(DXPack.WordprocessingDocument wordDoc)
   {
     if (VerboseLevel > 0)
-      Console.WriteLine("\nFixing tables with invalid columns");
+      Console.WriteLine("\nFixing tables with empty cells");
     var body = wordDoc.GetBody();
-    var count = FixTablesWithInvalidColumns(body);
+    var count = FixTablesWithEmptyCells(body);
     if (VerboseLevel > 0)
       Console.WriteLine($"  {count} tables fixed");
   }
 
   /// <summary>
-  /// Find tables that have invalid columns and fix them.
-  /// Such tables have rows filled with empty cells.
+  /// Find tables that have empty cells and fix them.
   /// </summary>
   /// <param name="body">Processed body</param>
   /// <returns>number of tables fixed</returns>
-  public int FixTablesWithInvalidColumns(DX.OpenXmlCompositeElement body)
+  public int FixTablesWithEmptyCells(DX.OpenXmlCompositeElement body)
   {
     var count = 0;
     var tables = body.Descendants<DXW.Table>().ToList();
     foreach (var table in tables)
     {
-      //if (table.Elements<DXW.TableRow>().RowsCount() <= 3)
-      //  continue;
       var firstRow = table.GetFirstChild<DXW.TableRow>();
-      var firstCell = firstRow?.GetFirstChild<DXW.TableCell>();
-      var borders = firstCell?.TableCellProperties?.GetFirstChild<DXW.TableCellBorders>();
-      if (borders == null)
+      if (firstRow == null)
         continue;
-      if (borders.LeftBorder?.Val?.Value == DXW.BorderValues.Nil)
-        continue;
-      var shading = firstCell?.TableCellProperties?.GetFirstChild<DXW.Shading>();
-      if (shading == null || shading.Fill != "C0C0C0")
-        continue;
-      //var nextRow = firstRow?.NextSibling() as DXW.TableRow;
-      //firstCell = nextRow?.GetFirstChild<DXW.TableCell>();
-      //var firstParagraph = firstCell?.GetFirstChild<DXW.Paragraph>();
-      //if (firstParagraph != null)
-      //  Debug.WriteLine($"{i + 1}: {firstParagraph.GetText()}");
-      if (TryFixInvalidColumns(table))
-        count++;
+      if (IsHeadingRow(firstRow))
+      {
+        if (TryFixEmptyCells(table))
+          count++;
+      }
     }
     return count;
   }
 
 
   /// <summary>
-  /// Check if the table has invalid columns and fix them.
-  /// Only tables which have borders are considered.
-  /// Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
-  /// If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
-  /// If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
-  /// If it is possible, we merge these cells and remove the higher column in a table grid.
-  /// The lower column width is increased by the width of the higher column.
+  /// Check if the table has empty cells and fix them.
   /// </summary>
   /// <param name="table"></param>
   /// <returns></returns>
-  public bool TryFixInvalidColumns(DXW.Table table)
+  public bool TryFixEmptyCells(DXW.Table table)
   {
-    var done = false;
-    var columns = table.GetTableGrid().Elements<DXW.GridColumn>().ToList();
-    var columnsCount = columns.Count();
-    var columnUsage = new List<int>(new int[columnsCount]);
-    var rows = table.Elements<DXW.TableRow>().ToList();
-    foreach (var row in rows)
-    {
-      var filledCellsCount = 0;
-      for (int columnNdx = 0; columnNdx < columnsCount; columnNdx++)
-      {
-        var cell = row.GetCell(columnNdx);
-        if (cell != null && !cell.IsEmpty())
-        {
-          filledCellsCount++;
-          columnUsage[columnNdx]++;
-        }
+    //if (stop)
+    //  Debug.Assert(true);
+    var tableGrid = table.GetTableGrid();
+    var tableGridColumns = tableGrid.GetColumns().ToList();
+    if (tableGridColumns.Count <= 2)
+      return false;
+    if (table.Elements<DXW.TableRow>().Count() <= 2)
+      return false;
 
-      }
-      if (filledCellsCount == columnsCount)
-      {
-        return false;
-      }
-    }
-    for (int columnNdx = 0; columnNdx < columnUsage.Count; columnNdx++)
-    {
-      if (columnUsage[columnNdx] == 0)
-      {
-        foreach (var row in rows)
-        {
-          // Remove column from row
-          var cell = row.GetCell(columnNdx);
-          if (cell != null)
-          {
-            cell.Remove();
-          }
-          else
-          {
-            cell = row.GetMergedCell(columnNdx);
-            if (cell != null)
-            {
-              cell.SetSpan(cell.GetSpan() - 1);
-            }
-          }
-        }
-        var column = table.GetTableGrid().Elements<DXW.GridColumn>().ElementAt(columnNdx);
-        column.Remove();
-        columnsCount--;
-        columnUsage.RemoveAt(columnNdx);
-        //columnNdx--;
-        done = true;
-      }
-      else if (columnUsage[columnNdx] < rows.Count)
-      {
-        for (int rowNdx = 0; rowNdx < rows.Count; rowNdx++)
-        {
-          var row = rows[rowNdx];
-          row.JoinCellWithNext(columnNdx);
-        }
-        var column1 = columns[columnNdx];
-        if (columnNdx < columns.Count - 1)
-        {
-          var column2 = columns[columnNdx + 1];
-          column1.SetWidth(column1.GetWidth() + column2.GetWidth());
-          if (column2.Parent != null)
-            column2.Remove();
-          columnsCount--;
-          columnUsage.RemoveAt(columnNdx);
-          //columnNdx--;
-        }
-        done = true;
-      }
-    }
+    var done = false;
+    var emptyCellRowsFixed = TryFixEmptyCellRows(table);
+    if (emptyCellRowsFixed)
+      done = true;
+    //var rowsList = table.GetRows().ToList();
+    //var rowsCellsCount = rowsList.ToDictionary(r => r, r => r.GetCells().Count());
+    //var maxColumns = rowsCellsCount.Values.Max();
+    //var uniformRows = rowsCellsCount.Count(r => r.Value == maxColumns);
+    //if (uniformRows == rowsCellsCount.Count)
+    //  return false;
+
+    ////var rowGroupings = rowsCellsCount.GroupBy(item => item.Value,
+    ////  item => rowsList.IndexOf(item.Key));
+    //var rowGroups = GetRowGroups(rowsCellsCount);
+
+    //if (rowGroups.Count() <= 1)
+    //  return false;
+
+    //for (var rowGroupNdx = 0; rowGroupNdx < rowGroups.Count; rowGroupNdx++)
+    //{
+    //  var rowGroup = rowGroups[rowGroupNdx];
+    //  if (rowGroup.CellsCount == maxColumns)
+    //  {
+    //    if (TryToCreateInternalTable(rowGroup))
+    //    {
+    //      done = true;
+    //      if (rowGroupNdx > 0)
+    //      {
+    //        var previousGroup = rowGroups[rowGroupNdx - 1];
+    //        foreach (var previousRow in previousGroup.Rows)
+    //        {
+    //          var mergedCell = previousRow.GetMergedCell(rowGroup.FirstNonEmptyColumn);
+    //          if (mergedCell != null)
+    //          {
+    //            mergedCell.SetSpan(0);
+    //          }
+    //          if (previousRow == previousGroup.Rows.Last())
+    //          {
+    //            if (mergedCell != null)
+    //            {
+    //              mergedCell.Append(rowGroup.InternalTable!);
+    //              mergedCell.Append(new DXW.Paragraph());
+    //            }
+    //          }
+    //        }
+    //        foreach (var row in rowGroup.Rows)
+    //        {
+    //          row.Remove();
+    //        }
+    //      }
+    //    }
+    //  }
+    //  else
+    //  {
+
+    //  }
+    //}
+
+    //if (done)
+    //{
+    //  table.SetTableGrid(table.GetNewTableGrid());
+    //}
+
     return done;
   }
+  //var done = false;
+  //  var columns = table.GetTableGrid().Elements<DXW.GridColumn>().ToList();
+  //  var columnsCount = columns.Count();
+  //  var columnUsage = new List<int>(new int[columnsCount]);
+  //  var rows = table.Elements<DXW.TableRow>().ToList();
+  //  foreach (var row in rows)
+  //  {
+  //    var filledCellsCount = 0;
+  //    for (int columnNdx = 0; columnNdx < columnsCount; columnNdx++)
+  //    {
+  //      var cell = row.GetCell(columnNdx);
+  //      if (cell != null && !cell.IsEmpty())
+  //      {
+  //        filledCellsCount++;
+  //        columnUsage[columnNdx]++;
+  //      }
 
+  //    }
+  //    if (filledCellsCount == columnsCount)
+  //    {
+  //      return false;
+  //    }
+  //  }
+  //  for (int columnNdx = 0; columnNdx < columnUsage.Count; columnNdx++)
+  //  {
+  //    if (columnUsage[columnNdx] == 0)
+  //    {
+  //      foreach (var row in rows)
+  //      {
+  //        // Remove column from row
+  //        var cell = row.GetCell(columnNdx);
+  //        if (cell != null)
+  //        {
+  //          cell.Remove();
+  //        }
+  //        else
+  //        {
+  //          cell = row.GetMergedCell(columnNdx);
+  //          if (cell != null)
+  //          {
+  //            cell.SetSpan(cell.GetSpan() - 1);
+  //          }
+  //        }
+  //      }
+  //      var column = table.GetTableGrid().Elements<DXW.GridColumn>().ElementAt(columnNdx);
+  //      column.Remove();
+  //      columnsCount--;
+  //      columnUsage.RemoveAt(columnNdx);
+  //      //columnNdx--;
+  //      done = true;
+  //    }
+  //    else if (columnUsage[columnNdx] < rows.Count)
+  //    {
+  //      for (int rowNdx = 0; rowNdx < rows.Count; rowNdx++)
+  //      {
+  //        var row = rows[rowNdx];
+  //        row.JoinCellWithNext(columnNdx);
+  //      }
+  //      var column1 = columns[columnNdx];
+  //      if (columnNdx < columns.Count - 1)
+  //      {
+  //        var column2 = columns[columnNdx + 1];
+  //        column1.SetWidth(column1.GetWidth() + column2.GetWidth());
+  //        if (column2.Parent != null)
+  //          column2.Remove();
+  //        columnsCount--;
+  //        columnUsage.RemoveAt(columnNdx);
+  //        //columnNdx--;
+  //      }
+  //      done = true;
+  //    }
+  //  }
+  //  return done;
+  //}
 
   /// <summary>
   /// Joins adjacent tables that have the same number of columns.

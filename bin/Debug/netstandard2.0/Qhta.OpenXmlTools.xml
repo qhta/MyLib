@@ -637,30 +637,22 @@
             <param name="rowGroup"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithEmptyCells(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
-            Find tables that have invalid columns and fix them.
-            Such tables have rows filled with empty cells.
+            Find tables that have empty cells and fix them.
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithInvalidColumns(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithEmptyCells(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
-            Find tables that have invalid columns and fix them.
-            Such tables have rows filled with empty cells.
+            Find tables that have empty cells and fix them.
             </summary>
             <param name="body">Processed body</param>
             <returns>number of tables fixed</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixInvalidColumns(DocumentFormat.OpenXml.Wordprocessing.Table)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixEmptyCells(DocumentFormat.OpenXml.Wordprocessing.Table)">
             <summary>
-            Check if the table has invalid columns and fix them.
-            Only tables which have borders are considered.
-            Table has invalid columns if each row has some empty cells and the number of cells in each row is less to the number of columns.
-            If we find a column which is empty in all rows, we can safely remove this column in a table grid and in each row.
-            If there are adjacent columns which are empty in some rows, we try check if we can merge cells in these columns in each row.
-            If it is possible, we merge these cells and remove the higher column in a table grid.
-            The lower column width is increased by the width of the higher column.
+            Check if the table has empty cells and fix them.
             </summary>
             <param name="table"></param>
             <returns></returns>
@@ -4101,6 +4093,13 @@
             <param name="paragraph"></param>
             <param name="str"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SetJustification(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.Wordprocessing.JustificationValues)">
+            <summary>
+            Set the paragraph justification.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
             <summary>
@@ -9637,6 +9636,43 @@
             <param name="cell"></param>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetTopBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Returns the top border of the cell.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetTopBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.BorderType)">
+            <summary>
+            Sets the top border of the cell.
+            If set value has a parent, its clone is used.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetBottomBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Returns the bottom border of the cell.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetBottomBorder(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.BorderType)">
+            <summary>
+            Sets the bottom border of the cell.
+            If set value has a parent, its clone is used.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetJustification(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.JustificationValues)">
+            <summary>
+            Sets justification for all paragraphs in the cell.
+            </summary>
+            <param name="cell"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.TableExtraTools">
             <summary>

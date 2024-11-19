@@ -332,4 +332,106 @@ public static class TableCellTools
     }
   }
 
+  /// <summary>
+  /// Returns the top border of the cell.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static DXW.BorderType? GetTopBorder(this DXW.TableCell cell)
+  {
+    return cell.TableCellProperties?.TableCellBorders?.TopBorder;
+  }
+
+  /// <summary>
+  /// Sets the top border of the cell.
+  /// If set value has a parent, its clone is used.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="value"></param>
+  public static void SetTopBorder(this DXW.TableCell cell, DXW.BorderType? value)
+  {
+    var oldBorder = cell.TableCellProperties?.TableCellBorders?.TopBorder;
+    if (oldBorder != null)
+      oldBorder.Remove();
+    if (value != null)
+    {
+      if (value is not TopBorder)
+        value = new TopBorder
+        {
+          Val = value.Val,
+          Color = value.Color,
+          ThemeColor = value.ThemeColor,
+          ThemeShade = value.ThemeShade,
+          ThemeTint = value.ThemeTint,
+          Size = value.Size,
+          Space = value.Space,
+          Shadow = value.Shadow,
+          Frame = value.Frame,
+        };
+      else
+      {
+        if (value.Parent != null)
+          value = (TopBorder)value.CloneNode(true);
+      }
+      cell.GetTableCellProperties().GetTableCellBorders().Append(value);
+    }
+  }
+
+  /// <summary>
+  /// Returns the bottom border of the cell.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static DXW.BorderType? GetBottomBorder(this DXW.TableCell cell)
+  {
+    return cell.TableCellProperties?.TableCellBorders?.BottomBorder;
+  }
+
+  /// <summary>
+  /// Sets the bottom border of the cell.
+  /// If set value has a parent, its clone is used.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="value"></param>
+  public static void SetBottomBorder(this DXW.TableCell cell, DXW.BorderType? value)
+  {
+    var oldBorder = cell.TableCellProperties?.TableCellBorders?.BottomBorder;
+    if (oldBorder != null)
+      oldBorder.Remove();
+    if (value != null)
+    {
+      if (value is not BottomBorder)
+        value = new BottomBorder
+        {
+          Val = value.Val,
+          Color = value.Color,
+          ThemeColor = value.ThemeColor,
+          ThemeShade = value.ThemeShade,
+          ThemeTint = value.ThemeTint,
+          Size = value.Size,
+          Space = value.Space,
+          Shadow = value.Shadow,
+          Frame = value.Frame,
+        };
+      else
+      {
+        if (value.Parent != null)
+          value = (BottomBorder)value.CloneNode(true);
+      }
+      cell.GetTableCellProperties().GetTableCellBorders().Append(value);
+    }
+  }
+
+  /// <summary>
+  /// Sets justification for all paragraphs in the cell.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="value"></param>
+  public static void SetJustification(this DXW.TableCell cell, JustificationValues value)
+  {
+    foreach (var paragraph in cell.Elements<DXW.Paragraph>())
+    {
+      paragraph.SetJustification(value);
+    }
+  }
 }
