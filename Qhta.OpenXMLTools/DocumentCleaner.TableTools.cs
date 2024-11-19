@@ -449,7 +449,10 @@ public partial class DocumentCleaner
       var firstRow = table.GetFirstChild<DXW.TableRow>();
       if (firstRow == null)
         continue;
-      if (IsHeadingRow(firstRow))
+      var firstCell = firstRow.GetFirstChild<DXW.TableCell>();
+      if (firstCell == null)
+        continue;
+      if (firstCell.GetLeftBorder().IsVisible())
       {
         if (TryFixEmptyCells(table))
           count++;
