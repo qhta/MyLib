@@ -61,10 +61,9 @@ public static class ParagraphTools
   /// <param name="paragraph">source paragraph</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  public static string GetText(this Paragraph paragraph, GetTextOptions? options = null)
+  public static string GetText(this Paragraph paragraph, TextOptions options)
   {
-    options ??= GetTextOptions.Default;
-    var result = String.Join("", paragraph.Elements().Select(item => item.GetText(options)));
+    var result = String.Join("", paragraph.GetMembers().Select(item => item.GetText(options)));
     if (options.IncludeParagraphNumbering)
       result = paragraph.GetNumberingString(options) + result;
     return result;
@@ -77,9 +76,8 @@ public static class ParagraphTools
   /// <param name="text"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static void SetText(this Paragraph paragraph, string? text, GetTextOptions? options = null)
+  public static void SetText(this Paragraph paragraph, string text, TextOptions? options = null)
   {
-    options ??= GetTextOptions.Default;
     var textProperties = paragraph.GetTextProperties("defaultFont");
     paragraph.RemoveAllMembers();
     var run = new Run();
@@ -198,7 +196,8 @@ public static class ParagraphTools
   {
     if (element == null)
       return true;
-    foreach (var e in element.MemberElements())
+    var members = element.GetMembers().ToList();
+    foreach (var e in members)
     {
       if (e is DXW.Run run)
       {
@@ -212,6 +211,28 @@ public static class ParagraphTools
   }
 
   /// <summary>
+  /// Checks if the paragraph contains tab characters.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsTabulated(this DXW.Paragraph? element)
+  {
+    if (element == null)
+      return false;
+    foreach (var e in element.GetMembers())
+    {
+      if (e is DXW.Run run)
+      {
+        if (run.IsTabulated())
+          return true;
+      }
+      else
+        return false;
+    }
+    return false;
+  }
+
+  /// <summary>
   /// Trims the paragraph removing leading whitespaces.
   /// </summary>
   /// <param name="paragraph"></param>
@@ -219,7 +240,7 @@ public static class ParagraphTools
   public static bool TrimStart(this DXW.Paragraph paragraph)
   {
     bool done = false;
-    var firstElement = paragraph.MemberElements().FirstOrDefault();
+    var firstElement = paragraph.GetMembers().FirstOrDefault();
     while (firstElement != null)
     {
       var nextElement = firstElement.NextSibling();
@@ -259,7 +280,7 @@ public static class ParagraphTools
   public static bool TrimEnd(this DXW.Paragraph paragraph)
   {
     bool done = false;
-    var lastElement = paragraph.MemberElements().LastOrDefault();
+    var lastElement = paragraph.GetMembers().LastOrDefault();
     while (lastElement != null)
     {
       var previousElement = lastElement.PreviousSibling();
@@ -331,7 +352,7 @@ public static class ParagraphTools
   /// <param name="paragraph"></param>
   public static void RemoveAllMembers(this DXW.Paragraph paragraph)
   {
-    foreach (var member in paragraph.MemberElements().ToList())
+    foreach (var member in paragraph.GetMembers().ToList())
       member.Remove();
   }
 
@@ -438,16 +459,16 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="paragraph">Paragraph element to process</param>
   /// <param name="index">Char position number</param>
-  /// <param name="options">Options for text extraction</param>
   /// <returns>Next, newly created paragraph (or null) if split is not available</returns>
-  public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index, GetTextOptions? options = null)
+  public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index)
   {
-    if (index <= 0 || index >= paragraph.GetText().Length)
+    var options = TextOptions.FullText;
+    if (index <= 0 || index >= paragraph.GetText(options).Length)
       return null;
-    options ??= GetTextOptions.Default;
+    
     var textLength = 0;
     DXW.Paragraph? newParagraph = null;
-    foreach (var member in paragraph.MemberElements().ToList())
+    foreach (var member in paragraph.GetMembers().ToList())
     {
       var memberText = member.GetText(options);
       if (memberText != null)
@@ -576,7 +597,7 @@ public static class ParagraphTools
     var lastText = para.Elements<DXW.Run>().LastOrDefault()?.Elements<DXW.Text>().LastOrDefault();
     if (lastText != null)
       lastText.Text = lastText.Text + " ";
-    foreach (var item in nextPara.MemberElements().ToList())
+    foreach (var item in nextPara.GetMembers().ToList())
     {
       item.Remove();
       para.AppendChild(item);
@@ -592,7 +613,7 @@ public static class ParagraphTools
   public static bool BreakBefore(this DXW.Paragraph paragraph, string str)
   {
     var done = false;
-    var paraText = paragraph.GetText().Trim();
+    var paraText = paragraph.GetText(TextOptions.FullText).Trim();
     var index = paraText.IndexOf(str);
     while (index > 0 && index < paraText.Length - str.Length)
     {
@@ -624,5 +645,23 @@ public static class ParagraphTools
   {
     var paragraphProperties = paragraph.GetParagraphProperties();
     paragraphProperties.Justification = new Justification { Val = value };
+  }
+
+  /// <summary>
+  /// Set the paragraph indentation.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="left"></param>
+  /// <param name="right"></param>
+  /// <param name="firstLine"></param>
+  public static void SetIndentation(this DXW.Paragraph paragraph, int? left = null, int? right = null, int? firstLine = null)
+  {
+    var indentation = paragraph.GetIndentation();
+    if (left != null)
+      indentation.Left = left.ToString();
+    if (right != null)
+      indentation.Right = right.ToString();
+    if (firstLine != null)
+      indentation.FirstLine = firstLine.ToString();
   }
 }

@@ -43,6 +43,59 @@ public static class TableExtraTools
   }
 
   /// <summary>
+  /// Find the first and the last non-separated column in the group of rows.
+  /// Only first sequence of non-separated cells are recognized.
+  /// </summary>
+  /// <param name="rows"></param>
+  /// <returns></returns>
+  public static (int firstNonSeparatedColumn, int lastNonSeparatedCOlumn) GetNonSeparatedColumns(this IEnumerable<TableRow> rows)
+  {
+    // find the first non-separated column which can be the first column of the fake table
+    // find the last non-separated column which can be the last column of the fake table
+    var firstNonSeparatedColumn = int.MaxValue;
+    var lastNonSeparatedColumn = 0;
+    foreach (var row in rows)
+    {
+      (int firstNonSeparatedCell, int lastNonSeparatedCell) = row.GetNonSeparatedColumns();
+      if (firstNonSeparatedCell < firstNonSeparatedColumn)
+        firstNonSeparatedColumn = firstNonSeparatedCell;
+      if (lastNonSeparatedCell > lastNonSeparatedColumn)
+        lastNonSeparatedColumn = lastNonSeparatedCell;
+    }
+    return (firstNonSeparatedColumn, lastNonSeparatedColumn);
+  }
+
+  /// <summary>
+  /// Find the first and the last non-separated cell in the row.
+  /// Non-separated cells are the cells which have no borders between.
+  /// Only first sequence of non-separated cells is recognized.
+  /// </summary>
+  /// <param name="row"></param>
+  /// <returns></returns>
+  public static (int firstNonSeparatedCell, int lastNonSeparatedCell) GetNonSeparatedColumns(this TableRow row)
+  {
+    var cells = row.GetCells().ToList();
+    int firstNonSeparatedCell = int.MaxValue;
+    int lastNonSeparatedCell = 0;
+    for (int i = 0; i < cells.Count - 1; i++)
+    {
+      var cell = cells[i];
+      var nextCell = cells[i + 1];
+      if (!cell.GetBorder<DXW.RightBorder>().IsVisible() && !nextCell.GetBorder<DXW.LeftBorder>().IsVisible())
+      {
+        if (firstNonSeparatedCell == int.MaxValue)
+          firstNonSeparatedCell = i;
+        if (i > lastNonSeparatedCell)
+          firstNonSeparatedCell = i;
+      }
+      if (nextCell.GetBorder<DXW.RightBorder>().IsVisible())
+        break;
+    }
+    return (firstNonSeparatedCell, lastNonSeparatedCell);
+  }
+
+
+  /// <summary>
   /// Get the cells in the selected column from the table.
   /// </summary>
   /// <param name="table"></param>

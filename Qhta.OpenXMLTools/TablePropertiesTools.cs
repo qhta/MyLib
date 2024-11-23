@@ -16,7 +16,7 @@ public static class TablePropertiesTools
   {
     var styleTableProperties = new StyleTableProperties();
     if (tableProperties.Shading != null)
-       styleTableProperties.Shading = (Shading)tableProperties.Shading.CloneNode(true);
+      styleTableProperties.Shading = (Shading)tableProperties.Shading.CloneNode(true);
     if (tableProperties.TableBorders != null)
       styleTableProperties.TableBorders = (TableBorders)tableProperties.TableBorders.CloneNode(true);
     if (tableProperties.TableCellMarginDefault != null)
@@ -42,4 +42,29 @@ public static class TablePropertiesTools
     return tableProperties.TableCellMarginDefault ??= new DXW.TableCellMarginDefault();
   }
 
+  /// <summary>
+  /// Gets the table borders. If the table properties do not contain a <c>TableBorders</c> element, a new one is created.
+  /// </summary>
+  /// <param name="TableProperties"></param>
+  /// <returns></returns>
+  public static TableBorders GetTableBorders(this TableProperties TableProperties)
+  {
+    var borders = TableProperties.TableBorders;
+    if (borders == null)
+    {
+      borders = new TableBorders();
+      TableProperties.TableBorders = borders;
+    }
+    return borders;
+  }
+
+  /// <summary>
+  /// Sets the table borders.
+  /// </summary>
+  /// <param name="TableProperties"></param>
+  /// <param name="borders"></param>
+  public static void SetTableBorders(this TableProperties TableProperties, TableBorders? borders)
+  {
+    TableProperties.TableBorders = borders;
+  }
 }

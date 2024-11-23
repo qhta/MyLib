@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Xml;
-using DocumentFormat.OpenXml.Drawing;
+
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -12,6 +11,193 @@ public static class OpenXmlCompositeElementTools
 {
 
   /// <summary>
+  /// Gets the text of the composite element.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetText(this DX.OpenXmlCompositeElement element, TextOptions options)
+  {
+    var sl = new List<String>();
+    var members = element.GetMembers().ToList();
+    for (int i = 0; i < members.Count; i++)
+    {
+      var member = members[i];
+      if (member is DXW.Paragraph paragraph)
+      {
+        var paraText = paragraph.GetText(options);
+        if (options.UseIndenting)
+        {
+          if (i > 0)
+          {
+            sl.Add(options.NewLine);
+            sl.Add(options.GetIndent());
+          }
+        }
+        if (options.UseHtmlParagraphs)
+        {
+          if (paraText == string.Empty)
+            sl.Add(options.ParagraphSeparator);
+          else
+          {
+            sl.Add(options.ParagraphStartTag);
+            sl.Add(paraText);
+            sl.Add(options.ParagraphEndTag);
+          }
+        }
+        else
+        {
+          if (paraText == string.Empty)
+          {
+            if (!options.IgnoreEmptyParagraphs)
+              sl.Add(options.ParagraphSeparator);
+          }
+          else
+          {
+            sl.Add(paraText);
+            sl.Add(options.ParagraphSeparator);
+          }
+        }
+      }
+      else if (member is DXW.Table table)
+      {
+        if (options.IgnoreTableContents)
+        {
+          if (options.UseHtmlTables)
+          {
+            if (options.UseIndenting)
+            {
+              sl.Add(options.NewLine);
+              sl.Add(options.GetIndent());
+            }
+            sl.Add(options.TableSubstituteTag);
+          }
+        }
+        else
+        {
+          if (options.UseIndenting)
+          {
+            sl.Add(options.NewLine);
+            sl.Add(options.GetIndent());
+          }
+          if (options.UseHtmlTables)
+          {
+            sl.Add(options.TableStartTag);
+            if (options.UseIndenting)
+            {
+              sl.Add(options.NewLine);
+            }
+            sl.Add(table.GetText(options));
+            if (options.UseIndenting)
+            {
+              sl.Add(options.NewLine);
+            }
+            if (options.UseHtmlTables)
+              sl.Add(options.TableEndTag);
+            else
+              sl.Add(options.TableSeparator);
+          }
+          else
+          {
+            var tableText = table.GetText(options);
+            sl.Add(tableText);
+            if (i == members.Count - 1)
+              sl.Add(Environment.NewLine);
+          }
+        }
+      }
+      else if (member is DXW.Run run)
+      {
+        var runText = run.GetText();
+        if (options.UseIndenting && options.IndentLevel > 0)
+          runText = options.GetIndent() + runText;
+        sl.Add(runText);
+      }
+      else if (member is DXW.Text text)
+      {
+        if (options.UseHtmlEntities)
+          sl.Add(text.Text.HtmlEncode());
+        else
+          sl.Add(text.Text);
+      }
+      else if (member is DXW.Break @break)
+      {
+        if (@break.Type?.Value == BreakValues.Page)
+          sl.Add(options.BreakPageTag);
+        else if (@break.Type?.Value == BreakValues.Column)
+          sl.Add(options.BreakColumnTag);
+        else if (@break.Type?.Value == BreakValues.TextWrapping)
+          sl.Add(options.BreakLineTag);
+      }
+      else if (member is TabChar)
+      {
+        sl.Add(options.TabTag);
+      }
+      else if (member is CarriageReturn)
+      {
+        sl.Add(options.CarriageReturnTag);
+      }
+      else if (member is FieldCode fieldCode && options.IncludeFieldFormula)
+      {
+        sl.Add(fieldCode.Text);
+      }
+      else if (member is SymbolChar symbolChar)
+      {
+        if (int.TryParse(symbolChar.Char!.Value, out var symbolVal))
+        {
+          sl.Add(new String((char)symbolVal, 1));
+        }
+      }
+      else if (member is PositionalTab)
+      {
+        sl.Add(options.TabTag);
+      }
+      else if (member is FieldChar fieldChar)
+      {
+        if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
+        {
+          sl.Add(options.FieldStartTag);
+        }
+        else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate && options.IncludeFieldFormula)
+        {
+          sl.Add(options.FieldResultTag);
+        }
+        else if (fieldChar.FieldCharType?.Value == FieldCharValues.End && options.IncludeFieldFormula)
+        {
+          sl.Add(options.FieldEndTag);
+        }
+      }
+      else if (member is Ruby ruby)
+      {
+        sl.Add(ruby.GetPlainText());
+      }
+      else if (member is FootnoteReference footnoteReference)
+      {
+        sl.Add(options.FootnoteRefStart + footnoteReference.Id + options.FootnoteRefEnd);
+      }
+      else if (member is EndnoteReference endnoteReference)
+      {
+        sl.Add(options.EndnoteRefStart + endnoteReference.Id + options.EndnoteRefEnd);
+      }
+      else if (member is CommentReference commentReference)
+      {
+        sl.Add(options.CommentRefStart + commentReference.Id + options.CommentRefEnd);
+      }
+      else if (member is DXW.Drawing drawing)
+      {
+        if (options.IncludeDrawings)
+          sl.Add(drawing.GetText(options));
+      }
+      else
+      {
+        if (options.IncludeOtherMembers)
+          sl.Add(member.OuterXml.IndentString(options.IndentLevel, options.IndentUnit, options.NewLine));
+      }
+    }
+    return string.Join("", sl);
+  }
+
+  /// <summary>
   /// Removes all the empty paragraphs from the document.
   /// </summary>
   /// <param name="body"></param>
@@ -20,9 +206,9 @@ public static class OpenXmlCompositeElementTools
   public static int RemoveEmptyParagraphs(this DX.OpenXmlCompositeElement body, bool descendants)
   {
     var removed = 0;
-    var emptyParagraphs = descendants 
+    var emptyParagraphs = descendants
       ? body.Descendants<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList()
-      : body.Elements<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList(); 
+      : body.Elements<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList();
     foreach (var paragraph in emptyParagraphs)
     {
       if (paragraph.Ancestors<DXW.Table>().Any())
@@ -150,7 +336,7 @@ public static class OpenXmlCompositeElementTools
       var nextRunProps = nextRun.RunProperties;
       if (runProps == null && nextRunProps == null)
       {
-        foreach (var item in nextRun.MemberElements().ToList())
+        foreach (var item in nextRun.GetMembers().ToList())
         {
           item.Remove();
           run.AppendChild(item);
@@ -164,7 +350,7 @@ public static class OpenXmlCompositeElementTools
       {
         if (runProps.IsEqual(nextRunProps))
         {
-          foreach (var item in nextRun.MemberElements().ToList())
+          foreach (var item in nextRun.GetMembers().ToList())
           {
             item.Remove();
             run.AppendChild(item);
@@ -179,6 +365,18 @@ public static class OpenXmlCompositeElementTools
     return count;
   }
 
+  /// <summary>
+  /// Removes all members from the element.
+  /// </summary>
+  /// <param name="element"/>/param>
+  public static void RemoveContent(this DX.OpenXmlCompositeElement element)
+  {
+    var members = element.GetMembers().ToList();
+    foreach (var item in members)
+    {
+      item.Remove();
+    }
+  }
 
   /// <summary>
   /// Find tables that have invalid columns and fix them.
@@ -231,253 +429,6 @@ public static class OpenXmlCompositeElementTools
       {
         if (paragraph.BreakBefore(str))
           count++;
-      }
-    }
-    return count;
-  }
-
-  /// <summary>
-  /// Joins adjacent tables that have the same number of columns.
-  /// </summary>
-  /// <param name="element">Processed element</param>
-  /// <returns>number of joins</returns>
-  public static int JoinAdjacentTables(this DX.OpenXmlCompositeElement element)
-  {
-    var count = 0;
-    var tables = element.Descendants<DXW.Table>().ToList();
-    for (int i = 0; i < tables.Count; i++)
-    {
-      var table = tables[i];
-      var nextElement = table.NextSibling();
-      var nextTable = nextElement as DXW.Table;
-      if (nextTable == null)
-        continue;
-
-      var tableGrid = table.GetTableGrid();
-      var nextTableGrid = nextTable.GetTableGrid();
-      var tableGridColumns = tableGrid.Elements<DXW.GridColumn>().ToList();
-      var nextTableGridColumns = nextTableGrid.Elements<DXW.GridColumn>().ToList();
-      if (tableGridColumns.Count != nextTableGridColumns.Count)
-        continue;
-
-      var nextTableRows = nextTable.Elements<DXW.TableRow>().ToList();
-      foreach (var row in nextTableRows)
-      {
-        row.Remove();
-        table.AppendChild(row);
-        //var newTableRows = table.Elements<DXW.TableRow>().ToList();
-      }
-      nextTable.Remove();
-      i--;
-      count++;
-    }
-    return count;
-  }
-
-  /// <summary>
-  /// Fix paragraphs with bullets.
-  /// If the paragraph starts with a bullet, the bullet is removed and the paragraph is bulleted.
-  /// If the paragraph contains a bullet inside text, the paragraph is divided and new paragraph is bulleted.
-  /// </summary>
-  /// <param name="body"></param>
-  /// <returns></returns>
-  public static int FixParagraphsWithBullets(this DX.OpenXmlCompositeElement body)
-  {
-    var numbering = body.GetMainDocumentPart()!.GetNumberingDefinitions();
-    var abstractNumbering = body.FindMostFrequentBulletedAbstractNumbering();
-    if (abstractNumbering == null)
-      abstractNumbering = numbering.GetDefaultBulletedAbstractNumbering();
-
-    int abstractNumId = abstractNumbering.AbstractNumberId!;
-    var numberingStatistic = body.GetNumberingInstanceStatistics(abstractNumId);
-    var numberingInstance = numberingStatistic.MostFrequent();
-    DXW.ParagraphProperties? defaultParagraphProperties = null;
-    if (numberingInstance != null)
-      defaultParagraphProperties = numberingInstance.Parent as DXW.ParagraphProperties;
-    if (defaultParagraphProperties == null)
-    {
-      if (numberingInstance == null)
-      {
-        numberingInstance = numbering.GetNumberingInstance(abstractNumId);
-      }
-      defaultParagraphProperties = new DXW.ParagraphProperties();
-      defaultParagraphProperties.SetNumbering(numberingInstance.NumberID?.Value);
-    }
-    int count = 0;
-    var paragraphs = body.Descendants<DXW.Paragraph>().ToList();
-    for (int i = 0; i < paragraphs.Count; i++)
-    {
-      var paragraph = paragraphs[i];
-      //var paraText = paragraph.GetText();
-      //if (paraText.Contains("Video (\u00a715.2.17)"))
-      //  Debug.Assert(true);
-      foreach (var run in paragraph.Elements<DXW.Run>())
-      {
-        var text = run.GetText();
-        if (text.Contains("•"))
-        {
-          var textItem = run.Descendants<DXW.Text>().FirstOrDefault(t => t.Text.TrimStart().StartsWith("•"));
-          if (textItem == null)
-            continue;
-          textItem.Text = text.Replace("•", "");
-          count++;
-          DXW.Paragraph? bulletedParagraph = null;
-          if (paragraph.IsBulleted())
-            bulletedParagraph = paragraph;
-          else
-          {
-            bulletedParagraph = paragraph.GetPreviousNumberedParagraph();
-            if (bulletedParagraph == null)
-              bulletedParagraph = paragraph.GetNextNumberedParagraph();
-          }
-          DXW.ParagraphProperties? numberingParagraphProperties =
-            bulletedParagraph?.ParagraphProperties;
-          if (numberingParagraphProperties == null)
-            numberingParagraphProperties = defaultParagraphProperties;
-          numberingParagraphProperties = (DXW.ParagraphProperties)numberingParagraphProperties.CloneNode(true);
-
-          var prevSibling = run.PreviousSibling();
-          if (prevSibling != null && prevSibling is not DXW.ParagraphProperties &&
-              !String.IsNullOrEmpty((prevSibling as DXW.Run)?.GetText()))
-          {
-            var newParagraph = new DXW.Paragraph();
-            newParagraph.ParagraphProperties = numberingParagraphProperties;
-            var tailItems = new List<DX.OpenXmlElement>();
-            tailItems.Add(run);
-            var siblingItem = run.NextSibling();
-            while (siblingItem != null)
-            {
-              tailItems.Add(siblingItem);
-              siblingItem = siblingItem.NextSibling();
-            }
-            foreach (var item in tailItems)
-            {
-              item.Remove();
-              if (item is DXW.Run runItem && newParagraph.IsEmpty())
-                runItem.TrimStart();
-              newParagraph.Append(item);
-            }
-            paragraph.TrimEnd();
-            newParagraph.TrimStart();
-            newParagraph.TrimEnd();
-            if (paragraph.IsEmpty())
-            {
-              numberingParagraphProperties?.Remove();
-              paragraph.ParagraphProperties = numberingParagraphProperties;
-              var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
-              var after = priorParagraph?.ParagraphProperties?.SpacingBetweenLines?.After;
-              if (after != null)
-                paragraph.GetParagraphProperties().GetSpacingBetweenLines().After = after;
-              foreach (var item in newParagraph.MemberElements())
-              {
-                item.Remove();
-                paragraph.AppendChild(item);
-              }
-            }
-            else
-            {
-              var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
-              if (priorParagraph != null && priorParagraph.ParagraphProperties?.NumberingProperties != null)
-                paragraph.ParagraphProperties =
-                  (DXW.ParagraphProperties)priorParagraph.ParagraphProperties.CloneNode(true);
-              newParagraph.TrimEnd();
-              paragraph.InsertAfterSelf(newParagraph);
-              paragraphs.Insert(i + 1, newParagraph);
-              //if (paragraph.IsEmpty())
-              //{
-              //  paragraph.Remove();
-              //  paragraphs.RemoveAt(i);
-              //  i--;
-              //}
-            }
-          }
-          else // if it is the first run in the paragraph then do not create a new paragraph.
-          {
-            paragraph.ParagraphProperties = numberingParagraphProperties;
-            paragraph.TrimStart();
-            paragraph.TrimEnd();
-            i--;
-          }
-        }
-      }
-    }
-    return count;
-  }
-
-
-  /// <summary>
-  /// Fix paragraphs with numbering.
-  /// Numbering is a digit or a sequence of digits, a letter or two letters followed by a dot or closing parenthesis.
-  /// If the paragraph starts with a numbering, the numbering is removed and the paragraph is numbered.
-  /// </summary>
-  /// <param name="body"></param>
-  /// <returns></returns>
-  public static int FixParagraphsWithNumbers(this DX.OpenXmlCompositeElement body)
-  {
-    var numbering = body.GetMainDocumentPart()!.GetNumberingDefinitions();
-    //var abstractNumbering = body.FindMostFrequentBulletedAbstractNumbering();
-    //if (abstractNumbering == null)
-    //  abstractNumbering = numbering.GetDefaultBulletedAbstractNumbering();
-
-    //int abstractNumId = abstractNumbering.AbstractNumberId!;
-    //var numberingStatistic = body.GetNumberingInstanceStatistics(abstractNumId);
-    //var numberingInstance = numberingStatistic.MostFrequent();
-    //DXW.ParagraphProperties? defaultParagraphProperties = null;
-    //if (numberingInstance != null)
-    //  defaultParagraphProperties = numberingInstance.Parent as DXW.ParagraphProperties;
-    //if (defaultParagraphProperties == null)
-    //{
-    //  if (numberingInstance == null)
-    //  {
-    //    numberingInstance = numbering.GetNumberingInstance(abstractNumId);
-    //  }
-    //  defaultParagraphProperties = new DXW.ParagraphProperties();
-    //  defaultParagraphProperties.SetNumbering(numberingInstance.NumberID?.Value);
-    //}
-    int count = 0;
-    var paragraphs = body.Descendants<DXW.Paragraph>().ToList();
-    for (int i = 0; i < paragraphs.Count; i++)
-    {
-      var paragraph = paragraphs[i];
-      var paraText = paragraph.GetText();
-      var numberingString = paraText.GetNumberingString();
-      if (numberingString == null)
-        continue;
-      //if (paraText.Contains("Video (\u00a715.2.17)"))
-      //  Debug.Assert(true);
-      var run = paragraph.Elements<DXW.Run>().FirstOrDefault();
-      if (run == null)
-        continue;
-      {
-        var text = run.GetText();
-        if (text.StartsWith(numberingString))
-        {
-          DXW.AbstractNum? abstractNumbering = null;
-          DXW.Level? numLevel = null;
-          foreach (var abstractNum in numbering.Elements<AbstractNum>().ToList())
-          {
-            foreach (var level in abstractNum.Elements<Level>().ToList())
-            {
-              if (level.IsCompatibleWith(numberingString))
-              {
-                abstractNumbering = abstractNum;
-                numLevel = level;
-                break;
-              }
-            }
-          }
-          if (abstractNumbering != null && numLevel!=null)
-          {
-            var tailText = text.Substring(numberingString.Length).TrimStart();
-            if (tailText.Length == 0)
-              run.Remove();
-            else
-              run.SetText(tailText);
-            paragraph.SetNumbering(abstractNumbering, numLevel);
-            paragraph.TrimStart();
-            count++;
-          }
-        }
       }
     }
     return count;

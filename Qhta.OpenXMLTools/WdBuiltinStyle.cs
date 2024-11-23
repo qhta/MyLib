@@ -103,9 +103,9 @@ public enum WdBuiltinStyle
   wdStyleHyperlink = -86,
   /// <summary>Block Quotation.</summary>
   wdStyleBlockQuotation = -85,
-  /// <summary>Body Text Indent 3.</summary>
+  /// <summary>Body Text IndentUnit 3.</summary>
   wdStyleBodyTextIndent3 = -84,
-  /// <summary>Body Text Indent 2.</summary>
+  /// <summary>Body Text IndentUnit 2.</summary>
   wdStyleBodyTextIndent2 = -83,
   /// <summary>Body Text 3.</summary>
   wdStyleBodyText3 = -82,
@@ -113,9 +113,9 @@ public enum WdBuiltinStyle
   wdStyleBodyText2 = -81,
   /// <summary>Note Heading.</summary>
   wdStyleNoteHeading = -80,
-  /// <summary>Body Text First Indent 2.</summary>
+  /// <summary>Body Text First IndentUnit 2.</summary>
   wdStyleBodyTextFirstIndent2 = -79,
-  /// <summary>Body Text First Indent.</summary>
+  /// <summary>Body Text First IndentUnit.</summary>
   wdStyleBodyTextFirstIndent = -78,
   /// <summary>Date.</summary>
   wdStyleDate = -77,
@@ -135,7 +135,7 @@ public enum WdBuiltinStyle
   wdStyleListContinue2 = -70,
   /// <summary>List Continue.</summary>
   wdStyleListContinue = -69,
-  /// <summary>Body Text Indent.</summary>
+  /// <summary>Body Text IndentUnit.</summary>
   wdStyleBodyTextIndent = -68,
   /// <summary>Body Text.</summary>
   wdStyleBodyText = -67,
@@ -213,7 +213,7 @@ public enum WdBuiltinStyle
   wdStyleCommentText = -31,
   /// <summary>Footnote Text.</summary>
   wdStyleFootnoteText = -30,
-  /// <summary>Normal Indent.</summary>
+  /// <summary>Normal IndentUnit.</summary>
   wdStyleNormalIndent = -29,
   /// <summary>TOC 9.</summary>
   wdStyleTOC9 = -28,

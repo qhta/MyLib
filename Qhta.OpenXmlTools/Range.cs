@@ -21,20 +21,19 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   public OpenXmlElement? End { get; internal set; } = end;
 
   /// <summary>
-  /// Gets all the elements in the range.
+  /// Gets all the member elements in the range.
   /// </summary>
-  public OpenXmlElement[] GetElements()
+  public IEnumerable<OpenXmlElement> GetMembers()
   {
-    List<OpenXmlElement> result = new();
     var element = Start;
     while (element != null)
     {
-      result.Add(element);
+      if (element.IsMemberElement())
+        yield return element;
       if (element == End)
         break;
       element = element.NextSibling();
     }
-    return result.ToArray();
   }
 
 
@@ -98,9 +97,9 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// </summary>
   /// <param name="options"></param>
   /// <returns></returns>
-  public string GetText(GetTextOptions? options = null)
+  public string GetText(TextOptions options)
   {
-    options ??= GetTextOptions.Default;
+    
     List<string> sl = new();
     var element = Start;
     while (element != null)
@@ -113,11 +112,11 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
       }
       if (element is Table table)
       {
-        if (options.TableInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine)==false)
+        if (options.UseIndenting && sl.LastOrDefault()?.EndsWith(options.NewLine)==false)
           sl.Add(options.NewLine);
         sl.Add(options.TableStartTag);
         sl.Add(table.GetText(options));
-        if (options.TableInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) == false)
+        if (options.UseIndenting && sl.LastOrDefault()?.EndsWith(options.NewLine) == false)
           sl.Add(options.NewLine);
         sl.Add(options.TableEndTag);
       }

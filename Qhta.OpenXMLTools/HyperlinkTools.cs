@@ -12,11 +12,27 @@ public static class HyperlinkTools
   /// Get the text of the hyperlink run elements.
   /// </summary>
   /// <param name="hyperlink">source hyperlink</param>
+  /// <returns>joined text</returns>
+  public static string GetText(this DXW.Hyperlink hyperlink)
+  {
+    var sb = new StringBuilder();
+    foreach (var item in hyperlink.Elements())
+    {
+      var text = item.GetText(TextOptions.PlainText);
+      sb.Append(text);
+    }
+    var result = sb.ToString();
+    return result;
+  }
+
+  /// <summary>
+  /// Get the text of the hyperlink run elements.
+  /// </summary>
+  /// <param name="hyperlink">source hyperlink</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  public static string GetText(this DXW.Hyperlink hyperlink, GetTextOptions? options = null)
+  public static string GetText(this DXW.Hyperlink hyperlink, TextOptions options)
   {
-    options ??= GetTextOptions.Default;
     var sb = new StringBuilder();
     foreach (var item in hyperlink.Elements())
     {
@@ -33,9 +49,10 @@ public static class HyperlinkTools
   /// <param name="hyperlink"></param>
   /// <param name="text"></param>
   /// <param name="options"></param>
-  public static void SetText(this DXW.Hyperlink hyperlink, string text, GetTextOptions? options = null)
+  public static void SetText(this DXW.Hyperlink hyperlink, string text, TextOptions? options = null)
   {
-    options ??= GetTextOptions.Default;
+    if (options == null)
+      options = TextOptions.PlainText;
     hyperlink.RemoveAllChildren();
     var run = new DXW.Run();
     run.SetText(text, options);

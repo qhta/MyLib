@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+
 using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;
@@ -17,9 +19,9 @@ public enum WhichParagraphs
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 
-  /// <summary>
-  /// Tools for working with table cells in OpenXml documents.
-  /// </summary>
+/// <summary>
+/// Tools for working with table cells in OpenXml documents.
+/// </summary>
 public static class TableCellTools
 {
 
@@ -38,54 +40,41 @@ public static class TableCellTools
   }
 
   /// <summary>
-  /// Gets the text of all paragraph in the table cell.
+  /// Determines if the cell content is empty or contains only empty paragraphs.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static bool HasSimpleContent(this DXW.TableCell cell)
+  {
+    var members = cell.GetMembers().ToList();
+    return members.Count==0 || (members.Count == 1 && members[0] is DXW.Paragraph singleParagraph);
+  }
+
+  /// <summary>
+  /// Gets the text the table cell.
   /// </summary>
   /// <param name="cell"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string? GetText(this TableCell cell, GetTextOptions? options = null)
+  public static string GetText(this TableCell cell, TextOptions options)
   {
     List<string> sl = new();
-    var indentLevel = options?.IndentLevel ?? 0;
-    string indentStr = "";
-    if (options!= null && options.IndentTableContent && options.TableRowInSeparateLine)
+    var members = cell.GetMembers().ToList();
+    if (members.Any())
     {
-      options.IndentLevel++;
-      indentStr = options.Indent.Duplicate(options.IndentLevel) ?? "";
-    }
-    foreach (var element in cell.Elements())
-    {
-      if (element is Paragraph paragraph)
+      if (members.Count() == 1 && members[0] is DXW.Paragraph singleParagraph)
       {
-        sl.Add(indentStr);
-        if (options != null)
-          sl.Add(options.ParagraphStartTag);
-        sl.Add(indentStr);
-        sl.Add(paragraph.GetText(options));
-        sl.Add(indentStr);
-        if (options != null)
-          sl.Add(options.ParagraphEndTag);
+        var aText = singleParagraph.GetText();
+        sl.Add(aText);
       }
       else
       {
-        var aText = element.GetText(options);
-        if (aText != null)
-          sl.Add(aText);
+        var aText = (cell as DX.OpenXmlCompositeElement).GetText(options);
+        sl.Add(aText);
       }
     }
-    if (options != null)
-      options.IndentLevel = indentLevel;
     return string.Join("", sl);
   }
-
-  /// <summary>
-  /// Return all elements that are not <c>TableCellProperties</c>
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <returns></returns>
-  public static IEnumerable<DX.OpenXmlElement> MemberElements(this TableCell cell)
-    => cell.Elements().Where(e => e is not TableCellProperties);
-
   /// <summary>
   /// Get the <c>TableCellProperties</c> element of the cell. If it does not exist, it will be created.
   /// </summary>
@@ -101,7 +90,7 @@ public static class TableCellTools
     }
     return cellProperties;
   }
-  
+
   /// <summary>
   /// Sets the keep with next property for the paragraphs in the cell.
   /// </summary>
@@ -142,7 +131,7 @@ public static class TableCellTools
   /// <returns></returns>
   public static bool IsLong(this DXW.TableCell cell)
   {
-    var members = cell.MemberElements().ToList();
+    var members = cell.GetMembers().ToList();
     var isLong = members.Any(e => e is not DXW.Paragraph);
     if (!isLong)
     {
@@ -239,188 +228,27 @@ public static class TableCellTools
       gridSpan.Val = value;
     }
   }
-
   /// <summary>
-  /// Returns the left border of the cell.
+  /// Returns the border of the table.
   /// </summary>
-  /// <param name="cell"></param>
+  /// <param name="Table"></param>
   /// <returns></returns>
-  public static DXW.BorderType? GetLeftBorder(this DXW.TableCell cell)
+  public static T? GetBorder<T>(this DXW.TableCell Table) where T : DXW.BorderType
   {
-    return cell.TableCellProperties?.TableCellBorders?.LeftBorder;
+    return Table.GetTableCellProperties()?.TableCellBorders?.GetBorder<T>();
   }
 
   /// <summary>
-  /// Sets the left border of the cell.
-  /// If set value has a parent, its clone is used.
+  /// Set the border of the cell.
   /// </summary>
+  /// <typeparam name="T"></typeparam>
   /// <param name="cell"></param>
   /// <param name="value"></param>
-  /// <returns></returns>
-  public static void SetLeftBorder(this DXW.TableCell cell, DXW.BorderType? value)
+  public static void SetBorder<T>(this DXW.TableCell cell, DXW.BorderType? value) where T : DXW.BorderType
   {
-    var oldBorder = cell.TableCellProperties?.TableCellBorders?.LeftBorder;
-    if (oldBorder != null)
-      oldBorder.Remove();
-    if (value != null)
-    {
-      if (value is not LeftBorder)
-        value = new LeftBorder
-        {
-          Val = value.Val,
-          Color = value.Color,
-          ThemeColor = value.ThemeColor,
-          ThemeShade = value.ThemeShade,
-          ThemeTint = value.ThemeTint,
-          Size = value.Size,
-          Space = value.Space,
-          Shadow = value.Shadow,
-          Frame = value.Frame,
-        };
-      else
-      {
-        if (value.Parent != null)
-          value = (LeftBorder)value.CloneNode(true);
-      }
-      cell.GetTableCellProperties().GetTableCellBorders().Append(value);
-    }
+    cell.GetTableCellProperties().GetTableCellBorders().SetBorder<T>(value);
   }
 
-  /// <summary>
-  /// Returns the right border of the cell.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <returns></returns>
-  public static DXW.BorderType? GetRightBorder(this DXW.TableCell cell)
-  {
-    return cell.TableCellProperties?.TableCellBorders?.RightBorder;
-  }
-
-  /// <summary>
-  /// Sets the right border of the cell.
-  /// If set value has a parent, its clone is used.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <param name="value"></param>
-  /// <returns></returns>
-  public static void SetRightBorder(this DXW.TableCell cell, DXW.BorderType? value)
-  {
-    var oldBorder = cell.TableCellProperties?.TableCellBorders?.RightBorder;
-    if (oldBorder != null)
-      oldBorder.Remove();
-    if (value != null)
-    {
-      if (value is not RightBorder)
-        value = new RightBorder
-        { 
-          Val = value.Val, 
-          Color = value.Color, 
-          ThemeColor = value.ThemeColor,
-          ThemeShade = value.ThemeShade,
-          ThemeTint = value.ThemeTint,
-          Size = value.Size,
-          Space = value.Space,
-          Shadow = value.Shadow,
-          Frame = value.Frame,
-        };
-      else
-      {
-        if (value.Parent!=null)
-          value = (RightBorder)value.CloneNode(true);
-      }
-      cell.GetTableCellProperties().GetTableCellBorders().Append(value);
-    }
-  }
-
-  /// <summary>
-  /// Returns the top border of the cell.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <returns></returns>
-  public static DXW.BorderType? GetTopBorder(this DXW.TableCell cell)
-  {
-    return cell.TableCellProperties?.TableCellBorders?.TopBorder;
-  }
-
-  /// <summary>
-  /// Sets the top border of the cell.
-  /// If set value has a parent, its clone is used.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <param name="value"></param>
-  public static void SetTopBorder(this DXW.TableCell cell, DXW.BorderType? value)
-  {
-    var oldBorder = cell.TableCellProperties?.TableCellBorders?.TopBorder;
-    if (oldBorder != null)
-      oldBorder.Remove();
-    if (value != null)
-    {
-      if (value is not TopBorder)
-        value = new TopBorder
-        {
-          Val = value.Val,
-          Color = value.Color,
-          ThemeColor = value.ThemeColor,
-          ThemeShade = value.ThemeShade,
-          ThemeTint = value.ThemeTint,
-          Size = value.Size,
-          Space = value.Space,
-          Shadow = value.Shadow,
-          Frame = value.Frame,
-        };
-      else
-      {
-        if (value.Parent != null)
-          value = (TopBorder)value.CloneNode(true);
-      }
-      cell.GetTableCellProperties().GetTableCellBorders().Append(value);
-    }
-  }
-
-  /// <summary>
-  /// Returns the bottom border of the cell.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <returns></returns>
-  public static DXW.BorderType? GetBottomBorder(this DXW.TableCell cell)
-  {
-    return cell.TableCellProperties?.TableCellBorders?.BottomBorder;
-  }
-
-  /// <summary>
-  /// Sets the bottom border of the cell.
-  /// If set value has a parent, its clone is used.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <param name="value"></param>
-  public static void SetBottomBorder(this DXW.TableCell cell, DXW.BorderType? value)
-  {
-    var oldBorder = cell.TableCellProperties?.TableCellBorders?.BottomBorder;
-    if (oldBorder != null)
-      oldBorder.Remove();
-    if (value != null)
-    {
-      if (value is not BottomBorder)
-        value = new BottomBorder
-        {
-          Val = value.Val,
-          Color = value.Color,
-          ThemeColor = value.ThemeColor,
-          ThemeShade = value.ThemeShade,
-          ThemeTint = value.ThemeTint,
-          Size = value.Size,
-          Space = value.Space,
-          Shadow = value.Shadow,
-          Frame = value.Frame,
-        };
-      else
-      {
-        if (value.Parent != null)
-          value = (BottomBorder)value.CloneNode(true);
-      }
-      cell.GetTableCellProperties().GetTableCellBorders().Append(value);
-    }
-  }
 
   /// <summary>
   /// Sets justification for all paragraphs in the cell.
@@ -434,4 +262,15 @@ public static class TableCellTools
       paragraph.SetJustification(value);
     }
   }
+
+  /// <summary>
+  /// Set the cell background color.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="backgroundColor"></param>
+  public static void SetBackgroundColor(this DXW.TableCell cell, int backgroundColor)
+  {
+    cell.GetTableCellProperties().SetShading(ShadingPatternValues.Clear, "auto", backgroundColor.ToString("X6"));
+  }
+
 }

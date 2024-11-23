@@ -9,6 +9,38 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class TypeTools
 {
+
+  /// <summary>
+  /// Checks if the elementType is a member type.
+  /// </summary>
+  /// <returns></returns>
+  public static bool IsMemberType(this Type elementType)
+  {
+    var name = elementType.Name;
+    if (name.EndsWith("Properties"))
+      return false;
+
+    if (elementType.IsConstructedGenericType)
+    {
+      var baseType = elementType.GetGenericTypeDefinition();
+      return IsMemberType(baseType);
+    }
+    if (NonMemberTypes.Contains(elementType))
+      return false;
+    var baseType2 = elementType.BaseType;
+    if (baseType2 != null)
+      return IsMemberType(baseType2);
+    return false;
+  }
+
+  private static readonly HashSet<Type> NonMemberTypes =
+  [
+    typeof(DX.OpenXmlUnknownElement),
+    typeof(DX.OpenXmlMiscNode),
+    typeof(DX.OpenXmlSimpleType),
+    typeof(DXW.TableGrid)
+  ];
+
   /// <summary>
   /// Gets the properties of the OpenXml type (except for the framework properties).
   /// </summary>

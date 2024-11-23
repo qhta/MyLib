@@ -383,6 +383,46 @@ public static class RunPropertiesTools
   }
 
   /// <summary>
+  /// Return Vertical text alignment (superscript/subscript) attribute from run properties.
+  /// </summary>
+  /// <param name="runProperties">Processed run properties</param>
+  public static VerticalPositionValues? GetVerticalPosition(this DXW.RunProperties runProperties)
+  {
+    if (runProperties.VerticalTextAlignment != null)
+    {
+      if (runProperties.VerticalTextAlignment.Val?.Value == DXW.VerticalPositionValues.Superscript)
+        return DXW.VerticalPositionValues.Superscript;
+      if (runProperties.VerticalTextAlignment.Val?.Value == DXW.VerticalPositionValues.Subscript)
+        return DXW.VerticalPositionValues.Subscript;
+      else
+        return DXW.VerticalPositionValues.Baseline;
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Set Vertical text alignment (superscript/subscript) attribute from run properties.
+  /// </summary>
+  /// <param name="runProperties">Processed run properties</param>
+  /// <param name="value">value to set</param>
+  public static void SetVerticalPosition(this DXW.RunProperties runProperties, VerticalPositionValues? value)
+  {
+    if (value == DXW.VerticalPositionValues.Superscript)
+      runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
+        { Val = DXW.VerticalPositionValues.Superscript };
+    else 
+    if (value == DXW.VerticalPositionValues.Subscript)
+      runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
+        { Val = DXW.VerticalPositionValues.Subscript };
+    else
+    if (value == DXW.VerticalPositionValues.Baseline)
+      runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
+        { Val = DXW.VerticalPositionValues.Baseline };
+    else
+      runProperties.VerticalTextAlignment = null;
+  }
+
+  /// <summary>
   /// Return StrikeThrough attribute from run properties.
   /// </summary>
   /// <param name="runProperties">Processed run properties</param>
@@ -393,7 +433,7 @@ public static class RunPropertiesTools
         return 2;
     if (runProperties.Strike != null)
       if (runProperties.Strike.Val != DX.OnOffValue.FromBoolean(false))
-        return 2;
+        return 1;
       else
         return 0;
     return null;
@@ -451,7 +491,7 @@ public static class RunPropertiesTools
     {
       runProperties.Underline = new DXW.Underline { Val = value };
       if (color != null)
-      { 
+      {
         runProperties.Underline.Color = color.Val;
         runProperties.Underline.ThemeColor = color.ThemeColor;
         runProperties.Underline.ThemeShade = color.ThemeShade;
@@ -498,7 +538,7 @@ public static class RunPropertiesTools
   {
     if (complexScript)
     {
-      if (value!=null)
+      if (value != null)
         runProperties.FontSizeComplexScript = new DXW.FontSizeComplexScript { Val = value.ToString() };
       else
         runProperties.FontSizeComplexScript = null;
@@ -507,7 +547,7 @@ public static class RunPropertiesTools
     {
       if (runProperties.FontSize != null)
       {
-        if (value!=null)
+        if (value != null)
           runProperties.FontSize.Val = value.ToString();
         else
           runProperties.FontSize = null;

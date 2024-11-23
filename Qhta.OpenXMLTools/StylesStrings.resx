@@ -49,23 +49,23 @@
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleBodyTextFirstIndent">
-    <value>Body Text First Indent</value>
+    <value>Body Text First IndentUnit</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleBodyTextFirstIndent2">
-    <value>Body Text First Indent 2</value>
+    <value>Body Text First IndentUnit 2</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleBodyTextIndent">
-    <value>Body Text Indent</value>
+    <value>Body Text IndentUnit</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleBodyTextIndent2">
-    <value>Body Text Indent 2</value>
+    <value>Body Text IndentUnit 2</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleBodyTextIndent3">
-    <value>Body Text Indent 3</value>
+    <value>Body Text IndentUnit 3</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleBookTitle">
@@ -1185,7 +1185,7 @@
     <comment>Built-in style not found in WdBuiltInStyle enum type</comment>
   </data>
   <data name="wdStyleNormalIndent">
-    <value>Normal Indent</value>
+    <value>Normal IndentUnit</value>
     <comment>Built-in style</comment>
   </data>
   <data name="wdStyleNoteHeading">

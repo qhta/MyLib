@@ -142,7 +142,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text First Indent.
+        ///   Looks up a localized string similar to Body Text First IndentUnit.
         /// </summary>
         public static string wdStyleBodyTextFirstIndent {
             get {
@@ -151,7 +151,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text First Indent 2.
+        ///   Looks up a localized string similar to Body Text First IndentUnit 2.
         /// </summary>
         public static string wdStyleBodyTextFirstIndent2 {
             get {
@@ -160,7 +160,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text Indent.
+        ///   Looks up a localized string similar to Body Text IndentUnit.
         /// </summary>
         public static string wdStyleBodyTextIndent {
             get {
@@ -169,7 +169,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text Indent 2.
+        ///   Looks up a localized string similar to Body Text IndentUnit 2.
         /// </summary>
         public static string wdStyleBodyTextIndent2 {
             get {
@@ -178,7 +178,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text Indent 3.
+        ///   Looks up a localized string similar to Body Text IndentUnit 3.
         /// </summary>
         public static string wdStyleBodyTextIndent3 {
             get {
@@ -2662,7 +2662,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normal Indent.
+        ///   Looks up a localized string similar to Normal IndentUnit.
         /// </summary>
         public static string wdStyleNormalIndent {
             get {

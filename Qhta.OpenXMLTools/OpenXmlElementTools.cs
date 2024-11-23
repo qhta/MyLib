@@ -9,6 +9,23 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class OpenXmlElementTools
 {
+  /// <summary>
+  /// Get the next element in the document.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static DX.OpenXmlElement? NextElement(this DX.OpenXmlElement? element)
+  {
+    if (element == null)
+      return null;
+    var next = element.NextSibling();
+    if (next != null)
+      return next;
+    var parent = element.Parent;
+    if (parent == null)
+      return null;
+    return parent.NextElement();
+  }
 
   /// <summary>
   /// Checks if the element is the specified type.
@@ -20,7 +37,7 @@ public static class OpenXmlElementTools
   /// It must not be an empty array.
   /// </param>
   /// <returns></returns>
-  public static bool IsType(this DX.OpenXmlElement element, Type type)
+  public static bool IsOfType(this DX.OpenXmlElement element, Type type)
   {
     if (type == element.GetType())
       return true;
@@ -62,21 +79,33 @@ public static class OpenXmlElementTools
   /// Gets the text of the element.
   /// </summary>
   /// <param name="element"></param>
+  /// <returns></returns>
+  public static string GetText(this DX.OpenXmlElement element)
+    => GetText(element, TextOptions.FullText);
+
+  /// <summary>
+  /// Gets the text of the element.
+  /// </summary>
+  /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string? GetText(this DX.OpenXmlElement? element, GetTextOptions? options = null)
+  public static string GetText(this DX.OpenXmlElement element, TextOptions options)
   {
-    if (element == null)
-      return null;
-    string? result = null;
     if (element is DXW.Run run)
-      result = run.GetText();
+      return run.GetText(options);
     else if (element is DXW.Paragraph paragraph)
-      result = paragraph.GetText();
+      return paragraph.GetText(options);
     else if (element is DXW.Hyperlink hyperlink)
-      result = hyperlink.GetText();
+      return hyperlink.GetText(options);
     else if (element is DX.OpenXmlLeafTextElement textElement)
-      result = textElement.Text;
+      return textElement.Text;
+    else if (element is DXW.Drawing drawing)
+    {
+      if (options?.IncludeDrawings == true)
+      {
+        return drawing.GetText(options);
+      }
+    }
     else if (element is DX.OpenXmlCompositeElement compositeElement)
     {
       var sb = new System.Text.StringBuilder();
@@ -85,10 +114,32 @@ public static class OpenXmlElementTools
         var text = item.GetText(options);
         sb.Append(text);
       }
-      result = sb.ToString();
+      return sb.ToString();
     }
+    return string.Empty;
+  }
 
-    return result;
+  /// <summary>
+  /// Sets the text of the element.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <param name="text"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static void SetText(this DX.OpenXmlElement? element, string text, TextOptions? options)
+  {
+    if (element == null)
+      return;
+    if (element is DXW.Run run)
+      run.SetText(text, options);
+    else if (element is DXW.Paragraph paragraph)
+      paragraph.SetText(text, options);
+    else if (element is DXW.Hyperlink hyperlink)
+      hyperlink.SetText(text, options);
+    else if (element is DX.OpenXmlLeafTextElement textElement)
+      textElement.Text = text;
+    else
+      throw new NotImplementedException($"Setting text for the element {element.GetType()} is not implemented.");
   }
 
   /// <summary>
@@ -113,10 +164,12 @@ public static class OpenXmlElementTools
       result = tableRow.IsEmpty();
     //else if (element is DXW.TableCell tableCell)
     //  result = tableCell.IsEmpty();
+    else if (element.IsMemberElement())
+      return false;
     else
     {
       if (element is DX.OpenXmlCompositeElement compositeElement)
-        return !(compositeElement.MemberElements().Any(e => !e.IsEmpty()));
+        return !(compositeElement.GetMembers().Any(e => !e.IsEmpty()));
       else if (element is DX.OpenXmlLeafTextElement textElement)
         return string.IsNullOrEmpty(textElement.Text);
       return !element.HasAttributes;
@@ -125,17 +178,35 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Get child elements (without properties) of the OpenXmlElement.
+  /// Get member elements (without properties) of the OpenXmlElement.
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static IEnumerable<DX.OpenXmlElement> MemberElements(this DX.OpenXmlCompositeElement element)
+  public static IEnumerable<DX.OpenXmlElement> GetMembers(this DX.OpenXmlCompositeElement element)
   {
+    if (element is DXW.Table table)
+    {
+      foreach (var child in table.GetRows())
+      {
+        yield return child;
+      }
+    }
     foreach (var child in element.ChildElements)
     {
       if (!child.GetType().Name.EndsWith("Properties"))
         yield return child;
     }
+  }
+
+  /// <summary>
+  /// Checks if the element is a member-typed element.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsMemberElement(this DX.OpenXmlElement element)
+  {
+    var elementType = element.GetType();
+    return elementType.IsMemberType();
   }
 
   /// <summary>

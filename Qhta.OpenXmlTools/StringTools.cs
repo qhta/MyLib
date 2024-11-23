@@ -1,4 +1,7 @@
-﻿namespace Qhta.OpenXmlTools;
+﻿using System.Text;
+using Qhta.TextUtils;
+
+namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Extending methods for strings.
@@ -6,6 +9,68 @@
 public static class StringTools
 {
 
+  /// <summary>
+  /// Encodes a string using html entities.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string HtmlEncode(this string str)
+  {
+    var sb = new StringBuilder();
+    foreach (var c in str)
+    {
+      if (c == '&')
+        sb.Append("&amp;");
+      else
+      if (c == '<')
+        sb.Append("&lt;");
+      else
+      if (c == '>')
+        sb.Append("&lt;");
+      else sb.Append(c);
+    }
+    return sb.ToString();
+  }
+
+  /// <summary>
+  /// Indent a string.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <param name="startIndent"></param>
+  /// <param name="indentUnit"></param>
+  /// <param name="lineSeparator"></param>
+  /// <returns></returns>
+  public static string IndentString(this string str, int startIndent=0, string indentUnit="  ", string lineSeparator = "\r\n")
+  {
+    var indentLevel = startIndent;
+    var sl = new List<string>();
+    var k = 0;
+    k = str.IndexOf("><", k);
+    if (k<0)
+      k = str.Length;
+    var i = 0;
+    while (k < str.Length)
+    {
+      sl.Add(str.Substring(i, k + 1 - i));
+      i = k + 1;
+      k = str.IndexOf("><", i);
+      if (k < 0)
+        k = str.Length;
+    }
+    sl.Add(str.Substring(i));
+    for (var j = 0; j < sl.Count; j++)
+    {
+      var s = sl[j];
+      if (s.StartsWith("</"))
+        indentLevel--;
+      if (indentLevel > 0)
+        sl[j] = indentUnit.Duplicate(indentLevel) + sl[j];
+      if (s.StartsWith("<") && !s.Contains("</") && !s.EndsWith("/>"))
+        indentLevel++;
+    }
+    return string.Join(lineSeparator, sl);
+  }
+  
   /// <summary>
   /// Get the number of non-whitespace characters at the beginning of the string.
   /// </summary>

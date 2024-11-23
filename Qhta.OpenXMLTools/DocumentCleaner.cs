@@ -24,6 +24,10 @@ public partial class DocumentCleaner
   public void CleanDocument(string fileName)
   {
     using var wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
+    var body = wordDoc.GetBody();
+    var text = body.GetText(TextOptions.FullText);
+    Debug.WriteLine(text);
+    return;
     RemoveProofErrors(wordDoc);
     TrimParagraphs(wordDoc);
     RemoveEmptyParagraphs(wordDoc, true);
@@ -31,10 +35,13 @@ public partial class DocumentCleaner
     ResetHeadingsFormat(wordDoc);
     ReplaceSymbolEncoding(wordDoc);
     FixParagraphNumbering(wordDoc);
-    FixTablesWithEmptyCells(wordDoc);
+
     FixInternalTables(wordDoc);
     JoinAdjacentTables(wordDoc);
     FixDividedTables(wordDoc);
+    FixTablesWithEmptyCells(wordDoc);
+    //FixFakeTables(wordDoc);
+    CreateTablesFromTabs(wordDoc);
 
     JoinAdjacentRuns(wordDoc);
     FixLongWords(wordDoc);
@@ -167,7 +174,7 @@ public partial class DocumentCleaner
       Console.WriteLine("\nRemoving fake header/footer paragraphs");
     var removed = 0;
     HashSet<string> headers = new();
-    var allHeaders = wordDoc.GetHeaders().Select(h => h.GetText(null)).ToArray();
+    var allHeaders = wordDoc.GetHeaders().Select(h => h.GetText(TextOptions.PlainText)).ToArray();
     foreach (var str in allHeaders)
       if (str != null)
       {
@@ -176,7 +183,7 @@ public partial class DocumentCleaner
         if (s.Length > 0 && !s.IsNumber())
           headers.Add(s);
       }
-    var allFooters = wordDoc.GetFooters().Select(f => f.GetText(null)).ToArray();
+    var allFooters = wordDoc.GetFooters().Select(f => f.GetText(TextOptions.PlainText)).ToArray();
     foreach (var str in allFooters)
       if (str != null)
       {
@@ -199,7 +206,7 @@ public partial class DocumentCleaner
     var paragraphs = body.Elements<DXW.Paragraph>().Where(p => !p.IsHeading()).ToList();
     foreach (var paragraph in paragraphs)
     {
-      var str = paragraph.GetText();
+      var str = paragraph.GetText(TextOptions.PlainText);
       var ss = str.Split('\t');
       foreach (var s in ss)
       {
@@ -379,7 +386,7 @@ public partial class DocumentCleaner
         var k = text.IndexOf("<", indent + 1);
         if (k != -1)
         {
-          if (k > 0 && k < text.Length - 1 && (text[k+1] == '/' && text[k-1] == ' ' || char.IsLetter(text[k+1])))
+          if (k > 0 && k < text.Length - 1 && (text[k + 1] == '/' && text[k - 1] == ' ' || char.IsLetter(text[k + 1])))
           {
             // if the paragraph contains an XML tag but not in the beginning, split it to a new paragraph.
             //Console.WriteLine(text);
@@ -390,7 +397,7 @@ public partial class DocumentCleaner
               var firstRun = newParagraph.Elements<DXW.Run>().FirstOrDefault();
               if (firstRun != null)
               {
-                firstRun.SetText(new String(' ', indent)+firstRun.GetText());
+                firstRun.SetText(new String(' ', indent) + firstRun.GetText());
               }
               var spacing = paragraph.GetParagraphProperties().GetSpacingBetweenLines();
               spacing.After = "8";
@@ -442,12 +449,13 @@ public partial class DocumentCleaner
   /// <param name="indent"></param>
   private void NormalizeXmlParagraph(DXW.Paragraph paragraph, int indent)
   {
-    var text = paragraph.GetText();
+    var options = TextOptions.FullText;
+    var text = paragraph.GetText(options);
     var newText = text.NormalizeWhitespaces();
     var newIndent = newText.LeftIndentLength();
     if (newIndent < indent)
       newText = new String(' ', indent - newIndent) + newText;
-    paragraph.SetText(newText);
+    paragraph.SetText(newText, options);
     var indentation = paragraph.GetIndentation();
     var left = indentation.GetLeft() ?? 0;
     var hanging = ((indent + 2) * 12 * 20);

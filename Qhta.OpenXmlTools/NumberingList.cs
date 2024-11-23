@@ -28,13 +28,11 @@ public class NumberingList(DXW.NumberingInstance instance) : List<DXW.Paragraph>
   /// <param name="paragraph"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public string? GetNumberingString(DXW.Paragraph paragraph, GetTextOptions? options = null)
+  public string? GetNumberingString(DXW.Paragraph paragraph, TextOptions options)
   {
     var index = IndexOf(paragraph);
     if (index == -1) return null;
     index++;
-    if (options == null)
-      options = GetTextOptions.Default;
     var level = paragraph.GetNumberingLevel();
     var aLevel = AbstractNum.Elements<DXW.Level>().FirstOrDefault(l => l.LevelIndex?.Value == level);
     if (aLevel == null) return null;
@@ -78,7 +76,7 @@ public class NumberingList(DXW.NumberingInstance instance) : List<DXW.Paragraph>
     aText= options.NumberingStartTag + aText;
     if (options.IndentNumberingLists && level!=null)
     {
-      var indentStr = options.Indent.Duplicate((int)level) ?? "";
+      var indentStr = options.IndentUnit.Duplicate((int)level) ?? "";
       aText = indentStr + aText;
     }
     return aText;

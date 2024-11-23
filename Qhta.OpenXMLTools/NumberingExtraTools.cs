@@ -156,8 +156,10 @@ public static class NumberingExtraTools
   /// <param name="paragraph"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string? GetNumberingString(this Paragraph paragraph, GetTextOptions? options = null)
+  public static string? GetNumberingString(this Paragraph paragraph, TextOptions? options = null)
   {
+    if (options == null)
+      options = TextOptions.PlainText;
     var numberingList = paragraph.GetNumberingList();
     if (numberingList != null)
     {
@@ -633,6 +635,11 @@ public static class NumberingExtraTools
   /// <returns></returns>
   public static bool IsBulleted(this AbstractNum abstractNum)
   {
+    if (abstractNum.MultiLevelType?.Val?.Value == DXW.MultiLevelValues.SingleLevel)
+    {
+      var level = abstractNum.Elements<Level>().FirstOrDefault();
+      return level != null && level.IsBulleted();
+    }
     if (abstractNum.MultiLevelType?.Val?.Value == DXW.MultiLevelValues.Multilevel)
     {
       var level = abstractNum.Elements<Level>().FirstOrDefault();

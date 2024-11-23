@@ -1,4 +1,8 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using System;
+
+using DocumentFormat.OpenXml.Wordprocessing;
+
+using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -15,6 +19,64 @@ public static class TableRowTools
   public static IEnumerable<DXW.TableCell> GetCells(this DXW.TableRow row)
   {
     return row.Elements<DXW.TableCell>();
+  }
+
+  /// <summary>
+  /// Gets the text of all cells in the table row.
+  /// </summary>
+  /// <param name="row"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string? GetText(this TableRow row, TextOptions options)
+  {
+    List<string> sl = new();
+    var cells = row.GetCells().ToList();
+    for (var i = 0; i < cells.Count; i++)
+    {
+      var cell = cells[i];
+      options.IndentLevel++;
+      if (options.UseIndenting)
+      {
+        if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+          sl.Add(options.NewLine);
+        sl.Add(options.GetIndent());
+      }
+      if (options.UseHtmlTables)
+        sl.Add(options.TableCellStartTag);
+      if (options.UseIndenting)
+      {
+        if (!cell.HasSimpleContent())
+        {
+          options.IndentLevel++;
+          if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+            sl.Add(options.NewLine);
+          sl.Add(options.GetIndent());
+          var aText = cell.GetText(options);
+          sl.Add(aText);
+          options.IndentLevel--;
+          if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+            sl.Add(options.NewLine);
+          sl.Add(options.GetIndent());
+
+        }
+        else
+        {
+          var aText = cell.GetText(options);
+          sl.Add(aText);
+        }
+      }
+      else
+      {
+        var aText = cell.GetText(options);
+        sl.Add(aText);
+      }
+      if (options.UseHtmlTables)
+        sl.Add(options.TableCellEndTag);
+      else if (i < cells.Count - 1)
+        sl.Add(options.TableCellSeparator);
+      options.IndentLevel--;
+    }
+    return string.Join("", sl);
   }
 
   /// <summary>
@@ -51,7 +113,7 @@ public static class TableRowTools
   public static void SetKeepWithNext(this DXW.TableRow row, bool value)
   {
     Dictionary<DXW.TableCell, bool> cellsDict =
-      row.MemberElements().OfType<DXW.TableCell>()
+      row.GetMembers().OfType<DXW.TableCell>()
         .ToDictionary(c => c, c => c.IsLong());
     bool hasLong = cellsDict.Values.Any(e => e == true);
     if (hasLong)
@@ -164,38 +226,15 @@ public static class TableRowTools
   }
 
   /// <summary>
-  /// Join the cell in a row with the next cell.
+  /// Set the row background color.
   /// </summary>
   /// <param name="row"></param>
-  /// <param name="columnIndex"></param>
-  /// <returns></returns>
-  public static bool JoinCellWithNext(this DXW.TableRow row, int columnIndex)
+  /// <param name="backgroundColor"></param>
+  public static void SetBackgroundColor(this DXW.TableRow row, int backgroundColor)
   {
-    var cell1 = row.GetCell(columnIndex);
-    var cell2 = row.GetCell(columnIndex + 1);
-    if ((cell1 == null || cell1.IsEmpty()) && cell2 != null)
+    foreach (var cell in row.GetCells())
     {
-      if (cell1 != null)
-      {
-        cell2.SetSpan(1);
-        cell2.SetWidth(cell1.GetWidth() + cell2.GetWidth());
-        cell2.SetLeftBorder(cell1.GetLeftBorder());
-        cell1.Remove();
-      }
-      return true;
+      cell.SetBackgroundColor(backgroundColor);
     }
-    else if ((cell2 == null || cell2.IsEmpty()) && cell1 != null)
-    {
-      if (cell2 != null)
-      {
-        cell1.SetWidth(cell1.GetWidth() + cell2.GetWidth());
-        cell1.SetRightBorder(cell2.GetRightBorder());
-        cell2.Remove();
-      }
-      else
-        cell1.SetSpan(1);
-      return true;
-    }
-    return false;
   }
 }

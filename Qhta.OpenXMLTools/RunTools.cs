@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 
@@ -63,81 +64,32 @@ public static class RunTools
   /// <param name="run"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.Run run, GetTextOptions? options = null)
+  public static string GetText(this DXW.Run run, TextOptions options)
   {
-    options ??= GetTextOptions.Default;
     StringBuilder sb = new();
-    foreach (var element in run.Elements())
+    if (options.UseHtmlFormatting && options.UseHtmlEntities)
     {
-      if (element is DXW.Text text)
-      {
-        sb.Append(text.Text);
-      }
-      else if (element is DXW.Break @break)
-      {
-        if (@break.Type?.Value == BreakValues.Page)
-          sb.Append(options.BreakPageTag);
-        else if (@break.Type?.Value == BreakValues.Column)
-          sb.Append(options.BreakColumnTag);
-        else if (@break.Type?.Value == BreakValues.TextWrapping)
-          sb.Append(options.BreakLineTag);
-      }
-      else if (element is TabChar)
-      {
-        sb.Append(options.TabTag);
-      }
-      else if (element is CarriageReturn)
-      {
-        sb.Append(options.CarriageReturnTag);
-      }
-      else if (element is FieldChar fieldChar)
-      {
-        if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
-        {
-          sb.Append(options.FieldStartTag);
-        }
-        else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate && options.IncludeFieldFormula)
-        {
-          sb.Append(options.FieldResultTag);
-        }
-        else if (fieldChar.FieldCharType?.Value == FieldCharValues.End && options.IncludeFieldFormula)
-        {
-          sb.Append(options.FieldEndTag);
-        }
-      }
-      else if (element is FieldCode fieldCode && options.IncludeFieldFormula)
-      {
-        sb.Append(fieldCode.Text);
-      }
-      else if (element is SymbolChar symbolChar)
-      {
-        if (int.TryParse(symbolChar.Char!.Value, out var symbolVal))
-        {
-          sb.Append((char)symbolVal);
-        }
-      }
-      else if (element is PositionalTab)
-      {
-        sb.Append(options.TabTag);
-      }
-      else if (element is Ruby ruby)
-      {
-        sb.Append(ruby.GetPlainText());
-      }
-      else if (element is FootnoteReference footnoteReference)
-      {
-        sb.Append(options.FootnoteRefStart + footnoteReference.Id + options.FootnoteRefEnd);
-      }
-      else if (element is EndnoteReference endnoteReference)
-      {
-        sb.Append(options.EndnoteRefStart + endnoteReference.Id + options.EndnoteRefEnd);
-      }
-      else if (element is CommentReference commentReference)
-      {
-        sb.Append(options.CommentRefStart + commentReference.Id + options.CommentRefEnd);
-      }
+      if (run.RunProperties?.GetBold(false) == true)
+        sb.Append(options.BoldStartTag);
+      if (run.RunProperties?.GetItalic(false) == true)
+        sb.Append(options.ItalicStartTag);
+      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Superscript)
+        sb.Append(options.SuperscriptStartTag);
+      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
+        sb.Append(options.SubscriptStartTag);
     }
-
+    sb.Append(OpenXmlCompositeElementTools.GetText(run, options));
+    if (options.UseHtmlFormatting && options.UseHtmlEntities)
+    {
+      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
+        sb.Append(options.SubscriptEndTag);
+      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Superscript)
+        sb.Append(options.SuperscriptEndTag);
+      if (run.RunProperties?.GetItalic(false) == true)
+        sb.Append(options.ItalicEndTag);
+      if (run.RunProperties?.GetBold(false) == true)
+        sb.Append(options.BoldEndTag);
+    }
     return sb.ToString();
   }
 
@@ -148,9 +100,10 @@ public static class RunTools
   /// <param name="value"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static void SetText(this DXW.Run run, string? value, GetTextOptions? options = null)
+  public static void SetText(this DXW.Run run, string? value, TextOptions? options = null)
   {
-    options ??= GetTextOptions.Default;
+    if (options == null)
+      options = TextOptions.PlainText;
     var runProperties = run.GetRunProperties();
     run.RemoveAllChildren();
     run.AppendChild(runProperties);
@@ -270,7 +223,7 @@ public static class RunTools
     if (!string.IsNullOrEmpty(s))
     {
       var newText = new DXW.Text(s);
-      if (s.Trim()!=s)
+      if (s.Trim() != s)
         newText.Space = DX.SpaceProcessingModeValues.Preserve;
       run.Append(newText);
       sb.Clear();
@@ -363,22 +316,26 @@ public static class RunTools
   {
     if (element == null)
       return true;
-    foreach (var e in element.MemberElements())
+    var members = element.GetMembers().ToList();
+    foreach (var member in members)
     {
-      if (e is DXW.Text runText)
-      {
-        if (!runText.IsEmpty())
-          return false;
-      }
-      else
-      if (e is DXW.TabChar or DXW.LastRenderedPageBreak)
-      {
-        // ignore
-      }
-      else
+      if (member is not DXW.Text text || !string.IsNullOrEmpty(text.Text))
         return false;
     }
-    return true;
+    return false;
+  }
+
+  /// <summary>
+  /// Checks if the run contains tab chars.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsTabulated(this DXW.Run? element)
+  {
+    if (element == null)
+      return false;
+    var result = element.Elements<DXW.TabChar>().Any();
+    return result;
   }
 
   /// <summary>
@@ -389,7 +346,7 @@ public static class RunTools
   public static bool TrimStart(this DXW.Run run)
   {
     bool done = false;
-    var firstElement = run.MemberElements().FirstOrDefault();
+    var firstElement = run.GetMembers().FirstOrDefault();
     while (firstElement != null)
     {
       var previousElement = firstElement.NextSibling();
@@ -442,7 +399,7 @@ public static class RunTools
   public static bool TrimEnd(this DXW.Run run)
   {
     bool done = false;
-    var lastElement = run.MemberElements().LastOrDefault();
+    var lastElement = run.GetMembers().LastOrDefault();
     while (lastElement != null)
     {
       var previousElement = lastElement.PreviousSibling();
@@ -519,7 +476,7 @@ public static class RunTools
   public static bool TryFixLongWords(this DXW.Run run)
   {
     var done = false;
-    var runElements = run.MemberElements();
+    var runElements = run.GetMembers();
     foreach (var element in runElements)
     {
       if (element is DXW.Text text)
@@ -547,7 +504,7 @@ public static class RunTools
       if (text.StartsWith("/word"))
         Debug.Assert(true);
       var nextText = nextRun.GetText();
-      if (text.TrimEnd()==text && !text.EndsWith("-") && nextText.TrimStart() == text && !nextText.StartsWith("-"))
+      if (text.TrimEnd() == text && !text.EndsWith("-") && nextText.TrimStart() == text && !nextText.StartsWith("-"))
       {
         run.AppendChild(new DXW.SoftHyphen());
         done = true;
@@ -665,7 +622,7 @@ public static class RunTools
   /// <param name="run">Run element to process</param>
   public static void NormalizeWhitespaces(this DXW.Run run)
   {
-    if (run.MemberElements().All(e => e is DXW.Text || e is TabChar))
+    if (run.GetMembers().All(e => e is DXW.Text || e is TabChar))
     {
       var text = run.GetText();
       var newText = text.NormalizeWhitespaces();
@@ -682,15 +639,15 @@ public static class RunTools
   /// <param name="index">Char position number</param>
   /// <param name="options">Options for text extraction</param>
   /// <returns>Next, newly created run (or null) if split is not available</returns>
-  public static DXW.Run? SplitAt(this DXW.Run run, int index, GetTextOptions? options = null)
+  public static DXW.Run? SplitAt(this DXW.Run run, int index, TextOptions options)
   {
-    options ??= GetTextOptions.Default;
+
     if (index <= 0 || index >= run.GetText(options).Length)
       return null;
 
     var textLength = 0;
     DXW.Run? newRun = null;
-    foreach (var member in run.MemberElements().ToList())
+    foreach (var member in run.GetMembers().ToList())
     {
       var memberText = member.GetText(options);
       if (memberText != null)

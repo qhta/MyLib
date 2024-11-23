@@ -23,4 +23,38 @@ public static class TableCellPropertiesTools
     return borders;
   }
 
+  /// <summary>
+  /// Sets the cell borders.
+  /// </summary>
+  /// <param name="cellProperties"></param>
+  /// <param name="borders"></param>
+  public static void SetTableCellBorders(this TableCellProperties cellProperties, TableCellBorders? borders)
+  {
+    cellProperties.TableCellBorders = borders;
+  }
+
+  /// <summary>
+  /// Sets the cell shading
+  /// </summary>
+  /// <param name="cellProperties"></param>
+  /// <param name="color"></param>
+  /// <param name="fillPattern"></param>
+  /// <param name="fillColor"></param>
+  public static void SetShading (this TableCellProperties cellProperties, ShadingPatternValues? fillPattern, string? color = null,  string? fillColor = null)
+  {
+    if (fillPattern == null)
+    {
+      cellProperties.Shading = null;
+      return;
+    }
+    var shading = cellProperties.Shading;
+    if (shading == null)
+    {
+      shading = new Shading();
+      cellProperties.Shading = shading;
+    }
+    shading.Val = (ShadingPatternValues)fillPattern;
+    shading.Color = color ?? "auto";
+    shading.Fill = fillColor ?? "auto";
+  }
 }

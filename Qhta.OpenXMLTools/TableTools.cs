@@ -14,6 +14,20 @@ public static class TableTools
 {
 
   /// <summary>
+  /// Get member elements (without properties and TableGrid) of the table.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static IEnumerable<DX.OpenXmlElement> GetMembers(this DXW.Table table)
+  {
+    foreach (var child in table.ChildElements)
+    {
+      if (child is not DXW.TableProperties && child is not DXW.TableGrid)
+        yield return child;
+    }
+  }
+
+  /// <summary>
   /// Get the <c>TableRow</c> elements of the table.
   /// </summary>
   /// <param name="table"></param>
@@ -24,78 +38,52 @@ public static class TableTools
   }
 
   /// <summary>
+  /// Get the <c>TableCell</c> elements of the table.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static IEnumerable<DXW.TableCell> GetCells(this DXW.Table table)
+  {
+    return table.Descendants<DXW.TableCell>();
+  }
+
+  /// <summary>
   /// Gets the text of all rows in the table.
   /// </summary>
   /// <param name="table"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this Table table, GetTextOptions? options = null)
+  public static string GetText(this Table table, TextOptions options)
   {
-    options ??= GetTextOptions.Default;
     List<string> sl = new();
-    var indentLevel = options.IndentLevel;
-    string indentStr = "";
-    if (options.IndentTableContent && options.TableRowInSeparateLine)
+    var rows = table.GetRows().ToList();
+    for (var i = 0; i < rows.Count; i++)
     {
+      var row = rows[i];
       options.IndentLevel++;
-      indentStr = options.Indent.Duplicate(options.IndentLevel) ?? "";
-    }
-    foreach (var element in table.Elements())
-    {
-      if (element is TableRow row)
+      if (options.UseIndenting)
       {
-        if (options.TableRowInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+        if (i > 0 && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
           sl.Add(options.NewLine);
-        sl.Add(indentStr);
+        sl.Add(options.GetIndent());
+      }
+      if (options.UseHtmlTables)
         sl.Add(options.TableRowStartTag);
-        var aText = row.GetText(options);
-        if (aText != null)
-          sl.Add(aText);
-        if (options.TableRowInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-          sl.Add(options.NewLine);
-        sl.Add(indentStr);
-        sl.Add(options.TableRowEndTag);
-      }
-    }
-    options.IndentLevel = indentLevel;
-    return string.Join("", sl);
-  }
-
-  /// <summary>
-  /// Gets the text of all cells in the table row.
-  /// </summary>
-  /// <param name="row"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string? GetText(this TableRow row, GetTextOptions? options = null)
-  {
-    options ??= GetTextOptions.Default;
-    List<string> sl = new();
-    var indentLevel = options.IndentLevel;
-    string indentStr = "";
-    if (options.IndentTableContent && options.TableRowInSeparateLine)
-    {
-      options.IndentLevel++;
-      indentStr = options.Indent.Duplicate(options.IndentLevel) ?? "";
-    }
-    foreach (var element in row.Elements())
-    {
-      if (element is TableCell cell)
+      var aText = row.GetText(options);
+      if (aText != null)
+        sl.Add(aText);
+      if (options.UseIndenting)
       {
-        if (options.TableCellInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
+        if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
           sl.Add(options.NewLine);
-        sl.Add(indentStr);
-        sl.Add(options.TableCellStartTag);
-        var aText = cell.GetText(options);
-        if (aText != null)
-          sl.Add(aText);
-        if (options.TableCellInSeparateLine && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-          sl.Add(options.NewLine);
-        sl.Add(indentStr);
-        sl.Add(options.TableCellEndTag);
+        sl.Add(options.GetIndent());
       }
+      if (options.UseHtmlTables)
+        sl.Add(options.TableRowEndTag);
+      else
+        sl.Add(options.TableRowSeparator);
+      options.IndentLevel--;
     }
-    options.IndentLevel = indentLevel;
     return string.Join("", sl);
   }
 
@@ -141,7 +129,7 @@ public static class TableTools
       tableProperties.Remove();
     if (value != null)
     {
-      if (value.Parent== null)
+      if (value.Parent == null)
         table.AddChild(value);
       else
         table.AddChild(value.CloneNode((true)));
@@ -514,5 +502,40 @@ public static class TableTools
     var tableProperties = table.GetTableProperties();
     var tableLook = tableProperties.TableLook;
     return tableLook;
+  }
+
+  /// <summary>
+  /// Set the table background color.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="backgroundColor"></param>
+  public static void SetBackgroundColor(this DXW.Table table, int backgroundColor)
+  {
+    foreach (var row in table.GetRows())
+    {
+      row.SetBackgroundColor(backgroundColor);
+    }
+  }
+
+
+  /// <summary>
+  /// Returns the border of the table.
+  /// </summary>
+  /// <param name="Table"></param>
+  /// <returns></returns>
+  public static T? GetBorder<T>(this DXW.Table Table) where T : DXW.BorderType
+  {
+    return Table.GetTableProperties()?.TableBorders?.GetBorder<T>();
+  }
+
+  /// <summary>
+  /// Set the border of the table.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="table"></param>
+  /// <param name="value"></param>
+  public static void SetBorder<T>(this DXW.Table table, DXW.BorderType? value) where T : DXW.BorderType
+  {
+    table.GetTableProperties().GetTableBorders().SetBorder<T>(value);
   }
 }

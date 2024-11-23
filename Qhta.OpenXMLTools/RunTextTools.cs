@@ -35,9 +35,9 @@ public static class RunTextTools
   /// <param name="index">Char position number</param>
   /// <param name="options">Options for runText extraction</param>
   /// <returns>Next, newly created runText (or null) if split is not available</returns>
-  public static DXW.Text? SplitAt(this DXW.Text runText, int index, GetTextOptions? options = null)
+  public static DXW.Text? SplitAt(this DXW.Text runText, int index, TextOptions options)
   {
-    options ??= GetTextOptions.Default;
+    
     var textValue = runText.Text;
     if (index <= 0 || index >= textValue.Length)
       return null;
