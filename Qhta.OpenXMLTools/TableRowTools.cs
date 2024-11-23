@@ -21,63 +21,6 @@ public static class TableRowTools
     return row.Elements<DXW.TableCell>();
   }
 
-  /// <summary>
-  /// Gets the text of all cells in the table row.
-  /// </summary>
-  /// <param name="row"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string? GetText(this TableRow row, TextOptions options)
-  {
-    List<string> sl = new();
-    var cells = row.GetCells().ToList();
-    for (var i = 0; i < cells.Count; i++)
-    {
-      var cell = cells[i];
-      options.IndentLevel++;
-      if (options.UseIndenting)
-      {
-        if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-          sl.Add(options.NewLine);
-        sl.Add(options.GetIndent());
-      }
-      if (options.UseHtmlTables)
-        sl.Add(options.TableCellStartTag);
-      if (options.UseIndenting)
-      {
-        if (!cell.HasSimpleContent())
-        {
-          options.IndentLevel++;
-          if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-            sl.Add(options.NewLine);
-          sl.Add(options.GetIndent());
-          var aText = cell.GetText(options);
-          sl.Add(aText);
-          options.IndentLevel--;
-          if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-            sl.Add(options.NewLine);
-          sl.Add(options.GetIndent());
-
-        }
-        else
-        {
-          var aText = cell.GetText(options);
-          sl.Add(aText);
-        }
-      }
-      else
-      {
-        var aText = cell.GetText(options);
-        sl.Add(aText);
-      }
-      if (options.UseHtmlTables)
-        sl.Add(options.TableCellEndTag);
-      else if (i < cells.Count - 1)
-        sl.Add(options.TableCellSeparator);
-      options.IndentLevel--;
-    }
-    return string.Join("", sl);
-  }
 
   /// <summary>
   /// Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, null is returned.

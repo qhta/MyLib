@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DocumentFormat.OpenXml;
+using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -16,9 +17,15 @@ public static class TypeTools
   /// <returns></returns>
   public static bool IsMemberType(this Type elementType)
   {
+    if (SureMemberTypes.Contains(elementType))
+      return true;
+
     var name = elementType.Name;
-    if (name.EndsWith("Properties"))
-      return false;
+    if (name.StartsWith("Extent"))
+      Debug.Assert(true);
+    foreach (var pattern in NonMemberPatterns)
+      if (name.IsLike(pattern, StringComparison.InvariantCultureIgnoreCase))
+        return false;
 
     if (elementType.IsConstructedGenericType)
     {
@@ -30,15 +37,41 @@ public static class TypeTools
     var baseType2 = elementType.BaseType;
     if (baseType2 != null)
       return IsMemberType(baseType2);
-    return false;
+    return true;
   }
 
+  private static readonly HashSet<Type> SureMemberTypes =
+  [
+    typeof(DXW.Paragraph),
+    typeof(DXW.Run),
+    typeof(DXW.Text),
+    typeof(DXW.Break),
+    typeof(DXW.TabChar),
+    typeof(DXW.NoBreakHyphen),
+    typeof(DXW.SoftHyphen),
+    typeof(DXW.SymbolChar),
+    typeof(DXW.CarriageReturn),
+    typeof(DXW.Table),
+    typeof(DXW.TableRow),
+    typeof(DXW.TableCell),
+    typeof(DXW.Drawing)
+  ];
+
+  private static readonly HashSet<string> NonMemberPatterns =
+    [
+      "*Properties",
+      "*Extent*",
+      "*Position*",
+      "*Offset*",
+      "*Type",
+      "Wrap*",
+    ];
   private static readonly HashSet<Type> NonMemberTypes =
   [
     typeof(DX.OpenXmlUnknownElement),
     typeof(DX.OpenXmlMiscNode),
     typeof(DX.OpenXmlSimpleType),
-    typeof(DXW.TableGrid)
+    typeof(DXW.TableGrid),
   ];
 
   /// <summary>

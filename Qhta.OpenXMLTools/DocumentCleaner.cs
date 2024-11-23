@@ -26,7 +26,7 @@ public partial class DocumentCleaner
     using var wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
     var body = wordDoc.GetBody();
     var text = body.GetText(TextOptions.FullText);
-    Debug.WriteLine(text);
+    Debug.WriteLine(text.IndentString());
     return;
     RemoveProofErrors(wordDoc);
     TrimParagraphs(wordDoc);

@@ -1,6 +1,8 @@
 ﻿using System;
-
+using System.Text;
 using DocumentFormat.OpenXml.Wordprocessing;
+
+using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -10,192 +12,6 @@ namespace Qhta.OpenXmlTools;
 public static class OpenXmlCompositeElementTools
 {
 
-  /// <summary>
-  /// Gets the text of the composite element.
-  /// </summary>
-  /// <param name="element"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string GetText(this DX.OpenXmlCompositeElement element, TextOptions options)
-  {
-    var sl = new List<String>();
-    var members = element.GetMembers().ToList();
-    for (int i = 0; i < members.Count; i++)
-    {
-      var member = members[i];
-      if (member is DXW.Paragraph paragraph)
-      {
-        var paraText = paragraph.GetText(options);
-        if (options.UseIndenting)
-        {
-          if (i > 0)
-          {
-            sl.Add(options.NewLine);
-            sl.Add(options.GetIndent());
-          }
-        }
-        if (options.UseHtmlParagraphs)
-        {
-          if (paraText == string.Empty)
-            sl.Add(options.ParagraphSeparator);
-          else
-          {
-            sl.Add(options.ParagraphStartTag);
-            sl.Add(paraText);
-            sl.Add(options.ParagraphEndTag);
-          }
-        }
-        else
-        {
-          if (paraText == string.Empty)
-          {
-            if (!options.IgnoreEmptyParagraphs)
-              sl.Add(options.ParagraphSeparator);
-          }
-          else
-          {
-            sl.Add(paraText);
-            sl.Add(options.ParagraphSeparator);
-          }
-        }
-      }
-      else if (member is DXW.Table table)
-      {
-        if (options.IgnoreTableContents)
-        {
-          if (options.UseHtmlTables)
-          {
-            if (options.UseIndenting)
-            {
-              sl.Add(options.NewLine);
-              sl.Add(options.GetIndent());
-            }
-            sl.Add(options.TableSubstituteTag);
-          }
-        }
-        else
-        {
-          if (options.UseIndenting)
-          {
-            sl.Add(options.NewLine);
-            sl.Add(options.GetIndent());
-          }
-          if (options.UseHtmlTables)
-          {
-            sl.Add(options.TableStartTag);
-            if (options.UseIndenting)
-            {
-              sl.Add(options.NewLine);
-            }
-            sl.Add(table.GetText(options));
-            if (options.UseIndenting)
-            {
-              sl.Add(options.NewLine);
-            }
-            if (options.UseHtmlTables)
-              sl.Add(options.TableEndTag);
-            else
-              sl.Add(options.TableSeparator);
-          }
-          else
-          {
-            var tableText = table.GetText(options);
-            sl.Add(tableText);
-            if (i == members.Count - 1)
-              sl.Add(Environment.NewLine);
-          }
-        }
-      }
-      else if (member is DXW.Run run)
-      {
-        var runText = run.GetText();
-        if (options.UseIndenting && options.IndentLevel > 0)
-          runText = options.GetIndent() + runText;
-        sl.Add(runText);
-      }
-      else if (member is DXW.Text text)
-      {
-        if (options.UseHtmlEntities)
-          sl.Add(text.Text.HtmlEncode());
-        else
-          sl.Add(text.Text);
-      }
-      else if (member is DXW.Break @break)
-      {
-        if (@break.Type?.Value == BreakValues.Page)
-          sl.Add(options.BreakPageTag);
-        else if (@break.Type?.Value == BreakValues.Column)
-          sl.Add(options.BreakColumnTag);
-        else if (@break.Type?.Value == BreakValues.TextWrapping)
-          sl.Add(options.BreakLineTag);
-      }
-      else if (member is TabChar)
-      {
-        sl.Add(options.TabTag);
-      }
-      else if (member is CarriageReturn)
-      {
-        sl.Add(options.CarriageReturnTag);
-      }
-      else if (member is FieldCode fieldCode && options.IncludeFieldFormula)
-      {
-        sl.Add(fieldCode.Text);
-      }
-      else if (member is SymbolChar symbolChar)
-      {
-        if (int.TryParse(symbolChar.Char!.Value, out var symbolVal))
-        {
-          sl.Add(new String((char)symbolVal, 1));
-        }
-      }
-      else if (member is PositionalTab)
-      {
-        sl.Add(options.TabTag);
-      }
-      else if (member is FieldChar fieldChar)
-      {
-        if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
-        {
-          sl.Add(options.FieldStartTag);
-        }
-        else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate && options.IncludeFieldFormula)
-        {
-          sl.Add(options.FieldResultTag);
-        }
-        else if (fieldChar.FieldCharType?.Value == FieldCharValues.End && options.IncludeFieldFormula)
-        {
-          sl.Add(options.FieldEndTag);
-        }
-      }
-      else if (member is Ruby ruby)
-      {
-        sl.Add(ruby.GetPlainText());
-      }
-      else if (member is FootnoteReference footnoteReference)
-      {
-        sl.Add(options.FootnoteRefStart + footnoteReference.Id + options.FootnoteRefEnd);
-      }
-      else if (member is EndnoteReference endnoteReference)
-      {
-        sl.Add(options.EndnoteRefStart + endnoteReference.Id + options.EndnoteRefEnd);
-      }
-      else if (member is CommentReference commentReference)
-      {
-        sl.Add(options.CommentRefStart + commentReference.Id + options.CommentRefEnd);
-      }
-      else if (member is DXW.Drawing drawing)
-      {
-        if (options.IncludeDrawings)
-          sl.Add(drawing.GetText(options));
-      }
-      else
-      {
-        if (options.IncludeOtherMembers)
-          sl.Add(member.OuterXml.IndentString(options.IndentLevel, options.IndentUnit, options.NewLine));
-      }
-    }
-    return string.Join("", sl);
-  }
 
   /// <summary>
   /// Removes all the empty paragraphs from the document.
@@ -406,7 +222,7 @@ public static class OpenXmlCompositeElementTools
       //firstCell = nextRow?.GetFirstChild<DXW.TableCell>();
       //var firstParagraph = firstCell?.GetFirstChild<DXW.Paragraph>();
       //if (firstParagraph != null)
-      //  Debug.WriteLine($"{i + 1}: {firstParagraph.GetText()}");
+      //  Debug.WriteLine($"{i + 1}: {firstParagraph.GetInnerText()}");
       count += table.TryJoinFirstColumnParagraphs();
     }
     return count;

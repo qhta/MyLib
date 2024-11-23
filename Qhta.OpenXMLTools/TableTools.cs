@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Text;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;
@@ -45,46 +45,6 @@ public static class TableTools
   public static IEnumerable<DXW.TableCell> GetCells(this DXW.Table table)
   {
     return table.Descendants<DXW.TableCell>();
-  }
-
-  /// <summary>
-  /// Gets the text of all rows in the table.
-  /// </summary>
-  /// <param name="table"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string GetText(this Table table, TextOptions options)
-  {
-    List<string> sl = new();
-    var rows = table.GetRows().ToList();
-    for (var i = 0; i < rows.Count; i++)
-    {
-      var row = rows[i];
-      options.IndentLevel++;
-      if (options.UseIndenting)
-      {
-        if (i > 0 && sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-          sl.Add(options.NewLine);
-        sl.Add(options.GetIndent());
-      }
-      if (options.UseHtmlTables)
-        sl.Add(options.TableRowStartTag);
-      var aText = row.GetText(options);
-      if (aText != null)
-        sl.Add(aText);
-      if (options.UseIndenting)
-      {
-        if (sl.LastOrDefault()?.EndsWith(options.NewLine) != true)
-          sl.Add(options.NewLine);
-        sl.Add(options.GetIndent());
-      }
-      if (options.UseHtmlTables)
-        sl.Add(options.TableRowEndTag);
-      else
-        sl.Add(options.TableRowSeparator);
-      options.IndentLevel--;
-    }
-    return string.Join("", sl);
   }
 
 

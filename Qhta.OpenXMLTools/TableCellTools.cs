@@ -51,31 +51,6 @@ public static class TableCellTools
   }
 
   /// <summary>
-  /// Gets the text the table cell.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string GetText(this TableCell cell, TextOptions options)
-  {
-    List<string> sl = new();
-    var members = cell.GetMembers().ToList();
-    if (members.Any())
-    {
-      if (members.Count() == 1 && members[0] is DXW.Paragraph singleParagraph)
-      {
-        var aText = singleParagraph.GetText();
-        sl.Add(aText);
-      }
-      else
-      {
-        var aText = (cell as DX.OpenXmlCompositeElement).GetText(options);
-        sl.Add(aText);
-      }
-    }
-    return string.Join("", sl);
-  }
-  /// <summary>
   /// Get the <c>TableCellProperties</c> element of the cell. If it does not exist, it will be created.
   /// </summary>
   /// <param name="cell"></param>

@@ -2,6 +2,9 @@
 using System.IO;
 using System.Xml.XPath;
 
+using DocumentFormat.OpenXml.Spreadsheet;
+using Qhta.TextUtils;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -75,49 +78,6 @@ public static class OpenXmlElementTools
     return false;
   }
 
-  /// <summary>
-  /// Gets the text of the element.
-  /// </summary>
-  /// <param name="element"></param>
-  /// <returns></returns>
-  public static string GetText(this DX.OpenXmlElement element)
-    => GetText(element, TextOptions.FullText);
-
-  /// <summary>
-  /// Gets the text of the element.
-  /// </summary>
-  /// <param name="element"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string GetText(this DX.OpenXmlElement element, TextOptions options)
-  {
-    if (element is DXW.Run run)
-      return run.GetText(options);
-    else if (element is DXW.Paragraph paragraph)
-      return paragraph.GetText(options);
-    else if (element is DXW.Hyperlink hyperlink)
-      return hyperlink.GetText(options);
-    else if (element is DX.OpenXmlLeafTextElement textElement)
-      return textElement.Text;
-    else if (element is DXW.Drawing drawing)
-    {
-      if (options?.IncludeDrawings == true)
-      {
-        return drawing.GetText(options);
-      }
-    }
-    else if (element is DX.OpenXmlCompositeElement compositeElement)
-    {
-      var sb = new System.Text.StringBuilder();
-      foreach (var item in compositeElement.Elements())
-      {
-        var text = item.GetText(options);
-        sb.Append(text);
-      }
-      return sb.ToString();
-    }
-    return string.Empty;
-  }
 
   /// <summary>
   /// Sets the text of the element.
@@ -164,7 +124,7 @@ public static class OpenXmlElementTools
       result = tableRow.IsEmpty();
     //else if (element is DXW.TableCell tableCell)
     //  result = tableCell.IsEmpty();
-    else if (element.IsMemberElement())
+    else if (element.IsMember())
       return false;
     else
     {
@@ -184,16 +144,9 @@ public static class OpenXmlElementTools
   /// <returns></returns>
   public static IEnumerable<DX.OpenXmlElement> GetMembers(this DX.OpenXmlCompositeElement element)
   {
-    if (element is DXW.Table table)
-    {
-      foreach (var child in table.GetRows())
-      {
-        yield return child;
-      }
-    }
     foreach (var child in element.ChildElements)
     {
-      if (!child.GetType().Name.EndsWith("Properties"))
+      if (child.IsMember())
         yield return child;
     }
   }
@@ -203,7 +156,7 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static bool IsMemberElement(this DX.OpenXmlElement element)
+  public static bool IsMember(this DX.OpenXmlElement element)
   {
     var elementType = element.GetType();
     return elementType.IsMemberType();

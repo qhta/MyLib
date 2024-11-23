@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Text;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -53,20 +53,6 @@ public static class ParagraphTools
     if (paragraph.ParagraphProperties == null)
       paragraph.ParagraphProperties = new ParagraphProperties();
     return paragraph.ParagraphProperties;
-  }
-
-  /// <summary>
-  /// Get the text of the paragraph run elements.
-  /// </summary>
-  /// <param name="paragraph">source paragraph</param>
-  /// <param name="options"></param>
-  /// <returns>joined text</returns>
-  public static string GetText(this Paragraph paragraph, TextOptions options)
-  {
-    var result = String.Join("", paragraph.GetMembers().Select(item => item.GetText(options)));
-    if (options.IncludeParagraphNumbering)
-      result = paragraph.GetNumberingString(options) + result;
-    return result;
   }
 
   /// <summary>

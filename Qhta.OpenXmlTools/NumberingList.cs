@@ -74,11 +74,11 @@ public class NumberingList(DXW.NumberingInstance instance) : List<DXW.Paragraph>
     if (aLevel.LevelSuffix?.Val?.Value != LevelSuffixValues.Nothing)
       aText += options.NumberingEndTag;
     aText= options.NumberingStartTag + aText;
-    if (options.IndentNumberingLists && level!=null)
-    {
-      var indentStr = options.IndentUnit.Duplicate((int)level) ?? "";
-      aText = indentStr + aText;
-    }
+    //if (options.IndentNumberingLists && level!=null)
+    //{
+    //  var indentStr = options.IndentUnit.Duplicate((int)level) ?? "";
+    //  aText = indentStr + aText;
+    //}
     return aText;
   }
 

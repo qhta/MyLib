@@ -44,7 +44,6 @@ public record TextOptions
   /// </summary>
   public static readonly TextOptions PlainText = new TextOptions
   {
-    UseIndenting = false,
     UseHtmlEntities = false,
     UseHtmlFormatting = false,
     UseHtmlParagraphs = false,
@@ -64,7 +63,6 @@ public record TextOptions
   /// </summary>
   public static readonly TextOptions TabbedText = new TextOptions()
   {
-    UseIndenting = true,
     UseHtmlEntities = true,
     UseHtmlParagraphs = true,
     ParagraphSeparator = "<p/>",
@@ -86,34 +84,34 @@ public record TextOptions
     IncludeOtherMembers = true,
   };
 
-  #region indenting
-  /// <summary>
-  /// Use indenting.
-  /// </summary>
-  public bool UseIndenting { get; set; } = true;
+  //#region indenting
+  ///// <summary>
+  ///// Use indenting.
+  ///// </summary>
+  //public bool UseIndenting { get; set; } = true;
 
-  /// <summary>
-  /// IndentUnit unit string.
-  /// </summary>
-  public string IndentUnit { get; set; } = "  ";
+  ///// <summary>
+  ///// IndentUnit unit string.
+  ///// </summary>
+  //public string IndentUnit { get; set; } = "  ";
 
-  /// <summary>
-  /// The number of indent unit string to insert.
-  /// </summary>
-  public int IndentLevel { get; set; } = 0;
+  ///// <summary>
+  ///// The number of indent unit string to insert.
+  ///// </summary>
+  //public int IndentLevel { get; set; } = 0;
 
-  /// <summary>
-  /// Get the indent string.
-  /// </summary>
-  /// <returns></returns>
-  public string GetIndent()
-  {
-    var sb = new StringBuilder();
-    for (int i = 0; i < IndentLevel; i++)
-      sb.Append(IndentUnit);
-    return sb.ToString();
-  }
-  #endregion
+  ///// <summary>
+  ///// Get the indent string.
+  ///// </summary>
+  ///// <returns></returns>
+  //public string GetIndent()
+  //{
+  //  var sb = new StringBuilder();
+  //  for (int i = 0; i < IndentLevel; i++)
+  //    sb.Append(IndentUnit);
+  //  return sb.ToString();
+  //}
+  //#endregion
 
   #region control characters
   /// <summary>

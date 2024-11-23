@@ -17,7 +17,7 @@ public static class RunTools
   //public static EndnoteReferenceMark GetEndnoteReferenceMark (this Run run) { return run.Elements<EndnoteReferenceMark>().FirstOrDefault();} 
   //public static LastRenderedPageBreak GetLastRenderedPageBreak (this Run run) { return run.Elements<LastRenderedPageBreak>().FirstOrDefault();} 
   //public static Break GetBreak (this Run run) { return run.Elements<Break>().FirstOrDefault();} 
-  //public static Text GetText (this Run run) { return run.Elements<Text>().FirstOrDefault();} 
+  //public static Text GetInnerText (this Run run) { return run.Elements<Text>().FirstOrDefault();} 
   //public static DeletedText GetDeletedText (this Run run) { return run.Elements<DeletedText>().FirstOrDefault();} 
   //public static FieldCode GetFieldCode (this Run run) { return run.Elements<FieldCode>().FirstOrDefault();} 
   //public static DeletedFieldCode GetDeletedFieldCode (this Run run) { return run.Elements<DeletedFieldCode>().FirstOrDefault();} 
@@ -56,41 +56,6 @@ public static class RunTools
     if (run.RunProperties == null)
       run.RunProperties = new DXW.RunProperties();
     return run.RunProperties;
-  }
-
-  /// <summary>
-  /// Get the text content of the run.
-  /// </summary>
-  /// <param name="run"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string GetText(this DXW.Run run, TextOptions options)
-  {
-    StringBuilder sb = new();
-    if (options.UseHtmlFormatting && options.UseHtmlEntities)
-    {
-      if (run.RunProperties?.GetBold(false) == true)
-        sb.Append(options.BoldStartTag);
-      if (run.RunProperties?.GetItalic(false) == true)
-        sb.Append(options.ItalicStartTag);
-      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Superscript)
-        sb.Append(options.SuperscriptStartTag);
-      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
-        sb.Append(options.SubscriptStartTag);
-    }
-    sb.Append(OpenXmlCompositeElementTools.GetText(run, options));
-    if (options.UseHtmlFormatting && options.UseHtmlEntities)
-    {
-      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
-        sb.Append(options.SubscriptEndTag);
-      if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Superscript)
-        sb.Append(options.SuperscriptEndTag);
-      if (run.RunProperties?.GetItalic(false) == true)
-        sb.Append(options.ItalicEndTag);
-      if (run.RunProperties?.GetBold(false) == true)
-        sb.Append(options.BoldEndTag);
-    }
-    return sb.ToString();
   }
 
   /// <summary>
@@ -704,6 +669,4 @@ public static class RunTools
     }
     return newRun;
   }
-
-
 }

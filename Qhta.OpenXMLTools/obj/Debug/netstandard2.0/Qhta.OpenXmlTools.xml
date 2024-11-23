@@ -1173,14 +1173,6 @@
             Tools for drawing elements.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DrawingTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Drawing,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Get the text for the drawing element.
-            </summary>
-            <param name="drawing"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="T:Qhta.OpenXmlTools.EMUTools">
             <summary>
             Tools for working with OpenXml EMU values.
@@ -1468,6 +1460,163 @@
             Initialize the Footnotes element with the default separator and continuation separator.
             </summary>
             <param name="endnotes"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.GetTextMethods">
+            <summary>
+            Methods to get text from OpenXml elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.OpenXmlElement},Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets the text of the collection of elements
+            </summary>
+            <param name="elements"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets the text of the element.
+            </summary>
+            <param name="element"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text content of the run.
+            </summary>
+            <param name="run"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the run text element.
+            </summary>
+            <param name="text"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.OpenXmlLeafTextElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of any textElement element.
+            </summary>
+            <param name="textElement"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Break,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the Break element.
+            </summary>
+            <param name="break"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.SymbolChar,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the SymbolChar element.
+            </summary>
+            <param name="symbolChar"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.FieldChar,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the FieldChar element.
+            </summary>
+            <param name="fieldChar"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.FieldCode,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the FieldCode element.
+            </summary>
+            <param name="fieldCode"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.FootnoteReference,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the FootnoteReference element.
+            </summary>
+            <param name="footnoteReference"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.EndnoteReference,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the EndnoteReference element.
+            </summary>
+            <param name="endnoteReference"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.CommentReference,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the CommentReference element.
+            </summary>
+            <param name="commentReference"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the paragraph.
+            </summary>
+            <param name="paragraph">source paragraph</param>
+            <param name="options"></param>
+            <returns>joined text</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetInnerText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the paragraph members elements.
+            </summary>
+            <param name="paragraph">source paragraph</param>
+            <param name="options"></param>
+            <returns>joined text</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets the text table including table tags
+            </summary>
+            <param name="table"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetInnerText(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets the text of all rows in the table.
+            </summary>
+            <param name="table"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.TableRow,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets the text of all cells in the table row.
+            </summary>
+            <param name="row"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetInnerText(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets inner text the table cell.
+            </summary>
+            <param name="cell"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Drawing,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text for the drawing element.
+            </summary>
+            <param name="drawing"></param>
+            <param name="options"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.GridColumnTools">
             <summary>
@@ -2737,14 +2886,6 @@
             Contains tools for working with OpenXml composite elements.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.GetText(DocumentFormat.OpenXml.OpenXmlCompositeElement,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Gets the text of the composite element.
-            </summary>
-            <param name="element"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.RemoveEmptyParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Boolean)">
             <summary>
             Removes all the empty paragraphs from the document.
@@ -2846,21 +2987,6 @@
             </param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetText(DocumentFormat.OpenXml.OpenXmlElement)">
-            <summary>
-            Gets the text of the element.
-            </summary>
-            <param name="element"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetText(DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Gets the text of the element.
-            </summary>
-            <param name="element"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetText(DocumentFormat.OpenXml.OpenXmlElement,System.String,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Sets the text of the element.
@@ -2884,7 +3010,7 @@
             <param name="element"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsMemberElement(DocumentFormat.OpenXml.OpenXmlElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsMember(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Checks if the element is a member-typed element.
             </summary>
@@ -3945,14 +4071,6 @@
             </summary>
             <param name="paragraph"></param>
             <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Get the text of the paragraph run elements.
-            </summary>
-            <param name="paragraph">source paragraph</param>
-            <param name="options"></param>
-            <returns>joined text</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.String,Qhta.OpenXmlTools.TextOptions)">
             <summary>
@@ -5145,14 +5263,6 @@
             Get the <c>RunProperties</c> element of the run. If it is null, create a new one.
             </summary>
             <param name="run"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.RunTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Get the text content of the run.
-            </summary>
-            <param name="run"></param>
-            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Run,System.String,Qhta.OpenXmlTools.TextOptions)">
@@ -7459,6 +7569,402 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.StringUtils1">
+            <summary>
+            A bunch of string utility methods
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.TitleCase(System.String)">
+            <summary>
+            Change string to title case. First letter tu upper, rest to lower case.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.CamelCase(System.String)">
+            <summary>
+            Change first letter of each word to upper, rest to lower case.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.SplitCamelCase(System.String)">
+            <summary>
+            Split camel-case string to array of words.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.DeCamelCase(System.String)">
+            <summary>
+            Split camel-case string to words.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.NumberToText(System.Double)">
+            <summary>
+            Changes a number to literal text using whole part and a rational fraction part.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.NumberToText(System.Int32)">
+            <summary>
+            Changes a number to literal text.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.NumberToText(System.Int64)">
+            <summary>
+            Changes a number to literal text.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Precede(System.String,System.String)">
+            <summary>
+            Precedes a string with a prefix when string is not null.
+            </summary>
+            <param name="str"></param>
+            <param name="prefix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Attach(System.String,System.String)">
+            <summary>
+            Attach a suffix to a string if string is not null.
+            </summary>
+            <param name="str"></param>
+            <param name="suffix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsAt(System.String,System.String,System.Int32)">
+            <summary>
+            Checks if a string contains a substring at a specified position.
+            </summary>
+            <param name="str"></param>
+            <param name="substring"></param>
+            <param name="atIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsAt(System.String,System.String,System.Int32,System.StringComparison)">
+            <summary>
+            Checks if a string contains a substring at a specified position using a specified comparison.
+            </summary>
+            <param name="str"></param>
+            <param name="substring"></param>
+            <param name="atIndex"></param>
+            <param name="comparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsBefore(System.String,System.String,System.Int32)">
+            <summary>
+            Checks if a string ends with a substring at a specified position
+            </summary>
+            <param name="str"></param>
+            <param name="substring"></param>
+            <param name="atIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsBefore(System.String,System.String,System.Int32,System.StringComparison)">
+            <summary>
+            Checks if a string contains a substring at a specified position using explicit comparison using a specified comparison.
+            </summary>
+            <param name="str"></param>
+            <param name="substring"></param>
+            <param name="atIndex"></param>
+            <param name="comparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsUpper(System.String)">
+            <summary>
+            Checks if a string contains only upper-case letters.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsAscii(System.String)">
+            <summary>
+            Checks if a string contains characters from space to ~.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsUnicode(System.String)">
+            <summary>
+            Checks if a string contains Unicode characters (i.e. with codes greater than 127)
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLike(System.String,System.String,System.StringComparison)">
+            <summary>
+              Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
+              characters.
+            </summary>
+            <param name="key"></param>
+            <param name="pattern"></param>
+            <param name="stringComparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLike(System.String,System.String,System.String@,System.StringComparison)">
+            <summary>
+              Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+              characters.
+              Output <paramref name="wildKey" /> is set to found wildchar replacement in the key.
+              If there are multiple wildchars in the pattern then returned <paramref name="wildKey" /> contains multiple
+              replacements joined with '*' separator.
+            </summary>
+            <param name="key"></param>
+            <param name="pattern"></param>
+            <param name="wildKey"></param>
+            <param name="stringComparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLikeNumber(System.String,System.String,System.String@,System.Int32@)">
+            <summary>
+            Checks if a key text starts or ends with a number..
+            </summary>
+            <param name="key">Checked text</param>
+            <param name="pattern">Pattern text containing '#' ad the beginning or end. The rest is a literal pattern</param>
+            <param name="wildKey">Literal text detected by pattern</param>
+            <param name="wildNum">Number parsed from the wildKey</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsValidUrl(System.String)">
+            <summary>
+            Check if URL is valid. Uses Regex.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ToUpperFirst(System.String)">
+            <summary>
+            Changes the first letter to uppercase. All others unchanged.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ToLowerFirst(System.String)">
+            <summary>
+            Changes the first letter to lowercase. All others unchanged.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.TrimParens(System.String,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+            Trims parentheses enclosing the text.
+            </summary>
+            <param name="text"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.TrimEnclosings(System.String,System.Char,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+            Changes enclosing parens. Omits included enclosings.
+            </summary>
+            <param name="text"></param>
+            <param name="openParen"></param>
+            <param name="closeParen"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.TrimDblQuotes(System.String)">
+            <summary>
+            Trim double quote characters enclosing the text.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.SplitBy(System.String,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Splits a text by <paramref name="sep" /> character.
+              Fragments enclosed by <paramref name="enclosings" /> are not splitted.
+            </summary>
+            <param name="text"></param>
+            <param name="sep"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Find(System.String,System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Searches a text from <paramref name="startNdx" /> position for a <paramref name="sep" /> character.
+              If not found then length of text is returned;
+            </summary>
+            <param name="text"></param>
+            <param name="startNdx"></param>
+            <param name="sep"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.FindMatch(System.String,System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Searches a text from <paramref name="startNdx" /> position for a pair of <paramref name="openingSep" /> character.
+              If not found then length of text is returned;
+            </summary>
+            <param name="text"></param>
+            <param name="startNdx"></param>
+            <param name="openingSep"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.SubstringUntil(System.String,System.Char,System.Int32)">
+            <summary>
+            Gets a substring at a specified position until a specified delimiter is found.
+            </summary>
+            <param name="text"></param>
+            <param name="ch"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.SplitSpecial(System.String,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Split text with delimiter omitting quotes
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.SubstringUntil(System.String,System.Char,System.Int32,System.Int32@)">
+            <summary>
+            Gets a substring between start and end positions, but untils a specified delimiter is found.
+            </summary>
+            <param name="text"></param>
+            <param name="delimiter"></param>
+            <param name="startPos"></param>
+            <param name="endPos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.FindEndOfSentence(System.String,System.Int32,System.String[])">
+            <summary>
+            Find a position of the end of the sentence using dot position which does not ends amy known abbreviation.
+            </summary>
+            <param name="text"></param>
+            <param name="startPos"></param>
+            <param name="abbreviations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceStart(System.String,System.String,System.String)">
+            <summary>
+            Replaces the beginning of the string when it starts with a specified text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceStart(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replaces the beginning of the string when it starts with a specified text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceEnd(System.String,System.String,System.String)">
+            <summary>
+            Replaces the end of the string when it ends with a specified text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceEnd(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replaces the end of the string when it ends with a specified text. Uses a specified string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string in a specified text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
+            Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String)">
+            <summary>
+            Replaces the last occurence of the string searching in a specified text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Replaces the last occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Replaces the last occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text for the specified characters count.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replaces the last occurence of the string in a specified text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text. Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32,System.Int32,System.StringComparison)">
+            <summary>
+            Replaces the first occurence of the string searching in a specified text starting from the specified index
+            and continuing towards the begining of the text for the specified characters count.
+            Uses a specific string comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Concat2(System.String,System.String,System.String)">
+            <summary>
+            Concatenates two strings with a separator between them.
+            If any of both is empty of null - the other is returned.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Shorten(System.String,System.Int32)">
+            <summary>
+            Returns a string shortended by a specified character count.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Pluralize(System.String)">
+            <summary>
+            Makes Englush plural form of the noun.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Singularize(System.String)">
+            <summary>
+            Makes Englush singular form of the noun.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.DecodeEscapeSeq(System.String)">
+            <summary>
+            Decodes escapes sequences: \\, \t, \r, \n, \s, \u
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.Duplicate(System.String,System.Int32)">
+            <summary>
+            Creates a string by repeating the original string a specified number of times.
+            </summary>
+            <param name="str"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.StylesStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -9649,14 +10155,6 @@
             <param name="cell"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Gets the text the table cell.
-            </summary>
-            <param name="cell"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.GetTableCellProperties(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
             <summary>
             Get the <c>TableCellProperties</c> element of the cell. If it does not exist, it will be created.
@@ -9919,14 +10417,6 @@
             <param name="row"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableRowTools.GetText(DocumentFormat.OpenXml.Wordprocessing.TableRow,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Gets the text of all cells in the table row.
-            </summary>
-            <param name="row"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.TableRowTools.GetHeight(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
             <summary>
             Gets the row height. If the row properties do not contain a <c>TableRowHeight</c> element, null is returned.
@@ -10014,14 +10504,6 @@
             Get the <c>TableCell</c> elements of the table.
             </summary>
             <param name="table"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Gets the text of all rows in the table.
-            </summary>
-            <param name="table"></param>
-            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.Style(DocumentFormat.OpenXml.Wordprocessing.Table)">
@@ -10336,27 +10818,6 @@
             Options to get full text. All non-text elements are replaced with tags.
             Html entities are used.
             </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.UseIndenting">
-            <summary>
-            Use indenting.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.IndentUnit">
-            <summary>
-            IndentUnit unit string.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.IndentLevel">
-            <summary>
-            The number of indent unit string to insert.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextOptions.GetIndent">
-            <summary>
-            Get the indent string.
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.NewLine">
             <summary>

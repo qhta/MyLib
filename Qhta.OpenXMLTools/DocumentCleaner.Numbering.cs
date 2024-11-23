@@ -64,7 +64,7 @@ public partial class DocumentCleaner
     for (int i = 0; i < paragraphs.Count; i++)
     {
       var paragraph = paragraphs[i];
-      //var paraText = paragraph.GetText();
+      //var paraText = paragraph.GetInnerText();
       //if (paraText.Contains("Video (\u00a715.2.17)"))
       //  Debug.Assert(true);
       foreach (var run in paragraph.Elements<DXW.Run>())

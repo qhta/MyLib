@@ -28,7 +28,7 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
     var element = Start;
     while (element != null)
     {
-      if (element.IsMemberElement())
+      if (element.IsMember())
         yield return element;
       if (element == End)
         break;
@@ -112,12 +112,8 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
       }
       if (element is Table table)
       {
-        if (options.UseIndenting && sl.LastOrDefault()?.EndsWith(options.NewLine)==false)
-          sl.Add(options.NewLine);
         sl.Add(options.TableStartTag);
         sl.Add(table.GetText(options));
-        if (options.UseIndenting && sl.LastOrDefault()?.EndsWith(options.NewLine) == false)
-          sl.Add(options.NewLine);
         sl.Add(options.TableEndTag);
       }
       if (element == End)

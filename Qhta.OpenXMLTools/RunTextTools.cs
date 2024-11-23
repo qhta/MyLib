@@ -1,19 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-
-using DocumentFormat.OpenXml.Wordprocessing;
-
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Tools for working with OpenXml Wordprocessing Text element.
 /// </summary>
 public static class RunTextTools
 {
-
   /// <summary>
   /// Checks if the run text is empty.
   /// </summary>
