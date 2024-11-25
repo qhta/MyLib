@@ -44,10 +44,8 @@ public static class GetTextMethods
   /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DX.OpenXmlElement element, TextOptions? options = null)
+  public static string GetText(this DX.OpenXmlElement element, TextOptions options)
   {
-    if (options == null)
-      options = TextOptions.FullText;
     var text = DispatchGetText(element, options);
     if (text != null)
       return text;
@@ -114,6 +112,8 @@ public static class GetTextMethods
       return endnoteReference.GetText(options);
     else if (element is CommentReference commentReference)
       return commentReference.GetText(options);
+    else if (element is DXD.Blip blip)
+      return blip.GetText(options);
     return null;
   }
 
@@ -459,20 +459,35 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetText(this DXW.Drawing drawing, TextOptions options)
   {
-    var sl = new List<string>();
     if (options.IncludeDrawings)
     {
       if (options.IgnoreDrawingContents)
       {
-        sl.Add(options.DrawingSubstituteTag);
+        return options.DrawingSubstituteTag;
       }
       else
       {
-        sl.Add(options.DrawingStartTag);
-        sl.Add((drawing.GetMembers()).GetText(options));
-        sl.Add(options.DrawingEndTag);
+        return options.DrawingStartTag + (drawing.GetMembers()).GetText(options) + options.DrawingEndTag;
       }
     }
-    return string.Join("", sl);
+    return string.Empty;
+  }
+
+  /// <summary>
+  /// Get the text for the Blip element.
+  /// </summary>
+  /// <param name="blip"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetText(this DXD.Blip blip, TextOptions options)
+  {
+    var str = options.BlipTag;
+    var embed = blip.Embed?.Value;
+    if (embed != null)
+      str = str.Insert(str.Length - 2, $" embed=\"{embed}\"");
+    var link = blip.Link?.Value;
+    if (link != null)
+      str = str.Insert(str.Length - 2, $" link=\"{link}\"");
+    return str;
   }
 }

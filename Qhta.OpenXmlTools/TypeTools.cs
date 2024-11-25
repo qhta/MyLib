@@ -37,8 +37,140 @@ public static class TypeTools
     var baseType2 = elementType.BaseType;
     if (baseType2 != null)
       return IsMemberType(baseType2);
+    if (elementType.Namespace == "DocumentFormat.OpenXml.Drawing")
+      return false;
     return true;
   }
+
+  /// <summary>
+  /// Checks if the elementType is accepted type of member of body.
+  /// </summary>
+  /// <returns></returns>
+  public static bool IsBodyMemberType(this Type elementType)
+  {
+    return BodyMemberTypes.Contains(elementType);
+  }
+
+  private static readonly HashSet<Type> BodyMemberTypes =
+  [
+    typeof(DXW.AltChunk),
+    typeof(DXW.BookmarkEnd),
+    typeof(DXW.BookmarkStart),
+    typeof(DXW.CommentRangeEnd),
+    typeof(DXW.CommentRangeStart),
+    typeof(DXW.CustomXmlBlock),
+    typeof(DXW.CustomXmlDelRangeEnd),
+    typeof(DXW.CustomXmlDelRangeStart),
+    typeof(DXW.CustomXmlInsRangeEnd),
+    typeof(DXW.CustomXmlInsRangeStart),
+    typeof(DXW.CustomXmlMoveFromRangeEnd),
+    typeof(DXW.CustomXmlMoveFromRangeStart),
+    typeof(DXW.CustomXmlMoveToRangeEnd),
+    typeof(DXW.CustomXmlMoveToRangeStart),
+    typeof(DXW.Deleted),
+    typeof(DXW.Inserted),
+    typeof(DXW.MoveFrom),
+    typeof(DXW.MoveFromRangeEnd),
+    typeof(DXW.MoveFromRangeStart),
+    typeof(DXW.MoveTo),
+    typeof(DXW.MoveToRangeEnd),
+    typeof(DXW.MoveToRangeStart),
+    typeof(DXM.OfficeMath),
+    typeof(DXM.Paragraph),
+    typeof(DXW.Paragraph),
+    typeof(DXW.PermEnd),
+    typeof(DXW.PermStart),
+    typeof(DXW.ProofError),
+    typeof(DXW.SdtBlock),
+    typeof(DXW.Table),
+  ];
+
+  /// <summary>
+  /// Checks if the elementType is accepted type of member of paragraph.
+  /// </summary>
+  /// <returns></returns>
+  public static bool IsParagraphMemberType(this Type elementType)
+  {
+    return ParagraphMemberTypes.Contains(elementType);
+  }
+
+  private static readonly HashSet<Type> ParagraphMemberTypes =
+  [
+    typeof(DXW.BidirectionalOverride),
+    typeof(DXW.BidirectionalEmbedding),
+    typeof(DXW.BookmarkEnd),
+    typeof(DXW.BookmarkStart),
+    typeof(DXW.CommentRangeEnd),
+    typeof(DXW.CommentRangeStart),
+    typeof(DXW.CustomXmlBlock),
+    typeof(DXW.CustomXmlDelRangeEnd),
+    typeof(DXW.CustomXmlDelRangeStart),
+    typeof(DXW.CustomXmlInsRangeEnd),
+    typeof(DXW.CustomXmlInsRangeStart),
+    typeof(DXW.CustomXmlMoveFromRangeEnd),
+    typeof(DXW.CustomXmlMoveFromRangeStart),
+    typeof(DXW.CustomXmlMoveToRangeEnd),
+    typeof(DXW.CustomXmlMoveToRangeStart),
+    typeof(DXW.DeletedRun),
+    typeof(DXW.InsertedRun),
+    typeof(DXW.SimpleField),
+    typeof(DXW.Hyperlink),
+    typeof(DXW.MoveFrom),
+    typeof(DXW.MoveFromRangeEnd),
+    typeof(DXW.MoveFromRangeStart),
+    typeof(DXW.OfficeMath),
+    typeof(DXM.Paragraph),
+    typeof(DXW.Paragraph),
+    typeof(DXM.OfficeMath),
+    typeof(DXM.Paragraph),
+    typeof(DXW.ProofError),
+    typeof(DXW.PermStart),
+  ];
+
+  /// <summary>
+  /// Checks if the elementType is accepted type of member of run.
+  /// </summary>
+  /// <returns></returns>
+  public static bool IsRunMemberType(this Type elementType)
+  {
+    return RunMemberTypes.Contains(elementType);
+  }
+
+  private static readonly HashSet<Type> RunMemberTypes =
+  [
+    typeof(DXW.AnnotationReferenceMark),
+    typeof(DXW.Break),
+    typeof(DXW.CommentReference),
+    typeof(DXW.ContentPart),
+    typeof(DXW.ContinuationSeparatorMark),
+    typeof(DXW.CarriageReturn),
+    typeof(DXW.DayLong),
+    typeof(DXW.DayShort),
+    typeof(DXW.DeletedFieldCode),
+    typeof(DXW.DeletedText),
+    typeof(DXW.Drawing),
+    typeof(DXW.EndnoteReferenceMark),
+    typeof(DXW.EndnoteReference),
+    typeof(DXW.FieldChar),
+    typeof(DXW.FootnoteReferenceMark),
+    typeof(DXW.FootnoteReference),
+    typeof(DXW.FieldCode),
+    typeof(DXW.LastRenderedPageBreak),
+    typeof(DXW.MonthLong),
+    typeof(DXW.MonthShort),
+    typeof(DXW.NoBreakHyphen),
+    typeof(DXW.EmbeddedObject),
+    typeof(DXW.PageNumber),
+    typeof(DXW.PositionalTab),
+    typeof(DXW.Ruby),
+    typeof(DXW.SeparatorMark),
+    typeof(DXW.SoftHyphen),
+    typeof(DXW.SymbolChar),
+    typeof(DXW.Text),
+    typeof(DXW.TabChar),
+    typeof(DXW.YearLong),
+    typeof(DXW.YearShort),
+  ];
 
   private static readonly HashSet<Type> SureMemberTypes =
   [
@@ -54,7 +186,14 @@ public static class TypeTools
     typeof(DXW.Table),
     typeof(DXW.TableRow),
     typeof(DXW.TableCell),
-    typeof(DXW.Drawing)
+    typeof(DXW.Drawing),
+    typeof(DXDW.Inline),
+    typeof(DXDW.Anchor),
+    typeof(DXD.Graphic),
+    typeof(DXD.GraphicData),
+    typeof(DXD.Picture),
+    typeof(DXD.BlipFill),
+    typeof(DXD.Blip),
   ];
 
   private static readonly HashSet<string> NonMemberPatterns =
@@ -65,6 +204,7 @@ public static class TypeTools
       "*Offset*",
       "*Type",
       "Wrap*",
+      "Stretch",
     ];
   private static readonly HashSet<Type> NonMemberTypes =
   [

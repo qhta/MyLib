@@ -96,7 +96,7 @@ public static class TableRowTools
   }
 
   /// <summary>
-  /// Checks if the paragraph is empty.
+  /// Checks if the row is empty.
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>

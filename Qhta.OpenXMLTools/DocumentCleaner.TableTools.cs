@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml.Spreadsheet;
-
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -92,10 +90,9 @@ public partial class DocumentCleaner
   public int CreateTablesFromTabs(DX.OpenXmlCompositeElement body, bool convertSingleParagraphs, bool treatTabSequenceAsSingleTab)
   {
     var count = 0;
-    var members = body.GetMembers().ToList();
-    for (var index = 0; index < members.Count; index++)
+    var members = body.GetMembers();
+    foreach (var element in members)
     {
-      var element = members[index];
       if (element is DXW.Paragraph paragraph)
       {
         if (paragraph.IsTabulated())
@@ -107,10 +104,20 @@ public partial class DocumentCleaner
             paragraphList.Add(nextParagraph!);
             nextParagraph = nextParagraph!.NextSibling() as DXW.Paragraph;
           }
-          if (paragraphList.Count == 1 || !convertSingleParagraphs)
+          if (paragraphList.Count > 1 || (paragraphList.Count == 1 && convertSingleParagraphs))
           {
-            if (TryCreateTableFromTabulatedParagraphs(paragraphList, treatTabSequenceAsSingleTab))
-              count++;
+            if (TryCreateTableFromTabulatedParagraphs(paragraphList, treatTabSequenceAsSingleTab, out var newTable))
+            {
+              if (newTable != null)
+              {
+                if (newTable.NextSibling() == null)
+                {
+                  var endingParagraph = new DXW.Paragraph();
+                  newTable.InsertAfterSelf(endingParagraph);
+                }
+                count++;
+              }
+            }
           }
         }
       }
@@ -157,8 +164,9 @@ public partial class DocumentCleaner
   /// <summary>
   /// Try to create a table from a sequence of tabulated paragraphs.
   /// </summary>
-  private bool TryCreateTableFromTabulatedParagraphs(List<DXW.Paragraph> paragraphList, bool treatTabSequenceAsSingleTab)
+  private bool TryCreateTableFromTabulatedParagraphs(List<DXW.Paragraph> paragraphList, bool treatTabSequenceAsSingleTab, out DXW.Table? newTable)
   {
+    newTable = null;
     Dictionary<DXW.Paragraph, List<Range>> paragraphRanges = new();
     foreach (var paragraph in paragraphList)
     {
@@ -172,7 +180,8 @@ public partial class DocumentCleaner
     var colsCount = paragraphRanges.Values.Max(r => r.Count);
     if (colsCount > 1)
     {
-      var newTable = new DXW.Table();
+      newTable = new DXW.Table();
+      newTable.SetWidth(0, DXW.TableWidthUnitValues.Auto);
       foreach (var paragraphRange in paragraphRanges)
       {
         var row = new DXW.TableRow();
@@ -182,14 +191,16 @@ public partial class DocumentCleaner
           FillCellContent(cell, range);
           row.Append(cell);
         }
+        newTable.Append(row);
       }
-      newTable.SetTableGrid(newTable.GetNewTableGrid());
+      //newTable.SetTableGrid(newTable.GetNewTableGrid());
       var firstParagraph = paragraphRanges.Keys.First();
       firstParagraph.InsertBeforeSelf(newTable);
       foreach (var paragraph in paragraphRanges.Keys)
       {
         paragraph.Remove();
       }
+      return true;
     }
     return false;
   }
@@ -210,6 +221,7 @@ public partial class DocumentCleaner
   private List<Range> EvaluateColumnRangesByTabs(DXW.Paragraph paragraph, bool treatTabSequenceAsSingleTab)
   {
     List<Range> ranges = new();
+    Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
     if (members.Count > 0)
     {
@@ -242,29 +254,46 @@ public partial class DocumentCleaner
         {
           if (startElement == null)
           {
-            ranges.Add(new Range(startElement, startElement));
-          }
-          else
-          {
-            var lastRange = ranges.LastOrDefault();
+            if (treatTabSequenceAsSingleTab && item is DXW.Text text && string.IsNullOrWhiteSpace(text.Text))
+            {
+              continue;
+            }
+            lastRange = ranges.LastOrDefault();
             if (lastRange != null)
             {
+              startElement = item;
+              lastRange.Start = item;
               lastRange.End = item;
             }
             else
             {
+              startElement = item;
               ranges.Add(new Range(startElement, startElement));
             }
           }
+          else
+          {
+            lastRange = ranges.Last();
+            lastRange.End = item;
+          }
         }
-
       }
+    }
+    lastRange = ranges.Last();
+    if (lastRange != null)
+    {
+      if (lastRange.Start == null && treatTabSequenceAsSingleTab)
+        ranges.RemoveAt(ranges.Count - 1);
+      else if (lastRange.End == null)
+        lastRange.End = lastRange.Start;
     }
     return ranges;
   }
 
   /// <summary>
   /// Copies the content of the range to the cell.
+  /// All run level elements are copied to the new paragraph.
+  /// If a range element is a paragraph then its clone is copied to the cell.
   /// </summary>
   /// <param name="cell"></param>
   /// <param name="range"></param>
@@ -273,40 +302,86 @@ public partial class DocumentCleaner
     if (range.Start == null)
       return;
 
-    DXW.Run? currentParentRun = null;
-    DXW.Run? previousParentRun = null;
-    DXW.Paragraph? previousParentParagraph = null;
+    DXW.Run? newRun = null;
+    DXW.Paragraph? newParagraph = null; 
+
+    DXW.Run? parentRun = null;
+    DXW.Paragraph? parentParagraph = null;
     foreach (var item in range.GetMembers())
     {
-      if (item.Parent is DXW.Run runParent)
+      if (item is DXW.Paragraph paragraph)
       {
-        if (runParent != previousParentRun)
-        {
-          previousParentRun = runParent;
-          currentParentRun = new DXW.Run();
-          currentParentRun.RunProperties = runParent.RunProperties?.CloneNode(true) as DXW.RunProperties;
-          if (runParent.Parent is DXW.Paragraph paragraphParent)
-          {
-            if (paragraphParent != previousParentParagraph)
-            {
-              previousParentParagraph = paragraphParent;
-              var currentParentParagraph = new DXW.Paragraph();
-              currentParentParagraph.ParagraphProperties = paragraphParent.ParagraphProperties?.CloneNode(true) as DXW.ParagraphProperties;
-              cell.Append(currentParentParagraph);
-            }
-          }
-          else
-          {
-            cell.Append(currentParentRun);
-          }
-          cell.Append(currentParentRun);
-        }
-        if (currentParentRun != null)
-          currentParentRun.AppendChild(item.CloneNode(true));
+        if (newParagraph != null)
+          newParagraph.TrimEnd();
+        newParagraph = (DXW.Paragraph)paragraph.CloneNode(true);
+        cell.Append(newParagraph);
+        parentRun = null;
+        parentParagraph = null;
       }
-      else
-        cell.AppendChild(item.CloneNode(true));
+      else if (item is DXW.Run run)
+      {
+        if (newParagraph == null)
+        {
+          newParagraph = new DXW.Paragraph();
+          cell.Append(newParagraph);
+          newParagraph.ParagraphProperties = (DXW.ParagraphProperties?)(run.Parent as DXW.Paragraph)?.ParagraphProperties?.CloneNode(true);
+        }
+        newRun = (DXW.Run)run.CloneNode(true);
+        newParagraph.Append(newRun);
+        parentParagraph = item.Parent as DXW.Paragraph;
+        parentRun = null;
+      }
+      else if (item.GetType().IsBodyMemberType())
+      {
+        if (newParagraph != null)
+          newParagraph.TrimEnd();
+        newParagraph = null;
+        cell.Append(item.CloneNode(true));
+        parentRun = null;
+        parentParagraph = null;
+      }
+      else if (item.GetType().IsParagraphMemberType())
+      {
+        if (item.Parent != parentParagraph)
+        {
+          if (newParagraph != null)
+            newParagraph.TrimEnd();
+          newParagraph = new DXW.Paragraph();
+          cell.Append(newParagraph);
+          parentParagraph = item.Parent as DXW.Paragraph;
+          newParagraph.ParagraphProperties =
+            (DXW.ParagraphProperties?)parentParagraph?.ParagraphProperties?.CloneNode(true);
+          newRun = null;
+          parentRun = null;
+        }
+        if (newParagraph == null)
+        {
+          newParagraph = (DXW.Paragraph)item.CloneNode(true);
+          cell.Append(newParagraph);
+        };
+        newParagraph.Append(item);
+        newRun = null;
+      }
+      else if (item.GetType().IsRunMemberType())
+      {
+        if (item.Parent != parentRun)
+        {
+          if (newParagraph == null)
+          {
+            newParagraph = new DXW.Paragraph();
+            cell.Append(newParagraph);
+            parentRun = item.Parent as DXW.Run;
+            parentParagraph = parentRun?.Parent as DXW.Paragraph;
+            newParagraph.ParagraphProperties = (DXW.ParagraphProperties?)parentParagraph?.ParagraphProperties?.CloneNode(true);
+          }
+          newRun = new DXW.Run();
+          newParagraph.Append(newRun);
+          newRun.Append(item.CloneNode(true));
+        }
+      }
     }
+    if (newParagraph != null)
+      newParagraph.TrimEnd();
   }
 
   /// <summary>
@@ -1126,11 +1201,11 @@ public partial class DocumentCleaner
     joinedRows = 0;
     var done = false;
     var tableRows = table.Elements<DXW.TableRow>().ToList();
-    var headingText = tableRows[0].GetText();
+    var headingText = tableRows[0].GetText(TextOptions.PlainText);
     for (int i = 1; i < tableRows.Count; i++)
     {
       var row = tableRows[i];
-      var rowText = row.GetText();
+      var rowText = row.GetText(TextOptions.PlainText);
       if (rowText != headingText)
         continue;
       // remove repeating heading row
@@ -1265,8 +1340,8 @@ public partial class DocumentCleaner
     if (upperPara.Elements().LastOrDefault() is not DXW.Run && lowerPara.Elements().FirstOrDefault() is not DXW.Run)
       return 0;
 
-    var upperText = upperPara.GetText().Trim();
-    var lowerText = lowerPara.GetText().Trim();
+    var upperText = upperPara.GetText(TextOptions.ParaText).Trim();
+    var lowerText = lowerPara.GetText(TextOptions.ParaText).Trim();
 
     // If the last paragraph in the upper cell ends with a comma
     // then it is very possible that the cells were created by division.
@@ -1334,15 +1409,15 @@ public partial class DocumentCleaner
         }
         else
         {
-          var upperText = upperPara.GetText(TextOptions.FullText);
-          if ((upperText.EndsWith("</w:drawing>")))
+          var upperText = upperPara.GetInnerText(TextOptions.ParaText).TrimEnd();
+          if ((upperText.Contains(TextOptions.ParaText.DrawingSubstituteTag)))
           {
             lowerPara.Remove();
-            upperCell.Append(lowerPara); 
+            upperCell.Append(lowerPara);
           }
           else
           {
-            var lowerText = lowerPara.GetText(TextOptions.PlainText);
+            var lowerText = lowerPara.GetInnerText(TextOptions.ParaText);
             if (char.IsLower(lowerText.FirstOrDefault()))
             {
               if (!upperText.EndsWith(" ") && !lowerText.StartsWith(" "))

@@ -653,4 +653,38 @@ public static class ParagraphPropertiesTools
     paragraphProperties.WordWrap = value ? new WordWrap() : null;
   }
 
+  /// <summary>
+  /// Sets the paragraph height (in twips).
+  /// It is set as LineSpacing element Line property. If the rule is not specified, it is set to Exact.
+  /// LineSpacing element is Before and After is set to "0".
+  /// If value to set is null, and rule is null then all LineSpacing element is removed.
+  /// </summary>
+  /// <param name="paragraphProperties">Paragraph properties to set</param>
+  /// <param name="value">value to set</param>
+  /// <param name="rule">rule to set</param>
+  /// <returns></returns>
+  public static void SetHeight(this ParagraphProperties paragraphProperties, string? value, DXW.LineSpacingRuleValues? rule = null)
+  {
+    var lineSpacing = paragraphProperties.Elements<DXW.SpacingBetweenLines>().FirstOrDefault();
+    if (value == null && rule == null)
+    {
+      lineSpacing?.Remove();
+    }
+    else
+    {
+      if (lineSpacing == null)
+      {
+        lineSpacing = new SpacingBetweenLines();
+        paragraphProperties.Append(lineSpacing);
+      }
+      lineSpacing.Line = value;
+      lineSpacing.LineRule = rule ?? DXW.LineSpacingRuleValues.Exact;
+      lineSpacing.Before = "0";
+      lineSpacing.BeforeAutoSpacing = false;
+      lineSpacing.After = "0";
+      lineSpacing.AfterAutoSpacing = false;
+    }
+  }
+
+
 }

@@ -69,7 +69,7 @@ public partial class DocumentCleaner
       //  Debug.Assert(true);
       foreach (var run in paragraph.Elements<DXW.Run>())
       {
-        var text = run.GetText();
+        var text = run.GetText(TextOptions.PlainText);
         if (text.Contains("•"))
         {
           var textItem = run.Descendants<DXW.Text>().FirstOrDefault(t => t.Text.TrimStart().StartsWith("•"));
@@ -94,7 +94,7 @@ public partial class DocumentCleaner
 
           var prevSibling = run.PreviousSibling();
           if (prevSibling != null && prevSibling is not DXW.ParagraphProperties &&
-              !String.IsNullOrEmpty((prevSibling as DXW.Run)?.GetText()))
+              !String.IsNullOrEmpty((prevSibling as DXW.Run)?.GetText(TextOptions.PlainText)))
           {
             var newParagraph = new DXW.Paragraph();
             newParagraph.ParagraphProperties = numberingParagraphProperties;

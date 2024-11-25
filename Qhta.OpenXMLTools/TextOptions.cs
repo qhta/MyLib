@@ -75,12 +75,24 @@ public record TextOptions
   };
 
   /// <summary>
+  /// Options to get paragraph text. All non-text elements are replaced with tags.
+  /// Html entities are used.
+  /// </summary>
+  public static TextOptions ParaText { get; set; } = TabbedText with
+  {
+    TabTag = "\t",
+    IncludeDrawings = true,
+    IgnoreDrawingContents = true,
+    IncludeOtherMembers = true,
+  };
+
+  /// <summary>
   /// Options to get full text. All non-text elements are replaced with tags.
   /// Html entities are used.
   /// </summary>
   public static TextOptions FullText { get; set; } = TabbedText with
   {
-    IncludeDrawings = true,
+    IncludeDrawings = true,  
     IncludeOtherMembers = true,
   };
 
@@ -376,14 +388,19 @@ public record TextOptions
   public string DrawingSubstituteTag { get; set; } = "<drawing/>";
 
   /// <summary>
-  /// Tag to start a Table.
+  /// Tag to start a drawing.
   /// </summary>
   public string DrawingStartTag { get; set; } = "<drawing>";
 
   /// <summary>
-  /// Tag to end a Table.
+  /// Tag to end a drawing.
   /// </summary>
   public string DrawingEndTag { get; set; } = "</drawing>";
+
+  /// <summary>
+  /// Tag to show blip linked object.
+  /// </summary>
+  public string BlipTag { get; set; } = "<blip/>";
   #endregion
 
   /// <summary>

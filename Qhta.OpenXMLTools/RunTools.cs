@@ -275,19 +275,24 @@ public static class RunTools
   /// <summary>
   /// Checks if the run is empty.
   /// </summary>
-  /// <param name="element"></param>
+  /// <param name="run"></param>
   /// <returns></returns>
-  public static bool IsEmpty(this DXW.Run? element)
+  public static bool IsEmpty(this DXW.Run? run)
   {
-    if (element == null)
+    if (run == null)
       return true;
-    var members = element.GetMembers().ToList();
+    var members = run.GetMembers().ToList();
     foreach (var member in members)
     {
-      if (member is not DXW.Text text || !string.IsNullOrEmpty(text.Text))
+      if (member is DXW.Text text)
+      {
+        if (!text.IsEmpty())
+          return false;
+      }
+      else
         return false;
     }
-    return false;
+    return true;
   }
 
   /// <summary>
@@ -465,10 +470,10 @@ public static class RunTools
     }
     if (run.NextSibling() is DXW.Run nextRun)
     {
-      var text = run.GetText();
+      var text = run.GetText(TextOptions.PlainText);
       if (text.StartsWith("/word"))
         Debug.Assert(true);
-      var nextText = nextRun.GetText();
+      var nextText = nextRun.GetText(TextOptions.PlainText);
       if (text.TrimEnd() == text && !text.EndsWith("-") && nextText.TrimStart() == text && !nextText.StartsWith("-"))
       {
         run.AppendChild(new DXW.SoftHyphen());
@@ -529,12 +534,12 @@ public static class RunTools
     var runProperties = run.RunProperties;
     if (runProperties != null)
     {
-      var text = run.GetText();
+      var text = run.GetText(TextOptions.PlainText);
       return runProperties.GetRunFonts(text, defaultFont);
     }
     if (defaultFont != null)
     {
-      var text = run.GetText();
+      var text = run.GetText(TextOptions.PlainText);
       var fonts = new StringStatistics();
       fonts.Add(defaultFont, text.Length);
       return fonts;
@@ -554,12 +559,12 @@ public static class RunTools
     var runProperties = run.RunProperties;
     if (runProperties != null)
     {
-      var text = run.GetText();
+      var text = run.GetText(TextOptions.PlainText);
       return runProperties.GetTextPropertiesStatistics(text, defaultProperties);
     }
     if (defaultProperties != null)
     {
-      var text = run.GetText();
+      var text = run.GetText(TextOptions.PlainText);
       var stats = new ObjectStatistics<TextProperties>();
       stats.Add(defaultProperties, text.Length);
       return stats;
@@ -589,7 +594,7 @@ public static class RunTools
   {
     if (run.GetMembers().All(e => e is DXW.Text || e is TabChar))
     {
-      var text = run.GetText();
+      var text = run.GetText(TextOptions.PlainText);
       var newText = text.NormalizeWhitespaces();
       run.SetText(newText);
     }
@@ -615,7 +620,7 @@ public static class RunTools
     foreach (var member in run.GetMembers().ToList())
     {
       var memberText = member.GetText(options);
-      if (memberText != null)
+      if (memberText != string.Empty)
       {
         var memberTextLength = memberText.Length;
         var newTextLength = textLength + memberTextLength;

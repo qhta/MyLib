@@ -122,8 +122,8 @@ public static class OpenXmlElementTools
       result = table.IsEmpty();
     else if (element is DXW.TableRow tableRow)
       result = tableRow.IsEmpty();
-    //else if (element is DXW.TableCell tableCell)
-    //  result = tableCell.IsEmpty();
+    else if (element is DXW.TableCell tableCell)
+      result = tableCell.IsEmpty();
     else if (element.IsMember())
       return false;
     else

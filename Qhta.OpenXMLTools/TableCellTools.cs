@@ -100,6 +100,23 @@ public static class TableCellTools
   }
 
   /// <summary>
+  /// Checks if the cell is empty.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  public static bool IsEmpty(this DXW.TableCell? cell)
+  {
+    if (cell == null)
+      return true;
+    foreach (var member in cell.GetMembers())
+    {
+      if (!member.IsEmpty())
+        return false;
+    }
+    return true;
+  }
+
+  /// <summary>
   /// Determines if the cell contains a long text or non text elements.
   /// </summary>
   /// <param name="cell"></param>
@@ -114,7 +131,7 @@ public static class TableCellTools
       int parNumber = 0;
       foreach (var element in members)
       {
-        sb.Append(element.GetText());
+        sb.Append(element.GetText(TextOptions.PlainText));
         parNumber++;
         if (parNumber < members.Count)
           sb.Append("\r\n");
@@ -128,15 +145,40 @@ public static class TableCellTools
   }
 
   /// <summary>
-  /// Returns the width of the cell.
+  /// Returns the width of the cell (is twips).
   /// </summary>
   /// <param name="cell"></param>
   /// <returns></returns>
   public static int? GetWidth(this DXW.TableCell cell)
   {
-    if (cell.TableCellProperties?.TableCellWidth?.Type?.Value == TableWidthUnitValues.Dxa)
+    var widthElement = cell.TableCellProperties?.TableCellWidth;
+    if (widthElement != null)
+    {
+      if (widthElement.Type?.Value != DXW.TableWidthUnitValues.Dxa)
+      {
+        if (int.TryParse(widthElement.Width, out var val))
+          return val;
+      }
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Returns the width of the cell (with the unitValues);
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="unitValues">retrieved from TableCellWidth element</param>
+  /// <returns></returns>
+  public static int? GetWidth(this DXW.TableCell cell, out TableWidthUnitValues? unitValues)
+  {
+    var widthElement = cell.TableCellProperties?.TableCellWidth;
+    if (widthElement != null)
+    {
+      unitValues = widthElement.Type?.Value;
       if (int.TryParse(cell.TableCellProperties?.TableCellWidth?.Width, out var val))
         return val;
+    }
+    unitValues = null;
     return null;
   }
 
@@ -146,8 +188,9 @@ public static class TableCellTools
   /// </summary>
   /// <param name="cell"></param>
   /// <param name="value"></param>
+  /// <param name="unitValues"></param>
   /// <returns></returns>
-  public static void SetWidth(this DXW.TableCell cell, int? value)
+  public static void SetWidth(this DXW.TableCell cell, int? value, TableWidthUnitValues? unitValues = null)
   {
     var tableCellWidth = cell.TableCellProperties?.TableCellWidth;
     if (value <= 1)
@@ -163,7 +206,7 @@ public static class TableCellTools
         cell.GetTableCellProperties().Append(tableCellWidth);
       }
       tableCellWidth.Width = value.ToString();
-      tableCellWidth.Type = TableWidthUnitValues.Dxa;
+      tableCellWidth.Type = unitValues ?? TableWidthUnitValues.Dxa;
     }
   }
 

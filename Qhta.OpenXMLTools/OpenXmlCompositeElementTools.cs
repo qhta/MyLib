@@ -17,12 +17,12 @@ public static class OpenXmlCompositeElementTools
   /// Removes all the empty paragraphs from the document.
   /// </summary>
   /// <param name="body"></param>
-  /// <param name="descendants">should remove in descendants or at elements</param>
+  /// <param name="allDescendants">should remove in all descendants or at children level only</param>
   /// <returns>count of removed paragraphs</returns>
-  public static int RemoveEmptyParagraphs(this DX.OpenXmlCompositeElement body, bool descendants)
+  public static int RemoveEmptyParagraphs(this DX.OpenXmlCompositeElement body, bool allDescendants)
   {
     var removed = 0;
-    var emptyParagraphs = descendants
+    var emptyParagraphs = allDescendants
       ? body.Descendants<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList()
       : body.Elements<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList();
     foreach (var paragraph in emptyParagraphs)
@@ -144,8 +144,8 @@ public static class OpenXmlCompositeElementTools
       var nextRun = run.NextSibling() as DXW.Run;
       if (nextRun == null)
         continue;
-      var runText = run.GetText();
-      var nextRunText = nextRun.GetText();
+      var runText = run.GetText(TextOptions.PlainText);
+      var nextRunText = nextRun.GetText(TextOptions.PlainText);
       //if (runText.StartsWith("/word/comments"))
       //  Debug.Assert(true);
       var runProps = run.RunProperties;
@@ -240,7 +240,7 @@ public static class OpenXmlCompositeElementTools
     var paragraphs = body.Descendants<DXW.Paragraph>().ToList();
     foreach (var paragraph in paragraphs)
     {
-      var paraText = paragraph.GetText();
+      var paraText = paragraph.GetText(TextOptions.PlainText);
       if (paraText.Contains(str))
       {
         if (paragraph.BreakBefore(str))

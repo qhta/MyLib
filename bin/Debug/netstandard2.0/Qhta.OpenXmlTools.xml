@@ -460,7 +460,7 @@
             Removes all the empty paragraphs from the document.
             </summary>
             <param name="wordDoc"></param>
-            <param name="descendants">should remove in descendants or at elements</param>
+            <param name="allDescendants">should remove in all descendants or at children level only</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentRuns(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -601,7 +601,7 @@
             <param name="row"></param>
             <returns>number of created tables</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateTableFromTabulatedParagraphs(System.Collections.Generic.List{DocumentFormat.OpenXml.Wordprocessing.Paragraph},System.Boolean)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateTableFromTabulatedParagraphs(System.Collections.Generic.List{DocumentFormat.OpenXml.Wordprocessing.Paragraph},System.Boolean,DocumentFormat.OpenXml.Wordprocessing.Table@)">
             <summary>
             Try to create a table from a sequence of tabulated paragraphs.
             </summary>
@@ -624,6 +624,8 @@
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FillCellContent(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.Range)">
             <summary>
             Copies the content of the range to the cell.
+            All run level elements are copied to the new paragraph.
+            If a range element is a paragraph then its clone is copied to the cell.
             </summary>
             <param name="cell"></param>
             <param name="range"></param>
@@ -1615,6 +1617,14 @@
             Get the text for the drawing element.
             </summary>
             <param name="drawing"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Drawing.Blip,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text for the Blip element.
+            </summary>
+            <param name="blip"></param>
             <param name="options"></param>
             <returns></returns>
         </member>
@@ -2891,7 +2901,7 @@
             Removes all the empty paragraphs from the document.
             </summary>
             <param name="body"></param>
-            <param name="descendants">should remove in descendants or at elements</param>
+            <param name="allDescendants">should remove in all descendants or at children level only</param>
             <returns>count of removed paragraphs</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.RemoveProofErrors(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
@@ -4037,6 +4047,18 @@
             <param name="value">attribute value</param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetHeight(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.String,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.LineSpacingRuleValues})">
+            <summary>
+            Sets the paragraph height (in twips).
+            It is set as LineSpacing element Line property. If the rule is not specified, it is set to Exact.
+            LineSpacing element is Before and After is set to "0".
+            If value to set is null, and rule is null then all LineSpacing element is removed.
+            </summary>
+            <param name="paragraphProperties">Paragraph properties to set</param>
+            <param name="value">value to set</param>
+            <param name="rule">rule to set</param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ParagraphTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Paragraph element.
@@ -4272,6 +4294,18 @@
             <param name="left"></param>
             <param name="right"></param>
             <param name="firstLine"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SetHeight(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.String,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.LineSpacingRuleValues})">
+            <summary>
+            Sets the paragraph height (in twips).
+            It is set as LineSpacing element Line property. If the rule is not specified, it is set to Exact.
+            LineSpacing element is Before and After is set to "0".
+            If value to set is null, and rule is null then all LineSpacing element is removed.
+            </summary>
+            <param name="paragraph">Paragraph properties to set</param>
+            <param name="value">value to set</param>
+            <param name="rule">rule to set</param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
             <summary>
@@ -5306,7 +5340,7 @@
             <summary>
             Checks if the run is empty.
             </summary>
-            <param name="element"></param>
+            <param name="run"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.IsTabulated(DocumentFormat.OpenXml.Wordprocessing.Run)">
@@ -10170,6 +10204,13 @@
             <param name="value">value to set</param>
             <param name="mode">specifies which paragraphs to set</param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            Checks if the cell is empty.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.IsLong(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
             <summary>
             Determines if the cell contains a long text or non text elements.
@@ -10179,18 +10220,27 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
             <summary>
-            Returns the width of the cell.
+            Returns the width of the cell (is twips).
             </summary>
             <param name="cell"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TableWidthUnitValues}@)">
+            <summary>
+            Returns the width of the cell (with the unitValues);
+            </summary>
+            <param name="cell"></param>
+            <param name="unitValues">retrieved from TableCellWidth element</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableCellTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.TableCell,System.Nullable{System.Int32},System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TableWidthUnitValues})">
             <summary>
             Sets the width of the cell.
             If value is null, the width element is removed.
             </summary>
             <param name="cell"></param>
             <param name="value"></param>
+            <param name="unitValues"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableCellTools.GetSpan(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
@@ -10450,7 +10500,7 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.TableRowTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
             <summary>
-            Checks if the paragraph is empty.
+            Checks if the row is empty.
             </summary>
             <param name="element"></param>
             <returns></returns>
@@ -10528,6 +10578,31 @@
             </summary>
             <param name="table"></param>
             <param name="value">Value to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.Table)">
+            <summary>
+            Returns the width of the table (in twips).
+            </summary>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.GetWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TableWidthUnitValues}@)">
+            <summary>
+            Returns the width of the table (with the unitValues);
+            </summary>
+            <param name="table"></param>
+            <param name="unitValues">retrieved from TableCellWidth element</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableTools.SetWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.Nullable{System.Int32},System.Nullable{DocumentFormat.OpenXml.Wordprocessing.TableWidthUnitValues})">
+            <summary>
+            Sets the width of the table.
+            If value is null, the width element is removed.
+            </summary>
+            <param name="table"></param>
+            <param name="value"></param>
+            <param name="unitValues"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableTools.GetTableGrid(DocumentFormat.OpenXml.Wordprocessing.Table)">
@@ -10813,6 +10888,12 @@
             Tables are represented as HTML tables.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ParaText">
+            <summary>
+            Options to get paragraph text. All non-text elements are replaced with tags.
+            Html entities are used.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.FullText">
             <summary>
             Options to get full text. All non-text elements are replaced with tags.
@@ -11071,12 +11152,17 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.DrawingStartTag">
             <summary>
-            Tag to start a Table.
+            Tag to start a drawing.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.DrawingEndTag">
             <summary>
-            Tag to end a Table.
+            Tag to end a drawing.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.BlipTag">
+            <summary>
+            Tag to show blip linked object.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeOtherMembers">
@@ -11263,6 +11349,24 @@
         <member name="M:Qhta.OpenXmlTools.TypeTools.IsMemberType(System.Type)">
             <summary>
             Checks if the elementType is a member type.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.IsBodyMemberType(System.Type)">
+            <summary>
+            Checks if the elementType is accepted type of member of body.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.IsParagraphMemberType(System.Type)">
+            <summary>
+            Checks if the elementType is accepted type of member of paragraph.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TypeTools.IsRunMemberType(System.Type)">
+            <summary>
+            Checks if the elementType is accepted type of member of run.
             </summary>
             <returns></returns>
         </member>

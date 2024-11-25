@@ -183,9 +183,9 @@ public static class ParagraphTools
     if (element == null)
       return true;
     var members = element.GetMembers().ToList();
-    foreach (var e in members)
+    foreach (var member in members)
     {
-      if (e is DXW.Run run)
+      if (member is DXW.Run run)
       {
         if (!run.IsEmpty())
           return false;
@@ -599,7 +599,7 @@ public static class ParagraphTools
   public static bool BreakBefore(this DXW.Paragraph paragraph, string str)
   {
     var done = false;
-    var paraText = paragraph.GetText(TextOptions.FullText).Trim();
+    var paraText = paragraph.GetInnerText(TextOptions.ParaText).Trim();
     var index = paraText.IndexOf(str);
     while (index > 0 && index < paraText.Length - str.Length)
     {
@@ -608,13 +608,13 @@ public static class ParagraphTools
         break;
       paragraph.TrimEnd();
       newParagraph.TrimStart();
-      paraText = paragraph.GetText();
-      var newText = newParagraph.GetText();
+      paraText = paragraph.GetInnerText(TextOptions.ParaText);
+      var newText = newParagraph.GetInnerText(TextOptions.ParaText);
       paragraph.InsertAfterSelf(newParagraph);
       Debug.WriteLine($"Break \"{paraText}\" & \"{newText}\"");
       done = true;
       paragraph = newParagraph;
-      if (paragraph.GetText().Trim() == "")
+      if (paragraph.GetText(TextOptions.PlainText).Trim() == "")
         paragraph.Remove();
       paraText = newText;
       index = paraText.IndexOf(str);
@@ -650,4 +650,20 @@ public static class ParagraphTools
     if (firstLine != null)
       indentation.FirstLine = firstLine.ToString();
   }
+
+  /// <summary>
+  /// Sets the paragraph height (in twips).
+  /// It is set as LineSpacing element Line property. If the rule is not specified, it is set to Exact.
+  /// LineSpacing element is Before and After is set to "0".
+  /// If value to set is null, and rule is null then all LineSpacing element is removed.
+  /// </summary>
+  /// <param name="paragraph">Paragraph properties to set</param>
+  /// <param name="value">value to set</param>
+  /// <param name="rule">rule to set</param>
+  /// <returns></returns>
+  public static void SetHeight(this Paragraph paragraph, string? value, DXW.LineSpacingRuleValues? rule = null)
+  {
+    paragraph.GetParagraphProperties().SetHeight(value, rule);
+  }
+
 }

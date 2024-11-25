@@ -97,6 +97,72 @@ public static class TableTools
   }
 
   /// <summary>
+  /// Returns the width of the table (in twips).
+  /// </summary>
+  /// <param name="table"></param>
+  /// <returns></returns>
+  public static int? GetWidth(this DXW.Table table)
+  {
+    var widthElement = table.Elements<DXW.TableProperties>().FirstOrDefault()?.TableWidth;
+    if (widthElement != null)
+    {
+      if (widthElement.Type?.Value == TableWidthUnitValues.Dxa)
+      {
+        if (int.TryParse(widthElement.Width, out var val))
+          return val;
+      }
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Returns the width of the table (with the unitValues);
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="unitValues">retrieved from TableCellWidth element</param>
+  /// <returns></returns>
+  public static int? GetWidth(this DXW.Table table, out TableWidthUnitValues? unitValues)
+  {
+    var widthElement = table.Elements<DXW.TableProperties>().FirstOrDefault()?.TableWidth;
+    if (widthElement != null)
+    {
+      unitValues = widthElement.Type?.Value;
+        if (int.TryParse(widthElement.Width, out var val))
+          return val;
+    }
+    unitValues = null;
+    return null;
+  }
+
+  /// <summary>
+  /// Sets the width of the table.
+  /// If value is null, the width element is removed.
+  /// </summary>
+  /// <param name="table"></param>
+  /// <param name="value"></param>
+  /// <param name="unitValues"></param>
+  /// <returns></returns>
+  public static void SetWidth(this DXW.Table table, int? value, TableWidthUnitValues? unitValues = null)
+  {
+    var tableWidth = table.Elements<DXW.TableProperties>().FirstOrDefault()?.TableWidth;
+    if (value <= 1)
+    {
+      if (tableWidth != null)
+        tableWidth.Remove();
+    }
+    else
+    {
+      if (tableWidth == null)
+      {
+        tableWidth = new TableWidth();
+        table.GetTableProperties().Append(tableWidth);
+      }
+      tableWidth.Width = value.ToString();
+      tableWidth.Type = unitValues ?? TableWidthUnitValues.Dxa;
+    }
+  }
+
+  /// <summary>
   /// Gets the table grid of the table.
   /// If the <c>TableGrid</c> element is null, creates a new one.
   /// </summary>

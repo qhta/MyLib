@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Qhta.OpenXmlTools;
 
@@ -24,10 +25,6 @@ public partial class DocumentCleaner
   public void CleanDocument(string fileName)
   {
     using var wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
-    var body = wordDoc.GetBody();
-    var text = body.GetText(TextOptions.FullText);
-    Debug.WriteLine(text.IndentString());
-    return;
     RemoveProofErrors(wordDoc);
     TrimParagraphs(wordDoc);
     RemoveEmptyParagraphs(wordDoc, true);
@@ -107,22 +104,22 @@ public partial class DocumentCleaner
   /// Removes all the empty paragraphs from the document.
   /// </summary>
   /// <param name="wordDoc"></param>
-  /// <param name="descendants">should remove in descendants or at elements</param>
-  public void RemoveEmptyParagraphs(DXPack.WordprocessingDocument wordDoc, bool descendants)
+  /// <param name="allDescendants">should remove in all descendants or at children level only</param>
+  public void RemoveEmptyParagraphs(DXPack.WordprocessingDocument wordDoc, bool allDescendants)
   {
     if (VerboseLevel > 0)
       Console.WriteLine("\nRemoving empty paragraphs");
     var body = wordDoc.GetBody();
-    var count = body.RemoveEmptyParagraphs(descendants);
+    var count = body.RemoveEmptyParagraphs(allDescendants);
     var headers = wordDoc.GetHeaders().ToList();
     foreach (var header in headers)
     {
-      count += header.RemoveEmptyParagraphs(descendants);
+      count += header.RemoveEmptyParagraphs(allDescendants);
     }
     var footers = wordDoc.GetFooters().ToList();
     foreach (var footer in wordDoc.GetFooters())
     {
-      count += footer.RemoveEmptyParagraphs(descendants);
+      count += footer.RemoveEmptyParagraphs(allDescendants);
     }
     if (VerboseLevel > 0)
       Console.WriteLine($" {count} paragraphs removed.");
@@ -194,7 +191,7 @@ public partial class DocumentCleaner
       }
     var body = wordDoc.GetBody();
     var headings1 = body.Elements<DXW.Paragraph>().Where(p => p.HeadingLevel() == 1)
-      .Select(h => h.GetText()).ToList();
+      .Select(h => h.GetText(TextOptions.PlainText)).ToList();
     foreach (var str in headings1)
       if (str != null)
       {
@@ -206,7 +203,7 @@ public partial class DocumentCleaner
     var paragraphs = body.Elements<DXW.Paragraph>().Where(p => !p.IsHeading()).ToList();
     foreach (var paragraph in paragraphs)
     {
-      var str = paragraph.GetText(TextOptions.PlainText);
+      var str = paragraph.GetInnerText(TextOptions.PlainText);
       var ss = str.Split('\t');
       foreach (var s in ss)
       {
@@ -257,7 +254,7 @@ public partial class DocumentCleaner
       if (font == ExampleFont)
         continue;
       var priorPara = para.PreviousSibling() as DXW.Paragraph;
-      var paraText = para.GetText().Trim();
+      var paraText = para.GetInnerText(TextOptions.PlainText).Trim();
       if (paraText == "end note]" || paraText == "end example]" || paraText == "the results are:")
         continue;
       if (priorPara == null)
@@ -265,7 +262,7 @@ public partial class DocumentCleaner
       font = priorPara.GetFont(null);
       if (font == ExampleFont)
         continue;
-      var priorParaText = priorPara.GetText().Trim();
+      var priorParaText = priorPara.GetInnerText(TextOptions.ParaText).Trim();
       var priorSentences = priorParaText.GetSentences();
       var lastSentence = priorSentences.LastOrDefault() ?? priorParaText;
 
@@ -350,14 +347,14 @@ public partial class DocumentCleaner
       if (font != ExampleFont)
         continue;
 
-      var text = paragraph.GetText();
+      var text = paragraph.GetInnerText(TextOptions.PlainText);
 
       var indent = text.LeftIndentLength();
       if (IsXmlExample(text))
       {
         NormalizeXmlParagraph(paragraph, indent);
       }
-      text = paragraph.GetText();
+      text = paragraph.GetText(TextOptions.PlainText);
       indent = text.LeftIndentLength();
       if (text.Contains("Target=\"http://www.ecma-international.org/\""))
         Debug.Assert((true));
@@ -365,9 +362,9 @@ public partial class DocumentCleaner
       if (indent < text.Length && text[indent] != '<')
       { // if the paragraph does not start with an XML tag, append its content to the previous paragraph.
         var priorParagraph = paragraph.PreviousSibling<DXW.Paragraph>();
-        if (priorParagraph != null && priorParagraph.GetText().Trim().StartsWith("<"))
+        if (priorParagraph != null && priorParagraph.GetText(TextOptions.PlainText).Trim().StartsWith("<"))
         {
-          var priorText = priorParagraph.GetText();
+          var priorText = priorParagraph.GetText(TextOptions.PlainText);
           text = text.Trim();
           if (!priorText.EndsWith(" "))
             text = " " + text;
@@ -397,7 +394,7 @@ public partial class DocumentCleaner
               var firstRun = newParagraph.Elements<DXW.Run>().FirstOrDefault();
               if (firstRun != null)
               {
-                firstRun.SetText(new String(' ', indent) + firstRun.GetText());
+                firstRun.SetText(new String(' ', indent) + firstRun.GetText(TextOptions.PlainText));
               }
               var spacing = paragraph.GetParagraphProperties().GetSpacingBetweenLines();
               spacing.After = "8";

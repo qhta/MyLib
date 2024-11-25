@@ -13,12 +13,12 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// <summary>
   /// First element in the range.
   /// </summary>
-  public OpenXmlElement? Start { get; internal set; } = start;
+  public OpenXmlElement? Start { get; set; } = start;
 
   /// <summary>
   /// Last element in the range.
   /// </summary>
-  public OpenXmlElement? End { get; internal set; } = end;
+  public OpenXmlElement? End { get; set; } = end;
 
   /// <summary>
   /// Gets all the member elements in the range.
