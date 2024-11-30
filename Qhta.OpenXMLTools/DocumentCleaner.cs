@@ -30,9 +30,9 @@ public partial class DocumentCleaner
     {
       try
       {
-        wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
+        using (wordDoc = DXPack.WordprocessingDocument.Open(fileName, true))
+          CleanDocument(wordDoc);
         tryCount = 0;
-
       }
       catch (Exception e)
       {
@@ -40,11 +40,15 @@ public partial class DocumentCleaner
         tryCount--;
       }
     }
-    if (wordDoc != null)
-      using (wordDoc)
-      {
-        CleanDocument(wordDoc);
-      }
+    //if (wordDoc != null)
+    //  try
+    //  {
+    //    wordDoc.Save();
+    //  }
+    //  finally
+    //  {
+    //    wordDoc.Dispose();
+    //  }
   }
 
   /// <summary>

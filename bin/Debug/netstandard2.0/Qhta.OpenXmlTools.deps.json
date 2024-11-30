@@ -9,7 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "Qhta.OpenXmlTools/2.0": {
         "dependencies": {
-          "DocumentFormat.OpenXml": "3.1.1",
+          "DocumentFormat.OpenXml": "3.2.0",
           "NETStandard.Library": "2.0.3",
           "Qhta.TextUtils": "3.3.0",
           "Qhta.TypeUtils": "1.4.0",
@@ -24,25 +24,25 @@
           }
         }
       },
-      "DocumentFormat.OpenXml/3.1.1": {
+      "DocumentFormat.OpenXml/3.2.0": {
         "dependencies": {
-          "DocumentFormat.OpenXml.Framework": "3.1.1"
+          "DocumentFormat.OpenXml.Framework": "3.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
-            "assemblyVersion": "3.1.1.0",
-            "fileVersion": "3.1.1.0"
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
           }
         }
       },
-      "DocumentFormat.OpenXml.Framework/3.1.1": {
+      "DocumentFormat.OpenXml.Framework/3.2.0": {
         "dependencies": {
           "System.IO.Packaging": "8.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.Framework.dll": {
-            "assemblyVersion": "3.1.1.0",
-            "fileVersion": "3.1.1.0"
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
           }
         }
       },
@@ -143,19 +143,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DocumentFormat.OpenXml/3.1.1": {
+    "DocumentFormat.OpenXml/3.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2z9QBzeTLNNKWM9SaOSDMegfQk/7hDuElOsmF77pKZMkFRP/GHA/W/4yOAQD9kn15N/FsFxHn3QVYkatuZghiA==",
-      "path": "documentformat.openxml/3.1.1",
-      "hashPath": "documentformat.openxml.3.1.1.nupkg.sha512"
+      "sha512": "sha512-eDBT9G0sAWUvjgE8l8E5bGCFXgxCZXIecQ8dqUnj2PyxyMR5eBmLahqRRw3Q7uSKM3cKbysaL2mEY0JJbEEOEA==",
+      "path": "documentformat.openxml/3.2.0",
+      "hashPath": "documentformat.openxml.3.2.0.nupkg.sha512"
     },
-    "DocumentFormat.OpenXml.Framework/3.1.1": {
+    "DocumentFormat.OpenXml.Framework/3.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6APEp/ElZV58S/4v8mf4Ke3ONEDORs64MqdD64Z7wWpcHANB9oovQsGIwtqjnKihulOj7T0a6IxHIHOfMqKOng==",
-      "path": "documentformat.openxml.framework/3.1.1",
-      "hashPath": "documentformat.openxml.framework.3.1.1.nupkg.sha512"
+      "sha512": "sha512-e1neOKqRnSHUom4JQEorAoZ67aiJOp6+Xzsu0fc6IYfFcgQn6roo+w6i2w//N2u/5ilEfvLr35bNO9zaIN7r7g==",
+      "path": "documentformat.openxml.framework/3.2.0",
+      "hashPath": "documentformat.openxml.framework.3.2.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

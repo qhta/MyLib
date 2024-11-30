@@ -4311,7 +4311,25 @@
             <param name="paragraph">Paragraph element to process</param>
             <param name="index">Char position number</param>
             <param name="options">Options to extract text</param>
-            <returns>Next, newly created paragraph (or null) if split is not available</returns>
+            <returns>Next, newly created paragraph (or null if split is not available)</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SplitBefore(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Split the paragraph before the given member element which can be a paragraph-level or run-level element.
+            Returns the second part of the paragraph.
+            </summary>
+            <param name="paragraph">Paragraph element to process</param>
+            <param name="member">Paragraph-level or run-level member element</param>
+            <returns>Next, newly created paragraph (or null if split is not available)</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SplitAfter(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Split the paragraph after the given member element which can be a paragraph-level or run-level element.
+            Returns the second part of the paragraph.
+            </summary>
+            <param name="paragraph">Paragraph element to process</param>
+            <param name="member">Paragraph-level or run-level member element</param>
+            <returns>Next, newly created paragraph (or null if split is not available)</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetTextPosOfElement(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
             <summary>
@@ -5575,7 +5593,7 @@
             <param name="run">Run element to process</param>
             <param name="index">Char position number</param>
             <param name="options">Options for text extraction</param>
-            <returns>Next, newly created run (or null) if split is not available</returns>
+            <returns>Next, newly created run (or null if split is not available)</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.GetTextPosOfElement(DocumentFormat.OpenXml.Wordprocessing.Run,DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
             <summary>
@@ -5600,6 +5618,24 @@
             Create a new run with the same properties as the source run.
             </summary>
             <param name="run">Run element to process</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SplitBefore(DocumentFormat.OpenXml.Wordprocessing.Run,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Split the run before the given member element which can be a run-level element.
+            Returns the second part of the run.
+            </summary>
+            <param name="run">Paragraph element to process</param>
+            <param name="member">Paragraph-level or run-level member element</param>
+            <returns>Next, newly created run (or null if split is not available)</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SplitAfter(DocumentFormat.OpenXml.Wordprocessing.Run,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Split the run after the given member element which can be a run-level element.
+            Returns the second part of the run.
+            </summary>
+            <param name="run">Paragraph element to process</param>
+            <param name="member">Paragraph-level or run-level member element</param>
+            <returns>Next, newly created run (or null if split is not available)</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.ScriptType">
             <summary>

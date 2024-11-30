@@ -639,7 +639,7 @@ public static class RunTools
   /// <param name="run">Run element to process</param>
   /// <param name="index">Char position number</param>
   /// <param name="options">Options for text extraction</param>
-  /// <returns>Next, newly created run (or null) if split is not available</returns>
+  /// <returns>Next, newly created run (or null if split is not available)</returns>
   public static DXW.Run? SplitAt(this DXW.Run run, int index, TextOptions options)
   {
     if (index <= 0 || index >= run.GetText(options).Length)
@@ -745,5 +745,52 @@ public static class RunTools
       newRun.RunProperties = (DXW.RunProperties)properties.CloneNode(true);
     }
     return newRun;
+  }
+
+
+  /// <summary>
+  /// Split the run before the given member element which can be a run-level element.
+  /// Returns the second part of the run.
+  /// </summary>
+  /// <param name="run">Paragraph element to process</param>
+  /// <param name="member">Paragraph-level or run-level member element</param>
+  /// <returns>Next, newly created run (or null if split is not available)</returns>
+  public static DXW.Run? SplitBefore(this DXW.Run run, DX.OpenXmlElement member)
+  {
+    DXW.Run? newRun = null;
+    foreach (var item in run.GetMembers())
+    {
+      if (item == member)
+      {
+        newRun ??= NewRun(run);
+        item.Remove();
+        newRun.AppendChild(item);
+        var nextSibling = item.NextSibling();
+        while (nextSibling != null)
+        {
+          var nextSibling1 = nextSibling.NextSibling();
+          nextSibling.Remove();
+          newRun.AppendChild(nextSibling);
+          nextSibling = nextSibling1;
+        }
+        break;
+      }
+    }
+    return newRun;
+  }
+
+  /// <summary>
+  /// Split the run after the given member element which can be a run-level element.
+  /// Returns the second part of the run.
+  /// </summary>
+  /// <param name="run">Paragraph element to process</param>
+  /// <param name="member">Paragraph-level or run-level member element</param>
+  /// <returns>Next, newly created run (or null if split is not available)</returns>
+  public static DXW.Run? SplitAfter(this DXW.Run run, DX.OpenXmlElement member)
+  {
+    var nextMember = member.NextSibling();
+    if (nextMember == null)
+      return null;
+    return run.SplitBefore(nextMember);
   }
 }

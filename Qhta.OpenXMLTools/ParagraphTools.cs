@@ -444,7 +444,7 @@ public static class ParagraphTools
   /// <param name="paragraph">Paragraph element to process</param>
   /// <param name="index">Char position number</param>
   /// <param name="options">Options to extract text</param>
-  /// <returns>Next, newly created paragraph (or null) if split is not available</returns>
+  /// <returns>Next, newly created paragraph (or null if split is not available)</returns>
   public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index, TextOptions options)
   {
     var aText = paragraph.GetText(options);
@@ -496,66 +496,69 @@ public static class ParagraphTools
     return newParagraph;
   }
 
-  ///// <summary>
-  ///// Split the paragraph at the specified index, which is the number of characters from the beginning of the paragraph.
-  ///// Returns the second part of the paragraph.
-  ///// Split is not possible if the index is at the beginning or end of the paragraph.
-  ///// Split is possible only in a run element.
-  ///// </summary>
-  ///// <param name="paragraph">Paragraph element to process</param>
-  ///// <param name="index">Char position number</param>
-  ///// <param name="options">Options to extract text</param>
-  ///// <returns>Next, newly created paragraph (or null) if split is not available</returns>
-  //public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, DX.OpenXmlElement index, TextOptions options)
-  //{
-  //  var aText = paragraph.GetText(options);
-  //  if (index <= 0 || index >= aText.Length)
-  //    return null;
+  /// <summary>
+  /// Split the paragraph before the given member element which can be a paragraph-level or run-level element.
+  /// Returns the second part of the paragraph.
+  /// </summary>
+  /// <param name="paragraph">Paragraph element to process</param>
+  /// <param name="member">Paragraph-level or run-level member element</param>
+  /// <returns>Next, newly created paragraph (or null if split is not available)</returns>
+  public static DXW.Paragraph? SplitBefore(this DXW.Paragraph paragraph, DX.OpenXmlElement member)
+  {
+    DXW.Paragraph? newParagraph = null;
+    foreach (var item in paragraph.GetMembers())
+    {
+      if (item == member)
+      {
+        newParagraph ??= NewParagraph(paragraph);
+        item.Remove();
+        newParagraph.AppendChild(item);
+        var nextSibling = item.NextSibling();
+        while (nextSibling != null)
+        {
+          var nextSibling1 = nextSibling.NextSibling();
+          nextSibling.Remove();
+          newParagraph.AppendChild(nextSibling);
+          nextSibling = nextSibling1;
+        }
+        break;
+      }
+      else if (item is DXW.Run run)
+      {
+        var newRun = run.SplitBefore(member);
+        if (newRun != null)
+        {
+          newParagraph ??= NewParagraph(paragraph);
+          newParagraph.AppendChild(newRun);
+          var nextSibling = run.NextSibling();
+          while (nextSibling != null)
+          {
+            var nextSibling1 = nextSibling.NextSibling();
+            nextSibling.Remove();
+            newParagraph.AppendChild(nextSibling);
+            nextSibling = nextSibling1;
+          }
+          break;
+        }
+      }
+    }
+    return newParagraph;
+  }
 
-  //  var textLength = 0;
-  //  DXW.Paragraph? newParagraph = null;
-  //  foreach (var member in paragraph.GetMembers().ToList())
-  //  {
-  //    var memberText = member.GetText(options);
-  //    //if (memberText != null)
-  //    {
-  //      var memberTextLength = memberText.Length;
-  //      var newTextLength = textLength + memberTextLength;
-  //      if (index <= newTextLength)
-  //      {
-  //        if (index < newTextLength)
-  //        {
-  //          if (member is DXW.Run run)
-  //          {
-  //            DX.OpenXmlElement? newMember = run.SplitAt(index - textLength, options);
-  //            if (newMember != null)
-  //            {
-  //              newParagraph ??= NewParagraph(paragraph);
-  //              newParagraph.AppendChild(newMember);
-  //            }
-  //          }
-  //          else
-  //            return null;
-  //        }
-  //        var nextSibling = member.NextSibling();
-  //        while (nextSibling != null)
-  //        {
-  //          newParagraph ??= NewParagraph(paragraph);
-  //          var nextSibling1 = nextSibling.NextSibling();
-  //          nextSibling.Remove();
-  //          newParagraph.AppendChild(nextSibling);
-  //          nextSibling = nextSibling1;
-  //        }
-  //        break;
-  //      }
-  //      else
-  //      {
-  //        textLength = newTextLength;
-  //      }
-  //    }
-  //  }
-  //  return newParagraph;
-  //}
+  /// <summary>
+  /// Split the paragraph after the given member element which can be a paragraph-level or run-level element.
+  /// Returns the second part of the paragraph.
+  /// </summary>
+  /// <param name="paragraph">Paragraph element to process</param>
+  /// <param name="member">Paragraph-level or run-level member element</param>
+  /// <returns>Next, newly created paragraph (or null if split is not available)</returns>
+  public static DXW.Paragraph? SplitAfter(this DXW.Paragraph paragraph, DX.OpenXmlElement member)
+  {
+    var nextMember = member.NextSibling();
+    if (nextMember == null)
+      return null;
+    return paragraph.SplitBefore(nextMember);
+  }
 
   /// <summary>
   /// Get the position of the paragraph-level or run-level element in the paragraph text.
@@ -597,11 +600,11 @@ public static class ParagraphTools
     foreach (var member in paragraph.GetMembers())
     {
       var memberText = member.GetText(options);
-      if (pos >= textLength && pos < textLength+ memberText.Length)
+      if (pos >= textLength && pos < textLength + memberText.Length)
       {
         if (member is DXW.Run run)
         {
-          return run.GetElementAtTextPos(pos-textLength, options);
+          return run.GetElementAtTextPos(pos - textLength, options);
         }
       }
       textLength += memberText.Length;

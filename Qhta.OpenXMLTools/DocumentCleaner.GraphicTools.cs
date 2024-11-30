@@ -51,25 +51,22 @@ public partial class DocumentCleaner
         var tabChar = targetParagraph.Descendants<DXW.TabChar>().FirstOrDefault();
         if (tabChar != null)
         {
+          var newParagraph = targetParagraph.SplitAfter(tabChar);
+          if (newParagraph != null)
+            targetParagraph.InsertAfterSelf(newParagraph);
 
-          drawingRun.Remove();
-          drawing.Remove();
-          tabChar.InsertAfterSelf(drawing);
         }
-        else
+        var lastRun = targetParagraph.Elements<DXW.Run>().LastOrDefault();
+        if (lastRun != null)
         {
-          var lastRun = targetParagraph.Elements<DXW.Run>().LastOrDefault();
-          if (lastRun != null)
+          var lastRunMember = lastRun.GetMembers().LastOrDefault();
+          if (lastRunMember is not DXW.TabChar)
           {
-            var lastRunMember = lastRun.GetMembers().LastOrDefault();
-            if (lastRunMember is not DXW.TabChar)
-            {
-              lastRun.Append(new DXW.TabChar());
-            }
+            lastRun.Append(new DXW.TabChar());
           }
-          drawingRun.Remove();
-          targetParagraph!.Append(drawingRun);
         }
+        drawingRun.Remove();
+        targetParagraph!.Append(drawingRun);
         paragraph.SetSpacingAfter(0, null, null);
         count++;
       }
