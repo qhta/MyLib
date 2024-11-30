@@ -443,6 +443,12 @@
             </summary>
             <param name="fileName"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CleanDocument(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Cleans the document using all the methods available.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveProofErrors(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Removes all <c>ProofError</c> and <c>ProofState</c> elements from the document.
@@ -529,6 +535,13 @@
             </summary>
             <param name="paragraph"></param>
             <param name="indent"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ConvertAnchorsToInline(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Converts all Anchors to inline graphics
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -1484,7 +1497,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text content of the run.
             </summary>
@@ -1492,7 +1505,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the run text element.
             </summary>
@@ -1500,7 +1513,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.OpenXmlLeafTextElement,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.OpenXmlLeafTextElement,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of any textElement element.
             </summary>
@@ -1508,7 +1521,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Break,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Break,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the Break element.
             </summary>
@@ -1516,7 +1529,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.SymbolChar,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.SymbolChar,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the SymbolChar element.
             </summary>
@@ -1524,7 +1537,15 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.FieldChar,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Hyperlink,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the hyperlink run elements.
+            </summary>
+            <param name="hyperlink">source hyperlink</param>
+            <param name="options"></param>
+            <returns>joined text</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.FieldChar,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the FieldChar element.
             </summary>
@@ -1532,7 +1553,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.FieldCode,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.FieldCode,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the FieldCode element.
             </summary>
@@ -1540,7 +1561,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.FootnoteReference,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.FootnoteReference,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the FootnoteReference element.
             </summary>
@@ -1548,7 +1569,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.EndnoteReference,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.EndnoteReference,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the EndnoteReference element.
             </summary>
@@ -1556,7 +1577,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.CommentReference,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.CommentReference,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the CommentReference element.
             </summary>
@@ -1564,7 +1585,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the paragraph.
             </summary>
@@ -1580,7 +1601,7 @@
             <param name="options"></param>
             <returns>joined text</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Table,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Gets the text table including table tags
             </summary>
@@ -1596,7 +1617,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.TableRow,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.TableRow,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Gets the text of all cells in the table row.
             </summary>
@@ -1612,7 +1633,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Drawing,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Drawing,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text for the drawing element.
             </summary>
@@ -1620,12 +1641,31 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Drawing.Blip,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Drawing.Blip,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text for the Blip element.
             </summary>
             <param name="blip"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.GraphicTools">
+            <summary>
+            Tools for working with graphics
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.ConvertAnchorToInline(DocumentFormat.OpenXml.Drawing.Wordprocessing.Anchor)">
+            <summary>
+            Convert an Anchor to an Inline
+            </summary>
+            <param name="anchor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.ChangeFloatingPictureToInline(DocumentFormat.OpenXml.Wordprocessing.Picture)">
+            <summary>
+            Change a floating picture to an inline picture
+            </summary>
+            <param name="picture"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.GridColumnTools">
@@ -1808,21 +1848,6 @@
             <summary>
             Contains tools for working with OpenXml Hyperlink elements.
             </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Hyperlink)">
-            <summary>
-            Get the text of the hyperlink run elements.
-            </summary>
-            <param name="hyperlink">source hyperlink</param>
-            <returns>joined text</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.HyperlinkTools.GetText(DocumentFormat.OpenXml.Wordprocessing.Hyperlink,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Get the text of the hyperlink run elements.
-            </summary>
-            <param name="hyperlink">source hyperlink</param>
-            <param name="options"></param>
-            <returns>joined text</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.HyperlinkTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Hyperlink,System.String,Qhta.OpenXmlTools.TextOptions)">
             <summary>
@@ -3626,6 +3651,14 @@
             <param name="otherElement"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.FindParent``1(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Get the first parent element of the specified type of the <c>OpenXmlElement</c>.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PackageTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Package elements.
@@ -4059,6 +4092,40 @@
             <param name="rule">rule to set</param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetSpacingBefore(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get the spacing before paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraphProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.GetSpacingAfter(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties)">
+            <summary>
+            Get the spacing after paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraphProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetSpacingBefore(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Set the spacing before paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraphProperties"></param>
+            <param name="val"></param>
+            <param name="percent"></param>
+            <param name="auto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphPropertiesTools.SetSpacingAfter(DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Set the spacing before paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraphProperties"></param>
+            <param name="val"></param>
+            <param name="percent"></param>
+            <param name="auto"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ParagraphTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Paragraph element.
@@ -4158,7 +4225,7 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsTabulated(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
-            Checks if the paragraph contains tab characters.
+            Checks if the paragraph contains any tab char.
             </summary>
             <param name="element"></param>
             <returns></returns>
@@ -4234,7 +4301,7 @@
             <param name="paragraph"></param>
             <param name="text"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SplitAt(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SplitAt(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Split the paragraph at the specified index, which is the number of characters from the beginning of the paragraph.
             Returns the second part of the paragraph.
@@ -4243,7 +4310,27 @@
             </summary>
             <param name="paragraph">Paragraph element to process</param>
             <param name="index">Char position number</param>
+            <param name="options">Options to extract text</param>
             <returns>Next, newly created paragraph (or null) if split is not available</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetTextPosOfElement(DocumentFormat.OpenXml.Wordprocessing.Paragraph,DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the position of the paragraph-level or run-level element in the paragraph text.
+            </summary>
+            <param name="paragraph">Run element to process</param>
+            <param name="element">member element to search</param>
+            <param name="options">Options for text extraction</param>
+            <returns>Char position of the element (or -1 if not found)</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetElementAtTextPos(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the paragraph-level or run-level element at the given position the paragraph text.
+            If the position refers to the start or interior of the run element, the run-level element is returned.
+            </summary>
+            <param name="paragraph">Run element to process</param>
+            <param name="pos">position of element to search</param>
+            <param name="options">Options for text extraction</param>
+            <returns>Paragraph-level or run-level element found at position (or null if not found)</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.NewParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
@@ -4305,6 +4392,40 @@
             <param name="paragraph">Paragraph properties to set</param>
             <param name="value">value to set</param>
             <param name="rule">rule to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetSpacingBefore(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the spacing before paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetSpacingAfter(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the spacing after paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SetSpacingBefore(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Set the spacing before paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraph"></param>
+            <param name="val"></param>
+            <param name="percent"></param>
+            <param name="auto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SetSpacingAfter(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Set the spacing after paragraph as a triple (twips, percent of line, auto).
+            </summary>
+            <param name="paragraph"></param>
+            <param name="val"></param>
+            <param name="percent"></param>
+            <param name="auto"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
@@ -5343,9 +5464,30 @@
             <param name="run"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.RunTools.IsTabulated(DocumentFormat.OpenXml.Wordprocessing.Run)">
+        <member name="M:Qhta.OpenXmlTools.RunTools.HasTabChar(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>
-            Checks if the run contains tab chars.
+            Checks if the run contains any tab char.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsTabChar(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run contains a single tab char.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.HasDrawing(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run contains any drawing.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.IsDrawing(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Checks if the run contains a single drawing.
             </summary>
             <param name="element"></param>
             <returns></returns>
@@ -5434,6 +5576,24 @@
             <param name="index">Char position number</param>
             <param name="options">Options for text extraction</param>
             <returns>Next, newly created run (or null) if split is not available</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetTextPosOfElement(DocumentFormat.OpenXml.Wordprocessing.Run,DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the position of the paragraph-level element in the paragraph text
+            </summary>
+            <param name="run">Run element to process</param>
+            <param name="element">member element to search</param>
+            <param name="options">Options for text extraction</param>
+            <returns>Char position of the element (or -1 if not found)</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetElementAtTextPos(DocumentFormat.OpenXml.Wordprocessing.Run,System.Int32,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the run-level element at the given position in the run text.
+            </summary>
+            <param name="run">Run element to process</param>
+            <param name="pos">position of element to search</param>
+            <param name="options">Options for text extraction</param>
+            <returns>Paragraph-level or run-level element found at position (or null if not found)</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.NewRun(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>
@@ -10845,17 +11005,11 @@
         </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.PlainText">
             <summary>
-            Options to get only plain text. All non-text elements are ignored.
-            Text is returned as is. Symbols like new line, tab, page break, column break, line break, carriage return are replaced by replacement strings, which are as follows:
+            Options to get only plain text. All non-text elements are returned as a single control character \u001B (ESC).
+            Text is returned as is.
+            Symbols like new line, tab, page break, column break, line break, carriage return are replaced by control characters,
+            which are as follows:
             <list type="table">
-              <item>
-                 <term>New line</term>
-                 <description>\r\n</description>
-              </item>
-              <item>
-                 <term>Paragraph separator</term>
-                 <description>\r\n</description>
-              </item>
               <item>
                  <term>Tab character</term>
                  <description>\t = \u0009</description>
@@ -10900,12 +11054,17 @@
             Html entities are used.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.OuterText">
+            <summary>
+            Options important for getting text from paragraphs.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.NewLine">
             <summary>
             Tag to mark a new line.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.TabTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.TabChar">
             <summary>
             Tag to mark a tab character.
             </summary>
@@ -10928,6 +11087,11 @@
         <member name="P:Qhta.OpenXmlTools.TextOptions.CarriageReturnTag">
             <summary>
             Tag to mark a carriage return.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ObjectReplacement">
+            <summary>
+            Tag to mark a non-text object in plain text.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreEmptyParagraphs">
@@ -11168,6 +11332,11 @@
         <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeOtherMembers">
             <summary>
             Include other members of the element.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreOtherMembersContent">
+            <summary>
+            Ignore other members content.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.TextProperties">

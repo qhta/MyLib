@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using System;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -680,11 +681,85 @@ public static class ParagraphPropertiesTools
       lineSpacing.Line = value;
       lineSpacing.LineRule = rule ?? DXW.LineSpacingRuleValues.Exact;
       lineSpacing.Before = "0";
+      lineSpacing.BeforeLines = null;
       lineSpacing.BeforeAutoSpacing = false;
       lineSpacing.After = "0";
+      lineSpacing.AfterLines = null;
       lineSpacing.AfterAutoSpacing = false;
     }
   }
 
+  /// <summary>
+  /// Get the spacing before paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraphProperties"></param>
+  /// <returns></returns>
+  public static (int? val, int? percent, bool? auto)? GetSpacingBefore(this ParagraphProperties paragraphProperties)
+  {
+    var lineSpacing = paragraphProperties.Elements<DXW.SpacingBetweenLines>().FirstOrDefault();
+    if (lineSpacing == null)
+      return null;
+    int.TryParse(lineSpacing.Before?.Value, out var val);
+    var lines = lineSpacing?.BeforeLines?.Value;
+    var auto = lineSpacing?.BeforeAutoSpacing?.Value;
+    return (val, lines, auto);
+  }
 
+  /// <summary>
+  /// Get the spacing after paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraphProperties"></param>
+  /// <returns></returns>
+  public static (int? val, int? percent, bool? auto)? GetSpacingAfter(this ParagraphProperties paragraphProperties)
+  {
+    var lineSpacing = paragraphProperties.Elements<DXW.SpacingBetweenLines>().FirstOrDefault();
+    if (lineSpacing == null)
+      return null;
+    int.TryParse(lineSpacing.After?.Value, out var val);
+    var lines = lineSpacing?.AfterLines?.Value;
+    var auto = lineSpacing?.AfterAutoSpacing?.Value;
+    return (val, lines, auto);
+  }
+
+  /// <summary>
+  /// Set the spacing before paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraphProperties"></param>
+  /// <param name="val"></param>
+  /// <param name="percent"></param>
+  /// <param name="auto"></param>
+  /// <returns></returns>
+  public static void SetSpacingBefore(this ParagraphProperties paragraphProperties, int? val, int? percent, bool? auto)
+  {
+    var lineSpacing = paragraphProperties.Elements<DXW.SpacingBetweenLines>().FirstOrDefault();
+    if (lineSpacing == null)
+    {
+      lineSpacing = new SpacingBetweenLines();
+      paragraphProperties.Append(lineSpacing);
+    }
+    lineSpacing.Before = val?.ToString();
+    lineSpacing.BeforeLines = percent;
+    lineSpacing.BeforeAutoSpacing = auto;
+  }
+
+  /// <summary>
+  /// Set the spacing before paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraphProperties"></param>
+  /// <param name="val"></param>
+  /// <param name="percent"></param>
+  /// <param name="auto"></param>
+  /// <returns></returns>
+  public static void SetSpacingAfter(this ParagraphProperties paragraphProperties, int? val, int? percent, bool? auto)
+  {
+    var lineSpacing = paragraphProperties.Elements<DXW.SpacingBetweenLines>().FirstOrDefault();
+    if (lineSpacing == null)
+    {
+      lineSpacing = new SpacingBetweenLines();
+      paragraphProperties.Append(lineSpacing);
+    }
+    lineSpacing.After = val?.ToString();
+    lineSpacing.AfterLines = percent;
+    lineSpacing.AfterAutoSpacing = auto;
+  }
 }

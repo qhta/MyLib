@@ -9,41 +9,6 @@ namespace Qhta.OpenXmlTools;
 public static class HyperlinkTools
 {
   /// <summary>
-  /// Get the text of the hyperlink run elements.
-  /// </summary>
-  /// <param name="hyperlink">source hyperlink</param>
-  /// <returns>joined text</returns>
-  public static string GetText(this DXW.Hyperlink hyperlink)
-  {
-    var sb = new StringBuilder();
-    foreach (var item in hyperlink.Elements())
-    {
-      var text = item.GetText(TextOptions.PlainText);
-      sb.Append(text);
-    }
-    var result = sb.ToString();
-    return result;
-  }
-
-  /// <summary>
-  /// Get the text of the hyperlink run elements.
-  /// </summary>
-  /// <param name="hyperlink">source hyperlink</param>
-  /// <param name="options"></param>
-  /// <returns>joined text</returns>
-  public static string GetText(this DXW.Hyperlink hyperlink, TextOptions options)
-  {
-    var sb = new StringBuilder();
-    foreach (var item in hyperlink.Elements())
-    {
-      var text = item.GetText(options);
-      sb.Append(text);
-    }
-    var result = sb.ToString();
-    return result;
-  }
-
-  /// <summary>
   /// Set the text of the hyperlink.
   /// </summary>
   /// <param name="hyperlink"></param>
@@ -68,7 +33,7 @@ public static class HyperlinkTools
   {
     if (element == null)
       return true;
-    var text = element.GetText();
+    var text = element.GetText(TextOptions.PlainText);
     return string.IsNullOrEmpty(text);
   }
 
@@ -100,7 +65,7 @@ public static class HyperlinkTools
   public static bool TrimStart(this DXW.Hyperlink hyperlink)
   {
     var done = false;
-    var hyperlinkText = hyperlink.GetText();
+    var hyperlinkText = hyperlink.GetText(TextOptions.PlainText);
     var hyperlinkTextTrimmed = hyperlinkText.TrimStart();
     if (hyperlinkText != hyperlinkTextTrimmed)
     {
@@ -111,7 +76,7 @@ public static class HyperlinkTools
       else
       if (hyperlink.NextSibling() is DXW.Hyperlink nextHyperlink && nextHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
       {
-        var nextHyperlinkText = nextHyperlink.GetText();
+        var nextHyperlinkText = nextHyperlink.GetText(TextOptions.PlainText);
         hyperlinkTextTrimmed += nextHyperlinkText;
         hyperlink.SetText(hyperlinkTextTrimmed);
         nextHyperlink.Remove();
@@ -131,7 +96,7 @@ public static class HyperlinkTools
   public static bool TrimEnd(this DXW.Hyperlink hyperlink)
   {
     var done = false;
-    var hyperlinkText = hyperlink.GetText();
+    var hyperlinkText = hyperlink.GetText(TextOptions.PlainText);
     var hyperlinkTextTrimmed = hyperlinkText.TrimEnd();
     if (hyperlinkText != hyperlinkTextTrimmed)
     {
@@ -142,7 +107,7 @@ public static class HyperlinkTools
       else
       if (hyperlink.PreviousSibling() is DXW.Hyperlink previousHyperlink && previousHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
       {
-        var previousHyperlinkText = previousHyperlink.GetText();
+        var previousHyperlinkText = previousHyperlink.GetText(TextOptions.PlainText);
         previousHyperlinkText += hyperlinkTextTrimmed;
         previousHyperlink.SetText(previousHyperlinkText);
         hyperlink.Remove();

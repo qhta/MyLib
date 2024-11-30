@@ -92,7 +92,7 @@ public static class RunTools
         TryAppend(run, sb);
         run.AppendChild(new DXW.Break() { Type = BreakValues.TextWrapping });
       }
-      else if (value.HasSubstringAt(i, options.TabTag))
+      else if (value.HasSubstringAt(i, options.TabChar))
       {
         TryAppend(run, sb);
         run.AppendChild(new TabChar());
@@ -277,10 +277,8 @@ public static class RunTools
   /// </summary>
   /// <param name="run"></param>
   /// <returns></returns>
-  public static bool IsEmpty(this DXW.Run? run)
+  public static bool IsEmpty(this DXW.Run run)
   {
-    if (run == null)
-      return true;
     var members = run.GetMembers().ToList();
     foreach (var member in members)
     {
@@ -296,15 +294,48 @@ public static class RunTools
   }
 
   /// <summary>
-  /// Checks if the run contains tab chars.
+  /// Checks if the run contains any tab char.
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static bool IsTabulated(this DXW.Run? element)
+  public static bool HasTabChar(this DXW.Run element)
   {
-    if (element == null)
-      return false;
+
     var result = element.Elements<DXW.TabChar>().Any();
+    return result;
+  }
+
+  /// <summary>
+  /// Checks if the run contains a single tab char.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsTabChar(this DXW.Run element)
+  {
+    var result = element.Elements<DXW.TabChar>().Any() && element.GetMembers().Count() == 1;
+    return result;
+  }
+
+
+  /// <summary>
+  /// Checks if the run contains any drawing.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool HasDrawing(this DXW.Run element)
+  {
+    var result = element.Elements<DXW.Drawing>().Any();
+    return result;
+  }
+
+  /// <summary>
+  /// Checks if the run contains a single drawing.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static bool IsDrawing(this DXW.Run element)
+  {
+    var result = element.Elements<DXW.Drawing>().Any() && element.GetMembers().Count() == 1;
     return result;
   }
 
@@ -611,7 +642,6 @@ public static class RunTools
   /// <returns>Next, newly created run (or null) if split is not available</returns>
   public static DXW.Run? SplitAt(this DXW.Run run, int index, TextOptions options)
   {
-
     if (index <= 0 || index >= run.GetText(options).Length)
       return null;
 
@@ -658,6 +688,48 @@ public static class RunTools
       }
     }
     return newRun;
+  }
+
+  /// <summary>
+  /// Get the position of the paragraph-level element in the paragraph text
+  /// </summary>
+  /// <param name="run">Run element to process</param>
+  /// <param name="element">member element to search</param>
+  /// <param name="options">Options for text extraction</param>
+  /// <returns>Char position of the element (or -1 if not found)</returns>
+  public static int GetTextPosOfElement(this DXW.Run run, DX.OpenXmlElement element, TextOptions options)
+  {
+    var textLength = 0;
+    foreach (var member in run.GetMembers())
+    {
+      var memberText = member.GetText(options);
+      if (member == element)
+        return textLength;
+      textLength += memberText.Length;
+    }
+    return -1;
+  }
+
+  /// <summary>
+  /// Get the run-level element at the given position in the run text.
+  /// </summary>
+  /// <param name="run">Run element to process</param>
+  /// <param name="pos">position of element to search</param>
+  /// <param name="options">Options for text extraction</param>
+  /// <returns>Paragraph-level or run-level element found at position (or null if not found)</returns>
+  public static DX.OpenXmlElement? GetElementAtTextPos(this DXW.Run run, int pos, TextOptions options)
+  {
+    var textLength = 0;
+    foreach (var member in run.GetMembers())
+    {
+      var memberText = member.GetText(options);
+      if (pos >= textLength && pos < textLength + memberText.Length)
+      {
+        return member;
+      }
+      textLength += memberText.Length;
+    }
+    return null;
   }
 
   /// <summary>

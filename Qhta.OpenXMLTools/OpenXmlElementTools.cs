@@ -1724,4 +1724,15 @@ public static class OpenXmlElementTools
     return true;
   }
 
+  /// <summary>
+  /// Get the first parent element of the specified type of the <c>OpenXmlElement</c>.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static DX.OpenXmlCompositeElement? FindParent<T>(this DX.OpenXmlElement element) 
+    where T : DX.OpenXmlCompositeElement
+  {
+    return element.Ancestors<T>().FirstOrDefault();
+  }
 }

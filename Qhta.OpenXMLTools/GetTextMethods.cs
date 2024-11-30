@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 using System;
+using DocumentFormat.OpenXml;
 
 namespace Qhta.OpenXmlTools;
 
@@ -21,18 +22,22 @@ public static class GetTextMethods
     var sb = new StringBuilder();
     foreach (var element in elements)
     {
-      var text = DispatchGetText(element, options);
+      var text = DispatchGetText(element, options with { OuterText = true });
       if (text != null)
         sb.Append(text);
       else if (element is DXW.Drawing drawing)
       {
         if (options.IncludeDrawings)
-          sb.Append(drawing.GetText(options));
+          sb.Append(drawing.GetTextOf(options));
+        else
+          sb.Append(options.ObjectReplacement);
       }
       else
       {
         if (options.IncludeOtherMembers) 
           sb.Append(element.GetText(options));
+        else
+          sb.Append(options.ObjectReplacement);
       }
     }
     return sb.ToString();
@@ -49,12 +54,10 @@ public static class GetTextMethods
     var text = DispatchGetText(element, options);
     if (text != null)
       return text;
-    if (element is DX.OpenXmlCompositeElement compositeElement)
+    if (element is DX.OpenXmlCompositeElement compositeElement && !options.IgnoreOtherMembersContent)
     {
       var sb = new StringBuilder();
       var memberTag = element.GetType().Name.ToLowerFirst();
-      if (memberTag == "blipFill")
-        Debug.Assert(true);
       var members1 = compositeElement.GetMembers().ToList();
       if (members1.Any())
       {
@@ -79,41 +82,82 @@ public static class GetTextMethods
   private static string? DispatchGetText(DX.OpenXmlElement element, TextOptions options)
   {
     if (element is DXW.Text text)
-      return text.GetText(options);
+      return text.GetTextOf(options);
     else if (element is DXW.Run run)
-      return run.GetText(options);
+      return run.GetTextOf(options);
     else if (element is DXW.Paragraph paragraph)
-      return paragraph.GetText(options);
+      return paragraph.GetTextOf(options);
     else if (element is DXW.Hyperlink hyperlink)
-      return hyperlink.GetText(options);
+      return hyperlink.GetTextOf(options);
     else if (element is DX.OpenXmlLeafTextElement textElement)
-      return textElement.GetText(options);
+      return textElement.GetTextOf(options);
     else if (element is DXW.Table table)
-      return table.GetText(options);
+      return table.GetTextOf(options);
+    else if (element is DXW.TableRow tableRow)
+      return tableRow.GetTextOf(options);
+    else if (element is DXW.TableCell tableCell)
+      return tableCell.GetTextOf(options);
     else if (element is DXW.Break @break)
-      return @break.GetText(options);
+      return @break.GetTextOf(options);
     else if (element is TabChar)
-      return options.TabTag;
+      return options.TabChar;
     else if (element is CarriageReturn)
       return options.CarriageReturnTag;
     else if (element is FieldCode fieldCode)
-        return fieldCode.GetText(options);
+        return fieldCode.GetTextOf(options);
     else if (element is SymbolChar symbolChar)
-      return symbolChar.GetText(options);
+      return symbolChar.GetTextOf(options);
     else if (element is PositionalTab)
-      return options.TabTag;
+      return options.TabChar;
     else if (element is FieldChar fieldChar)
-      return fieldChar.GetText(options);
+      return fieldChar.GetTextOf(options);
     else if (element is Ruby ruby)
       return ruby.GetPlainText();
     else if (element is FootnoteReference footnoteReference)
-      return footnoteReference.GetText(options);
+      return footnoteReference.GetTextOf(options);
     else if (element is EndnoteReference endnoteReference)
-      return endnoteReference.GetText(options);
+      return endnoteReference.GetTextOf(options);
     else if (element is CommentReference commentReference)
-      return commentReference.GetText(options);
+      return commentReference.GetTextOf(options);
+    //else if (element is AnnotationReferenceMark annotationReferenceMark)
+    //  return annotationReferenceMark.GetTextOf(options);
+    //typeof(DXW.AnnotationReferenceMark),
+    //typeof(DXW.Break),
+    //typeof(DXW.CommentReference),
+    //typeof(DXW.ContentPart),
+    //typeof(DXW.ContinuationSeparatorMark),
+    //typeof(DXW.CarriageReturn),
+    //typeof(DXW.DayLong),
+    //typeof(DXW.DayShort),
+    //typeof(DXW.DeletedFieldCode),
+    //typeof(DXW.DeletedText),
+    //typeof(DXW.Drawing),
+    //typeof(DXW.EndnoteReferenceMark),
+    //typeof(DXW.EndnoteReference),
+    //typeof(DXW.FieldChar),
+    //typeof(DXW.FootnoteReferenceMark),
+    //typeof(DXW.FootnoteReference),
+    //typeof(DXW.FieldCode),
+    //typeof(DXW.LastRenderedPageBreak),
+    //typeof(DXW.MonthLong),
+    //typeof(DXW.MonthShort),
+    //typeof(DXW.NoBreakHyphen),
+    //typeof(DXW.EmbeddedObject),
+    //typeof(DXW.PageNumber),
+    //typeof(DXW.PositionalTab),
+    //typeof(DXW.Ruby),
+    //typeof(DXW.SeparatorMark),
+    //typeof(DXW.SoftHyphen),
+    //typeof(DXW.SymbolChar),
+    //typeof(DXW.Text),
+    //typeof(DXW.TabChar),
+    //typeof(DXW.YearLong),
+    //typeof(DXW.YearShort),
+    else if (element is Drawing drawing)
+      return drawing.GetTextOf(options);
     else if (element is DXD.Blip blip)
-      return blip.GetText(options);
+      return blip.GetTextOf(options);
+
     return null;
   }
 
@@ -123,7 +167,7 @@ public static class GetTextMethods
   /// <param name="run"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.Run run, TextOptions options)
+  private static string GetTextOf(this DXW.Run run, TextOptions options)
   {
     StringBuilder sb = new();
     if (options.UseHtmlFormatting && options.UseHtmlEntities)
@@ -137,7 +181,14 @@ public static class GetTextMethods
       if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
         sb.Append(options.SubscriptStartTag);
     }
-    sb.Append(run.GetMembers().GetText(options));
+    var members = run.GetMembers();
+    foreach (var member in members)
+    {
+      if (member is DXW.Text text)
+        sb.Append(text.GetTextOf(options));
+      else
+        sb.Append(member.GetText(options));
+    }
     if (options.UseHtmlFormatting && options.UseHtmlEntities)
     {
       if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
@@ -158,7 +209,7 @@ public static class GetTextMethods
   /// <param name="text"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.Text text, TextOptions options)
+  private static string GetTextOf(this DXW.Text text, TextOptions options)
   {
     if (options.UseHtmlEntities)
       return text.Text.HtmlEncode();
@@ -172,7 +223,7 @@ public static class GetTextMethods
   /// <param name="textElement"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DX.OpenXmlLeafTextElement textElement, TextOptions options)
+  private static string GetTextOf(this DX.OpenXmlLeafTextElement textElement, TextOptions options)
   {
     if (options.UseHtmlEntities)
       return textElement.Text.HtmlEncode();
@@ -186,7 +237,7 @@ public static class GetTextMethods
   /// <param name="break"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.Break @break, TextOptions options)
+  private static string GetTextOf(this DXW.Break @break, TextOptions options)
   {
     if (@break.Type?.Value == BreakValues.Page)
       return options.BreakPageTag;
@@ -203,7 +254,7 @@ public static class GetTextMethods
   /// <param name="symbolChar"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.SymbolChar symbolChar, TextOptions options)
+  private static string GetTextOf(this DXW.SymbolChar symbolChar, TextOptions options)
   {
     if (int.TryParse(symbolChar.Char!.Value, out var symbolVal))
     {
@@ -213,12 +264,31 @@ public static class GetTextMethods
   }
 
   /// <summary>
+  /// Get the text of the hyperlink run elements.
+  /// </summary>
+  /// <param name="hyperlink">source hyperlink</param>
+  /// <param name="options"></param>
+  /// <returns>joined text</returns>
+  public static string GetTextOf(this DXW.Hyperlink hyperlink, TextOptions? options)
+  {
+    if (options == null)
+      options = TextOptions.PlainText;
+    var sb = new StringBuilder();
+    foreach (var item in hyperlink.Elements())
+    {
+      var text = item.GetText(options);
+      sb.Append(text);
+    }
+    var result = sb.ToString();
+    return result;
+  }
+  /// <summary>
   /// Get the text of the FieldChar element.
   /// </summary>
   /// <param name="fieldChar"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.FieldChar fieldChar, TextOptions options)
+  private static string GetTextOf(this DXW.FieldChar fieldChar, TextOptions options)
   {
     if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
     {
@@ -241,7 +311,7 @@ public static class GetTextMethods
   /// <param name="fieldCode"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.FieldCode fieldCode, TextOptions options)
+  private static string GetTextOf(this DXW.FieldCode fieldCode, TextOptions options)
   {
     return fieldCode.Text;
   }
@@ -252,7 +322,7 @@ public static class GetTextMethods
   /// <param name="footnoteReference"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.FootnoteReference footnoteReference, TextOptions options)
+  private static string GetTextOf(this DXW.FootnoteReference footnoteReference, TextOptions options)
   {
     return options.FootnoteRefStart + footnoteReference.Id + options.FootnoteRefEnd;
   }
@@ -263,7 +333,7 @@ public static class GetTextMethods
   /// <param name="endnoteReference"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.EndnoteReference endnoteReference, TextOptions options)
+  private static string GetTextOf(this DXW.EndnoteReference endnoteReference, TextOptions options)
   {
     return options.EndnoteRefStart + endnoteReference.Id + options.EndnoteRefEnd;
   }
@@ -274,7 +344,7 @@ public static class GetTextMethods
   /// <param name="commentReference"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.CommentReference commentReference, TextOptions options)
+  private static string GetTextOf(this DXW.CommentReference commentReference, TextOptions options)
   {
     return options.CommentRefStart + commentReference.Id + options.CommentRefEnd;
   }
@@ -285,10 +355,13 @@ public static class GetTextMethods
   /// <param name="paragraph">source paragraph</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  public static string GetText(this Paragraph paragraph, TextOptions options)
+  private static string GetTextOf(this Paragraph paragraph, TextOptions options)
   {
-    var sb = new StringBuilder();
+
     var paraText = paragraph.GetInnerText(options);
+    if (!options.OuterText)
+      return paraText;
+    var sb = new StringBuilder();
     if (options.UseHtmlParagraphs)
     {
       if (paraText == string.Empty)
@@ -322,9 +395,16 @@ public static class GetTextMethods
   /// <param name="paragraph">source paragraph</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  public static string GetInnerText(this Paragraph paragraph, TextOptions options)
+  private static string GetInnerText(this Paragraph paragraph, TextOptions options)
   {
-    var result = String.Join("", paragraph.GetMembers().Select(item => item.GetText(options)));
+    var sl = new List<string>();
+    var members = paragraph.GetMembers().ToList();
+    foreach (var member in members)
+    {
+      var text = member.GetText(options);
+      sl.Add(text);
+    }
+    var result = string.Join("", sl);
     if (options.IncludeParagraphNumbering)
       result = paragraph.GetNumberingString(options) + result;
     return result;
@@ -336,7 +416,7 @@ public static class GetTextMethods
   /// <param name="table"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this Table table, TextOptions options)
+  private static string GetTextOf(this Table table, TextOptions options)
   {
     var sb = new StringBuilder();
     if (options.IgnoreTableContents)
@@ -379,7 +459,7 @@ public static class GetTextMethods
     {
       if (options.UseHtmlTables)
         sb.Append(options.TableRowStartTag);
-      sb.Append(row.GetText(options));
+      sb.Append(row.GetTextOf(options));
       if (options.UseHtmlTables)
         sb.Append(options.TableRowEndTag);
       else
@@ -394,7 +474,7 @@ public static class GetTextMethods
   /// <param name="row"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this TableRow row, TextOptions options)
+  private static string GetTextOf(this TableRow row, TextOptions options)
   {
     List<string> sl = new();
     var cells = row.GetCells().ToList();
@@ -428,13 +508,19 @@ public static class GetTextMethods
     return string.Join("", sl);
   }
 
-  /// <summary>
-  /// Gets inner text the table cell.
-  /// </summary>
-  /// <param name="cell"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static string GetInnerText(this TableCell cell, TextOptions options)
+  private static string GetTextOf(this TableCell cell, TextOptions options)
+  {
+    var text = cell.GetInnerText(options);
+    return text;
+  }
+
+/// <summary>
+/// Gets inner text the table cell.
+/// </summary>
+/// <param name="cell"></param>
+/// <param name="options"></param>
+/// <returns></returns>
+private static string GetInnerText(this TableCell cell, TextOptions options)
   {
     var members = cell.GetMembers().ToList();
     if (members.Any())
@@ -457,7 +543,7 @@ public static class GetTextMethods
   /// <param name="drawing"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXW.Drawing drawing, TextOptions options)
+  private static string GetTextOf(this DXW.Drawing drawing, TextOptions options)
   {
     if (options.IncludeDrawings)
     {
@@ -479,7 +565,7 @@ public static class GetTextMethods
   /// <param name="blip"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public static string GetText(this DXD.Blip blip, TextOptions options)
+  private static string GetTextOf(this DXD.Blip blip, TextOptions options)
   {
     var str = options.BlipTag;
     var embed = blip.Embed?.Value;

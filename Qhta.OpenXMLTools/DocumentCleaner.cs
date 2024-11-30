@@ -24,7 +24,35 @@ public partial class DocumentCleaner
   /// <param name="fileName"></param>
   public void CleanDocument(string fileName)
   {
-    using var wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
+    DXPack.WordprocessingDocument? wordDoc = null;
+    var tryCount = 3;
+    while (tryCount > 0)
+    {
+      try
+      {
+        wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
+        tryCount = 0;
+
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        tryCount--;
+      }
+    }
+    if (wordDoc != null)
+      using (wordDoc)
+      {
+        CleanDocument(wordDoc);
+      }
+  }
+
+  /// <summary>
+  /// Cleans the document using all the methods available.
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  public void CleanDocument(DXPack.WordprocessingDocument wordDoc)
+  {
     RemoveProofErrors(wordDoc);
     TrimParagraphs(wordDoc);
     RemoveEmptyParagraphs(wordDoc, true);
@@ -203,7 +231,7 @@ public partial class DocumentCleaner
     var paragraphs = body.Elements<DXW.Paragraph>().Where(p => !p.IsHeading()).ToList();
     foreach (var paragraph in paragraphs)
     {
-      var str = paragraph.GetInnerText(TextOptions.PlainText);
+      var str = paragraph.GetText(TextOptions.PlainText);
       var ss = str.Split('\t');
       foreach (var s in ss)
       {
@@ -254,7 +282,7 @@ public partial class DocumentCleaner
       if (font == ExampleFont)
         continue;
       var priorPara = para.PreviousSibling() as DXW.Paragraph;
-      var paraText = para.GetInnerText(TextOptions.PlainText).Trim();
+      var paraText = para.GetText(TextOptions.PlainText).Trim();
       if (paraText == "end note]" || paraText == "end example]" || paraText == "the results are:")
         continue;
       if (priorPara == null)
@@ -262,7 +290,7 @@ public partial class DocumentCleaner
       font = priorPara.GetFont(null);
       if (font == ExampleFont)
         continue;
-      var priorParaText = priorPara.GetInnerText(TextOptions.ParaText).Trim();
+      var priorParaText = priorPara.GetText(TextOptions.ParaText).Trim();
       var priorSentences = priorParaText.GetSentences();
       var lastSentence = priorSentences.LastOrDefault() ?? priorParaText;
 
@@ -347,7 +375,7 @@ public partial class DocumentCleaner
       if (font != ExampleFont)
         continue;
 
-      var text = paragraph.GetInnerText(TextOptions.PlainText);
+      var text = paragraph.GetText(TextOptions.PlainText);
 
       var indent = text.LeftIndentLength();
       if (IsXmlExample(text))
@@ -387,7 +415,7 @@ public partial class DocumentCleaner
           {
             // if the paragraph contains an XML tag but not in the beginning, split it to a new paragraph.
             //Console.WriteLine(text);
-            var newParagraph = paragraph.SplitAt(k);
+            var newParagraph = paragraph.SplitAt(k,TextOptions.ParaText);
             paragraph.TrimEnd();
             if (newParagraph != null)
             {

@@ -5,20 +5,15 @@ namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Options for getting text.
 /// </summary>
+[DebuggerStepThrough]
 public record TextOptions
 {
   /// <summary>
-  /// Options to get only plain text. All non-text elements are ignored.
-  /// Text is returned as is. Symbols like new line, tab, page break, column break, line break, carriage return are replaced by replacement strings, which are as follows:
+  /// Options to get only plain text. All non-text elements are returned as a single control character \u001B (ESC).
+  /// Text is returned as is.
+  /// Symbols like new line, tab, page break, column break, line break, carriage return are replaced by control characters,
+  /// which are as follows:
   /// <list type="table">
-  ///   <item>
-  ///      <term>New line</term>
-  ///      <description>\r\n</description>
-  ///   </item>
-  ///   <item>
-  ///      <term>Paragraph separator</term>
-  ///      <description>\r\n</description>
-  ///   </item>
   ///   <item>
   ///      <term>Tab character</term>
   ///      <description>\t = \u0009</description>
@@ -67,7 +62,7 @@ public record TextOptions
     UseHtmlParagraphs = true,
     ParagraphSeparator = "<p/>",
     BreakLineTag = "<br/>",
-    TabTag = "<t/>",
+    TabChar = "<t/>",
     BreakColumnTag = "<v/>",
     BreakPageTag = "<f/>",
     CarriageReturnTag = "<r/>",
@@ -80,7 +75,6 @@ public record TextOptions
   /// </summary>
   public static TextOptions ParaText { get; set; } = TabbedText with
   {
-    TabTag = "\t",
     IncludeDrawings = true,
     IgnoreDrawingContents = true,
     IncludeOtherMembers = true,
@@ -125,6 +119,11 @@ public record TextOptions
   //}
   //#endregion
 
+  /// <summary>
+  /// Options important for getting text from paragraphs.
+  /// </summary>
+  public bool OuterText { get; set; }
+
   #region control characters
   /// <summary>
   /// Tag to mark a new line.
@@ -134,7 +133,7 @@ public record TextOptions
   /// <summary>
   /// Tag to mark a tab character.
   /// </summary>
-  public string TabTag { get; set; } = "\u0009"; // \h
+  public string TabChar { get; set; } = "\u0009"; // \h
 
   /// <summary>
   /// Tag to mark a line break.
@@ -155,9 +154,15 @@ public record TextOptions
   /// Tag to mark a carriage return.
   /// </summary>
   public string CarriageReturnTag { get; set; } = "\u000D"; // \r
+
   #endregion
 
   #region Plain text options
+
+  /// <summary>
+  /// Tag to mark a non-text object in plain text.
+  /// </summary>
+  public string ObjectReplacement { get; set; } = "\u001B";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
@@ -407,5 +412,10 @@ public record TextOptions
   /// Include other members of the element.
   /// </summary>
   public bool IncludeOtherMembers { get; set; }
+
+  /// <summary>
+  /// Ignore other members content.
+  /// </summary>
+  public bool IgnoreOtherMembersContent { get; set; }
 
 }

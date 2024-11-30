@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -29,7 +30,8 @@ public static class ParagraphTools
   /// <returns>found paragraph or null</returns>
   public static Paragraph? FindParagraph(DXPack.WordprocessingDocument document, string paraId)
   {
-    return document.MainDocumentPart?.Document?.Body?.Elements<Paragraph>().FirstOrDefault(p => p.ParagraphId?.Value == paraId);
+    return document.MainDocumentPart?.Document?.Body?.Elements<Paragraph>()
+      .FirstOrDefault(p => p.ParagraphId?.Value == paraId);
   }
 
   /// <summary>
@@ -48,6 +50,7 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
+  [DebuggerStepThrough]
   public static ParagraphProperties GetParagraphProperties(this Paragraph paragraph)
   {
     if (paragraph.ParagraphProperties == null)
@@ -178,10 +181,8 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static bool IsEmpty(this DXW.Paragraph? element)
+  public static bool IsEmpty(this DXW.Paragraph element)
   {
-    if (element == null)
-      return true;
     var members = element.GetMembers().ToList();
     foreach (var member in members)
     {
@@ -197,19 +198,17 @@ public static class ParagraphTools
   }
 
   /// <summary>
-  /// Checks if the paragraph contains tab characters.
+  /// Checks if the paragraph contains any tab char.
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static bool IsTabulated(this DXW.Paragraph? element)
+  public static bool IsTabulated(this DXW.Paragraph element)
   {
-    if (element == null)
-      return false;
     foreach (var e in element.GetMembers())
     {
       if (e is DXW.Run run)
       {
-        if (run.IsTabulated())
+        if (run.HasTabChar())
           return true;
       }
       else
@@ -234,8 +233,7 @@ public static class ParagraphTools
       {
         // ignore;
       }
-      else
-      if (firstElement is DXW.Run run)
+      else if (firstElement is DXW.Run run)
       {
         if (run.TrimStart())
         {
@@ -274,8 +272,7 @@ public static class ParagraphTools
       {
         // ignore;
       }
-      else
-      if (lastElement is DXW.Run run)
+      else if (lastElement is DXW.Run run)
       {
         if (run.TrimEnd())
         {
@@ -382,7 +379,8 @@ public static class ParagraphTools
   /// <param name="paragraph">Paragraph element to examine</param>
   /// <param name="defaultFontName">Default font name used when there is no runFonts element</param>
   /// <param name="defaultFontSize">Default font name used when there is no runFonts element</param>
-  public static TextProperties? GetTextProperties(this DXW.Paragraph paragraph, string? defaultFontName, int? defaultFontSize = null)
+  public static TextProperties? GetTextProperties
+    (this DXW.Paragraph paragraph, string? defaultFontName, int? defaultFontSize = null)
   {
     var defaultProperties = new TextProperties { FontName = defaultFontName, FontSize = defaultFontSize };
     return paragraph.GetTextProperties(defaultProperties);
@@ -445,19 +443,20 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="paragraph">Paragraph element to process</param>
   /// <param name="index">Char position number</param>
+  /// <param name="options">Options to extract text</param>
   /// <returns>Next, newly created paragraph (or null) if split is not available</returns>
-  public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index)
+  public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index, TextOptions options)
   {
-    var options = TextOptions.FullText;
-    if (index <= 0 || index >= paragraph.GetText(options).Length)
+    var aText = paragraph.GetText(options);
+    if (index <= 0 || index >= aText.Length)
       return null;
-    
+
     var textLength = 0;
     DXW.Paragraph? newParagraph = null;
     foreach (var member in paragraph.GetMembers().ToList())
     {
       var memberText = member.GetText(options);
-      if (memberText != null)
+      //if (memberText != null)
       {
         var memberTextLength = memberText.Length;
         var newTextLength = textLength + memberTextLength;
@@ -497,6 +496,119 @@ public static class ParagraphTools
     return newParagraph;
   }
 
+  ///// <summary>
+  ///// Split the paragraph at the specified index, which is the number of characters from the beginning of the paragraph.
+  ///// Returns the second part of the paragraph.
+  ///// Split is not possible if the index is at the beginning or end of the paragraph.
+  ///// Split is possible only in a run element.
+  ///// </summary>
+  ///// <param name="paragraph">Paragraph element to process</param>
+  ///// <param name="index">Char position number</param>
+  ///// <param name="options">Options to extract text</param>
+  ///// <returns>Next, newly created paragraph (or null) if split is not available</returns>
+  //public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, DX.OpenXmlElement index, TextOptions options)
+  //{
+  //  var aText = paragraph.GetText(options);
+  //  if (index <= 0 || index >= aText.Length)
+  //    return null;
+
+  //  var textLength = 0;
+  //  DXW.Paragraph? newParagraph = null;
+  //  foreach (var member in paragraph.GetMembers().ToList())
+  //  {
+  //    var memberText = member.GetText(options);
+  //    //if (memberText != null)
+  //    {
+  //      var memberTextLength = memberText.Length;
+  //      var newTextLength = textLength + memberTextLength;
+  //      if (index <= newTextLength)
+  //      {
+  //        if (index < newTextLength)
+  //        {
+  //          if (member is DXW.Run run)
+  //          {
+  //            DX.OpenXmlElement? newMember = run.SplitAt(index - textLength, options);
+  //            if (newMember != null)
+  //            {
+  //              newParagraph ??= NewParagraph(paragraph);
+  //              newParagraph.AppendChild(newMember);
+  //            }
+  //          }
+  //          else
+  //            return null;
+  //        }
+  //        var nextSibling = member.NextSibling();
+  //        while (nextSibling != null)
+  //        {
+  //          newParagraph ??= NewParagraph(paragraph);
+  //          var nextSibling1 = nextSibling.NextSibling();
+  //          nextSibling.Remove();
+  //          newParagraph.AppendChild(nextSibling);
+  //          nextSibling = nextSibling1;
+  //        }
+  //        break;
+  //      }
+  //      else
+  //      {
+  //        textLength = newTextLength;
+  //      }
+  //    }
+  //  }
+  //  return newParagraph;
+  //}
+
+  /// <summary>
+  /// Get the position of the paragraph-level or run-level element in the paragraph text.
+  /// </summary>
+  /// <param name="paragraph">Run element to process</param>
+  /// <param name="element">member element to search</param>
+  /// <param name="options">Options for text extraction</param>
+  /// <returns>Char position of the element (or -1 if not found)</returns>
+  public static int GetTextPosOfElement(this DXW.Paragraph paragraph, DX.OpenXmlElement element, TextOptions options)
+  {
+    var textLength = 0;
+    foreach (var member in paragraph.GetMembers())
+    {
+      var memberText = member.GetText(options);
+      if (member == element)
+        return textLength;
+      if (member is DXW.Run run)
+      {
+        var runLevelPos = run.GetTextPosOfElement(element, options);
+        if (runLevelPos != -1)
+          return textLength + runLevelPos;
+      }
+      textLength += memberText.Length;
+    }
+    return -1;
+  }
+
+  /// <summary>
+  /// Get the paragraph-level or run-level element at the given position the paragraph text.
+  /// If the position refers to the start or interior of the run element, the run-level element is returned.
+  /// </summary>
+  /// <param name="paragraph">Run element to process</param>
+  /// <param name="pos">position of element to search</param>
+  /// <param name="options">Options for text extraction</param>
+  /// <returns>Paragraph-level or run-level element found at position (or null if not found)</returns>
+  public static DX.OpenXmlElement? GetElementAtTextPos(this DXW.Paragraph paragraph, int pos, TextOptions options)
+  {
+    var textLength = 0;
+    foreach (var member in paragraph.GetMembers())
+    {
+      var memberText = member.GetText(options);
+      if (pos >= textLength && pos < textLength+ memberText.Length)
+      {
+        if (member is DXW.Run run)
+        {
+          return run.GetElementAtTextPos(pos-textLength, options);
+        }
+      }
+      textLength += memberText.Length;
+    }
+    return null;
+  }
+
   /// <summary>
   /// Create a new paragraph with the same properties as the source paragraph.
   /// </summary>
@@ -504,21 +616,11 @@ public static class ParagraphTools
   public static DXW.Paragraph NewParagraph(this DXW.Paragraph paragraph)
   {
     var newParagraph = new DXW.Paragraph();
+    newParagraph.ParagraphId = paragraph.ParagraphId;
     var properties = paragraph.ParagraphProperties;
     if (properties != null)
     {
       newParagraph.ParagraphProperties = (DXW.ParagraphProperties)properties.CloneNode(true);
-      //if (paragraph.PreviousSibling() is Paragraph priorParagraph)
-      //{
-      //  var priorSpacing = priorParagraph.ParagraphProperties?.SpacingBetweenLines;
-      //  if (priorSpacing != null)
-      //  {
-      //    var spacing = properties.GetSpacingBetweenLines();
-      //    spacing.After = priorSpacing.After;
-      //    spacing.AfterAutoSpacing = priorSpacing.AfterAutoSpacing;
-      //    spacing.AfterLines = priorSpacing.AfterLines;
-      //  }
-      //}
     }
     return newParagraph;
   }
@@ -599,17 +701,17 @@ public static class ParagraphTools
   public static bool BreakBefore(this DXW.Paragraph paragraph, string str)
   {
     var done = false;
-    var paraText = paragraph.GetInnerText(TextOptions.ParaText).Trim();
+    var paraText = paragraph.GetText(TextOptions.ParaText).Trim();
     var index = paraText.IndexOf(str);
     while (index > 0 && index < paraText.Length - str.Length)
     {
-      var newParagraph = paragraph.SplitAt(index);
+      var newParagraph = paragraph.SplitAt(index, TextOptions.ParaText);
       if (newParagraph == null)
         break;
       paragraph.TrimEnd();
       newParagraph.TrimStart();
-      paraText = paragraph.GetInnerText(TextOptions.ParaText);
-      var newText = newParagraph.GetInnerText(TextOptions.ParaText);
+      paraText = paragraph.GetText(TextOptions.ParaText);
+      var newText = newParagraph.GetText(TextOptions.ParaText);
       paragraph.InsertAfterSelf(newParagraph);
       Debug.WriteLine($"Break \"{paraText}\" & \"{newText}\"");
       done = true;
@@ -640,7 +742,8 @@ public static class ParagraphTools
   /// <param name="left"></param>
   /// <param name="right"></param>
   /// <param name="firstLine"></param>
-  public static void SetIndentation(this DXW.Paragraph paragraph, int? left = null, int? right = null, int? firstLine = null)
+  public static void SetIndentation
+    (this DXW.Paragraph paragraph, int? left = null, int? right = null, int? firstLine = null)
   {
     var indentation = paragraph.GetIndentation();
     if (left != null)
@@ -666,4 +769,49 @@ public static class ParagraphTools
     paragraph.GetParagraphProperties().SetHeight(value, rule);
   }
 
+  /// <summary>
+  /// Get the spacing before paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static (int? val, int? percent, bool? auto)? GetSpacingBefore(this Paragraph paragraph)
+  {
+    return paragraph.ParagraphProperties?.GetSpacingBefore();
+  }
+
+  /// <summary>
+  /// Get the spacing after paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static (int? val, int? percent, bool? auto)? GetSpacingAfter(this Paragraph paragraph)
+  {
+    return paragraph.ParagraphProperties?.GetSpacingAfter();
+  }
+
+  /// <summary>
+  /// Set the spacing before paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="val"></param>
+  /// <param name="percent"></param>
+  /// <param name="auto"></param>
+  /// <returns></returns>
+  public static void SetSpacingBefore(this Paragraph paragraph, int? val, int? percent, bool? auto)
+  {
+    paragraph.GetParagraphProperties().SetSpacingBefore(val, percent, auto);
+  }
+
+  /// <summary>
+  /// Set the spacing after paragraph as a triple (twips, percent of line, auto).
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="val"></param>
+  /// <param name="percent"></param>
+  /// <param name="auto"></param>
+  /// <returns></returns>
+  public static void SetSpacingAfter(this Paragraph paragraph, int? val, int? percent, bool? auto)
+  {
+    paragraph.GetParagraphProperties().SetSpacingAfter(val, percent, auto);
+  }
 }

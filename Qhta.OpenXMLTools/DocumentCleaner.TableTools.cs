@@ -155,6 +155,7 @@ public partial class DocumentCleaner
     int count = 0;
     foreach (var cell in row.GetCells().ToList())
     {
+      ConvertAnchorsToInline(cell);
       count += CreateTablesFromTabs(cell, true, true);
     }
     return count;
@@ -229,7 +230,7 @@ public partial class DocumentCleaner
       foreach (var member in members)
       {
         var text = member.GetText(TextOptions.FullText);
-        if (member is DXW.Run run && run.IsTabulated())
+        if (member is DXW.Run run && run.HasTabChar())
         {
           flatItems.AddRange(run.GetMembers());
         }
@@ -314,6 +315,8 @@ public partial class DocumentCleaner
         if (newParagraph != null)
           newParagraph.TrimEnd();
         newParagraph = (DXW.Paragraph)paragraph.CloneNode(true);
+        if (newParagraph.GetSpacingAfter()!.Value.val != 0)
+          Debug.Assert(true);
         cell.Append(newParagraph);
         parentRun = null;
         parentParagraph = null;
@@ -926,7 +929,7 @@ public partial class DocumentCleaner
       {
         var paragraph = array[i, j];
         if (paragraph != null)
-          foreach (var item in paragraph.GetMembers())
+          foreach (var item in paragraph.GetMembers().ToList())
           {
             item.Remove();
             rowParagraph.AppendChild(item);
@@ -1397,7 +1400,7 @@ public partial class DocumentCleaner
         {
           if (lastHyperlink.GetRel().IsEqual(firstHyperlink.GetRel()))
           {
-            lastHyperlink.SetText(lastHyperlink.GetText() + firstHyperlink.GetText());
+            lastHyperlink.SetText(lastHyperlink.GetText(TextOptions.PlainText) + firstHyperlink.GetText(TextOptions.PlainText));
             firstHyperlink.Remove();
           }
           foreach (var item in lowerPara.GetMembers().ToList())
@@ -1409,7 +1412,7 @@ public partial class DocumentCleaner
         }
         else
         {
-          var upperText = upperPara.GetInnerText(TextOptions.ParaText).TrimEnd();
+          var upperText = upperPara.GetText(TextOptions.ParaText).TrimEnd();
           if ((upperText.Contains(TextOptions.ParaText.DrawingSubstituteTag)))
           {
             lowerPara.Remove();
@@ -1417,7 +1420,7 @@ public partial class DocumentCleaner
           }
           else
           {
-            var lowerText = lowerPara.GetInnerText(TextOptions.ParaText);
+            var lowerText = lowerPara.GetText(TextOptions.ParaText);
             if (char.IsLower(lowerText.FirstOrDefault()))
             {
               if (!upperText.EndsWith(" ") && !lowerText.StartsWith(" "))
