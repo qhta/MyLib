@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
@@ -145,6 +147,7 @@ public partial class DocumentCleaner
   }
 
 
+  const string ArtBorderImages = "Specifies an art border using the following images:";
   /// <summary>
   /// If a row has cells with tabulated paragraphs then try to convert these paragraphs to tables.
   /// </summary>
@@ -155,12 +158,37 @@ public partial class DocumentCleaner
     int count = 0;
     foreach (var cell in row.GetCells().ToList())
     {
-      ConvertAnchorsToInline(cell);
-      count += CreateTablesFromTabs(cell, true, true);
+      var firstPara = cell.GetFirstChild<DXW.Paragraph>();
+      if (firstPara == null)
+        continue;
+      var firstParaText = firstPara.GetText(TextOptions.PlainText).NormalizeWhitespaces();
+      Debug.WriteLine($"\"{firstParaText}\"");
+      if (firstParaText.StartsWith(ArtBorderImages))
+      {
+        if (firstParaText.Length > ArtBorderImages.Length)
+        {
+          var secondPara = firstPara.SplitAt(ArtBorderImages.Length, TextOptions.ParaText);
+          if (secondPara != null)
+          {
+            firstPara.InsertAfterSelf(secondPara);
+          }
+        }
+        count += TryCreateTablesFromTabs(cell);
+      }
     }
     return count;
   }
 
+  /// <summary>
+  /// If a cell has cells with tabulated paragraphs then try to convert these paragraphs to tables.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <returns></returns>
+  private int TryCreateTablesFromTabs(DXW.TableCell cell)
+  {
+    ConvertAnchorsToInline(cell);
+    return CreateTablesFromTabs(cell, true, true);
+  }
 
   /// <summary>
   /// Try to create a table from a sequence of tabulated paragraphs.
@@ -224,9 +252,12 @@ public partial class DocumentCleaner
     List<Range> ranges = new();
     Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
-    if (members.Count > 0)
-    {
+    if (members.Count > 0)       //if (flatItems.Count > 0)
+    { 
       var flatItems = new List<DX.OpenXmlElement>();
+      paragraph.GetFlattenedMemberList();
+
+
       foreach (var member in members)
       {
         var text = member.GetText(TextOptions.FullText);
@@ -279,14 +310,14 @@ public partial class DocumentCleaner
           }
         }
       }
-    }
-    lastRange = ranges.Last();
-    if (lastRange != null)
-    {
-      if (lastRange.Start == null && treatTabSequenceAsSingleTab)
-        ranges.RemoveAt(ranges.Count - 1);
-      else if (lastRange.End == null)
-        lastRange.End = lastRange.Start;
+      lastRange = ranges.LastOrDefault();
+      if (lastRange != null)
+      {
+        if (lastRange.Start == null && treatTabSequenceAsSingleTab)
+          ranges.RemoveAt(ranges.Count - 1);
+        else if (lastRange.End == null)
+          lastRange.End = lastRange.Start;
+      }
     }
     return ranges;
   }
@@ -304,7 +335,7 @@ public partial class DocumentCleaner
       return;
 
     DXW.Run? newRun = null;
-    DXW.Paragraph? newParagraph = null; 
+    DXW.Paragraph? newParagraph = null;
 
     DXW.Run? parentRun = null;
     DXW.Paragraph? parentParagraph = null;

@@ -614,6 +614,13 @@
             <param name="row"></param>
             <returns>number of created tables</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateTablesFromTabs(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
+            <summary>
+            If a cell has cells with tabulated paragraphs then try to convert these paragraphs to tables.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateTableFromTabulatedParagraphs(System.Collections.Generic.List{DocumentFormat.OpenXml.Wordprocessing.Paragraph},System.Boolean,DocumentFormat.OpenXml.Wordprocessing.Table@)">
             <summary>
             Try to create a table from a sequence of tabulated paragraphs.

@@ -35,7 +35,7 @@ public partial class DocumentCleaner
       {
         var textOptions = TextOptions.ParaText;
         var targetParaText = targetParagraph.GetText(textOptions);
-        Debug.WriteLine($"Target Para is \"{targetParaText}\"");
+        //Debug.WriteLine($"Target Para is \"{targetParaText}\"");
         DXW.TabChar? tabChar = null;
         var targetParaMembers = targetParagraph.GetFlattenedMemberList();
         if (targetParaMembers.Any())
