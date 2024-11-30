@@ -817,4 +817,28 @@ public static class ParagraphTools
   {
     paragraph.GetParagraphProperties().SetSpacingAfter(val, percent, auto);
   }
-}
+
+  /// <summary>
+  /// Get the list of the flattened paragraph members.
+  /// Flattened means that the list contains run-level members instead of runs.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static List<DX.OpenXmlElement> GetFlattenedMemberList(this Paragraph paragraph)
+  {
+      var flattenedMembers = new List<DX.OpenXmlElement>();
+      var members = paragraph.GetMembers();
+      foreach (var member in members)
+      {
+        if (member is DXW.Run run)
+        {
+          flattenedMembers.AddRange(run.GetMembers());
+        }
+        else
+        {
+          flattenedMembers.Add(member);
+        }
+      }
+      return flattenedMembers;
+  }
+  }

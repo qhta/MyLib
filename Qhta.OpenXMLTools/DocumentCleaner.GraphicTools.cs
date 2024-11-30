@@ -34,21 +34,33 @@ public partial class DocumentCleaner
       if (targetParagraph != null)
       {
         var textOptions = TextOptions.ParaText;
-        while (targetParagraph.GetMembers().FirstOrDefault() is DXW.Run firstRun && firstRun.HasTabChar())
-        {
-
-          if (firstRun.GetMembers().FirstOrDefault() is DXW.TabChar firstTabChar)
-          {
-            firstTabChar.Remove();
-          }
-          if (!firstRun.GetMembers().Any())
-          {
-            firstRun.Remove();
-          }
-        }
         var targetParaText = targetParagraph.GetText(textOptions);
         Debug.WriteLine($"Target Para is \"{targetParaText}\"");
-        var tabChar = targetParagraph.Descendants<DXW.TabChar>().FirstOrDefault();
+        DXW.TabChar? tabChar = null;
+        var targetParaMembers = targetParagraph.GetFlattenedMemberList();
+        if (targetParaMembers.Any())
+        {
+          var firstMember = targetParaMembers.FirstOrDefault();
+          var firstTabCharIndex = -1;
+          if (firstMember is DXW.TabChar tabChar1)
+          {
+            tabChar = tabChar1;
+            firstTabCharIndex = 1;
+          }
+          if (firstMember is DXW.Drawing drawing1 && targetParaMembers.Count>=2 && targetParaMembers[1] is DXW.TabChar tabChar2)
+          {
+            tabChar = tabChar2;
+            firstTabCharIndex = 2;
+          }
+          for (int i = firstTabCharIndex + 1; i < targetParaMembers.Count; i++)
+          {
+            if (targetParaMembers[i] is DXW.TabChar tabChar3)
+            {
+              tabChar = tabChar3;
+              break;
+            }
+          }
+        }
         if (tabChar != null)
         {
           var newParagraph = targetParagraph.SplitAfter(tabChar);

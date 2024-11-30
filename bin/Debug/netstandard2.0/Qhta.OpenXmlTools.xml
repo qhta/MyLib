@@ -4446,6 +4446,14 @@
             <param name="auto"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetFlattenedMemberList(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the list of the flattened paragraph members.
+            Flattened means that the list contains run-level members instead of runs.
+            </summary>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
             <summary>
             Tools for working with OpenXml Wordprocessing plain text element.
