@@ -445,8 +445,10 @@ public static class ParagraphTools
   /// <param name="index">Char position number</param>
   /// <param name="options">Options to extract text</param>
   /// <returns>Next, newly created paragraph (or null if split is not available)</returns>
-  public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index, TextOptions options)
+  public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index, TextOptions? options = null)
   {
+    if (options==null)
+      options = TextOptions.ParaText;
     var aText = paragraph.GetText(options);
     if (index <= 0 || index >= aText.Length)
       return null;
@@ -723,7 +725,7 @@ public static class ParagraphTools
     var index = paraText.IndexOf(str);
     while (index > 0 && index < paraText.Length - str.Length)
     {
-      var newParagraph = paragraph.SplitAt(index, TextOptions.ParaText);
+      var newParagraph = paragraph.SplitAt(index);
       if (newParagraph == null)
         break;
       paragraph.TrimEnd();

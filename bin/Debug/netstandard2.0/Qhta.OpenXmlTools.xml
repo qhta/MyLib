@@ -534,6 +534,12 @@
             </summary>
             <param name="body"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinParagraphsWithNextInlines(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find inline elements that are at the beginning of the paragraph and join the paragraph with the previous one.
+            </summary>
+            <param name="body"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
@@ -1000,6 +1006,12 @@
             </summary>
             <param name="paragraph"></param>
             <param name="indent"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SplitParagraphsAfterColons(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find colons in the paragraph and split the paragraph after them.
+            </summary>
+            <param name="body"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentFormatter">
             <summary>

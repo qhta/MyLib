@@ -15,8 +15,8 @@ public partial class DocumentCleaner
     var anchors = body.Descendants<DXDW.Anchor>().ToList();
     foreach (var anchor in anchors)
     {
-      //if (anchor.AnchorId?.Value == "21BF9DE3")
-      //  Debug.Assert(true);
+      if (anchor.AnchorId?.Value == "233CC9AC")
+        Debug.Assert(true);
       var drawing = anchor.Parent as DXW.Drawing;
       if (drawing is null)
         continue;
@@ -48,6 +48,7 @@ public partial class DocumentCleaner
       var paragraph = drawingRun.Parent as DXW.Paragraph;
       if (paragraph is null)
         continue;
+      var paraText = paragraph.GetText(TextOptions.ParaText);
       var inline = anchor.ConvertAnchorToInline();
       drawing.Anchor = null;
       drawing.Inline = inline;
@@ -215,7 +216,7 @@ public partial class DocumentCleaner
   {
     foreach (var inline in body.Descendants<DXDW.Inline>().ToList())
     {
-      if (inline.AnchorId?.Value == "4D4EA4B9")
+      if (inline.AnchorId?.Value == "3182668E")
         Debug.Assert(true);
       var run = inline.GetParent<DXW.Run>();
       if (run is null)
@@ -235,6 +236,41 @@ public partial class DocumentCleaner
         Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
         paragraph.InsertAfterSelf(newParagraph);
       }
+    }
+  }
+
+  /// <summary>
+  /// Find inline elements that are at the beginning of the paragraph and join the paragraph with the previous one.
+  /// </summary>
+  /// <param name="body"></param>
+  public void JoinParagraphsWithNextInlines(DX.OpenXmlCompositeElement body)
+  {
+    foreach (var inline in body.Descendants<DXDW.Inline>().ToList())
+    {
+      if (inline.AnchorId?.Value == "01FCA715")
+        Debug.Assert(true);
+      var run = inline.GetParent<DXW.Run>();
+      if (run is null)
+        continue;
+      if (run.Parent is not DXW.Paragraph paragraph)
+        continue;
+      var previousSibling = run.PreviousSibling();
+      while (previousSibling != null && previousSibling is DXW.Run previousRun
+                                     && previousRun.GetText(TextOptions.PlainText).Trim() == string.Empty)
+      {
+        previousSibling = previousSibling.PreviousSibling();
+      }
+      if (previousSibling is not null && previousSibling is not DXW.ParagraphProperties)
+        continue;
+      if (run.NextSibling() == null
+          || run.NextSibling() is DXW.Run nextRun && nextRun.GetText(TextOptions.PlainText).Trim() == String.Empty)
+        continue;
+      var paragraphText = paragraph.GetText();
+      var priorParagraph = paragraph.PreviousSibling() as DXW.Paragraph;
+      if (priorParagraph == null)
+        continue;
+      Debug.WriteLine($"Join paragraphs \"{priorParagraph.GetText()}\" and \"{paragraph.GetText()}\"");
+      priorParagraph.JoinNextParagraph(paragraph);
     }
   }
 }

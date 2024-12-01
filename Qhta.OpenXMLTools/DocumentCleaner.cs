@@ -369,7 +369,7 @@ public partial class DocumentCleaner
           {
             // if the paragraph contains an XML tag but not in the beginning, split it to a new paragraph.
             //Console.WriteLine(text);
-            var newParagraph = paragraph.SplitAt(k,TextOptions.ParaText);
+            var newParagraph = paragraph.SplitAt(k);
             paragraph.TrimEnd();
             if (newParagraph != null)
             {

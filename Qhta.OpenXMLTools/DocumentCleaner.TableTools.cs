@@ -165,13 +165,16 @@ public partial class DocumentCleaner
       var firstPara = cell.GetFirstChild<DXW.Paragraph>();
       if (firstPara == null)
         continue;
+      SplitParagraphsAfterInlines(cell);
+      ConvertAnchorsToInline(cell);
+      ConvertFloatingPicturesToInline(cell);
       var firstParaText = firstPara.GetText(TextOptions.ParaText).NormalizeWhitespaces();
       Debug.WriteLine($"\"{firstParaText}\"");
       if (firstParaText.StartsWith(ArtBorderImages))
       {
         if (firstParaText.Length > ArtBorderImages.Length)
         {
-          var secondPara = firstPara.SplitAt(ArtBorderImages.Length, TextOptions.ParaText);
+          var secondPara = firstPara.SplitAt(ArtBorderImages.Length);
           if (secondPara != null)
           {
             firstPara.InsertAfterSelf(secondPara);
@@ -191,9 +194,9 @@ public partial class DocumentCleaner
   private int TryCreateTablesFromTabs(DXW.TableCell cell)
   {
     JoinDividedSentences(cell);
-    ConvertAnchorsToInline(cell);
-    ConvertFloatingPicturesToInline(cell);
-    SplitParagraphsAfterInlines(cell);
+    //ConvertAnchorsToInline(cell);
+    //ConvertFloatingPicturesToInline(cell);
+    //SplitParagraphsAfterInlines(cell);
     return CreateTablesFromTabs(cell, true, true);
   }
 
