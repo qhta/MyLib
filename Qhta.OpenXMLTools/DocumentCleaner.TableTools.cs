@@ -92,17 +92,21 @@ public partial class DocumentCleaner
   public int CreateTablesFromTabs(DX.OpenXmlCompositeElement body, bool convertSingleParagraphs, bool treatTabSequenceAsSingleTab)
   {
     var count = 0;
-    var members = body.GetMembers();
+    var members = body.GetMembers().ToList();
     foreach (var element in members)
     {
-      if (element is DXW.Paragraph paragraph)
+      if (element is DXW.Paragraph paragraph && paragraph.Parent!=null)
       {
+        //if (nextParagraph.ParagraphId?.Value == "2ED67EFB")
+        if (paragraph.GetText(TextOptions.ParaText).Contains("Image is blank"))
+          Debug.Assert(true);
         if (paragraph.IsTabulated())
         {
           var paragraphList = new List<DXW.Paragraph> { paragraph };
           var nextParagraph = paragraph.NextSibling() as DXW.Paragraph;
           while (nextParagraph != null && nextParagraph.IsTabulated())
           {
+
             paragraphList.Add(nextParagraph!);
             nextParagraph = nextParagraph!.NextSibling() as DXW.Paragraph;
           }
