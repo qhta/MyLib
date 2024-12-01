@@ -161,7 +161,7 @@ public partial class DocumentCleaner
       var firstPara = cell.GetFirstChild<DXW.Paragraph>();
       if (firstPara == null)
         continue;
-      var firstParaText = firstPara.GetText(TextOptions.PlainText).NormalizeWhitespaces();
+      var firstParaText = firstPara.GetText(TextOptions.ParaText).NormalizeWhitespaces();
       Debug.WriteLine($"\"{firstParaText}\"");
       if (firstParaText.StartsWith(ArtBorderImages))
       {
@@ -186,7 +186,9 @@ public partial class DocumentCleaner
   /// <returns></returns>
   private int TryCreateTablesFromTabs(DXW.TableCell cell)
   {
+    JoinDividedSentences(cell);
     ConvertAnchorsToInline(cell);
+    ConvertFloatingPicturesToInline(cell);
     return CreateTablesFromTabs(cell, true, true);
   }
 

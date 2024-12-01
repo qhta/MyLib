@@ -37,13 +37,14 @@ public static partial class GraphicTools
   }
 
   /// <summary>
-  /// Change a floating picture to an inline picture
+  /// Convert a floating picture to an inline picture
   /// </summary>
   /// <param name="picture"></param>
-  /// <returns></returns>
-  public static bool ChangeFloatingPictureToInline(this DXW.Picture picture)
+  /// <returns>Returns converted picture (or null if not converted)</returns>
+  public static DXW.Picture? ConvertFloatingPictureToInlinePicture(this DXW.Picture picture)
   {
-    var firstItem = picture.Elements().FirstOrDefault();
+    var newPicture = (DXW.Picture)picture.CloneNode(true);
+    var firstItem = newPicture.Elements().FirstOrDefault();
     if (firstItem != null)
     {
       if (firstItem is DXV.Group group)
@@ -73,11 +74,11 @@ public static partial class GraphicTools
           }
           ss.Add("mso-position-horizontal-relative:char;mso-position-vertical-relative:line");
           group.Style = string.Join(";", ss);
-          return true;
+          return newPicture;
         }
       }
     }
-    return false;
+    return null;
   }
 
 }

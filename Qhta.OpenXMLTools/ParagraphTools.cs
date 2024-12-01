@@ -688,10 +688,15 @@ public static class ParagraphTools
     var lastText = para.Elements<DXW.Run>().LastOrDefault()?.Elements<DXW.Text>().LastOrDefault();
     if (lastText != null)
       lastText.Text = lastText.Text + " ";
+    var added = false;
     foreach (var item in nextPara.GetMembers().ToList())
     {
       item.Remove();
-      para.AppendChild(item);
+      if (item is not DXW.TabChar || added)
+      {
+        para.AppendChild(item);
+        added = true;
+      }
     }
   }
 

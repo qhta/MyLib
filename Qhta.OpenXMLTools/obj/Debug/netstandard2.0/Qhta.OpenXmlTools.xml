@@ -492,13 +492,6 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedSentences(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Join sentences divided between adjacent paragraphs.
-            </summary>
-            <param name="element">Processed element</param>
-            <returns>number of joins</returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ResetHeadingsFormat(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Resets format of heading paragraphs.
@@ -521,24 +514,16 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.IsXmlExample(System.String)">
-            <summary>
-            Check if the text contains an XML example.
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeXmlParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32)">
-            <summary>
-            Normalize the whitespaces in the XML paragraph. Keep the spaces indentation.
-            Set paragraph indent to the specified value of characters (plus two).
-            </summary>
-            <param name="paragraph"></param>
-            <param name="indent"></param>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ConvertAnchorsToInline(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
-            Converts all Anchors to inline graphics
+            Converts all anchors to inline graphics
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ConvertFloatingPicturesToInline(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Converts floating pictures to inline graphics
             </summary>
             <param name="body"></param>
             <returns></returns>
@@ -987,6 +972,28 @@
             Set the cell margins to uniform values
             </summary>
             <param name="table"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedSentences(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Join sentences divided between adjacent paragraphs.
+            </summary>
+            <param name="body">Processed body</param>
+            <returns>number of joins</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.IsXmlExample(System.String)">
+            <summary>
+            Check if the text contains an XML example.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeXmlParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32)">
+            <summary>
+            Normalize the whitespaces in the XML paragraph. Keep the spaces indentation.
+            Set paragraph indent to the specified value of characters (plus two).
+            </summary>
+            <param name="paragraph"></param>
+            <param name="indent"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentFormatter">
             <summary>
@@ -1668,12 +1675,12 @@
             <param name="anchor"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GraphicTools.ChangeFloatingPictureToInline(DocumentFormat.OpenXml.Wordprocessing.Picture)">
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.ConvertFloatingPictureToInlinePicture(DocumentFormat.OpenXml.Wordprocessing.Picture)">
             <summary>
-            Change a floating picture to an inline picture
+            Convert a floating picture to an inline picture
             </summary>
             <param name="picture"></param>
-            <returns></returns>
+            <returns>Returns converted picture (or null if not converted)</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.GridColumnTools">
             <summary>
