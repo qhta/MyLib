@@ -125,6 +125,7 @@ public static class TypeTools
     typeof(DXM.Paragraph),
     typeof(DXW.ProofError),
     typeof(DXW.PermStart),
+    typeof(DXW.Run),
   ];
 
   /// <summary>

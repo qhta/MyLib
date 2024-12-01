@@ -506,31 +506,41 @@ public static class ParagraphTools
   public static DXW.Paragraph? SplitBefore(this DXW.Paragraph paragraph, DX.OpenXmlElement member)
   {
     DXW.Paragraph? newParagraph = null;
-    foreach (var item in paragraph.GetMembers())
+    var paraText = paragraph.GetText();
+    if (paraText == "Top:  <t/> <t/> <t/><drawing/> Bottom:  <t/> <t/><drawing/>")
+      Debug.Assert(true);
+    var isParagraphLevel = member.GetType().IsParagraphMemberType();
+    var members = paragraph.GetMembers().ToList();
+    foreach (var item in members)
     {
-      if (item == member)
+      if (isParagraphLevel)
       {
-        newParagraph ??= NewParagraph(paragraph);
-        item.Remove();
-        newParagraph.AppendChild(item);
-        var nextSibling = item.NextSibling();
-        while (nextSibling != null)
+        if (item == member)
         {
-          var nextSibling1 = nextSibling.NextSibling();
-          nextSibling.Remove();
-          newParagraph.AppendChild(nextSibling);
-          nextSibling = nextSibling1;
+          var nextSibling = item.NextSibling();
+          newParagraph ??= NewParagraph(paragraph);
+          item.Remove();
+          newParagraph.AppendChild(item);
+          while (nextSibling != null)
+          {
+            var nextSibling1 = nextSibling.NextSibling();
+            nextSibling.Remove();
+            newParagraph.AppendChild(nextSibling);
+            nextSibling = nextSibling1;
+          }
+          break;
         }
-        break;
       }
-      else if (item is DXW.Run run)
+      else 
+      if (item is DXW.Run run)
       {
+        var nextSibling = run.NextSibling();
+        var runText = run.GetText(TextOptions.ParaText);
         var newRun = run.SplitBefore(member);
         if (newRun != null)
         {
           newParagraph ??= NewParagraph(paragraph);
           newParagraph.AppendChild(newRun);
-          var nextSibling = run.NextSibling();
           while (nextSibling != null)
           {
             var nextSibling1 = nextSibling.NextSibling();

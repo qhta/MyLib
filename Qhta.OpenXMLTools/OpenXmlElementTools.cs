@@ -1730,7 +1730,7 @@ public static class OpenXmlElementTools
   /// <typeparam name="T"></typeparam>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static DX.OpenXmlCompositeElement? FindParent<T>(this DX.OpenXmlElement element) 
+  public static DX.OpenXmlCompositeElement? GetParent<T>(this DX.OpenXmlElement element) 
     where T : DX.OpenXmlCompositeElement
   {
     return element.Ancestors<T>().FirstOrDefault();

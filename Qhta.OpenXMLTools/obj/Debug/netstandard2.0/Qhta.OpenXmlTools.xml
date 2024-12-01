@@ -528,6 +528,12 @@
             <param name="body"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SplitParagraphsAfterInlines(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find inline elements in the paragraph and split the paragraph after them.
+            </summary>
+            <param name="body"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
@@ -1598,6 +1604,13 @@
             <param name="commentReference"></param>
             <param name="options"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Get the text of the paragraph using ParaText options.
+            </summary>
+            <param name="paragraph">source paragraph</param>
+            <returns>joined text</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
             <summary>
@@ -3665,7 +3678,7 @@
             <param name="otherElement"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.FindParent``1(DocumentFormat.OpenXml.OpenXmlElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetParent``1(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Get the first parent element of the specified type of the <c>OpenXmlElement</c>.
             </summary>

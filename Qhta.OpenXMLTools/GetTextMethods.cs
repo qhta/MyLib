@@ -350,6 +350,14 @@ public static class GetTextMethods
   }
 
   /// <summary>
+  /// Get the text of the paragraph using ParaText options.
+  /// </summary>
+  /// <param name="paragraph">source paragraph</param>
+  /// <returns>joined text</returns>
+  public static string GetText(this Paragraph paragraph)
+    => paragraph.GetTextOf(TextOptions.ParaText);
+
+  /// <summary>
   /// Get the text of the paragraph.
   /// </summary>
   /// <param name="paragraph">source paragraph</param>

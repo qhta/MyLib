@@ -1,4 +1,6 @@
-﻿namespace Qhta.OpenXmlTools;
+﻿using System;
+
+namespace Qhta.OpenXmlTools;
 
 public partial class DocumentCleaner
 {
@@ -13,8 +15,8 @@ public partial class DocumentCleaner
     var anchors = body.Descendants<DXDW.Anchor>().ToList();
     foreach (var anchor in anchors)
     {
-      if (anchor.AnchorId?.Value == "21BF9DE3")
-        Debug.Assert(true);
+      //if (anchor.AnchorId?.Value == "21BF9DE3")
+      //  Debug.Assert(true);
       var drawing = anchor.Parent as DXW.Drawing;
       if (drawing is null)
         continue;
@@ -205,4 +207,34 @@ public partial class DocumentCleaner
     return count;
   }
 
+  /// <summary>
+  /// Find inline elements in the paragraph and split the paragraph after them.
+  /// </summary>
+  /// <param name="body"></param>
+  public void SplitParagraphsAfterInlines(DX.OpenXmlCompositeElement body)
+  {
+    foreach (var inline in body.Descendants<DXDW.Inline>().ToList())
+    {
+      if (inline.AnchorId?.Value == "4D4EA4B9")
+        Debug.Assert(true);
+      var run = inline.GetParent<DXW.Run>();
+      if (run is null)
+        continue;
+      if (run.Parent is not DXW.Paragraph paragraph)
+        continue;
+      if (run.PreviousSibling() == null)
+        continue;
+      if (run.NextSibling() == null 
+          || run.NextSibling() is DXW.Run nextRun && nextRun.GetText(TextOptions.PlainText).Trim()==String.Empty)
+        continue;
+      var paragraphText = paragraph.GetText();
+      var newParagraph = paragraph.SplitAfter(run);
+      if (newParagraph != null)
+      {
+        newParagraph.TrimStart();
+        Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
+        paragraph.InsertAfterSelf(newParagraph);
+      }
+    }
+  }
 }

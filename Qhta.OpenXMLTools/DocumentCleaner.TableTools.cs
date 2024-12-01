@@ -189,6 +189,7 @@ public partial class DocumentCleaner
     JoinDividedSentences(cell);
     ConvertAnchorsToInline(cell);
     ConvertFloatingPicturesToInline(cell);
+    SplitParagraphsAfterInlines(cell);
     return CreateTablesFromTabs(cell, true, true);
   }
 
