@@ -15,7 +15,7 @@ public partial class DocumentCleaner
     var anchors = body.Descendants<DXDW.Anchor>().ToList();
     foreach (var anchor in anchors)
     {
-      if (anchor.AnchorId?.Value == "233CC9AC")
+      if (anchor.AnchorId?.Value == "0153D991")
         Debug.Assert(true);
       var drawing = anchor.Parent as DXW.Drawing;
       if (drawing is null)
@@ -48,20 +48,26 @@ public partial class DocumentCleaner
       var paragraph = drawingRun.Parent as DXW.Paragraph;
       if (paragraph is null)
         continue;
-      var paraText = paragraph.GetText(TextOptions.ParaText);
-      var inline = anchor.ConvertAnchorToInline();
-      drawing.Anchor = null;
-      drawing.Inline = inline;
+      var paraText = paragraph.GetText();
+
       var nextParagraph = paragraph.NextSibling() as DXW.Paragraph;
+      if (nextParagraph !=null)
+      {
+        var nextParaText = nextParagraph.GetText();
+        var nextNextParagraph = nextParagraph.NextSibling() as DXW.Paragraph;
+        var nextNextParaText = nextNextParagraph?.GetText();
+      }
       var targetParagraph = nextParagraph;
       if (nextParagraph is null)
       {
         targetParagraph = paragraph;
       }
+      var inline = anchor.ConvertAnchorToInline();
+      drawing.Anchor = null;
+      drawing.Inline = inline;
       if (targetParagraph != null)
       {
-        var textOptions = TextOptions.ParaText;
-        var targetParaText = targetParagraph.GetText(textOptions);
+        var targetParaText = targetParagraph.GetText();
         //Debug.WriteLine($"Target Para is \"{targetParaText}\"");
         DXW.TabChar? tabChar = null;
         var targetParaMembers = targetParagraph.GetFlattenedMemberList();

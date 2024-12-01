@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-
+using System.Xml;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -179,11 +179,11 @@ public static class ParagraphTools
   /// <summary>
   /// Checks if the paragraph is empty.
   /// </summary>
-  /// <param name="element"></param>
+  /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static bool IsEmpty(this DXW.Paragraph element)
+  public static bool IsEmpty(this DXW.Paragraph paragraph)
   {
-    var members = element.GetMembers().ToList();
+    var members = paragraph.GetMembers().ToList();
     foreach (var member in members)
     {
       if (member is DXW.Run run)
@@ -198,13 +198,24 @@ public static class ParagraphTools
   }
 
   /// <summary>
+  /// Checks if the paragraph is empty or whitespace.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <returns></returns>
+  public static bool IsEmptyOrWhiteSpace(this DXW.Paragraph paragraph)
+  {
+    var text = paragraph.GetText(TextOptions.ParaText with { TabChar = "\t"});
+    return string.IsNullOrWhiteSpace(text);
+  }
+
+  /// <summary>
   /// Checks if the paragraph contains any tab char.
   /// </summary>
-  /// <param name="element"></param>
+  /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static bool IsTabulated(this DXW.Paragraph element)
+  public static bool IsTabulated(this DXW.Paragraph paragraph)
   {
-    foreach (var e in element.GetMembers())
+    foreach (var e in paragraph.GetMembers())
     {
       if (e is DXW.Run run)
       {
@@ -495,6 +506,8 @@ public static class ParagraphTools
         }
       }
     }
+    if (newParagraph?.GetText()== " <t/>")
+      Debug.Assert(true);
     return newParagraph;
   }
 
@@ -554,6 +567,10 @@ public static class ParagraphTools
         }
       }
     }
+    if (newParagraph?.IsEmptyOrWhiteSpace() == true)
+      newParagraph = null;
+    if (newParagraph?.GetText() == " <t/>")
+      Debug.Assert(true);
     return newParagraph;
   }
 

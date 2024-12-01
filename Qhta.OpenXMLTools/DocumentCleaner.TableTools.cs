@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml.Spreadsheet;
+using System.Text;
 
 namespace Qhta.OpenXmlTools;
 
@@ -259,6 +259,8 @@ public partial class DocumentCleaner
   /// <returns></returns>
   private List<Range> EvaluateColumnRangesByTabs(DXW.Paragraph paragraph, bool treatTabSequenceAsSingleTab)
   {
+    if (paragraph.Descendants<DXDW.Inline>().Any(i=>i.AnchorId?.Value == "6BC2230A"))
+      Debug.Assert(true);
     List<Range> ranges = new();
     Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
@@ -329,6 +331,8 @@ public partial class DocumentCleaner
           lastRange.End = lastRange.Start;
       }
     }
+    //while (ranges.FirstOrDefault()?.GetText(TextOptions.PlainText) is { } str && String.IsNullOrWhiteSpace(str))
+    //  ranges.RemoveAt(0);
     return ranges;
   }
 

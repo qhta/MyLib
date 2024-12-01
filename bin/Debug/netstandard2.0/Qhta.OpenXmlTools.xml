@@ -4259,14 +4259,21 @@
             <summary>
             Checks if the paragraph is empty.
             </summary>
-            <param name="element"></param>
+            <param name="paragraph"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsEmptyOrWhiteSpace(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Checks if the paragraph is empty or whitespace.
+            </summary>
+            <param name="paragraph"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.IsTabulated(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Checks if the paragraph contains any tab char.
             </summary>
-            <param name="element"></param>
+            <param name="paragraph"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.TrimStart(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
