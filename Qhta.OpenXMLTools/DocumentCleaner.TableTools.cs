@@ -259,8 +259,7 @@ public partial class DocumentCleaner
   /// <returns></returns>
   private List<Range> EvaluateColumnRangesByTabs(DXW.Paragraph paragraph, bool treatTabSequenceAsSingleTab)
   {
-    if (paragraph.Descendants<DXDW.Inline>().Any(i=>i.AnchorId?.Value == "6BC2230A"))
-      Debug.Assert(true);
+
     List<Range> ranges = new();
     Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
@@ -283,6 +282,7 @@ public partial class DocumentCleaner
         }
       }
 
+      var rangesText = flatItems.GetText(TextOptions.ParaText);
       DX.OpenXmlElement? startElement = null;
       foreach (var item in flatItems)
       {
@@ -290,6 +290,17 @@ public partial class DocumentCleaner
         {
           if (startElement != null || !treatTabSequenceAsSingleTab)
           {
+            var lastRange1 = ranges.LastOrDefault();
+            {
+              if (lastRange1 != null)
+              {
+                var rangeText = lastRange1.GetText(TextOptions.ParaText);
+                if (String.IsNullOrWhiteSpace(rangeText))
+                {
+                  ranges.RemoveAt(ranges.Count - 1);
+                }
+              }
+            }
             ranges.Add(new Range(null, null));
           }
           startElement = null;

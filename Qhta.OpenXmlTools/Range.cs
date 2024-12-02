@@ -104,18 +104,8 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
     var element = Start;
     while (element != null)
     {
-      if (element is Paragraph paragraph)
-      {
-        sl.Add(options.ParagraphStartTag);
-        sl.Add(paragraph.GetText(options));
-        sl.Add(options.ParagraphEndTag);
-      }
-      if (element is Table table)
-      {
-        sl.Add(options.TableStartTag);
-        sl.Add(table.GetText(options));
-        sl.Add(options.TableEndTag);
-      }
+      var aText = element.GetText(options with { OuterText = true});
+      sl.Add(aText);
       if (element == End)
         break;
       element = element.NextSibling();
