@@ -15,6 +15,7 @@ public partial class DocumentCleaner
     var anchors = body.Descendants<DXDW.Anchor>().ToList();
     foreach (var anchor in anchors)
     {
+
       if (anchor.AnchorId?.Value == "0153D991")
         Debug.Assert(true);
       var drawing = anchor.Parent as DXW.Drawing;
@@ -58,7 +59,7 @@ public partial class DocumentCleaner
         var nextNextParaText = nextNextParagraph?.GetText();
       }
       var targetParagraph = nextParagraph;
-      if (nextParagraph is null)
+      if (nextParagraph is null /*|| nextParagraph.GetMembers().LastOrDefault() is DXW.Run lastRun1 && lastRun1.HasDrawing()*/)
       {
         targetParagraph = paragraph;
       }
@@ -94,13 +95,13 @@ public partial class DocumentCleaner
             }
           }
         }
-        if (tabChar != null)
-        {
-          var newParagraph = targetParagraph.SplitAfter(tabChar);
-          if (newParagraph != null)
-            targetParagraph.InsertAfterSelf(newParagraph);
+        //if (tabChar != null)
+        //{
+        //  var newParagraph = targetParagraph.SplitAfter(tabChar);
+        //  if (newParagraph != null)
+        //    targetParagraph.InsertAfterSelf(newParagraph);
 
-        }
+        //}
         var lastRun = targetParagraph.Elements<DXW.Run>().LastOrDefault();
         if (lastRun != null)
         {
@@ -229,10 +230,10 @@ public partial class DocumentCleaner
         continue;
       if (run.Parent is not DXW.Paragraph paragraph)
         continue;
-      if (run.PreviousSibling() == null)
+      if (run.PreviousSiblingMember() == null)
         continue;
       if (run.NextSibling() == null 
-          || run.NextSibling() is DXW.Run nextRun && nextRun.GetText(TextOptions.PlainText).Trim()==String.Empty)
+          || run.NextSibling() is DXW.Run nextRun && String.IsNullOrWhiteSpace(nextRun.GetText(TextOptions.PlainText)))
         continue;
       var paragraphText = paragraph.GetText();
       var newParagraph = paragraph.SplitAfter(run);
@@ -253,30 +254,78 @@ public partial class DocumentCleaner
   {
     foreach (var inline in body.Descendants<DXDW.Inline>().ToList())
     {
-      if (inline.AnchorId?.Value == "01FCA715")
-        Debug.Assert(true);
+      //if (inline.AnchorId?.Value != "01FCA715")
+      //  continue;
       var run = inline.GetParent<DXW.Run>();
       if (run is null)
         continue;
       if (run.Parent is not DXW.Paragraph paragraph)
         continue;
-      var previousSibling = run.PreviousSibling();
+      var previousSibling = run.PreviousSiblingMember();
       while (previousSibling != null && previousSibling is DXW.Run previousRun
-                                     && previousRun.GetText(TextOptions.PlainText).Trim() == string.Empty)
-      {
-        previousSibling = previousSibling.PreviousSibling();
-      }
+                                     && String.IsNullOrWhiteSpace(previousRun.GetText(TextOptions.PlainText)))
+        previousSibling = previousSibling.PreviousSiblingMember();
       if (previousSibling is not null && previousSibling is not DXW.ParagraphProperties)
         continue;
-      if (run.NextSibling() == null
-          || run.NextSibling() is DXW.Run nextRun && nextRun.GetText(TextOptions.PlainText).Trim() == String.Empty)
-        continue;
+      //if (run.NextSiblingMember() == null
+      //    || run.NextSiblingMember() is DXW.Run nextRun && String.IsNullOrWhiteSpace(nextRun.GetText(TextOptions.PlainText)))
+      //  continue;
       var paragraphText = paragraph.GetText();
-      var priorParagraph = paragraph.PreviousSibling() as DXW.Paragraph;
+      var priorParagraph = paragraph.PreviousSiblingMember() as DXW.Paragraph;
       if (priorParagraph == null)
         continue;
       Debug.WriteLine($"Join paragraphs \"{priorParagraph.GetText()}\" and \"{paragraph.GetText()}\"");
       priorParagraph.JoinNextParagraph(paragraph);
     }
+  }
+
+  /// <summary>
+  /// Find colons with no following drawings in the paragraphs and split the paragraphs after them.
+  /// </summary>
+  /// <param name="body"></param>
+  public int SplitParagraphsAfterColonsWithNoFollowingDrawings(DX.OpenXmlCompositeElement body)
+  {
+    var count = 0;
+    foreach (var paragraph in body.Descendants<DXW.Paragraph>().ToList())
+    {
+      if (TrySplitParagraphAfterColonWithNoFollowingDrawings(paragraph))
+        count++;
+    }
+    return count;
+  }
+
+  /// <summary>
+  /// Find colon with no following drawings in the paragraph and split the paragraph after them.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  public bool TrySplitParagraphAfterColonWithNoFollowingDrawings(DXW.Paragraph paragraph)
+  {
+    var paragraphText = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
+    if (paragraphText.Contains("Top Left and Top Right:"))
+      Debug.Assert(true);
+    var k = paragraphText.IndexOf(':');
+    if (k > 0 && k < paragraphText.Length - 1)
+    {
+      var leadText = paragraphText.Substring(0, k + 1).TrimEnd();
+      if (!leadText.Contains("["))
+      {
+        var tailText = paragraphText.Substring(k + 1);
+        tailText = tailText.TrimStart();
+        if (!String.IsNullOrWhiteSpace(tailText))
+        {
+          if (!tailText.StartsWith(TextOptions.ParaText.DrawingSubstituteTag))
+          {
+            var newParagraph = paragraph.SplitAt(k + 1, TextOptions.ParaTextWithAsciiTabs);
+            if (newParagraph != null)
+            {
+              newParagraph.TrimStart();
+              Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
+              paragraph.InsertAfterSelf(newParagraph);
+            }
+          }
+        }
+      }
+    }
+    return false;
   }
 }

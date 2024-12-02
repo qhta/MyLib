@@ -204,7 +204,7 @@ public static class ParagraphTools
   /// <returns></returns>
   public static bool IsEmptyOrWhiteSpace(this DXW.Paragraph paragraph)
   {
-    var text = paragraph.GetText(TextOptions.ParaText with { TabChar = "\t"});
+    var text = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
     return string.IsNullOrWhiteSpace(text);
   }
 
@@ -278,7 +278,7 @@ public static class ParagraphTools
     var lastElement = paragraph.GetMembers().LastOrDefault();
     while (lastElement != null)
     {
-      var previousElement = lastElement.PreviousSibling();
+      var previousElement = lastElement.PreviousSiblingMember();
       if (lastElement is DXW.BookmarkEnd || lastElement is DXW.BookmarkStart)
       {
         // ignore;

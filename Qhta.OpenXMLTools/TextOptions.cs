@@ -81,12 +81,19 @@ public record TextOptions
   };
 
   /// <summary>
+  /// Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
+  /// </summary>
+  public static TextOptions ParaTextWithAsciiTabs { get; set; } = ParaText with
+  {
+    TabChar = "\t",
+  };
+  /// <summary>
   /// Options to get full text. All non-text elements are replaced with tags.
   /// Html entities are used.
   /// </summary>
   public static TextOptions FullText { get; set; } = TabbedText with
   {
-    IncludeDrawings = true,  
+    IncludeDrawings = true,
     IncludeOtherMembers = true,
   };
 

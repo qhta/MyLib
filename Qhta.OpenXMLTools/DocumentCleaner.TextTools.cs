@@ -19,7 +19,7 @@ public partial class DocumentCleaner
       var font = para.GetFont(null);
       if (font == ExampleFont)
         continue;
-      var priorPara = para.PreviousSibling() as DXW.Paragraph;
+      var priorPara = para.PreviousSiblingMember() as DXW.Paragraph;
       var paraText = para.GetText(TextOptions.ParaText).Trim();
       if (paraText == "end note]" || paraText == "end example]" || paraText == "the results are:")
         continue;
@@ -83,29 +83,6 @@ public partial class DocumentCleaner
     var newLeft = hanging;
     indentation.SetLeft(newLeft);
     indentation.SetHanging(hanging);
-  }
-
-  /// <summary>
-  /// Find colons in the paragraph and split the paragraph after them.
-  /// </summary>
-  /// <param name="body"></param>
-  public void SplitParagraphsAfterColons(DX.OpenXmlCompositeElement body)
-  {
-    foreach (var paragraph in body.Descendants<DXW.Paragraph>().ToList())
-    {
-      var paragraphText = paragraph.GetText();
-      var k = paragraphText.IndexOf(':');
-      if (k>0 && k<paragraphText.Length-1 && paragraphText[k+1] is not '<' and not ' ')
-      {
-        var newParagraph = paragraph.SplitAt(k+1);
-        if (newParagraph != null)
-        {
-          newParagraph.TrimStart();
-          Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
-          paragraph.InsertAfterSelf(newParagraph);
-        }
-      }
-    }
   }
 
 }

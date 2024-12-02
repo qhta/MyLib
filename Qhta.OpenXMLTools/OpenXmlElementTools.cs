@@ -163,7 +163,35 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
-  /// Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
+  /// Gets the next sibling element of the OpenXmlElement which is a member.
+  /// Omits non-member elements.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static DX.OpenXmlElement? NextSiblingMember(this DX.OpenXmlElement element)
+  {
+    var sibling = element.NextSibling();
+    while (sibling != null && !sibling.IsMember())
+      sibling = sibling.NextSibling();
+    return sibling;
+  }
+
+  /// <summary>
+  /// Gets the previous sibling element of the OpenXmlElement which is a member.
+  /// Omits non-member elements.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static DX.OpenXmlElement? PreviousSiblingMember(this DX.OpenXmlElement element)
+  {
+    var sibling = element.PreviousSibling();
+    while (sibling != null && !sibling.IsMember())
+      sibling = sibling.PreviousSibling();
+    return sibling;
+  }
+
+  /// <summary>
+  /// Gets the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
   /// </summary>
   /// <param name="xmlElement">Checked source element</param>
   /// <returns>Returned document part or null</returns>

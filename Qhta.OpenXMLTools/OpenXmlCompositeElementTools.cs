@@ -33,7 +33,7 @@ public static class OpenXmlCompositeElementTools
         {
           if (tableCell.Elements<DXW.Paragraph>().Count() > 1)
           {
-            if (paragraph.PreviousSibling() is DXW.Table && paragraph.NextSibling() == null)
+            if (paragraph.PreviousSiblingMember() is DXW.Table && paragraph.NextSibling() == null)
             {
               Debug.Assert(true);
               // Do not remove the last paragraph in the table cell when the table is the previous sibling.

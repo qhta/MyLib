@@ -750,7 +750,7 @@ public static class NumberingExtraTools
     DX.OpenXmlElement? element = paragraph;
     while (element != null)
     {
-      element = element.PreviousSibling();
+      element = element.PreviousSiblingMember();
       if (element is DXW.Paragraph para)
       {
         if (para.IsNumbered())
@@ -825,7 +825,7 @@ public static class NumberingExtraTools
     DX.OpenXmlElement? element = paragraph;
     while (element != null)
     {
-      element = element.PreviousSibling();
+      element = element.PreviousSiblingMember();
       if (element is DXW.Paragraph para)
       {
         if (para.IsBulleted())

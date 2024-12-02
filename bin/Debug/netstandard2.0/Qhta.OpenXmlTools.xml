@@ -540,6 +540,18 @@
             </summary>
             <param name="body"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SplitParagraphsAfterColonsWithNoFollowingDrawings(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Find colons with no following drawings in the paragraphs and split the paragraphs after them.
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrySplitParagraphAfterColonWithNoFollowingDrawings(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Find colon with no following drawings in the paragraph and split the paragraph after them.
+            </summary>
+            <param name="paragraph"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
@@ -1006,12 +1018,6 @@
             </summary>
             <param name="paragraph"></param>
             <param name="indent"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SplitParagraphsAfterColons(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find colons in the paragraph and split the paragraph after them.
-            </summary>
-            <param name="body"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.DocumentFormatter">
             <summary>
@@ -3091,9 +3097,25 @@
             <param name="element"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.NextSiblingMember(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the next sibling element of the OpenXmlElement which is a member.
+            Omits non-member elements.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.PreviousSiblingMember(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the previous sibling element of the OpenXmlElement which is a member.
+            Omits non-member elements.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetDocumentPart(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
-            Get the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
+            Gets the document part of the OpenXmlElement. Works specially for Document, Header and Footer elements.
             </summary>
             <param name="xmlElement">Checked source element</param>
             <returns>Returned document part or null</returns>
@@ -11136,6 +11158,11 @@
             <summary>
             Options to get paragraph text. All non-text elements are replaced with tags.
             Html entities are used.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ParaTextWithAsciiTabs">
+            <summary>
+            Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.FullText">

@@ -24,12 +24,12 @@ public static class BookmarkTools
       return null;
     if (searchFromElement == null)
       searchFromElement = bookmarkEnd;
-    var element = searchFromElement.PreviousSibling();
+    var element = searchFromElement.PreviousSiblingMember();
     while (element!=null)
     {
       if (element is DXW.BookmarkStart bookmarkStart && bookmarkStart.Id?.Value == Id)
         return bookmarkStart;
-      element = element.PreviousSibling();
+      element = element.PreviousSiblingMember();
     }
     if (searchFromElement.Parent == null)
       return null;
@@ -53,12 +53,12 @@ public static class BookmarkTools
       return null;
     if (searchFromElement == null)
       searchFromElement = bookmarkStart;
-    var element = searchFromElement.PreviousSibling();
+    var element = searchFromElement.PreviousSiblingMember();
     while (element != null)
     {
       if (element is DXW.BookmarkEnd bookmarkEnd && bookmarkStart.Id?.Value == Id)
         return bookmarkEnd;
-      element = element.PreviousSibling();
+      element = element.PreviousSiblingMember();
     }
     if (searchFromElement.Parent == null)
       return null;

@@ -105,7 +105,7 @@ public static class HyperlinkTools
         hyperlink.Remove();
       }
       else
-      if (hyperlink.PreviousSibling() is DXW.Hyperlink previousHyperlink && previousHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
+      if (hyperlink.PreviousSiblingMember() is DXW.Hyperlink previousHyperlink && previousHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
       {
         var previousHyperlinkText = previousHyperlink.GetText(TextOptions.PlainText);
         previousHyperlinkText += hyperlinkTextTrimmed;

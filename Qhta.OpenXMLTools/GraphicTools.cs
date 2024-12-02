@@ -15,7 +15,7 @@ public static partial class GraphicTools
   {
     var inline = new DXDW.Inline();
 
-    inline.AnchorId = anchor.AnchorId;
+    inline.AnchorId = anchor.AnchorId?.Value;
     var anchorDocProperties = anchor.Elements<DXDW.DocProperties>().FirstOrDefault();
     if (anchorDocProperties != null) 
       inline.DocProperties = anchorDocProperties.CloneNode(true) as DXDW.DocProperties;

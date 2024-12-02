@@ -92,9 +92,9 @@ public partial class DocumentCleaner
             numberingParagraphProperties = defaultParagraphProperties;
           numberingParagraphProperties = (DXW.ParagraphProperties)numberingParagraphProperties.CloneNode(true);
 
-          var prevSibling = run.PreviousSibling();
-          if (prevSibling != null && prevSibling is not DXW.ParagraphProperties &&
-              !String.IsNullOrEmpty((prevSibling as DXW.Run)?.GetText(TextOptions.PlainText)))
+          var prevSibling = run.PreviousSiblingMember();
+          if (prevSibling != null &&
+              !String.IsNullOrWhiteSpace((prevSibling as DXW.Run)?.GetText(TextOptions.PlainText)))
           {
             var newParagraph = new DXW.Paragraph();
             newParagraph.ParagraphProperties = numberingParagraphProperties;

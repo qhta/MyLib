@@ -166,8 +166,10 @@ public partial class DocumentCleaner
       if (firstPara == null)
         continue;
       SplitParagraphsAfterInlines(cell);
+      SplitParagraphsAfterColonsWithNoFollowingDrawings(cell);
       ConvertAnchorsToInline(cell);
       ConvertFloatingPicturesToInline(cell);
+      JoinParagraphsWithNextInlines(cell);
       var firstParaText = firstPara.GetText(TextOptions.ParaText).NormalizeWhitespaces();
       Debug.WriteLine($"\"{firstParaText}\"");
       if (firstParaText.StartsWith(ArtBorderImages))
@@ -371,8 +373,6 @@ public partial class DocumentCleaner
         if (newParagraph != null)
           newParagraph.TrimEnd();
         newParagraph = (DXW.Paragraph)paragraph.CloneNode(true);
-        if (newParagraph.GetSpacingAfter()!.Value.val != 0)
-          Debug.Assert(true);
         cell.Append(newParagraph);
         parentRun = null;
         parentParagraph = null;
@@ -677,7 +677,7 @@ public partial class DocumentCleaner
   /// <returns></returns>
   public bool TryJoinEmptyCellWithPrevious(DXW.TableCell emptyCell)
   {
-    var previousCell = emptyCell.PreviousSibling() as DXW.TableCell;
+    var previousCell = emptyCell.PreviousSiblingMember() as DXW.TableCell;
     if (previousCell == null)
       return false;
     if (previousCell.IsEmpty())
@@ -724,7 +724,7 @@ public partial class DocumentCleaner
   /// <returns></returns>
   public bool TryJoinCellWithPrevious(DXW.TableCell emptyCell)
   {
-    var previousCell = emptyCell.PreviousSibling() as DXW.TableCell;
+    var previousCell = emptyCell.PreviousSiblingMember() as DXW.TableCell;
     if (previousCell == null)
       return false;
     if (previousCell.IsEmpty())

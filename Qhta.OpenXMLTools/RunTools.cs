@@ -403,7 +403,7 @@ public static class RunTools
     var lastElement = run.GetMembers().LastOrDefault();
     while (lastElement != null)
     {
-      var previousElement = lastElement.PreviousSibling();
+      var previousElement = lastElement.PreviousSiblingMember();
       if (lastElement is DXW.BookmarkEnd || lastElement is DXW.BookmarkStart)
       {
         // ignore
