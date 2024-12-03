@@ -73,10 +73,12 @@ public static class GetTextMethods
         return $"<{memberTag}/>";
     }
     else
-    {
+    if (options.IncludeOtherMembers)
+    {                    
       var memberTag = element.GetType().Name.ToLowerFirst();
       return $"<{memberTag}/>";
     }
+    return "";
   }
 
   private static string? DispatchGetText(DX.OpenXmlElement element, TextOptions options)

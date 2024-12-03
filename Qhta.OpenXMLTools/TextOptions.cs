@@ -47,7 +47,8 @@ public record TextOptions
     IncludeParagraphNumbering = false,
     IncludeDrawings = false,
     IgnoreTableContents = true,
-    IgnoreEmptyParagraphs = true
+    IgnoreEmptyParagraphs = true,
+    IncludeOtherMembers = false,
   };
 
   /// <summary>
