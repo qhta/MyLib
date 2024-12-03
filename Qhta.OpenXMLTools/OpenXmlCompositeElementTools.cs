@@ -23,8 +23,8 @@ public static class OpenXmlCompositeElementTools
   {
     var removed = 0;
     var emptyParagraphs = allDescendants
-      ? body.Descendants<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList()
-      : body.Elements<DXW.Paragraph>().Where(p => p.IsEmpty()).ToList();
+      ? body.Descendants<DXW.Paragraph>().Where(p => p.IsEmptyOrWhiteSpace()).ToList()
+      : body.Elements<DXW.Paragraph>().Where(p => p.IsEmptyOrWhiteSpace()).ToList();
     foreach (var paragraph in emptyParagraphs)
     {
       if (paragraph.Ancestors<DXW.Table>().Any())

@@ -773,9 +773,12 @@ public static class ParagraphTools
   public static void JoinNextParagraph(this DXW.Paragraph para, DXW.Paragraph nextPara)
   {
     var lastText = para.Elements<DXW.Run>().LastOrDefault()?.Elements<DXW.Text>().LastOrDefault();
-    if (lastText != null)
-      lastText.Text = lastText.Text + " ";
     var added = false;
+    if (lastText != null)
+    {
+      added = lastText.Text.EndsWith(":");
+      lastText.Text += " ";
+    }
     foreach (var item in nextPara.GetMembers().ToList())
     {
       item.Remove();

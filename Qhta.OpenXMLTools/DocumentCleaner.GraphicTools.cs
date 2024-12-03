@@ -16,7 +16,7 @@ public partial class DocumentCleaner
     foreach (var anchor in anchors)
     {
 
-      if (anchor.AnchorId?.Value == "0153D991")
+      if (anchor.AnchorId?.Value == "6DCB9116")
         Debug.Assert(true);
       var drawing = anchor.Parent as DXW.Drawing;
       if (drawing is null)
@@ -50,18 +50,17 @@ public partial class DocumentCleaner
       if (paragraph is null)
         continue;
       var paraText = paragraph.GetText();
-
+      var targetParagraph = paragraph;
       var nextParagraph = paragraph.NextSibling() as DXW.Paragraph;
-      if (nextParagraph !=null)
+      if (nextParagraph != null)
       {
+        targetParagraph = nextParagraph;
         var nextParaText = nextParagraph.GetText();
         var nextNextParagraph = nextParagraph.NextSibling() as DXW.Paragraph;
         var nextNextParaText = nextNextParagraph?.GetText();
-      }
-      var targetParagraph = nextParagraph;
-      if (nextParagraph is null /*|| nextParagraph.GetMembers().LastOrDefault() is DXW.Run lastRun1 && lastRun1.HasDrawing()*/)
-      {
-        targetParagraph = paragraph;
+        if (nextNextParaText != null)
+          if (nextParaText.EndsWith(TextOptions.ParaText.DrawingSubstituteTag) && !nextNextParaText.EndsWith(TextOptions.ParaText.DrawingSubstituteTag))
+            targetParagraph = nextNextParagraph;
       }
       var inline = anchor.ConvertAnchorToInline();
       drawing.Anchor = null;
@@ -69,39 +68,6 @@ public partial class DocumentCleaner
       if (targetParagraph != null)
       {
         var targetParaText = targetParagraph.GetText();
-        //Debug.WriteLine($"Target Para is \"{targetParaText}\"");
-        DXW.TabChar? tabChar = null;
-        var targetParaMembers = targetParagraph.GetFlattenedMemberList();
-        if (targetParaMembers.Any())
-        {
-          var firstMember = targetParaMembers.FirstOrDefault();
-          var firstTabCharIndex = -1;
-          if (firstMember is DXW.TabChar tabChar1)
-          {
-            tabChar = tabChar1;
-            firstTabCharIndex = 1;
-          }
-          if (firstMember is DXW.Drawing drawing1 && targetParaMembers.Count >= 2 && targetParaMembers[1] is DXW.TabChar tabChar2)
-          {
-            tabChar = tabChar2;
-            firstTabCharIndex = 2;
-          }
-          for (int i = firstTabCharIndex + 1; i < targetParaMembers.Count; i++)
-          {
-            if (targetParaMembers[i] is DXW.TabChar tabChar3)
-            {
-              tabChar = tabChar3;
-              break;
-            }
-          }
-        }
-        //if (tabChar != null)
-        //{
-        //  var newParagraph = targetParagraph.SplitAfter(tabChar);
-        //  if (newParagraph != null)
-        //    targetParagraph.InsertAfterSelf(newParagraph);
-
-        //}
         var lastRun = targetParagraph.Elements<DXW.Run>().LastOrDefault();
         if (lastRun != null)
         {
@@ -232,7 +198,7 @@ public partial class DocumentCleaner
         continue;
       if (run.PreviousSiblingMember() == null)
         continue;
-      if (run.NextSibling() == null 
+      if (run.NextSibling() == null
           || run.NextSibling() is DXW.Run nextRun && String.IsNullOrWhiteSpace(nextRun.GetText(TextOptions.PlainText)))
         continue;
       var paragraphText = paragraph.GetText();
@@ -276,6 +242,7 @@ public partial class DocumentCleaner
         continue;
       Debug.WriteLine($"Join paragraphs \"{priorParagraph.GetText()}\" and \"{paragraph.GetText()}\"");
       priorParagraph.JoinNextParagraph(paragraph);
+      Debug.WriteLine($"             to \"{priorParagraph.GetText()}\"");
     }
   }
 
@@ -313,7 +280,7 @@ public partial class DocumentCleaner
       {
         var tailText = paragraphText.Substring(k + 1);
         var tailText1 = tailText.TrimStart();
-        var tailLead = tailText1!="" ? tailText.Replace(tailText1, "") : "";
+        var tailLead = tailText1 != "" ? tailText.Replace(tailText1, "") : "";
         if (!String.IsNullOrWhiteSpace(tailText1))
         {
           if (tailText1.StartsWith(TextOptions.ParaText.DrawingSubstituteTag))

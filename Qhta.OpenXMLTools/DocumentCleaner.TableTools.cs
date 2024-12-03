@@ -98,7 +98,7 @@ public partial class DocumentCleaner
       if (element is DXW.Paragraph paragraph && paragraph.Parent != null)
       {
         //if (nextParagraph.ParagraphId?.Value == "2ED67EFB")
-        if (paragraph.GetText(TextOptions.ParaText).Contains("Image is blank"))
+        if (paragraph.GetText(TextOptions.ParaText).Contains("Botton"))
           Debug.Assert(true);
         if (paragraph.IsTabulated())
         {
@@ -150,8 +150,7 @@ public partial class DocumentCleaner
     return count;
   }
 
-
-  //const string ArtBorderImages = "Specifies an art border using the following images:";
+  private bool stop = false;
   /// <summary>
   /// If a row has cells with tabulated paragraphs then try to convert these paragraphs to tables.
   /// </summary>
@@ -172,16 +171,12 @@ public partial class DocumentCleaner
       JoinParagraphsWithNextInlines(cell);
       var firstParaText = firstPara.GetText(TextOptions.ParaText).NormalizeWhitespaces();
       Debug.WriteLine($"\"{firstParaText}\"");
-      //TrySplitParagraphAfterColonWithNoFollowingDrawings(firstPara);
-      //if (firstParaText.Length > ArtBorderImages.Length)
-      //{
-      //  var secondPara = firstPara.SplitAt(ArtBorderImages.Length);
-      //  if (secondPara != null)
-      //  {
-      //    firstPara.InsertAfterSelf(secondPara);
-      //  }
-      //}
+
       count += TryCreateTablesFromTabs(cell);
+      if (firstParaText.Contains("weavingBraid"))
+        stop = true;
+      else
+        stop = false;
     }
     return count;
   }
@@ -259,7 +254,9 @@ public partial class DocumentCleaner
   /// <returns></returns>
   private List<Range> EvaluateColumnRangesByTabs(DXW.Paragraph paragraph, bool treatTabSequenceAsSingleTab)
   {
-
+    var paraText = paragraph.GetText();
+    if (stop /*&& paraText.Contains("Top Left, Top Right, Bottom Left, and Botton RIght")*/)
+      Debug.WriteLine($"EvaluateColumnRangesByTabs: \"{paraText}\"");
     List<Range> ranges = new();
     Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
