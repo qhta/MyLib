@@ -7,6 +7,38 @@ public static partial class GraphicTools
 {
 
   /// <summary>
+  /// Get the anchor id of an inline
+  /// </summary>
+  /// <param name="inline"></param>
+  /// <returns></returns>
+  public static string? GetAnchorId (this DXDW.Inline inline)
+    => inline.AnchorId?.Value;
+
+  /// <summary>
+  /// Set the anchor id of an inline
+  /// </summary>
+  /// <param name="inline"></param>
+  /// <param name="value"></param>
+  public static void SetAnchorId(this DXDW.Inline inline, string? value)
+    => inline.AnchorId = value;
+
+  /// <summary>
+  /// Get the anchor id of an anchor
+  /// </summary>
+  /// <param name="anchor"></param>
+  /// <returns></returns>
+  public static string? GetAnchorId(this DXDW.Anchor anchor)
+    => anchor.AnchorId?.Value;
+
+  /// <summary>
+  /// Set the anchor id of an anchor
+  /// </summary>
+  /// <param name="anchor"></param>
+  /// <param name="value"></param>
+  public static void SetAnchorId(this DXDW.Anchor anchor, string? value)
+    => anchor.AnchorId = value;
+
+  /// <summary>
   /// Convert an Anchor to an Inline
   /// </summary>
   /// <param name="anchor"></param>

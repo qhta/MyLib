@@ -255,16 +255,16 @@ public static class TableTools
   /// <param name="table"></param>
   /// <param name="widthLimit"></param>
   /// <returns>true if limit was set, false if the current table width is less then limit</returns>
-  public static bool LimitWidth(this Table table, ulong widthLimit)
+  public static bool LimitWidth(this Table table, int widthLimit)
   {
     var tableGrid = table.GetTableGrid();
     var gridColumns = tableGrid.Elements<GridColumn>().ToList();
-    ulong totalWidth = 0;
+    int totalWidth = 0;
     foreach (var gridColumn in gridColumns)
     {
       var width = gridColumn.GetWidth();
       if (width != null)
-        totalWidth += (uint)width;
+        totalWidth += (int)width;
       else
         return false;
     }
@@ -280,7 +280,7 @@ public static class TableTools
       }
       else if (indent > 0)
       {
-        widthLimit -= (ulong)indent;
+        widthLimit -= (int)indent;
       }
     }
 

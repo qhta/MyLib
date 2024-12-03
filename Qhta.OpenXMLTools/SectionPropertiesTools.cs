@@ -1,5 +1,4 @@
 ﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Office2013.Word;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -62,13 +61,38 @@ public static class SectionPropertiesTools
   }
 
   /// <summary>
-  /// Get the first <c>PageSize</c> element from the section properties.
+  /// Get the page size from the section properties.
   /// </summary>
   /// <param name="sectionProperties"></param>
   /// <returns></returns>
-  public static PageSize? GetPageSize(this SectionProperties sectionProperties)
+  public static (int? Width, int? Height) GetPageSize(this SectionProperties sectionProperties)
   {
-    return sectionProperties.Elements<PageSize>().FirstOrDefault();
+    var pageSize = sectionProperties.Elements<PageSize>().FirstOrDefault();
+    return ((int?)pageSize?.Width?.Value, (int?)pageSize?.Height?.Value);
+  }
+
+  /// <summary>
+  /// Set the page size to the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="width"></param>
+  /// <param name="height"></param>
+  /// <returns></returns>
+  public static void SetPageSize(this SectionProperties sectionProperties, int? width, int? height)
+  {
+    var pageSize = sectionProperties.Elements<PageSize>().FirstOrDefault();
+    if (width == null && height == null)
+    {
+      if (pageSize != null)
+        pageSize.Remove();
+    }
+    if (pageSize== null)
+    {
+      pageSize = new PageSize();
+      sectionProperties.Append(pageSize);
+    }
+    pageSize.Width = (uint?)width;
+    pageSize.Height = (uint?)height;
   }
 
   /// <summary>
@@ -247,9 +271,9 @@ public static class SectionPropertiesTools
   /// </summary>
   /// <param name="sectionProperties"></param>
   /// <returns></returns>
-  public static FootnoteColumns? GetFootnoteColumns(this SectionProperties sectionProperties)
+  public static DXO13W.FootnoteColumns? GetFootnoteColumns(this SectionProperties sectionProperties)
   {
-    return sectionProperties.Elements<FootnoteColumns>().FirstOrDefault();
+    return sectionProperties.Elements<DXO13W.FootnoteColumns>().FirstOrDefault();
   }
 
   /// <summary>
@@ -482,7 +506,7 @@ public static class SectionPropertiesTools
   /// </summary>
   /// <param name="sectionProperties"></param>
   /// <param name="value"></param>
-  public static void SetFootnoteColumns(this SectionProperties sectionProperties, FootnoteColumns? value)
+  public static void SetFootnoteColumns(this SectionProperties sectionProperties, DXO13W.FootnoteColumns? value)
   {
     sectionProperties.SetFirstElement(value);
 
@@ -512,5 +536,253 @@ public static class SectionPropertiesTools
       parent = parent.Parent;
     var element = parent as Body;
     return element;
+  }
+
+
+  /// <summary>
+  /// Get the internal page width of the section properties.
+  /// Internal page width is the width of the page without the margins.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetInternalPageWidth(this SectionProperties sectionProperties)
+  {
+    var pageSize = sectionProperties.Elements<DXW.PageSize>().FirstOrDefault();
+    if (pageSize == null)
+      return null;
+    var width = (int?)pageSize.Width?.Value;
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin != null)
+    {
+      width -= (int?)pageMargin.Left?.Value;
+      width -= (int?)pageMargin.Right?.Value;
+      width -= (int?)pageMargin.Gutter?.Value;
+    }
+    return width;
+  }
+
+  /// <summary>
+  /// Get the page width of the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetPageWidth(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageSize>().FirstOrDefault()?.Width?.Value;
+  }
+
+  /// <summary>
+  /// Set the page width to the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetPageWidth(this SectionProperties sectionProperties, int? value)
+  {
+    var pageSize = sectionProperties.Elements<PageSize>().FirstOrDefault();
+    if (pageSize == null)
+    {
+      pageSize = new PageSize();
+    }
+    pageSize.Width = (uint?)value;
+  }
+
+  /// <summary>
+  /// Get the page height of the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetPageHeight(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageSize>().FirstOrDefault()?.Height?.Value;
+  }
+
+  /// <summary>
+  /// Set the page height to the section properties.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetHeight(this SectionProperties sectionProperties, uint? value)
+  {
+    var pageSize = sectionProperties.Elements<PageSize>().FirstOrDefault();
+    if (pageSize == null)
+    {
+      pageSize = new PageSize();
+    }
+    pageSize.Width = (uint?)value;
+  }
+
+  /// <summary>
+  /// Get the page left margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetLeftPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Left?.Value;
+  }
+
+  /// <summary>
+  /// Set the  page left margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetLeftPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Left = (uint?)value;
+  }
+
+  /// <summary>
+  /// Get the  page right margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetRightPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Right?.Value;
+  }
+
+  /// <summary>
+  /// Set the page right margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetRightPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Right = (uint?)value;
+  }
+
+  /// <summary>
+  /// Get the page top margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetTopPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Top?.Value;
+  }
+
+  /// <summary>
+  /// Set the page top margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetTopPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Top = (int?)value;
+  }
+
+  /// <summary>
+  /// Get the page bottom margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetBottomPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Bottom?.Value;
+  }
+
+  /// <summary>
+  /// Set the page bottom margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetBottomPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Bottom = (int?)value;
+  }
+
+  /// <summary>
+  /// Get the page header margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetHeaderPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Header?.Value;
+  }
+
+  /// <summary>
+  /// Set the page header margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetHeaderPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Header = (uint?)value;
+  }
+
+  /// <summary>
+  /// Get the page footer margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetFooterPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Footer?.Value;
+  }
+
+  /// <summary>
+  /// Set the page footer margin.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetFooterPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Footer = (uint?)value;
+  }
+
+  /// <summary>
+  /// Get the page gutter.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <returns></returns>
+  public static int? GetGutterPageMargin(this SectionProperties sectionProperties)
+  {
+    return (int?)sectionProperties.Elements<DXW.PageMargin>().FirstOrDefault()?.Gutter?.Value;
+  }
+
+  /// <summary>
+  /// Set the page gutter.
+  /// </summary>
+  /// <param name="sectionProperties"></param>
+  /// <param name="value"></param>
+  public static void SetGutterPageMargin(this SectionProperties sectionProperties, int? value)
+  {
+    var pageMargin = sectionProperties.Elements<PageMargin>().FirstOrDefault();
+    if (pageMargin == null)
+    {
+      pageMargin = new PageMargin();
+    }
+    pageMargin.Gutter = (uint?)value;
   }
 }

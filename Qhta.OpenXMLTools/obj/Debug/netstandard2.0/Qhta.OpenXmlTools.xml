@@ -1699,6 +1699,34 @@
             Tools for working with graphics
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.GetAnchorId(DocumentFormat.OpenXml.Drawing.Wordprocessing.Inline)">
+            <summary>
+            Get the anchor id of an inline
+            </summary>
+            <param name="inline"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.SetAnchorId(DocumentFormat.OpenXml.Drawing.Wordprocessing.Inline,System.String)">
+            <summary>
+            Set the anchor id of an inline
+            </summary>
+            <param name="inline"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.GetAnchorId(DocumentFormat.OpenXml.Drawing.Wordprocessing.Anchor)">
+            <summary>
+            Get the anchor id of an anchor
+            </summary>
+            <param name="anchor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GraphicTools.SetAnchorId(DocumentFormat.OpenXml.Drawing.Wordprocessing.Anchor,System.String)">
+            <summary>
+            Set the anchor id of an anchor
+            </summary>
+            <param name="anchor"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GraphicTools.ConvertAnchorToInline(DocumentFormat.OpenXml.Drawing.Wordprocessing.Anchor)">
             <summary>
             Convert an Anchor to an Inline
@@ -5799,9 +5827,18 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageSize(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
             <summary>
-            Get the first <c>PageSize</c> element from the section properties.
+            Get the page size from the section properties.
             </summary>
             <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPageSize(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Set the page size to the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="width"></param>
+            <param name="height"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
@@ -6104,6 +6141,140 @@
             </summary>
             <param name="sectionProperties"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetInternalPageWidth(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the internal page width of the section properties.
+            Internal page width is the width of the page without the margins.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageWidth(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page width of the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetPageWidth(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page width to the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetPageHeight(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page height of the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetHeight(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.UInt32})">
+            <summary>
+            Set the page height to the section properties.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetLeftPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page left margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetLeftPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the  page left margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetRightPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the  page right margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetRightPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page right margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetTopPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page top margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetTopPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page top margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetBottomPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page bottom margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetBottomPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page bottom margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetHeaderPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page header margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetHeaderPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page header margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetFooterPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page footer margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetFooterPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page footer margin.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.GetGutterPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties)">
+            <summary>
+            Get the page gutter.
+            </summary>
+            <param name="sectionProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SectionPropertiesTools.SetGutterPageMargin(DocumentFormat.OpenXml.Wordprocessing.SectionProperties,System.Nullable{System.Int32})">
+            <summary>
+            Set the page gutter.
+            </summary>
+            <param name="sectionProperties"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.SectionRange">
             <summary>
@@ -10938,7 +11109,7 @@
             <param name="table"></param>
             <returns>true if indent was less than zero</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TableTools.LimitWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.UInt64)">
+        <member name="M:Qhta.OpenXmlTools.TableTools.LimitWidth(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32)">
             <summary>
             Try to limit table width.
             </summary>

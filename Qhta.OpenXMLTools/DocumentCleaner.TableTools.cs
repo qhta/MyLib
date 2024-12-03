@@ -97,9 +97,6 @@ public partial class DocumentCleaner
     {
       if (element is DXW.Paragraph paragraph && paragraph.Parent != null)
       {
-        //if (nextParagraph.ParagraphId?.Value == "2ED67EFB")
-        if (paragraph.GetText(TextOptions.ParaText).Contains("Botton"))
-          Debug.Assert(true);
         if (paragraph.IsTabulated())
         {
           var paragraphList = new List<DXW.Paragraph> { paragraph };
@@ -554,14 +551,10 @@ public partial class DocumentCleaner
         var sectionProperties = table.GetSectionProperties();
         if (sectionProperties != null)
         {
-          var pageWidth = sectionProperties.GetPageSize()?.Width?.Value;
+          var pageWidth = sectionProperties.GetInternalPageWidth();
           if (pageWidth != null)
           {
-            var leftMargin = sectionProperties.GetPageMargin()?.Left?.Value ?? 0;
-            var rightMargin = sectionProperties.GetPageMargin()?.Right?.Value ?? 0;
-            pageWidth -= leftMargin;
-            pageWidth -= rightMargin;
-            table.SetWidth((int?)pageWidth);
+            table.SetWidth(pageWidth);
           }
         }
       }
@@ -1638,13 +1631,10 @@ public partial class DocumentCleaner
     var sectionProperties = table.GetSectionProperties();
     if (sectionProperties != null)
     {
-      var widthLimit = sectionProperties.GetPageSize()?.Width?.Value ?? 0;
-      widthLimit -= sectionProperties.GetPageMargin()?.Left?.Value ?? 0;
-      widthLimit -= sectionProperties.GetPageMargin()?.Right?.Value ?? 0;
-
-      if (widthLimit > 0)
+      var widthLimit = sectionProperties.GetInternalPageWidth();
+      if (widthLimit != null)
       {
-        if (table.LimitWidth((uint)widthLimit))
+        if (table.LimitWidth((int)widthLimit))
           done = true;
       }
     }

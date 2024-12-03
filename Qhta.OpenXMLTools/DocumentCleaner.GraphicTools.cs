@@ -267,11 +267,7 @@ public partial class DocumentCleaner
   /// <param name="paragraph"></param>
   public bool TrySplitParagraphAfterColonWithNoFollowingDrawings(DXW.Paragraph paragraph)
   {
-    if (paragraph.Descendants<DXDW.Inline>().FirstOrDefault()?.AnchorId?.Value == "5FDDEA05")
-      Debug.Assert(true);
     var paragraphText = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
-    if (paragraphText.Contains("Bottom Left:    Bottom Right:   "))
-      Debug.Assert(true);
     var k = paragraphText.IndexOf(':');
     if (k > 0 && k < paragraphText.Length - 1)
     {
