@@ -59,7 +59,7 @@ public record TextOptions
   /// </summary>
   public static readonly TextOptions TabbedText = new TextOptions()
   {
-    UseHtmlEntities = true,
+    //UseHtmlEntities = true,
     UseHtmlParagraphs = true,
     ParagraphSeparator = "<p/>",
     BreakLineTag = "<br/>",
