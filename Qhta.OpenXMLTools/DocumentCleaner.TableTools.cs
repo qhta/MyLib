@@ -95,7 +95,7 @@ public partial class DocumentCleaner
     var members = body.GetMembers().ToList();
     foreach (var element in members)
     {
-      if (element is DXW.Paragraph paragraph && paragraph.Parent!=null)
+      if (element is DXW.Paragraph paragraph && paragraph.Parent != null)
       {
         //if (nextParagraph.ParagraphId?.Value == "2ED67EFB")
         if (paragraph.GetText(TextOptions.ParaText).Contains("Image is blank"))
@@ -151,7 +151,7 @@ public partial class DocumentCleaner
   }
 
 
-  const string ArtBorderImages = "Specifies an art border using the following images:";
+  //const string ArtBorderImages = "Specifies an art border using the following images:";
   /// <summary>
   /// If a row has cells with tabulated paragraphs then try to convert these paragraphs to tables.
   /// </summary>
@@ -172,18 +172,16 @@ public partial class DocumentCleaner
       JoinParagraphsWithNextInlines(cell);
       var firstParaText = firstPara.GetText(TextOptions.ParaText).NormalizeWhitespaces();
       Debug.WriteLine($"\"{firstParaText}\"");
-      if (firstParaText.StartsWith(ArtBorderImages))
-      {
-        if (firstParaText.Length > ArtBorderImages.Length)
-        {
-          var secondPara = firstPara.SplitAt(ArtBorderImages.Length);
-          if (secondPara != null)
-          {
-            firstPara.InsertAfterSelf(secondPara);
-          }
-        }
-        count += TryCreateTablesFromTabs(cell);
-      }
+      //TrySplitParagraphAfterColonWithNoFollowingDrawings(firstPara);
+      //if (firstParaText.Length > ArtBorderImages.Length)
+      //{
+      //  var secondPara = firstPara.SplitAt(ArtBorderImages.Length);
+      //  if (secondPara != null)
+      //  {
+      //    firstPara.InsertAfterSelf(secondPara);
+      //  }
+      //}
+      count += TryCreateTablesFromTabs(cell);
     }
     return count;
   }
@@ -266,7 +264,7 @@ public partial class DocumentCleaner
     Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
     if (members.Count > 0)       //if (flatItems.Count > 0)
-    { 
+    {
       var flatItems = new List<DX.OpenXmlElement>();
       paragraph.GetFlattenedMemberList();
 

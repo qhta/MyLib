@@ -286,7 +286,7 @@ public partial class DocumentCleaner
   public int SplitParagraphsAfterColonsWithNoFollowingDrawings(DX.OpenXmlCompositeElement body)
   {
     var count = 0;
-    foreach (var paragraph in body.Descendants<DXW.Paragraph>().ToList())
+    foreach (var paragraph in body.Descendants<DXW.Paragraph>())
     {
       if (TrySplitParagraphAfterColonWithNoFollowingDrawings(paragraph))
         count++;
@@ -300,8 +300,10 @@ public partial class DocumentCleaner
   /// <param name="paragraph"></param>
   public bool TrySplitParagraphAfterColonWithNoFollowingDrawings(DXW.Paragraph paragraph)
   {
+    if (paragraph.Descendants<DXDW.Inline>().FirstOrDefault()?.AnchorId?.Value == "5FDDEA05")
+      Debug.Assert(true);
     var paragraphText = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
-    if (paragraphText.Contains("Top Left and Top Right:"))
+    if (paragraphText.Contains("Bottom Left:    Bottom Right:   "))
       Debug.Assert(true);
     var k = paragraphText.IndexOf(':');
     if (k > 0 && k < paragraphText.Length - 1)
@@ -310,10 +312,20 @@ public partial class DocumentCleaner
       if (!leadText.Contains("["))
       {
         var tailText = paragraphText.Substring(k + 1);
-        tailText = tailText.TrimStart();
-        if (!String.IsNullOrWhiteSpace(tailText))
+        var tailText1 = tailText.TrimStart();
+        var tailLead = tailText1!="" ? tailText.Replace(tailText1, "") : "";
+        if (!String.IsNullOrWhiteSpace(tailText1))
         {
-          if (!tailText.StartsWith(TextOptions.ParaText.DrawingSubstituteTag))
+          if (tailText1.StartsWith(TextOptions.ParaText.DrawingSubstituteTag))
+          {
+            if (!tailLead.Contains("\t"))
+            {
+              paragraph.InsertAt(k + 1, new DXW.TabChar(), TextOptions.ParaTextWithAsciiTabs);
+              var paraText = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
+              Debug.WriteLine($"Tab inserted to \"{paragraph.GetText()}\"");
+            }
+          }
+          else
           {
             var newParagraph = paragraph.SplitAt(k + 1, TextOptions.ParaTextWithAsciiTabs);
             if (newParagraph != null)

@@ -4418,6 +4418,16 @@
             <param name="options">Options for text extraction</param>
             <returns>Paragraph-level or run-level element found at position (or null if not found)</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.InsertAt(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32,DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Insert a child to the paragraph at the specified index, which is the number of characters from the beginning of the paragraph.
+            </summary>
+            <param name="paragraph">Paragraph element to process</param>
+            <param name="index">Char position number</param>
+            <param name="child">new child member</param>
+            <param name="options">Options to extract text</param>
+            <returns>Next, newly created paragraph (or null if split is not available)</returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.NewParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Create a new paragraph with the same properties as the source paragraph.
@@ -5668,6 +5678,16 @@
             </summary>
             <param name="run">Run element to process</param>
             <param name="index">Char position number</param>
+            <param name="options">Options for text extraction</param>
+            <returns>Next, newly created run (or null if split is not available)</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.InsertAt(DocumentFormat.OpenXml.Wordprocessing.Run,System.Int32,DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Insert a child to the run at the specified index, which is the number of characters from the beginning of the run.
+            </summary>
+            <param name="run">Run element to process</param>
+            <param name="index">Char position number</param>
+            <param name="child">New child member</param>
             <param name="options">Options for text extraction</param>
             <returns>Next, newly created run (or null if split is not available)</returns>
         </member>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Xml;
+
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -458,7 +459,7 @@ public static class ParagraphTools
   /// <returns>Next, newly created paragraph (or null if split is not available)</returns>
   public static DXW.Paragraph? SplitAt(this DXW.Paragraph paragraph, int index, TextOptions? options = null)
   {
-    if (options==null)
+    if (options == null)
       options = TextOptions.ParaText;
     var aText = paragraph.GetText(options);
     if (index <= 0 || index >= aText.Length)
@@ -506,7 +507,7 @@ public static class ParagraphTools
         }
       }
     }
-    if (newParagraph?.GetText()== " <t/>")
+    if (newParagraph?.GetText() == " <t/>")
       Debug.Assert(true);
     return newParagraph;
   }
@@ -546,7 +547,7 @@ public static class ParagraphTools
           break;
         }
       }
-      else 
+      else
       if (item is DXW.Run run)
       {
         var nextSibling = run.NextSibling();
@@ -642,6 +643,63 @@ public static class ParagraphTools
   }
 
   /// <summary>
+  /// Insert a child to the paragraph at the specified index, which is the number of characters from the beginning of the paragraph.
+  /// </summary>
+  /// <param name="paragraph">Paragraph element to process</param>
+  /// <param name="index">Char position number</param>
+  /// <param name="child">new child member</param>
+  /// <param name="options">Options to extract text</param>
+  /// <returns>Next, newly created paragraph (or null if split is not available)</returns>
+  public static void InsertAt(this DXW.Paragraph paragraph, int index, DX.OpenXmlElement child, TextOptions? options = null)
+  {
+    if (options == null)
+      options = TextOptions.ParaText;
+    var aText = paragraph.GetText(options);
+    if (index <= 0 || index >= aText.Length)
+      return;
+
+    var textLength = 0;
+    DXW.Paragraph? newParagraph = null;
+    foreach (var member in paragraph.GetMembers().ToList())
+    {
+      var memberText = member.GetText(options);
+      //if (memberText != null)
+      {
+        var memberTextLength = memberText.Length;
+        var newTextLength = textLength + memberTextLength;
+        if (index <= newTextLength)
+        {
+          if (index < newTextLength)
+          {
+            if (member is DXW.Run run)
+            {
+              run.InsertAt(index - textLength, child, options);
+              return;
+            }
+          }
+          if (child.GetType().IsRunMemberType())
+            child = new DXW.Run(child);
+          member.InsertAfterSelf(child);
+          var nextSibling = member.NextSibling();
+          while (nextSibling != null)
+          {
+            newParagraph ??= NewParagraph(paragraph);
+            var nextSibling1 = nextSibling.NextSibling();
+            nextSibling.Remove();
+            newParagraph.AppendChild(nextSibling);
+            nextSibling = nextSibling1;
+          }
+          break;
+        }
+        else
+        {
+          textLength = newTextLength;
+        }
+      }
+    }
+  }
+
+  /// <summary>
   /// Create a new paragraph with the same properties as the source paragraph.
   /// </summary>
   /// <param name="paragraph">Paragraph element to process</param>
@@ -721,7 +779,22 @@ public static class ParagraphTools
     foreach (var item in nextPara.GetMembers().ToList())
     {
       item.Remove();
-      if (item is not DXW.TabChar || added)
+      if (!added && item is DXW.Run run && run.HasTabChar())
+      {
+        foreach (var runMember in run.GetMembers().ToList())
+        {
+          if (runMember is DXW.TabChar)
+            runMember.Remove();
+          else
+            break;
+        }
+        if (!run.IsEmpty())
+        {
+          para.AppendChild(run);
+          added = true;
+        }
+      }
+      else
       {
         para.AppendChild(item);
         added = true;
@@ -860,19 +933,19 @@ public static class ParagraphTools
   /// <returns></returns>
   public static List<DX.OpenXmlElement> GetFlattenedMemberList(this Paragraph paragraph)
   {
-      var flattenedMembers = new List<DX.OpenXmlElement>();
-      var members = paragraph.GetMembers();
-      foreach (var member in members)
+    var flattenedMembers = new List<DX.OpenXmlElement>();
+    var members = paragraph.GetMembers();
+    foreach (var member in members)
+    {
+      if (member is DXW.Run run)
       {
-        if (member is DXW.Run run)
-        {
-          flattenedMembers.AddRange(run.GetMembers());
-        }
-        else
-        {
-          flattenedMembers.Add(member);
-        }
+        flattenedMembers.AddRange(run.GetMembers());
       }
-      return flattenedMembers;
+      else
+      {
+        flattenedMembers.Add(member);
+      }
+    }
+    return flattenedMembers;
   }
-  }
+}

@@ -691,6 +691,63 @@ public static class RunTools
   }
 
   /// <summary>
+  /// Insert a child to the run at the specified index, which is the number of characters from the beginning of the run.
+  /// </summary>
+  /// <param name="run">Run element to process</param>
+  /// <param name="index">Char position number</param>
+  /// <param name="child">New child member</param>
+  /// <param name="options">Options for text extraction</param>
+  /// <returns>Next, newly created run (or null if split is not available)</returns>
+  public static void InsertAt(this DXW.Run run, int index, DX.OpenXmlElement child, TextOptions options)
+  {
+    if (index <= 0 || index >= run.GetText(options).Length)
+      return;
+
+    var textLength = 0;
+    DXW.Run? newRun = null;
+    foreach (var member in run.GetMembers().ToList())
+    {
+      var memberText = member.GetText(options);
+      if (memberText != string.Empty)
+      {
+        var memberTextLength = memberText.Length;
+        var newTextLength = textLength + memberTextLength;
+        if (index <= newTextLength)
+        {
+          if (index < newTextLength)
+          {
+            if (member is DXW.Text text)
+            {
+              DX.OpenXmlElement? newMember = text.SplitAt(index - textLength, options);
+              if (newMember != null)
+              {
+                text.InsertAfterSelf(child);
+                child.InsertAfterSelf(newMember);
+                return;
+              }
+            }
+          }
+          var nextSibling = member.NextSibling();
+          while (nextSibling != null)
+          {
+            newRun ??= NewRun(run);
+            var nextSibling1 = nextSibling.NextSibling();
+            nextSibling.Remove();
+            newRun.AppendChild(nextSibling);
+            nextSibling = nextSibling1;
+          }
+          break;
+        }
+        else
+        {
+          textLength = newTextLength;
+        }
+      }
+    }
+  }
+
+
+  /// <summary>
   /// Get the position of the paragraph-level element in the paragraph text
   /// </summary>
   /// <param name="run">Run element to process</param>

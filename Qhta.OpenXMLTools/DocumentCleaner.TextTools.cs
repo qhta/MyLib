@@ -35,7 +35,7 @@ public partial class DocumentCleaner
       var lastChar = lastSentence.LastOrDefault();
       if ((char.IsUpper(lastSentence.FirstOrDefault()) && !".!?:".Contains(lastChar) &&
           char.IsLower(paraText.FirstOrDefault()))
-        || lastSentence.EndsWith(" and") || lastSentence.EndsWith(" or"))
+        || lastSentence.TrimEnd().EndsWith(" and") || lastSentence.TrimEnd().EndsWith(" or"))
       {
         Debug.WriteLine($"Join \"{priorParaText}\" & \"{paraText}\"");
         priorPara.JoinNextParagraph(para);
