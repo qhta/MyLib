@@ -929,26 +929,24 @@ public static class ParagraphTools
   }
 
   /// <summary>
-  /// Get the list of the flattened paragraph members.
-  /// Flattened means that the list contains run-level members instead of runs.
+  /// Get the enumeration of the flattened paragraph members.
+  /// Flattened means that the enumeration contains run-level members instead of runs.
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static List<DX.OpenXmlElement> GetFlattenedMemberList(this Paragraph paragraph)
+  public static IEnumerable<DX.OpenXmlElement> GetFlattenedMember(this Paragraph paragraph)
   {
-    var flattenedMembers = new List<DX.OpenXmlElement>();
-    var members = paragraph.GetMembers();
-    foreach (var member in members)
+    foreach (var member in paragraph.GetMembers())
     {
       if (member is DXW.Run run)
       {
-        flattenedMembers.AddRange(run.GetMembers());
+        foreach (var runMember in run.GetMembers())
+          yield return runMember;
       }
       else
       {
-        flattenedMembers.Add(member);
+        yield return member;
       }
     }
-    return flattenedMembers;
   }
 }

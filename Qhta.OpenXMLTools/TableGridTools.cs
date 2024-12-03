@@ -14,4 +14,21 @@ public static class TableGridTools
   {
     return tableGrid.ChildElements.OfType<DXW.GridColumn>();
   }
+
+  /// <summary>
+  /// Gets columns from the table grid.
+  /// </summary>
+  /// <param name="tableGrid"></param>
+  /// <returns></returns>
+  public static int? GetTotalWidth(this DXW.TableGrid tableGrid)
+  {
+    int? result = null;
+    foreach (var column in tableGrid.GetColumns())
+    {
+      var columnWidth = column.GetWidth();
+      if (columnWidth != null)
+        result ??= 0 + columnWidth;
+    }
+    return result;
+  }
 }

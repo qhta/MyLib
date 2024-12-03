@@ -4524,10 +4524,10 @@
             <param name="auto"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetFlattenedMemberList(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetFlattenedMember(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
-            Get the list of the flattened paragraph members.
-            Flattened means that the list contains run-level members instead of runs.
+            Get the enumeration of the flattened paragraph members.
+            Flattened means that the enumeration contains run-level members instead of runs.
             </summary>
             <param name="paragraph"></param>
             <returns></returns>
@@ -10671,6 +10671,13 @@
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.TableGridTools.GetColumns(DocumentFormat.OpenXml.Wordprocessing.TableGrid)">
+            <summary>
+            Gets columns from the table grid.
+            </summary>
+            <param name="tableGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TableGridTools.GetTotalWidth(DocumentFormat.OpenXml.Wordprocessing.TableGrid)">
             <summary>
             Gets columns from the table grid.
             </summary>

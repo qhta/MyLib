@@ -150,7 +150,7 @@ public partial class DocumentCleaner
     return count;
   }
 
-  private bool stop = false;
+  //private bool stop = false;
   /// <summary>
   /// If a row has cells with tabulated paragraphs then try to convert these paragraphs to tables.
   /// </summary>
@@ -170,13 +170,13 @@ public partial class DocumentCleaner
       ConvertFloatingPicturesToInline(cell);
       JoinParagraphsWithNextInlines(cell);
       var firstParaText = firstPara.GetText(TextOptions.ParaText).NormalizeWhitespaces();
-      Debug.WriteLine($"\"{firstParaText}\"");
+      //Debug.WriteLine($"TryCreateInternalTable \"{firstParaText}\"");
 
       count += TryCreateTablesFromTabs(cell);
-      if (firstParaText.Contains("weavingBraid"))
-        stop = true;
-      else
-        stop = false;
+      //if (firstParaText.Contains("weavingBraid"))
+      //  stop = true;
+      //else
+      //  stop = false;
     }
     return count;
   }
@@ -255,16 +255,13 @@ public partial class DocumentCleaner
   private List<Range> EvaluateColumnRangesByTabs(DXW.Paragraph paragraph, bool treatTabSequenceAsSingleTab)
   {
     var paraText = paragraph.GetText();
-    if (stop /*&& paraText.Contains("Top Left, Top Right, Bottom Left, and Botton RIght")*/)
-      Debug.WriteLine($"EvaluateColumnRangesByTabs: \"{paraText}\"");
+    //if (stop /*&& paraText.Contains("Top Left, Top Right, Bottom Left, and Botton RIght")*/)
+    //  Debug.WriteLine($"EvaluateColumnRangesByTabs: \"{paraText}\"");
     List<Range> ranges = new();
-    Range? lastRange = null;
     var members = paragraph.GetMembers().ToList();
     if (members.Count > 0)       //if (flatItems.Count > 0)
     {
       var flatItems = new List<DX.OpenXmlElement>();
-      paragraph.GetFlattenedMemberList();
-
 
       foreach (var member in members)
       {
@@ -281,6 +278,7 @@ public partial class DocumentCleaner
 
       var rangesText = flatItems.GetText(TextOptions.ParaText);
       DX.OpenXmlElement? startElement = null;
+      Range? lastRange = null;
       foreach (var item in flatItems)
       {
         if (item is DXW.TabChar)
@@ -356,7 +354,6 @@ public partial class DocumentCleaner
     if (range.Start == null)
       return;
 
-    DXW.Run? newRun = null;
     DXW.Paragraph? newParagraph = null;
 
     DXW.Run? parentRun = null;
@@ -372,65 +369,69 @@ public partial class DocumentCleaner
         parentRun = null;
         parentParagraph = null;
       }
-      else if (item is DXW.Run run)
+      else
       {
-        if (newParagraph == null)
-        {
-          newParagraph = new DXW.Paragraph();
-          cell.Append(newParagraph);
-          newParagraph.ParagraphProperties = (DXW.ParagraphProperties?)(run.Parent as DXW.Paragraph)?.ParagraphProperties?.CloneNode(true);
-        }
-        newRun = (DXW.Run)run.CloneNode(true);
-        newParagraph.Append(newRun);
-        parentParagraph = item.Parent as DXW.Paragraph;
-        parentRun = null;
-      }
-      else if (item.GetType().IsBodyMemberType())
-      {
-        if (newParagraph != null)
-          newParagraph.TrimEnd();
-        newParagraph = null;
-        cell.Append(item.CloneNode(true));
-        parentRun = null;
-        parentParagraph = null;
-      }
-      else if (item.GetType().IsParagraphMemberType())
-      {
-        if (item.Parent != parentParagraph)
-        {
-          if (newParagraph != null)
-            newParagraph.TrimEnd();
-          newParagraph = new DXW.Paragraph();
-          cell.Append(newParagraph);
-          parentParagraph = item.Parent as DXW.Paragraph;
-          newParagraph.ParagraphProperties =
-            (DXW.ParagraphProperties?)parentParagraph?.ParagraphProperties?.CloneNode(true);
-          newRun = null;
-          parentRun = null;
-        }
-        if (newParagraph == null)
-        {
-          newParagraph = (DXW.Paragraph)item.CloneNode(true);
-          cell.Append(newParagraph);
-        };
-        newParagraph.Append(item);
-        newRun = null;
-      }
-      else if (item.GetType().IsRunMemberType())
-      {
-        if (item.Parent != parentRun)
+        DXW.Run? newRun = null;
+        if (item is DXW.Run run)
         {
           if (newParagraph == null)
           {
             newParagraph = new DXW.Paragraph();
             cell.Append(newParagraph);
-            parentRun = item.Parent as DXW.Run;
-            parentParagraph = parentRun?.Parent as DXW.Paragraph;
-            newParagraph.ParagraphProperties = (DXW.ParagraphProperties?)parentParagraph?.ParagraphProperties?.CloneNode(true);
+            newParagraph.ParagraphProperties = (DXW.ParagraphProperties?)(run.Parent as DXW.Paragraph)?.ParagraphProperties?.CloneNode(true);
           }
-          newRun = new DXW.Run();
+          newRun = (DXW.Run)run.CloneNode(true);
           newParagraph.Append(newRun);
-          newRun.Append(item.CloneNode(true));
+          parentParagraph = item.Parent as DXW.Paragraph;
+          parentRun = null;
+        }
+        else if (item.GetType().IsBodyMemberType())
+        {
+          if (newParagraph != null)
+            newParagraph.TrimEnd();
+          newParagraph = null;
+          cell.Append(item.CloneNode(true));
+          parentRun = null;
+          parentParagraph = null;
+        }
+        else if (item.GetType().IsParagraphMemberType())
+        {
+          if (item.Parent != parentParagraph)
+          {
+            if (newParagraph != null)
+              newParagraph.TrimEnd();
+            newParagraph = new DXW.Paragraph();
+            cell.Append(newParagraph);
+            parentParagraph = item.Parent as DXW.Paragraph;
+            newParagraph.ParagraphProperties =
+              (DXW.ParagraphProperties?)parentParagraph?.ParagraphProperties?.CloneNode(true);
+            newRun = null;
+            parentRun = null;
+          }
+          if (newParagraph == null)
+          {
+            newParagraph = (DXW.Paragraph)item.CloneNode(true);
+            cell.Append(newParagraph);
+          };
+          newParagraph.Append(item);
+          newRun = null;
+        }
+        else if (item.GetType().IsRunMemberType())
+        {
+          if (item.Parent != parentRun)
+          {
+            if (newParagraph == null)
+            {
+              newParagraph = new DXW.Paragraph();
+              cell.Append(newParagraph);
+              parentRun = item.Parent as DXW.Run;
+              parentParagraph = parentRun?.Parent as DXW.Paragraph;
+              newParagraph.ParagraphProperties = (DXW.ParagraphProperties?)parentParagraph?.ParagraphProperties?.CloneNode(true);
+            }
+            newRun = new DXW.Run();
+            newParagraph.Append(newRun);
+            newRun.Append(item.CloneNode(true));
+          }
         }
       }
     }
@@ -545,7 +546,25 @@ public partial class DocumentCleaner
     if (done)
     {
       TryRemoveEmptyColumns(table);
-      table.SetTableGrid(table.GetNewTableGrid());
+      tableGrid = table.GetNewTableGrid();
+      table.SetTableGrid(tableGrid);
+      var tableWidth = tableGrid.GetTotalWidth();
+      if (tableWidth == null || tableWidth == 0)
+      {
+        var sectionProperties = table.GetSectionProperties();
+        if (sectionProperties != null)
+        {
+          var pageWidth = sectionProperties.GetPageSize()?.Width?.Value;
+          if (pageWidth != null)
+          {
+            var leftMargin = sectionProperties.GetPageMargin()?.Left?.Value ?? 0;
+            var rightMargin = sectionProperties.GetPageMargin()?.Right?.Value ?? 0;
+            pageWidth -= leftMargin;
+            pageWidth -= rightMargin;
+            table.SetWidth((int?)pageWidth);
+          }
+        }
+      }
     }
 
     return done;

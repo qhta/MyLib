@@ -1,4 +1,6 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using System;
+
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -7,6 +9,7 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class TableExtraTools
 {
+
   /// <summary>
   /// Find the first and the last non-empty column in the group of rows.
   /// </summary>
@@ -157,6 +160,7 @@ public static class TableExtraTools
   {
     var tableGrid = new TableGrid();
     var firstRow = table.GetRows().FirstOrDefault();
+    var tableWidth = (int)Math.Round(table.GetWidth() ?? 15.0 / 2.54 * 14440);
     if (firstRow != null)
     {
       var columnCount = firstRow.GetColumnsCount();
@@ -164,7 +168,9 @@ public static class TableExtraTools
       {
         var newColumn = new GridColumn();
         var width = table.GetColumnWith(i);
-        newColumn.SetWidth(width);
+        if (width != 0)
+          //width = tableWidth / columnCount;
+          newColumn.SetWidth(width);
         tableGrid.AppendChild(newColumn);
       }
     }
