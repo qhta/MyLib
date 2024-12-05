@@ -52,6 +52,16 @@ public record TextOptions
   };
 
   /// <summary>
+  /// Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
+  /// </summary>
+  public static TextOptions ParaText { get; set; } = PlainText with
+  {
+    IncludeDrawings = true,
+    IgnoreDrawingContents = true,
+    IncludeOtherMembers = true,
+  };
+
+  /// <summary>
   /// Options to get tabbed text.
   /// Such characters as &lt;, &gt;, &amp; are replaced with html entities.
   /// Paragraphs and line breaks are represented with HTML tags.
@@ -71,28 +81,20 @@ public record TextOptions
   };
 
   /// <summary>
-  /// Options to get paragraph text. All non-text elements are replaced with tags.
-  /// Html entities are used.
-  /// </summary>
-  public static TextOptions ParaText { get; set; } = TabbedText with
-  {
-    IncludeDrawings = true,
-    IgnoreDrawingContents = true,
-    IncludeOtherMembers = true,
-  };
-
-  /// <summary>
-  /// Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
-  /// </summary>
-  public static TextOptions ParaTextWithAsciiTabs { get; set; } = ParaText with
-  {
-    TabChar = "\t",
-  };
-  /// <summary>
   /// Options to get full text. All non-text elements are replaced with tags.
   /// Html entities are used.
   /// </summary>
   public static TextOptions FullText { get; set; } = TabbedText with
+  {
+    IncludeDrawings = true,
+    IncludeOtherMembers = true,
+  };
+
+  /// <summary>
+  /// Options to get full text. All non-text elements are replaced with tags.
+  /// Html entities are used.
+  /// </summary>
+  public static TextOptions FormattedText { get; set; } = TabbedText with
   {
     IncludeDrawings = true,
     IncludeOtherMembers = true,

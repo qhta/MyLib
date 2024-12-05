@@ -1433,6 +1433,43 @@
             <param name="propertyName"></param>
             <param name="value"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.Finder">
+            <summary>
+            Class to find (and replace) text in a document.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Finder.#ctor(Qhta.OpenXmlTools.Range)">
+            <summary>
+            Construct a finder.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Finder.Context">
+            <summary>
+            Context for the search.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Finder.Text">
+            <summary>
+            Text to search for.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Finder.Format">
+            <summary>
+            Determines if the search must consider formatting.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Finder.Replacement">
+            <summary>
+            Text to replace.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Finder.Execute">
+            <summary>
+            Realize the search and replace.
+            </summary>
+            <returns>last found range (or null if not found)</returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.FontSchemeTools">
             <summary>
             Contains tools for working with font schemes.
@@ -11344,6 +11381,11 @@
             Positional tabulators are treated as tab characters.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ParaText">
+            <summary>
+            Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
+            </summary>
+        </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.TabbedText">
             <summary>
             Options to get tabbed text.
@@ -11352,18 +11394,13 @@
             Tables are represented as HTML tables.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.ParaText">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FullText">
             <summary>
-            Options to get paragraph text. All non-text elements are replaced with tags.
+            Options to get full text. All non-text elements are replaced with tags.
             Html entities are used.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.ParaTextWithAsciiTabs">
-            <summary>
-            Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.FullText">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FormattedText">
             <summary>
             Options to get full text. All non-text elements are replaced with tags.
             Html entities are used.

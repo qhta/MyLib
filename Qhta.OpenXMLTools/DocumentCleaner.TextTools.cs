@@ -37,7 +37,8 @@ public partial class DocumentCleaner
           char.IsLower(paraText.FirstOrDefault()))
         || lastSentence.TrimEnd().EndsWith(" and") || lastSentence.TrimEnd().EndsWith(" or"))
       {
-        Debug.WriteLine($"Join \"{priorParaText}\" & \"{paraText}\"");
+        if (VerboseLevel == 2)
+          Debug.WriteLine($"Join \"{priorParaText}\" & \"{paraText}\"");
         priorPara.JoinNextParagraph(para);
         para.Remove();
         count++;

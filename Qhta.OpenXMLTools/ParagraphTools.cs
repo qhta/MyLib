@@ -205,7 +205,7 @@ public static class ParagraphTools
   /// <returns></returns>
   public static bool IsEmptyOrWhiteSpace(this DXW.Paragraph paragraph)
   {
-    var text = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
+    var text = paragraph.GetText(TextOptions.ParaText);
     return string.IsNullOrWhiteSpace(text);
   }
 
@@ -826,7 +826,6 @@ public static class ParagraphTools
       paraText = paragraph.GetText(TextOptions.ParaText);
       var newText = newParagraph.GetText(TextOptions.ParaText);
       paragraph.InsertAfterSelf(newParagraph);
-      Debug.WriteLine($"Break \"{paraText}\" & \"{newText}\"");
       done = true;
       paragraph = newParagraph;
       if (paragraph.GetText(TextOptions.PlainText).Trim() == "")

@@ -206,7 +206,8 @@ public partial class DocumentCleaner
       if (newParagraph != null)
       {
         newParagraph.TrimStart();
-        Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
+        if (VerboseLevel==2)
+          Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
         paragraph.InsertAfterSelf(newParagraph);
       }
     }
@@ -240,9 +241,11 @@ public partial class DocumentCleaner
       var priorParagraph = paragraph.PreviousSiblingMember() as DXW.Paragraph;
       if (priorParagraph == null)
         continue;
-      Debug.WriteLine($"Join paragraphs \"{priorParagraph.GetText()}\" and \"{paragraph.GetText()}\"");
+      if (VerboseLevel == 2)
+        Debug.WriteLine($"Join paragraphs \"{priorParagraph.GetText()}\" and \"{paragraph.GetText()}\"");
       priorParagraph.JoinNextParagraph(paragraph);
-      Debug.WriteLine($"             to \"{priorParagraph.GetText()}\"");
+      if (VerboseLevel == 2)
+        Debug.WriteLine($"             to \"{priorParagraph.GetText()}\"");
     }
   }
 
@@ -267,7 +270,7 @@ public partial class DocumentCleaner
   /// <param name="paragraph"></param>
   public bool TrySplitParagraphAfterColonWithNoFollowingDrawings(DXW.Paragraph paragraph)
   {
-    var paragraphText = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
+    var paragraphText = paragraph.GetText(TextOptions.ParaText);
     var k = paragraphText.IndexOf(':');
     if (k > 0 && k < paragraphText.Length - 1)
     {
@@ -283,18 +286,20 @@ public partial class DocumentCleaner
           {
             if (!tailLead.Contains("\t"))
             {
-              paragraph.InsertAt(k + 1, new DXW.TabChar(), TextOptions.ParaTextWithAsciiTabs);
-              var paraText = paragraph.GetText(TextOptions.ParaTextWithAsciiTabs);
-              Debug.WriteLine($"Tab inserted to \"{paragraph.GetText()}\"");
+              paragraph.InsertAt(k + 1, new DXW.TabChar(), TextOptions.ParaText);
+              var paraText = paragraph.GetText(TextOptions.ParaText);
+              if (VerboseLevel == 2)
+                Debug.WriteLine($"Tab inserted to \"{paragraph.GetText()}\"");
             }
           }
           else
           {
-            var newParagraph = paragraph.SplitAt(k + 1, TextOptions.ParaTextWithAsciiTabs);
+            var newParagraph = paragraph.SplitAt(k + 1, TextOptions.ParaText);
             if (newParagraph != null)
             {
               newParagraph.TrimStart();
-              Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
+              if (VerboseLevel == 2) 
+                Debug.WriteLine($"Split paragraph to \"{paragraph.GetText()}\" and \"{newParagraph.GetText()}\"");
               paragraph.InsertAfterSelf(newParagraph);
             }
           }
