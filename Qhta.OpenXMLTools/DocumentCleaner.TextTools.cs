@@ -85,5 +85,4 @@ public partial class DocumentCleaner
     indentation.SetLeft(newLeft);
     indentation.SetHanging(hanging);
   }
-
 }

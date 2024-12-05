@@ -52,7 +52,7 @@ public record TextOptions
   };
 
   /// <summary>
-  /// Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
+  /// Options to get paragraph text.
   /// </summary>
   public static TextOptions ParaText { get; set; } = PlainText with
   {
@@ -165,14 +165,34 @@ public record TextOptions
   /// </summary>
   public string CarriageReturnTag { get; set; } = "\u000D"; // \r
 
+  /// <summary>
+  /// Tag to mark a soft hyphen.
+  /// </summary>
+  public string SoftHyphenTag { get; set; } = "\u00AD";
+
+  /// <summary>
+  /// Tag to mark a non-break hyphen.
+  /// </summary>
+  public string NoBreakHyphenTag { get; set; } = "\u2011";
+
+  /// <summary>
+  /// Tag to mark a last rendered page break.
+  /// </summary>
+  public string LastRenderedPageBreakTag { get; set; } = "\u0016";
+
   #endregion
 
   #region Plain text options
 
   /// <summary>
-  /// Tag to mark a non-text object in plain text.
+  /// Tag to mark other object in plain text.
   /// </summary>
-  public string ObjectReplacement { get; set; } = "\u001B";
+  public string OtherObjectSubstituteTag { get; set; } = "\u001BOther";
+
+  /// <summary>
+  /// Tag to mark a page number.
+  /// </summary>
+  public string PageNumberTag { get; set; } = "\u001BPgNum";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
@@ -317,13 +337,23 @@ public record TextOptions
   /// <summary>
   /// Include formula command text.
   /// </summary>
-  public bool IncludeFieldFormula { get; set; } = false;
+  public bool IncludeFieldFormula { get; set; }
 
   /// <summary>
   /// Tag to start a field formula.
   /// </summary>
   public string FieldStartTag { get; set; } = "«";
 
+  /// <summary>
+  /// Tag to start a field code start.
+  /// </summary>
+  public string FieldCodeStart { get; set; } = "‹";
+
+  /// <summary>
+  /// Tag to start a field code end.
+  /// </summary>
+  public string FieldCodeEnd { get; set; } = "›";
+ 
   /// <summary>
   /// Tag to separate a field formula command from result.
   /// </summary>
@@ -364,6 +394,31 @@ public record TextOptions
   /// </summary>
   public string CommentRefEnd { get; set; } = "]";
 
+  /// <summary>
+  /// Tag to mark an annotation reference mark.
+  /// </summary>
+  public string AnnotationRefMark { get; set; } = "[^A]";
+
+  /// <summary>
+  /// Tag to mark an endnote reference mark.
+  /// </summary>
+  public string FootnoteRefMark { get; set; } = "[^F]";
+
+  /// <summary>
+  /// Tag to mark an endnote reference mark.
+  /// </summary>
+  public string EndnoteRefMark { get; set; } = "[^E]";
+
+  /// <summary>
+  /// Tag to mark a footnotes/endnotes separator mark.
+  /// </summary>
+  public string FootnoteSepMark { get; set; } = "[--]";
+
+  /// <summary>
+  /// Tag to mark a continuation separator mark.
+  /// </summary>
+  public string ContinuationSepMark { get; set; } = "[-]";
+
   #region Numbering options
   /// <summary>
   /// Include paragraph numbering string at the beginning of paragraph text.
@@ -386,6 +441,47 @@ public record TextOptions
   public string NumberingEndTag { get; set; } = "\t";
   #endregion
 
+  #region deleted text options
+
+  /// <summary>
+  /// Deletion start tag.
+  /// </summary>
+  public string DeletedTextStartTag { get; set; } = "<del>";
+
+  /// <summary>
+  /// Deletion end tag.
+  /// </summary>
+  public string DeletedTextEndTag { get; set; } = "</del>";
+
+  #endregion
+  #region embedded object options
+  /// <summary>
+  /// Include embedded objects in the text. Objects are included as Xml.
+  /// </summary>
+  public bool IncludeEmbeddedObjects { get; set; } = false;
+
+  /// <summary>
+  /// Ignore embedded objects content.
+  /// </summary>
+  public bool IgnoreEmbeddedObjectContent { get; set; } = false;
+
+  /// <summary>
+  /// Tag to replace an object.
+  /// </summary>
+  public string EmbeddedObjectSubstituteTag { get; set; } = "<object/>";
+
+  /// <summary>
+  /// Tag to start an object.
+  /// </summary>
+  public string EmbeddedObjectStartTag { get; set; } = "<object>";
+
+  /// <summary>
+  /// Tag to end an object.
+  /// </summary>
+  public string EmbeddedObjectEndTag { get; set; } = "</object>";
+
+  #endregion
+
   #region drawing options
   /// <summary>
   /// Include drawings in the text. Drawings are included as Xml.
@@ -393,7 +489,7 @@ public record TextOptions
   public bool IncludeDrawings { get; set; } = false;
 
   /// <summary>
-  /// Include drawing as DrawingReplacementTags.
+  /// Ignore drawings content.
   /// </summary>
   public bool IgnoreDrawingContents { get; set; } = false;
 

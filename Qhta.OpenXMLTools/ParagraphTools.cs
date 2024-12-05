@@ -933,7 +933,7 @@ public static class ParagraphTools
   /// </summary>
   /// <param name="paragraph"></param>
   /// <returns></returns>
-  public static IEnumerable<DX.OpenXmlElement> GetFlattenedMember(this Paragraph paragraph)
+  public static IEnumerable<DX.OpenXmlElement> GetFlattenedMembers(this Paragraph paragraph)
   {
     foreach (var member in paragraph.GetMembers())
     {

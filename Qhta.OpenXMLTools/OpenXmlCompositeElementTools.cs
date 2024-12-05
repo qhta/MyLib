@@ -84,6 +84,25 @@ public static class OpenXmlCompositeElementTools
   }
 
   /// <summary>
+  /// Fixing known proofing errors. Get invalid strings from the dictionary and replace them with valid ones.
+  /// </summary>
+  /// <param name="element">Processed element</param>
+  /// <param name="dictionary">Dictionary of erroneous-proper strings</param>
+  /// <returns>count of trimmed paragraphs</returns>
+  public static int FixKnownProofErrors(this DX.OpenXmlCompositeElement element, Dictionary<string, string> dictionary)
+  {
+    var count = 0;
+    var Finder = new Finder(element);
+    foreach (var item in dictionary)
+    {
+      Finder.Text = item.Key;
+      Finder.Replacement = item.Value;
+      count += Finder.Execute() == true ? 1 : 0;
+    }
+    return count;
+  }
+
+  /// <summary>
   /// Trimming all paragraphs endings.
   /// </summary>
   /// <param name="element">Processed element</param>

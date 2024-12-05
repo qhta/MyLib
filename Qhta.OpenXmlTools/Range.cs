@@ -59,37 +59,43 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// <summary>
   /// Gets paragraphs in the range.
   /// </summary>
-  public DXW.Paragraph[] GetParagraphs()
+  public IEnumerable<DXW.Paragraph> GetParagraphs(bool getDescendant)
   {
-    List<DXW.Paragraph> result = new();
     var element = Start;
     while (element != null)
     {
       if (element is DXW.Paragraph paragraph)
-        result.Add(paragraph);
+        yield return paragraph;
+      else if (getDescendant)
+      {
+        foreach (var para in element.Descendants<DXW.Paragraph>())
+          yield return para;
+      }
       if (element == End)
         break;
       element = element.NextSibling();
     }
-    return result.ToArray();
   }
 
   /// <summary>
   /// Gets all tables in the range.
   /// </summary>
-  public DXW.Table[] GetTables()
+  public IEnumerable<DXW.Table> GetTables(bool getDescendant)
   {
-    List<DXW.Table> result = new();
     var element = Start;
     while (element != null)
     {
-      if (element is DXW.Table table)
-        result.Add(table);
+      if (element is DXW.Table Table)
+        yield return Table;
+      else if (getDescendant)
+      {
+        foreach (var para in element.Descendants<DXW.Table>())
+          yield return para;
+      }
       if (element == End)
         break;
       element = element.NextSibling();
     }
-    return result.ToArray();
   }
 
   /// <summary>

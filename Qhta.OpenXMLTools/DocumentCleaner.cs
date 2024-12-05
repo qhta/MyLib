@@ -62,6 +62,7 @@ public partial class DocumentCleaner
     ResetHeadingsFormat(wordDoc);
     ReplaceSymbolEncoding(wordDoc);
     FixParagraphNumbering(wordDoc);
+    FixKnownProofErrors(wordDoc);
 
     FixInternalTables(wordDoc);
     JoinAdjacentTables(wordDoc);
@@ -79,30 +80,6 @@ public partial class DocumentCleaner
     BreakParagraphsBefore(wordDoc, "end note]");
     BreakParagraphsBefore(wordDoc, "end example]");
     FormatTables(wordDoc);
-  }
-
-  /// <summary>
-  /// Removes all <c>ProofError</c> and <c>ProofState</c> elements from the document.
-  /// </summary>
-  /// <param name="wordDoc"></param>
-  public void RemoveProofErrors(DXPack.WordprocessingDocument wordDoc)
-  {
-    if (VerboseLevel > 0)
-      Console.WriteLine("\nRemoving proofing errors");
-    var body = wordDoc.GetBody();
-    var count = body.RemoveProofErrors();
-    var headers = wordDoc.GetHeaders().ToList();
-    foreach (var header in headers)
-    {
-      count += header.RemoveProofErrors();
-    }
-    var footers = wordDoc.GetFooters().ToList();
-    foreach (var footer in wordDoc.GetFooters())
-    {
-      count += footer.RemoveProofErrors();
-    }
-    if (VerboseLevel > 0)
-      Console.WriteLine($" {count} error tags removed.");
   }
 
   /// <summary>

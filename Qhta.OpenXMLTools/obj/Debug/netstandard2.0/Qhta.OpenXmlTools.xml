@@ -449,12 +449,6 @@
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveProofErrors(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Removes all <c>ProofError</c> and <c>ProofState</c> elements from the document.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Trims all the paragraphs in the document removing starting and ending whitespaces.
@@ -575,6 +569,23 @@
             </summary>
             <param name="body"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveProofErrors(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Removes all <c>ProofError</c> and <c>ProofState</c> elements from the document.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixKnownProofErrors(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Fix known proofing errors. Get invalid strings from the dictionary and replace them with valid ones.
+            </summary>
+            <param name="wordDoc"></param>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.KnownProofErrors">
+            <summary>
+            Dictionary of known proofing errors.
+            </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixFakeTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
@@ -1438,15 +1449,26 @@
             Class to find (and replace) text in a document.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.Finder.#ctor(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Construct a finder using context element.
+            </summary>
+            <param name="contextElement"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.Finder.#ctor(Qhta.OpenXmlTools.Range)">
             <summary>
-            Construct a finder.
+            Construct a finder using context range.
             </summary>
-            <param name="context"></param>
+            <param name="contextRange"></param>
         </member>
-        <member name="P:Qhta.OpenXmlTools.Finder.Context">
+        <member name="P:Qhta.OpenXmlTools.Finder.ContextRange">
             <summary>
-            Context for the search.
+            ContextRange for the search.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.Finder.TextOptions">
+            <summary>
+            Options for get text to search.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.Finder.Text">
@@ -1468,7 +1490,26 @@
             <summary>
             Realize the search and replace.
             </summary>
-            <returns>last found range (or null if not found)</returns>
+            <returns>if finder founds text and/or formatting</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Finder.ReplaceText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.String,System.String)">
+            <summary>
+            Find the text in the paragraph and replace it with the replacement text.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="sText"></param>
+            <param name="replacement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Finder.Find(System.String,System.String)">
+            <summary>
+            Check if the input text matches start of the search text.
+            Determines if the input text contains completely the search text
+            or if the input text ends with a start of the search text of any length.
+            </summary>
+            <param name="inText">Text to search in</param>
+            <param name="sText">Text to search for</param>
+            <returns>The index of the first char that matches the search string or -1 if not found</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.FontSchemeTools">
             <summary>
@@ -3046,6 +3087,14 @@
             <param name="element">Processed element</param>
             <returns>count of trimmed paragraphs</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.FixKnownProofErrors(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Fixing known proofing errors. Get invalid strings from the dictionary and replace them with valid ones.
+            </summary>
+            <param name="element">Processed element</param>
+            <param name="dictionary">Dictionary of erroneous-proper strings</param>
+            <returns>count of trimmed paragraphs</returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.TrimParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Trimming all paragraphs endings.
@@ -4589,7 +4638,7 @@
             <param name="auto"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetFlattenedMember(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.GetFlattenedMembers(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Get the enumeration of the flattened paragraph members.
             Flattened means that the enumeration contains run-level members instead of runs.
@@ -4992,12 +5041,12 @@
             Gets elements of the specified type in the range.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.Range.GetParagraphs">
+        <member name="M:Qhta.OpenXmlTools.Range.GetParagraphs(System.Boolean)">
             <summary>
             Gets paragraphs in the range.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.Range.GetTables">
+        <member name="M:Qhta.OpenXmlTools.Range.GetTables(System.Boolean)">
             <summary>
             Gets all tables in the range.
             </summary>

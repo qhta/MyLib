@@ -80,29 +80,6 @@ public static class OpenXmlElementTools
 
 
   /// <summary>
-  /// Sets the text of the element.
-  /// </summary>
-  /// <param name="element"></param>
-  /// <param name="text"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static void SetText(this DX.OpenXmlElement? element, string text, TextOptions? options)
-  {
-    if (element == null)
-      return;
-    if (element is DXW.Run run)
-      run.SetText(text, options);
-    else if (element is DXW.Paragraph paragraph)
-      paragraph.SetText(text, options);
-    else if (element is DXW.Hyperlink hyperlink)
-      hyperlink.SetText(text, options);
-    else if (element is DX.OpenXmlLeafTextElement textElement)
-      textElement.Text = text;
-    else
-      throw new NotImplementedException($"Setting text for the element {element.GetType()} is not implemented.");
-  }
-
-  /// <summary>
   /// Checks if the element is empty.
   /// </summary>
   /// <param name="element"></param>
