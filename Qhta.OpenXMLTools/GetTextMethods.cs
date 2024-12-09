@@ -1,15 +1,13 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 using System;
-using System.Text.RegularExpressions;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Methods to get text from OpenXml elements.
 /// </summary>
-public static class GetSetTextMethods
+public static class GetTextMethods
 {
 
   /// <summary>
@@ -169,100 +167,6 @@ public static class GetSetTextMethods
     return null;
   }
 
-  //private static void DispatchSetText(DX.OpenXmlElement element, string text, TextOptions options)
-  //{
-  //    if (element == null)
-  //      return;
-  //    if (element is DXW.Run run)
-  //      run.SetText(text, options);
-  //    else if (element is DXW.Paragraph paragraph)
-  //      paragraph.SetText(text, options);
-  //    else if (element is DXW.Hyperlink hyperlink)
-  //      hyperlink.SetText(text, options);
-  //    else if (element is DX.OpenXmlLeafTextElement textElement)
-  //      textElement.Text = text;
-  //    else
-  //      throw new NotImplementedException($"Setting text for the element {element.GetType()} is not implemented.");
-
-  //  if (element is DXW.Text runtext)
-  //    return runtext.GetTextOf(options);
-  //  else if (element is DXW.Run run)
-  //    return run.GetTextOf(options);
-  //  else if (element is DXW.Paragraph paragraph)
-  //    return paragraph.GetTextOf(options);
-  //  else if (element is DXW.Hyperlink hyperlink)
-  //    return hyperlink.GetTextOf(options);
-  //  else if (element is DX.OpenXmlLeafTextElement textElement)
-  //    return textElement.GetTextOf(options);
-  //  else if (element is DXW.Table table)
-  //    return table.GetTextOf(options);
-  //  else if (element is DXW.TableRow tableRow)
-  //    return tableRow.GetTextOf(options);
-  //  else if (element is DXW.TableCell tableCell)
-  //    return tableCell.GetTextOf(options);
-  //  else if (element is DXW.Break @break)
-  //    return @break.GetTextOf(options);
-  //  else if (element is TabChar)
-  //    return options.TabChar;
-  //  else if (element is CarriageReturn)
-  //    return options.CarriageReturnTag;
-  //  else if (element is FieldCode fieldCode)
-  //    return fieldCode.GetTextOf(options);
-  //  else if (element is SymbolChar symbolChar)
-  //    return symbolChar.GetTextOf(options);
-  //  else if (element is PositionalTab)
-  //    return options.TabChar;
-  //  else if (element is FieldChar fieldChar)
-  //    return fieldChar.GetTextOf(options);
-  //  else if (element is Ruby ruby)
-  //    return ruby.GetPlainText();
-  //  else if (element is FootnoteReference footnoteReference)
-  //    return footnoteReference.GetTextOf(options);
-  //  else if (element is EndnoteReference endnoteReference)
-  //    return endnoteReference.GetTextOf(options);
-  //  else if (element is CommentReference commentReference)
-  //    return commentReference.GetTextOf(options);
-  //  //else if (element is AnnotationReferenceMark annotationReferenceMark)
-  //  //  return annotationReferenceMark.GetTextOf(options);
-  //  //typeof(DXW.AnnotationReferenceMark),
-  //  //typeof(DXW.Break),
-  //  //typeof(DXW.CommentReference),
-  //  //typeof(DXW.ContentPart),
-  //  //typeof(DXW.ContinuationSeparatorMark),
-  //  //typeof(DXW.CarriageReturn),
-  //  //typeof(DXW.DayLong),
-  //  //typeof(DXW.DayShort),
-  //  //typeof(DXW.DeletedFieldCode),
-  //  //typeof(DXW.DeletedText),
-  //  //typeof(DXW.Drawing),
-  //  //typeof(DXW.EndnoteReferenceMark),
-  //  //typeof(DXW.EndnoteReference),
-  //  //typeof(DXW.FieldChar),
-  //  //typeof(DXW.FootnoteReferenceMark),
-  //  //typeof(DXW.FootnoteReference),
-  //  //typeof(DXW.FieldCode),
-  //  //typeof(DXW.LastRenderedPageBreak),
-  //  //typeof(DXW.MonthLong),
-  //  //typeof(DXW.MonthShort),
-  //  //typeof(DXW.NoBreakHyphen),
-  //  //typeof(DXW.EmbeddedObject),
-  //  //typeof(DXW.PageNumber),
-  //  //typeof(DXW.PositionalTab),
-  //  //typeof(DXW.Ruby),
-  //  //typeof(DXW.SeparatorMark),
-  //  //typeof(DXW.SoftHyphen),
-  //  //typeof(DXW.SymbolChar),
-  //  //typeof(DXW.Text),
-  //  //typeof(DXW.TabChar),
-  //  //typeof(DXW.YearLong),
-  //  //typeof(DXW.YearShort),
-  //  else if (element is Drawing drawing)
-  //    return drawing.GetTextOf(options);
-  //  else if (element is DXD.Blip blip)
-  //    return blip.GetTextOf(options);
-
-  //  return null;
-  //}
 
   /// <summary>
   /// Get the text content of the run.
@@ -307,29 +211,66 @@ public static class GetSetTextMethods
   }
 
   /// <summary>
-  /// Get the text of the run text element.
+  /// Get the text of the run SearchText element.
   /// </summary>
-  /// <param name="text"></param>
+  /// <param name="runText"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Text text, TextOptions options)
+  public static string GetText(this DXW.Text runText, TextOptions options)
+  => runText.GetTextOf(options);
+
+  /// <summary>
+  /// Get the text of the run SearchText element.
+  /// </summary>
+  /// <param name="runText"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  private static string GetTextOf(this DXW.Text runText, TextOptions options)
   {
     if (options.UseHtmlEntities)
-      return text.Text.HtmlEncode();
+      return runText.Text.HtmlEncode();
     else
-      return text.Text;
+      return runText.Text;
   }
 
   /// <summary>
-  /// Get the element of the deleted element element.
+  /// Get the element of the DeletedText element.
   /// </summary>
   /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
   private static string GetTextOf(this DXW.DeletedText element, TextOptions options)
   {
-    return options.DeletedTextStartTag + element.Text + options.DeletedTextEndTag;
+    string text = element.Text;
+    if (options.UseHtmlEntities)
+      text = text.HtmlEncode();
+    return options.DeletedTextStartTag + text + options.DeletedTextEndTag;
   }
+
+  ///// <summary>
+  ///// Set the text of the DeletedText element.
+  ///// </summary>
+  ///// <param name="element"></param>
+  ///// <param name="text"></param>
+  ///// <param name="options"></param>
+  //private static bool SetTextOf(this DXW.DeletedText element, string text, TextOptions options)
+  //{
+  //  var l = options.DeletedTextStartTag.Length;
+  //  var k = options.DeletedTextEndTag.Length;
+  //  if (k > 0)
+  //    k = text.IndexOf(options.DeletedTextEndTag, l);
+  //  else
+  //    k = l;
+  //  if (k >= l)
+  //  {
+  //    text = text.Substring(l, k - l);
+  //    if (options.UseHtmlEntities)
+  //      text = text.HtmlDecode();
+  //    element.SearchText = text;
+  //    return true;
+  //  }
+  //  return false;
+  //}
 
   /// <summary>
   /// Get the element of the deleted field code element.
@@ -341,19 +282,6 @@ public static class GetSetTextMethods
   {
     return options.DeletedTextStartTag + element.Text + options.DeletedTextEndTag;
   }
-  ///// <summary>
-  ///// Get the text of any textElement element.
-  ///// </summary>
-  ///// <param name="textElement"></param>
-  ///// <param name="options"></param>
-  ///// <returns></returns>
-  //private static string GetTextOf(this DX.OpenXmlLeafTextElement textElement, TextOptions options)
-  //{
-  //  if (options.UseHtmlEntities)
-  //    return textElement.Text.HtmlEncode();
-  //  else
-  //    return textElement.Text;
-  //}
 
   /// <summary>
   /// Get the text of the Break element.
@@ -406,6 +334,7 @@ public static class GetSetTextMethods
     var result = sb.ToString();
     return result;
   }
+
   /// <summary>
   /// Get the text of the FieldChar element.
   /// </summary>
@@ -414,20 +343,48 @@ public static class GetSetTextMethods
   /// <returns></returns>
   private static string GetTextOf(this DXW.FieldChar fieldChar, TextOptions options)
   {
+    string tag = String.Empty;
     if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
     {
-      return options.FieldStartTag;
+      tag = options.FieldStartTag;
     }
     else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate && options.IncludeFieldFormula)
     {
-      return options.FieldResultTag;
+      tag = options.FieldResultTag;
     }
     else if (fieldChar.FieldCharType?.Value == FieldCharValues.End && options.IncludeFieldFormula)
     {
-      return options.FieldEndTag;
+      tag = options.FieldEndTag;
     }
-    return String.Empty;
+    return tag;
   }
+
+  ///// <summary>
+  ///// Set the text of the FieldChar element.
+  ///// </summary>
+  ///// <param name="fieldChar"></param>
+  ///// <param name="text">text to check</param>
+  ///// <param name="options"></param>
+  ///// <returns></returns>
+  //private static bool SetTextOf(this DXW.FieldChar fieldChar, string text, TextOptions options)
+  //{
+  //  if (text == options.FieldStartTag)
+  //  {
+  //    fieldChar.FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(FieldCharValues.Begin);
+  //    return true;
+  //  }
+  //  if (text == options.FieldResultTag)
+  //  {
+  //    fieldChar.FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(FieldCharValues.Separate);
+  //    return true;
+  //  }
+  //  if (text == options.FieldEndTag)
+  //  {
+  //    fieldChar.FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(FieldCharValues.End);
+  //    return true;
+  //  }
+  //  return false;
+  //}
 
   /// <summary>
   /// Get the text of the FieldCode element.

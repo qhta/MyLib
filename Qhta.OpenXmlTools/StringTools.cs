@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Text;
 using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
@@ -16,20 +17,17 @@ public static class StringTools
   /// <returns></returns>
   public static string HtmlEncode(this string str)
   {
-    var sb = new StringBuilder();
-    foreach (var c in str)
-    {
-      if (c == '&')
-        sb.Append("&amp;");
-      else
-      if (c == '<')
-        sb.Append("&lt;");
-      else
-      if (c == '>')
-        sb.Append("&lt;");
-      else sb.Append(c);
-    }
-    return sb.ToString();
+    return WebUtility.HtmlEncode(str);
+  }
+
+  /// <summary>
+  /// Decodes a string using html entities.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static string HtmlDecode(this string str)
+  {
+    return WebUtility.HtmlDecode(str);
   }
 
   /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
-/// Tools for working with OpenXml Wordprocessing Text element.
+/// Tools for working with OpenXml Wordprocessing SearchText element.
 /// </summary>
 public static class RunTextTools
 {

@@ -95,7 +95,7 @@ public static class OpenXmlCompositeElementTools
     var Finder = new Finder(element);
     foreach (var item in dictionary)
     {
-      Finder.Text = item.Key;
+      Finder.SearchText = item.Key;
       Finder.Replacement = item.Value;
       count += Finder.Execute() == true ? 1 : 0;
     }
@@ -106,13 +106,30 @@ public static class OpenXmlCompositeElementTools
   /// Trimming all paragraphs endings.
   /// </summary>
   /// <param name="element">Processed element</param>
+  /// <param name="options"></param>
   /// <returns>count of trimmed paragraphs</returns>
-  public static int TrimParagraphs(this DX.OpenXmlCompositeElement element)
+  public static int TrimParagraphs(this DX.OpenXmlCompositeElement element, TrimOptions options)
   {
     var paragraphs = element.Descendants<DXW.Paragraph>().ToList();
     var count = 0;
     foreach (var paragraph in paragraphs)
-      if (paragraph.TrimEnd())
+      if (paragraph.Trim(options))
+        count++;
+    return count;
+  }
+
+  /// <summary>
+  /// Trimming all paragraphs endings.
+  /// </summary>
+  /// <param name="element">Processed element</param>
+  /// <param name="options"></param>
+  /// <returns>count of trimmed paragraphs</returns>
+  public static int NormalizeWhitespaces(this DX.OpenXmlCompositeElement element, WhitespaceOptions options)
+  {
+    var paragraphs = element.Descendants<DXW.Paragraph>().ToList();
+    var count = 0;
+    foreach (var paragraph in paragraphs)
+      if (paragraph.NormalizeWhitespaces(options))
         count++;
     return count;
   }

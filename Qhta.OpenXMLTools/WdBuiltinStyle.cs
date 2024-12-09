@@ -89,7 +89,7 @@ public enum WdBuiltinStyle
   wdStyleHtmlAcronym = -96,
   /// <summary>Normal (Web).</summary>
   wdStyleHtmlNormal = -95,
-  /// <summary>Plain Text.</summary>
+  /// <summary>Plain SearchText.</summary>
   wdStylePlainText = -91,
   /// <summary>Document Map.</summary>
   wdStyleNavPane = -90,
@@ -103,19 +103,19 @@ public enum WdBuiltinStyle
   wdStyleHyperlink = -86,
   /// <summary>Block Quotation.</summary>
   wdStyleBlockQuotation = -85,
-  /// <summary>Body Text IndentUnit 3.</summary>
+  /// <summary>Body SearchText IndentUnit 3.</summary>
   wdStyleBodyTextIndent3 = -84,
-  /// <summary>Body Text IndentUnit 2.</summary>
+  /// <summary>Body SearchText IndentUnit 2.</summary>
   wdStyleBodyTextIndent2 = -83,
-  /// <summary>Body Text 3.</summary>
+  /// <summary>Body SearchText 3.</summary>
   wdStyleBodyText3 = -82,
-  /// <summary>Body Text 2.</summary>
+  /// <summary>Body SearchText 2.</summary>
   wdStyleBodyText2 = -81,
   /// <summary>Note Heading.</summary>
   wdStyleNoteHeading = -80,
-  /// <summary>Body Text First IndentUnit 2.</summary>
+  /// <summary>Body SearchText First IndentUnit 2.</summary>
   wdStyleBodyTextFirstIndent2 = -79,
-  /// <summary>Body Text First IndentUnit.</summary>
+  /// <summary>Body SearchText First IndentUnit.</summary>
   wdStyleBodyTextFirstIndent = -78,
   /// <summary>Date.</summary>
   wdStyleDate = -77,
@@ -135,9 +135,9 @@ public enum WdBuiltinStyle
   wdStyleListContinue2 = -70,
   /// <summary>List Continue.</summary>
   wdStyleListContinue = -69,
-  /// <summary>Body Text IndentUnit.</summary>
+  /// <summary>Body SearchText IndentUnit.</summary>
   wdStyleBodyTextIndent = -68,
-  /// <summary>Body Text.</summary>
+  /// <summary>Body SearchText.</summary>
   wdStyleBodyText = -67,
   /// <summary>Default Paragraph HighAnsiFont.</summary>
   wdStyleDefaultParagraphFont = -66,
@@ -179,11 +179,11 @@ public enum WdBuiltinStyle
   wdStyleList = -48,
   /// <summary>TOA Heading.</summary>
   wdStyleTOAHeading = -47,
-  /// <summary>Macro Text.</summary>
+  /// <summary>Macro SearchText.</summary>
   wdStyleMacroText = -46,
   /// <summary>Table of Authorities.</summary>
   wdStyleTableOfAuthorities = -45,
-  /// <summary>Endnote Text.</summary>
+  /// <summary>Endnote SearchText.</summary>
   wdStyleEndnoteText = -44,
   /// <summary>Endnote Reference.</summary>
   wdStyleEndnoteReference = -43,
@@ -209,9 +209,9 @@ public enum WdBuiltinStyle
   wdStyleFooter = -33,
   /// <summary>Header.</summary>
   wdStyleHeader = -32,
-  /// <summary>Comment Text.</summary>
+  /// <summary>Comment SearchText.</summary>
   wdStyleCommentText = -31,
-  /// <summary>Footnote Text.</summary>
+  /// <summary>Footnote SearchText.</summary>
   wdStyleFootnoteText = -30,
   /// <summary>Normal IndentUnit.</summary>
   wdStyleNormalIndent = -29,

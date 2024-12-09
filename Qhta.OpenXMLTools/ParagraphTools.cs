@@ -230,6 +230,24 @@ public static class ParagraphTools
   }
 
   /// <summary>
+  /// Trim the paragraph removing leading and/or trailing whitespaces.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static bool Trim(this DXW.Paragraph paragraph, TrimOptions options = TrimOptions.TrimStart | TrimOptions.TrimEnd)
+  {
+    bool done = false;
+    if (options.HasFlag(TrimOptions.TrimStart))
+      if (paragraph.TrimStart())
+        done = true;
+    if (options.HasFlag(TrimOptions.TrimEnd))
+      if (paragraph.TrimEnd())
+        done = true;
+    return done;
+  }
+
+  /// <summary>
   /// Trims the paragraph removing leading whitespaces.
   /// </summary>
   /// <param name="paragraph"></param>
@@ -422,10 +440,14 @@ public static class ParagraphTools
   /// Normalize whitespaces in all runs in the paragraph.
   /// </summary>
   /// <param name="paragraph">Paragraph element to process</param>
-  public static void NormalizeWhitespaces(this DXW.Paragraph paragraph)
+  /// <param name="options"></param>
+  public static bool NormalizeWhitespaces(this DXW.Paragraph paragraph, WhitespaceOptions options)
   {
-    foreach (var run in paragraph.Descendants<DXW.Run>().ToList())
-      run.NormalizeWhitespaces();
+    //foreach (var run in paragraph.Elements<DXW.Run>().ToList())
+    //  run.NormalizeWhitespaces();
+    var textProcessor = new TextProcessor(paragraph);
+    textProcessor.NormalizeWhitespaces(options);
+    return true;
   }
 
   /// <summary>

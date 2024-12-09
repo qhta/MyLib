@@ -12,39 +12,6 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class RunTools
 {
-  //public static AnnotationReferenceMark GetAnnotationReferenceMark (this Run run) { return run.Elements<AnnotationReferenceMark>().FirstOrDefault();} 
-  //public static FootnoteReferenceMark GetFootnoteReferenceMark (this Run run) { return run.Elements<FootnoteReferenceMark>().FirstOrDefault();} 
-  //public static EndnoteReferenceMark GetEndnoteReferenceMark (this Run run) { return run.Elements<EndnoteReferenceMark>().FirstOrDefault();} 
-  //public static LastRenderedPageBreak GetLastRenderedPageBreak (this Run run) { return run.Elements<LastRenderedPageBreak>().FirstOrDefault();} 
-  //public static Break GetBreak (this Run run) { return run.Elements<Break>().FirstOrDefault();} 
-  //public static Text GetInnerText (this Run run) { return run.Elements<Text>().FirstOrDefault();} 
-  //public static DeletedText GetDeletedText (this Run run) { return run.Elements<DeletedText>().FirstOrDefault();} 
-  //public static FieldCode GetFieldCode (this Run run) { return run.Elements<FieldCode>().FirstOrDefault();} 
-  //public static DeletedFieldCode GetDeletedFieldCode (this Run run) { return run.Elements<DeletedFieldCode>().FirstOrDefault();} 
-  //public static NoBreakHyphen GetNoBreakHyphen (this Run run) { return run.Elements<NoBreakHyphen>().FirstOrDefault();} 
-  //public static SoftHyphen GetSoftHyphen (this Run run) { return run.Elements<SoftHyphen>().FirstOrDefault();} 
-  //public static DayShort GetDayShort (this Run run) { return run.Elements<DayShort>().FirstOrDefault();} 
-  //public static MonthShort GetMonthShort (this Run run) { return run.Elements<MonthShort>().FirstOrDefault();} 
-  //public static YearShort GetYearShort (this Run run) { return run.Elements<YearShort>().FirstOrDefault();} 
-  //public static DayLong GetDayLong (this Run run) { return run.Elements<DayLong>().FirstOrDefault();} 
-  //public static MonthLong GetMonthLong (this Run run) { return run.Elements<MonthLong>().FirstOrDefault();} 
-  //public static YearLong GetYearLong (this Run run) { return run.Elements<YearLong>().FirstOrDefault();} 
-  //public static EmbeddedObject GetEmbeddedObject (this Run run) { return run.Elements<EmbeddedObject>().FirstOrDefault();} 
-  //public static PositionalTab GetPositionalTab (this Run run) { return run.Elements<PositionalTab>().FirstOrDefault();} 
-  //public static SeparatorMark GetSeparatorMark (this Run run) { return run.Elements<SeparatorMark>().FirstOrDefault();} 
-  //public static ContinuationSeparatorMark GetContinuationSeparatorMark (this Run run) { return run.Elements<ContinuationSeparatorMark>().FirstOrDefault();} 
-  //public static SymbolChar GetSymbolChar (this Run run) { return run.Elements<SymbolChar>().FirstOrDefault();} 
-  //public static PageNumber GetPageNumber (this Run run) { return run.Elements<PageNumber>().FirstOrDefault();} 
-  //public static CarriageReturn GetCarriageReturn (this Run run) { return run.Elements<CarriageReturn>().FirstOrDefault();} 
-  //public static TabChar GetTabChar (this Run run) { return run.Elements<TabChar>().FirstOrDefault();} 
-  //public static RunProperties GetTextProperties (this Run run) { return run.Elements<RunProperties>().FirstOrDefault();} 
-  //public static Picture GetPicture (this Run run) { return run.Elements<Picture>().FirstOrDefault();} 
-  //public static FieldChar GetFieldChar (this Run run) { return run.Elements<FieldChar>().FirstOrDefault();} 
-  //public static Ruby GetRuby (this Run run) { return run.Elements<Ruby>().FirstOrDefault();} 
-  //public static FootnoteReference GetFootnoteReference (this Run run) { return run.Elements<FootnoteReference>().FirstOrDefault();} 
-  //public static EndnoteReference GetEndnoteReference (this Run run) { return run.Elements<EndnoteReference>().FirstOrDefault();} 
-  //public static CommentReference GetCommentReference (this Run run) { return run.Elements<CommentReference>().FirstOrDefault();} 
-  //public static Drawing GetDrawing (this Run run) { return run.Elements<Drawing>().FirstOrDefault();} 
 
   /// <summary>
   /// Get the <c>RunProperties</c> element of the run. If it is null, create a new one.
@@ -58,129 +25,129 @@ public static class RunTools
     return run.RunProperties;
   }
 
-  /// <summary>
-  /// Set the text content of the run.
-  /// </summary>
-  /// <param name="run"></param>
-  /// <param name="value"></param>
-  /// <param name="options"></param>
-  /// <returns></returns>
-  public static void SetText(this DXW.Run run, string? value, TextOptions? options = null)
-  {
-    if (options == null)
-      options = TextOptions.PlainText;
-    var runProperties = run.GetRunProperties();
-    run.RemoveAllChildren();
-    run.AppendChild(runProperties);
-    if (value == null)
-      return;
-    var sb = new StringBuilder();
-    for (int i = 0; i < value.Length; i++)
-    {
-      if (value.HasSubstringAt(i, options.BreakPageTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new DXW.Break() { Type = BreakValues.Page });
-      }
-      else if (value.HasSubstringAt(i, options.BreakColumnTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new DXW.Break() { Type = BreakValues.Column });
-      }
-      else if (value.HasSubstringAt(i, options.BreakLineTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new DXW.Break() { Type = BreakValues.TextWrapping });
-      }
-      else if (value.HasSubstringAt(i, options.TabChar))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new TabChar());
-      }
-      else if (value.HasSubstringAt(i, options.CarriageReturnTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new CarriageReturn());
-      }
-      else if (value.HasSubstringAt(i, options.FieldStartTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.Begin });
-      }
-      else if (value.HasSubstringAt(i, options.FieldResultTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.Separate });
-      }
-      else if (value.HasSubstringAt(i, options.FieldEndTag))
-      {
-        TryAppend(run, sb);
-        run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.End });
-      }
-      else if (value.HasSubstringAt(i, options.FootnoteRefStart))
-      {
-        TryAppend(run, sb);
-        var l = options.FootnoteRefStart.Length;
-        var k = value.IndexOf(options.FootnoteRefEnd, i + l);
-        if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
-        {
-          var footnoteReference = new FootnoteReference
-          {
-            Id = id
-          };
-          run.AppendChild(footnoteReference);
-          i = k;
-        }
-        else
-        {
-          sb.Append(value[i]);
-        }
-      }
-      else if (value.HasSubstringAt(i, options.EndnoteRefStart))
-      {
-        TryAppend(run, sb);
-        var l = options.EndnoteRefStart.Length;
-        var k = value.IndexOf(options.EndnoteRefEnd, i + l);
-        if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
-        {
-          var endnoteReference = new EndnoteReference
-          {
-            Id = id
-          };
-          run.AppendChild(endnoteReference);
-          i = k;
-        }
-        else
-        {
-          sb.Append(value[i]);
-        }
-      }
-      else if (value.HasSubstringAt(i, options.CommentRefStart))
-      {
-        TryAppend(run, sb);
-        var l = options.CommentRefStart.Length;
-        var k = value.IndexOf(options.CommentRefEnd, i + l);
-        if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
-        {
-          var commentReference = new CommentReference()
-          {
-            Id = id.ToString()
-          };
-          run.AppendChild(commentReference);
-          i = k;
-        }
-        else
-        {
-          sb.Append(value[i]);
-        }
-      }
-      else
-      {
-        sb.Append(value[i]);
-      }
-    }
-    TryAppend(run, sb);
-  }
+  ///// <summary>
+  ///// Set the text content of the run.
+  ///// </summary>
+  ///// <param name="run"></param>
+  ///// <param name="value"></param>
+  ///// <param name="options"></param>
+  ///// <returns></returns>
+  //public static void SetText(this DXW.Run run, string? value, TextOptions? options = null)
+  //{
+  //  if (options == null)
+  //    options = TextOptions.PlainText;
+  //  var runProperties = run.GetRunProperties();
+  //  run.RemoveAllChildren();
+  //  run.AppendChild(runProperties);
+  //  if (value == null)
+  //    return;
+  //  var sb = new StringBuilder();
+  //  for (int i = 0; i < value.Length; i++)
+  //  {
+  //    if (value.HasSubstringAt(i, options.BreakPageTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new DXW.Break() { Type = BreakValues.Page });
+  //    }
+  //    else if (value.HasSubstringAt(i, options.BreakColumnTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new DXW.Break() { Type = BreakValues.Column });
+  //    }
+  //    else if (value.HasSubstringAt(i, options.BreakLineTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new DXW.Break() { Type = BreakValues.TextWrapping });
+  //    }
+  //    else if (value.HasSubstringAt(i, options.TabChar))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new TabChar());
+  //    }
+  //    else if (value.HasSubstringAt(i, options.CarriageReturnTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new CarriageReturn());
+  //    }
+  //    else if (value.HasSubstringAt(i, options.FieldStartTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.Begin });
+  //    }
+  //    else if (value.HasSubstringAt(i, options.FieldResultTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.Separate });
+  //    }
+  //    else if (value.HasSubstringAt(i, options.FieldEndTag))
+  //    {
+  //      TryAppend(run, sb);
+  //      run.AppendChild(new FieldChar() { FieldCharType = FieldCharValues.End });
+  //    }
+  //    else if (value.HasSubstringAt(i, options.FootnoteRefStart))
+  //    {
+  //      TryAppend(run, sb);
+  //      var l = options.FootnoteRefStart.Length;
+  //      var k = value.IndexOf(options.FootnoteRefEnd, i + l);
+  //      if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
+  //      {
+  //        var footnoteReference = new FootnoteReference
+  //        {
+  //          Id = id
+  //        };
+  //        run.AppendChild(footnoteReference);
+  //        i = k;
+  //      }
+  //      else
+  //      {
+  //        sb.Append(value[i]);
+  //      }
+  //    }
+  //    else if (value.HasSubstringAt(i, options.EndnoteRefStart))
+  //    {
+  //      TryAppend(run, sb);
+  //      var l = options.EndnoteRefStart.Length;
+  //      var k = value.IndexOf(options.EndnoteRefEnd, i + l);
+  //      if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
+  //      {
+  //        var endnoteReference = new EndnoteReference
+  //        {
+  //          Id = id
+  //        };
+  //        run.AppendChild(endnoteReference);
+  //        i = k;
+  //      }
+  //      else
+  //      {
+  //        sb.Append(value[i]);
+  //      }
+  //    }
+  //    else if (value.HasSubstringAt(i, options.CommentRefStart))
+  //    {
+  //      TryAppend(run, sb);
+  //      var l = options.CommentRefStart.Length;
+  //      var k = value.IndexOf(options.CommentRefEnd, i + l);
+  //      if (k > 0 && int.TryParse(value.Substring(i + l, k - i - l), out var id))
+  //      {
+  //        var commentReference = new CommentReference()
+  //        {
+  //          Id = id.ToString()
+  //        };
+  //        run.AppendChild(commentReference);
+  //        i = k;
+  //      }
+  //      else
+  //      {
+  //        sb.Append(value[i]);
+  //      }
+  //    }
+  //    else
+  //    {
+  //      sb.Append(value[i]);
+  //    }
+  //  }
+  //  TryAppend(run, sb);
+  //}
 
   private static void TryAppend(this DXW.Run run, StringBuilder sb)
   {
@@ -196,7 +163,7 @@ public static class RunTools
   }
 
   /// <summary>
-  /// Append text to the paragraph.
+  /// Append text to the run.
   /// </summary>
   /// <param name="run"></param>
   /// <param name="text"></param>
@@ -205,9 +172,12 @@ public static class RunTools
     var runText = run.Descendants<DXW.Text>().LastOrDefault();
     if (runText == null)
     {
+      var keepSpaces = (text.Trim() != text);
       runText = new DXW.Text
       {
-        Text = text
+        Text = text,
+        Space = new DX.EnumValue<DX.SpaceProcessingModeValues>(
+          keepSpaces ? DX.SpaceProcessingModeValues.Preserve : DX.SpaceProcessingModeValues.Default)
       };
       run.AppendChild(runText);
     }

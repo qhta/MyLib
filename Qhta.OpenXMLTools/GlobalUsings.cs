@@ -11,8 +11,8 @@ global using System.Linq;
 global using System.Reflection;
 global using System.Xml.Serialization;
 #if NET7_0_OR_GREATER
-  global using System.Text.Json;
-//  global using System.Text.Json.Serialization;
+  global using System.SearchText.Json;
+//  global using System.SearchText.Json.Serialization;
 #else
 //  global using Newtonsoft.Json;
 #endif

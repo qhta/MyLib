@@ -79,7 +79,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comment Text.
+        ///   Looks up a localized string similar to Comment SearchText.
         /// </summary>
         public static string wdStyleAnnotationText {
             get {
@@ -88,7 +88,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Balloon Text.
+        ///   Looks up a localized string similar to Balloon SearchText.
         /// </summary>
         public static string wdStyleBalloonText {
             get {
@@ -106,7 +106,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Block Text.
+        ///   Looks up a localized string similar to Block SearchText.
         /// </summary>
         public static string wdStyleBlockText {
             get {
@@ -115,7 +115,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text.
+        ///   Looks up a localized string similar to Body SearchText.
         /// </summary>
         public static string wdStyleBodyText {
             get {
@@ -124,7 +124,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text 2.
+        ///   Looks up a localized string similar to Body SearchText 2.
         /// </summary>
         public static string wdStyleBodyText2 {
             get {
@@ -133,7 +133,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text 3.
+        ///   Looks up a localized string similar to Body SearchText 3.
         /// </summary>
         public static string wdStyleBodyText3 {
             get {
@@ -142,7 +142,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text First IndentUnit.
+        ///   Looks up a localized string similar to Body SearchText First IndentUnit.
         /// </summary>
         public static string wdStyleBodyTextFirstIndent {
             get {
@@ -151,7 +151,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text First IndentUnit 2.
+        ///   Looks up a localized string similar to Body SearchText First IndentUnit 2.
         /// </summary>
         public static string wdStyleBodyTextFirstIndent2 {
             get {
@@ -160,7 +160,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text IndentUnit.
+        ///   Looks up a localized string similar to Body SearchText IndentUnit.
         /// </summary>
         public static string wdStyleBodyTextIndent {
             get {
@@ -169,7 +169,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text IndentUnit 2.
+        ///   Looks up a localized string similar to Body SearchText IndentUnit 2.
         /// </summary>
         public static string wdStyleBodyTextIndent2 {
             get {
@@ -178,7 +178,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Text IndentUnit 3.
+        ///   Looks up a localized string similar to Body SearchText IndentUnit 3.
         /// </summary>
         public static string wdStyleBodyTextIndent3 {
             get {
@@ -520,7 +520,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endnote Text.
+        ///   Looks up a localized string similar to Endnote SearchText.
         /// </summary>
         public static string wdStyleEndnoteText {
             get {
@@ -574,7 +574,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Footnote Text.
+        ///   Looks up a localized string similar to Footnote SearchText.
         /// </summary>
         public static string wdStyleFootnoteText {
             get {
@@ -2176,7 +2176,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Macro Text.
+        ///   Looks up a localized string similar to Macro SearchText.
         /// </summary>
         public static string wdStyleMacro {
             get {
@@ -2743,7 +2743,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Placeholder Text.
+        ///   Looks up a localized string similar to Placeholder SearchText.
         /// </summary>
         public static string wdStylePlaceholderText {
             get {
@@ -2797,7 +2797,7 @@ namespace Qhta.OpenXmlTools {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plain Text.
+        ///   Looks up a localized string similar to Plain SearchText.
         /// </summary>
         public static string wdStylePlainText {
             get {

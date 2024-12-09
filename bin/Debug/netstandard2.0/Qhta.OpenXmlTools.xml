@@ -443,17 +443,32 @@
             </summary>
             <param name="fileName"></param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TestTextProcessor(System.String)">
+            <summary>
+            Run test of TextProcessor functionality.
+            </summary>
+            <param name="fileName"></param>
+        </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CleanDocument(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
             <summary>
             Cleans the document using all the methods available.
             </summary>
             <param name="wordDoc"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,Qhta.OpenXmlTools.TrimOptions)">
             <summary>
-            Trims all the paragraphs in the document removing starting and ending whitespaces.
+            Trims all the paragraphs in the document removing ending whitespaces.
             </summary>
             <param name="wordDoc"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeWhitespaces(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,Qhta.OpenXmlTools.WsMode,Qhta.OpenXmlTools.TrimOptions)">
+            <summary>
+            Normalize whitespaces in the document
+            </summary>
+            <param name="wordDoc"></param>
+            <param name="mode"></param>
+            <param name="trimOptions"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Boolean)">
             <summary>
@@ -1471,7 +1486,7 @@
             Options for get text to search.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.Finder.Text">
+        <member name="P:Qhta.OpenXmlTools.Finder.SearchText">
             <summary>
             Text to search for.
             </summary>
@@ -1483,7 +1498,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.Finder.Replacement">
             <summary>
-            Text to replace.
+            SearchText to replace.
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.Finder.Execute">
@@ -1507,8 +1522,8 @@
             Determines if the input text contains completely the search text
             or if the input text ends with a start of the search text of any length.
             </summary>
-            <param name="inText">Text to search in</param>
-            <param name="sText">Text to search for</param>
+            <param name="inText">SearchText to search in</param>
+            <param name="sText">SearchText to search for</param>
             <returns>The index of the first char that matches the search string or -1 if not found</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.FontSchemeTools">
@@ -1613,6 +1628,14 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.DispatchGetText(DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Dispatch the get text method for the element.
+            </summary>
+            <param name="element"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text content of the run.
@@ -1621,19 +1644,35 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
             <summary>
-            Get the text of the run text element.
+            Get the text of the run SearchText element.
             </summary>
-            <param name="text"></param>
+            <param name="runText"></param>
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.OpenXmlLeafTextElement,Qhta.OpenXmlTools.TextOptions)">
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
             <summary>
-            Get the text of any textElement element.
+            Get the text of the run SearchText element.
             </summary>
-            <param name="textElement"></param>
+            <param name="runText"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.DeletedText,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the element of the DeletedText element.
+            </summary>
+            <param name="element"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.DeletedFieldCode,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the element of the deleted field code element.
+            </summary>
+            <param name="element"></param>
             <param name="options"></param>
             <returns></returns>
         </member>
@@ -1677,6 +1716,54 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.DayLong,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the DayLong element.
+            </summary>
+            <param name="dayLong"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.DayShort,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the DayShort element.
+            </summary>
+            <param name="dayShort"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.MonthLong,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the MonthLong element.
+            </summary>
+            <param name="MonthLong"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.MonthShort,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the MonthShort element.
+            </summary>
+            <param name="MonthShort"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.YearLong,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the YearLong element.
+            </summary>
+            <param name="YearLong"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.YearShort,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the YearShort element.
+            </summary>
+            <param name="YearShort"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.FootnoteReference,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the FootnoteReference element.
@@ -1698,6 +1785,46 @@
             Get the text of the CommentReference element.
             </summary>
             <param name="commentReference"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.FootnoteReferenceMark,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the FootnoteReferenceMark element.
+            </summary>
+            <param name="footnoteReferenceMark"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.EndnoteReferenceMark,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the EndnoteReferenceMark element.
+            </summary>
+            <param name="endnoteReferenceMark"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.AnnotationReferenceMark,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the annotationReferenceMark element.
+            </summary>
+            <param name="annotationReferenceMark"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.SeparatorMark,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the SeparatorMark element.
+            </summary>
+            <param name="SeparatorMark"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.ContinuationSeparatorMark,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the continuationSeparatorMark element.
+            </summary>
+            <param name="continuationSeparatorMark"></param>
             <param name="options"></param>
             <returns></returns>
         </member>
@@ -1756,6 +1883,30 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Ruby,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text content of the ruby element
+            </summary>
+            <param name="ruby"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.EmbeddedObject,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text for the embeddedObject element.
+            </summary>
+            <param name="embeddedObject"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.ContentPart,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text for the contentPart element.
+            </summary>
+            <param name="contentPart"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Drawing,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text for the drawing element.
@@ -1771,6 +1922,53 @@
             <param name="blip"></param>
             <param name="options"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.GotTextParser">
+            <summary>
+            This class parses text which was got with GetText methods for OpenXml elements.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GotTextParser.RootElement">
+            <summary>
+            Element which text will be parsed.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GotTextParser.Options">
+            <summary>
+            Options used when text was taken from RootElement using GetText method.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.GotTextParser.ErrorMessage">
+            <summary>
+            Message with error description if text was not parsed successfully.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GotTextParser.#ctor(DocumentFormat.OpenXml.OpenXmlElement,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Constructor. Root element is the element which text will be parsed.
+            </summary>
+            <param name="rootElement">Element which text will be parsed.</param>
+            <param name="options">Options used when text was taken from RootElement using GetText method.</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GotTextParser.ParseText(System.String)">
+            <summary>
+            Main method. Parses text. Returns true if text was parsed successfully.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GotTextParser.Dispose">
+            <summary>
+            Now implementation is empty
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GotTextParser.ParseText(DocumentFormat.OpenXml.OpenXmlElement,System.String,System.Int32@)">
+            <summary>
+            Set text to a Run element.
+            </summary>
+            <param name="rootElement"></param>
+            <param name="text"></param>
+            <param name="pos">current parse position</param>
         </member>
         <member name="T:Qhta.OpenXmlTools.GraphicTools">
             <summary>
@@ -3095,11 +3293,20 @@
             <param name="dictionary">Dictionary of erroneous-proper strings</param>
             <returns>count of trimmed paragraphs</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.TrimParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.TrimParagraphs(DocumentFormat.OpenXml.OpenXmlCompositeElement,Qhta.OpenXmlTools.TrimOptions)">
             <summary>
             Trimming all paragraphs endings.
             </summary>
             <param name="element">Processed element</param>
+            <param name="options"></param>
+            <returns>count of trimmed paragraphs</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.NormalizeWhitespaces(DocumentFormat.OpenXml.OpenXmlCompositeElement,Qhta.OpenXmlTools.WhitespaceOptions)">
+            <summary>
+            Trimming all paragraphs endings.
+            </summary>
+            <param name="element">Processed element</param>
+            <param name="options"></param>
             <returns>count of trimmed paragraphs</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlCompositeElementTools.ReplaceSymbolEncoding(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
@@ -3179,15 +3386,6 @@
             It must be one of the DocumentFormat.OpenXml.OpenXmlElement types.
             It must not be an empty array.
             </param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.SetText(DocumentFormat.OpenXml.OpenXmlElement,System.String,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Sets the text of the element.
-            </summary>
-            <param name="element"></param>
-            <param name="text"></param>
-            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.IsEmpty(DocumentFormat.OpenXml.OpenXmlElement)">
@@ -4412,6 +4610,14 @@
             <param name="paragraph"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.Trim(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TrimOptions)">
+            <summary>
+            Trim the paragraph removing leading and/or trailing whitespaces.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.TrimStart(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>
             Trims the paragraph removing leading whitespaces.
@@ -4470,11 +4676,12 @@
             <param name="paragraph">Paragraph element to examine</param>
             <param name="defaultProperties">Default text properties used when there is no text properties</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ParagraphTools.NormalizeWhitespaces(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.NormalizeWhitespaces(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.WhitespaceOptions)">
             <summary>
             Normalize whitespaces in all runs in the paragraph.
             </summary>
             <param name="paragraph">Paragraph element to process</param>
+            <param name="options"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.ParagraphTools.AppendText(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.String)">
             <summary>
@@ -4650,20 +4857,6 @@
             <summary>
             Tools for working with OpenXml Wordprocessing plain text element.
             </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.PlainTextTools.GetPlainText(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Get the plain text from a composite element. Joins the text of the run elements.
-            </summary>
-            <param name="element">source element</param>
-            <returns>joined string</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.PlainTextTools.GetPlainText(DocumentFormat.OpenXml.Wordprocessing.Run)">
-            <summary>
-            Get the plain text from a run element. Joins the text of the run items which are not field codes.
-            </summary>
-            <param name="element">source element</param>
-            <returns>joined string</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.PreviousSectionPropertiesTools">
             <summary>
@@ -5605,7 +5798,7 @@
         </member>
         <member name="T:Qhta.OpenXmlTools.RunTextTools">
             <summary>
-            Tools for working with OpenXml Wordprocessing Text element.
+            Tools for working with OpenXml Wordprocessing SearchText element.
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTextTools.IsEmpty(DocumentFormat.OpenXml.Wordprocessing.Text)">
@@ -5638,18 +5831,9 @@
             <param name="run"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.RunTools.SetText(DocumentFormat.OpenXml.Wordprocessing.Run,System.String,Qhta.OpenXmlTools.TextOptions)">
-            <summary>
-            Set the text content of the run.
-            </summary>
-            <param name="run"></param>
-            <param name="value"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.AppendText(DocumentFormat.OpenXml.Wordprocessing.Run,System.String)">
             <summary>
-            Append text to the paragraph.
+            Append text to the run.
             </summary>
             <param name="run"></param>
             <param name="text"></param>
@@ -6409,6 +6593,69 @@
             </summary>
             <param name="body">Body of the WordprocessingDocument</param>
             <returns>Instance of the sections element</returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.SetTextMethods">
+            <summary>
+            Methods to set text to OpenXml elements.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.SetText(DocumentFormat.OpenXml.OpenXmlElement,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Set text to an OpenXml element using text parser.
+            </summary>
+            <param name="element"></param>
+            <param name="text"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.SetTextTo(DocumentFormat.OpenXml.Wordprocessing.Run,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Set text to a run element.
+            </summary>
+            <param name="run"></param>
+            <param name="text"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.SetTextTo(DocumentFormat.OpenXml.Wordprocessing.Run,DocumentFormat.OpenXml.OpenXmlElement,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Set text to a run SearchText element to/before the specified member.
+            </summary>
+            <param name="run"></param>
+            <param name="member"></param>
+            <param name="text"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.InsertTextAt(DocumentFormat.OpenXml.Wordprocessing.Text,System.Int32,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Insert text to a run SearchText element at the specified position.
+            </summary>
+            <param name="runText"></param>
+            <param name="text"></param>
+            <param name="pos"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.SetTextAt(DocumentFormat.OpenXml.Wordprocessing.Text,System.Int32,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Set text to a run SearchText element at the specified position.
+            Existing text before the position is kept intact.
+            SearchText after the position is replaced with the new text.
+            </summary>
+            <param name="runText"></param>
+            <param name="text"></param>
+            <param name="pos"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.SetTextOf(DocumentFormat.OpenXml.Wordprocessing.Text,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Set the text of the run SearchText element.
+            </summary>
+            <param name="runText"></param>
+            <param name="text"></param>
+            <param name="options"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.SettingCategory">
             <summary>
@@ -8074,6 +8321,13 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.StringTools.HtmlDecode(System.String)">
+            <summary>
+            Decodes a string using html entities.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.StringTools.IndentString(System.String,System.Int32,System.String,System.String)">
             <summary>
             Indent a string.
@@ -8576,12 +8830,12 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleAnnotationText">
             <summary>
-              Looks up a localized string similar to Comment Text.
+              Looks up a localized string similar to Comment SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBalloonText">
             <summary>
-              Looks up a localized string similar to Balloon Text.
+              Looks up a localized string similar to Balloon SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBibliography">
@@ -8591,47 +8845,47 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBlockText">
             <summary>
-              Looks up a localized string similar to Block Text.
+              Looks up a localized string similar to Block SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyText">
             <summary>
-              Looks up a localized string similar to Body Text.
+              Looks up a localized string similar to Body SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyText2">
             <summary>
-              Looks up a localized string similar to Body Text 2.
+              Looks up a localized string similar to Body SearchText 2.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyText3">
             <summary>
-              Looks up a localized string similar to Body Text 3.
+              Looks up a localized string similar to Body SearchText 3.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyTextFirstIndent">
             <summary>
-              Looks up a localized string similar to Body Text First IndentUnit.
+              Looks up a localized string similar to Body SearchText First IndentUnit.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyTextFirstIndent2">
             <summary>
-              Looks up a localized string similar to Body Text First IndentUnit 2.
+              Looks up a localized string similar to Body SearchText First IndentUnit 2.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyTextIndent">
             <summary>
-              Looks up a localized string similar to Body Text IndentUnit.
+              Looks up a localized string similar to Body SearchText IndentUnit.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyTextIndent2">
             <summary>
-              Looks up a localized string similar to Body Text IndentUnit 2.
+              Looks up a localized string similar to Body SearchText IndentUnit 2.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBodyTextIndent3">
             <summary>
-              Looks up a localized string similar to Body Text IndentUnit 3.
+              Looks up a localized string similar to Body SearchText IndentUnit 3.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleBookTitle">
@@ -8821,7 +9075,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleEndnoteText">
             <summary>
-              Looks up a localized string similar to Endnote Text.
+              Looks up a localized string similar to Endnote SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleEnvelopeAddress">
@@ -8851,7 +9105,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleFootnoteText">
             <summary>
-              Looks up a localized string similar to Footnote Text.
+              Looks up a localized string similar to Footnote SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleGridTable1Light">
@@ -9741,7 +9995,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleMacro">
             <summary>
-              Looks up a localized string similar to Macro Text.
+              Looks up a localized string similar to Macro SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleMediumGrid1">
@@ -10056,7 +10310,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStylePlaceholderText">
             <summary>
-              Looks up a localized string similar to Placeholder Text.
+              Looks up a localized string similar to Placeholder SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStylePlainTable1">
@@ -10086,7 +10340,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStylePlainText">
             <summary>
-              Looks up a localized string similar to Plain Text.
+              Looks up a localized string similar to Plain SearchText.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.StylesStrings.wdStyleQuote">
@@ -11399,10 +11653,15 @@
             Options for getting text.
             </summary>
         </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.EscChar">
+            <summary>
+            Marker to precede a tag.
+            </summary>
+        </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.PlainText">
             <summary>
             Options to get only plain text. All non-text elements are returned as a single control character \u001B (ESC).
-            Text is returned as is.
+            SearchText is returned as is.
             Symbols like new line, tab, page break, column break, line break, carriage return are replaced by control characters,
             which are as follows:
             <list type="table">
@@ -11432,10 +11691,10 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.ParaText">
             <summary>
-            Options to get paragraph text. Similar to ParaText, but with ASCII tabs.
+            Options to get paragraph text.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.TabbedText">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.XmlTaggedText">
             <summary>
             Options to get tabbed text.
             Such characters as &lt;, &gt;, &amp; are replaced with html entities.
@@ -11490,9 +11749,29 @@
             Tag to mark a carriage return.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.ObjectReplacement">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.SoftHyphenTag">
             <summary>
-            Tag to mark a non-text object in plain text.
+            Tag to mark a soft hyphen.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenTag">
+            <summary>
+            Tag to mark a non-break hyphen.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.OtherObjectSubstituteTag">
+            <summary>
+            Tag to mark other object in plain text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.PageNumberTag">
+            <summary>
+            Tag to mark a page number.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakTag">
+            <summary>
+            Tag to mark a last rendered page break.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreEmptyParagraphs">
@@ -11575,6 +11854,26 @@
             Use HTML paragraph tags instead of paragraph separators.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.TextStartTag">
+            <summary>
+            Tag to start a run.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.TextEndTag">
+            <summary>
+            Tag to end a run.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.RunStartTag">
+            <summary>
+            Tag to start a run.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.RunEndTag">
+            <summary>
+            Tag to end a run.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.ParagraphStartTag">
             <summary>
             Tag to start a paragraph.
@@ -11640,6 +11939,16 @@
             Tag to start a field formula.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FieldCodeStart">
+            <summary>
+            Tag to start a field code start.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FieldCodeEnd">
+            <summary>
+            Tag to start a field code end.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.FieldResultTag">
             <summary>
             Tag to separate a field formula command from result.
@@ -11680,6 +11989,31 @@
             Tag to end a comment reference.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.AnnotationRefMark">
+            <summary>
+            Tag to mark an annotation reference mark.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteRefMark">
+            <summary>
+            Tag to mark an endnote reference mark.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.EndnoteRefMark">
+            <summary>
+            Tag to mark an endnote reference mark.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteSepMark">
+            <summary>
+            Tag to mark a footnotes/endnotes separator mark.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ContinuationSepMark">
+            <summary>
+            Tag to mark a continuation separator mark.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeParagraphNumbering">
             <summary>
             Include paragraph numbering string at the beginning of paragraph text.
@@ -11700,6 +12034,51 @@
             Tag to end a paragraph numbering.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DeletedTextStartTag">
+            <summary>
+            Deleted text start tag.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DeletedTextEndTag">
+            <summary>
+            Deleted text end tag.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DeletedInstrStartTag">
+            <summary>
+            Deletion start tag.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DeletedInstrEndTag">
+            <summary>
+            Deletion end tag.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeEmbeddedObjects">
+            <summary>
+            Include embedded objects in the text. Objects are included as Xml.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreEmbeddedObjectContent">
+            <summary>
+            Ignore embedded objects content.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.EmbeddedObjectSubstituteTag">
+            <summary>
+            Tag to replace an object.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.EmbeddedObjectStartTag">
+            <summary>
+            Tag to start an object.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.EmbeddedObjectEndTag">
+            <summary>
+            Tag to end an object.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeDrawings">
             <summary>
             Include drawings in the text. Drawings are included as Xml.
@@ -11707,7 +12086,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreDrawingContents">
             <summary>
-            Include drawing as DrawingReplacementTags.
+            Ignore drawings content.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.DrawingSubstituteTag">
@@ -11738,6 +12117,57 @@
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreOtherMembersContent">
             <summary>
             Ignore other members content.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeMemberProperties">
+            <summary>
+            Determine if the member properties should be included.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TextProcessor">
+            <summary>
+            Class to process text in a document.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.RunText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Run,System.String)">
+            <summary>
+            Construct a RunText object.
+            </summary>
+            <param name="run"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Construct a text processor using paragraph as a context element.
+            </summary>
+            <param name="paragraph"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.GetText">
+            <summary>
+            Get text of the context and fill FormattedText dictionary.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String)">
+            <summary>
+            Replace the first occurrence of the search text with the replacement text.
+            </summary>
+            <param name="searchText"></param>
+            <param name="replacementText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.ReplaceAt(System.Int32,System.Int32,System.String)">
+            <summary>
+            Replace the text at given position and of given length with the replacement text.
+            </summary>
+            <param name="length"></param>
+            <param name="replacementText"></param>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">
+            <summary>
+            Remove exceeding whitespaces from all paragraphs in the context.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.TextProperties">
@@ -11783,6 +12213,21 @@
         <member name="P:Qhta.OpenXmlTools.TextProperties.UnderlineColor">
             <summary>
             Underline color. Valid if underline attribute is set.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TrimOptions">
+            <summary>
+            Options for trimming paragraphs.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TrimOptions.TrimStart">
+            <summary>
+            Trim white spaces at the start of the paragraph.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TrimOptions.TrimEnd">
+            <summary>
+            Trim white spaces at the end of the paragraph.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.Twips">
@@ -12438,7 +12883,7 @@
             <summary>Normal (Web).</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStylePlainText">
-            <summary>Plain Text.</summary>
+            <summary>Plain SearchText.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNavPane">
             <summary>Document Map.</summary>
@@ -12459,25 +12904,25 @@
             <summary>Block Quotation.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent3">
-            <summary>Body Text IndentUnit 3.</summary>
+            <summary>Body SearchText IndentUnit 3.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent2">
-            <summary>Body Text IndentUnit 2.</summary>
+            <summary>Body SearchText IndentUnit 2.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText3">
-            <summary>Body Text 3.</summary>
+            <summary>Body SearchText 3.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText2">
-            <summary>Body Text 2.</summary>
+            <summary>Body SearchText 2.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNoteHeading">
             <summary>Note Heading.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent2">
-            <summary>Body Text First IndentUnit 2.</summary>
+            <summary>Body SearchText First IndentUnit 2.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextFirstIndent">
-            <summary>Body Text First IndentUnit.</summary>
+            <summary>Body SearchText First IndentUnit.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDate">
             <summary>Date.</summary>
@@ -12507,10 +12952,10 @@
             <summary>List Continue.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyTextIndent">
-            <summary>Body Text IndentUnit.</summary>
+            <summary>Body SearchText IndentUnit.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleBodyText">
-            <summary>Body Text.</summary>
+            <summary>Body SearchText.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleDefaultParagraphFont">
             <summary>Default Paragraph HighAnsiFont.</summary>
@@ -12573,13 +13018,13 @@
             <summary>TOA Heading.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleMacroText">
-            <summary>Macro Text.</summary>
+            <summary>Macro SearchText.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleTableOfAuthorities">
             <summary>Table of Authorities.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteText">
-            <summary>Endnote Text.</summary>
+            <summary>Endnote SearchText.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleEndnoteReference">
             <summary>Endnote Reference.</summary>
@@ -12618,10 +13063,10 @@
             <summary>Header.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleCommentText">
-            <summary>Comment Text.</summary>
+            <summary>Comment SearchText.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleFootnoteText">
-            <summary>Footnote Text.</summary>
+            <summary>Footnote SearchText.</summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormalIndent">
             <summary>Normal IndentUnit.</summary>
@@ -12709,6 +13154,87 @@
         </member>
         <member name="F:Qhta.OpenXmlTools.WdBuiltinStyle.wdStyleNormal">
             <summary>Normal.</summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.WsMode">
+            <summary>
+            Mode for handling whitespaces.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WsMode.NoChange">
+            <summary>
+            Do not change the white spaces.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WsMode.Remove">
+            <summary>
+            Remove white spaces.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WsMode.Reduce">
+            <summary>
+            Remove white spaces and replace with a single space.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WsMode.ChangeToTabs">
+            <summary>
+            Change white spaces to tabs.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.WsMode.ChangeToSpaces">
+            <summary>
+            Change tabs to whitespaces.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.WhitespaceOptions">
+            <summary>
+            Options for handling whitespaces in text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.WhitespaceOptions.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.WhitespaceOptions.#ctor(Qhta.OpenXmlTools.WsMode,Qhta.OpenXmlTools.WsMode,Qhta.OpenXmlTools.WsMode)">
+            <summary>
+            Constructor with all options.
+            </summary>
+            <param name="mode"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.WhitespaceOptions.#ctor(Qhta.OpenXmlTools.WsMode)">
+            <summary>
+            Constructor with the same mode for all options.
+            </summary>
+            <param name="mode"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.WhitespaceOptions.#ctor(Qhta.OpenXmlTools.WsMode,Qhta.OpenXmlTools.TrimOptions)">
+            <summary>
+            Constructor with mode and trim options.
+            </summary>
+            <param name="mode"></param>
+            <param name="trimOptions"></param>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.WhitespaceOptions.Mode">
+            <summary>
+            What to do with whitespaces at the main part of the text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.WhitespaceOptions.Start">
+            <summary>
+            What to do with whitespaces at the start of the text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.WhitespaceOptions.End">
+            <summary>
+            What to do with whitespaces at the end of the text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.WhitespaceOptions.TabSize">
+            <summary>
+            How many spaces to use for a tab.
+            </summary>
         </member>
     </members>
 </doc>

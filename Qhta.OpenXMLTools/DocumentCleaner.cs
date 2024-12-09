@@ -50,13 +50,45 @@ public partial class DocumentCleaner
   }
 
   /// <summary>
+  /// Run test of TextProcessor functionality.
+  /// </summary>
+  /// <param name="fileName"></param>
+  public void TestTextProcessor(string fileName)
+  {
+    DXPack.WordprocessingDocument? wordDoc = null;
+    var tryCount = 3;
+    while (tryCount > 0)
+    {
+      try
+      {
+        wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
+        tryCount = 0;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        tryCount--;
+      }
+    }
+    if (wordDoc != null)
+      try
+      {
+        CleanDocument(wordDoc);
+      }
+      finally
+      {
+        wordDoc.Dispose();
+      }
+  }
+  /// <summary>
   /// Cleans the document using all the methods available.
   /// </summary>
   /// <param name="wordDoc"></param>
   public void CleanDocument(DXPack.WordprocessingDocument wordDoc)
   {
     RemoveProofErrors(wordDoc);
-    TrimParagraphs(wordDoc);
+    TrimParagraphs(wordDoc, TrimOptions.TrimEnd);
+    NormalizeWhitespaces(wordDoc, WsMode.Reduce, TrimOptions.TrimEnd);
     RemoveEmptyParagraphs(wordDoc, true);
     RemoveFakeHeadersAndFooters(wordDoc);
     ResetHeadingsFormat(wordDoc);
@@ -83,29 +115,56 @@ public partial class DocumentCleaner
   }
 
   /// <summary>
-  /// Trims all the paragraphs in the document removing starting and ending whitespaces.
+  /// Trims all the paragraphs in the document removing ending whitespaces.
   /// </summary>
   /// <param name="wordDoc"></param>
-  public void TrimParagraphs(DXPack.WordprocessingDocument wordDoc)
+  /// <param name="options"></param>
+  public void TrimParagraphs(DXPack.WordprocessingDocument wordDoc, TrimOptions options)
   {
     if (VerboseLevel > 0)
       Console.WriteLine("\nTrimming paragraphs");
     var body = wordDoc.GetBody();
-    var count = body.TrimParagraphs();
+    var count = body.TrimParagraphs(options);
     var headers = wordDoc.GetHeaders().ToList();
     foreach (var header in headers)
     {
-      count += header.TrimParagraphs();
+      count += header.TrimParagraphs(options);
     }
     var footers = wordDoc.GetFooters().ToList();
     foreach (var footer in wordDoc.GetFooters())
     {
-      count += footer.TrimParagraphs();
+      count += footer.TrimParagraphs(options);
     }
     if (VerboseLevel > 0)
       Console.WriteLine($" {count} paragraphs trimmed.");
   }
 
+  /// <summary>
+  /// Normalize whitespaces in the document
+  /// </summary>
+  /// <param name="wordDoc"></param>
+  /// <param name="mode"></param>
+  /// <param name="trimOptions"></param>
+  public void NormalizeWhitespaces(DXPack.WordprocessingDocument wordDoc, WsMode mode, TrimOptions trimOptions)
+  {
+    var whitespaceOptions = new WhitespaceOptions(mode, trimOptions);
+    if (VerboseLevel > 0)
+      Console.WriteLine("\nNormalizing whitespaces");
+    var body = wordDoc.GetBody();
+    var count = body.NormalizeWhitespaces(whitespaceOptions);
+    var headers = wordDoc.GetHeaders().ToList();
+    foreach (var header in headers)
+    {
+      count += header.NormalizeWhitespaces(whitespaceOptions);
+    }
+    var footers = wordDoc.GetFooters().ToList();
+    foreach (var footer in wordDoc.GetFooters())
+    {
+      count += footer.NormalizeWhitespaces(whitespaceOptions);
+    }
+    if (VerboseLevel > 0)
+      Console.WriteLine($" {count} paragraphs normalized.");
+  }
 
   /// <summary>
   /// Removes all the empty paragraphs from the document.

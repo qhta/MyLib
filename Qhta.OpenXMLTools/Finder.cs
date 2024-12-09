@@ -49,7 +49,7 @@ public class Finder
   /// <summary>
   /// Text to search for.
   /// </summary>
-  public string? Text { get; set; }
+  public string? SearchText { get; set; }
 
   /// <summary>
   /// Determines if the search must consider formatting.
@@ -57,7 +57,7 @@ public class Finder
   public bool Format { get; set; }
 
   /// <summary>
-  /// Text to replace.
+  /// SearchText to replace.
   /// </summary>
   public string? Replacement { get; set; }
 
@@ -67,7 +67,7 @@ public class Finder
   /// <returns>if finder founds text and/or formatting</returns>
   public bool? Execute()
   {
-    if (Text == null)
+    if (SearchText == null)
       return false;
 
     bool found = false;
@@ -77,12 +77,12 @@ public class Finder
     {
       if (Replacement != null)
       {
-        if (ReplaceText(paragraph, Text, Replacement))
+        if (ReplaceText(paragraph, SearchText, Replacement))
           found = true;
       }
       else
       {
-        if (FindText(paragraph, Text))
+        if (FindText(paragraph, SearchText))
           found = true;
         break;
       }
@@ -156,8 +156,8 @@ public class Finder
   /// Determines if the input text contains completely the search text
   /// or if the input text ends with a start of the search text of any length.
   /// </summary>
-  /// <param name="inText">Text to search in</param>
-  /// <param name="sText">Text to search for</param>
+  /// <param name="inText">SearchText to search in</param>
+  /// <param name="sText">SearchText to search for</param>
   /// <returns>The index of the first char that matches the search string or -1 if not found</returns>
   private int Find(string inText, string sText)
   {
