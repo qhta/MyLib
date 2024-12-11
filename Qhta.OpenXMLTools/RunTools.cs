@@ -325,8 +325,7 @@ public static class RunTools
       {
         // ignore
       }
-      else
-      if (firstElement is DXW.LastRenderedPageBreak)
+      else if (firstElement is DXW.LastRenderedPageBreak)
       {
         firstElement.Remove();
       }
@@ -335,8 +334,7 @@ public static class RunTools
         firstElement.Remove();
         done = true;
       }
-      else
-      if (firstElement is DXW.Text runText)
+      else if (firstElement is DXW.Text runText)
       {
         var text = runText.Text;
         var trimmedText = text.TrimStart();
@@ -378,8 +376,7 @@ public static class RunTools
       {
         // ignore
       }
-      else
-      if (lastElement is DXW.LastRenderedPageBreak)
+      else if (lastElement is DXW.LastRenderedPageBreak)
       {
         lastElement.Remove();
       }
@@ -388,8 +385,7 @@ public static class RunTools
         lastElement.Remove();
         done = true;
       }
-      else
-      if (lastElement is DXW.Text runText)
+      else if (lastElement is DXW.Text runText)
       {
         var text = runText.Text;
         var trimmedText = text.TrimEnd();
@@ -555,7 +551,8 @@ public static class RunTools
   /// </summary>
   /// <param name="run">Run element to examine</param>
   /// <param name="defaultProperties">Default font properties used when RunProperties are not found</param>
-  public static ObjectStatistics<TextProperties>? GetTextPropertiesStatistics(this DXW.Run run, TextProperties? defaultProperties)
+  public static ObjectStatistics<TextProperties>? GetTextPropertiesStatistics
+    (this DXW.Run run, TextProperties? defaultProperties)
   {
     var runProperties = run.RunProperties;
     if (runProperties != null)
@@ -819,5 +816,40 @@ public static class RunTools
     if (nextMember == null)
       return null;
     return run.SplitBefore(nextMember);
+  }
+
+  /// <summary>
+  /// Get the text format of the run.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static TextFormat GetFormat(this DXW.Run run)
+  {
+    return new TextFormat()
+    {
+      Bold = run.IsBold(),
+      Italic = run.IsItalic()
+    };
+  }
+
+  /// <summary>
+  /// Set the text format to the run.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <param name="format"></param>
+  /// <returns></returns>
+  public static void SetFormat(this DXW.Run run, TextFormat format)
+  {
+    var runProperties = run.GetRunProperties();
+    if (format.Bold.HasValue)
+    {
+      runProperties.SetBold(format.Bold.Value, false);
+      runProperties.SetBold(format.Bold.Value, true);
+    }
+    if (format.Italic.HasValue)
+    {
+      runProperties.SetBold(format.Italic.Value, false);
+      runProperties.SetBold(format.Italic.Value, true);
+    }
   }
 }

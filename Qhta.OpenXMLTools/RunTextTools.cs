@@ -38,5 +38,4 @@ public static class RunTextTools
     runText.Text = textValue.Substring(0, index);
     return newText;
   }
-
 }

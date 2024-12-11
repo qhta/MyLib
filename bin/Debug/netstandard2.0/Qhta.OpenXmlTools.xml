@@ -6031,6 +6031,21 @@
             <param name="member">Paragraph-level or run-level member element</param>
             <returns>Next, newly created run (or null if split is not available)</returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.GetFormat(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Get the text format of the run.
+            </summary>
+            <param name="run"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SetFormat(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Set the text format to the run.
+            </summary>
+            <param name="run"></param>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ScriptType">
             <summary>
             Represents the type of script used to select the appropriate font.
@@ -11648,6 +11663,29 @@
             <param name="targetType"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TextFormat">
+            <summary>
+            Format of the text to process
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextFormat.Bold">
+            <summary>
+            Bold attribute of the text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextFormat.Italic">
+            <summary>
+            Italic attribute of the text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextFormat.IsSame(Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Compare the text format with another text format.
+            If some format attributes are not set, they are not compared.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TextOptions">
             <summary>
             Options for getting text.
@@ -12148,21 +12186,24 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.TextFormat)">
             <summary>
             Replace the first occurrence of the search text with the replacement text.
             </summary>
             <param name="searchText"></param>
             <param name="replacementText"></param>
+            <param name="searchFormat"></param>
+            <param name="replacementFormat"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.ReplaceAt(System.Int32,System.Int32,System.String)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.ReplaceAt(System.Int32,System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
             <summary>
             Replace the text at given position and of given length with the replacement text.
             </summary>
             <param name="length"></param>
             <param name="replacementText"></param>
             <param name="position"></param>
+            <param name="replacementFormat"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TextProcessor.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">

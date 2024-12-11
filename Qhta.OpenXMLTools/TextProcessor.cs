@@ -60,14 +60,16 @@ public class TextProcessor
   /// </summary>
   /// <param name="searchText"></param>
   /// <param name="replacementText"></param>
+  /// <param name="searchFormat"></param>
+  /// <param name="replacementFormat"></param>
   /// <returns></returns>
-  public bool Replace(string searchText, string replacementText)
+  public bool Replace(string searchText, string replacementText, TextFormat? searchFormat = null, TextFormat? replacementFormat = null)
   {
     var s = GetText();
     var k = s.IndexOf(searchText);
     if (k >= 0)
     {
-      ReplaceAt(k, searchText.Length, replacementText);
+      ReplaceAt(k, searchText.Length, replacementText, replacementFormat);
       return true;
     }
     return false;
@@ -79,8 +81,9 @@ public class TextProcessor
   /// <param name="length"></param>
   /// <param name="replacementText"></param>
   /// <param name="position"></param>
+  /// <param name="replacementFormat"></param>
   /// <returns></returns>
-  public bool ReplaceAt(int position, int length, string replacementText)
+  public bool ReplaceAt(int position, int length, string replacementText, TextFormat? replacementFormat = null)
   {
     var sumLength = 0;
     var selectedItem = -1;
@@ -112,17 +115,33 @@ public class TextProcessor
         {
           length = 0;
         }
-        itemText = itemText.Remove(itemPosition, delLength);
-        itemText = itemText.Insert(itemPosition, replacementText);
-        replacementText = String.Empty;
+        if (delLength > 0)
+          itemText = itemText.Remove(itemPosition, delLength);
+        var nextItem = selectedItem + 1;
+        if (replacementText.Length > 0)
+        {
+          if (replacementFormat != null && !replacementFormat.IsSame(FormattedText[selectedItem].Run.GetFormat()))
+          {
+            var newRun = new DXW.Run();
+            newRun.AppendText(replacementText);
+            newRun.SetFormat(replacementFormat);
+            FormattedText[selectedItem].Run.InsertAfterSelf(newRun);
+            FormattedText.Insert(selectedItem + 1, new RunText(newRun, replacementText));
+            nextItem++;
+          }
+          else
+          {
+            itemText = itemText.Insert(itemPosition, replacementText);
+          }
+          replacementText = String.Empty;
+        }
         FormattedText[selectedItem].Text = itemText;
         FormattedText[selectedItem].Run.SetText(itemText);
         if (length == 0)
           break;
         position += delLength;
         sumLength += itemOldLength;
-
-        selectedItem++;
+        selectedItem = nextItem;
       }
       return true;
     }
