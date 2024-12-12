@@ -614,7 +614,8 @@ public static class RunTools
       return null;
     var members = run.GetMembers().ToList();
     var sumLength = 0;
-    var newRun = new DXW.Run();
+    var newRun = (DXW.Run)run.CloneNode(false);
+    newRun.RunProperties = (DXW.RunProperties?)run.RunProperties?.CloneNode(true);
     for (int i = 0; i < members.Count; i++)
     {
       var member = members[i];
@@ -624,7 +625,6 @@ public static class RunTools
         var memberTextLength = memberText.Length;
         var newTextLength = sumLength + memberTextLength;
         var itemPosition = position - sumLength;
-        //var itemRestLength = itemText.Length - itemPosition;
         if (newTextLength > position)
         {
           if (itemPosition == 0)

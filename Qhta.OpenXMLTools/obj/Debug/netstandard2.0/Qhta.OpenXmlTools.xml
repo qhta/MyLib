@@ -1607,6 +1607,40 @@
             </summary>
             <param name="endnotes"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.RunText">
+            <summary>
+            Represents a run-text pair in the FormattingText class.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.RunText.Run">
+            <summary>
+            Run element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.RunText.Text">
+            <summary>
+            Text of the run element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Run,System.String)">
+            <summary>
+            Construct a RunText object.
+            </summary>
+            <param name="run"></param>
+            <param name="text"></param>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.FormattedText">
+            <summary>
+            Represents a list of run-text pairs.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String)">
+            <summary>
+            Set the text of the specified item and pass it to the Run element.
+            </summary>
+            <param name="index"></param>
+            <param name="text"></param>
+        </member>
         <member name="T:Qhta.OpenXmlTools.GetTextMethods">
             <summary>
             Methods to get text from OpenXml elements.
@@ -3398,6 +3432,13 @@
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetMembers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get member elements (without properties) of the OpenXmlElement.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.RemoveAllMembers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
+            <summary>
+            Remove all member elements (without properties) of the OpenXmlElement.
             </summary>
             <param name="element"></param>
             <returns></returns>
@@ -12167,12 +12208,10 @@
             Class to process text in a document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.RunText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Run,System.String)">
+        <member name="P:Qhta.OpenXmlTools.TextProcessor.FindWholeWordsOnly">
             <summary>
-            Construct a RunText object.
+            Search options - whole words only.
             </summary>
-            <param name="run"></param>
-            <param name="text"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
             <summary>

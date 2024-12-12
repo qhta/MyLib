@@ -128,6 +128,21 @@ public static class OpenXmlElementTools
     }
   }
 
+
+  /// <summary>
+  /// Remove all member elements (without properties) of the OpenXmlElement.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static void RemoveAllMembers(this DX.OpenXmlCompositeElement element)
+  {
+    foreach (var child in element.ChildElements.ToList())
+    {
+      if (child.IsMember())
+        child.Remove();
+    }
+  }
+
   /// <summary>
   /// Checks if the element is a member-typed element.
   /// </summary>

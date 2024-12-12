@@ -9,25 +9,13 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public class TextProcessor
 {
-  private record RunText
-  {
-    public readonly DXW.Run Run;
-    public string Text;
-
-    /// <summary>
-    /// Construct a RunText object.
-    /// </summary>
-    /// <param name="run"></param>
-    /// <param name="text"></param>
-    public RunText(DXW.Run run, string text)
-    {
-      Run = run;
-      Text = text;
-    }
-  }
 
   private readonly TextOptions GetTextOptions = TextOptions.PlainText;
-  private readonly List<RunText> FormattedText = new();
+  private readonly FormattedText FormattedText = new();
+  /// <summary>
+  /// Search options - whole words only.
+  /// </summary>
+  public bool FindWholeWordsOnly { get; set; }
 
   /// <summary>
   /// Construct a text processor using paragraph as a context element.
@@ -74,31 +62,70 @@ public class TextProcessor
   /// <returns>character startPosition of the text or -1 if not found</returns>
   public int Search(int startPosition, string searchText, TextFormat? searchFormat)
   {
-    var length = searchText.Length;
+    if (searchFormat == null)
+    {
+      var compareText = GetText();
+      if (FindWholeWordsOnly)
+      {
+        compareText += '\0' + compareText + '\0';
+        var k = compareText.IndexOf(searchText, startPosition);
+        while (k >= 0)
+        {
+          if (k > 0 && char.IsLetterOrDigit(compareText[k - 1]) || k + searchText.Length < compareText.Length && char.IsLetterOrDigit(compareText[k + searchText.Length]))
+            k = compareText.IndexOf(searchText, k + 1);
+          else
+            return k;
+        }
+        return -1;
+      }
+      else
+        return compareText.IndexOf(searchText, startPosition);
+    }
+    var searchTextLength = searchText.Length;
     var sumLength = 0;
-    for (int i = 0; i <= FormattedText.Count; i++)
+    for (int i = 0; i < FormattedText.Count; i++)
     {
       var itemText = FormattedText[i].Text;
       if (sumLength + itemText.Length > startPosition)
       {
-        if (searchFormat == null || searchFormat.IsSame(FormattedText[i].Run.GetFormat()))
+        if (searchFormat.IsSame(FormattedText[i].Run.GetFormat()))
         {
           var textToCompare = itemText;
+          if (FindWholeWordsOnly)
+          {
+            if (i > 0 && searchFormat.IsSame(FormattedText[i - 1].Run.GetFormat()))
+              textToCompare = FormattedText[i - 1].Text.LastOrDefault() + textToCompare;
+            else
+              textToCompare = '\0' + textToCompare;
+          }
           int j = i + 1;
-          while (textToCompare.Length > length && j < FormattedText.Count &&
-                 (searchFormat == null || searchFormat.IsSame(FormattedText[j].Run.GetFormat())))
+          while (textToCompare.Length > searchTextLength && j < FormattedText.Count && searchFormat.IsSame(FormattedText[j].Run.GetFormat()))
           {
             textToCompare += FormattedText[j].Text;
             j++;
           }
-          itemText = FormattedText[i].Text;
-          textToCompare += itemText;
-          if (textToCompare.Length >= length)
+          if (FindWholeWordsOnly)
           {
-            var k = itemText.IndexOf(searchText);
-            if (k >= 0)
+            if (i < FormattedText.Count - 1 &&
+                searchFormat.IsSame(FormattedText[i + 1].Run.GetFormat()))
+              textToCompare = textToCompare + FormattedText[i + 1].Text.LastOrDefault();
+            else
+              textToCompare = textToCompare + '\0';
+          }
+          if (textToCompare.Length >= searchTextLength)
+          {
+            var k = textToCompare.IndexOf(searchText);
+            while (k >= 0)
             {
-              return sumLength + k;
+              if (FindWholeWordsOnly && k > 0)
+              {
+                if (char.IsLetterOrDigit(textToCompare[k - 1]) || char.IsLetterOrDigit(textToCompare[k + searchTextLength]))
+                  k = textToCompare.IndexOf(searchText, k + 1);
+                else
+                  return sumLength + k - 1;
+              }
+              else
+                return sumLength + k;
             }
           }
         }
@@ -137,18 +164,10 @@ public class TextProcessor
   /// <returns></returns>
   public bool Replace(string searchText, TextFormat? searchFormat, string replacementText, TextFormat? replacementFormat)
   {
-    int k;
-    if (searchFormat != null)
-      k = Search(0, searchText, searchFormat);
-    else
-    {
-      var s = GetText();
-      k = s.IndexOf(searchText);
-    }
+    var k = Search(0, searchText, searchFormat);
     if (k >= 0)
     {
-      ReplaceAt(k, searchText.Length, replacementText, replacementFormat);
-      return true;
+      return ReplaceAt(k, searchText.Length, replacementText, replacementFormat);
     }
     return false;
   }
@@ -165,7 +184,7 @@ public class TextProcessor
   {
     var sumLength = 0;
     var selectedItem = -1;
-    for (int i = 0; i <= FormattedText.Count; i++)
+    for (int i = 0; i < FormattedText.Count; i++)
     {
       var itemText = FormattedText[i].Text;
       if (sumLength + itemText.Length > position)
@@ -196,8 +215,7 @@ public class TextProcessor
         if (delLength > 0)
         {
           itemText = itemText.Remove(itemPosition, delLength);
-          FormattedText[selectedItem].Text = itemText;
-          FormattedText[selectedItem].Run.SetText(itemText);
+          FormattedText.SetText(selectedItem, itemText);
         }
         var nextItem = selectedItem + 1;
         if (replacementText.Length > 0)
@@ -225,25 +243,24 @@ public class TextProcessor
             else
             {
               var tailRun = selectedRun.SplitAt(itemPosition, TextOptions.PlainText);
-              if (tailRun != null)
-              {
-                selectedRun.InsertBeforeSelf(tailRun);
-                selectedItem++;
-                FormattedText.Insert(selectedItem, new RunText(tailRun, tailRun.GetText(GetTextOptions)));
-              }
               var newRun = new DXW.Run();
               newRun.AppendText(replacementText);
               newRun.SetFormat(replacementFormat);
               FormattedText[selectedItem].Run.InsertAfterSelf(newRun);
               FormattedText.Insert(selectedItem + 1, new RunText(newRun, replacementText));
               nextItem++;
+              selectedItem++;
+              if (tailRun != null)
+              {
+                newRun.InsertAfterSelf(tailRun);
+                FormattedText.Insert(selectedItem, new RunText(tailRun, tailRun.GetText(GetTextOptions)));
+              }
             }
           }
           else
           {
             itemText = itemText.Insert(itemPosition, replacementText);
-            FormattedText[selectedItem].Text = itemText;
-            FormattedText[selectedItem].Run.SetText(itemText);
+            FormattedText.SetText(selectedItem, itemText);
           }
           replacementText = String.Empty;
         }
