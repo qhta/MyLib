@@ -5970,12 +5970,12 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.SplitAt(DocumentFormat.OpenXml.Wordprocessing.Run,System.Int32,Qhta.OpenXmlTools.TextOptions)">
             <summary>
-            Split the run at the specified index, which is the number of characters from the beginning of the run.
-            Split is not possible if the index is at the beginning or end of the run.
+            Split the run at the specified position, which is the number of characters from the beginning of the run.
+            Split is not possible if the position is at the beginning or end of the run.
             Returns the second part of the run.
             </summary>
             <param name="run">Run element to process</param>
-            <param name="index">Char position number</param>
+            <param name="position">Char position number</param>
             <param name="options">Options for text extraction</param>
             <returns>Next, newly created run (or null if split is not available)</returns>
         </member>
@@ -12196,12 +12196,12 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
             <summary>
-            Search the text with the given format starting at the given position.
+            Search the text with the given format starting at the given startPosition.
             </summary>
-            <param name="position"></param>
+            <param name="startPosition"></param>
             <param name="searchText"></param>
             <param name="searchFormat"></param>
-            <returns>character position of the text or -1 if not found</returns>
+            <returns>character startPosition of the text or -1 if not found</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String)">
             <summary>

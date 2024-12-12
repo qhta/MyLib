@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 
+using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 
@@ -599,62 +600,74 @@ public static class RunTools
   }
 
   /// <summary>
-  /// Split the run at the specified index, which is the number of characters from the beginning of the run.
-  /// Split is not possible if the index is at the beginning or end of the run.
+  /// Split the run at the specified position, which is the number of characters from the beginning of the run.
+  /// Split is not possible if the position is at the beginning or end of the run.
   /// Returns the second part of the run.
   /// </summary>
   /// <param name="run">Run element to process</param>
-  /// <param name="index">Char position number</param>
+  /// <param name="position">Char position number</param>
   /// <param name="options">Options for text extraction</param>
   /// <returns>Next, newly created run (or null if split is not available)</returns>
-  public static DXW.Run? SplitAt(this DXW.Run run, int index, TextOptions options)
+  public static DXW.Run? SplitAt(this DXW.Run run, int position, TextOptions options)
   {
-    if (index <= 0 || index >= run.GetText(options).Length)
+    if (position <= 0 || position >= run.GetText(options).Length)
       return null;
-    var members = run.GetMembers().ToList()
-    var textLength = 0;
-    DXW.Run? newRun = null;
-    for (int i=0; i < members.Count; i++)
+    var members = run.GetMembers().ToList();
+    var sumLength = 0;
+    var newRun = new DXW.Run();
+    for (int i = 0; i < members.Count; i++)
     {
       var member = members[i];
       var memberText = member.GetText(options);
       if (memberText != string.Empty)
       {
         var memberTextLength = memberText.Length;
-        var newTextLength = textLength + memberTextLength;
-        if (index <= newTextLength)
+        var newTextLength = sumLength + memberTextLength;
+        var itemPosition = position - sumLength;
+        //var itemRestLength = itemText.Length - itemPosition;
+        if (newTextLength > position)
         {
-          if (index < newTextLength)
+          if (itemPosition == 0)
+          {
+            for (int j = i; j < members.Count; j++)
+            {
+              newRun.AppendChild(members[j]);
+            }
+            break;
+          }
+          if (itemPosition == memberText.Length)
+          {
+            for (int j = i + 1; j < members.Count; j++)
+            {
+              newRun.AppendChild(members[j]);
+            }
+            break;
+          }
+          else
           {
             if (member is DXW.Text text)
             {
-              DX.OpenXmlElement? newMember = text.SplitAt(index - textLength, options);
-              if (newMember != null)
+              DXW.Text? newText = text.SplitAt(position - sumLength, options);
+              if (newText != null)
               {
-                newRun ??= NewRun(run);
-                newRun.AppendChild(newMember);
+                newRun.AppendChild(newText);
               }
+              for (int j = i + 1; j < members.Count; j++)
+              {
+                newRun.AppendChild(members[j]);
+              }
+
             }
             else
-              return null;
-          }
-          var nextSibling = member.NextSibling();
-          while (nextSibling != null)
-          {
-            newRun ??= NewRun(run);
-            var nextSibling1 = nextSibling.NextSibling();
-            nextSibling.Remove();
-            newRun.AppendChild(nextSibling);
-            nextSibling = nextSibling1;
+              throw new NotImplementedException("Break in non-text item is not implemented"); // TODO: split other elements
           }
           break;
         }
-        else
-        {
-          textLength = newTextLength;
-        }
+        sumLength = newTextLength;
       }
     }
+    if (newRun.IsEmpty())
+      return null;
     return newRun;
   }
 
