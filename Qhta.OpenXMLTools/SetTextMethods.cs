@@ -22,10 +22,11 @@ public static class SetTextMethods
       run.SetTextTo(text, options);
       return true;
     }
-    using (var parser = new GotTextParser(element, options))
-    {
-      return parser.ParseText(text);
-    }
+    //using (var parser = new GotTextParser(element, options))
+    //{
+    //  return parser.ParseText(text);
+    //}
+    return false;
   }
 
   /// <summary>

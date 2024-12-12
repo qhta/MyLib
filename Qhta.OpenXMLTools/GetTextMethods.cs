@@ -177,7 +177,7 @@ public static class GetTextMethods
   private static string GetTextOf(this DXW.Run run, TextOptions options)
   {
     StringBuilder sb = new();
-    if (options.UseHtmlFormatting && options.UseHtmlEntities)
+    if (options.UseHtmlFormatting)
     {
       if (run.RunProperties?.GetBold(false) == true)
         sb.Append(options.BoldStartTag);
@@ -196,7 +196,7 @@ public static class GetTextMethods
       else
         sb.Append(member.GetText(options));
     }
-    if (options.UseHtmlFormatting && options.UseHtmlEntities)
+    if (options.UseHtmlFormatting)
     {
       if (run.RunProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
         sb.Append(options.SubscriptEndTag);

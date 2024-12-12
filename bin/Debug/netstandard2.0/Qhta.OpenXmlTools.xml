@@ -12186,9 +12186,43 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.TextFormat)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Search the text with the given format.
+            </summary>
+            <param name="searchText"></param>
+            <param name="searchFormat"></param>
+            <returns>character position of the text or -1 if not found</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Search the text with the given format starting at the given position.
+            </summary>
+            <param name="position"></param>
+            <param name="searchText"></param>
+            <param name="searchFormat"></param>
+            <returns>character position of the text or -1 if not found</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String)">
             <summary>
             Replace the first occurrence of the search text with the replacement text.
+            </summary>
+            <param name="searchText"></param>
+            <param name="replacementText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Replace the first occurrence of the search text with the formatted replacement text.
+            </summary>
+            <param name="searchText"></param>
+            <param name="replacementText"></param>
+            <param name="replacementFormat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,Qhta.OpenXmlTools.TextFormat,System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Replace the first occurrence of the formatted search text with the formatted replacement text.
             </summary>
             <param name="searchText"></param>
             <param name="replacementText"></param>

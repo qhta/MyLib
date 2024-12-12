@@ -78,12 +78,12 @@ public record TextOptions
     UseHtmlEntities = true,
     UseHtmlParagraphs = true,
     UseHtmlTables = true,
-    TabChar = EscChar + "<tab/>",
-    ParagraphSeparator = EscChar+"<p/>",
-    BreakLineTag = EscChar + "<br/>",
-    BreakColumnTag = EscChar + "<v/>",
-    BreakPageTag = EscChar + "<f/>",
-    CarriageReturnTag = EscChar + "<r/>",
+    TabChar = "<tab/>",
+    ParagraphSeparator = "<p/>",
+    BreakLineTag = "<br/>",
+    BreakColumnTag = "<v/>",
+    BreakPageTag = "<f/>",
+    CarriageReturnTag = "<r/>",
   };
 
   /// <summary>
@@ -154,32 +154,32 @@ public record TextOptions
   /// <summary>
   /// Tag to mark a line break.
   /// </summary>
-  public string BreakLineTag { get; set; } = EscChar + "\u000A"; // \n
+  public string BreakLineTag { get; set; } = "\u000A"; // \n
 
   /// <summary>
   /// Tag to mark a column break.
   /// </summary>
-  public string BreakColumnTag { get; set; } = EscChar + "\u000B"; // \v
+  public string BreakColumnTag { get; set; } = "\u000B"; // \v
 
   /// <summary>
   /// Tag to mark a page break.
   /// </summary>
-  public string BreakPageTag { get; set; } = EscChar + "\u000C"; // \f
+  public string BreakPageTag { get; set; } = "\u000C"; // \f
 
   /// <summary>
   /// Tag to mark a carriage return.
   /// </summary>
-  public string CarriageReturnTag { get; set; } = EscChar + "\u000D"; // \r
+  public string CarriageReturnTag { get; set; } = "\u000D"; // \r
 
   /// <summary>
   /// Tag to mark a soft hyphen.
   /// </summary>
-  public string SoftHyphenTag { get; set; } = EscChar + "\u00AD";
+  public string SoftHyphenTag { get; set; } = "\u00AD";
 
   /// <summary>
   /// Tag to mark a non-break hyphen.
   /// </summary>
-  public string NoBreakHyphenTag { get; set; } = EscChar+"\u2011";
+  public string NoBreakHyphenTag { get; set; } = "\u2011";
 
   #endregion
 
@@ -188,17 +188,17 @@ public record TextOptions
   /// <summary>
   /// Tag to mark other object in plain text.
   /// </summary>
-  public string OtherObjectSubstituteTag { get; set; } = EscChar + "<other>";
+  public string OtherObjectSubstituteTag { get; set; } = "<other>";
 
   /// <summary>
   /// Tag to mark a page number.
   /// </summary>
-  public string PageNumberTag { get; set; } = EscChar+"<pgNum>";
+  public string PageNumberTag { get; set; } = "<pgNum>";
 
   /// <summary>
   /// Tag to mark a last rendered page break.
   /// </summary>
-  public string LastRenderedPageBreakTag { get; set; } = EscChar+"<lrPgBreak>";
+  public string LastRenderedPageBreakTag { get; set; } = "<lrPgBreak>";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
@@ -208,22 +208,22 @@ public record TextOptions
   /// <summary>
   /// Tag to insert between paragraphs.
   /// </summary>
-  public string ParagraphSeparator { get; set; } = EscChar + "\r\n";
+  public string ParagraphSeparator { get; set; } = "\r\n";
 
   /// <summary>
   /// Tag to insert between table in plain text.
   /// </summary>
-  public string TableSeparator { get; set; } = EscChar + "\r\n\r\n";
+  public string TableSeparator { get; set; } = "\r\n\r\n";
 
   /// <summary>
   /// Tag to insert between table cells in plain text.
   /// </summary>
-  public string TableRowSeparator { get; set; } = EscChar + "\r\n";
+  public string TableRowSeparator { get; set; } = "\r\n";
 
   /// <summary>
   /// Tag to insert between table cells in plain text.
   /// </summary>
-  public string TableCellSeparator { get; set; } = EscChar + "\t";
+  public string TableCellSeparator { get; set; } = "\t";
   #endregion
 
   #region HTML options
@@ -240,42 +240,42 @@ public record TextOptions
   /// <summary>
   /// Tag to start bold formatting.
   /// </summary>
-  public string BoldStartTag { get; set; } = EscChar+"<b>";
+  public string BoldStartTag { get; set; } = "<b>";
 
   /// <summary>
   /// Tag to end bold formatting.
   /// </summary>
-  public string BoldEndTag { get; set; } = EscChar+"</b>";
+  public string BoldEndTag { get; set; } = "</b>";
 
   /// <summary>
   /// Tag to start italic formatting.
   /// </summary>
-  public string ItalicStartTag { get; set; } = EscChar+"<i>";
+  public string ItalicStartTag { get; set; } = "<i>";
 
   /// <summary>
   /// Tag to end italic formatting.
   /// </summary>
-  public string ItalicEndTag { get; set; } = EscChar+"</i>";
+  public string ItalicEndTag { get; set; } = "</i>";
 
   /// <summary>
   /// Tag to start superscript formatting.
   /// </summary>
-  public string SuperscriptStartTag { get; set; } = EscChar+"<sup>";
+  public string SuperscriptStartTag { get; set; } = "<sup>";
 
   /// <summary>
   /// Tag to end superscript formatting.
   /// </summary>
-  public string SuperscriptEndTag { get; set; } = EscChar+"</sup>";
+  public string SuperscriptEndTag { get; set; } = "</sup>";
 
   /// <summary>
   /// Tag to start subscript formatting.
   /// </summary>
-  public string SubscriptStartTag { get; set; } = EscChar+"<sub>";
+  public string SubscriptStartTag { get; set; } = "<sub>";
 
   /// <summary>
   /// Tag to end subscript formatting.
   /// </summary>
-  public string SubscriptEndTag { get; set; } = EscChar+"</sub>";
+  public string SubscriptEndTag { get; set; } = "</sub>";
 
   /// <summary>
   /// Use HTML paragraph tags instead of paragraph separators.
@@ -285,32 +285,32 @@ public record TextOptions
   /// <summary>
   /// Tag to start a run.
   /// </summary>
-  public string TextStartTag { get; set; } = EscChar + "<t>";
+  public string TextStartTag { get; set; } = "<t>";
 
   /// <summary>
   /// Tag to end a run.
   /// </summary>
-  public string TextEndTag { get; set; } = EscChar + "</t>";
+  public string TextEndTag { get; set; } = "</t>";
 
   /// <summary>
   /// Tag to start a run.
   /// </summary>
-  public string RunStartTag { get; set; } = EscChar + "<r>";
+  public string RunStartTag { get; set; } = "<r>";
 
   /// <summary>
   /// Tag to end a run.
   /// </summary>
-  public string RunEndTag { get; set; } = EscChar + "</r>";
+  public string RunEndTag { get; set; } = "</r>";
 
   /// <summary>
   /// Tag to start a paragraph.
   /// </summary>
-  public string ParagraphStartTag { get; set; } = EscChar+"<p>";
+  public string ParagraphStartTag { get; set; } = "<p>";
 
   /// <summary>
   /// Tag to end a paragraph.
   /// </summary>
-  public string ParagraphEndTag { get; set; } = EscChar+"</p>";
+  public string ParagraphEndTag { get; set; } = "</p>";
   #endregion
 
   #region Table options
@@ -327,37 +327,37 @@ public record TextOptions
   /// <summary>
   /// Tag to represent empty Table.
   /// </summary>
-  public string TableSubstituteTag { get; set; } = EscChar+"<table/>";
+  public string TableSubstituteTag { get; set; } = "<table/>";
 
   /// <summary>
   /// Tag to start a Table.
   /// </summary>
-  public string TableStartTag { get; set; } = EscChar+"<table>";
+  public string TableStartTag { get; set; } = "<table>";
 
   /// <summary>
   /// Tag to end a Table.
   /// </summary>
-  public string TableEndTag { get; set; } = EscChar+"</table>";
+  public string TableEndTag { get; set; } = "</table>";
 
   /// <summary>
   /// Tag to start a table row.
   /// </summary>
-  public string TableRowStartTag { get; set; } = EscChar+"<tr>";
+  public string TableRowStartTag { get; set; } = "<tr>";
 
   /// <summary>
   /// Tag to end a table row.
   /// </summary>
-  public string TableRowEndTag { get; set; } = EscChar+"</tr>";
+  public string TableRowEndTag { get; set; } = "</tr>";
 
   /// <summary>
   /// Tag to start a table cell.
   /// </summary>
-  public string TableCellStartTag { get; set; } = EscChar+"<td>";
+  public string TableCellStartTag { get; set; } = "<td>";
 
   /// <summary>
   /// Tag to end a table cell.
   /// </summary>
-  public string TableCellEndTag { get; set; } = EscChar+"</td>";
+  public string TableCellEndTag { get; set; } = "</td>";
   #endregion
 
   /// <summary>
@@ -368,32 +368,32 @@ public record TextOptions
   /// <summary>
   /// Tag to start a field formula.
   /// </summary>
-  public string FieldStartTag { get; set; } = EscChar+"<field/>";
+  public string FieldStartTag { get; set; } = "<field/>";
 
   /// <summary>
   /// Tag to start a field code start.
   /// </summary>
-  public string FieldCodeStart { get; set; } = EscChar+"<instr>";
+  public string FieldCodeStart { get; set; } = "<instr>";
 
   /// <summary>
   /// Tag to start a field code end.
   /// </summary>
-  public string FieldCodeEnd { get; set; } = EscChar+"</instr>";
+  public string FieldCodeEnd { get; set; } = "</instr>";
  
   /// <summary>
   /// Tag to separate a field formula command from result.
   /// </summary>
-  public string FieldResultTag { get; set; } = EscChar+"<result/>";
+  public string FieldResultTag { get; set; } = "<result/>";
 
   /// <summary>
   /// Tag to end a field formula.
   /// </summary>
-  public string FieldEndTag { get; set; } = EscChar+"<field/>";
+  public string FieldEndTag { get; set; } = "<field/>";
 
   /// <summary>
   /// Tag to start a footnote reference.
   /// </summary>
-  public string FootnoteRefStart { get; set; } = EscChar + "<footnoteRef ";
+  public string FootnoteRefStart { get; set; } = "<footnoteRef ";
 
   /// <summary>
   /// Tag to end a footnote reference.
@@ -403,7 +403,7 @@ public record TextOptions
   /// <summary>
   /// Tag to start an endnote reference.
   /// </summary>
-  public string EndnoteRefStart { get; set; } = EscChar + "<endnoteRef ";
+  public string EndnoteRefStart { get; set; } = "<endnoteRef ";
 
   /// <summary>
   /// Tag to end an end note reference.
@@ -413,7 +413,7 @@ public record TextOptions
   /// <summary>
   /// Tag to start a comment reference.
   /// </summary>
-  public string CommentRefStart { get; set; } = EscChar+"<commentRef ";
+  public string CommentRefStart { get; set; } = "<commentRef ";
 
   /// <summary>
   /// Tag to end a comment reference.
@@ -423,27 +423,27 @@ public record TextOptions
   /// <summary>
   /// Tag to mark an annotation reference mark.
   /// </summary>
-  public string AnnotationRefMark { get; set; } = EscChar + "<annotationRefMark/>";
+  public string AnnotationRefMark { get; set; } = "<annotationRefMark/>";
 
   /// <summary>
   /// Tag to mark an endnote reference mark.
   /// </summary>
-  public string FootnoteRefMark { get; set; } = EscChar + "<footnoteRefMark/>";
+  public string FootnoteRefMark { get; set; } = "<footnoteRefMark/>";
 
   /// <summary>
   /// Tag to mark an endnote reference mark.
   /// </summary>
-  public string EndnoteRefMark { get; set; } = EscChar + "<endnoteRefMark/>";
+  public string EndnoteRefMark { get; set; } = "<endnoteRefMark/>";
 
   /// <summary>
   /// Tag to mark a footnotes/endnotes separator mark.
   /// </summary>
-  public string FootnoteSepMark { get; set; } = EscChar + "<footnoteSepMark/>";
+  public string FootnoteSepMark { get; set; } = "<footnoteSepMark/>";
 
   /// <summary>
   /// Tag to mark a continuation separator mark.
   /// </summary>
-  public string ContinuationSepMark { get; set; } = EscChar + "<contSepMark/>";
+  public string ContinuationSepMark { get; set; } = "<contSepMark/>";
 
   #region Numbering options
   /// <summary>
@@ -472,23 +472,23 @@ public record TextOptions
   /// <summary>
   /// Deleted text start tag.
   /// </summary>
-  public string DeletedTextStartTag { get; set; } = EscChar+"<del>";
+  public string DeletedTextStartTag { get; set; } = "<del>";
 
   /// <summary>
   /// Deleted text end tag.
   /// </summary>
-  public string DeletedTextEndTag { get; set; } = EscChar+"</del>";
+  public string DeletedTextEndTag { get; set; } = "</del>";
 
 
   /// <summary>
   /// Deletion start tag.
   /// </summary>
-  public string DeletedInstrStartTag { get; set; } = EscChar+"<del>";
+  public string DeletedInstrStartTag { get; set; } = "<del>";
 
   /// <summary>
   /// Deletion end tag.
   /// </summary>
-  public string DeletedInstrEndTag { get; set; } = EscChar+"</del>";
+  public string DeletedInstrEndTag { get; set; } = "</del>";
   #endregion
   #region embedded object options
   /// <summary>
@@ -504,17 +504,17 @@ public record TextOptions
   /// <summary>
   /// Tag to replace an object.
   /// </summary>
-  public string EmbeddedObjectSubstituteTag { get; set; } = EscChar+"<object/>";
+  public string EmbeddedObjectSubstituteTag { get; set; } = "<object/>";
 
   /// <summary>
   /// Tag to start an object.
   /// </summary>
-  public string EmbeddedObjectStartTag { get; set; } = EscChar+"<object>";
+  public string EmbeddedObjectStartTag { get; set; } = "<object>";
 
   /// <summary>
   /// Tag to end an object.
   /// </summary>
-  public string EmbeddedObjectEndTag { get; set; } = EscChar+"</object>";
+  public string EmbeddedObjectEndTag { get; set; } = "</object>";
 
   #endregion
 
@@ -532,22 +532,22 @@ public record TextOptions
   /// <summary>
   /// Tag to replace a drawing.
   /// </summary>
-  public string DrawingSubstituteTag { get; set; } = EscChar+"<drawing/>";
+  public string DrawingSubstituteTag { get; set; } = "<drawing/>";
 
   /// <summary>
   /// Tag to start a drawing.
   /// </summary>
-  public string DrawingStartTag { get; set; } = EscChar + "<drawing>";
+  public string DrawingStartTag { get; set; } = "<drawing>";
 
   /// <summary>
   /// Tag to end a drawing.
   /// </summary>
-  public string DrawingEndTag { get; set; } = EscChar + "</drawing>";
+  public string DrawingEndTag { get; set; } = "</drawing>";
 
   /// <summary>
   /// Tag to show blip linked object.
   /// </summary>
-  public string BlipTag { get; set; } = EscChar + "<blip/>";
+  public string BlipTag { get; set; } = "<blip/>";
   #endregion
 
   /// <summary>

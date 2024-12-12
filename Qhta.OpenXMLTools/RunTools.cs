@@ -611,11 +611,12 @@ public static class RunTools
   {
     if (index <= 0 || index >= run.GetText(options).Length)
       return null;
-
+    var members = run.GetMembers().ToList()
     var textLength = 0;
     DXW.Run? newRun = null;
-    foreach (var member in run.GetMembers().ToList())
+    for (int i=0; i < members.Count; i++)
     {
+      var member = members[i];
       var memberText = member.GetText(options);
       if (memberText != string.Empty)
       {
