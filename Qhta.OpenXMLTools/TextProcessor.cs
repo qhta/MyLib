@@ -1,8 +1,23 @@
 ﻿using System;
-using System.Security.Principal;
 using System.Text;
 
 namespace Qhta.OpenXmlTools;
+
+/// <summary>
+/// Options for FindAndReplace methods.
+/// </summary>
+public record FindAndReplaceOptions
+{
+  /// <summary>
+  /// Search option - whole words only.
+  /// </summary>
+  public bool FindWholeWordsOnly;
+
+  /// <summary>
+  /// Search and replace option - case-insensitive.
+  /// </summary>
+  public bool MatchCaseInsensitive;
+}
 
 /// <summary>
 /// Class to process text in a document.
@@ -12,10 +27,6 @@ public class TextProcessor
 
   private readonly TextOptions GetTextOptions = TextOptions.PlainText;
   private readonly FormattedText FormattedText = new();
-  /// <summary>
-  /// Search options - whole words only.
-  /// </summary>
-  public bool FindWholeWordsOnly { get; set; }
 
   /// <summary>
   /// Construct a text processor using paragraph as a context element.
@@ -49,9 +60,10 @@ public class TextProcessor
   /// </summary>
   /// <param name="searchText"></param>
   /// <param name="searchFormat"></param>
+  /// <param name="options"></param>
   /// <returns>character position of the text or -1 if not found</returns>
-  public int Search(string searchText, TextFormat? searchFormat)
-   => Search(0, searchText, searchFormat);
+  public int Search(string searchText, TextFormat? searchFormat, FindAndReplaceOptions? options = null)
+   => Search(0, searchText, searchFormat, options);
 
   /// <summary>
   /// Search the text with the given format starting at the given startPosition.
@@ -59,27 +71,32 @@ public class TextProcessor
   /// <param name="startPosition"></param>
   /// <param name="searchText"></param>
   /// <param name="searchFormat"></param>
+  /// <param name="options"></param>
   /// <returns>character startPosition of the text or -1 if not found</returns>
-  public int Search(int startPosition, string searchText, TextFormat? searchFormat)
+  public int Search(int startPosition, string searchText, TextFormat? searchFormat, FindAndReplaceOptions? options = null)
   {
+    var findWholeWordsOnly = options?.FindWholeWordsOnly ?? false;
+    var matchCaseInsensitive = options?.MatchCaseInsensitive ?? false;
+    var stringComparison =
+      matchCaseInsensitive ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture;
     if (searchFormat == null)
     {
-      var compareText = GetText();
-      if (FindWholeWordsOnly)
+      var searchInText = GetText();
+      if (findWholeWordsOnly)
       {
-        compareText += '\0' + compareText + '\0';
-        var k = compareText.IndexOf(searchText, startPosition);
-        while (k >= 0)
+        searchInText = '\0' + searchInText + '\0';
+        var k = searchInText.IndexOf(searchText, startPosition, stringComparison);
+        while (k > 0)
         {
-          if (k > 0 && char.IsLetterOrDigit(compareText[k - 1]) || k + searchText.Length < compareText.Length && char.IsLetterOrDigit(compareText[k + searchText.Length]))
-            k = compareText.IndexOf(searchText, k + 1);
+          if (char.IsLetterOrDigit(searchInText[k - 1]) || k + searchText.Length < searchInText.Length && char.IsLetterOrDigit(searchInText[k + searchText.Length]))
+            k = searchInText.IndexOf(searchText, k + 1, stringComparison);
           else
-            return k;
+            return k - 1;
         }
         return -1;
       }
       else
-        return compareText.IndexOf(searchText, startPosition);
+        return searchInText.IndexOf(searchText, startPosition, stringComparison);
     }
     var searchTextLength = searchText.Length;
     var sumLength = 0;
@@ -90,37 +107,36 @@ public class TextProcessor
       {
         if (searchFormat.IsSame(FormattedText[i].Run.GetFormat()))
         {
-          var textToCompare = itemText;
-          if (FindWholeWordsOnly)
+          var searchInText = itemText;
+          if (findWholeWordsOnly)
           {
-            if (i > 0 && searchFormat.IsSame(FormattedText[i - 1].Run.GetFormat()))
-              textToCompare = FormattedText[i - 1].Text.LastOrDefault() + textToCompare;
+            if (i > 0)
+              searchInText = FormattedText[i - 1].Text.LastOrDefault() + searchInText;
             else
-              textToCompare = '\0' + textToCompare;
+              searchInText = '\0' + searchInText;
           }
           int j = i + 1;
-          while (textToCompare.Length > searchTextLength && j < FormattedText.Count && searchFormat.IsSame(FormattedText[j].Run.GetFormat()))
+          while (searchInText.Length > searchTextLength && j < FormattedText.Count && searchFormat.IsSame(FormattedText[j].Run.GetFormat()))
           {
-            textToCompare += FormattedText[j].Text;
+            searchInText += FormattedText[j].Text;
             j++;
           }
-          if (FindWholeWordsOnly)
+          if (findWholeWordsOnly)
           {
-            if (i < FormattedText.Count - 1 &&
-                searchFormat.IsSame(FormattedText[i + 1].Run.GetFormat()))
-              textToCompare = textToCompare + FormattedText[i + 1].Text.LastOrDefault();
+            if (i < FormattedText.Count - 1)
+              searchInText = searchInText + FormattedText[i + 1].Text.LastOrDefault();
             else
-              textToCompare = textToCompare + '\0';
+              searchInText = searchInText + '\0';
           }
-          if (textToCompare.Length >= searchTextLength)
+          if (searchInText.Length >= searchTextLength)
           {
-            var k = textToCompare.IndexOf(searchText);
+            var k = searchInText.IndexOf(searchText, stringComparison);
             while (k >= 0)
             {
-              if (FindWholeWordsOnly && k > 0)
+              if (findWholeWordsOnly && k > 0)
               {
-                if (char.IsLetterOrDigit(textToCompare[k - 1]) || char.IsLetterOrDigit(textToCompare[k + searchTextLength]))
-                  k = textToCompare.IndexOf(searchText, k + 1);
+                if (char.IsLetterOrDigit(searchInText[k - 1]) || char.IsLetterOrDigit(searchInText[k + searchTextLength]))
+                  k = searchInText.IndexOf(searchText, k + 1, stringComparison);
                 else
                   return sumLength + k - 1;
               }
@@ -140,9 +156,10 @@ public class TextProcessor
   /// </summary>
   /// <param name="searchText"></param>
   /// <param name="replacementText"></param>
+  /// <param name="options"></param>
   /// <returns></returns>
-  public bool Replace(string searchText, string replacementText)
-    => Replace(searchText, null, replacementText, null);
+  public bool Replace(string searchText, string replacementText, FindAndReplaceOptions? options = null)
+    => Replace(searchText, null, replacementText, null, options);
 
   /// <summary>
   /// Replace the first occurrence of the search text with the formatted replacement text.
@@ -150,9 +167,10 @@ public class TextProcessor
   /// <param name="searchText"></param>
   /// <param name="replacementText"></param>
   /// <param name="replacementFormat"></param>
+  /// <param name="options"></param>
   /// <returns></returns>
-  public bool Replace(string searchText, string replacementText, TextFormat? replacementFormat)
-    => Replace(searchText, null, replacementText, replacementFormat);
+  public bool Replace(string searchText, string replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
+    => Replace(searchText, null, replacementText, replacementFormat, options);
 
   /// <summary>
   /// Replace the first occurrence of the formatted search text with the formatted replacement text.
@@ -161,12 +179,26 @@ public class TextProcessor
   /// <param name="replacementText"></param>
   /// <param name="searchFormat"></param>
   /// <param name="replacementFormat"></param>
+  /// <param name="options"></param>
   /// <returns></returns>
-  public bool Replace(string searchText, TextFormat? searchFormat, string replacementText, TextFormat? replacementFormat)
+  public bool Replace(string searchText, TextFormat? searchFormat, string replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
   {
-    var k = Search(0, searchText, searchFormat);
+    var k = Search(0, searchText, searchFormat, options);
     if (k >= 0)
     {
+      if (options?.MatchCaseInsensitive == true)
+      {
+        var foundText = GetText().Substring(k, searchText.Length);
+        if (foundText != searchText)
+        {
+          if (foundText.IsUppercase())
+            replacementText = replacementText.ToUpper();
+          else if (foundText.IsLowercase())
+            replacementText = replacementText.ToLower();
+          else if (foundText.IsTitlecase())
+            replacementText = replacementText.TitleCase();
+        }
+      }
       return ReplaceAt(k, searchText.Length, replacementText, replacementFormat);
     }
     return false;
@@ -179,8 +211,9 @@ public class TextProcessor
   /// <param name="replacementText"></param>
   /// <param name="position"></param>
   /// <param name="replacementFormat"></param>
+  /// <param name="options"></param>
   /// <returns></returns>
-  public bool ReplaceAt(int position, int length, string replacementText, TextFormat? replacementFormat = null)
+  public bool ReplaceAt(int position, int length, string replacementText, TextFormat? replacementFormat = null, FindAndReplaceOptions? options = null)
   {
     var sumLength = 0;
     var selectedItem = -1;

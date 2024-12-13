@@ -8858,6 +8858,27 @@
             <param name="count"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLowercase(System.String)">
+            <summary>
+            Checks if all letters in the string are lower-case.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsUppercase(System.String)">
+            <summary>
+            Checks if all letters in the string are upper-case.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsTitlecase(System.String)">
+            <summary>
+            Checks if the first char is upper-case letter and all other letters are lower-case.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.StylesStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -12203,14 +12224,24 @@
             Determine if the member properties should be included.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.FindAndReplaceOptions">
+            <summary>
+            Options for FindAndReplace methods.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.FindWholeWordsOnly">
+            <summary>
+            Search option - whole words only.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.MatchCaseInsensitive">
+            <summary>
+            Search and replace option - case-insensitive.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TextProcessor">
             <summary>
             Class to process text in a document.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.TextProcessor.FindWholeWordsOnly">
-            <summary>
-            Search options - whole words only.
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
@@ -12225,41 +12256,45 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.String,Qhta.OpenXmlTools.TextFormat)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
             Search the text with the given format.
             </summary>
             <param name="searchText"></param>
             <param name="searchFormat"></param>
+            <param name="options"></param>
             <returns>character position of the text or -1 if not found</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
             Search the text with the given format starting at the given startPosition.
             </summary>
             <param name="startPosition"></param>
             <param name="searchText"></param>
             <param name="searchFormat"></param>
+            <param name="options"></param>
             <returns>character startPosition of the text or -1 if not found</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
             Replace the first occurrence of the search text with the replacement text.
             </summary>
             <param name="searchText"></param>
             <param name="replacementText"></param>
+            <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
             Replace the first occurrence of the search text with the formatted replacement text.
             </summary>
             <param name="searchText"></param>
             <param name="replacementText"></param>
             <param name="replacementFormat"></param>
+            <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,Qhta.OpenXmlTools.TextFormat,System.String,Qhta.OpenXmlTools.TextFormat)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,Qhta.OpenXmlTools.TextFormat,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
             Replace the first occurrence of the formatted search text with the formatted replacement text.
             </summary>
@@ -12267,9 +12302,10 @@
             <param name="replacementText"></param>
             <param name="searchFormat"></param>
             <param name="replacementFormat"></param>
+            <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.ReplaceAt(System.Int32,System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.ReplaceAt(System.Int32,System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
             Replace the text at given position and of given length with the replacement text.
             </summary>
@@ -12277,6 +12313,7 @@
             <param name="replacementText"></param>
             <param name="position"></param>
             <param name="replacementFormat"></param>
+            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.TextProcessor.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">

@@ -343,7 +343,7 @@ public static class StringUtils1
   /// <returns></returns>
   public static bool IsLike(this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
   {
-    if (pattern=="*Extent*" && key.Contains("Extent"))
+    if (pattern == "*Extent*" && key.Contains("Extent"))
       Debug.Assert(true);
     var wildcardCount = pattern.Count(c => c == '*');
     if (wildcardCount == 1 && pattern.EndsWith("*"))
@@ -1179,4 +1179,47 @@ public static class StringUtils1
       sb.Append(str);
     return sb.ToString();
   }
+
+  /// <summary>
+  /// Checks if all letters in the string are lower-case.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static bool IsLowercase(this string str)
+  {
+    return str.All(ch => !Char.IsLetter(ch) || Char.IsLower(ch));
+  }
+
+  /// <summary>
+  /// Checks if all letters in the string are upper-case.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static bool IsUppercase(this string str)
+  {
+    return str.All(ch => !Char.IsLetter(ch) || Char.IsUpper(ch));
+  }
+
+  /// <summary>
+  /// Checks if the first char is upper-case letter and all other letters are lower-case.
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
+  public static bool IsTitlecase(this string str)
+  {
+    for (int i = 0; i < str.Length; i++)
+    {
+      var ch = str[i];
+      if (i == 0)
+      {
+        if (!Char.IsUpper(ch))
+          return false;
+      }
+      else
+      if (!Char.IsLetter(ch) || Char.IsUpper(ch))
+        return false;
+    }
+    return true;
+  }
+
 }
