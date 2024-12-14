@@ -1459,6 +1459,21 @@
             <param name="propertyName"></param>
             <param name="value"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.FindAndReplaceOptions">
+            <summary>
+            Options for FindAndReplace methods.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.FindWholeWordsOnly">
+            <summary>
+            Search option - whole words only.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.MatchCaseInsensitive">
+            <summary>
+            Search and replace option - case-insensitive.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.Finder">
             <summary>
             Class to find (and replace) text in a document.
@@ -1634,12 +1649,114 @@
             Represents a list of run-text pairs.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Construct a formatted text using paragraph as a context element.
+            </summary>
+            <param name="paragraph"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.GetText">
+            <summary>
+            Concatenate the text of all items in the list.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String)">
             <summary>
             Set the text of the specified item and pass it to the Run element.
             </summary>
             <param name="index"></param>
             <param name="text"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.InsertBefore(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Insert the new run with text and format before the specified item.
+            </summary>
+            <param name="index"></param>
+            <param name="text"></param>
+            <param name="format"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.InsertAfter(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Insert the new run with text and format after the specified item.
+            </summary>
+            <param name="index"></param>
+            <param name="text"></param>
+            <param name="format"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.InsertWithSplit(System.Int32,System.Int32,System.String,Qhta.OpenXmlTools.TextFormat)">
+            <summary>
+            Insert the new run with text and format into the specified item at the given position splitting the item into two runs.
+            </summary>
+            <param name="index"></param>
+            <param name="itemPosition"></param>
+            <param name="text"></param>
+            <param name="format"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Search(System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+            <summary>
+            Search the text with the given format.
+            </summary>
+            <param name="searchText"></param>
+            <param name="searchFormat"></param>
+            <param name="options"></param>
+            <returns>character position of the text or -1 if not found</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+            <summary>
+            Search the text with the given format starting at the given startPosition.
+            </summary>
+            <param name="startPosition"></param>
+            <param name="searchText"></param>
+            <param name="searchFormat"></param>
+            <param name="options"></param>
+            <returns>character startPosition of the text or -1 if not found</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Replace(System.String,System.String,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+            <summary>
+            Replace the first occurrence of the search text with the replacement text.
+            </summary>
+            <param name="searchText"></param>
+            <param name="replacementText"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+            <summary>
+            Replace the first occurrence of the search text with the formatted replacement text.
+            </summary>
+            <param name="searchText"></param>
+            <param name="replacementText"></param>
+            <param name="replacementFormat"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Replace(System.String,Qhta.OpenXmlTools.TextFormat,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+            <summary>
+            Replace the first occurrence of the formatted search text with the formatted replacement text.
+            </summary>
+            <param name="searchText"></param>
+            <param name="replacementText"></param>
+            <param name="searchFormat"></param>
+            <param name="replacementFormat"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.ReplaceAt(System.Int32,System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+            <summary>
+            Replace the text at given position and of given length with the replacement text.
+            </summary>
+            <param name="length"></param>
+            <param name="replacementText"></param>
+            <param name="position"></param>
+            <param name="replacementFormat"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">
+            <summary>
+            Remove exceeding whitespaces from all paragraphs in the context.
+            </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.GetTextMethods">
             <summary>
@@ -5886,11 +6003,29 @@
             <param name="run"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SetBold(DocumentFormat.OpenXml.Wordprocessing.Run,System.Nullable{System.Boolean})">
+            <summary>
+            Sets both <c>Bold</c> or <c>BoldComplexScript</c> elements to the given value.
+            If the value is <c>null</c>, the elements are removed.
+            </summary>
+            <param name="run"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.IsItalic(DocumentFormat.OpenXml.Wordprocessing.Run)">
             <summary>
             Checks if the run properties contain a <c>Italic</c> or <c>ItalicComplexScript</c> element and returns the value of the <c>Val</c> attribute.
             </summary>
             <param name="run"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunTools.SetItalic(DocumentFormat.OpenXml.Wordprocessing.Run,System.Nullable{System.Boolean})">
+            <summary>
+            Sets both <c>Bold</c> or <c>BoldComplexScript</c> elements to the given value.
+            If the value is <c>null</c>, the elements are removed.
+            </summary>
+            <param name="run"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunTools.IsUnderline(DocumentFormat.OpenXml.Wordprocessing.Run)">
@@ -12224,101 +12359,9 @@
             Determine if the member properties should be included.
             </summary>
         </member>
-        <member name="T:Qhta.OpenXmlTools.FindAndReplaceOptions">
-            <summary>
-            Options for FindAndReplace methods.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.FindWholeWordsOnly">
-            <summary>
-            Search option - whole words only.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.MatchCaseInsensitive">
-            <summary>
-            Search and replace option - case-insensitive.
-            </summary>
-        </member>
         <member name="T:Qhta.OpenXmlTools.TextProcessor">
             <summary>
             Class to process text in a document.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Construct a text processor using paragraph as a context element.
-            </summary>
-            <param name="paragraph"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.GetText">
-            <summary>
-            Get text of the context and fill FormattedText dictionary.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
-            <summary>
-            Search the text with the given format.
-            </summary>
-            <param name="searchText"></param>
-            <param name="searchFormat"></param>
-            <param name="options"></param>
-            <returns>character position of the text or -1 if not found</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
-            <summary>
-            Search the text with the given format starting at the given startPosition.
-            </summary>
-            <param name="startPosition"></param>
-            <param name="searchText"></param>
-            <param name="searchFormat"></param>
-            <param name="options"></param>
-            <returns>character startPosition of the text or -1 if not found</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.FindAndReplaceOptions)">
-            <summary>
-            Replace the first occurrence of the search text with the replacement text.
-            </summary>
-            <param name="searchText"></param>
-            <param name="replacementText"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
-            <summary>
-            Replace the first occurrence of the search text with the formatted replacement text.
-            </summary>
-            <param name="searchText"></param>
-            <param name="replacementText"></param>
-            <param name="replacementFormat"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.Replace(System.String,Qhta.OpenXmlTools.TextFormat,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
-            <summary>
-            Replace the first occurrence of the formatted search text with the formatted replacement text.
-            </summary>
-            <param name="searchText"></param>
-            <param name="replacementText"></param>
-            <param name="searchFormat"></param>
-            <param name="replacementFormat"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.ReplaceAt(System.Int32,System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
-            <summary>
-            Replace the text at given position and of given length with the replacement text.
-            </summary>
-            <param name="length"></param>
-            <param name="replacementText"></param>
-            <param name="position"></param>
-            <param name="replacementFormat"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">
-            <summary>
-            Remove exceeding whitespaces from all paragraphs in the context.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.TextProperties">

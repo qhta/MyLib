@@ -209,6 +209,23 @@ public static class RunTools
   }
 
   /// <summary>
+  /// Sets both <c>Bold</c> or <c>BoldComplexScript</c> elements to the given value.
+  /// If the value is <c>null</c>, the elements are removed.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static void SetBold(this DXW.Run run, bool? value)
+  {
+    var runProperties = run.GetRunProperties();
+    if (value.HasValue)
+    {
+      runProperties.SetBold(value, false);
+      runProperties.SetBold(value, true);
+    }
+  }
+
+  /// <summary>
   /// Checks if the run properties contain a <c>Italic</c> or <c>ItalicComplexScript</c> element and returns the value of the <c>Val</c> attribute.
   /// </summary>
   /// <param name="run"></param>
@@ -226,6 +243,23 @@ public static class RunTools
       return italicCS.Val?.Value ?? true;
     }
     return false;
+  }
+
+  /// <summary>
+  /// Sets both <c>Bold</c> or <c>BoldComplexScript</c> elements to the given value.
+  /// If the value is <c>null</c>, the elements are removed.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static void SetItalic(this DXW.Run run, bool? value)
+  {
+    var runProperties = run.GetRunProperties();
+    if (value.HasValue)
+    {
+      runProperties.SetItalic(value, false);
+      runProperties.SetItalic(value, true);
+    }
   }
 
   /// <summary>
@@ -854,16 +888,9 @@ public static class RunTools
   /// <returns></returns>
   public static void SetFormat(this DXW.Run run, TextFormat format)
   {
-    var runProperties = run.GetRunProperties();
     if (format.Bold.HasValue)
-    {
-      runProperties.SetBold(format.Bold.Value, false);
-      runProperties.SetBold(format.Bold.Value, true);
-    }
+      run.SetBold(format.Bold);
     if (format.Italic.HasValue)
-    {
-      runProperties.SetBold(format.Italic.Value, false);
-      runProperties.SetBold(format.Italic.Value, true);
-    }
+      run.SetItalic(format.Bold);
   }
 }

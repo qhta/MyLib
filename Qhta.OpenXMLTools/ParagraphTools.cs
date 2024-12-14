@@ -445,7 +445,7 @@ public static class ParagraphTools
   {
     //foreach (var run in paragraph.Elements<DXW.Run>().ToList())
     //  run.NormalizeWhitespaces();
-    var textProcessor = new TextProcessor(paragraph);
+    var textProcessor = new FormattedText(paragraph);
     textProcessor.NormalizeWhitespaces(options);
     return true;
   }
