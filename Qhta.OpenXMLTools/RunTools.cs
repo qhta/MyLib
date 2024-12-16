@@ -891,6 +891,6 @@ public static class RunTools
     if (format.Bold.HasValue)
       run.SetBold(format.Bold);
     if (format.Italic.HasValue)
-      run.SetItalic(format.Bold);
+      run.SetItalic(format.Italic);
   }
 }

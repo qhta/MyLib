@@ -8,12 +8,12 @@ public record TextFormat
   /// <summary>
   /// Bold attribute of the text.
   /// </summary>
-  public bool? Bold { get; set; }
+  public bool? Bold { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Italic attribute of the text.
   /// </summary>
-  public bool? Italic { get; set; }
+  public bool? Italic { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Compare the text format with another text format.

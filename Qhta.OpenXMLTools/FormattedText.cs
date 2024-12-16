@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 
+using DocumentFormat.OpenXml.Vml.Office;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
@@ -77,6 +78,16 @@ public class FormattedText : List<RunText>
   }
 
   /// <summary>
+  /// Set the format of the specified item passing it to the Run element.
+  /// </summary>
+  /// <param name="index"></param>
+  /// <param name="format"></param>
+  public void SetFormat(int index, TextFormat format)
+  {
+    this[index].Run.SetFormat(format);
+  }
+
+  /// <summary>
   /// Insert the new run with text and format before the specified item.
   /// </summary>
   /// <param name="index"></param>
@@ -124,6 +135,7 @@ public class FormattedText : List<RunText>
     this[index].Run.InsertAfterSelf(newRun);
     if (tailRun != null)
     {
+      this[index].Text = this[index].Text.Substring(0, itemPosition);
       this.Insert(index + 2, new RunText(tailRun, tailRun.GetText(GetTextOptions)));
       newRun.InsertAfterSelf(tailRun);
     }
@@ -137,7 +149,57 @@ public class FormattedText : List<RunText>
   /// <param name="options"></param>
   /// <returns>character position of the text or -1 if not found</returns>
   public int Search(string searchText, TextFormat? searchFormat, FindAndReplaceOptions? options = null)
-   => Search(0, searchText, searchFormat, options);
+   => Search(0, searchText, searchFormat, options, out _);
+
+  /// <summary>
+  /// Search the text with the given format starting at the given startPosition.
+  /// </summary>
+  /// <param name="startPosition"></param>
+  /// <param name="searchText"></param>
+  /// <param name="searchFormat"></param>
+  /// <param name="foundLength">length of found text (or 0 if not found)</param>
+  /// <param name="options"></param>
+  /// <returns>character startPosition of the text (or -1 if not found)</returns>
+  public int Search(int startPosition, string? searchText, TextFormat? searchFormat, FindAndReplaceOptions? options, out int foundLength)
+  {
+    foundLength = searchText?.Length ?? 0;
+    if (searchText != null && searchFormat == null)
+      return SearchText(startPosition, searchText, options);
+    if (searchText != null && searchFormat != null)
+      return SearchTextWithFormat(startPosition, searchText, searchFormat, options);
+    if (searchText == null && searchFormat != null)
+      return SearchFormat(startPosition, searchFormat, options, out foundLength);
+    throw new ArgumentException("Both search text and search format are null.");
+  }
+
+  /// <summary>
+  /// Search the text with without format starting at the given startPosition.
+  /// </summary>
+  /// <param name="startPosition"></param>
+  /// <param name="searchText"></param>
+  /// <param name="options"></param>
+  /// <returns>character startPosition of the text (or -1 if not found)</returns>
+  private int SearchText(int startPosition, string searchText, FindAndReplaceOptions? options = null)
+  {
+    var findWholeWordsOnly = options?.FindWholeWordsOnly ?? false;
+    var matchCaseInsensitive = options?.MatchCaseInsensitive ?? false;
+    var stringComparison =
+      matchCaseInsensitive ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture;
+    var searchInText = GetText();
+    if (findWholeWordsOnly)
+    {
+      searchInText = '\0' + searchInText + '\0';
+      var k = searchInText.IndexOf(searchText, startPosition, stringComparison);
+      while (k > 0 && k + searchText.Length < searchInText.Length)
+      {
+        if (!char.IsLetterOrDigit(searchInText[k - 1]) && !char.IsLetterOrDigit(searchInText[k + searchText.Length]))
+          return k - 1;
+        k = searchInText.IndexOf(searchText, k + 1, stringComparison);
+      }
+      return -1;
+    }
+    return searchInText.IndexOf(searchText, startPosition, stringComparison);
+  }
 
   /// <summary>
   /// Search the text with the given format starting at the given startPosition.
@@ -146,32 +208,13 @@ public class FormattedText : List<RunText>
   /// <param name="searchText"></param>
   /// <param name="searchFormat"></param>
   /// <param name="options"></param>
-  /// <returns>character startPosition of the text or -1 if not found</returns>
-  public int Search(int startPosition, string searchText, TextFormat? searchFormat, FindAndReplaceOptions? options = null)
+  /// <returns>character startPosition of the text (or -1 if not found)</returns>
+  public int SearchTextWithFormat(int startPosition, string searchText, TextFormat searchFormat, FindAndReplaceOptions? options = null)
   {
     var findWholeWordsOnly = options?.FindWholeWordsOnly ?? false;
     var matchCaseInsensitive = options?.MatchCaseInsensitive ?? false;
     var stringComparison =
       matchCaseInsensitive ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture;
-    if (searchFormat == null)
-    {
-      var searchInText = GetText();
-      if (findWholeWordsOnly)
-      {
-        searchInText = '\0' + searchInText + '\0';
-        var k = searchInText.IndexOf(searchText, startPosition, stringComparison);
-        while (k > 0)
-        {
-          if (char.IsLetterOrDigit(searchInText[k - 1]) || k + searchText.Length < searchInText.Length && char.IsLetterOrDigit(searchInText[k + searchText.Length]))
-            k = searchInText.IndexOf(searchText, k + 1, stringComparison);
-          else
-            return k - 1;
-        }
-        return -1;
-      }
-      else
-        return searchInText.IndexOf(searchText, startPosition, stringComparison);
-    }
     var searchTextLength = searchText.Length;
     var sumLength = 0;
     for (int i = 0; i < this.Count; i++)
@@ -209,10 +252,9 @@ public class FormattedText : List<RunText>
             {
               if (findWholeWordsOnly && k > 0)
               {
-                if (char.IsLetterOrDigit(searchInText[k - 1]) || char.IsLetterOrDigit(searchInText[k + searchTextLength]))
-                  k = searchInText.IndexOf(searchText, k + 1, stringComparison);
-                else
+                if (!char.IsLetterOrDigit(searchInText[k - 1]) && !char.IsLetterOrDigit(searchInText[k + searchTextLength]))
                   return sumLength + k - 1;
+                k = searchInText.IndexOf(searchText, k + 1, stringComparison);
               }
               else
                 return sumLength + k;
@@ -222,6 +264,70 @@ public class FormattedText : List<RunText>
       }
       sumLength += itemText.Length;
     }
+    return -1;
+  }
+
+  /// <summary>
+  /// Search the given format without text starting at the given startPosition.
+  /// </summary>
+  /// <param name="startPosition"></param>
+  /// <param name="searchFormat"></param>
+  /// <param name="foundLength">length of found text (or 0 if not found)</param>
+  /// <param name="options"></param>
+  /// <returns>character startPosition of the text (or -1 if not found)</returns>
+  public int SearchFormat(int startPosition, TextFormat searchFormat, FindAndReplaceOptions? options, out int foundLength)
+  {
+    var findWholeWordsOnly = options?.FindWholeWordsOnly ?? false;
+    var sumLength = 0;
+    for (int i = 0; i < this.Count; i++)
+    {
+      var itemText = this[i].Text;
+      if (sumLength + itemText.Length > startPosition)
+      {
+        if (searchFormat.IsSame(this[i].Run.GetFormat()))
+        {
+          var searchInText = itemText;
+          if (findWholeWordsOnly)
+          {
+            if (i > 0)
+              searchInText = this[i - 1].Text.LastOrDefault() + searchInText;
+            else
+              searchInText = '\0' + searchInText;
+          }
+          int j = i + 1;
+          while (j < this.Count && searchFormat.IsSame(this[j].Run.GetFormat()))
+          {
+            searchInText += this[j].Text;
+            j++;
+          }
+          if (findWholeWordsOnly)
+          {
+            if (i < this.Count - 1)
+              searchInText = searchInText + this[i + 1].Text.LastOrDefault();
+            else
+              searchInText = searchInText + '\0';
+          }
+
+          if (findWholeWordsOnly)
+          {
+            if (!char.IsLetterOrDigit(searchInText[0]) && !char.IsLetterOrDigit(searchInText[searchInText.Length - 1]))
+            {
+              foundLength = searchInText.Length - 2;
+              return sumLength;
+            }
+          }
+          else
+          {
+            {
+              foundLength = searchInText.Length;
+              return sumLength;
+            }
+          }
+        }
+      }
+      sumLength += itemText.Length;
+    }
+    foundLength = 0;
     return -1;
   }
 
@@ -246,7 +352,7 @@ public class FormattedText : List<RunText>
   public bool Replace(string searchText, string replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
     => Replace(searchText, null, replacementText, replacementFormat, options);
 
-  /// <summary>
+   /// <summary>
   /// Replace the first occurrence of the formatted search text with the formatted replacement text.
   /// </summary>
   /// <param name="searchText"></param>
@@ -255,27 +361,44 @@ public class FormattedText : List<RunText>
   /// <param name="replacementFormat"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public bool Replace(string searchText, TextFormat? searchFormat, string replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
+  public bool Replace(string? searchText, TextFormat? searchFormat, string? replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
+   => Replace(0, searchText, searchFormat, replacementText, replacementFormat, options);
+
+  /// <summary>
+  /// Replace formatted search text with the formatted replacement text starting at the given position.
+  /// </summary>
+  /// <param name="startPosition"></param>
+  /// <param name="searchText"></param>
+  /// <param name="replacementText"></param>
+  /// <param name="searchFormat"></param>
+  /// <param name="replacementFormat"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public bool Replace(int startPosition, string? searchText, TextFormat? searchFormat, string? replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
   {
-    var k = Search(0, searchText, searchFormat, options);
-    if (k >= 0)
+    var foundPosition = Search(startPosition, searchText, searchFormat, options, out var foundLength);
+    if (foundPosition<0)
+      return false;
+    if (searchText != null && replacementText == null)
+      replacementText = searchText;
+    if (options?.MatchCaseInsensitive == true && replacementText != null)
     {
-      if (options?.MatchCaseInsensitive == true)
+      var foundText = GetText().Substring(foundPosition, foundLength);
+      if (foundText != searchText)
       {
-        var foundText = GetText().Substring(k, searchText.Length);
-        if (foundText != searchText)
-        {
-          if (foundText.IsUppercase())
-            replacementText = replacementText.ToUpper();
-          else if (foundText.IsLowercase())
-            replacementText = replacementText.ToLower();
-          else if (foundText.IsTitlecase())
-            replacementText = replacementText.TitleCase();
-        }
+        if (foundText.IsUppercase())
+          replacementText = replacementText.ToUpper();
+        else if (foundText.IsLowercase())
+          replacementText = replacementText.ToLower();
+        else if (foundText.IsTitlecase())
+          replacementText = replacementText.TitleCase();
       }
-      return ReplaceAt(k, searchText.Length, replacementText, replacementFormat);
     }
-    return false;
+    if (replacementText != null)
+      return ReplaceTextAt(foundPosition, foundLength, replacementText, replacementFormat, options);
+    if (replacementFormat != null)
+      return ReplaceFormatAt(foundPosition, foundLength, replacementFormat, options);
+    throw new ArgumentException("Both replacement text and replacement format are null.");
   }
 
   /// <summary>
@@ -287,7 +410,7 @@ public class FormattedText : List<RunText>
   /// <param name="replacementFormat"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  public bool ReplaceAt(int position, int length, string replacementText, TextFormat? replacementFormat = null, FindAndReplaceOptions? options = null)
+  private bool ReplaceTextAt(int position, int length, string replacementText, TextFormat? replacementFormat, FindAndReplaceOptions? options = null)
   {
     var sumLength = 0;
     var selectedItem = -1;
@@ -360,6 +483,51 @@ public class FormattedText : List<RunText>
     }
     return false;
   }
+
+  /// <summary>
+  /// Replace the format of text at given position and of given length with the replacement format.
+  /// </summary>
+  /// <param name="length"></param>
+  /// <param name="position"></param>
+  /// <param name="replacementFormat"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  private bool ReplaceFormatAt(int position, int length, TextFormat replacementFormat, FindAndReplaceOptions? options = null)
+  {
+    var sumLength = 0;
+    var selectedItem = -1;
+    for (int i = 0; i < this.Count; i++)
+    {
+      var itemText = this[i].Text;
+      if (sumLength + itemText.Length > position)
+      {
+        selectedItem = i;
+        break;
+      }
+      sumLength += itemText.Length;
+    }
+    if (selectedItem >= 0)
+    {
+      while (selectedItem < this.Count && (length > 0))
+      {
+        var itemText = this[selectedItem].Text;
+        var itemOldLength = itemText.Length;
+        length -= itemText.Length;
+        var nextItem = selectedItem + 1;
+        if (!replacementFormat.IsSame(this[selectedItem].Run.GetFormat()))
+        {
+          SetFormat(selectedItem, replacementFormat);
+        }
+        if (length <= 0)
+          break;
+        sumLength += itemOldLength;
+        selectedItem = nextItem;
+      }
+      return true;
+    }
+    return false;
+  }
+
 
   /// <summary>
   /// Remove exceeding whitespaces from all paragraphs in the context.
