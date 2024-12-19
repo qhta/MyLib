@@ -17,7 +17,7 @@ public static class TypeTools
   /// <returns></returns>
   public static bool IsMemberType(this Type elementType)
   {
-    if (SureMemberTypes.Contains(elementType))
+    if (FrequentMemberTypes.Contains(elementType))
       return true;
 
     var name = elementType.Name;
@@ -173,7 +173,7 @@ public static class TypeTools
     typeof(DXW.YearShort),
   ];
 
-  private static readonly HashSet<Type> SureMemberTypes =
+  private static readonly HashSet<Type> FrequentMemberTypes =
   [
     typeof(DXW.Paragraph),
     typeof(DXW.Run),

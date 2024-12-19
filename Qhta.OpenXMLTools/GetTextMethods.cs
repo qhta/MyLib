@@ -210,6 +210,25 @@ public static class GetTextMethods
     return sb.ToString();
   }
 
+  ///// <summary>
+  ///// Get the text content of the run.
+  ///// </summary>
+  ///// <param name="run"></param>
+  ///// <returns></returns>
+  //public static List<DX.OpenXmlElement> GetFormattedText(this DXW.Run run)
+  //{
+  //  var result = new ();
+
+  //  var members = run.GetMembers();
+  //  foreach (var member in members)
+  //  {
+  //    if (member is DXW.Text text)
+  //      sb.Append(text.GetTextOf(options));
+  //    else
+  //      sb.Append(member.GetText(options));
+  //  }
+  //  return sb.ToString();
+  //}
   /// <summary>
   /// Get the text of the run SearchText element.
   /// </summary>

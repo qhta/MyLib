@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Text;
+using System.Xml;
 using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
@@ -41,10 +42,65 @@ public static class SetTextMethods
     if (options.UseHtmlEntities)
       text = text.HtmlDecode();
     var members = run.GetMembers().ToArray();
-    foreach ( var member in members )
+    foreach (var member in members )
       member.Remove();
-    run.AppendText(text);
+    var sb = new StringBuilder();
+    for (int i = 0; i < text.Length; i++)
+    {
+      var c = text[i];
+      if (c == TextOptions.PlainText.TabChar[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.TabChar());
+      }
+      else if (c == TextOptions.PlainText.CarriageReturnTag[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.CarriageReturn());
+      }
+      else if (c == TextOptions.PlainText.SoftHyphenTag[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.SoftHyphen());
+      }
+      else if (c == TextOptions.PlainText.NoBreakHyphenTag[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.NoBreakHyphen());
+      }
+      else if(c == TextOptions.PlainText.BreakLineTag[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.TextWrapping) });
+      }
+      else if (c == TextOptions.PlainText.BreakColumnTag[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Column) });
+      }
+      else if (c == TextOptions.PlainText.BreakPageTag[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Page) });
+      }
+      else
+      {
+        sb.Append(c);
+      }
+    }
+    run.TryAddCollectedText(sb);
     return true;
+  }
+
+  private static bool TryAddCollectedText(this DXW.Run run, StringBuilder sb)
+  {
+    if (sb.Length > 0)
+    {
+      run.AppendText(sb.ToString());
+      sb.Clear();
+      return true;
+    }
+    return false;
   }
 
   /// <summary>

@@ -14,9 +14,9 @@ public static partial class StylesTools
 {
 
 
-  private static void LoadBuiltinStyles()
+  private static void LoadBuiltinStyles(string buildInStylesFileName)
   {
-    using (var wordDoc = DXPack.WordprocessingDocument.Open("BuiltinStyleProbes.docx", false))
+    using (var wordDoc = DXPack.WordprocessingDocument.Open(buildInStylesFileName, false))
     {
       LoadBuiltinStyles(wordDoc);
     }

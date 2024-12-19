@@ -181,6 +181,11 @@ public record TextOptions
   /// </summary>
   public string NoBreakHyphenTag { get; set; } = "\u2011";
 
+  /// <summary>
+  /// Positional tab replacement char.
+  /// </summary>
+  public string PositionalTabChar { get; set; } = "\uE009";
+
   #endregion
 
   #region Plain text options

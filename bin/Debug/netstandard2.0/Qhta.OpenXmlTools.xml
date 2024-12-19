@@ -416,635 +416,6 @@
             </summary>
             <param name="customFileProperties"></param>
         </member>
-        <member name="T:Qhta.OpenXmlTools.DocumentCleaner">
-            <summary>
-            A composite tool for cleaning a Wordprocessing document.
-            </summary>
-            <summary>
-            A composite tool for cleaning a Wordprocessing document.
-            </summary>
-            <summary>
-            A composite tool for cleaning a Wordprocessing document.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.DocumentCleaner.VerboseLevel">
-            <summary>
-            Determines the level of verbosity of the cleaner.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.DocumentCleaner.ExampleFont">
-            <summary>
-            Determines the font used for examples.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CleanDocument(System.String)">
-            <summary>
-            Cleans the document using all the methods available.
-            </summary>
-            <param name="fileName"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TestTextProcessor(System.String)">
-            <summary>
-            Run test of TextProcessor functionality.
-            </summary>
-            <param name="fileName"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CleanDocument(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Cleans the document using all the methods available.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrimParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,Qhta.OpenXmlTools.TrimOptions)">
-            <summary>
-            Trims all the paragraphs in the document removing ending whitespaces.
-            </summary>
-            <param name="wordDoc"></param>
-            <param name="options"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeWhitespaces(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,Qhta.OpenXmlTools.WsMode,Qhta.OpenXmlTools.TrimOptions)">
-            <summary>
-            Normalize whitespaces in the document
-            </summary>
-            <param name="wordDoc"></param>
-            <param name="mode"></param>
-            <param name="trimOptions"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveEmptyParagraphs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Boolean)">
-            <summary>
-            Removes all the empty paragraphs from the document.
-            </summary>
-            <param name="wordDoc"></param>
-            <param name="allDescendants">should remove in all descendants or at children level only</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentRuns(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Joins adjacent tables that have the same number of columns.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixLongWords(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Insert an optional hyphens into long words, especially URL's.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveFakeHeadersAndFooters(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Removes paragraphs that are same as headers or footers but are contained in body.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedSentences(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Join sentences that are divided into multiple paragraphs.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ResetHeadingsFormat(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Resets format of heading paragraphs.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ReplaceSymbolEncoding(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Replace characters with a code between F000 and F0DD to corresponding unicode characters according to the symbol encoding.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RepairXmlExamples(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Find paragraphs that have the font of XML examples and track XML start and end tags.
-            Each start tag should begin the paragraph and each end tag should be placed in a separate line.
-            If a paragraph does not begin with a start tag, its content is moved to the previous paragraph.
-            Whitespaces are normalized.
-            Embedded XML tags are indented by adding two spaces on left.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ConvertAnchorsToInline(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Converts all anchors to inline graphics
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ConvertFloatingPicturesToInline(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Converts floating pictures to inline graphics
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SplitParagraphsAfterInlines(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find inline elements in the paragraph and split the paragraph after them.
-            </summary>
-            <param name="body"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinParagraphsWithNextInlines(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find inline elements that are at the beginning of the paragraph and join the paragraph with the previous one.
-            </summary>
-            <param name="body"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SplitParagraphsAfterColonsWithNoFollowingDrawings(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find colons with no following drawings in the paragraphs and split the paragraphs after them.
-            </summary>
-            <param name="body"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TrySplitParagraphAfterColonWithNoFollowingDrawings(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
-            <summary>
-            Find colon with no following drawings in the paragraph and split the paragraph after them.
-            </summary>
-            <param name="paragraph"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphNumbering(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Detect paragraphs that contain a bullet and enter a new paragraph with bullet numbering.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphsWithBullets(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Fix paragraphs with bullets.
-            If the paragraph starts with a bullet, the bullet is removed and the paragraph is bulleted.
-            If the paragraph contains a bullet inside text, the paragraph is divided and new paragraph is bulleted.
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixParagraphsWithNumbers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Fix paragraphs with numbering.
-            Numbering is a digit or a sequence of digits, a letter or two letters followed by a dot or closing parenthesis.
-            If the paragraph starts with a numbering, the numbering is removed and the paragraph is numbered.
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.RemoveProofErrors(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Removes all <c>ProofError</c> and <c>ProofState</c> elements from the document.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixKnownProofErrors(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Fix known proofing errors. Get invalid strings from the dictionary and replace them with valid ones.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.KnownProofErrors">
-            <summary>
-            Dictionary of known proofing errors.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixFakeTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Find fake tables in the document and convert them to paragraphs.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixFakeTables(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find fake tables in the document and convert them to paragraphs.
-            </summary>
-            <param name="body">Composite element to process</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.IsFakeTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Check if the table is a fake table.
-            Fake table is a non-bordered table with multi-paragraph cells in at least one cell.
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CreateTablesFromTabs(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Find tabulated paragraphs and try to convert them to tables.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.CreateTablesFromTabs(DocumentFormat.OpenXml.OpenXmlCompositeElement,System.Boolean,System.Boolean)">
-            <summary>
-            Find tabulated paragraphs and try to convert them to tables.
-            </summary>
-            <param name="body">Composite element to process</param>
-            <param name="convertSingleParagraphs">Determine if we should convert single tabbed paragraphs also</param>
-            <param name="treatTabSequenceAsSingleTab">Determine if we should treat sequences as tabs as single tabs to avoid creating empty cells</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateInternalTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            If a table has cells with tabulated paragraphs then try to convert these paragraphs to tables.
-            </summary>
-            <param name="table"></param>
-            <returns>number of created tables</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateInternalTable(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
-            <summary>
-            If a row has cells with tabulated paragraphs then try to convert these paragraphs to tables.
-            </summary>
-            <param name="row"></param>
-            <returns>number of created tables</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateTablesFromTabs(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            If a cell has cells with tabulated paragraphs then try to convert these paragraphs to tables.
-            </summary>
-            <param name="cell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryCreateTableFromTabulatedParagraphs(System.Collections.Generic.List{DocumentFormat.OpenXml.Wordprocessing.Paragraph},System.Boolean,DocumentFormat.OpenXml.Wordprocessing.Table@)">
-            <summary>
-            Try to create a table from a sequence of tabulated paragraphs.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.EvaluateColumnRangesByTabs(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Boolean)">
-            <summary>
-            Evaluate column ranges in paragraph by dividing its contents by tabs.
-            If the treatTabSequenceAsSingleTab is true then treat sequences of tabs as single tab
-            and ignore leading tabs and trailing tabs. Resulting ranges contain:
-            <list type="bullet">
-              <item>items of runs separated by tab characters</item>
-              <item>whole runs which do not contain tab characters</item>
-              <item>all other items</item>
-            </list>
-            </summary>
-            <param name="paragraph"></param>
-            <param name="treatTabSequenceAsSingleTab"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FillCellContent(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.Range)">
-            <summary>
-            Copies the content of the range to the cell.
-            All run level elements are copied to the new paragraph.
-            If a range element is a paragraph then its clone is copied to the cell.
-            </summary>
-            <param name="cell"></param>
-            <param name="range"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixInternalTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Find tables with multi-column cells and make internal tables.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixInternalTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            If a table has rows with different number of cells than try to convert these rows to internal tables.
-            We assume that the number of rows in the table is greater than 2.
-            We also assume that the merged column is the second column.
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixEmptyCellHeaders(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Check if the table has heading rows and try to fix them.
-            Heading row is a row that is shaded and bordered
-            Heading rows need to be fixed if they have empty cells.
-            Fixing heading rows means joining empty cells with next non-empty cells.
-            </summary>
-            <param name="table"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixEmptyCellRows(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Check if the table has rows with empty cells and try to fix them.
-            Fixing rows means joining empty cells with next non-empty cells.
-            </summary>
-            <param name="table"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.IsHeadingRow(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
-            <summary>
-            Check if the row is a heading row.
-            Heading row is a row that has at least one cell shaded and bordered.
-            </summary>
-            <param name="row"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixRowWithEmptyCells(DocumentFormat.OpenXml.Wordprocessing.TableRow)">
-            <summary>
-            Try to fix row if the row has empty cells.
-            These empty cells are joined with next non-empty cells.
-            </summary>
-            <param name="row"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinEmptyCellWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Try to join empty emptyCell with the next non-empty cell.
-            Join is possible if the next cell is not empty and
-            there is no border between empty cell and non-empty cell.
-            </summary>
-            <param name="emptyCell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinEmptyCellWithPrevious(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Try to join empty emptyCell with the previous non-empty cell.
-            Join is possible if the previous cell is not empty and
-            there is no border between empty cell and non-empty cell.
-            </summary>
-            <param name="emptyCell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinCellWithNext(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Try to join empty emptyCell with the next non-empty cell.
-            Join is possible if the next cell is not empty and
-            there is no border between empty cell and non-empty cell.
-            </summary>
-            <param name="emptyCell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinCellWithPrevious(DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Try to join empty emptyCell with the previous non-empty cell.
-            Join is possible if the previous cell is not empty and
-            there is no border between empty cell and non-empty cell.
-            </summary>
-            <param name="emptyCell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryRemoveEmptyColumns(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Check it the table has empty columns and remove them.
-            </summary>
-            <param name="table"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Qhta.OpenXmlTools.DocumentCleaner.RowGroup">
-            <summary>
-            Helper record for grouping rows by the number of cells.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.StartIndex">
-            <summary>
-            Start of the group (row index).
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.RowsCount">
-            <summary>
-            RowsCount of the group;
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.CellsCount">
-            <summary>
-            CellsCount of the group.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.FirstNonEmptyColumn">
-            <summary>
-            First non-empty column in the group.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.LastNonEmptyColumn">
-            <summary>
-            Last non-empty column in the group.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.Rows">
-            <summary>
-            List of rows in the group.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.DocumentCleaner.RowGroup.InternalTable">
-            <summary>
-            Internal table created from the group.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.GetRowGroups(System.Collections.Generic.Dictionary{DocumentFormat.OpenXml.Wordprocessing.TableRow,System.Int32})">
-            <summary>
-            Helper method for grouping rows by the number of cells.
-            </summary>
-            <param name="rowsCellsCount"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FindNonEmptyColumns(Qhta.OpenXmlTools.DocumentCleaner.RowGroup)">
-            <summary>
-            Find the first and the last non-empty column in the group of rows.
-            </summary>
-            <param name="rowGroup"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryToRemoveInternalFakeTable(Qhta.OpenXmlTools.DocumentCleaner.RowGroup)">
-            <summary>
-            Helper method for removing internal fake table.
-            If the rowGroup has columns that are not separated by a border,
-            then we treat these columns as a fake table.
-            Fake table is converted to a sequence of paragraphs.
-            Columns are separated by a tab character.
-            <example>
-              Fake table: FILE:///Images/FakeTable.png
-            </example>
-            </summary>
-            <param name="rowGroup"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ConvertCellsToText(DocumentFormat.OpenXml.Wordprocessing.TableRow,DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Helper method to convert cells in the row to text.
-            First, contents of the specified cells are copied to a list, which items are lists of paragraphs.
-            Next, this list is converted to a rectangular array of items.
-            Then, each row ot this array is converted to a single paragraph which content is composed of the contents of the items in the row separated by a tab character.
-            These paragraphs replace the content of the first cell.
-            Finally, the rest of the cells are removed.
-            </summary>
-            <param name="row">Parent row</param>
-            <param name="fromCell">First cell to start conversion</param>
-            <param name="toCell">Last cell in conversion sequence</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryToCreateInternalTable(Qhta.OpenXmlTools.DocumentCleaner.RowGroup)">
-            <summary>
-            Helper method for creating internal table.
-            If the rowGroup has empty columns from the left or from the right
-            then we can create an internal table.
-            The internal table has non-empty columns copied from the original table.
-            </summary>
-            <param name="rowGroup"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithEmptyCells(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Find tables that have empty cells and fix them.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTablesWithEmptyCells(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Find tables that have empty cells and fix them.
-            </summary>
-            <param name="body">Processed body</param>
-            <returns>number of tables fixed</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFixEmptyCells(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Check if the table has empty cells and fix them.
-            </summary>
-            <param name="table"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Joins adjacent tables that have the same number of columns.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinAdjacentTables(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Joins adjacent tables that have the same number of columns.
-            </summary>
-            <param name="body">Processed body</param>
-            <returns>number of joins</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixDividedTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Fix page-divided tables.
-            Page-divided table is (usually long) table that have been split across consecutive pages
-            so that the headings of the table are repeated on each page.
-            Sometimes there are no repeating headings but the table is divided.
-            After JoinAdjacentTables it should be a single table.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTableWithRepeatedHeaders(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32@,System.Int32@)">
-            <summary>
-            Check if the table has first (heading) row repeated in the middle of the table.
-            These repeating heading rows should be removed.
-            Then the last row of the first part of the table
-            should be joined with the first row of the second part.
-            </summary>
-            <param name="table"></param>
-            <param name="removedRepeatedHeadings">count of removed repeated headings</param>
-            <param name="joinedRows">count of joined rows</param>
-            <returns>true when a table was divided</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FixTableWithWithDividedRows(DocumentFormat.OpenXml.Wordprocessing.Table,System.Int32@)">
-            <summary>
-            If the table does not have repeating headings, it can still be divided.
-            We must check if two adjacent rows should be joined.
-            </summary>
-            <param name="table"></param>
-            <param name="joinedRows">count of joined rows</param>
-            <returns>true when a table was divided</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryJoinDividedRows(DocumentFormat.OpenXml.Wordprocessing.TableRow,DocumentFormat.OpenXml.Wordprocessing.TableRow)">
-            <summary>
-            Try to join two rows in page-divided table.
-            Page-divided table is (usually long) table that have been split across consecutive pages
-            so that the headings of the table are repeated on each page.
-            The repeating heading rows has been removed.
-            Now we try to join the last row of the first part of the table
-            with the first row of the second part.
-            </summary>
-            <param name="upperRow">Upper table row.</param>
-            <param name="lowerRow">Lower table row.</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ShouldBeJoined(DocumentFormat.OpenXml.Wordprocessing.TableRow,DocumentFormat.OpenXml.Wordprocessing.TableRow)">
-            <summary>
-            Check if two sibling rows in a table should be joined.
-            First check if the number of cells in the rows are the same.
-            Then check the corresponding cells.
-            </summary>
-            <param name="upperRow">Upper table row.</param>
-            <param name="lowerRow">Lower table row.</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.ShouldBeJoined(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Check if two corresponding cells in sibling table rows should be joined.
-            Check the last paragraph in the upper cell and the first paragraph in the lower cell.
-            Returns 2 if the cells should definitely be joined.
-            Returns 1 if the cells should rather be joined.
-            Returns -1 if the cells should rather not be joined,
-            Returns -2 if the cells should definitely not be joined.
-            Returns 0 if the algorithm can't tell. 
-            </summary>
-            <param name="upperCell">Upper table row.</param>
-            <param name="lowerCell">Lower table row.</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedCells(DocumentFormat.OpenXml.Wordprocessing.TableCell,DocumentFormat.OpenXml.Wordprocessing.TableCell)">
-            <summary>
-            Join two corresponding cells in possibly divided row.
-            Last paragraph in the upper cell and the first paragraph in the lower cell should be joined.
-            If it is not possible to join the cells then return false.
-            </summary>
-            <param name="upperCell">Cell taken from the upper table row.</param>
-            <param name="lowerCell">Cell taken from the lower table row.</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinParagraphsInFirstColumn(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Browse through the document and join paragraphs in the first column of tables.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.BreakParagraphsBefore(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
-            <summary>
-            Browse paragraphs and break them before the specified string.
-            </summary>
-            <param name="wordDoc"></param>
-            <param name="str">string to break paragraphs before</param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.FormatTables(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
-            <summary>
-            Format all tables in the document.
-            </summary>
-            <param name="wordDoc"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryFormatTable(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Keep short tables on the same page.
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryLimitLeftIndent(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Keep short tables on the same page.
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.TryLimitWidth(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Keep short tables on the same page.
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SetRowsHeightAuto(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Set the height of all rows in the table to auto.
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.SetUniformCellMargins(DocumentFormat.OpenXml.Wordprocessing.Table)">
-            <summary>
-            Set the cell margins to uniform values
-            </summary>
-            <param name="table"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.JoinDividedSentences(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
-            <summary>
-            Join sentences divided between adjacent paragraphs.
-            </summary>
-            <param name="body">Processed body</param>
-            <returns>number of joins</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.IsXmlExample(System.String)">
-            <summary>
-            Check if the text contains an XML example.
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.DocumentCleaner.NormalizeXmlParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.Int32)">
-            <summary>
-            Normalize the whitespaces in the XML paragraph. Keep the spaces indentation.
-            Set paragraph indent to the specified value of characters (plus two).
-            </summary>
-            <param name="paragraph"></param>
-            <param name="indent"></param>
-        </member>
         <member name="T:Qhta.OpenXmlTools.DocumentFormatter">
             <summary>
             A composite tool for formatting a Wordprocessing document.
@@ -1466,12 +837,12 @@
         </member>
         <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.FindWholeWordsOnly">
             <summary>
-            Search option - whole words only.
+            Find option - whole words only.
             </summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.FindAndReplaceOptions.MatchCaseInsensitive">
             <summary>
-            Search and replace option - case-insensitive.
+            Find and replace option - case-insensitive.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.Finder">
@@ -1700,18 +1071,18 @@
             <param name="text"></param>
             <param name="format"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.Search(System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Find(System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
-            Search the text with the given format.
+            Find the text with the given format.
             </summary>
             <param name="searchText"></param>
             <param name="searchFormat"></param>
             <param name="options"></param>
             <returns>character position of the text or -1 if not found</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.Search(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions,System.Int32@)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.Find(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions,System.Int32@)">
             <summary>
-            Search the text with the given format starting at the given startPosition.
+            Find the text with the given format starting at the given startPosition.
             </summary>
             <param name="startPosition"></param>
             <param name="searchText"></param>
@@ -1720,18 +1091,18 @@
             <param name="options"></param>
             <returns>character startPosition of the text (or -1 if not found)</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SearchText(System.Int32,System.String,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.FindText(System.Int32,System.String,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
-            Search the text with without format starting at the given startPosition.
+            Find the text with without format starting at the given startPosition.
             </summary>
             <param name="startPosition"></param>
             <param name="searchText"></param>
             <param name="options"></param>
             <returns>character startPosition of the text (or -1 if not found)</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SearchTextWithFormat(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.FindTextWithFormat(System.Int32,System.String,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions)">
             <summary>
-            Search the text with the given format starting at the given startPosition.
+            Find the text with the given format starting at the given startPosition.
             </summary>
             <param name="startPosition"></param>
             <param name="searchText"></param>
@@ -1739,9 +1110,9 @@
             <param name="options"></param>
             <returns>character startPosition of the text (or -1 if not found)</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SearchFormat(System.Int32,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions,System.Int32@)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.FindFormat(System.Int32,Qhta.OpenXmlTools.TextFormat,Qhta.OpenXmlTools.FindAndReplaceOptions,System.Int32@)">
             <summary>
-            Search the given format without text starting at the given startPosition.
+            Find the given format without text starting at the given startPosition.
             </summary>
             <param name="startPosition"></param>
             <param name="searchFormat"></param>
@@ -1810,6 +1181,18 @@
             <param name="position"></param>
             <param name="replacementFormat"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.TrimStart">
+            <summary>
+            Trim the whitespaces at the start of the formatted text.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.TrimEnd">
+            <summary>
+            Trim the whitespaces at the end of the formatted text.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">
@@ -5069,6 +4452,13 @@
             </summary>
             <param name="paragraph"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ParagraphTools.SetStyle(DocumentFormat.OpenXml.Wordprocessing.Paragraph,System.String)">
+            <summary>
+            Set the paragraph style.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="styleName"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
             <summary>
@@ -11026,11 +10416,12 @@
             <param name="wordDoc">The WordprocessingDocument</param>
             <returns>True if the document has styles defined</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.GetStyles(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetStyles(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
             <summary>
             Gets the styles from the document. If the document does not have styles element, it is created
             </summary>
             <param name="wordDoc">The WordprocessingDocument</param>
+            <param name="buildInStylesFileName">Path to a docx with buildIn styles defined and used</param>
             <returns>Instance of the styles element</returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.StylesTools.GetBuildInStylesCount">
@@ -12053,6 +11444,11 @@
             Tag to mark a non-break hyphen.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.PositionalTabChar">
+            <summary>
+            Positional tab replacement char.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.OtherObjectSubstituteTag">
             <summary>
             Tag to mark other object in plain text.
@@ -12421,6 +11817,17 @@
         <member name="T:Qhta.OpenXmlTools.TextProcessor">
             <summary>
             Class to process text in a document.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+            <summary>
+            Construct a formatted text using paragraph as a context element.
+            </summary>
+            <param name="paragraph"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">
+            <summary>
+            Remove exceeding whitespaces from all paragraphs in the context.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.TextProperties">

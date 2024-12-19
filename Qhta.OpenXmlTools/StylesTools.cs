@@ -114,13 +114,19 @@ public static partial class StylesTools
   /// Gets the styles from the document. If the document does not have styles element, it is created
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
+  /// <param name="buildInStylesFileName">Path to a docx with buildIn styles defined and used</param>
   /// <returns>Instance of the styles element</returns>
-  public static DXW.Styles GetStyles(this DXPack.WordprocessingDocument wordDoc)
+  public static DXW.Styles GetStyles(this DXPack.WordprocessingDocument wordDoc, string? buildInStylesFileName = null)
   {
     var mainDocumentPart = wordDoc.GetMainDocumentPart();
     var styleDefinitionsPart = mainDocumentPart.StyleDefinitionsPart ??
                                mainDocumentPart.AddNewPart<DXPack.StyleDefinitionsPart>();
-    return styleDefinitionsPart.Styles ?? (styleDefinitionsPart.Styles = new DXW.Styles());
+
+    styleDefinitionsPart.Styles ??= (styleDefinitionsPart.Styles = new DXW.Styles());
+    if (buildInStylesFileName!=null)
+      if (BuiltinStyles == null)
+        LoadBuiltinStyles(buildInStylesFileName);
+    return styleDefinitionsPart.Styles;
   }
 
   /// <summary>
@@ -210,8 +216,6 @@ public static partial class StylesTools
     var element = styles.Elements<Style>().FirstOrDefault(s => s.StyleName?.Val?.Value == styleName);
     if (element != null)
       return element;
-    if (BuiltinStyles == null)
-      LoadBuiltinStyles();
     if (StyleNamesDictionary.TryGetValue(styleName, out var builtinStyle))
     {
       if (BuiltinStyles!.TryGetValue(builtinStyle, out var style))

@@ -294,36 +294,43 @@ public static class ParagraphTools
   public static bool TrimEnd(this DXW.Paragraph paragraph)
   {
     bool done = false;
-    var lastElement = paragraph.GetMembers().LastOrDefault();
-    while (lastElement != null)
-    {
-      var previousElement = lastElement.PreviousSiblingMember();
-      if (lastElement is DXW.BookmarkEnd || lastElement is DXW.BookmarkStart)
-      {
-        // ignore;
-      }
-      else if (lastElement is DXW.Run run)
-      {
-        if (run.TrimEnd())
-        {
-          done = true;
-          if (run.IsEmpty())
-            run.Remove();
-          else
-            break;
-        }
-        else
-          break;
-      }
-      else if (lastElement is DXW.Hyperlink hyperlink)
-      {
-        if (hyperlink.TrimEnd())
-          done = true;
-        else
-          break;
-      }
-      lastElement = previousElement;
-    }
+    var paraText = paragraph.GetText(TextOptions.ParaText);
+    if (paraText.Contains("Main Document Story"))
+      Debug.Assert(true);
+    var formattedText = new FormattedText(paragraph);
+    var fText = formattedText.GetText();
+
+    done = formattedText.TrimEnd();
+    //var lastElement = paragraph.GetMembers().LastOrDefault();
+    //while (lastElement != null)
+    //{
+    //  var previousElement = lastElement.PreviousSiblingMember();
+    //  if (lastElement is DXW.BookmarkEnd || lastElement is DXW.BookmarkStart)
+    //  {
+    //    // ignore;
+    //  }
+    //  else if (lastElement is DXW.Run run)
+    //  {
+    //    if (run.TrimEnd())
+    //    {
+    //      done = true;
+    //      if (run.IsEmpty())
+    //        run.Remove();
+    //      else
+    //        break;
+    //    }
+    //    else
+    //      break;
+    //  }
+    //  else if (lastElement is DXW.Hyperlink hyperlink)
+    //  {
+    //    if (hyperlink.TrimEnd())
+    //      done = true;
+    //    else
+    //      break;
+    //  }
+    //  lastElement = previousElement;
+    //}
     return done;
   }
 
@@ -969,5 +976,16 @@ public static class ParagraphTools
         yield return member;
       }
     }
+  }
+
+  /// <summary>
+  /// Set the paragraph style.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="styleName"></param>
+  public static void SetStyle(this DXW.Paragraph paragraph, string styleName)
+  {
+    var paragraphProperties = paragraph.GetParagraphProperties();
+    paragraphProperties.ParagraphStyleId = new DXW.ParagraphStyleId { Val = styleName };
   }
 }

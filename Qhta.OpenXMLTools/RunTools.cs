@@ -688,7 +688,10 @@ public static class RunTools
               }
               for (int j = i + 1; j < members.Count; j++)
               {
-                newRun.AppendChild(members[j]);
+                var newMember = members[j];
+                if (newMember.Parent!=null)
+                  newMember.Remove();
+                newRun.AppendChild(newMember);
               }
 
             }
