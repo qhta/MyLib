@@ -8,6 +8,67 @@ using DocumentFormat.OpenXml.Wordprocessing;
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
+/// Represents the list of the run members.
+/// These members, which can be converted to the plain text, are concatenated to single Text element.
+/// Others are contained as themselves.
+/// </summary>
+public class RunInText : List<DX.OpenXmlElement>
+{
+
+  /// <summary>
+  /// Construct an empty RunInText object.
+  /// </summary>
+  public RunInText()
+  {
+  }
+
+  /// <summary>
+  /// Construct a RunInText object with a single Text element.
+  /// </summary>
+  /// <param name="text"></param>
+  public RunInText (string text)
+  {
+    Add(new DXW.Text(text));
+  }
+
+  /// <summary>
+  /// Append the text to the last Text element in the list
+  /// or add a new Text element to the list.
+  /// </summary>
+  /// <param name="text"></param>
+  public void Append(string text)
+  {
+    if (this.LastOrDefault() is Text lastText)
+    {
+      lastText.Text += text;
+    }
+    else
+    {
+      this.Add(new DXD.Text(text));
+    }
+  }
+
+  /// <summary>
+  /// Concatenate the text of items in the list.
+  /// Non-text elements are replaced with their single-character representation.
+  /// </summary>
+  /// <returns></returns>
+  public string PlainText()
+  {
+    var sb = new StringBuilder();
+    foreach (var member in this)
+    {
+      if (member is DXW.Text text)
+        sb.Append(text.Text);
+      else
+        sb.Append(member.GetText(TextOptions.PlainText));
+    }
+    return sb.ToString();
+  }
+}
+
+
+/// <summary>
 /// Represents a run-text pair in the FormattingText class.
 /// </summary>
 public record RunText
@@ -18,20 +79,41 @@ public record RunText
   public readonly DXW.Run Run;
   
   /// <summary>
-  /// Text of the run element.
+  /// PlainText of the run element.
   /// </summary>
-  public string Text;
+  public RunInText RunInText;
+
+  /// <summary>
+  /// Get the plain text of the run element.
+  /// </summary>
+  public string PlainText
+  {
+    get => RunInText.PlainText();
+    set => RunInText = new RunInText { new DXW.Text(value) };
+  }
 
 
   /// <summary>
-  /// Construct a RunText object.
+  /// Construct a RunText object using run-in text.
   /// </summary>
   /// <param name="run"></param>
-  /// <param name="text"></param>
-  public RunText(DXW.Run run, string text)
+  /// <param name="runInText"></param>
+  public RunText(DXW.Run run, RunInText runInText)
   {
     Run = run;
-    Text = text;
+    RunInText = runInText;
+  }
+
+
+  /// <summary>
+  /// Construct a RunText object using plain text.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <param name="plainText"></param>
+  public RunText(DXW.Run run, string plainText)
+  {
+    Run = run;
+    RunInText = new RunInText(plainText);
   }
 }
 
@@ -50,7 +132,7 @@ public class FormattedText : List<RunText>
   {
     foreach (var member in paragraph.Elements<DXW.Run>())
     {
-      var runText = member.GetFormattedText(GetTextOptions);
+      var runText = member.GetText(GetTextOptions);
       this.Add(new RunText(member,runText));
     }
   }
@@ -64,9 +146,27 @@ public class FormattedText : List<RunText>
     var sb = new StringBuilder();
     foreach (var item in this)
     {
-      sb.Append(item.Text);
+      sb.Append(item.PlainText);
     }
     return sb.ToString();
+  }
+
+  /// <summary>
+  /// Set the text to the all Run elements.
+  /// Text is split with TextOptions PlainText RunSeparator.
+  /// Number of text parts must be equal to the number of Run elements.
+  /// </summary>
+  /// <param name="text"></param>
+  public void SetText(string text)
+  {
+    var ss = text.Split(TextOptions.PlainText.RunStartTag[0]);
+    for (int i = 0; i < this.Count; i++)
+    {
+      if (i < ss.Length)
+        SetText(i, ss[i]);
+      else
+        SetText(i, String.Empty);
+    }
   }
 
   /// <summary>
@@ -76,7 +176,7 @@ public class FormattedText : List<RunText>
   /// <param name="text"></param>
   public void SetText(int index, string text)
   {
-    this[index].Text = text;
+    this[index].PlainText = text;
     this[index].Run.SetText(text);
   }
 
@@ -138,7 +238,7 @@ public class FormattedText : List<RunText>
     this[index].Run.InsertAfterSelf(newRun);
     if (tailRun != null)
     {
-      this[index].Text = this[index].Text.Substring(0, itemPosition);
+      this[index].PlainText = this[index].PlainText.Substring(0, itemPosition);
       this.Insert(index + 2, new RunText(tailRun, tailRun.GetText(GetTextOptions)));
       newRun.InsertAfterSelf(tailRun);
     }
@@ -222,7 +322,7 @@ public class FormattedText : List<RunText>
     var sumLength = 0;
     for (int i = 0; i < this.Count; i++)
     {
-      var itemText = this[i].Text;
+      var itemText = this[i].PlainText;
       if (sumLength + itemText.Length > startPosition)
       {
         if (searchFormat.IsSame(this[i].Run.GetFormat()))
@@ -231,20 +331,20 @@ public class FormattedText : List<RunText>
           if (findWholeWordsOnly)
           {
             if (i > 0)
-              searchInText = this[i - 1].Text.LastOrDefault() + searchInText;
+              searchInText = this[i - 1].PlainText.LastOrDefault() + searchInText;
             else
               searchInText = '\0' + searchInText;
           }
           int j = i + 1;
           while (searchInText.Length > searchTextLength && j < this.Count && searchFormat.IsSame(this[j].Run.GetFormat()))
           {
-            searchInText += this[j].Text;
+            searchInText += this[j].PlainText;
             j++;
           }
           if (findWholeWordsOnly)
           {
             if (i < this.Count - 1)
-              searchInText = searchInText + this[i + 1].Text.LastOrDefault();
+              searchInText = searchInText + this[i + 1].PlainText.LastOrDefault();
             else
               searchInText = searchInText + '\0';
           }
@@ -284,7 +384,7 @@ public class FormattedText : List<RunText>
     var sumLength = 0;
     for (int i = 0; i < this.Count; i++)
     {
-      var itemText = this[i].Text;
+      var itemText = this[i].PlainText;
       if (sumLength + itemText.Length > startPosition)
       {
         if (searchFormat.IsSame(this[i].Run.GetFormat()))
@@ -293,20 +393,20 @@ public class FormattedText : List<RunText>
           if (findWholeWordsOnly)
           {
             if (i > 0)
-              searchInText = this[i - 1].Text.LastOrDefault() + searchInText;
+              searchInText = this[i - 1].PlainText.LastOrDefault() + searchInText;
             else
               searchInText = '\0' + searchInText;
           }
           int j = i + 1;
           while (j < this.Count && searchFormat.IsSame(this[j].Run.GetFormat()))
           {
-            searchInText += this[j].Text;
+            searchInText += this[j].PlainText;
             j++;
           }
           if (findWholeWordsOnly)
           {
             if (i < this.Count - 1)
-              searchInText = searchInText + this[i + 1].Text.LastOrDefault();
+              searchInText = searchInText + this[i + 1].PlainText.LastOrDefault();
             else
               searchInText = searchInText + '\0';
           }
@@ -419,7 +519,7 @@ public class FormattedText : List<RunText>
     var selectedItem = -1;
     for (int i = 0; i < this.Count; i++)
     {
-      var itemText = this[i].Text;
+      var itemText = this[i].PlainText;
       if (sumLength + itemText.Length > position)
       {
         selectedItem = i;
@@ -431,7 +531,7 @@ public class FormattedText : List<RunText>
     {
       while (selectedItem < this.Count && (length > 0 || replacementText.Length > 0))
       {
-        var itemText = this[selectedItem].Text;
+        var itemText = this[selectedItem].PlainText;
         var itemOldLength = itemText.Length;
         var itemPosition = position - sumLength;
         var itemRestLength = itemText.Length - itemPosition;
@@ -501,7 +601,7 @@ public class FormattedText : List<RunText>
     var selectedItem = -1;
     for (int i = 0; i < this.Count; i++)
     {
-      var itemText = this[i].Text;
+      var itemText = this[i].PlainText;
       if (sumLength + itemText.Length > position)
       {
         selectedItem = i;
@@ -513,7 +613,7 @@ public class FormattedText : List<RunText>
     {
       while (selectedItem < this.Count && (length > 0))
       {
-        var itemText = this[selectedItem].Text;
+        var itemText = this[selectedItem].PlainText;
         var itemOldLength = itemText.Length;
         length -= itemText.Length;
         var nextItem = selectedItem + 1;
@@ -559,7 +659,7 @@ public class FormattedText : List<RunText>
     for (int i = this.Count - 1; i >= 0; i--)
     {
       var runText = this[i];
-      var text = runText.Text;
+      var text = runText.PlainText;
       var newText = text.TrimEnd();
       if (newText.Length != text.Length)
       {

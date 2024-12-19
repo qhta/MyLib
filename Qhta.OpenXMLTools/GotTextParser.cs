@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
-/// This class parses text which was got with GetText methods for OpenXml elements.
+/// This class parses text which was got with PlainText methods for OpenXml elements.
 /// </summary>
 public class GotTextParser : IDisposable
 {
@@ -15,7 +15,7 @@ public class GotTextParser : IDisposable
   public DX.OpenXmlElement RootElement { get; }
 
   /// <summary>
-  /// Options used when text was taken from RootElement using GetText method.
+  /// Options used when text was taken from RootElement using PlainText method.
   /// </summary>
   public TextOptions Options { get; }
 
@@ -37,7 +37,7 @@ public class GotTextParser : IDisposable
   /// Constructor. Root element is the element which text will be parsed.
   /// </summary>
   /// <param name="rootElement">Element which text will be parsed.</param>
-  /// <param name="options">Options used when text was taken from RootElement using GetText method.</param>
+  /// <param name="options">Options used when text was taken from RootElement using PlainText method.</param>
   public GotTextParser(DX.OpenXmlElement rootElement, TextOptions options)
   {
     RootElement = rootElement;

@@ -104,13 +104,13 @@ public static class GetTextMethods
       case var type when type == typeof(CarriageReturn):
         return options.CarriageReturnTag;
       case var type when type == typeof(SoftHyphen):
-        return options.SoftHyphenTag;
+        return options.SoftHyphen;
       case var type when type == typeof(NoBreakHyphen):
         return options.NoBreakHyphenTag;
       case var type when type == typeof(LastRenderedPageBreak):
-        return options.LastRenderedPageBreakTag;
+        return options.LastRenderedPageBreak;
       case var type when type == typeof(PageNumber):
-        return options.PageNumberTag;
+        return options.PageNumber;
       case var type when type == typeof(FieldCode):
         return (element as FieldCode)!.GetTextOf(options);
       case var type when type == typeof(SymbolChar):
@@ -210,25 +210,58 @@ public static class GetTextMethods
     return sb.ToString();
   }
 
-  ///// <summary>
-  ///// Get the text content of the run.
-  ///// </summary>
-  ///// <param name="run"></param>
-  ///// <returns></returns>
-  //public static List<DX.OpenXmlElement> GetFormattedText(this DXW.Run run)
-  //{
-  //  var result = new ();
+  /// <summary>
+  /// Get the run-in text content of the run.
+  /// These run members, which can be converted to the plain text, are concatenated to single Text element.
+  /// Others are contained as themselves.
+  /// </summary>
+  /// <param name="run"></param>
+  /// <returns></returns>
+  public static RunInText GetRunInText(this DXW.Run run)
+  {
+    RunInText result = new();
 
-  //  var members = run.GetMembers();
-  //  foreach (var member in members)
-  //  {
-  //    if (member is DXW.Text text)
-  //      sb.Append(text.GetTextOf(options));
-  //    else
-  //      sb.Append(member.GetText(options));
-  //  }
-  //  return sb.ToString();
-  //}
+    var members = run.GetMembers();
+    foreach (var member in members)
+    {
+      if (member is DXW.Text text)
+        result.Append(text.Text);
+      else if (member is DXW.TabChar)
+        result.Append(TextOptions.PlainText.TabChar);
+      else if (member is DXW.CarriageReturn)
+        result.Append(TextOptions.PlainText.CarriageReturnTag);
+      else if (member is DXW.SoftHyphen)
+        result.Append(TextOptions.PlainText.SoftHyphen);
+      else if (member is DXW.NoBreakHyphen)
+        result.Append(TextOptions.PlainText.NoBreakHyphenTag);
+      else
+      if (member is DXW.Break breakElement)
+      {
+        if (breakElement.Type?.Value == BreakValues.Page)
+          result.Append(TextOptions.PlainText.BreakPageTag);
+        else if (breakElement.Type?.Value == BreakValues.Column)
+          result.Append(TextOptions.PlainText.BreakColumnTag);
+        else if (breakElement.Type?.Value == BreakValues.TextWrapping)
+          result.Append(TextOptions.PlainText.BreakLineTag);
+        else
+          result.Add(member);
+      }
+      else if (member is DXW.FootnoteReferenceMark)
+        result.Append(TextOptions.PlainText.FootnoteReferenceMark);
+      else if (member is DXW.EndnoteReferenceMark)
+        result.Append(TextOptions.PlainText.EndnoteReferenceMark);
+      else if (member is DXW.SeparatorMark)
+        result.Append(TextOptions.PlainText.SeparatorMark);
+      else if (member is DXW.ContinuationSeparatorMark)
+        result.Append(TextOptions.PlainText.ContinuationSeparatorMark);
+      else if (member is DXW.AnnotationReferenceMark)
+        result.Append(TextOptions.PlainText.AnnotationReferenceMark);
+      else 
+        result.Add(member);
+    }
+    return result;
+  }
+
   /// <summary>
   /// Get the text of the run SearchText element.
   /// </summary>
@@ -632,7 +665,7 @@ public static class GetTextMethods
   /// <returns></returns>
   private static string GetTextOf(this DXW.FootnoteReferenceMark footnoteReferenceMark, TextOptions options)
   {
-    return options.FootnoteRefMark;
+    return options.FootnoteReferenceMark;
   }
 
   /// <summary>
@@ -643,7 +676,7 @@ public static class GetTextMethods
   /// <returns></returns>
   private static string GetTextOf(this DXW.EndnoteReferenceMark endnoteReferenceMark, TextOptions options)
   {
-    return options.EndnoteRefMark;
+    return options.EndnoteReferenceMark;
   }
 
   /// <summary>
@@ -654,7 +687,7 @@ public static class GetTextMethods
   /// <returns></returns>
   private static string GetTextOf(this DXW.AnnotationReferenceMark annotationReferenceMark, TextOptions options)
   {
-    return options.AnnotationRefMark;
+    return options.AnnotationReferenceMark;
   }
 
   /// <summary>
@@ -665,7 +698,7 @@ public static class GetTextMethods
   /// <returns></returns>
   private static string GetTextOf(this DXW.SeparatorMark SeparatorMark, TextOptions options)
   {
-    return options.FootnoteSepMark;
+    return options.SeparatorMark;
   }
 
   /// <summary>
@@ -676,7 +709,7 @@ public static class GetTextMethods
   /// <returns></returns>
   private static string GetTextOf(this DXW.ContinuationSeparatorMark continuationSeparatorMark, TextOptions options)
   {
-    return options.ContinuationSepMark;
+    return options.ContinuationSeparatorMark;
   }
 
   /// <summary>

@@ -874,7 +874,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.Finder.SearchText">
             <summary>
-            Text to search for.
+            PlainText to search for.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.Finder.Format">
@@ -993,6 +993,38 @@
             </summary>
             <param name="endnotes"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.RunInText">
+            <summary>
+            Represents the list of the run members.
+            These members, which can be converted to the plain text, are concatenated to single Text element.
+            Others are contained as themselves.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunInText.#ctor">
+            <summary>
+            Construct an empty RunInText object.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunInText.#ctor(System.String)">
+            <summary>
+            Construct a RunInText object with a single Text element.
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunInText.Append(System.String)">
+            <summary>
+            Append the text to the last Text element in the list
+            or add a new Text element to the list.
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunInText.PlainText">
+            <summary>
+            Concatenate the text of items in the list.
+            Non-text elements are replaced with their single-character representation.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.RunText">
             <summary>
             Represents a run-text pair in the FormattingText class.
@@ -1003,17 +1035,29 @@
             Run element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.RunText.Text">
+        <member name="F:Qhta.OpenXmlTools.RunText.RunInText">
             <summary>
-            Text of the run element.
+            PlainText of the run element.
             </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.RunText.PlainText">
+            <summary>
+            Get the plain text of the run element.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RunText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Run,Qhta.OpenXmlTools.RunInText)">
+            <summary>
+            Construct a RunText object using run-in text.
+            </summary>
+            <param name="run"></param>
+            <param name="runInText"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.RunText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Run,System.String)">
             <summary>
-            Construct a RunText object.
+            Construct a RunText object using plain text.
             </summary>
             <param name="run"></param>
-            <param name="text"></param>
+            <param name="plainText"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.FormattedText">
             <summary>
@@ -1031,6 +1075,14 @@
             Concatenate the text of all items in the list.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.String)">
+            <summary>
+            Set the text to the all Run elements.
+            Text is split with TextOptions PlainText RunSeparator.
+            Number of text parts must be equal to the number of Run elements.
+            </summary>
+            <param name="text"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String)">
             <summary>
@@ -1235,6 +1287,15 @@
             </summary>
             <param name="run"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetRunInText(DocumentFormat.OpenXml.Wordprocessing.Run)">
+            <summary>
+            Get the run-in text content of the run.
+            These run members, which can be converted to the plain text, are concatenated to single Text element.
+            Others are contained as themselves.
+            </summary>
+            <param name="run"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
@@ -1518,7 +1579,7 @@
         </member>
         <member name="T:Qhta.OpenXmlTools.GotTextParser">
             <summary>
-            This class parses text which was got with GetText methods for OpenXml elements.
+            This class parses text which was got with PlainText methods for OpenXml elements.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.GotTextParser.RootElement">
@@ -1528,7 +1589,7 @@
         </member>
         <member name="P:Qhta.OpenXmlTools.GotTextParser.Options">
             <summary>
-            Options used when text was taken from RootElement using GetText method.
+            Options used when text was taken from RootElement using PlainText method.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.GotTextParser.ErrorMessage">
@@ -1541,7 +1602,7 @@
             Constructor. Root element is the element which text will be parsed.
             </summary>
             <param name="rootElement">Element which text will be parsed.</param>
-            <param name="options">Options used when text was taken from RootElement using GetText method.</param>
+            <param name="options">Options used when text was taken from RootElement using PlainText method.</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.GotTextParser.ParseText(System.String)">
             <summary>
@@ -11434,7 +11495,7 @@
             Tag to mark a carriage return.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.SoftHyphenTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.SoftHyphen">
             <summary>
             Tag to mark a soft hyphen.
             </summary>
@@ -11454,14 +11515,44 @@
             Tag to mark other object in plain text.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.PageNumberTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.PageNumber">
             <summary>
             Tag to mark a page number.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreak">
             <summary>
             Tag to mark a last rendered page break.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DayLong">
+            <summary>
+            Tag to mark a DayLong element.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DayShort">
+            <summary>
+            Tag to mark a DayShort element.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.MonthLong">
+            <summary>
+            Tag to mark a MonthLong element.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.MonthShort">
+            <summary>
+            Tag to mark a MonthShort element.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.YearLong">
+            <summary>
+            Tag to mark a YearLong element.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.YearShort">
+            <summary>
+            Tag to mark a YearShort element.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreEmptyParagraphs">
@@ -11562,6 +11653,11 @@
         <member name="P:Qhta.OpenXmlTools.TextOptions.RunEndTag">
             <summary>
             Tag to end a run.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.RunSeparator">
+            <summary>
+            Tag to start a run.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.ParagraphStartTag">
@@ -11679,27 +11775,27 @@
             Tag to end a comment reference.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.AnnotationRefMark">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMark">
             <summary>
             Tag to mark an annotation reference mark.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteRefMark">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMark">
             <summary>
             Tag to mark an endnote reference mark.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.EndnoteRefMark">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMark">
             <summary>
             Tag to mark an endnote reference mark.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteSepMark">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.SeparatorMark">
             <summary>
             Tag to mark a footnotes/endnotes separator mark.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.ContinuationSepMark">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMark">
             <summary>
             Tag to mark a continuation separator mark.
             </summary>

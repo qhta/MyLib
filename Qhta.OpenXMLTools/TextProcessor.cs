@@ -61,10 +61,10 @@ public class TextProcessor
     for (int i = 0; i < FormattedText.Count; i++)
     {
       var kvp = FormattedText.ElementAt(i);
-      if (kvp.Text.Length > pos)
+      if (kvp.PlainText.Length > pos)
       {
         var member = kvp.Run;
-        var text = kvp.Text;
+        var text = kvp.PlainText;
         if (curLength + text.Length <= pos)
         {
           curLength += text.Length;

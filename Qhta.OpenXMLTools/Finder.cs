@@ -47,7 +47,7 @@ public class Finder
   } = TextOptions.PlainText;
 
   /// <summary>
-  /// Text to search for.
+  /// PlainText to search for.
   /// </summary>
   public string? SearchText { get; set; }
 

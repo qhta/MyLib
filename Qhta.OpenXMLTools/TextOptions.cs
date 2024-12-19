@@ -174,7 +174,7 @@ public record TextOptions
   /// <summary>
   /// Tag to mark a soft hyphen.
   /// </summary>
-  public string SoftHyphenTag { get; set; } = "\u00AD";
+  public string SoftHyphen { get; set; } = "\u00AD";
 
   /// <summary>
   /// Tag to mark a non-break hyphen.
@@ -198,12 +198,42 @@ public record TextOptions
   /// <summary>
   /// Tag to mark a page number.
   /// </summary>
-  public string PageNumberTag { get; set; } = "<pgNum>";
+  public string PageNumber { get; set; } = "\uE010";
 
   /// <summary>
   /// Tag to mark a last rendered page break.
   /// </summary>
-  public string LastRenderedPageBreakTag { get; set; } = "<lrPgBreak>";
+  public string LastRenderedPageBreak { get; set; } = "\uE00B";
+
+  /// <summary>
+  /// Tag to mark a DayLong element.
+  /// </summary>
+  public string DayLong { get; set; } = "\uE011";
+
+  /// <summary>
+  /// Tag to mark a DayShort element.
+  /// </summary>
+  public string DayShort { get; set; } = "\uE012";
+
+  /// <summary>
+  /// Tag to mark a MonthLong element.
+  /// </summary>
+  public string MonthLong { get; set; } = "\uE013";
+
+  /// <summary>
+  /// Tag to mark a MonthShort element.
+  /// </summary>
+  public string MonthShort { get; set; } = "\uE014";
+
+  /// <summary>
+  /// Tag to mark a YearLong element.
+  /// </summary>
+  public string YearLong { get; set; } = "\uE015";
+
+  /// <summary>
+  /// Tag to mark a YearShort element.
+  /// </summary>
+  public string YearShort { get; set; } = "\uE014";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
@@ -306,6 +336,11 @@ public record TextOptions
   /// Tag to end a run.
   /// </summary>
   public string RunEndTag { get; set; } = "</r>";
+
+  /// <summary>
+  /// Tag to start a run.
+  /// </summary>
+  public string RunSeparator { get; set; } = "\u0002";
 
   /// <summary>
   /// Tag to start a paragraph.
@@ -428,27 +463,27 @@ public record TextOptions
   /// <summary>
   /// Tag to mark an annotation reference mark.
   /// </summary>
-  public string AnnotationRefMark { get; set; } = "<annotationRefMark/>";
+  public string AnnotationReferenceMark { get; set; } = "\uE00A";
 
   /// <summary>
   /// Tag to mark an endnote reference mark.
   /// </summary>
-  public string FootnoteRefMark { get; set; } = "<footnoteRefMark/>";
+  public string FootnoteReferenceMark { get; set; } = "\uE00F";
 
   /// <summary>
   /// Tag to mark an endnote reference mark.
   /// </summary>
-  public string EndnoteRefMark { get; set; } = "<endnoteRefMark/>";
+  public string EndnoteReferenceMark { get; set; } = "\uE00E";
 
   /// <summary>
   /// Tag to mark a footnotes/endnotes separator mark.
   /// </summary>
-  public string FootnoteSepMark { get; set; } = "<footnoteSepMark/>";
+  public string SeparatorMark { get; set; } = "\uE00D";
 
   /// <summary>
   /// Tag to mark a continuation separator mark.
   /// </summary>
-  public string ContinuationSepMark { get; set; } = "<contSepMark/>";
+  public string ContinuationSeparatorMark { get; set; } = "\uE00C";
 
   #region Numbering options
   /// <summary>

@@ -19,10 +19,14 @@ public static class TypeTools
   {
     if (FrequentMemberTypes.Contains(elementType))
       return true;
+    if (RunMemberTypes.Contains(elementType))
+      return true;
+    if (ParagraphMemberTypes.Contains(elementType))
+      return true;
+    if (FrequentMemberTypes.Contains(elementType))
+      return true;
 
     var name = elementType.Name;
-    if (name.StartsWith("Extent"))
-      Debug.Assert(true);
     foreach (var pattern in NonMemberPatterns)
       if (name.IsLike(pattern, StringComparison.InvariantCultureIgnoreCase))
         return false;

@@ -58,7 +58,7 @@ public static class SetTextMethods
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.CarriageReturn());
       }
-      else if (c == TextOptions.PlainText.SoftHyphenTag[0])
+      else if (c == TextOptions.PlainText.SoftHyphen[0])
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.SoftHyphen());
@@ -82,6 +82,71 @@ public static class SetTextMethods
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Page) });
+      }
+      else if (c == TextOptions.PlainText.AnnotationReferenceMark[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.AnnotationReferenceMark());
+      }
+      else if (c == TextOptions.PlainText.LastRenderedPageBreak[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.LastRenderedPageBreak());
+      }
+      else if (c == TextOptions.PlainText.ContinuationSeparatorMark[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.ContinuationSeparatorMark());
+      }
+      else if (c == TextOptions.PlainText.SeparatorMark[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.SeparatorMark());
+      }
+      else if (c == TextOptions.PlainText.EndnoteReferenceMark[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.EndnoteReferenceMark());
+      }
+      else if (c == TextOptions.PlainText.FootnoteReferenceMark[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FootnoteReferenceMark());
+      }
+      else if (c == TextOptions.PlainText.PageNumber[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.PageNumber());
+      }
+      else if (c == TextOptions.PlainText.DayLong[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.DayLong());
+      }
+      else if (c == TextOptions.PlainText.DayShort[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.DayShort());
+      }
+      else if (c == TextOptions.PlainText.MonthLong[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.MonthLong());
+      }
+      else if (c == TextOptions.PlainText.MonthShort[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.MonthShort());
+      }
+      else if (c == TextOptions.PlainText.YearLong[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.YearLong());
+      }
+      else if (c == TextOptions.PlainText.YearShort[0])
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.YearShort());
       }
       else
       {
@@ -215,13 +280,13 @@ public static class SetTextMethods
         //case var type when type == typeof(CarriageReturn):
         //  return text == options.CarriageReturnTag;
         //case var type when type == typeof(SoftHyphen):
-        //  return text == options.SoftHyphenTag;
+        //  return text == options.SoftHyphen;
         //case var type when type == typeof(NoBreakHyphen):
         //  return text == options.NoBreakHyphenTag;
         //case var type when type == typeof(LastRenderedPageBreak):
-        //  return text == options.LastRenderedPageBreakTag;
+        //  return text == options.LastRenderedPageBreak;
         //case var type when type == typeof(PageNumber):
-        //  return text == options.PageNumberTag;
+        //  return text == options.PageNumber;
         //case var type when type == typeof(FieldCode):
         //  return (element as FieldCode)!.SetTextOf(text, options);
         //case var type when type == typeof(SymbolChar):

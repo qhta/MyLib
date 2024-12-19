@@ -170,7 +170,7 @@ public static class RunTools
   /// <param name="text"></param>
   public static void AppendText(this DXW.Run run, string text)
   {
-    var runText = run.Descendants<DXW.Text>().LastOrDefault();
+    var runText = run.Descendants().LastOrDefault() as DXW.Text;
     if (runText == null)
     {
       var keepSpaces = (text.Trim() != text);
@@ -185,6 +185,9 @@ public static class RunTools
     else
     {
       runText.Text += text;
+      var keepSpaces = (text.Trim() != text);
+      runText.Space = new DX.EnumValue<DX.SpaceProcessingModeValues>(
+        keepSpaces ? DX.SpaceProcessingModeValues.Preserve : DX.SpaceProcessingModeValues.Default);
     }
   }
 
