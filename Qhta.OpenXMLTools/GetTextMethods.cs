@@ -79,91 +79,83 @@ public static class GetTextMethods
   /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string? DispatchGetText(DX.OpenXmlElement element, TextOptions options)
+  public static string? DispatchGetText(DX.OpenXmlElement element, TextOptions options)
   {
-    switch (element.GetType())
-    {
-      case var type when type == typeof(DXW.Text):
-        return (element as DXW.Text)!.GetTextOf(options);
-      case var type when type == typeof(TabChar):
-        return options.TabChar;
-      case var type when type == typeof(DXW.Run):
-        return (element as DXW.Run)!.GetTextOf(options);
-      case var type when type == typeof(DXW.Paragraph):
-        return (element as DXW.Paragraph)!.GetTextOf(options);
-      case var type when type == typeof(DXW.Hyperlink):
-        return (element as DXW.Hyperlink)!.GetTextOf(options);
-      case var type when type == typeof(DXW.Table):
-        return (element as DXW.Table)!.GetTextOf(options);
-      case var type when type == typeof(DXW.TableRow):
-        return (element as DXW.TableRow)!.GetTextOf(options);
-      case var type when type == typeof(DXW.TableCell):
-        return (element as DXW.TableCell)!.GetTextOf(options);
-      case var type when type == typeof(DXW.Break):
-        return (element as DXW.Break)!.GetTextOf(options);
-      case var type when type == typeof(CarriageReturn):
-        return options.CarriageReturnTag;
-      case var type when type == typeof(SoftHyphen):
-        return options.SoftHyphen;
-      case var type when type == typeof(NoBreakHyphen):
-        return options.NoBreakHyphenTag;
-      case var type when type == typeof(LastRenderedPageBreak):
-        return options.LastRenderedPageBreak;
-      case var type when type == typeof(PageNumber):
-        return options.PageNumber;
-      case var type when type == typeof(FieldCode):
-        return (element as FieldCode)!.GetTextOf(options);
-      case var type when type == typeof(SymbolChar):
-        return (element as SymbolChar)!.GetTextOf(options);
-      case var type when type == typeof(PositionalTab):
-        return options.TabChar;
-      case var type when type == typeof(FieldChar):
-        return (element as FieldChar)!.GetTextOf(options);
-      case var type when type == typeof(Ruby):
-        return (element as Ruby)!.GetTextOf(options);
-      case var type when type == typeof(FootnoteReference):
-        return (element as FootnoteReference)!.GetTextOf(options);
-      case var type when type == typeof(EndnoteReference):
-        return (element as EndnoteReference)!.GetTextOf(options);
-      case var type when type == typeof(CommentReference):
-        return (element as CommentReference)!.GetTextOf(options);
-      case var type when type == typeof(FootnoteReferenceMark):
-        return (element as FootnoteReferenceMark)!.GetTextOf(options);
-      case var type when type == typeof(EndnoteReferenceMark):
-        return (element as EndnoteReferenceMark)!.GetTextOf(options);
-      case var type when type == typeof(AnnotationReferenceMark):
-        return (element as AnnotationReferenceMark)!.GetTextOf(options);
-      case var type when type == typeof(SeparatorMark):
-        return (element as SeparatorMark)!.GetTextOf(options);
-      case var type when type == typeof(ContinuationSeparatorMark):
-        return (element as ContinuationSeparatorMark)!.GetTextOf(options);
-      case var type when type == typeof(DayLong):
-        return (element as DayLong)!.GetTextOf(options);
-      case var type when type == typeof(DayShort):
-        return (element as DayShort)!.GetTextOf(options);
-      case var type when type == typeof(MonthLong):
-        return (element as MonthLong)!.GetTextOf(options);
-      case var type when type == typeof(MonthShort):
-        return (element as MonthShort)!.GetTextOf(options);
-      case var type when type == typeof(YearLong):
-        return (element as YearLong)!.GetTextOf(options);
-      case var type when type == typeof(YearShort):
-        return (element as YearShort)!.GetTextOf(options);
-      case var type when type == typeof(DXW.Drawing):
-        return (element as DXW.Drawing)!.GetTextOf(options);
-      case var type when type == typeof(DXD.Blip):
-        return (element as DXD.Blip)!.GetTextOf(options);
-      case var type when type == typeof(DXW.EmbeddedObject):
-        return (element as DXW.EmbeddedObject)!.GetTextOf(options);
-      case var type when type == typeof(DXW.ContentPart):
-        return (element as DXW.ContentPart)!.GetTextOf(options);
-      case var type when type == typeof(DXW.DeletedText):
-        return (element as DXW.DeletedText)!.GetTextOf(options);
-      case var type when type == typeof(DXW.DeletedFieldCode):
-        return (element as DXW.DeletedFieldCode)!.GetTextOf(options);
-    }
-    //if (element is DX.OpenXmlLeafTextElement textElement)
-    //  return textElement.GetTextOf(options);
+    if (element is DXW.Text textElement)
+      return textElement.GetTextOf(options);
+    if (element is DXW.TabChar tabChar)
+      return tabChar.GetTextOf(options);
+    if (element is DXW.CarriageReturn carriageReturn)
+      return carriageReturn.GetTextOf(options);
+    if (element is DXW.SoftHyphen softHyphen)
+      return softHyphen.GetTextOf(options);
+    if (element is DXW.NoBreakHyphen noBreakHyphen)
+      return noBreakHyphen.GetTextOf(options);
+    if (element is DXW.Break breakElement)
+      return breakElement.GetTextOf(options);
+    if (element is DXW.LastRenderedPageBreak lastRenderedPageBreak)
+      return lastRenderedPageBreak.GetTextOf(options);
+    if (element is DXW.PageNumber pageNumber)
+      return pageNumber.GetTextOf(options);
+    if (element is DXW.FootnoteReference footnoteReference)
+      return footnoteReference.GetTextOf(options);
+    if (element is DXW.EndnoteReference endnoteReference)
+      return endnoteReference.GetTextOf(options);
+    if (element is DXW.CommentReference commentReference)
+      return commentReference.GetTextOf(options);
+    if (element is DXW.FootnoteReferenceMark footnoteReferenceMark)
+      return footnoteReferenceMark.GetTextOf(options);
+    if (element is DXW.EndnoteReferenceMark endnoteReferenceMark)
+      return endnoteReferenceMark.GetTextOf(options);
+    if (element is DXW.AnnotationReferenceMark annotationReferenceMark)
+      return annotationReferenceMark.GetTextOf(options);
+    if (element is DXW.SeparatorMark separatorMark)
+      return separatorMark.GetTextOf(options);
+    if (element is DXW.ContinuationSeparatorMark continuationSeparatorMark)
+      return continuationSeparatorMark.GetTextOf(options);
+    if (element is DXW.DayLong dayLong)
+      return dayLong.GetTextOf(options);
+    if (element is DXW.DayShort dayShort)
+      return dayShort.GetTextOf(options);
+    if (element is DXW.MonthLong monthLong)
+      return monthLong.GetTextOf(options);
+    if (element is DXW.MonthShort monthShort)
+      return monthShort.GetTextOf(options);
+    if (element is DXW.YearLong yearLong)
+      return yearLong.GetTextOf(options);
+    if (element is DXW.YearShort yearShort)
+      return yearShort.GetTextOf(options);
+    if (element is DXW.FieldCode fieldCode)
+      return fieldCode.GetTextOf(options);
+    if (element is DXW.FieldChar fieldChar)
+      return fieldChar.GetTextOf(options);
+
+    if (element is DXW.Run run)
+      return run.GetTextOf(options);
+    if (element is DXW.Paragraph paragraph)
+      return paragraph.GetTextOf(options);
+    if (element is DXW.Hyperlink hyperlink)
+      return hyperlink.GetTextOf(options);
+    if (element is DXW.Table table)
+      return table.GetTextOf(options);
+    if (element is DXW.TableRow tableRow)
+      return tableRow.GetTextOf(options);
+    if (element is DXW.TableCell tableCell)
+      return tableCell.GetTextOf(options);
+    if (element is DXW.Drawing drawing)
+      return drawing.GetTextOf(options);
+    if (element is DXD.Blip blip)
+      return blip.GetTextOf(options);
+    if (element is DXW.EmbeddedObject embeddedObject)
+      return embeddedObject.GetTextOf(options);
+    if (element is DXW.ContentPart contentPart)
+      return contentPart.GetTextOf(options);
+    if (element is DXW.DeletedText deletedText)
+      return deletedText.GetTextOf(options);
+    if (element is DXW.DeletedFieldCode deletedFieldCode)
+      return deletedFieldCode.GetTextOf(options);
+    if (element is DXW.SymbolChar symbolChar)
+      return symbolChar.GetTextOf(options);
     return null;
   }
 
@@ -174,7 +166,7 @@ public static class GetTextMethods
   /// <param name="run"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Run run, TextOptions options)
+  public static string GetTextOf(this DXW.Run run, TextOptions options)
   {
     StringBuilder sb = new();
     if (options.UseHtmlFormatting)
@@ -211,59 +203,7 @@ public static class GetTextMethods
   }
 
   /// <summary>
-  /// Get the run-in text content of the run.
-  /// These run members, which can be converted to the plain text, are concatenated to single Text element.
-  /// Others are contained as themselves.
-  /// </summary>
-  /// <param name="run"></param>
-  /// <returns></returns>
-  public static RunInText GetRunInText(this DXW.Run run)
-  {
-    RunInText result = new();
-
-    var members = run.GetMembers();
-    foreach (var member in members)
-    {
-      if (member is DXW.Text text)
-        result.Append(text.Text);
-      else if (member is DXW.TabChar)
-        result.Append(TextOptions.PlainText.TabChar);
-      else if (member is DXW.CarriageReturn)
-        result.Append(TextOptions.PlainText.CarriageReturnTag);
-      else if (member is DXW.SoftHyphen)
-        result.Append(TextOptions.PlainText.SoftHyphen);
-      else if (member is DXW.NoBreakHyphen)
-        result.Append(TextOptions.PlainText.NoBreakHyphenTag);
-      else
-      if (member is DXW.Break breakElement)
-      {
-        if (breakElement.Type?.Value == BreakValues.Page)
-          result.Append(TextOptions.PlainText.BreakPageTag);
-        else if (breakElement.Type?.Value == BreakValues.Column)
-          result.Append(TextOptions.PlainText.BreakColumnTag);
-        else if (breakElement.Type?.Value == BreakValues.TextWrapping)
-          result.Append(TextOptions.PlainText.BreakLineTag);
-        else
-          result.Add(member);
-      }
-      else if (member is DXW.FootnoteReferenceMark)
-        result.Append(TextOptions.PlainText.FootnoteReferenceMark);
-      else if (member is DXW.EndnoteReferenceMark)
-        result.Append(TextOptions.PlainText.EndnoteReferenceMark);
-      else if (member is DXW.SeparatorMark)
-        result.Append(TextOptions.PlainText.SeparatorMark);
-      else if (member is DXW.ContinuationSeparatorMark)
-        result.Append(TextOptions.PlainText.ContinuationSeparatorMark);
-      else if (member is DXW.AnnotationReferenceMark)
-        result.Append(TextOptions.PlainText.AnnotationReferenceMark);
-      else 
-        result.Add(member);
-    }
-    return result;
-  }
-
-  /// <summary>
-  /// Get the text of the run SearchText element.
+  /// Get the text of the run Text element.
   /// </summary>
   /// <param name="runText"></param>
   /// <param name="options"></param>
@@ -272,12 +212,12 @@ public static class GetTextMethods
   => runText.GetTextOf(options);
 
   /// <summary>
-  /// Get the text of the run SearchText element.
+  /// Get the text of the run Text element.
   /// </summary>
   /// <param name="runText"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Text runText, TextOptions options)
+  public static string GetTextOf(this DXW.Text runText, TextOptions options)
   {
     if (options.UseHtmlEntities)
       return runText.Text.HtmlEncode();
@@ -286,12 +226,78 @@ public static class GetTextMethods
   }
 
   /// <summary>
+  /// Get the text of the TabChar element.
+  /// </summary>
+  /// <param name="tabChar"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this DXW.TabChar tabChar, TextOptions options)
+  {
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.TabChar, 1) : options.TabTag;
+  }
+
+  /// <summary>
+  /// Get the text of the SoftHyphen element.
+  /// </summary>
+  /// <param name="softHyphen"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this DXW.SoftHyphen softHyphen, TextOptions options)
+  {
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.SoftHyphenChar, 1) : options.SoftHyphenTag;
+  }
+
+  /// <summary>
+  /// Get the text of the NoBreakHyphen element.
+  /// </summary>
+  /// <param name="noBreakHyphen"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this DXW.NoBreakHyphen noBreakHyphen, TextOptions options)
+  {
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.NoBreakHyphenChar, 1) : options.NoBreakHyphenTag;
+  }
+
+  /// <summary>
+  /// Get the text of the CarriageReturn element.
+  /// </summary>
+  /// <param name="carriageReturn"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this DXW.CarriageReturn carriageReturn, TextOptions options)
+  {
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.CarriageReturnChar, 1) : options.CarriageReturnTag;
+  }
+
+  /// <summary>
+  /// Get the text of the LastRenderedPageBreak element.
+  /// </summary>
+  /// <param name="lastRenderedPageBreak"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this DXW.LastRenderedPageBreak lastRenderedPageBreak, TextOptions options)
+  {
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.LastRenderedPageBreakChar, 1) : options.LastRenderedPageBreakTag;
+  }
+
+  /// <summary>
+  /// Get the text of the PageNumber element.
+  /// </summary>
+  /// <param name="pageNumber"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this DXW.PageNumber pageNumber, TextOptions options)
+  {
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.PageNumberChar, 1) : options.PageNumberTag;
+  }
+
+  /// <summary>
   /// Get the element of the DeletedText element.
   /// </summary>
   /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.DeletedText element, TextOptions options)
+  public static string GetTextOf(this DXW.DeletedText element, TextOptions options)
   {
     string text = element.Text;
     if (options.UseHtmlEntities)
@@ -305,7 +311,7 @@ public static class GetTextMethods
   ///// <param name="element"></param>
   ///// <param name="text"></param>
   ///// <param name="options"></param>
-  //private static bool SetTextOf(this DXW.DeletedText element, string text, TextOptions options)
+  //public static bool SetTextOf(this DXW.DeletedText element, string text, TextOptions options)
   //{
   //  var l = options.DeletedTextStartTag.Length;
   //  var k = options.DeletedTextEndTag.Length;
@@ -330,7 +336,7 @@ public static class GetTextMethods
   /// <param name="element"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.DeletedFieldCode element, TextOptions options)
+  public static string GetTextOf(this DXW.DeletedFieldCode element, TextOptions options)
   {
     return options.DeletedTextStartTag + element.Text + options.DeletedTextEndTag;
   }
@@ -341,15 +347,28 @@ public static class GetTextMethods
   /// <param name="break"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Break @break, TextOptions options)
+  public static string GetTextOf(this DXW.Break @break, TextOptions options)
   {
-    if (@break.Type?.Value == BreakValues.Page)
-      return options.BreakPageTag;
-    else if (@break.Type?.Value == BreakValues.Column)
-      return options.BreakColumnTag;
-    else if (@break.Type?.Value == BreakValues.TextWrapping)
-      return options.BreakLineTag;
-    return String.Empty;
+    if (options.Mode == TextOptions.TextMode.PlainText)
+    {
+      if (@break.Type?.Value == BreakValues.Page)
+        return new String(TextOptions.BreakPageChar, 1);
+      else if (@break.Type?.Value == BreakValues.Column)
+        return new String(TextOptions.BreakColumnChar, 1);
+      else if (@break.Type?.Value == BreakValues.TextWrapping)
+        return new String(TextOptions.BreakLineChar, 1);
+      return String.Empty;
+    }
+    else
+    {
+      if (@break.Type?.Value == BreakValues.Page)
+        return options.BreakPageTag;
+      else if (@break.Type?.Value == BreakValues.Column)
+        return options.BreakColumnTag;
+      else if (@break.Type?.Value == BreakValues.TextWrapping)
+        return options.BreakLineTag;
+      return String.Empty;
+    }
   }
 
   /// <summary>
@@ -358,7 +377,7 @@ public static class GetTextMethods
   /// <param name="symbolChar"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.SymbolChar symbolChar, TextOptions options)
+  public static string GetTextOf(this DXW.SymbolChar symbolChar, TextOptions options)
   {
     if (int.TryParse(symbolChar.Char!.Value, out var symbolVal))
     {
@@ -393,22 +412,35 @@ public static class GetTextMethods
   /// <param name="fieldChar"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.FieldChar fieldChar, TextOptions options)
+  public static string GetTextOf(this DXW.FieldChar fieldChar, TextOptions options)
   {
-    string tag = String.Empty;
-    if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin && options.IncludeFieldFormula)
+    if (options.IncludeFieldFormula)
     {
-      tag = options.FieldStartTag;
+      if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
+        return options.FieldStartTag;
+      else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
+        return options.FieldResultTag;
+      else if (fieldChar.FieldCharType?.Value == FieldCharValues.End) 
+        return options.FieldEndTag;
     }
-    else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate && options.IncludeFieldFormula)
+    else if(options.Mode == TextOptions.TextMode.PlainText)
     {
-      tag = options.FieldResultTag;
+      if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
+        return new String(TextOptions.FieldCharBeginChar,1);
+      else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
+        return new String(TextOptions.FieldCharSeparateChar, 1);
+      else if (fieldChar.FieldCharType?.Value == FieldCharValues.End)
+        return new String(TextOptions.FieldCharEndChar, 1);
     }
-    else if (fieldChar.FieldCharType?.Value == FieldCharValues.End && options.IncludeFieldFormula)
     {
-      tag = options.FieldEndTag;
+      if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
+        return options.FieldCharBeginTag;
+      else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
+        return options.FieldCharSeparateTag;
+      else if (fieldChar.FieldCharType?.Value == FieldCharValues.End)
+        return options.FieldCharEndTag;
     }
-    return tag;
+    return string.Empty;
   }
 
   ///// <summary>
@@ -418,7 +450,7 @@ public static class GetTextMethods
   ///// <param name="text">text to check</param>
   ///// <param name="options"></param>
   ///// <returns></returns>
-  //private static bool SetTextOf(this DXW.FieldChar fieldChar, string text, TextOptions options)
+  //public static bool SetTextOf(this DXW.FieldChar fieldChar, string text, TextOptions options)
   //{
   //  if (text == options.FieldStartTag)
   //  {
@@ -444,7 +476,7 @@ public static class GetTextMethods
   /// <param name="fieldCode"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.FieldCode fieldCode, TextOptions options)
+  public static string GetTextOf(this DXW.FieldCode fieldCode, TextOptions options)
   {
     if (options.IncludeFieldFormula) return options.FieldCodeStart + fieldCode.Text + options.FieldCodeEnd;
     return string.Empty;
@@ -456,15 +488,25 @@ public static class GetTextMethods
   /// <param name="dayLong"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.DayLong dayLong, TextOptions options)
+  public static string GetTextOf(this DXW.DayLong dayLong, TextOptions options)
   {
+
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "DayLong" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemLongDay(dayLong.GetMainDocumentPart()!) + options.FieldEndTag;
-    return GetSystemLongDay(dayLong.GetMainDocumentPart()!);
+    else if (options.IncludeFieldResult)
+      return GetSystemLongDay(dayLong.GetMainDocumentPart()!);
+    if (options.Mode == TextOptions.TextMode.PlainText)
+      return new String(TextOptions.DayLongChar, 1);
+    return options.DayLongTag;
   }
 
-  private static string GetSystemLongDay(DXPack.MainDocumentPart mainDocumentPart)
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="mainDocumentPart"></param>
+  /// <returns></returns>
+  public static string GetSystemLongDay(DXPack.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -485,15 +527,24 @@ public static class GetTextMethods
   /// <param name="dayShort"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.DayShort dayShort, TextOptions options)
+  public static string GetTextOf(this DXW.DayShort dayShort, TextOptions options)
   {
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "DayShort" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemShortDay(dayShort.GetMainDocumentPart()!) + options.FieldEndTag;
-    return GetSystemShortDay(dayShort.GetMainDocumentPart()!);
+    else if (options.IncludeFieldResult)
+      return GetSystemShortDay(dayShort.GetMainDocumentPart()!);
+    if (options.Mode == TextOptions.TextMode.PlainText)
+      return new String(TextOptions.DayShortChar, 1);
+    return options.DayShortTag;
   }
 
-  private static string GetSystemShortDay(DXPack.MainDocumentPart mainDocumentPart)
+  /// <summary>
+  /// Get the system short day.
+  /// </summary>
+  /// <param name="mainDocumentPart"></param>
+  /// <returns></returns>
+  public static string GetSystemShortDay(DXPack.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -514,15 +565,24 @@ public static class GetTextMethods
   /// <param name="MonthLong"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.MonthLong MonthLong, TextOptions options)
+  public static string GetTextOf(this DXW.MonthLong MonthLong, TextOptions options)
   {
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "MonthLong" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemLongMonth(MonthLong.GetMainDocumentPart()!) + options.FieldEndTag;
-    return GetSystemLongMonth(MonthLong.GetMainDocumentPart()!);
+    else if (options.IncludeFieldResult)
+      return GetSystemLongMonth(MonthLong.GetMainDocumentPart()!);
+    if (options.Mode == TextOptions.TextMode.PlainText)
+      return new String(TextOptions.MonthLongChar, 1);
+    return options.MonthLongTag;
   }
 
-  private static string GetSystemLongMonth(DXPack.MainDocumentPart mainDocumentPart)
+  /// <summary>
+  ///  Get the system long month.
+  /// </summary>
+  /// <param name="mainDocumentPart"></param>
+  /// <returns></returns>
+  public static string GetSystemLongMonth(DXPack.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -543,15 +603,24 @@ public static class GetTextMethods
   /// <param name="MonthShort"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.MonthShort MonthShort, TextOptions options)
+  public static string GetTextOf(this DXW.MonthShort MonthShort, TextOptions options)
   {
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "MonthShort" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemShortMonth(MonthShort.GetMainDocumentPart()!) + options.FieldEndTag;
-    return GetSystemShortMonth(MonthShort.GetMainDocumentPart()!);
+    else if (options.IncludeFieldResult)
+      return GetSystemShortMonth(MonthShort.GetMainDocumentPart()!);
+    if (options.Mode == TextOptions.TextMode.PlainText)
+      return new String(TextOptions.MonthShortChar, 1);
+    return options.MonthShortTag;
   }
 
-  private static string GetSystemShortMonth(DXPack.MainDocumentPart mainDocumentPart)
+  /// <summary>
+  /// Get the system short month.
+  /// </summary>
+  /// <param name="mainDocumentPart"></param>
+  /// <returns></returns>
+  public static string GetSystemShortMonth(DXPack.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -572,15 +641,24 @@ public static class GetTextMethods
   /// <param name="YearLong"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.YearLong YearLong, TextOptions options)
+  public static string GetTextOf(this DXW.YearLong YearLong, TextOptions options)
   {
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "YearLong" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemLongYear(YearLong.GetMainDocumentPart()!) + options.FieldEndTag;
-    return GetSystemLongYear(YearLong.GetMainDocumentPart()!);
+    else if (options.IncludeFieldResult)
+      return GetSystemLongYear(YearLong.GetMainDocumentPart()!);
+    if (options.Mode == TextOptions.TextMode.PlainText)
+      return new String(TextOptions.YearLongChar, 1);
+    return options.YearLongTag;
   }
 
-  private static string GetSystemLongYear(DXPack.MainDocumentPart mainDocumentPart)
+  /// <summary>
+  /// Get the system long year.
+  /// </summary>
+  /// <param name="mainDocumentPart"></param>
+  /// <returns></returns>
+  public static string GetSystemLongYear(DXPack.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -601,15 +679,26 @@ public static class GetTextMethods
   /// <param name="YearShort"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.YearShort YearShort, TextOptions options)
+  public static string GetTextOf(this DXW.YearShort YearShort, TextOptions options)
   {
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "YearShort" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemShortYear(YearShort.GetMainDocumentPart()!) + options.FieldEndTag;
-    return GetSystemShortYear(YearShort.GetMainDocumentPart()!);
+    else if (options.IncludeFieldResult)
+      return GetSystemShortYear(YearShort.GetMainDocumentPart()!);
+    if (options.IncludeFieldResult)
+      return GetSystemShortYear(YearShort.GetMainDocumentPart()!);
+    if (options.Mode == TextOptions.TextMode.PlainText)
+      return new String(TextOptions.YearShortChar,1);
+    return options.YearShortTag;
   }
 
-  private static string GetSystemShortYear(DXPack.MainDocumentPart mainDocumentPart)
+  /// <summary>
+  /// Get the system short year.
+  /// </summary>
+  /// <param name="mainDocumentPart"></param>
+  /// <returns></returns>
+  public static string GetSystemShortYear(DXPack.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -630,7 +719,7 @@ public static class GetTextMethods
   /// <param name="footnoteReference"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.FootnoteReference footnoteReference, TextOptions options)
+  public static string GetTextOf(this DXW.FootnoteReference footnoteReference, TextOptions options)
   {
     return options.FootnoteRefStart + footnoteReference.Id + options.FootnoteRefEnd;
   }
@@ -641,7 +730,7 @@ public static class GetTextMethods
   /// <param name="endnoteReference"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.EndnoteReference endnoteReference, TextOptions options)
+  public static string GetTextOf(this DXW.EndnoteReference endnoteReference, TextOptions options)
   {
     return options.EndnoteRefStart + endnoteReference.Id + options.EndnoteRefEnd;
   }
@@ -652,7 +741,7 @@ public static class GetTextMethods
   /// <param name="commentReference"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.CommentReference commentReference, TextOptions options)
+  public static string GetTextOf(this DXW.CommentReference commentReference, TextOptions options)
   {
     return options.CommentRefStart + commentReference.Id + options.CommentRefEnd;
   }
@@ -663,9 +752,9 @@ public static class GetTextMethods
   /// <param name="footnoteReferenceMark"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.FootnoteReferenceMark footnoteReferenceMark, TextOptions options)
+  public static string GetTextOf(this DXW.FootnoteReferenceMark footnoteReferenceMark, TextOptions options)
   {
-    return options.FootnoteReferenceMark;
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.FootnoteReferenceMarkChar, 1) : options.FootnoteReferenceMarkTag;
   }
 
   /// <summary>
@@ -674,9 +763,9 @@ public static class GetTextMethods
   /// <param name="endnoteReferenceMark"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.EndnoteReferenceMark endnoteReferenceMark, TextOptions options)
+  public static string GetTextOf(this DXW.EndnoteReferenceMark endnoteReferenceMark, TextOptions options)
   {
-    return options.EndnoteReferenceMark;
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.EndnoteReferenceMarkChar, 1) : options.EndnoteReferenceMarkTag;
   }
 
   /// <summary>
@@ -685,9 +774,9 @@ public static class GetTextMethods
   /// <param name="annotationReferenceMark"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.AnnotationReferenceMark annotationReferenceMark, TextOptions options)
+  public static string GetTextOf(this DXW.AnnotationReferenceMark annotationReferenceMark, TextOptions options)
   {
-    return options.AnnotationReferenceMark;
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.AnnotationReferenceMarkChar, 1) : options.AnnotationReferenceMarkTag;
   }
 
   /// <summary>
@@ -696,9 +785,9 @@ public static class GetTextMethods
   /// <param name="SeparatorMark"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.SeparatorMark SeparatorMark, TextOptions options)
+  public static string GetTextOf(this DXW.SeparatorMark SeparatorMark, TextOptions options)
   {
-    return options.SeparatorMark;
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.SeparatorMarkChar, 1) : options.SeparatorMarkTag;
   }
 
   /// <summary>
@@ -707,9 +796,9 @@ public static class GetTextMethods
   /// <param name="continuationSeparatorMark"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.ContinuationSeparatorMark continuationSeparatorMark, TextOptions options)
+  public static string GetTextOf(this DXW.ContinuationSeparatorMark continuationSeparatorMark, TextOptions options)
   {
-    return options.ContinuationSeparatorMark;
+    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.ContinuationSeparatorMarkChar, 1) : options.ContinuationSeparatorMarkTag;
   }
 
   /// <summary>
@@ -726,7 +815,7 @@ public static class GetTextMethods
   /// <param name="paragraph">source paragraph</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  private static string GetTextOf(this Paragraph paragraph, TextOptions options)
+  public static string GetTextOf(this Paragraph paragraph, TextOptions options)
   {
 
     var paraText = paragraph.GetInnerText(options);
@@ -766,7 +855,7 @@ public static class GetTextMethods
   /// <param name="paragraph">source paragraph</param>
   /// <param name="options"></param>
   /// <returns>joined text</returns>
-  private static string GetInnerText(this Paragraph paragraph, TextOptions options)
+  public static string GetInnerText(this Paragraph paragraph, TextOptions options)
   {
     var sl = new List<string>();
     var members = paragraph.GetMembers().ToList();
@@ -787,7 +876,7 @@ public static class GetTextMethods
   /// <param name="table"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Table table, TextOptions options)
+  public static string GetTextOf(this DXW.Table table, TextOptions options)
   {
     var sb = new StringBuilder();
     if (options.IgnoreTableContents)
@@ -845,7 +934,7 @@ public static class GetTextMethods
   /// <param name="row"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this TableRow row, TextOptions options)
+  public static string GetTextOf(this TableRow row, TextOptions options)
   {
     List<string> sl = new();
     var cells = row.GetCells().ToList();
@@ -879,7 +968,13 @@ public static class GetTextMethods
     return string.Join("", sl);
   }
 
-  private static string GetTextOf(this TableCell cell, TextOptions options)
+  /// <summary>
+  /// Gets the text of the table cell.
+  /// </summary>
+  /// <param name="cell"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static string GetTextOf(this TableCell cell, TextOptions options)
   {
     var text = cell.GetInnerText(options);
     return text;
@@ -891,7 +986,7 @@ public static class GetTextMethods
   /// <param name="cell"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetInnerText(this TableCell cell, TextOptions options)
+  public static string GetInnerText(this TableCell cell, TextOptions options)
   {
     var members = cell.GetMembers().ToList();
     if (members.Any())
@@ -914,7 +1009,7 @@ public static class GetTextMethods
   /// <param name="ruby"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Ruby ruby, TextOptions options)
+  public static string GetTextOf(this DXW.Ruby ruby, TextOptions options)
   {
     StringBuilder sb = new();
     if (options.UseHtmlFormatting && options.UseHtmlEntities)
@@ -956,7 +1051,7 @@ public static class GetTextMethods
   /// <param name="embeddedObject"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.EmbeddedObject embeddedObject, TextOptions options)
+  public static string GetTextOf(this DXW.EmbeddedObject embeddedObject, TextOptions options)
   {
     if (options.IncludeEmbeddedObjects)
     {
@@ -978,7 +1073,7 @@ public static class GetTextMethods
   /// <param name="contentPart"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.ContentPart contentPart, TextOptions options)
+  public static string GetTextOf(this DXW.ContentPart contentPart, TextOptions options)
   {
     if (options.IncludeOtherMembers)
     {
@@ -1000,7 +1095,7 @@ public static class GetTextMethods
   /// <param name="drawing"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXW.Drawing drawing, TextOptions options)
+  public static string GetTextOf(this DXW.Drawing drawing, TextOptions options)
   {
     if (options.IncludeDrawings)
     {
@@ -1022,7 +1117,7 @@ public static class GetTextMethods
   /// <param name="blip"></param>
   /// <param name="options"></param>
   /// <returns></returns>
-  private static string GetTextOf(this DXD.Blip blip, TextOptions options)
+  public static string GetTextOf(this DXD.Blip blip, TextOptions options)
   {
     var str = options.BlipTag;
     var embed = blip.Embed?.Value;

@@ -45,17 +45,17 @@ public static class RunTools
   //  var sb = new StringBuilder();
   //  for (int i = 0; i < value.Length; i++)
   //  {
-  //    if (value.HasSubstringAt(i, options.BreakPageTag))
+  //    if (value.HasSubstringAt(i, options.BreakPageChar))
   //    {
   //      TryAppend(run, sb);
   //      run.AppendChild(new DXW.Break() { Type = BreakValues.Page });
   //    }
-  //    else if (value.HasSubstringAt(i, options.BreakColumnTag))
+  //    else if (value.HasSubstringAt(i, options.BreakColumnChar))
   //    {
   //      TryAppend(run, sb);
   //      run.AppendChild(new DXW.Break() { Type = BreakValues.Column });
   //    }
-  //    else if (value.HasSubstringAt(i, options.BreakLineTag))
+  //    else if (value.HasSubstringAt(i, options.BreakLineChar))
   //    {
   //      TryAppend(run, sb);
   //      run.AppendChild(new DXW.Break() { Type = BreakValues.TextWrapping });

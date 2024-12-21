@@ -8,6 +8,25 @@ namespace Qhta.OpenXmlTools;
 [DebuggerStepThrough]
 public record TextOptions
 {
+  /// <summary>
+  /// Mode to get text.
+  /// </summary>
+  public enum TextMode
+  {
+    /// <summary>
+    /// Get plain text.
+    /// </summary>
+    PlainText,
+    /// <summary>
+    /// Get text with XML tags.
+    /// </summary>
+    TaggedText,
+  }
+
+  /// <summary>
+  /// 
+  /// </summary>
+  public TextMode Mode { get; set; } = TextMode.PlainText;
 
   /// <summary>
   /// Marker to precede a tag.
@@ -45,6 +64,7 @@ public record TextOptions
   /// </summary>
   public static readonly TextOptions PlainText = new TextOptions
   {
+    Mode = TextMode.PlainText,
     UseHtmlEntities = false,
     UseHtmlFormatting = false,
     UseHtmlParagraphs = false,
@@ -62,6 +82,7 @@ public record TextOptions
   /// </summary>
   public static TextOptions ParaText { get; set; } = PlainText with
   {
+    Mode = TextMode.PlainText,
     IncludeDrawings = true,
     IgnoreDrawingContents = true,
     IncludeOtherMembers = true,
@@ -75,15 +96,11 @@ public record TextOptions
   /// </summary>
   public static readonly TextOptions XmlTaggedText = new TextOptions()
   {
+    Mode = TextMode.TaggedText,
     UseHtmlEntities = true,
     UseHtmlParagraphs = true,
     UseHtmlTables = true,
-    TabChar = "<tab/>",
     ParagraphSeparator = "<p/>",
-    BreakLineTag = "<br/>",
-    BreakColumnTag = "<v/>",
-    BreakPageTag = "<f/>",
-    CarriageReturnTag = "<r/>",
   };
 
   /// <summary>
@@ -147,93 +164,173 @@ public record TextOptions
   public string NewLine { get; set; } = "\r\n";
 
   /// <summary>
-  /// Tag to mark a tab character.
+  /// Char to mark a tab character in PlainText mode.
   /// </summary>
-  public string TabChar { get; set; } = "\u0009"; // \h
+  public const char TabChar = '\u0009'; // \t
 
   /// <summary>
-  /// Tag to mark a line break.
+  /// Tag to mark a tab character in TaggedText mode.
   /// </summary>
-  public string BreakLineTag { get; set; } = "\u000A"; // \n
+  public string TabTag = "<t/>"; 
 
   /// <summary>
-  /// Tag to mark a column break.
+  /// Char to mark a line break in PlainText mode.
   /// </summary>
-  public string BreakColumnTag { get; set; } = "\u000B"; // \v
+  public const char BreakLineChar = '\u000A'; // \n
 
   /// <summary>
-  /// Tag to mark a page break.
+  /// Tag to mark a line break in TaggedText mode.
   /// </summary>
-  public string BreakPageTag { get; set; } = "\u000C"; // \f
+  public string BreakLineTag = "<n/>";
 
   /// <summary>
-  /// Tag to mark a carriage return.
+  /// Char to mark a column break in PlainText mode.
   /// </summary>
-  public string CarriageReturnTag { get; set; } = "\u000D"; // \r
+  public const char BreakColumnChar = '\u000B'; // \v
 
   /// <summary>
-  /// Tag to mark a soft hyphen.
+  /// Tag to mark a column break in TaggedText mode.
   /// </summary>
-  public string SoftHyphen { get; set; } = "\u00AD";
+  public string BreakColumnTag = "<v/>"; 
 
   /// <summary>
-  /// Tag to mark a non-break hyphen.
+  /// Char to mark a page break in PlainText mode.
   /// </summary>
-  public string NoBreakHyphenTag { get; set; } = "\u2011";
+  public const char BreakPageChar = '\u000C'; // \f
+
+  /// <summary>
+  /// Tag to mark a page break in TaggedText mode.
+  /// </summary>
+  public string BreakPageTag = "<f/";
+
+  /// <summary>
+  /// Char to mark a carriage return in PlainText mode.
+  /// </summary>
+  public const char CarriageReturnChar = '\u000D'; // \r
+
+  /// <summary>
+  /// Tag to mark a carriage return in TaggedText mode.
+  /// </summary>
+  public string CarriageReturnTag = "<r/>";
+
+  /// <summary>
+  /// Char to mark a soft hyphen in PlainText mode.
+  /// </summary>
+  public const char SoftHyphenChar = '\u00AD';
+
+  /// <summary>
+  /// Tag to mark a soft hyphen in TaggedText mode.
+  /// </summary>
+  public string SoftHyphenTag = "<sh/>";
+
+  /// <summary>
+  /// Char to mark a non-break hyphen in PlainText mode.
+  /// </summary>
+  public const char NoBreakHyphenChar = '\u2011';
+
+  /// <summary>
+  /// Tag to mark a non-break hyphen in TaggedText mode.
+  /// </summary>
+  public string NoBreakHyphenTag = "<nbh/>";
+
+  /// <summary>
+  /// Char to mark a Positional tab in PlainText mode.
+  /// </summary>
+  public const char PositionalTabChar = '\uE009';
 
   /// <summary>
   /// Positional tab replacement char.
   /// </summary>
-  public string PositionalTabChar { get; set; } = "\uE009";
+  public string PositionalTabTab = "<pt/>";
 
   #endregion
 
   #region Plain text options
 
   /// <summary>
-  /// Tag to mark other object in plain text.
+  /// Tag to mark other object in TaggedText mode.
   /// </summary>
   public string OtherObjectSubstituteTag { get; set; } = "<other>";
 
   /// <summary>
-  /// Tag to mark a page number.
+  /// Char to mark a page number in PlainText mode.
   /// </summary>
-  public string PageNumber { get; set; } = "\uE010";
+  public const char PageNumberChar = '\uE010';
+
+  /// <summary>
+  /// Tag to mark a page number in TaggedText mode.
+  /// </summary>
+  public string PageNumberTag = "<pn/>";
 
   /// <summary>
   /// Tag to mark a last rendered page break.
   /// </summary>
-  public string LastRenderedPageBreak { get; set; } = "\uE00B";
+  public const char LastRenderedPageBreakChar = '\uE00B';
+
+  /// <summary>
+  /// Tag to mark a last rendered page break.
+  /// </summary>
+  public string LastRenderedPageBreakTag = "<pb/>";
 
   /// <summary>
   /// Tag to mark a DayLong element.
   /// </summary>
-  public string DayLong { get; set; } = "\uE011";
+  public const char DayLongChar = '\uE011';
+
+  /// <summary>
+  /// Tag to mark a DayLong element in TaggedText mode.
+  /// </summary>
+  public string DayLongTag = "<dd/>";
 
   /// <summary>
   /// Tag to mark a DayShort element.
   /// </summary>
-  public string DayShort { get; set; } = "\uE012";
+  public const char DayShortChar = '\uE012';
+
+  /// <summary>
+  /// Tag to mark a DayShort element in TaggedText mode.
+  /// </summary>
+  public string DayShortTag = "<dd/>";
 
   /// <summary>
   /// Tag to mark a MonthLong element.
   /// </summary>
-  public string MonthLong { get; set; } = "\uE013";
+  public const char MonthLongChar = '\uE013';
+
+  /// <summary>
+  /// Tag to mark a MonthLong element in TaggedText mode.
+  /// </summary>
+  public string MonthLongTag = "<mmmm/>";
 
   /// <summary>
   /// Tag to mark a MonthShort element.
   /// </summary>
-  public string MonthShort { get; set; } = "\uE014";
+  public const char MonthShortChar = '\uE014';
+
+  /// <summary>
+  /// Tag to mark a MonthShort element in TaggedText mode.
+  /// </summary>
+  public string MonthShortTag = "<mm/>";
 
   /// <summary>
   /// Tag to mark a YearLong element.
   /// </summary>
-  public string YearLong { get; set; } = "\uE015";
+  public const char YearLongChar = '\uE015';
 
   /// <summary>
-  /// Tag to mark a YearShort element.
+  /// Tag to mark a YearLong element in TaggedText mode.
   /// </summary>
-  public string YearShort { get; set; } = "\uE014";
+  public string YearLongTag = "<yyyy/>";
+
+  /// <summary>
+  /// Char to mark a YearShort element in PlainText mode.
+  /// </summary>
+  public const char YearShortChar = '\uE016';
+
+  /// <summary>
+  /// Tag to mark a YearShort element in TaggedText mode.
+  /// </summary>
+  public string YearShortTag = "<yy/>";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
@@ -340,7 +437,7 @@ public record TextOptions
   /// <summary>
   /// Tag to start a run.
   /// </summary>
-  public string RunSeparator { get; set; } = "\u0002";
+  public const char RunSeparator = '\u0002';
 
   /// <summary>
   /// Tag to start a paragraph.
@@ -406,9 +503,44 @@ public record TextOptions
   public bool IncludeFieldFormula { get; set; }
 
   /// <summary>
-  /// Tag to start a field formula.
+  /// Include formula result text.
   /// </summary>
-  public string FieldStartTag { get; set; } = "<field/>";
+  public bool IncludeFieldResult { get; set; }
+
+  /// <summary>
+  /// Char to mark field char begin in PlainText mode.
+  /// </summary>
+  public const char FieldCharBeginChar  = '\uE021';
+
+  /// <summary>
+  /// Tag to mark field char begin in TaggedText mode.
+  /// </summary>
+  public string FieldCharBeginTag = "<fcb/>";
+
+  /// <summary>
+  /// Char to mark field char separator in PlainText mode.
+  /// </summary>
+  public const char FieldCharSeparateChar = '\uE022';
+
+  /// <summary>
+  /// Tag to mark field char separator in TaggedText mode.
+  /// </summary>
+  public string FieldCharSeparateTag = "<fcs/>";
+
+  /// <summary>
+  /// Char to mark field char end in PlainText mode.
+  /// </summary>
+  public const char FieldCharEndChar = '\uE023';
+
+  /// <summary>
+  /// Tag to mark field char end in TaggedText mode.
+  /// </summary>
+  public string FieldCharEndTag = "<fce/>";
+
+  /// <summary>
+  /// Tag to start a field.
+  /// </summary>
+  public string FieldStartTag { get; set; } = "<field>";
 
   /// <summary>
   /// Tag to start a field code start.
@@ -461,29 +593,55 @@ public record TextOptions
   public string CommentRefEnd { get; set; } = "/>";
 
   /// <summary>
-  /// Tag to mark an annotation reference mark.
+  /// Tag to mark an annotation reference mark in PlainText mode.
   /// </summary>
-  public string AnnotationReferenceMark { get; set; } = "\uE00A";
+  public const char AnnotationReferenceMarkChar = '\uE00A';
 
   /// <summary>
-  /// Tag to mark an endnote reference mark.
+  /// Tag to mark an annotation reference mark in TaggedText mode.
   /// </summary>
-  public string FootnoteReferenceMark { get; set; } = "\uE00F";
+  public string AnnotationReferenceMarkTag = "<an/>";
+
 
   /// <summary>
-  /// Tag to mark an endnote reference mark.
+  /// Char to mark an endnote reference mark in PlainText mode.
   /// </summary>
-  public string EndnoteReferenceMark { get; set; } = "\uE00E";
+  public const char FootnoteReferenceMarkChar = '\uE00F';
 
   /// <summary>
-  /// Tag to mark a footnotes/endnotes separator mark.
+  /// Tag to mark an endnote reference mark in TaggedText mode.
   /// </summary>
-  public string SeparatorMark { get; set; } = "\uE00D";
+  public string FootnoteReferenceMarkTag = "<fn/>";
 
   /// <summary>
-  /// Tag to mark a continuation separator mark.
+  /// Tag to mark an endnote reference mark in PlainText mode.
   /// </summary>
-  public string ContinuationSeparatorMark { get; set; } = "\uE00C";
+  public const char EndnoteReferenceMarkChar = '\uE00E';
+
+  /// <summary>
+  /// Tag to mark an endnote reference mark in TaggedText mode.
+  /// </summary>
+  public string EndnoteReferenceMarkTag = "<en/>";
+
+  /// <summary>
+  /// Char to mark a footnotes/endnotes separator mark in PlainText mode.
+  /// </summary>
+  public const char SeparatorMarkChar = '\uE00D';
+
+  /// <summary>
+  /// Tag to mark a footnotes/endnotes separator mark in TaggedText mode.
+  /// </summary>
+  public string SeparatorMarkTag = "<sep/>";
+
+  /// <summary>
+  /// Char to mark a continuation separator mark in PlainText mode.
+  /// </summary>
+  public const char ContinuationSeparatorMarkChar = '\uE00C';
+
+  /// <summary>
+  /// Tag to mark a continuation separator mark in TaggedText mode.
+  /// </summary>
+  public string ContinuationSeparatorMarkTag = "<cont/>";
 
   #region Numbering options
   /// <summary>

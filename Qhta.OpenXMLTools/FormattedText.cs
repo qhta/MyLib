@@ -124,6 +124,8 @@ public class FormattedText : List<RunText>
 {
   private readonly TextOptions GetTextOptions = TextOptions.PlainText;
 
+  private List<DX.OpenXmlElement> Objects = new List<DX.OpenXmlElement>();
+
   /// <summary>
   /// Construct a formatted text using paragraph as a context element.
   /// </summary>
@@ -157,8 +159,10 @@ public class FormattedText : List<RunText>
   /// Number of text parts must be equal to the number of Run elements.
   /// </summary>
   /// <param name="text"></param>
-  public void SetText(string text)
+  /// <param name="objects">Member object assigned to object representing characters</param>
+  public void SetText(string text, params DX.OpenXmlElement[] objects)
   {
+    Objects = new List<DX.OpenXmlElement>(objects);
     var ss = text.Split(TextOptions.PlainText.RunStartTag[0]);
     for (int i = 0; i < this.Count; i++)
     {
@@ -174,7 +178,8 @@ public class FormattedText : List<RunText>
   /// </summary>
   /// <param name="index"></param>
   /// <param name="text"></param>
-  public void SetText(int index, string text)
+  /// <param name="objects">Member object assigned to object representing characters</param>
+  public void SetText(int index, string text, params DX.OpenXmlElement[] objects)
   {
     this[index].PlainText = text;
     this[index].Run.SetText(text);

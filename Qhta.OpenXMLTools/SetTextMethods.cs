@@ -48,105 +48,120 @@ public static class SetTextMethods
     for (int i = 0; i < text.Length; i++)
     {
       var c = text[i];
-      if (c == TextOptions.PlainText.TabChar[0])
+      if (c == TextOptions.TabChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.TabChar());
       }
-      else if (c == TextOptions.PlainText.CarriageReturnTag[0])
+      else if (c == TextOptions.CarriageReturnChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.CarriageReturn());
       }
-      else if (c == TextOptions.PlainText.SoftHyphen[0])
+      else if (c == TextOptions.SoftHyphenChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.SoftHyphen());
       }
-      else if (c == TextOptions.PlainText.NoBreakHyphenTag[0])
+      else if (c == TextOptions.NoBreakHyphenChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.NoBreakHyphen());
       }
-      else if(c == TextOptions.PlainText.BreakLineTag[0])
+      else if(c == TextOptions.BreakLineChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.TextWrapping) });
       }
-      else if (c == TextOptions.PlainText.BreakColumnTag[0])
+      else if (c == TextOptions.BreakColumnChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Column) });
       }
-      else if (c == TextOptions.PlainText.BreakPageTag[0])
+      else if (c == TextOptions.BreakPageChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Page) });
       }
-      else if (c == TextOptions.PlainText.AnnotationReferenceMark[0])
+      else if (c == TextOptions.AnnotationReferenceMarkChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.AnnotationReferenceMark());
       }
-      else if (c == TextOptions.PlainText.LastRenderedPageBreak[0])
+      else if (c == TextOptions.LastRenderedPageBreakChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.LastRenderedPageBreak());
       }
-      else if (c == TextOptions.PlainText.ContinuationSeparatorMark[0])
+      else if (c == TextOptions.ContinuationSeparatorMarkChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.ContinuationSeparatorMark());
       }
-      else if (c == TextOptions.PlainText.SeparatorMark[0])
+      else if (c == TextOptions.SeparatorMarkChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.SeparatorMark());
       }
-      else if (c == TextOptions.PlainText.EndnoteReferenceMark[0])
+      else if (c == TextOptions.EndnoteReferenceMarkChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.EndnoteReferenceMark());
       }
-      else if (c == TextOptions.PlainText.FootnoteReferenceMark[0])
+      else if (c == TextOptions.FootnoteReferenceMarkChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.FootnoteReferenceMark());
       }
-      else if (c == TextOptions.PlainText.PageNumber[0])
+      else if (c == TextOptions.PageNumberChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.PageNumber());
       }
-      else if (c == TextOptions.PlainText.DayLong[0])
+      else if (c == TextOptions.DayLongChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.DayLong());
       }
-      else if (c == TextOptions.PlainText.DayShort[0])
+      else if (c == TextOptions.DayShortChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.DayShort());
       }
-      else if (c == TextOptions.PlainText.MonthLong[0])
+      else if (c == TextOptions.MonthLongChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.MonthLong());
       }
-      else if (c == TextOptions.PlainText.MonthShort[0])
+      else if (c == TextOptions.MonthShortChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.MonthShort());
       }
-      else if (c == TextOptions.PlainText.YearLong[0])
+      else if (c == TextOptions.YearLongChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.YearLong());
       }
-      else if (c == TextOptions.PlainText.YearShort[0])
+      else if (c == TextOptions.YearShortChar)
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.YearShort());
+      }
+      else if (c == TextOptions.FieldCharBeginChar)
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Begin) });
+      }
+      else if (c == TextOptions.FieldCharSeparateChar)
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Separate) });
+      }
+      else if (c == TextOptions.FieldCharEndChar)
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.End) });
       }
       else
       {
@@ -303,16 +318,16 @@ public static class SetTextMethods
         //  return (element as EndnoteReference)!.SetTextOf(text, options);
         //case var type when type == typeof(CommentReference):
         //  return (element as CommentReference)!.SetTextOf(text, options);
-        //case var type when type == typeof(FootnoteReferenceMark):
-        //  return (element as FootnoteReferenceMark)!.SetTextOf(text, options);
-        //case var type when type == typeof(EndnoteReferenceMark):
-        //  return (element as EndnoteReferenceMark)!.SetTextOf(text, options);
+        //case var type when type == typeof(FootnoteReferenceMarkChar):
+        //  return (element as FootnoteReferenceMarkChar)!.SetTextOf(text, options);
+        //case var type when type == typeof(EndnoteReferenceMarkChar):
+        //  return (element as EndnoteReferenceMarkChar)!.SetTextOf(text, options);
         //case var type when type == typeof(AnnotationReferenceMark):
         //  return (element as AnnotationReferenceMark)!.SetTextOf(text, options);
-        //case var type when type == typeof(SeparatorMark):
-        //  return (element as SeparatorMark)!.SetTextOf(text, options);
-        //case var type when type == typeof(ContinuationSeparatorMark):
-        //  return (element as ContinuationSeparatorMark)!.SetTextOf(text, options);
+        //case var type when type == typeof(SeparatorMarkChar):
+        //  return (element as SeparatorMarkChar)!.SetTextOf(text, options);
+        //case var type when type == typeof(ContinuationSeparatorMarkChar):
+        //  return (element as ContinuationSeparatorMarkChar)!.SetTextOf(text, options);
         //case var type when type == typeof(DayLong):
         //  return (element as DayLong)!.SetTextOf(text, options);
         //case var type when type == typeof(DayShort):

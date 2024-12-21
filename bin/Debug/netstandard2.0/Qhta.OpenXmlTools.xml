@@ -1076,20 +1076,22 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.String)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.String,DocumentFormat.OpenXml.OpenXmlElement[])">
             <summary>
             Set the text to the all Run elements.
             Text is split with TextOptions PlainText RunSeparator.
             Number of text parts must be equal to the number of Run elements.
             </summary>
             <param name="text"></param>
+            <param name="objects">Member object assigned to object representing characters</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String,DocumentFormat.OpenXml.OpenXmlElement[])">
             <summary>
             Set the text of the specified item and pass it to the Run element.
             </summary>
             <param name="index"></param>
             <param name="text"></param>
+            <param name="objects">Member object assigned to object representing characters</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.SetFormat(System.Int32,Qhta.OpenXmlTools.TextFormat)">
             <summary>
@@ -1252,6 +1254,31 @@
             Remove exceeding whitespaces from all paragraphs in the context.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.FormattedTextObjects">
+            <summary>
+            A list of OpenXmlElements that represent formatted text objects.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedTextObjects.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedTextObjects.#ctor(DocumentFormat.OpenXml.OpenXmlElement[])">
+            <summary>
+            Constructor that takes a list of OpenXmlElements.
+            </summary>
+            <param name="elements"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedTextObjects.GetObject(System.Char,System.Int32)">
+            <summary>
+            Gets the OpenXmlElement that represents the specified character.
+            It searches the list of OpenXmlElements for an element that represents the specified character as defined in TextOptions PlainText.
+            </summary>
+            <param name="ch"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.GetTextMethods">
             <summary>
             Methods to get text from OpenXml elements.
@@ -1289,18 +1316,9 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetRunInText(DocumentFormat.OpenXml.Wordprocessing.Run)">
-            <summary>
-            Get the run-in text content of the run.
-            These run members, which can be converted to the plain text, are concatenated to single Text element.
-            Others are contained as themselves.
-            </summary>
-            <param name="run"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
             <summary>
-            Get the text of the run SearchText element.
+            Get the text of the run Text element.
             </summary>
             <param name="runText"></param>
             <param name="options"></param>
@@ -1308,9 +1326,57 @@
         </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.Text,Qhta.OpenXmlTools.TextOptions)">
             <summary>
-            Get the text of the run SearchText element.
+            Get the text of the run Text element.
             </summary>
             <param name="runText"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.TabChar,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the TabChar element.
+            </summary>
+            <param name="tabChar"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.SoftHyphen,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the SoftHyphen element.
+            </summary>
+            <param name="softHyphen"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.NoBreakHyphen,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the NoBreakHyphen element.
+            </summary>
+            <param name="noBreakHyphen"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.CarriageReturn,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the CarriageReturn element.
+            </summary>
+            <param name="carriageReturn"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.LastRenderedPageBreak,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the LastRenderedPageBreak element.
+            </summary>
+            <param name="lastRenderedPageBreak"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.PageNumber,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Get the text of the PageNumber element.
+            </summary>
+            <param name="pageNumber"></param>
             <param name="options"></param>
             <returns></returns>
         </member>
@@ -1378,12 +1444,26 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetSystemLongDay(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            
+            </summary>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.DayShort,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the DayShort element.
             </summary>
             <param name="dayShort"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetSystemShortDay(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Get the system short day.
+            </summary>
+            <param name="mainDocumentPart"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.MonthLong,Qhta.OpenXmlTools.TextOptions)">
@@ -1394,12 +1474,26 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetSystemLongMonth(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+             Get the system long month.
+            </summary>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.MonthShort,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the MonthShort element.
             </summary>
             <param name="MonthShort"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetSystemShortMonth(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Get the system short month.
+            </summary>
+            <param name="mainDocumentPart"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.YearLong,Qhta.OpenXmlTools.TextOptions)">
@@ -1410,12 +1504,26 @@
             <param name="options"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetSystemLongYear(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Get the system long year.
+            </summary>
+            <param name="mainDocumentPart"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.YearShort,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Get the text of the YearShort element.
             </summary>
             <param name="YearShort"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetSystemShortYear(DocumentFormat.OpenXml.Packaging.MainDocumentPart)">
+            <summary>
+            Get the system short year.
+            </summary>
+            <param name="mainDocumentPart"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.FootnoteReference,Qhta.OpenXmlTools.TextOptions)">
@@ -1526,6 +1634,14 @@
             Gets the text of all cells in the table row.
             </summary>
             <param name="row"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetTextOf(DocumentFormat.OpenXml.Wordprocessing.TableCell,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Gets the text of the table cell.
+            </summary>
+            <param name="cell"></param>
             <param name="options"></param>
             <returns></returns>
         </member>
@@ -11399,6 +11515,26 @@
             Options for getting text.
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TextOptions.TextMode">
+            <summary>
+            Mode to get text.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.TextMode.PlainText">
+            <summary>
+            Get plain text.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.TextMode.TaggedText">
+            <summary>
+            Get text with XML tags.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.Mode">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.EscChar">
             <summary>
             Marker to precede a tag.
@@ -11470,89 +11606,169 @@
             Tag to mark a new line.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.TabChar">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.TabChar">
             <summary>
-            Tag to mark a tab character.
+            Char to mark a tab character in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.BreakLineTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.TabTag">
             <summary>
-            Tag to mark a line break.
+            Tag to mark a tab character in TaggedText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.BreakColumnTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakLineChar">
             <summary>
-            Tag to mark a column break.
+            Char to mark a line break in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.BreakPageTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakLineTag">
             <summary>
-            Tag to mark a page break.
+            Tag to mark a line break in TaggedText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.CarriageReturnTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakColumnChar">
             <summary>
-            Tag to mark a carriage return.
+            Char to mark a column break in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.SoftHyphen">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakColumnTag">
             <summary>
-            Tag to mark a soft hyphen.
+            Tag to mark a column break in TaggedText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakPageChar">
             <summary>
-            Tag to mark a non-break hyphen.
+            Char to mark a page break in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.PositionalTabChar">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakPageTag">
+            <summary>
+            Tag to mark a page break in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.CarriageReturnChar">
+            <summary>
+            Char to mark a carriage return in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.CarriageReturnTag">
+            <summary>
+            Tag to mark a carriage return in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SoftHyphenChar">
+            <summary>
+            Char to mark a soft hyphen in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SoftHyphenTag">
+            <summary>
+            Tag to mark a soft hyphen in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenChar">
+            <summary>
+            Char to mark a non-break hyphen in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenTag">
+            <summary>
+            Tag to mark a non-break hyphen in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.PositionalTabChar">
+            <summary>
+            Char to mark a Positional tab in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.PositionalTabTab">
             <summary>
             Positional tab replacement char.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.OtherObjectSubstituteTag">
             <summary>
-            Tag to mark other object in plain text.
+            Tag to mark other object in TaggedText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.PageNumber">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.PageNumberChar">
             <summary>
-            Tag to mark a page number.
+            Char to mark a page number in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreak">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.PageNumberTag">
+            <summary>
+            Tag to mark a page number in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakChar">
             <summary>
             Tag to mark a last rendered page break.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.DayLong">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakTag">
+            <summary>
+            Tag to mark a last rendered page break.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.DayLongChar">
             <summary>
             Tag to mark a DayLong element.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.DayShort">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.DayLongTag">
+            <summary>
+            Tag to mark a DayLong element in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.DayShortChar">
             <summary>
             Tag to mark a DayShort element.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.MonthLong">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.DayShortTag">
+            <summary>
+            Tag to mark a DayShort element in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthLongChar">
             <summary>
             Tag to mark a MonthLong element.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.MonthShort">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthLongTag">
+            <summary>
+            Tag to mark a MonthLong element in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthShortChar">
             <summary>
             Tag to mark a MonthShort element.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.YearLong">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthShortTag">
+            <summary>
+            Tag to mark a MonthShort element in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.YearLongChar">
             <summary>
             Tag to mark a YearLong element.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.YearShort">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.YearLongTag">
             <summary>
-            Tag to mark a YearShort element.
+            Tag to mark a YearLong element in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.YearShortChar">
+            <summary>
+            Char to mark a YearShort element in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.YearShortTag">
+            <summary>
+            Tag to mark a YearShort element in TaggedText mode.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreEmptyParagraphs">
@@ -11655,7 +11871,7 @@
             Tag to end a run.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.RunSeparator">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.RunSeparator">
             <summary>
             Tag to start a run.
             </summary>
@@ -11720,9 +11936,44 @@
             Include formula command text.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeFieldResult">
+            <summary>
+            Include formula result text.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharBeginChar">
+            <summary>
+            Char to mark field char begin in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharBeginTag">
+            <summary>
+            Tag to mark field char begin in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharSeparateChar">
+            <summary>
+            Char to mark field char separator in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharSeparateTag">
+            <summary>
+            Tag to mark field char separator in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharEndChar">
+            <summary>
+            Char to mark field char end in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharEndTag">
+            <summary>
+            Tag to mark field char end in TaggedText mode.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.FieldStartTag">
             <summary>
-            Tag to start a field formula.
+            Tag to start a field.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.FieldCodeStart">
@@ -11775,29 +12026,54 @@
             Tag to end a comment reference.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMark">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMarkChar">
             <summary>
-            Tag to mark an annotation reference mark.
+            Tag to mark an annotation reference mark in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMark">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMarkTag">
             <summary>
-            Tag to mark an endnote reference mark.
+            Tag to mark an annotation reference mark in TaggedText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMark">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMarkChar">
             <summary>
-            Tag to mark an endnote reference mark.
+            Char to mark an endnote reference mark in PlainText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.SeparatorMark">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMarkTag">
             <summary>
-            Tag to mark a footnotes/endnotes separator mark.
+            Tag to mark an endnote reference mark in TaggedText mode.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMark">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMarkChar">
             <summary>
-            Tag to mark a continuation separator mark.
+            Tag to mark an endnote reference mark in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMarkTag">
+            <summary>
+            Tag to mark an endnote reference mark in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SeparatorMarkChar">
+            <summary>
+            Char to mark a footnotes/endnotes separator mark in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SeparatorMarkTag">
+            <summary>
+            Tag to mark a footnotes/endnotes separator mark in TaggedText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMarkChar">
+            <summary>
+            Char to mark a continuation separator mark in PlainText mode.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMarkTag">
+            <summary>
+            Tag to mark a continuation separator mark in TaggedText mode.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeParagraphNumbering">
