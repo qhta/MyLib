@@ -82,7 +82,6 @@ public record TextOptions
   /// </summary>
   public static TextOptions ParaText { get; set; } = PlainText with
   {
-    Mode = TextMode.PlainText,
     IncludeDrawings = true,
     IgnoreDrawingContents = true,
     IncludeOtherMembers = true,

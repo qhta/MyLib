@@ -1,6 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Xml;
+
 using Qhta.TextUtils;
+using Qhta.TypeUtils;
 
 namespace Qhta.OpenXmlTools;
 /// <summary>
@@ -42,7 +45,7 @@ public static class SetTextMethods
     if (options.UseHtmlEntities)
       text = text.HtmlDecode();
     var members = run.GetMembers().ToArray();
-    foreach (var member in members )
+    foreach (var member in members)
       member.Remove();
     var sb = new StringBuilder();
     for (int i = 0; i < text.Length; i++)
@@ -68,10 +71,26 @@ public static class SetTextMethods
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.NoBreakHyphen());
       }
-      else if(c == TextOptions.BreakLineChar)
+      else if (c == TextOptions.BreakLineChar)
       {
         run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.TextWrapping) });
+        var breakElement = new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.TextWrapping) };
+        if (i < text.Length)
+        {
+          i++;
+          var ch = text[i];
+          if (ch == '{')
+          {
+            var j = text.IndexOf('}', i);
+            if (j > 0)
+            {
+              var s = text.Substring(i + 1, j - i - 1);
+              breakElement.ReadAttributes(s);
+              i = j;
+            }
+          }
+        }
+        run.AppendChild(breakElement);
       }
       else if (c == TextOptions.BreakColumnChar)
       {
@@ -172,6 +191,74 @@ public static class SetTextMethods
     return true;
   }
 
+  private static void ReadAttributes(this DX.OpenXmlElement element, string text)
+  {
+    var ss = text.Split(';');
+    foreach (var s in ss)
+    {
+      var kv = s.Split('=');
+      if (kv.Length == 2)
+      {
+        var name = kv[0].Trim();
+        var value = kv[1].Trim();
+        element.SetAttribute(name, value);
+      }
+    }
+  }
+
+  private static void SetAttribute(this DX.OpenXmlElement element, string name, string value)
+  {
+    var property = element.GetType().GetProperty(name, BindingFlags.IgnoreCase);
+    if (property == null)
+      throw new InvalidOperationException($"Property {name} not found in {element.GetType()}");
+    var type = property.PropertyType;
+    if (type == typeof(string))
+    {
+      property.SetValue(element, value);
+    }
+    else if (type == typeof(int))
+    {
+      if (int.TryParse(value, out var n))
+        property.SetValue(element, n);
+    }
+    else if (type == typeof(bool))
+    {
+      if (bool.TryParse(value, out var b))
+        property.SetValue(element, b);
+    }
+    else if (type.Implements(typeof(DX.IEnumValue)))
+    {
+      var enumType = type.GetGenericArguments()[0];
+      var enumValue = Enum.Parse(enumType, value); 
+      property.SetValue(element, enumValue);
+    }
+    else if (type == typeof(DX.EnumValue<DXW.BreakValues>))
+    {
+      if (Enum.TryParse<DXW.BreakValues>(value, out var v))
+        property.SetValue(element, new DX.EnumValue<DXW.BreakValues>(v));
+    }
+    else if (type == typeof(DX.EnumValue<DXW.BreakTextRestartLocationValues>))
+    {
+      if (Enum.TryParse<DXW.BreakTextRestartLocationValues>(value, out var v))
+        property.SetValue(element, new DX.EnumValue<DXW.BreakTextRestartLocationValues>(v));
+    }
+    else if (type == typeof(DX.EnumValue<DXW.FieldCharValues>))
+    {
+      if (Enum.TryParse<DXW.FieldCharValues>(value, out var v))
+        property.SetValue(element, new DX.EnumValue<DXW.FieldCharValues>(v));
+    }
+    else if (type == typeof(DX.EnumValue<DXW.BreakTextRestartLocationValues>))
+    {
+      if (Enum.TryParse<DXW.BreakTextRestartLocationValues>(value, out var v))
+        property.SetValue(element, new DX.EnumValue<DXW.BreakTextRestartLocationValues>(v));
+    }
+    else if (type == typeof(DX.EnumValue<DXW.FieldCharValues>))
+    {
+      if (Enum.TryParse<DXW.FieldCharValues>(value, out var v))
+        property.SetValue(element, new DX.EnumValue<DXW.FieldCharValues>(v));
+    }
+  }
+
   private static bool TryAddCollectedText(this DXW.Run run, StringBuilder sb)
   {
     if (sb.Length > 0)
@@ -226,7 +313,7 @@ public static class SetTextMethods
     if (options == null)
       options = TextOptions.PlainText;
     var aText = runText.GetText(options);
-    if (pos < 0 || pos>aText.Length)
+    if (pos < 0 || pos > aText.Length)
       return false;
     aText = aText.Insert(pos, text);
     runText.SetTextOf(aText, options);
@@ -276,8 +363,8 @@ public static class SetTextMethods
     {
       case var type when type == typeof(DXW.Text):
         return (element as DXW.Text)!.SetTextOf(text, options);
-      //case var type when type == typeof(DXW.TabChar):
-      //  return text == options.TabChar;
+        //case var type when type == typeof(DXW.TabChar):
+        //  return text == options.TabChar;
         //case var type when type == typeof(DXW.Run):
         //  return (element as DXW.Run)!.SetTextOf(text, options);
         //case var type when type == typeof(DXW.Paragraph):

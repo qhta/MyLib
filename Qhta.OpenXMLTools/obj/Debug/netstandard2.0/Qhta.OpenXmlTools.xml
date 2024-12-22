@@ -1284,6 +1284,14 @@
             Methods to get text from OpenXml elements.
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetOuterXml(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Gets the outer xml text of the element.
+            Removes the xmlns attributes from the element.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.GetTextMethods.GetText(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.OpenXmlElement},Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Gets the text of the collection of elements

@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 using System;
+using System.Xml.Linq;
 
 namespace Qhta.OpenXmlTools;
 
@@ -9,6 +10,37 @@ namespace Qhta.OpenXmlTools;
 /// </summary>
 public static class GetTextMethods
 {
+
+  /// <summary>
+  /// Gets the outer xml text of the element.
+  /// Removes the xmlns attributes from the element.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static string GetOuterXml(this DX.OpenXmlElement element)
+  {
+    var text = element.OuterXml;
+    var k = text.IndexOf("xmlns");
+    while (k >= 0)
+    {
+      var l = text.IndexOf('"', k);
+      l = text.IndexOf('"', l + 1);
+      var m = text.IndexOfAny([' '], l);
+      while (m >= 0 && m < text.Length && text[m] == ' ') m++;
+      text = text.Remove(k, m - k);
+      k = text.IndexOf("xmlns", k);
+    }
+    k = text.IndexOf("xml:space");
+    if (k >= 0)
+    {
+      var l = text.IndexOf('"', k);
+      l = text.IndexOf('"', l + 1);
+      var m = text.IndexOfAny([' '], l);
+      while (m >= 0 && m < text.Length && text[m] == ' ') m++;
+      text = text.Remove(k, m - k);
+    }
+    return text;
+  }
 
   /// <summary>
   /// Gets the text of the collection of elements
@@ -351,13 +383,20 @@ public static class GetTextMethods
   {
     if (options.Mode == TextOptions.TextMode.PlainText)
     {
+      string result = String.Empty;
       if (@break.Type?.Value == BreakValues.Page)
-        return new String(TextOptions.BreakPageChar, 1);
+        result = new String(TextOptions.BreakPageChar, 1);
       else if (@break.Type?.Value == BreakValues.Column)
-        return new String(TextOptions.BreakColumnChar, 1);
+        result = new String(TextOptions.BreakColumnChar, 1);
       else if (@break.Type?.Value == BreakValues.TextWrapping)
-        return new String(TextOptions.BreakLineChar, 1);
-      return String.Empty;
+      {
+        result = new String(TextOptions.BreakLineChar, 1);
+        if (@break.Clear?.HasValue==true)
+          result += '{' + "Clear=" + @break.Clear.Value.ToString().ToLower() + '}';
+        else
+          result += ' ';
+      }
+      return result;
     }
     else
     {
