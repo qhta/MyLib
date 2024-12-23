@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2010.PowerPoint;
 
 namespace Qhta.OpenXmlTools;
 
@@ -27,6 +30,176 @@ public record TextOptions
   /// 
   /// </summary>
   public TextMode Mode { get; set; } = TextMode.PlainText;
+
+  /// <summary>
+  /// Tag to mark special characters.
+  /// </summary>
+  public record SpecialCharactersTags
+  {
+    /// <summary>
+    /// Represents a tab element.
+    /// </summary>
+    public string TabTag = null!;
+    /// <summary>
+    /// Represents a line break element.
+    /// </summary>
+    public string BreakLineTag = null!;
+    /// <summary>
+    /// Represents a column break element.
+    /// </summary>
+    public string BreakColumnTag = null!;
+    /// <summary>
+    /// Represents a page break element.
+    /// </summary>
+    public string BreakPageTag = null!;
+    /// <summary>
+    /// Represents a carriage return element.
+    /// </summary>
+    public string CarriageReturnTag = null!;
+    /// <summary>
+    /// Represents a soft hyphen element.
+    /// </summary>
+    public string SoftHyphenTag = null!;
+    /// <summary>
+    /// Represents a non-break hyphen element.
+    /// </summary>
+    public string NoBreakHyphenTag = null!;
+    /// <summary>
+    /// Represents a positional tab element.
+    /// </summary>
+    public string PositionalTabTag = null!;
+    /// <summary>
+    /// Represents an annotation reference mark element.
+    /// </summary>
+    public string AnnotationReferenceMarkTag = null!;
+    /// <summary>
+    /// Represents a footnote reference mark element.
+    /// </summary>
+    public string FootnoteReferenceMarkTag = null!;
+    /// <summary>
+    /// Represents an endnote reference mark element.
+    /// </summary>
+    public string EndnoteReferenceMarkTag = null!;
+    /// <summary>
+    /// Represents a separator mark element.
+    /// </summary>
+    public string SeparatorMarkTag = null!;
+    /// <summary>
+    ///  Represents a continuation separator mark element.
+    /// </summary>
+    public string ContinuationSeparatorMarkTag = null!;
+    /// <summary>
+    /// Represents a last rendered page break element.
+    /// </summary>
+    public string LastRenderedPageBreakTag = null!;
+    /// <summary>
+    /// Represents a page number element.
+    /// </summary>
+    public string PageNumberTag = null!;
+    /// <summary>
+    /// Represents a DayLong element.
+    /// </summary>
+    public string DayLongTag = null!;
+    /// <summary>
+    /// Represents a DayShort element.
+    /// </summary>
+    public string DayShortTag = null!;
+    /// <summary>
+    /// Represents a MonthLong element.
+    /// </summary>
+    public string MonthLongTag = null!;
+    /// <summary>
+    /// Represents a MonthShort element.
+    /// </summary>
+    public string MonthShortTag = null!;
+    /// <summary>
+    /// Represents a YearLong element.
+    /// </summary>
+    public string YearLongTag = null!;
+    /// <summary>
+    /// Represents a YearShort element.
+    /// </summary>
+    public string YearShortTag = null!;
+    /// <summary>
+    /// Represents a field char begin.
+    /// </summary>
+    public string FieldCharBeginTag = null!;
+    /// <summary>
+    /// Represents a field char separate.
+    /// </summary>
+    public string FieldCharSeparateTag = null!;
+    /// <summary>
+    /// Represents a field char end.
+    /// </summary>
+    public string FieldCharEndTag = null!;
+  }
+
+  /// <summary>
+  /// Special characters tags for plain text.
+  /// </summary>
+  public static readonly SpecialCharactersTags PlainTextTags  = new()
+  {
+    TabTag = "\t",
+    BreakLineTag = "\n",
+    BreakColumnTag = "\v",
+    BreakPageTag = "\f",
+    CarriageReturnTag = "\r",
+    SoftHyphenTag = "\u00AD",
+    NoBreakHyphenTag = "\u2011",
+    PositionalTabTag = "\uE009",
+    AnnotationReferenceMarkTag = "\uE00A",
+    LastRenderedPageBreakTag = "\uE00B",
+    ContinuationSeparatorMarkTag = "\uE00C",
+    SeparatorMarkTag = "\uE00D",
+    EndnoteReferenceMarkTag = "\uE00E",
+    FootnoteReferenceMarkTag = "\uE00F",
+    PageNumberTag = "\uE010",
+    DayLongTag = "\uE011",
+    DayShortTag = "\uE012",
+    MonthLongTag = "\uE013",
+    MonthShortTag = "\uE014",
+    YearLongTag = "\uE015",
+    YearShortTag = "\uE016",
+    FieldCharBeginTag = "\uE021",
+    FieldCharSeparateTag = "\uE022",
+    FieldCharEndTag = "\uE023",
+  };
+
+  /// <summary>
+  /// Special characters tags for XML-tagged text.
+  /// </summary>
+  public static readonly SpecialCharactersTags XmlTags = new()
+  {
+    TabTag = "<t/>",
+    BreakLineTag = "<n/>",
+    BreakColumnTag = "<v/>",
+    BreakPageTag = "<f/>",
+    CarriageReturnTag = "<r/>",
+    SoftHyphenTag = "<sh/>",
+    NoBreakHyphenTag = "<nbh/>",
+    PositionalTabTag = "<pt/>",
+    AnnotationReferenceMarkTag = "<an/>",
+    LastRenderedPageBreakTag = "<pb/>",
+    ContinuationSeparatorMarkTag = "<cont/>",
+    SeparatorMarkTag = "<sep/>",
+    EndnoteReferenceMarkTag = "<en/>",
+    FootnoteReferenceMarkTag = "<fn/>",
+    PageNumberTag = "<pn/>",
+    DayLongTag = "<DDDD/>",
+    DayShortTag = "<DD/>",
+    MonthLongTag = "<MMMM/>",
+    MonthShortTag = "<MM/>",
+    YearLongTag = "<YYYY/>",
+    YearShortTag = "<YY/>",
+    FieldCharBeginTag = "<fcb/>",
+    FieldCharSeparateTag = "<fcs/>",
+    FieldCharEndTag = "<fce/>",
+  };
+
+  /// <summary>
+  /// Configured property set of special characters tags.
+  /// </summary>
+  public SpecialCharactersTags Tags { get; set; } = PlainTextTags;
 
   /// <summary>
   /// Marker to precede a tag.
@@ -163,173 +336,107 @@ public record TextOptions
   public string NewLine { get; set; } = "\r\n";
 
   /// <summary>
-  /// Char to mark a tab character in PlainText mode.
+  /// Tag to mark a TabChar
   /// </summary>
-  public const char TabChar = '\u0009'; // \t
+  public string TabTag => Tags.TabTag;
 
   /// <summary>
-  /// Tag to mark a tab character in TaggedText mode.
+  /// Tag to mark a line break.
   /// </summary>
-  public string TabTag = "<t/>"; 
+  public string BreakLineTag => Tags.BreakLineTag;
 
   /// <summary>
-  /// Char to mark a line break in PlainText mode.
+  /// Tag to mark a column break.
   /// </summary>
-  public const char BreakLineChar = '\u000A'; // \n
+  public string BreakColumnTag => Tags.BreakColumnTag; 
 
   /// <summary>
-  /// Tag to mark a line break in TaggedText mode.
+  /// Tag to mark a page break.
   /// </summary>
-  public string BreakLineTag = "<n/>";
+  public string BreakPageTag => Tags.BreakPageTag;
 
   /// <summary>
-  /// Char to mark a column break in PlainText mode.
+  /// Tag to mark a carriage return.
   /// </summary>
-  public const char BreakColumnChar = '\u000B'; // \v
+  public string CarriageReturnTag => Tags.CarriageReturnTag;
 
   /// <summary>
-  /// Tag to mark a column break in TaggedText mode.
+  /// Tag to mark a soft hyphen.
   /// </summary>
-  public string BreakColumnTag = "<v/>"; 
+  public string SoftHyphenTag => Tags.SoftHyphenTag;
 
   /// <summary>
-  /// Char to mark a page break in PlainText mode.
+  /// Tag to mark a non-break hyphen.
   /// </summary>
-  public const char BreakPageChar = '\u000C'; // \f
+  public string NoBreakHyphenTag => Tags.NoBreakHyphenTag;
 
   /// <summary>
-  /// Tag to mark a page break in TaggedText mode.
+  /// Tag to mark a PositionalTab.
   /// </summary>
-  public string BreakPageTag = "<f/";
+  public string PositionalTabTag => Tags.PositionalTabTag;
+  
+  /// <summary>
+  /// Tag to mark a last rendered page break.
+  /// </summary>
+  public string LastRenderedPageBreakTag => Tags.LastRenderedPageBreakTag;
 
   /// <summary>
-  /// Char to mark a carriage return in PlainText mode.
+  /// Tag to mark a page number.
   /// </summary>
-  public const char CarriageReturnChar = '\u000D'; // \r
+  public string PageNumberTag => Tags.PageNumberTag;
 
   /// <summary>
-  /// Tag to mark a carriage return in TaggedText mode.
+  /// Tag to mark a DayLong element.
   /// </summary>
-  public string CarriageReturnTag = "<r/>";
+  public string DayLongTag => Tags.DayLongTag;
 
   /// <summary>
-  /// Char to mark a soft hyphen in PlainText mode.
+  /// Tag to mark a DayShort element.
   /// </summary>
-  public const char SoftHyphenChar = '\u00AD';
+  public string DayShortTag => Tags.DayShortTag;
 
   /// <summary>
-  /// Tag to mark a soft hyphen in TaggedText mode.
+  /// Tag to mark a MonthLong element.
   /// </summary>
-  public string SoftHyphenTag = "<sh/>";
+  public string MonthLongTag => Tags.MonthLongTag;
 
   /// <summary>
-  /// Char to mark a non-break hyphen in PlainText mode.
+  /// Tag to mark a MonthShort element.
   /// </summary>
-  public const char NoBreakHyphenChar = '\u2011';
+  public string MonthShortTag => Tags.MonthShortTag;
 
   /// <summary>
-  /// Tag to mark a non-break hyphen in TaggedText mode.
+  /// Tag to mark a YearLong element.
   /// </summary>
-  public string NoBreakHyphenTag = "<nbh/>";
+  public string YearLongTag => Tags.YearLongTag;
 
   /// <summary>
-  /// Char to mark a Positional tab in PlainText mode.
+  /// Tag to mark a YearShort element.
   /// </summary>
-  public const char PositionalTabChar = '\uE009';
+  public string YearShortTag => Tags.YearShortTag;
+
+    /// <summary>
+  /// Tag to mark a FieldChar element with FieldCharType = begin.
+  /// </summary>
+  public string FieldCharBeginTag => Tags.FieldCharBeginTag;
 
   /// <summary>
-  /// Positional tab replacement char.
+  /// Tag to mark a FieldChar element with FieldCharType = separate.
   /// </summary>
-  public string PositionalTabTab = "<pt/>";
+  public string FieldCharSeparateTag => Tags.FieldCharSeparateTag;
 
+  /// <summary>
+  /// Tag to mark a FieldChar element with FieldCharType = end.
+  /// </summary>
+  public string FieldCharEndTag => Tags.FieldCharEndTag;
   #endregion
 
   #region Plain text options
 
   /// <summary>
-  /// Tag to mark other object in TaggedText mode.
+  /// Tag to mark other object.
   /// </summary>
   public string OtherObjectSubstituteTag { get; set; } = "<other>";
-
-  /// <summary>
-  /// Char to mark a page number in PlainText mode.
-  /// </summary>
-  public const char PageNumberChar = '\uE010';
-
-  /// <summary>
-  /// Tag to mark a page number in TaggedText mode.
-  /// </summary>
-  public string PageNumberTag = "<pn/>";
-
-  /// <summary>
-  /// Tag to mark a last rendered page break.
-  /// </summary>
-  public const char LastRenderedPageBreakChar = '\uE00B';
-
-  /// <summary>
-  /// Tag to mark a last rendered page break.
-  /// </summary>
-  public string LastRenderedPageBreakTag = "<pb/>";
-
-  /// <summary>
-  /// Tag to mark a DayLong element.
-  /// </summary>
-  public const char DayLongChar = '\uE011';
-
-  /// <summary>
-  /// Tag to mark a DayLong element in TaggedText mode.
-  /// </summary>
-  public string DayLongTag = "<dd/>";
-
-  /// <summary>
-  /// Tag to mark a DayShort element.
-  /// </summary>
-  public const char DayShortChar = '\uE012';
-
-  /// <summary>
-  /// Tag to mark a DayShort element in TaggedText mode.
-  /// </summary>
-  public string DayShortTag = "<dd/>";
-
-  /// <summary>
-  /// Tag to mark a MonthLong element.
-  /// </summary>
-  public const char MonthLongChar = '\uE013';
-
-  /// <summary>
-  /// Tag to mark a MonthLong element in TaggedText mode.
-  /// </summary>
-  public string MonthLongTag = "<mmmm/>";
-
-  /// <summary>
-  /// Tag to mark a MonthShort element.
-  /// </summary>
-  public const char MonthShortChar = '\uE014';
-
-  /// <summary>
-  /// Tag to mark a MonthShort element in TaggedText mode.
-  /// </summary>
-  public string MonthShortTag = "<mm/>";
-
-  /// <summary>
-  /// Tag to mark a YearLong element.
-  /// </summary>
-  public const char YearLongChar = '\uE015';
-
-  /// <summary>
-  /// Tag to mark a YearLong element in TaggedText mode.
-  /// </summary>
-  public string YearLongTag = "<yyyy/>";
-
-  /// <summary>
-  /// Char to mark a YearShort element in PlainText mode.
-  /// </summary>
-  public const char YearShortChar = '\uE016';
-
-  /// <summary>
-  /// Tag to mark a YearShort element in TaggedText mode.
-  /// </summary>
-  public string YearShortTag = "<yy/>";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
@@ -507,36 +614,6 @@ public record TextOptions
   public bool IncludeFieldResult { get; set; }
 
   /// <summary>
-  /// Char to mark field char begin in PlainText mode.
-  /// </summary>
-  public const char FieldCharBeginChar  = '\uE021';
-
-  /// <summary>
-  /// Tag to mark field char begin in TaggedText mode.
-  /// </summary>
-  public string FieldCharBeginTag = "<fcb/>";
-
-  /// <summary>
-  /// Char to mark field char separator in PlainText mode.
-  /// </summary>
-  public const char FieldCharSeparateChar = '\uE022';
-
-  /// <summary>
-  /// Tag to mark field char separator in TaggedText mode.
-  /// </summary>
-  public string FieldCharSeparateTag = "<fcs/>";
-
-  /// <summary>
-  /// Char to mark field char end in PlainText mode.
-  /// </summary>
-  public const char FieldCharEndChar = '\uE023';
-
-  /// <summary>
-  /// Tag to mark field char end in TaggedText mode.
-  /// </summary>
-  public string FieldCharEndTag = "<fce/>";
-
-  /// <summary>
   /// Tag to start a field.
   /// </summary>
   public string FieldStartTag { get; set; } = "<field>";
@@ -592,55 +669,28 @@ public record TextOptions
   public string CommentRefEnd { get; set; } = "/>";
 
   /// <summary>
-  /// Tag to mark an annotation reference mark in PlainText mode.
+  /// Tag to mark an annotation reference mark.
   /// </summary>
-  public const char AnnotationReferenceMarkChar = '\uE00A';
+  public string AnnotationReferenceMarkTag => Tags.AnnotationReferenceMarkTag;
 
   /// <summary>
-  /// Tag to mark an annotation reference mark in TaggedText mode.
+  /// Tag to mark an endnote reference mark.
   /// </summary>
-  public string AnnotationReferenceMarkTag = "<an/>";
-
-
-  /// <summary>
-  /// Char to mark an endnote reference mark in PlainText mode.
-  /// </summary>
-  public const char FootnoteReferenceMarkChar = '\uE00F';
+  public string FootnoteReferenceMarkTag => Tags.FootnoteReferenceMarkTag;
 
   /// <summary>
-  /// Tag to mark an endnote reference mark in TaggedText mode.
+  /// Tag to mark an endnote reference mark.
   /// </summary>
-  public string FootnoteReferenceMarkTag = "<fn/>";
+  public string EndnoteReferenceMarkTag => Tags.EndnoteReferenceMarkTag;
 
   /// <summary>
-  /// Tag to mark an endnote reference mark in PlainText mode.
+  /// Tag to mark a footnotes/endnotes separator mark.
   /// </summary>
-  public const char EndnoteReferenceMarkChar = '\uE00E';
-
+  public string SeparatorMarkTag => Tags.SeparatorMarkTag;
   /// <summary>
-  /// Tag to mark an endnote reference mark in TaggedText mode.
+  /// Tag to mark a continuation separator mark.
   /// </summary>
-  public string EndnoteReferenceMarkTag = "<en/>";
-
-  /// <summary>
-  /// Char to mark a footnotes/endnotes separator mark in PlainText mode.
-  /// </summary>
-  public const char SeparatorMarkChar = '\uE00D';
-
-  /// <summary>
-  /// Tag to mark a footnotes/endnotes separator mark in TaggedText mode.
-  /// </summary>
-  public string SeparatorMarkTag = "<sep/>";
-
-  /// <summary>
-  /// Char to mark a continuation separator mark in PlainText mode.
-  /// </summary>
-  public const char ContinuationSeparatorMarkChar = '\uE00C';
-
-  /// <summary>
-  /// Tag to mark a continuation separator mark in TaggedText mode.
-  /// </summary>
-  public string ContinuationSeparatorMarkTag = "<cont/>";
+  public string ContinuationSeparatorMarkTag => Tags.ContinuationSeparatorMarkTag;
 
   #region Numbering options
   /// <summary>

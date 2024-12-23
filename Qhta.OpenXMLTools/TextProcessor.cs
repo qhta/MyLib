@@ -19,35 +19,6 @@ public class TextProcessor
     FormattedText = new FormattedText(paragraph);
   }
 
-  /// <summary>
-  /// Remove exceeding whitespaces from all paragraphs in the context.
-  /// </summary>
-  public void NormalizeWhitespaces(WhitespaceOptions options)
-  {
-    var text = FormattedText.GetText();
-    var startSpacesLength = 0;
-    var endSpacesLength = 0;
-    for (int i = 0; i < text.Length; i++)
-    {
-      if (char.IsWhiteSpace(text[i]))
-      {
-        startSpacesLength++;
-      }
-      else break;
-    }
-    if (startSpacesLength < text.Length)
-    {
-      for (int i = text.Length - 1; i >= 0; i--)
-      {
-        if (char.IsWhiteSpace(text[i]))
-        {
-          endSpacesLength++;
-        }
-        else break;
-      }
-    }
-  }
-
   private void NormalizeSpacesAtStart(string text, int j, WhitespaceOptions options)
   {
     if (options.Start == WsMode.Remove)

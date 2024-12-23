@@ -11543,6 +11543,146 @@
             
             </summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags">
+            <summary>
+            Tag to mark special characters.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.TabTag">
+            <summary>
+            Represents a tab element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.BreakLineTag">
+            <summary>
+            Represents a line break element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.BreakColumnTag">
+            <summary>
+            Represents a column break element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.BreakPageTag">
+            <summary>
+            Represents a page break element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.CarriageReturnTag">
+            <summary>
+            Represents a carriage return element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.SoftHyphenTag">
+            <summary>
+            Represents a soft hyphen element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.NoBreakHyphenTag">
+            <summary>
+            Represents a non-break hyphen element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.PositionalTabTag">
+            <summary>
+            Represents a positional tab element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.AnnotationReferenceMarkTag">
+            <summary>
+            Represents an annotation reference mark element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FootnoteReferenceMarkTag">
+            <summary>
+            Represents a footnote reference mark element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.EndnoteReferenceMarkTag">
+            <summary>
+            Represents an endnote reference mark element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.SeparatorMarkTag">
+            <summary>
+            Represents a separator mark element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.ContinuationSeparatorMarkTag">
+            <summary>
+             Represents a continuation separator mark element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.LastRenderedPageBreakTag">
+            <summary>
+            Represents a last rendered page break element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.PageNumberTag">
+            <summary>
+            Represents a page number element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.DayLongTag">
+            <summary>
+            Represents a DayLong element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.DayShortTag">
+            <summary>
+            Represents a DayShort element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.MonthLongTag">
+            <summary>
+            Represents a MonthLong element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.MonthShortTag">
+            <summary>
+            Represents a MonthShort element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.YearLongTag">
+            <summary>
+            Represents a YearLong element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.YearShortTag">
+            <summary>
+            Represents a YearShort element.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FieldCharBeginTag">
+            <summary>
+            Represents a field char begin.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FieldCharSeparateTag">
+            <summary>
+            Represents a field char separate.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FieldCharEndTag">
+            <summary>
+            Represents a field char end.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.PlainTextTags">
+            <summary>
+            Special characters tags for plain text.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.XmlTags">
+            <summary>
+            Special characters tags for XML-tagged text.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.Tags">
+            <summary>
+            Configured property set of special characters tags.
+            </summary>
+        </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.EscChar">
             <summary>
             Marker to precede a tag.
@@ -11614,169 +11754,104 @@
             Tag to mark a new line.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.TabChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.TabTag">
             <summary>
-            Char to mark a tab character in PlainText mode.
+            Tag to mark a TabChar
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.TabTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.BreakLineTag">
             <summary>
-            Tag to mark a tab character in TaggedText mode.
+            Tag to mark a line break.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakLineChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.BreakColumnTag">
             <summary>
-            Char to mark a line break in PlainText mode.
+            Tag to mark a column break.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakLineTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.BreakPageTag">
             <summary>
-            Tag to mark a line break in TaggedText mode.
+            Tag to mark a page break.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakColumnChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.CarriageReturnTag">
             <summary>
-            Char to mark a column break in PlainText mode.
+            Tag to mark a carriage return.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakColumnTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.SoftHyphenTag">
             <summary>
-            Tag to mark a column break in TaggedText mode.
+            Tag to mark a soft hyphen.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakPageChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenTag">
             <summary>
-            Char to mark a page break in PlainText mode.
+            Tag to mark a non-break hyphen.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.BreakPageTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.PositionalTabTag">
             <summary>
-            Tag to mark a page break in TaggedText mode.
+            Tag to mark a PositionalTab.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.CarriageReturnChar">
-            <summary>
-            Char to mark a carriage return in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.CarriageReturnTag">
-            <summary>
-            Tag to mark a carriage return in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SoftHyphenChar">
-            <summary>
-            Char to mark a soft hyphen in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SoftHyphenTag">
-            <summary>
-            Tag to mark a soft hyphen in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenChar">
-            <summary>
-            Char to mark a non-break hyphen in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.NoBreakHyphenTag">
-            <summary>
-            Tag to mark a non-break hyphen in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.PositionalTabChar">
-            <summary>
-            Char to mark a Positional tab in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.PositionalTabTab">
-            <summary>
-            Positional tab replacement char.
-            </summary>
-        </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.OtherObjectSubstituteTag">
-            <summary>
-            Tag to mark other object in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.PageNumberChar">
-            <summary>
-            Char to mark a page number in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.PageNumberTag">
-            <summary>
-            Tag to mark a page number in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakTag">
             <summary>
             Tag to mark a last rendered page break.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.LastRenderedPageBreakTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.PageNumberTag">
             <summary>
-            Tag to mark a last rendered page break.
+            Tag to mark a page number.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.DayLongChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DayLongTag">
             <summary>
             Tag to mark a DayLong element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.DayLongTag">
-            <summary>
-            Tag to mark a DayLong element in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.DayShortChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.DayShortTag">
             <summary>
             Tag to mark a DayShort element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.DayShortTag">
-            <summary>
-            Tag to mark a DayShort element in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthLongChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.MonthLongTag">
             <summary>
             Tag to mark a MonthLong element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthLongTag">
-            <summary>
-            Tag to mark a MonthLong element in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthShortChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.MonthShortTag">
             <summary>
             Tag to mark a MonthShort element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.MonthShortTag">
-            <summary>
-            Tag to mark a MonthShort element in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.YearLongChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.YearLongTag">
             <summary>
             Tag to mark a YearLong element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.YearLongTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.YearShortTag">
             <summary>
-            Tag to mark a YearLong element in TaggedText mode.
+            Tag to mark a YearShort element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.YearShortChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FieldCharBeginTag">
             <summary>
-            Char to mark a YearShort element in PlainText mode.
+            Tag to mark a FieldChar element with FieldCharType = begin.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.YearShortTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FieldCharSeparateTag">
             <summary>
-            Tag to mark a YearShort element in TaggedText mode.
+            Tag to mark a FieldChar element with FieldCharType = separate.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FieldCharEndTag">
+            <summary>
+            Tag to mark a FieldChar element with FieldCharType = end.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.OtherObjectSubstituteTag">
+            <summary>
+            Tag to mark other object.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IgnoreEmptyParagraphs">
@@ -11949,36 +12024,6 @@
             Include formula result text.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharBeginChar">
-            <summary>
-            Char to mark field char begin in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharBeginTag">
-            <summary>
-            Tag to mark field char begin in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharSeparateChar">
-            <summary>
-            Char to mark field char separator in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharSeparateTag">
-            <summary>
-            Tag to mark field char separator in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharEndChar">
-            <summary>
-            Char to mark field char end in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FieldCharEndTag">
-            <summary>
-            Tag to mark field char end in TaggedText mode.
-            </summary>
-        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.FieldStartTag">
             <summary>
             Tag to start a field.
@@ -12034,54 +12079,29 @@
             Tag to end a comment reference.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMarkChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMarkTag">
             <summary>
-            Tag to mark an annotation reference mark in PlainText mode.
+            Tag to mark an annotation reference mark.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.AnnotationReferenceMarkTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMarkTag">
             <summary>
-            Tag to mark an annotation reference mark in TaggedText mode.
+            Tag to mark an endnote reference mark.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMarkChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMarkTag">
             <summary>
-            Char to mark an endnote reference mark in PlainText mode.
+            Tag to mark an endnote reference mark.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.FootnoteReferenceMarkTag">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.SeparatorMarkTag">
             <summary>
-            Tag to mark an endnote reference mark in TaggedText mode.
+            Tag to mark a footnotes/endnotes separator mark.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMarkChar">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMarkTag">
             <summary>
-            Tag to mark an endnote reference mark in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.EndnoteReferenceMarkTag">
-            <summary>
-            Tag to mark an endnote reference mark in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SeparatorMarkChar">
-            <summary>
-            Char to mark a footnotes/endnotes separator mark in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SeparatorMarkTag">
-            <summary>
-            Tag to mark a footnotes/endnotes separator mark in TaggedText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMarkChar">
-            <summary>
-            Char to mark a continuation separator mark in PlainText mode.
-            </summary>
-        </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.ContinuationSeparatorMarkTag">
-            <summary>
-            Tag to mark a continuation separator mark in TaggedText mode.
+            Tag to mark a continuation separator mark.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.IncludeParagraphNumbering">
@@ -12204,11 +12224,6 @@
             Construct a formatted text using paragraph as a context element.
             </summary>
             <param name="paragraph"></param>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.NormalizeWhitespaces(Qhta.OpenXmlTools.WhitespaceOptions)">
-            <summary>
-            Remove exceeding whitespaces from all paragraphs in the context.
-            </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.TextProperties">
             <summary>

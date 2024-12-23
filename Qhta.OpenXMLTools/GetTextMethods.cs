@@ -265,7 +265,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.TabChar tabChar, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.TabChar, 1) : options.TabTag;
+    return options.TabTag;
   }
 
   /// <summary>
@@ -276,7 +276,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.SoftHyphen softHyphen, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.SoftHyphenChar, 1) : options.SoftHyphenTag;
+    return options.SoftHyphenTag;
   }
 
   /// <summary>
@@ -287,7 +287,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.NoBreakHyphen noBreakHyphen, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.NoBreakHyphenChar, 1) : options.NoBreakHyphenTag;
+    return options.NoBreakHyphenTag;
   }
 
   /// <summary>
@@ -298,7 +298,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.CarriageReturn carriageReturn, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.CarriageReturnChar, 1) : options.CarriageReturnTag;
+    return options.CarriageReturnTag;
   }
 
   /// <summary>
@@ -309,7 +309,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.LastRenderedPageBreak lastRenderedPageBreak, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.LastRenderedPageBreakChar, 1) : options.LastRenderedPageBreakTag;
+    return options.LastRenderedPageBreakTag;
   }
 
   /// <summary>
@@ -320,7 +320,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.PageNumber pageNumber, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.PageNumberChar, 1) : options.PageNumberTag;
+    return options.PageNumberTag;
   }
 
   /// <summary>
@@ -385,14 +385,14 @@ public static class GetTextMethods
     {
       string result = String.Empty;
       if (@break.Type?.Value == BreakValues.Page)
-        result = new String(TextOptions.BreakPageChar, 1);
+        result = options.BreakPageTag;
       else if (@break.Type?.Value == BreakValues.Column)
-        result = new String(TextOptions.BreakColumnChar, 1);
+        result = options.BreakColumnTag;
       else if (@break.Type?.Value == BreakValues.TextWrapping)
       {
-        result = new String(TextOptions.BreakLineChar, 1);
-        if (@break.Clear?.HasValue==true)
-          result += '{' + "Clear=" + @break.Clear.Value.ToString().ToLower() + '}';
+        result = options.BreakLineTag;
+        if (@break.Clear?.HasValue == true)
+          result += '{' + "Clear=" + @break.Clear.ToString()?.ToLower() + '}';
         else
           result += ' ';
       }
@@ -453,61 +453,14 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.FieldChar fieldChar, TextOptions options)
   {
-    if (options.IncludeFieldFormula)
-    {
-      if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
-        return options.FieldStartTag;
-      else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
-        return options.FieldResultTag;
-      else if (fieldChar.FieldCharType?.Value == FieldCharValues.End) 
-        return options.FieldEndTag;
-    }
-    else if(options.Mode == TextOptions.TextMode.PlainText)
-    {
-      if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
-        return new String(TextOptions.FieldCharBeginChar,1);
-      else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
-        return new String(TextOptions.FieldCharSeparateChar, 1);
-      else if (fieldChar.FieldCharType?.Value == FieldCharValues.End)
-        return new String(TextOptions.FieldCharEndChar, 1);
-    }
-    {
-      if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
-        return options.FieldCharBeginTag;
-      else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
-        return options.FieldCharSeparateTag;
-      else if (fieldChar.FieldCharType?.Value == FieldCharValues.End)
-        return options.FieldCharEndTag;
-    }
+    if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
+      return options.FieldCharBeginTag;
+    else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
+      return options.FieldCharSeparateTag;
+    else if (fieldChar.FieldCharType?.Value == FieldCharValues.End)
+      return options.FieldCharEndTag;
     return string.Empty;
   }
-
-  ///// <summary>
-  ///// Set the text of the FieldChar element.
-  ///// </summary>
-  ///// <param name="fieldChar"></param>
-  ///// <param name="text">text to check</param>
-  ///// <param name="options"></param>
-  ///// <returns></returns>
-  //public static bool SetTextOf(this DXW.FieldChar fieldChar, string text, TextOptions options)
-  //{
-  //  if (text == options.FieldStartTag)
-  //  {
-  //    fieldChar.FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(FieldCharValues.Begin);
-  //    return true;
-  //  }
-  //  if (text == options.FieldResultTag)
-  //  {
-  //    fieldChar.FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(FieldCharValues.Separate);
-  //    return true;
-  //  }
-  //  if (text == options.FieldEndTag)
-  //  {
-  //    fieldChar.FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(FieldCharValues.End);
-  //    return true;
-  //  }
-  //  return false;
-  //}
 
   /// <summary>
   /// Get the text of the FieldCode element.
@@ -535,8 +488,6 @@ public static class GetTextMethods
              options.FieldResultTag + GetSystemLongDay(dayLong.GetMainDocumentPart()!) + options.FieldEndTag;
     else if (options.IncludeFieldResult)
       return GetSystemLongDay(dayLong.GetMainDocumentPart()!);
-    if (options.Mode == TextOptions.TextMode.PlainText)
-      return new String(TextOptions.DayLongChar, 1);
     return options.DayLongTag;
   }
 
@@ -573,8 +524,6 @@ public static class GetTextMethods
              options.FieldResultTag + GetSystemShortDay(dayShort.GetMainDocumentPart()!) + options.FieldEndTag;
     else if (options.IncludeFieldResult)
       return GetSystemShortDay(dayShort.GetMainDocumentPart()!);
-    if (options.Mode == TextOptions.TextMode.PlainText)
-      return new String(TextOptions.DayShortChar, 1);
     return options.DayShortTag;
   }
 
@@ -609,10 +558,6 @@ public static class GetTextMethods
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "MonthLong" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemLongMonth(MonthLong.GetMainDocumentPart()!) + options.FieldEndTag;
-    else if (options.IncludeFieldResult)
-      return GetSystemLongMonth(MonthLong.GetMainDocumentPart()!);
-    if (options.Mode == TextOptions.TextMode.PlainText)
-      return new String(TextOptions.MonthLongChar, 1);
     return options.MonthLongTag;
   }
 
@@ -647,10 +592,6 @@ public static class GetTextMethods
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "MonthShort" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemShortMonth(MonthShort.GetMainDocumentPart()!) + options.FieldEndTag;
-    else if (options.IncludeFieldResult)
-      return GetSystemShortMonth(MonthShort.GetMainDocumentPart()!);
-    if (options.Mode == TextOptions.TextMode.PlainText)
-      return new String(TextOptions.MonthShortChar, 1);
     return options.MonthShortTag;
   }
 
@@ -685,10 +626,6 @@ public static class GetTextMethods
     if (options.IncludeFieldFormula)
       return options.FieldStartTag + options.FieldCodeStart + "YearLong" + options.FieldCodeEnd +
              options.FieldResultTag + GetSystemLongYear(YearLong.GetMainDocumentPart()!) + options.FieldEndTag;
-    else if (options.IncludeFieldResult)
-      return GetSystemLongYear(YearLong.GetMainDocumentPart()!);
-    if (options.Mode == TextOptions.TextMode.PlainText)
-      return new String(TextOptions.YearLongChar, 1);
     return options.YearLongTag;
   }
 
@@ -725,10 +662,6 @@ public static class GetTextMethods
              options.FieldResultTag + GetSystemShortYear(YearShort.GetMainDocumentPart()!) + options.FieldEndTag;
     else if (options.IncludeFieldResult)
       return GetSystemShortYear(YearShort.GetMainDocumentPart()!);
-    if (options.IncludeFieldResult)
-      return GetSystemShortYear(YearShort.GetMainDocumentPart()!);
-    if (options.Mode == TextOptions.TextMode.PlainText)
-      return new String(TextOptions.YearShortChar,1);
     return options.YearShortTag;
   }
 
@@ -793,7 +726,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.FootnoteReferenceMark footnoteReferenceMark, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.FootnoteReferenceMarkChar, 1) : options.FootnoteReferenceMarkTag;
+    return options.FootnoteReferenceMarkTag;
   }
 
   /// <summary>
@@ -804,7 +737,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.EndnoteReferenceMark endnoteReferenceMark, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.EndnoteReferenceMarkChar, 1) : options.EndnoteReferenceMarkTag;
+    return options.EndnoteReferenceMarkTag;
   }
 
   /// <summary>
@@ -815,7 +748,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.AnnotationReferenceMark annotationReferenceMark, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.AnnotationReferenceMarkChar, 1) : options.AnnotationReferenceMarkTag;
+    return options.AnnotationReferenceMarkTag;
   }
 
   /// <summary>
@@ -826,7 +759,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.SeparatorMark SeparatorMark, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.SeparatorMarkChar, 1) : options.SeparatorMarkTag;
+    return options.SeparatorMarkTag;
   }
 
   /// <summary>
@@ -837,7 +770,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.ContinuationSeparatorMark continuationSeparatorMark, TextOptions options)
   {
-    return options.Mode == TextOptions.TextMode.PlainText ? new string(TextOptions.ContinuationSeparatorMarkChar, 1) : options.ContinuationSeparatorMarkTag;
+    return options.ContinuationSeparatorMarkTag;
   }
 
   /// <summary>

@@ -70,7 +70,7 @@ public class NumberingList(DXW.NumberingInstance instance) : List<DXW.Paragraph>
       aText += " ";
     else
     if (aLevel.LevelSuffix?.Val?.Value == LevelSuffixValues.Tab)
-      aText += TextOptions.TabChar;
+      aText += options.TabTag;
     if (aLevel.LevelSuffix?.Val?.Value != LevelSuffixValues.Nothing)
       aText += options.NumberingEndTag;
     aText= options.NumberingStartTag + aText;

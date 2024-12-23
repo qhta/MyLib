@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 
@@ -50,34 +52,139 @@ public static class SetTextMethods
     var sb = new StringBuilder();
     for (int i = 0; i < text.Length; i++)
     {
-      var c = text[i];
-      if (c == TextOptions.TabChar)
+      if (text.ContainsAt(options.TabTag, i))
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.TabChar());
+        i += options.TabTag.Length - 1;
       }
-      else if (c == TextOptions.CarriageReturnChar)
+      else if (text.ContainsAt(options.CarriageReturnTag, i))
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.CarriageReturn());
+        i += options.CarriageReturnTag.Length - 1;
       }
-      else if (c == TextOptions.SoftHyphenChar)
+      else if (text.ContainsAt(options.SoftHyphenTag, i))
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.SoftHyphen());
+        i += options.SoftHyphenTag.Length - 1;
       }
-      else if (c == TextOptions.NoBreakHyphenChar)
+      else if (text.ContainsAt(options.NoBreakHyphenTag, i))
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.NoBreakHyphen());
+        i += options.NoBreakHyphenTag.Length - 1;
       }
-      else if (c == TextOptions.BreakLineChar)
+      else if (text.ContainsAt(options.LastRenderedPageBreakTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.LastRenderedPageBreak());
+        i += options.LastRenderedPageBreakTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.PageNumberTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.PageNumber());
+        i += options.PageNumberTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.AnnotationReferenceMarkTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.AnnotationReferenceMark());
+        i += options.AnnotationReferenceMarkTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.FootnoteReferenceMarkTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FootnoteReferenceMark());
+        i += options.FootnoteReferenceMarkTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.EndnoteReferenceMarkTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.EndnoteReferenceMark());
+        i += options.EndnoteReferenceMarkTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.SeparatorMarkTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.SeparatorMark());
+        i += options.SeparatorMarkTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.ContinuationSeparatorMarkTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.ContinuationSeparatorMark());
+        i += options.ContinuationSeparatorMarkTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.PageNumberTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.PageNumber());
+        i += options.PageNumberTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.DayLongTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.DayLong());
+        i += options.DayLongTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.DayShortTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.DayShort());
+        i += options.DayShortTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.MonthLongTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.MonthLong());
+        i += options.MonthLongTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.MonthShortTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.MonthShort());
+        i += options.MonthShortTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.YearLongTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.YearLong());
+        i += options.YearLongTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.YearShortTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.YearShort());
+        i += options.YearShortTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.FieldCharBeginTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Begin) });
+        i += options.FieldCharBeginTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.FieldCharSeparateTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Separate) });
+        i += options.FieldCharSeparateTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.FieldCharEndTag, i))
+      {
+        run.TryAddCollectedText(sb);
+        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.End) });
+        i += options.FieldCharEndTag.Length - 1;
+      }
+      else if (text.ContainsAt(options.BreakLineTag, i))
       {
         run.TryAddCollectedText(sb);
         var breakElement = new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.TextWrapping) };
         if (i < text.Length)
         {
-          i++;
+          i += options.BreakLineTag.Length;
           var ch = text[i];
           if (ch == '{')
           {
@@ -92,99 +199,21 @@ public static class SetTextMethods
         }
         run.AppendChild(breakElement);
       }
-      else if (c == TextOptions.BreakColumnChar)
+      else if (text.ContainsAt(options.BreakColumnTag, i))
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Column) });
+        i += options.BreakColumnTag.Length - 1;
       }
-      else if (c == TextOptions.BreakPageChar)
+      else if (text.ContainsAt(options.BreakPageTag, i))
       {
         run.TryAddCollectedText(sb);
         run.AppendChild(new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.Page) });
-      }
-      else if (c == TextOptions.AnnotationReferenceMarkChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.AnnotationReferenceMark());
-      }
-      else if (c == TextOptions.LastRenderedPageBreakChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.LastRenderedPageBreak());
-      }
-      else if (c == TextOptions.ContinuationSeparatorMarkChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.ContinuationSeparatorMark());
-      }
-      else if (c == TextOptions.SeparatorMarkChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.SeparatorMark());
-      }
-      else if (c == TextOptions.EndnoteReferenceMarkChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.EndnoteReferenceMark());
-      }
-      else if (c == TextOptions.FootnoteReferenceMarkChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.FootnoteReferenceMark());
-      }
-      else if (c == TextOptions.PageNumberChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.PageNumber());
-      }
-      else if (c == TextOptions.DayLongChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.DayLong());
-      }
-      else if (c == TextOptions.DayShortChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.DayShort());
-      }
-      else if (c == TextOptions.MonthLongChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.MonthLong());
-      }
-      else if (c == TextOptions.MonthShortChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.MonthShort());
-      }
-      else if (c == TextOptions.YearLongChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.YearLong());
-      }
-      else if (c == TextOptions.YearShortChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.YearShort());
-      }
-      else if (c == TextOptions.FieldCharBeginChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Begin) });
-      }
-      else if (c == TextOptions.FieldCharSeparateChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Separate) });
-      }
-      else if (c == TextOptions.FieldCharEndChar)
-      {
-        run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.End) });
+        i += options.BreakPageTag.Length - 1;
       }
       else
       {
-        sb.Append(c);
+        sb.Append(text[i]);
       }
     }
     run.TryAddCollectedText(sb);
@@ -208,7 +237,7 @@ public static class SetTextMethods
 
   private static void SetAttribute(this DX.OpenXmlElement element, string name, string value)
   {
-    var property = element.GetType().GetProperty(name, BindingFlags.IgnoreCase);
+    var property = element.GetType().GetProperty(name, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
     if (property == null)
       throw new InvalidOperationException($"Property {name} not found in {element.GetType()}");
     var type = property.PropertyType;
@@ -226,36 +255,13 @@ public static class SetTextMethods
       if (bool.TryParse(value, out var b))
         property.SetValue(element, b);
     }
-    else if (type.Implements(typeof(DX.IEnumValue)))
+    else if (type.IsConstructedGenericType && type.GetGenericTypeDefinition()==typeof(DX.EnumValue<>))
     {
+      
       var enumType = type.GetGenericArguments()[0];
-      var enumValue = Enum.Parse(enumType, value); 
+      var enumValues = enumType.GetConstructor([typeof(string)])!.Invoke(new object[] { value });
+      var enumValue = Activator.CreateInstance(type, new object[]{ enumValues });
       property.SetValue(element, enumValue);
-    }
-    else if (type == typeof(DX.EnumValue<DXW.BreakValues>))
-    {
-      if (Enum.TryParse<DXW.BreakValues>(value, out var v))
-        property.SetValue(element, new DX.EnumValue<DXW.BreakValues>(v));
-    }
-    else if (type == typeof(DX.EnumValue<DXW.BreakTextRestartLocationValues>))
-    {
-      if (Enum.TryParse<DXW.BreakTextRestartLocationValues>(value, out var v))
-        property.SetValue(element, new DX.EnumValue<DXW.BreakTextRestartLocationValues>(v));
-    }
-    else if (type == typeof(DX.EnumValue<DXW.FieldCharValues>))
-    {
-      if (Enum.TryParse<DXW.FieldCharValues>(value, out var v))
-        property.SetValue(element, new DX.EnumValue<DXW.FieldCharValues>(v));
-    }
-    else if (type == typeof(DX.EnumValue<DXW.BreakTextRestartLocationValues>))
-    {
-      if (Enum.TryParse<DXW.BreakTextRestartLocationValues>(value, out var v))
-        property.SetValue(element, new DX.EnumValue<DXW.BreakTextRestartLocationValues>(v));
-    }
-    else if (type == typeof(DX.EnumValue<DXW.FieldCharValues>))
-    {
-      if (Enum.TryParse<DXW.FieldCharValues>(value, out var v))
-        property.SetValue(element, new DX.EnumValue<DXW.FieldCharValues>(v));
     }
   }
 
