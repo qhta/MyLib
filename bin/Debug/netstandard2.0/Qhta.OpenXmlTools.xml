@@ -39,6 +39,96 @@
             <param name="abstractNum"></param>
             <param name="multiLevelType"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.AttributeValue">
+            <summary>
+            Attribute name-value pair.
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AttributeValue.#ctor(System.String,System.String)">
+            <summary>
+            Attribute name-value pair.
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AttributeValue.Name">
+            <summary>
+            Attribute name.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.AttributeValue.Value">
+            <summary>
+            Attribute value.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.AttributeFormatter">
+            <summary>
+            Class to format attribute name-value pairs.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AttributeFormatter.GetIncludedAttributesText(Qhta.OpenXmlTools.AttributeValue[])">
+            <summary>
+            Method to get the text formatted of several included attributes.
+            </summary>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AttributeFormatter.GetAttributeText(Qhta.OpenXmlTools.AttributeValue)">
+            <summary>
+            Method to get the text formatted of one attribute value.
+            </summary>
+            <param name="attributeValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AttributeFormatter.GetIncludedAttributesValue(System.String)">
+            <summary>
+            Method to get the attribute values of several included attributes.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.AttributeFormatter.GetAttributeValue(System.String)">
+            <summary>
+            Method to get attribute value of a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.PlainAttributeFormatter">
+            <summary>
+            Class to format attribute name-value pairs in plain text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PlainAttributeFormatter.GetIncludedAttributesText(Qhta.OpenXmlTools.AttributeValue[])">
+            <summary>
+            Method to get the text formatted of several included attributes.
+            </summary>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PlainAttributeFormatter.GetAttributeText(Qhta.OpenXmlTools.AttributeValue)">
+            <summary>
+            Method to get the text formatted of one attribute.
+            </summary>
+            <param name="attributeValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PlainAttributeFormatter.GetIncludedAttributesValue(System.String)">
+            <summary>
+            Method to get the attribute values of several included attributes.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PlainAttributeFormatter.GetAttributeValue(System.String)">
+            <summary>
+            Method to get attribute value of a string.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.BodyTools">
             <summary>
             Extension methods for the Body class.
@@ -1040,7 +1130,7 @@
             PlainText of the run element.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.RunText.PlainText">
+        <member name="P:Qhta.OpenXmlTools.RunText.Text">
             <summary>
             Get the plain text of the run element.
             </summary>
@@ -1064,11 +1154,12 @@
             Represents a list of run-text pairs.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
             <summary>
             Construct a formatted text using paragraph as a context element.
             </summary>
             <param name="paragraph"></param>
+            <param name="textOptions"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.GetText">
             <summary>
@@ -1076,21 +1167,23 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.String,DocumentFormat.OpenXml.OpenXmlElement[])">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.String,Qhta.OpenXmlTools.TextOptions,DocumentFormat.OpenXml.OpenXmlElement[])">
             <summary>
             Set the text to the all Run elements.
-            Text is split with TextOptions PlainText RunSeparator.
+            Text is split with TextOptions RunSeparator.
             Number of text parts must be equal to the number of Run elements.
             </summary>
             <param name="text"></param>
+            <param name="textOptions"></param>
             <param name="objects">Member object assigned to object representing characters</param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String,DocumentFormat.OpenXml.OpenXmlElement[])">
+        <member name="M:Qhta.OpenXmlTools.FormattedText.SetText(System.Int32,System.String,Qhta.OpenXmlTools.TextOptions,DocumentFormat.OpenXml.OpenXmlElement[])">
             <summary>
             Set the text of the specified item and pass it to the Run element.
             </summary>
             <param name="index"></param>
             <param name="text"></param>
+            <param name="textOptions"></param>
             <param name="objects">Member object assigned to object representing characters</param>
         </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.SetFormat(System.Int32,Qhta.OpenXmlTools.TextFormat)">
@@ -11518,24 +11611,29 @@
             <param name="other"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.OpenXmlTools.TextOptions">
-            <summary>
-            Options for getting text.
-            </summary>
-        </member>
-        <member name="T:Qhta.OpenXmlTools.TextOptions.TextMode">
+        <member name="T:Qhta.OpenXmlTools.FormattedTextMode">
             <summary>
             Mode to get text.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.TextMode.PlainText">
+        <member name="F:Qhta.OpenXmlTools.FormattedTextMode.PlainText">
             <summary>
             Get plain text.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.TextMode.TaggedText">
+        <member name="F:Qhta.OpenXmlTools.FormattedTextMode.RichText">
+            <summary>
+            Get text with tags starting with '\'.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.FormattedTextMode.XmlTagged">
             <summary>
             Get text with XML tags.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.TextOptions">
+            <summary>
+            Options for getting text.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.Mode">
@@ -11543,134 +11641,149 @@
             
             </summary>
         </member>
-        <member name="T:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags">
+        <member name="T:Qhta.OpenXmlTools.TextOptions.FormattedTextTags">
             <summary>
             Tag to mark special characters.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.TabTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.TabTag">
             <summary>
             Represents a tab element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.BreakLineTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.BreakLineTag">
             <summary>
             Represents a line break element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.BreakColumnTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.BreakColumnTag">
             <summary>
             Represents a column break element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.BreakPageTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.BreakPageTag">
             <summary>
             Represents a page break element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.CarriageReturnTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.CarriageReturnTag">
             <summary>
             Represents a carriage return element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.SoftHyphenTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.SoftHyphenTag">
             <summary>
             Represents a soft hyphen element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.NoBreakHyphenTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.NoBreakHyphenTag">
             <summary>
             Represents a non-break hyphen element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.PositionalTabTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.PositionalTabTag">
             <summary>
             Represents a positional tab element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.AnnotationReferenceMarkTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.AnnotationReferenceMarkTag">
             <summary>
             Represents an annotation reference mark element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FootnoteReferenceMarkTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.FootnoteReferenceMarkTag">
             <summary>
             Represents a footnote reference mark element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.EndnoteReferenceMarkTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.EndnoteReferenceMarkTag">
             <summary>
             Represents an endnote reference mark element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.SeparatorMarkTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.SeparatorMarkTag">
             <summary>
             Represents a separator mark element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.ContinuationSeparatorMarkTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.ContinuationSeparatorMarkTag">
             <summary>
              Represents a continuation separator mark element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.LastRenderedPageBreakTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.LastRenderedPageBreakTag">
             <summary>
             Represents a last rendered page break element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.PageNumberTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.PageNumberTag">
             <summary>
             Represents a page number element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.DayLongTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.DayLongTag">
             <summary>
             Represents a DayLong element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.DayShortTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.DayShortTag">
             <summary>
             Represents a DayShort element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.MonthLongTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.MonthLongTag">
             <summary>
             Represents a MonthLong element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.MonthShortTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.MonthShortTag">
             <summary>
             Represents a MonthShort element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.YearLongTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.YearLongTag">
             <summary>
             Represents a YearLong element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.YearShortTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.YearShortTag">
             <summary>
             Represents a YearShort element.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FieldCharBeginTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.FieldCharBeginTag">
             <summary>
             Represents a field char begin.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FieldCharSeparateTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.FieldCharSeparateTag">
             <summary>
             Represents a field char separate.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.SpecialCharactersTags.FieldCharEndTag">
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.FieldCharEndTag">
             <summary>
             Represents a field char end.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.ParagraphSeparator">
+            <summary>
+            Tag to insert between paragraphs.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.FormattedTextTags.RunSeparator">
+            <summary>
+            Tag to insert between runs.
             </summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.PlainTextTags">
             <summary>
             Special characters tags for plain text.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.RichTextTags">
+            <summary>
+            Special characters tags for rich text.
             </summary>
         </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.XmlTags">
@@ -11724,9 +11837,15 @@
             Options to get paragraph text.
             </summary>
         </member>
+        <member name="F:Qhta.OpenXmlTools.TextOptions.RichText">
+            <summary>
+            Options to get rich text.
+            Rich text tags are control words starting with '\' with optional parameters in curly braces
+            </summary>
+        </member>
         <member name="F:Qhta.OpenXmlTools.TextOptions.XmlTaggedText">
             <summary>
-            Options to get tabbed text.
+            Options to get xml-tagged text.
             Such characters as &lt;, &gt;, &amp; are replaced with html entities.
             Paragraphs and line breaks are represented with HTML tags.
             Tables are represented as HTML tables.
@@ -11879,11 +11998,6 @@
             Tag to insert between table cells in plain text.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.UseHtmlEntities">
-            <summary>
-            Convert plain text to HTML entities.
-            </summary>
-        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseHtmlFormatting">
             <summary>
             Convert Run properties to HTML formatting tags.
@@ -11954,7 +12068,7 @@
             Tag to end a run.
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.TextOptions.RunSeparator">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.RunSeparator">
             <summary>
             Tag to start a run.
             </summary>

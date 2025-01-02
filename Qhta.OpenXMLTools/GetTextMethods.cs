@@ -251,7 +251,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.Text runText, TextOptions options)
   {
-    if (options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
       return runText.Text.HtmlEncode();
     else
       return runText.Text;
@@ -332,7 +332,7 @@ public static class GetTextMethods
   public static string GetTextOf(this DXW.DeletedText element, TextOptions options)
   {
     string text = element.Text;
-    if (options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
       text = text.HtmlEncode();
     return options.DeletedTextStartTag + text + options.DeletedTextEndTag;
   }
@@ -354,7 +354,7 @@ public static class GetTextMethods
   //  if (k >= l)
   //  {
   //    text = text.Substring(l, k - l);
-  //    if (options.UseHtmlEntities)
+  //    if (options.Mode == FormattedTextMode.XmlTagged)
   //      text = text.HtmlDecode();
   //    element.SearchText = text;
   //    return true;
@@ -381,33 +381,19 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.Break @break, TextOptions options)
   {
-    if (options.Mode == TextOptions.TextMode.PlainText)
+    string result = String.Empty;
+    if (@break.Type?.Value == BreakValues.Page)
+      result = options.BreakPageTag;
+    else if (@break.Type?.Value == BreakValues.Column)
+      result = options.BreakColumnTag;
+    else if (@break.Type?.Value == BreakValues.TextWrapping)
+      result = options.BreakLineTag;
+    if (options.Mode == FormattedTextMode.RichText)
     {
-      string result = String.Empty;
-      if (@break.Type?.Value == BreakValues.Page)
-        result = options.BreakPageTag;
-      else if (@break.Type?.Value == BreakValues.Column)
-        result = options.BreakColumnTag;
-      else if (@break.Type?.Value == BreakValues.TextWrapping)
-      {
-        result = options.BreakLineTag;
-        if (@break.Clear?.HasValue == true)
-          result += '{' + "Clear=" + @break.Clear.ToString()?.ToLower() + '}';
-        else
-          result += ' ';
-      }
-      return result;
+      if (@break.Clear?.HasValue == true)
+        result += '{' + "clear=" + @break.Clear.ToString()?.ToLower() + '}';
     }
-    else
-    {
-      if (@break.Type?.Value == BreakValues.Page)
-        return options.BreakPageTag;
-      else if (@break.Type?.Value == BreakValues.Column)
-        return options.BreakColumnTag;
-      else if (@break.Type?.Value == BreakValues.TextWrapping)
-        return options.BreakLineTag;
-      return String.Empty;
-    }
+    return result;
   }
 
   /// <summary>
@@ -453,13 +439,19 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.FieldChar fieldChar, TextOptions options)
   {
+    var result = String.Empty;
     if (fieldChar.FieldCharType?.Value == FieldCharValues.Begin)
-      return options.FieldCharBeginTag;
+      result = options.FieldCharBeginTag;
     else if (fieldChar.FieldCharType?.Value == FieldCharValues.Separate)
-      return options.FieldCharSeparateTag;
+      result = options.FieldCharSeparateTag;
     else if (fieldChar.FieldCharType?.Value == FieldCharValues.End)
-      return options.FieldCharEndTag;
-    return string.Empty;
+      result = options.FieldCharEndTag;
+    if (options.Mode == FormattedTextMode.RichText)
+    {
+      if (fieldChar.Dirty?.HasValue == true)
+        result += '{' + "dirty=" + fieldChar.Dirty.ToString()?.ToLower() + '}';
+    }
+    return result;
   }
 
   /// <summary>
@@ -984,7 +976,7 @@ public static class GetTextMethods
   public static string GetTextOf(this DXW.Ruby ruby, TextOptions options)
   {
     StringBuilder sb = new();
-    if (options.UseHtmlFormatting && options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
     {
       //if (ruby.RubyProperties?.GetBold(false) == true)
       //  sb.Append(options.BoldStartTag);
@@ -1003,7 +995,7 @@ public static class GetTextMethods
       else
         sb.Append(member.GetText(options));
     }
-    if (options.UseHtmlFormatting && options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
     {
       //if (ruby.RubyProperties?.GetVerticalPosition() == DXW.VerticalPositionValues.Subscript)
       //  sb.Append(options.SubscriptEndTag);

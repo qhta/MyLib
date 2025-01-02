@@ -6,35 +6,41 @@ using DocumentFormat.OpenXml.Office2010.PowerPoint;
 namespace Qhta.OpenXmlTools;
 
 /// <summary>
+/// Mode to get text.
+/// </summary>
+public enum FormattedTextMode
+{
+  /// <summary>
+  /// Get plain text.
+  /// </summary>
+  PlainText,
+  /// <summary>
+  /// Get text with tags starting with '\'.
+  /// </summary>
+  RichText,
+  /// <summary>
+  /// Get text with XML tags.
+  /// </summary>
+  XmlTagged,
+}
+
+/// <summary>
 /// Options for getting text.
 /// </summary>
 [DebuggerStepThrough]
 public record TextOptions
 {
-  /// <summary>
-  /// Mode to get text.
-  /// </summary>
-  public enum TextMode
-  {
-    /// <summary>
-    /// Get plain text.
-    /// </summary>
-    PlainText,
-    /// <summary>
-    /// Get text with XML tags.
-    /// </summary>
-    TaggedText,
-  }
+
 
   /// <summary>
   /// 
   /// </summary>
-  public TextMode Mode { get; set; } = TextMode.PlainText;
+  public FormattedTextMode Mode { get; set; } = FormattedTextMode.PlainText;
 
   /// <summary>
   /// Tag to mark special characters.
   /// </summary>
-  public record SpecialCharactersTags
+  public record FormattedTextTags
   {
     /// <summary>
     /// Represents a tab element.
@@ -132,12 +138,22 @@ public record TextOptions
     /// Represents a field char end.
     /// </summary>
     public string FieldCharEndTag = null!;
+
+    /// <summary>
+    /// Tag to insert between paragraphs.
+    /// </summary>
+    public string ParagraphSeparator = null!;
+
+    /// <summary>
+    /// Tag to insert between runs.
+    /// </summary>
+    public string RunSeparator = null!;
   }
 
   /// <summary>
   /// Special characters tags for plain text.
   /// </summary>
-  public static readonly SpecialCharactersTags PlainTextTags  = new()
+  public static readonly FormattedTextTags PlainTextTags = new()
   {
     TabTag = "\t",
     BreakLineTag = "\n",
@@ -163,12 +179,46 @@ public record TextOptions
     FieldCharBeginTag = "\uE021",
     FieldCharSeparateTag = "\uE022",
     FieldCharEndTag = "\uE023",
+    ParagraphSeparator = "\u2029",
+    RunSeparator = "\u2028",
   };
 
   /// <summary>
+  /// Special characters tags for rich text.
+  /// </summary>
+  public static readonly FormattedTextTags RichTextTags = new()
+  {
+    TabTag = @"\t",
+    BreakLineTag = @"\n",
+    BreakColumnTag = @"\v",
+    BreakPageTag = @"\f",
+    CarriageReturnTag = @"\r",
+    SoftHyphenTag = @"\softHyphen",
+    NoBreakHyphenTag = @"\noBreakHyphen",
+    PositionalTabTag = @"\ptab",
+    AnnotationReferenceMarkTag = @"\an",
+    LastRenderedPageBreakTag = @"\page",
+    ContinuationSeparatorMarkTag = @"\csep",
+    SeparatorMarkTag = @"\sep",
+    EndnoteReferenceMarkTag = @"\en",
+    FootnoteReferenceMarkTag = @"\fn",
+    PageNumberTag = @"\pn",
+    DayLongTag = @"\dayLong",
+    DayShortTag = @"\dayShort",
+    MonthLongTag = @"\monthLong",
+    MonthShortTag = @"\monthShort",
+    YearLongTag = @"\yearLong",
+    YearShortTag = @"\yearShort",
+    FieldCharBeginTag = @"\fb",
+    FieldCharSeparateTag = @"\fs",
+    FieldCharEndTag = @"\fc",
+    ParagraphSeparator = @"\p",
+    RunSeparator = @"\run",
+  };
+  /// <summary>
   /// Special characters tags for XML-tagged text.
   /// </summary>
-  public static readonly SpecialCharactersTags XmlTags = new()
+  public static readonly FormattedTextTags XmlTags = new()
   {
     TabTag = "<t/>",
     BreakLineTag = "<n/>",
@@ -199,7 +249,7 @@ public record TextOptions
   /// <summary>
   /// Configured property set of special characters tags.
   /// </summary>
-  public SpecialCharactersTags Tags { get; set; } = PlainTextTags;
+  public FormattedTextTags Tags { get; set; } = null!;
 
   /// <summary>
   /// Marker to precede a tag.
@@ -237,8 +287,8 @@ public record TextOptions
   /// </summary>
   public static readonly TextOptions PlainText = new TextOptions
   {
-    Mode = TextMode.PlainText,
-    UseHtmlEntities = false,
+    Tags = PlainTextTags,
+    Mode = FormattedTextMode.PlainText,
     UseHtmlFormatting = false,
     UseHtmlParagraphs = false,
     UseHtmlTables = false,
@@ -261,18 +311,36 @@ public record TextOptions
   };
 
   /// <summary>
-  /// Options to get tabbed text.
+  /// Options to get rich text.
+  /// Rich text tags are control words starting with '\' with optional parameters in curly braces
+  /// </summary>
+  public static readonly TextOptions RichText = ParaText with
+  {
+    Tags = RichTextTags,
+    Mode = FormattedTextMode.RichText,
+    UseHtmlFormatting = false,
+    UseHtmlParagraphs = false,
+    UseHtmlTables = false,
+    IncludeFieldFormula = false,
+    IncludeParagraphNumbering = false,
+    IncludeDrawings = false,
+    IgnoreTableContents = true,
+    IgnoreEmptyParagraphs = true,
+    IncludeOtherMembers = false,
+  };
+
+  /// <summary>
+  /// Options to get xml-tagged text.
   /// Such characters as &lt;, &gt;, &amp; are replaced with html entities.
   /// Paragraphs and line breaks are represented with HTML tags.
   /// Tables are represented as HTML tables.
   /// </summary>
   public static readonly TextOptions XmlTaggedText = new TextOptions()
   {
-    Mode = TextMode.TaggedText,
-    UseHtmlEntities = true,
+    Tags = XmlTags,
+    Mode = FormattedTextMode.XmlTagged,
     UseHtmlParagraphs = true,
     UseHtmlTables = true,
-    ParagraphSeparator = "<p/>",
   };
 
   /// <summary>
@@ -446,7 +514,7 @@ public record TextOptions
   /// <summary>
   /// Tag to insert between paragraphs.
   /// </summary>
-  public string ParagraphSeparator { get; set; } = "\r\n";
+  public string ParagraphSeparator => Tags.ParagraphSeparator;
 
   /// <summary>
   /// Tag to insert between table in plain text.
@@ -465,10 +533,6 @@ public record TextOptions
   #endregion
 
   #region HTML options
-  /// <summary>
-  /// Convert plain text to HTML entities.
-  /// </summary>
-  public bool UseHtmlEntities { get; set; }
 
   /// <summary>
   /// Convert Run properties to HTML formatting tags.
@@ -543,7 +607,7 @@ public record TextOptions
   /// <summary>
   /// Tag to start a run.
   /// </summary>
-  public const char RunSeparator = '\u0002';
+  public string RunSeparator => Tags.RunSeparator;
 
   /// <summary>
   /// Tag to start a paragraph.

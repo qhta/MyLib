@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 
+using DocumentFormat.OpenXml.Wordprocessing;
+
 using Qhta.TextUtils;
 using Qhta.TypeUtils;
 
@@ -44,7 +46,7 @@ public static class SetTextMethods
   /// <returns></returns>
   public static bool SetTextTo(this DXW.Run run, string text, TextOptions options)
   {
-    if (options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
       text = text.HtmlDecode();
     var members = run.GetMembers().ToArray();
     foreach (var member in members)
@@ -163,13 +165,32 @@ public static class SetTextMethods
       else if (text.ContainsAt(options.FieldCharBeginTag, i))
       {
         run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Begin) });
-        i += options.FieldCharBeginTag.Length - 1;
+        var fieldChar = new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Begin) };
+        if (i < text.Length)
+        {
+          i += options.FieldCharBeginTag.Length - 1;
+          var ch = text[i + 1];
+          if (ch == '{')
+          {
+            i++;
+            var j = text.IndexOf('}', i);
+            if (j > 0)
+            {
+              var s = text.Substring(i + 1, j - i - 1);
+              fieldChar.ReadAttributes(s);
+              i = j;
+            }
+          }
+        }
+        run.AppendChild(fieldChar);
       }
       else if (text.ContainsAt(options.FieldCharSeparateTag, i))
       {
         run.TryAddCollectedText(sb);
-        run.AppendChild(new DXW.FieldChar { FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Separate) });
+        run.AppendChild(new DXW.FieldChar
+        {
+          FieldCharType = new DX.EnumValue<DXW.FieldCharValues>(DXW.FieldCharValues.Separate)
+        });
         i += options.FieldCharSeparateTag.Length - 1;
       }
       else if (text.ContainsAt(options.FieldCharEndTag, i))
@@ -184,10 +205,11 @@ public static class SetTextMethods
         var breakElement = new DXW.Break { Type = new DX.EnumValue<DXW.BreakValues>(DXW.BreakValues.TextWrapping) };
         if (i < text.Length)
         {
-          i += options.BreakLineTag.Length;
-          var ch = text[i];
+          i += options.BreakLineTag.Length - 1;
+          var ch = text[i + 1];
           if (ch == '{')
           {
+            i++;
             var j = text.IndexOf('}', i);
             if (j > 0)
             {
@@ -255,14 +277,21 @@ public static class SetTextMethods
       if (bool.TryParse(value, out var b))
         property.SetValue(element, b);
     }
-    else if (type.IsConstructedGenericType && type.GetGenericTypeDefinition()==typeof(DX.EnumValue<>))
+    else if (type == typeof(DX.OnOffValue))
     {
-      
+      if (bool.TryParse(value, out var b))
+        property.SetValue(element, new DX.OnOffValue(b));
+    }
+    else if (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == typeof(DX.EnumValue<>))
+    {
+
       var enumType = type.GetGenericArguments()[0];
       var enumValues = enumType.GetConstructor([typeof(string)])!.Invoke(new object[] { value });
-      var enumValue = Activator.CreateInstance(type, new object[]{ enumValues });
+      var enumValue = Activator.CreateInstance(type, new object[] { enumValues });
       property.SetValue(element, enumValue);
     }
+    else
+      throw new InvalidOperationException($"Property type {type} not supported");
   }
 
   private static bool TryAddCollectedText(this DXW.Run run, StringBuilder sb)
@@ -288,7 +317,7 @@ public static class SetTextMethods
   {
     if (options == null)
       options = TextOptions.PlainText;
-    if (options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
       text = text.HtmlDecode();
     if (member is DXW.Text runText)
     {
@@ -459,7 +488,7 @@ public static class SetTextMethods
   /// <returns></returns>
   private static bool SetTextOf(this DXW.Text runText, string text, TextOptions options)
   {
-    if (options.UseHtmlEntities)
+    if (options.Mode == FormattedTextMode.XmlTagged)
       runText.Text = text.HtmlDecode();
     else
       runText.Text = text;
