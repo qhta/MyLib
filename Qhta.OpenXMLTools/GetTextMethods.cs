@@ -251,10 +251,7 @@ public static class GetTextMethods
   /// <returns></returns>
   public static string GetTextOf(this DXW.Text runText, TextOptions options)
   {
-    if (options.Mode == FormattedTextMode.XmlTagged)
-      return runText.Text.HtmlEncode();
-    else
-      return runText.Text;
+    return options.GetTextWriter().EncodeString(runText.Text);
   }
 
   /// <summary>

@@ -26,7 +26,7 @@ public class RunInText : List<DX.OpenXmlElement>
   /// Construct a RunInText object with a single Text element.
   /// </summary>
   /// <param name="text"></param>
-  public RunInText (string text)
+  public RunInText(string text)
   {
     Add(new DXW.Text(text));
   }
@@ -77,7 +77,7 @@ public record RunText
   /// Run element.
   /// </summary>
   public readonly DXW.Run Run;
-  
+
   /// <summary>
   /// PlainText of the run element.
   /// </summary>
@@ -124,21 +124,40 @@ public class FormattedText : List<RunText>
 {
   private readonly TextOptions GetTextOptions;
 
-  private List<DX.OpenXmlElement> Objects = new List<DX.OpenXmlElement>();
+  /// <summary>
+  /// Construct a formatted text using paragraph as a context element.
+  /// </summary>
+  /// <param name="paragraph"></param>
+  /// <param name="mode"></param>
+  public FormattedText(DXW.Paragraph paragraph, FormattedTextMode mode)
+  {
+    GetTextOptions = mode switch
+    {
+      FormattedTextMode.PlainText => TextOptions.PlainText,
+      FormattedTextMode.RichText => TextOptions.RichText,
+      FormattedTextMode.XmlTagged => TextOptions.XmlTaggedText,
+      _ => throw new ArgumentException("Invalid mode.")
+    };
+    Init(paragraph);
+  }
 
   /// <summary>
   /// Construct a formatted text using paragraph as a context element.
   /// </summary>
   /// <param name="paragraph"></param>
   /// <param name="textOptions"></param>
-  public FormattedText(DXW.Paragraph paragraph, TextOptions? textOptions = null)
+  public FormattedText(DXW.Paragraph paragraph, TextOptions textOptions)
   {
-    textOptions ??= TextOptions.PlainText;
     GetTextOptions = textOptions;
+    Init(paragraph);
+  }
+
+  private void Init(Paragraph paragraph)
+  {
     foreach (var member in paragraph.Elements<DXW.Run>())
     {
       var runText = member.GetText(GetTextOptions);
-      this.Add(new RunText(member,runText));
+      this.Add(new RunText(member, runText));
     }
   }
 
@@ -166,7 +185,6 @@ public class FormattedText : List<RunText>
   /// <param name="objects">Member object assigned to object representing characters</param>
   public void SetText(string text, TextOptions textOptions, params DX.OpenXmlElement[] objects)
   {
-    Objects = new List<DX.OpenXmlElement>(objects);
     var ss = text.Split([textOptions.RunSeparator], StringSplitOptions.None);
     for (int i = 0; i < this.Count; i++)
     {

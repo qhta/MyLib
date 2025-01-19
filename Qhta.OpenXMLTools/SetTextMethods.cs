@@ -30,6 +30,12 @@ public static class SetTextMethods
       run.SetTextTo(text, options);
       return true;
     }
+    else
+    if (element is DXW.Text runText)
+    {
+      runText.SetTextTo(text, options);
+      return true;
+    }
     //using (var parser = new GotTextParser(element, options))
     //{
     //  return parser.ParseText(text);
@@ -335,6 +341,21 @@ public static class SetTextMethods
     return true;
   }
 
+  /// <summary>
+  /// Set text to a run text element.
+  /// </summary>
+  /// <param name="runText"></param>
+  /// <param name="text"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  public static bool SetTextTo(this DXW.Text runText, string text, TextOptions? options = null)
+  {
+    if (options == null)
+      options = TextOptions.PlainText;
+    var str =options.GetTextReader().Decode(text);
+    runText.Text = str;
+    return true;
+  }
   /// <summary>
   /// Insert text to a run SearchText element at the specified position.
   /// </summary>

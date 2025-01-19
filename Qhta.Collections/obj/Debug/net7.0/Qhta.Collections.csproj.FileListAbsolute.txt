@@ -12,3 +12,14 @@ D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\refint\Qhta.Collections.d
 D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.xml
 D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.pdb
 D:\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\ref\Qhta.Collections.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\refint\Qhta.Collections.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\Qhta.Collections.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\net7.0\ref\Qhta.Collections.dll

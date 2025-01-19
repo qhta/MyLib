@@ -235,6 +235,58 @@
         <member name="T:Qhta.OpenXmlTools.BuiltinStyles">
             <summary>Specifies builtin styles as defined in OpenXml</summary>
         </member>
+        <member name="T:Qhta.OpenXmlTools.CharNames">
+            <summary>
+            Definitions of character names used in RichText and XmlTaggedText
+            
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.Char,System.String@)">
+            <summary>
+            Try to get the name for a character
+            </summary>
+            <param name="ch"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.String,System.Char@)">
+            <summary>
+            Try to get the name for a character
+            </summary>
+            <param name="ch"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.CharNames.EscapeMapping">
+            <summary>
+            Registered escape sequences for characters
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.CharNames.CharMapping">
+            <summary>
+            Registered character names
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.CharUtils">
+            <summary>
+            Utilities for working with characters.
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.CharUtils.SupChars">
+            <summary>
+            A set of characters that can be used as superscript
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.CharUtils.SubChars">
+            <summary>
+            A set of characters that can be used as subscript
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.CharUtils.RomanChars">
+            <summary>
+            A set of characters that represent roman numerals
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ColorSchemeTools">
             <summary>
             Contains tools for working with color schemes.
@@ -1153,6 +1205,13 @@
             <summary>
             Represents a list of run-text pairs.
             </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FormattedText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.FormattedTextMode)">
+            <summary>
+            Construct a formatted text using paragraph as a context element.
+            </summary>
+            <param name="paragraph"></param>
+            <param name="mode"></param>
         </member>
         <member name="M:Qhta.OpenXmlTools.FormattedText.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.TextOptions)">
             <summary>
@@ -3910,6 +3969,86 @@
             <param name="element"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.OpenXmlTextReader">
+            <summary>
+            Abstract class for reading OpenXml documents.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.OpenXmlTextReader.Options">
+            <summary>
+            Pass the options to the derived class.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextReader.EOF">
+            <summary>
+            Check if the end of the buffer has been reached.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextReader.Peek">
+            <summary>Returns the next available character but does not consume it.</summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.OpenXmlTextReader.Length">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.OpenXmlTextReader.Position">
+            <summary>
+            Current position in the buffer.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextReader.Seek(System.Int32,System.IO.SeekOrigin)">
+            <summary>
+            Move current position.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextReader.ReadString">
+            <summary>
+            Read a string
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextReader.ReadChar">
+            <summary>
+            Read a single char
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextReader.Decode(System.String)">
+            <summary>
+            Decode a string read from OpenXml.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.OpenXmlTextWriter">
+            <summary>
+            Abstract class for writing OpenXml documents.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.OpenXmlTextWriter.Options">
+            <summary>
+            Pass the options to the derived class.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextWriter.Write(System.String)">
+            <summary>
+            Write a string
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextWriter.Write(System.Char)">
+            <summary>
+            Write a single char
+            </summary>
+            <param name="ch"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextWriter.EncodeString(System.String)">
+            <summary>
+            Encode a string for OpenXml.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PackageTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Package elements.
@@ -4738,9 +4877,19 @@
             <param name="paragraph"></param>
             <param name="styleName"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.PlainTextReader">
+            <summary>
+            Class for reading OpenXml documents with plain text.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PlainTextTools">
             <summary>
             Tools for working with OpenXml Wordprocessing plain text element.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.PlainTextWriter">
+            <summary>
+            Class for writing OpenXml documents with plain text.
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.PreviousSectionPropertiesTools">
@@ -5148,6 +5297,44 @@
             <param name="thisRelationship"></param>
             <param name="otherRelationship"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.RichTextReader">
+            <summary>
+            Class for reading OpenXml documents with rich text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RichTextReader.ReadString">
+            <summary>
+            Read a string
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RichTextReader.ReadChar">
+            <summary>
+            Read a single char
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RichTextReader.ReadCharStr">
+            <summary>
+            Read a char as string.
+            When reading function control word (as \sup, \sub, etc.), the function reads the parameter in braces and the result can be a string with more than one character.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.RichTextWriter">
+            <summary>
+            Class for writing OpenXml documents with rich text.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RichTextWriter.Write(System.String)">
+            <summary>
+            Write a string with rich text.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RichTextWriter.Write(System.Char)">
+            <summary>
+            Write a single char.
+            </summary>
+            <param name="ch"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.UpperLower">
             <summary>
@@ -6540,6 +6727,15 @@
             </summary>
             <param name="run"></param>
             <param name="member"></param>
+            <param name="text"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.SetTextMethods.SetTextTo(DocumentFormat.OpenXml.Wordprocessing.Text,System.String,Qhta.OpenXmlTools.TextOptions)">
+            <summary>
+            Set text to a run text element.
+            </summary>
+            <param name="runText"></param>
             <param name="text"></param>
             <param name="options"></param>
             <returns></returns>
@@ -11641,6 +11837,20 @@
             
             </summary>
         </member>
+        <member name="M:Qhta.OpenXmlTools.TextOptions.GetTextWriter">
+            <summary>
+            Get the text writer for the current mode.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.TextOptions.GetTextReader">
+            <summary>
+            Get the text reader for the current mode.
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
         <member name="T:Qhta.OpenXmlTools.TextOptions.FormattedTextTags">
             <summary>
             Tag to mark special characters.
@@ -11998,6 +12208,51 @@
             Tag to insert between table cells in plain text.
             </summary>
         </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseEscapeSequences">
+            <summary>
+            Convert text to string using "C" like escape sequences.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseControlCharNames">
+            <summary>
+            Convert text to string using control character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseSpaceNames">
+            <summary>
+            Convert text to string using space character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseDashNames">
+            <summary>
+            Convert text to string using dash character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseFormatCharNames">
+            <summary>
+            Convert text to string using format character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseAccentCharNames">
+            <summary>
+            Convert text to string using accent character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseSupSubCharNames">
+            <summary>
+            Convert text to string using superscript/subscript character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseRomanCharNames">
+            <summary>
+            Convert text to string using roman character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseHtmlEntities">
+            <summary>
+            Convert text to string using Html entities.
+            </summary>
+        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseHtmlFormatting">
             <summary>
             Convert Run properties to HTML formatting tags.
@@ -12333,11 +12588,12 @@
             Class to process text in a document.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph)">
+        <member name="M:Qhta.OpenXmlTools.TextProcessor.#ctor(DocumentFormat.OpenXml.Wordprocessing.Paragraph,Qhta.OpenXmlTools.FormattedTextMode)">
             <summary>
             Construct a formatted text using paragraph as a context element.
             </summary>
             <param name="paragraph"></param>
+            <param name="mode"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.TextProperties">
             <summary>
@@ -13403,6 +13659,16 @@
         <member name="P:Qhta.OpenXmlTools.WhitespaceOptions.TabSize">
             <summary>
             How many spaces to use for a tab.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.XmlTaggedTextReader">
+            <summary>
+            Class for reading OpenXml documents with tagged text.
+            </summary>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.XmlTaggedTextWriter">
+            <summary>
+            Class for writing OpenXml documents with Xml-tagged text.
             </summary>
         </member>
     </members>

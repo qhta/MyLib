@@ -58,8 +58,11 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.Collections/2.0.0": {
+      "Qhta.Collections/4.7.0": {
         "type": "package",
+        "dependencies": {
+          "Qhta.TextUtils": "3.2.0"
+        },
         "compile": {
           "lib/netstandard2.0/Qhta.Collections.dll": {
             "related": ".xml"
@@ -379,20 +382,23 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Qhta.Collections/2.0.0": {
-      "sha512": "VMddBExgPXLQ6XEoSZu2uQzs/T0RyycOx8R9qOJeq+2DjphmRFbQJMU+8EyIu0a9iOmJJ3XZBXXSxSROxng3cw==",
+    "Qhta.Collections/4.7.0": {
+      "sha512": "N16Vl+al7XL8/BzT2BUPh5zwTit/W/kYfeCesEPVJnjhxo5tXgigpb0ejK1FkJP0wxXFLh/J7aCFZnVoJ98SVA==",
       "type": "package",
-      "path": "qhta.collections/2.0.0",
+      "path": "qhta.collections/4.7.0",
       "files": [
         ".nupkg.metadata",
+        "lib/net6.0-windows7.0/Qhta.Collections.dll",
+        "lib/net6.0-windows7.0/Qhta.Collections.xml",
         "lib/net6.0/Qhta.Collections.dll",
         "lib/net6.0/Qhta.Collections.xml",
-        "lib/net7.0/Qhta.Collections.dll",
-        "lib/net7.0/Qhta.Collections.xml",
+        "lib/netcoreapp3.0/Qhta.Collections.dll",
+        "lib/netcoreapp3.0/Qhta.Collections.xml",
         "lib/netstandard2.0/Qhta.Collections.dll",
         "lib/netstandard2.0/Qhta.Collections.xml",
-        "qhta.collections.2.0.0.nupkg.sha512",
-        "qhta.collections.nuspec"
+        "qhta.collections.4.7.0.nupkg.sha512",
+        "qhta.collections.nuspec",
+        "readme.md"
       ]
     },
     "Qhta.TextUtils/3.3.0": {
@@ -683,6 +689,7 @@
     ".NETStandard,Version=v2.0": [
       "DocumentFormat.OpenXml >= 3.2.0",
       "NETStandard.Library >= 2.0.3",
+      "Qhta.Collections >= 4.7.0",
       "Qhta.TextUtils >= 3.3.0",
       "Qhta.TypeUtils >= 1.4.0",
       "System.ComponentModel.Annotations >= 5.0.0"
@@ -734,7 +741,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
       "SdkAnalysisLevel": "9.0.100"
     },
@@ -751,6 +758,10 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
+          },
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[4.7.0, )"
           },
           "Qhta.TextUtils": {
             "target": "Package",
@@ -776,7 +787,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

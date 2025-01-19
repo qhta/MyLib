@@ -297,7 +297,7 @@ public static class ParagraphTools
     var paraText = paragraph.GetText(TextOptions.ParaText);
     if (paraText.Contains("Main Document Story"))
       Debug.Assert(true);
-    var formattedText = new FormattedText(paragraph);
+    var formattedText = new FormattedText(paragraph, FormattedTextMode.PlainText);
     var fText = formattedText.GetText();
 
     done = formattedText.TrimEnd();
@@ -452,7 +452,7 @@ public static class ParagraphTools
   {
     //foreach (var run in paragraph.Elements<DXW.Run>().ToList())
     //  run.NormalizeWhitespaces();
-    var textProcessor = new FormattedText(paragraph);
+    var textProcessor = new FormattedText(paragraph, FormattedTextMode.PlainText);
     textProcessor.NormalizeWhitespaces(options);
     return true;
   }

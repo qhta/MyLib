@@ -31,12 +31,54 @@ public enum FormattedTextMode
 public record TextOptions
 {
 
+  private static readonly PlainTextWriter PlainTextWriter = new PlainTextWriter();
+  private static readonly RichTextWriter RichTextWriter = new RichTextWriter();
+  private static readonly XmlTaggedTextWriter XmlTaggedTextWriter = new XmlTaggedTextWriter();
+
+  private static readonly PlainTextReader PlainTextReader = new PlainTextReader();
+  private static readonly RichTextReader RichTextReader = new RichTextReader();
+  private static readonly XmlTaggedTextReader XmlTaggedTextReader = new XmlTaggedTextReader();
 
   /// <summary>
   /// 
   /// </summary>
   public FormattedTextMode Mode { get; set; } = FormattedTextMode.PlainText;
 
+  /// <summary>
+  /// Get the text writer for the current mode.
+  /// </summary>
+  /// <returns></returns>
+  /// <exception cref="ArgumentOutOfRangeException"></exception>
+  public OpenXmlTextWriter GetTextWriter()
+  {
+    OpenXmlTextWriter result = Mode switch
+    {
+      FormattedTextMode.PlainText => PlainTextWriter,
+      FormattedTextMode.RichText => RichTextWriter,
+      FormattedTextMode.XmlTagged => XmlTaggedTextWriter,
+      _ => throw new ArgumentOutOfRangeException(nameof(Mode), Mode, null),
+    };
+    result.Options = this;
+    return result;
+  }
+
+  /// <summary>
+  /// Get the text reader for the current mode.
+  /// </summary>
+  /// <returns></returns>
+  /// <exception cref="ArgumentOutOfRangeException"></exception>
+  public OpenXmlTextReader GetTextReader()
+  {
+    OpenXmlTextReader result = Mode switch
+    {
+      FormattedTextMode.PlainText => PlainTextReader,
+      FormattedTextMode.RichText => RichTextReader,
+      FormattedTextMode.XmlTagged => XmlTaggedTextReader,
+      _ => throw new ArgumentOutOfRangeException(nameof(Mode), Mode, null),
+    };
+    result.Options = this;
+    return result;
+  }
   /// <summary>
   /// Tag to mark special characters.
   /// </summary>
@@ -533,6 +575,52 @@ public record TextOptions
   #endregion
 
   #region HTML options
+
+  /// <summary>
+  /// Convert text to string using "C" like escape sequences.
+  /// </summary>
+  public bool UseEscapeSequences { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using control character names.
+  /// </summary>
+  public bool UseControlCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using space character names.
+  /// </summary>
+  public bool UseSpaceNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using dash character names.
+  /// </summary>
+  public bool UseDashNames { get; set; } = true;
+
+
+  /// <summary>
+  /// Convert text to string using format character names.
+  /// </summary>
+  public bool UseFormatCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using accent character names.
+  /// </summary>
+  public bool UseAccentCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using superscript/subscript character names.
+  /// </summary>
+  public bool UseSupSubCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using roman character names.
+  /// </summary>
+  public bool UseRomanCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using Html entities.
+  /// </summary>
+  public bool UseHtmlEntities { get; set; }
 
   /// <summary>
   /// Convert Run properties to HTML formatting tags.

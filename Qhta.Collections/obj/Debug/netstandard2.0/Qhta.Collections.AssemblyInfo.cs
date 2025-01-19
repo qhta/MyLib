@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package with Bidirectional dictionary.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("4.7.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.7+a20e36ef2f0bc612e6d1d8380101699fe67faa11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.7+102e9f559635a6feaf06a7887aedc69fa0f57594")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.Collections")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.Collections")]
 [assembly: System.Reflection.AssemblyVersionAttribute("4.7.0.0")]

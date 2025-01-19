@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package with Bidirectional dictionary.</description>
-    <repository type="git" commit="e47c2a7786f3b476a1c04d7fdbdcff6482118646" />
+    <repository type="git" commit="102e9f559635a6feaf06a7887aedc69fa0f57594" />
     <dependencies>
       <group targetFramework=".NETCoreApp3.0">
         <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
@@ -43,6 +43,6 @@
     <file src="D:\VS\Projects\MyLib\bin\Debug\netcoreapp3.0\Qhta.Collections.xml" target="lib\netcoreapp3.0\Qhta.Collections.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.dll" target="lib\netstandard2.0\Qhta.Collections.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.xml" target="lib\netstandard2.0\Qhta.Collections.xml" />
-    <file src="D:\VS\Projects\MyLib\Qhta.Collections\docs\readme.md" target="\readme.md" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\docs\readme.md" target="\readme.md" />
   </files>
 </package>

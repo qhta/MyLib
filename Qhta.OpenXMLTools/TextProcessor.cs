@@ -14,9 +14,10 @@ public class TextProcessor
   /// Construct a formatted text using paragraph as a context element.
   /// </summary>
   /// <param name="paragraph"></param>
-  public TextProcessor(DXW.Paragraph paragraph)
+  /// <param name="mode"></param>
+  public TextProcessor(DXW.Paragraph paragraph, FormattedTextMode mode)
   {
-    FormattedText = new FormattedText(paragraph);
+    FormattedText = new FormattedText(paragraph, mode);
   }
 
   private void NormalizeSpacesAtStart(string text, int j, WhitespaceOptions options)
