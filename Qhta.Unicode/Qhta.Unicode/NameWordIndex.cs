@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+
 using Qhta.TextUtils;
 
 
@@ -7,15 +8,16 @@ namespace Qhta.Unicode;
 /// <summary>
 /// An index of Unicode character name separate words to code points.
 /// </summary>
-public class NameStringIndex : Dictionary<string, List<int>>
+public class NameWordIndex
 {
   private readonly UnicodeData Ucd;
+  private readonly Dictionary<string, List<int>> Index = new();
 
   /// <summary>
   /// This constructor creates a NameStringIndex from a UnicodeData object.
   /// </summary>
   /// <param name="ucd"></param>
-  public NameStringIndex(UnicodeData ucd)
+  public NameWordIndex(UnicodeData ucd)
   {
     Ucd = ucd;
     foreach (CharInfo charInfo in ucd.Values)
@@ -27,19 +29,25 @@ public class NameStringIndex : Dictionary<string, List<int>>
   private void Add(string name, int codePoint)
   {
     string[] nameItems = name.Split([' ', '-']);
-    for (int i = 0; i<nameItems.Length; i++)
+    for (int i = 0; i < nameItems.Length; i++)
     {
       string nameItem = nameItems[i];
-      if (ContainsKey(nameItem))
+      if (Index.TryGetValue(nameItem, out var value))
       {
-        this[nameItem].Add(codePoint);
+        value.Add(codePoint);
       }
       else
       {
-       base.Add(nameItem, [codePoint]);
+        Index.Add(nameItem, [codePoint]);
       }
     }
   }
+
+  public int Count => Index.Count;
+
+  public List<int> this[string name] => Index.TryGetValue(name, out var value) ? value : new List<int>();
+
+  public IEnumerable<KeyValuePair<string, List<int>>> Take(int count) => Index.Take(count);
 
   public void LoadAliases(UnicodeData ucd)
   {
@@ -58,24 +66,18 @@ public class NameStringIndex : Dictionary<string, List<int>>
   public IEnumerable<int> Search(string pattern)
   {
     var result = new SortedSet<int>();
-    var parts = pattern.Split(['*', ' ', '-'], StringSplitOptions.RemoveEmptyEntries);
-    for (int i = 0; i < parts.Length; i++)
+    var words = pattern.Split(['*', ' ', '-'], StringSplitOptions.RemoveEmptyEntries);
+    if (Index.TryGetValue(words[0], out var value))
     {
-      string part = parts[i];
-      if (ContainsKey(part))
+      foreach (var codePoint in value)
       {
-        foreach (var codePoint in this[part])
+        var charInfo = Ucd[codePoint];
+        foreach (var name in charInfo.GetAllNames())
         {
-          var charInfo = Ucd[codePoint];
-          if (charInfo.Name.IsLike(pattern))
-            result.Add(codePoint);
-          if (charInfo.Aliases!=null)
+          if (name.ContainsWords(pattern))
           {
-            foreach (var alias in charInfo.Aliases)
-            {
-              if (alias.Alias.IsLike(pattern))
-                result.Add(codePoint);
-            }
+            result.Add(codePoint);
+            break;
           }
         }
       }

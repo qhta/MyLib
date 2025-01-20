@@ -33,7 +33,7 @@ public class UnicodeData: Dictionary<int, CharInfo>
       };
       Add(charInfo.CodePoint, charInfo);
     }
-    NameStringIndex = new NameStringIndex(this);
+    NameWordIndex = new NameWordIndex(this);
   }
 
   public int LoadAliases(string filePath)
@@ -55,9 +55,9 @@ public class UnicodeData: Dictionary<int, CharInfo>
         aliases.Add(new NameAlias { CodePoint = codePoint, Alias = alias, Type = type });
       }
     }
-    NameStringIndex.LoadAliases(this);
+    NameWordIndex.LoadAliases(this);
     return count;
   }
 
-  public NameStringIndex NameStringIndex { get; }
+  public NameWordIndex NameWordIndex { get; }
 }
