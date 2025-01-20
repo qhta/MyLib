@@ -3,24 +3,48 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|solutionrelative:qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\decompositiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\decompositiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\decompositionindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\decompositionindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\namewordindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\namewordindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\codedname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\codedname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\decomposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\decomposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|solutionrelative:qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\bidiclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\bidiclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\charinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\charinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\hashedname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\hashedname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\ccclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\ccclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\namealias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,20 +66,98 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DecompositionIndex.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\DecompositionIndex.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\DecompositionIndex.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\DecompositionIndex.cs",
+              "RelativeToolTip": "Qhta.Unicode\\DecompositionIndex.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAkwDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T16:17:41.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Decomposition.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Decomposition.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\Decomposition.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Decomposition.cs",
+              "RelativeToolTip": "Qhta.Unicode\\Decomposition.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T15:52:33.892Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CodedName.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CodedName.cs",
-              "RelativeDocumentMoniker": "Qhta.Unicode\\CodedName.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CodedName.cs*",
-              "RelativeToolTip": "Qhta.Unicode\\CodedName.cs*",
-              "ViewState": "AgIAABoAAAAAAAAAAAAawB8AAAAmAAAAAAAAAA==",
+              "Title": "DecompositionType.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\DecompositionType.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\DecompositionType.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\DecompositionType.cs",
+              "RelativeToolTip": "Qhta.Unicode\\DecompositionType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T15:41:32.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BiDiClass.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\BiDiClass.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\BiDiClass.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\BiDiClass.cs",
+              "RelativeToolTip": "Qhta.Unicode\\BiDiClass.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T15:23:16.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CCClass.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CCClass.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\CCClass.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CCClass.cs",
+              "RelativeToolTip": "Qhta.Unicode\\CCClass.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T14:44:32.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Category.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\Category.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Category.cs",
+              "RelativeToolTip": "Qhta.Unicode\\Category.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T14:12:26.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HashedName.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\HashedName.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\HashedName.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\HashedName.cs",
+              "RelativeToolTip": "Qhta.Unicode\\HashedName.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAHEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-20T09:06:28.543Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "NameAlias.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameAlias.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\NameAlias.cs",
@@ -68,52 +170,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "NameWordIndex.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameWordIndex.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\NameWordIndex.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameWordIndex.cs*",
-              "RelativeToolTip": "Qhta.Unicode\\NameWordIndex.cs*",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAqwEcAAAAmAAAAAAAAAA==",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameWordIndex.cs",
+              "RelativeToolTip": "Qhta.Unicode\\NameWordIndex.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T15:14:28.935Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "UnicodeData.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\UnicodeData.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
               "RelativeToolTip": "Qhta.Unicode\\UnicodeData.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T15:08:16.032Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode.Build\\Program.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs",
-              "RelativeToolTip": "Qhta.Unicode.Build\\Program.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAqwDcAAAAbAAAAAAAAAA==",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs*",
+              "RelativeToolTip": "Qhta.Unicode.Build\\Program.cs*",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAFQAAAByAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T14:39:25.032Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "CharInfo.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CharInfo.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\CharInfo.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CharInfo.cs",
               "RelativeToolTip": "Qhta.Unicode\\CharInfo.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAADwvx0AAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T14:38:37.014Z",
               "EditorCaption": ""

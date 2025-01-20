@@ -11,12 +11,12 @@ namespace Qhta.Unicode;
 /// A Unicode name split into separate words.
 /// Each word is hashed and stored in a list.
 /// </summary>
-public class CodedName
+public class HashedName
 {
   public string PublicName { get; set; }
   public List<int> EncodedName;
 
-  public CodedName(string name)
+  public HashedName(string name)
   {
     PublicName = name;
     var words = name.Split(new char[] { ' ', '-' });
@@ -67,7 +67,7 @@ public class CodedName
     }
     for (int j=fromIndex; j < EncodedName.Count- words.Length+1; j++)
     {
-      if (ContainsWordsAt(j, wordHashes))
+      if (ContainsHashesAt(j, wordHashes))
         return j;
     }
     return -1;
@@ -77,10 +77,10 @@ public class CodedName
   {
     var words = str.Split(new char[] { ' ', '-' }, StringSplitOptions.RemoveEmptyEntries);
     var wordHashes = words.Select(w => w.GetHashCode()).ToArray();
-    return ContainsWordsAt(index, wordHashes);
+    return ContainsHashesAt(index, wordHashes);
   }
 
-  private bool ContainsWordsAt(int index, int[] wordHashes)
+  private bool ContainsHashesAt(int index, int[] wordHashes)
   {
     for (int i = 0; i < wordHashes.Length; i++)
     {
@@ -97,13 +97,18 @@ public class CodedName
     return PublicName.Contains(pattern);
   }
 
-  public static implicit operator string(CodedName codedName)
+  public static implicit operator string(HashedName hashedName)
   {
-    return codedName.PublicName;
+    return hashedName.PublicName;
   }
 
-  public static implicit operator CodedName(string name)
+  public static implicit operator HashedName(string name)
   {
-    return new CodedName(name);
+    return new HashedName(name);
+  }
+
+  public override string ToString()
+  {
+    return PublicName;
   }
 }

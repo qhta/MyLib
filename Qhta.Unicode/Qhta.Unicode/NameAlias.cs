@@ -32,6 +32,6 @@ public enum NameAliasType
 public class NameAlias
 {
   public int CodePoint { get; set; }
-  public CodedName Alias { get; set; } = string.Empty;
+  public HashedName Alias { get; set; } = string.Empty;
   public NameAliasType Type { get; set; }
 }

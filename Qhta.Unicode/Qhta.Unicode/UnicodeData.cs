@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 namespace Qhta.Unicode;
 public class UnicodeData: Dictionary<int, CharInfo>
 {
+  public NameWordIndex NameWordIndex { get; }
+  public DecompositionIndex DecompositionIndex { get; }
+
   public UnicodeData(string ucdFilePath)
   {
     string[] lines = System.IO.File.ReadAllLines(ucdFilePath);
@@ -18,10 +21,10 @@ public class UnicodeData: Dictionary<int, CharInfo>
       {
         CodePoint = int.Parse(parts[0],NumberStyles.HexNumber),
         Name = parts[1],
-        Category = parts[2],
-        CanonicalCombiningClass = byte.Parse(parts[3]),
-        BidiClass = parts[4],
-        DecompositionType = parts[5],
+        Category = Enum.Parse<Category>(parts[2]),
+        CCClass = (CCClass)Enum.ToObject(typeof(CCClass),byte.Parse(parts[3])),
+        BiDiClass = Enum.Parse<BiDiClass>(parts[4]),
+        Decomposition = parts[5]!="" ? parts[5] : null,
         NumericValue = parts[6],
         NumericType = parts[7],
         BidiMirrored = parts[9] == "Y",
@@ -34,6 +37,7 @@ public class UnicodeData: Dictionary<int, CharInfo>
       Add(charInfo.CodePoint, charInfo);
     }
     NameWordIndex = new NameWordIndex(this);
+    DecompositionIndex = new DecompositionIndex(this);
   }
 
   public int LoadAliases(string filePath)
@@ -59,5 +63,4 @@ public class UnicodeData: Dictionary<int, CharInfo>
     return count;
   }
 
-  public NameWordIndex NameWordIndex { get; }
 }
