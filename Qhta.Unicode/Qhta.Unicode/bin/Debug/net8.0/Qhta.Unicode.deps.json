@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Qhta.Unicode/1.0.0": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.4.0"
+        },
+        "runtime": {
+          "Qhta.Unicode.dll": {}
+        }
+      },
+      "Qhta.TextUtils/3.4.0": {
+        "runtime": {
+          "lib/net8.0/Qhta.TextUtils.dll": {
+            "assemblyVersion": "3.4.0.0",
+            "fileVersion": "3.4.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.Unicode/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.TextUtils/3.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9qhua4FonGIG6a27KNFFk9tCgyYcNmZvWwchnUmxpknLoAOBSlu0EEwvVz/SztkEVWFRN25SzWONHDT4Oi5RkQ==",
+      "path": "qhta.textutils/3.4.0",
+      "hashPath": "qhta.textutils.3.4.0.nupkg.sha512"
+    }
+  }
+}

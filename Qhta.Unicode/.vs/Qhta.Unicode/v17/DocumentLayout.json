@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|solutionrelative:qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\namestringindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\namestringindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\namealias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\namealias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\charinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\charinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NameAlias.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameAlias.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\NameAlias.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameAlias.cs",
+              "RelativeToolTip": "Qhta.Unicode\\NameAlias.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T16:32:25.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NameStringIndex.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameStringIndex.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\NameStringIndex.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\NameStringIndex.cs",
+              "RelativeToolTip": "Qhta.Unicode\\NameStringIndex.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAuwDQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T15:14:28.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UnicodeData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\UnicodeData.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
+              "RelativeToolTip": "Qhta.Unicode\\UnicodeData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T15:08:16.032Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode.Build\\Program.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs",
+              "RelativeToolTip": "Qhta.Unicode.Build\\Program.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAuwEEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T14:39:25.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CharInfo.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CharInfo.cs",
+              "RelativeDocumentMoniker": "Qhta.Unicode\\CharInfo.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CharInfo.cs",
+              "RelativeToolTip": "Qhta.Unicode\\CharInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T14:38:37.014Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

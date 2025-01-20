@@ -334,16 +334,16 @@ public static class StringUtils
   }
 
   /// <summary>
-  ///   Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+  ///   Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
   ///   characters.
   /// </summary>
   /// <param name="key"></param>
   /// <param name="pattern"></param>
   /// <param name="stringComparison"></param>
   /// <returns></returns>
-  public static bool IsLike(this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  public static bool IsLike (this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
   {
-    var wildcardCount = pattern.Where(c => c == '*').Count();
+    var wildcardCount = pattern.Count(c => c == '*');
     if (wildcardCount == 1 && pattern.EndsWith("*"))
     {
       pattern = pattern.Substring(0, pattern.Length - 1);
@@ -361,36 +361,17 @@ public static class StringUtils
     }
     if (wildcardCount > 0)
     {
-      var patternParts = pattern.Split('*').ToList();
-      return MatchPatternParts(key, patternParts, stringComparison);
+      var patternParts = pattern.Split(['*'], StringSplitOptions.RemoveEmptyEntries).ToList();
+      return MatchPatternParts(key, patternParts, pattern.StartsWith("*"), pattern.EndsWith("*"), null, stringComparison);
     }
     return key.Equals(pattern, stringComparison);
   }
-
-  private static bool MatchPatternParts(string key, List<string> patternParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
-  {
-    if (patternParts.Count == 0)
-      return true;
-    if (!key.StartsWith(patternParts.First(), stringComparison))
-      return false;
-    if (patternParts.Count == 1)
-      return true;
-    key = key.Substring(patternParts.First().Length);
-    patternParts.RemoveAt(0);
-    if (!key.EndsWith(patternParts.Last(), stringComparison))
-      return false;
-    if (patternParts.Count == 1)
-      return true;
-    key = key.Substring(key.Length - patternParts.Last().Length);
-    patternParts.RemoveAt(patternParts.Count - 1);
-    return MatchPatternParts(key, patternParts, stringComparison);
-  }
-
+  
   /// <summary>
-  ///   Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+  ///   Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
   ///   characters.
-  ///   Output <paramref name="wildKey" /> is set to found wildchar replacement in the key.
-  ///   If there are multiple wildchars in the pattern then returned <paramref name="wildKey" /> contains multiple
+  ///   Output <paramref name="wildKey" /> is set to found wildcard replacement in the key.
+  ///   If there are multiple wildcards in the pattern then returned <paramref name="wildKey" /> contains multiple
   ///   replacements joined with '*' separator.
   /// </summary>
   /// <param name="key"></param>
@@ -401,7 +382,7 @@ public static class StringUtils
   public static bool IsLike(this string key, string pattern, out string? wildKey, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
   {
     wildKey = null;
-    var wildcardCount = pattern.Where(c => c == '*').Count();
+    var wildcardCount = pattern.Count(c => c == '*');
     if (wildcardCount == 1 && pattern.EndsWith("*"))
     {
       pattern = pattern.Substring(0, pattern.Length - 1);
@@ -438,8 +419,9 @@ public static class StringUtils
     }
     if (wildcardCount > 0)
     {
-      var patternParts = pattern.Split('*').ToList();
-      if (MatchPatternParts(key, patternParts, out var wildKeyParts, stringComparison))
+      var patternParts = pattern.Split(['*'], StringSplitOptions.RemoveEmptyEntries).ToList();
+      var wildKeyParts = new List<string>();
+      if (MatchPatternParts(key, patternParts, pattern.StartsWith("*"), pattern.EndsWith("*"), wildKeyParts, stringComparison))
       {
         wildKey = String.Join("*", wildKeyParts);
         return true;
@@ -449,32 +431,40 @@ public static class StringUtils
     return key.Equals(pattern, stringComparison);
   }
 
-  private static bool MatchPatternParts(string key, List<string> patternParts, out List<string> wildKeyParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  private static bool MatchPatternParts(string key, List<string> patternParts, bool wildStart, bool wildEnd, List<string>? wildKeyParts, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
   {
-    wildKeyParts = new List<string>();
     if (patternParts.Count == 0)
       return true;
-    if (!key.StartsWith(patternParts.First(), stringComparison))
-      return false;
-    wildKeyParts.Add(key.Substring(patternParts.First().Length));
-    if (patternParts.Count == 1)
-      return true;
-    key = key.Substring(patternParts.First().Length);
-    patternParts.RemoveAt(0);
-    if (!key.EndsWith(patternParts.Last(), stringComparison))
-      return false;
-    wildKeyParts.Add(key.Substring(key.Length - patternParts.Last().Length));
-    if (patternParts.Count == 1)
-      return true;
-    key = key.Substring(key.Length - patternParts.Last().Length);
-    patternParts.RemoveAt(patternParts.Count - 1);
-    if (MatchPatternParts(key, patternParts, out var internWildParts, stringComparison))
+    int k=0;
+    for (int i = 0; i < patternParts.Count; i++)
     {
-      if (internWildParts.Count > 0)
-        wildKeyParts.InsertRange(1, internWildParts);
-      return true;
+      var part = patternParts[i];
+      int l = key.IndexOf(part, k, stringComparison);
+      if (l < 0)
+        return false;
+      if (i == 0 && !wildStart)
+      {
+        if (l > 0)
+          return false;
+      }
+      if (wildKeyParts!=null && l>k)
+        wildKeyParts.Add(key.Substring(k, l - k));
+      k = l + part.Length;
+      if (i == patternParts.Count - 1)
+      {
+        if (!wildEnd)
+        {
+          if (k < key.Length)
+            return false;
+        }
+        else
+        {
+          if (wildKeyParts != null && k < key.Length)
+            wildKeyParts.Add(key.Substring(k));
+        }
+      }
     }
-    return false;
+    return true;
   }
 
   /// <summary>

@@ -353,7 +353,7 @@
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.IsLike(System.String,System.String,System.StringComparison)">
             <summary>
-              Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+              Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
               characters.
             </summary>
             <param name="key"></param>
@@ -363,10 +363,10 @@
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.IsLike(System.String,System.String,System.String@,System.StringComparison)">
             <summary>
-              Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+              Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
               characters.
-              Output <paramref name="wildKey" /> is set to found wildchar replacement in the key.
-              If there are multiple wildchars in the pattern then returned <paramref name="wildKey" /> contains multiple
+              Output <paramref name="wildKey" /> is set to found wildcard replacement in the key.
+              If there are multiple wildcards in the pattern then returned <paramref name="wildKey" /> contains multiple
               replacements joined with '*' separator.
             </summary>
             <param name="key"></param>

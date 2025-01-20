@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2okjMWrPKd0=",
+  "success": true,
+  "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.4.0\\qhta.textutils.3.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

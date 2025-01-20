@@ -13,12 +13,12 @@
     <RootNamespace>Qhta.TextUtils</RootNamespace>
     <Description>A package of functions to supplement System.Text.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>3.3</Version>
+    <Version>3.4</Version>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="docs\readme.md" Pack="true" PackagePath="\"/>
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>
