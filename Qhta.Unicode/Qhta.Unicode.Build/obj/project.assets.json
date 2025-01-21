@@ -15,7 +15,7 @@
           }
         }
       },
-      "Qhta.Unicode/1.0.0": {
+      "Qhta.Unicode/1.2.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -50,7 +50,7 @@
         "readme.md"
       ]
     },
-    "Qhta.Unicode/1.0.0": {
+    "Qhta.Unicode/1.2.1": {
       "type": "project",
       "path": "../Qhta.Unicode/Qhta.Unicode.csproj",
       "msbuildProject": "../Qhta.Unicode/Qhta.Unicode.csproj"
@@ -59,7 +59,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Qhta.TextUtils >= 3.4.0",
-      "Qhta.Unicode >= 1.0.0"
+      "Qhta.Unicode >= 1.2.1"
     ]
   },
   "packageFolders": {
@@ -91,6 +91,7 @@
         "net8.0"
       ],
       "sources": {
+        "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
         "d:\\VS\\Projects\\mylib\\bin": {},
         "https://api.nuget.org/v3/index.json": {}
       },

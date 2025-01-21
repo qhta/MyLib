@@ -1,0 +1,987 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.Unicode</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.Unicode.BiDiClass">
+            <summary>
+            Unicode character BiDi class.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.L">
+            <summary>
+            Left-to-Right - any strong left-to-right character
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.R">
+            <summary>
+            Right-to-Left - any strong right-to-left (non-Arabic-type) character
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.AL">
+            <summary>
+            Arabic Letter - any strong right-to-left (Arabic-type) character
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.EN">
+            <summary>
+            European Number - any ASCII digit or Eastern Arabic-Indic digit
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.ES">
+            <summary>
+            European_Separator - plus and minus signs
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.ET">
+            <summary>
+            European_Terminator - a terminator in a numeric format context, includes currency signs
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.AN">
+            <summary>
+            Arabic Number - any Arabic-Indic digit
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.CS">
+            <summary>
+            Common_Separator - commas, colons, and slashes
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.NSM">
+            <summary>
+            Non-Spacing Mark - any non-spacing mark
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.BN">
+            <summary>
+            Boundary Neutral - most format characters, control codes, or non-characters
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.B">
+            <summary>
+            Paragraph Separator - various newline characters
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.S">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.WS">
+            <summary>
+            White_Space - spaces
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.ON">
+            <summary>
+            Other_Neutral - most other symbols and punctuation marks
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.LRE">
+            <summary>
+            Left-to-Right Embedding - U+202A: the LR embedding control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.LRO">
+            <summary>
+            Left-to-Right Override - U+202D: the LR override control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.RLE">
+            <summary>
+            Right-to-Left Embedding - U+202B: the RL embedding control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.RLO">
+            <summary>
+            Right-to-Left Override - U+202E: the RL override control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.PDF">
+            <summary>
+            Pop_Directional_Format - U+202C: terminates an embedding or override control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.LRI">
+            <summary>
+            Left-to-Right Isolate - U+2066: the LR isolate control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.RLI">
+            <summary>
+            Right-to-Left Isolate - U+2067: the RL isolate control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.FSI">
+            <summary>
+            First_Strong_Isolate - U+2068: the first strong isolate control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BiDiClass.PDI">
+            <summary>
+            Pop_Directional_Isolate - U+2069: terminates an isolate control
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.Category">
+            <summary>
+            Unicode character category.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Cc">
+            <summary>
+            Control
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Cf">
+            <summary>
+            Format
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Co">
+            <summary>
+            Private Use
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Cs">
+            <summary>
+            Surrogate
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Ll">
+            <summary>
+            Lowercase Letter
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Lm">
+            <summary>
+            Modifier Letter
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Lo">
+            <summary>
+            Other Letter
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Lt">
+            <summary>
+             Titlecase Letter
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Lu">
+            <summary>
+            Uppercase Letter
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Mc">
+            <summary>
+            Spacing Mark
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Me">
+            <summary>
+            Enclosing Mark
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Mn">
+            <summary>
+            Non-spacing Mark
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Nd">
+            <summary>
+             Decimal Number
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Nl">
+            <summary>
+            Letter Number
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.No">
+            <summary>
+            Other Number
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Pc">
+            <summary>
+            Connector Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Pd">
+            <summary>
+            Dash Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Pe">
+            <summary>
+            Close Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Pf">
+            <summary>
+            Final Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Pi">
+            <summary>
+            Initial Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Po">
+            <summary>
+            Other Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Ps">
+            <summary>
+            Open Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Sc">
+            <summary>
+            Close Punctuation
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Sk">
+            <summary>
+            Modifier Symbol
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Sm">
+            <summary>
+            Math Symbol
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.So">
+            <summary>
+            Other Symbol
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Zl">
+            <summary>
+            Line Separator
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Zp">
+            <summary>
+            Paragraph Separator
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Category.Zs">
+            <summary>
+            Space Separator
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.CCClass">
+            <summary>
+            Unicode canonical combining class.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.NR">
+            <summary>
+            Not_Reordered - Spacing and enclosing marks; also many vowel and consonant signs, even if non-spacing
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.Ov">
+            <summary>
+            Overlay - Marks which overlay a base letter or symbol
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.HR">
+            <summary>
+            Han_Reading - Diacritic reading marks for CJK unified ideographs
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.Nu">
+            <summary>
+            Nukta - Diacritic nukta marks in Brahmi-derived scripts
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.KV">
+            <summary>
+            Kana_Voicing - Hiragana/Katakana voicing marks
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.Vi">
+            <summary>
+            Virama - Viramas
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtBL">
+            <summary>
+            Attached_Below_Left - Marks attached at the bottom left
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtB">
+            <summary>
+            Attached_Below - Marks attached directly below
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtBR">
+            <summary>
+            Attached_Below_Right - Marks attached at the bottom right
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtL">
+            <summary>
+            Attached_Left - Marks attached to the left
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtR">
+            <summary>
+            Attached_Right - Marks attached to the right
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtTL">
+            <summary>
+            Attached_Above_Left - Marks attached at the top left
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtA">
+            <summary>
+            Attached_Above - Marks attached directly above
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AtAR">
+            <summary>
+            Attached_Above_Right - Marks attached at the top right
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.BL">
+            <summary>
+            Below_Left - Distinct marks at the bottom left
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.B">
+            <summary>
+            Below - Distinct marks directly below
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.BR">
+            <summary>
+            Below_Right - Distinct marks at the bottom right
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.L">
+            <summary>
+            Left - Distinct marks to the left
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.R">
+            <summary>
+            Right - Distinct marks to the right
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AL">
+            <summary>
+            Above_Left - Distinct marks at the top left
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.A">
+            <summary>
+            Above - Distinct marks directly above
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.AR">
+            <summary>
+            Above_Right - Distinct marks at the top right
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.DB">
+            <summary>
+            Double_Below - Distinct marks subtending two bases
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.DA">
+            <summary>
+            Double_Above - Distinct marks extending above two bases
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CCClass.IS">
+            <summary>
+            Iota_Subscript - Greek iota subscript only
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.CharInfo">
+            <summary>
+            Unicode character information.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.CodePoint">
+            <summary>
+            Code point - integer value of the Unicode character converted to hexadecimal.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.Name">
+            <summary>
+            Name of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.Category">
+            <summary>
+            General category of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.CCClass">
+            <summary>
+            Canonical Combining Class of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.BiDiClass">
+            <summary>
+            Bidirectional class of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.Decomposition">
+            <summary>
+            Decomposition of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.DecDigit">
+            <summary>
+            Corresponding decimal digit value of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.Digit">
+            <summary>
+            Corresponding digit value of the character.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.NumVal">
+            <summary>
+            Corresponding numeric value of the character (integer or rational number).
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.BidiMirrored">
+            <summary>
+            Whether the character is mirrored in bidirectional text.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.SimpleUppercaseMapping">
+            <summary>
+            Corresponding Uppercase character code point.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.SimpleLowercaseMapping">
+            <summary>
+            Corresponding Lowercase character code point.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.SimpleTitlecaseMapping">
+            <summary>
+            Corresponding Titlecase character code point.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.Aliases">
+            <summary>
+            Optional alias names for the character.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.CharInfo.GetAllNames">
+            <summary>
+            Enumerates all names for the character.
+            First is the primary name, then any aliases.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.CodePoint">
+            <summary>
+            A Unicode code point.
+            Contains a single integer value.
+            Converts to and from hexadecimal string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.#ctor(System.Int32)">
+            <summary>
+            Create a code point from an integer value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.#ctor(System.String)">
+            <summary>
+            Create a code point from a hexadecimal string.
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.ToString">
+            <summary>
+            Explicit conversion from CodePoint to hexadecimal string (at least four digits).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.ToString(System.String)">
+            <summary>
+            Explicit conversion from CodePoint to string with given format.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.CompareTo(System.Object)">
+            <summary>
+            Compare two code points.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.op_Implicit(Qhta.Unicode.CodePoint)~System.String">
+            <summary>
+            Implicit conversion from CodePoint to hexadecimal string (at least four digits).
+            </summary>
+            <param name="codePoint"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.op_Implicit(System.String)~Qhta.Unicode.CodePoint">
+            <summary>
+            Implicit conversion from hexadecimal string to CodePoint.
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.op_Implicit(Qhta.Unicode.CodePoint)~System.Int32">
+            <summary>
+            Implicit conversion from CodePoint to integer.
+            </summary>
+            <param name="codePoint"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CodePoint.op_Implicit(System.Int32)~Qhta.Unicode.CodePoint">
+            <summary>
+            Implicit conversion from integer to CodePoint.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:Qhta.Unicode.Decomposition">
+            <summary>
+            Decoded Unicode decomposition.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Decomposition.Type">
+            <summary>
+            Gets or sets the decomposition type.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Decomposition.CodePoints">
+            <summary>
+            Gets or sets the code points.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.Decomposition.op_Implicit(Qhta.Unicode.Decomposition)~System.String">
+            <summary>
+            Implicit conversion from Decomposition to string.
+            </summary>
+            <param name="decomposition"></param>
+        </member>
+        <member name="M:Qhta.Unicode.Decomposition.op_Implicit(System.String)~Qhta.Unicode.Decomposition">
+            <summary>
+            Implicit conversion from string to Decomposition.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Qhta.Unicode.Decomposition.Parse(System.String)">
+            <summary>
+            Parses a decomposition from a string.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:System.FormatException"></exception>
+        </member>
+        <member name="M:Qhta.Unicode.Decomposition.ToString">
+            <summary>
+            Converts the decomposition to a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.DecompositionIndex">
+            <summary>
+            An index of codePoints with specific DecompositionType
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.DecompositionIndex.Initialize(Qhta.Unicode.UnicodeData)">
+            <summary>
+            Initializes DecompositionIndex from a UnicodeData object.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.DecompositionIndex.Add(Qhta.Unicode.DecompositionType,System.Int32)">
+            <summary>
+            Add a code point to the index.
+            </summary>
+            <param name="type"></param>
+            <param name="codePoint"></param>
+        </member>
+        <member name="P:Qhta.Unicode.DecompositionIndex.Count">
+            <summary>
+            Number of code points in the index.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.DecompositionIndex.Item(Qhta.Unicode.DecompositionType)">
+            <summary>
+            Get the code points for a DecompositionType.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.DecompositionIndex.Take(System.Int32)">
+            <summary>
+            Get the first count code points in the index.
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.DecompositionType">
+            <summary>
+            Unicode character decomposition type.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Unknown">
+            <summary>
+            No decomposition type
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Font">
+            <summary>
+            Font variant (for example, a blackletter form)
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Nobreak">
+            <summary>
+            No-break version of a space or hyphen
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Initial">
+            <summary>
+            Initial presentation form (Arabic)
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Medial">
+            <summary>
+            Medial presentation form (Arabic)
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Final">
+            <summary>
+            Final presentation form (Arabic)
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Isolated">
+            <summary>
+            Isolated presentation form (Arabic)
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Circle">
+            <summary>
+            Encircled form
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Super">
+            <summary>
+            Superscript form
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Sub">
+            <summary>
+            Subscript form
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Vertical">
+            <summary>
+            Vertical layout presentation form
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Wide">
+            <summary>
+            Wide (or zenkaku) compatibility character
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Narrow">
+            <summary>
+            Narrow (or hankaku) compatibility character
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Small">
+            <summary>
+            Small variant form (CNS compatibility)
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Square">
+            <summary>
+            CJK squared font variant
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Fraction">
+            <summary>
+            Vulgar fraction form
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.DecompositionType.Compat">
+            <summary>
+            Otherwise unspecified compatibility character
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.HashedName">
+            <summary>
+            A Unicode name split into separate words.
+            Each word is hashed and stored in a list.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.HashedName.OriginalName">
+            <summary>
+            Gets access to the original name.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.HashedName.WordHashes">
+            <summary>
+            Gets access to the word hashes.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the HashedName class using original name
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.ContainsWords(System.String)">
+            <summary>
+            Determines whether the hashed word contains the pattern.
+            Wildcard '*' is allowed.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.Find(System.Int32,System.String)">
+            <summary>
+            Find the pattern in the hashed words starting from the index.
+            </summary>
+            <param name="fromIndex"></param>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.ContainsStringAt(System.Int32,System.String)">
+            <summary>
+            Determines whether the original name contains the string at the index.
+            </summary>
+            <param name="index"></param>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.ContainsHashesAt(System.Int32,System.Int32[])">
+            <summary>
+            Determines whether the hashed words contain the word hashes at the index.
+            </summary>
+            <param name="index"></param>
+            <param name="wordHashes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.Contains(System.String)">
+            <summary>
+            Determines whether the original name contains the pattern.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.StartsWith(System.String)">
+            <summary>
+            Determines whether the original name starts with the pattern.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.StartsEnds(System.String)">
+            <summary>
+            Determines whether the original name ends with the pattern.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.IsLike(System.String)">
+            <summary>
+            Determines whether the original name is like the pattern.
+            Wildcard '*' is allowed.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.op_Implicit(Qhta.Unicode.HashedName)~System.String">
+            <summary>
+            Implicit conversion from HashedName to string.
+            </summary>
+            <param name="hashedName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.op_Implicit(System.String)~Qhta.Unicode.HashedName">
+            <summary>
+            Implicit conversion from string to HashedName.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Qhta.Unicode.HashedName.ToString">
+            <summary>
+            Returns the original name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.NameAliasType">
+            <summary>
+            A Unicode type of name alias
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.NameAliasType.Control">
+            <summary>
+            ISO 6429 names for C0 and C1 control functions, and other commonly occurring names for control codes
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.NameAliasType.Abbreviation">
+            <summary>
+            Commonly occurring abbreviations (or acronyms) for control codes, format characters, spaces, and variation selectors
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.NameAliasType.Alternate">
+            <summary>
+            A few widely used alternate names for format characters
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.NameAliasType.Correction">
+            <summary>
+            Corrections for serious problems in the character names
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.NameAliasType.Figment">
+            <summary>
+            Several documented labels for C1 control code points which were never actually approved in any standard
+            </summary> 
+        </member>
+        <member name="T:Qhta.Unicode.NameAlias">
+            <summary>
+            A Unicode name alias. Contains a code point and an alias name.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NameAlias.CodePoint">
+            <summary>
+            The code point of the character
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NameAlias.Alias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NameAlias.Type">
+            <summary>
+            The type of the alias
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.NameWordIndex">
+            <summary>
+            An index of Unicode character name separate words to code points.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.NameWordIndex.Initialize(Qhta.Unicode.UnicodeData)">
+            <summary>
+            Initializes NameStringIndex from a UnicodeData object.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.NameWordIndex.Add(System.String,System.Int32)">
+            <summary>
+            Add a name words to the index.
+            </summary>
+            <param name="name"></param>
+            <param name="codePoint"></param>
+        </member>
+        <member name="P:Qhta.Unicode.NameWordIndex.Count">
+            <summary>
+            Number of words in the index.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NameWordIndex.Item(System.String)">
+            <summary>
+            Get the code points for a name word.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.NameWordIndex.Take(System.Int32)">
+            <summary>
+            Get the first count words in the index.
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.NameWordIndex.LoadAliases(Qhta.Unicode.UnicodeData)">
+            <summary>
+            Load aliases from CharInfo entries into the index.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.NameWordIndex.Search(System.String)">
+            <summary>
+            Searches for code points by name words.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.NameWordIndex.Contains(System.String)">
+            <summary>
+            Check if the index contains a word.
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.UnicodeData">
+            <summary>
+            Unicode character data singleton class.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.#ctor">
+            <summary>
+            Private constructor for the singleton instance.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.UnicodeData.Instance">
+            <summary>
+            Singleton instance of UnicodeData.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.Initialize">
+            <summary>
+            Initializes the UnicodeData object by reading UnicodeData.txt and NameAliases.txt files.
+            </summary>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.NullOrNonempty(System.String)">
+            <summary>
+            Returns null if the string is empty, otherwise returns the string.
+            Needed for the UnicodeData parsing.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.LoadAliases(System.String)">
+            <summary>
+            Loads aliases from a file. Updates NameIndex and NameWordIndex.
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.DownloadFileName(System.String)">
+            <summary>
+            Downloads a file from unicode.org if it does not exist in the current directory.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.SearchInNames(System.String)">
+            <summary>
+            Searches for code points by name.
+            If pattern does not contain '*', searches the name index for exact match.
+            If pattern contains '*', first searches the NameWordIndex for all words.
+            When no results are found, searches all names using IsLike function on pattern
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.SearchInDecomposition(Qhta.Unicode.DecompositionType)">
+            <summary>
+            Searches for code points by decomposition type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

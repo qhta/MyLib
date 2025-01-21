@@ -13,30 +13,41 @@ namespace Qhta.Unicode;
 /// </summary>
 public class HashedName
 {
-  public string PublicName { get; set; }
-  public List<int> EncodedName;
+  /// <summary>
+  /// Gets access to the original name.
+  /// </summary>
+  public string OriginalName { get; set; }
+  /// <summary>
+  /// Gets access to the word hashes.
+  /// </summary>
+  public List<int> WordHashes;
 
+  /// <summary>
+  /// Initializes a new instance of the HashedName class using original name
+  /// </summary>
+  /// <param name="name"></param>
   public HashedName(string name)
   {
-    PublicName = name;
+    OriginalName = name;
     var words = name.Split(new char[] { ' ', '-' });
-    EncodedName = new List<int>();
+    WordHashes = new List<int>();
     foreach (var word in words)
     {
-      EncodedName.Add(word.GetHashCode());
+      WordHashes.Add(word.GetHashCode());
     }
   }
 
-  public bool IsLike(string pattern)
-  {
-    return PublicName.IsLike(pattern);
-  }
-
+  /// <summary>
+  /// Determines whether the hashed word contains the pattern.
+  /// Wildcard '*' is allowed.
+  /// </summary>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
   public bool ContainsWords(string pattern)
   {
     var parts = pattern.Split(['*'], StringSplitOptions.RemoveEmptyEntries);
     int curIndex = -1;
-    if (!pattern.StartsWith('*'))
+    if (!pattern.StartsWith("*"))
     {
       if (!ContainsStringAt(0, parts[0]))
         return false;
@@ -57,15 +68,21 @@ public class HashedName
     return true;
   }
 
-  public int Find(int fromIndex, string pattern)
+  /// <summary>
+  /// Find the pattern in the hashed words starting from the index.
+  /// </summary>
+  /// <param name="fromIndex"></param>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
+  private int Find(int fromIndex, string pattern)
   {
     var words = pattern.Split(new char[] { ' ', '-' });
     var wordHashes = words.Select(w => w.GetHashCode()).ToArray();
-    if (words.Length > EncodedName.Count)
+    if (words.Length > WordHashes.Count)
     {
       return -1;
     }
-    for (int j=fromIndex; j < EncodedName.Count- words.Length+1; j++)
+    for (int j=fromIndex; j < WordHashes.Count- words.Length+1; j++)
     {
       if (ContainsHashesAt(j, wordHashes))
         return j;
@@ -73,6 +90,12 @@ public class HashedName
     return -1;
   }
 
+  /// <summary>
+  /// Determines whether the original name contains the string at the index.
+  /// </summary>
+  /// <param name="index"></param>
+  /// <param name="str"></param>
+  /// <returns></returns>
   private bool ContainsStringAt(int index, string str)
   {
     var words = str.Split(new char[] { ' ', '-' }, StringSplitOptions.RemoveEmptyEntries);
@@ -80,11 +103,17 @@ public class HashedName
     return ContainsHashesAt(index, wordHashes);
   }
 
+  /// <summary>
+  /// Determines whether the hashed words contain the word hashes at the index.
+  /// </summary>
+  /// <param name="index"></param>
+  /// <param name="wordHashes"></param>
+  /// <returns></returns>
   private bool ContainsHashesAt(int index, int[] wordHashes)
   {
     for (int i = 0; i < wordHashes.Length; i++)
     {
-      if (wordHashes[i].GetHashCode() != EncodedName[i+index])
+      if (wordHashes[i].GetHashCode() != WordHashes[i+index])
       {
         return false;
       }
@@ -92,23 +121,78 @@ public class HashedName
     return true;
   }
 
+  #region OriginalName basic string functions
+  /// <summary>
+  /// Determines whether the original name contains the pattern.
+  /// </summary>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
   public bool Contains(string pattern)
   {
-    return PublicName.Contains(pattern);
+    return OriginalName.Contains(pattern);
   }
 
+  /// <summary>
+  /// Determines whether the original name starts with the pattern.
+  /// </summary>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
+  public bool StartsWith(string pattern)
+  {
+    return OriginalName.StartsWith(pattern);
+  }
+
+  /// <summary>
+  /// Determines whether the original name ends with the pattern.
+  /// </summary>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
+  public bool StartsEnds(string pattern)
+  {
+    return OriginalName.EndsWith(pattern);
+  }
+
+  /// <summary>
+  /// Determines whether the original name is like the pattern.
+  /// Wildcard '*' is allowed.
+  /// </summary>
+  /// <param name="pattern"></param>
+  /// <returns></returns>
+  public bool IsLike(string pattern)
+  {
+    return OriginalName.IsLike(pattern);
+  }
+  #endregion
+
+
+  #region Implicit conversions
+  /// <summary>
+  /// Implicit conversion from HashedName to string.
+  /// </summary>
+  /// <param name="hashedName"></param>
   public static implicit operator string(HashedName hashedName)
   {
-    return hashedName.PublicName;
+    return hashedName.OriginalName;
   }
 
-  public static implicit operator HashedName(string name)
+  /// <summary>
+  /// Implicit conversion from string to HashedName.
+  /// </summary>
+  /// <param name="name"></param>
+  public static implicit operator HashedName?(string? name)
   {
+    if (name is null)
+      return null;
     return new HashedName(name);
   }
+  #endregion
 
+  /// <summary>
+  /// Returns the original name.
+  /// </summary>
+  /// <returns></returns>
   public override string ToString()
   {
-    return PublicName;
+    return OriginalName;
   }
 }

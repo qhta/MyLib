@@ -241,19 +241,19 @@
             
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.Char,System.String@)">
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.Int32,System.String@)">
             <summary>
-            Try to get the name for a character
+            Try to get the name for a character code point.
             </summary>
-            <param name="ch"></param>
+            <param name="cp"></param>
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.String,System.Char@)">
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.String,System.Int32@)">
             <summary>
-            Try to get the name for a character
+            Try to get the name for a character code point  
             </summary>
-            <param name="ch"></param>
+            <param name="cp"></param>
             <param name="name"></param>
             <returns></returns>
         </member>

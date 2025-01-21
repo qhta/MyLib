@@ -1,32 +1,104 @@
 ﻿namespace Qhta.Unicode;
 
+/// <summary>
+/// Unicode character BiDi class.
+/// </summary>
 public enum BiDiClass
 {
   // Strong Types
-  L,                      // Left_To_Right - any strong left-to-right character
-  R,                      // Right_To_Left - any strong right-to-left (non-Arabic-type) character
-  AL,                     // Arabic_Letter - any strong right-to-left (Arabic-type) character
+  /// <summary>
+  /// Left-to-Right - any strong left-to-right character
+  /// </summary>
+  L,
+  /// <summary>
+  /// Right-to-Left - any strong right-to-left (non-Arabic-type) character
+  /// </summary>
+  R,
+  /// <summary>
+  /// Arabic Letter - any strong right-to-left (Arabic-type) character
+  /// </summary>
+  AL,
   // Weak Types
-  EN,                     // European_Number - any ASCII digit or Eastern Arabic-Indic digit
-  ES,                     // European_Separator - plus and minus signs
-  ET,                     // European_Terminator - a terminator in a numeric format context, includes currency signs
-  AN,                     // Arabic_Number - any Arabic-Indic digit
-  CS,                     // Common_Separator - commas, colons, and slashes
-  NSM,                    // Non-spacing_Mark - any non-spacing mark
-  BN,                     // Boundary_Neutral - most format characters, control codes, or non-characters
+  /// <summary>
+  /// European Number - any ASCII digit or Eastern Arabic-Indic digit
+  /// </summary>
+  EN,
+  /// <summary>
+  /// European_Separator - plus and minus signs
+  /// </summary>
+  ES,
+  /// <summary>
+  /// European_Terminator - a terminator in a numeric format context, includes currency signs
+  /// </summary>
+  ET,
+  /// <summary>
+  /// Arabic Number - any Arabic-Indic digit
+  /// </summary>
+  AN,
+  /// <summary>
+  /// Common_Separator - commas, colons, and slashes
+  /// </summary>
+  CS,
+  /// <summary>
+  /// Non-Spacing Mark - any non-spacing mark
+  /// </summary>
+  NSM,
+  /// <summary>
+  /// Boundary Neutral - most format characters, control codes, or non-characters
+  /// </summary>
+  BN,
   // Neutral Types
-  B,                      // Paragraph_Separator - various newline characters
-  S,                      // Segment_Separator - various segment-related control codes
-  WS,                     // White_Space - spaces
-  ON,                     // Other_Neutral - most other symbols and punctuation marks
+  /// <summary>
+  /// Paragraph Separator - various newline characters
+  /// </summary>
+  B,
+  /// <summary>
+  /// 
+  /// </summary>
+  S,
+  /// <summary>
+  /// White_Space - spaces
+  /// </summary>
+  WS,
+  /// <summary>
+  /// Other_Neutral - most other symbols and punctuation marks
+  /// </summary>
+  ON,
   // Explicit Formatting Types
-  LRE,                    // Left_To_Right_Embedding - U+202A: the LR embedding control
-  LRO,                    // Left_To_Right_Override - U+202D: the LR override control
-  RLE,                    // Right_To_Left_Embedding - U+202B: the RL embedding control
-  RLO,                    // Right_To_Left_Override - U+202E: the RL override control
-  PDF,                    // Pop_Directional_Format - U+202C: terminates an embedding or override control
-  LRI,                    // Left_To_Right_Isolate - U+2066: the LR isolate control
-  RLI,                    // Right_To_Left_Isolate - U+2067: the RL isolate control
-  FSI,                    // First_Strong_Isolate - U+2068: the first strong isolate control
-  PDI,                    // Pop_Directional_Isolate - U+2069: terminates an isolate control
+  /// <summary>
+  /// Left-to-Right Embedding - U+202A: the LR embedding control
+  /// </summary>
+  LRE,
+  /// <summary>
+  /// Left-to-Right Override - U+202D: the LR override control
+  /// </summary>
+  LRO,
+  /// <summary>
+  /// Right-to-Left Embedding - U+202B: the RL embedding control
+  /// </summary>
+  RLE,
+  /// <summary>
+  /// Right-to-Left Override - U+202E: the RL override control
+  /// </summary>
+  RLO,
+  /// <summary>
+  /// Pop_Directional_Format - U+202C: terminates an embedding or override control
+  /// </summary>
+  PDF,
+  /// <summary>
+  /// Left-to-Right Isolate - U+2066: the LR isolate control
+  /// </summary>
+  LRI,
+  /// <summary>
+  /// Right-to-Left Isolate - U+2067: the RL isolate control
+  /// </summary>
+  RLI,
+  /// <summary>
+  /// First_Strong_Isolate - U+2068: the first strong isolate control
+  /// </summary>
+  FSI,
+  /// <summary>
+  /// Pop_Directional_Isolate - U+2069: terminates an isolate control
+  /// </summary>
+  PDI,
 }

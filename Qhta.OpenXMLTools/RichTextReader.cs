@@ -40,7 +40,7 @@ public class RichTextReader: OpenXmlTextReader
   /// Read a char as string.
   /// When reading function control word (as \sup, \sub, etc.), the function reads the parameter in braces and the result can be a string with more than one character.
   /// </summary>
-  public new string ReadCharStr()
+  public string ReadCharStr()
   {
     var str = (char)base.ReadChar();
     if (str== '\\')
@@ -98,11 +98,11 @@ public class RichTextReader: OpenXmlTextReader
           param = sb.ToString();
         }
         sb.Clear();
-        foreach (var pchar in param)
+        foreach (var ch1 in param)
         {
-          var seq = charName + "{" + pchar + "}";
-          if (CharNames.TryGetValue(seq, out ch))
-            sb.Append(ch);
+          var seq = charName + "{" + ch1 + "}";
+          if (CharNames.TryGetValue(seq, out var cp))
+            sb.Append((char)cp);
           else
             throw new InvalidOperationException($"Invalid \\{charName} parameter \"{param}\"");
         }
@@ -110,8 +110,8 @@ public class RichTextReader: OpenXmlTextReader
       }
       else
       {
-        if (CharNames.TryGetValue(charName, out ch))
-          return new string(ch, 1);
+        if (CharNames.TryGetValue(charName, out var cp))
+          return new string((char)cp, 1);
         throw new InvalidOperationException("Invalid character name.");
       }
     }

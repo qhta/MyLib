@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.Unicode</id>
+    <version>1.2.0</version>
+    <authors>Qhta.Unicode</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>Package Description</description>
+    <repository type="git" commit="6d923cdc5aab474f09b22cc37ec4b3fd3c082c70" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Qhta.TextUtils" version="3.4.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.TextUtils" version="3.4.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="Qhta.TextUtils" version="3.4.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.Unicode.dll" target="lib\net8.0\Qhta.Unicode.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Unicode.dll" target="lib\netstandard2.0\Qhta.Unicode.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.1\Qhta.Unicode.dll" target="lib\netstandard2.1\Qhta.Unicode.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

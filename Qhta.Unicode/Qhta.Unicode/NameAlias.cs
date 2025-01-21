@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Qhta.Unicode;
 
+/// <summary>
+/// A Unicode type of name alias
+/// </summary>
 public enum NameAliasType
 {
   /// <summary>
@@ -29,9 +32,22 @@ public enum NameAliasType
   /// </summary> 
   Figment
 }
+
+/// <summary>
+/// A Unicode name alias. Contains a code point and an alias name.
+/// </summary>
 public class NameAlias
 {
+  /// <summary>
+  /// The code point of the character
+  /// </summary>
   public int CodePoint { get; set; }
-  public HashedName Alias { get; set; } = string.Empty;
+  /// <summary>
+  /// 
+  /// </summary>
+  public HashedName Alias { get; set; } = null!;
+  /// <summary>
+  /// The type of the alias
+  /// </summary>
   public NameAliasType Type { get; set; }
 }

@@ -9,7 +9,7 @@
       "Qhta.Unicode.Build/1.0.0": {
         "dependencies": {
           "Qhta.TextUtils": "3.4.0",
-          "Qhta.Unicode": "1.0.0"
+          "Qhta.Unicode": "1.2.1"
         },
         "runtime": {
           "Qhta.Unicode.Build.dll": {}
@@ -23,14 +23,14 @@
           }
         }
       },
-      "Qhta.Unicode/1.0.0": {
+      "Qhta.Unicode/1.2.1": {
         "dependencies": {
           "Qhta.TextUtils": "3.4.0"
         },
         "runtime": {
           "Qhta.Unicode.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.2.1",
+            "fileVersion": "1.2.1.0"
           }
         }
       }
@@ -49,7 +49,7 @@
       "path": "qhta.textutils/3.4.0",
       "hashPath": "qhta.textutils.3.4.0.nupkg.sha512"
     },
-    "Qhta.Unicode/1.0.0": {
+    "Qhta.Unicode/1.2.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
